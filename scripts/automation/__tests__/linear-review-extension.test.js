@@ -671,11 +671,16 @@ describe('RISK_CATEGORIES security-sensitive-path matching is token-bounded', ()
  * Regression guard for an HTML comment injection in the emitted block.
  *
  * Explanations quote pull request filenames, and a contributor picks those
- * names. A file called `lib/auth-->.js` closed the `linear:extension` HTML
- * comment early: the block truncated, `parseExtensionBlocks` recovered nothing,
- * so Linear silently stopped receiving the risk score, and the remaining text
- * rendered as live markup in the GitHub comment. Found by CodeRabbit's security
- * architecture pass rather than the four actionable review comments.
+ * names, so untrusted text reaches the `linear:extension` comment. A file called
+ * `lib/auth-->.js` closed the comment early: the block truncated, Linear
+ * silently stopped receiving the risk score, and the remaining text rendered as
+ * live markup in the GitHub comment.
+ *
+ * The first fix escaped `<!--` and `-->` per field, which still missed `--!>`
+ * ("comment end bang state" also closes a comment) and left the `agent` and
+ * `model` fields unprotected. The payload is now escaped as a whole, which
+ * covers every field including any added later, and `JSON.parse` restores the
+ * original values byte-for-byte.
  */
 describe('emitted block cannot be terminated by untrusted input', () => {
   const build = (input, extra = {}) =>
@@ -687,33 +692,55 @@ describe('emitted block cannot be terminated by untrusted input', () => {
     });
 
   const wellFormed = (body) => {
-    // Two terminators: our marker and the extension block. A third means
-    // untrusted text escaped the comment.
-    expect((body.match(/-->/g) || []).length).toBe(2);
+    // Exactly two closers: our marker and the extension block. A third means
+    // untrusted text escaped the comment. Both `-->` and `--!>` count.
+    expect((body.match(/--!?>/g) || []).length).toBe(2);
     expect(parseExtensionBlocks(body)).toHaveLength(1);
+    // The serialised payload must contain no literal angle bracket, which is
+    // what makes either closer unrepresentable. Slice between the opening tag
+    // and the closing delimiter so the delimiters themselves are excluded.
+    const start = body.indexOf('{', body.indexOf('linear:extension'));
+    const end = body.lastIndexOf('}') + 1;
+    expect(body.slice(start, end)).not.toMatch(/[<>]/);
   };
 
   test.each([
     ['a comment terminator in the filename', { files: ['lib/auth-->.js'] }],
+    ['a bang terminator in the filename', { files: ['lib/auth--!>.js'] }],
     ['a comment opener in the filename', { files: ['lib/<!--auth.js'] }],
     [
-      'markup and both delimiters in the filename',
-      { files: ['<!-- x --> auth<img src=x onerror=alert(1)>.js'] },
+      'markup and both closers in the filename',
+      { files: ['<!-- x --!> auth<img src=x onerror=alert(1)>.js'] },
     ],
     ['a terminator in an otherwise normal filename', { files: ['package.json-->.js'] }],
   ])('stays well formed with %s', (_label, input) => {
     wellFormed(build(input));
   });
 
-  test('stays well formed when the model name carries a terminator', () => {
-    wellFormed(build({ files: ['package.json'] }, { model: 'opus --> <b>x</b>' }));
+  test.each([
+    ['the model name', { model: 'opus --> <b>x</b>' }],
+    ['the model name with a bang terminator', { model: 'opus --!> <b>x</b>' }],
+  ])('stays well formed when %s carries a closer', (_label, extra) => {
+    wellFormed(build({ files: ['package.json'] }, extra));
   });
 
-  test('the escaped path stays readable rather than being stripped', () => {
-    const [plugins] = parseExtensionBlocks(build({ files: ['lib/auth-->.js'] }));
-    const [explanation] = plugins[0].explanations;
+  test('stays well formed when the agent name carries a closer', () => {
+    // The per-field fix never covered `agent`, because it is a free-form field
+    // with no length cap applied through normaliseExplanations.
+    wellFormed(build({ files: ['package.json'] }, { agent: 'claude--!><b>' }));
+  });
 
-    expect(explanation).toBe('Touches security-sensitive paths: lib/auth--&gt;.js');
+  test('JSON.parse restores the original filename byte-for-byte', () => {
+    const [plugins] = parseExtensionBlocks(build({ files: ['lib/auth--!>.js'] }));
+
+    expect(plugins[0].explanations[0]).toBe('Touches security-sensitive paths: lib/auth--!>.js');
+  });
+
+  test('a clean payload carries no escapes at all', () => {
+    const body = build({ files: ['package.json'] }, { model: 'opus 4.5' });
+
+    expect(body).not.toContain('\\u003');
+    expect(body).toContain('"opus 4.5"');
   });
 
   test('ordinary paths are untouched', () => {

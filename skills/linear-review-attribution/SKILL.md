@@ -70,16 +70,28 @@ node scripts/automation/linear-review-extension.cjs \
 `gh pr comment` **only ever creates a new comment.** It has no update mode, so
 this form is **create-only**: run it once per pull request, not once per push,
 or it leaves a trail of near-identical comments. If you need a standalone
-comment to track new commits, delete the previous one first:
+comment to track new commits, delete your previous one first:
 
 ```bash
-gh api "repos/{owner}/{repo}/issues/{pr}/comments" --paginate \
-  --jq '.[] | select(.body | contains("lightspeed-linear-review")) | .id' \
+PR=$(gh pr view --json number -q .number)
+ME=$(gh api user -q .login)
+
+# Only your own standalone comment. Scoping by author matters: the workflow
+# puts the same marker on its own bot-authored comment, and an unscoped
+# selector would delete that too, after which the next publisher run would
+# recreate it alongside yours.
+gh api "repos/{owner}/{repo}/issues/$PR/comments" --paginate \
+  --jq ".[] | select(.user.login == \"$ME\")
+             | select(.body | contains(\"lightspeed-linear-review\"))
+             | .id" \
   | xargs -r -I{} gh api --method DELETE "repos/{owner}/{repo}/issues/comments/{}"
 ```
 
-Note this filters on the marker alone, without the bot-author check the workflow
-uses, because your own comment is authored by you, not by a bot.
+`gh api` substitutes only `{owner}`, `{repo}`, and `{branch}` in the endpoint, so
+the pull request number has to be resolved and interpolated as `$PR` — a
+literal `{pr}` is sent to the API as-is and the request does not name a pull
+request. Deleting comments needs write access, so this fails on a read-only
+token.
 
 ## Choosing the Agent
 

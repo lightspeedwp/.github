@@ -210,29 +210,6 @@ function normaliseLabels(labels) {
 }
 
 /**
- * Neutralise HTML comment delimiters in a value that will be serialised into
- * the `linear:extension` comment.
- *
- * Explanations quote pull request filenames, and a contributor chooses those
- * names, so an untrusted value can carry the comment terminator. A file called
- * `lib/auth-->.js` would close the HTML comment early: the risk block would
- * truncate, Linear would silently stop receiving the score, and the remaining
- * text would render as live markup in the GitHub comment.
- *
- * The angle bracket is entity-encoded, which keeps the value readable and
- * truthful while making it inert: `--&gt;` cannot terminate the comment. The
- * parsed value differs from the input only for hostile input, and only in that
- * one character. There is no encoding that leaves such a value byte-identical
- * and still safe, because the block's delimiter is fixed by Linear.
- *
- * @param {string} value - Text destined for the serialised payload.
- * @returns {string} The text with HTML comment delimiters neutralised.
- */
-function escapeCommentDelimiters(value) {
-  return value.replace(/<!--|-->/g, (match) => match.replace(/>/g, '&gt;'));
-}
-
-/**
  * Explain why a category matched, naming a single file or counting several.
  * @param {{ id: string, label: string }} category - The matched category.
  * @param {string[]} matched - Sorted paths that matched the category.
@@ -262,7 +239,7 @@ function normaliseExplanations(value) {
     if (typeof entry !== 'string') {
       continue;
     }
-    const trimmed = truncate(escapeCommentDelimiters(entry.trim()), MAX_EXPLANATION_LENGTH);
+    const trimmed = truncate(entry.trim(), MAX_EXPLANATION_LENGTH);
     if (!trimmed || seen.has(trimmed)) {
       continue;
     }
@@ -343,6 +320,35 @@ function buildRiskAssessment(input = {}) {
 }
 
 /**
+ * Serialise the payload for embedding inside an HTML comment.
+ *
+ * The block is delimited by `<!--` and `-->`, but the HTML parser also closes a
+ * comment on `--!>` ("comment end bang state"), and any untrusted value can reach
+ * here: explanations quote pull request filenames, and a contributor picks those
+ * names. A file called `lib/auth--!>.js` closed the comment early, so Linear
+ * silently stopped receiving the risk score and the remaining text rendered as
+ * live markup in the GitHub comment.
+ *
+ * Escaping is applied to the finished JSON rather than to individual fields, so
+ * it covers every field including `agent` and `model`, including anything added
+ * later. JSON has no `\uXXXX` ambiguity: `\u003e` is a valid escape that
+ * `JSON.parse` turns back into `>`, so the parsed value is byte-identical to the
+ * input while the literal `>` that closes a comment never appears in the body.
+ * Escaping per field could not make that guarantee, since a new field would
+ * silently ship unescaped.
+ *
+ * Only `<` and `>` are escaped. They appear in no JSON structural position, so
+ * the replace cannot corrupt the document, and removing every `>` is what makes
+ * both `-->` and `--!>` unrepresentable.
+ *
+ * @param {object} payload - The `linear:extension` payload.
+ * @returns {string} Pretty-printed JSON that cannot terminate its comment.
+ */
+function serialisePayload(payload) {
+  return JSON.stringify(payload, null, 2).replace(/</g, '\\u003c').replace(/>/g, '\\u003e');
+}
+
+/**
  * Build the full comment body carrying the `linear:extension` block.
  *
  * Hard-validates before emitting: an out-of-range `level` or a malformed `sha`
@@ -404,14 +410,14 @@ function buildExtensionBlock(input = {}) {
   if (hasAgent) {
     const plugin = { plugin: 'onBehalfOf', agent: agent.trim() };
     if (typeof model === 'string' && model.trim() !== '') {
-      plugin.model = truncate(escapeCommentDelimiters(model.trim()), MAX_MODEL_LENGTH);
+      plugin.model = truncate(model.trim(), MAX_MODEL_LENGTH);
     }
     Object.assign(plugin, showVisible);
     plugins.push(plugin);
   }
 
   const payload = { version: EXTENSION_VERSION, plugins };
-  return `${EXTENSION_MARKER}\n<!-- linear:extension ${JSON.stringify(payload, null, 2)} -->`;
+  return `${EXTENSION_MARKER}\n<!-- linear:extension ${serialisePayload(payload)} -->`;
 }
 
 /**

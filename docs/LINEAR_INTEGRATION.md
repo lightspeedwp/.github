@@ -28,7 +28,7 @@ Authoritative source for the integration contract:
 ## Table of Contents
 
 1. [Scope and plan](#scope-and-plan)
-2. [Reviews setup](#reviews-setup)
+2. [Setup](#setup)
 3. [Review Platform](#review-platform)
 4. [.gitattributes review categories](#gitattributes-review-categories)
 5. [Code Intelligence](#code-intelligence)
@@ -75,7 +75,18 @@ Which steps need a **workspace Admin** and which do not:
 So a reviewer can be reading and reviewing in Linear on their own without any
 Admin involvement. Ask an Admin only for the workspace-level switches.
 
-## Reviews setup
+## Setup
+
+Integration setup has **three independent axes**. Code access is what Diffs and
+Reviews need; the **Issues Sync mapping** is a separate switch that decides
+whether GitHub issues reach Linear at all. Getting only the first is the most
+common reason issues never appear.
+
+| Axis                | Enables                                           | Needed for                                                       |
+| ------------------- | ------------------------------------------------- | ---------------------------------------------------------------- |
+| App + code access   | Diffs, Reviews, guided reviews, Code Intelligence | Reading files and pull requests in Linear                        |
+| **Issues Sync**     | A repository mapped to a Linear team              | GitHub issues reaching Linear, and therefore Triage Intelligence |
+| Personal connection | Reviewer identity, mentions, notifications        | Each person acting in Linear                                     |
 
 ### Organisation setup (workspace Admin)
 
@@ -85,6 +96,44 @@ Admin involvement. Ask an Admin only for the workspace-level switches.
 2. Grant the app **code access** for this repository. Without it Linear cannot
    read file contents, so no diffs appear.
 3. Leave **Generate Pull Request guides** on if you want guided reviews.
+
+### GitHub Issues Sync (workspace Admin)
+
+Code access alone does **not** sync issues. Without this mapping, issues opened
+in GitHub never reach Linear, and [Triage Intelligence](#triage-intelligence)
+never sees them.
+
+In <https://linear.app/settings/integrations/github>, under **GitHub Issues**,
+click **+** and choose:
+
+- **Repository**: `lightspeedwp/.github`
+- **Linear team**: **GitHub** (`GIT`), which is where the automated issue
+  templates and the labelling automation expect their issues to live
+- **Direction**: pick deliberately, because it is not symmetric across repos
+  - **One-way** — issues created in GitHub create a synced copy in Linear.
+    Several repositories may feed one Linear team this way.
+  - **Two-way** — issues created in either system create a synced copy in the
+    other. **Only one repository can be two-way at a time**, so this is a
+    decision about which repository owns the round trip, and it is the wrong
+    choice for a governance repository that fans out across many.
+
+This repository is better served by **one-way**, because issues here are
+created deliberately through the templates and routed by
+`.github/labels.yml`. Two-way would invite issues filed in Linear to reappear
+in GitHub and be re-triaged by the labelling agent.
+
+Two constraints worth knowing before you change it:
+
+- Sync applies to **newly created** issues only. Existing issues need the
+  [GitHub Issues Importer](https://linear.app/docs/import-issues#github-issues).
+- Synced properties are title, description, status, assignee, labels,
+  sub-issues, and comments. A comment made outside the synced Linear thread is
+  deliberately **not** copied to GitHub, which is what keeps private
+  discussions private.
+
+If a synced issue shows a banner reporting an error, follow the banner rather
+than re-triggering it. To stop one issue syncing, remove the attachment from
+the Linear issue through its overflow menu.
 
 ### Personal setup (each reviewer)
 
@@ -341,8 +390,10 @@ suggestion settings.
 
 > ⚠️ **Read this before enabling it on this organisation.**
 >
-> GitHub issues sync into Linear automatically, so Triage Intelligence runs on
-> **every** issue this repository opens. An auto-applied label does not change
+> Because this repository is mapped to the Linear team through
+> [GitHub Issues Sync](#github-issues-sync-workspace-admin), every issue opened
+> here also appears in Linear, and Triage Intelligence runs on all of them. An
+> auto-applied label does not change
 > the label definitions in `.github/labels.yml` — it puts that label **on an
 > issue**, and that is the risk. Labels are the routing key for this
 > organisation: 158 labels across 8 families and 24 issue types, mirrored into
@@ -396,6 +447,8 @@ issues against this document.
 | No diffs in Linear                       | Code access was not granted to the repository by a GitHub organisation owner, **or** the reviewer's personal GitHub account is not connected, **or** **Enable code reviews** is off.                                                                                                                      |
 | Pull request state looks stale in Linear | A webhook was missed. Make a small edit to the pull request description in GitHub to force a re-sync.                                                                                                                                                                                                     |
 | Cannot find Linear Code                  | Press `G` then `R`. If the shortcut does nothing, the personal GitHub account is not connected.                                                                                                                                                                                                           |
+| GitHub issues never reach Linear         | Code access does not sync issues. The [GitHub Issues Sync](#github-issues-sync-workspace-admin) mapping is a separate switch, off by default. Check <https://linear.app/settings/integrations/github> → **GitHub Issues**.                                                                                |
+| Triage suggestions never arrive          | Same cause: no Issues Sync mapping, or the issue predates it, since sync covers newly created issues only.                                                                                                                                                                                                |
 | Risk score does not appear               | The comment must be **bot-authored**, must contain the `<!-- lightspeed-linear-review -->` marker, and `level` must be an integer 1–4. Reproduce the block locally with `node scripts/automation/linear-review-extension.cjs --files <paths> --json` and check the `level` and `explanations` it reports. |
 | On-behalf-of does not show               | `agent` was not one of `claude`, `codex`, `linear`, `pi`, `opencode`, **or** the comment was a plain comment rather than a `linear:extension` block. This is expected on the workflow's own comment, which is deliberately unattributed.                                                                  |
 | Risk level is always 1                   | The emitter only sees what the workflow passes it. Check the job log: a sparse `listFiles` result or missing labels means the signals were never present.                                                                                                                                                 |
