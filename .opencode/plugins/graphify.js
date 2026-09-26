@@ -7,20 +7,24 @@
 import { existsSync } from "fs";
 import { join } from "path";
 
-// Quote the path as one literal shell argument, choosing the least quoting that
-// is still correct, so the suggestion is right without knowing the shell. The
-// plugin API reports no shell, so each step is only used while it is valid in
-// both POSIX shells and PowerShell:
+// Quote the path as one literal shell argument, or return null when no quoting
+// is correct everywhere. The plugin API reports only directory and worktree and
+// the repository pins no shell, so nothing here may assume one: a Windows host
+// can run Bash, a POSIX host can run PowerShell, and cmd.exe does not treat
+// single quotes as quoting at all.
 //
 //  1. On Windows a backslash is a path separator and forward slashes are
 //     accepted by every Windows shell, so normalise first. On POSIX a backslash
 //     is a legal filename character and must be left alone.
 //  2. A path with no shell metacharacter then needs no quoting at all.
-//  3. Inside double quotes, POSIX shells and PowerShell agree on every character
-//     except " $ ` and \, so a path free of those is safe to double-quote. This
-//     is what covers spaces and apostrophes, which is the common real case.
-//  4. Only a path containing one of those four still differs between shells, so
-//     the platform is the last remaining signal.
+//  3. Double quotes group in POSIX shells, PowerShell and cmd.exe alike, and
+//     inside them those three agree on every character except " $ ` and \. A
+//     path free of those four is therefore safe to double-quote, which covers
+//     spaces and apostrophes.
+//  4. A path containing one of those four has no portable form: it needs POSIX
+//     '\'' or PowerShell '' for an apostrophe, and cmd.exe cannot group it at
+//     all. Rather than emit a command that is wrong in some shell, the caller
+//     drops the runnable example.
 const SHELL_SAFE_PATH = /^[A-Za-z0-9_@+=:,./-]+$/;
 const DOUBLE_QUOTE_UNSAFE = /["$`\\]/;
 
@@ -29,16 +33,25 @@ const shellQuote = (path) => {
     process.platform === "win32" ? path.replace(/\\/g, "/") : path;
   if (SHELL_SAFE_PATH.test(normalised)) return normalised;
   if (!DOUBLE_QUOTE_UNSAFE.test(normalised)) return `"${normalised}"`;
-  return process.platform === "win32"
-    ? `'${normalised.replace(/'/g, "''")}'`
-    : `'${normalised.replace(/'/g, "'\\''")}'`;
+  return null;
 };
 
-const reminder = (graph) =>
-  `[graphify] knowledge graph at ${graph}. For focused questions, run ` +
-  `graphify query "<question>" --graph ${shellQuote(graph)} (scoped subgraph, usually much smaller than ` +
-  "GRAPH_REPORT.md) instead of grepping raw files. Read GRAPH_REPORT.md next to it only for " +
-  "broad architecture context.";
+const reminder = (graph) => {
+  const quoted = shellQuote(graph);
+  if (!quoted) {
+    return (
+      `[graphify] knowledge graph at ${graph}. Its path contains a character no ` +
+      "shell quotes the same way, so no runnable scoped example is offered here; " +
+      "read GRAPH_REPORT.md instead of grepping raw files."
+    );
+  }
+  return (
+    `[graphify] knowledge graph at ${graph}. For focused questions, run ` +
+    `graphify query "<question>" --graph ${quoted} (scoped subgraph, usually much smaller than ` +
+    "GRAPH_REPORT.md) instead of grepping raw files. Read GRAPH_REPORT.md next to it only for " +
+    "broad architecture context."
+  );
+};
 
 export const GraphifyPlugin = async ({ directory, worktree }) => {
   const reminded = new Set();
