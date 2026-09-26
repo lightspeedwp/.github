@@ -157,18 +157,19 @@ version and invocation contract use namespaced string entries in the standard
       "valid": false,
       "errors": [
         {
-          "type": "LENGTH",
+          "error_code": "LENGTH",
           "message": "Entry exceeds 250-character limit",
-          "actual": "262 characters",
-          "expected": "≤250 characters",
-          "current_value": "Added support for OAuth2 authentication with provider...",
-          "suggestion": "Shorten entry to focus on user-facing benefit, not implementation details"
+          "actual_value": "262 characters",
+          "expected_format": "≤250 characters",
+          "suggestion": "Shorten entry to focus on user-facing benefit, not implementation details",
+          "severity": "ERROR"
         },
         {
-          "type": "MISSING_LINK",
+          "error_code": "MISSING_LINK",
           "message": "Entry missing required PR/issue link",
-          "expected": "Format: #123 or PR-456",
-          "suggestion": "Add PR link to entry (e.g., '#2845') or create issue if missing"
+          "expected_format": "Format: #123 or PR-456",
+          "suggestion": "Add PR link to entry (e.g., '#2845') or create issue if missing",
+          "severity": "ERROR"
         }
       ],
       "warnings": []

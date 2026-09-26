@@ -29,7 +29,7 @@
 
 **Relationships**:
 
-- One-to-many: `ChangelogEntry` → `ValidationError` (one entry can have multiple validation errors)
+- One-to-many: `ChangelogEntry` → `ErrorObject` (one entry can have multiple validation errors)
 - Many-to-many: `ChangelogEntry` ↔ `GitHubPullRequest` (via `pr_issues` links)
 
 **Lifecycle/State Transitions**:
@@ -101,8 +101,10 @@ Only a `VALID` entry reaches `MERGED`.
     {
       "entry_id": "sha256:8a798890fe93817163b10b5f474ef2ef",
       "line_number": 15,
-      "error_type": "LENGTH",
-      "message": "Entry exceeds 250-character limit"
+      "error_code": "LENGTH",
+      "message": "Entry exceeds 250-character limit",
+      "suggestion": "Shorten entry to focus on user-facing benefit, not implementation details",
+      "severity": "ERROR"
     }
   ],
   "warnings": [],
@@ -212,7 +214,8 @@ metadata:
 
 **Validation Rules**:
 
-- If changelog entry has `pr_issues: ["#3372"]`, that PR must exist and be merged (state = merged)
+- If a `pr_issues` reference resolves to a pull request, that PR must exist and be merged (state = merged)
+- If a `pr_issues` reference resolves to an issue, the issue must exist; an issue has no merged state, so any state (open or closed) is valid
 - Link validation happens in `changelog-check-links` skill
 - Invalid links are reported as MISSING_LINK errors
 
@@ -223,7 +226,7 @@ metadata:
 ```
 ChangelogEntry
   ├─ id, version, category, content, pr_issues
-  ├── 1-to-many → ValidationError
+  ├── 1-to-many → ErrorObject
   └── many-to-1 → ValidationResult
 
 ValidationResult
@@ -254,7 +257,7 @@ GitHubPullRequest (external)
 | Content length            | Business   | `len(content) ≤ 250`                                                 | SC-001           |
 | PR/issue link             | Business   | `pr_issues.length ≥ 1`                                               | FR-002           |
 | Valid PR/issue format     | Business   | Format matches `#\d+` or `PR-\d+`                                    | FR-002           |
-| PR must exist             | Business   | Linked PR must be merged (open, draft or closed-unmerged are invalid) | Best practice    |
+| Merged PR check           | Business   | Applies to pull-request references only: a linked PR must be merged (open, draft or closed-unmerged are invalid). Issue references are exempt because an issue has no merged state | Best practice    |
 | No implementation details | Business   | Scan for code snippets, function names, API details                  | Clarity rule     |
 | Valid category            | Structural | Must be one of: Added, Changed, Fixed, Deprecated, Removed, Security | Keep a Changelog |
 

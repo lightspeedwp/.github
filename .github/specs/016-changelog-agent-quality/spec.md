@@ -106,7 +106,7 @@ The changelog validation workflow must be tied to the labeling strategy, ensurin
 
 - **Changelog Entry**: A single line or paragraph in CHANGELOG.md representing a user-facing change; attributes: version, type (feat/fix/breaking), content, PR/issue link, character count
 - **Validation Result**: Output of changelog validation; attributes: entry ID, valid (boolean), errors (array of error objects), warnings (array), fix suggestions
-- **Error Object**: Structured error report; attributes: error_type (length/formatting/linking/clarity), message, location (line number), expected_format, actual_value, fix_suggestion
+- **Error Object**: Structured error report; attributes: error_code (length/formatting/linking/clarity), message, location (line number), expected_format, actual_value, fix_suggestion
 - **Skill Metadata**: Configuration for a changelog skill; attributes: id, version, description, triggers, input_schema, output_schema, error_codes
 
 ## Success Criteria (mandatory)
