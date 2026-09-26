@@ -1,0 +1,89 @@
+{
+  "generated": "2026-09-24",
+  "archived_on": "2026-09-11",
+  "archive_evidence": "Commit 13195c31e6 (2026-09-12 01:52 UTC) 'feat(workflow-consolidation): archive 55 workflows to category subdirectories (Phase 2)' moved 9 labelling workflows; commit 84fd6e569d (2026-09-12 09:48 UTC) 'refactor: implement Option A - archive non-core workflows and create core workflow stubs' moved manage-blocking-status-labels.yml and openspec-validate-labels.yml. .github/workflows/archived/2026-09-11/README.md:14 gives the reason 'Workflow Consolidation Initiative Phase 1' and lines 72-77 cite '15-20 duplicate implementations of similar logic', '4+ scheduled job collisions at 3am UTC causing resource contention', '15-20+ PR merge blockers from overlapping checks' and '~500 lines of duplicate code across labeling and validation workflows'. ARCHIVED_WORKFLOWS_MANIFEST.md:43-53 maps all 11 labelling workflows to labeling-unified.yml.",
+  "notes": [
+    "The archive README says 9 labelling workflows (README.md:28); the folder holds 11 because commit 84fd6e569d added two more.",
+    "No per-workflow reason is recorded. Each reason below is inferred from the shared rationale and from reading the workflow and the active replacement.",
+    "superseded_by names the workflow the manifest maps each file to. Where the active file has no equivalent logic, root_cause says so."
+  ],
+  "workflows": [
+    {
+      "workflow": "batch-label-prs.yml",
+      "purpose": "Manual bulk labelling of open PRs by branch, files and content.",
+      "archival_reason": "superseded",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Duplicate branch-to-type logic (README.md:74, 77); the manifest maps it to labeling-unified.yml (MANIFEST:47). The replacement only labels the PR in the event context (labeling.agent.js:290-295), so bulk/backfill was not carried over."
+    },
+    {
+      "workflow": "issue-labeling-automation.yml",
+      "purpose": "Scheduled backfill of type/area/priority on issues without a type label.",
+      "archival_reason": "superseded",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "The per-event agent took over issue-type allocation (applyDefaultType status-enforcer.js:283; detectIssueTypeFromContent labeling.agent.js:166). The workflow was already non-functional: its script scripts/workflows/apply-labels-workflow.js is missing (line 124) and DRY_RUN was always 'true' (line 127). It also ran in the 02:00 schedule cluster."
+    },
+    {
+      "workflow": "label-audit-report.yml",
+      "purpose": "Monthly meta/status label audit reports.",
+      "archival_reason": "superseded",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Mapped to labeling-unified.yml (MANIFEST:50); its scheduled-cleanup job (labeling-unified.yml:114-141) is the nominal successor, but it runs the agent with no issue/PR context, which returns immediately (labeling.agent.js:290-295). The audit function was not carried over. It also ran in the 04:00 schedule cluster."
+    },
+    {
+      "workflow": "labeling-governance.yml",
+      "purpose": "Combined governance: standard labelling, bare-label detection, Dependabot security label, close clean-up, required label check.",
+      "archival_reason": "conflicts",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Ran on the same push/pull_request/issues/discussion events as labeling.yml with the same agent (lines 3-13 vs labeling.yml:3-24). It published a required 'Labeling Governance Check' (README.md:76, 'PR merge blockers from overlapping checks') that depends on validate-issue-fields.cjs, which fails today, and it called a report writer that crashes under ESM. Only standard labelling was ported; the Dependabot, close clean-up and required-check jobs were not."
+    },
+    {
+      "workflow": "labeling.yml",
+      "purpose": "Original unified labelling engine for issues, PRs and discussions.",
+      "archival_reason": "superseded",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Its logic had already been copied into labeling-governance.yml ('Job 1 ... (from labeling.yml)', labeling-governance.yml:40), so two workflows ran the same agent on the same events. Its label-change triggers and per-run concurrency key caused the event storms fixed in labeling-unified.yml (lines 7-9, 27-34, #3531)."
+    },
+    {
+      "workflow": "manage-blocking-status-labels.yml",
+      "purpose": "Add/remove status:blocked from 'Blocked by: #N' references.",
+      "archival_reason": "performance",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Archived as a 'non-essential' workflow in commit 84fd6e569d and mapped to labeling-unified.yml (MANIFEST:52), which has no blocking logic. It rescans every open issue on each issue event (lines 23-32) with no concurrency group. This reason comes from reading the code; no document states it."
+    },
+    {
+      "workflow": "meta-labels-sync.yml",
+      "purpose": "Daily meta:has-pr sync and meta:stale detection.",
+      "archival_reason": "performance",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Scheduled at 03:00 UTC (line 5), the '4+ scheduled job collisions at 3am UTC' named in README.md:75. labeling-unified.yml:15 was staggered off 'the 02:00/03:00/04:00 cluster cited in the archival manifest'. The manifest maps it to labeling-unified.yml (MANIFEST:46), but no active file maintains meta:has-pr or meta:stale."
+    },
+    {
+      "workflow": "openspec-sync-labels.yml",
+      "purpose": "OpenSpec phase-progression label sync on label changes.",
+      "archival_reason": "obsolete",
+      "superseded_by": null,
+      "root_cause": "OpenSpec has been replaced by Spec Kit (spec 008 FR-013, spec.md:188) and openspec:* labels are renamed to spec:* (FR-011, spec.md:179). The handler it calls has no CLI entrypoint (handle-issue-labeled.cjs:210), so the workflow never did anything."
+    },
+    {
+      "workflow": "openspec-validate-labels.yml",
+      "purpose": "OpenSpec initial-label suggestion and combination validation.",
+      "archival_reason": "obsolete",
+      "superseded_by": null,
+      "root_cause": "Archived in commit 84fd6e569d. OpenSpec is replaced by Spec Kit (FR-013) and openspec:* becomes spec:* (FR-011). Both handlers lack CLI entrypoints (handle-issue-created.cjs:149, handle-issue-labeled.cjs:210) and the workflow held only issues: read, so it never did anything."
+    },
+    {
+      "workflow": "remediate-bare-labels.yml",
+      "purpose": "Weekly migration of bare labels to canonical labels from a JSON mapping.",
+      "archival_reason": "superseded",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Mapped to labeling-unified.yml (MANIFEST:48), whose agent removes non-canonical labels per item (labeling.agent.js:204-246). labels.yml has no aliases, so the agent deletes bare labels instead of migrating them, and the 77-entry mapping is no longer used."
+    },
+    {
+      "workflow": "validate-issue-labels.yml",
+      "purpose": "Warning comment when an issue carries non-canonical labels.",
+      "archival_reason": "superseded",
+      "superseded_by": "labeling-unified.yml",
+      "root_cause": "Duplicated detect-bare-labels in labeling-governance.yml (lines 117-183), one of the duplicate implementations in README.md:74. The agent now silently removes non-canonical labels (labeling.agent.js:215-245), so contributors get no feedback."
+    }
+  ]
+}

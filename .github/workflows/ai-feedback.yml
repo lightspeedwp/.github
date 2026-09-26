@@ -1,0 +1,24 @@
+name: AI Feedback
+
+# This repository's caller for the organisation reusable workflow
+# ai-feedback-validation.yml (warn-only).
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+    paths-ignore:
+      - ".github/reports/**"
+      - ".github/projects/**"
+      - ".github/tmp/**"
+
+permissions:
+  contents: read
+
+jobs:
+  ai-feedback:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: ./.github/workflows/ai-feedback-validation.yml
+    with:
+      enforce: false
