@@ -1,10 +1,10 @@
 ---
-title: "Changelog"
-description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
-file_type: "documentation"
-created_date: "2025-09-20"
-last_updated: "2026-09-15"
-consolidation_phase: "Phase 1 (merged sections)"
+title: 'Changelog'
+description: 'All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning'
+file_type: 'documentation'
+created_date: '2025-09-20'
+last_updated: '2026-09-15'
+consolidation_phase: 'Phase 1 (merged sections)'
 owners:
   - LightSpeed Team
 tags:
@@ -34,7 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
-- **Footer Duplicates Caught Before Merge** — A new check fails a change that adds compounded or misplaced footer blocks, and a tool clears the ones already committed when run with `--fix` (the default is a dry run that only reports). ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Footer Duplicates Caught Before Merge** — A new check blocks compounded or misplaced footer blocks, and a tool clears those already committed when run with `--fix`. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
 
 ### Changed
 
@@ -330,7 +330,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Fix agents/pr-creation-agent Jest 30 migration** — Bumped jest to ^30.5.1, removed jest-esm-transformer, added @babel/core and engines.node ([PR #3374](https://github.com/lightspeedwp/.github/pull/3374))
 
-- **Changelog validation regex bugs and test assertion improvements** — Fixed 3 critical regex bugs in changelog validation and parser: (1) em-dash validation now correctly checks for spaced hyphens (` - `) instead of flagging all hyphenated words like "backwards-compatible"; (2) replaced Perl syntax `\z` with JavaScript anchor `$` for end-of-string pattern matching; (3) added regex metacharacter escaping for category names to handle special characters. Added 14 comprehensive tests covering edge cases (empty content, special chars, boundary conditions) and documented confidence threshold behaviour (0.85 multiplier) in handle-needs-triage tests. Strengthened 38 test assertions to verify documented API behaviour instead of arbitrary expectations. ([PR #1729](https://github.com/lightspeedwp/.github/pull/1729), [#1715](https://github.com/lightspeedwp/.github/issues/1715), [#1716](https://github.com/lightspeedwp/.github/issues/1716))
+- **Changelog validation regex bugs and test assertion improvements** — Fixed 3 critical regex bugs in changelog validation and parser: (1) em-dash validation now correctly checks for spaced hyphens (`-`) instead of flagging all hyphenated words like "backwards-compatible"; (2) replaced Perl syntax `\z` with JavaScript anchor `$` for end-of-string pattern matching; (3) added regex metacharacter escaping for category names to handle special characters. Added 14 comprehensive tests covering edge cases (empty content, special chars, boundary conditions) and documented confidence threshold behaviour (0.85 multiplier) in handle-needs-triage tests. Strengthened 38 test assertions to verify documented API behaviour instead of arbitrary expectations. ([PR #1729](https://github.com/lightspeedwp/.github/pull/1729), [#1715](https://github.com/lightspeedwp/.github/issues/1715), [#1716](https://github.com/lightspeedwp/.github/issues/1716))
 
 - **Release Agent gitOps.cjs — prevent cross-repo data corruption** — Refactored all 15 git operation functions to accept optional `workDir` parameter, eliminating hardcoded `process.cwd()` calls that risked cross-repo contamination in multi-repository release workflows. Added `validateDirectory()` function for pre-operation validation. Switched from `execSync` (shell-based) to `execFileSync` (args array) to prevent shell injection attacks. All functions maintain backwards compatibility with `process.cwd()` as default. Comprehensive test suite covers directory validation, cross-repo isolation, shell injection prevention, and backwards compatibility. ([PR #1724](https://github.com/lightspeedwp/.github/pull/1724), [#1714](https://github.com/lightspeedwp/.github/issues/1714))
 
