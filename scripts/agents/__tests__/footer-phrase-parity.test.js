@@ -2,6 +2,15 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 
+jest.mock('../includes/footer-phrases.js', () => {
+  const actual = jest.requireActual('../includes/footer-phrases.js');
+  return {
+    ...actual,
+    resolveFooterPhrases: jest.fn(actual.resolveFooterPhrases),
+    selectFooterPhrase: jest.fn(actual.selectFooterPhrase),
+  };
+});
+
 // Architecture guard for #3544: the footer phrase/config-selection
 // algorithm must have a single source of truth
 // (scripts/agents/includes/footer-phrases.js). Both callers delegate to
@@ -34,6 +43,10 @@ function setUpConfigCwd(yaml) {
 
 describe('footer phrase parity (#3544)', () => {
   let cwdSpy;
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   afterEach(() => {
     cwdSpy?.mockRestore();
@@ -75,29 +88,54 @@ describe('footer phrase parity (#3544)', () => {
     expect(headerFooter.DEFAULT_FOOTERS).not.toEqual(branding.DEFAULT_FOOTERS);
   });
 
-  test('both callers delegate to the shared module rather than reimplementing it', async () => {
-    // The output matrix above cannot catch a reimplementation: a copy that
-    // behaves identically leaves every assertion green. Injected and verified --
-    // a duplicated algorithm in header-footer.js passed all 7 tests. So the
-    // single-source constraint is asserted structurally here, on the call sites.
+  test('both wrappers delegate to the shared selection helpers', async () => {
+    cwdSpy = setUpConfigCwd(CONFIGS.full);
+    const shared = await import('../includes/footer-phrases.js');
     const headerFooter = await import('../includes/header-footer.js');
     const branding = await import('../branding.agent.js');
 
-    // Matched on the name only: under ESM-to-CJS interop the call is emitted as
-    // `(0, _footerPhrases.resolveFooterPhrases)(...)`, so a strict
-    // `name(` pattern would not match a genuine delegation.
-    expect(headerFooter.getFooterPhrases.toString()).toContain('resolveFooterPhrases');
-    expect(headerFooter.selectFooter.toString()).toContain('selectFooterPhrase');
-    expect(branding.getFooterPhrases.toString()).toContain('resolveFooterPhrases');
-    expect(branding.selectFooter.toString()).toContain('selectFooterPhrase');
+    headerFooter.getFooterPhrases('docs');
+    branding.getFooterPhrases('docs');
+    expect(shared.resolveFooterPhrases).toHaveBeenNthCalledWith(
+      1,
+      expect.any(Object),
+      'docs',
+      headerFooter.DEFAULT_FOOTERS
+    );
+    expect(shared.resolveFooterPhrases).toHaveBeenNthCalledWith(
+      2,
+      expect.any(Object),
+      'docs',
+      branding.DEFAULT_FOOTERS
+    );
+
+    headerFooter.selectFooter(['x', 'y'], 'seed');
+    branding.selectFooter(['x', 'y'], 'seed');
+    expect(shared.selectFooterPhrase).toHaveBeenNthCalledWith(
+      1,
+      ['x', 'y'],
+      'seed',
+      headerFooter.DEFAULT_FOOTERS[0]
+    );
+    expect(shared.selectFooterPhrase).toHaveBeenNthCalledWith(
+      2,
+      ['x', 'y'],
+      'seed',
+      branding.DEFAULT_FOOTERS[0]
+    );
   });
 
-  test('only the shared module carries the selection algorithm', () => {
-    // Belt and braces: if a caller is later refactored so the function-identity
-    // check no longer applies, no caller may carry its own copy of the
-    // category-then-default resolution or the seeded hash.
+  test('no caller carries its own copy of the selection algorithm', async () => {
+    // The spy above proves the shared functions are called, but not that a
+    // caller has not *also* grown its own copy that happens to agree. I injected
+    // a behaviourally identical copy into header-footer.js and every output
+    // assertion still passed. So assert the algorithm's internals live in one
+    // place: the category-then-default resolution and the seeded hash.
     for (const caller of ['../includes/header-footer.js', '../branding.agent.js']) {
       const source = fs.readFileSync(require.resolve(caller), 'utf8');
+      expect(`${caller}: no inline category resolution`).toBe(
+        `${caller}: no inline category resolution`
+      );
       expect(source).not.toMatch(/config\.categories\s*&&/);
       expect(source).not.toMatch(/charCodeAt\(/);
     }
@@ -107,18 +145,15 @@ describe('footer phrase parity (#3544)', () => {
   });
 
   test('shared module resolves the full contract directly', async () => {
-    const { resolveFooterPhrases, selectFooterPhrase } = await import(
-      '../includes/footer-phrases.js'
-    );
+    const { resolveFooterPhrases, selectFooterPhrase } =
+      await import('../includes/footer-phrases.js');
     const fallback = ['fb'];
 
     expect(resolveFooterPhrases(null, 'docs', fallback)).toEqual(fallback);
     expect(
       resolveFooterPhrases({ categories: { docs: { phrases: ['c'] } } }, 'docs', fallback)
     ).toEqual(['c']);
-    expect(resolveFooterPhrases({ default: { phrases: ['d'] } }, 'docs', fallback)).toEqual([
-      'd',
-    ]);
+    expect(resolveFooterPhrases({ default: { phrases: ['d'] } }, 'docs', fallback)).toEqual(['d']);
     expect(selectFooterPhrase([], 's', 'fb0')).toBe('fb0');
     expect(selectFooterPhrase(['a', 'b'], 's', 'fb0')).toBe(
       selectFooterPhrase(['a', 'b'], 's', 'fb0')
