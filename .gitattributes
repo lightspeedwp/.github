@@ -36,3 +36,114 @@ CHANGELOG.md merge=union
 *.woff binary
 *.woff2 binary
 *.ttf binary
+
+# --- Linear review categories ---------------------------------------------
+#
+# Linear reads these attributes to group the files in a pull request's diff
+# ("File type" grouping) and to count implementation lines separately from
+# tests and documentation. Linear counts implementation as "everything not
+# claimed as something else", so a file that carries two categories is
+# counted as implementation and the split stops working.
+#
+# Supported values:
+#
+#   review-implementation   the change itself
+#   review-test             test code
+#   review-documentation    prose and docs
+#   review-generated        machine-generated or vendored output
+#   review-agent-guidance   instructions for humans and AI agents
+#   review-localization     translations (unused today; no locale trees)
+#   review-assets           images and fonts
+#
+# WHY EVERY RULE IS THIS VERBOSE
+#
+# Git resolves each attribute name independently and the last matching rule
+# wins per name. So negating a category only holds until some later rule sets
+# it again -- negating inside a rule is not enough on its own. The invariant
+# that actually holds is: the last matching rule sets one category and clears
+# all six others, so it fully determines the file's state and every file lands
+# in exactly one category. The rules below therefore look repetitive by design.
+#
+# Because each rule is self-contained, order only decides which category wins
+# where patterns overlap, so the blocks run broad to specific and the most
+# specific (tests) go last.
+#
+# Note `* text=auto` stays at the top of this file: it is the existing
+# baseline that makes GitHub detect text and normalise line endings, and every
+# rule here assumes it has already been applied.
+
+# Baseline: everything is implementation until a rule below claims it.
+* review-implementation
+
+# Generated output and installed dependencies: real diff noise, no review value.
+coverage/** review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+node_modules/** review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+website/dist/** review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+website/.astro/** review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+logs/** review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+.github/reports/** review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+metrics-artifacts/** review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+package-lock.json review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+*.min.js review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+*.min.css review-generated -review-implementation -review-test -review-documentation -review-agent-guidance -review-localization -review-assets
+
+# Images and fonts, plus the folders that hold them.
+assets/** review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+website/public/assets/** review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+website/public/fonts/** review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+website/src/assets/** review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.png review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.jpg review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.jpeg review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.gif review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.svg review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.webp review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.ico review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.woff review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.woff2 review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.ttf review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+*.eot review-assets -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-localization
+
+# Prose. Broad on purpose: it runs before the test, agent-guidance and
+docs/** review-documentation -review-implementation -review-test -review-generated -review-agent-guidance -review-localization -review-assets
+cookbook/** review-documentation -review-implementation -review-test -review-generated -review-agent-guidance -review-localization -review-assets
+website/README.md review-documentation -review-implementation -review-test -review-generated -review-agent-guidance -review-localization -review-assets
+*.md review-documentation -review-implementation -review-test -review-generated -review-agent-guidance -review-localization -review-assets
+
+# Translations. No locale trees exist yet; the bucket stays reserved so the
+**/languages/** review-localization -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-assets
+**/locales/** review-localization -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-assets
+**/i18n/** review-localization -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-assets
+**/*.po review-localization -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-assets
+**/*.pot review-localization -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-assets
+**/*.mo review-localization -review-implementation -review-test -review-documentation -review-generated -review-agent-guidance -review-assets
+
+# Agent and human guidance. After the *.md rule so these win over prose.
+AGENTS.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+CLAUDE.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+GEMINI.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+.github/custom-instructions.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+.github/copilot-instructions.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+.github/instructions/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+agents/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+skills/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+prompts/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+instructions/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+workflows/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+.agents/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+.impeccable/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+memory/** review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+memory.md review-agent-guidance -review-implementation -review-test -review-documentation -review-generated -review-localization -review-assets
+
+# Tests. Last, so a test bundled inside skills/ or agents/ is a test and not
+**/__tests__/** review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+tests/** review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+test/** review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+__tests__/** review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+*.test.js review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+*.test.cjs review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+*.test.mjs review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+*.test.ts review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+*.spec.js review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+*.spec.ts review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
+*.bats review-test -review-implementation -review-documentation -review-generated -review-agent-guidance -review-localization -review-assets
