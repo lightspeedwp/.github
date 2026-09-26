@@ -42,7 +42,31 @@ pull_request_rules:
   #
   # Mergify skips pull requests in a conflict or already in the merge queue
   # (`queue-position = -1`), so one needing manual conflict resolution still
-  # reports DIRTY, and a queued one is left to the queue.
+  # reports DIRTY, and a queued one is left to the queue. Mergify applies the
+  # same no-conflict requirement itself, independent of `-conflict` here, so
+  # that condition is belt-and-braces rather than the only guard.
+  #
+  # A pull request that is behind *and* conflicting is the one case this rule
+  # cannot help, and the `update` check stays red until someone resolves it by
+  # hand. Two separate things are going on, and it is worth keeping them apart:
+  #
+  #   1. `update` merges the base in, and merging cannot resolve a conflict, so
+  #      this rule has nothing to contribute once the pull request is already
+  #      classified as conflicting. It also declines earlier than that: it asks
+  #      the API whether the pull request is mergeable, so on a conflicting one
+  #      it reports "nothing to do" without attempting a merge.
+  #   2. What the human then has to do used to be resolve a CHANGELOG.md
+  #      conflict by hand, because the changelog gate requires an `[Unreleased]`
+  #      entry on nearly every pull request and every entry lands in the same
+  #      short list (#3574). `.gitattributes` now marks that file `merge=union`,
+  #      so a git merge keeps both sides' additions and that step is just a
+  #      merge and a push.
+  #
+  # Step 2 only helps merges git performs. It does not make this rule able to
+  # update a conflicting pull request, and the red check still appears in that
+  # state — #3574 tracks that separately. `changelog-merge-strategy.test.js`
+  # covers the git merge and the attribute; nothing here tests the automated
+  # update, because the automated update does not consult `.gitattributes`.
   #
   # Cost: develop's ruleset sets `dismiss_stale_reviews_on_push`, so this
   # action dismisses existing approvals on the pull request it touches. That is
