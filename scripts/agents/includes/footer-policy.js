@@ -1,0 +1,220 @@
+/**
+ * footer-policy.js
+ * Footer recognition patterns and path policy — one source of truth shared by
+ * the footer generator and the duplicate-block guard.
+ *
+ * Context (#3451). Two separate footer code paths existed, and neither the
+ * patterns nor the "which files get footers" policy had a single owner:
+ *
+ *  - `header-footer.js` owns `FOOTER_PATTERNS` privately, so nothing else can
+ *    ask "is this line a footer?" The duplicate blocks that #3451 tracks were
+ *    therefore invisible to any other tool.
+ *  - The exclusion policy was documented in `docs/QUIRKY_FOOTERS_GUIDE.md` and
+ *    mirrored into `.github/config/quirky-footers.yaml` and
+ *    `scripts/inject-footers.js`, but the live path (`meta.agent.js`) excluded
+ *    nothing, and the two config carriers were unreachable. So the documented
+ *    policy was never enforced anywhere.
+ *
+ * This module fixes the ownership problem: recognition (`isFooterPhraseLine`,
+ * `isFooterLinkLine`, `buildFooterRegex`) and path policy
+ * (`isFooterExemptPath`) live here, and both the generator and the guard import
+ * from it. A pattern can no longer be widened for generation without the guard
+ * seeing it, and the exemption list can no longer drift from the docs because
+ * there is only one copy.
+ */
+
+/**
+ * Line-level patterns that identify a footer phrase.
+ *
+ * Every pattern's body is deliberately bounded to a single line ([^\n]*,
+ * not [\s\S]*?): footer phrases are always one line, optionally followed by
+ * exactly one link line. An earlier version used [\s\S]*? here, which can match
+ * across newlines -- combined with the outer buildFooterRegex() anchoring on
+ * end-of-string, that let a footer phrase merely quoted or re-used
+ * mid-document (matching only because it starts a line) expand all the way to
+ * the true end of the file, and ensureFooter()'s replace path would then delete
+ * every real line of content after it.
+ *
+ * The leading `[*_]?` on the first five is load-bearing: it is what makes the
+ * generator recognise asterisk-wrapped footers. Before it was added (#3443) an
+ * asterisk-wrapped footer did not match, so every automation run appended
+ * another copy instead of replacing the existing one — the compounding that
+ * produced the ~117K duplicate blocks tracked by #3451. Do not narrow these.
+ *
+ * @type {string[]}
+ */
+export const FOOTER_PATTERNS = [
+  '[*_]?Maintained with ❤️[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?Built by 🧱[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?Have questions\\?[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?This page brought to you by[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  '[*_]?Docs signed by 🤖[^\\n]*',
+  'Made with ❤️[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?',
+  'Questions\\?[^\\n]*',
+  'Prefer a guided[^\\n]*',
+  'Clarity first[^\\n]*',
+  'Improvements welcome[^\\n]*',
+  'Copy, adapt[^\\n]*',
+  'Tweak the variables[^\\n]*',
+  'Your feedback shapes[^\\n]*',
+  'Reuse beats[^\\n]*',
+  'Keep prompts[^\\n]*',
+  'Use responsibly[^\\n]*',
+  'Keep tone[^\\n]*',
+  'Update when[^\\n]*',
+  'Link policies[^\\n]*',
+  'Thanks for helping[^\\n]*',
+  'Need help\\?[^\\n]*',
+];
+
+/**
+ * Build the footer regex from the patterns array.
+ *
+ * The result is anchored to the end of the whole file and required to *start*
+ * its own line (right after "\n", or at the very start of the file). Both
+ * anchors matter:
+ *  - No "m" flag on the trailing $: a multiline end-of-file anchor would match
+ *    end-of-line for every line, letting a footer phrase merely mentioned
+ *    mid-body (as prose, not as a real footer) match all the way to EOF via the
+ *    patterns' own permissive bodies and get "replaced" in place -- wiping it
+ *    out instead of leaving it alone and appending a separate new footer.
+ *  - The explicit (?:^|\n) start guard rules out a phrase embedded mid-sentence
+ *    (e.g. "This note mentions Have questions? ..."), which doesn't begin its
+ *    own line, from matching at all.
+ *
+ * A trailing "\n?" before the final anchor tolerates the single trailing
+ * newline ensureFooter()'s own append path always writes (`nextFooter + "\n"`)
+ * -- without it, a footer this function itself previously wrote could never be
+ * found and replaced on a later call, so ensureFooter() was not idempotent.
+ *
+ * Note the deliberate asymmetry with {@link isFooterPhraseLine}: this regex is
+ * end-anchored and therefore deliberately only ever sees the *last* block in a
+ * file. That is correct for the generator (one footer, at EOF) but useless for
+ * auditing, which needs to see every block. Use `isFooterPhraseLine` for that.
+ *
+ * @returns {RegExp} End-anchored footer matcher
+ */
+export function buildFooterRegex() {
+  const pattern = `(^|\\n)(?:${FOOTER_PATTERNS.join('|')})\\n?$`;
+  return new RegExp(pattern);
+}
+
+// Whole-line phrase matcher, for auditing. Built once; the pattern list is
+// module-level and immutable in practice.
+const PHRASE_LINE_RE = new RegExp(`^(?:${FOOTER_PATTERNS.join('|')})$`);
+
+// A bare Markdown link, optionally emphasised: the optional second line of a
+// footer block (e.g. "[Contributors](https://github.com/...)").
+const LINK_LINE_RE = /^\s*\[.*?\]\(.*?\)\s*$/;
+
+/**
+ * Is this single line a footer phrase?
+ *
+ * Unlike the end-anchored {@link buildFooterRegex}, this is a whole-line
+ * anchored test with no position requirement, so it finds every footer block in
+ * a file rather than only the last one. That is what makes duplicate detection
+ * possible at all.
+ *
+ * Callers MUST exclude fenced code blocks before calling this: real content
+ * legitimately begins with these phrases (e.g. a SAVED_REPLIES draft whose
+ * body line is "Thanks for helping us get this to the right place!").
+ *
+ * @param {string} line - A single line, with or without trailing newline
+ * @returns {boolean} True when the line is a footer phrase
+ */
+export function isFooterPhraseLine(line) {
+  return PHRASE_LINE_RE.test(String(line).trim());
+}
+
+/**
+ * Is this line a bare Markdown link, i.e. the optional second line of a footer
+ * block?
+ * @param {string} line - A single line
+ * @returns {boolean} True when the line is a standalone link
+ */
+export function isFooterLinkLine(line) {
+  return LINK_LINE_RE.test(String(line));
+}
+
+/**
+ * Is this line a horizontal rule / thematic break (`---`, `***`, `___`)?
+ *
+ * Used by the guard to recognise the separator that introduces a footer block.
+ * It must never be used to decide on its own that a `---` is removable — a rule
+ * with real content after it is document structure, not a footer delimiter.
+ *
+ * @param {string} line - A single line
+ * @returns {boolean} True when the line is a thematic break
+ */
+export function isThematicBreakLine(line) {
+  return /^\s{0,3}(?:-{3,}|\*{3,}|_{3,})\s*$/.test(String(line));
+}
+
+/**
+ * Directory names that are exempt from footer requirements, per the "Exclusions"
+ * section of `docs/QUIRKY_FOOTERS_GUIDE.md`. Matched as whole path segments so
+ * a file merely *named* `examples.md` is not treated as living in an examples
+ * directory, while `agents/x/skills/y/references/z.md` is.
+ *
+ * `sample`/`samples`, `fixture`/`fixtures` and `mock`/`mocks` are all listed in
+ * the guide (and in `.github/config/quirky-footers.yaml`) under both singular
+ * and plural spellings; the guide's prose uses `/samples/` and `/mocks/` where
+ * the config uses `/fixtures/` and `/mock(s)?/`, so both are honoured.
+ *
+ * @type {Set<string>}
+ */
+export const FOOTER_EXEMPT_DIR_NAMES = new Set([
+  'references',
+  'examples',
+  'templates',
+  'template',
+  'example',
+  'samples',
+  'sample',
+  'fixtures',
+  'fixture',
+  'mocks',
+  'mock',
+  // Archives & historical content (guide: "Archives & Historical Content")
+  '.archive',
+  'completed',
+  'deprecated',
+  'legacy',
+]);
+
+/**
+ * Path prefixes that are exempt regardless of their trailing segment, per the
+ * guide's "Vendor/Embedded Materials" and "Templates & Scaffolds" sections.
+ * Checked against the POSIX-normalised relative path.
+ *
+ * @type {string[]}
+ */
+export const FOOTER_EXEMPT_PATH_PREFIXES = [
+  'plugin-provided/',
+  'platform-managed/',
+  'directory-installed/',
+  '.github/ISSUE_TEMPLATE/',
+  '.github/PULL_REQUEST_TEMPLATE/',
+  '.github/DISCUSSION_TEMPLATE/',
+];
+
+/**
+ * Should this file be exempt from footer requirements?
+ *
+ * Implements the policy documented in `docs/QUIRKY_FOOTERS_GUIDE.md` — the
+ * same policy that used to exist only in unreachable config files. Enforced by
+ * both the generator (`meta.agent.js`) and the guard
+ * (`scripts/footer/dedupe-footers.js`) so that "exempt" means one thing.
+ *
+ * @param {string} filePath - Repo-relative file path (POSIX or native separators)
+ * @returns {boolean} True when no footer should be present in the file
+ */
+export function isFooterExemptPath(filePath) {
+  const normalised = String(filePath).replace(/\\/g, '/').replace(/^\.\//, '');
+  if (FOOTER_EXEMPT_PATH_PREFIXES.some((prefix) => normalised.startsWith(prefix))) {
+    return true;
+  }
+  const segments = normalised.split('/');
+  segments.pop(); // Drop the filename: only directories can grant an exemption.
+  return segments.some((segment) => FOOTER_EXEMPT_DIR_NAMES.has(segment));
+}

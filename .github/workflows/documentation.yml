@@ -298,6 +298,83 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+  footer-guard:
+    name: Footer Duplicate Guard
+    runs-on: ubuntu-latest
+    # Ratchet, not a wall. Only the Markdown files this event touched are
+    # checked, so the pre-existing #3451 backlog does not block unrelated work
+    # while it is being cleared in dedicated cleanup PRs. Once
+    # `npm run validate:footers` reports zero findings, replace the
+    # changed-files check below with the whole-repo run.
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Full history so the base of the diff resolves, and the head ref
+          # checked out so the working tree matches the files being verified.
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve diff range
+        id: range
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            base="$PR_BASE"
+            head="$PR_HEAD"
+          else
+            base="$PUSH_BEFORE"
+            head="$PUSH_SHA"
+          fi
+          # A branch's first push reports an all-zero `before`; fall back to the
+          # pushed commit's parent so the diff is still computable.
+          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+            base="$(git rev-parse "${head}^" 2>/dev/null || true)"
+          fi
+          if [ -z "$base" ]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "No resolvable diff range; skipping the footer guard."
+          else
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+            echo "base=$base" >> "$GITHUB_OUTPUT"
+            echo "head=$head" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check changed Markdown files for duplicate footer blocks
+        if: steps.range.outputs.enabled == 'true'
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+          HEAD: ${{ steps.range.outputs.head }}
+        run: |
+          if ! node scripts/dedupe-footers.js --check --changed-only --base="$BASE" --head="$HEAD"; then
+            echo "::error title=Duplicate footer blocks::A file in this change carries compounded, stranded, or footer-policy-exempt blocks. Run 'npm run validate:footers:fix' to repair, then re-run this job. See issue #3451."
+            exit 1
+          fi
+
+      - name: Report remaining whole-repo backlog
+        if: always() && steps.range.outputs.enabled == 'true'
+        run: |
+          # Progress signal for the #3451 cleanup; never fails the build.
+          node scripts/dedupe-footers.js --check || \
+            echo "::notice title=Footer backlog::Whole-repo footer backlog remains; tracked in issue #3451."
+
   maintain:
     name: Documentation Maintenance
     runs-on: ubuntu-latest
