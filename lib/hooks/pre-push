@@ -2,44 +2,95 @@
 
 /**
  * Git Pre-Push Hook for Branch Name Validation
- * Validates the current branch name before allowing a push to remote
+ * Validates the name of every branch being pushed
+ *
+ * Git feeds a pre-push hook one line per ref update on stdin:
+ *   <local ref> SP <local sha> SP <remote ref> SP <remote sha> LF
+ * so the branches that matter are the ones in that list, not whichever branch
+ * happens to be checked out. Validating HEAD instead would let an explicit
+ * `git push other-branch` through unchecked when the current branch is valid,
+ * and would block an unrelated push or delete when the current branch is not.
  *
  * Exit Codes:
- *   0 = valid branch name (push allowed)
- *   1 = invalid branch name (push blocked)
+ *   0 = all pushed branch names valid (push allowed)
+ *   1 = at least one invalid branch name (push blocked)
  *   2 = hook execution error
  */
 
 import { validateBranchName, formatErrorMessage } from '../validate-branch-name.js';
 import { execSync } from 'child_process';
+import { readFileSync } from 'fs';
 
-// Run by .husky/pre-push. Git passes only the remote name and URL, never the
-// push flags, so a forced push cannot be detected here (#3493).
+// Run by .husky/pre-push. Git passes only the remote name and URL as arguments,
+// never the push flags, so a forced push cannot be detected here (#3493).
 
-// Get the current branch name
-let branchName;
+/**
+ * Branch names carried by the ref-update records on stdin, in push order.
+ * A deletion reports "(delete)" as the local ref and is skipped: the ref is
+ * being removed, not created, so its name was validated when it was added.
+ * @returns {string[]}
+ */
+function readPushedBranches() {
+  let input;
+  try {
+    input = readFileSync(0, 'utf-8');
+  } catch {
+    input = '';
+  }
+
+  // No records: invoked directly rather than by git, so fall back to HEAD.
+  if (input.trim() === '') {
+    return [execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim()];
+  }
+
+  const branches = [];
+  for (const line of input.split('\n')) {
+    if (line.trim() === '') continue;
+    const localRef = line.split(' ')[0];
+    if (!localRef || localRef === '(delete)') continue;
+    if (!localRef.startsWith('refs/heads/')) continue;
+    const name = localRef.slice('refs/heads/'.length);
+    if (name && !branches.includes(name)) branches.push(name);
+  }
+  return branches;
+}
+
+let branches;
 try {
-  branchName = execSync('git rev-parse --abbrev-ref HEAD', { encoding: 'utf-8' }).trim();
+  branches = readPushedBranches();
 } catch (error) {
-  console.error('❌ Error retrieving current branch name');
+  console.error('❌ Error determining which branches are being pushed');
   console.error(error.message);
   process.exit(2);
 }
 
-// Skip validation for detached HEAD state
-if (branchName === 'HEAD') {
-  console.log('ℹ️  Skipping validation (detached HEAD state)');
+// Nothing on refs/heads to check, e.g. a push of a tag or a detached HEAD.
+if (branches.length === 0) {
+  console.log('ℹ️  Skipping validation (no branch refs in this push)');
   process.exit(0);
 }
 
-// Validate the branch name
-const result = validateBranchName(branchName);
-
-if (result.valid) {
-  console.log(`✅ Branch '${branchName}' is valid`);
-  process.exit(0);
-} else {
-  console.log(formatErrorMessage(branchName, result));
-  console.log('\n💡 To bypass this check and push anyway, use: git push --no-verify (the remote branch check still applies)');
-  process.exit(1);
+const invalid = [];
+for (const branch of branches) {
+  const result = validateBranchName(branch);
+  if (result.valid) {
+    console.log(`✅ Branch '${branch}' is valid`);
+  } else {
+    invalid.push([branch, result]);
+  }
 }
+
+if (invalid.length === 0) {
+  process.exit(0);
+}
+
+for (const [branch, result] of invalid) {
+  console.log(formatErrorMessage(branch, result));
+}
+console.log(
+  `\n❌ ${invalid.length} of ${branches.length} pushed branch name(s) rejected.`
+);
+console.log(
+  '💡 To bypass this check and push anyway, use: git push --no-verify (the remote branch check still applies)'
+);
+process.exit(1);
