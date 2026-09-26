@@ -105,18 +105,10 @@ describe('changelog merge strategy (#3574)', () => {
     expect(git(directory, ['rev-parse', 'HEAD^']).stdout.trim()).toBe(second);
   });
 
-  // A genuine duplicate still has to be caught somewhere. It is caught by the
-  // changelog validator's CHK_UNIQUE_CONTENT rule, which flags entries more
-  // than 90% similar, rather than by the merge driver.
-  test('near-identical entries are flagged by the changelog validator', () => {
-    const rules = JSON.parse(
-      fs.readFileSync(path.join(repositoryRoot, '.github/validation/changelog/rules.json'), 'utf8')
-    );
-    const uniqueContent = (Array.isArray(rules) ? rules : rules.rules).find(
-      (rule) => rule.rule_id === 'CHK_UNIQUE_CONTENT'
-    );
-
-    expect(uniqueContent).toBeDefined();
-    expect(uniqueContent.severity).toBe('high');
-  });
+  // A genuine duplicate still has to be caught somewhere, because union can
+  // combine two identical entries. It is caught by the changelog validator's
+  // CHK_UNIQUE_CONTENT rule, which flags entries more than 90% similar. That
+  // guarantee is proved behaviourally, against the rule implementation, in
+  // `changelog-unique-content.test.js` — an earlier version of this file only
+  // asserted the rule was declared, which proved nothing about its behaviour.
 });
