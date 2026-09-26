@@ -1,0 +1,68 @@
+name: Claude Guard Tests
+
+# Spec 016 FR-023: run the branch guard, SessionStart and spec 016 contract
+# tests on every PR, so a change that breaks the guard can't merge with green
+# CI. The workflow runs on every PR (a path filter would leave a required check
+# pending forever on PRs that don't match) and exits early when nothing
+# relevant changed.
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+# Read-only: the tests only read the checkout and spawn local processes.
+permissions:
+  contents: read
+
+concurrency:
+  group: claude-guard-tests-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  guard-tests:
+    name: Claude guard contract tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Check for guard-related changes
+        id: changes
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          if git diff --name-only "$BASE_SHA"...HEAD |
+            grep -qE '^(\.claude/|scripts/__tests__/(enforce-branch-name-hook|session-start-hook)\.test\.js$|scripts/__tests__/helpers/claude-hook-harness\.js$|tests/js/claude-cloud-environment-docs\.test\.js$|\.github/specs/016-claude-cloud-environment/|lib/validate-branch-name\.js$|\.github/workflows/claude-guard-tests\.yml$)'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "No guard-related changes; nothing to test."
+          fi
+
+      - name: Set up Node.js
+        if: steps.changes.outputs.run == 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.changes.outputs.run == 'true'
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      # The hooks need git and jq, which ubuntu-latest provides.
+      - name: Run contract tests
+        if: steps.changes.outputs.run == 'true'
+        env:
+          JEST_COLLECT_COVERAGE: 'false'
+        run: >-
+          npx jest -c .jest.config.cjs
+          scripts/__tests__/enforce-branch-name-hook.test.js
+          scripts/__tests__/session-start-hook.test.js
+          tests/js/claude-cloud-environment-docs.test.js
