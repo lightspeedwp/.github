@@ -666,3 +666,63 @@ describe('RISK_CATEGORIES security-sensitive-path matching is token-bounded', ()
     expect(authorship.explanations).toEqual(empty.explanations);
   });
 });
+
+/**
+ * Regression guard for an HTML comment injection in the emitted block.
+ *
+ * Explanations quote pull request filenames, and a contributor picks those
+ * names. A file called `lib/auth-->.js` closed the `linear:extension` HTML
+ * comment early: the block truncated, `parseExtensionBlocks` recovered nothing,
+ * so Linear silently stopped receiving the risk score, and the remaining text
+ * rendered as live markup in the GitHub comment. Found by CodeRabbit's security
+ * architecture pass rather than the four actionable review comments.
+ */
+describe('emitted block cannot be terminated by untrusted input', () => {
+  const build = (input, extra = {}) =>
+    buildExtensionBlock({
+      risk: buildRiskAssessment(input),
+      agent: 'claude',
+      sha: VALID_SHA,
+      ...extra,
+    });
+
+  const wellFormed = (body) => {
+    // Two terminators: our marker and the extension block. A third means
+    // untrusted text escaped the comment.
+    expect((body.match(/-->/g) || []).length).toBe(2);
+    expect(parseExtensionBlocks(body)).toHaveLength(1);
+  };
+
+  test.each([
+    ['a comment terminator in the filename', { files: ['lib/auth-->.js'] }],
+    ['a comment opener in the filename', { files: ['lib/<!--auth.js'] }],
+    [
+      'markup and both delimiters in the filename',
+      { files: ['<!-- x --> auth<img src=x onerror=alert(1)>.js'] },
+    ],
+    ['a terminator in an otherwise normal filename', { files: ['package.json-->.js'] }],
+  ])('stays well formed with %s', (_label, input) => {
+    wellFormed(build(input));
+  });
+
+  test('stays well formed when the model name carries a terminator', () => {
+    wellFormed(build({ files: ['package.json'] }, { model: 'opus --> <b>x</b>' }));
+  });
+
+  test('the escaped path stays readable rather than being stripped', () => {
+    const [plugins] = parseExtensionBlocks(build({ files: ['lib/auth-->.js'] }));
+    const [explanation] = plugins[0].explanations;
+
+    expect(explanation).toBe('Touches security-sensitive paths: lib/auth--&gt;.js');
+  });
+
+  test('ordinary paths are untouched', () => {
+    const [plugins] = parseExtensionBlocks(
+      build({ files: ['.github/workflows/linear-review-platform.yml'] })
+    );
+
+    expect(plugins[0].explanations[0]).toBe(
+      'Touches GitHub Actions workflows: .github/workflows/linear-review-platform.yml'
+    );
+  });
+});
