@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 - **Shared Claude Code Cloud Environment** — One cloud setup for the whole team. Claude can no longer commit, push, open PRs or edit its guard files against the branching strategy; docs-only changes may still go to develop. (#3524)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
@@ -53,6 +54,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Graph Path No Longer Escaped for a Guessed Shell** — A plain graph path is passed through unquoted, so the suggested command is correct in any shell. ([#3567](https://github.com/lightspeedwp/.github/pull/3567))
 - **Changelog Merges No Longer Conflict** — The changelog file is union-merged, so a git merge of two branches that each add an entry keeps both instead of conflicting. (#3574)
 - **Issue Types Matched by Signal Strength** — A title naming a subject now classifies by that subject, so a test or compatibility update is no longer filed as a feature. ([#3577](https://github.com/lightspeedwp/.github/issues/3577))
 - **Malformed Title Prefixes Repaired** — A title that already carries a recognised prefix but no space after the colon now has the space added, instead of gaining a second prefix. ([#3578](https://github.com/lightspeedwp/.github/issues/3578))
