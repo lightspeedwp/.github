@@ -6,6 +6,8 @@
 
 import fs from 'fs';
 import path from 'path';
+import Ajv from 'ajv';
+import addFormats from 'ajv-formats';
 
 export class RegistryValidator {
   constructor(options = {}) {
@@ -14,6 +16,8 @@ export class RegistryValidator {
       options.schemaPath ||
       '.github/specs/014-agents-restructure-consolidate/contracts/registry-schema.json';
     this.schema = this.loadSchema();
+    this.schemaError = null;
+    this.validateFn = this.compileSchema();
   }
 
   /**
@@ -28,6 +32,35 @@ export class RegistryValidator {
     return JSON.parse(fs.readFileSync(schemaFile, 'utf-8'));
   }
 
+  /**
+   * Compile the loaded schema with ajv (same convention as
+   * validate-agents.js).
+   *
+   * A missing schema and an uncompilable schema are deliberately different
+   * outcomes. When no schema file exists the caller falls back to minimal
+   * structural validation, which is the documented contract. When a schema
+   * does exist but ajv cannot compile it, falling back would silently accept
+   * registries the contract rejects, which is the bug #3522 exists to fix, so
+   * the failure is recorded and every validation result is invalid until the
+   * schema is corrected.
+   */
+  compileSchema() {
+    if (!this.schema) {
+      return null;
+    }
+    try {
+      this.ajv = new Ajv({ allErrors: true, strict: false });
+      addFormats(this.ajv);
+      return this.ajv.compile(this.schema);
+    } catch (error) {
+      this.schemaError = error.message;
+      console.warn(
+        `Could not compile registry schema: ${error.message}. ` +
+          'Registries will be reported invalid until the schema is corrected.'
+      );
+      return null;
+    }
+  }
   /**
    * Validate registry file structure
    */
@@ -66,8 +99,32 @@ export class RegistryValidator {
       };
     }
 
-    // Check for required fields (will be expanded per schema)
-    if (!Array.isArray(obj.entries) && !obj.agents && !obj.skills) {
+    // A schema that exists but could not be compiled must not degrade to the
+    // permissive structural path, or a broken contract would silently accept
+    // the registries it exists to reject.
+    if (this.schemaError) {
+      return {
+        valid: false,
+        errors: [
+          `Registry schema could not be compiled: ${this.schemaError}`,
+          'Registries cannot be validated until the schema is corrected',
+        ],
+        path,
+      };
+    }
+
+    // Evaluate the loaded JSON schema when available (#3522). Without a
+    // compiled schema, fall back to the minimal required-field check. The
+    // schema does not declare `entries` or `generatedAt` (undeclared
+    // properties stay allowed), so their checks below run on both paths.
+    if (this.validateFn) {
+      const schemaValid = this.validateFn(obj);
+      if (!schemaValid) {
+        for (const err of this.validateFn.errors || []) {
+          errors.push(`Schema: ${err.instancePath || '/'} ${err.message}`);
+        }
+      }
+    } else if (!Array.isArray(obj.entries) && !obj.agents && !obj.skills) {
       errors.push('Registry must contain entries, agents, or skills field');
     }
 
