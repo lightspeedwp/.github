@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Semantic-Version Release Branches** — Branch checks in CI and the npm script now accept documented release names such as `release/v1.2.3` and `release/v1.2.3-rc1`. ([#3555](https://github.com/lightspeedwp/.github/issues/3555))
 - **Changelog Merges No Longer Conflict** — The changelog file is union-merged, so a git merge of two branches that each add an entry keeps both instead of conflicting. (#3574)
 - **Issue Types Matched by Signal Strength** — A title naming a subject now classifies by that subject, so a test or compatibility update is no longer filed as a feature. ([#3577](https://github.com/lightspeedwp/.github/issues/3577))
 - **Malformed Title Prefixes Repaired** — A title that already carries a recognised prefix but no space after the colon now has the space added, instead of gaining a second prefix. ([#3578](https://github.com/lightspeedwp/.github/issues/3578))
