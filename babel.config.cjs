@@ -17,6 +17,13 @@ module.exports = {
         // no @babel/plugin-syntax-import-meta release for Babel 8; the
         // plugin was a no-op even before removal.
     ],
+    env: {
+        // Jest runs modules as CommonJS; rewrite import.meta.url so ESM
+        // sources that use it can load (#3472).
+        test: {
+            plugins: ['./scripts/babel/transform-import-meta-url.cjs'],
+        },
+    },
     ignore: process.env.BABEL_IGNORE
         ? process.env.BABEL_IGNORE.split(',')
         : [

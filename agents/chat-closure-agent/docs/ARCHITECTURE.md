@@ -32,7 +32,6 @@
 ### High-Level Data Flow
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
@@ -57,7 +56,6 @@ accDescr: Detailed diagram showing structure and relationships
 ### Component Stack
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
@@ -106,7 +104,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Extract git metadata and repository context
 
 ```mermaid
-accTitle: Sequence Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
@@ -134,7 +131,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Create and persist session memory in 10-family YAML format
 
 ```mermaid
-accTitle: Sequence Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
@@ -160,7 +156,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Generate professional handoff prompts with full context
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
@@ -216,7 +211,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Safe cleanup with validation and confirmation
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
@@ -261,7 +255,6 @@ accDescr: Detailed diagram showing structure and relationships
 ### Detection Logic
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TD
 accTitle: Graph Diagram
@@ -293,7 +286,6 @@ accDescr: Detailed diagram showing structure and relationships
 ### 10-Family YAML Structure
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
@@ -353,7 +345,6 @@ metadata:        # Agent tracking: session_id, branch, timestamp
 ### Validation & Safety Gates
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram

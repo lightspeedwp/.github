@@ -26,21 +26,52 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
+- **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
+- **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+- **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
+- **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
+
 ### Changed
 
+- **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
+- **Stale Pull Requests Self-Update** — Eligible non-draft, non-fork PRs targeting `develop` now merge it in as soon as they fall behind, so nothing stays blocked on staleness alone. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
+- **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
+- **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
 - **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
 - **Faster, Safer Workflows** — Workflows run faster, stop the metrics loop and pin every action to a fixed commit. Dependabot, Mergify and CodeRabbit now skip dead or generated paths. (#3474, #3476)
+- **Stricter Workflow Linting** — Workflow scripts now pass shell linting at every level, and the plugin and theme examples are valid and pinned to fixed commits. (#3478)
 
 ### Removed
 
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
+- **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
+- **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
 ### Fixed
 
 - **Registry Schema Enforced** — The registry validator now checks objects against the loaded schema, rejecting entries that match no branch. ([#3522](https://github.com/lightspeedwp/.github/issues/3522))
+- **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
+- **Local Git Hooks Now Run** — Restored the branch name check before a push, which never ran, and added a warning when hooks are not installed. (#3493)
+- **Graph Path No Longer Escaped for a Guessed Shell** — A plain graph path is passed through unquoted, so the suggested command is correct in any shell. ([#3567](https://github.com/lightspeedwp/.github/pull/3567))
+- **Changelog Merges No Longer Conflict** — The changelog file is union-merged, so a git merge of two branches that each add an entry keeps both instead of conflicting. (#3574)
+- **Issue Types Matched by Signal Strength** — A title naming a subject now classifies by that subject, so a test or compatibility update is no longer filed as a feature. ([#3577](https://github.com/lightspeedwp/.github/issues/3577))
+- **Malformed Title Prefixes Repaired** — A title that already carries a recognised prefix but no space after the colon now has the space added, instead of gaining a second prefix. ([#3578](https://github.com/lightspeedwp/.github/issues/3578))
+- **Wiring Guard Stops Blaming Healthy Tests** — The test wiring guard now reports an incomplete test listing as such, instead of naming suites that are in fact discovered. ([#3575](https://github.com/lightspeedwp/.github/issues/3575))
+- **Composite Action Docs Matched Reality** — Dropped both deleted actions from the reference and replaced the claim that composite actions are tested in `workflow-harness.yml`. (#3570)
+- **Issue-Type Inference Corrected** — Documentation, integration and compatibility content now lands on its correct issue type instead of a generic default. ([#3568](https://github.com/lightspeedwp/.github/issues/3568))
+- **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
+- **Labelling Keeps Unknown Labels** — The labelling automation no longer removes labels missing from the label list unless they map to an approved label, its dry-run mode now changes nothing, and it applies only valid type labels. (#3564)
+- **Metrics Aggregator Tolerates Malformed Artifacts** — Branch-validation metrics now skip a malformed artifact with a warning instead of discarding the whole run. ([#3528](https://github.com/lightspeedwp/.github/issues/3528))
+- **Broken Diagrams Repaired** — 123 diagrams in 36 documents render again; the diagram tidy-up bot now places accessibility titles correctly and no longer edits surrounding text. (#3490)
+- **PR Agent Tests Run Again** — Fixed 6 PR agent test suites that could not load, so 95 more tests now run. (#3472)
+- **Actions Import Regression Guarded** — A test now fails if a default import of the Actions toolkit returns, which is what blocked the upgrade. ([#3561](https://github.com/lightspeedwp/.github/issues/3561))
+- **Labelling Agent Crash on @actions/core 3** — The labelling and project sync agents now load with both current and upcoming versions of the GitHub Actions toolkit. ([#3503](https://github.com/lightspeedwp/.github/pull/3503))
 - **Changelog Check Timeouts** — Fixed the changelog check failing at random on slow checkouts; it now reads only the files it needs. (#3520)
 - **Issue Labelling Floods** — Relabelling issues in bulk no longer queues hundreds of labelling runs or puts back labels that were just removed. ([#3531](https://github.com/lightspeedwp/.github/issues/3531))
 - **Code Owner Reviews** — Every code owners rule now also lists the `@lightspeedwp/lightspeed` team, so pull requests opened by the sole named owner can still be approved. ([#3465](https://github.com/lightspeedwp/.github/issues/3465))
@@ -48,8 +79,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate with identical scope.
 - **Bot PR Template Bodies** — Fixed-branch bot PRs (docs regen, maintenance, metrics) now ship full pr_chore sections so the template gate passes on automation-authored PRs.
 - **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
+- **Tests No Longer Write Into the Repository** — Moved three suites' output to temporary folders, and a test run now fails if it changes any repository file. (#3498)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
+- **Windows Markdown Lint Commits Fixed** — Committing markdown changes on Windows no longer fails; the linter is now resolved directly instead of through a command that Windows could not locate. (#3459)
 - **Branding Agent Footer Config Path Fixed** — Corrected the same stale config path and dedup regex bugs in `branding.agent.js`. (#3456)
 - **Reference Detection Test Isolation Fixed** — Isolated the rename-scenario test from leaked fixture state; remaining match defect tracked separately. (#3452)
 - **Broken Reference Checks** — Fixed path matching, default and named import detection, and injected test indexes, so all reference detection tests pass. (#3460)
@@ -106,6 +139,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **GitHub Label Audit** — Audited all 169 canonical labels: `type:decision` had no issue type and 12 protected labels were missing from the label list, so they were removed from it. Added evidence and the label consolidation plan. (#3362)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)
 - **Branch Cleanup Audit Added** — Added safe-cleanup guidance with keep, review and delete categories. (#3128)

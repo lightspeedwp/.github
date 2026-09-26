@@ -1,0 +1,2902 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T044",
+  "scope": [
+    "scripts",
+    ".github/workflows",
+    ".github/labeler.yml",
+    ".github/branch-labels.yml",
+    ".github/issue-fields.yml",
+    ".github/label-governance-policy.yml",
+    ".github/labels.yml",
+    ".github/issue-types.yml",
+    ".github/ISSUE_TEMPLATE",
+    ".github/PULL_REQUEST_TEMPLATE",
+    "docs",
+    "agents",
+    "skills",
+    "instructions",
+    ".coderabbit.yml",
+    ".github/mergify.yml"
+  ],
+  "excluded": ["*/archived/*", "*/reports/*", "node_modules"],
+  "reference_count": 458,
+  "files_by_label_group": {
+    "ai-ops:": [
+      ".github/labels.yml",
+      "agents/agent.md",
+      "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "docs/LABEL_INVENTORY.md"
+    ],
+    "area:docs": [
+      "agents/pr-agent/skills/handle-pr-errors/scripts/handle-pr-errors.js",
+      "agents/pr-agent/skills/validate-and-apply-labels/scripts/__tests__/validate-and-apply-labels.test.js",
+      "agents/pr-agent/skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js",
+      "agents/prompt-engineer-agent/rules/.github-rules.js",
+      "docs/CODERABBIT_LABELS_ALIGNMENT.md",
+      "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+      "docs/ISSUE_TRIAGE_LABELING.md",
+      "docs/ISSUE_UPDATES_GUIDE.md",
+      "docs/LABELING_GOVERNANCE.md",
+      "docs/PR_GOVERNANCE.md",
+      "instructions/automation.instructions.md",
+      "scripts/agents/PHASE-3-GUIDE.md",
+      "scripts/agents/includes/handle-needs-areas.js",
+      "scripts/automation/__tests__/audit-issue-metadata.test.js",
+      "scripts/automation/__tests__/handle-needs-dev.test.js",
+      "scripts/automation/__tests__/handle-needs-planning.test.js",
+      "scripts/automation/__tests__/handle-needs-review.test.js",
+      "scripts/automation/__tests__/handle-needs-triage.test.js",
+      "scripts/automation/handlers/handle-needs-dev.js",
+      "scripts/automation/handlers/handle-needs-planning.js",
+      "scripts/automation/handlers/handle-needs-review.js",
+      "scripts/automation/handlers/handle-needs-triage.js",
+      "scripts/triage-issues-needs-triage.js",
+      "skills/audit-label-coverage/__tests__/audit-engine.test.js"
+    ],
+    "area:ops": [
+      "docs/BRANCH_TYPE_PRIORITY_MAPPING.md",
+      "docs/ISSUE-TRIAGE-GUIDE.md",
+      "scripts/triage-issues-needs-triage.js"
+    ],
+    "area:quality": ["docs/LABELING_EXAMPLES.md", "docs/LABEL_INVENTORY.md"],
+    "area:tests": [
+      ".coderabbit.yml",
+      ".github/issue-fields.yml",
+      ".github/label-governance-policy.yml",
+      ".github/labels.yml",
+      "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_TYPES.md",
+      "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "docs/CODERABBIT_LABELS_ALIGNMENT.md",
+      "docs/ISSUE-TRIAGE-GUIDE.md",
+      "docs/ISSUE_TRIAGE_LABELING.md",
+      "docs/ISSUE_TYPES.md",
+      "docs/LABEL_INVENTORY.md",
+      "scripts/apply-triage-improvements.js",
+      "scripts/automation/__tests__/handle-needs-review.test.js",
+      "scripts/automation/audit-bare-labels.js",
+      "scripts/automation/handlers/handle-needs-review.js",
+      "scripts/automation/handlers/handle-needs-triage.js",
+      "scripts/batch-label-prs.js",
+      "scripts/consolidate-issue-types.js",
+      "scripts/triage-issues-needs-triage.js"
+    ],
+    "openspec:": [
+      ".github/labels.yml",
+      "agents/issue-agent/AGENT.md",
+      "agents/issue-agent/issues.agent.md",
+      "agents/issue-agent/shared/__tests__/fixtures/labels.json",
+      "docs/ARCHITECTURE.md",
+      "docs/BRANDING_CONFIG_SPEC.md",
+      "docs/FRONTMATTER_SCHEMA.md",
+      "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+      "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+      "docs/ISSUE_TRIAGE.md",
+      "docs/LABELING_FAQ.md",
+      "docs/LABEL_COLOR_STRATEGY.md",
+      "docs/LABEL_INVENTORY.md",
+      "scripts/SCRIPT-REGISTRY.md",
+      "scripts/automation/__tests__/auto-update-all.test.js",
+      "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "scripts/automation/__tests__/phase-3-integration.test.js",
+      "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "scripts/automation/handlers/handle-issue-created.cjs",
+      "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "scripts/automation/includes/label-validator.cjs",
+      "scripts/automation/includes/phase-state-machine.cjs",
+      "scripts/validation/__tests__/openspec-labels.test.js"
+    ],
+    "priority:medium": [
+      "agents/discovery-agent/skills/lightspeed-task-breakdown-planner/references/issue-draft-rules.md",
+      "agents/prd-agent/skills/delivery-planner/references/issue-draft-rules.md",
+      "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+      "skills/design-md-agent/lightspeed-prd-task-manager/references/github-issue-drafts.md",
+      "skills/design-md-agent/lightspeed-task-breakdown-planner/references/issue-draft-rules.md",
+      "skills/prd-task-manager/references/github-issue-drafts.md",
+      "skills/task-breakdown-planner/references/issue-draft-rules.md"
+    ],
+    "scope:website": [
+      "agents/content-strategy-agent/agent/references/docs/intake/url-evidence-token-schema.yaml"
+    ],
+    "status:completed": [".github/labels.yml"],
+    "type:ai-ops": [
+      ".github/PULL_REQUEST_TEMPLATE/pr_aiops.md",
+      ".github/label-governance-policy.yml",
+      "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_TYPES.md",
+      "agents/linear-advisor-agent/agent/references/agent_files/canonical/issue-types.yml",
+      "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "docs/BRANCHING_STRATEGY.md",
+      "docs/ISSUE_FIELDS.md",
+      "docs/ISSUE_PR_TITLE_GOVERNANCE.md",
+      "docs/ISSUE_TRIAGE_AUTOMATION.md",
+      "docs/ISSUE_TYPES.md",
+      "docs/ISSUE_UPDATES_GUIDE.md",
+      "docs/LABEL_INVENTORY.md",
+      "scripts/consolidate-issue-types.js",
+      "skills/issue-type-allocator/SKILL.md"
+    ],
+    "type:question": [
+      ".github/ISSUE_TEMPLATE/06-question.md",
+      ".github/issue-fields.yml",
+      ".github/issue-types.yml",
+      ".github/label-governance-policy.yml",
+      ".github/labels.yml",
+      "docs/CODERABBIT_LABELS_ALIGNMENT.md",
+      "docs/ISSUE_FIELDS.md",
+      "docs/ISSUE_TRIAGE_AUTOMATION.md",
+      "docs/LABELING_FAQ.md",
+      "docs/LABEL_INVENTORY.md"
+    ]
+  },
+  "references": [
+    {
+      "label": "ai-ops:instructions",
+      "group": "ai-ops:",
+      "file": ".github/labels.yml",
+      "line": 611
+    },
+    {
+      "label": "ai-ops:chat-modes",
+      "group": "ai-ops:",
+      "file": ".github/labels.yml",
+      "line": 615
+    },
+    {
+      "label": "ai-ops:agents",
+      "group": "ai-ops:",
+      "file": ".github/labels.yml",
+      "line": 619
+    },
+    {
+      "label": "ai-ops:prompts",
+      "group": "ai-ops:",
+      "file": ".github/labels.yml",
+      "line": 623
+    },
+    {
+      "label": "ai-ops:datasets",
+      "group": "ai-ops:",
+      "file": ".github/labels.yml",
+      "line": 627
+    },
+    {
+      "label": "ai-ops:evaluations",
+      "group": "ai-ops:",
+      "file": ".github/labels.yml",
+      "line": 631
+    },
+    {
+      "label": "ai-ops:tools",
+      "group": "ai-ops:",
+      "file": ".github/labels.yml",
+      "line": 635
+    },
+    {
+      "label": "ai-ops:agents",
+      "group": "ai-ops:",
+      "file": "agents/agent.md",
+      "line": 19
+    },
+    {
+      "label": "ai-ops:prompts",
+      "group": "ai-ops:",
+      "file": "agents/agent.md",
+      "line": 20
+    },
+    {
+      "label": "ai-ops:instructions",
+      "group": "ai-ops:",
+      "file": "agents/agent.md",
+      "line": 21
+    },
+    {
+      "label": "ai-ops:instructions",
+      "group": "ai-ops:",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 505
+    },
+    {
+      "label": "ai-ops:chat-modes",
+      "group": "ai-ops:",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 509
+    },
+    {
+      "label": "ai-ops:agents",
+      "group": "ai-ops:",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 513
+    },
+    {
+      "label": "ai-ops:prompts",
+      "group": "ai-ops:",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 517
+    },
+    {
+      "label": "ai-ops:datasets",
+      "group": "ai-ops:",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 521
+    },
+    {
+      "label": "ai-ops:evaluations",
+      "group": "ai-ops:",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 525
+    },
+    {
+      "label": "ai-ops:tools",
+      "group": "ai-ops:",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 529
+    },
+    {
+      "label": "ai-ops:instructions",
+      "group": "ai-ops:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 290
+    },
+    {
+      "label": "ai-ops:chat-modes",
+      "group": "ai-ops:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 291
+    },
+    {
+      "label": "ai-ops:agents",
+      "group": "ai-ops:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 292
+    },
+    {
+      "label": "ai-ops:prompts",
+      "group": "ai-ops:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 293
+    },
+    {
+      "label": "ai-ops:datasets",
+      "group": "ai-ops:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 294
+    },
+    {
+      "label": "ai-ops:evaluations",
+      "group": "ai-ops:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 295
+    },
+    {
+      "label": "ai-ops:tools",
+      "group": "ai-ops:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 296
+    },
+    {
+      "label": "openspec:discovery",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 685
+    },
+    {
+      "label": "openspec:planning",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 689
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 693
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 697
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 701
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 705
+    },
+    {
+      "label": "openspec:status-testing",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 709
+    },
+    {
+      "label": "openspec:status-production",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 713
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": ".github/labels.yml",
+      "line": 717
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "agents/issue-agent/AGENT.md",
+      "line": 10
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "agents/issue-agent/AGENT.md",
+      "line": 11
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "agents/issue-agent/AGENT.md",
+      "line": 12
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "agents/issue-agent/AGENT.md",
+      "line": 178
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "agents/issue-agent/AGENT.md",
+      "line": 179
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "agents/issue-agent/AGENT.md",
+      "line": 180
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "agents/issue-agent/issues.agent.md",
+      "line": 10
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "agents/issue-agent/issues.agent.md",
+      "line": 11
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "agents/issue-agent/issues.agent.md",
+      "line": 12
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "agents/issue-agent/issues.agent.md",
+      "line": 178
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "agents/issue-agent/issues.agent.md",
+      "line": 179
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "agents/issue-agent/issues.agent.md",
+      "line": 180
+    },
+    {
+      "label": "openspec:tracking",
+      "group": "openspec:",
+      "file": "agents/issue-agent/shared/__tests__/fixtures/labels.json",
+      "line": 132
+    },
+    {
+      "label": "openspec:tracking",
+      "group": "openspec:",
+      "file": "agents/issue-agent/shared/__tests__/fixtures/labels.json",
+      "line": 158
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/ARCHITECTURE.md",
+      "line": 12
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/ARCHITECTURE.md",
+      "line": 13
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/ARCHITECTURE.md",
+      "line": 14
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/ARCHITECTURE.md",
+      "line": 107
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/ARCHITECTURE.md",
+      "line": 107
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/ARCHITECTURE.md",
+      "line": 107
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/BRANDING_CONFIG_SPEC.md",
+      "line": 12
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/BRANDING_CONFIG_SPEC.md",
+      "line": 13
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/BRANDING_CONFIG_SPEC.md",
+      "line": 14
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/FRONTMATTER_SCHEMA.md",
+      "line": 12
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/FRONTMATTER_SCHEMA.md",
+      "line": 13
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/FRONTMATTER_SCHEMA.md",
+      "line": 14
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+      "line": 12
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+      "line": 13
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+      "line": 14
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+      "line": 13
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+      "line": 14
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+      "line": 15
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/ISSUE_TRIAGE.md",
+      "line": 12
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/ISSUE_TRIAGE.md",
+      "line": 13
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/ISSUE_TRIAGE.md",
+      "line": 14
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/LABELING_FAQ.md",
+      "line": 14
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/LABELING_FAQ.md",
+      "line": 15
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/LABELING_FAQ.md",
+      "line": 16
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/LABEL_COLOR_STRATEGY.md",
+      "line": 17
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/LABEL_COLOR_STRATEGY.md",
+      "line": 18
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/LABEL_COLOR_STRATEGY.md",
+      "line": 19
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 18
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 19
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 20
+    },
+    {
+      "label": "openspec:status",
+      "group": "openspec:",
+      "file": "scripts/SCRIPT-REGISTRY.md",
+      "line": 6
+    },
+    {
+      "label": "openspec:domain",
+      "group": "openspec:",
+      "file": "scripts/SCRIPT-REGISTRY.md",
+      "line": 7
+    },
+    {
+      "label": "openspec:priority",
+      "group": "openspec:",
+      "file": "scripts/SCRIPT-REGISTRY.md",
+      "line": 8
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/auto-update-all.test.js",
+      "line": 174
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/auto-update-all.test.js",
+      "line": 179
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/auto-update-all.test.js",
+      "line": 359
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/auto-update-all.test.js",
+      "line": 360
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 31
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 40
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 45
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 53
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 58
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 66
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 71
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 79
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 84
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 96
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 101
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 113
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 118
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 126
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 143
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 151
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 153
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 160
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 172
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 189
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 201
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 214
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 351
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 354
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 360
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 364
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 369
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 386
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 400
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 408
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 433
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 453
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 470
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 495
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 528
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 540
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 550
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 569
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 575
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 579
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 585
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 591
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 597
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 601
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 607
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 613
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 620
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 639
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 647
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/orchestrate-phase-progression.test.js",
+      "line": 648
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 43
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 54
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 73
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 81
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 118
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 121
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 128
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 129
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 140
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 151
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 170
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 176
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 177
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 183
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 184
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 277
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 278
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 289
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 290
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 307
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 308
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 322
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 341
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 380
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 401
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 406
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 407
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 421
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 422
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 423
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 424
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 425
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 426
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 442
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 443
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 446
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-integration.test.js",
+      "line": 447
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 175
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 176
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 192
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 203
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 208
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 219
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 240
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 241
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 247
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 248
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 258
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 262
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 266
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 267
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 289
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 290
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 293
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 296
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 328
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 332
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 338
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 382
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 389
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 403
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 416
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 437
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 441
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 446
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 451
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 456
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 467
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/phase-3-orchestration.test.js",
+      "line": 468
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 29
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 37
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 45
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 52
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 60
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 68
+    },
+    {
+      "label": "openspec:unknown",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 74
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 83
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 91
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 99
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 107
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 115
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 123
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 131
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 139
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 147
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 155
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 164
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 188
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 199
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 213
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 234
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 246
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 274
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 347
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 363
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 377
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 457
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 463
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 465
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 473
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/__tests__/sync-labels-on-event.test.js",
+      "line": 491
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/handle-issue-created.cjs",
+      "line": 18
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/handle-issue-created.cjs",
+      "line": 19
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/handle-issue-created.cjs",
+      "line": 20
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/handle-issue-created.cjs",
+      "line": 21
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/handle-issue-created.cjs",
+      "line": 22
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/handle-issue-created.cjs",
+      "line": 57
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/handle-issue-created.cjs",
+      "line": 146
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 237
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 241
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 242
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 243
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 247
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 251
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 264
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 265
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 268
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 269
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 271
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 272
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 274
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 275
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 278
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/handlers/sync-labels-on-event.cjs",
+      "line": 279
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 14
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 15
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 16
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 19
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 20
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 21
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 39
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 44
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 45
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 46
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 51
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 62
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 66
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 67
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 68
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 72
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 73
+    },
+    {
+      "label": "openspec:specification",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 138
+    },
+    {
+      "label": "openspec:implementation",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/label-validator.cjs",
+      "line": 141
+    },
+    {
+      "label": "openspec:specification-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 7
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 8
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 9
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 10
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 11
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 12
+    },
+    {
+      "label": "openspec:specification",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 161
+    },
+    {
+      "label": "openspec:implementation",
+      "group": "openspec:",
+      "file": "scripts/automation/includes/phase-state-machine.cjs",
+      "line": 164
+    },
+    {
+      "label": "openspec:discovery",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 28
+    },
+    {
+      "label": "openspec:planning",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 29
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 30
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 31
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 32
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 33
+    },
+    {
+      "label": "openspec:status-testing",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 37
+    },
+    {
+      "label": "openspec:status-production",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 38
+    },
+    {
+      "label": "openspec:implementation-complete",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 39
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 99
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 100
+    },
+    {
+      "label": "openspec:discovery",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 147
+    },
+    {
+      "label": "openspec:planning",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 148
+    },
+    {
+      "label": "openspec:specification-in-progress",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 149
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 150
+    },
+    {
+      "label": "openspec:implementation-pending",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 151
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 152
+    },
+    {
+      "label": "openspec:status-testing",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 153
+    },
+    {
+      "label": "openspec:status-production",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 154
+    },
+    {
+      "label": "openspec:specification-complete",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 164
+    },
+    {
+      "label": "openspec:implementation-in-progress",
+      "group": "openspec:",
+      "file": "scripts/validation/__tests__/openspec-labels.test.js",
+      "line": 165
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": ".github/ISSUE_TEMPLATE/06-question.md",
+      "line": 4
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": ".github/ISSUE_TEMPLATE/06-question.md",
+      "line": 5
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": ".github/issue-fields.yml",
+      "line": 80
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": ".github/issue-types.yml",
+      "line": 31
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": ".github/label-governance-policy.yml",
+      "line": 35
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": ".github/labels.yml",
+      "line": 149
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": "docs/CODERABBIT_LABELS_ALIGNMENT.md",
+      "line": 229
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": "docs/ISSUE_FIELDS.md",
+      "line": 85
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": "docs/ISSUE_TRIAGE_AUTOMATION.md",
+      "line": 368
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": "docs/LABELING_FAQ.md",
+      "line": 323
+    },
+    {
+      "label": "type:question",
+      "group": "type:question",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 125
+    },
+    {
+      "label": "status:completed",
+      "group": "status:completed",
+      "file": ".github/labels.yml",
+      "line": 87
+    },
+    {
+      "label": "status:completed",
+      "group": "status:completed",
+      "file": ".github/labels.yml",
+      "line": 120
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": ".coderabbit.yml",
+      "line": 907
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": ".github/issue-fields.yml",
+      "line": 298
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": ".github/label-governance-policy.yml",
+      "line": 50
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": ".github/labels.yml",
+      "line": 307
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_TYPES.md",
+      "line": 82
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 269
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "docs/CODERABBIT_LABELS_ALIGNMENT.md",
+      "line": 123
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "docs/ISSUE-TRIAGE-GUIDE.md",
+      "line": 43
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "docs/ISSUE-TRIAGE-GUIDE.md",
+      "line": 193
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "docs/ISSUE_TRIAGE_LABELING.md",
+      "line": 104
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "docs/ISSUE_TRIAGE_LABELING.md",
+      "line": 427
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "docs/ISSUE_TYPES.md",
+      "line": 76
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 170
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/apply-triage-improvements.js",
+      "line": 36
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/apply-triage-improvements.js",
+      "line": 37
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/apply-triage-improvements.js",
+      "line": 38
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/apply-triage-improvements.js",
+      "line": 39
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/automation/__tests__/handle-needs-review.test.js",
+      "line": 38
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/automation/audit-bare-labels.js",
+      "line": 291
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/automation/handlers/handle-needs-review.js",
+      "line": 45
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/automation/handlers/handle-needs-triage.js",
+      "line": 163
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/automation/handlers/handle-needs-triage.js",
+      "line": 189
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/batch-label-prs.js",
+      "line": 153
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/consolidate-issue-types.js",
+      "line": 104
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/triage-issues-needs-triage.js",
+      "line": 52
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/triage-issues-needs-triage.js",
+      "line": 53
+    },
+    {
+      "label": "area:tests",
+      "group": "area:tests",
+      "file": "scripts/triage-issues-needs-triage.js",
+      "line": 54
+    },
+    {
+      "label": "priority:medium",
+      "group": "priority:medium",
+      "file": "agents/discovery-agent/skills/lightspeed-task-breakdown-planner/references/issue-draft-rules.md",
+      "line": 80
+    },
+    {
+      "label": "priority:medium",
+      "group": "priority:medium",
+      "file": "agents/prd-agent/skills/delivery-planner/references/issue-draft-rules.md",
+      "line": 80
+    },
+    {
+      "label": "priority:medium",
+      "group": "priority:medium",
+      "file": "docs/ISSUE_MANAGEMENT_QUICKSTART.md",
+      "line": 116
+    },
+    {
+      "label": "priority:medium",
+      "group": "priority:medium",
+      "file": "skills/design-md-agent/lightspeed-prd-task-manager/references/github-issue-drafts.md",
+      "line": 74
+    },
+    {
+      "label": "priority:medium",
+      "group": "priority:medium",
+      "file": "skills/design-md-agent/lightspeed-task-breakdown-planner/references/issue-draft-rules.md",
+      "line": 80
+    },
+    {
+      "label": "priority:medium",
+      "group": "priority:medium",
+      "file": "skills/prd-task-manager/references/github-issue-drafts.md",
+      "line": 74
+    },
+    {
+      "label": "priority:medium",
+      "group": "priority:medium",
+      "file": "skills/task-breakdown-planner/references/issue-draft-rules.md",
+      "line": 80
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/handle-pr-errors/scripts/handle-pr-errors.js",
+      "line": 273
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/validate-and-apply-labels/scripts/__tests__/validate-and-apply-labels.test.js",
+      "line": 360
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/validate-and-apply-labels/scripts/__tests__/validate-and-apply-labels.test.js",
+      "line": 365
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/validate-and-apply-labels/scripts/__tests__/validate-and-apply-labels.test.js",
+      "line": 374
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/validate-and-apply-labels/scripts/__tests__/validate-and-apply-labels.test.js",
+      "line": 569
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/validate-and-apply-labels/scripts/__tests__/validate-and-apply-labels.test.js",
+      "line": 571
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/validate-and-apply-labels/scripts/__tests__/validate-and-apply-labels.test.js",
+      "line": 576
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/pr-agent/skills/validate-and-apply-labels/scripts/validate-and-apply-labels.js",
+      "line": 33
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "agents/prompt-engineer-agent/rules/.github-rules.js",
+      "line": 446
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/CODERABBIT_LABELS_ALIGNMENT.md",
+      "line": 58
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_MAINTENANCE_SCRIPTS.md",
+      "line": 309
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_TRIAGE_LABELING.md",
+      "line": 105
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_TRIAGE_LABELING.md",
+      "line": 445
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 19
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 46
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 132
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 207
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 238
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 270
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 302
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 336
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 371
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 405
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 431
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 463
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 473
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 502
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/LABELING_GOVERNANCE.md",
+      "line": 188
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/PR_GOVERNANCE.md",
+      "line": 172
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/PR_GOVERNANCE.md",
+      "line": 185
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/PR_GOVERNANCE.md",
+      "line": 191
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "docs/PR_GOVERNANCE.md",
+      "line": 192
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "instructions/automation.instructions.md",
+      "line": 277
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "instructions/automation.instructions.md",
+      "line": 306
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/agents/PHASE-3-GUIDE.md",
+      "line": 158
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/agents/includes/handle-needs-areas.js",
+      "line": 5
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/audit-issue-metadata.test.js",
+      "line": 75
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/audit-issue-metadata.test.js",
+      "line": 77
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-dev.test.js",
+      "line": 84
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-dev.test.js",
+      "line": 86
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-dev.test.js",
+      "line": 196
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-planning.test.js",
+      "line": 82
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-planning.test.js",
+      "line": 84
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-planning.test.js",
+      "line": 229
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-review.test.js",
+      "line": 34
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-review.test.js",
+      "line": 278
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-review.test.js",
+      "line": 295
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/__tests__/handle-needs-triage.test.js",
+      "line": 109
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/handlers/handle-needs-dev.js",
+      "line": 56
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/handlers/handle-needs-planning.js",
+      "line": 41
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/handlers/handle-needs-review.js",
+      "line": 41
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/handlers/handle-needs-triage.js",
+      "line": 118
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/automation/handlers/handle-needs-triage.js",
+      "line": 185
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "scripts/triage-issues-needs-triage.js",
+      "line": 49
+    },
+    {
+      "label": "area:docs",
+      "group": "area:docs",
+      "file": "skills/audit-label-coverage/__tests__/audit-engine.test.js",
+      "line": 199
+    },
+    {
+      "label": "area:ops",
+      "group": "area:ops",
+      "file": "docs/BRANCH_TYPE_PRIORITY_MAPPING.md",
+      "line": 233
+    },
+    {
+      "label": "area:ops",
+      "group": "area:ops",
+      "file": "docs/ISSUE-TRIAGE-GUIDE.md",
+      "line": 46
+    },
+    {
+      "label": "area:ops",
+      "group": "area:ops",
+      "file": "docs/ISSUE-TRIAGE-GUIDE.md",
+      "line": 196
+    },
+    {
+      "label": "area:ops",
+      "group": "area:ops",
+      "file": "scripts/triage-issues-needs-triage.js",
+      "line": 63
+    },
+    {
+      "label": "scope: website",
+      "group": "scope:website",
+      "file": "agents/content-strategy-agent/agent/references/docs/intake/url-evidence-token-schema.yaml",
+      "line": 248
+    },
+    {
+      "label": "area:quality",
+      "group": "area:quality",
+      "file": "docs/LABELING_EXAMPLES.md",
+      "line": 145
+    },
+    {
+      "label": "area:quality",
+      "group": "area:quality",
+      "file": "docs/LABELING_EXAMPLES.md",
+      "line": 154
+    },
+    {
+      "label": "area:quality",
+      "group": "area:quality",
+      "file": "docs/LABELING_EXAMPLES.md",
+      "line": 167
+    },
+    {
+      "label": "area:quality",
+      "group": "area:quality",
+      "file": "docs/LABELING_EXAMPLES.md",
+      "line": 177
+    },
+    {
+      "label": "area:quality",
+      "group": "area:quality",
+      "file": "docs/LABELING_EXAMPLES.md",
+      "line": 332
+    },
+    {
+      "label": "area:quality",
+      "group": "area:quality",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 172
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": ".github/PULL_REQUEST_TEMPLATE/pr_aiops.md",
+      "line": 6
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": ".github/PULL_REQUEST_TEMPLATE/pr_aiops.md",
+      "line": 7
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": ".github/label-governance-policy.yml",
+      "line": 24
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_TYPES.md",
+      "line": 61
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/ISSUE_TYPES.md",
+      "line": 95
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/issue-types.yml",
+      "line": 76
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "agents/linear-advisor-agent/agent/references/agent_files/canonical/labels.yml",
+      "line": 199
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/BRANCHING_STRATEGY.md",
+      "line": 281
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/BRANCHING_STRATEGY.md",
+      "line": 371
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_FIELDS.md",
+      "line": 75
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_FIELDS.md",
+      "line": 114
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_FIELDS.md",
+      "line": 251
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_PR_TITLE_GOVERNANCE.md",
+      "line": 186
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_TRIAGE_AUTOMATION.md",
+      "line": 368
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_TYPES.md",
+      "line": 55
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_TYPES.md",
+      "line": 89
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 124
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 130
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 294
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 300
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 328
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 334
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 363
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 369
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 397
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 403
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 429
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 462
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 463
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 472
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 473
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 487
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 498
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/ISSUE_UPDATES_GUIDE.md",
+      "line": 500
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "docs/LABEL_INVENTORY.md",
+      "line": 123
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "scripts/consolidate-issue-types.js",
+      "line": 83
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "scripts/consolidate-issue-types.js",
+      "line": 117
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "skills/issue-type-allocator/SKILL.md",
+      "line": 90
+    },
+    {
+      "label": "type:ai-ops",
+      "group": "type:ai-ops",
+      "file": "skills/issue-type-allocator/SKILL.md",
+      "line": 282
+    }
+  ]
+}

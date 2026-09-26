@@ -1,0 +1,88 @@
+{
+  "gaps": [
+    {
+      "gap": "Bulk backfill of labels on existing open PRs and issues (the agent only labels the item in the event payload).",
+      "last_attempted_in": "batch-label-prs.yml; issue-labeling-automation.yml",
+      "current_coverage": "None. labeling.agent.js:290-295 returns when there is no issue/PR in context; the schedule and dispatch jobs of labeling-unified.yml hit that path.",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Scheduled label audit reporting (meta:* coverage, status:needs-review/needs-triage age).",
+      "last_attempted_in": "label-audit-report.yml",
+      "current_coverage": "Nominal only: labeling-unified.yml scheduled-cleanup (lines 114-141) runs the agent without context, which does nothing, and uploads nothing.",
+      "recommendation": "restore_workflow"
+    },
+    {
+      "gap": "meta:has-pr maintenance from linked PRs.",
+      "last_attempted_in": "meta-labels-sync.yml",
+      "current_coverage": "None in .github/workflows/*.yml; script scripts/automation/sync-pr-labels.js exists unused.",
+      "recommendation": "restore_workflow"
+    },
+    {
+      "gap": "meta:stale detection for inactive issues.",
+      "last_attempted_in": "meta-labels-sync.yml",
+      "current_coverage": "None in .github/workflows/*.yml; script scripts/automation/manage-stale-issues.js exists unused.",
+      "recommendation": "restore_workflow"
+    },
+    {
+      "gap": "status:blocked management from 'Blocked by: #N' dependencies.",
+      "last_attempted_in": "manage-blocking-status-labels.yml",
+      "current_coverage": "None. status-enforcer.js only enforces one status label at a time (lines 18-24); nothing adds or removes status:blocked.",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Migrating bare labels to canonical labels (the agent deletes them instead).",
+      "last_attempted_in": "remediate-bare-labels.yml",
+      "current_coverage": "Partial: labeling.agent.js:215-245 removes non-canonical labels; labels.yml defines no aliases, so findStandardLabel never migrates (label-lookup.js:47-51).",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Telling contributors when a non-canonical label is removed or rejected.",
+      "last_attempted_in": "validate-issue-labels.yml; labeling-governance.yml (detect-bare-labels)",
+      "current_coverage": "None; the agent logs only to the job log and summary (labeling.agent.js:241, 561).",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Required PR label governance status check (at least one type:* label).",
+      "last_attempted_in": "labeling-governance.yml (labeling-check)",
+      "current_coverage": "None. labeling-unified.yml:61-63 runs validate-labels-before-creation.cjs without --labels, which always exits 1, and continue-on-error hides it.",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Template label guardrail (labels in issue/PR templates exist in labels.yml).",
+      "last_attempted_in": "labeling.yml; labeling-governance.yml (check-template-labels.js)",
+      "current_coverage": "Lost: labeling-unified.yml:62 calls validate-labels-before-creation.cjs instead of check-template-labels.js, which exists and passes locally.",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Status label clean-up when an issue is closed.",
+      "last_attempted_in": "labeling-governance.yml (cleanup-labels-on-close)",
+      "current_coverage": "None; labeling-unified.yml:11 listens to issues [opened, edited, reopened] only.",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Dependabot security-update label.",
+      "last_attempted_in": "labeling-governance.yml (label-dependabot-security)",
+      "current_coverage": "None; the label meta:dependabot-security is not in labels.yml, so this first needs a [LABEL-UPDATE-REQUEST].",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Syncing repository label definitions with labels.yml.",
+      "last_attempted_in": "labeling.yml; labeling-governance.yml (label-sync.js)",
+      "current_coverage": "None, and never effective: label-sync.js has no entrypoint (line 441). Spec 008 Stage 3 applies the approved label changes as a one-off.",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "Discussion labelling.",
+      "last_attempted_in": "labeling.yml; labeling-governance.yml",
+      "current_coverage": "Trigger only: labeling-unified.yml:12-13 runs on discussions, but the agent handles only issues and PRs (labeling.agent.js:282-295).",
+      "recommendation": "implement_in_unified_agent"
+    },
+    {
+      "gap": "OpenSpec phase-progression and label-combination validation.",
+      "last_attempted_in": "openspec-sync-labels.yml; openspec-validate-labels.yml",
+      "current_coverage": "None; obsolete under spec 008 FR-011 (openspec:* to spec:*) and FR-013 (OpenSpec to Spec Kit).",
+      "recommendation": "none_needed"
+    }
+  ]
+}
