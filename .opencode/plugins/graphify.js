@@ -7,15 +7,21 @@
 import { existsSync } from "fs";
 import { join } from "path";
 
-// Quote the path as one literal shell argument. Single quotes stop $, backtick and backslash
-// handling in both POSIX shells and PowerShell; only an embedded single quote needs escaping, and
-// PowerShell and POSIX shells spell that differently. On Windows the separators become forward
-// slashes, which every Windows shell accepts; on POSIX a backslash is a filename character, so
-// the path is left alone.
-const shellQuote = (path) =>
-  process.platform === "win32"
+// Quote the path as one literal shell argument. Most graph paths are plain
+// absolute paths that no shell will split or interpret, so emit those bare: that
+// is correct in bash, zsh and every PowerShell, and it removes the need to guess
+// which shell OpenCode will run. Only a path containing a shell metacharacter
+// needs quoting, and for that case no single form is valid in both POSIX shells
+// and PowerShell (`''` versus `'\''`), while the plugin API reports no shell, so
+// the platform is the only remaining signal.
+const SHELL_SAFE_PATH = /^[A-Za-z0-9_@+=:,./-]+$/;
+
+const shellQuote = (path) => {
+  if (SHELL_SAFE_PATH.test(path)) return path;
+  return process.platform === "win32"
     ? `'${path.replace(/\\/g, "/").replace(/'/g, "''")}'`
     : `'${path.replace(/'/g, "'\\''")}'`;
+};
 
 const reminder = (graph) =>
   `[graphify] knowledge graph at ${graph}. For focused questions, run ` +

@@ -1,5 +1,6 @@
 # graft's cards are gitignored but should stay greppable: ripgrep reads
-# .ignore before .gitignore, so this re-admits the tree to search only.
-!graft/
+# .ignore before .gitignore, so this re-admits the tree to search only. Anchored so a
+# nested directory of the same name is not re-admitted.
+!/graft/
 graft/.cache/
 graft/.graph/
