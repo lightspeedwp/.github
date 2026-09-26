@@ -5,12 +5,14 @@
 # created from branches matching each type.
 #
 # Format: Each type has:
-#   - default_labels: Always applied (must exist in .github/labels.yml)
-#   - area_keywords: Used for scope-based area label detection
+#   - default_labels: Router-owned type/priority labels only (must exist in
+#     .github/labels.yml)
+#   - area_keywords: Scope hints for review; file-based area labels are owned
+#     by .github/labeler.yml
 #
-# Area Detection: If branch scope contains any of the keywords, the
-# corresponding area label is applied (e.g., scope: "api-auth" matches
-# both "api" and "security" keywords → applies area:api + area:security)
+# Area Detection: Scope keywords remain available as routing hints, but the
+# router does not apply area labels. This keeps one owner for area labels and
+# prevents branch-name guesses from fighting file-based labelling.
 #
 # Validation: All labels verified against canonical .github/labels.yml
 # Last verified: 2026-09-14
@@ -127,7 +129,6 @@ branch_labels:
   ci:
     default_labels:
       - type:ci
-      - area:ci
     area_keywords:
       - workflow
       - action
@@ -136,7 +137,6 @@ branch_labels:
   build:
     default_labels:
       - type:build
-      - area:ci
     area_keywords:
       - build
       - webpack
@@ -146,7 +146,6 @@ branch_labels:
   deps:
     default_labels:
       - type:dependency
-      - area:dependencies
     area_keywords: []
 
   # Security
@@ -166,7 +165,6 @@ branch_labels:
   design:
     default_labels:
       - type:design
-      - area:design-system
     area_keywords:
       - design
       - component
@@ -176,7 +174,6 @@ branch_labels:
   ds:
     default_labels:
       - type:design
-      - area:design-system
     area_keywords:
       - design
       - system
@@ -184,7 +181,6 @@ branch_labels:
   a11y:
     default_labels:
       - type:a11y
-      - area:a11y
     area_keywords:
       - a11y
       - accessibility
@@ -193,7 +189,6 @@ branch_labels:
   ux:
     default_labels:
       - type:design
-      - area:design-system
     area_keywords:
       - ux
       - user-experience
@@ -203,7 +198,6 @@ branch_labels:
   ops:
     default_labels:
       - type:automation
-      - area:infrastructure
     area_keywords:
       - deployment
       - infrastructure
@@ -214,7 +208,6 @@ branch_labels:
   audit:
     default_labels:
       - type:review
-      - area:ci
     area_keywords:
       - audit
       - review
@@ -224,7 +217,6 @@ branch_labels:
   codex:
     default_labels:
       - type:aiops
-      - area:ai
     area_keywords:
       - ai
       - generation

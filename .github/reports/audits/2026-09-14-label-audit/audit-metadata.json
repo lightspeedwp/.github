@@ -1,0 +1,32 @@
+{
+  "audit_date": "2026-09-14",
+  "generated_at": "2026-09-24",
+  "repository": "lightspeedwp/.github",
+  "specification": ".github/specs/008-label-audit-consolidation/",
+  "scope": [
+    ".github/labels.yml",
+    ".github/issue-types.yml",
+    ".github/label-governance-policy.yml",
+    "docs/LABEL_*.md, docs/ISSUE_*.md, docs/PR_*.md (18 files)",
+    ".github/workflows/archived/2026-09-11/labeling/ (11 workflows)"
+  ],
+  "total_labels_audited": 169,
+  "label_families": 15,
+  "total_findings": 2,
+  "findings_by_severity": {
+    "CRITICAL": 0,
+    "HIGH": 1,
+    "MEDIUM": 1,
+    "LOW": 0
+  },
+  "affected_labels": 13,
+  "duplicate_candidates": 23,
+  "labeling_gaps": 36,
+  "pending": [
+    "Live GitHub label inventory (T041)",
+    "Linear label export (T042)",
+    "Usage-based duplicate ranking (SC-004)"
+  ],
+  "auditor": "Claude Code, for @ashley (label governance owner)",
+  "version": "1.0.0"
+}
