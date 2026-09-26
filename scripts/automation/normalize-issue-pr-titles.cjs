@@ -186,11 +186,11 @@ async function getTypePrefix(item, owner, repo) {
 
 /**
  * Check if a title starts with a recognized type prefix, including decision and question.
- * Matching ignores case; whitespace and title text after the colon are optional.
+ * Matching ignores case and requires whitespace after the colon, but no title text.
  */
 function isAlreadyPrefixed(title) {
   const prefixPattern =
-    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|decision|question):\s*/i;
+    /^(fix|feat|hotfix|refactor|chore|docs|test|perf|ci|build|deps|security|design|a11y|ux|release|research|revert|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|decision|question):\s+/i;
   return prefixPattern.test(title);
 }
 
