@@ -6,9 +6,11 @@
 const {
   normalizeTitle,
   isAlreadyPrefixed,
+  getTypePrefix,
   parseArgs,
   formatDate,
 } = require("../normalize-issue-pr-titles");
+const cjsNormalizer = require("../normalize-issue-pr-titles.cjs");
 
 describe("normalizeTitle()", () => {
   describe("Basic functionality", () => {
@@ -117,6 +119,8 @@ describe("normalizeTitle()", () => {
         "qa",
         "uat",
         "audit",
+        "decision",
+        "question",
       ];
 
       prefixes.forEach((prefix) => {
@@ -538,5 +542,86 @@ describe("Boundary conditions and error tolerance", () => {
         expect(isAlreadyPrefixed(result)).toBe(true);
       }
     });
+  });
+});
+
+describe("getTypePrefix() for Decision and Question issues", () => {
+  it("gives type:decision issues the decision prefix, not chore", async () => {
+    const item = { number: 1, labels: [{ name: "type:decision" }] };
+    await expect(getTypePrefix(item, "o", "r")).resolves.toBe("decision");
+  });
+
+  it("keeps the question prefix for issues still labelled type:question", async () => {
+    const item = { number: 2, labels: [{ name: "type:question" }] };
+    await expect(getTypePrefix(item, "o", "r")).resolves.toBe("question");
+  });
+});
+
+describe("CommonJS and JavaScript normalisers stay in parity", () => {
+  // scripts/automation ships both normalize-issue-pr-titles.cjs and
+  // normalize-issue-pr-titles.js. Requiring the extensionless path resolves to
+  // the .js file, so the .cjs copy drifted unnoticed: it accepted bare
+  // "decision:"/"question:" prefixes because its pattern used \s* while the
+  // .js used \s+, leaving malformed titles unnormalised.
+  const titles = [
+    "feat: Add new feature",
+    "fix: Fix bug",
+    "docs: Update documentation",
+    "decision: Adopt GraphQL",
+    "question: How do we sync",
+    "DECISION: Adopt GraphQL",
+    "feat:",
+    "fix:",
+    "decision:",
+    "question:",
+    "feat: ",
+    "decision: ",
+    "feat:  Double space",
+    "feat:\tTab",
+    "Add new feature",
+    "feature: Not a valid prefix",
+    "bug: Not a valid prefix",
+    "Something decision: in the middle",
+    "HTTP: The web protocol",
+    "feat: Note: nested colon",
+    "",
+    "   ",
+  ];
+
+  it.each(titles)("isAlreadyPrefixed agrees on %j", (title) => {
+    expect(cjsNormalizer.isAlreadyPrefixed(title)).toBe(
+      isAlreadyPrefixed(title),
+    );
+  });
+
+  it.each(titles)("normalizeTitle agrees on %j", (title) => {
+    for (const prefix of ["decision", "question", "feat", "chore"]) {
+      expect(cjsNormalizer.normalizeTitle(title, prefix)).toBe(
+        normalizeTitle(title, prefix),
+      );
+    }
+  });
+
+  it("requires whitespace after the colon for decision and question", () => {
+    for (const check of [cjsNormalizer.isAlreadyPrefixed, isAlreadyPrefixed]) {
+      expect(check("decision:Adopt GraphQL")).toBe(false);
+      expect(check("question:How do we sync")).toBe(false);
+      expect(check("decision: Adopt GraphQL")).toBe(true);
+      expect(check("question: How do we sync")).toBe(true);
+    }
+  });
+
+  it("normalises a malformed decision title in both implementations", () => {
+    for (const normalizer of [
+      cjsNormalizer,
+      { normalizeTitle, isAlreadyPrefixed },
+    ]) {
+      expect(
+        normalizer.normalizeTitle("decision:Adopt GraphQL", "decision"),
+      ).toBe("decision: decision:Adopt GraphQL");
+      expect(
+        normalizer.normalizeTitle("question:How do we sync", "question"),
+      ).toBe("question: question:How do we sync");
+    }
   });
 });

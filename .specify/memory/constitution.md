@@ -91,8 +91,8 @@ All governance decisions MUST be supported by continuous metrics: specification 
 
 | File | Purpose | Amendment Process |
 |------|---------|------------------|
-| `.github/labels.yml` | Canonical 158 labels | Issue: `[LABEL-UPDATE-REQUEST]` + approval |
-| `.github/issue-types.yml` | 24 issue types | Issue: `[ISSUE-TYPE-UPDATE-REQUEST]` + approval |
+| `.github/labels.yml` | Canonical 169 labels | Issue: `[LABEL-UPDATE-REQUEST]` + approval |
+| `.github/issue-types.yml` | 25 issue types | Issue: `[ISSUE-TYPE-UPDATE-REQUEST]` + approval |
 | `.github/ISSUE_TEMPLATE/*.md` | 26 issue templates | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
 | `.github/PULL_REQUEST_TEMPLATE/*.md` | 19 PR templates | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
 
@@ -122,7 +122,7 @@ GitHub issue creation is routed by issue type. Each canonical issue type in `.gi
 | Feature | 03-feature.md | type:feature | New capability, user-facing enhancement |
 | Design | 04-design.md | type:design | Design system, UI/UX, visual assets |
 | Epic | 05-epic.md | type:epic | Large initiative spanning multiple features |
-| Question | 06-question.md | type:question | Support inquiry, clarification needed |
+| Decision | 06-decision.md | type:decision | Decision record: context, options considered, outcome, consequences |
 | Improvement | 07-improvement.md | type:improve | Enhancement to existing feature |
 | Chore | 08-chore.md | type:chore | Maintenance, no user-facing changes |
 | CI | 09-ci.md | type:ci | CI/CD pipeline, automation, GitHub Actions |
@@ -140,8 +140,10 @@ GitHub issue creation is routed by issue type. Each canonical issue type in `.gi
 | Audit | 21-audit.md | type:audit | Code audit, compliance review, quality check |
 | Review | 22-review.md | type:review | Process review, retrospective, feedback |
 | AI Ops | 23-aiops.md | type:aiops | AI-assisted operations, automation agents |
-| Content Modelling | 24-content-modelling.md | (no standard label) | Content structure, schema design |
-| Build | 25-build.md | (no standard label) | Build tooling, compilation, bundling |
+| Content Modelling | 24-content-modelling.md | type:content-modelling | Content structure, schema design |
+| Build | 25-build.md | type:build | Build tooling, compilation, bundling |
+
+**Decision replaces Question**: GitHub and Linear allow at most 25 issue types, so `type:decision` takes the slot previously held by Question (`type:question`). Questions and support requests MUST go to GitHub Discussions (`discussion:support`), not issues. Decision work that changes files MUST use a `docs/` branch and the `pr_docs.md` PR template. Until the `[ISSUE-TYPE-UPDATE-REQUEST]`, `[TEMPLATE-UPDATE-REQUEST]` and `[LABEL-UPDATE-REQUEST]` changes are merged, `06-question.md` and `type:question` remain in place and MUST NOT be used for new issues.
 
 **Enforcement**: All public issues MUST use exactly one type from the canonical set. Issues without a valid type MUST be closed or reassigned with a supportive comment. Issue creation forms enforce type selection; `type:*` labels are applied automatically by issue routing workflows.
 
@@ -201,7 +203,7 @@ These prefixes are NEVER allowed and trigger validation failures:
 | `copilot/` | Reserved for GitHub Copilot integration | Resolved via linked issue type |
 | `openai/` | Reserved for OpenAI integration | Resolved via linked issue type |
 
-When a PR uses a forbidden prefix (e.g., `claude/my-feature`), the `pr-template-resolver.yml` workflow applies fallback routing: it queries the linked issue, extracts the issue type (from issue type field, `type:*` label, or PR description), and maps the type to the correct template. **This fallback routing is a temporary measure only; the branch MUST be corrected to the proper prefix before merge.**
+When a PR uses a forbidden prefix (e.g., `claude/my-feature`), fallback routing is intended to query the linked issue, extract the issue type (from issue type field, `type:*` label, or PR description), and map the type to the correct template. **Not yet implemented:** `pr-template-resolver.yml` does not exist; `pr-template-routing.yml` currently routes by branch prefix only, so forbidden-prefix branches receive `pr_feature.md`. Issue-type fallback routing is deferred to a separate follow-up specification (spec 008, FR-014). **This fallback routing is a temporary measure only; the branch MUST be corrected to the proper prefix before merge.**
 
 **Compliance gates**: Pre-commit hooks validate branch names before push. CI gates validate on PR creation. Invalid branches cannot merge until renamed and PR recreated with correct prefix.
 
@@ -343,4 +345,4 @@ Each specification project includes a `checklists/` directory with:
 
 ---
 
-**Version**: 1.3.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-24
+**Version**: 1.3.1 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-24
