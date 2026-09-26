@@ -538,3 +538,60 @@ describe('end-to-end against a temporary git worktree-free directory', () => {
     expect(untouched.changed).toBe(false);
   });
 });
+
+describe('exempt paths keep real prose (data integrity)', () => {
+  // A generic phrase like "Update when ..." also matches ordinary prose that
+  // merely ends a document. On a non-exempt path the trailing block is always
+  // kept, so position provides the safety. On an exempt path nothing is kept,
+  // so without a high-confidence requirement a bulk --fix deletes real content
+  // across the ~5,500 exempt files.
+  test('leaves exempt-path prose ending in a generic phrase untouched', () => {
+    const body = 'Some real prose here.\n\nUpdate when the API version changes.\n';
+
+    expect(analyseContent(body, { exempt: true }).changed).toBe(false);
+  });
+
+  test('still removes a genuine footer from an exempt path', () => {
+    const body =
+      'Doc body.\n\n_Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!_\n';
+    const result = analyseContent(body, { exempt: true });
+
+    expect(result.changed).toBe(true);
+    expect(result.removedBlocks).toBe(1);
+    expect(result.cleaned).toContain('Doc body.');
+    expect(result.cleaned).not.toContain('Docs signed by');
+  });
+});
+
+describe('run() refuses to write through a symlink that escapes the repository', () => {
+  // --fix writes in place, and Node follows a symlink for both the read and the
+  // write. A lexical path check passes a repo-local link pointing outside, so
+  // containment has to be verified physically or an external file is rewritten.
+  test('rejects a --paths-from entry that is a link to an external file', () => {
+    const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-repo-'));
+    const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-outside-'));
+    const target = path.join(outside, 'external.md');
+    fs.writeFileSync(
+      target,
+      'External.\n\n_Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!_\n' +
+        '\n_Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!_\n'
+    );
+    const before = fs.readFileSync(target, 'utf8');
+
+    const link = path.join(repo, 'linked.md');
+    fs.symlinkSync(target, link);
+    const listFile = path.join(repo, 'paths.txt');
+    fs.writeFileSync(listFile, 'linked.md\n');
+
+    try {
+      expect(() => run({ cwd: repo, fix: true, pathsFrom: listFile })).toThrow(
+        /resolves outside the repository/
+      );
+      // The external file must be untouched.
+      expect(fs.readFileSync(target, 'utf8')).toBe(before);
+    } finally {
+      fs.rmSync(repo, { recursive: true, force: true });
+      fs.rmSync(outside, { recursive: true, force: true });
+    }
+  });
+});

@@ -350,10 +350,13 @@ jobs:
             base="$PUSH_BEFORE"
             head="$PUSH_SHA"
           fi
-          # A branch's first push reports an all-zero `before`; fall back to the
-          # pushed commit's parent so the diff is still computable.
+          # A branch's first push reports an all-zero `before`, and a push that
+          # creates `develop` can also report one. There is no meaningful base in
+          # that case, so diff against the empty tree rather than `head^`:
+          # `head^` covers only the final commit and would miss Markdown files
+          # changed by earlier commits pushed in the same event.
           if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
-            base="$(git rev-parse "${head}^" 2>/dev/null || true)"
+            base="$(git hash-object -t tree /dev/null 2>/dev/null || true)"
           fi
           if [ -z "$base" ]; then
             {

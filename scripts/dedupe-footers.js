@@ -44,6 +44,7 @@
  */
 
 import fs from 'fs';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import { execFileSync } from 'child_process';
 import {
@@ -272,7 +273,17 @@ export function analyseContent(content, options = {}) {
     }
 
     // Keep the trailing block of an at-EOF region; drop everything else.
+    //
+    // On an exempt path nothing is kept, so every block in the region is a
+    // removal candidate -- and the generic phrases ("Update when", "Questions?",
+    // "Keep tone", ...) also match ordinary prose that merely ends a document.
+    // Requiring high confidence there is what stops a bulk --fix from deleting
+    // real content across the ~5,500 exempt files. On a non-exempt path the
+    // trailing block is always kept, so position already provides that safety.
     const keep = !exempt && atEof ? lastPhrase : null;
+    if (exempt && atEof && !allHighConfidence) {
+      continue;
+    }
     const doomed = region.filter((p) => p !== keep);
 
     for (const phraseIndex of doomed) {
@@ -427,6 +438,24 @@ function isInside(root, target) {
   return target.startsWith(prefix);
 }
 
+/**
+ * Resolve a path physically, following symlinks, so containment cannot be
+ * defeated by a link that points outside the repository.
+ *
+ * A lexical path.resolve() check is not enough: a repository-local symlink to
+ * an external Markdown file still resolves *inside* the root, while both
+ * readFileSync and writeFileSync follow the link to the real target. Returns
+ * null when the file does not exist, so callers can fall back to the lexical
+ * result for a path that is yet to be created.
+ */
+function realPathOrNull(target) {
+  try {
+    return fs.realpathSync(target);
+  } catch {
+    return null;
+  }
+}
+
 export function run(options) {
   const cwd = options.cwd;
   const repoRoot = path.resolve(cwd);
@@ -455,8 +484,23 @@ export function run(options) {
     // absolute path or a ../ segment in the list would let a malformed batch
     // file rewrite arbitrary readable files. Only enforced for an explicit
     // list; git-derived paths are already repo-relative by construction.
-    if (options.pathsFrom && !isInside(repoRoot, abs)) {
-      throw new Error(`Refusing path outside the repository: ${relPath} (resolved to ${abs})`);
+    //
+    // Containment is checked physically as well as lexically: a symlink inside
+    // the repository can point at a file outside it, and Node follows that link
+    // for both the read and the in-place write, so a lexical check alone would
+    // let --fix rewrite an external target.
+    if (options.pathsFrom) {
+      if (!isInside(repoRoot, abs)) {
+        throw new Error(`Refusing path outside the repository: ${relPath} (resolved to ${abs})`);
+      }
+      const physical = realPathOrNull(abs);
+      const physicalRoot = realPathOrNull(repoRoot) || repoRoot;
+      if (physical && !isInside(physicalRoot, physical)) {
+        throw new Error(
+          `Refusing path that resolves outside the repository: ${relPath} ` +
+            `(is a link to ${physical})`
+        );
+      }
     }
     let content;
     try {
@@ -536,7 +580,24 @@ export function formatReport(report) {
 }
 
 // CLI entry
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Compare resolved filesystem paths rather than the raw URL: import.meta.url is
+// percent-encoded and uses file:// form, while process.argv[1] is a native
+// path. They differ for paths containing spaces or non-ASCII characters, and
+// on Windows. A false mismatch would skip the scan entirely and exit 0, so
+// validate:footers --check could pass without checking anything. realpathSync
+// additionally makes an invocation through a symlink compare equal.
+function isDirectInvocation() {
+  if (!process.argv[1]) return false;
+  try {
+    const entry = fileURLToPath(import.meta.url);
+    const invoked = path.resolve(process.argv[1]);
+    return fs.realpathSync(entry) === fs.realpathSync(invoked) || path.resolve(entry) === invoked;
+  } catch {
+    return false;
+  }
+}
+
+if (isDirectInvocation()) {
   let options;
   try {
     options = parseArgs(process.argv.slice(2));
