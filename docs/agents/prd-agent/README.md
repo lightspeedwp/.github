@@ -134,5 +134,4 @@ Check the [FAQ](./faq.md) — it covers the most common questions and blockers.
 **Owner**: LightSpeed Product & Engineering  
 **Questions?** Open an issue: [lightspeedwp/.github#issues](https://github.com/lightspeedwp/.github/issues)
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Need help? Say hi—work with us.

@@ -522,4 +522,4 @@ This comprehensive GitHub project management approach ensures complete traceabil
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+Need help? Say hi—work with us.

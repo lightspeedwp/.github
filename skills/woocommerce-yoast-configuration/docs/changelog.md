@@ -153,4 +153,4 @@ Validation required before release: source register, reference data, skill struc
 - Added regression tests for tags, publisher categories, WooCommerce product tags/attributes, screenshot-only evidence, local service taxonomies and migration cleanup.
 - Updated routing, maintenance and package validation references.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

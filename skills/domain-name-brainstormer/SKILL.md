@@ -216,4 +216,4 @@ After picking a domain:
 - Research trademark availability
 - Plan brand identity colors/fonts
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

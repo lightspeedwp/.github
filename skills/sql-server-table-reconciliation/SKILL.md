@@ -157,4 +157,4 @@ When a single table is provided, include full detail (schema drift, sample rows,
 - Do not print credentials in output or logs
 - Use parameterized queries (`?` placeholders) for metadata lookups — never f-string interpolate user input into SQL
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

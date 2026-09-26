@@ -220,4 +220,4 @@ Per-pillar placeholders (repeat the `.pillar` block once per pillar):
 9. **Only write `reports/index.html`** — do not modify any other files. Create the `reports/` directory if missing.
 10. **No fluff** — every paragraph in the report must add concrete information.
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

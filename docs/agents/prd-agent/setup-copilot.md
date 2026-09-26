@@ -264,5 +264,4 @@ For detailed information, consult [GitHub's Copilot privacy policy](https://docs
 **Agent Version**: v2.1  
 **Questions?** Open an issue: [lightspeedwp/.github](https://github.com/lightspeedwp/.github/issues)
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Need help? Say hi—work with us.

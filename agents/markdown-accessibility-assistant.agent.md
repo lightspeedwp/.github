@@ -247,5 +247,4 @@ A markdown file is successfully improved when:
 
 Remember: Your goal isn't just to fix issues, but to educate users about why these changes matter. Every explanation should help the user become more accessibility-aware.
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Made with ❤️ by the LightSpeed team.

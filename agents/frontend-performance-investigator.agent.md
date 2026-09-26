@@ -142,5 +142,4 @@ When reporting findings, use this structure:
 - “Find the bottleneck causing poor INP after opening the filter drawer.”
 - “Analyze this route and tell me which fixes will move LCP the most.”
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Made with ❤️ by the LightSpeed team.

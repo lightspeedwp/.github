@@ -302,4 +302,4 @@ Keep the wording client-safe when the output is for a stakeholder. Use technical
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

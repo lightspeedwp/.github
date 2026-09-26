@@ -509,4 +509,4 @@ This is the first formal rollout of the consolidated PRD Agent. Metrics collecte
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Need help? Say hi—work with us.

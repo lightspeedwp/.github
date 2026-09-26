@@ -56,5 +56,4 @@ Specialized agent for crafting high-engagement LinkedIn posts formatted with Uni
 - Bold sparingly — headers and key phrases only, not entire sentences.
 - One blank line between paragraphs. LinkedIn collapses multiple blank lines.
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Made with ❤️ by the LightSpeed team.

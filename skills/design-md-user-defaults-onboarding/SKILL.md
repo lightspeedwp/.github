@@ -23,4 +23,4 @@ description: Collect first-run user defaults needed for DESIGN.md work, persist 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

@@ -205,4 +205,4 @@ Before finalising, verify that:
 - recommendations do not promise exact score gains unless the user supplied measured before/after evidence
 - the output works for both a client/stakeholder and the person doing the implementation
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

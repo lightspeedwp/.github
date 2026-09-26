@@ -374,4 +374,4 @@ The same workflow can be implemented with these tools. As long as they provide t
 3. Consider using CSS Modules or scoped styles
 4. Consult user to confirm impact scope
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

@@ -51,4 +51,4 @@ status: draft
 - Approval date: {{qa.approval_date}}
 - Notes: {{qa.notes}}
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

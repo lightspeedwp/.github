@@ -100,5 +100,4 @@ List known risks, constraints, or assumptions that could impact the implementati
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Made with ❤️ by the LightSpeed team.

@@ -64,4 +64,4 @@ Run `npm run lint` or see our guidelines for more info. Once fixed, let us know 
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

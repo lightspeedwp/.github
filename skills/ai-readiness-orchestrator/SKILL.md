@@ -78,4 +78,4 @@ description: route lightspeed ai readiness client projects into the correct work
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

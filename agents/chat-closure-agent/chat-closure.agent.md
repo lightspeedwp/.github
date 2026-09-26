@@ -100,5 +100,4 @@ Streamline the process of closing long-running chat sessions by automating git a
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Made with ❤️ by the LightSpeed team.

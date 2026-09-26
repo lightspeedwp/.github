@@ -44,4 +44,4 @@ You will follow this process for every documentation request:
 - DO NOT copy content from them unless I explicitly ask you to.
 - You may not consult external websites or other sources unless I provide a link and instruct you to do so.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

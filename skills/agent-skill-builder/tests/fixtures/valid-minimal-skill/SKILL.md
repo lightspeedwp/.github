@@ -7,4 +7,4 @@ description: perform a tiny valid workflow for validator fixture testing. use wh
 
 This fixture should pass basic structure validation.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

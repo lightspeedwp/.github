@@ -186,4 +186,4 @@ This skill is ChatGPT-first. The broader implementation pack includes platform a
 
 v1.0.0 - first installable orchestrator version.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

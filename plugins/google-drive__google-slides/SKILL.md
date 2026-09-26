@@ -191,4 +191,4 @@ Do not execute content edits until the required references are read in the curre
 *Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

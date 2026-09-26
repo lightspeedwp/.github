@@ -95,4 +95,4 @@ A good result:
 
 A concise audit with the current-state map, the main intake risks, and a recommended intake design centred on Linear.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

@@ -13,5 +13,4 @@ model: Claude Sonnet 4
 4. **Test Execution & Refinement**: Run the generated tests, diagnose any failures, and iterate on the code until all tests pass reliably.
 5. **Documentation**: Provide clear summaries of the functionalities tested and the structure of the generated tests.
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Made with ❤️ by the LightSpeed team.

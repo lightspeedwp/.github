@@ -341,4 +341,4 @@ A weak packet:
 - "Turn this project context into something GitHub issues can be drafted from."
 - "Create a single handoff from this PRD, Figma brief, and implementation notes."
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

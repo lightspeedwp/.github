@@ -537,4 +537,4 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

@@ -18,4 +18,4 @@ Follow the workflow below to ensure accurate and focused implementation.
 - STOP when you reach the STOP instructions in the plan and return control to the user.
 </workflow>
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

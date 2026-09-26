@@ -47,4 +47,4 @@ Central index for all documentation in the LightSpeed .github repository.
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Need help? Say hi—work with us.

@@ -269,4 +269,4 @@ Use these references as needed:
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Need help? Say hi—work with us.

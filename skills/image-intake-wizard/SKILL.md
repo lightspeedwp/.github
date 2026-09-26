@@ -233,4 +233,4 @@ Do not:
 - overwrite explicit user direction with aesthetic preference
 - create image claims that imply unsupported business, legal, medical, accessibility, or performance outcomes
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

@@ -123,4 +123,4 @@ If `skillVersionsMismatched` is true, add:
 
 Then proceed immediately to Skill 05.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

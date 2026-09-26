@@ -48,4 +48,4 @@ Use this skill for direct inbox-triage requests. Build on the core Gmail skill a
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

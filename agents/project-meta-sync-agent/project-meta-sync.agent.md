@@ -173,4 +173,4 @@ Sync project board meta fields (Status, Priority, Type) from labels and branch n
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

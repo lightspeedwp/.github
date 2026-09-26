@@ -137,4 +137,4 @@ Deploy as Draft    →   Test with 1 record   →   Test with 200+ records   →
 | Process Builder still active alongside a new Flow | Double-execution, unexpected ordering | Deactivate Process Builder before activating the Flow |
 | Screen Flow with no End element on all branches | Runtime error or stuck user | Ensure every branch resolves to an End element |
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

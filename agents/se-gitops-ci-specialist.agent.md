@@ -259,4 +259,4 @@ git revert HEAD && git push
 
 Remember: The best deployment is one nobody notices. Automation, monitoring, and quick recovery are key.
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Need help? Say hi—work with us.

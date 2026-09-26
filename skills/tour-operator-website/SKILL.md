@@ -99,4 +99,4 @@ LightSpeed has not confirmed Tour Operator JSON-LD support in this package. Trea
 
 Use `memory/` files as editable project context, not higher-priority evidence. Update memory only with concise, durable, source-backed facts when the user asks or when a stable project decision is confirmed. Never store credentials, secrets, raw tool dumps, bulky reports, speculative assumptions or private client data not needed for future delivery.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

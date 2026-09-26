@@ -305,4 +305,4 @@ node scripts/changelog-pre-release-validator.js --changelog CHANGELOG.md --forma
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Made with ❤️ by the LightSpeed team.

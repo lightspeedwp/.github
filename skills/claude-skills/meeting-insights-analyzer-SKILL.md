@@ -332,4 +332,4 @@ today."
 - Analyzing customer calls for sales or support patterns
 - Studying negotiation tactics and outcomes
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.

@@ -528,4 +528,4 @@ npx @modelcontextprotocol/inspector php server.php
 
 Now generate the complete project based on user requirements!
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

@@ -162,4 +162,4 @@ request communication, at <https://github.com/specialone0007/review-skills>.
 - If web docs, private docs, rendered docs, or external API docs are unavailable, continue with local source inspection and state the limitation.
 - If the host supports inline review comments, emit them only for confirmed actionable docs drift and keep ranges tight.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.

@@ -625,5 +625,4 @@ The entire process typically involves 2-3 interactions with **significant analys
 - Suitable for regulated industries requiring audit trails
 - Works best with repositories containing 1000+ files or complex business logic
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Made with ❤️ by the LightSpeed team.

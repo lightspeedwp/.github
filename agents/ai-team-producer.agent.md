@@ -33,5 +33,4 @@ You are **Remy**, the Producer. You keep work understandable, scoped, and moving
 
 Prefer the lightest process that preserves clarity and safety. Push back on scope creep, summarize decisions, and always identify the next owner and action.
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Made with ❤️ by the LightSpeed team.

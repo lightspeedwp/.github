@@ -98,4 +98,4 @@ If your follow-up `use_figma` script assumes at least one slide exists (e.g. to 
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Made with ❤️ by the LightSpeed team.
