@@ -452,6 +452,16 @@ function parseExtensionBlocks(body) {
  * the body is byte-identical to the existing one it performs no write at all:
  * editing a comment triggers a Linear re-sync for no benefit.
  *
+ * Known residual risks, both raised by CodeRabbit's security pass and accepted
+ * here on purpose. Ownership is "any bot comment containing the marker", so a
+ * second bot that quoted the marker could be overwritten; tightening this to a
+ * per-publisher identity would only matter once a second publisher exists, and
+ * the only publisher today is this workflow. Writes are not conditional on the
+ * current head, so two runs that overlap could land out of order and leave a
+ * stale score; the caller cancels superseded runs through a per-PR concurrency
+ * group, which orders everything except a request already in flight. Neither is
+ * worth the machinery before a second publisher or a demonstrated race.
+ *
  * @param {object} github - The `actions/github-script` Octokit client.
  * @param {object} options - Target and payload.
  * @param {string} options.owner - Repository owner.
