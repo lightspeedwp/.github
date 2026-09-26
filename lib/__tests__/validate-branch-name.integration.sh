@@ -11,7 +11,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 CLI_PATH="$PROJECT_ROOT/scripts/validation/validate-branch-name.js"
 HOOK_PATH="$PROJECT_ROOT/lib/hooks/pre-push"
-INSTALL_PATH="$PROJECT_ROOT/lib/hooks/install.js"
+HUSKY_HOOK_PATH="$PROJECT_ROOT/.husky/pre-push"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -20,21 +20,6 @@ NC='\033[0m' # No Color
 
 TESTS_PASSED=0
 TESTS_FAILED=0
-
-# Test function
-test_case() {
-  local name="$1"
-  local expected="$2"
-  local actual="$3"
-
-  if [ "$expected" = "$actual" ]; then
-    echo -e "${GREEN}✓${NC} $name"
-    ((TESTS_PASSED++))
-  else
-    echo -e "${RED}✗${NC} $name (expected: $expected, got: $actual)"
-    ((TESTS_FAILED++))
-  fi
-}
 
 echo "=== Branch Name Validation Integration Tests ==="
 echo
@@ -49,12 +34,25 @@ else
   ((TESTS_FAILED++))
 fi
 
-# Test 2: Install script exists
-if [ -f "$INSTALL_PATH" ]; then
-  echo -e "${GREEN}✓${NC} Install script exists at $INSTALL_PATH"
+# Test 2: Husky runs the hook (#3493)
+FIXTURE_DIR=$(mktemp -d)
+trap 'rm -rf "$FIXTURE_DIR"' EXIT
+git -C "$FIXTURE_DIR" init -q
+git -C "$FIXTURE_DIR" symbolic-ref HEAD refs/heads/invalid
+git -C "$FIXTURE_DIR" -c user.name=Test -c user.email=test@example.invalid commit --allow-empty -qm init
+
+DIRECT_OUTPUT=$(cd "$PROJECT_ROOT" || exit 1; GIT_DIR="$FIXTURE_DIR/.git" GIT_WORK_TREE="$FIXTURE_DIR" node "$HOOK_PATH" 2>&1)
+DIRECT_STATUS=$?
+HUSKY_OUTPUT=$(cd "$PROJECT_ROOT" || exit 1; GIT_DIR="$FIXTURE_DIR/.git" GIT_WORK_TREE="$FIXTURE_DIR" "$HUSKY_HOOK_PATH" 2>&1)
+HUSKY_STATUS=$?
+
+if [ "$DIRECT_STATUS" -eq 1 ] && \
+  [ "$HUSKY_STATUS" -eq "$DIRECT_STATUS" ] && \
+  [ "$HUSKY_OUTPUT" = "$DIRECT_OUTPUT" ]; then
+  echo -e "${GREEN}✓${NC} $HUSKY_HOOK_PATH runs the pre-push hook"
   ((TESTS_PASSED++))
 else
-  echo -e "${RED}✗${NC} Install script not found at $INSTALL_PATH"
+  echo -e "${RED}✗${NC} $HUSKY_HOOK_PATH does not match the pre-push hook"
   ((TESTS_FAILED++))
 fi
 

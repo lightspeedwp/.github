@@ -75,7 +75,7 @@ This repository uses [Husky](https://typicode.github.io/husky/) to automate code
 Husky is configured to run automatically when you install dependencies (`npm install`). Two Git hooks are configured:
 
 1. **pre-commit**: Runs linting and formatting checks on staged files before each commit
-2. **pre-push**: Runs the full test suite before pushing to remote
+2. **pre-push**: Validates the name of every branch being pushed
 
 ### Pre-commit Hook
 
@@ -99,13 +99,13 @@ If any checks fail, the commit will be blocked until you fix the issues.
 
 ### Pre-push Hook
 
-The pre-push hook runs the full test suite before allowing a push to the remote repository:
+The pre-push hook validates the **branch names** being pushed, not the test suite. Git feeds the hook one ref-update record per branch on standard input, and each pushed branch is checked against the repository's naming policy before the push is allowed:
 
 ```bash
-npm test
+node lib/hooks/pre-push
 ```
 
-This ensures that all tests pass before code is shared with the team.
+`docs/HUSKY_PRECOMMITS.md` documents the policy in full. Running the test suite locally before pushing is still worth doing, but it is not what this hook does — the full suite runs in CI, which is the gate that matters.
 
 ### Bypassing Hooks (Not Recommended)
 
