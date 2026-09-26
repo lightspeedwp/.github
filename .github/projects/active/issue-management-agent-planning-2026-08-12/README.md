@@ -399,8 +399,6 @@ Deliverables (in progress):
 **Slack Channel**: (TBD)  
 **Epic Issue**: [#1771](https://github.com/lightspeedwp/.github/issues/1771)
 
-Have questions? Comment on the epic issue or reach out to the team.
-
 ---
 
 *Planning Project v1.0 | Created 2026-08-12 | Issue Management Agent*

@@ -37,25 +37,3 @@ Always include relevant tool checks unless the user asks for a shorter report.
 | Security | SecurityHeaders.com and WordPress security scan | HTTPS, headers, plugin/theme risk and maintenance posture. | Outdated plugins, weak headers, missing backups. |
 | Analytics | GA4 and Microsoft Clarity | User journeys, drop-offs, form behaviour and content performance. | No measurement, untracked conversions, unclear user paths. |
 | Chatbot quality | Real FAQ test scripts and transcript review | Whether answers are grounded, useful, safe and escalated correctly. | Unsupported answers, overcollection, weak fallback. |
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
