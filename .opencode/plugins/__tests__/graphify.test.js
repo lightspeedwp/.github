@@ -104,6 +104,18 @@ describe("graphify reminder quotes the graph path safely", () => {
     expect(output).toContain("no runnable scoped example");
   });
 
+  test("offers no runnable example for a bang, which two shells expand", async () => {
+    // cmd.exe expands !VAR! inside double quotes when delayed expansion is on,
+    // and interactive bash performs history expansion on !. Neither is POSIX
+    // script behaviour, but the reminder is aimed at whatever shell a human
+    // typed, so a path containing one has no form that is right in all of them.
+    const { root, output } = await reminderFor("!USERNAME!");
+    expect(root).toContain("!USERNAME!");
+    expect(graphArg(output)).toBeUndefined();
+    expect(output).not.toContain("--graph");
+    expect(output).toContain("no runnable scoped example");
+  });
+
   test("offers no runnable example for a path no shell quotes the same way", async () => {
     // A dollar sign, double quote, backtick or backslash has no portable form:
     // it needs POSIX '\'' or PowerShell '' for an apostrophe, and cmd.exe cannot
