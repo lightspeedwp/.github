@@ -135,7 +135,7 @@ Available footer IDs are listed in `config/quirky-footers.yaml`.
 
 - **Quirky Footer Definitions**: `config/quirky-footers.yaml`
 - **Schema Validation**: `schemas/quirky-footers.schema.json`
-- **Validation Script**: `scripts/validate-footers.js`
+- **Validation Script**: `scripts/dedupe-footers.js`
 
 ### Configuration Structure
 
@@ -196,6 +196,23 @@ The following files are **exempt** from footer requirements:
 - `/examples/` and `/samples/` directories
 - `/mocks/` directories
 
+### How Exclusions Are Enforced
+
+This list is not advisory. It lives in
+[`scripts/agents/includes/footer-policy.js`](../scripts/agents/includes/footer-policy.js)
+as `isFooterExemptPath()` and is applied in two places:
+
+- The meta agent skips exempt paths, so no footer is ever added to one.
+- `scripts/dedupe-footers.js` removes a footer that is already there, and the
+  `footer-guard` job in `documentation.yml` fails a pull request that
+  reintroduces one.
+
+Until [#3451](https://github.com/lightspeedwp/.github/issues/3451) neither
+existed: the exclusions were documented here and mirrored into
+`.github/config/quirky-footers.yaml`, but no live code read either, so roughly
+5,500 exempt files carried footers. If you change this list, change
+`isFooterExemptPath()` and re-run `npm run validate:footers:fix`.
+
 ## Validation
 
 Run the footer validation script:
@@ -205,13 +222,13 @@ Run the footer validation script:
 npm run validate:footers
 
 # Check only changed files
-node scripts/validate-footers.js --changed-only --base=develop --head=HEAD
+node scripts/dedupe-footers.js --check --changed-only --base=origin/develop --head=HEAD
 
 # Generate a detailed report
-node scripts/validate-footers.js --verbose --report=report.json
+node scripts/dedupe-footers.js --json
 
 # Fix missing footers automatically
-node scripts/validate-footers.js --fix
+npm run validate:footers:fix
 ```
 
 ## Accessibility Notes
@@ -362,7 +379,7 @@ Here's how to use the API...
 - [Footer Configuration](../config/footers.config.yaml) — Standard footers
 - [Quirky Footers Configuration](../config/quirky-footers.yaml) — Category-specific footers
 - [Footer Validation Schema](../schemas/quirky-footers.schema.json) — Configuration validation
-- [Validation Script](../scripts/validate-footers.js) — Automation
+- [Validation Script](../scripts/dedupe-footers.js) — Automation
 
 ---
 
