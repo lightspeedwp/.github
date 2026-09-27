@@ -4,7 +4,7 @@ description: "Task list for 016 Standardised Claude Code Cloud Environment"
 
 # Tasks: Standardised Claude Code Cloud Environment
 
-**Input**: Design documents from `.github/specs/016-claude-cloud-environment/`
+**Input**: Design documents from `.github/specs/018-claude-cloud-environment/`
 
 **Prerequisites**: [plan.md](./plan.md), [spec.md](./spec.md), [research.md](./research.md),
 [data-model.md](./data-model.md), [contracts/](./contracts/), [quickstart.md](./quickstart.md)
@@ -32,7 +32,7 @@ the real baseline.
 
 **Purpose**: Align the spec with the plan, and put the test harness in place.
 
-- [x] T001 Amend FR-013a in `.github/specs/016-claude-cloud-environment/spec.md` so the protected guard files also include `.claude/settings.local.json` and `~/.claude/settings.json`, which can disable hooks (research R12). Update the matching clarification bullet, acceptance scenario 11 and edge case.
+- [x] T001 Amend FR-013a in `.github/specs/018-claude-cloud-environment/spec.md` so the protected guard files also include `.claude/settings.local.json` and `~/.claude/settings.json`, which can disable hooks (research R12). Update the matching clarification bullet, acceptance scenario 11 and edge case.
 - [x] T002 [P] Create the black-box test harness in `scripts/__tests__/enforce-branch-name-hook.test.js`. It needs:
   - a helper that spawns `node .claude/hooks/enforce-branch-name.mjs` with a JSON payload `{ tool_name, tool_input, cwd }` on stdin
   - a temporary git repository fixture (`git init`, a `develop` branch, a bare `origin` remote)
@@ -220,7 +220,7 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 - [x] T037 [US3] Update the CHANGELOG entry in `CHANGELOG.md` under Unreleased/Added for the new guard behaviours. It must be 250 characters or less, linked to #3524, and pass `node scripts/validation/validate-changelog.cjs CHANGELOG.md`.
 - [ ] T042 [US3] Owner action: turn on "Require review from Code Owners" in branch protection (or the ruleset) for both `develop` and `main`, so the `/.claude/` CODEOWNERS entry from T024 blocks unreviewed changes to the guard (FR-013a, US3 scenario 3).
 - [ ] T043 [US3] After T042, run quickstart §4 step 7 and record both `true` results in the #3524 PR description. Add the same check to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md`.
-- [x] T047 [US3] Add a workflow (for example `.github/workflows/claude-guard-tests.yml`, actions pinned by SHA, read-only permissions) that runs `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js` on PRs that change `.claude/**`, those tests or `.github/specs/016-claude-cloud-environment/**`, with `jq` and `git` available. It must pass `actionlint` (FR-023).
+- [x] T047 [US3] Add a workflow (for example `.github/workflows/claude-guard-tests.yml`, actions pinned by SHA, read-only permissions) that runs `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js` on PRs that change `.claude/**`, those tests or `.github/specs/018-claude-cloud-environment/**`, with `jq` and `git` available. It must pass `actionlint` (FR-023).
 - [ ] T048 [US3] Owner action: after T047 merges, mark its check as required in branch protection (or the ruleset) for `develop` and `main`, and add the step to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-023, FR-019, US3 scenario 7).
 
 **Checkpoint**: Everything is documented and the cleanup is running.

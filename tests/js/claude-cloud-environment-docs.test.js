@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const repoRoot = path.resolve(__dirname, '../..');
-const specDirectory = '.github/specs/016-claude-cloud-environment';
+const specDirectory = '.github/specs/018-claude-cloud-environment';
 
 function readDocument(relativePath) {
   return fs.readFileSync(path.join(repoRoot, relativePath), 'utf8');
@@ -35,7 +35,7 @@ const catalogue = readDocument('.github/specs/CATALOG.md');
 
 describe('Claude cloud environment specification contracts', () => {
   test('catalogues the draft under the correct number and a working spec link', () => {
-    const entries = catalogue.split('\n').filter((line) => /^\| 016 \|/.test(line));
+    const entries = catalogue.split('\n').filter((line) => /^\| 0(18) \|/.test(line));
     expect(entries).toHaveLength(1);
 
     const columns = entries[0].split('|').map((column) => column.trim());

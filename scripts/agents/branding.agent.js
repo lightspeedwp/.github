@@ -7,6 +7,11 @@
 import fs from 'fs';
 import path from 'path';
 import * as yaml from 'js-yaml';
+import {
+  loadFooterConfig as loadSharedFooterConfig,
+  resolveFooterPhrases,
+  selectFooterPhrase,
+} from './includes/footer-phrases.js';
 
 // ============================================================================
 // Footer Configuration & Functions
@@ -19,23 +24,18 @@ import * as yaml from 'js-yaml';
  * @throws {Error} If the configuration cannot be read or parsed
  */
 function loadFooterConfig() {
-  const configPath = path.join(process.cwd(), '.github/footers.yml');
-  if (!fs.existsSync(configPath)) {
-    return null;
-  }
-  const content = fs.readFileSync(configPath, 'utf-8');
-  return yaml.load(content);
+  return loadSharedFooterConfig();
 }
 
 /**
  * Standard footer variants (fallback if config not found)
  */
 const DEFAULT_FOOTERS = [
-  '_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)',
-  '_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)',
-  '_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)',
-  '_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)',
-  '_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_',
+  '*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)',
+  '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)',
+  '*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*\n[Contact](https://lightspeedwp.agency/contact)',
+  '*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)',
+  '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
 ];
 
 /**
@@ -44,22 +44,7 @@ const DEFAULT_FOOTERS = [
  * @returns {Array<string>} Array of footer phrases
  */
 function getFooterPhrases(category = 'default') {
-  const config = loadFooterConfig();
-  if (!config) {
-    return DEFAULT_FOOTERS;
-  }
-
-  if (config.categories && config.categories[category] && config.categories[category].phrases) {
-    return config.categories[category].phrases;
-  }
-
-  // Fall back to the top-level default block (footers.yml has `default`
-  // as a sibling of `categories`, not nested inside it).
-  if (config.default && config.default.phrases) {
-    return config.default.phrases;
-  }
-
-  return DEFAULT_FOOTERS;
+  return resolveFooterPhrases(loadFooterConfig(), category, DEFAULT_FOOTERS);
 }
 
 /**
@@ -69,21 +54,7 @@ function getFooterPhrases(category = 'default') {
  * @returns {string} Selected footer phrase
  */
 function selectFooter(phrases, seed = null) {
-  if (!phrases || phrases.length === 0) {
-    return DEFAULT_FOOTERS[0];
-  }
-
-  if (seed) {
-    let hash = 0;
-    for (let i = 0; i < seed.length; i++) {
-      hash = (hash << 5) - hash + seed.charCodeAt(i);
-      hash = hash | 0;
-    }
-    const index = Math.abs(hash) % phrases.length;
-    return phrases[index];
-  }
-
-  return phrases[Math.floor(Math.random() * phrases.length)];
+  return selectFooterPhrase(phrases, seed, DEFAULT_FOOTERS[0]);
 }
 
 /**

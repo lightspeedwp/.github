@@ -3,7 +3,7 @@
 **Branch**: `config/claude-cloud-environment` (implementation, PR lightspeedwp/.github#3524) · spec on
 `docs/claude-cloud-environment-spec` | **Date**: 2026-09-24 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `.github/specs/016-claude-cloud-environment/spec.md`
+**Input**: Feature specification from `.github/specs/018-claude-cloud-environment/spec.md`
 
 ## Summary
 
@@ -102,7 +102,7 @@ files. All gates still pass.
 ### Documentation (this feature)
 
 ```text
-.github/specs/016-claude-cloud-environment/
+.github/specs/018-claude-cloud-environment/
 ├── spec.md
 ├── plan.md              # This file
 ├── research.md          # Phase 0
