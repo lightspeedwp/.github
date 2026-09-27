@@ -50,19 +50,3 @@ When to read: any task that writes answer content, takeaways, risks, or supporti
 1. Do not add blank paragraphs solely for visual spacing. Use paragraph style, table structure, or section structure instead.
 2. Do not leave inserted content unformatted unless the user explicitly asks for plain text.
 3. Preserve existing headings, paragraph styles, links, dates, and table structure unless the user asks to change them.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
