@@ -368,15 +368,24 @@ export function listChangedMarkdownFiles(cwd, base, head) {
   // is the files this branch actually changed. `base head` also returns
   // everything that landed on the base branch after the branch point, which
   // would fail a PR over backlog the author never touched.
-  const out = execFileSync(
-    'git',
-    ['diff', '--name-only', '-z', `${base}...${head}`, '--', '*.md'],
-    {
+  //
+  // The exception is a tree-object base, which is what a first push resolves to
+  // (there is no parent commit to take a merge base against). A symmetric
+  // difference needs two commits, so `base...head` errors with "is a tree, not
+  // a commit" and the whole scan would fail. Fall back to the two-dot form
+  // there, which is the correct diff against an empty tree anyway.
+  const isTreeBase =
+    execFileSync('git', ['cat-file', '-t', base], {
       cwd,
       encoding: 'utf8',
-      maxBuffer: 1 << 28,
-    }
-  );
+    }).trim() === 'tree';
+
+  const rangeArgs = isTreeBase ? [base, head] : [`${base}...${head}`];
+  const out = execFileSync('git', ['diff', '--name-only', '-z', ...rangeArgs, '--', '*.md'], {
+    cwd,
+    encoding: 'utf8',
+    maxBuffer: 1 << 28,
+  });
   return out.split('\0').filter(Boolean);
 }
 
@@ -479,28 +488,26 @@ export function run(options) {
   const findings = [];
   for (const relPath of files) {
     const abs = path.resolve(repoRoot, relPath);
-    // A --paths-from list is operator-supplied and --fix writes in place, so
-    // refuse anything that resolves outside the repository. Without this an
-    // absolute path or a ../ segment in the list would let a malformed batch
-    // file rewrite arbitrary readable files. Only enforced for an explicit
-    // list; git-derived paths are already repo-relative by construction.
-    //
-    // Containment is checked physically as well as lexically: a symlink inside
-    // the repository can point at a file outside it, and Node follows that link
-    // for both the read and the in-place write, so a lexical check alone would
-    // let --fix rewrite an external target.
-    if (options.pathsFrom) {
-      if (!isInside(repoRoot, abs)) {
-        throw new Error(`Refusing path outside the repository: ${relPath} (resolved to ${abs})`);
-      }
-      const physical = realPathOrNull(abs);
-      const physicalRoot = realPathOrNull(repoRoot) || repoRoot;
-      if (physical && !isInside(physicalRoot, physical)) {
-        throw new Error(
-          `Refusing path that resolves outside the repository: ${relPath} ` +
-            `(is a link to ${physical})`
-        );
-      }
+    // An explicit --paths-from list is operator-supplied, so a malformed batch
+    // file must not be able to name an arbitrary path: refuse anything that
+    // resolves outside the repository, lexically or physically.
+    if (options.pathsFrom && !isInside(repoRoot, abs)) {
+      throw new Error(`Refusing path outside the repository: ${relPath} (resolved to ${abs})`);
+    }
+
+    // Containment is also checked physically, and for *every* path source.
+    // `git ls-files` selects tracked symlinks, and path.resolve() keeps a
+    // repo-local link lexically inside the repository while Node follows the
+    // link for both the read and the in-place write. Without this the default
+    // scan -- the one the CI guard runs -- would rewrite a target outside the
+    // repository whenever `npm run validate:footers:fix` is used.
+    const physical = realPathOrNull(abs);
+    const physicalRoot = realPathOrNull(repoRoot) || repoRoot;
+    if (physical && !isInside(physicalRoot, physical)) {
+      throw new Error(
+        `Refusing path that resolves outside the repository: ${relPath} ` +
+          `(is a link to ${physical})`
+      );
     }
     let content;
     try {

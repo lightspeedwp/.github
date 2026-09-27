@@ -15,6 +15,7 @@
  *    mid-document (AGENTS.md), and the two need opposite treatment.
  */
 
+import { execFileSync } from 'child_process';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -24,6 +25,7 @@ import {
   findFrontmatterRange,
   computeFenceMask,
   parseArgs,
+  listChangedMarkdownFiles,
 } from '../dedupe-footers.js';
 
 const PHRASE = '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*';
@@ -592,6 +594,71 @@ describe('run() refuses to write through a symlink that escapes the repository',
     } finally {
       fs.rmSync(repo, { recursive: true, force: true });
       fs.rmSync(outside, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('a tracked symlink cannot escape the repository via the git-derived scan', () => {
+  // The physical containment guard originally sat behind the --paths-from
+  // branch. But the default scan uses `git ls-files`, which selects tracked
+  // symlinks, and it is the path the CI guard runs. Without the guard covering
+  // every path source, `validate:footers:fix` rewrote a target outside the
+  // repository.
+  test('refuses a tracked symlink that resolves outside the repository', () => {
+    const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-git-repo-'));
+    const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-git-out-'));
+    const target = path.join(outside, 'external.md');
+    fs.writeFileSync(
+      target,
+      'External.\n\n_Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!_\n' +
+        '\n_Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!_\n'
+    );
+    const before = fs.readFileSync(target, 'utf8');
+
+    const git = (...args) => execFileSync('git', args, { cwd: repo, encoding: 'utf8' });
+    git('init', '-q');
+    git('config', 'user.email', 'test@example.com');
+    git('config', 'user.name', 'test');
+    fs.writeFileSync(path.join(repo, 'README.md'), '# Repo\n');
+    fs.symlinkSync(target, path.join(repo, 'linked.md'));
+    git('add', '-A');
+    git('commit', '-q', '-m', 'init');
+
+    try {
+      expect(() => run({ cwd: repo, fix: true })).toThrow(/resolves outside the repository/);
+      expect(fs.readFileSync(target, 'utf8')).toBe(before);
+    } finally {
+      fs.rmSync(repo, { recursive: true, force: true });
+      fs.rmSync(outside, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('listChangedMarkdownFiles handles a tree-object base', () => {
+  // A first push resolves `base` to the empty tree. A symmetric difference
+  // needs two commits, so `base...head` errors with "is a tree, not a commit"
+  // and takes the whole scan down. The two-dot form is the correct diff there.
+  test('diffs against the empty tree without throwing', () => {
+    const repo = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-tree-'));
+    const git = (...args) => execFileSync('git', args, { cwd: repo, encoding: 'utf8' });
+    git('init', '-q');
+    git('config', 'user.email', 'test@example.com');
+    git('config', 'user.name', 'test');
+    fs.writeFileSync(path.join(repo, 'a.md'), '# A\n');
+    fs.writeFileSync(path.join(repo, 'b.md'), '# B\n');
+    git('add', '-A');
+    git('commit', '-q', '-m', 'init');
+
+    try {
+      const emptyTree = execFileSync('git', ['hash-object', '-t', 'tree', '/dev/null'], {
+        cwd: repo,
+        encoding: 'utf8',
+      }).trim();
+      const files = listChangedMarkdownFiles(repo, emptyTree, 'HEAD');
+
+      expect(files.sort()).toEqual(['a.md', 'b.md']);
+    } finally {
+      fs.rmSync(repo, { recursive: true, force: true });
     }
   });
 });
