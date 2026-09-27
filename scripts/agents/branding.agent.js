@@ -31,11 +31,11 @@ function loadFooterConfig() {
  * Standard footer variants (fallback if config not found)
  */
 const DEFAULT_FOOTERS = [
-  '_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)',
-  '_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)',
-  '_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_\n[Contact](https://lightspeedwp.agency/contact)',
-  '_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)',
-  '_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_',
+  '*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)',
+  '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)',
+  '*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*\n[Contact](https://lightspeedwp.agency/contact)',
+  '*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)',
+  '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
 ];
 
 /**
