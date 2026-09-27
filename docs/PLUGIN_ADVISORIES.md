@@ -178,14 +178,21 @@ function ls_newsletter_bump( $key, $max ) {
 	// Drop counters whose window has closed before adding this one. Without
 	// this the table grows by a row per distinct address forever: the per-IP
 	// limit slows that down but does not bound it, because each new address
-	// still creates a fresh key. Purging here keeps the table to one window.
-	$wpdb->query(
+	// still creates a fresh key. Purging here keeps the table to one window. The
+	// cutoff is compared directly against the indexed column rather than adding an
+	// interval to it, so the window_started index serves this as a range scan.
+	$purge = $wpdb->query(
 		$wpdb->prepare(
-			"DELETE FROM {$table} WHERE window_started + %d <= %d",
-			HOUR_IN_SECONDS,
-			$now
+			"DELETE FROM {$table} WHERE window_started <= %d",
+			$now - HOUR_IN_SECONDS
 		)
 	);
+
+	if ( false === $purge ) {
+		// Without the purge the table would grow again, so refuse rather than
+		// let an unbounded table accumulate behind a working counter.
+		return true;
+	}
 
 	// LAST_INSERT_ID() carries the new counter out of the same atomic statement
 	// that performed the increment, so the number compared against $max is this
