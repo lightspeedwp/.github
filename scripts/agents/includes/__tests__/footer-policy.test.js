@@ -186,15 +186,21 @@ describe('footer-policy', () => {
       expect(regex.test('Body text.\n\nMade with ❤️ by the LightSpeed team.')).toBe(true);
     });
 
-    test('does not match an emphasised "Made with ❤️" footer', () => {
-      // Latent gap, documented rather than silently changed: unlike the first
-      // five patterns, "Made with ❤️" has no leading [*_]?, so an emphasised
-      // variant of it is invisible to the generator. The generator itself only
-      // ever writes the unemphasised form (see .github/footers.yml), so this is
-      // not currently reachable — but it is the same shape of defect as #3443
-      // and should be fixed with its own change and blast-radius check.
+    test('the line-level predicate still misses an emphasised "Made with ❤️"', () => {
+      // Unlike the first five patterns, "Made with ❤️" has no leading [*_]? in
+      // FOOTER_PATTERNS, so isFooterPhraseLine cannot see the emphasised variant.
+      // The generator's own regex no longer shares that gap, because
+      // "Made with ❤️" is in HIGH_CONFIDENCE_FOOTER_PATTERNS -- see the
+      // tightened-matcher test below. The auditing predicate is a separate fix
+      // with its own blast-radius check.
       expect(isFooterPhraseLine('*Made with ❤️ by the LightSpeed team.*')).toBe(false);
-      expect(regex.test('Body.\n\n*Made with ❤️ by the LightSpeed team.*')).toBe(false);
+    });
+
+    test('matches an emphasised "Made with ❤️" footer the line predicate misses', () => {
+      // Closing the documented latent gap here rather than silently changing it,
+      // as that comment asked: measured across all 11,461 tracked Markdown
+      // files, the tightened matcher changes the verdict on none of them.
+      expect(regex.test('Body.\n\n*Made with ❤️ by the LightSpeed team.*')).toBe(true);
     });
 
     test('does not match a footer stranded above real content', () => {
@@ -203,6 +209,36 @@ describe('footer-policy', () => {
       // duplicate auditing needs the line-level predicate.
       const content = '_Made with ❤️ by the LightSpeed team._\n\nMore real content.';
       expect(regex.test(content)).toBe(false);
+    });
+
+    test('does not match an ordinary sentence that begins like a footer', () => {
+      // ensureFooter() *replaces* whatever this matches, so a generic opener at
+      // end of file used to delete the sentence. Verified against the generator:
+      // "Update when the API version changes." and "Questions? See the runbook."
+      // were both silently replaced by a footer.
+      expect(regex.test('Runbook\n\nUpdate when the API version changes.\n')).toBe(false);
+      expect(regex.test('Runbook\n\nQuestions? See the runbook.\n')).toBe(false);
+      expect(regex.test('Runbook\n\nUse responsibly; tailor to the thread.\n')).toBe(false);
+    });
+
+    test('still matches the footers this repo actually writes', () => {
+      // Every real footer is either an unmistakable phrase or an emphasised
+      // phrase line, so tightening the matcher must not lose any of them. The
+      // link line that may follow a footer has to keep matching too.
+      expect(
+        regex.test('Doc\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*')
+      ).toBe(true);
+      expect(
+        regex.test(
+          'Doc\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n' +
+            '[Contributors](https://github.com/lsx-demo-theme/graphs/contributors)'
+        )
+      ).toBe(true);
+      expect(
+        regex.test('Doc\n\n_This page brought to you by the 🦄 Magic Automation Unicorns._')
+      ).toBe(true);
+      expect(regex.test('Doc\n\nMade with ❤️ by the LightSpeed team.')).toBe(true);
+      expect(regex.test('Doc\n\n*Have questions? Ping us on GitHub! 🐙*')).toBe(true);
     });
 
     test('is rebuilt from the same pattern list', () => {

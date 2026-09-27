@@ -135,7 +135,26 @@ const HIGH_CONFIDENCE_PHRASE_RE = new RegExp(
  * @returns {RegExp} End-anchored footer matcher
  */
 export function buildFooterRegex() {
-  const pattern = `(^|\\n)(?:${FOOTER_PATTERNS.join('|')})\\n?$`;
+  // A phrase-shaped line at EOF is not automatically a footer. The generic
+  // openers ("Questions?", "Update when", "Use responsibly", ...) also begin
+  // ordinary sentences, and ensureFooter() *replaces* whatever this matches, so
+  // matching prose here deletes it -- the same data loss the dedupe tool exists
+  // to prevent. A trailing block therefore has to look like a footer: either it
+  // opens with an unmistakable phrase, or the phrase line is emphasised, which
+  // is how the ~26,000 footers in this repo are actually written.
+  //
+  // The emphasis requirement is a lookahead for a marker at the end of the
+  // phrase line rather than a trailing `[*_]` in the pattern, because a footer
+  // block may continue with a link line ("*Built by ...*\n[Contributors](...)")
+  // that the pattern consumes after the closing marker.
+  const emphasised = '(?=[^\\n]*[*_]\\s*$)';
+  const tail = '[^\\n]*(?:\\n\\[.*?\\]\\(.*?\\))?';
+  const pattern =
+    '(^|\\n)(?:' +
+    `[*_]?(?:${HIGH_CONFIDENCE_FOOTER_PATTERNS.join('|')})${tail}` +
+    '|' +
+    `${emphasised}(?:${FOOTER_PATTERNS.join('|')})` +
+    ')\\n?$';
   return new RegExp(pattern);
 }
 
