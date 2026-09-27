@@ -16,7 +16,7 @@ Every Claude Code cloud session (claude.ai/code, the desktop and mobile apps, `c
 [cloud environment](https://code.claude.com/docs/en/cloud-environments). This guide sets up one shared
 **LightSpeed** environment so everyone on the team starts from the same configuration, and so Claude follows the
 [branching strategy](./BRANCHING_STRATEGY.md) instead of the platform defaults. The requirements behind it are in
-[spec 016](../.github/specs/016-claude-cloud-environment/spec.md).
+[spec 018](../.github/specs/018-claude-cloud-environment/spec.md).
 
 ## The problem this solves
 
@@ -215,6 +215,6 @@ and that **Claude guard contract tests** is listed under the required status che
 
 - [Branching strategy](./BRANCHING_STRATEGY.md)
 - [PR creation process](./PR_CREATION_PROCESS.md)
-- [Spec 016](../.github/specs/016-claude-cloud-environment/spec.md)
+- [Spec 018](../.github/specs/018-claude-cloud-environment/spec.md)
 - [Claude Code cloud environments](https://code.claude.com/docs/en/cloud-environments)
 - [Claude Code hooks](https://code.claude.com/docs/en/hooks)
