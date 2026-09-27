@@ -70,7 +70,7 @@ and the first match wins:
 1. Protected branch → KEEP.
 2. Matches an exclusion pattern → KEEP.
 3. Has an open PR → KEEP.
-4. **New (016)**: prefix `claude/`, merged to a base branch, open-PR check succeeded, tip at least 1 day old →
+4. **New (018)**: prefix `claude/`, merged to a base branch, open-PR check succeeded, tip at least 1 day old →
    **DELETE, auto-approved** (`auto_delete_empty_agent_branch`).
 5. Invalid name (including `claude/*` branches with their own commits) → DISCUSS (unchanged 009 rule).
 6. All later 009 rules are unchanged.
