@@ -175,6 +175,18 @@ function ls_newsletter_bump( $key, $max ) {
 	$table = $wpdb->prefix . 'ls_rate_limits';
 	$now   = time();
 
+	// Drop counters whose window has closed before adding this one. Without
+	// this the table grows by a row per distinct address forever: the per-IP
+	// limit slows that down but does not bound it, because each new address
+	// still creates a fresh key. Purging here keeps the table to one window.
+	$wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM {$table} WHERE window_started + %d <= %d",
+			HOUR_IN_SECONDS,
+			$now
+		)
+	);
+
 	// LAST_INSERT_ID() carries the new counter out of the same atomic statement
 	// that performed the increment, so the number compared against $max is this
 	// request's own count rather than whatever a later reader would observe.
@@ -182,14 +194,8 @@ function ls_newsletter_bump( $key, $max ) {
 		$wpdb->prepare(
 			"INSERT INTO {$table} (rate_key, hits, window_started) VALUES (%s, LAST_INSERT_ID(1), %d)
 			 ON DUPLICATE KEY UPDATE
-			 hits = IF(window_started + %d < %d, LAST_INSERT_ID(1), LAST_INSERT_ID(hits + 1)),
-			 window_started = IF(window_started + %d < %d, %d, window_started)",
+			 hits = LAST_INSERT_ID(hits + 1)",
 			$key,
-			$now,
-			HOUR_IN_SECONDS,
-			$now,
-			HOUR_IN_SECONDS,
-			$now,
 			$now
 		)
 	);
@@ -246,9 +252,12 @@ CREATE TABLE {$wpdb->prefix}ls_rate_limits (
   rate_key       VARCHAR(64) NOT NULL,
   hits           INT UNSIGNED NOT NULL DEFAULT 0,
   window_started BIGINT UNSIGNED NOT NULL,
-  PRIMARY KEY (rate_key)
+  PRIMARY KEY (rate_key),
+  KEY window_started (window_started)
 );
 ```
+
+Rows are purged on each request once their hour is up, so the table holds at most one window of counters rather than growing with every distinct address.
 
 The example allows 20 requests per IP and three per email address per hour,
 storing only WordPress hashes of those values. Tune both limits to the provider's

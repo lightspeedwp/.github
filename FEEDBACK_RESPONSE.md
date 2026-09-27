@@ -44,6 +44,8 @@ Refs #1396
 | 12 | Scenario 5 required "more than 24 hours" where FR-020 says "at least" | ✅ Addressed | Scenario matches FR-020 |
 | 13 | FR-020 required a branch-age signal that no component provides, leaving the gate unsatisfiable | ✅ Addressed | **Specification text only.** Auto-approved deletion is explicitly deferred in FR-020, the contract, the data model, `research.md` and the acceptance scenario, so the spec no longer claims a gate nothing implements. No implementation work is included here: the shipped categoriser still uses `lastCommitDate` and does not establish branch-observation age, and the underlying storage decision is deferred below |
 | 14 | The lifecycle diagram in `data-model.md` still asserted "tip ≥24 h old" | ✅ Addressed | Diagram now states the branch-age basis and the deferral, without naming a storage mechanism |
+| 15 | The corrected lifecycle edge still gated entry to spec 009 categorisation on 24 hours of observation, which the deferral removes | ✅ Addressed | The 24-hour threshold now sits only on the deferred auto-approval rule; every empty branch reaches 009 categorisation |
+| 16 | The rate-limit table grew by a row per distinct address forever: the purge was missing, so the per-IP limit slowed growth without bounding it (CWE-400) | ✅ Addressed | Expired rows are deleted before each insert, the in-place reset branch is gone, and the table carries an index on `window_started` so the purge is indexed |
 
 ## Deferred
 
@@ -60,7 +62,7 @@ the deferral holds.
 
 ## Summary
 
-All feedback items addressed except one, which is deferred: the branch-age decision, whose options
+All sixteen feedback items addressed except one, which is deferred: the branch-age decision, whose options
 are recorded on #3358 and which needs a dedicated tracking issue the maintainer has been asked to
 approve. Nothing was rejected.
 

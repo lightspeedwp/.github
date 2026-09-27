@@ -56,7 +56,7 @@ claude/<words>-<hash>  --(SessionStart, cloud, 0 commits ahead of base)-->  chor
 claude/<...> with commits (existing PR)  --(SessionStart)-->  unchanged; writes allowed only as a legacy PR branch
 chore/session-<hash>   --(git branch -m, validated)-->  <type>/<scope>-<title>
 <type>/<scope>-<title> --(git push -u)-->  remote branch  --(draft PR)-->  develop
-remote claude/<...>  (empty, left by platform)  --(daily cleanup, no open PR, observed ≥24 h)-->  009 categorisation; auto-approved deletion is deferred until a branch-age signal exists
+remote claude/<...>  (empty, left by platform)  --(daily cleanup)-->  009 categorisation; auto-approved deletion is deferred until a branch-age signal exists, so the ≥24 h threshold applies only to that deferred rule
 ```
 
 When the tree is clean and has no local commits, SessionStart also resets the branch to `origin/<LS_BASE_BRANCH>`
