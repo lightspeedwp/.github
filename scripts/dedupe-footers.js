@@ -395,29 +395,106 @@ export function listMarkdownFiles(cwd) {
  * @returns {string[]} Repo-relative POSIX paths
  */
 export function listChangedMarkdownFiles(cwd, base, head) {
-  // Three dots, not two: `base...head` diffs from the merge base, so the result
-  // is the files this branch actually changed. `base head` also returns
-  // everything that landed on the base branch after the branch point, which
-  // would fail a PR over backlog the author never touched.
-  //
-  // The exception is a tree-object base, which is what a first push resolves to
-  // (there is no parent commit to take a merge base against). A symmetric
-  // difference needs two commits, so `base...head` errors with "is a tree, not
-  // a commit" and the whole scan would fail. Fall back to the two-dot form
-  // there, which is the correct diff against an empty tree anyway.
-  const isTreeBase =
-    execFileSync('git', ['cat-file', '-t', base], {
-      cwd,
-      encoding: 'utf8',
-    }).trim() === 'tree';
+  return diffChangedMarkdownFiles(cwd, base, head).files;
+}
 
-  const rangeArgs = isTreeBase ? [base, head] : [`${base}...${head}`];
-  const out = execFileSync('git', ['diff', '--name-only', '-z', ...rangeArgs, '--', '*.md'], {
+/**
+ * Is this ref a tree object rather than a commit?
+ *
+ * A first push resolves to the empty tree, and a symmetric difference needs two
+ * commits, so `base...head` errors with "is a tree, not a commit".
+ *
+ * @param {string} cwd - Repository directory.
+ * @param {string} ref - Git ref to test.
+ * @returns {boolean} True when the ref names a tree.
+ */
+function isTreeRef(cwd, ref) {
+  return execFileSync('git', ['cat-file', '-t', ref], { cwd, encoding: 'utf8' }).trim() === 'tree';
+}
+
+/**
+ * The ref a `base...head` diff is taken against.
+ *
+ * Three dots, not two: `base...head` diffs from the merge base, so the result is
+ * the files this branch actually changed. `base head` also returns everything
+ * that landed on the base branch after the branch point, which would fail a PR
+ * over backlog the author never touched.
+ *
+ * The exception is a tree-object base, which is what a first push resolves to.
+ * There is no merge base against a tree, so the ref is the tree itself and the
+ * diff is the two-dot form, which is correct against an empty tree anyway.
+ *
+ * The caller needs this same ref to read a file's baseline, so it is resolved
+ * once here and returned rather than recomputed per file. Using `base` for the
+ * baseline instead would be inconsistent with the diff that selected the file.
+ *
+ * @param {string} cwd - Repository directory.
+ * @param {string} base - Base ref supplied by the caller.
+ * @param {string} head - Head ref.
+ * @returns {string} The commit or tree the diff, and any baseline, is taken from.
+ */
+export function resolveDiffBase(cwd, base, head) {
+  if (isTreeRef(cwd, base)) {
+    return base;
+  }
+  return execFileSync('git', ['merge-base', base, head], {
     cwd,
     encoding: 'utf8',
     maxBuffer: 1 << 28,
-  });
-  return out.split('\0').filter(Boolean);
+  }).trim();
+}
+
+/**
+ * List the Markdown files a `base...head` change touched.
+ *
+ * Returns the destination path for each, plus the source path when the change
+ * was a rename. A renamed file has no content at its new path in the baseline,
+ * so the baseline lookup has to ask for the old name or it finds nothing and the
+ * file looks newly added.
+ *
+ * @param {string} cwd - Repository directory.
+ * @param {string} base - Base ref.
+ * @param {string} head - Head ref.
+ * @returns {{ files: string[], renames: Map<string, string>, diffBase: string }} Changed files, rename map, resolved diff base.
+ */
+export function diffChangedMarkdownFiles(cwd, base, head) {
+  const diffBase = resolveDiffBase(cwd, base, head);
+  const isTreeBase = isTreeRef(cwd, diffBase);
+  const rangeArgs = isTreeBase ? [diffBase, head] : [`${diffBase}...${head}`];
+
+  // --name-status with rename detection, rather than --name-only: a rename would
+  // otherwise be indistinguishable from a delete plus an add, and the baseline
+  // lookup would silently fall back to "no baseline".
+  const out = execFileSync(
+    'git',
+    ['diff', '--name-status', '--find-renames', '-z', ...rangeArgs, '--', '*.md'],
+    { cwd, encoding: 'utf8', maxBuffer: 1 << 28 }
+  );
+
+  const files = [];
+  const renames = new Map();
+  const parts = out.split('\0').filter((part) => part !== '');
+
+  for (let i = 0; i < parts.length; i += 1) {
+    const status = parts[i];
+    if (status.startsWith('R')) {
+      // Rename records are status, source, destination.
+      const source = parts[i + 1];
+      const destination = parts[i + 2];
+      i += 2;
+      if (!destination.endsWith('.md')) continue;
+      files.push(destination);
+      renames.set(destination, source);
+    } else {
+      // Status, then path: consume both fields before the next iteration.
+      const file = parts[i + 1];
+      i += 1;
+      if (!file || !file.endsWith('.md')) continue;
+      files.push(file);
+    }
+  }
+
+  return { files, renames, diffBase };
 }
 
 /**
@@ -524,6 +601,34 @@ export function isWorkingTreeDirty(cwd) {
   }
 }
 
+/**
+ * How many blocks would the tool remove from a file's content at `ref`?
+ *
+ * Used to tell debt this change inherited from debt it created. Returns null when
+ * the path has no readable content at that ref -- a file the change adds, or one
+ * that cannot be read there -- and null is deliberately not "zero": a new file
+ * carrying blocks must still be reported.
+ *
+ * @param {string} repo - Repository directory.
+ * @param {string} ref - Git ref to read the file from.
+ * @param {string} relPath - Repository-relative path.
+ * @param {boolean} exempt - Whether the path is exempt from footers.
+ * @returns {number|null} Removable block count at `ref`, or null if unavailable.
+ */
+function countBlocksAtRef(repo, ref, relPath, exempt) {
+  let content;
+  try {
+    content = execFileSync('git', ['show', `${ref}:${relPath}`], {
+      cwd: repo,
+      encoding: 'utf8',
+      maxBuffer: 1 << 28,
+    });
+  } catch {
+    return null;
+  }
+  return analyseContent(content, { exempt }).removedBlocks;
+}
+
 export function run(options) {
   const cwd = options.cwd;
   const repoRoot = path.resolve(cwd);
@@ -543,6 +648,12 @@ export function run(options) {
     );
   }
 
+  // Filled in by the --changed-only branch below. A null comparisonRef means there
+  // is no baseline, so nothing is treated as inherited debt.
+  let comparisonRef = null;
+  /** @type {Map<string, string>} Destination path -> source path, for renames. */
+  let renameSources = new Map();
+
   let files;
   if (options.pathsFrom) {
     files = fs
@@ -554,12 +665,19 @@ export function run(options) {
     if (!options.base || !options.head) {
       throw new Error('--changed-only requires both --base=<ref> and --head=<ref>');
     }
-    files = listChangedMarkdownFiles(cwd, options.base, options.head);
+    const changed = diffChangedMarkdownFiles(cwd, options.base, options.head);
+    files = changed.files;
+    // The baseline is the same ref the file list was diffed against, not the
+    // caller's base: `base...head` starts at the merge base, so comparing
+    // against `base` would read a baseline the file list never used.
+    comparisonRef = changed.diffBase;
+    renameSources = changed.renames;
   } else {
     files = listMarkdownFiles(cwd);
   }
 
   const findings = [];
+  let preExisting = 0;
   for (const relPath of files) {
     const abs = path.resolve(repoRoot, relPath);
     // An explicit --paths-from list is operator-supplied, so a malformed batch
@@ -601,6 +719,30 @@ export function run(options) {
       continue;
     }
 
+    // Over a base..head range, report only what this change made worse.
+    //
+    // The guard is meant to catch a change that *introduces* compounded,
+    // stranded or misplaced footers. Reporting every touched file that already
+    // carried them turned the ratchet into a wall: #3448 regenerates 9,423
+    // Markdown files and changes no file's duplicate-footer count, yet 3,947 of
+    // them were flagged purely for pre-existing debt. Measured against base,
+    // that PR's count is 0 files worse; #3532 is 5 and #3434 is 20, and all
+    // three keep failing for the right reason once this rule applies.
+    //
+    // Pre-existing debt is not abandoned here -- it is the whole of #3451, and
+    // the whole-repo report below still prints it on every run. What changes is
+    // that a PR is no longer blocked for backlog it did not create.
+    // A renamed file has no content at its new path in the baseline, so the
+    // lookup has to ask for the old name.
+    const baselinePath = renameSources.get(relPath) || relPath;
+    const baseBlocks = comparisonRef
+      ? countBlocksAtRef(cwd, comparisonRef, baselinePath, exempt)
+      : null;
+    if (baseBlocks !== null && result.removedBlocks <= baseBlocks) {
+      preExisting++;
+      continue;
+    }
+
     findings.push({
       path: relPath,
       exempt,
@@ -627,6 +769,7 @@ export function run(options) {
     removedBlocks: totalRemoved,
     removedLines: totalRemovedLines,
     fixed: Boolean(options.fix),
+    preExistingFiles: preExisting,
     findings,
   };
 }
@@ -641,7 +784,13 @@ export function formatReport(report) {
   const mode = report.fixed ? 'FIX' : 'DRY-RUN';
   lines.push(`footer duplicate ${mode}: ${report.files}/${report.scanned} file(s) affected`);
   lines.push(
-    `  blocks found ${report.blocks} · removed ${report.removedBlocks} · lines removed ${report.removedLines} · exempt-path files ${report.exemptFiles}`
+    `  blocks found ${report.blocks} · removed ${report.removedBlocks} · lines removed ${report.removedLines} · exempt-path files ${report.exemptFiles}` +
+      // Never let the comparison hide that files were examined and passed. A
+      // report that silently drops thousands of files is indistinguishable from
+      // one that never looked at them.
+      (report.preExistingFiles > 0
+        ? ` · pre-existing duplicates unchanged: ${report.preExistingFiles}`
+        : '')
   );
   if (report.files > 0) {
     // Rank by how much each file loses so the report leads with the worst
