@@ -73,7 +73,7 @@ implementation in lightspeedwp/.github#3524.
     reason code `auto_delete_empty_agent_branch` for a `claude/*` branch when all of these hold:
     - it is merged to a base branch
     - open-PR verification succeeded and found no open PR
-    - its tip is at least 1 day old
+    - it has been continuously observable as a branch for at least 1 day, from a branch-age signal such as a first-observed timestamp, never from the age of its tip commit
 
     This check runs before the naming-violation check.
   - **Audit command**: `cleanup-branches.js` stays report-only, as 009 FR-011 requires. The JSON report lists the
@@ -88,7 +88,7 @@ implementation in lightspeedwp/.github#3524.
 - **Consequences**:
   - FR-020 to FR-022 depend on #3358 merging first.
   - The exit codes follow 009: 0 for success, 1 for fatal, 2 for partial failure.
-- **"Age"**: the tip commit's date, as in 009 FR-005. The spec's edge case accepts that an empty branch can go
+- **"Age"**: how long the branch has been continuously observable, measured from a branch-age signal such as a first-observed timestamp. This was originally the tip commit's date by analogy with 009 FR-005, but that is not a safe basis: a branch created moments ago can carry an old tip commit, so a fresh working branch would be auto-deleted within a day of being created. The spec's edge case accepts that an empty branch can go
   within a day of its session starting.
 - **Alternatives considered**:
   - A: route `claude/*` through the draft PR. This needs a person to approve every day to meet SC-002, so it was

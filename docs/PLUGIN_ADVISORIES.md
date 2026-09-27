@@ -67,19 +67,40 @@ instruction or issue in a generator is not evidence that the feature ships.
   <label for="newsletter-email">Email address</label>
   <input id="newsletter-email" name="email" type="email" required autocomplete="email" />
   <button type="submit">Subscribe</button>
+  <p data-newsletter-error role="alert" hidden></p>
 </form>
 <script>
   document.getElementById('newsletter-signup').addEventListener('submit', async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
-    const response = await fetch(form.action, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: form.elements.email.value }),
-    });
-    form.outerHTML = response.ok
-      ? '<p role="status">Subscribed. Please check your inbox.</p>'
-      : '<p role="alert">Subscription failed. Please try again later.</p>';
+    const showError = (message) => {
+      const slot = form.querySelector('[data-newsletter-error]');
+      if (slot) {
+        slot.hidden = false;
+        slot.textContent = message;
+      }
+    };
+
+    let response;
+    try {
+      response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: form.elements.email.value }),
+      });
+    } catch (networkError) {
+      showError('Could not reach the server. Please try again.');
+      return;
+    }
+
+    if (response.ok) {
+      form.outerHTML = '<p role="status">Subscribed. Please check your inbox.</p>';
+      return;
+    }
+
+    // Leave the form in place on failure so the address survives and the
+    // visitor can correct it and resubmit.
+    showError('Subscription failed. Please check the address and try again.');
   });
 </script>
 ```
@@ -116,22 +137,61 @@ function ls_newsletter_rate_limited( $email ) {
 			'max'    => 3,
 		),
 	);
-	$counts = array();
-
 	foreach ( $limits as $limit ) {
-		$key   = $limit['prefix'] . wp_hash( $limit['value'], 'auth' );
-		$count = (int) get_transient( $key );
-		if ( $count >= $limit['max'] ) {
+		$key = $limit['prefix'] . wp_hash( $limit['value'], 'auth' );
+		if ( ls_newsletter_bump( $key, $limit['max'] ) ) {
 			return true;
 		}
-		$counts[ $key ] = $count + 1;
-	}
-
-	foreach ( $counts as $key => $count ) {
-		set_transient( $key, $count, HOUR_IN_SECONDS );
 	}
 
 	return false;
+}
+
+/**
+ * Atomically count one hit against a key and report whether it is over budget.
+ *
+ * A get_transient()/set_transient() pair is a read-modify-write, so two
+ * concurrent submissions can read the same count, both write count + 1, and
+ * the limit is silently bypassed. The increment and the read of the resulting
+ * value happen in a single statement instead, so no increment is lost.
+ *
+ * @return bool True to refuse the request: the count is now over the limit,
+ *              or the counter could not be read at all.
+ */
+function ls_newsletter_bump( $key, $max ) {
+	global $wpdb;
+
+	$table = $wpdb->prefix . 'ls_rate_limits';
+	$now   = time();
+
+	// LAST_INSERT_ID() carries the new counter out of the same atomic statement
+	// that performed the increment, so the number compared against $max is this
+	// request's own count rather than whatever a later reader would observe.
+	$done = $wpdb->query(
+		$wpdb->prepare(
+			"INSERT INTO {$table} (rate_key, hits, window_started) VALUES (%s, LAST_INSERT_ID(1), %d)
+			 ON DUPLICATE KEY UPDATE
+			 hits = IF(window_started + %d < %d, LAST_INSERT_ID(1), LAST_INSERT_ID(hits + 1)),
+			 window_started = IF(window_started + %d < %d, %d, window_started)",
+			$key,
+			$now,
+			HOUR_IN_SECONDS,
+			$now,
+			HOUR_IN_SECONDS,
+			$now,
+			$now
+		)
+	);
+
+	if ( false === $done ) {
+		// The counter could not be read. Treating that as remaining capacity
+		// would fail open and hand the caller an unlimited budget, so refuse.
+		return true;
+	}
+
+	// Strictly greater: the request that reaches the configured maximum is
+	// still allowed, and the one after it is refused.
+	return (int) $wpdb->insert_id > $max;
 }
 
 function ls_newsletter_subscribe( WP_REST_Request $request ) {
@@ -166,6 +226,17 @@ function ls_newsletter_subscribe( WP_REST_Request $request ) {
 	}
 	return array( 'subscribed' => true );
 }
+```
+
+The counter needs a table, created once with `dbDelta()`:
+
+```sql
+CREATE TABLE {$wpdb->prefix}ls_rate_limits (
+  rate_key       VARCHAR(64) NOT NULL,
+  hits           INT UNSIGNED NOT NULL DEFAULT 0,
+  window_started BIGINT UNSIGNED NOT NULL,
+  PRIMARY KEY (rate_key)
+);
 ```
 
 The example allows 20 requests per IP and three per email address per hour,

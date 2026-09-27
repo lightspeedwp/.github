@@ -11,9 +11,9 @@ This feature adds no workflow or script of its own. It extends spec 009's contra
 | Field | Value |
 | --- | --- |
 | New rule position | After "has open PR → KEEP", before "invalid name → DISCUSS" |
-| Condition | name starts with `claude/` **and** merged to a base branch **and** open-PR verification succeeded with no open PR **and** tip age of at least `AUTO_DELETE_MIN_AGE_DAYS` (1) |
+| Condition | name starts with `claude/` **and** merged to a base branch **and** open-PR verification succeeded with no open PR **and** observed as a branch for at least `AUTO_DELETE_MIN_AGE_DAYS` (1) days, measured from a branch-age signal such as a first-observed timestamp and never from the age of the tip commit |
 | Result | `{ category: "DELETE", autoApproved: true, reason: REASON_CODES.DELETE.auto_delete_empty_agent_branch }` |
-| Configuration | `AUTO_DELETE_PREFIXES = ["claude"]` and `AUTO_DELETE_MIN_AGE_DAYS = 1` in `scripts/lib/constants.js` |
+| Configuration | `AUTO_DELETE_PREFIXES = ["claude"]` and `AUTO_DELETE_MIN_AGE_DAYS = 1` in `scripts/lib/constants.js`. The threshold is measured from the branch-age signal above, so the audited state must persist a first-observed timestamp per branch rather than inferring age from the tip commit |
 
 All other results carry `autoApproved: false` (or omit it).
 
@@ -29,7 +29,7 @@ All other results carry `autoApproved: false` (or omit it).
 | Step | Behaviour |
 | --- | --- |
 | Audit | Runs `node scripts/cleanup-branches.js --reportFormat=json` |
-| Auto-delete (new) | For each `autoApproved` entry: re-check merged and no open PR, then `git push origin --delete <branch>`. Skipped when a manual run chooses report-only |
+| Auto-delete (new) | For each `autoApproved` entry: re-check merged and no open PR, record the branch tip OID that was checked, then delete with `git push origin --delete <branch> --force-with-lease=<branch>:<oid>` so a push landing between the re-check and the delete aborts the deletion instead of discarding work. Skipped when a manual run chooses report-only |
 | Draft PR | Unchanged. Covers the remaining `DELETE` candidates, which need a person's approval |
 | DISCUSS issue | Unchanged |
 | Schedule | At least daily |

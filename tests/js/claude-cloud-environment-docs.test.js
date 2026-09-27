@@ -387,7 +387,7 @@ describe('Claude cloud environment specification contracts', () => {
 
     test('requires a merged branch, verified absence of an open PR, and a full day of age', () => {
       expect(requirement('FR-020')).toMatch(
-        /merged to a base branch.*open-PR verification succeeded.*at least 24 hours old/
+        /merged to a base branch.*open-PR verification succeeded.*at least 24 hours/
       );
       expect(contractRow(cleanup, 'Condition')).toMatch(
         /merged to a base branch.*no open PR.*`AUTO_DELETE_MIN_AGE_DAYS` \(1\)/
@@ -414,7 +414,11 @@ describe('Claude cloud environment specification contracts', () => {
 
     test('keeps younger or unmerged agent branches out of the auto-delete rule', () => {
       expect(requirement('FR-020')).toMatch(/merged to a base branch \(no commits of its own\)/);
-      expect(requirement('FR-020')).toMatch(/at least 24 hours old/);
+      expect(requirement('FR-020')).toMatch(/at least 24 hours/);
+      // The age gate must come from a branch-age signal, not the age of the
+      // tip commit: a branch created recently can carry an old tip commit.
+      expect(requirement('FR-020')).toMatch(/branch-age signal/);
+      expect(requirement('FR-020')).toMatch(/never from the age of its tip commit/);
       expect(requirement('FR-021')).toMatch(/fails an FR-020 condition MUST NOT be auto-deleted/);
       expect(contractRow(cleanup, 'Condition')).toMatch(
         /merged to a base branch.*at least `AUTO_DELETE_MIN_AGE_DAYS` \(1\)/
