@@ -351,7 +351,12 @@ export function analyseContent(content, options = {}) {
     kept.pop();
   }
   let cleaned = kept.join('\n');
-  if (hadTrailingNewline || cleaned.length > 0) {
+  // Restore the original convention only. A file that did not end with a
+  // newline must not gain one: the header promises that anything not provably
+  // part of a footer block is left byte-for-byte alone, and a trailing newline
+  // is not part of a footer block. The cleaned output also has to be non-empty,
+  // or an emptied document would become a bare newline.
+  if (hadTrailingNewline && cleaned.length > 0) {
     cleaned += '\n';
   }
 

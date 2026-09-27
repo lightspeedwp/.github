@@ -558,6 +558,43 @@ describe('parseArgs', () => {
   });
 });
 
+describe('the trailing newline convention is preserved', () => {
+  // The tool's header promises that anything not provably part of a footer
+  // block is left byte-for-byte alone. A trailing newline is not part of a
+  // footer block, so a file that did not end with one must not gain one.
+  const FOOTER = '*Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*';
+
+  test('does not add a final newline the input did not have', () => {
+    const body = 'Intro.\n\n' + FOOTER + '\n\n' + FOOTER;
+
+    const result = analyseContent(body, { exempt: false });
+
+    expect(result.removedBlocks).toBe(1);
+    expect(result.cleaned.endsWith('\n')).toBe(false);
+  });
+
+  test('keeps a final newline the input did have', () => {
+    const body = 'Intro.\n\n' + FOOTER + '\n\n' + FOOTER + '\n';
+
+    const result = analyseContent(body, { exempt: false });
+
+    expect(result.removedBlocks).toBe(1);
+    expect(result.cleaned.endsWith('\n')).toBe(true);
+  });
+
+  test('a document that is only duplicate footers keeps exactly one', () => {
+    // The trailing block is the canonical one, so it survives and the copy
+    // above it goes. Worth pinning here because the "output is non-empty"
+    // guard in the newline logic exists for this shape.
+    const body = FOOTER + '\n\n' + FOOTER + '\n';
+
+    const result = analyseContent(body, { exempt: false });
+
+    expect(result.removedBlocks).toBe(1);
+    expect(result.cleaned).toBe(FOOTER + '\n');
+  });
+});
+
 describe('a CRLF document is fenced the same as an LF one', () => {
   // In JavaScript regex `.` does not match `\r`, so a fence pattern ending
   // `(.*)$` fails outright on a CRLF line. The fence was then never recognised,
