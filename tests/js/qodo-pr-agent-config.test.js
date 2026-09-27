@@ -1,7 +1,7 @@
 /**
  * Contract test for the central Qodo PR-Agent configuration (`.pr_agent.toml`).
  *
- * Source of truth: .github/specs/017-qodo-pr-agent-integration/contracts/pr-agent-config.md
+ * Source of truth: .github/specs/019-qodo-pr-agent-integration/contracts/pr-agent-config.md
  */
 import fs from 'node:fs';
 import path from 'node:path';

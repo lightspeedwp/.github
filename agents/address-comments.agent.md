@@ -61,7 +61,7 @@ Move on to the next comment in the file or ask the user for the next comment.
 
 ## Qodo PR-Agent integration
 
-[Qodo PR-Agent](../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+[Qodo PR-Agent](../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../.github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
 
 - **Invocation**: pr-comment. Read the persistent Qodo PR-Agent improvement-suggestions comment (author `github-actions[bot]`; identify it by the marker recorded in `docs/QODO_PR_AGENT.md` → "Recognising Qodo PR-Agent feedback").
 - **On output**: Triage each suggestion like any other review comment: address it, or reply with the reason it stays as is.

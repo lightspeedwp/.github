@@ -2,7 +2,7 @@
 
 **Branch**: `aiops/qodo-pr-agent-integration` | **Date**: 2026-09-24 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `.github/specs/017-qodo-pr-agent-integration/spec.md`
+**Input**: Feature specification from `.github/specs/019-qodo-pr-agent-integration/spec.md`
 
 ## Summary
 
@@ -73,7 +73,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 ### Documentation (this feature)
 
 ```text
-.github/specs/017-qodo-pr-agent-integration/
+.github/specs/019-qodo-pr-agent-integration/
 ├── spec.md
 ├── plan.md                         # This file
 ├── research.md                     # Phase 0: R1–R12 decisions

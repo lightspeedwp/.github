@@ -13,7 +13,7 @@
  *     [--repo lightspeedwp/.github] [--workflow qodo-pr-agent.yml] \
  *     [--tokens-per-run 20000] [--price-per-mtok 6]
  *
- * Spec: .github/specs/017-qodo-pr-agent-integration/ (FR-021, SC-001, SC-008)
+ * Spec: .github/specs/019-qodo-pr-agent-integration/ (FR-021, SC-001, SC-008)
  */
 'use strict';
 

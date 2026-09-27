@@ -25,7 +25,7 @@ description: "Review pull requests against LightSpeed standards with evidence ch
 
 ## Qodo PR-Agent integration
 
-[Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+[Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
 
 - **Invocation**: [`skills/qodo-pr-agent`](../../skills/qodo-pr-agent/SKILL.md) with `review`, in PR mode or diff mode, and `ask` for targeted questions.
 - **On output**: Merge the findings as inputs to this review, and apply LightSpeed standards on top. Qodo PR-Agent is never a separate verdict: CodeRabbit and human reviewers own the verdict.

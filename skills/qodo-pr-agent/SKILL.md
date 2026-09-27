@@ -102,4 +102,4 @@ Skipped result, returned when no key is configured:
 ## Testing
 
 - `tests/js/qodo-pr-agent-integrations.test.js` checks this contract, that the image digest matches the workflow, and that every integrated asset documents its fallback.
-- Manual checks are in [quickstart.md](../../.github/specs/017-qodo-pr-agent-integration/quickstart.md) ("Skill smoke test" and "Integration checks").
+- Manual checks are in [quickstart.md](../../.github/specs/019-qodo-pr-agent-integration/quickstart.md) ("Skill smoke test" and "Integration checks").

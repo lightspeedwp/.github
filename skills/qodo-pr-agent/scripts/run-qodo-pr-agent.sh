@@ -9,7 +9,7 @@
 #   {"status":"ok|skipped|error","reason":...,"tool":...,"markdown":...,"data":...,"truncated":bool}
 # Exit codes: 0 for ok and skipped, 2 for error.
 #
-# Contract: .github/specs/017-qodo-pr-agent-integration/contracts/skill-interface.md
+# Contract: .github/specs/019-qodo-pr-agent-integration/contracts/skill-interface.md
 set -euo pipefail
 
 # Keep in step with .github/workflows/qodo-pr-agent-reusable.yml (a test checks they match).

@@ -6,9 +6,9 @@
 # maintainer commands. It never edits the PR body, applies labels or commits.
 #
 # - Documentation: docs/QODO_PR_AGENT.md
-# - Specification: .github/specs/017-qodo-pr-agent-integration/
+# - Specification: .github/specs/019-qodo-pr-agent-integration/
 # - Contract (asserted by tests/js/qodo-pr-agent-config.test.js):
-#   .github/specs/017-qodo-pr-agent-integration/contracts/pr-agent-config.md
+#   .github/specs/019-qodo-pr-agent-integration/contracts/pr-agent-config.md
 #
 # Qodo PR-Agent reads this file from the DEFAULT branch, so changes take effect
 # only after merge. Other repositories inherit it via the reusable workflow

@@ -2,8 +2,8 @@
  * Contract test for the Qodo PR-Agent shared skill and agent/skill integrations.
  *
  * Sources of truth:
- * - .github/specs/017-qodo-pr-agent-integration/contracts/skill-interface.md
- * - .github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md
+ * - .github/specs/019-qodo-pr-agent-integration/contracts/skill-interface.md
+ * - .github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md
  */
 import fs from 'node:fs';
 import path from 'node:path';

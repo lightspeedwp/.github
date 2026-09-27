@@ -15,7 +15,7 @@ Qodo PR-Agent is an open-source AI pull-request assistant ([`the-pr-agent/pr-age
 > [!IMPORTANT]
 > Qodo PR-Agent is **not** the internal [`agents/pr-agent/`](../agents/pr-agent/AGENT.md). That is LightSpeed's own agent for creating PRs, validating branch names, routing templates and applying labels. To avoid confusion, we always write "Qodo PR-Agent" for the third-party tool.
 
-- Specification: [`.github/specs/017-qodo-pr-agent-integration/`](../.github/specs/017-qodo-pr-agent-integration/spec.md)
+- Specification: [`.github/specs/019-qodo-pr-agent-integration/`](../.github/specs/019-qodo-pr-agent-integration/spec.md)
 - Configuration: [`.pr_agent.toml`](../.pr_agent.toml)
 - Workflows: [`qodo-pr-agent-reusable.yml`](../.github/workflows/qodo-pr-agent-reusable.yml) (the shared definition) and [`qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) (this repository's caller)
 - Shared skill for agents: [`skills/qodo-pr-agent/`](../skills/qodo-pr-agent/SKILL.md)
@@ -57,13 +57,13 @@ Only repository **owners, members and collaborators** can run commands. Comment 
 
 | Command | Why |
 | --- | --- |
-| `/generate_labels` | Qodo PR-Agent never applies labels. Label suggestions reach the labelling agent through the shared skill and are filtered against `.github/labels.yml` ([research R7](../.github/specs/017-qodo-pr-agent-integration/research.md#r7-keeping-governance-intact-labels-descriptions-changelog)). |
-| `/similar_issue` | Deferred. The upstream tool is experimental, needs OpenAI embeddings, and isn't included in the Action image ([research R8](../.github/specs/017-qodo-pr-agent-integration/research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)). |
+| `/generate_labels` | Qodo PR-Agent never applies labels. Label suggestions reach the labelling agent through the shared skill and are filtered against `.github/labels.yml` ([research R7](../.github/specs/019-qodo-pr-agent-integration/research.md#r7-keeping-governance-intact-labels-descriptions-changelog)). |
+| `/similar_issue` | Deferred. The upstream tool is experimental, needs OpenAI embeddings, and isn't included in the Action image ([research R8](../.github/specs/019-qodo-pr-agent-integration/research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)). |
 | `/config`, other commands | Not allow-listed; they are skipped. |
 
 ## Who does what
 
-The source of truth is the [responsibility matrix contract](../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md). In short:
+The source of truth is the [responsibility matrix contract](../.github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md). In short:
 
 | Concern | Owner |
 | --- | --- |

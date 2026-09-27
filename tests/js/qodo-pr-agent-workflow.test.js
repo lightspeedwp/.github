@@ -1,7 +1,7 @@
 /**
  * Contract test for the Qodo PR-Agent workflows.
  *
- * Source of truth: .github/specs/017-qodo-pr-agent-integration/contracts/reusable-workflow.md
+ * Source of truth: .github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md
  */
 import fs from 'node:fs';
 import { spawnSync } from 'node:child_process';

@@ -18,7 +18,7 @@
 # - A skipped run always concludes successfully; this workflow never blocks a PR.
 #
 # Docs: docs/QODO_PR_AGENT.md
-# Contract: .github/specs/017-qodo-pr-agent-integration/contracts/reusable-workflow.md
+# Contract: .github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md
 name: Qodo PR-Agent • Reusable
 
 on:
