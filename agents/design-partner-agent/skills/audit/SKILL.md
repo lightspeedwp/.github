@@ -66,23 +66,4 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing accessibi
 - Treat accessibility in `audit` as systematic accessibility assessment, not ownership of all accessibility-related feedback.
 - If the request is really about one screen, modal, component, or bounded state set, route to `critique` even if the review lens is accessibility.
 
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
