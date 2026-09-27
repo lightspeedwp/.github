@@ -186,21 +186,26 @@ describe('footer-policy', () => {
       expect(regex.test('Body text.\n\nMade with ❤️ by the LightSpeed team.')).toBe(true);
     });
 
-    test('the line-level predicate still misses an emphasised "Made with ❤️"', () => {
-      // Unlike the first five patterns, "Made with ❤️" has no leading [*_]? in
-      // FOOTER_PATTERNS, so isFooterPhraseLine cannot see the emphasised variant.
-      // The generator's own regex no longer shares that gap, because
-      // "Made with ❤️" is in HIGH_CONFIDENCE_FOOTER_PATTERNS -- see the
-      // tightened-matcher test below. The auditing predicate is a separate fix
-      // with its own blast-radius check.
-      expect(isFooterPhraseLine('*Made with ❤️ by the LightSpeed team.*')).toBe(false);
+    test('every phrase pattern tolerates a leading emphasis marker', () => {
+      // Previously only the first five patterns carried the optional [*_]? , so
+      // an emphasised generic footer was invisible to both the generator and the
+      // auditing predicate. That is not hypothetical: this repo contains
+      // "*Questions? Check [RELEASE_FAQ.md](...) or ask @lightspeedwp/maintainers*",
+      // which the generator could not match, so it would have appended a second
+      // footer to that file.
+      expect(isFooterPhraseLine('*Made with ❤️ by the LightSpeed team.*')).toBe(true);
+      expect(isFooterPhraseLine('*Questions? Check the FAQ or ask Y*')).toBe(true);
+      expect(isFooterPhraseLine('*Update when guidance changes*')).toBe(true);
+      expect(isFooterPhraseLine('_Update when guidance changes_')).toBe(true);
+      expect(regex.test('Doc\n\n*Questions? Check the FAQ or ask Y*')).toBe(true);
+      expect(regex.test('Doc\n\n_Update when guidance changes_')).toBe(true);
     });
 
-    test('matches an emphasised "Made with ❤️" footer the line predicate misses', () => {
-      // Closing the documented latent gap here rather than silently changing it,
-      // as that comment asked: measured across all 11,461 tracked Markdown
-      // files, the tightened matcher changes the verdict on none of them.
-      expect(regex.test('Body.\n\n*Made with ❤️ by the LightSpeed team.*')).toBe(true);
+    test('the emphasis marker does not make bare prose matchable', () => {
+      // The marker is optional, so this has to be pinned in both directions:
+      // adding it must not reopen the prose case the tightening closed.
+      expect(regex.test('Runbook\n\nUpdate when the API version changes.\n')).toBe(false);
+      expect(regex.test('Runbook\n\nQuestions? See the runbook.\n')).toBe(false);
     });
 
     test('does not match a footer stranded above real content', () => {
