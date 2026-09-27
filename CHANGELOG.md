@@ -243,7 +243,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **README Workflow Stops Rewriting the Whole Repo** — `meta.agent.js` ignored the file list the workflow passed it, rewriting 9,424 files per push. ([#3602](https://github.com/lightspeedwp/.github/issues/3602))
+- **Docs Workflow Stops Rewriting the Whole Repo** — The meta agent ignored the file list the workflow passed it, rewriting 9,424 files per push. ([#3602](https://github.com/lightspeedwp/.github/issues/3602))
 - **Footer Duplicates No Longer Return** — Running the generator twice no longer appends a second copy of a bare configured footer. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
 
 ### Security
