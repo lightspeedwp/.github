@@ -99,8 +99,19 @@ instruction or issue in a generator is not evidence that the feature ships.
     }
 
     // Leave the form in place on failure so the address survives and the
-    // visitor can correct it and resubmit.
-    showError('Subscription failed. Please check the address and try again.');
+    // visitor can correct it and resubmit. The route answers 429 when the
+    // limit is hit and 502 when the provider fails, and those need different
+    // advice: telling someone to check an already-valid address while they
+    // are blocked only invites a retry that will be refused again.
+    if (response.status === 429) {
+      showError('Too many attempts from this address. Please try again later.');
+      return;
+    }
+    if (response.status === 400 || response.status === 422) {
+      showError('That email address was not accepted. Please check it and try again.');
+      return;
+    }
+    showError('Subscription failed on our side. Please try again later.');
   });
 </script>
 ```

@@ -13,7 +13,7 @@ This feature adds no workflow or script of its own. It extends spec 009's contra
 | New rule position | After "has open PR → KEEP", before "invalid name → DISCUSS" |
 | Condition | name starts with `claude/` **and** merged to a base branch **and** open-PR verification succeeded with no open PR **and** observed as a branch for at least `AUTO_DELETE_MIN_AGE_DAYS` (1) days, measured from a branch-age signal such as a first-observed timestamp and never from the age of the tip commit |
 | Result | `{ category: "DELETE", autoApproved: true, reason: REASON_CODES.DELETE.auto_delete_empty_agent_branch }` |
-| Configuration | `AUTO_DELETE_PREFIXES = ["claude"]` and `AUTO_DELETE_MIN_AGE_DAYS = 1` in `scripts/lib/constants.js`. This threshold is measured from the branch-age signal above. Note that spec 009's `age_days` is contracted as "Days since last commit" in `deletion-candidates.schema.json`, and the shipped audit derives it from `lastCommitDate`; a branch-age signal for this rule therefore needs state spec 009 does not yet keep, and the storage mechanism is an open decision rather than a settled one |
+| Configuration | `AUTO_DELETE_PREFIXES = ["claude"]` and `AUTO_DELETE_MIN_AGE_DAYS = 1` in `scripts/lib/constants.js`. This threshold is measured from the branch-age signal above. Spec 009's `age_days` is contracted as "Days since last commit" in `deletion-candidates.schema.json`, and the shipped audit derives it from `lastCommitDate`. Spec 018 keeps no persistent storage and spec 009 supplies no branch-age signal, so **auto-approved deletion is deferred**: `AUTO_DELETE_MIN_AGE_DAYS` is not yet satisfiable and no branch qualifies until the signal's storage and retention are decided and built. Until then every candidate follows 009's categorisation and draft-PR approval |
 
 All other results carry `autoApproved: false` (or omit it).
 
@@ -29,7 +29,7 @@ All other results carry `autoApproved: false` (or omit it).
 | Step | Behaviour |
 | --- | --- |
 | Audit | Runs `node scripts/cleanup-branches.js --reportFormat=json` |
-| Auto-delete (new) | For each `autoApproved` entry: re-check merged and no open PR, record the branch tip OID that was checked, then delete with `git push origin --delete <branch> --force-with-lease=<branch>:<oid>` so a push landing between the re-check and the delete aborts the deletion instead of discarding work. Skipped when a manual run chooses report-only |
+| Auto-delete (deferred) | Deferred until a branch-age signal exists, so no entry currently qualifies. Once it does: for each `autoApproved` entry: re-check merged and no open PR, record the branch tip OID that was checked, then delete with `git push origin --delete <branch> --force-with-lease=<branch>:<oid>` so a push landing between the re-check and the delete aborts the deletion instead of discarding work. Skipped when a manual run chooses report-only |
 | Draft PR | Unchanged. Covers the remaining `DELETE` candidates, which need a person's approval |
 | DISCUSS issue | Unchanged |
 | Schedule | At least daily |

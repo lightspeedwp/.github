@@ -378,7 +378,7 @@ describe('Claude cloud environment specification contracts', () => {
     test('rechecks before deletion and continues after an individual failure', () => {
       expect(model).toMatch(/Re-check that the branch is still merged and has no open PR/);
       expect(model).toMatch(/Any failure → carry on with the other branches.*exit 2/);
-      expect(contractRow(cleanup, 'Auto-delete (new)')).toMatch(/re-check merged and no open PR/);
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(/re-check merged and no open PR/);
       expect(contractRow(cleanup, 'Schedule')).toContain('At least daily');
       expect(contractRow(cleanup, 'Permissions')).toMatch(
         /`contents: write`.*`pull-requests: read`/
@@ -400,7 +400,7 @@ describe('Claude cloud environment specification contracts', () => {
         /audit command never deletes.*re-verifies each branch first/
       );
       expect(cleanup).toMatch(/`--dryRun=false` is still rejected with exit 1/);
-      expect(contractRow(cleanup, 'Auto-delete (new)')).toMatch(
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(
         /re-check merged and no open PR.*manual run chooses report-only/
       );
     });

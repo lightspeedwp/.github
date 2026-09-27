@@ -88,7 +88,7 @@ implementation in lightspeedwp/.github#3524.
 - **Consequences**:
   - FR-020 to FR-022 depend on #3358 merging first.
   - The exit codes follow 009: 0 for success, 1 for fatal, 2 for partial failure.
-- **"Age"**: how long the branch has been continuously observable, measured from a branch-age signal such as a first-observed timestamp. This was originally the tip commit's date by analogy with 009 FR-005, but that is not a safe basis: a branch created moments ago can carry an old tip commit, so a fresh working branch would be auto-deleted within a day of being created. The spec's edge case accepts that an empty branch can go
+- **"Age"**: how long the branch has been continuously observable, measured from a branch-age signal such as a first-observed timestamp. This was originally the tip commit's date by analogy with 009 FR-005, but that is not a safe basis: a branch created moments ago can carry an old tip commit, so a fresh working branch would be auto-deleted within a day of being created. Because no branch-age signal exists to replace it and this spec keeps no persistent storage, the auto-approved deletion is deferred rather than shipped on the flawed basis; candidates fall back to 009's categorisation and draft-PR approval until the signal's storage is decided. While the deferral holds, no empty branch is auto-deleted at any age; every candidate goes through 009's categorisation and draft-PR approval instead.
   within a day of its session starting.
 - **Alternatives considered**:
   - A: route `claude/*` through the draft PR. This needs a person to approve every day to meet SC-002, so it was
