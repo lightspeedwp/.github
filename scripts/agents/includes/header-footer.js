@@ -88,6 +88,29 @@ function ensureFooter(file, options = {}) {
   let content = fs.readFileSync(file, 'utf-8');
   const nextFooter = getRandomFooter(category, seed);
 
+  // Idempotency guard. The end-anchored matcher deliberately only recognises a
+  // trailing block that is unmistakably a footer -- an unmistakable phrase or an
+  // emphasised one -- because replacing a match is destructive and a bare
+  // sentence like "Update when the API version changes." must not be swallowed.
+  // Some configured footers are themselves bare and generic ("Need help? Say
+  // hi--work with us."), so the matcher cannot see them, and without this check
+  // a second run would fail to find the footer it had just written and append
+  // another one instead. That is the compounding bug #3443 fixed, reintroduced
+  // through a different door.
+  //
+  // Comparing against the exact text this call would write is safe in the other
+  // direction too: if the file already ends with that footer, leaving it alone is
+  // exactly right, and no ordinary sentence is being mistaken for a footer
+  // because the comparison is with a literal the generator itself produced.
+  const alreadyEndsWithFooter = (() => {
+    const trimmed = content.replace(/\s+$/, '');
+    const candidate = nextFooter.replace(/\s+$/, '');
+    return trimmed === candidate || trimmed.endsWith(`\n${candidate}`);
+  })();
+  if (alreadyEndsWithFooter) {
+    return false;
+  }
+
   if (FOOTER_REGEX.test(content)) {
     // Replace only the matched footer text itself, preserving whichever
     // boundary (start-of-file "" or the preceding "\n") the regex
