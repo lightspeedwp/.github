@@ -473,18 +473,47 @@ async function processMarkdownFile(filePath, options = {}) {
 }
 
 /**
- * Finds and processes all Markdown files in the repository.
+ * Finds and processes Markdown files in the repository.
+ *
+ * With no `files` option this globs the whole tree, which is the historical
+ * behaviour and still what a bare invocation means. An explicit `files` list
+ * restricts the run to exactly those paths.
+ *
  * @param {object} [options={}] - Processing options, passed to `processMarkdownFile`.
  * @param {string} [options.pattern] - Glob pattern used to find Markdown files.
+ * @param {string[]|null} [options.files] - Explicit list of files, relative to cwd.
  * @returns {Promise<object>} A summary object of the results.
  */
 async function processAllMarkdownFiles(options = {}) {
-  const { pattern = '**/*.md' } = options;
+  const { pattern = '**/*.md', files: explicitFiles = null } = options;
 
-  const files = globSync(pattern, {
-    cwd: process.cwd(),
-    ignore: ['node_modules/**', '.git/**', '**/node_modules/**'],
-  });
+  let files;
+  if (explicitFiles === null) {
+    files = globSync(pattern, {
+      cwd: process.cwd(),
+      ignore: ['node_modules/**', '.git/**', '**/node_modules/**'],
+    });
+  } else {
+    // A caller-supplied list can name a file that was renamed or deleted since
+    // it was computed. Skipping those keeps the run useful rather than failing
+    // on work that is already done.
+    const resolved = explicitFiles.map((file) => path.resolve(process.cwd(), file));
+    const existing = resolved.filter((file) => fs.existsSync(file));
+
+    // But "none of them exist" is not a run that did the job quietly. A scoped
+    // invocation that processed nothing and still exits 0 is how a whole-repo
+    // rewrite hid behind a scoped-looking command in the first place, so this
+    // has to be loud. The workflow's next step decides whether to open a PR from
+    // whatever changed, and it would see nothing and open nothing.
+    if (existing.length === 0) {
+      throw new Error(
+        `--files matched none of the ${explicitFiles.length} requested path(s): ` +
+          `${explicitFiles.join(', ')}`
+      );
+    }
+
+    files = existing.map((file) => path.relative(process.cwd(), file));
+  }
 
   const results = {
     total: files.length,
@@ -515,19 +544,102 @@ async function processAllMarkdownFiles(options = {}) {
   return results;
 }
 
+/** Flags the agent understands. Anything else is rejected rather than ignored. */
+const KNOWN_FLAGS = ['--verbose', '-v', '--dry-run', '--files', '--help', '-h'];
+
+/**
+ * Parse command-line arguments.
+ *
+ * An unrecognised argument is a hard error on purpose. This agent rewrites
+ * Markdown in place, and the reason `--files` went unnoticed for so long is
+ * that an unknown flag was silently dropped: the workflow asked for a handful
+ * of READMEs and the agent rewrote the whole repository, which is how
+ * `.github/workflows/documentation.yml` ended up running a live, repo-wide
+ * write on every push. A typo must stop the run, not widen it.
+ *
+ * @param {string[]} [argv=[]] - Arguments after the script path.
+ * @returns {{ verbose: boolean, dryRun: boolean, files: string[]|null, help: boolean }} Parsed options.
+ * @throws {Error} On an unknown flag, or `--files` with no usable value.
+ */
+function parseArgs(argv = []) {
+  const options = { verbose: false, dryRun: false, files: null, help: false };
+
+  for (let i = 0; i < argv.length; i += 1) {
+    const arg = argv[i];
+
+    if (arg === '--verbose' || arg === '-v') {
+      options.verbose = true;
+    } else if (arg === '--dry-run') {
+      options.dryRun = true;
+    } else if (arg === '--help' || arg === '-h') {
+      options.help = true;
+    } else if (arg === '--files' || arg.startsWith('--files=')) {
+      let raw;
+      if (arg === '--files') {
+        const next = argv[(i += 1)];
+        // A following flag means the value was forgotten, not that the flag is
+        // a filename. Without this, `--files --dry-run` parses to a file called
+        // "--dry-run", matches nothing, and the run silently does nothing.
+        if (next === undefined || next.startsWith('-')) {
+          throw new Error('--files requires at least one path');
+        }
+        raw = next;
+      } else {
+        raw = arg.slice('--files='.length);
+      }
+
+      // Split on comma or newline only, never on whitespace. The producer
+      // (`scripts/workflows/resolve-readme-files.cjs`) emits `readmes.join(",")`,
+      // and paths in this repository do contain spaces -- 12 tracked Markdown
+      // files, e.g. "AI Chatbot Discovery Questionnaire - Expanded.md" -- so a
+      // whitespace split would silently truncate them into paths that do not
+      // exist. A comma or newline cannot appear inside a path in practice, and
+      // the latter never can.
+      const files = String(raw)
+        .split(/[,\n]/)
+        .map((file) => file.trim())
+        .filter(Boolean);
+
+      // An empty list is a caller bug, not a request to scan everything. The
+      // workflow already guards on a non-empty list before invoking, so reaching
+      // here means something upstream broke.
+      if (files.length === 0) {
+        throw new Error('--files requires at least one path');
+      }
+      options.files = files;
+    } else {
+      throw new Error(`Unknown argument: ${arg} (supported: ${KNOWN_FLAGS.join(', ')})`);
+    }
+  }
+
+  return options;
+}
+
 /**
  * Main entry point for the meta agent script. Parses CLI args and runs the processor.
  */
 async function main() {
-  // TODO: Implement a more robust CLI argument parser (e.g., yargs, commander) to automatically handle help text generation and flag synchronization.
-  const verbose = process.argv.includes('--verbose') || process.argv.includes('-v');
-  const dryRun = process.argv.includes('--dry-run');
+  const options = parseArgs(process.argv.slice(2));
+  const { verbose, dryRun, files, help } = options;
+
+  if (help) {
+    console.log('Usage: node scripts/agents/meta.agent.js [options]');
+    console.log('');
+    console.log('  --dry-run          Report what would change without writing');
+    console.log('  --files <list>     Only process these paths, comma or newline separated');
+    console.log('  --verbose, -v      Per-file logging');
+    console.log('  --help, -h         This message');
+    console.log('');
+    console.log('With no --files the whole tree is scanned.');
+    return;
+  }
 
   console.log('Meta Agent - Starting...');
   console.log(`Mode: ${dryRun ? 'DRY RUN' : 'LIVE'}`);
+  console.log(`Scope: ${files === null ? 'whole repository' : `${files.length} explicit file(s)`}`);
   console.log('');
 
-  const results = await processAllMarkdownFiles({ verbose, dryRun });
+  const results = await processAllMarkdownFiles({ verbose, dryRun, files });
 
   console.log('\nMeta Agent - Summary:');
   console.log(`  Total files: ${results.total}`);
@@ -564,6 +676,7 @@ if (path.resolve(fileURLToPath(import.meta.url)) === path.resolve(process.argv[1
 }
 
 export {
+  parseArgs,
   processMarkdownFile,
   processAllMarkdownFiles,
   applyHeader,

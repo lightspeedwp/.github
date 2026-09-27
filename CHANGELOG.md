@@ -60,6 +60,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **README Workflow Stops Rewriting the Whole Repo** — `meta.agent.js` ignored the file list the workflow passed it, rewriting 9,424 files per push. ([#3602](https://github.com/lightspeedwp/.github/issues/3602))
 - **Footer Duplicates No Longer Return** — Running the generator twice no longer appends a second copy of a bare configured footer. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
 - **Registry Schema Enforced** — The registry validator now checks objects against the loaded schema, rejecting entries that match no branch. ([#3522](https://github.com/lightspeedwp/.github/issues/3522))
 - **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
