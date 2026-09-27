@@ -53,18 +53,21 @@ const emojiSchema = loadEmojiSchema();
 
 /**
  * Checks if a file should be skipped based on its path, name or content.
- * It skips footer-exempt paths, formal documents, files with opt-out
- * comments, or front matter flags.
+ * It skips formal documents, files with opt-out comments, or front matter
+ * flags.
  *
- * The path check comes first because it is the only one that is cheap and
- * path-stable. `docs/QUIRKY_FOOTERS_GUIDE.md` has always declared that
- * `references/`, `examples/`, `templates/` and friends carry no footer, but
- * until #3451 nothing on this path enforced that: the exclusion list existed
+ * Deliberately *not* the footer exemption. `docs/QUIRKY_FOOTERS_GUIDE.md`
+ * declares that `references/`, `examples/`, `templates/` and friends carry no
+ * footer, and until #3451 nothing enforced that: the exclusion list existed
  * only in unreachable config (`.github/config/quirky-footers.yaml`) and in an
- * orphaned script. So the generator footered ~5,500 exempt files, and any
- * cleanup of them was undone on the next run. The policy now lives in
+ * orphaned script, so the generator footered ~5,500 exempt files and any
+ * cleanup was undone on the next run. The policy now lives in
  * footer-policy.js and is shared with scripts/dedupe-footers.js, so generator
  * and guard cannot disagree about what "exempt" means.
+ *
+ * It is applied in `applyFooter` rather than here, because this function gates
+ * the whole pipeline. Returning true for an exempt path skipped badges, emojis
+ * and front matter for those files too, which is not what the policy says.
  * @param {string} filePath - The path to the file.
  * @param {string} content - The content of the file.
  * @returns {boolean} True if the file should be skipped, false otherwise.
