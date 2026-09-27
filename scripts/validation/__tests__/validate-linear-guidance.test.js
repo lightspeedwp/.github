@@ -15,10 +15,30 @@ const {
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..');
 
+/**
+ * Organisation-level claims the shipped payload must make. Held separately from
+ * the validator's REQUIRED_TOPICS so a failure here names the exact thing that
+ * stopped the guidance from covering the whole organisation.
+ */
+const REQUIRED_ORG_SCOPE = [
+  /do not share one stack|do not assume/i,
+  /read (that|the target) repository's own|its own (AGENTS|documentation)/i,
+  /REPOSITORY FAMILIES/i,
+  /lightspeed-hosting-infra/,
+  /nexus/i,
+  /WordPress/i,
+  /PHP/i,
+  /UK English/i,
+];
+
 /** A minimal payload that satisfies every required topic. */
 function minimalPayload() {
   return [
-    'This repository is a governance control plane.',
+    'The repositories do not share one stack, so read the target repository’s own',
+    'documentation before answering.',
+    'REPOSITORY FAMILIES: .github, lightspeed-hosting-infra, lightspeed-nexus.',
+    'The organisation is predominantly PHP and predominantly WordPress.',
+    'lightspeedwp/.github is the governance control plane.',
     'Read AGENTS.md, then docs/AGENT-INDEX.md.',
     'Workflows live in .github/workflows/.',
     'Scripts live in scripts/ and are tested in __tests__/.',
@@ -27,6 +47,26 @@ function minimalPayload() {
     'This repository uses UK English.',
   ].join('\n');
 }
+
+describe('validateLinearGuidance', () => {
+  it('reads the guidance file it is documented to validate', () => {
+    // GUIDANCE_PATH holds the payload; GUIDE_PATH holds the integration guide.
+    // They are different files, so pin both to catch either drifting or being
+    // pointed at the other by mistake.
+    expect(GUIDANCE_PATH).toBe('docs/LINEAR_AGENT_GUIDANCE.md');
+    expect(GUIDE_PATH).toBe('docs/LINEAR_INTEGRATION.md');
+    expect(GUIDANCE_PATH).not.toBe(GUIDE_PATH);
+    expect(fs.existsSync(GUIDANCE_PATH)).toBe(true);
+  });
+
+  it('describes the whole organisation, not only this repository', () => {
+    // Reads the file rather than a fixture, so this is the shipped guidance.
+    const { payload } = validateLinearGuidance(REPO_ROOT);
+    const missing = REQUIRED_ORG_SCOPE.filter((pattern) => !pattern.test(payload));
+
+    expect(missing).toEqual([]);
+  });
+});
 
 describe('extractPayload', () => {
   test('returns the single text fence', () => {

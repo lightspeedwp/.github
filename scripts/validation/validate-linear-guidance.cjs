@@ -73,13 +73,35 @@ const ENTERPRISE_ONLY = [
  * Things the guidance must cover, so a rewrite cannot quietly drop the parts
  * that make Code Intelligence useful on a repository this large.
  */
+// The guidance is configured on Linear for the whole organisation, so it must
+// both orient Linear across the repository families and keep the detail that
+// .github needs. Organisation-level topics are listed first because they are the
+// ones a future edit is most likely to drop by accident when trimming length.
 const REQUIRED_TOPICS = [
-  { pattern: /governance/i, topic: 'frame the repository as a governance control plane' },
+  {
+    pattern: /do not share one stack|do not assume/i,
+    topic: 'warn against assuming one shared stack across repositories',
+  },
+  {
+    // Tolerates a straight or typographic apostrophe, since the payload is
+    // prose written for humans and either reads correctly.
+    pattern: /read (that|the target) repository[’']s own|its own (AGENTS|documentation)/i,
+    topic: "instruct reading the target repository's own documentation first",
+  },
+  { pattern: /REPOSITORY FAMILIES/i, topic: 'name the repository families' },
+  { pattern: /\.github\b/, topic: 'identify the .github governance repository' },
+  {
+    pattern: /lightspeed-hosting-infra/,
+    topic: 'name the hosting infrastructure repository',
+  },
+  { pattern: /nexus/i, topic: 'name the nexus product family' },
+  { pattern: /WordPress/i, topic: 'state the WordPress majority' },
+  { pattern: /PHP/i, topic: 'state the predominant language' },
+  { pattern: /UK English/i, topic: 'state the UK English requirement' },
   { pattern: /AGENTS\.md/, topic: 'point at AGENTS.md as the canonical rules' },
   { pattern: /docs\/AGENT-INDEX\.md/, topic: 'point at the agent index' },
   { pattern: /\.github\/workflows\//, topic: 'say where workflows live' },
   { pattern: /scripts\//, topic: 'say where scripts live' },
-  { pattern: /UK English/i, topic: 'state the UK English requirement' },
   { pattern: /__tests__/, topic: 'state the test location requirement' },
   { pattern: /labels\.yml/, topic: 'name the locked label configuration' },
   { pattern: /\.gitattributes/, topic: 'mention the review categories' },

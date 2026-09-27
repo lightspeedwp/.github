@@ -47,7 +47,7 @@ use:
 | Reviews / Diffs     | Read the diff, comment, approve, request changes, and merge without leaving Linear        |
 | Guides              | Guided reviews that group a large PR and explain what each part is for                    |
 | Review Platform     | The `riskScore` and `onBehalfOf` plugins described in [Review Platform](#review-platform) |
-| Code Intelligence   | Answer "where does X live" questions against this repository                              |
+| Code Intelligence   | Answer "where does X live" questions across the organisation's repositories               |
 | Triage Intelligence | Suggest labels, teams, and assignees on synced issues                                     |
 
 ### Out of scope: Enterprise-only features
@@ -337,9 +337,10 @@ searches repositories the member can already access in GitHub — if someone
 cannot reach a repository on GitHub, Code Intelligence will not use it for them.
 Admins can also enable **Extend access to all members** to expose technical
 context to Support, Sales, and Product without direct repository access. Do not
-enable that for this repository without a decision: everything here is
-governance configuration, and broadening read access to it broadens access to
-the automation that governs the organisation.
+enable that for `lightspeedwp/.github` without a decision: it is governance
+configuration, and broadening read access to it broadens access to the
+automation that governs the organisation. The same caution applies with more
+force to the private product repositories, which hold client work.
 
 ### Code Intelligence guidance
 
