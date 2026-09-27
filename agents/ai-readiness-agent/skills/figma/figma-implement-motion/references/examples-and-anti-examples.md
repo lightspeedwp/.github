@@ -245,22 +245,3 @@ What NOT to do — apply `transformOrigin` to the outer element but forget the n
 ```
 
 Apply each node's own `transformOrigin` (`100% 100%` on both here) so every scaler grows from the corner the snippet specifies. A scale or rotate with no `transformOrigin` pivots from the default center — the growth/spin starts at the wrong corner even though the keyframe values are correct.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
