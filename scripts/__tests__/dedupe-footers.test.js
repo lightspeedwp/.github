@@ -824,6 +824,117 @@ describe('a tracked symlink cannot escape the repository via the git-derived sca
   });
 });
 
+describe('the base..head guard reports only what the change made worse', () => {
+  // The guard is meant to catch a change that *introduces* compounded or
+  // stranded footers. Reporting every touched file that already carried them
+  // made the ratchet a wall: PR #3448 regenerates 9,423 Markdown files, changes
+  // no file's duplicate-footer count, and was failing on 9,170 of them.
+  const FOOTER = '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*';
+
+  function repo() {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-compare-'));
+    execFileSync('git', ['init', '-q'], { cwd: dir });
+    execFileSync('git', ['config', 'user.email', 'test@example.com'], { cwd: dir });
+    execFileSync('git', ['config', 'user.name', 'Test'], { cwd: dir });
+    return dir;
+  }
+
+  function commit(dir, message) {
+    execFileSync('git', ['add', '-A'], { cwd: dir });
+    execFileSync('git', ['commit', '-qm', message], { cwd: dir });
+    return execFileSync('git', ['rev-parse', 'HEAD'], { cwd: dir, encoding: 'utf8' }).trim();
+  }
+
+  const check = (dir, base) =>
+    run({
+      fix: false,
+      force: false,
+      cwd: dir,
+      pathsFrom: null,
+      changedOnly: true,
+      base,
+      head: 'HEAD',
+    });
+
+  test('ignores a file whose duplicates the change did not touch', () => {
+    const dir = repo();
+    // One pre-existing duplicate, committed.
+    fs.writeFileSync(path.join(dir, 'doc.md'), `# Doc\n\nBody.\n\n${FOOTER}\n\n${FOOTER}\n`);
+    const base = commit(dir, 'pre-existing duplicate');
+
+    // The change edits an unrelated line. Debt is inherited, not introduced.
+    fs.writeFileSync(path.join(dir, 'doc.md'), `# Doc\n\nEdited body.\n\n${FOOTER}\n\n${FOOTER}\n`);
+    commit(dir, 'edit prose only');
+
+    const report = check(dir, base);
+
+    expect(report.files).toBe(0);
+    expect(report.preExistingFiles).toBe(1);
+  });
+
+  test('reports a file whose duplicate count the change increased', () => {
+    const dir = repo();
+    fs.writeFileSync(path.join(dir, 'doc.md'), `# Doc\n\nBody.\n\n${FOOTER}\n`);
+    const base = commit(dir, 'single footer');
+
+    // The change compounds it.
+    fs.writeFileSync(path.join(dir, 'doc.md'), `# Doc\n\nBody.\n\n${FOOTER}\n\n${FOOTER}\n`);
+    commit(dir, 'compound it');
+
+    const report = check(dir, base);
+
+    expect(report.files).toBe(1);
+    expect(report.findings[0].path).toBe('doc.md');
+  });
+
+  test("reads a renamed file's baseline from its old path", () => {
+    // A rename has no content at the new path in the baseline. Without the
+    // rename mapping the lookup returns null, the file looks newly added, and a
+    // pure rename of a file with inherited duplicates reports as a regression.
+    const dir = repo();
+    fs.writeFileSync(path.join(dir, 'old.md'), `# Doc\n\nBody.\n\n${FOOTER}\n\n${FOOTER}\n`);
+    const base = commit(dir, 'add with duplicates');
+
+    execFileSync('git', ['mv', 'old.md', 'new.md'], { cwd: dir });
+    commit(dir, 'rename only');
+
+    const report = check(dir, base);
+
+    expect(report.files).toBe(0);
+    expect(report.preExistingFiles).toBe(1);
+  });
+
+  test('still reports a rename that also compounds the footer', () => {
+    const dir = repo();
+    fs.writeFileSync(path.join(dir, 'old.md'), `# Doc\n\nBody.\n\n${FOOTER}\n`);
+    const base = commit(dir, 'single footer');
+
+    execFileSync('git', ['mv', 'old.md', 'new.md'], { cwd: dir });
+    fs.writeFileSync(path.join(dir, 'new.md'), `# Doc\n\nBody.\n\n${FOOTER}\n\n${FOOTER}\n`);
+    commit(dir, 'rename and compound');
+
+    const report = check(dir, base);
+
+    expect(report.files).toBe(1);
+    expect(report.findings[0].path).toBe('new.md');
+  });
+
+  test('reports a newly added file that carries duplicates', () => {
+    const dir = repo();
+    fs.writeFileSync(path.join(dir, 'seed.md'), '# Seed\n');
+    const base = commit(dir, 'seed');
+
+    fs.writeFileSync(path.join(dir, 'new.md'), `# New\n\nBody.\n\n${FOOTER}\n\n${FOOTER}\n`);
+    commit(dir, 'add a file with duplicates');
+
+    const report = check(dir, base);
+
+    // A new file has no base version, so null is deliberately not "zero".
+    expect(report.files).toBe(1);
+    expect(report.findings[0].path).toBe('new.md');
+  });
+});
+
 describe('listChangedMarkdownFiles handles a tree-object base', () => {
   // A first push resolves `base` to the empty tree. A symmetric difference
   // needs two commits, so `base...head` errors with "is a tree, not a commit"
