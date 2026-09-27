@@ -109,19 +109,3 @@ figma.setSlideGrid(cleanGrid);
 
 - `getSlideGrid` / `setSlideGrid` are marked deprecated in favor of `getCanvasGrid` / `setCanvasGrid`, but both work in Slides.
 - All slides from the current grid must be passed back to `setSlideGrid` — you can reorganize freely but cannot omit slides.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
