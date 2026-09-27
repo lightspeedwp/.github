@@ -100,11 +100,19 @@ export function computeFenceMask(lines) {
   let openLength = 0;
 
   for (let i = 0; i < lines.length; i++) {
+    // A CRLF document leaves a trailing carriage return on every line, and in
+    // JavaScript `.` does not match `\r` -- so `(.*)$` cannot reach the end of
+    // such a line and the fence is never recognised at all. Every byte after
+    // the opening ``` would then be unmasked, and a footer phrase inside a
+    // code block on a CRLF file would be deleted as real content. The phrase
+    // matchers already tolerate the `\r` because they trim, so the mask has
+    // to tolerate it too.
+    const line = lines[i].replace(/\r$/, '');
     // CommonMark: a fence opens or closes only after 0-3 spaces of indent. A
     // line indented 4+ is an indented code block, not a fence, so it must not
     // be read as one -- trimming first would misread indented code as a
     // delimiter and unmask everything after it.
-    const match = lines[i].match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
     if (match) {
       const char = match[1][0];
       const length = match[1].length;
@@ -493,7 +501,12 @@ function realPathOrNull(target) {
  */
 export function isWorkingTreeDirty(cwd) {
   try {
-    const out = execFileSync('git', ['status', '--porcelain'], {
+    // --untracked-files=no: this tool only ever rewrites files it enumerates,
+    // and both the default scan (git ls-files) and an explicit --paths-from list
+    // cover tracked files only. Blocking on an untracked file would refuse a
+    // rewrite that cannot possibly touch it, and would break the #3589 batch
+    // workflow, which writes a scratch list of paths.
+    const out = execFileSync('git', ['status', '--porcelain', '--untracked-files=no'], {
       cwd,
       encoding: 'utf8',
       maxBuffer: 1 << 28,

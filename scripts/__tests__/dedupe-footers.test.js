@@ -558,6 +558,43 @@ describe('parseArgs', () => {
   });
 });
 
+describe('a CRLF document is fenced the same as an LF one', () => {
+  // In JavaScript regex `.` does not match `\r`, so a fence pattern ending
+  // `(.*)$` fails outright on a CRLF line. The fence was then never recognised,
+  // which unmasked everything after it -- so a footer phrase inside a code block
+  // in a CRLF file was deleted as if it were real content.
+  const fenced =
+    'Intro.\r\n\r\n```bash\r\n*Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*\r\n```\r\n';
+
+  test('masks a fenced block that uses CRLF endings', () => {
+    const mask = computeFenceMask(fenced.split('\n'));
+
+    expect(mask[2]).toBe(true);
+    expect(mask[3]).toBe(true);
+    expect(mask[4]).toBe(true);
+    expect(mask[5]).toBe(false);
+  });
+
+  test('leaves a footer phrase inside a CRLF fenced block alone', () => {
+    const result = analyseContent(fenced, { exempt: false });
+
+    expect(result.changed).toBe(false);
+    expect(result.cleaned).toContain('Docs signed by');
+  });
+
+  test('still collapses a genuine CRLF duplicate outside the fence', () => {
+    const duplicate =
+      'Intro.\r\n\r\n```\r\ncode\r\n```\r\n\r\n' +
+      '*Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*\r\n\r\n' +
+      '*Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*\r\n';
+
+    const result = analyseContent(duplicate, { exempt: false });
+
+    expect(result.removedBlocks).toBe(1);
+    expect(result.cleaned.match(/Docs signed by/g) || []).toHaveLength(1);
+  });
+});
+
 describe('--fix refuses a dirty working tree', () => {
   // A repro run of the default --fix scan once rewrote 9,536 files as a side
   // effect, burying whatever the operator already had in progress. The guard
@@ -604,6 +641,21 @@ describe('--fix refuses a dirty working tree', () => {
     seedRepo(dir, { dirty: true });
 
     run({ fix: true, force: true, cwd: dir, pathsFrom: null });
+
+    const cleaned = fs.readFileSync(path.join(dir, 'README.md'), 'utf8');
+    expect(cleaned.match(/Built by/g) || []).toHaveLength(1);
+  });
+
+  test('an untracked file does not block a rewrite', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-untracked-'));
+    seedRepo(dir, { dirty: false });
+    // The tool only rewrites files it enumerates, and both path sources cover
+    // tracked files only, so an untracked scratch file cannot be touched by it.
+    // Blocking here would break the #3589 batch workflow, which writes a paths
+    // list to disk.
+    fs.writeFileSync(path.join(dir, 'batch-paths.txt'), 'README.md\n');
+
+    run({ fix: true, force: false, cwd: dir, pathsFrom: null });
 
     const cleaned = fs.readFileSync(path.join(dir, 'README.md'), 'utf8');
     expect(cleaned.match(/Built by/g) || []).toHaveLength(1);
