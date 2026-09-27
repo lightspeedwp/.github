@@ -124,11 +124,13 @@ The validator is deliberately strict, because the two mistakes that matter here
 are both silent:
 
 - **Enterprise-only guidance.** This workspace is on the **Business** plan, where
-  the top role is Admin. The workspace **owner** role is Enterprise-only. Guidance
-  that tells someone to ask an owner, or that relies on SCIM or audit logs,
-  sends them after settings they cannot reach. Workspace exports and third-party
-  application approvals are available to workspace Admins on Business. The
-  validator rejects the Enterprise-only references.
+  the top role is Admin. The workspace **owner** role is Enterprise-only, as are
+  SCIM provisioning, audit logs, and sharing an issue out of a private team.
+  Guidance that tells someone to ask an owner, or that relies on one of those,
+  sends them after settings they cannot reach. Workspace CSV exports and
+  third-party application approvals are available to workspace Admins on
+  Business, so those are not in this category. The validator rejects the
+  Enterprise-only references and cites the Linear documentation behind each.
 - **Stale copies.** The block in Linear cannot be read back through the API, so
   the fingerprint is the only available signal.
 

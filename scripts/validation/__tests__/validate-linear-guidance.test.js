@@ -59,7 +59,11 @@ describe('validateLinearGuidance', () => {
     expect(GUIDANCE_PATH).toBe('docs/LINEAR_AGENT_GUIDANCE.md');
     expect(GUIDE_PATH).toBe('docs/LINEAR_INTEGRATION.md');
     expect(GUIDANCE_PATH).not.toBe(GUIDE_PATH);
-    expect(fs.existsSync(GUIDANCE_PATH)).toBe(true);
+    // Both constants are relative, so resolve against REPO_ROOT. Testing the
+    // bare relative path passes only when the runner happens to sit at the
+    // repository root, and fails for the wrong reason anywhere else.
+    expect(fs.existsSync(path.resolve(REPO_ROOT, GUIDANCE_PATH))).toBe(true);
+    expect(fs.existsSync(path.resolve(REPO_ROOT, GUIDE_PATH))).toBe(true);
   });
 
   it('describes the whole organisation, not only this repository', () => {
@@ -371,13 +375,23 @@ describe('the CLI enforces the guide-section guard', () => {
   // lost a section. Found by the local CodeRabbit review.
   const { execFileSync, spawnSync } = require('child_process');
   const script = path.join(REPO_ROOT, 'scripts', 'validation', 'validate-linear-guidance.cjs');
+  // process.execPath rather than "node": resolving the interpreter through PATH
+  // makes the test depend on how the runner was invoked, and a hung child would
+  // hang the suite instead of failing it.
+  const RUN = { timeout: 5000 };
 
   test('exits 0 on a clean tree', () => {
-    expect(() => execFileSync('node', [script], { cwd: REPO_ROOT })).not.toThrow();
+    expect(() =>
+      execFileSync(process.execPath, [script], { cwd: REPO_ROOT, ...RUN })
+    ).not.toThrow();
   });
 
   test('reports the fingerprint a maintainer records in Linear', () => {
-    const out = execFileSync('node', [script], { cwd: REPO_ROOT, encoding: 'utf8' });
+    const out = execFileSync(process.execPath, [script], {
+      cwd: REPO_ROOT,
+      encoding: 'utf8',
+      ...RUN,
+    });
 
     expect(out).toMatch(/Fingerprint: [0-9a-f]{12}/);
   });
@@ -392,7 +406,11 @@ describe('the CLI enforces the guide-section guard', () => {
         path.join(root, GUIDE_PATH),
         contents.replace('suggest only, never auto-apply', 'suggest only')
       );
-      const result = spawnSync('node', [script], { cwd: root, encoding: 'utf8' });
+      const result = spawnSync(process.execPath, [script], {
+        cwd: root,
+        encoding: 'utf8',
+        ...RUN,
+      });
       expect(result.status).toBe(1);
       expect(result.stderr).toMatch(/missing section\(s\).*never auto-apply/i);
     } finally {
@@ -566,15 +584,34 @@ describe('required topic regressions', () => {
     expect(validatePayload(payload).errors).toEqual([]);
   });
 
-  test('reports each forbidden concept once even when its variants repeat', () => {
-    const { errors } = validatePayload(
-      `${minimalPayload()}\nSCIM SCIM OAuth app approvals and OAuth application approvals`
+  test('cites the Linear documentation behind every Enterprise-only claim', () => {
+    // A classification the reader cannot check is a classification they have to
+    // trust. Two entries were already wrong once, so each now carries the page
+    // that establishes it.
+    const undocumented = ENTERPRISE_ONLY.filter(
+      ({ source }) => !/^https:\/\/linear\.app\/docs\//.test(source || '')
     );
+
+    expect(undocumented.map(({ id }) => id)).toEqual([]);
+  });
+
+  test('reports a forbidden concept with the documentation link that proves it', () => {
+    const { errors } = validatePayload(`${minimalPayload()}\nUse SCIM.`);
+
+    expect(errors).toEqual([expect.stringContaining('https://linear.app/docs/scim')]);
+  });
+
+  test('reports each forbidden concept once even when its variants repeat', () => {
+    // Both concepts are still Enterprise-only. Workspace exports and third-party
+    // application approvals are not: they are available to a workspace Admin on
+    // Business, so using them here would assert the opposite of the correction
+    // in 80b3000560 and pass for the wrong reason.
+    const { errors } = validatePayload(`${minimalPayload()}\nSCIM SCIM audit log and audit logs`);
 
     expect(errors).toHaveLength(2);
     expect(errors).toEqual([
       expect.stringContaining('(scim)'),
-      expect.stringContaining('(oauth-app-approval)'),
+      expect.stringContaining('(audit-log)'),
     ]);
   });
 
@@ -738,14 +775,28 @@ describe('CLI output and failure contracts', () => {
   const script = path.join(REPO_ROOT, 'scripts/validation/validate-linear-guidance.cjs');
   let root;
 
+  /**
+   * A guide fixture that satisfies every section rule, including the
+   * auto-apply warning inside Triage Intelligence. A bare list of headings is
+   * not a valid guide: the section check rejects a Triage section that exists
+   * but has lost its warning, so a fixture built from headings alone now fails
+   * for the right reason and would mask the CLI contracts under test.
+   */
+  function guideFixture(sections = REQUIRED_GUIDE_SECTIONS) {
+    return sections
+      .map((section) =>
+        section === 'Triage Intelligence'
+          ? `## ${section}\n\nLabels are suggested only, never auto-apply, because .github/labels.yml is locked.`
+          : `## ${section}`
+      )
+      .join('\n\n');
+  }
+
   beforeEach(() => {
     root = fs.mkdtempSync(path.join(os.tmpdir(), 'linear-guidance-cli-'));
     fs.mkdirSync(path.join(root, 'docs'));
     fs.writeFileSync(path.join(root, GUIDANCE_PATH), `\`\`\`text\n${minimalPayload()}\n\`\`\`\n`);
-    fs.writeFileSync(
-      path.join(root, GUIDE_PATH),
-      REQUIRED_GUIDE_SECTIONS.map((section) => `## ${section}`).join('\n')
-    );
+    fs.writeFileSync(path.join(root, GUIDE_PATH), guideFixture());
   });
 
   afterEach(() => {
@@ -778,9 +829,7 @@ describe('CLI output and failure contracts', () => {
   test.each(['text', 'json'])('fails when the guide loses a section (%s output)', (format) => {
     fs.writeFileSync(
       path.join(root, GUIDE_PATH),
-      REQUIRED_GUIDE_SECTIONS.filter((section) => section !== 'Triage Intelligence')
-        .map((section) => `## ${section}`)
-        .join('\n')
+      guideFixture(REQUIRED_GUIDE_SECTIONS.filter((section) => section !== 'Triage Intelligence'))
     );
     const result = runCli(...(format === 'json' ? ['--json'] : []));
 

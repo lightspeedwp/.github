@@ -35,6 +35,13 @@ const GUIDANCE_PATH = 'docs/LINEAR_AGENT_GUIDANCE.md';
  * Matching is case-insensitive and substring-based, so plurals are covered by
  * the singular form. Guidance that sends someone after a setting this workspace
  * cannot reach is worse than no guidance, because it looks authoritative.
+ *
+ * Each entry carries the Linear documentation page that establishes the claim,
+ * so a future reader can check the classification rather than trust it. Two
+ * features were removed from this list on the evidence of those pages: workspace
+ * CSV exports and third-party application approvals, which a workspace Admin can
+ * perform on Business. Only owners can do those on Enterprise, which is a
+ * restriction on the owner role, not an Enterprise-only feature.
  */
 const ENTERPRISE_ONLY = [
   {
@@ -42,9 +49,20 @@ const ENTERPRISE_ONLY = [
     variants: ['workspace owner'],
     guidance:
       'the workspace owner role is Enterprise-only; on Business the top role is Admin, so say "workspace Admin"',
+    source: 'https://linear.app/docs/members-roles#workspace-owner',
   },
-  { id: 'scim', variants: ['scim'], guidance: 'SCIM is Enterprise-only' },
-  { id: 'audit-log', variants: ['audit log'], guidance: 'audit logs are Enterprise-only' },
+  {
+    id: 'scim',
+    variants: ['scim'],
+    guidance: 'SCIM is Enterprise-only',
+    source: 'https://linear.app/docs/scim',
+  },
+  {
+    id: 'audit-log',
+    variants: ['audit log'],
+    guidance: 'audit logs are Enterprise-only',
+    source: 'https://linear.app/docs/audit-log',
+  },
   {
     id: 'private-team-issue-sharing',
     variants: [
@@ -54,6 +72,7 @@ const ENTERPRISE_ONLY = [
       'share an issue from a private team',
     ],
     guidance: 'issue sharing from a private team is Enterprise-only',
+    source: 'https://linear.app/docs/private-teams#share-issues-from-a-private-team',
   },
 ];
 
@@ -229,7 +248,7 @@ function validatePayload(payload) {
     return { errors, warnings };
   }
 
-  for (const { id, variants, guidance } of ENTERPRISE_ONLY) {
+  for (const { id, variants, guidance, source } of ENTERPRISE_ONLY) {
     // Match case-insensitively but report the text as the author wrote it, so
     // the error points at something findable in the file. Matching against the
     // lowercased copy would echo a lowercased variant instead.
@@ -238,7 +257,7 @@ function validatePayload(payload) {
       .find(Boolean);
     if (found) {
       errors.push(
-        `References "${found[0]}" (${id}), which this workspace cannot act on: ${guidance}.`
+        `References "${found[0]}" (${id}), which this workspace cannot act on: ${guidance}. Source: ${source}`
       );
     }
   }

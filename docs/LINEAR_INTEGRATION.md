@@ -55,18 +55,23 @@ use:
 The following need the **Enterprise** plan and are deliberately not part of this
 integration. Do not plan work that depends on them:
 
-| Feature                             | Why it is out of scope                                                                           |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------ |
-| The **workspace owner** role        | Business tops out at Admin, so every instruction below says **workspace Admin**, never **owner** |
-| SCIM provisioning                   | Enterprise                                                                                       |
-| Audit logs                          | Enterprise                                                                                       |
-| Private-team issue sharing          | Enterprise                                                                                       |
-| Owner-only "Workspace restrictions" | Enterprise                                                                                       |
+| Feature                             | Why it is out of scope                                                                           | Source                                                            |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| The **workspace owner** role        | Business tops out at Admin, so every instruction below says **workspace Admin**, never **owner** | [members and roles](https://linear.app/docs/members-roles)        |
+| SCIM provisioning                   | Enterprise                                                                                       | [SCIM](https://linear.app/docs/scim)                               |
+| Audit logs                          | Enterprise; only owners can read them                                                            | [audit log](https://linear.app/docs/audit-log)                     |
+| Private-team issue sharing          | Enterprise only. Private teams themselves are available on Business                                | [private teams](https://linear.app/docs/private-teams)            |
+| Owner-only "Workspace restrictions" | Owners configure role restrictions; Enterprise workspaces can limit Admin permissions          | [members and roles](https://linear.app/docs/members-roles)        |
 
-Workspace CSV exports and third-party application approvals (including OAuth
-apps) are available to **workspace Admins** on Business. See Linear's
-[export guidance](https://linear.app/docs/exporting-data) and
-[application approval guidance](https://linear.app/docs/third-party-application-approvals).
+Each row is a claim about the plan, so each cites the page that establishes it.
+Two features that were previously listed here are **not** Enterprise-only:
+
+- **Workspace CSV exports** are available to **workspace Admins** on Business; on
+  Enterprise only owners may run them. That is a restriction on the owner role,
+  not an Enterprise-only feature. ([exporting data](https://linear.app/docs/exporting-data))
+- **Third-party application approvals, including OAuth apps**, are available on
+  any paid plan, enabled by a workspace Admin outside Enterprise and by an owner
+  on Enterprise. ([third-party app approvals](https://linear.app/docs/third-party-application-approvals))
 
 Which steps need a **workspace Admin** and which do not:
 
