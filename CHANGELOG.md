@@ -1,10 +1,10 @@
 ---
-title: "Changelog"
-description: "All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning"
-file_type: "documentation"
-created_date: "2025-09-20"
-last_updated: "2026-09-15"
-consolidation_phase: "Phase 1 (merged sections)"
+title: 'Changelog'
+description: 'All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning'
+file_type: 'documentation'
+created_date: '2025-09-20'
+last_updated: '2026-09-15'
+consolidation_phase: 'Phase 1 (merged sections)'
 owners:
   - LightSpeed Team
 tags:
@@ -28,12 +28,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
+- **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
+- **Linear Review Platform** — Pull requests now carry a risk score in Linear, and an agent's comment names the agent and model behind it. Setup is in the Linear Integration guide. (#2234)
+- **Linear Merge Status Caveat** — The guide now records that a Linear issue left in Triage is silently skipped by the merge automation, and that ready-to-merge needs a stable check state. (#3593)
+- **Verifiable Code Intelligence Guidance** — Guidance for Linear now covers all repository families, not just `.github`, and is validated and fingerprinted so drift and Enterprise-only advice are detectable. (#3596)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
+- **Footer Duplicates Caught Before Merge** — A new check blocks compounded or misplaced footer blocks, and a tool clears those already committed when run with `--fix`. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
 
 ### Changed
 
+- **Task-Issue Creation Gated** — Bulk issue creation is now opt-in per spec with stale-path checks, and the skill file is free of bot footer spam. ([#3540](https://github.com/lightspeedwp/.github/issues/3540))
+- **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
+- **Footer Policy Actually Enforced** — Reference, example, and template files no longer get a footer added, matching the exemptions the documentation has always described. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
 - **Stale Pull Requests Self-Update** — Eligible non-draft, non-fork PRs targeting `develop` now merge it in as soon as they fall behind, so nothing stays blocked on staleness alone. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
 - **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
@@ -52,6 +61,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Linear Plan Claims Corrected** — Workspace exports and third-party app approvals are Business features, not Enterprise-only. The validator, guide and guidance now cite Linear's docs for every Enterprise-only claim. (#3599)
+- **Registry Schema Enforced** — The registry validator now checks objects against the loaded schema, rejecting entries that match no branch. ([#3522](https://github.com/lightspeedwp/.github/issues/3522))
+- **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
+- **Local Git Hooks Now Run** — Restored the branch name check before a push, which never ran, and added a warning when hooks are not installed. (#3493)
+- **Graph Path No Longer Escaped for a Guessed Shell** — A plain graph path is passed through unquoted, so the suggested command is correct in any shell. ([#3567](https://github.com/lightspeedwp/.github/pull/3567))
 - **Changelog Merges No Longer Conflict** — The changelog file is union-merged, so a git merge of two branches that each add an entry keeps both instead of conflicting. (#3574)
 - **Issue Types Matched by Signal Strength** — A title naming a subject now classifies by that subject, so a test or compatibility update is no longer filed as a feature. ([#3577](https://github.com/lightspeedwp/.github/issues/3577))
 - **Malformed Title Prefixes Repaired** — A title that already carries a recognised prefix but no space after the colon now has the space added, instead of gaining a second prefix. ([#3578](https://github.com/lightspeedwp/.github/issues/3578))
@@ -60,7 +74,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Issue-Type Inference Corrected** — Documentation, integration and compatibility content now lands on its correct issue type instead of a generic default. ([#3568](https://github.com/lightspeedwp/.github/issues/3568))
 - **Label Ownership Reconciled** — Native issue types now take precedence; whole-word fallback and version 5 matchers stop router, labeler and agent conflicts. (#3549, #3545)
 - **Labelling Keeps Unknown Labels** — The labelling automation no longer removes labels missing from the label list unless they map to an approved label, its dry-run mode now changes nothing, and it applies only valid type labels. (#3564)
-- **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
 - **Metrics Aggregator Tolerates Malformed Artifacts** — Branch-validation metrics now skip a malformed artifact with a warning instead of discarding the whole run. ([#3528](https://github.com/lightspeedwp/.github/issues/3528))
 - **Broken Diagrams Repaired** — 123 diagrams in 36 documents render again; the diagram tidy-up bot now places accessibility titles correctly and no longer edits surrounding text. (#3490)
 - **PR Agent Tests Run Again** — Fixed 6 PR agent test suites that could not load, so 95 more tests now run. (#3472)
@@ -73,6 +86,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate with identical scope.
 - **Bot PR Template Bodies** — Fixed-branch bot PRs (docs regen, maintenance, metrics) now ship full pr_chore sections so the template gate passes on automation-authored PRs.
 - **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
+- **Tests No Longer Write Into the Repository** — Moved three suites' output to temporary folders, and a test run now fails if it changes any repository file. (#3498)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
 - **Footer Config Path Fixed** — Footer generation now reads the real `.github/footers.yml` path and fallback block, instead of always using generic placeholder text. (#3446)
 - **Windows Markdown Lint Commits Fixed** — Committing markdown changes on Windows no longer fails; the linter is now resolved directly instead of through a command that Windows could not locate. (#3459)
@@ -230,6 +244,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Deprecated
 
+### Fixed
+
+- **Footer Guard Blames Only New Duplicates** — The CI guard now compares each touched file against its base version, so a change is not blocked for duplicate footers it inherited. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
+- **Docs Workflow Stops Rewriting the Whole Repo** — The meta agent ignored the file list the workflow passed it, rewriting 9,424 files per push. ([#3602](https://github.com/lightspeedwp/.github/issues/3602))
+- **Footer Duplicates No Longer Return** — Running the generator twice no longer appends a second copy of a bare configured footer. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
+
 ### Security
 
 ## [1.0.0] - 2026-08-24
@@ -320,7 +340,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Fix agents/pr-creation-agent Jest 30 migration** — Bumped jest to ^30.5.1, removed jest-esm-transformer, added @babel/core and engines.node ([PR #3374](https://github.com/lightspeedwp/.github/pull/3374))
 
-- **Changelog validation regex bugs and test assertion improvements** — Fixed 3 critical regex bugs in changelog validation and parser: (1) em-dash validation now correctly checks for spaced hyphens (` - `) instead of flagging all hyphenated words like "backwards-compatible"; (2) replaced Perl syntax `\z` with JavaScript anchor `$` for end-of-string pattern matching; (3) added regex metacharacter escaping for category names to handle special characters. Added 14 comprehensive tests covering edge cases (empty content, special chars, boundary conditions) and documented confidence threshold behaviour (0.85 multiplier) in handle-needs-triage tests. Strengthened 38 test assertions to verify documented API behaviour instead of arbitrary expectations. ([PR #1729](https://github.com/lightspeedwp/.github/pull/1729), [#1715](https://github.com/lightspeedwp/.github/issues/1715), [#1716](https://github.com/lightspeedwp/.github/issues/1716))
+- **Changelog validation regex bugs and test assertion improvements** — Fixed 3 critical regex bugs in changelog validation and parser: (1) em-dash validation now correctly checks for spaced hyphens (`-`) instead of flagging all hyphenated words like "backwards-compatible"; (2) replaced Perl syntax `\z` with JavaScript anchor `$` for end-of-string pattern matching; (3) added regex metacharacter escaping for category names to handle special characters. Added 14 comprehensive tests covering edge cases (empty content, special chars, boundary conditions) and documented confidence threshold behaviour (0.85 multiplier) in handle-needs-triage tests. Strengthened 38 test assertions to verify documented API behaviour instead of arbitrary expectations. ([PR #1729](https://github.com/lightspeedwp/.github/pull/1729), [#1715](https://github.com/lightspeedwp/.github/issues/1715), [#1716](https://github.com/lightspeedwp/.github/issues/1716))
 
 - **Release Agent gitOps.cjs — prevent cross-repo data corruption** — Refactored all 15 git operation functions to accept optional `workDir` parameter, eliminating hardcoded `process.cwd()` calls that risked cross-repo contamination in multi-repository release workflows. Added `validateDirectory()` function for pre-operation validation. Switched from `execSync` (shell-based) to `execFileSync` (args array) to prevent shell injection attacks. All functions maintain backwards compatibility with `process.cwd()` as default. Comprehensive test suite covers directory validation, cross-repo isolation, shell injection prevention, and backwards compatibility. ([PR #1724](https://github.com/lightspeedwp/.github/pull/1724), [#1714](https://github.com/lightspeedwp/.github/issues/1714))
 

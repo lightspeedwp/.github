@@ -1,0 +1,158 @@
+name: Linear Review Platform
+
+# Publishes the Linear Review Platform `linear:extension` block on a pull
+# request: a `riskScore` computed from the changed files, labels, and diff size,
+# plus an `onBehalfOf` entry naming the agent that ran the review.
+#
+# Organisation reusable workflow. Call it from a pull_request or
+# pull_request_target workflow:
+#
+#   jobs:
+#     linear-review:
+#       permissions:
+#         contents: read
+#         pull-requests: write
+#       uses: lightspeedwp/.github/.github/workflows/linear-review-platform.yml@<commit-sha>
+#       with:
+#         dry_run: false
+#         agent: claude
+#         model: Opus 4.5
+#
+# Security: no PR code is checked out or executed. Only this repository's own
+# helper script is checked out (at the called workflow's own commit), and the
+# changed file list is read from the pull request API as data.
+
+on:
+  workflow_call:
+    inputs:
+      dry_run:
+        description: Log the block without writing a comment.
+        type: boolean
+        required: false
+        default: true
+      agent:
+        description: 'onBehalfOf agent (claude, codex, linear, pi, opencode).'
+        type: string
+        required: false
+        default: ''
+      model:
+        description: 'onBehalfOf model name shown next to the agent.'
+        type: string
+        required: false
+        default: ''
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+      - develop
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  publish-linear-review-extension:
+    name: Publish Linear review extension
+    if: github.event.pull_request.number
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # Distinct from any caller group: a called workflow inherits the
+    # caller's github.workflow, so reusing it would cancel the caller.
+    concurrency:
+      group: linear-review-platform-${{ github.repository }}-${{ github.event.pull_request.number }}
+      cancel-in-progress: true
+    steps:
+      - name: Check out the extension emitter
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ${{ job.workflow_repository }}
+          ref: ${{ job.workflow_sha }}
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: scripts/automation
+
+      - name: Build and publish the linear:extension block
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          # Empty on a pull_request trigger, where a reusable workflow has no
+          # inputs. See the dryRun note in the script for how that is resolved.
+          DRY_RUN: ${{ inputs.dry_run }}
+          AGENT: ${{ inputs.agent }}
+          MODEL: ${{ inputs.model }}
+        with:
+          script: |
+            const {
+              buildExtensionBlock,
+              buildRiskAssessment,
+              upsertExtensionComment,
+            } = require('./scripts/automation/linear-review-extension.cjs');
+
+            const pr = context.payload.pull_request;
+            const model = process.env.MODEL || undefined;
+
+            // Attribution must be honest. Only name an agent when a caller
+            // actually configured one: on a direct pull_request trigger no
+            // agent is running, the comment is written by GitHub Actions, and
+            // claiming Claude wrote it would show a false author in Linear.
+            // Attribution belongs to the local agent skills, which really are
+            // agents acting for a person. With no agent we publish the risk
+            // score alone, which is still worth having.
+            const agent = process.env.AGENT || undefined;
+
+            // On a direct pull_request trigger DRY_RUN is empty and the
+            // workflow publishes, which is the point of having the trigger.
+            // Reusable callers get the documented dry_run: true default and
+            // must opt in with dry_run: false.
+            const dryRun = process.env.DRY_RUN === 'true';
+
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100,
+            });
+
+            const risk = buildRiskAssessment({
+              files: files.map((file) => file.filename),
+              labels: (pr.labels || []).map((label) => label.name),
+              additions: pr.additions,
+              deletions: pr.deletions,
+            });
+
+            const body = buildExtensionBlock({
+              risk,
+              agent,
+              model,
+              sha: pr.head.sha,
+              visible: true,
+            });
+
+            core.info(`Linear risk level ${risk.level} for PR #${pr.number}`);
+            if (agent) {
+              core.info(`Attributed to ${agent}${model ? ` (${model})` : ''}`);
+            } else {
+              core.info('No agent configured: publishing the risk score without attribution.');
+            }
+            core.info(body);
+
+            if (dryRun) {
+              core.info('dry_run is set: no comment written.');
+              return;
+            }
+
+            // Comment writes need a write token; fork PRs on a pull_request
+            // trigger only get read access, so degrade to a log warning.
+            try {
+              const outcome = await upsertExtensionComment(github, {
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issueNumber: pr.number,
+                body,
+              });
+              core.info(`Linear extension comment: ${outcome}`);
+            } catch (error) {
+              if (error.status !== 403) {
+                throw error;
+              }
+              core.warning('No permission to comment on this PR; see the job log for the block.');
+              core.info(body);
+            }

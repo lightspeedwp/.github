@@ -65,4 +65,7 @@ node_modules/
 # Prevent local Claude Code settings from being committed
 .claude/settings*.json
 .claude/.settings*.json
+# Local graph and changelog-validator working directories
+/graft/
+/graphify-out/
 .github/validation/changelog/data/
