@@ -66,6 +66,47 @@ describe('header-footer', () => {
     expect(output).not.toContain('https://lightspeedwp.agency/contact');
   });
 
+  test('ensureFooter is idempotent for a bare, generic configured footer', async () => {
+    // "Fixture docs phrase A." matches no footer pattern, so the end-anchored
+    // matcher cannot see it -- which is the point. Some real configured footers
+    // are bare and generic too ("Need help? Say hi--work with us."), so without
+    // an explicit check the second run would fail to find the footer it had just
+    // written and append a second one. That is the compounding bug #3443 fixed,
+    // and it was reachable again once the matcher stopped treating every
+    // phrase-shaped line as a footer.
+    cwdSpy = setUpFixtureCwd();
+    const { ensureFooter } = await import('../header-footer.js');
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'branding-idempotent-'));
+    const filePath = path.join(tmpDir, 'repeat.md');
+
+    fs.writeFileSync(filePath, '# Repeat\n\nPrimary operations reference.\n');
+
+    expect(ensureFooter(filePath, { category: 'docs', seed: 'branching' })).toBe(true);
+    const afterFirst = fs.readFileSync(filePath, 'utf8');
+
+    expect(ensureFooter(filePath, { category: 'docs', seed: 'branching' })).toBe(false);
+    expect(fs.readFileSync(filePath, 'utf8')).toBe(afterFirst);
+    expect(afterFirst.match(/Fixture docs phrase A\./g)).toHaveLength(1);
+  });
+
+  test('ensureFooter still appends when the file ends with unrelated prose', async () => {
+    // The idempotency check compares against the literal footer this call would
+    // write, so it must not be widened into "the file ends with something that
+    // looks like a footer".
+    cwdSpy = setUpFixtureCwd();
+    const { ensureFooter } = await import('../header-footer.js');
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'branding-prose-'));
+    const filePath = path.join(tmpDir, 'prose.md');
+
+    fs.writeFileSync(filePath, 'Runbook\n\nUpdate when the API version changes.\n');
+
+    expect(ensureFooter(filePath, { category: 'docs', seed: 'branching' })).toBe(true);
+
+    const output = fs.readFileSync(filePath, 'utf8');
+    expect(output).toContain('Update when the API version changes.');
+    expect(output).toContain('Fixture docs phrase A.');
+  });
+
   test('ensureFooter ignores footer text mentioned in the body', async () => {
     cwdSpy = setUpFixtureCwd();
     const { ensureFooter } = await import('../header-footer.js');
