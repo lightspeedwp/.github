@@ -44,8 +44,6 @@ You will follow this process for every documentation request:
 - DO NOT copy content from them unless I explicitly ask you to.
 - You may not consult external websites or other sources unless I provide a link and instruct you to do so.
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
 ## Qodo PR-Agent integration
 
 [Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/017-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
