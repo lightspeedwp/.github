@@ -62,6 +62,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Merged Advisory and Spec Defects Corrected** — The advisories newsletter form survives a failed request, its rate limit counts atomically and refuses rather than failing open, and its Section 1 table header now declares all four columns. (#1396)
 - **Linear Plan Claims Corrected** — Workspace exports and third-party app approvals are Business features, not Enterprise-only. The validator, guide and guidance now cite Linear's docs for every Enterprise-only claim. (#3599)
 - **Registry Schema Enforced** — The registry validator now checks objects against the loaded schema, rejecting entries that match no branch. ([#3522](https://github.com/lightspeedwp/.github/issues/3522))
 - **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
