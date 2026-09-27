@@ -1,43 +1,31 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "ChecklistDimension",
-  "description": "Definition of a quality dimension for specification validation",
+  "description": "One of the eight quality dimensions. Mirrors the ChecklistDimension interface in src/lib/types.ts.",
   "type": "object",
-  "required": ["id", "name", "description", "items"],
+  "required": [
+    "id",
+    "name",
+    "description",
+    "success_threshold"
+  ],
   "properties": {
     "id": {
       "type": "string",
-      "pattern": "^[a-z-]+$",
-      "description": "Unique identifier (lowercase, hyphen-separated)"
+      "description": "Stable slug, e.g. clarity"
     },
     "name": {
       "type": "string",
-      "description": "Human-readable name"
+      "description": "Display name, e.g. Clarity"
     },
     "description": {
-      "type": "string",
-      "description": "Definition and scope of this dimension"
-    },
-    "priority": {
-      "type": "integer",
-      "minimum": 1,
-      "maximum": 8,
-      "description": "Relative importance (1-8)"
+      "type": "string"
     },
     "success_threshold": {
       "type": "number",
       "minimum": 0,
       "maximum": 100,
-      "default": 75,
-      "description": "Minimum score (0-100) to pass this dimension"
-    },
-    "items": {
-      "type": "array",
-      "minItems": 1,
-      "items": {
-        "type": "object",
-        "description": "See checklist-item.schema.json"
-      }
+      "description": "Percentage a dimension must reach to pass, e.g. 75"
     }
   },
   "additionalProperties": false

@@ -35,34 +35,27 @@ console.log(`Dimension Scores:`, result.dimension_scores);
 console.log(`Issues Found:`, result.findings.length);
 ```
 
-### CLI
-
-```bash
-requirements-checklist validate --variant peer-review --spec ./spec.md
-requirements-checklist run --variant stakeholder-gate --spec ./requirements.yaml
-```
-
 ## Variants
 
-### Author Pre-Review (~50 items, 25–35 minutes)
+### Author Pre-Review (10 items, ~30 minutes)
 
 Self-directed checklist for specification authors before peer review. Catches common quality gaps: ambiguous success criteria, missing acceptance scenarios, inconsistent terminology.
 
 **User Story**: Author completes spec → runs checklist → receives overall score and prioritized fix list → improves spec → submits to peer review.
 
-### Peer Review (~50 items, 40–50 minutes)
+### Peer Review (20 items, ~45 minutes)
 
 Structured checklist for peer reviewers ensuring consistent evaluation across all 8 dimensions. Provides quantitative metrics and qualitative guidance.
 
 **User Story**: Peer reviewer receives spec → runs peer-review variant → generates structured review report → identifies dimension-specific issues → submits findings to author.
 
-### Stakeholder Gate (~25 items, 10–20 minutes)
+### Stakeholder Gate (12 items, ~15 minutes)
 
 Lightweight, business-focused checklist for stakeholders/product managers. Validates completeness, scenario coverage, and dependencies without technical jargon.
 
 **User Story**: Stakeholder reviews spec → runs stakeholder-gate variant → validates business alignment → signs off with documented evidence.
 
-### Cross-Project Integration (~30 items, 15–25 minutes)
+### Cross-Project Integration (16 items, ~20 minutes)
 
 Dependency-focused checklist for technical leads validating specs from dependent projects. Ensures cross-project contracts and interface clarity.
 
@@ -141,8 +134,6 @@ src/
 │   │   └── result-formatter.ts
 │   ├── dimensions/           # 8 quality dimension implementations
 │   └── templates/            # 4 checklist variants
-└── cli/
-    └── index.ts              # Command-line interface
 ```
 
 ## Contributing
