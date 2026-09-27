@@ -547,8 +547,77 @@ describe('parseArgs', () => {
     });
   });
 
+  test('force defaults to off and is parsed explicitly', () => {
+    expect(parseArgs([]).force).toBe(false);
+    expect(parseArgs(['--fix']).force).toBe(false);
+    expect(parseArgs(['--fix', '--force']).force).toBe(true);
+  });
+
   test('rejects an unknown flag rather than ignoring it', () => {
     expect(() => parseArgs(['--nope'])).toThrow(/Unknown argument/);
+  });
+});
+
+describe('--fix refuses a dirty working tree', () => {
+  // A repro run of the default --fix scan once rewrote 9,536 files as a side
+  // effect, burying whatever the operator already had in progress. The guard
+  // makes that impossible without an explicit opt-in.
+  function initRepo(dir) {
+    execFileSync('git', ['init', '-q'], { cwd: dir });
+    execFileSync('git', ['config', 'user.email', 'test@example.com'], { cwd: dir });
+    execFileSync('git', ['config', 'user.name', 'Test'], { cwd: dir });
+  }
+
+  const stacked = doc(
+    '# Doc',
+    '',
+    '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*',
+    '',
+    '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*'
+  );
+
+  function seedRepo(dir, { dirty }) {
+    initRepo(dir);
+    fs.writeFileSync(path.join(dir, 'README.md'), stacked);
+    execFileSync('git', ['add', '-A'], { cwd: dir });
+    execFileSync('git', ['commit', '-qm', 'seed'], { cwd: dir });
+    if (dirty) {
+      fs.writeFileSync(path.join(dir, 'notes.md'), 'in progress\n');
+      execFileSync('git', ['add', '-A'], { cwd: dir });
+    }
+  }
+
+  test('refuses to rewrite when uncommitted work is present', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-dirty-'));
+    seedRepo(dir, { dirty: true });
+
+    expect(() => run({ fix: true, force: false, cwd: dir, pathsFrom: null })).toThrow(
+      /uncommitted changes/
+    );
+
+    // The refusal must happen before anything is written.
+    expect(fs.readFileSync(path.join(dir, 'README.md'), 'utf8')).toBe(stacked);
+  });
+
+  test('rewrites a dirty tree when the operator passes --force', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-force-'));
+    seedRepo(dir, { dirty: true });
+
+    run({ fix: true, force: true, cwd: dir, pathsFrom: null });
+
+    const cleaned = fs.readFileSync(path.join(dir, 'README.md'), 'utf8');
+    expect(cleaned.match(/Built by/g) || []).toHaveLength(1);
+  });
+
+  test('a dry run is never blocked', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'dedupe-check-'));
+    seedRepo(dir, { dirty: true });
+
+    // CI and repro work both run --check against a dirty tree.
+    const report = run({ fix: false, force: false, cwd: dir, pathsFrom: null });
+
+    expect(report.files).toBeGreaterThan(0);
+    expect(fs.readFileSync(path.join(dir, 'README.md'), 'utf8')).toBe(stacked);
   });
 });
 

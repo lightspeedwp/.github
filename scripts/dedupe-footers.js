@@ -35,6 +35,8 @@
  * Usage:
  *   node scripts/dedupe-footers.js                    # dry-run report (default)
  *   node scripts/dedupe-footers.js --fix              # rewrite files in place
+ *                                                     # (refuses a dirty tree;
+ *                                                     #  add --force to override)
  *   node scripts/dedupe-footers.js --paths-from=f.txt # restrict to a file list
  *   node scripts/dedupe-footers.js --changed-only --base=origin/develop --head=HEAD
  *   node scripts/dedupe-footers.js --json             # machine-readable report
@@ -413,6 +415,7 @@ export function listChangedMarkdownFiles(cwd, base, head) {
 export function parseArgs(argv) {
   const options = {
     fix: false,
+    force: false,
     json: false,
     quiet: false,
     check: false,
@@ -424,6 +427,7 @@ export function parseArgs(argv) {
   };
   for (const arg of argv) {
     if (arg === '--fix') options.fix = true;
+    else if (arg === '--force') options.force = true;
     else if (arg === '--check') options.check = true;
     else if (arg === '--json') options.json = true;
     else if (arg === '--quiet') options.quiet = true;
@@ -481,9 +485,45 @@ function realPathOrNull(target) {
   }
 }
 
+/**
+ * Are there uncommitted changes in the working tree?
+ *
+ * @param {string} cwd - Directory to inspect
+ * @returns {boolean} True when the tree is dirty
+ */
+export function isWorkingTreeDirty(cwd) {
+  try {
+    const out = execFileSync('git', ['status', '--porcelain'], {
+      cwd,
+      encoding: 'utf8',
+      maxBuffer: 1 << 28,
+    });
+    return out.trim().length > 0;
+  } catch {
+    // Not a git repository (or git is unavailable): nothing to compare against,
+    // so do not block the operator on a guess.
+    return false;
+  }
+}
+
 export function run(options) {
   const cwd = options.cwd;
   const repoRoot = path.resolve(cwd);
+
+  // --fix rewrites files in place with no undo, and the default scan covers
+  // every Markdown file in the repository. Running it against a tree that
+  // already has uncommitted work buries those changes among thousands of
+  // footer edits, and a partial revert then discards real work along with the
+  // noise. A dirty tree is refused unless the operator says so explicitly.
+  // Dry runs (--check, the default) read only, so they are never blocked --
+  // CI and repro work depend on running them on a dirty tree.
+  if (options.fix && !options.force && isWorkingTreeDirty(cwd)) {
+    throw new Error(
+      'Refusing to rewrite files: the working tree has uncommitted changes.\n' +
+        'Commit or stash first, or re-run with --force if the rewrite is intended.\n' +
+        'A dry run (--check, the default) is always safe.'
+    );
+  }
 
   let files;
   if (options.pathsFrom) {
