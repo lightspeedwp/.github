@@ -282,7 +282,8 @@ function checkEdit(toolInput, cwd) {
 
 // ── Shell parsing ───────────────────────────────────────────────────────────
 
-const HEREDOC = /<<-?\s*['"]?(\w+)['"]?[\s\S]*?\n\1\b/g;
+// Keep the rest of the opening line (redirects, pipes, `&&`); drop only the body.
+const HEREDOC = /<<-?\s*['"]?(\w+)['"]?([^\n]*)\n[\s\S]*?\n\t*\1(?=\n|$)/g;
 
 /**
  * Split a command into segments of words and redirections. Quoted text stays
@@ -290,7 +291,7 @@ const HEREDOC = /<<-?\s*['"]?(\w+)['"]?[\s\S]*?\n\1\b/g;
  * operators outside quotes are still seen.
  */
 function parseShell(command) {
-  const src = command.replace(HEREDOC, ' ');
+  const src = command.replace(HEREDOC, (_match, _tag, rest) => ` ${rest}`);
   const segments = [[]];
   let word = null;
   const extend = (text) => {
@@ -604,18 +605,40 @@ function checkBash(command, cwd) {
       const problem = writeProblem(branch, { paths, root, legacy: legacy(branch, 'origin') });
       if (problem) problems.push(`Commit blocked: ${problem}.`);
     } else if (sub === 'push') {
-      if (rest.some((arg) => ['-d', '--delete', '--tags'].includes(arg))) continue;
+      if (rest.some((arg) => ['-d', '--delete'].includes(arg))) continue;
+      if (rest.some((arg) => ['--all', '--branches', '--mirror'].includes(arg))) {
+        problems.push(
+          'Push blocked: --all/--branches/--mirror push protected branches; push one branch.'
+        );
+        continue;
+      }
       const remote = positional[0] || 'origin';
-      const refspec = positional[1];
-      const [source, destination] = refspec ? refspec.replace(/^\+/, '').split(':') : [];
-      let target = (destination ?? source ?? branch).replace(/^refs\/heads\//, '');
-      if (target === 'HEAD') target = branch;
-      if (destination === '') continue; // `git push origin :branch` deletes it
-      const from = source && source !== 'HEAD' ? source : 'HEAD';
-      const paths = () =>
-        lines(run('git', ['diff', '--name-only', `${remote}/${target}...${from}`], gitCwd));
-      const problem = writeProblem(target, { paths, root, legacy: legacy(target, remote) });
-      if (problem) problems.push(`Push blocked: ${problem}.`);
+      const tagsOnly = rest.includes('--tags') && positional.length < 2;
+      const refspecs = positional.length > 1 ? positional.slice(1) : tagsOnly ? [] : [undefined];
+      for (const refspec of refspecs) {
+        const [source, destination] = refspec ? refspec.replace(/^\+/, '').split(':') : [];
+        // `git push origin :` and `+:` carry an empty source and destination and
+        // match every ref, so they fan out exactly like --all does.
+        if (source === '' && destination === '') {
+          problems.push('Push blocked: an empty refspec pushes every ref; name a branch.');
+          continue;
+        }
+        if (destination === '') continue; // `git push origin :branch` deletes it
+        // Only branch destinations carry branch-name rules. An explicitly
+        // qualified non-branch ref such as refs/tags/... is out of scope, and
+        // running the branch check over it would judge a name that was never a
+        // branch. A short name containing a slash is still a branch: `claude/x`
+        // and `feat/y` are the normal way to write one.
+        const raw = destination ?? source ?? branch;
+        if (/^refs\//.test(raw) && !/^refs\/heads\//.test(raw)) continue;
+        let target = raw.replace(/^refs\/heads\//, '');
+        if (target === 'HEAD') target = branch;
+        const from = source && source !== 'HEAD' ? source : 'HEAD';
+        const paths = () =>
+          lines(run('git', ['diff', '--name-only', `${remote}/${target}...${from}`], gitCwd));
+        const problem = writeProblem(target, { paths, root, legacy: legacy(target, remote) });
+        if (problem) problems.push(`Push blocked: ${problem}.`);
+      }
     }
   }
   return problems;

@@ -136,6 +136,42 @@ describe('protected branches and the documentation exception (T009)', () => {
     expect(runBash(fx, 'git push origin main').status).toBe(2);
   });
 
+  // Every refspec on the command line is checked, not just the first, and a
+  // flag that fans out to many branches cannot be used to skip the check.
+  test.each([
+    'git push origin feat/good-name main',
+    'git push --tags origin main',
+    'git push origin main --tags',
+  ])('refuses a push that carries main as a later refspec: %s', (command) => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  // Run from a compliant branch, so the only thing that can block these is the
+  // fan-out flag itself. Without that, the current branch would be the reason.
+  test.each(['git push --all origin', 'git push --branches origin', 'git push --mirror'])(
+    'refuses a fan-out push from a compliant branch: %s',
+    (command) => {
+      fx.branch('feat/good-name');
+      expect(runBash(fx, command).status).toBe(2);
+    }
+  );
+
+  // An empty refspec matches every ref, and a tag destination is not a branch,
+  // so neither may be routed through the branch-name check.
+  test.each(['git push origin :', 'git push +: origin', 'git push origin HEAD:refs/tags/v1'])(
+    'refuses or skips an uncheckable refspec: %s',
+    (command) => {
+      fx.branch('feat/good-name');
+      expect([0, 2]).toContain(runBash(fx, command).status);
+    }
+  );
+
+  test('still allows a tags-only push that names no branch', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'git push --tags origin').status).toBe(0);
+  });
+
   test('refuses MCP push_files to main with only docs paths', () => {
     const run = runGuard(
       fx,
@@ -382,6 +418,11 @@ describe('enforcement switch and self-protection (T012)', () => {
     'mv .claude/settings.json /tmp/x',
     'git restore .claude/settings.json',
     'git checkout HEAD -- .claude/hooks/session-start.sh',
+    // A heredoc must not smuggle a redirect past the guard: the body is
+    // dropped, but the rest of the opening line is still parsed.
+    "cat <<'EOF' > .claude/settings.json\n{}\nEOF",
+    'cat <<EOF > .claude/settings.json\n{}\nEOF',
+    "cat <<-'EOF' >> .claude/hooks/enforce-branch-name.mjs\nbody\n\tEOF",
   ])('refuses the shell write %s', (command) => {
     expect(runBash(fx, command).status).toBe(2);
   });
