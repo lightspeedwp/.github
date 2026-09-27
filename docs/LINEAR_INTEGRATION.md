@@ -4,7 +4,7 @@ title: Linear Integration
 description: Setup and operating guide for the Linear Review Platform, Code Intelligence, and Triage Intelligence in this governance repository.
 version: v1.0.0
 created_date: '2026-09-26'
-last_updated: '2026-09-26'
+last_updated: '2026-09-27'
 owners:
   - LightSpeed Team
 tags:
@@ -47,7 +47,7 @@ use:
 | Reviews / Diffs     | Read the diff, comment, approve, request changes, and merge without leaving Linear        |
 | Guides              | Guided reviews that group a large PR and explain what each part is for                    |
 | Review Platform     | The `riskScore` and `onBehalfOf` plugins described in [Review Platform](#review-platform) |
-| Code Intelligence   | Answer "where does X live" questions against this repository                              |
+| Code Intelligence   | Answer "where does X live" questions across the organisation's repositories               |
 | Triage Intelligence | Suggest labels, teams, and assignees on synced issues                                     |
 
 ### Out of scope: Enterprise-only features
@@ -55,15 +55,23 @@ use:
 The following need the **Enterprise** plan and are deliberately not part of this
 integration. Do not plan work that depends on them:
 
-| Feature                             | Why it is out of scope                                                                           |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------ |
-| The **workspace owner** role        | Business tops out at Admin, so every instruction below says **workspace Admin**, never **owner** |
-| SCIM provisioning                   | Enterprise                                                                                       |
-| Audit logs                          | Enterprise                                                                                       |
-| Workspace exports                   | Enterprise                                                                                       |
-| OAuth app approvals                 | Enterprise                                                                                       |
-| Private-team issue sharing          | Enterprise                                                                                       |
-| Owner-only "Workspace restrictions" | Enterprise                                                                                       |
+| Feature                             | Why it is out of scope                                                                           | Source                                                            |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
+| The **workspace owner** role        | Business tops out at Admin, so every instruction below says **workspace Admin**, never **owner** | [members and roles](https://linear.app/docs/members-roles)        |
+| SCIM provisioning                   | Enterprise                                                                                       | [SCIM](https://linear.app/docs/scim)                               |
+| Audit logs                          | Enterprise; only owners can read them                                                            | [audit log](https://linear.app/docs/audit-log)                     |
+| Private-team issue sharing          | Enterprise only. Private teams themselves are available on Business                                | [private teams](https://linear.app/docs/private-teams)            |
+| Owner-only "Workspace restrictions" | Owners configure role restrictions; Enterprise workspaces can limit Admin permissions          | [members and roles](https://linear.app/docs/members-roles)        |
+
+Each row is a claim about the plan, so each cites the page that establishes it.
+Two features that were previously listed here are **not** Enterprise-only:
+
+- **Workspace CSV exports** are available to **workspace Admins** on Business; on
+  Enterprise only owners may run them. That is a restriction on the owner role,
+  not an Enterprise-only feature. ([exporting data](https://linear.app/docs/exporting-data))
+- **Third-party application approvals, including OAuth apps**, are available on
+  any paid plan, enabled by a workspace Admin outside Enterprise and by an owner
+  on Enterprise. ([third-party app approvals](https://linear.app/docs/third-party-application-approvals))
 
 Which steps need a **workspace Admin** and which do not:
 
@@ -71,6 +79,7 @@ Which steps need a **workspace Admin** and which do not:
 | -------------------------------------------------------------- | ----------------------------------------------------------- |
 | Install the GitHub App, grant code access, pick repositories   | **GitHub organisation owner** (GitHub's rule, not Linear's) |
 | Enable the integration, Code Intelligence, Triage Intelligence | **Workspace Admin**                                         |
+| Export workspace data; manage third-party app approvals        | **Workspace Admin**                                         |
 | Connect your own GitHub account, turn on your own code reviews | **You** — self-service, no Admin needed                     |
 
 So a reviewer can be reading and reviewing in Linear on their own without any
@@ -328,59 +337,42 @@ just workspace data, replies can take longer.
 
 **Setup (workspace Admin)**
 
-1. Confirm the GitHub integration is installed with code access for this
-   repository.
-2. Go to **Settings → AI & Agents → Code Intelligence** and switch it on.
+1. Confirm the GitHub integration is installed with code access for every
+   repository you intend to use, or configure its access for all repositories.
+2. Go to **Settings → AI & Agents → Code Intelligence**, switch it on, and select
+   those repositories or all repositories.
 
 **Repository access is permission-aware.** By default Code Intelligence only
 searches repositories the member can already access in GitHub — if someone
 cannot reach a repository on GitHub, Code Intelligence will not use it for them.
 Admins can also enable **Extend access to all members** to expose technical
 context to Support, Sales, and Product without direct repository access. Do not
-enable that for this repository without a decision: everything here is
-governance configuration, and broadening read access to it broadens access to
-the automation that governs the organisation.
+enable that for `lightspeedwp/.github` without a decision: it is governance
+configuration, and broadening read access to it broadens access to the
+automation that governs the organisation. The same caution applies with more
+force to the private product repositories, which hold client work.
 
 ### Code Intelligence guidance
 
-Paste this into the workspace's Linear Agent guidance. It is written for this
-repository specifically.
+The guidance that shapes Code Intelligence's answers lives in its own file so it
+can be version-controlled, validated, and fingerprinted:
 
-```text
-This repository is a governance and automation control plane. It contains no
-application runtime and no end-user product; the product is the governance
-plane that configures the LightSpeedWP GitHub organisation.
+[`docs/LINEAR_AGENT_GUIDANCE.md`](LINEAR_AGENT_GUIDANCE.md)
 
-What lives here:
+That file is the single source of truth. Paste its `text` fence into
+**Settings → AI & Agents → Agent guidance**, then record the fingerprint next to
+the pasted block:
 
-- .github/workflows/ — GitHub Actions workflows (CI, labelling, releases, review
-  checks). These carry the repository's own permissions and gates.
-- .github/rulesets/ — merge rulesets for develop and main.
-- .github/labels.yml, .github/issue-types.yml, .github/labeler.yml, CODEOWNERS —
-  canonical, manually curated configuration. They are locked: changes require
-  approval and are made by hand, not by agents.
-- scripts/ — Node.js ESM tooling and CommonJS helpers used by workflows and by
-  local agents. Scripts live in scripts/{category}/, never in .github/scripts/.
-- agents/, skills/, prompts/, instructions/ — agent and human instruction
-  definitions (markdown plus some skill scripts).
-- docs/ — documentation, including architecture decision records.
-
-When answering questions about this repository:
-
-- The product being built is the governance plane, not a runtime. Questions
-  about "the application" are usually questions about workflow behaviour,
-  label/issue-type routing, or agent instructions.
-- Treat .github/labels.yml, .github/issue-types.yml, the issue templates, and
-  the pull request templates as locked canonical configuration. Flag a change
-  to any of them as requiring human approval rather than describing it as a
-  routine edit.
-- Workflow YAML and the scripts they call are the executable surface. A change
-  to a workflow can change permissions, merge gating, or what runs on other
-  people's pull requests, so call that out explicitly.
-- Tests live in __tests__/ subdirectories next to the code they cover, and in
-  tests/. Documentation lives in docs/.
-- This repository uses UK English.
+```bash
+npm run validate:linear-guidance
 ```
+
+Code Intelligence reads the copy configured in Linear, not the file, and that
+copy cannot be read back through the API. A different fingerprint means Linear
+is answering from stale guidance. The validator is wired into
+`npm run validate:all`, so guidance that loses a required topic, or that starts
+referring to an Enterprise-only setting this Business workspace cannot act on,
+fails the suite rather than shipping quietly.
 
 ## Triage Intelligence
 
