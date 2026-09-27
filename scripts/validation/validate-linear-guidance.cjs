@@ -109,8 +109,13 @@ const REQUIRED_TOPICS = [
 
 /**
  * Extract the single guidance payload from a file's contents.
+ * Recognizes unindented ```text openers and bare ``` closers, with optional
+ * trailing spaces or tabs. Ignores text openers inside other backtick fences.
  * @param {string} contents - Full file contents.
- * @returns {{ payload: string, count: number }} The payload and how many fences were found.
+ * @returns {{ payload: string, count: number, unterminated: number }} The trimmed
+ * payload, or an empty string unless exactly one text fence opens and closes;
+ * count includes unclosed text fences, and unterminated is 1 if one remains open,
+ * otherwise 0.
  */
 function extractPayload(contents) {
   const lines = contents.split('\n');
@@ -157,6 +162,7 @@ function extractPayload(contents) {
  * Collect level-two headings that are real headings rather than text inside a
  * fenced code block. A `## ` line in an example would otherwise satisfy a
  * required-section check it has no business satisfying.
+ * Only unindented `## ` headings and fences starting with ``` are recognized.
  *
  * @param {string} contents - Full file contents.
  * @returns {string[]} The heading titles outside fences.
@@ -198,6 +204,10 @@ function fingerprint(payload) {
 
 /**
  * Check the payload against the Business-plan and coverage rules.
+ * Enterprise-only references and missing topics are errors. A nonempty payload
+ * shorter than 400 or longer than 8000 UTF-16 code units, or containing a
+ * placeholder, produces warnings. An empty payload returns only a missing-payload
+ * error. Validation problems are returned rather than thrown.
  * @param {string} payload - The guidance text.
  * @returns {{ errors: string[], warnings: string[] }} Problems found.
  */
@@ -252,9 +262,13 @@ function validatePayload(payload) {
 }
 
 /**
- * Run the validation.
+ * Read and validate the canonical guidance file under the repository root.
+ * A missing file returns a failed report. Warnings do not make ok false.
+ * The fingerprint is null for an empty payload, but is still included for a
+ * nonempty payload that fails validation. characters counts UTF-16 code units.
  * @param {string} [root] - Repository root. Defaults to the current directory.
  * @returns {object} The report, including the payload, fingerprint, and problems.
+ * @throws {Error} Propagates file-read errors after the existence check.
  */
 function validateLinearGuidance(root = process.cwd()) {
   const file = path.join(root, GUIDANCE_PATH);
@@ -319,8 +333,11 @@ const REQUIRED_GUIDE_SECTIONS = [
 
 /**
  * Check that the integration guide still carries every required section.
+ * Required titles must match level-two headings outside backtick fences exactly.
  * @param {string} [root] - Repository root. Defaults to the current directory.
- * @returns {{ ok: boolean, missing: string[] }} Whether the guide is complete.
+ * @returns {{ ok: boolean, missing: string[] }} Whether the guide is complete,
+ * with missing section titles or a missing-file message if the guide is absent.
+ * @throws {Error} Propagates file-read errors after the existence check.
  */
 function validateGuideSections(root = process.cwd()) {
   const file = path.join(root, GUIDE_PATH);
