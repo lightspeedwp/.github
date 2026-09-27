@@ -153,24 +153,3 @@ If `use_figma` fails after `generate_diagram` succeeded, the user already has th
 ## 9. End goal
 
 The file you ship is a **starting point**. Users will open it in FigJam and keep iterating — moving things, recoloring, adding their own stickies. The hybrid workflow's job is to give them a better starting point, not a finished deliverable. Don't aim for pixel-perfect; aim for useful-immediately.
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

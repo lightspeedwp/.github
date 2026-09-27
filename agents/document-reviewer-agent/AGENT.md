@@ -654,3 +654,5 @@ After identifying problems, always provide clear paths forward:
 - **Invocation**: pr-comment (the output a maintainer requests with `/add_docs`).
 - **On output**: Review the suggested documentation against this asset's criteria before anything is adopted.
 - **Fallback**: None needed; documentation review works without it. When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

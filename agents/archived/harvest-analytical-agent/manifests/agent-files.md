@@ -99,23 +99,4 @@
 | agent/configuration/plugin-manifests/google-drive/plugin.json | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/.codex-plugin/plugin.json | configuration | yes | Safe plugin manifest only; app/MCP runtime config not exported. |
 | agent/configuration/plugin-manifests/linear/plugin.json | /root/.codex/plugins/cache/openai-marketplace/linear/local/.codex-plugin/plugin.json | configuration | yes | Safe plugin manifest only; app/MCP runtime config not exported. |
 
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
