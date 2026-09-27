@@ -163,7 +163,43 @@ const LINK_LINE_RE = /^\s*\[.*?\]\(.*?\)\s*$/;
  * @returns {boolean} True when the line is a footer phrase
  */
 export function isFooterPhraseLine(line) {
+  if (isIndentedCodeLine(line)) {
+    return false;
+  }
   return PHRASE_LINE_RE.test(String(line).trim());
+}
+
+/**
+ * Is this line indented as an indented code block?
+ *
+ * CommonMark treats a line as an indented code block once its content starts at
+ * least four columns in. Columns, not characters: a tab advances to the next
+ * multiple of four, so "  \t" (two spaces then a tab) is already four columns
+ * and is code, while a bare "/^(?: {4,}|\t)/" test would miss it. Mixed
+ * space-then-tab indentation is common in pasted shell output, which is exactly
+ * where a footer-shaped example line appears.
+ *
+ * A footer phrase inside such a block is example content, not a footer. Every
+ * phrase matcher trims before matching, so without this guard an indented line
+ * would be classified as a footer and could be deleted. A real footer is never
+ * indented: it is written flush to the left margin.
+ *
+ * @param {string} line - A single line
+ * @returns {boolean} True when the line is indented as a code block
+ */
+export function isIndentedCodeLine(line) {
+  const text = String(line);
+  let columns = 0;
+  for (const character of text) {
+    if (character === ' ') {
+      columns += 1;
+    } else if (character === '\t') {
+      columns += 4 - (columns % 4);
+    } else {
+      break;
+    }
+  }
+  return columns >= 4;
 }
 
 /**
@@ -177,6 +213,9 @@ export function isFooterPhraseLine(line) {
  * @returns {boolean} True when the line is an unmistakable footer phrase
  */
 export function isHighConfidenceFooterPhraseLine(line) {
+  if (isIndentedCodeLine(line)) {
+    return false;
+  }
   return HIGH_CONFIDENCE_PHRASE_RE.test(String(line).trim());
 }
 

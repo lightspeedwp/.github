@@ -27,6 +27,7 @@ import {
   parseArgs,
   listChangedMarkdownFiles,
 } from '../dedupe-footers.js';
+import { isIndentedCodeLine } from '../agents/includes/footer-policy.js';
 
 const PHRASE = '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*';
 const LINK = '[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)';
@@ -347,7 +348,15 @@ describe('analyseContent', () => {
       expect(result.cleaned).toContain('Questions? See the runbook.');
     });
 
-    test('still collapses a compounded generic pile at EOF to one', () => {
+    // This test previously asserted the opposite, and encoded a data-loss bug:
+    // "Questions? See the runbook." and "Update when guidance changes." are
+    // ordinary prose. Real examples in this repo are
+    // docs/RELEASE_RUNBOOK_MAJOR.md ("Questions? Reply in thread.") and
+    // PHASE-5-ROLLOUT.md ("Questions? Ask in #engineering..."). The block's own
+    // comment above already explains that a generic phrase at EOF is only
+    // harmless because position proves the match -- which is true of the one
+    // block that is kept, not of the earlier ones this tool would have deleted.
+    test('leaves an all-generic EOF group alone rather than deleting prose', () => {
       const piled = doc(
         '# Doc',
         '',
@@ -358,9 +367,32 @@ describe('analyseContent', () => {
         'Update when guidance changes.'
       );
       const result = analyseContent(piled);
-      expect(result.removedBlocks).toBe(1);
+      expect(result.removedBlocks).toBe(0);
+      expect(result.changed).toBe(false);
       expect(result.cleaned).toContain('Update when guidance changes.');
-      expect(result.cleaned).not.toContain('Questions? See the runbook.');
+      expect(result.cleaned).toContain('Questions? See the runbook.');
+      expect(result.cleaned).toContain('Prose.');
+    });
+
+    test('removes the duplicate footer but keeps prose sharing its group', () => {
+      // A genuine footer and an ordinary sentence can end up in the same
+      // blank-line-separated group. The footer being real says nothing about
+      // the sentence, so only the block carrying its own evidence is removed.
+      const piled = doc(
+        '# Doc',
+        '',
+        'Prose.',
+        '',
+        'Questions? See the runbook.',
+        '',
+        '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
+        '',
+        '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*'
+      );
+      const result = analyseContent(piled);
+      expect(result.removedBlocks).toBe(1);
+      expect(result.cleaned).toContain('Questions? See the runbook.');
+      expect(result.cleaned.match(/Docs signed by/g) || []).toHaveLength(1);
       expect(result.cleaned).toContain('Prose.');
     });
   });
@@ -660,5 +692,63 @@ describe('listChangedMarkdownFiles handles a tree-object base', () => {
     } finally {
       fs.rmSync(repo, { recursive: true, force: true });
     }
+  });
+});
+
+describe('an indented footer phrase is code content, not a footer', () => {
+  // CommonMark treats 4+ leading spaces or a leading tab as an indented code
+  // block. Every phrase matcher trims before matching, so without an explicit
+  // guard an indented example line is classified as a footer and deleted.
+  // A lone indented line at EOF is the kept block, so it survives regardless of
+  // the guard. The real exposure needs two indented lines: the earlier one
+  // becomes a removal candidate and, without the guard, is deleted as example
+  // code.
+  test('leaves a duplicated footer phrase indented as a code block', () => {
+    const body =
+      'Intro.\n\n' +
+      '    *Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*\n\n' +
+      '    *Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*\n';
+
+    const result = analyseContent(body, { exempt: false });
+
+    expect(result.changed).toBe(false);
+    expect(result.cleaned.match(/Docs signed by/g) || []).toHaveLength(2);
+  });
+
+  test('leaves a footer phrase indented under a list item', () => {
+    const body =
+      'Intro.\n\n- Item\n\n\t*Built by \u{1F9F1} LightSpeedWP with \u2615, \u{1F680}, and open-source spirit!*\n';
+
+    const result = analyseContent(body, { exempt: false });
+
+    expect(result.changed).toBe(false);
+    expect(result.cleaned).toContain('Built by');
+  });
+
+  test('isIndentedCodeLine counts columns, not leading characters', () => {
+    expect(isIndentedCodeLine('    text')).toBe(true);
+    expect(isIndentedCodeLine('\ttext')).toBe(true);
+    expect(isIndentedCodeLine('   text')).toBe(false);
+    expect(isIndentedCodeLine('text')).toBe(false);
+    // A tab advances to the next multiple of four, so fewer than four leading
+    // spaces followed by a tab still reaches four columns.
+    expect(isIndentedCodeLine('  \ttext')).toBe(true);
+    expect(isIndentedCodeLine(' \ttext')).toBe(true);
+    expect(isIndentedCodeLine('   \ttext')).toBe(true);
+    expect(isIndentedCodeLine('  text')).toBe(false);
+  });
+
+  test('leaves a duplicated footer phrase indented with a mixed tab', () => {
+    // "  \t" is four columns of indentation, so these are example lines rather
+    // than footers and a bulk --fix must not delete the first of the pair.
+    const body =
+      'Intro.\n\n' +
+      '  \t*Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*\n\n' +
+      '  \t*Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!*\n';
+
+    const result = analyseContent(body, { exempt: false });
+
+    expect(result.changed).toBe(false);
+    expect(result.cleaned.match(/Docs signed by/g) || []).toHaveLength(2);
   });
 });

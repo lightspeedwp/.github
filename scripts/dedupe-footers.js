@@ -284,7 +284,23 @@ export function analyseContent(content, options = {}) {
     if (exempt && atEof && !allHighConfidence) {
       continue;
     }
-    const doomed = region.filter((p) => p !== keep);
+    // Every earlier block needs its own evidence before it is deleted. Sharing
+    // a blank-line-separated group with a genuine footer is not evidence: the
+    // group is assembled from phrase matches, and the generic patterns ("Update
+    // when", "Questions?", "Keep tone", ...) also begin ordinary prose. That
+    // prose is real content, so it is left alone rather than being deleted
+    // because a real footer happens to sit a few lines below it.
+    const keptText = keep === null ? null : lines[keep].trim();
+    const doomed = region.filter((p) => {
+      if (p === keep) {
+        return false;
+      }
+      if (isHighConfidenceFooterPhraseLine(lines[p])) {
+        return true;
+      }
+      // A literal repeat of the footer being kept is redundant by definition.
+      return keptText !== null && lines[p].trim() === keptText;
+    });
 
     for (const phraseIndex of doomed) {
       const sepIndex = sepFor.get(phraseIndex);

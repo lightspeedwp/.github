@@ -72,11 +72,6 @@ const emojiSchema = loadEmojiSchema();
 function shouldSkipMeta(filePath, content) {
   const fileName = path.basename(filePath);
 
-  // Skip paths the documented footer policy exempts
-  if (isFooterExemptPath(filePath)) {
-    return true;
-  }
-
   // Skip formal documents
   const formalDocs = ['CHANGELOG.md', 'CODE_OF_CONDUCT.md'];
   if (formalDocs.includes(fileName)) {
@@ -232,6 +227,14 @@ async function applyBadges(filePath, content, frontMatter) {
  * @returns {string} The updated content with the footer.
  */
 function applyFooter(filePath, content, frontMatter) {
+  // The documented footer policy exempts these paths from *footers* only.
+  // Everything else in this pipeline (badges, emojis, frontmatter) still
+  // applies to them, so the exemption belongs here rather than in
+  // shouldSkipMeta, which would skip the whole document.
+  if (isFooterExemptPath(filePath)) {
+    return content;
+  }
+
   const category = getCategory(frontMatter);
   const seed = filePath; // Use file path as seed for deterministic selection
 
