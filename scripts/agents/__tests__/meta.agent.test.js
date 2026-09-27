@@ -123,6 +123,76 @@ describe('meta.agent', () => {
     expect(fs.readFileSync(path.join(dir, 'file-0.md'), 'utf8')).toBe(before['file-0.md']);
   });
 
+  it('refuses a non-Markdown file rather than rewriting it', () => {
+    // Data integrity: `fs.existsSync()` accepts any regular file, so passing
+    // package.json used to append a footer to it and break the JSON.
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meta-agent-json-'));
+    const json = '{"name":"fixture","version":"1.0.0"}\n';
+    fs.writeFileSync(path.join(dir, 'package.json'), json);
+    fs.writeFileSync(path.join(dir, 'file-0.md'), '# File 0\n\nOriginal body.\n');
+
+    const result = runAgent(dir, ['--files', 'package.json']);
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toMatch(/package\.json/);
+    expect(fs.readFileSync(path.join(dir, 'package.json'), 'utf8')).toBe(json);
+  });
+
+  it('skips a non-Markdown path but still processes the Markdown ones', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meta-agent-mixed-'));
+    const json = '{"name":"fixture"}\n';
+    fs.writeFileSync(path.join(dir, 'package.json'), json);
+    fs.writeFileSync(path.join(dir, 'file-0.md'), '# File 0\n\nOriginal body.\n');
+
+    const result = runAgent(dir, ['--files', 'file-0.md,package.json']);
+
+    expect(result.status).toBe(0);
+    expect(fs.readFileSync(path.join(dir, 'package.json'), 'utf8')).toBe(json);
+    expect(fs.readFileSync(path.join(dir, 'file-0.md'), 'utf8')).not.toBe(
+      '# File 0\n\nOriginal body.\n'
+    );
+  });
+
+  it('refuses a Markdown-named symlink whose target is not Markdown', () => {
+    // The write follows symlinks, so a name-only extension check is not enough:
+    // trap.md -> payload.json passed it and the JSON came back with a footer
+    // appended, which is not valid JSON.
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meta-agent-link-'));
+    const payload = '{"secret":"payload"}\n';
+    fs.writeFileSync(path.join(dir, 'payload.json'), payload);
+    fs.symlinkSync('payload.json', path.join(dir, 'trap.md'));
+
+    const result = runAgent(dir, ['--files', 'trap.md']);
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toMatch(/trap\.md/);
+    expect(fs.readFileSync(path.join(dir, 'payload.json'), 'utf8')).toBe(payload);
+  });
+
+  it('still follows a symlink whose target is Markdown', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meta-agent-link-ok-'));
+    fs.writeFileSync(path.join(dir, 'real.md'), '# Real\n\nOriginal body.\n');
+    fs.symlinkSync('real.md', path.join(dir, 'alias.md'));
+
+    const result = runAgent(dir, ['--files', 'alias.md']);
+
+    expect(result.status).toBe(0);
+    expect(fs.readFileSync(path.join(dir, 'real.md'), 'utf8')).not.toBe(
+      '# Real\n\nOriginal body.\n'
+    );
+  });
+
+  it('refuses a directory', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'meta-agent-dir-'));
+    fs.mkdirSync(path.join(dir, 'sub.md'));
+    fs.writeFileSync(path.join(dir, 'file-0.md'), '# File 0\n\nOriginal body.\n');
+
+    const result = runAgent(dir, ['--files', 'sub.md']);
+
+    expect(result.status).not.toBe(0);
+    expect(result.stderr).toMatch(/sub\.md/);
+  });
+
   it('still processes the paths that do exist when only some are missing', () => {
     const { dir, before } = makeFixture(2);
 

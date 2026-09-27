@@ -472,6 +472,47 @@ async function processMarkdownFile(filePath, options = {}) {
   }
 }
 
+/** Extensions this agent is willing to rewrite. */
+const MARKDOWN_EXTENSIONS = new Set(['.md', '.markdown']);
+
+/**
+ * Is this path a regular Markdown file this agent may rewrite?
+ *
+ * Guards three ways a caller-supplied `--files` list can do real damage. A
+ * directory would be handed to the Markdown transforms as if it were a file, and
+ * a non-Markdown file would be rewritten in a format it does not understand --
+ * `package.json` came back from a run with a footer appended to it, which is not
+ * valid JSON.
+ *
+ * The extension is checked twice, on the path as given and on its resolved
+ * target, because the write follows symlinks. A link named `notes.md` pointing
+ * at `payload.json` passes a name-only check and then rewrites the JSON, so the
+ * target has to be Markdown as well. A link to a real Markdown file is fine and
+ * is resolved to it.
+ *
+ * @param {string} file - Absolute path to test.
+ * @returns {boolean} True when the path resolves to a regular Markdown file.
+ */
+function isProcessableMarkdown(file) {
+  if (!MARKDOWN_EXTENSIONS.has(path.extname(file).toLowerCase())) {
+    return false;
+  }
+  let target;
+  try {
+    target = fs.realpathSync(file);
+  } catch {
+    return false;
+  }
+  if (!MARKDOWN_EXTENSIONS.has(path.extname(target).toLowerCase())) {
+    return false;
+  }
+  try {
+    return fs.statSync(target).isFile();
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Finds and processes Markdown files in the repository.
  *
@@ -495,24 +536,26 @@ async function processAllMarkdownFiles(options = {}) {
     });
   } else {
     // A caller-supplied list can name a file that was renamed or deleted since
-    // it was computed. Skipping those keeps the run useful rather than failing
-    // on work that is already done.
+    // it was computed, so existence alone is not enough to accept a path. This
+    // agent rewrites whatever it is handed, and `fs.existsSync()` is happy with
+    // any regular file: passing `package.json` appended a footer to it and broke
+    // the JSON. So a path has to be a regular Markdown file to be processed.
     const resolved = explicitFiles.map((file) => path.resolve(process.cwd(), file));
-    const existing = resolved.filter((file) => fs.existsSync(file));
+    const accepted = resolved.filter(isProcessableMarkdown);
 
-    // But "none of them exist" is not a run that did the job quietly. A scoped
-    // invocation that processed nothing and still exits 0 is how a whole-repo
-    // rewrite hid behind a scoped-looking command in the first place, so this
-    // has to be loud. The workflow's next step decides whether to open a PR from
-    // whatever changed, and it would see nothing and open nothing.
-    if (existing.length === 0) {
+    // But "none of them were processable" is not a run that did the job quietly.
+    // A scoped invocation that processed nothing and still exits 0 is how a
+    // whole-repo rewrite hid behind a scoped-looking command in the first place,
+    // so this has to be loud. The workflow's next step decides whether to open a
+    // PR from whatever changed, and it would see nothing and open nothing.
+    if (accepted.length === 0) {
       throw new Error(
-        `--files matched none of the ${explicitFiles.length} requested path(s): ` +
-          `${explicitFiles.join(', ')}`
+        `--files matched no processable Markdown file among ${explicitFiles.length} ` +
+          `requested path(s): ${explicitFiles.join(', ')}`
       );
     }
 
-    files = existing.map((file) => path.relative(process.cwd(), file));
+    files = accepted.map((file) => path.relative(process.cwd(), file));
   }
 
   const results = {
