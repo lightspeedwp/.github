@@ -4,7 +4,7 @@ title: Linear Integration
 description: Setup and operating guide for the Linear Review Platform, Code Intelligence, and Triage Intelligence in this governance repository.
 version: v1.0.0
 created_date: '2026-09-26'
-last_updated: '2026-09-26'
+last_updated: '2026-09-27'
 owners:
   - LightSpeed Team
 tags:
@@ -60,10 +60,13 @@ integration. Do not plan work that depends on them:
 | The **workspace owner** role        | Business tops out at Admin, so every instruction below says **workspace Admin**, never **owner** |
 | SCIM provisioning                   | Enterprise                                                                                       |
 | Audit logs                          | Enterprise                                                                                       |
-| Workspace exports                   | Enterprise                                                                                       |
-| OAuth app approvals                 | Enterprise                                                                                       |
 | Private-team issue sharing          | Enterprise                                                                                       |
 | Owner-only "Workspace restrictions" | Enterprise                                                                                       |
+
+Workspace CSV exports and third-party application approvals (including OAuth
+apps) are available to **workspace Admins** on Business. See Linear's
+[export guidance](https://linear.app/docs/exporting-data) and
+[application approval guidance](https://linear.app/docs/third-party-application-approvals).
 
 Which steps need a **workspace Admin** and which do not:
 
@@ -71,6 +74,7 @@ Which steps need a **workspace Admin** and which do not:
 | -------------------------------------------------------------- | ----------------------------------------------------------- |
 | Install the GitHub App, grant code access, pick repositories   | **GitHub organisation owner** (GitHub's rule, not Linear's) |
 | Enable the integration, Code Intelligence, Triage Intelligence | **Workspace Admin**                                         |
+| Export workspace data; manage third-party app approvals        | **Workspace Admin**                                         |
 | Connect your own GitHub account, turn on your own code reviews | **You** — self-service, no Admin needed                     |
 
 So a reviewer can be reading and reviewing in Linear on their own without any
@@ -328,9 +332,10 @@ just workspace data, replies can take longer.
 
 **Setup (workspace Admin)**
 
-1. Confirm the GitHub integration is installed with code access for this
-   repository.
-2. Go to **Settings → AI & Agents → Code Intelligence** and switch it on.
+1. Confirm the GitHub integration is installed with code access for every
+   repository you intend to use, or configure its access for all repositories.
+2. Go to **Settings → AI & Agents → Code Intelligence**, switch it on, and select
+   those repositories or all repositories.
 
 **Repository access is permission-aware.** By default Code Intelligence only
 searches repositories the member can already access in GitHub — if someone

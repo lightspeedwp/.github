@@ -154,17 +154,13 @@ describe('fingerprint', () => {
 });
 
 describe('validatePayload rejects Enterprise-only guidance', () => {
-  // Linear's own wording does not always match a single obvious term. Two that
-  // a naive literal missed: "OAuth app approval" against "OAuth application
-  // approvals", and a hyphenated "private-team issue sharing" against the
-  // unhyphenated form. Caught by the local CodeRabbit review.
+  // Linear's own wording does not always match a single obvious term. A
+  // hyphenated "private-team issue sharing" does not match the unhyphenated
+  // form. Caught by the local CodeRabbit review.
   test.each([
     ['ask the Workspace Owner', /workspace Admin/],
     ['configure SCIM first', /SCIM is Enterprise-only/],
     ['check the audit logs', /audit logs are Enterprise-only/],
-    ['use workspace exports', /workspace exports are Enterprise-only/],
-    ['OAuth application approvals are owner-only', /OAuth application approvals/],
-    ['OAuth app approvals are owner-only', /OAuth application approvals/],
     ['private team issue sharing is Enterprise-only', /Enterprise-only/],
     ['private-team issue sharing is Enterprise-only', /Enterprise-only/],
     ['issue sharing from a private team', /Enterprise-only/],
@@ -188,20 +184,17 @@ describe('validatePayload rejects Enterprise-only guidance', () => {
   });
 
   test('names the matched variant in the casing the author used', () => {
-    // The variant is singular and matches the prefix of the plural in the
-    // source, so the quoted text is the singular form. The full phrase still
-    // appears in the guidance half of the message.
-    const { errors } = validatePayload(`${minimalPayload()}\nOAuth application approvals`);
-
-    expect(errors.join('\n')).toMatch(/"OAuth application approval"/);
-    expect(errors.join('\n')).toMatch(/OAuth application approvals are Enterprise-only/);
-  });
-
-  test('does not report a lowercased variant when the source is not', () => {
     const { errors } = validatePayload(`${minimalPayload()}\nask the Workspace Owner`);
 
     expect(errors.join('\n')).toMatch(/"Workspace Owner"/);
   });
+
+  test.each(['workspace exports', 'OAuth app approvals', 'OAuth application approvals'])(
+    'allows the Business-plan feature %s',
+    (feature) => {
+      expect(validatePayload(`${minimalPayload()}\n${feature}`).errors).toEqual([]);
+    }
+  );
 
   test('accepts the correct Business-plan term', () => {
     const { errors } = validatePayload(`${minimalPayload()}\nAsk a workspace Admin to approve.`);
@@ -318,19 +311,17 @@ describe('the integration guide keeps every required section', () => {
 
   test('detects a removed section', () => {
     const contents = fs.readFileSync(path.join(REPO_ROOT, GUIDE_PATH), 'utf8');
-    const stripped = contents
-      .split('\n')
-      .filter((line) => !line.startsWith('## Triage Intelligence'))
-      .join('\n');
-    const headings = new Set(
-      stripped
-        .split('\n')
-        .filter((line) => line.startsWith('## '))
-        .map((line) => line.slice(3).trim())
-    );
-    const missing = REQUIRED_GUIDE_SECTIONS.filter((section) => !headings.has(section));
-
-    expect(missing).toContain('Triage Intelligence');
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'linear-guide-'));
+    try {
+      fs.mkdirSync(path.join(root, 'docs'));
+      fs.writeFileSync(
+        path.join(root, GUIDE_PATH),
+        `~~~md\n## Triage Intelligence\n~~~\n${contents.replace('## Triage Intelligence', '')}`
+      );
+      expect(validateGuideSections(root).missing).toContain('Triage Intelligence');
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+    }
   });
 
   test('the Triage Intelligence section still carries the auto-apply warning', () => {
@@ -350,13 +341,35 @@ describe('the integration guide keeps every required section', () => {
     expect(result.ok).toBe(false);
     expect(result.missing.join()).toMatch(/Missing/);
   });
+
+  test('reports a missing never auto-apply warning inside Triage Intelligence', () => {
+    const contents = fs.readFileSync(path.join(REPO_ROOT, GUIDE_PATH), 'utf8');
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'linear-guide-'));
+    try {
+      fs.mkdirSync(path.join(root, 'docs'));
+      fs.writeFileSync(
+        path.join(root, GUIDE_PATH),
+        contents
+          .replace('suggest only, never auto-apply', 'suggest only')
+          .replace(
+            '## Triage Intelligence',
+            '~~~text\nnever auto-apply\n~~~\n## Triage Intelligence'
+          )
+      );
+      expect(validateGuideSections(root).missing).toContain(
+        'Triage Intelligence "never auto-apply" warning'
+      );
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+    }
+  });
 });
 
 describe('the CLI enforces the guide-section guard', () => {
   // The guard is only worth having if the script CI runs enforces it. A test
   // alone would leave `npm run validate:all` green while the guide had silently
   // lost a section. Found by the local CodeRabbit review.
-  const { execFileSync } = require('child_process');
+  const { execFileSync, spawnSync } = require('child_process');
   const script = path.join(REPO_ROOT, 'scripts', 'validation', 'validate-linear-guidance.cjs');
 
   test('exits 0 on a clean tree', () => {
@@ -367,6 +380,24 @@ describe('the CLI enforces the guide-section guard', () => {
     const out = execFileSync('node', [script], { cwd: REPO_ROOT, encoding: 'utf8' });
 
     expect(out).toMatch(/Fingerprint: [0-9a-f]{12}/);
+  });
+
+  test('fails when the Triage Intelligence warning is removed', () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'linear-guide-'));
+    try {
+      fs.mkdirSync(path.join(root, 'docs'));
+      fs.copyFileSync(path.join(REPO_ROOT, GUIDANCE_PATH), path.join(root, GUIDANCE_PATH));
+      const contents = fs.readFileSync(path.join(REPO_ROOT, GUIDE_PATH), 'utf8');
+      fs.writeFileSync(
+        path.join(root, GUIDE_PATH),
+        contents.replace('suggest only, never auto-apply', 'suggest only')
+      );
+      const result = spawnSync('node', [script], { cwd: root, encoding: 'utf8' });
+      expect(result.status).toBe(1);
+      expect(result.stderr).toMatch(/missing section\(s\).*never auto-apply/i);
+    } finally {
+      fs.rmSync(root, { recursive: true, force: true });
+    }
   });
 });
 
@@ -404,6 +435,14 @@ describe('headingsOutsideFences ignores headings inside code blocks', () => {
     );
 
     expect(headings).toEqual(['One', 'Two', 'Three']);
+  });
+
+  test('ignores tilde fences and closes only with a matching marker', () => {
+    const headings = headingsOutsideFences(
+      '## One\n~~~md\n## Hidden\n```\n## Still hidden\n~~~\n## Two\n'
+    );
+
+    expect(headings).toEqual(['One', 'Two']);
   });
 
   test('the real integration guide carries every required section', () => {

@@ -125,9 +125,10 @@ are both silent:
 
 - **Enterprise-only guidance.** This workspace is on the **Business** plan, where
   the top role is Admin. The workspace **owner** role is Enterprise-only. Guidance
-  that tells someone to ask an owner, or that relies on SCIM, audit logs, or
-  workspace exports, sends them after settings they cannot reach. The validator
-  rejects those references.
+  that tells someone to ask an owner, or that relies on SCIM or audit logs,
+  sends them after settings they cannot reach. Workspace exports and third-party
+  application approvals are available to workspace Admins on Business. The
+  validator rejects the Enterprise-only references.
 - **Stale copies.** The block in Linear cannot be read back through the API, so
   the fingerprint is the only available signal.
 

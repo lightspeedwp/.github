@@ -11,10 +11,9 @@
  *    to record alongside the pasted block.
  * 2. The guidance references a setting the workspace cannot reach. This
  *    workspace is on the Business plan, where the top role is Admin; the
- *    workspace *owner* role is Enterprise-only, as are SCIM, audit logs,
- *    workspace exports, OAuth application approvals, and private-team issue
- *    sharing. Guidance that sends someone after those is worse than no guidance,
- *    so those references are rejected here rather than shipped.
+ *    workspace *owner* role is Enterprise-only, as are SCIM, audit logs, and
+ *    private-team issue sharing. Guidance that sends someone after those is
+ *    worse than no guidance, so those references are rejected here.
  *
  * The payload is the single ```text fence in the guidance file. Exactly one is
  * required, so the extraction has one unambiguous answer.
@@ -29,10 +28,9 @@ const GUIDANCE_PATH = 'docs/LINEAR_AGENT_GUIDANCE.md';
  * Enterprise-only concepts that must not appear in Business-plan guidance.
  *
  * Each concept lists the phrasings it can appear as, because a single literal
- * misses the wording Linear and its own documentation actually use. Two that a
- * single term got wrong: "OAuth app approval" does not match "OAuth application
- * approvals", and a hyphenated "private-team issue sharing" does not match
- * "private team issue sharing".
+ * misses the wording Linear and its own documentation actually use. For
+ * example, "private-team issue sharing" does not match "private team issue
+ * sharing".
  *
  * Matching is case-insensitive and substring-based, so plurals are covered by
  * the singular form. Guidance that sends someone after a setting this workspace
@@ -47,16 +45,6 @@ const ENTERPRISE_ONLY = [
   },
   { id: 'scim', variants: ['scim'], guidance: 'SCIM is Enterprise-only' },
   { id: 'audit-log', variants: ['audit log'], guidance: 'audit logs are Enterprise-only' },
-  {
-    id: 'workspace-export',
-    variants: ['workspace export'],
-    guidance: 'workspace exports are Enterprise-only',
-  },
-  {
-    id: 'oauth-app-approval',
-    variants: ['oauth app approval', 'oauth application approval'],
-    guidance: 'OAuth application approvals are Enterprise-only',
-  },
   {
     id: 'private-team-issue-sharing',
     variants: [
@@ -158,6 +146,36 @@ function extractPayload(contents) {
   return { payload, count: openers, unterminated };
 }
 
+/** Return lines outside backtick and tilde Markdown fences. */
+function linesOutsideFences(contents) {
+  const outside = [];
+  let fence = null;
+
+  for (const line of contents.split('\n')) {
+    const marker = line.match(/^ {0,3}(`{3,}|~{3,})/);
+    if (marker) {
+      const run = marker[1];
+      if (fence === null) {
+        fence = { character: run[0], length: run.length };
+        continue;
+      }
+      if (
+        run[0] === fence.character &&
+        run.length >= fence.length &&
+        /^[ \t]*$/.test(line.slice(marker[0].length))
+      ) {
+        fence = null;
+        continue;
+      }
+    }
+    if (fence === null) {
+      outside.push(line);
+    }
+  }
+
+  return outside;
+}
+
 /**
  * Collect level-two headings that are real headings rather than text inside a
  * fenced code block. A `## ` line in an example would otherwise satisfy a
@@ -168,20 +186,9 @@ function extractPayload(contents) {
  * @returns {string[]} The heading titles outside fences.
  */
 function headingsOutsideFences(contents) {
-  const headings = [];
-  let inFence = false;
-
-  for (const line of contents.split('\n')) {
-    if (/^```/.test(line)) {
-      inFence = !inFence;
-      continue;
-    }
-    if (!inFence && line.startsWith('## ')) {
-      headings.push(line.slice(3).trim());
-    }
-  }
-
-  return headings;
+  return linesOutsideFences(contents)
+    .filter((line) => line.startsWith('## '))
+    .map((line) => line.slice(3).trim());
 }
 
 /**
@@ -349,9 +356,21 @@ function validateGuideSections(root = process.cwd()) {
     };
   }
 
-  const headings = new Set(headingsOutsideFences(fs.readFileSync(file, 'utf8')));
+  const contents = fs.readFileSync(file, 'utf8');
+  const lines = linesOutsideFences(contents);
+  const headings = new Set(headingsOutsideFences(contents));
 
   const missing = REQUIRED_GUIDE_SECTIONS.filter((section) => !headings.has(section));
+  if (headings.has('Triage Intelligence')) {
+    const start = lines.findIndex(
+      (line) => line.startsWith('## ') && line.slice(3).trim() === 'Triage Intelligence'
+    );
+    const end = lines.findIndex((line, index) => index > start && line.startsWith('## '));
+    const section = lines.slice(start + 1, end === -1 ? undefined : end).join('\n');
+    if (!/never auto-apply/i.test(section)) {
+      missing.push('Triage Intelligence "never auto-apply" warning');
+    }
+  }
   return { ok: missing.length === 0, missing };
 }
 
