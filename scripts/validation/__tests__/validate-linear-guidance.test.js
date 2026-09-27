@@ -1,10 +1,13 @@
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
+const { spawnSync } = require('child_process');
 const {
   ENTERPRISE_ONLY,
   GUIDE_PATH,
   GUIDANCE_PATH,
   REQUIRED_GUIDE_SECTIONS,
+  escapeRegExp,
   extractPayload,
   fingerprint,
   headingsOutsideFences,
@@ -411,5 +414,398 @@ describe('headingsOutsideFences ignores headings inside code blocks', () => {
     // a Table of Contents, so adding a section must not fail this test.
     expect(REQUIRED_GUIDE_SECTIONS.filter((section) => !found.includes(section))).toEqual([]);
     expect(found.length).toBeGreaterThanOrEqual(REQUIRED_GUIDE_SECTIONS.length);
+  });
+});
+
+describe('payload extraction edge cases', () => {
+  test.each([
+    ['empty document', '', { payload: '', count: 0, unterminated: 0 }],
+    ['empty block', '```text\n```', { payload: '', count: 1, unterminated: 0 }],
+    ['blank block', '```text\n \t\n```', { payload: '', count: 1, unterminated: 0 }],
+    ['unclosed block', '```text\nbody', { payload: '', count: 1, unterminated: 1 }],
+    [
+      'two closed blocks',
+      '```text\nfirst\n```\n```text\nsecond\n```',
+      { payload: '', count: 2, unterminated: 0 },
+    ],
+    [
+      'trailing whitespace on fences',
+      '```text \t\nfirst\n\n  indented\nlast\n```\t ',
+      { payload: 'first\n\n  indented\nlast', count: 1, unterminated: 0 },
+    ],
+  ])('handles %s', (_name, contents, expected) => {
+    expect(extractPayload(contents)).toEqual(expected);
+  });
+
+  test('ignores text openers inside another language block', () => {
+    const contents = '```markdown\n```text\nexample\n```\n```text\nreal payload\n```';
+
+    expect(extractPayload(contents)).toEqual({
+      payload: 'real payload',
+      count: 1,
+      unterminated: 0,
+    });
+  });
+});
+
+describe('fingerprint compatibility', () => {
+  test.each([
+    ['', 'e3b0c44298fc'],
+    ['abc', 'ba7816bf8f01'],
+  ])('keeps the SHA-256 prefix for %j', (payload, expected) => {
+    // Fixed vectors catch an algorithm change that would invalidate recorded fingerprints.
+    expect(fingerprint(payload)).toBe(expected);
+  });
+
+  test('includes internal whitespace in the fingerprint', () => {
+    expect(fingerprint('first\nsecond')).not.toBe(fingerprint('first second'));
+  });
+});
+
+describe('escapeRegExp', () => {
+  test.each([
+    '',
+    'plain text',
+    '.',
+    '*',
+    '+',
+    '?',
+    '^',
+    '$',
+    '{',
+    '}',
+    '(',
+    ')',
+    '|',
+    '[',
+    ']',
+    '\\',
+  ])('matches %j literally', (literal) => {
+    const pattern = new RegExp(`^${escapeRegExp(literal)}$`);
+
+    expect(pattern.test(literal)).toBe(true);
+    expect(pattern.test('different text')).toBe(false);
+  });
+});
+
+describe('required topic regressions', () => {
+  test.each([
+    ['do not share one stack', 'warn against assuming one shared stack across repositories'],
+    [
+      'read the target repository’s own',
+      "instruct reading the target repository's own documentation first",
+    ],
+    ['REPOSITORY FAMILIES', 'name the repository families'],
+    ['.github', 'identify the .github governance repository'],
+    ['lightspeed-hosting-infra', 'name the hosting infrastructure repository'],
+    ['nexus', 'name the nexus product family'],
+    ['WordPress', 'state the WordPress majority'],
+    ['PHP', 'state the predominant language'],
+    ['UK English', 'state the UK English requirement'],
+    ['AGENTS.md', 'point at AGENTS.md as the canonical rules'],
+    ['docs/AGENT-INDEX.md', 'point at the agent index'],
+    ['.github/workflows/', 'say where workflows live'],
+    ['scripts/', 'say where scripts live'],
+    ['__tests__', 'state the test location requirement'],
+    ['labels.yml', 'name the locked label configuration'],
+    ['.gitattributes', 'mention the review categories'],
+  ])('detects loss of %s from otherwise complete guidance', (phrase, topic) => {
+    const payload = minimalPayload().split(phrase).join('removed');
+
+    expect(validatePayload(payload).errors).toContain(`Does not ${topic}.`);
+  });
+
+  test.each([
+    "read the target repository's own",
+    'read that repository’s own',
+    "read that repository's own",
+    'its own documentation',
+    'its own AGENTS',
+  ])('accepts the supported documentation wording: %s', (wording) => {
+    const payload = minimalPayload().replace('read the target repository’s own', wording);
+
+    expect(validatePayload(payload).errors).toEqual([]);
+  });
+
+  test('reports each forbidden concept once even when its variants repeat', () => {
+    const { errors } = validatePayload(
+      `${minimalPayload()}\nSCIM SCIM OAuth app approvals and OAuth application approvals`
+    );
+
+    expect(errors).toHaveLength(2);
+    expect(errors).toEqual([
+      expect.stringContaining('(scim)'),
+      expect.stringContaining('(oauth-app-approval)'),
+    ]);
+  });
+
+  test('reports forbidden concepts and missing topics together', () => {
+    const payload = minimalPayload().replace('UK English', 'American English') + '\nUse SCIM.';
+    const { errors } = validatePayload(payload);
+
+    expect(errors).toHaveLength(2);
+    expect(errors).toEqual(
+      expect.arrayContaining([
+        expect.stringContaining('(scim)'),
+        'Does not state the UK English requirement.',
+      ])
+    );
+  });
+});
+
+describe('payload warning boundaries', () => {
+  test.each([
+    [399, /unlikely to cover/],
+    [400, null],
+    [8000, null],
+    [8001, /followed inconsistently/],
+  ])('applies length warnings at %i characters', (length, expected) => {
+    const { warnings } = validatePayload('x'.repeat(length));
+
+    expect(warnings).toEqual(expected ? [expect.stringMatching(expected)] : []);
+  });
+
+  test.each(['TODO', 'tbd', 'Placeholder'])('warns about %s', (marker) => {
+    const { errors, warnings } = validatePayload(`${minimalPayload()}\n${marker}`);
+
+    expect(errors).toEqual([]);
+    expect(warnings).toEqual([expect.stringMatching(/placeholder/)]);
+  });
+
+  test('does not mistake embedded TODO or TBD letters for placeholders', () => {
+    const { warnings } = validatePayload(`${minimalPayload()}\nTODOLOGY ATBDZ`);
+
+    expect(warnings).toEqual([]);
+  });
+
+  test('reports an empty payload without unrelated topic or length diagnostics', () => {
+    expect(validatePayload('')).toEqual({
+      errors: [expect.stringContaining('No guidance payload found')],
+      warnings: [],
+    });
+  });
+});
+
+describe('guidance and guide validation with isolated files', () => {
+  const fixtureRoot = path.join(os.tmpdir(), 'linear-guidance-unit-fixture');
+
+  beforeEach(() => {
+    jest.spyOn(fs, 'existsSync').mockReturnValue(true);
+    jest.spyOn(fs, 'readFileSync').mockReturnValue('');
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test('reports only the extracted payload, ignoring surrounding documentation', () => {
+    const payload = minimalPayload();
+    fs.readFileSync.mockReturnValue(
+      `SCIM documentation\n\n\`\`\`text\n\n${payload}\n\n\`\`\`\nTODO`
+    );
+
+    expect(validateLinearGuidance(fixtureRoot)).toEqual({
+      ok: true,
+      file: GUIDANCE_PATH,
+      payload,
+      fingerprint: fingerprint(payload),
+      characters: payload.length,
+      errors: [],
+      warnings: [],
+    });
+    expect(fs.readFileSync).toHaveBeenCalledWith(path.join(fixtureRoot, GUIDANCE_PATH), 'utf8');
+  });
+
+  test.each([
+    ['no fence', 'plain prose', /Found 0/],
+    ['empty payload', '```text\n```', /No guidance payload/],
+    ['unclosed payload', '```text\nbody', /never closed/],
+    ['duplicate payloads', '```text\none\n```\n```text\ntwo\n```', /Found 2/],
+    ['trailing unclosed payload', '```text\none\n```\n```text\ntwo', /never closed/],
+  ])('rejects %s without publishing a fingerprint', (_name, contents, error) => {
+    fs.readFileSync.mockReturnValue(contents);
+
+    expect(validateLinearGuidance(fixtureRoot)).toEqual({
+      ok: false,
+      file: GUIDANCE_PATH,
+      payload: '',
+      fingerprint: null,
+      characters: 0,
+      errors: expect.arrayContaining([expect.stringMatching(error)]),
+      warnings: [],
+    });
+  });
+
+  test('does not attempt to read a missing guidance file', () => {
+    fs.existsSync.mockReturnValue(false);
+
+    expect(validateLinearGuidance(fixtureRoot)).toEqual({
+      ok: false,
+      file: GUIDANCE_PATH,
+      payload: '',
+      fingerprint: null,
+      characters: 0,
+      errors: [`Missing ${GUIDANCE_PATH}.`],
+      warnings: [],
+    });
+    expect(fs.readFileSync).not.toHaveBeenCalled();
+  });
+
+  test('returns the exact missing guide path without reading it', () => {
+    fs.existsSync.mockReturnValue(false);
+
+    expect(validateGuideSections(fixtureRoot)).toEqual({
+      ok: false,
+      missing: [`Missing ${GUIDE_PATH}.`],
+    });
+    expect(fs.readFileSync).not.toHaveBeenCalled();
+  });
+
+  test('rejects a deleted guide section even if a fenced example still names it', () => {
+    const contents = REQUIRED_GUIDE_SECTIONS.filter((section) => section !== 'Triage Intelligence')
+      .map((section) => `## ${section}`)
+      .join('\n');
+    fs.readFileSync.mockReturnValue(`${contents}\n\`\`\`text\n## Triage Intelligence\n\`\`\``);
+
+    expect(validateGuideSections(fixtureRoot)).toEqual({
+      ok: false,
+      missing: ['Triage Intelligence'],
+    });
+  });
+
+  test('reports all missing sections for an empty guide', () => {
+    expect(validateGuideSections(fixtureRoot)).toEqual({
+      ok: false,
+      missing: REQUIRED_GUIDE_SECTIONS,
+    });
+  });
+});
+
+describe('heading boundaries', () => {
+  test('accepts only level-two headings and trims their titles', () => {
+    expect(
+      headingsOutsideFences('# Title\n### Nested\n##No space\n## Real  \t\n## Also real')
+    ).toEqual(['Real', 'Also real']);
+  });
+
+  test('ignores the remainder of an unclosed code fence', () => {
+    expect(headingsOutsideFences('## Before\n```text\n## Hidden\n## Still hidden')).toEqual([
+      'Before',
+    ]);
+  });
+});
+
+describe('CLI output and failure contracts', () => {
+  const script = path.join(REPO_ROOT, 'scripts/validation/validate-linear-guidance.cjs');
+  let root;
+
+  beforeEach(() => {
+    root = fs.mkdtempSync(path.join(os.tmpdir(), 'linear-guidance-cli-'));
+    fs.mkdirSync(path.join(root, 'docs'));
+    fs.writeFileSync(path.join(root, GUIDANCE_PATH), `\`\`\`text\n${minimalPayload()}\n\`\`\`\n`);
+    fs.writeFileSync(
+      path.join(root, GUIDE_PATH),
+      REQUIRED_GUIDE_SECTIONS.map((section) => `## ${section}`).join('\n')
+    );
+  });
+
+  afterEach(() => {
+    fs.rmSync(root, { recursive: true, force: true });
+  });
+
+  function runCli(...args) {
+    return spawnSync(process.execPath, [script, ...args], {
+      cwd: root,
+      encoding: 'utf8',
+      timeout: 5000,
+    });
+  }
+
+  test('emits a parseable JSON report with metadata but no payload', () => {
+    const result = runCli('--json');
+
+    expect(result.status).toBe(0);
+    expect(result.stderr).toBe('');
+    expect(JSON.parse(result.stdout)).toEqual({
+      ok: true,
+      file: GUIDANCE_PATH,
+      fingerprint: fingerprint(minimalPayload()),
+      characters: minimalPayload().length,
+      errors: [],
+      warnings: [],
+    });
+  });
+
+  test.each(['text', 'json'])('fails when the guide loses a section (%s output)', (format) => {
+    fs.writeFileSync(
+      path.join(root, GUIDE_PATH),
+      REQUIRED_GUIDE_SECTIONS.filter((section) => section !== 'Triage Intelligence')
+        .map((section) => `## ${section}`)
+        .join('\n')
+    );
+    const result = runCli(...(format === 'json' ? ['--json'] : []));
+
+    expect(result.status).toBe(1);
+    if (format === 'json') {
+      const report = JSON.parse(result.stdout);
+      expect(report.ok).toBe(false);
+      expect(report.errors).toEqual([
+        expect.stringMatching(/LINEAR_INTEGRATION\.md.*Triage Intelligence/),
+      ]);
+      expect(report).not.toHaveProperty('payload');
+      expect(result.stderr).toBe('');
+    } else {
+      expect(result.stdout).toBe('');
+      expect(result.stderr).toMatch(/ERROR.*LINEAR_INTEGRATION\.md.*Triage Intelligence/);
+    }
+  });
+
+  test('fails and reports both missing documents in JSON', () => {
+    fs.rmSync(path.join(root, 'docs'), { recursive: true });
+    const result = runCli('--json');
+    const report = JSON.parse(result.stdout);
+
+    expect(result.status).toBe(1);
+    expect(result.stderr).toBe('');
+    expect(report.ok).toBe(false);
+    expect(report.fingerprint).toBeNull();
+    expect(report.characters).toBe(0);
+    expect(report.errors).toEqual([
+      `Missing ${GUIDANCE_PATH}.`,
+      expect.stringContaining(`Missing ${GUIDE_PATH}.`),
+    ]);
+  });
+
+  test('rejects invalid guidance even when the guide has every section', () => {
+    fs.writeFileSync(
+      path.join(root, GUIDANCE_PATH),
+      `\`\`\`text\n${minimalPayload()}\nUse SCIM.\n\`\`\``
+    );
+    const result = runCli();
+
+    expect(result.status).toBe(1);
+    expect(result.stdout).toBe('');
+    expect(result.stderr).toMatch(/ERROR.*SCIM/);
+  });
+
+  test.each(['text', 'json'])('keeps warnings non-fatal (%s output)', (format) => {
+    fs.writeFileSync(
+      path.join(root, GUIDANCE_PATH),
+      `\`\`\`text\n${minimalPayload()}\nTODO: confirm\n\`\`\``
+    );
+    const result = runCli(...(format === 'json' ? ['--json'] : []));
+
+    expect(result.status).toBe(0);
+    if (format === 'json') {
+      const report = JSON.parse(result.stdout);
+      expect(report.ok).toBe(true);
+      expect(report.errors).toEqual([]);
+      expect(report.warnings).toEqual([expect.stringMatching(/placeholder/)]);
+      expect(result.stderr).toBe('');
+    } else {
+      expect(result.stdout).toMatch(/Linear agent guidance is valid/);
+      expect(result.stdout).toMatch(/Fingerprint: [0-9a-f]{12}/);
+      expect(result.stderr).toMatch(/WARN.*placeholder/);
+    }
   });
 });
