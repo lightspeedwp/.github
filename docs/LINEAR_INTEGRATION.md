@@ -343,44 +343,25 @@ the automation that governs the organisation.
 
 ### Code Intelligence guidance
 
-Paste this into the workspace's Linear Agent guidance. It is written for this
-repository specifically.
+The guidance that shapes Code Intelligence's answers lives in its own file so it
+can be version-controlled, validated, and fingerprinted:
 
-```text
-This repository is a governance and automation control plane. It contains no
-application runtime and no end-user product; the product is the governance
-plane that configures the LightSpeedWP GitHub organisation.
+[`docs/LINEAR_AGENT_GUIDANCE.md`](LINEAR_AGENT_GUIDANCE.md)
 
-What lives here:
+That file is the single source of truth. Paste its `text` fence into
+**Settings → AI & Agents → Agent guidance**, then record the fingerprint next to
+the pasted block:
 
-- .github/workflows/ — GitHub Actions workflows (CI, labelling, releases, review
-  checks). These carry the repository's own permissions and gates.
-- .github/rulesets/ — merge rulesets for develop and main.
-- .github/labels.yml, .github/issue-types.yml, .github/labeler.yml, CODEOWNERS —
-  canonical, manually curated configuration. They are locked: changes require
-  approval and are made by hand, not by agents.
-- scripts/ — Node.js ESM tooling and CommonJS helpers used by workflows and by
-  local agents. Scripts live in scripts/{category}/, never in .github/scripts/.
-- agents/, skills/, prompts/, instructions/ — agent and human instruction
-  definitions (markdown plus some skill scripts).
-- docs/ — documentation, including architecture decision records.
-
-When answering questions about this repository:
-
-- The product being built is the governance plane, not a runtime. Questions
-  about "the application" are usually questions about workflow behaviour,
-  label/issue-type routing, or agent instructions.
-- Treat .github/labels.yml, .github/issue-types.yml, the issue templates, and
-  the pull request templates as locked canonical configuration. Flag a change
-  to any of them as requiring human approval rather than describing it as a
-  routine edit.
-- Workflow YAML and the scripts they call are the executable surface. A change
-  to a workflow can change permissions, merge gating, or what runs on other
-  people's pull requests, so call that out explicitly.
-- Tests live in __tests__/ subdirectories next to the code they cover, and in
-  tests/. Documentation lives in docs/.
-- This repository uses UK English.
+```bash
+npm run validate:linear-guidance
 ```
+
+Code Intelligence reads the copy configured in Linear, not the file, and that
+copy cannot be read back through the API. A different fingerprint means Linear
+is answering from stale guidance. The validator is wired into
+`npm run validate:all`, so guidance that loses a required topic, or that starts
+referring to an Enterprise-only setting this Business workspace cannot act on,
+fails the suite rather than shipping quietly.
 
 ## Triage Intelligence
 
