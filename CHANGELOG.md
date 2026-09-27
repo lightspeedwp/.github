@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Linear Merge Status Caveat** — The guide now records that a Linear issue left in Triage is silently skipped by the merge automation, and that ready-to-merge needs a stable check state. (#3593)
 - **Verifiable Code Intelligence Guidance** — Guidance for Linear now covers all repository families, not just `.github`, and is validated and fingerprinted so drift and Enterprise-only advice are detectable. (#3596)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+- **Cloud Environment Specification** — Documented the shared Claude Code cloud setup and the branch-name rules Claude sessions must follow, with automated checks that keep the spec consistent. (#3525)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
 - **Footer Duplicates Caught Before Merge** — A new check blocks compounded or misplaced footer blocks, and a tool clears those already committed when run with `--fix`. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
