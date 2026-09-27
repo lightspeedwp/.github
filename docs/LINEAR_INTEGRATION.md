@@ -33,8 +33,9 @@ Authoritative source for the integration contract:
 4. [.gitattributes review categories](#gitattributes-review-categories)
 5. [Code Intelligence](#code-intelligence)
 6. [Triage Intelligence](#triage-intelligence)
-7. [What is deliberately not wired](#what-is-deliberately-not-wired)
-8. [Troubleshooting](#troubleshooting)
+7. [Issue status on merge](#issue-status-on-merge)
+8. [What is deliberately not wired](#what-is-deliberately-not-wired)
+9. [Troubleshooting](#troubleshooting)
 
 ## Scope and plan
 
@@ -393,9 +394,9 @@ suggestion settings.
 > Because this repository is mapped to the Linear team through
 > [GitHub Issues Sync](#github-issues-sync-workspace-admin), every issue opened
 > here also appears in Linear, and Triage Intelligence runs on all of them. An
-> auto-applied label does not change
-> the label definitions in `.github/labels.yml` — it puts that label **on an
-> issue**, and that is the risk. Labels are the routing key for this
+> auto-applied label does not change the label definitions in
+> `.github/labels.yml` — it puts that label **on an issue**, and that is the
+> risk. Labels are the routing key for this
 > organisation: 158 labels across 8 families and 24 issue types, mirrored into
 > organisation settings and consumed by the labeler, metrics, and agent
 > routing. A wrong label on an issue steers it to the wrong team and the wrong
@@ -424,6 +425,32 @@ background and enriches the issue when it finishes.
 Generating suggestions takes **1–4 minutes**. That latency is expected — Linear
 trades speed for quality, and most issues are not triaged faster than that.
 
+## Issue status on merge
+
+Linear can move a linked issue through your workflow as a pull request changes
+state. It is a **per-team setting**, so it is configured on the team rather than
+in the integration:
+
+**Settings → Team: GitHub → Workflows & automations → Pull request and commit
+automations**
+
+The two that matter here:
+
+- **On PR or commit open** → move to the team's first started status
+- **On PR or commit merge** → move to the completed status
+
+Two behaviours are worth knowing before you rely on it:
+
+- **An issue still in Triage is skipped.** Triage is a queue for issues nobody
+  has picked up, and the automation only applies to issues that have been
+  accepted into the workflow. This fails **silently** — nothing in GitHub or
+  Linear reports the skip, so a pull request can merge and ship while its
+  linked issue stays open. **Move an issue out of Triage before starting work
+  on it.**
+- **Ready to merge needs a stable check state.** Linear does not fire
+  ready-to-merge automations if GitHub reports the pull request as unstable,
+  which includes **any** failing check, not only required ones.
+
 ## What is deliberately not wired
 
 **Linear Releases — deferred.** Business supports up to 15 release pipelines,
@@ -447,6 +474,7 @@ issues against this document.
 | No diffs in Linear                       | Code access was not granted to the repository by a GitHub organisation owner, **or** the reviewer's personal GitHub account is not connected, **or** **Enable code reviews** is off.                                                                                                                      |
 | Pull request state looks stale in Linear | A webhook was missed. Make a small edit to the pull request description in GitHub to force a re-sync.                                                                                                                                                                                                     |
 | Cannot find Linear Code                  | Press `G` then `R`. If the shortcut does nothing, the personal GitHub account is not connected.                                                                                                                                                                                                           |
+| A merged PR left its Linear issue open   | The issue was still in **Triage** when the pull request merged, and the [merge automation](#issue-status-on-merge) skips Triage. The skip is silent. Move the issue to a started or unstarted status and close it by hand.                                                                                |
 | GitHub issues never reach Linear         | Code access does not sync issues. The [GitHub Issues Sync](#github-issues-sync-workspace-admin) mapping is a separate switch, off by default. Check <https://linear.app/settings/integrations/github> → **GitHub Issues**.                                                                                |
 | Triage suggestions never arrive          | Same cause: no Issues Sync mapping, or the issue predates it, since sync covers newly created issues only.                                                                                                                                                                                                |
 | Risk score does not appear               | The comment must be **bot-authored**, must contain the `<!-- lightspeed-linear-review -->` marker, and `level` must be an integer 1–4. Reproduce the block locally with `node scripts/automation/linear-review-extension.cjs --files <paths> --json` and check the `level` and `explanations` it reports. |
