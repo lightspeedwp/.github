@@ -301,6 +301,7 @@ jobs:
   footer-guard:
     name: Footer Duplicate Guard
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     # Ratchet, not a wall. Only the Markdown files this event touched are
     # checked, so the pre-existing #3451 backlog does not block unrelated work
     # while it is being cleared in dedicated cleanup PRs. Once
