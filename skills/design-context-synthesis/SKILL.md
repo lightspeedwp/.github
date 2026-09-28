@@ -96,14 +96,4 @@ Provide the actual brief, layout direction, page concept, or Figma-ready handoff
 - Do not claim Figma work was completed unless it actually was.
 - Favor a practical, buildable recommendation over a visually ambitious but implementation-blind one.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

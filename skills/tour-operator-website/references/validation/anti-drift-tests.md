@@ -182,5 +182,3 @@ Pass criteria:
 - The draft rejects or corrects the unsafe assumption.
 - `destination_to_special` is treated as relationship/facet evidence, not core ownership proof.
 - The issue includes evidence, expected/actual gap, acceptance criteria and verification steps.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

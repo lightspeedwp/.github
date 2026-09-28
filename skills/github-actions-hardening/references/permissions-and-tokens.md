@@ -99,15 +99,3 @@ specific branch/environment so a fork or another repo cannot assume the role.
 * Don't pass secrets into third-party actions you haven't pinned and reviewed.
 * Remember fork `pull_request` runs get no secrets — don't try to "fix" that by switching to
   `pull_request_target` (see `triggers-and-privilege.md`).
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

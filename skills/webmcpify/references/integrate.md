@@ -166,5 +166,3 @@ header — registered at the Chrome Origin Trials console. For local work,
 tokens, so nothing may depend on WebMCP being present (ground rule 4). Add a short
 note about this to the target repo's README as part of setup, and record the
 touched file path in `pipeline.setup.originTrialNoted` (e.g. `["README.md"]`).
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
