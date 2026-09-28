@@ -30,7 +30,7 @@ import {
 import { isIndentedCodeLine } from '../agents/includes/footer-policy.js';
 
 const PHRASE = '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*';
-const LINK = '[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)';
+const LINK = '[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)';
 
 /** Join lines with a trailing newline, matching a normal text file. */
 const doc = (...lines) => `${lines.join('\n')}\n`;
