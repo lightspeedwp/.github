@@ -52,21 +52,3 @@ The request concerns checkout, cart, product data architecture, order creation, 
 ## Handoff timing
 
 Produce a handoff note after live changes, after a read-only audit, before routing to another agent, or when the current connector lacks permission to finish the task.
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

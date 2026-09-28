@@ -498,38 +498,5 @@ Because this skill works incrementally (one section per call), errors are natura
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

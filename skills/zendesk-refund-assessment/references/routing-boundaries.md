@@ -102,21 +102,3 @@ When routing away, pass a short payload:
 ```
 
 Keep the handoff neutral. Do not write as though a refund or compensation decision has already been approved unless it has.
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

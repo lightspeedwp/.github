@@ -104,21 +104,3 @@ Use this only when the project benefits from durable context across sessions. Ke
 
 Record material decisions, blockers, and the next action here or in the active plan. Use GitHub Issues or the repository's tracker for bugs and follow-up work.
 ```
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

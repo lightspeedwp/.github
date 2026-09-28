@@ -29,20 +29,5 @@ Store concise durable project facts only. Do not store raw dumps, credentials, s
 
 Fresh live evidence always overrides memory. Include a date and evidence source for every durable fact.
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

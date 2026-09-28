@@ -109,20 +109,5 @@ If the calling instructions already define an exact section structure, keep that
 - If the use case is high-risk or the escalation boundary is unclear, recommend **discovery-first** rather than pretending the chatbot can be estimated cleanly.
 - If the website, approved sources, exclusions, and operational boundaries are all well evidenced, treat the work as closer to a **reasonably firm** estimate and say why.
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

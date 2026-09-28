@@ -68,21 +68,3 @@ Briefly explain what was reviewed or configured and why it matters.
 ## Next step
 
 State the smallest practical next action.
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

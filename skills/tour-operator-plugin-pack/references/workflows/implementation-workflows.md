@@ -91,15 +91,3 @@ Inspect active theme, template hierarchy, query loops and dynamic field output b
 ### GitHub issue drafts
 
 Draft clear issues with evidence, scope, acceptance criteria, test steps, risk and owner suggestion. Do not create issues unless explicitly asked and tooling confirms.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

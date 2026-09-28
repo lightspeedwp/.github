@@ -49,5 +49,3 @@ Use this file when an audit finding depends on what the active Yoast stack can d
 - Yoast settings screenshots or MCP reads.
 - Rendered/source output.
 - Relevant official documentation for feature claims.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

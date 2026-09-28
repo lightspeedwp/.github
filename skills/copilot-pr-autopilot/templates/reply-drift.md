@@ -31,21 +31,3 @@ test plan no longer matches the code.
 ```
 Good catch — updated the <PR description | comment in `<file>` | test plan> to match the implemented behavior: <one-line summary of the now-correct statement>.
 ```
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

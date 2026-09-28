@@ -56,21 +56,3 @@ Advanced Post Creation can be used only if the listing post type already exists.
 ## Handoff
 
 Directory owner reviews content, confirms category/area, checks image/logo rights, and publishes manually after approval.
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

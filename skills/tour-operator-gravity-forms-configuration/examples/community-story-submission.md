@@ -55,21 +55,3 @@ Use Advanced Post Creation only when installed and active. Map from standard/adv
 ## Handoff
 
 Send entries or generated draft posts to the editorial owner with a checklist covering spam, privacy, image rights, taxonomy, claims, and publish readiness.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

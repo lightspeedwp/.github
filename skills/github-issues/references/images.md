@@ -139,5 +139,3 @@ await browser.close();
 - **`upload/policies/assets` requires a browser session.** Do not attempt to call this endpoint from the CLI.
 - **Base64 encoding for large files** can hit API payload limits. The Contents API has a ~100MB file size limit but practical limits are lower for base64-encoded payloads.
 - **Email notifications** will not render images that require authentication. If email readability matters, use the browser upload method.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

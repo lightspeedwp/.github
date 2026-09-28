@@ -227,21 +227,3 @@ Use this format when handing from audit to configuration:
   "suggested_configuration_prompt": "Use the `tour-operator-gravity-forms-configuration` skill to verify current state and prepare a remediation change plan for findings GF-001 and GF-002. Do not apply changes until approved."
 }
 ```
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

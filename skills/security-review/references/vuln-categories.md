@@ -342,21 +342,3 @@ safe_path = os.path.join('/var/uploads', filename)
 if not safe_path.startswith('/var/uploads/'):
     abort(400)
 ```
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

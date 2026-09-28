@@ -46,5 +46,3 @@ We reviewed the supplied Yoast SEO evidence for the site and found a small set o
 ## QA after changes
 
 -
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

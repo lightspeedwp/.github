@@ -134,21 +134,3 @@ Regression checks:
 |---|---|---|---|---|---|---|---|
 | 1.1.0 | 1.0.0 | YYYY-MM-DD | workflow | [source] | [result] | accepted | [path/version] |
 ```
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

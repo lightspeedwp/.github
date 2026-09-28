@@ -83,21 +83,3 @@ a one-line description of the change.
   over-engineer the design for a hypothetical edge case — flip the
   triage to `decline` and return `status: blocked` with the rationale
   so step 8 drafts the right reply.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

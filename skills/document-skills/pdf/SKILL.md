@@ -309,14 +309,4 @@ with open("encrypted.pdf", "wb") as output:
 - If you need to fill out a PDF form, follow the instructions in forms.md
 - For troubleshooting guides, see reference.md
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
