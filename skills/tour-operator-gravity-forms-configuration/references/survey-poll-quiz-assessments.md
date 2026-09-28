@@ -147,5 +147,3 @@ Do not invent reporting exports. If summary exports are unavailable, recommend e
 8. Test filters/date ranges where reporting matters.
 9. Test public result display if used.
 10. Test scoring boundaries, pass/fail threshold, letter grade thresholds, weighted scoring, hidden conditional quiz questions, and reset/export path when applicable.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

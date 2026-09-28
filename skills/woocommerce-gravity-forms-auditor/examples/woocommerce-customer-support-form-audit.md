@@ -47,15 +47,3 @@ Single customer support form on a WooCommerce site's `/contact/` or `/support/` 
 ## Handoff item
 
 Route GF-AUD-001 to `woocommerce-gravity-forms-configuration` to update notification sender safely after approval.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
