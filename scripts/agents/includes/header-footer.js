@@ -11,7 +11,7 @@ import {
   resolveFooterPhrases,
   selectFooterPhrase,
 } from './footer-phrases.js';
-import { FOOTER_PATTERNS, buildFooterRegex } from './footer-policy.js';
+import { FOOTER_PATTERNS, buildFooterRegex, contributorsLink, repoUrl } from './footer-policy.js';
 
 export { FOOTER_PATTERNS, buildFooterRegex };
 
@@ -25,11 +25,16 @@ function loadFooterConfig() {
 /**
  * Standard footer variants (fallback if config not found)
  */
+// The repo-scoped links are derived from the current repository rather than
+// written out, so they cannot name the wrong one. `Contributors` previously
+// hardcoded `lightspeedwp/lsx-demo-theme` here and in branding.agent.js, which
+// propagated a link to an unrelated project into every file that received this
+// fallback. See `contributorsLink()` in ./footer-policy.js.
 const DEFAULT_FOOTERS = [
-  '*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)',
-  '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)',
+  `*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*\n[Org Profile](${repoUrl('tree/main/profile')})`,
+  `*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n${contributorsLink()}`,
   '*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*',
-  '*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)',
+  `*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*\n[Automation Docs](${repoUrl('tree/main/instructions')})`,
   '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
 ];
 
