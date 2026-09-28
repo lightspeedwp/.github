@@ -53,7 +53,7 @@
     "npm": ">=9.0.0"
   },
   "dependencies": {
-    "@octokit/rest": "^19.0.0",
+    "@octokit/rest": "^22.0.1",
     "pino": "^8.0.0"
   },
   "devDependencies": {
