@@ -74,5 +74,3 @@
 - Required fixes:
 - Retest owner:
 - Handoff notes:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

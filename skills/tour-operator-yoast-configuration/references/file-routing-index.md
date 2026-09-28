@@ -41,5 +41,3 @@ Use this index when the request is broad, mixed or unclear. Load only the files 
 | Developer handoff | `references/developer-api-reference.md` | `templates/developer-handoff.md` |
 | Client note | `references/client-communication-guardrails.md` | `templates/client-safe-summary.md` |
 | Research pack | `docs/research-workflow.md` | `references/research-pack-output-spec.md`, `references/source-register.md` |
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

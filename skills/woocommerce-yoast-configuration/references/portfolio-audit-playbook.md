@@ -115,15 +115,3 @@ Use `templates/yoast-portfolio-audit-summary.md` for cross-site summaries. Inclu
 ## QA checks
 
 For each high-risk pattern, define one representative QA path and one retest sample per affected site type. Do not claim the pattern is fixed until rendered output or relevant live artefacts confirm the change.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
