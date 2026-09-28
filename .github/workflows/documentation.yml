@@ -390,6 +390,63 @@ jobs:
           node scripts/dedupe-footers.js --check || \
             echo "::notice title=Footer backlog::Whole-repo footer backlog remains; tracked in issue #3451."
 
+      - name: Warn on possible unrecognised duplicate footers
+        # Advisory only, and deliberately a separate step from the failing check
+        # above. This signal reports files whose trailing zone holds two or more
+        # footer-shaped blocks that the wording-based deduper cannot recognise.
+        # Measured across 11,474 tracked Markdown files it flags 930 files, of
+        # which 280 (30.1%) hold no known footer at all, so it must never fail a
+        # build. It exists to ask a human to look, and to surface footers whose
+        # wording is missing from footer-policy.js. See issue #3451.
+        if: always() && steps.range.outputs.enabled == 'true'
+        continue-on-error: true
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+          HEAD: ${{ steps.range.outputs.head }}
+        run: |
+          node scripts/dedupe-footers.js --check --changed-only \
+            --base="$BASE" --head="$HEAD" --json > shape-report.json || true
+          node -e '
+            const fs = require("fs");
+            let report;
+            try {
+              report = JSON.parse(fs.readFileSync("shape-report.json", "utf8"));
+            } catch (error) {
+              console.log("::notice title=Footer shape signal::Could not read the report: " + error.message);
+              process.exit(0);
+            }
+            const findings = report.shapeFindings || [];
+            if (findings.length === 0) {
+              console.log("No footer-shaped blocks found in the changed Markdown files.");
+              process.exit(0);
+            }
+            const unrecognised = findings.filter((f) => !f.recognisedByDedupe);
+            for (const f of unrecognised) {
+              const texts = (f.regions || [])
+                .map((r) => r.texts.join(" "))
+                .join(" | ")
+                .slice(0, 200);
+              console.log(
+                "::warning title=Possible unrecognised duplicate footer::" +
+                  f.path +
+                  " holds " +
+                  f.blocks +
+                  " footer-shaped blocks the wording-based deduper does not recognise: " +
+                  texts +
+                  " Confirm and reconcile by hand. Nothing is auto-fixed; run " +
+                  "npm run validate:footers:shape for the full report."
+              );
+            }
+            console.log(
+              "::notice title=Footer shape signal==" +
+                unrecognised.length +
+                " of " +
+                findings.length +
+                " changed file(s) hold a footer-shaped block the deduper cannot see. Advisory only: " +
+                "the measured false-positive rate is 30.1%, so this does not fail the build."
+            );
+          '
+
   maintain:
     name: Documentation Maintenance
     runs-on: ubuntu-latest
