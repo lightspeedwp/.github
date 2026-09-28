@@ -83,3 +83,18 @@ tracked in #3618.
 | Major: `--input` was not read at all, and a relative body path resolved against the wrong working directory. | fixed | `--input file` and `--input=file` are both read, relative to the command's directory. `--input -` and an unreadable body are treated as unreadable. | `inputArg`, `readBody`. |
 | Minor: the attached `--flag=value` form was not parsed, so the branch was missed. | fixed | `fieldArgs` understands both `--flag value` and `--flag=value` for the field flags and `--input`. | `fieldArgs`. |
 | Minor: the SessionStart hook emitted its context through `jq`, so a machine without `jq` exited 0 with an empty stdout and the session began with no branching context. | fixed | Both the source read and the emitter are plain shell, with escaping for backslash, quote and every control character a JSON string cannot carry unescaped. | `.claude/hooks/session-start.sh`; proved by running the hook with `jq` absent from `PATH`. |
+
+## Findings from the 07:23 review pass
+
+| Feedback | Status | Response | Reference |
+| --- | --- | --- | --- |
+| Minor: the `PATH` a test supplies replaced the fixture stubs, so the host's real `npm` and `git` could resolve and the test could install into the temporary fixture and depend on the network. | fixed | The stubs stay ahead of any supplied `PATH`, and a supplied `PATH` now replaces the host's rather than extending it, so a test can add tools but can never displace the stub `npm` and `git`. | `scripts/__tests__/helpers/claude-hook-harness.js` `hookEnv`. |
+| Minor: `.github/specs/CATALOG.md` was not in the guard workflow's change filter although the contract test reads it. | fixed | Added, and the filter now watches the whole harness helpers directory rather than one filename, since the guard suites import from it. | `.github/workflows/claude-guard-tests.yml`. |
+
+## Found by self-review, not by a review pass
+
+| Finding | Status | Response | Reference |
+| --- | --- | --- | --- |
+| A leading `cd` defeated the guard-file self-protection: `cd .claude/hooks && rm enforce-branch-name.mjs` resolved the target against the project root, matched no guard file, and was allowed. | fixed | The guard now follows the shell's working directory across `cd` segments. | `.claude/hooks/enforce-branch-name.mjs` `createCwdTracker`. |
+| A `cd` that cannot succeed, that the shell rejects for multiple operands, or that runs in a pipeline stage or a background command was still treated as a move, so `cd /nonexistent && rm .claude/settings.json` and `cd .claude/hooks & rm settings.json` were allowed. | fixed | The tracked directory only moves for a `cd` the parent shell follows; absolute targets stay checked when the directory is unknown, and an undeterminable destination fails closed. | `createCwdTracker`, `shellGuardWrites`. |
+| `cd -` used the hook process's own `OLDPWD` rather than the directory the command last left, and `cd -- -` was read as the previous directory. | fixed | `-` is recognised before the flag filter, `--` is honoured as an end-of-options marker, and a leading `cd -` with no earlier `cd` fails closed. | `createCwdTracker`. |

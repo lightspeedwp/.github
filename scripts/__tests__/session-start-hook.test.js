@@ -171,12 +171,16 @@ describe('without jq on PATH (FR-003)', () => {
     const withoutJq = fs.mkdtempSync(path.join(os.tmpdir(), 'no-jq-'));
     let result;
     try {
-      for (const tool of ['bash', 'sh', 'git', 'npm', 'node', 'cat', 'printf', 'sed', 'grep', 'mktemp', 'rm', 'mkdir', 'ln', 'cp', 'mv', 'chmod', 'chown', 'dirname', 'basename', 'tr', 'cut', 'head', 'tail', 'date', 'uname', 'id', 'env']) {
+      // Only tools the hook needs beyond the fixture stubs. npm and git are
+      // deliberately absent so the stubs are what resolve.
+      for (const tool of ['bash', 'sh', 'node', 'cat', 'printf', 'sed', 'grep', 'mktemp', 'rm', 'mkdir', 'dirname', 'basename', 'tr', 'cut', 'head', 'tail', 'date', 'uname', 'id', 'env']) {
         const real = spawnSync('sh', ['-c', `command -v ${tool}`], { encoding: 'utf8' }).stdout.trim();
         if (!real) continue;
         fs.symlinkSync(real, path.join(withoutJq, tool));
       }
       expect(fs.existsSync(path.join(withoutJq, 'jq'))).toBe(false);
+      // The stubs must still win, so npm install is logged rather than run.
+      expect(fs.existsSync(path.join(withoutJq, 'npm'))).toBe(false);
       fx.branch('claude/x-abc123');
       result = runSessionStart(fx, 'startup', { ...CLOUD, PATH: withoutJq });
     } finally {
@@ -186,6 +190,9 @@ describe('without jq on PATH (FR-003)', () => {
     const output = JSON.parse(result.stdout);
     expect(output.hookSpecificOutput.hookEventName).toBe('SessionStart');
     expect(output.hookSpecificOutput.additionalContext).toMatch(/branch/i);
+    // The install the fresh fixture always needs was handled by the stub, not
+    // by the host's npm: only a call the stub logs appears in the call log.
+    expect(fx.calls().some((call) => call.startsWith('npm install'))).toBe(true);
   });
 });
 

@@ -24,7 +24,7 @@
  */
 
 import { execFileSync } from 'child_process';
-import { existsSync, readFileSync, realpathSync } from 'fs';
+import { existsSync, readFileSync, realpathSync, statSync } from 'fs';
 import path from 'path';
 
 // Loaded in main() with a dynamic import, so a missing or broken validator
@@ -267,6 +267,9 @@ function containsGuardFile(resolved, guard) {
 }
 
 function guardFileProblem(file) {
+  if (file === UNRESOLVABLE) {
+    return "Edit blocked: this command changes directory to a path the guard can't resolve, so a guard-file write cannot be ruled out";
+  }
   return `Edit blocked: '${file}' is a branch-guard file and can't be changed while enforcement is on.`;
 }
 
@@ -334,6 +337,12 @@ function parseShell(command) {
     } else if (c === '\n' || c === ';' || c === '|' || c === '&') {
       if (c === '&' && src[i - 1] === '>') continue; // `>&2` is a redirection
       if ((c === '|' || c === '&') && src[i + 1] === c) i += 1;
+      // A pipeline stage or a background command runs in a subshell, so a `cd`
+      // there leaves the parent shell where it was.
+      if (c === '|' || c === '&') {
+        const last = segments.at(-1);
+        if (last) last.subshell = true;
+      }
       split();
     } else if (c === '>') {
       // A leading digit is a file descriptor (`2>`), not part of a word.
@@ -570,6 +579,84 @@ const FIELD_FLAGS = new Set(['-f', '-F', '--field', '--raw-field']);
     }
   }
 
+/**
+ * The directory a `cd` segment leaves the shell in, or null when it cannot be
+ * determined. `cd` with no argument goes to the home directory and `cd -` to the
+ * previous one; a `cd -` with no OLDPWD cannot be tracked, and null makes the
+ * guard fail closed rather than judge a relative path against a stale directory.
+ */
+const UNDETERMINED = null;
+
+/**
+ * Follows the shell's working directory across `cd` segments, so a relative
+ * write target resolves against the directory the command is really in.
+ *
+ * A `cd` that cannot succeed leaves the shell where it was, so the tracked
+ * directory only moves when the destination exists; otherwise `cd
+ * /nonexistent && rm .claude/settings.json` would resolve against a directory
+ * that does not exist and miss a protected file. `cd -` returns to the directory
+ * this tracker last left, not the hook process's own OLDPWD. When a destination
+ * cannot be determined at all, `known` goes false and the caller fails closed.
+ */
+function createCwdTracker(start) {
+  let cwd = start;
+  let previous = UNDETERMINED;
+  let known = true;
+  return {
+    get cwd() {
+      return cwd;
+    },
+    get known() {
+      return known;
+    },
+    cd(args, subshell = false) {
+      // Everything after `--` is an operand, including a dash-prefixed name, so
+      // `cd -- -` is a directory literally called `-` and not the previous one.
+      const separator = args.indexOf('--');
+      const before = separator < 0 ? args : args.slice(0, separator);
+      const after = separator < 0 ? [] : args.slice(separator + 1);
+      const operands = [...after, ...before.filter((arg) => !arg.startsWith('-'))];
+      let target;
+      if (after.length === 0 && before.includes('-')) {
+        // A lone `-` before any `--` is the shell's previous directory.
+        target = previous;
+      } else {
+        // `cd a b` is rejected by the shell, so the directory must not move.
+        if (operands.length > 1) return;
+        target = operands.length === 0 ? HOME || UNDETERMINED : operands.at(-1);
+      }
+      // A `cd` in a pipeline stage or a background command runs in a subshell and
+      // leaves the parent shell where it was.
+      if (subshell) return;
+      if (target === UNDETERMINED) {
+        known = false;
+        return;
+      }
+      if (/\$\{?[A-Za-z_]/.test(target)) {
+        // $PWD is the one expansion worth resolving; any other variable could
+        // name anything, so the destination is treated as undetermined.
+        const expanded = target.replace(/^\$\{?PWD\}?/, cwd);
+        if (expanded === target) {
+          known = false;
+          return;
+        }
+        target = expanded;
+      }
+      const destination = path.resolve(cwd, expandHome(target));
+      let isDir = false;
+      try {
+        isDir = statSync(destination).isDirectory();
+      } catch {
+        isDir = false;
+      }
+      if (!isDir) return; // The cd fails, so the shell does not move.
+      previous = cwd;
+      cwd = destination;
+    },
+  };
+}
+
+const UNRESOLVABLE = '<unresolvable working directory>';
 const SHORT_WRITE_VERBS = new Set([
   'rm',
   'mv',
@@ -583,7 +670,7 @@ const SHORT_WRITE_VERBS = new Set([
 const DESTINATION_VERBS = new Set(['cp', 'ln', 'install', 'rsync']);
 
 /** Guard files that a shell segment would change, move or delete. */
-function shellGuardWrites({ words, writes }, cwd, guard) {
+function shellGuardWrites({ words, writes }, tracker, guard) {
   const { name, args } = commandOf(words);
   const operands = args.filter((arg) => !arg.startsWith('-'));
   const targets = [...writes];
@@ -610,8 +697,16 @@ function shellGuardWrites({ words, writes }, cwd, guard) {
       targets.push(...rest.slice(rest.indexOf('--') + 1));
   }
 
-  const hits = targets.filter((file) => isGuardFile(resolvePath(file, cwd), guard));
-  hits.push(...destructive.filter((file) => containsGuardFile(resolvePath(file, cwd), guard)));
+  // An absolute target resolves whatever the working directory is, so it is
+  // always checked. Only a relative target needs the tracked directory, and one
+  // that is unknown cannot be ruled out, so the guard fails closed on those.
+  if (!tracker.known && targets.some((file) => !path.isAbsolute(file))) {
+    return [UNRESOLVABLE];
+  }
+  const hits = targets.filter((file) => isGuardFile(resolvePath(file, tracker.cwd), guard));
+  hits.push(
+    ...destructive.filter((file) => containsGuardFile(resolvePath(file, tracker.cwd), guard))
+  );
   return [...new Set(hits)];
 }
 
@@ -624,12 +719,21 @@ function checkBash(command, cwd) {
   const guard = protectedFiles(project);
   let branch = currentBranch(cwd);
   let gitCwd = cwd;
+  // Relative paths resolve against the directory the shell is in by then, so a
+  // leading `cd` must be followed. Without this, `cd .claude/hooks && rm
+  // enforce-branch-name.mjs` resolved against the project root, matched no guard
+  // file, and the self-protection was bypassed.
+  const tracker = createCwdTracker(cwd);
   const added = [];
 
   for (const segment of parseShell(command)) {
-    for (const file of shellGuardWrites(segment, cwd, guard)) problems.push(guardFileProblem(file));
+    for (const file of shellGuardWrites(segment, tracker, guard)) problems.push(guardFileProblem(file));
 
     const { name, args } = commandOf(segment.words);
+    if (name === 'cd') {
+      tracker.cd(args, segment.subshell);
+      continue;
+    }
     if (name === 'gh') {
       problems.push(...checkGh(args, gitCwd, branch));
       continue;
@@ -970,8 +1074,11 @@ function isGuardFileWrite(input) {
     return Boolean(file) && isGuardFile(resolvePath(file, project), guard);
   }
   if (tool !== 'Bash') return false;
+  const tracker = createCwdTracker(cwd);
   for (const segment of parseShell(String(toolInput.command || ''))) {
-    if (shellGuardWrites(segment, cwd, guard).length) return true;
+    if (shellGuardWrites(segment, tracker, guard).length) return true;
+    const { name, args } = commandOf(segment.words);
+    if (name === 'cd') tracker.cd(args, segment.subshell);
   }
   return false;
 }

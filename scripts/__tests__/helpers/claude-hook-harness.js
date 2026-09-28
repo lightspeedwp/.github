@@ -66,6 +66,14 @@ function createFixture() {
   fs.mkdirSync(path.join(repo, 'docs'));
   fs.writeFileSync(path.join(repo, 'docs', 'guide.md'), '# Guide\n');
   fs.writeFileSync(path.join(repo, 'package.json'), '{}\n');
+  // The guard protects .claude/hooks and the settings files, so the fixture
+  // needs that layout to exist. Without it a `cd .claude/hooks` would fail in
+  // the fixture the way it would not in the repository, and the guard-file
+  // tests would pass or fail for the wrong reason.
+  fs.mkdirSync(path.join(repo, '.claude', 'hooks'), { recursive: true });
+  fs.writeFileSync(path.join(repo, '.claude', 'hooks', 'enforce-branch-name.mjs'), '// guard\n');
+  fs.writeFileSync(path.join(repo, '.claude', 'hooks', 'session-start.sh'), '#!/bin/sh\n');
+  fs.writeFileSync(path.join(repo, '.claude', 'settings.json'), '{}\n');
   git(repo, 'add', '.');
   git(repo, 'commit', '--quiet', '-m', 'initial');
   git(repo, 'branch', 'main');
@@ -138,14 +146,21 @@ function hookEnv(fixture, env = {}) {
   delete base.LS_ENFORCE_BRANCH_NAMES;
   delete base.LS_BASE_BRANCH;
   delete base.CLAUDE_CODE_REMOTE;
-  return {
+  const merged = {
     ...base,
-    PATH: `${fixture.stubs}${path.delimiter}${process.env.PATH}`,
     CLAUDE_PROJECT_DIR: fixture.repo,
     LS_ENFORCE_BRANCH_NAMES: '1',
     LS_BASE_BRANCH: 'develop',
     ...env,
   };
+  // The fixture stubs stay ahead of anything a test supplies, so a test can add
+  // tools to PATH but can never displace the stub npm and git with the host's
+  // own. Without this, a PATH override sent the hook to the real npm, which
+  // would install into the temporary fixture and depend on the network.
+  // A supplied PATH also replaces the host's rather than extending it, so a
+  // test that narrows PATH cannot silently reach a host tool through the tail.
+  merged.PATH = [fixture.stubs, env.PATH || base.PATH].filter(Boolean).join(path.delimiter);
+  return merged;
 }
 
 function result(run) {

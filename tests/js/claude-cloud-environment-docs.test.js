@@ -33,6 +33,52 @@ const hooks = readDocument(`${specDirectory}/contracts/hooks.md`);
 const cleanup = readDocument(`${specDirectory}/contracts/branch-cleanup.md`);
 const catalogue = readDocument('.github/specs/CATALOG.md');
 
+// The guard workflow skips the suite when no watched file changed, so any file
+// the contract test reads must be in that workflow's change filter. An edit to a
+// document outside the filter would otherwise pass CI having tested nothing.
+describe('the guard workflow change filter', () => {
+  const workflow = readDocument('.github/workflows/claude-guard-tests.yml');
+  const pattern = new RegExp(workflow.match(/grep -qE '([^']+)'/)[1]);
+
+  test.each([
+    ['.github/specs/CATALOG.md', catalogue],
+    ['.github/specs/018-claude-cloud-environment/spec.md', spec],
+    ['.github/specs/018-claude-cloud-environment/plan.md', plan],
+    ['.github/specs/018-claude-cloud-environment/tasks.md', tasks],
+    ['.github/specs/018-claude-cloud-environment/data-model.md', model],
+    ['.github/specs/018-claude-cloud-environment/research.md', research],
+    ['.github/specs/018-claude-cloud-environment/checklists/requirements.md', checklist],
+    ['.github/specs/018-claude-cloud-environment/quickstart.md', quickstart],
+  ])('runs the guard tests when %s changes', (file, content) => {
+    expect(content.length).toBeGreaterThan(0);
+    expect(pattern.test(file)).toBe(true);
+  });
+
+  test.each(['package.json', 'package-lock.json', '.nvmrc', '.jest.config.cjs', 'lib/validate-branch-name.js'])(
+    'runs the guard tests when %s changes',
+    (file) => {
+      expect(pattern.test(file)).toBe(true);
+    }
+  );
+
+  // The guard suites import from the harness helpers directory, so any file in
+  // it must trigger them. Matching one filename left every other helper, and
+  // every future one, unwatched.
+  test.each([
+    'scripts/__tests__/helpers/claude-hook-harness.js',
+    'scripts/__tests__/helpers/any-other-helper.js',
+  ])('runs the guard tests when %s changes', (file) => {
+    expect(pattern.test(file)).toBe(true);
+  });
+
+  test.each(['README.md', '.github/specs/017-ci-failure-remediation/spec.md'])(
+    'does not run the guard tests for unrelated %s',
+    (file) => {
+      expect(pattern.test(file)).toBe(false);
+    }
+  );
+});
+
 describe('Claude cloud environment specification contracts', () => {
   test('catalogues the draft under the correct number and a working spec link', () => {
     const entries = catalogue.split('\n').filter((line) => /^\| 0(18) \|/.test(line));

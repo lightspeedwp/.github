@@ -1,3 +1,4 @@
+const fs = require('fs');
 /**
  * @jest-environment node
  *
@@ -576,6 +577,108 @@ describe('GitHub MCP tools (T011)', () => {
     );
     expect(run.status).toBe(2);
     expect(run.stderr).toMatch(/main/);
+  });
+
+  // A leading `cd` must be followed when resolving a relative path, or the
+  // self-protection the guard applies to its own files is bypassed by simply
+  // changing directory first.
+  test.each([
+    'cd .claude/hooks && rm enforce-branch-name.mjs',
+    'cd .claude/hooks && tee session-start.sh',
+    'cd .claude && cat <<\'EOF\' > settings.json\n{}\nEOF',
+  ])('refuses a guard-file write that cds first: %s', (command) => {
+    const run = runBash(fx, command);
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/branch-guard file|Edit blocked/);
+  });
+
+  // `cd` with no argument goes home and `cd -` to the previous directory, so the
+  // tracker must resolve both rather than leave a stale directory in place.
+  test('follows a bare cd to the home directory', () => {
+    // HOME points into the fixture, so the resolution is hermetic rather than
+    // depending on the host account's home directory.
+    const run = runBash(fx, 'cd && rm .claude/settings.json', { HOME: fx.root });
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/branch-guard file/);
+  });
+
+  // A `cd -` with no earlier cd in the same command has no previous directory to
+  // return to, and the hook process's own OLDPWD says nothing about the shell the
+  // command runs in, so the destination is undetermined and the guard fails closed.
+  test('fails closed on a leading cd - rather than trusting the hook OLDPWD', () => {
+    const run = runBash(fx, 'cd - && rm .claude/settings.json', { OLDPWD: fx.repo });
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/can't resolve/);
+  });
+
+  test('refuses a guard-file write after an untrackable cd -', () => {
+    const run = runBash(fx, 'cd - && rm .claude/settings.json', { OLDPWD: '' });
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/can't resolve|cannot be ruled out/);
+  });
+
+  // A `cd` that cannot succeed leaves the shell where it was, so the tracked
+  // directory must not move. Moving it anyway resolved a relative guard-file
+  // write against a directory that does not exist and missed the write.
+  test.each([
+    'cd /nonexistent-dir-xyz && rm .claude/settings.json',
+    'cd .claude/hooks && cd /nonexistent-abc && rm session-start.sh',
+  ])('keeps the directory when the cd fails: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  // An absolute target resolves whatever the working directory is, so it stays
+  // checked even when a `cd` destination cannot be determined.
+  test('still checks an absolute guard-file target when a cd is undetermined', () => {
+    const absolute = path.join(fx.repo, '.claude', 'settings.json');
+    const run = runBash(fx, `cd - && rm ${absolute}`, { OLDPWD: '' });
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/branch-guard file/);
+  });
+
+  // `cd -` returns to the directory this command last left, not the hook
+  // process's own OLDPWD, so after a successful cd it resolves to that.
+  test('resolves cd - to the directory the same command last left', () => {
+    const run = runBash(fx, 'cd .claude/hooks && cd - && rm .claude/settings.json', {
+      OLDPWD: fx.root,
+    });
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/branch-guard file/);
+  });
+
+  // Everything after `--` is an operand, so `cd -- -` names a directory called
+  // `-` rather than the previous directory.
+  test('treats a dash argument after -- as a directory name', () => {
+    const dash = path.join(fx.root, '-');
+    fs.mkdirSync(dash, { recursive: true });
+    const run = runBash(fx, `cd -- - && rm settings.json`, { HOME: dash });
+    expect(run.status).toBe(0);
+  });
+
+  // A `cd` the shell rejects, or one that runs in a subshell, leaves the parent
+  // shell where it was. Treating either as a move hid a guard file that is
+  // protected relative to the directory the command really runs in.
+  test.each([
+    'cd a b && rm .claude/settings.json',
+    'cd .claude/hooks & rm settings.json',
+  ])('keeps the directory for a cd the parent shell does not follow: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  test('still allows a cd that only feeds a pipeline', () => {
+    expect(runBash(fx, 'cd .claude/hooks | cat').status).toBe(0);
+  });
+
+  test('allows a cd that does not write to a guard file', () => {
+    expect(runBash(fx, 'cd .claude/hooks && ls').status).toBe(0);
+  });
+
+  test('refuses a guard-file write on a fault that cds first', () => {
+    const run = runBash(fx, 'cd .claude/hooks && rm enforce-branch-name.mjs', {
+      NODE_ENV: 'test',
+      LS_GUARD_FORCE_FAULT: '1',
+    });
+    expect(run.status).toBe(2);
   });
 
   // @- means standard input, which the guard has already consumed.
