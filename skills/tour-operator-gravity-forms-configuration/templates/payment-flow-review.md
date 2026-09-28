@@ -87,5 +87,3 @@
 - Readiness: [not ready / partially ready / ready after approval]
 - Next owner:
 - Next action:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
