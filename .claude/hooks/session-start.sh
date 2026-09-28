@@ -32,6 +32,10 @@ if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && { [ "$SOURCE" = "startup" ] || [ "$
   # Only a fresh platform branch is renamed. A claude/* branch with commits of
   # its own (for example a session opened on an existing PR) is left alone, and
   # the guard judges its commits and pushes (FR-001, research R10).
+  # Only a placeholder this hook itself renamed may be reset. AHEAD=0 also holds
+  # for a clean existing non-claude/* branch, and resetting that would discard
+  # work the developer had deliberately parked on it.
+  RENAMED_PLACEHOLDER=false
   if [[ "$CURRENT_BRANCH" == claude/* ]]; then
     if [ "$AHEAD" = "0" ]; then
       # "claude/admiring-mendel-nqdk8j" → "chore/session-nqdk8j". This is only a
@@ -40,6 +44,7 @@ if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && { [ "$SOURCE" = "startup" ] || [ "$
       if git branch -m "$CURRENT_BRANCH" "$NEW_BRANCH" 2>/dev/null; then
         log "Renamed forbidden branch ${CURRENT_BRANCH} → ${NEW_BRANCH} (placeholder, not pushed)"
         CURRENT_BRANCH="$NEW_BRANCH"
+        RENAMED_PLACEHOLDER=true
       fi
     else
       log "Kept ${CURRENT_BRANCH}: it has commits of its own (${AHEAD} ahead of origin/${BASE_BRANCH})"
@@ -49,13 +54,18 @@ if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && { [ "$SOURCE" = "startup" ] || [ "$
   # Fresh session (clean tree, no commits of its own): start from the tip of
   # the base branch so work never begins from a stale or wrong base.
   if [ "$FETCHED" = true ] &&
+     [ "$RENAMED_PLACEHOLDER" = true ] &&
      [ -z "$(git status --porcelain 2>/dev/null)" ] &&
      [ "$AHEAD" = "0" ]; then
     git reset --quiet --hard "origin/${BASE_BRANCH}" && log "Synced ${CURRENT_BRANCH} with origin/${BASE_BRANCH}"
   fi
 
-  # npm install only when package-lock.json is newer than the installed tree.
-  if [ ! -f node_modules/.package-lock.json ] || [ package-lock.json -nt node_modules/.package-lock.json ]; then
+  # npm install when the installed tree is missing, or when either the lockfile
+  # or the manifest is newer than it. Comparing only the lockfile missed a
+  # package.json-only change, which still changes what should be installed.
+  if [ ! -f node_modules/.package-lock.json ] ||
+     [ package-lock.json -nt node_modules/.package-lock.json ] ||
+     [ package.json -nt node_modules/.package-lock.json ]; then
     log "Installing npm dependencies..."
     if npm install --prefer-offline --no-fund --no-audit >&2 2>&1; then
       log "npm install complete."

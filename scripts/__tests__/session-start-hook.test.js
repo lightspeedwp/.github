@@ -60,6 +60,44 @@ describe('branch handling (T014)', () => {
     expect(fx.git('ls-remote', '--heads', 'origin')).not.toMatch(/chore\/session-|claude\//);
   });
 
+  // AHEAD=0 holds for any clean branch that is not ahead of origin/develop, not
+  // only for a fresh claude/* placeholder. A clean branch parked on an older
+  // commit therefore satisfied the reset guard, and `git reset --hard` moved it
+  // up to develop's tip without renaming anything. The reset is now gated on the
+  // rename this hook actually performed.
+  test('does not reset a clean existing branch that is behind develop', () => {
+    fx.branch('feat/parked-work');
+    const parked = fx.git('rev-parse', 'HEAD');
+    // Advance develop so the parked branch is clean and 0 ahead, but behind.
+    fx.git('checkout', '--quiet', 'develop');
+    fx.write('docs/new.md', '# New\n');
+    fx.git('commit', '--quiet', '-m', 'move develop on');
+    fx.git('push', '--quiet', 'origin', 'develop');
+    fx.git('checkout', '--quiet', 'feat/parked-work');
+
+    expect(fx.git('rev-list', '--count', 'origin/develop..HEAD')).toBe('0');
+    expect(fx.git('status', '--porcelain')).toBe('');
+
+    contextOf(runSessionStart(fx, 'startup', CLOUD));
+
+    expect(fx.git('branch', '--show-current')).toBe('feat/parked-work');
+    expect(fx.git('rev-parse', 'HEAD')).toBe(parked);
+  });
+
+  test('still resets the placeholder branch this hook just renamed', () => {
+    fx.branch('claude/x-abc123');
+    fx.git('checkout', '--quiet', 'develop');
+    fx.write('docs/new.md', '# New\n');
+    fx.git('commit', '--quiet', '-m', 'move develop on');
+    fx.git('push', '--quiet', 'origin', 'develop');
+    fx.git('checkout', '--quiet', 'claude/x-abc123');
+
+    contextOf(runSessionStart(fx, 'startup', CLOUD));
+
+    expect(fx.git('branch', '--show-current')).toBe('chore/session-abc123');
+    expect(fx.git('rev-parse', 'HEAD')).toBe(fx.git('rev-parse', 'origin/develop'));
+  });
+
   test('does not rename in a local session', () => {
     fx.branch('claude/x-abc123');
     contextOf(runSessionStart(fx, 'startup'));
@@ -124,12 +162,41 @@ describe('context text (T014)', () => {
 });
 
 describe('dependency install (T014, FR-004)', () => {
+  const manifest = () => path.join(fx.repo, 'package.json');
   const lockfile = () => path.join(fx.repo, 'package-lock.json');
   const installed = () => path.join(fx.repo, 'node_modules', '.package-lock.json');
   const npmCalls = () => fx.calls().filter((call) => call.startsWith('npm install'));
 
   beforeEach(() => {
     fs.writeFileSync(lockfile(), '{}\n');
+    fs.writeFileSync(manifest(), '{}\n');
+  });
+
+  // The manifest is half the dependency declaration. A package.json-only
+  // change leaves the lockfile untouched, so comparing the lockfile alone
+  // skipped the install and ran the session against a stale tree.
+  test('runs npm install when package.json is newer than the installed tree', () => {
+    const old = new Date('2020-01-01T00:00:00Z');
+    const newer = new Date('2024-01-01T00:00:00Z');
+    fs.utimesSync(lockfile(), old, old);
+    fs.mkdirSync(path.dirname(installed()), { recursive: true });
+    fs.writeFileSync(installed(), '{}\n');
+    fs.utimesSync(installed(), old, old);
+    fs.utimesSync(manifest(), newer, newer);
+    contextOf(runSessionStart(fx, 'startup', CLOUD));
+    expect(npmCalls()).toHaveLength(1);
+  });
+
+  test('skips npm install when the installed tree is newer than both files', () => {
+    const old = new Date('2020-01-01T00:00:00Z');
+    const newer = new Date('2024-01-01T00:00:00Z');
+    fs.utimesSync(lockfile(), old, old);
+    fs.utimesSync(manifest(), old, old);
+    fs.mkdirSync(path.dirname(installed()), { recursive: true });
+    fs.writeFileSync(installed(), '{}\n');
+    fs.utimesSync(installed(), newer, newer);
+    contextOf(runSessionStart(fx, 'startup', CLOUD));
+    expect(npmCalls()).toHaveLength(0);
   });
 
   test.each(['startup', 'resume'])(

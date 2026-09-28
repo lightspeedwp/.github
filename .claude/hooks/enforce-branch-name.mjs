@@ -846,6 +846,28 @@ function isWrite(input) {
 }
 
 /**
+ * Whether a call would change a protected guard file, judged without the
+ * validator. Self-protection must hold even when the validator cannot be
+ * loaded, otherwise the guard's own fault is the way around it.
+ */
+function isGuardFileWrite(input) {
+  const tool = input.tool_name || '';
+  const toolInput = input.tool_input || {};
+  const cwd = input.cwd || process.env.CLAUDE_PROJECT_DIR || '.';
+  const project = projectDir(cwd);
+  const guard = protectedFiles(project);
+  if (EDIT_TOOLS.has(tool)) {
+    const file = toolInput.file_path || toolInput.notebook_path;
+    return Boolean(file) && isGuardFile(resolvePath(file, project), guard);
+  }
+  if (tool !== 'Bash') return false;
+  for (const segment of parseShell(String(toolInput.command || ''))) {
+    if (shellGuardWrites(segment, cwd, guard).length) return true;
+  }
+  return false;
+}
+
+/**
  * The guard could not evaluate the call because of its own fault (FR-012a).
  * While enforcing, git and GitHub writes are refused; everything else is
  * allowed with a warning. With enforcement off, the write proceeds with a
@@ -856,7 +878,11 @@ function handleFault(input, error) {
   const unavailable = `Branch guard unavailable: ${reason}. Open an issue on lightspeedwp/.github`;
   let write = true;
   try {
-    write = isWrite(input);
+    // A protected guard-file write is blocking on its own account. Classifying
+    // only git and GitHub writes would let an Edit or a shell command rewrite
+    // the hook that is currently failing, which is precisely the case where the
+    // self-protection contract must not bend.
+    write = isWrite(input) || isGuardFileWrite(input);
   } catch {
     // Classification failed too: treat the call as a write.
   }

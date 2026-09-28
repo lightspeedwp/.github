@@ -17,13 +17,14 @@ Both hooks read a single JSON object on stdin, following the
 | --- | --- |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with 0 commits ahead of `origin/<base>` | Rename locally to `chore/session-<hash>`. Never push (FR-001). |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with its own commits | Leave it unchanged (FR-001). The context text notes the legacy PR exception. |
-| Cloud and source is `startup`/`resume`, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). |
-| Cloud and source is `startup`/`resume`, installed dependency tree missing or lockfile newer than the installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
+| Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). The reset is gated on the rename this hook performed, so a clean existing branch is never reset. | |
+| Cloud and source is `startup`/`resume`, installed dependency tree missing, or `package-lock.json` or `package.json` newer than the installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
 | Any source, cloud or local | Emit branching rules as context (FR-003). |
 
 **Contract test (FR-004)**: In a temporary cloud project, stub `npm`, remove `node_modules`, and give the lockfile
 an old timestamp. Run the hook with both `startup` and `resume`; each must invoke `npm install`. With an installed
-tree newer than the lockfile, neither source should invoke it.
+tree newer than both the lockfile and `package.json`, neither source should invoke it. A `package.json` newer than the
+installed tree must invoke it even when the lockfile is not.
 
 **Output (stdout)**: exactly one JSON object:
 

@@ -590,6 +590,44 @@ describe('guard faults (T013)', () => {
     );
   });
 
+  // The validator being unavailable must not become the way around
+  // self-protection: a guard file is still a guard file when the hook is the
+  // thing that failed, for both the edit tools and a shell write.
+  test('refuses an Edit to a guard file on a fault', () => {
+    const run = runGuard(
+      fx,
+      { tool_name: 'Edit', tool_input: { file_path: '.claude/hooks/enforce-branch-name.mjs' } },
+      FAULT
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
+  });
+
+  test('refuses a Write to a guard file on a fault', () => {
+    const run = runGuard(
+      fx,
+      { tool_name: 'Write', tool_input: { file_path: '.claude/settings.json' } },
+      FAULT
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses a shell write to a guard file on a fault', () => {
+    const run = runBash(fx, 'rm .claude/hooks/enforce-branch-name.mjs', FAULT);
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses a heredoc redirect to a guard file on a fault', () => {
+    const run = runBash(fx, "cat <<'EOF' > .claude/settings.json\n{}\nEOF", FAULT);
+    expect(run.status).toBe(2);
+  });
+
+  test('still allows an edit to a normal file on a fault', () => {
+    const run = runGuard(fx, { tool_name: 'Edit', tool_input: { file_path: 'README.md' } }, FAULT);
+    expect(run.status).toBe(0);
+    expect(run.json().systemMessage).toMatch(/^Branch guard unavailable:/);
+  });
+
   test('refuses MCP create_pull_request on a fault', () => {
     const run = runGuard(
       fx,

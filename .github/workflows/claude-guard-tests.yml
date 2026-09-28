@@ -38,7 +38,7 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
           if git diff --name-only "$BASE_SHA"...HEAD |
-            grep -qE '^(\.claude/|scripts/__tests__/(enforce-branch-name-hook|session-start-hook)\.test\.js$|scripts/__tests__/helpers/claude-hook-harness\.js$|tests/js/claude-cloud-environment-docs\.test\.js$|\.github/specs/018-claude-cloud-environment/|lib/validate-branch-name\.js$|\.github/workflows/claude-guard-tests\.yml$)'; then
+            grep -qE '^(\.claude/|scripts/__tests__/(enforce-branch-name-hook|session-start-hook)\.test\.js$|scripts/__tests__/helpers/claude-hook-harness\.js$|tests/js/claude-cloud-environment-docs\.test\.js$|\.github/specs/018-claude-cloud-environment/|lib/validate-branch-name\.js$|\.github/workflows/claude-guard-tests\.yml$|package\.json$|package-lock\.json$|^\.nvmrc$|^\.jest\.config\.cjs$)'; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"
