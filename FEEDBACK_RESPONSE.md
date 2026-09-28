@@ -59,3 +59,15 @@ tracked in #3618.
   overwrite each other. Fixing it means changing the storage and the validation to select per
   pull request, which affects every pull request in the repository and is a design decision rather
   than a branch-guard fix, so it is not done here. Tracked in #3618.
+
+### Follow-up review (this push)
+
+| Source | Finding | Status | Evidence |
+| --- | --- | --- | --- |
+| CodeRabbit Major | A `gh api` Contents PUT/DELETE with no `branch` field was checked against the base branch, which has the documentation exception that `main` does not, while GitHub writes to the default branch. | Fixed | Now refused when no branch is named (`Write blocked: name the target branch explicitly.`). |
+| CodeRabbit Major | The GitHub MCP file-write path passed a missing `branch` to `writeProblem`, which returns no problem for a falsy branch, so such a write was allowed unexamined. | Fixed | The MCP path refuses a file write with no explicit branch, covered for `push_files`, `create_or_update_file` and `delete_file`. |
+| CodeRabbit Major | `git add -u` / `--update` stage modified tracked files but were not recognised as staging everything, so a modified non-documentation file was not checked. | Fixed | `-u`/`--update` are checked with `git diff --name-only HEAD -- <pathspec>`, honouring a pathspec and excluding untracked files that `-u` never stages. |
+| CodeRabbit Minor | The uncheckable-refspec tests asserted only that each command returned 0 or 2, verifying neither behaviour. | Fixed | Each case now asserts its exact status: `git push origin :` and `git push origin +:` return 2, and `git push origin HEAD:refs/tags/v1` returns 0. |
+| CodeRabbit (local pre-commit) | The `-u` fix would over-block, because `git status --porcelain` counts untracked files and ignores a pathspec. | Fixed | Replaced with a pathspec-aware tracked diff; regression tests cover an untracked file and a narrowed pathspec. |
+| CodeRabbit (local pre-commit) | A write sent as `--input body.json` carries no `-f` fields, so refusing a missing branch would block legitimate request-body writes. | Fixed | `apiFields` also reads string fields from the `--input` JSON body and still blocks when the branch cannot be determined. |
+| CodeRabbit (local pre-commit) | A test refspec was written as `git push +: origin`, putting the refspec before the remote. | Fixed | Corrected to `git push origin +:`. |
