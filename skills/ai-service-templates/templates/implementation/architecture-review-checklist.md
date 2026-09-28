@@ -56,5 +56,3 @@
 - Status: {{review.status}}
 - Blockers: {{review.blockers}}
 - Approved by: {{review.approved_by}}
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

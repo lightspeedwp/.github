@@ -49,5 +49,3 @@ Use for simple event interest or attendance registration where WooCommerce ticke
 - Do not use as a full ticketing/seat-allocation system unless scoped and approved.
 - Avoid collecting unnecessary health or identity data.
 - If payments are involved, use the payment feed risk workflow.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

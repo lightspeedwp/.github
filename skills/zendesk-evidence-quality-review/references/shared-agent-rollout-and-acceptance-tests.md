@@ -125,5 +125,3 @@ If a test fails, update the smallest relevant file:
 - `references/support-risk-language-bank.md` if wording risk was missed.
 - `templates/*.md` if the output structure was inconsistent.
 - `schemas/review-result.schema.json` only if the machine-readable contract needs to change.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

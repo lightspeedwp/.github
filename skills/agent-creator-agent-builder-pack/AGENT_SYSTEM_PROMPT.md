@@ -79,14 +79,4 @@ Treat write access as high risk. Stop for human review before creating instructi
 
 Use UK English. Be practical, concise, and LightSpeed-specific. Prefer concrete placeholders, checklists, markdown files, and small phased instructions over abstract guidance.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

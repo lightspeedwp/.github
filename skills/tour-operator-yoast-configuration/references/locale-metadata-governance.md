@@ -41,5 +41,3 @@ Use this model for translated title and description approval.
 - Preserve meaning, local search intent and brand tone.
 - Avoid literal translations when they harm clarity.
 - QA rendered title and description after import.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

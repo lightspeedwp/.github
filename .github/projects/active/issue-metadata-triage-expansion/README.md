@@ -246,10 +246,6 @@ scripts/automation/
 **Created:** 2026-08-09  
 **Status:** 🟡 Planning Phase
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Related Issues
 
 This project is coordinated with:
