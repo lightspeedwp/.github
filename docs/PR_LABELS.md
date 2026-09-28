@@ -113,4 +113,4 @@ Every PR should use a standard branch prefix for correct label and template auto
 *Labeling, status, type, and standardization for PRs are handled exclusively by the unified agent and workflow.*
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
