@@ -275,18 +275,4 @@ This usually means you're using different validators. The repository uses:
 
 **Solution:** Always use `npm run validate:branch-name` for local testing.
 
----
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

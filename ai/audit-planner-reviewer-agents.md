@@ -383,23 +383,4 @@ This audit prompt should be used as:
 3. **Test Design**: Use test coverage questions to write comprehensive test cases
 4. **Rollout Checklist**: Work through Phase 1, 2, 3 improvements in order
 
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -451,19 +451,4 @@ Task 2.2 (Storage)     ──┤
 
 **Metrics Agent Phase 2** | ✅ Complete | Production Ready | 2026-08-21
 
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
