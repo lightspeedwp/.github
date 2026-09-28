@@ -93,24 +93,3 @@ After writing chips or a building-block-like region:
 5. Confirm there are no unintended extra empty bullets, duplicate sections, or leftover scaffolding.
 6. Do not treat HTML export as proof that a chip survived as a chip; HTML export flattens chips into normal visible text and links.
 7. Do not use Drive thumbnails as proof of final visual layout. Use PDF export plus page raster inspection when rendered page quality matters.
-
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
