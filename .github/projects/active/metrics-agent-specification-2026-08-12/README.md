@@ -117,10 +117,6 @@ Reporting Agent
 6. ⏳ Create configuration guide (`CONFIGURATION_GUIDE.md`)
 7. ⏳ Add example outputs (`EXAMPLES.md`)
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Visual Workflow
 
 ```mermaid

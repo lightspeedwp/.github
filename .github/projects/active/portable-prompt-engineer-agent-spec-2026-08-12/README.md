@@ -67,10 +67,6 @@ See [QUESTIONS.md](./QUESTIONS.md) for the full question set.
 - Agent Standards: [AGENTS.md](../../../../AGENTS.md)
 - Two-Tier Agent Architecture: [CLAUDE.md](../../../../CLAUDE.md#two-tier-agent-structure-phase-1c)
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Visual Workflow
 
 ```mermaid
