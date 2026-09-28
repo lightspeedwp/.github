@@ -455,9 +455,6 @@ function parseShell(command) {
 
 // `git branch` flags that list, delete or configure rather than create a branch.
 const BRANCH_QUERY_FLAGS = new Set([
-  '-d',
-  '-D',
-  '--delete',
   '-l',
   '--list',
   '-a',
@@ -521,6 +518,34 @@ function commandOf(words) {
   const raw = words[i] ? words[i] : '';
   const name = raw ? path.basename(raw.replace(GROUPING_LEAD, '')) : '';
   return { name, args: words.slice(i + 1) };
+}
+
+/**
+ * The flags of a `git branch` call, with short clusters expanded, so `-dr` is
+ * recognised as `-d -r` rather than as a single unknown flag.
+ */
+function gitBranchFlags(rest) {
+  const flags = [];
+  for (const arg of rest) {
+    if (!arg.startsWith('-') || arg.startsWith('--')) {
+      flags.push(arg);
+      continue;
+    }
+    if (/^-[a-zA-Z]+$/.test(arg)) flags.push(...arg.slice(1).split('').map((c) => `-${c}`));
+    else flags.push(arg);
+  }
+  return flags;
+}
+
+/**
+ * Why a branch must not be created, renamed or deleted. The shared validator
+ * accepts `main` and the base branch as valid names, so the protected set is
+ * what actually stops a write to them; every branch operation has to consult it,
+ * not just a rename.
+ */
+function protectedBranchProblem(target) {
+  if (!target) return null;
+  return nameProblem(target) || (PROTECTED.has(target) ? `'${target}' is protected` : null);
 }
 
 /** Value of `--flag value`, `--flag=value` or `-f value`. */
@@ -759,6 +784,7 @@ function createCwdTracker(start) {
 const UNRESOLVABLE = '<unresolvable working directory>';
 const SHORT_WRITE_VERBS = new Set([
   'rm',
+  'touch',
   'mv',
   'tee',
   'truncate',
@@ -877,10 +903,35 @@ function checkBash(command, cwd) {
 
     if (sub === 'branch' && rest.some((arg) => ['-m', '-M', '--move'].includes(arg))) {
       const target = positional.at(-1);
-      const problem =
-        nameProblem(target) || (PROTECTED.has(target) ? `'${target}' is protected` : null);
+      const problem = protectedBranchProblem(target);
       if (problem) problems.push(`Rename blocked: ${problem}.`);
       else branch = target;
+    } else if (
+      sub === 'branch' &&
+      gitBranchFlags(rest).some((flag) => ['-d', '-D', '--delete'].includes(flag)) &&
+      positional.length >= 1
+    ) {
+      // Deleting a branch is a write on that branch, so it is judged the same
+      // way as creating or renaming one. These flags were previously listed as
+      // query flags, which skipped the check for the whole command.
+      // `-r`/`--remotes` deletes a remote-tracking ref such as origin/main, which
+      // is a normal operation and not a write to the local protected branch, so
+      // the local branch-name rule does not apply to those targets.
+      const remote = gitBranchFlags(rest).some((flag) =>
+        ['-r', '--remotes'].includes(flag)
+      );
+      // `git branch -D main develop` names two branches, so every positional is
+      // a deletion target and each has to be checked.
+      for (const target of positional) {
+        if (remote) continue;
+        // A deletion only has to avoid removing a protected branch. Whether the
+        // name matches the current convention is irrelevant: deleting a branch
+        // created before the convention is how those are cleaned up, and
+        // blocking it would leave them behind.
+        if (PROTECTED.has(target)) {
+          problems.push(`Branch deletion blocked: '${target}' is protected.`);
+        }
+      }
     } else if (
       (sub === 'checkout' || sub === 'switch') &&
       rest.some((arg) => ['-b', '-B', '-c', '-C', '--create', '--force-create'].includes(arg))
@@ -889,7 +940,7 @@ function checkBash(command, cwd) {
         ['-b', '-B', '-c', '-C', '--create', '--force-create'].includes(arg)
       );
       const target = rest[flag + 1];
-      const problem = nameProblem(target);
+      const problem = protectedBranchProblem(target);
       if (problem) problems.push(`Branch creation blocked: ${problem}.`);
       else branch = target;
     } else if (
@@ -899,7 +950,7 @@ function checkBash(command, cwd) {
     ) {
       // `git branch <name>`, `-f <name>` and `-c/-C <old> <new>` create or reset a branch.
       const copy = rest.some((arg) => ['-c', '-C', '--copy'].includes(arg));
-      const problem = nameProblem(copy ? positional.at(-1) : positional[0]);
+      const problem = protectedBranchProblem(copy ? positional.at(-1) : positional[0]);
       if (problem) problems.push(`Branch creation blocked: ${problem}.`);
     } else if (
       (sub === 'checkout' || sub === 'switch') &&

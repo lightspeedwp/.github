@@ -228,8 +228,15 @@ settings, not branch-protection fields.
 
 ## Limitations
 
-- The guard parses shell commands with heuristics. It catches the usual forms, but not every creative variant (for
-  example `cd other-repo && git commit`, `eval` or aliases). CI branch validation stays the final gate.
+- The guard checks **direct shell commands only**. When a command is deferred to another interpreter, the guard does
+  not see inside it and does not detect what that interpreter runs. `sh -c '...'`, `bash -c '...'`, `zsh -c '...'`,
+  `eval '...'` and equivalents are therefore **out of scope**: the guard neither inspects nor refuses them, and no
+  coverage is claimed for them. This is a stated limit of the contract, not a silent gap, and it is one reason CI
+  branch validation stays the final gate. A session that must not bypass the guard should not hand commands to
+  another interpreter.
+- The guard parses shell commands with heuristics. It catches the usual forms — plain commands, pipelines, background
+  and list operators, `if`/`while`/`for`/`case` arms, parenthesised groups, redirects and here-documents — but not
+  every creative variant (for example `cd other-repo && git commit` or aliases).
 - If Node is missing, the hook can't run and the guard fails open. The setup script installs Node.
 - Pushing a renamed branch relies on the platform's push protection allowing the session's current branch. If the
   platform changes this, pushes are rejected (not redirected), and the checks above catch it.

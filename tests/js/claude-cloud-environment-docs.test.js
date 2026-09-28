@@ -536,6 +536,21 @@ describe('the operations document', () => {
   // The documented queries have to name the fields that actually exist: a
   // ruleset reports branch coverage under conditions.ref_name and the code-owner
   // requirement under parameters.require_code_owner_review.
+  // The limitation is stated, not implicit: a reader must not assume the guard
+  // inspects a command handed to another interpreter.
+  test.each(['sh -c', 'bash -c', 'eval'])(
+    'states that %s is out of scope rather than implying coverage',
+    (form) => {
+      expect(docs).toMatch(new RegExp(form.replace(/[-]/g, '\\-')));
+      expect(docs).toMatch(/out of scope/);
+    }
+  );
+
+  test('states the limitation in the hooks contract', () => {
+    expect(hooks).toMatch(/out of scope/);
+    expect(hooks).toMatch(/SC-009/);
+  });
+
   test('documents the ruleset fields that the API actually returns', () => {
     expect(docs).toMatch(/\.parameters\.require_code_owner_review/);
     expect(docs).toMatch(/\.conditions\.ref_name/);

@@ -117,3 +117,20 @@ tracked in #3618.
 | A single `&` backgrounds the whole list it terminates, not just the last command, so a `cd` earlier in that list was wrongly followed. | fixed | Every segment of the backgrounded list is marked, stopping at the `;` or newline that starts a new list. | `parseShell`. |
 | A test asserted a `subshell` case that passed for the wrong reason: it exercised the over-blocking direction, so it passed even with the flag dropped. | fixed | Replaced with cases in the under-blocking direction, and added a test asserting the segment property set itself, so a dropped flag cannot recur unnoticed. | `scripts/__tests__/enforce-branch-name-hook.test.js`. |
 | The operations document is read by the contract test but was not in the workflow's change filter. | fixed | Added, and the filter test now covers every document the test reads. | `.github/workflows/claude-guard-tests.yml`. |
+
+## Gaps found by self-review and fixed
+
+| Finding | Status | Response | Reference |
+| --- | --- | --- | --- |
+| `touch` was not a recognised write verb, so `touch <guard file>` was allowed. | fixed | Added to the write-verb list, so it is checked like any other write. | `SHORT_WRITE_VERBS`. |
+| `-d`, `-D` and `--delete` were classified as query flags, so `git branch -D main` skipped the protected-branch check entirely. | fixed | They are now a delete operation, and every positional target is checked, so a multi-branch deletion cannot slip through on its last name. | `gitBranchFlags` and the delete branch. |
+| `git checkout -b main` and `git switch -c main` did not consult the protected set. | fixed | Creating a protected branch is a write on it whichever form creates it, and the create, rename and delete paths all use one `protectedBranchProblem` test. | `protectedBranchProblem`. |
+| A deletion of a branch whose name predates the convention was blocked, leaving no way to clean those up. | fixed | A deletion is judged on protection only; name validity still applies when creating or renaming. | the delete branch. |
+| A remote-tracking deletion such as `git branch -dr origin/main` was judged as a local branch name. | fixed | `-r`/`--remotes` targets are not local branches, and short clusters such as `-dr` and `-rd` are expanded so the flag is recognised. | `gitBranchFlags`. |
+
+## Stated limitation
+
+`sh -c`, `bash -c`, `zsh -c` and `eval` are **out of scope** and documented as such in
+`contracts/hooks.md` (SC-009) and `docs/CLAUDE_CLOUD_ENVIRONMENT.md`. The guard checks direct shell commands
+only and does not inspect a command handed to another interpreter. No recursion into an embedded command
+string is attempted, and no coverage is claimed for it.

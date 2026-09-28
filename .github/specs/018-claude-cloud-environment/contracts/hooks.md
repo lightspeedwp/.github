@@ -110,3 +110,18 @@ the exception doesn't apply (research R9). The exception applies only to a PR wh
 3. The fix: `git branch -m <type>/<scope>-<title>` and `npm run validate:branch-name -- --current`.
 4. A statement that the rule overrides the platform's `claude/*` branch.
 5. A pointer to `docs/BRANCHING_STRATEGY.md`.
+
+**Stated limitation — deferred commands (SC-009)**: the guard evaluates the shell
+command it is given. It does not evaluate a command that is handed to another
+interpreter, because doing so would mean parsing a nested language and, for `eval`,
+an unbounded one. `sh -c '<command>'`, `bash -c '<command>'`, `zsh -c '<command>'`,
+`eval '<command>'` and equivalents are **out of scope**: the guard neither inspects
+nor refuses them, and no coverage is claimed for them. They are stated here rather
+than left implicit so that nothing assumes a check that does not exist.
+
+**What the parser does cover**: plain commands, pipelines (every stage, which is
+treated as a subshell), background and list operators, `if`/`while`/`for`/`case`
+arms, parenthesised groups (also subshells), redirects, here-documents, and
+`cd` resolution that follows the shell's real working directory, including a `cd`
+that fails, that the shell rejects, or that runs in a subshell. A write to a
+protected file that the guard cannot locate is refused rather than allowed.

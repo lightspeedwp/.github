@@ -814,6 +814,63 @@ describe('GitHub MCP tools (T011)', () => {
     }
   );
 
+  // touch changes a file, so it belongs with the other write verbs.
+  test.each([
+    'touch .claude/settings.json',
+    'touch .claude/hooks/enforce-branch-name.mjs',
+  ])('refuses touch on a guard file: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  test('allows touch on a file that is not a guard file', () => {
+    expect(runBash(fx, 'touch README.md').status).toBe(0);
+  });
+
+  // Deleting a protected branch is a write on that branch, so it is judged like
+  // any other change to it. -D and -d were classified as query flags, which
+  // skipped the check entirely.
+  test.each(['-D', '-d'])('refuses git branch %s main', (flag) => {
+    expect(runBash(fx, `git branch ${flag} main`).status).toBe(2);
+  });
+
+  // Deleting a remote-tracking ref is a normal operation, and the local name
+  // rule must not reject it.
+  test.each(['git branch -dr origin/feat/scope-title', 'git branch -r -d origin/main'])(
+    'allows deleting a remote-tracking ref: %s',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(0);
+    }
+  );
+
+  // A branch that predates the naming convention can only be removed by deleting
+  // it, so a deletion is judged on protection rather than on the name.
+  test.each(['legacy-thing', 'old-name'])('allows deleting a branch with a legacy name: %s', (name) => {
+    expect(runBash(fx, `git branch -D ${name}`).status).toBe(0);
+  });
+
+  test('still refuses creating a branch with a legacy name', () => {
+    expect(runBash(fx, 'git branch legacy-thing').status).toBe(2);
+  });
+
+  test('checks every branch named in a multiple deletion', () => {
+    expect(runBash(fx, 'git branch -D develop some-other').status).toBe(2);
+  });
+
+  test('still allows git branch -d on a branch that is not protected', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'git branch -d feat/old-branch').status).toBe(0);
+  });
+
+  // Creating a protected branch is a write on it, whichever form creates it.
+  test.each([
+    'git checkout -b main',
+    'git switch -c main',
+    'git branch -c main copied',
+    'git branch -C main copied',
+  ])('refuses %s on a protected branch', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
   test('allows a cd that does not write to a guard file', () => {
     expect(runBash(fx, 'cd .claude/hooks && ls').status).toBe(0);
   });
