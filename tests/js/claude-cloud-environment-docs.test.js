@@ -148,9 +148,16 @@ describe('Claude cloud environment specification contracts', () => {
       expect(
         contractRow(
           hooks,
-          'Cloud and source is `startup`/`resume`, clean tree, 0 commits ahead of `origin/<base>`'
+          'Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>`'
         )
       ).toMatch(/Hard-reset to `origin\/<base>`/);
+      // The reset must be gated on the rename, so a clean branch parked behind
+      // the base branch is never moved.
+      // The reset must be gated on the rename, so a clean branch parked behind
+      // the base branch is never moved.
+      expect(contractRow(hooks, 'Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>`')).toMatch(
+        /is gated on the rename this hook performed.*never reset/
+      );
       expect(requirement('FR-003')).toMatch(/after context compaction/);
       expect(contractRow(hooks, 'Any source, cloud or local')).toMatch(
         /Emit branching rules as context/
@@ -172,7 +179,7 @@ describe('Claude cloud environment specification contracts', () => {
       expect(
         contractRow(
           hooks,
-          'Cloud and source is `startup`/`resume`, installed dependency tree missing or lockfile newer than the installed tree'
+          'Cloud and source is `startup`/`resume`, installed dependency tree missing, or `package-lock.json` or `package.json` newer than the installed tree'
         )
       ).toMatch(/`npm install`\. Failure is logged and not fatal/);
     });

@@ -17,7 +17,7 @@ Both hooks read a single JSON object on stdin, following the
 | --- | --- |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with 0 commits ahead of `origin/<base>` | Rename locally to `chore/session-<hash>`. Never push (FR-001). |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with its own commits | Leave it unchanged (FR-001). The context text notes the legacy PR exception. |
-| Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). The reset is gated on the rename this hook performed, so a clean existing branch is never reset. | |
+| Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). The reset is gated on the rename this hook performed, so a clean existing branch is never reset. |
 | Cloud and source is `startup`/`resume`, installed dependency tree missing, or `package-lock.json` or `package.json` newer than the installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
 | Any source, cloud or local | Emit branching rules as context (FR-003). |
 
