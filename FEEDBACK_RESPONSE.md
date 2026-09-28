@@ -1,7 +1,7 @@
 ---
 file_type: feedback-response
-title: AI Feedback Response — #3500
-description: Tracks CodeRabbit and Qodo review feedback for the 014/016/017 specification pull request
+title: AI Feedback Response — #3532
+description: Tracks CodeRabbit and Qodo review feedback for the 019 Qodo PR-Agent specification and implementation pull request
 created_date: '2026-09-26'
 status: active
 tags:
@@ -12,7 +12,7 @@ tags:
 
 # AI Feedback Response
 
-Pull request: #3500 — adds specs 016 and 017, updates spec 014, and extends the specification catalogue.
+Pull request: #3532 — Qodo PR-Agent specification (019, renumbered from 017) and the runner, skill and reusable workflow.
 
 All feedback items addressed in this pull request are listed below. Feedback that is not fixed
 here is either deferred to a tracked follow-up issue or explicitly rejected with evidence;
@@ -20,10 +20,10 @@ nothing is silently dropped.
 
 ## Linked issues
 
-Closes #3465
+Refs #3535 (pilot credential and spend limit, non-closing).
 
 - Relates to #3464, #3434 (epic and originating refactor, not completed by this pull request)
-- Deferred follow-ups: #3519, #3522
+- Prior history: #3500 covered the earlier 016/017 numbering; this pull request carries it forward as 019.
 
 ## Feedback
 
@@ -133,3 +133,16 @@ as checklist items rather than fixed here:
 - `additionalProperties: false` change verified by validating documents against the schema before and after.
 - `node .github/validation/changelog/bin/validate.js` executed to confirm the corrected quickstart command runs.
 - Every changelog label named in the specifications exists in `.github/labels.yml`.
+
+## Follow-up review findings addressed in this push
+
+| Feedback | Status | Response | Reference |
+| --- | --- | --- | --- |
+| A PR-mode run with `publish_output=false` had no real output channel, so the result existed only if the tool happened to print to stdout. | fixed | PR mode now passes `--output` (and `--json-output` for `review`) and mounts the output directory, exactly as the diff path does. | `run-qodo-pr-agent.sh` `run_docker`/`run_pipx`; runner tests assert the mounted output file. |
+| Prior tool output was not cleared before a run. | rejected as a live defect | `$md_out` and `$json_out` are already removed up front, and `> "$out_dir/stdout.txt"` truncates stdout on every run, so no previous output can be read as this run's. The removal of stdout.txt is kept as explicit defence in depth. | `run-qodo-pr-agent.sh` initialisation and the run redirect. |
+| T036 catalogued the spec as `017` while linking the `019` path. | fixed | The catalog row number now matches the spec path in the same row. | `tasks.md` T036. |
+| Another `spec 017` reference remained in the skill. | fixed | Removed; no `017` reference remains under `skills/qodo-pr-agent/` or the 019 spec. | `skills/qodo-pr-agent/SKILL.md`. |
+| `reusable-workflow.md` and T028 disagreed on where metrics are collected. | fixed | T028 described metrics in job `run`, but the contract and the implemented workflow both use job `record`. T028 now matches reality. | `tasks.md` T028, `contracts/reusable-workflow.md`. |
+| The responsibility matrix gave the review verdict two owners. | fixed | Human reviewers are the single owner; CodeRabbit supplies findings and does not own the verdict. | `contracts/responsibility-matrix.md`. |
+| A completed checklist item still said three clarifications remained. | fixed | The note now records that the clarifications are resolved in `spec.md`. | `checklists/requirements.md`. |
+| The pull request carried no issue link, so AI feedback validation failed. | fixed | `Refs #3535` added as a non-closing reference, matching the validator's accepted pattern. | Pull request description. |

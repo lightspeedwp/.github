@@ -130,16 +130,22 @@ md_out="$out_dir/out.md"
 json_out="$out_dir/out.json"
 # A previous run's output must never be readable as this run's. Removing them
 # up front means a failed or skipped run leaves nothing behind to be mistaken
-# for a fresh result, and an empty file is never a valid result.
-rm -f "$md_out" "$json_out"
+# for a fresh result, and an empty file is never a valid result. stdout.txt is
+# removed too, because the fallback below copies it into $md_out when the tool
+# prints instead of writing --output.
+rm -f "$md_out" "$json_out" "$out_dir/stdout.txt"
 
 # Run the pinned container against a PR URL or a read-only mounted diff.
 run_docker() {
   local args=(run --rm -e ANTHROPIC__KEY --entrypoint python)
   local target=()
   if [ -n "$pr_url" ]; then
-    args+=(-e GITHUB__USER_TOKEN)
-    target=(--pr_url "$pr_url")
+    # publish_output=false gates posting only, so the run still generates
+    # content. Give it somewhere to write it, exactly as the diff path does,
+    # rather than relying on it happening to print to stdout.
+    args+=(-e GITHUB__USER_TOKEN -v "$out_dir:/work/out")
+    target=(--pr_url "$pr_url" --output /work/out/out.md)
+    if [ "$tool" = "review" ]; then target+=(--json-output /work/out/out.json); fi
   else
     local abs_diff
     abs_diff="$(cd "$(dirname "$diff_file")" && pwd)/$(basename "$diff_file")"
@@ -155,7 +161,8 @@ run_docker() {
 run_pipx() {
   local target=()
   if [ -n "$pr_url" ]; then
-    target=(--pr_url "$pr_url")
+    target=(--pr_url "$pr_url" --output "$md_out")
+    if [ "$tool" = "review" ]; then target+=(--json-output "$json_out"); fi
   else
     target=(--diff-file "$diff_file" --output "$md_out")
     if [ "$tool" = "review" ]; then target+=(--json-output "$json_out"); fi

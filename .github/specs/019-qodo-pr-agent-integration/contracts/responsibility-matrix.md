@@ -9,7 +9,7 @@ Each concern has exactly one owner. "Automatic" means it runs without a command.
 | Concern | Owner | Mode | Notes |
 | --- | --- | --- | --- |
 | Code review: correctness, security, standards, path guidance | CodeRabbit | automatic | Governed by `.coderabbit.yml`. Re-review with `@coderabbitai review`. |
-| Review verdict (request changes or approve) | CodeRabbit + human reviewers | automatic | Qodo PR-Agent never posts an automatic verdict. |
+| Review verdict (request changes or approve) | Human reviewers | manual | One owner. CodeRabbit supplies findings; it does not own the verdict. Qodo PR-Agent never posts an automatic verdict. |
 | Diff-based PR summary and walkthrough | Qodo PR-Agent (`describe`) | automatic | Posted as a single persistent **comment**; the PR body is never changed. |
 | Code-improvement suggestions | Qodo PR-Agent (`improve`) | automatic | Persistent comment. Triaged through `skills/gh-address-comments`. |
 | Second-opinion review | Qodo PR-Agent (`review`) | on-demand | `/review`. Also consumed by `skills/pr-review` as an input. |
