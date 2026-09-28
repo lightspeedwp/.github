@@ -322,4 +322,4 @@ Send the completed questionnaire to LightSpeed at least 2 working days before th
 - Treat missing answers as discovery opportunities, not blockers.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

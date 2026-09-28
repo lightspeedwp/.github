@@ -141,4 +141,4 @@ python scripts/validate_content_files.py \
 - Do not maintain two competing sources of truth for the same validation rule when one reference file will do.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
