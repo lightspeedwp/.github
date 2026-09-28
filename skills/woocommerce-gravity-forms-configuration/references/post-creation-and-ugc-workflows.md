@@ -160,5 +160,3 @@ Refuse or route away when asked to:
 - Register new custom post types, fields, or taxonomies from within Gravity Forms configuration.
 - Add custom PHP hooks in the skill workflow.
 - Copy all uploads into the Media Library without file type, rights, ownership, and retention review.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

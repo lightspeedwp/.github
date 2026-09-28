@@ -46,5 +46,3 @@ Use for editorial polls, quick audience feedback, or campaign questions.
 - Test result display settings.
 - Test spam controls and repeat submission behaviour.
 - Check page cache/CDN impact if results appear stale.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
