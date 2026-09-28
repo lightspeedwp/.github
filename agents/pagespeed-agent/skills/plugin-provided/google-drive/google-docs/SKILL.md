@@ -201,18 +201,4 @@ Do not execute creation or content edits until the required references are read 
 | Section completeness, source-list formatting, typography consistency, connector-observable comparison, and final production pass | `references/reference-section-completeness-and-final-pass.md` |
 | PDF export, page rasterization, thumbnail limitations, and rendered visual QA | `references/reference-pdf-export-visual-qa.md` |
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
