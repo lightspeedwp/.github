@@ -50,4 +50,4 @@ Before drafting, check `DESIGN_CONTEXT.md` when it exists for standing audience,
 - If research material is the main input, consider `research-synthesis` first.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
