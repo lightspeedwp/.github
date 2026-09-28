@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Footer Shape Signal** — `npm run validate:footers:shape` reports files whose trailing zone holds two or more footer-shaped blocks that the wording-based deduper cannot recognise, which previously passed unnoticed. Advisory only: it never changes a file and never fails a build, because the measured false-positive rate is 30.1%. The Footer Duplicate Guard reports it as a warning. (#3451)
+- **Footer Shape Signal** — `npm run validate:footers:shape` reports files holding two or more footer-shaped blocks the wording-based deduper cannot see. Advisory only: never edits a file, never fails a build. (#3682)
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
 - **Linear Review Platform** — Pull requests now carry a risk score in Linear, and an agent's comment names the agent and model behind it. Setup is in the Linear Integration guide. (#2234)
