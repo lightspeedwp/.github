@@ -55,19 +55,3 @@ When to read: chart refresh, chart replacement, or Sheets-sourced chart work.
 ## Verification
 
 A chart task is complete only when the edited slide is re-read and a fresh large thumbnail confirms the chart appears in the intended area with stale placeholder content removed. Verify that titles, labels, legends, annotations, and footnotes remain readable and that the crop preserves the important evidence.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
