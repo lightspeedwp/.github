@@ -70,5 +70,3 @@
 - Schema risk:
 - Developer risk:
 - Client/content actions:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

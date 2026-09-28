@@ -91,5 +91,3 @@ In this skill's outputs, avoid long routing menus. The `Best next move` or `Reco
 - one primary workflow when clear;
 - one supporting workflow at most;
 - or a clear return to `zendesk-router-skill` when routing needs network-level judgement.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -76,5 +76,3 @@ Stop before writing when:
 - The issue belongs to theme/plugin code.
 - The fix changes legal, policy, pricing, checkout, or consent meaning.
 - The action is production bulk editing without approval, backup, and rollback path.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

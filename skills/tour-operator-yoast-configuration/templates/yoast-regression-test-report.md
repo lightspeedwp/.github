@@ -35,5 +35,3 @@
 
 | Check | Expected | Actual | Result | Follow-up |
 |---|---|---|---|---|
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

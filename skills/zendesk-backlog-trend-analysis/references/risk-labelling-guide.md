@@ -83,5 +83,3 @@ Use this compact table when multiple risks need scanning:
 
 | Risk | Label | Evidence | Recommended support action |
 |---|---|---|---|
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

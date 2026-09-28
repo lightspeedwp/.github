@@ -126,15 +126,3 @@ Record internally which primary and supporting Skills should appear and which un
 Show a novice only a result such as `3/3 种说法都能正确识别` plus any failure that needs a decision.
 
 Do not create or store prompt-history, hit/miss, manual-selection, or routing-feedback logs.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -81,5 +81,3 @@
 4. Record approved exceptions.
 5. Retest rendered output or relevant live artefacts.
 6. Update reusable defaults only after approval.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

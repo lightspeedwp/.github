@@ -67,5 +67,3 @@
 - [ ] Check Search Console coverage and sitemap processing.
 - [ ] Check product/schema warnings where relevant.
 - [ ] Record issues, owners, and retest dates.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
