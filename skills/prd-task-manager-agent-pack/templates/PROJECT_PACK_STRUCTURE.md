@@ -76,5 +76,3 @@ lightspeed-prd-task-pack/
     └── tasks/
         └── _index.md
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

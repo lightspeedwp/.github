@@ -26,5 +26,3 @@
 <!-- BADGES-END -->
 
 These examples show expected behaviour for Agent Creator after the Agent Builder spec pack update.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

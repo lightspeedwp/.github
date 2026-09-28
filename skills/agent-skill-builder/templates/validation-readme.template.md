@@ -45,5 +45,3 @@ Do not package while any validator returns an `error` status.
 ## Manual review
 
 Also review trigger description, source priority, examples, and output quality manually.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

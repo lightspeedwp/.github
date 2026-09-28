@@ -81,14 +81,4 @@ Use one of these phrases in deliverables:
 5. Run `scripts/validate_source_register.py`, `scripts/validate_reference_data.py`, `scripts/validate_skill_structure.py`, and `scripts/validate_evidence_states.py` when available.
 6. Update `docs/changelog.md` with the source refresh and affected files.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

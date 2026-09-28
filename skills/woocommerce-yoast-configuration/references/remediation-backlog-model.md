@@ -79,5 +79,3 @@ Use this model to turn Yoast audit findings, settings-export reviews, rendered-o
 ## Backlog output rule
 
 Do not produce a backlog item that cannot be validated. If validation is not currently possible, create a `verify_first` item instead of inventing implementation details.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
