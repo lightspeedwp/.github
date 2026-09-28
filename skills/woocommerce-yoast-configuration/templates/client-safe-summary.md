@@ -68,5 +68,3 @@ Briefly explain what was reviewed or configured and why it matters.
 ## Next step
 
 State the smallest practical next action.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
