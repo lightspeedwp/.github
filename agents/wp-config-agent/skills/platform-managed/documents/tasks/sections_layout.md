@@ -95,24 +95,5 @@ python-docx exposes `section.header.is_linked_to_previous` and `section.footer.i
 
 **Renderer note:** when a document mixes page sizes/orientations, `render_docx.py` computes DPI from the first section. If you care about exact pixel sizes, pass an explicit `--dpi`.
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
