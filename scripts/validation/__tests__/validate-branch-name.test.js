@@ -101,6 +101,26 @@ describe('validate-branch-name', () => {
     });
   });
 
+  describe('runtime validator: semantic-version release branches', () => {
+    test.each(['release/v1.2.3', 'release/1.2.3', 'release/v1.2.3-rc1'])('accepts %s', (branch) => {
+      expect(isAllowed(branch)).toBe(true);
+      expect(validateBranchName(branch).valid).toBe(true);
+    });
+
+    test.each(['release/v1.2', 'release/V1.2.3'])('rejects %s', (branch) => {
+      expect(isAllowed(branch)).toBe(false);
+      expect(validateBranchName(branch).valid).toBe(false);
+    });
+
+    test('still accepts the standard release/{scope}-{title} form', () => {
+      expect(isAllowed('release/v1-2-3')).toBe(true);
+    });
+
+    test('does not extend the semver exception to hotfix branches', () => {
+      expect(isAllowed('hotfix/v1.2.3')).toBe(false);
+    });
+  });
+
   describe('BRANCH_PATTERN', () => {
     test('should be a valid RegExp', () => {
       expect(BRANCH_PATTERN).toBeInstanceOf(RegExp);
