@@ -25,19 +25,4 @@ orchestration patterns, and reusable runbooks for AI-assisted work.
 | `workflows/<workflow-id>/README.md` | Optional index for a larger workflow package. |
 | `workflows/README.md` | This ownership index. |
 
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
