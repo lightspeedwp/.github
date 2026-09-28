@@ -63,18 +63,4 @@ python render_docx.py merged.docx --output_dir out_merged
 - If styles/numbers in `append.docx` rely on definitions absent from `base.docx`, Word may substitute defaults.
 - If either document contains tracked changes or comments, merge first *then* run the tracked-changes / comments tasks.
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -66,18 +66,4 @@ Direct formatting (manual bold/size/etc. on runs) can override style packs and c
 - If the report contains heavy direct formatting, consider normalizing by re-applying paragraph styles (Heading 1/2/3, Normal) before applying the template.
 - Custom style IDs in the target may be overwritten.
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
