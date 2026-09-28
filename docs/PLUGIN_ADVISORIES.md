@@ -148,12 +148,22 @@ function ls_newsletter_rate_limited( $email ) {
 	// ordering matters: the address counter is charged first, so a request
 	// refused for the address limit never reaches the IP write, and the
 	// rollback then discards the address charge when the IP limit is what
-	// refuses. Either way a refused request spends no budget. Without that,
-	// a visitor behind a shared NAT address can drain the IP budget that
-	// everyone behind it shares, by resubmitting an address that is already
-	// blocked for them. The transaction is what makes the discard atomic:
-	// no other request can observe a charge for a request that was refused.
-	$wpdb->query( 'START TRANSACTION' );
+	// refuses. Without that, a visitor behind a shared NAT address can drain the
+	// IP budget that everyone behind it shares, by resubmitting an address that
+	// is already blocked for them. The transaction is what makes the discard
+	// atomic: no other request can observe a charge for a request that was
+	// refused.
+	//
+	// Every transaction-control result is checked, because the "a refused
+	// request spends no budget" guarantee is only as good as the weakest of
+	// them. An unchecked START TRANSACTION that failed leaves the writes to run
+	// in autocommit, where they are already committed by the time ROLLBACK is
+	// reached and cannot undo them.
+	if ( false === $wpdb->query( 'START TRANSACTION' ) ) {
+		// The counters cannot be updated safely, so charge nothing at all
+		// rather than write outside a transaction we do not have.
+		return true;
+	}
 
 	$refused = ls_newsletter_bump( ls_newsletter_key( 'ls_newsletter_email_', strtolower( $email ) ), 3 );
 	if ( ! $refused ) {
@@ -161,7 +171,12 @@ function ls_newsletter_rate_limited( $email ) {
 	}
 
 	if ( $refused ) {
-		$wpdb->query( 'ROLLBACK' );
+		// Still refuse either way. If the rollback fails the request has been
+		// charged despite being refused, which is a database fault to alert on
+		// rather than something to retry, so record it and say so.
+		if ( false === $wpdb->query( 'ROLLBACK' ) ) {
+			error_log( 'newsletter rate limit: rollback failed, counters may be charged' );
+		}
 		return true;
 	}
 

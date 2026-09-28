@@ -24,7 +24,7 @@ place where the outstanding decision is recorded.
 Refs #1396
 
 - Relates to #1396, #3524, #3525 — this pull request closes none of them.
-- #3525 is merged, #3524 is open and its only remaining work is the develop merge already landed.
+- #3525 is merged. #3524 is still open and has not been merged; its develop merge has landed (it is level with `develop`), so the merge was not the only thing outstanding.
 
 ## Feedback
 

@@ -71,9 +71,15 @@ implementation in lightspeedwp/.github#3524.
   lightspeedwp/.github#3358 get an auto-approval exception:
   - **Categorisation**: `scripts/lib/branch-categorization.js` returns `DELETE` with `autoApproved: true` and the
     reason code `auto_delete_empty_agent_branch` for a `claude/*` branch when all of these hold:
-    - it is merged to a base branch
+    - it is a platform placeholder, proven by a **separate branch-origin check** rather than by merge status
     - open-PR verification succeeded and found no open PR
     - it has been continuously observable as a branch for at least 1 day, from a branch-age signal such as a first-observed timestamp, never from the age of its tip commit
+
+    The origin check is deliberately not "merged to a base branch". Spec 009 FR-002 defines merged as the tip appearing
+    in a base branch's merge-base history, which is also true of a `claude/*` branch carrying real work that was later
+    merged upstream. Deleting those would remove the branch while its work survives, but the category is named for
+    empty agent branches and FR-021 promises a branch failing an FR-020 condition is never auto-deleted. Until a
+    reliable origin signal exists, the same reasoning that defers the deletion itself defers this condition too.
 
     This check runs before the naming-violation check. The rule is specified but **cannot fire yet**: the
     branch-age signal its third condition depends on does not exist, so no branch satisfies it and the

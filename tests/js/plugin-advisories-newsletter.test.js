@@ -60,16 +60,21 @@ function sanitize_text_field( $value ) {
 	return trim( strip_tags( (string) $value ) );
 }
 
-class Stub_WPDB {
+  class Stub_WPDB {
 	public $prefix = 'wp_';
 	public $insert_id = 0;
 	public $last_error = '';
+	public $logged = array();
 	private $rows = array();
 	private $snapshot = null;
 	private $fail_commit = false;
+	private $fail_start = false;
+	private $fail_rollback = false;
 
-	public function __construct( $fail_commit = false ) {
-		$this->fail_commit = $fail_commit;
+	public function __construct( $fail_commit = false, $fail_start = false, $fail_rollback = false ) {
+		$this->fail_commit   = $fail_commit;
+		$this->fail_start    = $fail_start;
+		$this->fail_rollback = $fail_rollback;
 	}
 
 	public function prepare( $sql, ...$args ) {
@@ -86,10 +91,21 @@ class Stub_WPDB {
 		$now = time();
 
 		if ( 'START TRANSACTION' === $sql ) {
+			if ( $this->fail_start ) {
+				// A failed START leaves no transaction open, so the writes that
+				// follow run in autocommit and are committed immediately.
+				$this->last_error = 'start failed';
+				return false;
+			}
 			$this->snapshot = $this->rows;
 			return 1;
 		}
 		if ( 'ROLLBACK' === $sql ) {
+			if ( $this->fail_rollback ) {
+				// There is nothing to undo, so the charges already written stay.
+				$this->last_error = 'rollback failed';
+				return false;
+			}
 			if ( null !== $this->snapshot ) {
 				$this->rows = $this->snapshot;
 			}
@@ -153,6 +169,10 @@ class Stub_WPDB {
 
 	public function row_count() {
 		return count( $this->rows );
+	}
+
+	public function error_log_calls() {
+		return $GLOBALS['error_log_calls'];
 	}
 }
 `;
@@ -233,6 +253,29 @@ $out['purge'] = array(
 	'row_count'  => $db->row_count(),
 );
 
+// 7. A transaction that cannot be opened must charge nothing. Without the
+//    START TRANSACTION check the writes below would run in autocommit, be
+//    committed immediately, and leave a refused request charged.
+$db     = new Stub_WPDB( false, true );
+$out['failed_start_refuses'] = array(
+	'refused'    => scenario( $db, '192.0.2.88', 'nostart@example.com' ),
+	'ip_hits'    => $db->hits( key_for( 'ls_newsletter_ip_', '192.0.2.88' ) ),
+	'email_hits' => $db->hits( key_for( 'ls_newsletter_email_', 'nostart@example.com' ) ),
+	'row_count'  => $db->row_count(),
+);
+
+// 8. A refused request whose rollback fails is still refused, and the failed
+//    discard is recorded rather than swallowed.
+$db     = new Stub_WPDB( false, false, true );
+$db->seed( key_for( 'ls_newsletter_ip_', '192.0.2.99' ), 19 );
+$db->seed( key_for( 'ls_newsletter_email_', 'norollback@example.com' ), 3 );
+$out['failed_rollback_still_refuses'] = array(
+	'refused'    => scenario( $db, '192.0.2.99', 'norollback@example.com' ),
+	'ip_hits'    => $db->hits( key_for( 'ls_newsletter_ip_', '192.0.2.99' ) ),
+	'email_hits' => $db->hits( key_for( 'ls_newsletter_email_', 'norollback@example.com' ) ),
+
+);
+
 echo json_encode( $out );
 `;
 
@@ -245,7 +288,10 @@ function runScenarios() {
     );
   }
   const json = result.stdout.slice(result.stdout.indexOf('{'));
-  return JSON.parse(json);
+  // error_log() is a PHP built-in and cannot be shimmed, so in the CLI it writes
+  // to stderr. Carry it through so the failure path can assert the report
+  // happened rather than assuming it did.
+  return { ...JSON.parse(json), stderr: result.stderr };
 }
 
 describe('PLUGIN_ADVISORIES newsletter rate limiting', () => {
@@ -270,7 +316,11 @@ describe('PLUGIN_ADVISORIES newsletter rate limiting', () => {
     test('discards both counters together when the request is refused', () => {
       const functions = rateLimitFunctions();
       expect(functions).toContain("$wpdb->query( 'START TRANSACTION' )");
-      expect(functions).toMatch(/\$refused \) \{\s*\n\t\t\$wpdb->query\( 'ROLLBACK' \);/);
+      // The rollback must be checked, not merely issued, and an explanatory
+      // comment may sit between the branch and the call.
+      expect(functions).toMatch(
+        /\$refused \) \{[\s\S]{0,400}?false === \$wpdb->query\( 'ROLLBACK' \)/
+      );
       expect(functions).toContain("$wpdb->query( 'COMMIT' )");
     });
 
@@ -350,6 +400,31 @@ describe('PLUGIN_ADVISORIES newsletter rate limiting', () => {
       const result = runScenarios().failed_commit_refuses;
       expect(result.refused).toBe('refused');
       expect(result.ip_hits).toBe(0);
+    });
+
+    test('charges nothing when the transaction cannot be opened', () => {
+      // A refused request spending no budget is only true if START TRANSACTION
+      // succeeded. Left unchecked, the two writes run in autocommit, commit
+      // immediately, and the refusal is charged anyway.
+      const result = runScenarios().failed_start_refuses;
+      expect(result.refused).toBe('refused');
+      expect(result.ip_hits).toBe(0);
+      expect(result.email_hits).toBe(0);
+      expect(result.row_count).toBe(0);
+    });
+
+    test('still refuses and records when the rollback of a refusal fails', () => {
+      // stderr is a sibling of the scenario keys, not one of them.
+      const { stderr, ...scenarios } = runScenarios();
+      const result = scenarios.failed_rollback_still_refuses;
+      expect(result.refused).toBe('refused');
+      // The address counter was charged to 4 and the discard failed, so the
+      // refusal is charged after all. The IP counter is untouched because the
+      // ordering never reaches it. This is the documented database-fault case,
+      // reported rather than swallowed, not a silent success.
+      expect(result.email_hits).toBe(4);
+      expect(result.ip_hits).toBe(19);
+      expect(stderr).toContain('rollback failed');
     });
 
     test('purges expired counters, keeping the table to one window', () => {
