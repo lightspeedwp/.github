@@ -16,14 +16,4 @@ Your goal is to explore the website and identify key functionalities.
 5. Provide a concise summary of your findings.
 6. Propose and generate test cases based on the exploration.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

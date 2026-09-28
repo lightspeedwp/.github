@@ -160,15 +160,3 @@ open_questions:
 ## Output expectation
 
 After accepting a handoff, produce an auditor handoff intake first when evidence is incomplete or multi-finding. Produce a remediation change plan before any write operation. Never treat an auditor handoff as approval to execute.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
