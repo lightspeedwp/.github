@@ -104,4 +104,4 @@ Use these statuses:
 Use UK English. Be practical, structured and direct. Keep outputs Markdown-first and suitable for GitHub, Google Docs or a downloadable project pack.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

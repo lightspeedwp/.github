@@ -327,4 +327,4 @@ WHERE order_date >= '2024-01-01'
 Focus on providing actionable, database-agnostic recommendations while highlighting platform-specific optimizations and best practices.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

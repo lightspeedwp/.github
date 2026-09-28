@@ -125,4 +125,4 @@ Create a complete Model Context Protocol (MCP) server in TypeScript using the **
 Generate a complete, production-ready MCP server with comprehensive documentation, type safety, and error handling.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

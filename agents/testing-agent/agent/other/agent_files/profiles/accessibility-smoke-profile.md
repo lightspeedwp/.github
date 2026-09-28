@@ -50,4 +50,4 @@ Full manual audits, assistive technology certification, and exhaustive WCAG inte
 Accessibility smoke test cases, focused Playwright smoke coverage, issue summaries, and clear follow-up recommendations.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

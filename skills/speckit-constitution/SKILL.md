@@ -187,4 +187,4 @@ Check if `.specify/extensions.yml` exists in the project root.
 - If no hooks are registered or `.specify/extensions.yml` does not exist, skip silently
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

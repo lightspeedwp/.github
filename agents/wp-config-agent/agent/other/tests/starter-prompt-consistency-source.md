@@ -73,4 +73,4 @@ Use this file as the source snapshot for starter-prompt consistency validation.
   - Prompt: `Create a pre-launch summary for this WordPress project with completed items, missing items, risks, blockers, and recommended next actions.`
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

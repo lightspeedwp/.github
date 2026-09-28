@@ -167,4 +167,4 @@ Follow `PHASED_BUILD_PLAN.md`. Confirm each phase is complete before continuing.
 - [ ] Human-review gates are explicit.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

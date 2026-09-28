@@ -52,4 +52,4 @@ A maintainer asks whether a new WordPress launch constraint belongs in `memory/u
 - ignoring the current memory file roles
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

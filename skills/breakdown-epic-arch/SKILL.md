@@ -66,4 +66,4 @@ Use clear subgraphs to organize these layers, apply consistent color coding for 
 - **Epic PRD:** [The content of the Epic PRD markdown file]
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

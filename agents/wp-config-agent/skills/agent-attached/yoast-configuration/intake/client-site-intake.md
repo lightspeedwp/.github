@@ -50,4 +50,4 @@ Ask a question only when the answer changes a recommendation. Otherwise state as
 - Require QA for any canonical, robots, sitemap, schema, redirect, or WooCommerce product-data change.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

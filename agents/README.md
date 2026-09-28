@@ -229,4 +229,4 @@ When creating a new agent:
 - [Issue #1828](https://github.com/lightspeedwp/.github/issues/1828) – Master initiative epic
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

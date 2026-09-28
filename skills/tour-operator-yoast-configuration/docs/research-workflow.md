@@ -37,4 +37,4 @@ Use this document when the user asks to build or refresh Yoast reference data.
 6. Mark unknowns as unclear rather than guessing.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

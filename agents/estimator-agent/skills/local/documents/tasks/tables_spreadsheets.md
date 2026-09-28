@@ -67,4 +67,4 @@ python scripts/docx_table_to_csv.py /mnt/data/input.docx --table_index 0 --out /
 - Multi-line cells and merged cells round-trip poorly.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -203,4 +203,4 @@ For complex financial models, DCFs, 3-statement models, scenario/sensitivity mod
    4. additional audit pass was successful and high-priority issues were fixed.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

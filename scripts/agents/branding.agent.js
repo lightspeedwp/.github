@@ -7,6 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import * as yaml from 'js-yaml';
+import { contributorsLink, repoUrl } from './includes/footer-policy.js';
 import {
   loadFooterConfig as loadSharedFooterConfig,
   resolveFooterPhrases,
@@ -31,10 +32,10 @@ function loadFooterConfig() {
  * Standard footer variants (fallback if config not found)
  */
 const DEFAULT_FOOTERS = [
-  '*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*\n[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)',
-  '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)',
+  `*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*\n[Org Profile](${repoUrl('tree/main/profile')})`,
+  `*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n${contributorsLink()}`,
   '*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*\n[Contact](https://lightspeedwp.agency/contact)',
-  '*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*\n[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)',
+  `*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*\n[Automation Docs](${repoUrl('tree/main/instructions')})`,
   '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
 ];
 

@@ -85,4 +85,4 @@ python scripts/content_controls.py /mnt/data/template_sdt.docx list --json
 - PNGs / optional PDFs are for internal QA only unless explicitly requested.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

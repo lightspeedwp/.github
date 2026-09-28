@@ -94,4 +94,4 @@ python render_docx.py /mnt/data/with_toc.docx --output_dir /mnt/data/out
 Tip: run `scripts/heading_audit.py` if you suspect heading-style issues.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

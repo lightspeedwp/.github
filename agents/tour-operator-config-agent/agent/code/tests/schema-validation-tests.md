@@ -127,4 +127,4 @@ If a check fails:
 - rerun `bash scripts/validate-folder-schemas.sh` until it passes
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -228,4 +228,4 @@ Suggested next step: Share your completed checklist before the assessment meetin
 - Use this checklist as a lead magnet, then move qualified clients into the governance questionnaire.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

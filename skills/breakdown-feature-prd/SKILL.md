@@ -61,4 +61,4 @@ The output should be a complete PRD in Markdown format, saved to `/docs/ways-of-
 - **Target Users:** [Optional: Any initial thoughts on who this is for]
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

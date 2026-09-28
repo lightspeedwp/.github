@@ -269,4 +269,4 @@ Compliance metrics track branches in each state to understand lifecycle impact.
   - Queryable for trends and org-wide reporting
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

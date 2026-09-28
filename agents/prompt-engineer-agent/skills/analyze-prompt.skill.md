@@ -294,4 +294,4 @@ Test this skill with:
 - [WordPress Theme Development](https://developer.wordpress.org/themes/)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

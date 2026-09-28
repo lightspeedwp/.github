@@ -30,4 +30,4 @@
 | agent/references/agent_files/gpt-knowledge/00-readme-upload-guide.md | pattern match during export | OpenAI API key | [REDACTED OPENAI API KEY] |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
