@@ -6,7 +6,9 @@
  * repository with a bare `origin` and a stubbed `npm`.
  */
 
+const { spawnSync } = require('child_process');
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { createFixture, runSessionStart } = require('./helpers/claude-hook-harness');
 
@@ -158,6 +160,32 @@ describe('context text (T014)', () => {
     ]) {
       expect(context).toContain(file);
     }
+  });
+});
+
+// The context is the only thing this hook delivers. Emitting it through jq
+// meant that a machine without jq produced an empty stdout, so the session
+// began with no branching context at all while still exiting 0.
+describe('without jq on PATH (FR-003)', () => {
+  test('still emits the branching context as a single JSON object', () => {
+    const withoutJq = fs.mkdtempSync(path.join(os.tmpdir(), 'no-jq-'));
+    let result;
+    try {
+      for (const tool of ['bash', 'sh', 'git', 'npm', 'node', 'cat', 'printf', 'sed', 'grep', 'mktemp', 'rm', 'mkdir', 'ln', 'cp', 'mv', 'chmod', 'chown', 'dirname', 'basename', 'tr', 'cut', 'head', 'tail', 'date', 'uname', 'id', 'env']) {
+        const real = spawnSync('sh', ['-c', `command -v ${tool}`], { encoding: 'utf8' }).stdout.trim();
+        if (!real) continue;
+        fs.symlinkSync(real, path.join(withoutJq, tool));
+      }
+      expect(fs.existsSync(path.join(withoutJq, 'jq'))).toBe(false);
+      fx.branch('claude/x-abc123');
+      result = runSessionStart(fx, 'startup', { ...CLOUD, PATH: withoutJq });
+    } finally {
+      fs.rmSync(withoutJq, { recursive: true, force: true });
+    }
+    expect(result.status).toBe(0);
+    const output = JSON.parse(result.stdout);
+    expect(output.hookSpecificOutput.hookEventName).toBe('SessionStart');
+    expect(output.hookSpecificOutput.additionalContext).toMatch(/branch/i);
   });
 });
 

@@ -431,6 +431,179 @@ describe('GitHub MCP tools (T011)', () => {
     expect(run.status).toBe(0);
   });
 
+  // A branch name the guard cannot read must not be treated as no branch name.
+  // An empty head or ref reached nameProblem as '', which is not a problem, so
+  // the write went ahead unchecked.
+  test('refuses a gh api pull-request POST with no head', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/pulls -f base=develop -f title=x'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses a gh api pull-request POST with no base', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/pulls -f head=feat/a-b -f title=x'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses a gh api branch creation with no ref', () => {
+    const run = runBash(fx, 'gh api -X POST repos/lightspeedwp/.github/git/refs -f sha=abc');
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses a gh api branch creation whose ref cannot be read from its file', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -F ref=@missing-ref.txt -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    // The file cannot be read, so the message must say so rather than judge the
+    // literal "@missing-ref.txt" as if it were the branch name.
+    expect(run.stderr).toMatch(/could not read/);
+  });
+
+  // -F ref=@file sends the file's contents, so the guard must read it to learn
+  // the branch name. Judging the literal "@bad-ref.txt" also refuses, but for
+  // the wrong reason, so the message is asserted to name the real branch.
+  test('judges the branch name inside a -F ref=@file field', () => {
+    fx.write('bad-ref.txt', 'refs/heads/claude/x-from-file\n');
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -F ref=@bad-ref.txt -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/x-from-file/);
+    expect(run.stderr).not.toMatch(/@bad-ref\.txt/);
+  });
+
+  test('allows a gh api branch creation whose -F ref=@file holds a valid name', () => {
+    fx.write('good-ref.txt', 'refs/heads/feat/good-name\n');
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -F ref=@good-ref.txt -f sha=abc'
+    );
+    expect(run.status).toBe(0);
+  });
+
+  test('refuses a gh api write whose request body is on stdin', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/pulls --input - -f title=x'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('refuses a gh api write whose request body file is missing', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/pulls --input missing-body.json'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  // An unrelated unreadable field says nothing about the branch, so it must not
+  // block a write whose head and base are both readable.
+  // gh reads an @path only for the typed flag (-F/--field). The string flag
+  // (-f/--raw-field) sends the value as written, so an @path there is a branch
+  // name in its own right and is judged as one. Verified against the installed
+  // `gh api --help`: --field is typed, --raw-field is a string.
+  test('judges -f ref=@path as the literal value gh would send', () => {
+    fx.write('literal-ref.txt', 'refs/heads/feat/good-name\n');
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -f ref=@literal-ref.txt -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).not.toMatch(/good-name/);
+  });
+
+  test('judges --raw-field ref=@path as the literal value gh would send', () => {
+    fx.write('raw-ref.txt', 'refs/heads/feat/good-name\n');
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs --raw-field ref=@raw-ref.txt -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).not.toMatch(/good-name/);
+  });
+
+  test('reads --field ref=@path the way gh does', () => {
+    fx.write('typed-ref.txt', 'refs/heads/claude/x-typed\n');
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs --field ref=@typed-ref.txt -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/x-typed/);
+  });
+
+  // gh also accepts the attached `--flag=value` form. If the parser only read
+  // the separated form, the branch would be missing and the write unguarded.
+  test('reads the branch from an attached --field=ref=@path', () => {
+    fx.write('attached-ref.txt', 'refs/heads/claude/x-attached\n');
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs --field=ref=@attached-ref.txt -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/x-attached/);
+  });
+
+  test('refuses a branch creation whose attached --field=ref is missing', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs --field=ref=@no-such-file.txt -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/could not read/);
+  });
+
+  test('refuses a pull-request POST whose attached --field=head is absent', () => {
+    const run = runBash(fx, 'gh api -X POST repos/lightspeedwp/.github/pulls --field=title=x');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/name head explicitly/);
+  });
+
+  test('reads a request body given as an attached --input=file', () => {
+    fx.write('attached-body.json', JSON.stringify({ branch: 'main', message: 'x', content: 'a' }));
+    const run = runBash(
+      fx,
+      'gh api -X PUT repos/lightspeedwp/.github/contents/docs/a.md --input=attached-body.json'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/main/);
+  });
+
+  // @- means standard input, which the guard has already consumed.
+  test('refuses a gh api branch creation whose ref is read from stdin', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -F ref=@- -f sha=abc'
+    );
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/could not read/);
+  });
+
+  test('allows a gh api pull-request POST whose unreadable field is not a branch field', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/pulls -f head=feat/a-b -f base=develop -F title=@missing-title.txt'
+    );
+    expect(run.status).toBe(0);
+  });
+
+  test('still allows a gh api pull-request POST that names head and base', () => {
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/pulls -f head=feat/a-b -f base=develop -f title=x'
+    );
+    expect(run.status).toBe(0);
+  });
+
   test('refuses gh api branch creation with a forbidden prefix (T044)', () => {
     const run = runBash(
       fx,

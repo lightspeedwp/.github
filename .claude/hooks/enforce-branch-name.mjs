@@ -461,20 +461,46 @@ function apiEndpoint(args) {
   return '';
 }
 
-/** `-f key=value` fields of a `gh api` call. */
-/** `-f key=value` fields of a `gh api` call. */
-  function apiFields(args) {
-    const fields = {};
-    for (let i = 0; i < args.length; i += 1) {
-      if (['-f', '-F', '--field', '--raw-field'].includes(args[i]) && args[i + 1]) {
-        const [key, ...value] = args[i + 1].split('=');
-        fields[key] = value.join('=');
-        i += 1;
+/**
+ * Each field flag with its `key=value` argument, for both `--flag value` and
+ * the attached `--flag=value` form gh also accepts.
+ */
+function fieldArgs(args) {
+  const pairs = [];
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+    if (FIELD_FLAGS.has(arg)) {
+      if (args[i + 1] !== undefined) pairs.push([arg, args[i + 1]]);
+      i += 1;
+      continue;
+    }
+    for (const flag of FIELD_FLAGS) {
+      if (arg.startsWith(`${flag}=`)) {
+        pairs.push([flag, arg.slice(flag.length + 1)]);
+        break;
       }
     }
+  }
+  return pairs;
+}
+
+// gh reads an `@path` value for the typed flag (-F/--field) and sends the value
+// as written for the string flag (-f/--raw-field), so an @path there is a
+// literal branch name and is judged as one. Verified against the installed
+// `gh api --help`, where --field is the typed flag and --raw-field the string
+// one.
+const FILE_FIELD_FLAGS = new Set(['-F', '--field']);
+const FIELD_FLAGS = new Set(['-f', '-F', '--field', '--raw-field']);
+
+  function apiFields(args, cwd) {
+    const fields = {};
+    for (const [flag, argument] of fieldArgs(args)) {
+      const [key, ...rest] = argument.split('=');
+      const value = resolveFieldValue(rest.join('='), cwd, flag);
+      if (value !== null) fields[key] = value;
+    }
     // A write sent as `--input body.json` carries its branch there, not in -f.
-    const at = args.indexOf('--input');
-    const body = at >= 0 && args[at + 1] ? readBody(args[at + 1]) : null;
+    const body = readBody(inputArg(args), cwd);
     if (body && typeof body === 'object' && !Array.isArray(body)) {
       for (const [key, value] of Object.entries(body)) {
         if (typeof value === 'string' && !(key in fields)) fields[key] = value;
@@ -483,10 +509,62 @@ function apiEndpoint(args) {
     return fields;
   }
 
-  /** Parse a JSON request body from a file, or null if absent or invalid. */
-  function readBody(file) {
+  /**
+   * The value gh would send for a field, or null when it cannot be determined.
+   * `gh` reads `@file` as the file's contents, so the guard has to do the same
+   * to know the real value; storing the literal "@file" would judge a branch
+   * name the caller never sent.
+   */
+  function resolveFieldValue(value, cwd, flag) {
+    if (!flag || !FILE_FIELD_FLAGS.has(flag) || !value.startsWith('@')) return value;
+    return readInline(value.slice(1), cwd);
+  }
+
+  function readInline(file, cwd) {
+    // `@-` reads standard input, which the guard has already consumed for its
+    // own payload. Treat it as unreadable rather than looking for a file named
+    // "-" in the working directory.
+    if (file === '-') return null;
     try {
-      return JSON.parse(readFileSync(file, 'utf8'));
+      return readFileSync(path.resolve(cwd, file), 'utf8').trim();
+    } catch {
+      return null;
+    }
+  }
+
+  /**
+   * Fields the call asked for that the guard could not read. A write whose
+   * branch names cannot be read is refused, never judged on an empty value.
+   */
+  function unreadableApiFields(args, cwd) {
+    const unreadable = [];
+    for (const [flag, argument] of fieldArgs(args)) {
+      const [key, ...rest] = argument.split('=');
+      if (resolveFieldValue(rest.join('='), cwd, flag) === null) unreadable.push(key);
+    }
+    const file = inputArg(args);
+    // `--input -` reads the caller's stdin, which the guard has already
+    // consumed for its own payload and cannot recover.
+    if (file && (file === '-' || readBody(file, cwd) === null)) {
+      unreadable.push('the request body');
+    }
+    return unreadable;
+  }
+
+  /** The `--input` argument, for both `--input file` and `--input=file`. */
+  function inputArg(args) {
+    const at = args.indexOf('--input');
+    if (at >= 0) return args[at + 1];
+    const attached = args.find((arg) => arg.startsWith('--input='));
+    return attached ? attached.slice('--input='.length) : null;
+  }
+
+  /** Parse a JSON request body from a file, or null if absent or invalid. */
+  function readBody(file, cwd) {
+    if (file === '-') return null;
+    try {
+      // Relative to the command's own working directory, not the hook's.
+      return JSON.parse(readFileSync(path.resolve(cwd, file), 'utf8'));
     } catch {
       return null;
     }
@@ -717,7 +795,7 @@ function checkGh(args, cwd, branch) {
   }
   if (args[0] !== 'api') return [];
 
-  const fields = apiFields(args);
+  const fields = apiFields(args, cwd);
   const method = (
     flagValue(args, ['--method', '-X']) ||
     (Object.keys(fields).length || args.includes('--input') ? 'POST' : 'GET')
@@ -732,10 +810,41 @@ function checkGh(args, cwd, branch) {
   const [, apiOwner, apiRepo, resource] = match;
   if (apiOwner.toLowerCase() !== OWNER) return [];
 
+  // A branch name the guard could not read is not a branch name it may pass
+  // through: an empty head or ref reaches nameProblem as '', which is not a
+  // problem, so the write would go ahead unchecked. Refuse instead.
+  // An unrelated unreadable field, such as a title read from a file, says
+  // nothing about the branch, so only the keys this endpoint checks are
+  // considered. The request body is always relevant: it may carry them.
+  const bodyUnreadable = unreadableApiFields(args, cwd).includes('the request body');
+  const unreadableKey = (keys) => {
+    const found = unreadableApiFields(args, cwd).filter((key) => keys.includes(key));
+    return found.length ? found : null;
+  };
+  const refuseUnreadable = (keys, missing) => {
+    if (bodyUnreadable) {
+      return ['Write blocked: could not read the request body, so the target branch cannot be checked.'];
+    }
+    const found = unreadableKey(keys);
+    if (found) {
+      return [
+        `Write blocked: could not read ${found.join(', ')}, so the target branch cannot be checked.`,
+      ];
+    }
+    return missing ? [`Write blocked: name ${missing} explicitly.`] : null;
+  };
+
   if (/^pulls\/?$/.test(resource) && method === 'POST') {
+    const refusal = refuseUnreadable(
+      ['head', 'base'],
+      !fields.head ? 'head' : !fields.base ? 'base' : null
+    );
+    if (refusal) return refusal;
     return prProblems({ owner: apiOwner, repo: apiRepo, head: fields.head, base: fields.base });
   }
   if (/^git\/refs\/?$/.test(resource) && method === 'POST') {
+    const refusal = refuseUnreadable(['ref'], !fields.ref ? 'ref' : null);
+    if (refusal) return refusal;
     const problem = nameProblem((fields.ref || '').replace(/^refs\/heads\//, ''));
     return problem ? [`Branch creation blocked: ${problem}.`] : [];
   }

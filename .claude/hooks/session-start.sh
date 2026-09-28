@@ -15,7 +15,13 @@ set -uo pipefail
 
 BASE_BRANCH="${LS_BASE_BRANCH:-develop}"
 HOOK_INPUT="$(cat || true)"
-SOURCE="$(printf '%s' "$HOOK_INPUT" | jq -r '.source // "startup"' 2>/dev/null || echo startup)"
+# Read the session source without jq. A single quoted value is all this input
+# carries, so a shell match is enough and keeps the hook working on a machine
+# where jq is not installed.
+SOURCE=startup
+if [[ "$HOOK_INPUT" =~ \"source\"[[:space:]]*:[[:space:]]*\"([a-zA-Z_-]+)\" ]]; then
+  SOURCE="${BASH_REMATCH[1]}"
+fi
 
 cd "${CLAUDE_PROJECT_DIR:-.}" || exit 0
 
@@ -120,5 +126,22 @@ guard's own files can't be edited: .claude/hooks/**, .claude/settings.json,
 .claude/settings.local.json and ~/.claude/settings.json.
 EOF
 
-jq -n --arg ctx "$CONTEXT" '{hookSpecificOutput: {hookEventName: "SessionStart", additionalContext: $ctx}}'
+# Emit the context object without jq. jq is not guaranteed on every machine
+# that runs this hook, and a missing jq previously left stdout empty, so the
+# session began with no branching context at all. The escaping below covers
+# what a JSON string requires: backslash, quote, and the control characters.
+json_escape() {
+  local text="$1"
+  text="${text//\\/\\\\}"
+  text="${text//\"/\\\"}"
+  text="${text//$'\n'/\\n}"
+  text="${text//$'\r'/\\r}"
+  text="${text//$'\t'/\\t}"
+  # Any other C0 control character is not legal unescaped in a JSON string.
+  text="$(printf '%s' "$text" | tr -d '\000-\010\013\014\016-\037')"
+  printf '%s' "$text"
+}
+
+ESCAPED_CONTEXT="$(json_escape "$CONTEXT")"
+printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s"}}\n' "$ESCAPED_CONTEXT"
 exit 0

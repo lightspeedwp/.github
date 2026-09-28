@@ -32,14 +32,41 @@ install_node() {
   # a bump within the same major must replace the cached binary.
   if [ ! -x "${dir}/bin/node" ] || [ "$("${dir}/bin/node" -v 2>/dev/null)" != "v${NODE_VERSION}" ]; then
     log "Installing Node ${NODE_VERSION}"
-    rm -rf "${dir}"
-    if ! { curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/${tarball}" -o "/tmp/${tarball}" &&
-      mkdir -p "${dir}" &&
-      tar -xJf "/tmp/${tarball}" -C "${dir}" --strip-components=1; }; then
-      log "Node ${NODE_VERSION} install failed; keeping image default"
+    # Download and extract into a private staging directory first, and only
+    # replace ${dir} once the staged binary reports the expected version.
+    # Removing ${dir} before the download succeeds would destroy a working
+    # install and leave the /root/.local/bin symlinks pointing at nothing if the
+    # download or extraction then failed partway.
+    local stage
+    stage="$(mktemp -d -t node-install-XXXXXXXXXX)" || {
+      log "Node ${NODE_VERSION} install failed: cannot create a staging directory"
       return 0
+    }
+    chmod 700 "$stage"
+    if { curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/${tarball}" -o "${stage}/${tarball}" &&
+      tar -xJf "${stage}/${tarball}" -C "$stage" --strip-components=1 &&
+      [ -x "${stage}/bin/node" ] &&
+      [ "$("${stage}/bin/node" -v 2>/dev/null)" = "v${NODE_VERSION}" ]; }; then
+      # Keep the old install until the new one is known good, so the swap is
+      # the only step that can leave ${dir} briefly absent.
+      local previous="${dir}.previous.$$"
+      if [ -d "${dir}" ] && ! mv "${dir}" "${previous}"; then
+        log "Node ${NODE_VERSION} install failed: cannot move the existing install aside"
+        rm -rf "$stage"
+        return 0
+      fi
+      if ! mv "$stage" "${dir}"; then
+        # Put the working install back before giving up.
+        [ -d "${previous}" ] && mv "${previous}" "${dir}"
+        log "Node ${NODE_VERSION} install failed: cannot install the staged copy"
+        rm -rf "$stage"
+        return 0
+      fi
+      [ -d "${previous}" ] && rm -rf "${previous}"
+    else
+      log "Node ${NODE_VERSION} install failed; keeping the existing install"
     fi
-    rm -f "/tmp/${tarball}"
+    rm -rf "$stage"
   fi
   mkdir -p /root/.local/bin
   for bin in node npm npx corepack; do
