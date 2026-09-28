@@ -52,5 +52,3 @@
 - Status: {{audit.status}}
 - Critical gaps: {{audit.critical_gaps}}
 - Recommended next step: {{audit.next_step}}
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

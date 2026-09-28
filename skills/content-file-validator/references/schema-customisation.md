@@ -50,5 +50,3 @@ You can safely customise:
 - Tightening a schema can turn previously valid files into failures.
 - Relaxing `additionalProperties: false` may reduce metadata consistency.
 - Changing enum values or required fields can require a `major` version bump for templates or standards that depend on that schema.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
