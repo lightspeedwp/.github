@@ -57,7 +57,7 @@
     "pino": "^10.3.1"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/jest-dom": "^7.0.1",
     "@types/jest": "^30.0.0",
     "eslint": "^10.11.0",
     "jest": "^30.5.2",
