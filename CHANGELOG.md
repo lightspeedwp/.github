@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Compounded Footers Cleared, Batch 1 of 6** — 1,950 files under `agents/`: footer-exempt files lost their footer, the rest were collapsed to one. Deletion-only. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
 - **Footer Duplicates Halved, Batch 2 of 6** — The second `agents/` tranche: 1,154 more footer-exempt files shed their footer, while 796 kept one each. 7,586 files still queued. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
 - **Agent Specs Now Footer-Clean, Batch 3 of 6** — The `agents/` tree is finished: 1,158 exempt files stripped, 667 left with one footer. The remainder sits in `skills/` and elsewhere. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Repository Root and Templates Footer-Clean** — The remaining governance documents, reports, tests and website pages are done, closing the sweep. (Relates to #3451)
 - **Prompt Library Footer-Clean** — Repeated footer blocks stripped from `prompts/`; each file keeps at most one. (Relates to #3451)
 - **Documentation Footer-Clean** — Compounded stacks removed across `docs/`, with a single footer left wherever a file is meant to have one. (Relates to #3451)
 - **Plugin Documentation Footer-Clean** — The `plugins/` tree is clear, including the reference and example files that should never have carried a footer. (Relates to #3451)
