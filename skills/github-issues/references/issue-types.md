@@ -95,5 +95,3 @@ To clear the type, set `issueTypeId` to `null`.
 ## Available colors
 
 `GRAY`, `BLUE`, `GREEN`, `YELLOW`, `ORANGE`, `RED`, `PINK`, `PURPLE`
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
