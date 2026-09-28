@@ -317,10 +317,6 @@ E2E Tests (3+ Real Repositories)
 | [#1821](https://github.com/lightspeedwp/.github/issues/1821) | task | Phase 3: Testing & Coverage | ⏰ Planned |
 | [#1822](https://github.com/lightspeedwp/.github/issues/1822) | task | Phase 4: Documentation & Deployment | ⏰ Planned |
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Visual Workflow
 
 ```mermaid

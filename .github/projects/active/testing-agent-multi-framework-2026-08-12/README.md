@@ -275,10 +275,6 @@ The project will include:
 └── .archive-status.md                 (populated when complete)
 ```
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Visual Workflow
 
 ```mermaid
