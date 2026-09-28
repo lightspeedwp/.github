@@ -61,5 +61,3 @@ List anything that can remain in an internal handoff but must not appear in cust
 - Separates customer-facing and internal-only information: Yes/No
 - Avoids asking for unnecessary sensitive data: Yes/No
 - Safe to share externally as-is: Yes/No
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

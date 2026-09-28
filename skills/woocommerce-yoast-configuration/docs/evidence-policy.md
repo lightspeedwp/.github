@@ -76,20 +76,5 @@ Escalate evidence confidence or ask for verification when:
 
 Use `docs/current-verification-playbook.md` before firm claims about product packaging, AI Plus entitlements, admin UI paths, Yoast API status, deprecated filters/actions, Google rich-result eligibility, Schema.org vocabulary, WooCommerce product-data behaviour, WordPress.org compatibility, or live rendered output. If verification is not available, label the recommendation as `needs live verification`, `research target`, `source not captured`, or `inference` as appropriate.
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

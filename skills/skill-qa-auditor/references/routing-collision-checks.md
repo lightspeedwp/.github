@@ -65,5 +65,3 @@ Every QA review should include:
 - one prompt that should route away
 - one ambiguous prompt that could collide with a neighbouring skill
 - one prompt with too little evidence where the skill must ask or produce partial output safely
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

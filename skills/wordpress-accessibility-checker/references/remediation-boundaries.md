@@ -56,5 +56,3 @@ For production sites, require a narrower scope:
 - Avoid bulk edits unless there is a backup and rollback path.
 - Batch changes by priority page or issue type.
 - Report exact changes and unresolved risks after every batch.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

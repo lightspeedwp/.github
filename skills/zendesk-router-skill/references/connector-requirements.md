@@ -45,5 +45,3 @@ The router itself can work without direct Zendesk access because it recommends t
 - Do not assume the logged-in user has any individual team member's access.
 - Do not assume private Zendesk labels, queues, macros, brands, views, or account mappings exist unless provided in the current agent configuration.
 - Keep examples anonymised and portable.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

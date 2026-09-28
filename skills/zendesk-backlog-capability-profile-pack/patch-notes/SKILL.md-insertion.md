@@ -37,14 +37,4 @@ Add this bullet to `Included validation aids` if the capability profile template
 - `profiles/workspace-capability-profile.template.json`: portable starter profile for shared-agent Zendesk capability documentation. Copy it per shared agent and validate the completed profile with `scripts/validate_capability_profile.py`.
 ```
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

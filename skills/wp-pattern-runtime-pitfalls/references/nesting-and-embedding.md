@@ -58,24 +58,3 @@ Pattern edits are cached in two independent layers — clear both before re-test
 2. **OPcache.** The web server's php-fpm OPcache is **separate** from the CLI PHP's — a `wp eval 'opcache_reset()'` only clears the CLI process. To pick up pattern/PHP edits on the web SAPI, hit an `opcache_reset()` script over HTTP (drop it in the docroot, curl it, delete it). See `wp-mcp-wpcli-ops` → `references/local-env.md`.
 
 If edits *still* don't show after both resets, suspect a **DB template/part override** shadowing the file — see `wp-db-override-reconciliation`.
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

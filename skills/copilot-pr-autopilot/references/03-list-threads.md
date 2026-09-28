@@ -76,15 +76,3 @@ Pass the classified table to step 4 — the triage rubric depends on it.
 - **Unresolved is the source of truth.** Outdated-but-unresolved
   threads still show up — that's correct. Don't filter them out;
   they're handled like any other open thread in step 8.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

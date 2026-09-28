@@ -46,5 +46,3 @@ status: draft
 - Required reviewers: {{review.required_reviewers}}
 - Approved by: {{review.approved_by}}
 - Notes: {{review.notes}}
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
