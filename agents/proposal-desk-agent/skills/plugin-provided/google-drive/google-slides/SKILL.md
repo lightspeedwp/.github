@@ -169,18 +169,4 @@ Do not execute content edits until the required references are read in the curre
 | Chart refresh, chart replacement, or Sheets-sourced chart work | `references/reference-chart-workflows.md` |
 | Copy-and-fill raw batch update examples | `references/reference-batch-update-recipes.md` |
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
