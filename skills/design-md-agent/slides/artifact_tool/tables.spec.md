@@ -113,4 +113,4 @@ Getting header rows:
 `header_row = detail_table.cells.block({"row": 1, "column": 0, "row_count": 1, "column_count": 3})`
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

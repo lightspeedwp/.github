@@ -83,4 +83,4 @@ A good result:
 A concise momentum review with blocked or stale issues, the most important momentum risks, and the next actions most likely to unblock progress.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
