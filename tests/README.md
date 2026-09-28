@@ -353,4 +353,4 @@ npm ci
 <!-- RANDOM FOOTER: 🧪 Docs signed by Copilot for LightSpeedWP -->
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
