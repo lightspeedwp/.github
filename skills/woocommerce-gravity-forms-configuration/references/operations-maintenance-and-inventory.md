@@ -109,5 +109,3 @@ Use these defaults unless site evidence says otherwise:
 ## Output requirements
 
 Use `templates/form-inventory-audit.md` for inventory output. Use `templates/handoff-note.md` when passing maintenance actions to support, WordPress config, WooCommerce config, or server operations.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -62,5 +62,3 @@ Use this reference before finalising a backlog, trend, weekly, daily, or repeate
 - Empty sections are removed.
 - The report is concise enough for support leads to act on quickly.
 - Evidence basis and gaps are included.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

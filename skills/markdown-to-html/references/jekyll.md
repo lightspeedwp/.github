@@ -344,5 +344,3 @@ plugins:
 - [Kramdown Documentation](https://kramdown.gettalong.org/)
 - [GitHub Repository](https://github.com/jekyll/jekyll)
 - [Jekyll Themes](https://jekyllthemes.io/)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

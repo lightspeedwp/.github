@@ -61,5 +61,3 @@ If the current user cannot access the referenced ticket or connector:
 ## Memory boundary
 
 Do not save durable memory from this skill unless the user explicitly asks to record a stable, non-sensitive team convention. Never save customer-specific facts, ticket details, sensitive support history, or teammate-specific access assumptions.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

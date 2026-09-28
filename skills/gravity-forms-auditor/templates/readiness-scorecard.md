@@ -39,5 +39,3 @@
 | Maintainability |  |  |  |  |
 
 Status values: Pass, Minor issue, Moderate issue, Major issue, Blocker, Not assessed.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

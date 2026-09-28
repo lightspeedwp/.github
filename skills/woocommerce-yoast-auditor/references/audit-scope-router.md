@@ -52,5 +52,3 @@ Choose the smallest useful audit mode and route setup/configuration work to `woo
 ## Output expectations
 
 Name the selected audit mode, reviewed scope, evidence available, evidence gaps, and next route. Do not convert an audit into a setup guide.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

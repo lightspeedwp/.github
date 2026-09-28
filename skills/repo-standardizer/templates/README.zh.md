@@ -85,5 +85,3 @@ cd REPO
 ## 📄 许可证
 
 [MIT](LICENSE) © 2026 OWNER
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

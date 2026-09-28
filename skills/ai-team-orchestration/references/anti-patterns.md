@@ -55,5 +55,3 @@
 
 - Record material decisions in a DECISIONS.md or the repository issue tracker with: title, date, owner, decision summary (1 line), rationale, and link to related PR/issue.
 - Keep entries short and searchable; record the next action when a decision defers work.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

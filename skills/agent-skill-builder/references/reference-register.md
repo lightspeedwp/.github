@@ -36,15 +36,3 @@
 | `references/starter-prompt-quality-guide.md` | Starter prompt standards | Writing prompt examples | skill description | Skill maintainer | starter prompts | Medium |
 | `references/rollout-guide.md` | Release and maintenance workflow | Preparing release | validation guide | Skill maintainer | markdown, links | Medium |
 | `references/business-context.md` | LightSpeed defaults | LightSpeed-specific decisions | current user request | Ash or maintainer | business context | Medium |
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

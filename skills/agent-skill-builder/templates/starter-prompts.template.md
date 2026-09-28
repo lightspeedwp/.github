@@ -33,5 +33,3 @@
 | Add validators for schema and template drift in {{domain}}. | Validation update | Tests validation pack rules |
 | Audit this skill folder for missing references and stale examples. | Audit | Tests review workflow |
 | Package this local skill for handoff and report validation status. | Rollout | Tests release workflow |
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
