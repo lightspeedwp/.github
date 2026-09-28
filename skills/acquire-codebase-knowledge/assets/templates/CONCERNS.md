@@ -79,5 +79,3 @@ Add only when needed:
 - Component-level remediation roadmap
 - Cost/effort estimates by concern
 - Dependency-risk and ownership mapping
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

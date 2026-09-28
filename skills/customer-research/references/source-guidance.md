@@ -56,5 +56,3 @@ Use phrases such as:
 - `evidence supports asking about`
 - `current evidence is not enough to claim`
 - `before pushing commercially, confirm`
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

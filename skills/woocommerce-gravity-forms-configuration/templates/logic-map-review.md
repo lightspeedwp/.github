@@ -82,5 +82,3 @@
 - Fields whose IDs/choices must not change without review:
 - Owner:
 - Next action:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

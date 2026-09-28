@@ -99,5 +99,3 @@ Exact ask for recipient:
 - Do not claim scope yet: [unsupported scope claims]
 - Sensitive evidence omitted or linked in Zendesk: [yes/no/unknown]
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

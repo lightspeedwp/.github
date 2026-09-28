@@ -42,5 +42,3 @@
 3. Recommend graph-aware extension rather than duplicate hard-coded JSON-LD.
 4. Require JSON-LD validation, rendered output checks and regression coverage.
 5. Mark unsupported implementation details as pseudo-code.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -124,5 +124,3 @@ evidence_gaps:
     why_it_matters: "urgency"
     smallest_next_request: "Ask account owner whether there is renewal, launch, or executive pressure."
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

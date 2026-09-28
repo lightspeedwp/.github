@@ -51,5 +51,3 @@ Use this contract when preparing WooCommerce Gravity Forms findings for `woocomm
 - Mark missing evidence instead of inventing details.
 - Separate official Gravity Forms/WooCommerce guidance from LightSpeed recommendations.
 - Include acceptance/retest criteria so configuration work can close cleanly.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
