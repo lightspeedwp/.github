@@ -257,19 +257,3 @@ After the write:
 3. Confirm paragraph styles, links, and list state match the intended Meeting notes shape: one empty bullet under `Notes`, one blank line before `Action items`, one empty checkbox under `Action items`, and one final blank paragraph when no content was provided.
 4. Confirm no leftover placeholder text, unintended extra empty bullets, or wrong-tab insertion exists.
 5. If the connector response to `mcp__codex_apps__google_drive._batch_update_document` lacks `documentId`, `replies`, or `writeControl`, treat the write status as suspect and verify by readback before continuing.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
