@@ -148,4 +148,4 @@ Current coverage:
 - If a memory file mixes durable defaults with active tasks, split the content between `memory/user-preferences.md` and `memory/todos.md`.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

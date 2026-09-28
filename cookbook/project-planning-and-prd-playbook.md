@@ -96,4 +96,4 @@ This playbook provides a structured approach to transforming raw project intake 
 - Review and update plan regularly as new information emerges
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

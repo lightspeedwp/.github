@@ -342,4 +342,4 @@ A: Yes, use `--inactiveDays=N` to set a custom threshold (default: 30 days).
 A: If a branch has an open PR, it's automatically preserved. If not, keep it active by merging promptly after PR approval.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

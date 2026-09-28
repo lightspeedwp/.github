@@ -356,4 +356,4 @@ This specialist skill should not replace `zendesk-router-skill`. Use this skill 
 Do not assume Linear, GitHub, Asana, BugHerd, product planning, or roadmap work. If a downstream artefact is explicitly requested, prepare or confirm the Zendesk-first handoff evidence first, then return to the router unless the downstream target is already specified and the current evidence is sufficient.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
