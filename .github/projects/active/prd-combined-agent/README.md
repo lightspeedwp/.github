@@ -82,10 +82,6 @@ Unifies two complementary product planning agents into a single multi-provider p
 | [IMPLEMENTATION_NOTES.md](./IMPLEMENTATION_NOTES.md) | Historical decision log for the original Phase 1-2 catalogue merge | 📋 Historical (Phase 1-2 only) |
 | [COMPLETION_SUMMARY.md](./COMPLETION_SUMMARY.md) | Original Phase 1-2 completion record | 📋 Historical (Phase 1-2 only — Phase 3 is separately tracked and not yet complete) |
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Related Issues
 
 This project is coordinated with:
