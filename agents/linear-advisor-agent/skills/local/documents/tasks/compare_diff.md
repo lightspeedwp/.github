@@ -63,4 +63,4 @@ This is high-ROI for regression testing and reviewer confidence.
 - If you see changes that are *only* anti-aliasing noise, increase render DPI and re-run.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

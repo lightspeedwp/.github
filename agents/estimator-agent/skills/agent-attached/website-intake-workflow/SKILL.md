@@ -120,4 +120,4 @@ Do not send the workflow backward to audit unless new evidence actually requires
 - `references/intake-spec.yaml` defines the standard intake fields, estimate sections, and default assumptions to use when the user has only partial information.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

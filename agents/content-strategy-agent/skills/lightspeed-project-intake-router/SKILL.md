@@ -197,4 +197,4 @@ Before finalising the intake output, check that:
 Use UK English. Write for a LightSpeed teammate who needs to act quickly. Keep the structure clear, concise and operational. Avoid hype, vague advice, unsupported certainty and over-engineered process.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
