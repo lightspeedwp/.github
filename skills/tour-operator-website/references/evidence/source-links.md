@@ -102,5 +102,3 @@ https://docs.gravityforms.com/category/user-guides/confirmations/
 https://docs.gravityforms.com/spam/
 https://docs.gravityforms.com/consent/
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

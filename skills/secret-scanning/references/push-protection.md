@@ -197,5 +197,3 @@ After publishing a custom pattern:
 3. The pattern will now block pushes containing matching secrets
 
 > Push protection for custom patterns only applies to repos that have push protection enabled. Enabling push protection for commonly found patterns can be disruptive to contributors.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

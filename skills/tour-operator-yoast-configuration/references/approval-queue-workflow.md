@@ -49,5 +49,3 @@ Use this reference when metadata or configuration changes need human sign-off.
 - implemented
 - QA passed
 - QA failed
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

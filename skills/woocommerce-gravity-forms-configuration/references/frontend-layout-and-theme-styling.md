@@ -149,5 +149,3 @@ For visual/style changes, validate:
 
 Use `templates/frontend-style-audit.md` for existing form presentation audits.
 Use `templates/layout-regression-check.md` when a change has been made or planned and needs page/device validation.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

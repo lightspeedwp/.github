@@ -70,21 +70,3 @@ After configuring this skill in a shared agent, use `references/shared-agent-reg
 Before adding support context to shared instructions, examples, smoke tests, QA fixtures, or documentation, read `references/data-redaction-rules.md` and use `templates/redacted-support-context-template.md` when structure is needed. Run `scripts/redact_context.py` for a deterministic first pass, then manually review the result.
 
 Do not store real customer evidence, private URLs, ticket IDs, screenshots, credentials, payment details, security findings, or personal contact details in the skill package or shared Memory. Use synthetic examples when redaction would make the case unclear or when the source includes sensitive security, payment, or identity data.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

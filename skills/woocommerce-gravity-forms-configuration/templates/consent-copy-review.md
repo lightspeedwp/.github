@@ -72,5 +72,3 @@
 - Changes requiring approval:
 - Do not change:
 - Next action:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -73,5 +73,3 @@
 - Use environment variable references: `{{env.SECRET}}`
 - Review MCP server source before using
 - Only connect servers you actually need
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

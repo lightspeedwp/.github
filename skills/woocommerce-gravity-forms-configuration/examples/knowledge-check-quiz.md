@@ -46,5 +46,3 @@ Use for training, onboarding, lightweight learning checks, or internal assessmen
 - Test pass, fail, boundary, and hidden-question cases.
 - Confirm score merge tags and confirmation content.
 - Review quiz result dashboard and entry data.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

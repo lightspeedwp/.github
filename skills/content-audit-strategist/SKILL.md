@@ -63,14 +63,4 @@ The default output should:
 - Do not collapse content audit and content strategy into one undifferentiated summary; make the current-state versus recommended-direction boundary explicit.
 - Prefer usable categories and synthesis over page-by-page noise when the evidence is broad.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

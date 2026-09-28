@@ -125,5 +125,3 @@ Stay in `yoast-configuration` when the user only needs:
 ## Safety notes
 
 Do not present `yoast-configuration` as having completed live WordPress checks. If the evidence requires WordPress admin, staging, production, or connector access, label the current output as a handoff and route the live inspection or edit to `yoast-auditor`.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

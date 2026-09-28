@@ -67,5 +67,3 @@ Choose one:
 - Owner:
 - Action:
 - Due date or next review point:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

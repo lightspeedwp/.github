@@ -36,5 +36,3 @@ Confirmed facts:
 Uncertain facts:
 - Whether the form failed, the email was blocked, or the message landed in spam.
 Reply goal: Acknowledge the issue and ask for the smallest useful evidence.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

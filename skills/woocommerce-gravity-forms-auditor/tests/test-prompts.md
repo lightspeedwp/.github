@@ -55,14 +55,4 @@ Use these prompts to regression-test the WooCommerce-focused auditor behaviour.
 | 24 | Compare staging and production WooCommerce Gravity Forms setups. | Read both environments if available, compare versions/forms/settings/add-ons/feeds/embeds/product context, mark missing evidence, no writes. |
 | 25 | Search the skill for stale generic references. | Fail if any downstream reference uses the non-WooCommerce configuration target, any generic downstream reference uses the non-WooCommerce auditor target, or any tourism/operator-sector wording remains. Allow the current WooCommerce auditor source skill name and the WooCommerce configuration target skill name. |
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
