@@ -83,4 +83,4 @@ python /home/oai/skills/pdfs/scripts/ocr_pdf.py input.pdf -o out.pdf --force
 - `pypdf` can decrypt if you have the password; otherwise you cannot legally/technically remove encryption.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

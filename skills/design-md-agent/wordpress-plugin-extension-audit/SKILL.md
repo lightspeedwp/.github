@@ -108,4 +108,4 @@ Respond with these sections in order:
 - "Review this WooCommerce extension UI and tell me whether it should extend the shared design system or keep its own adapter rules."
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

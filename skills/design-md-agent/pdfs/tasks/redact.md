@@ -76,4 +76,4 @@ use the box picker workflow:
 - Always re-render with at least one engine (`pdftoppm` is the default) and spot check.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
