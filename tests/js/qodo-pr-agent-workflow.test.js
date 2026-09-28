@@ -647,6 +647,97 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(uses).toMatch(/@[a-f0-9]{40}$/);
     }
   });
+
+  /**
+   * T028 and contracts/reusable-workflow.md disagreed for a while: the task
+   * text asked for the local `./.github/actions/collect-metrics` path behind an
+   * `if: github.repository == 'lightspeedwp/.github'` gate, while the contract
+   * requires the action to run in consuming repositories too. The contract is
+   * authoritative and the shipped workflow follows it, so these assertions pin
+   * that behaviour down, including the absence of the gate, so the two
+   * documents cannot drift apart again.
+   */
+  describe('record job metrics action', () => {
+    const metricsStep = (job) =>
+      (doc.jobs[job]?.steps || []).find((step) =>
+        String(step.uses || '').includes('collect-metrics')
+      );
+
+    it('calls the central action by owner, path and SHA so it needs no checkout', () => {
+      const step = metricsStep('record');
+      expect(step).toBeDefined();
+      expect(step.uses).toMatch(
+        /^lightspeedwp\/\.github\/\.github\/actions\/collect-metrics@[a-f0-9]{40}$/
+      );
+      expect(String(step.uses).startsWith('./')).toBe(false);
+      // The SHA is literal, not an expression, so the reference cannot drift
+      // with a branch name.
+      expect(step.uses).not.toContain('${{');
+    });
+
+    it('carries the contracted metric identity and stays non-blocking', () => {
+      const step = metricsStep('record');
+      expect(step.with).toMatchObject({
+        'workflow-name': 'qodo-pr-agent',
+        'job-name': 'run',
+        'metrics-file': 'qodo-pr-agent-metrics.json',
+      });
+      expect(step['continue-on-error']).toBe(true);
+    });
+
+    it('is not gated to this repository, so consuming repositories still record metrics', () => {
+      // The gate this replaces would have skipped the step everywhere except
+      // lightspeedwp/.github, which is the opposite of the contract's
+      // requirement that it "works in consuming repositories too".
+      const step = metricsStep('record');
+      expect(step.if).toBeUndefined();
+      expect(JSON.stringify(doc.jobs.record)).not.toContain(
+        "github.repository == 'lightspeedwp/.github'"
+      );
+    });
+
+    it('keeps T028 and the contract agreeing on the reference form', () => {
+      const contract = fs.readFileSync(
+        path.join(
+          repoRoot,
+          '.github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md'
+        ),
+        'utf8'
+      );
+      const tasks = fs.readFileSync(
+        path.join(repoRoot, '.github/specs/019-qodo-pr-agent-integration/tasks.md'),
+        'utf8'
+      );
+      const t028 = tasks.split('\n').find((line) => line.startsWith('- [X] T028'));
+
+      expect(t028).toBeDefined();
+      // Both documents must name the SHA-pinned cross-repository reference and
+      // neither may still mandate the local path or the repository gate. Each
+      // comparison carries the document's name, so a failure says which drifted.
+      for (const [label, text] of [
+        ['contract', contract],
+        ['T028', t028],
+      ]) {
+        expect({
+          document: label,
+          namesCrossRepositoryReference: text.includes(
+            'lightspeedwp/.github/.github/actions/collect-metrics'
+          ),
+          stillMandatesLocalPath: text.includes('./.github/actions/collect-metrics` with'),
+          stillMandatesRepositoryGate: text.includes(
+            "if: github.repository == 'lightspeedwp/.github'` and"
+          ),
+        }).toStrictEqual({
+          document: label,
+          namesCrossRepositoryReference: true,
+          stillMandatesLocalPath: false,
+          stillMandatesRepositoryGate: false,
+        });
+      }
+      // The contract keeps ownership of the requirement.
+      expect(contract).toContain('works in consuming repositories too');
+    });
+  });
 });
 
 describe('Qodo PR-Agent pilot caller workflow', () => {
