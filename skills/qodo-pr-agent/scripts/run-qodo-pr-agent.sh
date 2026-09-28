@@ -128,6 +128,10 @@ if [ "$tool" = "ask" ]; then tool_args+=("$question"); fi
 
 md_out="$out_dir/out.md"
 json_out="$out_dir/out.json"
+# A previous run's output must never be readable as this run's. Removing them
+# up front means a failed or skipped run leaves nothing behind to be mistaken
+# for a fresh result, and an empty file is never a valid result.
+rm -f "$md_out" "$json_out"
 
 # Run the pinned container against a PR URL or a read-only mounted diff.
 run_docker() {
@@ -173,8 +177,9 @@ set +e
 exit_code=$?
 set -e
 
-# In PR mode (publishing off) the tool prints its result to stdout.
-if [ -n "$pr_url" ] && [ ! -s "$md_out" ]; then
+# Some tools print their result to stdout instead of writing --output. Keep that
+# as a fallback, but never let a previous run's file stand in for this one.
+if [ -n "$pr_url" ] && [ ! -s "$md_out" ] && [ -s "$out_dir/stdout.txt" ]; then
   cp "$out_dir/stdout.txt" "$md_out"
 fi
 
@@ -186,6 +191,13 @@ if [ "$exit_code" -ne 0 ]; then
     emit error rate-limited
   fi
   emit error upstream-error
+fi
+
+# publish_output only gates posting, never generation. If neither the output
+# file nor stdout carried anything, nothing was generated and saying otherwise
+# would report a result that does not exist.
+if [ ! -s "$md_out" ]; then
+  emit skipped no-output
 fi
 
 emit ok "" "$md_out" "$json_out" "$truncated"

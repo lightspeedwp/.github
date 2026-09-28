@@ -171,7 +171,7 @@
   - **On output**: use the answer as test-planning input.
   - **Fallback**: proceed without it ("skipped").
 
-  Also, in `agents/issue-agent/AGENT.md` under "Integration Points", add a bullet: "Qodo PR-Agent `similar_issue`: deferred. The upstream tool is experimental, needs OpenAI embeddings and isn't in the Action image (spec 017, research R8)."
+  Also, in `agents/issue-agent/AGENT.md` under "Integration Points", add a bullet: "Qodo PR-Agent `similar_issue`: deferred. The upstream tool is experimental, needs OpenAI embeddings and isn't in the Action image (spec 019, research R8)."
 - [ ] T025 [US3] Run `npx jest tests/js/qodo-pr-agent-integrations.test.js` (it should pass), then `npm run validate:agents`, `npm run validate:frontmatter` and `npm run lint:md`. Then run the quickstart "Integration checks" with the key set and unset, and record the results in `.github/reports/metrics/qodo-pr-agent/pilot-validation.md` under "US3 integration checks".
 
 **Checkpoint**: every in-scope integration is documented, contract-tested and validated with and without Qodo PR-Agent.

@@ -44,7 +44,7 @@ The script writes `<out>/result.json` and prints the same JSON to stdout:
 ```json
 {
   "status": "ok | skipped | error",
-  "reason": "no-credential | no-runtime | rate-limited | tool-disabled | upstream-error | null",
+  "reason": "no-credential | no-runtime | no-output | rate-limited | tool-disabled | upstream-error | null",
   "tool": "review",
   "markdown": "…",
   "data": {},
@@ -53,6 +53,12 @@ The script writes `<out>/result.json` and prints the same JSON to stdout:
 ```
 
 Exit codes: `0` for `ok` **and** `skipped`, and `2` for `error`. A skipped result is never a failure (FR-014).
+
+`no-output` means the tool ran and exited cleanly but produced no content: neither an output file
+nor stdout carried anything. It is reported as `skipped` rather than `ok` so a caller is never handed
+an empty `markdown` as though it were a real review. Output files from a previous run are removed
+before each run, so this can never be a stale result read back as current. Callers should treat
+`no-output` as "nothing to report this time" and may retry or fall through; it is not an error.
 
 ## Caller obligations
 

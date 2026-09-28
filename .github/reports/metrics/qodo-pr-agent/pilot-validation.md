@@ -1,6 +1,6 @@
 # Qodo PR-Agent pilot validation
 
-Evidence for spec 017's live and walkthrough tasks. The scenarios are defined in
+Evidence for spec 019's live and walkthrough tasks. The scenarios are defined in
 [quickstart.md](../../../specs/019-qodo-pr-agent-integration/quickstart.md).
 
 - **Pilot start date (`PILOT_START`)**: not started. Set this to the date Q-01 first passes. The

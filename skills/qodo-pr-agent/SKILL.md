@@ -23,7 +23,7 @@ Qodo PR-Agent is the third-party tool, and is **not** the internal [`agents/pr-a
 | `update_changelog` | ✅ | — | `agents/changelog-agent/`, `skills/changelog-generator` |
 | `add_docs` | ✅ | — | `agents/document-reviewer-agent/` |
 
-`similar_issue` is not supported, because it is deferred (spec 017, research R8).
+`similar_issue` is not supported, because it is deferred (spec 019, research R8).
 
 ## Input Interface
 

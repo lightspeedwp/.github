@@ -1,5 +1,5 @@
 /**
- * Unit tests for scripts/metrics/qodo-pr-agent-report.cjs (spec 017, FR-021, SC-001).
+ * Unit tests for scripts/metrics/qodo-pr-agent-report.cjs (spec 019, FR-021, SC-001).
  */
 import zlib from 'node:zlib';
 
