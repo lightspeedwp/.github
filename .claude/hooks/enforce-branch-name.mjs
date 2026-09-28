@@ -462,17 +462,35 @@ function apiEndpoint(args) {
 }
 
 /** `-f key=value` fields of a `gh api` call. */
-function apiFields(args) {
-  const fields = {};
-  for (let i = 0; i < args.length; i += 1) {
-    if (['-f', '-F', '--field', '--raw-field'].includes(args[i]) && args[i + 1]) {
-      const [key, ...value] = args[i + 1].split('=');
-      fields[key] = value.join('=');
-      i += 1;
+/** `-f key=value` fields of a `gh api` call. */
+  function apiFields(args) {
+    const fields = {};
+    for (let i = 0; i < args.length; i += 1) {
+      if (['-f', '-F', '--field', '--raw-field'].includes(args[i]) && args[i + 1]) {
+        const [key, ...value] = args[i + 1].split('=');
+        fields[key] = value.join('=');
+        i += 1;
+      }
+    }
+    // A write sent as `--input body.json` carries its branch there, not in -f.
+    const at = args.indexOf('--input');
+    const body = at >= 0 && args[at + 1] ? readBody(args[at + 1]) : null;
+    if (body && typeof body === 'object' && !Array.isArray(body)) {
+      for (const [key, value] of Object.entries(body)) {
+        if (typeof value === 'string' && !(key in fields)) fields[key] = value;
+      }
+    }
+    return fields;
+  }
+
+  /** Parse a JSON request body from a file, or null if absent or invalid. */
+  function readBody(file) {
+    try {
+      return JSON.parse(readFileSync(file, 'utf8'));
+    } catch {
+      return null;
     }
   }
-  return fields;
-}
 
 const SHORT_WRITE_VERBS = new Set([
   'rm',
@@ -589,7 +607,12 @@ function checkBash(command, cwd) {
     ) {
       branch = positional[0];
     } else if (sub === 'add') {
-      if (rest.some((arg) => ['-A', '--all', '.', ':/'].includes(arg))) {
+      if (rest.some((arg) => ['-u', '--update'].includes(arg))) {
+        // `-u` stages modified tracked files only, and only under any pathspec
+        // given. `git status --porcelain` would add untracked files that `-u`
+        // never stages and would ignore the pathspec, so both over-block.
+        added.push(...(lines(run('git', ['diff', '--name-only', 'HEAD', '--', ...positional], gitCwd)) ?? []));
+      } else if (rest.some((arg) => ['-A', '--all', '.', ':/'].includes(arg))) {
         added.push(...(statusPaths(gitCwd) ?? []));
       } else {
         added.push(...positional);
@@ -662,6 +685,13 @@ function checkGitHub(tool, input, cwd) {
     return problem ? [`Branch creation blocked: ${problem}.`] : [];
   }
   if (/__(push_files|create_or_update_file|delete_file)$/.test(tool)) {
+    // With no branch the write lands on the repository's default branch, which
+    // is often `main`. writeProblem treats a missing branch as uncheckable and
+    // allows it, so the call would land on main having been checked against
+    // nothing. Refuse rather than assume.
+    if (!input.branch) {
+      return ['Write blocked: name the target branch explicitly.'];
+    }
     const paths = Array.isArray(input.files)
       ? input.files.map((file) => file && file.path).filter(Boolean)
       : [input.path].filter(Boolean);
@@ -722,8 +752,15 @@ function checkGh(args, cwd, branch) {
   }
   const contents = resource.match(/^contents\/(.+)$/);
   if (contents && ['PUT', 'DELETE'].includes(method)) {
-    // Without a branch field, GitHub writes to the default branch.
-    const target = fields.branch || BASE_BRANCH;
+    // GitHub writes to the repository's default branch when no branch is given,
+    // and that is often `main` rather than this repository's base branch. The
+    // base branch has a documentation exception and `main` has none, so
+    // assuming the base branch would check the write against the wrong branch
+    // and could let it land on main. Refuse instead of guessing.
+    if (!fields.branch) {
+      return ['Write blocked: name the target branch explicitly.'];
+    }
+    const target = fields.branch;
     const problem = fileWriteProblem({
       owner: apiOwner,
       repo: apiRepo,

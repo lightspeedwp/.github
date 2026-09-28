@@ -123,6 +123,18 @@ describe('protected branches and the documentation exception (T009)', () => {
     expect(runBash(fx, 'git add package.json && git commit -m "x"').status).toBe(2);
   });
 
+  // `-u` stages every modified tracked file, so pairing an already-staged doc
+  // file with a `-u` must not let a modified non-doc file through unseen.
+  test.each(['-u', '--update'])(
+    'refuses a commit on develop that stages a non-doc file via git add %s',
+    (flag) => {
+      fx.write('docs/a.md', 'docs\n');
+      fx.git('add', 'docs/a.md');
+      fx.write('package.json', '{"name":"x"}\n', { stage: false });
+      expect(runBash(fx, `git add ${flag} && git commit -m "x"`).status).toBe(2);
+    }
+  );
+
   test('refuses a commit on main, even when only docs are staged', () => {
     fx.branch('main');
     fx.write('docs/guide.md', '# Changed\n');
@@ -157,19 +169,67 @@ describe('protected branches and the documentation exception (T009)', () => {
     }
   );
 
-  // An empty refspec matches every ref, and a tag destination is not a branch,
-  // so neither may be routed through the branch-name check.
-  test.each(['git push origin :', 'git push +: origin', 'git push origin HEAD:refs/tags/v1'])(
-    'refuses or skips an uncheckable refspec: %s',
-    (command) => {
-      fx.branch('feat/good-name');
-      expect([0, 2]).toContain(runBash(fx, command).status);
-    }
-  );
+  // An empty refspec matches every ref, so it is refused outright. A tag
+  // destination is not a branch, so it is skipped rather than refused. Asserting
+  // either code for both would detect no regression in either direction.
+  test.each([
+    ['git push origin :', 2],
+    ['git push origin +:', 2],
+    ['git push origin HEAD:refs/tags/v1', 0],
+  ])('handles an uncheckable refspec exactly: %s', (command, expected) => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, command).status).toBe(expected);
+  });
 
   test('still allows a tags-only push that names no branch', () => {
     fx.branch('feat/good-name');
     expect(runBash(fx, 'git push --tags origin').status).toBe(0);
+  });
+
+  // A write with no branch field lands on the repository's default branch,
+  // which is often main. main is protected with no exception while the base
+  // branch has a docs exception, so the call must be refused outright rather
+  // than checked against a guessed branch. Both entry points are covered: the
+  // GitHub MCP tools and a `gh api` contents call.
+  test.each(['push_files', 'create_or_update_file', 'delete_file'])(
+    'refuses a contents %s with no branch field',
+    (tool) => {
+      const input = { path: 'docs/a.md', content: 'a' };
+      const run = runGuard(fx, mcp(tool, input));
+      expect(run.status).toBe(2);
+    }
+  );
+
+  // `-u` must not be read as "all files": it stages modified tracked files only,
+  // and only under a pathspec. An untracked file it would never stage must not
+  // block, and a pathspec must limit the check to that subtree.
+  test('does not treat an untracked file as staged by git add -u', () => {
+    fx.write('docs/a.md', 'docs\n');
+    fx.git('add', 'docs/a.md');
+    fx.write('untracked.txt', 'new\n', { stage: false });
+    expect(runBash(fx, 'git add -u && git commit -m "x"').status).toBe(0);
+  });
+
+  test('honours a pathspec given to git add -u', () => {
+    fx.write('docs/a.md', 'docs\n');
+    fx.write('src/a.js', 'code\n', { stage: false });
+    expect(runBash(fx, 'git add -u docs && git commit -m "x"').status).toBe(0);
+  });
+
+  test('refuses a gh api contents write with no branch field', () => {
+    const run = runBash(
+      fx,
+      'gh api -X PUT repos/lightspeedwp/.github/contents/docs/a.md -f message=x -f content=a'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('still allows a contents write that names a feature branch', () => {
+    const run = runGuard(
+      fx,
+      mcp('create_or_update_file', { branch: 'feat/good-name', path: 'docs/a.md', content: 'a' })
+    );
+    expect(run.status).toBe(0);
   });
 
   test('refuses MCP push_files to main with only docs paths', () => {
@@ -349,6 +409,26 @@ describe('GitHub MCP tools (T011)', () => {
       'gh api -X PUT repos/lightspeedwp/.github/contents/docs/a.md -f branch=main -f message=x -f content=eA=='
     );
     expect(run.status).toBe(2);
+  });
+
+  // A `--input` JSON body carries the branch instead of -f, so a write must
+  // still be refused when that body names main, and allowed on a feature branch.
+  test('refuses a gh api contents write whose --input body names main', () => {
+    fx.write('body.json', JSON.stringify({ branch: 'main', message: 'x', content: 'a' }));
+    const run = runBash(
+      fx,
+      'gh api -X PUT repos/lightspeedwp/.github/contents/docs/a.md --input body.json'
+    );
+    expect(run.status).toBe(2);
+  });
+
+  test('allows a gh api contents write whose --input body names a feature branch', () => {
+    fx.write('body.json', JSON.stringify({ branch: 'feat/good-name', message: 'x', content: 'a' }));
+    const run = runBash(
+      fx,
+      'gh api -X PUT repos/lightspeedwp/.github/contents/docs/a.md --input body.json'
+    );
+    expect(run.status).toBe(0);
   });
 
   test('refuses gh api branch creation with a forbidden prefix (T044)', () => {
