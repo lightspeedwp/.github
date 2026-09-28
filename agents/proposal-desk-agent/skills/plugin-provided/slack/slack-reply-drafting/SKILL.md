@@ -78,4 +78,4 @@ Draft: <link to draft>
 - If no unreplied messages are found, say so directly and explain the scope checked.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

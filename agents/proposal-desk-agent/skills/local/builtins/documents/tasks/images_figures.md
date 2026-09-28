@@ -67,4 +67,4 @@ If you see `anchor` rows, treat as high-risk and inspect renders closely.
 - Copy/pasted images with huge DPI metadata leading to surprising sizes
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

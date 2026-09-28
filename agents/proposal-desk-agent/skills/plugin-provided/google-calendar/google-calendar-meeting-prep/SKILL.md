@@ -28,4 +28,4 @@ Use this skill when the user wants a prep brief, not just the event details.
 - End with a short "what to do before this meeting" list when there is enough evidence to support it.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
