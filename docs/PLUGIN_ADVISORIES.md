@@ -133,29 +133,73 @@ add_action( 'rest_api_init', function () {
 } );
 
 function ls_newsletter_rate_limited( $email ) {
+	global $wpdb;
+
 	$ip = isset( $_SERVER['REMOTE_ADDR'] )
 		? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) )
 		: 'unknown';
-	$limits = array(
-		array(
-			'prefix' => 'ls_newsletter_ip_',
-			'value'  => $ip,
-			'max'    => 20,
-		),
-		array(
-			'prefix' => 'ls_newsletter_email_',
-			'value'  => strtolower( $email ),
-			'max'    => 3,
-		),
-	);
-	foreach ( $limits as $limit ) {
-		$key = $limit['prefix'] . wp_hash( $limit['value'], 'auth' );
-		if ( ls_newsletter_bump( $key, $limit['max'] ) ) {
-			return true;
-		}
+
+	if ( ! ls_newsletter_purge() ) {
+		return true;
+	}
+
+	// Both counters live in one table, so record both hits before deciding
+	// whether to refuse, and discard them together if the answer is yes. The
+	// ordering matters: the address counter is charged first, so a request
+	// refused for the address limit never reaches the IP write, and the
+	// rollback then discards the address charge when the IP limit is what
+	// refuses. Either way a refused request spends no budget. Without that,
+	// a visitor behind a shared NAT address can drain the IP budget that
+	// everyone behind it shares, by resubmitting an address that is already
+	// blocked for them. The transaction is what makes the discard atomic:
+	// no other request can observe a charge for a request that was refused.
+	$wpdb->query( 'START TRANSACTION' );
+
+	$refused = ls_newsletter_bump( ls_newsletter_key( 'ls_newsletter_email_', strtolower( $email ) ), 3 );
+	if ( ! $refused ) {
+		$refused = ls_newsletter_bump( ls_newsletter_key( 'ls_newsletter_ip_', $ip ), 20 );
+	}
+
+	if ( $refused ) {
+		$wpdb->query( 'ROLLBACK' );
+		return true;
+	}
+
+	// A commit that cannot be confirmed leaves the counters in an unknown
+	// state. Continuing would let them drift, so refuse rather than guess.
+	if ( false === $wpdb->query( 'COMMIT' ) ) {
+		return true;
 	}
 
 	return false;
+}
+
+function ls_newsletter_key( $prefix, $value ) {
+	return $prefix . wp_hash( $value, 'auth' );
+}
+
+/**
+ * Delete counters whose window has closed.
+ *
+ * Without this the table grows by a row per distinct address forever: the
+ * per-IP limit slows that down but does not bound it, because each new address
+ * still creates a fresh key. Purging here keeps the table to one window. The
+ * cutoff is compared directly against the indexed column rather than adding an
+ * interval to it, so the window_started index serves this as a range scan.
+ *
+ * @return bool False when the purge could not be completed.
+ */
+function ls_newsletter_purge() {
+	global $wpdb;
+
+	$table = $wpdb->prefix . 'ls_rate_limits';
+
+	return false !== $wpdb->query(
+		$wpdb->prepare(
+			"DELETE FROM {$table} WHERE window_started <= %d",
+			time() - HOUR_IN_SECONDS
+		)
+	);
 }
 
 /**
@@ -166,6 +210,11 @@ function ls_newsletter_rate_limited( $email ) {
  * the limit is silently bypassed. The increment and the read of the resulting
  * value happen in a single statement instead, so no increment is lost.
  *
+ * The increment is committed by this call, so a true return leaves the hit on
+ * disk unless the caller discards it. ls_newsletter_rate_limited() wraps the
+ * pair of calls in a transaction and rolls back, which is what makes a refused
+ * request free; any caller doing the same must discard it too.
+ *
  * @return bool True to refuse the request: the count is now over the limit,
  *              or the counter could not be read at all.
  */
@@ -174,25 +223,6 @@ function ls_newsletter_bump( $key, $max ) {
 
 	$table = $wpdb->prefix . 'ls_rate_limits';
 	$now   = time();
-
-	// Drop counters whose window has closed before adding this one. Without
-	// this the table grows by a row per distinct address forever: the per-IP
-	// limit slows that down but does not bound it, because each new address
-	// still creates a fresh key. Purging here keeps the table to one window. The
-	// cutoff is compared directly against the indexed column rather than adding an
-	// interval to it, so the window_started index serves this as a range scan.
-	$purge = $wpdb->query(
-		$wpdb->prepare(
-			"DELETE FROM {$table} WHERE window_started <= %d",
-			$now - HOUR_IN_SECONDS
-		)
-	);
-
-	if ( false === $purge ) {
-		// Without the purge the table would grow again, so refuse rather than
-		// let an unbounded table accumulate behind a working counter.
-		return true;
-	}
 
 	// LAST_INSERT_ID() carries the new counter out of the same atomic statement
 	// that performed the increment, so the number compared against $max is this
@@ -261,13 +291,26 @@ CREATE TABLE {$wpdb->prefix}ls_rate_limits (
   window_started BIGINT UNSIGNED NOT NULL,
   PRIMARY KEY (rate_key),
   KEY window_started (window_started)
-);
+) ENGINE=InnoDB;
 ```
+
+`ENGINE=InnoDB` is load-bearing, not decoration. `ls_newsletter_rate_limited()`
+discards a refused request's counter writes with `ROLLBACK`, and only InnoDB
+honours that. On MyISAM the statements succeed, the rollback is a no-op, and
+the counters behave exactly as the transactional version was written to prevent.
+Older MySQL defaults and some hosts still create tables as MyISAM, so state the
+engine rather than trusting the server default.
 
 Rows are purged on each request once their hour is up, so the table holds at most one window of counters rather than growing with every distinct address.
 
 The example allows 20 requests per IP and three per email address per hour,
-storing only WordPress hashes of those values. Tune both limits to the provider's
+storing only WordPress hashes of those values. A refused request is charged to
+neither counter, so the per-IP limit does not throttle a caller who keeps
+resubmitting an address that is already blocked: those requests are answered
+with 429 before the provider is called, so they stay cheap, but they are not
+counted. Sites that need volume-based throttling of that traffic should enforce
+it in front of WordPress, at the reverse proxy or WAF, where it also covers
+requests that never reach PHP. Tune both limits to the provider's
 contract, use a shared rate-limit service when traffic spans multiple application
 servers, and keep the provider secret in a constant rather than the database.
 Return `role="status"` / `role="alert"` regions so assistive technology announces

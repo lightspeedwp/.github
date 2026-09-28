@@ -75,12 +75,17 @@ implementation in lightspeedwp/.github#3524.
     - open-PR verification succeeded and found no open PR
     - it has been continuously observable as a branch for at least 1 day, from a branch-age signal such as a first-observed timestamp, never from the age of its tip commit
 
-    This check runs before the naming-violation check.
+    This check runs before the naming-violation check. The rule is specified but **cannot fire yet**: the
+    branch-age signal its third condition depends on does not exist, so no branch satisfies it and the
+    categoriser returns the result spec 009 would have produced anyway. See "Age" below.
   - **Audit command**: `cleanup-branches.js` stays report-only, as 009 FR-011 requires. The JSON report lists the
-    auto-approved branches.
-  - **Scheduled workflow**: 009's workflow gains a deletion step. It reads the JSON report, re-checks each
-    auto-approved branch (still merged, still no open PR), then deletes it. Everything else goes to the draft PR as
-    before.
+    auto-approved branches, which is an empty set for as long as the deferral holds.
+  - **Scheduled workflow (deferred)**: 009's workflow gains a deletion step **once the branch-age signal exists**.
+    While the deferral holds the step has nothing to do: it reads the JSON report, finds no `autoApproved` entry,
+    and deletes nothing. Everything else goes to the draft PR as before. When the step is enabled it re-checks
+    each auto-approved branch (still merged, still no open PR), records the branch tip OID it checked, and deletes
+    with `git push origin --delete <branch> --force-with-lease=<branch>:<oid>` so a push landing between the
+    re-check and the delete aborts the deletion instead of discarding work.
 - **Rationale**:
   - A branch with no commits of its own holds no work, so 009's zero-data-loss goal holds.
   - Keeping one categoriser and one workflow avoids duplication (constitution III).
@@ -89,7 +94,6 @@ implementation in lightspeedwp/.github#3524.
   - FR-020 to FR-022 depend on #3358 merging first.
   - The exit codes follow 009: 0 for success, 1 for fatal, 2 for partial failure.
 - **"Age"**: how long the branch has been continuously observable, measured from a branch-age signal such as a first-observed timestamp. This was originally the tip commit's date by analogy with 009 FR-005, but that is not a safe basis: a branch created moments ago can carry an old tip commit, so a fresh working branch would be auto-deleted within a day of being created. Because no branch-age signal exists to replace it and this spec keeps no persistent storage, the auto-approved deletion is deferred rather than shipped on the flawed basis; candidates fall back to 009's categorisation and draft-PR approval until the signal's storage is decided. While the deferral holds, no empty branch is auto-deleted at any age; every candidate goes through 009's categorisation and draft-PR approval instead.
-  within a day of its session starting.
 - **Alternatives considered**:
   - A: route `claude/*` through the draft PR. This needs a person to approve every day to meet SC-002, so it was
     rejected.
