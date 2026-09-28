@@ -70,8 +70,8 @@ and the first match wins:
 1. Protected branch → KEEP.
 2. Matches an exclusion pattern → KEEP.
 3. Has an open PR → KEEP.
-4. **New (018), deferred**: prefix `claude/`, merged to a base branch, open-PR check succeeded, and observable as a branch for at least 1 day, measured from a branch-age signal rather than the age of the tip commit →
-   **DELETE, auto-approved** (`auto_delete_empty_agent_branch`). This rule is not yet satisfiable: no branch-age signal exists, so no branch currently qualifies and candidates fall through to 009's categorisation and draft-PR approval.
+4. **New (018), deferred**: prefix `claude/`, identified as a platform placeholder by a separate branch-origin check and carrying no commits of its own, open-PR check succeeded, and observable as a branch for at least 1 day, measured from a branch-age signal rather than the age of the tip commit →
+   **DELETE, auto-approved** (`auto_delete_empty_agent_branch`). This rule is not yet satisfiable: no branch-age signal and no branch-origin signal exist, so no branch currently qualifies and candidates fall through to 009's categorisation. That fall-through is not always a draft PR: rule 5 sends a `claude/*` name that is invalid, or that carries its own commits, to DISCUSS, and there is no route from DISCUSS to draft-PR approval.
 5. Invalid name (including `claude/*` branches with their own commits) → DISCUSS (unchanged 009 rule).
 6. All later 009 rules are unchanged.
 
@@ -80,7 +80,7 @@ If open-PR verification is unavailable, rule 4 never applies. The branch falls t
 
 **Deletion step** (in 009's scheduled workflow) for each auto-approved branch:
 
-1. Re-check that the branch is still merged and has no open PR.
+1. Re-check, against the tip the delete will act on, that the branch is still a platform placeholder, still has no commits of its own, and still has no open PR. Merge status is deliberately not re-checked: it is no longer an eligibility condition.
 2. Delete it.
 3. Record the result.
 

@@ -348,6 +348,15 @@ describe('PLUGIN_ADVISORIES newsletter rate limiting', () => {
       );
     });
 
+    test('does not blame the address field for a 429 that may be the IP limit', () => {
+      // The limiter checks a per-address and a shared per-IP counter, and the
+      // 429 response does not identify which fired. A shared NAT can exhaust
+      // the IP limit while the submitted address is still under its own, so the
+      // message must not attribute it to the field the visitor filled in.
+      expect(advisory).toContain("showError('Too many attempts. Please try again later.')");
+      expect(advisory).not.toContain('Too many attempts from this address');
+    });
+
     test('explains the trade-off the no-charge-on-refusal policy makes', () => {
       expect(advisory).toMatch(/refused request is charged to\s+neither counter/i);
       expect(advisory).toMatch(/reverse proxy or WAF/i);

@@ -104,7 +104,11 @@ instruction or issue in a generator is not evidence that the feature ships.
     // advice: telling someone to check an already-valid address while they
     // are blocked only invites a retry that will be refused again.
     if (response.status === 429) {
-      showError('Too many attempts from this address. Please try again later.');
+      // The limiter checks a per-address and a shared per-IP counter, and the
+      // response does not say which one fired. A shared NAT can exhaust the IP
+      // limit while the address typed here is still under its own, so do not
+      // blame the field the visitor just filled in.
+      showError('Too many attempts. Please try again later.');
       return;
     }
     if (response.status === 400 || response.status === 422) {

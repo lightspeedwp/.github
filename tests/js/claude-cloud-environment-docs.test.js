@@ -376,10 +376,14 @@ describe('Claude cloud environment specification contracts', () => {
     });
 
     test('rechecks before deletion and continues after an individual failure', () => {
-      expect(model).toMatch(/Re-check that the branch is still merged and has no open PR/);
+      expect(model).toMatch(
+        /still a platform placeholder, still has no commits of its own, and still has no open PR/
+      );
+      expect(model).toMatch(/Merge status is deliberately not re-checked/);
+      expect(model).not.toMatch(/Re-check that the branch is still merged/);
       expect(model).toMatch(/Any failure → carry on with the other branches.*exit 2/);
       expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(
-        /re-check merged and no open PR/
+        /still a platform placeholder.*still no commits of its own.*still no open PR/
       );
       expect(contractRow(cleanup, 'Schedule')).toContain('At least daily');
       expect(contractRow(cleanup, 'Permissions')).toMatch(
@@ -426,6 +430,38 @@ describe('Claude cloud environment specification contracts', () => {
       );
     });
 
+    test('re-checks placeholder origin and own commits before deleting, not merge status', () => {
+      // The lease binds the delete to one tip OID, so every eligibility
+      // condition must be re-checked against that same tip. A placeholder that
+      // received a commit after the audit would otherwise be deleted with the
+      // new work still on it, and merge status is no longer a condition at all.
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(
+        /re-check against the same tip the delete will act on.*still a platform placeholder.*still no commits of its own.*still no open PR.*Record that tip OID/
+      );
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).not.toMatch(
+        /re-check merged and no open PR/
+      );
+    });
+
+    test('does not promise draft-PR approval for every deferred candidate', () => {
+      // Spec 009's unchanged naming rule sends an invalid `claude/*` name, or
+      // one carrying its own commits, to DISCUSS, and nothing routes DISCUSS to
+      // draft-PR approval. Claiming every candidate gets a draft PR would
+      // contradict the documented rule order in data-model.md.
+      expect(contractRow(cleanup, 'Configuration')).toMatch(
+        /follows 009's categorisation, which is not always draft-PR approval.*routed to DISCUSS.*no route from DISCUSS to draft-PR approval/
+      );
+      expect(model).toMatch(/Invalid name .*claude\/\*.* → DISCUSS/);
+      // The same promise must not survive in FR-020 or research.md.
+      expect(requirement('FR-020')).not.toMatch(
+        /every candidate follows spec 009's normal categorisation and draft-PR approval/
+      );
+      expect(requirement('FR-020')).toMatch(/KEEP, DISCUSS, or a draft-PR-approved DELETE/);
+      expect(research).not.toMatch(
+        /every candidate goes through 009's categorisation and draft-PR approval instead/
+      );
+    });
+
     test('records the missing branch-origin signal as a second blocker', () => {
       expect(contractRow(cleanup, 'Branch-origin check')).toMatch(
         /Not specified.*second blocker.*FR-021 requires a branch failing an FR-020 condition/
@@ -443,7 +479,7 @@ describe('Claude cloud environment specification contracts', () => {
       );
       expect(cleanup).toMatch(/`--dryRun=false` is still rejected with exit 1/);
       expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(
-        /re-check merged and no open PR.*manual run chooses report-only/
+        /still no open PR.*manual run chooses report-only/
       );
     });
 
