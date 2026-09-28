@@ -93,5 +93,3 @@ Classify each difference as one of:
 - Check robots.txt, llms.txt and HTTP headers directly.
 - Compare staging and live separately when caching or environment rules differ.
 - Re-run key checks after plugin/theme/cache/CDN changes.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

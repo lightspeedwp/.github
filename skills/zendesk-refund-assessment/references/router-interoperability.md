@@ -84,5 +84,3 @@ When returning to the router, keep the payload short:
 ```
 
 Do not perform broad Zendesk routing inside this skill. Name the ambiguity and hand it back.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -77,5 +77,3 @@
 - What we recommend:
 - What needs approval:
 - What we will validate after changes:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

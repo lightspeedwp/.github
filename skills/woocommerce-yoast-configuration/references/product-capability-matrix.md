@@ -44,15 +44,3 @@ Use this matrix as a working structure. Before making current product claims, ve
 ## Allowed values
 
 Use `Included`, `Not included`, `Partial`, `Requires add-on`, `Requires manual configuration`, `Requires developer customisation`, or `Unclear from available sources` when producing the final matrix.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
