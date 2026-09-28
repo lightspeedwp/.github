@@ -69,4 +69,4 @@ python render_docx.py protected.docx --output_dir out_protected
 - Some docs may not have `word/settings.xml`; this helper creates it.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
