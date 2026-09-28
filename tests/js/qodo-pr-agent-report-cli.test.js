@@ -169,6 +169,32 @@ globalThis.fetch = async (url, options) => {
     expect(fs.existsSync(requestLog)).toBe(false);
   });
 
+  it.each([
+    ['--tokens-per-run', 'abc', 'not a number'],
+    ['--tokens-per-run', '-1', 'negative'],
+    ['--price-per-mtok', 'free', 'not a number'],
+    ['--price-per-mtok', '-0.5', 'negative'],
+  ])('rejects %s = %s (%s) rather than reporting a broken figure', (flag, value) => {
+    // Number() yields NaN for non-numeric input and ?? keeps it, so an
+    // unchecked value reached the report as "≈ $NaN" for the spend estimate
+    // that SC-008 depends on.
+    const result = run(['--since', '2026-10-01', flag, value]);
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain(`${flag} must be a non-negative number`);
+    expect(result.stdout).not.toContain('NaN');
+    expect(fs.existsSync(requestLog)).toBe(false);
+  });
+
+  it('accepts zero and decimal amounts', () => {
+    for (const [flag, value] of [
+      ['--tokens-per-run', '0'],
+      ['--price-per-mtok', '0.25'],
+    ]) {
+      const result = run(['--since', '2026-10-01', flag, value]);
+      expect([flag, result.status]).toStrictEqual([flag, 0]);
+    }
+  });
+
   describe('artefact collection boundaries', () => {
     const api = 'https://api.github.com/repos/lightspeedwp/.github';
     const runsUrl = (page) =>
@@ -214,19 +240,82 @@ globalThis.fetch = async (url, options) => {
       expect(urls).toHaveLength(104);
     });
 
-    it('stops after ten full pages even if more runs may exist', () => {
+    it('pages through every run past 1,000 and reports the last record', () => {
+      // Ten full pages of 100, then a short eleventh page. Under the old
+      // ten-page ceiling the loop exited on its counter while page 10 was still
+      // exactly full, so page 11 was never requested and run 1,001 was dropped
+      // from the totals without any indication. Records are attached to a few
+      // runs only, to keep the fixture small; the one that matters is 1,001,
+      // which sits on the page the ceiling used to skip.
+      const total = 1050;
+      const recordRunIds = new Set([1, 500, 1000, 1001, 1050]);
       const responses = {};
-      for (let page = 1; page <= 10; page += 1) {
-        const runs = Array.from({ length: 100 }, (_, i) => ({ id: (page - 1) * 100 + i + 1 }));
+      for (let page = 1; page <= 11; page += 1) {
+        const runs = Array.from({ length: 100 }, (_, i) => ({
+          id: (page - 1) * 100 + i + 1,
+        })).filter(({ id }) => id <= total);
         responses[runsUrl(page)] = { json: { workflow_runs: runs } };
-        for (const { id } of runs) responses[artefactsUrl(id)] = { json: { artifacts: [] } };
+        for (const { id } of runs) {
+          if (!recordRunIds.has(id)) {
+            responses[artefactsUrl(id)] = { json: { artifacts: [] } };
+            continue;
+          }
+          responses[artefactsUrl(id)] = { json: { artifacts: [selected] } };
+        }
       }
+      responses[archiveUrl] = {
+        archive: zipRecord({ tool: 'ask', outcome: 'success', duration_seconds: 42 }).toString(
+          'base64'
+        ),
+      };
+
       const result = runWithResponses(responses);
       expect(result.status).toBe(0);
-      expect(result.stdout).toContain('**0** of 0 records');
-      const requests = JSON.parse(fs.readFileSync(requestLog, 'utf8'));
-      expect(requests.filter(({ url }) => url.includes('/workflows/'))).toHaveLength(10);
-      expect(requests).toHaveLength(1010);
+      // Five records were attached, so the report must show five runs. If the
+      // eleventh page were skipped, only four would be reported.
+      expect(result.stdout).toContain('| `ask` | 5 |');
+      expect(result.stdout).toContain('**5** of 5 records');
+      // The run the old ceiling dropped: id 1,001, first on page 11.
+      const artefactRequests = JSON.parse(fs.readFileSync(requestLog, 'utf8')).map(
+        ({ url }) => url
+      );
+      expect(artefactRequests).toContain(artefactsUrl(1001));
+
+      const pageRequests = artefactRequests.filter((url) => url.includes('/workflows/'));
+      expect(pageRequests).toStrictEqual([
+        runsUrl(1),
+        runsUrl(2),
+        runsUrl(3),
+        runsUrl(4),
+        runsUrl(5),
+        runsUrl(6),
+        runsUrl(7),
+        runsUrl(8),
+        runsUrl(9),
+        runsUrl(10),
+        runsUrl(11),
+      ]);
+    });
+
+    it('stops on the first short page without requesting another', () => {
+      // The termination condition is a page shorter than per_page, so a
+      // one-page result must not trigger a second request. The fixture throws
+      // on any unlisted URL, so a stray page=2 would fail the run outright.
+      const responses = {
+        [runsUrl(1)]: { json: { workflow_runs: [{ id: 1 }, { id: 2 }] } },
+      };
+      responses[artefactsUrl(1)] = { json: { artifacts: [selected] } };
+      responses[artefactsUrl(2)] = { json: { artifacts: [] } };
+      responses[archiveUrl] = {
+        archive: zipRecord({ tool: 'ask', outcome: 'success', duration_seconds: 5 }).toString(
+          'base64'
+        ),
+      };
+
+      const result = runWithResponses(responses);
+      expect(result.status).toBe(0);
+      const requests = JSON.parse(fs.readFileSync(requestLog, 'utf8')).map(({ url }) => url);
+      expect(requests.filter((url) => url.includes('/workflows/'))).toStrictEqual([runsUrl(1)]);
     });
 
     it('downloads only the first matching unexpired artefact', () => {

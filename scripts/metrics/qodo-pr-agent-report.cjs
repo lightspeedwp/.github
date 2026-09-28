@@ -27,10 +27,29 @@ const SC001_LIMIT_SECONDS = 600;
 const SC001_ELIGIBLE_OUTCOMES = new Set(['success', 'failure', 'skipped:no-credential']);
 
 /**
+ * Parse a non-negative numeric flag value.
+ * Number() returns NaN for non-numeric input, and ?? does not replace NaN, so
+ * an unchecked flag reaches the report as a $NaN spend figure rather than
+ * failing. Reject it here, before any request is made.
+ * @param {string|undefined} value - Raw flag value.
+ * @param {string} flag - Flag name, for the error message.
+ * @returns {number} The parsed value.
+ * @throws {Error} If the value is not a finite, non-negative number.
+ */
+function parseAmount(value, flag) {
+  const parsed = Number(value);
+  if (!Number.isFinite(parsed) || parsed < 0) {
+    throw new Error(`${flag} must be a non-negative number`);
+  }
+  return parsed;
+}
+
+/**
  * Parse report flags, applying defaults for the repository, workflow and cost estimate.
  * @param {string[]} argv - Flag/value pairs from the command line.
  * @returns {object} Report options, including the required YYYY-MM-DD start date.
- * @throws {Error} If --since is missing or malformed, or a flag is unrecognized.
+ * @throws {Error} If --since is missing or malformed, a numeric flag is not a
+ *   non-negative number, or a flag is unrecognized.
  */
 function parseArgs(argv) {
   const args = {
@@ -56,10 +75,10 @@ function parseArgs(argv) {
         args.workflow = value;
         break;
       case '--tokens-per-run':
-        args.tokensPerRun = Number(value);
+        args.tokensPerRun = parseAmount(value, '--tokens-per-run');
         break;
       case '--price-per-mtok':
-        args.pricePerMtok = Number(value);
+        args.pricePerMtok = parseAmount(value, '--price-per-mtok');
         break;
       default:
         throw new Error(`Unknown argument: ${key}`);
@@ -293,8 +312,10 @@ async function github(url, token, raw = false) {
 
 /**
  * Collect records from the first unexpired matching artifact for each workflow run.
- * Searches at most 10 pages of 100 runs since the requested date, skipping runs
- * without a matching artifact or a nonempty run-record file.
+ * Pages through every run since the requested date, so the report is never
+ * silently truncated: the only stop condition is a page that comes back short,
+ * which is the last page. Skips runs without a matching artifact or a nonempty
+ * run-record file.
  * @param {{repo: string, workflow: string, since: string}} options - Repository,
  *   workflow file name and YYYY-MM-DD lower bound for run creation.
  * @param {string} token - GitHub API bearer token.
@@ -303,10 +324,11 @@ async function github(url, token, raw = false) {
  */
 async function collectRecords({ repo, workflow, since }, token) {
   const api = `https://api.github.com/repos/${repo}`;
+  const perPage = 100;
   const records = [];
-  for (let page = 1; page <= 10; page += 1) {
+  for (let page = 1; ; page += 1) {
     const runs = await github(
-      `${api}/actions/workflows/${workflow}/runs?created=%3E%3D${since}&per_page=100&page=${page}`,
+      `${api}/actions/workflows/${workflow}/runs?created=%3E%3D${since}&per_page=${perPage}&page=${page}`,
       token
     );
     for (const run of runs.workflow_runs) {
@@ -317,7 +339,19 @@ async function collectRecords({ repo, workflow, since }, token) {
       const json = readFromZip(zip, 'qodo-pr-agent-run.json');
       if (json) records.push(JSON.parse(json));
     }
-    if (runs.workflow_runs.length < 100) break;
+    // A short page is the last page. This used to sit alongside a hard ten-page
+    // ceiling, which silently dropped everything past 1,000 runs: the loop
+    // exited on the counter while the last page was still exactly full, and
+    // nothing downstream learned the totals were partial. A pilot report that
+    // understates SC-001 and SC-008 without saying so is worse than a slow
+    // one, so completeness is the property worth paying for.
+    //
+    // The ceiling did bound how long collection could take, so callers relying
+    // on a completion guarantee should keep their own window tight. The daily
+    // job's 14-day window is comfortably inside it for a pilot; a long manual
+    // --since can now run to the job timeout, which fails the job visibly
+    // rather than publishing a quietly wrong report.
+    if (runs.workflow_runs.length < perPage) break;
   }
   return records;
 }
