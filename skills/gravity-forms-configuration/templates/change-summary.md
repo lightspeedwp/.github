@@ -59,5 +59,3 @@
 
 1.
 2.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
