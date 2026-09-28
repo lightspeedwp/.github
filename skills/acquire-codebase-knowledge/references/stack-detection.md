@@ -154,5 +154,3 @@ If no manifest file is present but a `Dockerfile` exists, the `FROM` line reveal
 | `FROM ruby:X` | Ruby X |
 | `FROM rust:X` | Rust X |
 | `FROM alpine` (alone) | Check what's installed via `RUN apk add` |
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
