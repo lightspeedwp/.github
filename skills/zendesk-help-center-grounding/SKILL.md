@@ -101,4 +101,4 @@ If multiple routes seem possible, choose the smallest next step that resolves th
 - Avoid relying on personal memory, one teammate's workspace context, or customer-specific details saved from another conversation.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

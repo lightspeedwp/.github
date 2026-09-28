@@ -362,4 +362,4 @@ and options provided
 > Do not change the data, unless the prompt instructions clearly and without a doubt specify to do so.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

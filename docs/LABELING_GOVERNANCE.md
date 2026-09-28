@@ -360,4 +360,4 @@ Full execution logs available in **Actions** tab under **Labeling • Unified Go
 *Maintained by LightSpeedWP · Built with ☕, 🚀, and open-source spirit!*
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

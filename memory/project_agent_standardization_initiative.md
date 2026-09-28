@@ -102,4 +102,4 @@ Multi-provider agent rewrite project to unify ChatGPT agent exports into standar
 - [agents/agent-spec.instructions.md](../instructions/agent-spec.instructions.md) - Agent spec standards
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

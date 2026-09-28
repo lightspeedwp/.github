@@ -44,4 +44,4 @@ So searching for a substring and replacing it "as text" often fails.
 - replace the Nth tracked insertion inside a paragraph
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

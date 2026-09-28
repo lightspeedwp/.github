@@ -571,4 +571,4 @@ Then follow the governance checklist on this page.
 <!-- RANDOM FOOTER: 📝 Clear specs, reliable agents! -->
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

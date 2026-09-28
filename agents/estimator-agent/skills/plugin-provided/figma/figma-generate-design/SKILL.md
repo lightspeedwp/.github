@@ -495,4 +495,4 @@ Because this skill works incrementally (one section per call), errors are natura
 - **Match existing conventions.** If the file already has screens, match their naming, sizing, and layout patterns.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -384,4 +384,4 @@ Expected progression (from survey Week 4-6):
 *This tracker is updated weekly and feeds into the Phase 6 Checkpoint Report (Week 6 final deliverable).*
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

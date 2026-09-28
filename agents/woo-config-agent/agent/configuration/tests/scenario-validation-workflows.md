@@ -307,4 +307,4 @@ Before closing a validation pass, confirm that:
 - maintenance requests stay on the maintenance workflow while delivery requests stay on the correct routed local skill
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

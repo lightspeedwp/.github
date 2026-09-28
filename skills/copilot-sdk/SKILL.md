@@ -944,4 +944,4 @@ The SDK manages the CLI process lifecycle automatically. All communication happe
 This SDK is in **Technical Preview** and may have breaking changes. Not recommended for production use yet.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

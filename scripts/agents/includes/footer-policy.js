@@ -263,6 +263,13 @@ export function isThematicBreakLine(line) {
 }
 
 /**
+ * The repository these links default to when `GITHUB_REPOSITORY` is unset.
+ *
+ * @type {string}
+ */
+export const DEFAULT_REPO_SLUG = 'lightspeedwp/.github';
+
+/**
  * Directory names that are exempt from footer requirements, per the "Exclusions"
  * section of `docs/QUIRKY_FOOTERS_GUIDE.md`. Matched as whole path segments so
  * a file merely *named* `examples.md` is not treated as living in an examples
@@ -329,4 +336,57 @@ export function isFooterExemptPath(filePath) {
   const segments = normalised.split('/');
   segments.pop(); // Drop the filename: only directories can grant an exemption.
   return segments.some((segment) => FOOTER_EXEMPT_DIR_NAMES.has(segment));
+}
+
+/**
+ * Repository slug the generated links should point at.
+ *
+ * The footer generators used to hardcode `lsx-demo-theme` in the
+ * `Contributors` link while every other repo-scoped link in the same block
+ * pointed at `lightspeedwp/.github`. That link was never parameterised, so
+ * every file which received the fallback inherited a link to an unrelated
+ * project — 825 tracked Markdown files at the time this was fixed.
+ *
+ * `GITHUB_REPOSITORY` is what Actions and the agents already use elsewhere
+ * (`meta.agent.js`, `branding.agent.js`), so this follows the established
+ * pattern rather than inventing one. A malformed value is ignored rather than
+ * propagated into a URL.
+ *
+ * @param {NodeJS.ProcessEnv} [env] - Environment to read, for testing
+ * @returns {string} An `owner/name` slug
+ */
+export function repoSlug(env = process.env) {
+  const raw = String(env.GITHUB_REPOSITORY || '').trim();
+  return /^[A-Za-z0-9._-]+\/[A-Za-z0-9._-]+$/.test(raw) ? raw : DEFAULT_REPO_SLUG;
+}
+
+/**
+ * Absolute GitHub URL within the current repository.
+ *
+ * `segments` is an explicit parameter rather than a rest argument so that the
+ * environment override stays a real, testable parameter instead of being
+ * mistaken for a path segment.
+ *
+ * @param {string|string[]} [segments] - Path within the repository
+ * @param {NodeJS.ProcessEnv} [env] - Environment to read, for testing
+ * @returns {string} An absolute `https://github.com/...` URL
+ */
+export function repoUrl(segments = [], env = process.env) {
+  const path = (Array.isArray(segments) ? segments : [segments])
+    .flatMap((s) => String(s).split('/'))
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .join('/');
+  const base = `https://github.com/${repoSlug(env)}`;
+  return path ? `${base}/${path}` : base;
+}
+
+/**
+ * The Markdown `Contributors` link line, derived rather than hardcoded.
+ *
+ * @param {NodeJS.ProcessEnv} [env] - Environment to read, for testing
+ * @returns {string} e.g. `[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)`
+ */
+export function contributorsLink(env = process.env) {
+  return `[Contributors](${repoUrl('graphs/contributors', env)})`;
 }

@@ -118,4 +118,4 @@ Use templates for consistency:
 For client-facing summaries, stay practical and non-alarmist. For developer handoff, include exact selectors, template names, block names, post IDs, URLs, reproduction notes, and evidence confidence when available.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -566,4 +566,4 @@ Once audit validation is complete:
 **Validation Run Timestamp**: To be filled in when audit validation is executed
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

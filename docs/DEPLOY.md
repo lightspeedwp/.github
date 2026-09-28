@@ -122,4 +122,4 @@ See [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) for complete release workflow det
 **No manual deployment needed.** The GitHub Pages workflow is already configured and will deploy automatically.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

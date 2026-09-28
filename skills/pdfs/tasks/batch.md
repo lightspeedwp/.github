@@ -62,4 +62,4 @@ python batch_pdf.py normalize \
   - `python create_montage.py /mnt/data/_one --out /mnt/data/_one_montage.png`
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

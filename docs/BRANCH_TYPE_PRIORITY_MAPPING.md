@@ -376,4 +376,4 @@ Branch type triggers automatic labels:
 **Coverage**: Top 20 branch types (~96% of organizational usage)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

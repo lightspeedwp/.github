@@ -31,4 +31,4 @@
 | form_submit | Lead form submission | GA4/GTM | Test submission | Pending |  |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

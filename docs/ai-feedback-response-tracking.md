@@ -375,4 +375,4 @@ If you have questions about AI feedback response tracking:
 For workflow bugs or feature requests, open an issue with the `workflow` label.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

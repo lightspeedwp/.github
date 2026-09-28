@@ -285,4 +285,4 @@ accDescr: Detailed diagram
 Focus on creating a specification that serves as both documentation and a template for workflow updates.
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

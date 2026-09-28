@@ -74,4 +74,4 @@ Regenerate or add Mermaid diagrams with proper styling, accessibility (WCAG AA),
 - Clear summary of changes and any follow-up actions.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

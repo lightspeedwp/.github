@@ -133,4 +133,4 @@ Run `bash scripts/run-master-validation.sh` if a change affects any of these:
 - [ ] I reran the validator until the full chain passed
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

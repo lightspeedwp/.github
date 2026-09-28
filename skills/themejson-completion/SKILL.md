@@ -218,4 +218,4 @@ If validation fails, fix only issues introduced by the approved changes or repor
 Then ask: `Approve this plan and proceed with implementation?`
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

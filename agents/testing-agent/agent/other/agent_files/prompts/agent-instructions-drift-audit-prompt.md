@@ -50,4 +50,4 @@ Validation expectation:
 - Run the documented validation entry point when instruction-linked docs or file-quality assets change.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

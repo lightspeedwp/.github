@@ -70,4 +70,4 @@ Provide enterprise-grade, portable changelog management using Keep a Changelog 1
 *Generated during Phase 2 Agent Specification Audit*
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

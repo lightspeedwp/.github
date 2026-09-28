@@ -76,4 +76,4 @@ python scripts/heading_audit.py /mnt/data/input.docx
 - Having different documents disagree on what Heading 1/2/3 look like (solve with templates)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

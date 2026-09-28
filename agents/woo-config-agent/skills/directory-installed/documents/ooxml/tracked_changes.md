@@ -74,4 +74,4 @@ The CLI defaults to auto-generated `w:id` values (`--del-id auto --ins-id auto`)
 - Be aware: renders usually show redlines, but always verify the OOXML is correct too
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

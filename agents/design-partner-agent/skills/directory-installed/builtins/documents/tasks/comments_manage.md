@@ -110,4 +110,4 @@ python render_docx.py final_clean.docx --output_dir out_final_clean
 - After stripping, render PNGs and verify nothing disappeared around comment anchors.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

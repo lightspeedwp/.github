@@ -80,4 +80,4 @@ Use `MAJOR.MINOR.PATCH`, for example `1.0.0`.
 4. Re-run the validator.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

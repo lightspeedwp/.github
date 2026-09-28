@@ -111,4 +111,4 @@ A strong result should let the agent or user answer all of these clearly:
 - `references/evidence-record-template.md` — use this as the default output structure for evidence-normalisation and intake-style outputs.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

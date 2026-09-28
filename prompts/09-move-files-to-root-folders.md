@@ -583,4 +583,4 @@ To audit and migrate again (if new misplaced files appear):
 **Dependencies:** `git`, grep, sed, npm (for linting)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

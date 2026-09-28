@@ -334,4 +334,4 @@ Review the completed checklist with the project strategist before design, build 
 - For WordPress projects, map content items to custom post types, taxonomies, block patterns and reusable templates where relevant.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

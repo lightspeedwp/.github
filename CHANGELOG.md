@@ -53,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Documentation Footer-Clean** — Compounded stacks removed across `docs/`, with a single footer left wherever a file is meant to have one. (Relates to #3451)
 - **Plugin Documentation Footer-Clean** — The `plugins/` tree is clear, including the reference and example files that should never have carried a footer. (Relates to #3451)
 - **Skill Library Footer-Clean** — Every compounded block under `skills/` is gone, and the skill reference files the policy exempts now carry no footer at all. (Relates to #3451)
+- **Footer Contributors Link Names the Right Repository** — The generated `Contributors` link is now derived from the repository the file belongs to, instead of naming an unrelated project. (Relates to #3451)
 - **Stale Pull Requests Self-Update** — Eligible non-draft, non-fork PRs targeting `develop` now merge it in as soon as they fall behind, so nothing stays blocked on staleness alone. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
 - **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)

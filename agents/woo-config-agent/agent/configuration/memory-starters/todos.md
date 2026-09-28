@@ -55,4 +55,4 @@ Use this file for active project continuity across sessions.
 - Do not turn this file into a scratchpad; keep only details that will matter in later sessions.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

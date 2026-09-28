@@ -80,4 +80,4 @@ For mailbox analysis requests such as triage, follow-up detection, topic summari
 If thread or inbox data is missing, say that Gmail access may be unavailable or scoped to the wrong account and ask the user to reconnect or clarify which mailbox or thread should be used.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

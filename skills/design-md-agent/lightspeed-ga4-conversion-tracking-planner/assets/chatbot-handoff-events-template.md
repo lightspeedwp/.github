@@ -31,4 +31,4 @@
 | chatbot_handoff_click | Bot routes to contact/booking | chatbot_intent, handoff_type | Yes | No personal data in GA4 | Phase 2 |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
