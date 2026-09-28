@@ -47,5 +47,3 @@ Use this file when structured data or Yoast schema graph output is in scope.
 ## Output
 
 Include affected URL, observed schema, issue, confidence, risk, owner, recommendation and retest step.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

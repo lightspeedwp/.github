@@ -57,15 +57,3 @@ Use this reference for general Yoast SEO setup decisions on WordPress sites.
 ## Approval boundaries
 
 Require explicit approval for changes that affect indexation, canonical targets, XML sitemap inclusion, redirects, schema output or bulk metadata.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

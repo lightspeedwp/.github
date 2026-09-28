@@ -180,14 +180,4 @@ Use `templates/redirect-map-review.md` for old-to-new URL decisions and `templat
 
 Use `woocommerce-yoast-configuration` for planning, evidence interpretation, reports, decision packs and handoffs. Route live WordPress admin inspection or approved Yoast edits to `woocommerce-yoast-auditor` using `references/related-skills-routing.md`.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -85,5 +85,3 @@ For each public form, record:
 ## Data-retention review output
 
 Use `templates/data-retention-review.md` when the user asks about privacy, retention, entries, exports, erasure, entry cleanup, uploaded files, partial entries, Save and Continue, or data minimisation.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -36,5 +36,3 @@ Blocker, High, Medium, Low, Info.
 ## Confidence values
 
 High, Medium, Low.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

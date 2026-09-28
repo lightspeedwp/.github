@@ -282,14 +282,4 @@ Use these prompts to check the skill after updates:
 3. `Create the Linear issues for these approved GitHub tasks.`
    - Expected: draft or confirm issue shape first if needed, then route live workspace creation to `linear` only because the user explicitly asked for creation.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

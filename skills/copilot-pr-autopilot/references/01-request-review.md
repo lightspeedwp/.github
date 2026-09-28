@@ -67,15 +67,3 @@ Owner: **parent** (no sub-agent); budget: n/a.
 4. If `01-request-review.ps1` throws because Copilot isn't a valid
    reviewer (Copilot Code Review not enabled on the repo / account),
    take the [single-iteration fallback](orchestration.md#single-iteration-fallback).
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

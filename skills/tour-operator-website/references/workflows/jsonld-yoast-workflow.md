@@ -45,5 +45,3 @@ LightSpeed has not confirmed Tour Operator JSON-LD support in this package. Trea
 - Exposing private reviewer/team contact data.
 - Plain-text price fields mapped as structured offers without parsing rules.
 - Treating Schema.org correctness as Google rich-result eligibility.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
