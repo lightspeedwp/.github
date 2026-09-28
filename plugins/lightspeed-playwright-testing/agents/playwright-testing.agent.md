@@ -39,4 +39,4 @@ agent export:
 Install steps for each provider are in [`../INSTALL.md`](../INSTALL.md).
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

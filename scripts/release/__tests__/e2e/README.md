@@ -227,4 +227,4 @@ cat .github/reports/release-validation/summary.json | jq .
 - [.github/workflows/release-e2e-tests.yml](../../../.github/workflows/release-e2e-tests.yml) — GitHub Actions workflow
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

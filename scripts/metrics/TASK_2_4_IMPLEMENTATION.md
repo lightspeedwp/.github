@@ -470,4 +470,4 @@ labels: ['urgent', 'review-needed'] // user-provided
 *Generated: 2026-08-21 | Metrics Agent Phase 2*
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

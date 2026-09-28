@@ -369,4 +369,4 @@ If CI shows RED but it's NOT caused by this PR:
 **Dependencies:** GitHub access, git, `develop` branch permissions
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
