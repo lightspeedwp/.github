@@ -39,5 +39,3 @@ Use this section in every report.
 - Help Centre checked, if relevant:
 - Secondary sources used:
 - Missing or incomplete evidence:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
