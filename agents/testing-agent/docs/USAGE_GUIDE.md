@@ -464,4 +464,4 @@ Agent provides:
 *Testing Agent v2.2.0 · Multi-Framework Testing for WordPress & WooCommerce*
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

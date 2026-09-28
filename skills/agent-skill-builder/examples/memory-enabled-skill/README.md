@@ -26,5 +26,3 @@
 <!-- BADGES-END -->
 
 Use memory only for durable preferences, project defaults, decisions, and active open loops.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

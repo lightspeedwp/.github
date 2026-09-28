@@ -77,4 +77,4 @@ Deliverable format:
 - Keep the repair pass scoped to app-guidance alignment unless a new blocking issue is discovered.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

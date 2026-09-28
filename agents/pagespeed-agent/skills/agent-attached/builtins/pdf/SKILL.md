@@ -84,4 +84,4 @@ pdftoppm -png "$INPUT_PDF" "$OUTPUT_PREFIX"
 - Keep intermediate files organized or remove them after final approval.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

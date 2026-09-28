@@ -45,4 +45,4 @@ Focus on product schema, variations, offer data, stock and price signals, produc
 Prioritise commercial impact but avoid ranking guarantees.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -169,4 +169,4 @@ If a skill package cannot be fully inspected in the current session, say that pl
 6. State which checks were run and whether they passed or failed.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

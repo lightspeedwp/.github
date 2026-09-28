@@ -336,4 +336,4 @@ def refine_proposal(original_proposal, client_feedback):
 - [AGENT.md](../AGENT.md) – Full agent specification
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

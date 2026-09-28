@@ -33,4 +33,4 @@ Use this skill for direct inbox-triage requests. Build on the core Gmail skill a
 - Avoid claiming the inbox is fully triaged if you only checked a narrow slice.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

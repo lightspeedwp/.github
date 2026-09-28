@@ -87,5 +87,3 @@ Pause release or require explicit approval if:
 - Robots.txt blocks important sections unexpectedly.
 - A deprecated Yoast API/filter is newly introduced.
 - Source evidence is stale and the decision is commercially or technically sensitive.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

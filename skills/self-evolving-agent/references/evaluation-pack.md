@@ -111,5 +111,3 @@ Use direct wording:
 - `Not tested`: check was not run; include why.
 
 Avoid phrases that imply measured performance when no repeatable benchmark was run.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

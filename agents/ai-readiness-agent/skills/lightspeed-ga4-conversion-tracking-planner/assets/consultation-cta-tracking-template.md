@@ -30,4 +30,4 @@
 | Book a consultation | Header / page CTA |  | consultation_cta_click | cta_text, cta_location, page_type | High |  |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

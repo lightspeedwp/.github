@@ -68,4 +68,4 @@ Other documents may use DrawingML shapes or background images.
 - Some VML watermarks won’t show in LibreOffice headless. When in doubt, validate in Word.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

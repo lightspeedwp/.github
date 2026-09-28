@@ -142,5 +142,3 @@
 - Active WooCommerce-related forms have purpose and page mapping.
 - Stale/orphaned forms flagged.
 - Critical product, quote, support, account, payment, and feed forms have notification/feed retest steps.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

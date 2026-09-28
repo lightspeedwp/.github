@@ -17,4 +17,4 @@ The plan consists of a Markdown document that describes the implementation plan,
 - Testing: A list of tests that need to be implemented to verify the feature or refactoring task.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

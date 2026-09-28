@@ -199,4 +199,4 @@ Use this compact decision pattern before acting:
 9. Return one coherent output with clear assumptions and no invented metrics.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

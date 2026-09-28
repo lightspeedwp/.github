@@ -92,4 +92,4 @@ After package edits, run the relevant package validation for the updated skill.
 4. Report which checks were run and whether they passed or failed.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

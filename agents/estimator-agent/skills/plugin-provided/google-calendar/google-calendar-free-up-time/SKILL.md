@@ -39,4 +39,4 @@ Use this skill when the goal is to create time, not just inspect time.
 - If suggesting multiple options, keep them short and explain the tradeoff for each.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

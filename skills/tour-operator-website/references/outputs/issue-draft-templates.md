@@ -166,5 +166,3 @@ Planning/readiness only unless verified otherwise.
 | Proposed issue | Why split | Suggested owner | Risk | Dependency |
 |---|---|---|---|---|
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

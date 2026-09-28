@@ -77,5 +77,3 @@ Keep edits tied to the reported numbers and stated time window.
 - Trend claims match the evidence: Yes/No
 - Operational actions are specific: Yes/No
 - Safe to share as-is: Yes/No
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
