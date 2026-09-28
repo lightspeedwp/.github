@@ -153,23 +153,4 @@ When asked to name or organise audit files, return this format:
 
 When asked to create a report document, use the chosen document title exactly. When asked to create or locate a folder, use the chosen folder name exactly. When uncertain, prioritise stability and readability over cleverness.
 
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

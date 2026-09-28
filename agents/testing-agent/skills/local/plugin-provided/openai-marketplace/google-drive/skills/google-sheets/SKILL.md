@@ -89,24 +89,5 @@ Even though you created a local `.xlsx`, do not cite the local path in the final
 | Chart creation, repair, chart-spec recall, or repositioning | `references/reference-chart-recipes.md` |
 | Unspecified styling for native Google Sheets destinations | `references/style-profiles.md` |
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

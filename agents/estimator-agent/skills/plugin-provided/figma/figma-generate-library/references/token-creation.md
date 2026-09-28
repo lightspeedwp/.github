@@ -798,19 +798,3 @@ return { removed, count: removed.length };
 ```
 
 **Never clean up by name prefix** (e.g., deleting everything starting with `color/`). This will destroy user-created variables that happen to share the prefix.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

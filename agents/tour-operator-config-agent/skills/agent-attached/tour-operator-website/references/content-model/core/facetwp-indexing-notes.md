@@ -84,24 +84,3 @@ The same integration normalises these non-relationship custom field sources:
 - `cf/duration`: strips non-numeric characters except spaces, takes the first token, and uses that as the indexed value.
 
 Use this as filter-indexing behaviour only. It does not make `price` or `duration` fully structured data fields.
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

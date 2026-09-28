@@ -28,42 +28,4 @@
 | ID | Source | Finding | Affected area | Expected | Actual | Evidence | Severity | Launch status | Workstream | Owner role | Next action | Retest steps |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

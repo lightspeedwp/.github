@@ -389,24 +389,5 @@ If installation is not possible in this environment, tell the user which depende
 - `scripts/image_gen.py`: fallback-only CLI implementation. Do not load or use it unless the user explicitly chooses CLI mode or explicitly confirms a transparent request's true CLI transparency fallback.
 - `$CODEX_HOME/skills/.system/imagegen/scripts/remove_chroma_key.py`: local post-processing helper for built-in transparent-image requests.
 
----
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

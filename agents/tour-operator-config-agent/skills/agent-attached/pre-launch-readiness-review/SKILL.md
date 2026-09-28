@@ -124,23 +124,4 @@ Use these files when they materially improve the review:
 - {{label:pre-launch-summary-template.md,id:6a43c00fade08191bd3238d2a2ff1008,type:file}} when a reusable summary structure is helpful.
 - {{label:example-pre-launch-summary.md,id:6a43c00fae2c81918ca963ed1b686ab6,type:file}} as a quality bar for tone and structure, not as copy to reuse verbatim.
 
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

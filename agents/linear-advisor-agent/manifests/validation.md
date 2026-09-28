@@ -52,23 +52,4 @@ None.
 - skills/plugin-provided/google-drive__google-drive/assets/google-drive.png; skills/plugin-provided/google-drive__google-drive/assets/app-icon.png
 - skills/plugin-provided/google-drive__google-drive/assets/google-drive.svg; skills/plugin-provided/google-drive__google-drive/assets/google-drive-small.svg
 
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
