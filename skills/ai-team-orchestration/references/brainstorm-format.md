@@ -132,5 +132,3 @@ You are Nova+Sage (Dev). Given the plan, produce an implementation checklist: fi
 ```
 You are Ivy (QA). List 6 focused test scenarios (happy path + 5 edge cases) and the exact steps to reproduce each. Include expected results.
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

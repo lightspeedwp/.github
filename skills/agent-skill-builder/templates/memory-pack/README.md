@@ -26,5 +26,3 @@
 <!-- BADGES-END -->
 
 Store durable local skill context only.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

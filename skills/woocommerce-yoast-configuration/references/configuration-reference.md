@@ -307,5 +307,3 @@ This file contains skill-ready configuration reference entries. Treat entries as
   "evidence_sources": ["source-register: schema API"]
 }
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

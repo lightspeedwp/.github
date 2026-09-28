@@ -441,7 +441,3 @@ Here is a footnote[^1].
 ```
 
 (GitHub replaces emoji with `<img>` tags.)
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

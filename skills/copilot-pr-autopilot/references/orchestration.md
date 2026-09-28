@@ -129,15 +129,3 @@ not assertion:
   patches held out of the PR: `git stash push -m "local-build" --
   <paths>` before committing, `git stash pop` after. Note `-m` must
   come BEFORE `--` (see [api-quirks.md](api-quirks.md)).
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

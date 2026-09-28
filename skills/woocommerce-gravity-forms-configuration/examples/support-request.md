@@ -50,5 +50,3 @@ Use for structured customer support intake where entries become support work, no
 - Do not request passwords, API keys, licence keys, payment details, or private access credentials.
 - Treat screenshots and uploads as potentially sensitive.
 - Record retention and access owner before launch.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -51,5 +51,3 @@ Use this pattern when a client needs supporting documents with an enquiry or sup
 - Submit an oversized file.
 - Confirm useful validation messages.
 - Confirm notification does not expose file unnecessarily.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
