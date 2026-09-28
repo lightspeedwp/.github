@@ -87,14 +87,4 @@ Use these tests when refining the audit, troubleshooting, QA or migration behavi
 - Source freshness issues are advisory unless they block a proposal, developer handoff, or final client claim.
 - Developer escalation is only used when configuration/content changes cannot safely resolve the issue.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

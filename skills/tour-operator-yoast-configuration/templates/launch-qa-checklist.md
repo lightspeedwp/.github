@@ -50,5 +50,3 @@
 - crawl sample reviewed
 - Search Console reviewed after data becomes available
 - issues logged with severity and owner route
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

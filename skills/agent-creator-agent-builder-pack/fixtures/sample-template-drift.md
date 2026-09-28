@@ -26,5 +26,3 @@
 <!-- BADGES-END -->
 
 OUTPUT_TEMPLATES.md lists a validation report but `templates/validation-report-template.md` has been removed.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

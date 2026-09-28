@@ -41,5 +41,3 @@ Review whether our support and content teams have appropriate Gravity Forms acce
 ## Output
 
 Use `templates/permissions-review.md`.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

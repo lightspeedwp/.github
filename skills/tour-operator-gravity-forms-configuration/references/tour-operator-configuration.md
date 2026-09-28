@@ -45,15 +45,3 @@ Route booking-engine architecture, availability systems, CRM architecture, payme
 ## High-risk operations
 
 Treat deposits/payments, passport or identity-document capture, medical/allergy data, minors' data, file uploads, CRM/webhook feeds, and production embeds as high-risk. Do not invent booking, availability, CRM, or payment behaviour that is not confirmed by source evidence.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

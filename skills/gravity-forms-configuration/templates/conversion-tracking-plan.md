@@ -84,5 +84,3 @@
 - High-risk items:
 - Rollback plan:
 - Next owner:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -154,5 +154,3 @@ Pass if the redacted prompt is useful for testing but no longer identifies a rea
 ## Router Boundary Smoke Test
 
 Include a prompt that asks `zendesk-draft-response` to choose between multiple Zendesk workflows. Expected behaviour: return to `zendesk-router-skill`, do not draft a reply, and do not present a broad Zendesk skill menu.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

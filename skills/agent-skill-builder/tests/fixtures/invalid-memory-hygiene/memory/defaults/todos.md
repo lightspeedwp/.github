@@ -26,5 +26,3 @@
 <!-- BADGES-END -->
 
 - This is done but still in todos.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

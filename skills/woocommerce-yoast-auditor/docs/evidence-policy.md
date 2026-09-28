@@ -56,20 +56,5 @@ If screenshots, exports or source-register entries are old or not freshly scanne
 
 Metadata quality, clarity and intent fit may be assessed, but label it as content judgement rather than technical proof.
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

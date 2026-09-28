@@ -77,5 +77,3 @@
 - Developer actions:
 - Content actions:
 - Open questions:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

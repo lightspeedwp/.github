@@ -54,6 +54,3 @@ Telegraph style. Root rules only.
 - Label taxonomy & rating order: see `LABELS.md`.
 - Secrets: never hardcode API keys — reference by env var name.
 - i18n: `<language requirement, if any>`.
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
