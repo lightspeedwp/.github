@@ -32,20 +32,4 @@ Use this skill for direct inbox-triage requests. Build on the core Gmail skill a
 - Treat reply-needed as an inference, not a guaranteed state.
 - Avoid claiming the inbox is fully triaged if you only checked a narrow slice.
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
