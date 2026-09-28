@@ -167,4 +167,4 @@ Read only what you need:
 - When falling back to web search, restrict to official OpenAI domains (developers.openai.com, platform.openai.com) and cite sources.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

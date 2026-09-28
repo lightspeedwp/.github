@@ -91,4 +91,4 @@ When asked to apply labels, ensure you:
 - [Label Strategy](../../docs/LABEL_STRATEGY.md) - Organization philosophy
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

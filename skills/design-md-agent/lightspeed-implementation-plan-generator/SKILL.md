@@ -129,4 +129,4 @@ Use these references as needed:
 A good implementation plan should let the team start work without re-reading every source document, while still linking back to decisions, tasks and acceptance criteria.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

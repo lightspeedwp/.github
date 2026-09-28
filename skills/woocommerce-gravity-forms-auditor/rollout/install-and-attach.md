@@ -44,4 +44,4 @@
 - `woocommerce-gravity-forms-configuration`: verify current state, plan, configure, validate, and report approved WooCommerce Gravity Forms changes.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

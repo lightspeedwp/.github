@@ -15,4 +15,4 @@ Using the provided workflow guidelines, scaffold a GitHub Actions workflow suite
 Include comments explaining key decisions and add a dry‑run target if appropriate.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

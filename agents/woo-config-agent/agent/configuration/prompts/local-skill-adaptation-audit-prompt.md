@@ -97,4 +97,4 @@ Acceptance criteria:
 - Keep the pass conservative: remove drift and adapt the skill, but do not repurpose it beyond this agent's grounded role.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

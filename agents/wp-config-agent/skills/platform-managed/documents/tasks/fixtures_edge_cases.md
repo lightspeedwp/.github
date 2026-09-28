@@ -77,4 +77,4 @@ python scripts/render_and_diff.py fixtures/watermark_fixture.docx no_watermark.d
 - Watermark fixture: `report` finds watermark-like VML; removal yields zero hits; headers remain intact
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

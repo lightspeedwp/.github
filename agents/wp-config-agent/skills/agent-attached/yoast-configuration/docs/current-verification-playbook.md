@@ -82,4 +82,4 @@ Use one of these phrases in deliverables:
 6. Update `docs/changelog.md` with the source refresh and affected files.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

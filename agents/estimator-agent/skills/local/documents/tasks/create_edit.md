@@ -85,4 +85,4 @@ Use the loop from `tasks/verify_render.md` (DOCX → PNG) to avoid shipping layo
 Keep `/mnt/data` clean: deliverables only unless the user asks for intermediate render artifacts.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

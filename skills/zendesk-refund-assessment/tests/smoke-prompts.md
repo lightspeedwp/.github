@@ -122,4 +122,4 @@ Expected:
 - Recommends `zendesk-evidence-collector`, `zendesk-help-center-grounding`, or `zendesk-customer-escalation` according to the next blocker.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

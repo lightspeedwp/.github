@@ -30,4 +30,4 @@
 | Figma parity | Confirm design-system implementation | lightspeed-figma-wordpress-parity-auditor | Figma URL, theme.json, dev URL | Parity report | Pending Input | Design/Tech lead | Must Fix |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

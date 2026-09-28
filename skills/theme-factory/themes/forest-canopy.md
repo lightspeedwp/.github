@@ -44,4 +44,4 @@ A natural and grounded theme featuring earth tones inspired by dense forest envi
 Environmental presentations, sustainability reports, outdoor brands, wellness content, organic products.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

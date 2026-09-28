@@ -93,4 +93,4 @@ If you need a true Word TOC with page numbers, use `tasks/toc_workflow.md`.
 - Rendered PNGs (and optional PDFs) are **internal QA only** unless the user explicitly asks for them.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

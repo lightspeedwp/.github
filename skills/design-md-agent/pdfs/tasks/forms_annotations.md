@@ -141,4 +141,4 @@ If `pdf_extract.py forms` returns `{}` or only weird/incomplete fields, treat it
 - `tasks/forms_nonfillable.md` (box picking -> overlay -> verify)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

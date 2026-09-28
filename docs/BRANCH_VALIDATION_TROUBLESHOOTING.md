@@ -660,4 +660,4 @@ git log --oneline -10
 - [GitHub Docs: Configuring Git Hooks](https://docs.github.com/en/education/classroom/guides/useful-git-commands#hooks)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

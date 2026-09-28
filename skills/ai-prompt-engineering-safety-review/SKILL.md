@@ -258,4 +258,4 @@ Provide your analysis in the following structured format:
 Remember: Your goal is to help create prompts that are not only effective but also safe, unbiased, secure, and responsible. Every improvement should enhance both functionality and safety.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

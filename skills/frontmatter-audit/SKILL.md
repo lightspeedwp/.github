@@ -24,4 +24,4 @@ description: "Audit frontmatter, schema drift, stale links, and missing folder i
 - Each finding includes file path, rule breached, and fix suggestion.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

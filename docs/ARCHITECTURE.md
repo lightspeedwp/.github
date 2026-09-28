@@ -614,4 +614,4 @@ node scripts/automation/audit-issue-metadata.js --repo lightspeedwp/.github
 **Related Issues**: #2388
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

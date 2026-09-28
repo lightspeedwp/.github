@@ -54,4 +54,4 @@ When presenting results to the user:
 - If the API returns 403, advise the user to check their token permissions and enterprise policy settings.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

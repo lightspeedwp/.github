@@ -91,4 +91,4 @@ python /home/oai/skills/pdfs/scripts/render_pdf.py filled.pdf --engine pdfium  -
 If it looks different, prefer flattening.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

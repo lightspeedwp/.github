@@ -29,4 +29,4 @@ This skill helps the user install the latest [ai-ready](https://github.com/johnp
 4. Do **not** run the command on the user's behalf. The user must run it themselves.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

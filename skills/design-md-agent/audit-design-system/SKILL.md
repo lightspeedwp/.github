@@ -240,4 +240,4 @@ Use this routing rule after the review:
 Do not force every review result through the single-finding fix skill. Some reviews are better used as scope discovery for a broader apply pass.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

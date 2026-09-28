@@ -127,4 +127,4 @@
 - [x] Auditor handoff compatibility checked: canonical v0.2.1+ fields and legacy fields both validate; configuration still requires MCP verification and approval-first change planning.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

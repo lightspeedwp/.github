@@ -287,4 +287,4 @@ Core models are embedded above. Load only what is needed for deeper detail:
 Every report must include scope, evidence status, limitations, findings, priority, confidence, recommendation, owner or next route, retest/validation step and client-safe wording where relevant.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

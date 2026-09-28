@@ -64,4 +64,4 @@ python render_docx.py merged.docx --output_dir out_merged
 - If either document contains tracked changes or comments, merge first *then* run the tracked-changes / comments tasks.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

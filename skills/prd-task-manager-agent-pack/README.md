@@ -48,4 +48,4 @@ PRD first, technical brief second, task breakdown third, launch gates always.
 The agent should create Markdown drafts and downloadable packs by default. It should not create GitHub issues, change source files, or claim implementation evidence unless the user explicitly asks and the required tools/evidence are available.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -351,4 +351,4 @@ Weak revision suggestions to avoid:
 A QA pass should make the audit safer and easier to revise. Always prefer specific, evidence-backed feedback over broad editorial notes. If the draft is mostly sound, say so and focus on the few changes that would improve delivery confidence.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

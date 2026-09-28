@@ -54,4 +54,4 @@ Use this file as the source snapshot for short-description consistency validatio
 - The short description should not promise capabilities outside the current WooCommerce, Gravity Forms, and related implementation-support workflow.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
