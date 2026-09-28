@@ -148,5 +148,3 @@ Prefer:
 4. a new installation only for a real gap.
 
 Do not recommend two primary Skills for the same step unless the user wants alternatives.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
