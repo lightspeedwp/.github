@@ -42,4 +42,4 @@ Working assumptions proposed for test outputs only. These are not treated as con
 - `woocommerce_addon_position`: relevant but provisional pending confirmation of catalogue, plugin, and checkout complexity
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
