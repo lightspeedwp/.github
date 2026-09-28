@@ -211,10 +211,6 @@ This project is tracked through GitHub issues for each phase and task breakdown.
 - **Branching Strategy:** `docs/BRANCHING_STRATEGY.md`
 - **Branch:** `feat/reviewer-agent-v2-orchestrator`
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and multi-tool orchestration!*
-
 ## Visual Workflow
 
 ```mermaid
