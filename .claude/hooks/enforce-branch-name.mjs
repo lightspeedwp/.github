@@ -304,6 +304,11 @@ function parseShell(command) {
   // Index of the first segment of the current list, so a trailing `&` marks only
   // the list it backgrounds rather than every earlier command.
   let listStart = 0;
+  // Every stage of a pipeline runs in a subshell, so the stage after a `|` needs
+  // marking too, and that segment is only created on the next split.
+  let pendingSubshell = false;
+  // Depth of parenthesised groups, whose commands all run in a subshell.
+  let parenDepth = 0;
   let word = null;
   const extend = (text) => {
     word = word || { text: '' };
@@ -315,7 +320,18 @@ function parseShell(command) {
   };
   const split = () => {
     end();
-    segments.push([]);
+    // Inside a parenthesised group both the segment being closed and the next
+    // one run in the subshell, so a `cd` in either cannot move the parent.
+    if (parenDepth > 0) {
+      const closing = segments.at(-1);
+      if (closing) closing.subshell = true;
+    }
+    const next = [];
+    if (pendingSubshell || parenDepth > 0) next.subshell = true;
+    segments.push(next);
+    // Only the segment that follows a pipeline is marked by a pending flag; a
+    // later list boundary must not inherit it.
+    pendingSubshell = false;
   };
 
   for (let i = 0; i < src.length; i += 1) {
@@ -342,6 +358,23 @@ function parseShell(command) {
     } else if (c === '\\' && i + 1 < src.length) {
       extend(src[i + 1]);
       i += 1;
+    } else if (c === ')' && parenDepth === 0) {
+      // A `)` outside parentheses closes a case-arm pattern, so the arm's
+      // command starts here: `case x in p) rm <guard file>;; esac` would
+      // otherwise hide the rm behind the pattern.
+      split();
+    } else if (c === '(') {
+      // A parenthesised group is a subshell, so a `cd` inside it does not move
+      // the directory the rest of the command runs in.
+      parenDepth += 1;
+      end();
+    } else if (c === ')' && parenDepth > 0) {
+      parenDepth -= 1;
+      end();
+      // `(cd /)` has no separator inside it, so split() never ran for the group
+      // and the segment holding the cd was never marked. Mark it here.
+      const group = segments.at(-1);
+      if (group) group.subshell = true;
     } else if (c === '\n' || c === ';' || c === '|' || c === '&') {
       if (c === '&' && src[i - 1] === '>') continue; // `>&2` is a redirection
       const doubled = src[i + 1] === c;
@@ -363,8 +396,11 @@ function parseShell(command) {
         if (c === '&') {
           for (let n = listStart; n < segments.length; n += 1) segments[n].subshell = true;
         } else {
+          // Mark this stage and the next one: every stage of a pipeline runs in a
+          // subshell, not only the one before the pipe.
           const last = segments.at(-1);
           if (last) last.subshell = true;
+          pendingSubshell = true;
         }
       }
       if (doubled) i += 1;
@@ -449,16 +485,41 @@ const BRANCH_QUERY_FLAGS = new Set([
 
 const WRAPPERS = new Set(['sudo', 'env', 'command', 'time', 'nohup', 'exec', 'xargs']);
 
-/** The command word and its arguments, skipping assignments and wrappers. */
+/**
+ * Shell keywords that can appear where a command word is expected. In a
+ * compound command the first word after a separator is often one of these, and
+ * treating it as the command meant the real command was never examined, so
+ * `if true; then rm <guard file>; fi` passed.
+ */
+const SHELL_KEYWORDS = new Set([
+  'if', 'then', 'else', 'elif', 'fi',
+  'while', 'until', 'do', 'done',
+  'case', 'esac', 'select',
+  'for', 'in', 'function',
+  '{', '}', '[[', ']]', '!',
+]);
+
+/** Leading grouping punctuation, as in `(rm file)`. */
+const GROUPING_LEAD = /^[({\[]+/;
+/** A word that is nothing but grouping punctuation, such as `{`. */
+const GROUPING_ONLY = /^[({\[]+[)\]}]*$/;
+
+/** The command word and its arguments, skipping leading shell syntax. */
 function commandOf(words) {
   let i = 0;
   while (
     i < words.length &&
-    (/^[A-Za-z_][A-Za-z0-9_]*=/.test(words[i]) || WRAPPERS.has(words[i]))
+    (/^[A-Za-z_][A-Za-z0-9_]*=/.test(words[i]) ||
+      WRAPPERS.has(words[i]) ||
+      SHELL_KEYWORDS.has(words[i]) ||
+      GROUPING_ONLY.test(words[i]))
   ) {
+    // A wrapper takes arguments before the command, so it is skipped but the
+    // scan continues; a keyword or grouping token is not a command at all.
     i += 1;
   }
-  const name = words[i] ? path.basename(words[i]) : '';
+  const raw = words[i] ? words[i] : '';
+  const name = raw ? path.basename(raw.replace(GROUPING_LEAD, '')) : '';
   return { name, args: words.slice(i + 1) };
 }
 
@@ -708,6 +769,23 @@ const SHORT_WRITE_VERBS = new Set([
 ]);
 const DESTINATION_VERBS = new Set(['cp', 'ln', 'install', 'rsync']);
 
+/** Trailing grouping punctuation, as the `)` left on the last word of `(rm x)`. */
+const GROUPING_TRAIL = /[)\]}]+$/;
+
+/** Whether a shell target names a guard file, with or without a trailing bracket. */
+function resolvesToGuardFile(file, cwd, guard) {
+  return [file, file.replace(GROUPING_TRAIL, '')].some(
+    (candidate) => candidate && isGuardFile(resolvePath(candidate, cwd), guard)
+  );
+}
+
+/** Whether deleting or moving a shell target would take a guard file with it. */
+function resolvesIntoGuardTree(file, cwd, guard) {
+  return [file, file.replace(GROUPING_TRAIL, '')].some(
+    (candidate) => candidate && containsGuardFile(resolvePath(candidate, cwd), guard)
+  );
+}
+
 /** Guard files that a shell segment would change, move or delete. */
 function shellGuardWrites({ words, writes }, tracker, guard) {
   const { name, args } = commandOf(words);
@@ -742,10 +820,12 @@ function shellGuardWrites({ words, writes }, tracker, guard) {
   if (!tracker.known && targets.some((file) => !path.isAbsolute(file))) {
     return [UNRESOLVABLE];
   }
-  const hits = targets.filter((file) => isGuardFile(resolvePath(file, tracker.cwd), guard));
-  hits.push(
-    ...destructive.filter((file) => containsGuardFile(resolvePath(file, tracker.cwd), guard))
-  );
+  // `(rm .claude/settings.json)` leaves the closing bracket on the last word, so
+  // the resolved path is `.claude/settings.json)` and matched nothing. The
+  // unstripped form is checked too, so a file that genuinely ends in a bracket
+  // is still judged on its own name and only the bracketed spelling also counts.
+  const hits = targets.filter((file) => resolvesToGuardFile(file, tracker.cwd, guard));
+  hits.push(...destructive.filter((file) => resolvesIntoGuardTree(file, tracker.cwd, guard)));
   return [...new Set(hits)];
 }
 

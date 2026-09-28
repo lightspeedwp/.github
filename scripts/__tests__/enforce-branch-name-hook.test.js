@@ -748,6 +748,72 @@ describe('GitHub MCP tools (T011)', () => {
     expect(runBash(fx, command).status).toBe(expected);
   });
 
+  // A compound command puts a shell keyword where the command word is expected,
+  // so the real command has to be found past it or the whole segment goes
+  // unchecked.
+  test.each([
+    'if true; then rm .claude/settings.json; fi',
+    'if true; then git push origin main; fi',
+    'while true; do rm .claude/hooks/session-start.sh; done',
+    'for f in a; do rm .claude/settings.json; done',
+    'true && { rm .claude/hooks/enforce-branch-name.mjs; }',
+    '{ cat x > .claude/settings.json; }',
+    '(rm .claude/settings.json)',
+    '(rm -rf .claude/hooks)',
+  ])('refuses a guard write hidden behind shell syntax: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  test.each([
+    '( echo hi )',
+    '{ echo hi; }',
+    'if true; then echo hi; fi',
+    "echo 'notes)'",
+  ])('allows shell syntax with no guard write: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(0);
+  });
+
+  // Every stage of a pipeline runs in a subshell, so a `cd` after the pipe moves
+  // nothing. Marking only the stage before it left this exploitable.
+  test.each([
+    'cat x | cd / ; rm .claude/settings.json',
+    'true | cd / && rm .claude/settings.json',
+  ])('refuses a write that follows a cd in the stage after a pipe: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  test.each(['cat x | wc -l', 'cat x | cd /', 'cd / | cat'])(
+    'allows a harmless pipeline: %s',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(0);
+    }
+  );
+
+  // A `)` outside parentheses closes a case-arm pattern, and a parenthesised
+  // group is a subshell. Both were ways to hide the real command.
+  test.each([
+    'case x in p) rm .claude/settings.json;; esac',
+    '(cd /; echo done) ; rm .claude/settings.json',
+    '(cd / ; echo done); rm .claude/settings.json',
+    '(cd /) ; rm .claude/settings.json',
+  ])('refuses a guard write hidden in a case arm or group: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  // A case arm body runs in the current shell, not a subshell, so a cd there
+  // really does move the directory and a following relative target resolves
+  // against the new one.
+  test('allows a cd in a case arm, which is not a subshell', () => {
+    expect(runBash(fx, 'case x in a) cd /; rm .claude/settings.json;; esac').status).toBe(0);
+  });
+
+  test.each(['case x in p) echo hi;; esac', '(echo hi)', 'echo "a)b"'])(
+    'allows case arms, groups and quoted brackets with no guard write: %s',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(0);
+    }
+  );
+
   test('allows a cd that does not write to a guard file', () => {
     expect(runBash(fx, 'cd .claude/hooks && ls').status).toBe(0);
   });
