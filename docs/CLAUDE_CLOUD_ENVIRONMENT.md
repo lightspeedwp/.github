@@ -167,7 +167,11 @@ npm run validate:branch-name -- --current     # fails on the placeholder, as int
 Then ask it to make a trivial commit without renaming, and to edit `.claude/settings.json`. The guard should refuse
 both, and each refusal should start with `Branch guard:`.
 
-An Owner then confirms branch protection, with each command printing `true`:
+An Owner then confirms the review requirement on both `develop` and `main`. Which command to use depends on
+whether the repository protects its branches with classic branch protection or with a ruleset, because the two
+are configured separately and the branch-protection API only reports the first.
+
+For a repository using classic branch protection, each command prints `true`:
 
 ```bash
 gh api repos/lightspeedwp/.github/branches/develop/protection \
@@ -176,7 +180,30 @@ gh api repos/lightspeedwp/.github/branches/main/protection \
   --jq '.required_pull_request_reviews.require_code_owner_reviews'
 ```
 
-and that **Claude guard contract tests** is listed under the required status checks for both branches.
+A ruleset repository reports nothing useful from that call, because a ruleset is not branch protection. Check the
+ruleset API instead, and confirm that a rule targeting both branches requires a code-owner review:
+
+```bash
+gh api repos/lightspeedwp/.github/rulesets --jq '.[] | {id, name, target, enforcement}'
+gh api repos/lightspeedwp/.github/rulesets/<ruleset-id> \
+  --jq '.rules[] | select(.type == "pull_request") | .parameters.require_code_owner_review'
+```
+
+That last command prints `true` when the rule requires a Code Owners review. `required_reviewers` is a different
+setting and is usually an empty list, so read `require_code_owner_review` instead.
+
+A ruleset applies to the branches its conditions name, so also confirm it covers both branches, and confirm the
+required status check on the rule:
+
+```bash
+gh api repos/lightspeedwp/.github/rulesets/<ruleset-id> --jq '.conditions.ref_name'
+gh api repos/lightspeedwp/.github/rulesets/<ruleset-id> \
+  --jq '.rules[] | select(.type == "required_status_checks") | .parameters.required_status_checks[].context'
+```
+
+`ref_name` lists the branches the ruleset covers, and the second command lists the required check contexts.
+**Claude guard contract tests** has to appear in that list. On a ruleset repository both of these are rule
+settings, not branch-protection fields.
 
 ## Measure it
 
@@ -192,7 +219,7 @@ and that **Claude guard contract tests** is listed under the required status che
   `.claude/cloud/` in the same PR so the repository stays the source of truth.
 - Changing the setup script triggers a cache rebuild on the next session. The cache also expires after about seven days.
 - When `.nvmrc` changes, update `LS_NODE_VERSION` in both the environment variables and `setup.sh`.
-- Branch types come from `lib/validate-branch-name.js`, so the guard and CI always agree. Add new types there.
+- Branch types come from `lib/validate-branch-name.js`, which both the guard and CI call, so they agree on everything the library accepts. There is one known mismatch: the library's component pattern only allows hyphens, so a documented `release/v1.2.3` name is rejected by CI and locally, while the guard's carve-out for `release/*` and `hotfix/*` targets for `main` is keyed on the prefix alone. That is tracked in #3558. Add new types there.
 - Changes to the guard need an Owner's review (CODEOWNERS) and green contract tests. Claude can't edit the guard's
   files while enforcement is on, so guard changes come from a person, or from a session an Owner started with
   `LS_ENFORCE_BRANCH_NAMES=0`.

@@ -32,6 +32,7 @@ const quickstart = readDocument(`${specDirectory}/quickstart.md`);
 const hooks = readDocument(`${specDirectory}/contracts/hooks.md`);
 const cleanup = readDocument(`${specDirectory}/contracts/branch-cleanup.md`);
 const catalogue = readDocument('.github/specs/CATALOG.md');
+const docs = readDocument('docs/CLAUDE_CLOUD_ENVIRONMENT.md');
 
 // The guard workflow skips the suite when no watched file changed, so any file
 // the contract test reads must be in that workflow's change filter. An edit to a
@@ -49,6 +50,7 @@ describe('the guard workflow change filter', () => {
     ['.github/specs/018-claude-cloud-environment/research.md', research],
     ['.github/specs/018-claude-cloud-environment/checklists/requirements.md', checklist],
     ['.github/specs/018-claude-cloud-environment/quickstart.md', quickstart],
+    ['docs/CLAUDE_CLOUD_ENVIRONMENT.md', docs],
   ])('runs the guard tests when %s changes', (file, content) => {
     expect(content.length).toBeGreaterThan(0);
     expect(pattern.test(file)).toBe(true);
@@ -513,5 +515,30 @@ describe('Claude cloud environment specification contracts', () => {
     expect(requirement('FR-017')).toMatch(/runtime version pinned by the repository/);
     expect(contractRow(model, 'Setup script')).toMatch(/exits 0, under 5 min, idempotent/);
     expect(contractRow(model, '`LS_NODE_VERSION`')).toContain('`.nvmrc`');
+  });
+});
+
+// The operations document and the validator's known limitation, kept in step with
+// the feedback record rather than asserting an agreement that does not hold.
+describe('the operations document', () => {
+  test('states the known validator mismatch rather than claiming agreement', () => {
+    expect(docs).not.toMatch(/always agree/);
+    expect(docs).toMatch(/#3558/);
+  });
+
+  // Branch protection and rulesets are configured separately, so the verification
+  // step has to cover both or an Owner on a ruleset cannot confirm the setting.
+  test('covers both branch protection and rulesets in the verification step', () => {
+    expect(docs).toMatch(/branches\/develop\/protection/);
+    expect(docs).toMatch(/repos\/lightspeedwp\/\.github\/rulesets/);
+  });
+
+  // The documented queries have to name the fields that actually exist: a
+  // ruleset reports branch coverage under conditions.ref_name and the code-owner
+  // requirement under parameters.require_code_owner_review.
+  test('documents the ruleset fields that the API actually returns', () => {
+    expect(docs).toMatch(/\.parameters\.require_code_owner_review/);
+    expect(docs).toMatch(/\.conditions\.ref_name/);
+    expect(docs).toMatch(/required_status_checks\[\]\.context/);
   });
 });

@@ -1,4 +1,3 @@
-const fs = require('fs');
 /**
  * @jest-environment node
  *
@@ -9,8 +8,9 @@ const fs = require('fs');
  * repository. Exit 2 means refused, exit 0 means allowed.
  */
 
+const fs = require('fs');
 const path = require('path');
-const { createFixture, runBash, runGuard } = require('./helpers/claude-hook-harness');
+const { GUARD, createFixture, runBash, runGuard } = require('./helpers/claude-hook-harness');
 
 jest.setTimeout(30000);
 
@@ -656,17 +656,96 @@ describe('GitHub MCP tools (T011)', () => {
   });
 
   // A `cd` the shell rejects, or one that runs in a subshell, leaves the parent
-  // shell where it was. Treating either as a move hid a guard file that is
-  // protected relative to the directory the command really runs in.
+  // shell where it was. The direction that matters is under-blocking: a subshell
+  // `cd` that moves away from a protected file, after which a relative target is
+  // resolved against a directory the command never runs in.
   test.each([
-    'cd a b && rm .claude/settings.json',
-    'cd .claude/hooks & rm settings.json',
-  ])('keeps the directory for a cd the parent shell does not follow: %s', (command) => {
+    ['cd a b && rm .claude/settings.json', 'cd the shell rejects'],
+    ['cd /nonexistent-dir && rm .claude/settings.json', 'cd that cannot succeed'],
+    ['cd /nonexistent-dir & rm .claude/settings.json', 'a failing cd in the background'],
+  ])('keeps the directory for %s', (command) => {
     expect(runBash(fx, command).status).toBe(2);
   });
 
-  test('still allows a cd that only feeds a pipeline', () => {
-    expect(runBash(fx, 'cd .claude/hooks | cat').status).toBe(0);
+  // The reverse shape is the one that catches the subshell flag being dropped: the
+  // `cd` moves to a harmless directory, and the write that follows really runs in
+  // the project where that file is protected.
+  test('refuses a write that follows a subshell cd away from a protected file', () => {
+    const run = runBash(fx, 'cd / & rm .claude/settings.json');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/branch-guard file/);
+  });
+
+  // A list is not a subshell, so the cd is followed and the target resolves where
+  // the shell really is.
+  test('allows a write after a cd in a list, resolved where the shell really is', () => {
+    expect(runBash(fx, 'cd / && rm .claude/settings.json').status).toBe(0);
+  });
+
+  test('refuses a write in a pipeline stage after a subshell cd', () => {
+    expect(runBash(fx, 'cd / | tee .claude/settings.json').status).toBe(2);
+  });
+
+  // A subshell `cd` must not be treated as a move in the other direction either:
+  // the write really does run in the project, where a bare name is not protected.
+  test('allows a background write that really runs outside the hooks directory', () => {
+    expect(runBash(fx, 'cd .claude/hooks & rm settings.json').status).toBe(0);
+  });
+
+  // && and || are lists, not pipelines: both sides run in the current shell, so a
+  // cd there must be followed.
+  test.each(['cd .claude/hooks && rm settings.json', 'cd .claude/hooks || rm settings.json'])(
+    'follows a cd in a %s list',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(2);
+    }
+  );
+
+  // An undetermined current branch, on a detached HEAD or in a repository the
+  // guard cannot read, must not be treated as a valid branch to write on.
+  test.each(['git commit -m x', 'git push origin HEAD'])(
+    'refuses %s on a detached HEAD where the branch cannot be determined',
+    (command) => {
+      fx.git('checkout', '--detach', 'HEAD');
+      const run = runBash(fx, command);
+      expect(run.status).toBe(2);
+    }
+  );
+
+  // Guards the whole bug class: every property the consumers read has to survive
+  // the transformations parseShell applies. A flag set on a raw segment and
+  // dropped by the final map left `subshell` undefined, so a pipeline or
+  // background `cd` moved the tracked directory. This asserts the property set
+  // itself, so a future field cannot be lost the same way unnoticed.
+  test('every segment keeps the properties the guard reads', () => {
+    const source = fs.readFileSync(GUARD, 'utf8');
+    // The properties the consumers destructure or read off a segment.
+    const required = ['words', 'writes', 'subshell'];
+    for (const name of required) {
+      expect(source).toMatch(new RegExp(`return \\{[^}]*\\b${name}\\b`));
+    }
+    // And the flag is read, not merely set.
+    expect(source).toMatch(/tracker\.cd\(args, segment\.subshell\)/);
+  });
+
+  // A single `&` backgrounds the whole list it terminates, so a `cd` earlier in
+  // that list runs in the subshell too and must not move the tracked directory.
+  test.each([
+    'cd / && rm .claude/settings.json &',
+    'cd / || rm .claude/settings.json &',
+  ])('keeps the directory for a cd in a backgrounded list: %s', (command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  // A `;` or newline starts a new list, which a trailing `&` does not cross: the
+  // cd before it ran in the parent shell, so the backgrounded command really does
+  // resolve from the new directory.
+  test.each([
+    ['cd / ; rm .claude/settings.json &', 0],
+    ['cd .claude/hooks ; rm settings.json &', 2],
+    ['cd .claude/hooks ; ls &', 0],
+  ])('tracks a parent cd across a list boundary: %s', (command, expected) => {
+    expect(runBash(fx, command).status).toBe(expected);
   });
 
   test('allows a cd that does not write to a guard file', () => {

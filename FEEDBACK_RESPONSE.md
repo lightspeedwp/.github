@@ -98,3 +98,22 @@ tracked in #3618.
 | A leading `cd` defeated the guard-file self-protection: `cd .claude/hooks && rm enforce-branch-name.mjs` resolved the target against the project root, matched no guard file, and was allowed. | fixed | The guard now follows the shell's working directory across `cd` segments. | `.claude/hooks/enforce-branch-name.mjs` `createCwdTracker`. |
 | A `cd` that cannot succeed, that the shell rejects for multiple operands, or that runs in a pipeline stage or a background command was still treated as a move, so `cd /nonexistent && rm .claude/settings.json` and `cd .claude/hooks & rm settings.json` were allowed. | fixed | The tracked directory only moves for a `cd` the parent shell follows; absolute targets stay checked when the directory is unknown, and an undeterminable destination fails closed. | `createCwdTracker`, `shellGuardWrites`. |
 | `cd -` used the hook process's own `OLDPWD` rather than the directory the command last left, and `cd -- -` was read as the previous directory. | fixed | `-` is recognised before the flag filter, `--` is honoured as an end-of-options marker, and a leading `cd -` with no earlier `cd` fails closed. | `createCwdTracker`. |
+
+## Findings from the 09:14 review pass
+
+| Feedback | Status | Response | Reference |
+| --- | --- | --- | --- |
+| MAJOR: the `subshell` flag set on a raw segment was dropped by the final `map`, so `segment.subshell` was always `undefined` and the round-5 fix did not hold. | fixed | Reproduced live first: `cd /tmp & rm .claude/settings.json` was allowed even though the `rm` runs in the repository where that file is protected. The map now carries the flag, and `&&`/`\|\|` are no longer marked, which they had been in error. | `parseShell`; covered by tests that fail against the previous head. |
+| MAJOR: attached short flags and `--input=` let writes skip the checks; `-XPUT` was read as a POST and `--input=-` was not seen as a body. | fixed | `flagValue` reads an attached value for a short flag, the method default consults the `--input` argument in either form, and the `git/refs` check covers PUT and PATCH, not only POST. | `flagValue`, the method default, the `git/refs` branch. |
+| Minor: `writeProblem` treated an empty branch as valid, so a write on a detached HEAD or in an unreadable repository skipped validation. | fixed | An undetermined branch is refused with an explanation rather than passed through. | `writeProblem`. |
+| Minor: Jest ignored the `@jest-environment` docblock because a `require` preceded it. | fixed | The docblock is the first thing in the file. | `scripts/__tests__/enforce-branch-name-hook.test.js`. |
+| Minor: the document claimed the guard and CI always agree, which its own feedback record contradicts. | fixed | The claim now states the known semver release-name mismatch and points at #3558. | `docs/CLAUDE_CLOUD_ENVIRONMENT.md`. |
+| Minor: the verification step used only the branch-protection API, which reports nothing for a repository protected by rulesets. | fixed | Added the ruleset queries, using the fields the API actually returns. | `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, verified against the live rulesets on this repository. |
+
+## Found by self-review while fixing the above
+
+| Finding | Status | Response | Reference |
+| --- | --- | --- | --- |
+| A single `&` backgrounds the whole list it terminates, not just the last command, so a `cd` earlier in that list was wrongly followed. | fixed | Every segment of the backgrounded list is marked, stopping at the `;` or newline that starts a new list. | `parseShell`. |
+| A test asserted a `subshell` case that passed for the wrong reason: it exercised the over-blocking direction, so it passed even with the flag dropped. | fixed | Replaced with cases in the under-blocking direction, and added a test asserting the segment property set itself, so a dropped flag cannot recur unnoticed. | `scripts/__tests__/enforce-branch-name-hook.test.js`. |
+| The operations document is read by the contract test but was not in the workflow's change filter. | fixed | Added, and the filter test now covers every document the test reads. | `.github/workflows/claude-guard-tests.yml`. |

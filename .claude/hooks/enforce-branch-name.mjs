@@ -170,7 +170,12 @@ function hasOpenPr(branch, { cwd, remote = 'origin', repo = null }) {
  * `legacy()` runs the open-PR check (called only for a non-compliant branch).
  */
 function writeProblem(branch, { paths, root, legacy }) {
-  if (!branch) return null;
+  // An empty branch means the guard could not work out where the write lands, on
+  // a detached HEAD or in a repository it could not read. Treating that as valid
+  // skipped validation entirely, so it is refused instead of passed through.
+  if (!branch) {
+    return 'the current branch could not be determined, so this write cannot be checked; check out a named branch and retry';
+  }
   if (branch === DETACHED) {
     return 'HEAD is detached and no rebase, merge, cherry-pick or revert is in progress; check out a named branch first';
   }
@@ -296,6 +301,9 @@ const HEREDOC = /<<-?\s*['"]?(\w+)['"]?([^\n]*)\n[\s\S]*?\n\t*\1(?=\n|$)/g;
 function parseShell(command) {
   const src = command.replace(HEREDOC, (_match, _tag, rest) => ` ${rest}`);
   const segments = [[]];
+  // Index of the first segment of the current list, so a trailing `&` marks only
+  // the list it backgrounds rather than every earlier command.
+  let listStart = 0;
   let word = null;
   const extend = (text) => {
     word = word || { text: '' };
@@ -336,13 +344,33 @@ function parseShell(command) {
       i += 1;
     } else if (c === '\n' || c === ';' || c === '|' || c === '&') {
       if (c === '&' && src[i - 1] === '>') continue; // `>&2` is a redirection
-      if ((c === '|' || c === '&') && src[i + 1] === c) i += 1;
-      // A pipeline stage or a background command runs in a subshell, so a `cd`
-      // there leaves the parent shell where it was.
-      if (c === '|' || c === '&') {
-        const last = segments.at(-1);
-        if (last) last.subshell = true;
+      const doubled = src[i + 1] === c;
+      // A single `|` or `&` starts a pipeline stage or a background command,
+      // either of which runs in a subshell, so a `cd` there leaves the parent
+      // shell where it was. `&&` and `||` are lists: both sides run in the
+      // current shell, so they must not be marked.
+      //
+      // A shell running with `shopt -s lastpipe` keeps the final stage in the
+      // current shell, which would make this over-block rather than under-block.
+      // The command string is run by the caller's shell, whose options the guard
+      // cannot see, so the default behaviour is assumed: that is the direction
+      // that fails closed.
+      if (!doubled && (c === '|' || c === '&')) {
+        // A single `&` backgrounds the whole list it terminates, not just the last
+        // command in it: `cd /tmp && rm x &` runs the entire and-list in a
+        // subshell, so the parent shell's directory never changed. Every segment
+        // back to the start of that list is therefore in the subshell.
+        if (c === '&') {
+          for (let n = listStart; n < segments.length; n += 1) segments[n].subshell = true;
+        } else {
+          const last = segments.at(-1);
+          if (last) last.subshell = true;
+        }
       }
+      if (doubled) i += 1;
+      // A `;` or newline starts a new list, which is the boundary a following `&`
+      // does not cross.
+      if (c === ';' || c === '\n') listStart = segments.length;
       split();
     } else if (c === '>') {
       // A leading digit is a file descriptor (`2>`), not part of a word.
@@ -370,6 +398,8 @@ function parseShell(command) {
     .map((tokens) => {
       const words = [];
       const writes = [];
+      // The flag is set on the raw token list itself, not on a token.
+      const subshell = tokens.subshell === true;
       for (let i = 0; i < tokens.length; i += 1) {
         if (tokens[i].redirect) {
           if (tokens[i + 1] && !tokens[i + 1].redirect) writes.push(tokens[i + 1].text);
@@ -378,7 +408,11 @@ function parseShell(command) {
           words.push(tokens[i].text);
         }
       }
-      return { words, writes };
+      // Every property the consumers read has to be carried through here. The
+      // subshell flag was set on the raw segment and dropped by this map, which
+      // left `segment.subshell` undefined and let a pipeline or background `cd`
+      // move the tracked directory.
+      return { words, writes, subshell };
     })
     .filter((segment) => segment.words.length || segment.writes.length);
 }
@@ -435,6 +469,11 @@ function flagValue(args, names) {
       if (args[i] === name) return args[i + 1];
       if (name.startsWith('--') && args[i].startsWith(`${name}=`))
         return args[i].slice(name.length + 1);
+      // A short flag also accepts its value attached, so `-XPUT` names the same
+      // method as `-X PUT`. Missing it made such a call look like a read.
+      if (!name.startsWith('--') && args[i].startsWith(name) && args[i].length > name.length) {
+        return args[i].slice(name.length);
+      }
     }
   }
   return undefined;
@@ -902,7 +941,7 @@ function checkGh(args, cwd, branch) {
   const fields = apiFields(args, cwd);
   const method = (
     flagValue(args, ['--method', '-X']) ||
-    (Object.keys(fields).length || args.includes('--input') ? 'POST' : 'GET')
+    (Object.keys(fields).length || inputArg(args) ? 'POST' : 'GET')
   ).toUpperCase();
   if (method === 'GET') return [];
   const endpoint = apiEndpoint(args)
@@ -946,7 +985,10 @@ function checkGh(args, cwd, branch) {
     if (refusal) return refusal;
     return prProblems({ owner: apiOwner, repo: apiRepo, head: fields.head, base: fields.base });
   }
-  if (/^git\/refs\/?$/.test(resource) && method === 'POST') {
+  // Any write method changes a branch, not only POST: an update of an existing ref
+  // is just as much a branch write, and reading the method correctly is only
+  // useful if every write form is checked.
+  if (/^git\/refs\/?$/.test(resource) && /^(POST|PUT|PATCH)$/.test(method)) {
     const refusal = refuseUnreadable(['ref'], !fields.ref ? 'ref' : null);
     if (refusal) return refusal;
     const problem = nameProblem((fields.ref || '').replace(/^refs\/heads\//, ''));
