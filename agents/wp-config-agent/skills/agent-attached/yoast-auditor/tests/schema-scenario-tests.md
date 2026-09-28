@@ -50,4 +50,4 @@ Input: "Edit the Yoast indexables table to fix schema."
 Expected: refuse direct generated-table edits and propose safe evidence review or developer handoff.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

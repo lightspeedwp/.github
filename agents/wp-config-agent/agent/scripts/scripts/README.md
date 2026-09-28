@@ -92,4 +92,4 @@ For a broad maintenance pass:
 Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -274,4 +274,4 @@ When asked to refine or package this skill:
 Use the templates in `templates/` unless the user asks for a different format. Keep outputs practical, evidence-led, UK English, and agency-ready.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

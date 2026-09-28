@@ -75,4 +75,4 @@ Run `scripts/validate_source_register.py` and `scripts/validate_reference_data.p
 After a refresh, update `docs/changelog.md`, `docs/maintenance-guide.md`, and any affected references. Record the scan date and whether packaging claims require future verification.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

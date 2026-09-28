@@ -127,4 +127,4 @@ These labels help you:
 *Want to propose a new label or discussion category? Start a [community discussion](https://github.com/orgs/lightspeedwp/discussions) or tag a maintainer!*
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

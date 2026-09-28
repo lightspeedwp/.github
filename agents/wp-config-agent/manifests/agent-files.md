@@ -943,4 +943,4 @@
 | skills/plugin-provided/linear__linear/assets/linear.png | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear/assets/linear.png | skill file | yes | plugin-provided skill file |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

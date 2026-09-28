@@ -57,4 +57,4 @@ If screenshots, exports or source-register entries are old or not freshly scanne
 Metadata quality, clarity and intent fit may be assessed, but label it as content judgement rather than technical proof.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
