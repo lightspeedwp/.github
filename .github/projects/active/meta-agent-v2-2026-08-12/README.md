@@ -420,10 +420,6 @@ Phase 4: Organisation-Wide Rollout |    | 🔵 2026-09-07+
 
 See [AGENTS.md](./AGENTS.md) for contribution guidelines.
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Visual Workflow
 
 ```mermaid

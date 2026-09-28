@@ -428,19 +428,4 @@ Dependabot may be disabled or not configured:
 **Output:** Merged PRs, updated dependencies, clean CI  
 **Dependencies:** `gh` CLI, `npm`, git, GitHub access, `develop` branch permissions
 
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
