@@ -37,5 +37,3 @@
   "last_verified": "needs live verification"
 }
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

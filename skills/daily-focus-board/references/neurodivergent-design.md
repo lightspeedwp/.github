@@ -97,5 +97,3 @@ guidance; neurodivergence is heterogeneous, so treat these as supports to adapt,
 
 ADDitude Magazine (additudemag.com) is another widely used, ADHD-focused resource worth searching
 for deeper reading on task initiation, time blindness, and body doubling.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

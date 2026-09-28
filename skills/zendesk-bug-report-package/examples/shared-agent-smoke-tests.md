@@ -57,15 +57,3 @@ When intentionally invoking `zendesk-router-skill`, the router should return:
 
 **What input would help next:** The ticket URL or pasted support thread plus expected behaviour, actual behaviour, reproduction clues, impact, and any screenshots/logs.
 ```
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

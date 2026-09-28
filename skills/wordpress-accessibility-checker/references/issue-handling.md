@@ -83,5 +83,3 @@ Use these paths when direct MCP support is missing:
 - Media alt text: `Media > Library > [Image] > Alt Text`.
 - Navigation labels: `Appearance > Menus` or `Appearance > Editor > Navigation`, depending on the theme.
 - Forms: the active forms plugin menu, such as `Forms > Forms > [Form] > Edit`.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -55,5 +55,3 @@ Use this model when deciding whether an archive should be indexable, noindexed, 
 ## Caution
 
 Do not recommend global archive exclusion without sampling important destination, tour, accommodation and travel-style archives.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

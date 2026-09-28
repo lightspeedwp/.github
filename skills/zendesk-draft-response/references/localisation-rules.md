@@ -46,5 +46,3 @@ Match the requested locale and customer relationship. When unsure, prefer profes
 ## Do Not Add Facts
 
 Do not add local legal, billing, security, or product details during localisation unless they are present in the source evidence.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

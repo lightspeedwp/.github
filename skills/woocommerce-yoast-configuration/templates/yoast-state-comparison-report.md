@@ -76,5 +76,3 @@
 - [ ] Confirm decisions are logged where risky changes are accepted.
 
 ## Next action
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

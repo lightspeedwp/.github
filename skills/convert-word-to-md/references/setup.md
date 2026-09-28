@@ -89,5 +89,3 @@ invoked (check `python -m pip --version` shows the same path as `python
 - Only `.docx` is supported by this skill. Legacy binary `.doc` files are
   out of scope — ask the user to re-save the file as `.docx` (e.g., via
   Word's "Save As") if one is encountered.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

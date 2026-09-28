@@ -231,5 +231,3 @@ git stash push -- src/path/a src/path/b -m "local-build"   # SILENTLY drops -m
 ```
 
 The `-m` MUST come before the `--` path separator.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

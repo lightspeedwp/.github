@@ -108,5 +108,3 @@ Record:
 - Conditional logic.
 - Test entry ID if permitted, with personal data redacted.
 - Remaining risks and owner for external-system verification.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
