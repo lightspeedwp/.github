@@ -182,10 +182,6 @@ Enhance the existing [Reviewer Agent](./.github/agents/reviewer.agent.md) from a
 3. 📋 **Run OpenSpec** — Create detailed implementation plan
 4. 🔨 **Phase 2 begins** — Core implementation
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and collaborative planning!*
-
 ## Visual Workflow
 
 ```mermaid
