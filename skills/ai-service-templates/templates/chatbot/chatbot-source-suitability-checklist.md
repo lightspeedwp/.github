@@ -52,5 +52,3 @@
 - Source readiness: {{source_readiness.status}}
 - Blockers: {{source_readiness.blockers}}
 - Required fixes: {{source_readiness.fixes}}
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

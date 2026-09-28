@@ -47,5 +47,3 @@ This context should not invent client commitments, override live source material
 ## Current source priority note
 
 Current user request stays above stored memory, business context, templates, examples, and prior assumptions.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

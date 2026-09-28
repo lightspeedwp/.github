@@ -58,5 +58,3 @@ Run this before presenting a substantial output.
 - Next action is explicit.
 - No local-only file paths or inaccessible links are exposed.
 - Human review gates are included for legal, privacy, security, claims, and publication-sensitive work.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
