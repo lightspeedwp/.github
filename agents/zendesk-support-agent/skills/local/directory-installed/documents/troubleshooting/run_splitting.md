@@ -43,18 +43,4 @@ So searching for a substring and replacing it "as text" often fails.
 - find paragraphs by simple predicates (e.g., indentation)
 - replace the Nth tracked insertion inside a paragraph
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

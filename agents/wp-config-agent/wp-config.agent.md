@@ -72,20 +72,5 @@ Provide expert configuration assistance for WordPress sites specializing in them
 
 *Generated during Phase 2 Agent Specification Audit*
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

@@ -66,18 +66,4 @@ If you see `anchor` rows, treat as high-risk and inspect renders closely.
 - Wrap modes causing overlap in LibreOffice exports
 - Copy/pasted images with huge DPI metadata leading to surprising sizes
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
