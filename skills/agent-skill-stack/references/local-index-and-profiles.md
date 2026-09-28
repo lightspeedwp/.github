@@ -112,5 +112,3 @@ When a profile exists:
 5. Keep unrelated global Skills out of the proposed stack even if their descriptions are broad.
 
 Rebuild the local index and rerun the recall check after changing a profile.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

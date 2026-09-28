@@ -26,5 +26,3 @@
 <!-- BADGES-END -->
 
 Use a connector-aware skill when source priority and tool limits need explicit handling.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

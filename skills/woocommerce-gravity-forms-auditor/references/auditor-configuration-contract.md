@@ -230,15 +230,3 @@ Use this format when handing from audit to configuration:
   "suggested_configuration_prompt": "Use woocommerce-gravity-forms-configuration to verify current state and prepare a remediation change plan for findings GF-001 and GF-002. Do not apply changes until approved."
 }
 ```
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

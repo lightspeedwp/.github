@@ -67,5 +67,3 @@ Use these checks after configuration changes, launch changes, migration work or 
 - Key canonical tags are correct.
 - Important redirects work.
 - Tracking and Search Console evidence are separated from Yoast evidence.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

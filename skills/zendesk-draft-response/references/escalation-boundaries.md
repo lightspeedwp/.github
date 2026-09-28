@@ -37,5 +37,3 @@ Route away from reply drafting or keep the reply deliberately limited when the i
 - engineering ownership that has not been confirmed
 
 A safe customer reply can still acknowledge receipt and set a limited next step, but it must not promise the escalation outcome.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

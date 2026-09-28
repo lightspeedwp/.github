@@ -72,5 +72,3 @@ Add only when needed:
 - Async/event topology diagrams
 - Anti-pattern catalog with refactoring paths
 - Failure-mode analysis and resilience posture
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

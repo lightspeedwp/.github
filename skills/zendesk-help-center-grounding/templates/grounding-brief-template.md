@@ -63,5 +63,3 @@
 ## Handoff
 
 [One compact instruction for the next workflow.]
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

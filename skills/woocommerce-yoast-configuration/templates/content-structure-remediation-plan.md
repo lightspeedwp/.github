@@ -90,5 +90,3 @@
 ## Client-safe summary
 
 Use plain language. Avoid promising ranking, traffic, indexing or rich-result outcomes.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

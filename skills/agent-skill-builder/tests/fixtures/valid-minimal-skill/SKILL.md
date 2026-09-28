@@ -6,5 +6,3 @@ description: perform a tiny valid workflow for validator fixture testing. use wh
 # Valid Minimal Skill
 
 This fixture should pass basic structure validation.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
