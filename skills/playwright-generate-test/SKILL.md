@@ -17,4 +17,4 @@ Your goal is to generate a Playwright test based on the provided scenario after 
 - Execute the test file and iterate until the test passes
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -46,4 +46,4 @@ Prioritise product discoverability, categories, product identifiers, enquiry-led
 Audit findings here. Route catalogue SEO setup or default templates to `yoast-configuration`.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

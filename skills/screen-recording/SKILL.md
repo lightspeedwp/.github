@@ -238,4 +238,4 @@ def find_changed_clusters(frame_a, frame_b, threshold=30, min_pixels=300, dilate
 - No audio support in GIF — use MP4 for narrated demos (but lose VS Code preview support)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
