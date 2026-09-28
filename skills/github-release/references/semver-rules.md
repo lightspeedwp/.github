@@ -116,15 +116,3 @@ Default to `1.0.0` regardless of what's in the diff. Inform the user.
 | Changing default value of optional parameter | Treat as MAJOR if callers might rely on old default |
 | Adding a new required config option to an optional block | MINOR if the block itself is optional, otherwise MAJOR |
 | Reverting a previous commit entirely | Follow what the net diff shows, not the revert message |
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

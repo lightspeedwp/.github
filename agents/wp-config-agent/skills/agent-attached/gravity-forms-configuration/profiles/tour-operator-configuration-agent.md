@@ -46,4 +46,4 @@ Page 1: contact and trip basics. Page 2: destinations/interests and dates. Page 
 Deposit/payment feeds, passport/ID upload, insurance/medical data, automated booking confirmation, availability promises, external CRM/webhook feeds, and retention settings.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

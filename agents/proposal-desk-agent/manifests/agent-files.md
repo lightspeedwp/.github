@@ -597,4 +597,4 @@
 | skills/plugin-provided/slack/slack/references/markdown.md | /root/.codex/plugins/cache/openai-marketplace/slack/local/skills/slack/references/markdown.md | file | yes |  |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

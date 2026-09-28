@@ -78,4 +78,4 @@ The current app guidance should remain consistent with these rules:
 - Maintenance guidance about apps belongs in the maintenance workflow and in `references/CONNECTORS.md`, not in ad hoc app-routing notes.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

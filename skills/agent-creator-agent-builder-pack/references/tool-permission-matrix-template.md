@@ -47,5 +47,3 @@ Keep read/write capability, constraints, and approval gates explicit.
 ## Validator
 
 Checked by `scripts/validate-template-schema-alignment.py`.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

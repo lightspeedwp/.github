@@ -48,4 +48,4 @@ Route checkout replacement, tax, order creation, subscriptions, stock, shipping,
 Keep payment credentials, customer personal data, order data, and internal routing rules out of client-safe summaries unless explicitly approved and redacted.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -67,5 +67,3 @@
 - Status: {{release.status}}
 - Approved by: {{release.approved_by}}
 - Notes: {{release.notes}}
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

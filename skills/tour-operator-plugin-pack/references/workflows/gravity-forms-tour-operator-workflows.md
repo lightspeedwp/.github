@@ -43,5 +43,3 @@ Gravity Forms supports the enquiry workflow; it does not replace the Tour Operat
 ## Implementation notes
 
 Treat routing, consent and production notification changes as medium risk unless the site has a tested rollback and clear owner approval.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

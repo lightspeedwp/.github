@@ -72,5 +72,3 @@ Use this file when updating the source register, producing research packs, or de
 4. Do not treat Schema.org validity as Google rich-result eligibility.
 5. Do not treat Yoast schema output as correct until rendered source is checked on the target site.
 6. Do not treat generated AI metadata as approved content until a human review step is recorded.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

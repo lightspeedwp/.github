@@ -42,4 +42,4 @@
 - Distinguish these preferences from live site configuration, especially where LS Agency Dev Site evidence shows legacy or incomplete WooCommerce setup.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

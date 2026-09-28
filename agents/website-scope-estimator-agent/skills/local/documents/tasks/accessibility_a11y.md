@@ -93,4 +93,4 @@ python render_docx.py a11y_fixed.docx --output_dir out_a11y
 - Alt text generated from filenames is a baseline; replace it with meaningful descriptions for real accessibility.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

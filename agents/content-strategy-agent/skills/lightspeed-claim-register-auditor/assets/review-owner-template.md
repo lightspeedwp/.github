@@ -34,4 +34,4 @@
 | Legal/privacy claims | Legal/privacy adviser | Review policy, privacy, compliance and data claims |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
