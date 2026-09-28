@@ -69,5 +69,3 @@ Score each category as `Pass`, `Minor issue`, `Moderate issue`, `Major issue`, `
 ## Finding fields
 
 Every finding must include finding title, evidence, affected WooCommerce form/page/product/order/customer/account/add-on/feed context, severity, confidence, user impact, business impact, recommended fix, configuration handoff needed, suggested owner, and retest step.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

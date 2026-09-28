@@ -130,5 +130,3 @@ For feed-related tasks, prefer:
 - `templates/risk-review.md` for payment or user-registration changes.
 - `templates/test-report.md` after test submissions.
 - `templates/handoff-note.md` for team handoff.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
