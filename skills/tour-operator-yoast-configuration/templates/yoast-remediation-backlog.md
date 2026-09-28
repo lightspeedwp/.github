@@ -27,5 +27,3 @@
 
 | Issue | Affected area | Severity | Priority | Evidence | Owner route | Approval | QA |
 |---|---|---|---|---|---|---|---|
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

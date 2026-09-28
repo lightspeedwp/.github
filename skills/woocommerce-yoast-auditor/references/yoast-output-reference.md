@@ -52,5 +52,3 @@ Check whether observed output is safe, complete and consistent for the reviewed 
 ## Output expectations
 
 For each output issue, record URL/template, observed output, expected safe output, evidence source, confidence, risk and next route.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

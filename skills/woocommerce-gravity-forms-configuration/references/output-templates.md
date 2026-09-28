@@ -54,5 +54,3 @@ Keep outputs concise and operational. Use tables only when they improve scanabil
 ## Customer-facing wording
 
 Only draft customer-facing wording when explicitly requested. Keep customer-facing copy separate from internal notes, and avoid unsupported commitments about delivery time, privacy, compliance, payments, availability, or integration behaviour.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

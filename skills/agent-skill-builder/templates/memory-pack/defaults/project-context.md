@@ -26,5 +26,3 @@
 <!-- BADGES-END -->
 
 *Currently empty by design.*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

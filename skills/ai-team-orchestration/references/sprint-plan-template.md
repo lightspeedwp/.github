@@ -119,15 +119,3 @@ Read the repository instructions, PROJECT_BRIEF.md when present, and this plan.
 Implement the in-scope work, run the listed verification, update durable context
 when needed, and prepare a pull request. Do not merge.
 ```
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

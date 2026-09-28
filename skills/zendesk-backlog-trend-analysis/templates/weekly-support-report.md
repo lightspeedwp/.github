@@ -76,5 +76,3 @@ Use this template for weekly support summaries. Omit empty sections and unsuppor
 - Ticket details sampled:
 - Secondary sources used:
 - Missing evidence:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

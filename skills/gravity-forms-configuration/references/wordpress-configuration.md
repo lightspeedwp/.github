@@ -45,15 +45,3 @@ Route away from this skill when the request is mainly custom plugin development,
 ## High-risk operations
 
 Treat payment feeds, user registration, deletion, entry exports, file upload handling, production embeds, and overwriting notifications/confirmations/feeds as high-risk. Require explicit approval and a rollback note before write actions.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
