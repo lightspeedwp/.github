@@ -83,4 +83,4 @@ Return a compact Markdown package with these sections when relevant:
 - `references/collection-output-template.md` — use this as the default output structure.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
