@@ -196,24 +196,5 @@ This workflow systematically converts a specification (requirements) into execut
 - Code review feedback minimal (<3 rounds)
 - Zero post-release bugs (28-day window)
 
----
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
