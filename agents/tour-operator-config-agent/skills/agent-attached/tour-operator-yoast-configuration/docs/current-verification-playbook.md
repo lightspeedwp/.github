@@ -44,42 +44,4 @@ If current verification was not possible, state the limitation and keep recommen
 
 *🧭 Your compass through the documentation landscape*
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

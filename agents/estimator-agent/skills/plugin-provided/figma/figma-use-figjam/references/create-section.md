@@ -208,20 +208,3 @@ figma.closePlugin()
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

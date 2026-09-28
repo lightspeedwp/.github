@@ -77,24 +77,5 @@ Draft: <link to draft>
 - If the user asked for a single reply, return just that item.
 - If no unreplied messages are found, say so directly and explain the scope checked.
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

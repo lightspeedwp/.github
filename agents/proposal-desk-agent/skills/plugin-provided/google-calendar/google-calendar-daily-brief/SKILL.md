@@ -74,18 +74,4 @@ Use `--now` when summarizing today so the script can emit `Remaining Today`. Omi
 - Base free-window and lunch-window calculations on opaque timed events.
 - Preserve event ordering by start time.
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
