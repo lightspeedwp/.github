@@ -1689,7 +1689,7 @@ function graphqlBranchNames(query, variables = {}) {
 }
 
 /** The mutations that write a branch, by ref id or by committing to a named one. */
-const WRITES_A_BRANCH = /\b(?:createRef|updateRef|deleteRef|createCommitOnBranch)\b/;
+const WRITES_A_BRANCH = /\b(?:createRef|updateRefs?|deleteRef|createCommitOnBranch)\b/;
 
 /**
  * The GraphQL variables a call carries, keyed by the name the document refers to.
@@ -1804,10 +1804,17 @@ function graphqlBranchProblems(query, variables = {}) {
   // A branch-writing mutation that resolves to no branch is refused. That includes a
   // `createCommitOnBranch` whose `branchName` is bound to a variable the guard cannot
   // read, which would otherwise be allowed precisely because its name was hidden.
+  // `branch` is included because `createCommitOnBranch` takes the target as a nested
+  // input: `input: {branch: $b}` names the branch field but binds it to a variable,
+  // which is as unreadable as `branchName: $b` and was not caught.
+  // `updateRefs` is included because `updateRef` does not match it — the trailing
+  // `s` is a word character — so a variable-carried name inside `refUpdates` was
+  // neither resolved nor refused. Its literal form was already read by the loop
+  // above, which is why only the variable form showed the gap.
   const unreadableBranchWrite =
     WRITES_A_BRANCH.test(query) &&
     !seen.size &&
-    /\b(?:branchName|name)\s*:\s*\$[A-Za-z_]/.test(query);
+    /\b(?:branchName|name|branch)\s*:\s*\$[A-Za-z_]/.test(query);
   if (nodeIdRefWrite || namedRefWrite || unreadableBranchWrite) {
     problems.push(
       'Write blocked: a ref mutation names no branch the guard can read, so the target cannot be checked.'

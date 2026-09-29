@@ -1734,6 +1734,36 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `gh api graphql -f query='${document}' ${flags}`).status).toBe(0);
   });
 
+  // `createCommitOnBranch` takes its target as a nested input, so `input: {branch: $b}`
+  // names the branch field while binding it to a variable. That is as unreadable as
+  // `branchName: $b`, and the unreadable-write check did not look at `branch`.
+  test.each([
+    ['a protected name', 'main', 2],
+    ['the base branch', 'develop', 2],
+  ])('refuses a commit whose branch input is a variable carrying %s', (_label, value, expected) => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($b: BranchRepositoryTarget!) { createCommitOnBranch(input: {branch: $b, message: {headline: "x"}}) { commit { oid } } }';
+    expect(
+      runBash(fx, `gh api graphql -f query='${document}' -F b[branchName]=${value}`).status
+    ).toBe(expected);
+  });
+
+  // `updateRefs` is plural, and a word boundary after `updateRef` does not match the
+  // trailing `s`, so the mutation was absent from the set of branch writers. Its
+  // literal form was read by the name loop, which is why only the variable form
+  // reached GitHub.
+  test.each([
+    ['a variable name', '-f n=refs/heads/main', 2],
+    ['a literal name', '', 2],
+  ])('refuses an updateRefs with %s', (_label, flag, expected) => {
+    fx.branch('feat/good-name');
+    const target = flag ? 'name: $n' : 'name: "refs/heads/main"';
+    const document = `mutation ($n: GitRefname!) { updateRefs(input: {refUpdates: [{${target}, afterOid: "a1b2"}], repositoryId: "R"}) { clientMutationId } }`;
+    const command = `gh api graphql -f query='${document}'${flag ? ` ${flag}` : ''}`;
+    expect(runBash(fx, command).status).toBe(expected);
+  });
+
   // The document can reach the API in more ways than `-f query=`, and each was
   // either skipped entirely or read from the wrong directory.
   test.each([
