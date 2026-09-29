@@ -31,6 +31,11 @@ const {
 
 const WORKFLOWS_README = ".github/workflows/README.md";
 
+// Fixture roots and the cwd they displaced, drained by the afterEach below so
+// a test that chdirs cannot leak its working directory into the next one.
+const fixtureDirs = [];
+const cwdStack = [];
+
 /**
  * Build a throwaway repository fixture and chdir into it.
  *
@@ -38,10 +43,11 @@ const WORKFLOWS_README = ".github/workflows/README.md";
  * relative paths, so the fixture root has to be the process cwd for the test
  * to observe a realistic tree. Each fixture is torn down by `afterEach`, which
  * restores the cwd before the next test builds its own.
+ *
+ * @param {Record<string, string>} files Relative path to file contents; missing
+ *   parent directories are created, and an omitted value becomes a placeholder.
+ * @returns {string} Absolute path to the fixture root, which is also the cwd.
  */
-const fixtureDirs = [];
-const cwdStack = [];
-
 function withFixture(files) {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "resolve-readme-"));
   const previousCwd = process.cwd();
