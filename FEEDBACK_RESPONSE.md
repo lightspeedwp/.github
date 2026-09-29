@@ -34,20 +34,33 @@ Refs #1592
 | 2   | CodeRabbit | Major    | `git push` checks only `positional[1]`, so `git push origin feat/good-name main` checks the wrong branch; `--tags` returns early and bypasses entirely; `--all`, `--branches` and `--mirror` push every local branch unchecked | ✅ Addressed         | Every refspec on the command line is now checked in a loop, a tags-only push with no refspec checks nothing, and the three fan-out flags are refused outright with a message pointing at the single-branch form. Six test cases added                                                                                                                                                                                                                                                                                                                                                                                                             |
 | 3   | Copilot    | Critical | `enforce-branch-name.mjs` rejects valid semantic-version release branches                                                                                                                                                      | ✅ Resolved upstream | Not a defect in this file. The guard imports `lib/validate-branch-name.js`, which rejected `release/vX.Y.Z` at the time; a different copy, `scripts/validation/validate-branch-name.cjs`, accepted it, so the four copies of the validator disagreed. #3558 has since merged and changed `lib/validate-branch-name.js`, so they agree and this is resolved upstream rather than here. The record is kept as it was raised.                                                                                                                                                                                                                        |
 | 4   | Copilot    | Moderate | `enforce-branch-name.mjs` missing focused tests; empty branch detection fails open                                                                                                                                             | ❌ Rejected          | The missing focused tests are addressed by items 1 and 2, which add nine. The "fails open" half does not hold, and it is a different code path from the empty-branch defect recorded further down: that one was `writeProblem` in the guard treating an undetermined branch as valid, and it is fixed. This half is `.claude/hooks/session-start.sh`, where an unknown commit count falls to the `else` branch, which **keeps** the `claude/*` branch rather than renaming it. No commit is accepted on a forbidden prefix either way, so the effect is a missing placeholder rename, not a bypass, and the code comments the intent at that line |
-| 5   | Copilot    | Moderate | `.claude/cloud/setup.sh` installs `actionlint@latest`, which is not reproducible, and the Node cache may retain a stale entry                                                                                                  | 📋 Deferred          | Real, and deliberately out of scope for a branch-guard fix: pinning a version is a decision about which release to pin and when to bump it. Tracked in #3617                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| 5   | Copilot    | Moderate | `.claude/cloud/setup.sh` installs `actionlint@latest`, which is not reproducible | 📋 Deferred          | Real, and deliberately out of scope for a branch-guard fix: the pin needs a decision about which version to hold, tracked in #3617.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| 5a  | Copilot    | Moderate | The Node cache may retain a stale entry between sessions | ✅ Resolved          | The install directory is keyed by major version and the exact version is checked before the cache is trusted, so a bump within the same major replaces the binary. The replacement is staged and only swapped in once the staged binary reports the expected version, so the old install survives a failed download. A failed install on a fresh machine no longer links a missing binary, which was the remaining way a stale or absent entry could be used. Verified in `scripts/__tests__/setup-node-install.test.js`.                                                                                                                                                                                                                                                                                                       |
 
 ## Deferred
 
 📋 Deferred: item 5, the `actionlint@latest` pin in the setup script, tracked in #3617; and the
-shared response-file path, tracked in #3618. Item 3 is no longer deferred: #3558 merged and the
-validators agree.
+shared response-file path, tracked in #3618.
+
+Item 5 originally bundled the unpinned `actionlint@latest` with a concern about the Node
+cache retaining a stale entry. The two have different answers, so item 5 is now the pin alone
+and the Node cache is item 5a: it is resolved. The install directory is keyed by major version
+and the exact version is checked before the cache is trusted, the replacement is staged and
+only swapped in once the staged binary reports the expected version, and a failed install no
+longer leaves a link to a missing binary. Only the `actionlint@latest` pin remains deferred.
+
+Item 3 is no longer deferred: #3558 merged and the validators agree.
 
 ## Summary
 
-Feedback items addressed: 2 of the 5 in the table. The other three are accounted for too — 1 resolved
+Feedback items addressed: 2 of the 6 in the table. The other four are accounted for too — 1 resolved
 upstream in #3558, which merged and made the validators agree; 1 assessed and rejected with evidence;
-and 1 deferred in #3617. The follow-up tables record a further 33 findings, all fixed. A second
+1 deferred in #3617; and 1 resolved, which is the Node-cache half of what used to be item 5 before
+it was split into 5 and 5a. The follow-up tables record a further 33 findings, all fixed. A second
 deferral sits outside the table, in #3618. Nothing was dismissed without a reason.
+
+Each count here is derived from the status marks actually present, so the record cannot drift
+from what it claims.
 
 Each count here is derived from the status marks actually present, by a test, so the record cannot
 drift from what it claims.
