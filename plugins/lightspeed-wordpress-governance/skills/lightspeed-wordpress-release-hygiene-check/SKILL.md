@@ -4,5 +4,9 @@ description: run release hygiene checks for WordPress repositories before final 
 version: 0.1.1
 ---
 
+# LightSpeed WordPress Release Hygiene Check
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Use this skill to run release hygiene checks for WordPress repositories before final cutover.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

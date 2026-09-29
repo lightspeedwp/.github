@@ -4,6 +4,9 @@ description: evaluate WordPress delivery outputs against repository security gov
 version: 0.1.1
 ---
 
+# LightSpeed WordPress Security Governance
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Use this skill to evaluate WordPress delivery outputs against repository security governance requirements.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
