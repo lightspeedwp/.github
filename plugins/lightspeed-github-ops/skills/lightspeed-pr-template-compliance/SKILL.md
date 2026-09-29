@@ -4,10 +4,9 @@ description: verify pull request content against required template sections and 
 version: 0.1.1
 ---
 
+# LightSpeed PR Template Compliance
 
----
+Use this skill to verify pull request content against required template sections and governance checks.
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

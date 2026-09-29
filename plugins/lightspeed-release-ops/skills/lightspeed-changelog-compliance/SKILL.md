@@ -4,5 +4,9 @@ description: validate changelog completeness and semantic-release alignment befo
 version: 0.1.1
 ---
 
+# LightSpeed Changelog Compliance
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Use this skill to validate changelog completeness and semantic-release alignment before release handoff.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
