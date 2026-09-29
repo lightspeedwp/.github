@@ -92,7 +92,14 @@ function resolveReadmeFiles(changedFiles) {
     // Check for README.md in the changed file's directory
     const readmeInDir = path.join(dir, "README.md");
     if (fs.existsSync(readmeInDir) && !isExcludedReadme(readmeInDir)) {
-      readmes.add(readmeInDir);
+      // Emit the POSIX spelling even when `path.join` produced backslashes, so
+      // the list is identical on every platform. The exclusion check above
+      // already normalises, and `git diff --name-only` reports forward slashes,
+      // so a Windows separator here would be the one place the output stopped
+      // matching its own input -- and would break the forward-slash pathspecs
+      // and expectations the rest of the workflow and the tests rely on.
+      // On POSIX this is a no-op: `path.join` already returns forward slashes.
+      readmes.add(toPosixPath(readmeInDir));
     }
 
     // Track if changes are in subdirectories (not root)

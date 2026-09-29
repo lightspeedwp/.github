@@ -225,6 +225,41 @@ describe("resolveReadmeFiles", () => {
     });
   });
 
+  describe("emits platform-independent POSIX output", () => {
+    it("emits forward-slash paths, matching the git paths it derives from", () => {
+      // The output is written to GITHUB_OUTPUT and consumed by meta.agent.js, so
+      // it must be spelled the same way on every platform. `path.join` produces
+      // backslashes on Windows, and a backslash would be the one place the list
+      // stopped matching the forward-slash paths `git diff --name-only` reports.
+      //
+      // The exact-list assertion below is what catches this on Windows; the
+      // backslash assertion is belt-and-braces. Neither can fail on Linux,
+      // because `path.join` is already POSIX there -- this test protects
+      // Windows runs, it does not add Linux CI coverage.
+      withFixture({
+        "README.md": "# root\n",
+        "docs/README.md": "# docs\n",
+        "scripts/agents/includes/README.md": "# includes\n",
+        ".github/workflows/README.md": "# workflows\n",
+        ".github/workflows/documentation.yml": "name: test\n",
+      });
+
+      const result = resolveReadmeFiles([
+        ".github/workflows/documentation.yml",
+        "docs/INDEX.md",
+        "scripts/agents/includes/footer-shape.js",
+      ]);
+
+      expect(result).toEqual([
+        "README.md",
+        "docs/README.md",
+        "scripts/agents/includes/README.md",
+      ]);
+      // A backslash anywhere in the output is the bug, whatever the platform.
+      expect(result.some((file) => file.includes("\\"))).toBe(false);
+    });
+  });
+
   describe("leaves every other directory untouched", () => {
     it("returns the root README when a subdirectory changes", () => {
       withFixture({ "README.md": "# root\n", "docs/README.md": "# docs\n" });
