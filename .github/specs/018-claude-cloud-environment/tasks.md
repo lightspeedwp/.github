@@ -1,5 +1,5 @@
 ---
-description: "Task list for 016 Standardised Claude Code Cloud Environment"
+description: "Task list for 018 Standardised Claude Code Cloud Environment"
 ---
 
 # Tasks: Standardised Claude Code Cloud Environment
@@ -230,7 +230,7 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 - [x] T038 [P] Run `npm run lint:md` on changed Markdown and `npx prettier --check` on changed JS and JSON files, and fix any findings.
-- [ ] T039 Run `/speckit-analyze` for 016 and resolve any CRITICAL or HIGH findings before marking #3524 ready for review.
+- [ ] T039 Run `/speckit-analyze` for 018 and resolve any CRITICAL or HIGH findings before marking #3524 ready for review.
 - [ ] T040 Update the #3524 PR description with the final behaviour list and test evidence, then mark it ready for review.
 
 ---
