@@ -23,13 +23,25 @@ trap 'rm -f "$TMP"' EXIT
 
 HAS_SUBDIR_CHANGES=0
 
+# Kept in step with EXCLUDED_README_DIRS in resolve-readme-files.cjs: GitHub
+# treats a file directly in .github/workflows/ as a workflow definition and the
+# App token that pushes the regeneration branch has no `workflows` permission,
+# so a README there can never be pushed. See issue #3687.
+EXCLUDED_DIR=".github/workflows"
+
 while IFS= read -r file; do
   [ -z "$file" ] && continue
   dir=$(dirname "$file")
 
-  if [ -f "$dir/README.md" ]; then
-    echo "$dir/README.md" >> "$TMP"
-  fi
+  # Segment-boundary match, so .github/workflows-old/ is NOT excluded.
+  case "$dir/README.md" in
+    "$EXCLUDED_DIR"/*) ;;
+    *)
+      if [ -f "$dir/README.md" ]; then
+        echo "$dir/README.md" >> "$TMP"
+      fi
+      ;;
+  esac
 
   if [ "$dir" != "." ]; then
     HAS_SUBDIR_CHANGES=1
