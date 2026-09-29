@@ -85,5 +85,3 @@ Report bugs via the [issue forms](https://github.com/OWNER/REPO/issues/new/choos
 ## 📄 License
 
 [MIT](LICENSE) © 2026 OWNER
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

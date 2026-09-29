@@ -181,5 +181,3 @@ Examples:
 ```md
 - Public/internal boundary: Needs review. The workaround appears temporary and product status is not confirmed.
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

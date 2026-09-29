@@ -53,20 +53,5 @@
 - User-provided context on 2026-07-01: available first-party extensions are `https://github.com/lightspeedwp/to-team`, `https://github.com/lightspeedwp/to-specials`, `https://github.com/lightspeedwp/to-reviews`, and `https://github.com/lightspeedwp/wetu-importer`.
 - User-provided source on 2026-07-01: the `Tour Operator Content Model` Google Doc is the working source for core Tour Operator CPTs, fields, taxonomies, relationship fields, and content-model boundary rules. Keep the detailed model in `agent_files/references/tour-operator-content-model-standard.md`, not as bulky Memory content.
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

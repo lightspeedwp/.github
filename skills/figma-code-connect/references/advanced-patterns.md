@@ -310,5 +310,3 @@ export default {
   <wow-special>Special Stuff!!! 🤩</wow-special> index: 2
 </ds-grandparent>
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

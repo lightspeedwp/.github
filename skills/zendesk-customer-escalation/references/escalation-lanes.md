@@ -59,5 +59,3 @@ Use decision-oriented asks:
 ## Multi-lane cases
 
 When multiple lanes could apply, name one primary owner and one supporting lane. Do not create a vague escalation with many owners. Explain why the primary lane owns the decision or next action.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

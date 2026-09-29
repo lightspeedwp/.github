@@ -74,5 +74,3 @@
 - Recommendation: propose a new canonical label in `.github/labels.yml`, then sync it to Linear.
 - No label was invented or applied.
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

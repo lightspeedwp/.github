@@ -51,5 +51,3 @@ actual behavior, and why the case matters>
 - `customer-escalation`: <when the case needs cross-functional escalation>
 - `create-knowledge`: <when the issue produced a stable workaround or reusable pattern>
 - `customer-research`: <when broader account context would change the next move>
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -43,5 +43,3 @@ Use this reference for common Yoast behaviour checks.
 - using unsupported claims in meta descriptions
 - missing QA after redirect imports
 - not checking translated canonicals and alternates
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

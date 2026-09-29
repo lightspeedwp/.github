@@ -255,18 +255,4 @@ Open these references as needed:
 - [`references/auto-layout.spec.md`](./references/auto-layout.spec.md) — deterministic layout helpers for arranging shapes within frames.
 - [`references/speaker-notes.spec.md`](./references/speaker-notes.spec.md) — speaker notes surface and visibility toggles.
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

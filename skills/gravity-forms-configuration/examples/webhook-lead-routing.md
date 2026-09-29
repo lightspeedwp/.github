@@ -54,5 +54,3 @@ Send approved, minimised form data to a staging or production endpoint after sub
 - Do not send uploaded files, IP addresses, hidden admin notes, or secrets unless explicitly approved.
 - Redact headers and tokens in all outputs.
 - Confirm external-system receipt before declaring success.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

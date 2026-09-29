@@ -66,24 +66,3 @@ Use every available relevant source before creating or finalizing the deck: web,
 Reference slide numbers and titles. Say which presentation and slides were read or changed, and call out any remaining issue that needs a narrower workflow or human design judgment.
 
 When source media was adapted, a brief confirmation is enough if everything migrated successfully. Describe slide-specific media fallbacks only when they occurred. If chart or evidence content was preserved as a raster because native reconstruction was impractical, disclose that those elements are not natively editable.
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

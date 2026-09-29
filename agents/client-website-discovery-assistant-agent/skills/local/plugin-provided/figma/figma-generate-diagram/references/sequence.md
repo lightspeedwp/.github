@@ -41,19 +41,3 @@ The renderer is a **narrow subset** of full Mermaid sequence — read §5 carefu
 8. [Validation checklist](#8-validation-checklist)
 9. [Complete example](#9-complete-example)
 10. [Calling generate_diagram](#10-calling-generate_diagram)
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
