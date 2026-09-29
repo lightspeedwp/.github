@@ -246,6 +246,18 @@ settings, not branch-protection fields.
   against, so `cd other-repo && git commit` resolves to the directory it runs in. A `cd` inside a subshell is the
   exception: `(cd other-repo && git commit)` cannot change the parent's directory, so that command is judged against
   the branch the session is actually on, which is the stricter reading rather than a gap.
+- The guard reads `gh api graphql` as well as the REST API, because GraphQL reaches the same branch writes. The
+  document is read from `--query`, from a field and from an `--input` body, the branch names in it are judged by the
+  same rules, and a document the guard cannot read is refused. A name bound to a GraphQL variable is resolved from
+  the value sent with it, since `gh` sends every field other than `query` as a variable. Five limits remain, all
+  recorded in the [hooks contract](../.github/specs/018-claude-cloud-environment/contracts/hooks.md): a whole input
+  object passed as one variable (`createCommitOnBranch(input: $b)`) names no branch in the document, so the branch
+  it commits to is not read; the check is per document rather than per mutation field; the endpoint is matched as
+  `graphql` exactly, so `gh api /graphql` is not checked; a variable value supplied only in an `--input` body's
+  `variables` map is not a field, so it is refused rather than read; and `gh api` is last-wins for a repeated
+  `--input` or `-X` where the guard reads the first. The REST path can also still create a protected branch, because
+  `POST repos/{owner}/{repo}/git/refs` judges the name with the naming rules, which exempt `main`, rather than with
+  the protected-branch check.
 - The guard reads shell syntax. It does not follow aliases, and it cannot know a name the shell builds at run time.
   A command substitution is read, so a command hidden inside `$(...)` or backticks is checked, and a wrapper such as
   `timeout` or `env` is stepped through to the command behind it.

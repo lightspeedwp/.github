@@ -127,3 +127,34 @@ arms, parenthesised groups (also subshells), redirects, here-documents, and
 `cd` resolution that follows the shell's real working directory, including a `cd`
 that fails, that the shell rejects, or that runs in a subshell. A write to a
 protected file that the guard cannot locate is refused rather than allowed.
+
+**GraphQL transport (`gh api graphql`)**: GraphQL reaches the same branch writes as the
+REST API, so the document is read and the branch names in it are judged by the same
+rules — a protected name, the session placeholder, or a name the convention rejects is
+refused wherever it appears. The document is read from `--query`, from a field
+(`-f`, `-F`, `--field`, `--raw-field`) and from an `--input` body, and a document the
+guard cannot read is refused rather than treated as one that names no branch. A name
+bound to a GraphQL variable is resolved from the value sent with it, since `gh` sends
+every field other than `query` as a variable. A branch-writing mutation that resolves
+to no readable branch is refused, which covers `updateRef` and `deleteRef` — they
+identify their ref by node id and name no branch at all.
+
+The limits of that check are stated rather than implied:
+
+- A document whose branch-writing mutation resolves to no readable branch is refused
+  only when the mutation names a branch at all. A whole input object passed as a single
+  variable (`createCommitOnBranch(input: $b)`) names no branch key in the document, so
+  the branch it commits to is not read.
+- The check is per document, not per mutation field. A document naming a compliant
+  branch and also writing a ref by node id is refused, but a document whose ref-write
+  input is a variable is not distinguishable from a compliant one.
+- The endpoint is matched as `graphql` exactly. `gh api /graphql` reaches the same
+  endpoint and is not matched, so it is not checked.
+- A ref mutation whose name is a variable is judged on the value read from the command
+  line. A value supplied only in an `--input` body's `variables` map is not a field, so
+  the branch is not read and the mutation is refused.
+- `gh api` is last-occurrence-wins for a repeated `--input` or `-X`; the guard reads the
+  first. The two disagree where a command gives either twice.
+- The REST path can still create a protected branch: `POST repos/{owner}/{repo}/git/refs`
+  judges the name with the naming rules, which exempt `main` and the base branch, rather
+  than with the protected-branch check the GraphQL path applies.
