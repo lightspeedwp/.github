@@ -4,10 +4,9 @@ description: assess regression risk across changed areas and prioritise follow-u
 version: 0.1.1
 ---
 
+# LightSpeed Regression Risk Assessment
 
----
+Use this skill to assess regression risk across changed areas and prioritise follow-up checks.
 
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -4,5 +4,9 @@ description: summarise repository health indicators into actionable status repor
 version: 0.1.1
 ---
 
+# LightSpeed Repository Health Summary
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Use this skill to summarise repository health indicators into actionable status reports.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
