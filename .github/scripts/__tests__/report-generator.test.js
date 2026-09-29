@@ -12,21 +12,28 @@
 
 import assert from "assert";
 import fs from "fs";
+import module from "module";
 import os from "os";
 import path from "path";
-import { createRequire } from "module";
 
-const require = createRequire(import.meta.url);
-const __dirname = path.dirname(new URL(import.meta.url).pathname);
-const ROOT = path.join(__dirname, "../../../");
+// `require` and `__dirname` are declared by the CommonJS transform Babel
+// applies to this file, so binding them here raises a TDZ error under Jest.
+// Use distinct names and `import.meta.url` to locate the repo root.
+const load = module.createRequire(import.meta.url);
+const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
+const ROOT = path.join(TEST_DIR, "../../../");
 
 const { ComplianceReport, ReportWriter, SEVERITIES, normaliseSeverity } =
-  require("../report-generator.cjs");
-const { createViolation } = require("../audit-violation.cjs");
-const governanceRules = require("../governance-rules.json");
+  load("../report-generator.cjs");
+const { createViolation } = load("../audit-violation.cjs");
+const governanceRules = load("../governance-rules.json");
 
-const Ajv = require("ajv");
-const addFormats = require("ajv-formats");
+const Ajv = load("ajv");
+const addFormats = load("ajv-formats");
+
+// Under Jest the suite is collected by the runner, so it must not exit the
+// worker. Standalone (npm run test:report-generator) it owns the exit code.
+const RUNNING_UNDER_JEST = typeof process.env.JEST_WORKER_ID === "string";
 
 const GREEN = "\x1b[32m";
 const RED = "\x1b[31m";
@@ -669,6 +676,16 @@ console.log(`Total Tests: ${testsTotal}`);
 console.log(`${GREEN}Passed: ${testsPassed}${NC}`);
 console.log(`${RED}Failed: ${testsFailed}${NC}`);
 
-if (testsFailed > 0) {
+if (RUNNING_UNDER_JEST) {
+  // This file uses a plain assertion harness so it can also run standalone via
+  // `npm run test:report-generator`. Under Jest the assertions have already run
+  // at module scope, so register one test that reports their result.
+  test("governance audit report generator conforms to the contract", () => {
+    expect({
+      total: testsTotal,
+      failed: testsFailed,
+    }).toEqual({ total: testsTotal, failed: 0 });
+  });
+} else if (testsFailed > 0) {
   process.exit(1);
 }
