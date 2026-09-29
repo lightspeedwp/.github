@@ -24,7 +24,7 @@
  */
 
 import { execFileSync } from 'child_process';
-import { existsSync, readFileSync, realpathSync, statSync } from 'fs';
+import { existsSync, readFileSync, readdirSync, realpathSync, statSync } from 'fs';
 import path from 'path';
 
 // Loaded in main() with a dynamic import, so a missing or broken validator
@@ -119,40 +119,62 @@ function statusPaths(cwd) {
 function repositoryIdentity(cwd, preferred) {
   for (const name of [preferred, ...(lines(run('git', ['remote'], cwd)) ?? [])]) {
     if (!name) continue;
-    const found = remoteRepo(cwd, name);
-    if (found) return found;
+    // Both URLs are consulted. A clone can fetch from a local mirror and push to
+    // GitHub, and a cloud session's only remote is a local proxy that names the
+    // repository in its path, so neither URL alone identifies every repository the
+    // guard has to ask about.
+    for (const args of [
+      ['remote', 'get-url', name],
+      ['remote', 'get-url', '--push', name],
+    ]) {
+      const found = identityFromUrl((run('git', args, cwd) ?? '').trim());
+      if (found) return found;
+    }
   }
   return null;
 }
 
 /** Owner and repository of the named remote, or null when its URL names neither. */
-function remoteRepo(cwd, remote = 'origin') {
-  const url = (run('git', ['remote', 'get-url', remote], cwd) ?? '').trim();
+/**
+ * Owner and repository named by a git remote URL, or null when it names neither.
+ */
+function identityFromUrl(url) {
   if (!url) return null;
-  // A local path, as a test fixture or a self-hosted mirror uses, names no owner
-  // and repository. The scp-like form git writes for SSH and an explicit URL are
-  // the only forms that carry one, and a path is refused rather than split, since
-  // /srv/git/origin would otherwise become owner "git", repository "origin" and a
-  // request against a repository that does not exist.
-  // The scp-like form git writes for SSH is [user@]host:owner/repo. The owner
-  // and repository are the path after the colon, not the host: taking the host
-  // instead would ask GitHub about an organisation named after github.com.
+  // A local or self-hosted path, as a test fixture or a bare repository uses,
+  // names no owner and repository. The scp-like form git writes for SSH and an
+  // explicit URL are the only forms that carry one, and a path is refused rather
+  // than split, since /srv/git/origin would otherwise become owner "git" and
+  // repository "origin" and a request against a repository that does not exist.
   const scp = url.match(/^(?:[A-Za-z0-9._-]+@)?[^/:]+:(.+?)(?:\.git)?\/?$/);
   if (scp) {
-    const parts = scp[1].split('/');
+    const parts = scp[1].split('/').filter(Boolean);
     if (parts.length === 2 && parts[0] && parts[1]) return { owner: parts[0], repo: parts[1] };
   }
-  if (!/^(https?|git):\/\//.test(url)) return null;
+  if (!/^(https?|git|ssh):\/\//.test(url)) return null;
   try {
-    const parts = new URL(url).pathname
-      .replace(/^\//, '')
-      .replace(/\.git\/?$/, '')
-      .split('/');
-    if (parts.length !== 2 || !parts[0] || !parts[1]) return null;
-    return { owner: parts[0], repo: parts[1] };
+    const parsed = new URL(url);
+    // A cloud session reaches GitHub through a local proxy whose path carries the
+    // repository after a `git/` prefix, and whose authority is the proxy rather than
+    // github.com. Taking the repository from the path is what makes the legacy
+    // pull-request exception and the gh checks work there at all: on the authority
+    // alone, or on a path that has to be exactly two segments, both silently did
+    // nothing in the one environment the guard exists for.
+    const parts = parsed.pathname
+      .replace(/^\/+/, '')
+      .replace(/^git\//, '')
+      .split('/')
+      .map((part) => part.replace(/\.git$/, ''))
+      .filter(Boolean);
+    if (parts.length >= 2) return { owner: parts[parts.length - 2], repo: parts[parts.length - 1] };
   } catch {
     return null;
   }
+  return null;
+}
+
+/** Owner and repository of the named remote, or null when it names neither. */
+function remoteRepo(cwd, remote = 'origin') {
+  return identityFromUrl((run('git', ['remote', 'get-url', remote], cwd) ?? '').trim());
 }
 
 // ── Exceptions ──────────────────────────────────────────────────────────────
@@ -368,9 +390,26 @@ const HEREDOC = /<<-?\s*['"]?(\w+)['"]?([^\n]*)\n[\s\S]*?\n\t*\1(?=\n|$)/g;
  * inside a word, so commit messages never look like commands (FR-012), while
  * operators outside quotes are still seen.
  */
+/** Index of the `)` closing the `(` at `open`, or the end of the source. */
+function matchingParen(src, open) {
+  let depth = 0;
+  for (let i = open; i < src.length; i += 1) {
+    if (src[i] === '(') depth += 1;
+    else if (src[i] === ')') {
+      depth -= 1;
+      if (depth === 0) return i;
+    }
+  }
+  return src.length;
+}
+
 function parseShell(command) {
   const src = command.replace(HEREDOC, (_match, _tag, rest) => ` ${rest}`);
   const segments = [[]];
+  // Command substitutions found inside quotes, appended as their own segments
+  // once the surrounding list is closed. Appending them inline would split the
+  // list the words around them belong to, and a segment is a single command.
+  const substitutions = [];
   // Index of the first segment of the current list, so a trailing `&` marks only
   // the list it backgrounds rather than every earlier command.
   let listStart = 0;
@@ -418,13 +457,55 @@ function parseShell(command) {
         if (src[j] === '\\' && j + 1 < src.length) {
           text += src[j + 1];
           j += 2;
+        } else if (src[j] === '$' && src[j + 1] === '(') {
+          // A command substitution inside a double-quoted argument is a command
+          // in its own right, and collapsing it into the surrounding word hides
+          // it: `git commit -m "$(git rev-parse main)"` reads as one word and the
+          // substitution is never examined. It is emitted as its own segment,
+          // which is what makes the inner command visible to the checks below.
+          const close = matchingParen(src, j + 1);
+          const inner = src.slice(j + 2, close);
+          // The substituted text is queued as a segment of its own so the inner
+          // command is examined. It is a separate list, not a word of the
+          // surrounding one: a word here is a string, and the command checks read
+          // each word, so appending the parsed words to the current segment
+          // would merge two unrelated commands into one.
+          substitutions.push(...parseShell(inner));
+          j = close + 1;
         } else {
           text += src[j];
           j += 1;
         }
       }
-      extend(text);
+      if (text) extend(text);
       i = j;
+    } else if ((c === '&' || c === '>') && (src[i + 1] === '>' || src[i + 1] === '|')) {
+      // `&>` and `&>>` redirect both streams and `>|` overrides noclobber. The
+      // `&` branch below read the ampersand as a background operator and marked
+      // the rest of the list as a subshell, so the write that followed was judged
+      // in the wrong place and a guard file could be overwritten through
+      // `echo x &> .claude/settings.json`.
+      const width = src[i + 1] === '>' && src[i + 2] === '>' ? 3 : 2;
+      word = word || { text: '' };
+      word.redirect = true;
+      i += width - 1;
+    } else if (c === '$' && src[i + 1] === '(') {
+      // The unquoted form: `echo $(git push origin main)` is two commands and only
+      // the outer one would otherwise be seen. Treated like the quoted and backtick
+      // forms, so all three are checked the same way. The enclosing parenthesis is
+      // found by matchingParen, so a group or a case pattern around the
+      // substitution does not confuse where the command ends.
+      const close = matchingParen(src, i + 1);
+      substitutions.push(...parseShell(src.slice(i + 2, close)));
+      i = close;
+    } else if (c === '`') {
+      // The older substitution form, outside quotes. It is a command in its own
+      // right, so it is queued and checked like the $(...) form; folding it into
+      // the surrounding word would hide it entirely.
+      const close = src.indexOf('`', i + 1);
+      const stop = close === -1 ? src.length : close;
+      substitutions.push(...parseShell(src.slice(i + 1, stop)));
+      i = stop;
     } else if (c === '\\' && i + 1 < src.length) {
       extend(src[i + 1]);
       i += 1;
@@ -500,7 +581,7 @@ function parseShell(command) {
   }
   end();
 
-  return segments
+  const mapped = segments
     .map((tokens) => {
       const words = [];
       const writes = [];
@@ -521,6 +602,12 @@ function parseShell(command) {
       return { words, writes, subshell };
     })
     .filter((segment) => segment.words.length || segment.writes.length);
+
+  // A substitution is a command in its own right, so its segments are returned
+  // alongside the enclosing ones rather than merged into them: a segment is one
+  // command, and `git commit -m "$(git push origin main)"` is two. `parseShell`
+  // has already shaped them, so they are not put through the mapping above.
+  return mapped.concat(substitutions);
 }
 
 // `git branch` flags that list, delete or configure rather than create a branch.
@@ -550,7 +637,20 @@ const BRANCH_QUERY_FLAGS = new Set([
   '--no-column',
 ]);
 
-const WRAPPERS = new Set(['sudo', 'env', 'command', 'time', 'nohup', 'exec', 'xargs']);
+const WRAPPERS = new Set([
+  'sudo',
+  'env',
+  'command',
+  'time',
+  'timeout',
+  'nice',
+  'stdbuf',
+  'nohup',
+  'exec',
+  'xargs',
+  'ionice',
+  'chrt',
+]);
 
 /**
  * Interpreters whose command string is still a shell command this guard has to
@@ -596,24 +696,73 @@ const SHELL_KEYWORDS = new Set([
   '!',
 ]);
 
-/** Leading grouping punctuation, as in `(rm file)`. */
 const GROUPING_LEAD = /^[({\[]+/;
-/** A word that is nothing but grouping punctuation, such as `{`. */
 const GROUPING_ONLY = /^[({\[]+[)\]}]*$/;
 
-/** The command word and its arguments, skipping leading shell syntax. */
+// Options each wrapper takes before its command, per wrapper rather than shared:
+// a flag that takes a value for one wrapper takes none for another, and a shared
+// list misreads the command. `env -i` takes no value, so consuming one there
+// swallowed the command itself and left the push behind it unchecked.
+const WRAPPER_OPTIONS = {
+  env: new Set(['-u', '--unset', '-C', '--chdir', '-S', '--split-string']),
+  timeout: new Set(['-s', '--signal', '-k', '--kill-after']),
+  stdbuf: new Set(['-i', '-o', '-e']),
+  nice: new Set(['-n', '--adjustment']),
+  ionice: new Set(['-c', '-n', '-p', '-t']),
+  chrt: new Set(['-p', '--pid', '-u', '--other-pid']),
+  sudo: new Set([
+    '-u',
+    '--user',
+    '-g',
+    '--group',
+    '-h',
+    '--host',
+    '-p',
+    '--prompt',
+    '-C',
+    '--close-from',
+    '-T',
+    '--command-timeout',
+    '-R',
+    '--chroot',
+    '-D',
+    '--chdir',
+  ]),
+  command: new Set(['-v', '--verbose']),
+  xargs: new Set(['-n', '-P', '-I', '-d', '-a', '-E', '-s', '-L', '-I']),
+};
+
+/**
+ * The command a segment runs and the arguments after it, with environment
+ * assignments, shell keywords and wrappers peeled off the front.
+ */
 function commandOf(words) {
   let i = 0;
-  while (
-    i < words.length &&
-    (/^[A-Za-z_][A-Za-z0-9_]*=/.test(words[i]) ||
-      WRAPPERS.has(words[i]) ||
-      SHELL_KEYWORDS.has(words[i]) ||
-      GROUPING_ONLY.test(words[i]))
-  ) {
-    // A wrapper takes arguments before the command, so it is skipped but the
-    // scan continues; a keyword or grouping token is not a command at all.
-    i += 1;
+  for (;;) {
+    if (i >= words.length) break;
+    const word = words[i];
+    if (/^[A-Za-z_][A-Za-z0-9_]*=/.test(word)) {
+      i += 1;
+      continue;
+    }
+    if (SHELL_KEYWORDS.has(word) || GROUPING_ONLY.test(word)) {
+      i += 1;
+      continue;
+    }
+    if (WRAPPERS.has(word)) {
+      i += 1;
+      const takesValue = WRAPPER_OPTIONS[word] || new Set();
+      // The wrapper's own options, consuming a value only for the ones that take
+      // one for *this* wrapper.
+      while (i < words.length && words[i].startsWith('-') && words[i] !== '-') {
+        const option = words[i];
+        i += takesValue.has(option) ? 2 : 1;
+      }
+      // `timeout 60` style: a leading value that is not an option.
+      while (i < words.length && /^[0-9.]+[smhd]?$/.test(words[i])) i += 1;
+      continue;
+    }
+    break;
   }
   const raw = words[i] ? words[i] : '';
   const name = raw ? path.basename(raw.replace(GROUPING_LEAD, '')) : '';
@@ -980,7 +1129,7 @@ function commitOperands(rest) {
   for (let i = 0; i < rest.length; i += 1) {
     const arg = rest[i];
     // A long option that takes a value consumes it.
-    if (/^--(message|file|author|date|reuse-message|fixup|squash|trailer|signoff)$/.test(arg)) {
+    if (/^--(message|file|author|date|reuse-message|fixup|squash|trailer)$/.test(arg)) {
       i += 1;
       continue;
     }
@@ -988,8 +1137,17 @@ function commitOperands(rest) {
     // each take a value. Skipping only an exact `-m` left `git commit -am "docs"`
     // reading the message "docs" as a path, which then looked like a named path
     // and was judged in place of the index.
+    //
+    // An attached value takes the rest of the word: `-mfix` is the message "fix",
+    // not a flag plus a separate argument. Consuming the next argument there would
+    // drop the path in `git commit -mfix package.json`, so the guard judged the
+    // index and let the file through onto the base branch.
     if (/^-[A-Za-z]+$/.test(arg)) {
-      if (/[mFCc]/.test(arg.slice(1))) i += 1;
+      if (/[mFCc]/.test(arg.slice(1))) {
+        const letter = arg.slice(1).search(/[mFCc]/);
+        // The value is attached only when nothing follows the flag letter.
+        if (letter === arg.length - 2) i += 1;
+      }
       continue;
     }
     if (arg.startsWith('-')) continue;
@@ -1022,6 +1180,26 @@ function nestedCommand(name, args) {
     }
   }
   return null;
+}
+
+/**
+ * Files a pathspec covers, as repository-relative names, or an empty list when it
+ * is not a readable directory.
+ */
+function listFiles(target, cwd) {
+  if (!existsSync(target) || !statSync(target).isDirectory()) return [];
+  const root = (run('git', ['rev-parse', '--show-toplevel'], cwd) ?? '').trim() || cwd;
+  const found = [];
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name === '.git') continue;
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else found.push(path.relative(root, full).split(path.sep).join('/'));
+    }
+  };
+  walk(target);
+  return found;
 }
 
 function checkBash(command, cwd, depth = 0) {
@@ -1089,13 +1267,20 @@ function checkBash(command, cwd, depth = 0) {
     if (name !== 'git') continue;
 
     // Skip git's global options: -C <path>, -c <k=v>, --no-pager, etc.
+    // `git -C` applies to the one invocation it prefixes, so the directory and
+    // branch are computed for this segment and do not carry to the next. They used
+    // to be loop-level, which meant `git -C ../other log -1; git commit -m x` had
+    // its commit judged against the other checkout: a commit onto main was allowed
+    // because ../other was on a feature branch.
     let i = 0;
+    let segCwd = gitCwd;
+    let segBranch = branch;
     while (i < args.length && args[i].startsWith('-')) {
       if (args[i] === '-C' && args[i + 1]) {
         // `git -C` is relative to the shell's current directory, which a
         // preceding cd may have moved, not to the directory the hook started in.
-        gitCwd = path.resolve(tracker.cwd, args[i + 1]);
-        branch = currentBranch(gitCwd) || branch;
+        segCwd = path.resolve(tracker.cwd, args[i + 1]);
+        segBranch = currentBranch(segCwd) || segBranch;
       }
       i += ['-C', '-c'].includes(args[i]) ? 2 : 1;
     }
@@ -1103,14 +1288,21 @@ function checkBash(command, cwd, depth = 0) {
     const rest = args.slice(i + 1);
     const positional = rest.filter((arg) => !arg.startsWith('-'));
     const root = () =>
-      (run('git', ['rev-parse', '--show-toplevel'], gitCwd) ?? '').trim() || project;
-    const legacy = (target, remote) => () => hasOpenPr(target, { cwd: gitCwd, remote });
+      (run('git', ['rev-parse', '--show-toplevel'], segCwd) ?? '').trim() || project;
+    const legacy = (target, remote) => () => hasOpenPr(target, { cwd: segCwd, remote });
 
     if (sub === 'branch' && rest.some((arg) => ['-m', '-M', '--move'].includes(arg))) {
       const target = positional.at(-1);
       const problem = protectedBranchProblem(target);
       if (problem) problems.push(`Rename blocked: ${problem}.`);
-      else branch = target;
+      // A rename moves HEAD only when it renames the branch that is checked out.
+      // `git branch -m old new` renames old; when that is not the current branch the
+      // session stays where it is, and treating the new name as current would judge
+      // the following commit against a branch nobody is on.
+      else if (positional.length < 2 || positional[0] === segBranch) {
+        segBranch = target;
+        branch = target;
+      }
     } else if (
       sub === 'branch' &&
       gitBranchFlags(rest).some((flag) => ['-d', '-D', '--delete'].includes(flag)) &&
@@ -1145,7 +1337,13 @@ function checkBash(command, cwd, depth = 0) {
       const target = rest[flag + 1];
       const problem = protectedBranchProblem(target);
       if (problem) problems.push(`Branch creation blocked: ${problem}.`);
-      else branch = target;
+      else {
+        // A rename changes the current branch, so the name is written back to the
+        // loop-level value as well as this segment's: `git branch -m feat/x && git
+        // commit` must be judged as a commit on feat/x, not on the branch being
+        // renamed away.
+        branch = target;
+      }
     } else if (
       sub === 'branch' &&
       positional.length >= 1 &&
@@ -1160,19 +1358,48 @@ function checkBash(command, cwd, depth = 0) {
       positional.length === 1 &&
       !rest.includes('--')
     ) {
-      branch = positional[0];
+      // `git checkout <path>` restores a file from the index and leaves HEAD where
+      // it is; only a branch or a commit moves the session. A name that resolves to
+      // an existing branch switches, and a path that does not. Reading the
+      // operand as a branch either way meant a following commit was judged against
+      // a branch that had not been checked out.
+      if (sub === 'switch' || run('git', ['rev-parse', '--verify', positional[0]], segCwd) !== null) {
+        segBranch = positional[0];
+        // A checkout moves the current branch, so the loop-level value follows it
+        // for the commands that follow in the same list.
+        branch = positional[0];
+      }
     } else if (sub === 'add') {
       if (rest.some((arg) => ['-u', '--update'].includes(arg))) {
         // `-u` stages modified tracked files only, and only under any pathspec
         // given. `git status --porcelain` would add untracked files that `-u`
         // never stages and would ignore the pathspec, so both over-block.
         added.push(
-          ...(lines(run('git', ['diff', '--name-only', 'HEAD', '--', ...positional], gitCwd)) ?? [])
+          ...(lines(run('git', ['diff', '--name-only', 'HEAD', '--', ...positional], segCwd)) ?? [])
         );
       } else if (rest.some((arg) => ['-A', '--all', '.', ':/'].includes(arg))) {
-        added.push(...(statusPaths(gitCwd) ?? []));
+        added.push(...(statusPaths(segCwd) ?? []));
       } else {
-        added.push(...positional);
+        // A directory pathspec stands for the files under it. `git add docs` adds
+        // docs/guide.md, but the pathspec itself normalises to "docs", which does
+        // not start with "docs/" and so failed the documentation exception for a
+        // legitimate documentation-only commit.
+        //
+        // The files are listed from the working tree rather than the index: this
+        // runs while the command is being judged, before `git add` has actually
+        // staged anything, so the index does not yet describe the result. The
+        // contents are irrelevant, only the names and their repository-relative
+        // form, which is what the exception is judged on.
+        for (const pathspec of positional) {
+          const absolute = path.resolve(segCwd, pathspec);
+          let names;
+          try {
+            names = listFiles(absolute, segCwd);
+          } catch {
+            names = [pathspec];
+          }
+          added.push(...(names.length ? names : [pathspec]));
+        }
       }
     } else if (sub === 'commit') {
       const all = rest.some((arg) => arg === '--all' || /^-[a-zA-Z]*a/.test(arg));
@@ -1190,17 +1417,17 @@ function checkBash(command, cwd, depth = 0) {
       const only = commitOperands(rest);
       let onlyPaths = null;
       if (only) {
-        const named = lines(run('git', ['diff', '--cached', '--name-only', '--', ...only], gitCwd));
+        const named = lines(run('git', ['diff', '--cached', '--name-only', '--', ...only], segCwd));
         onlyPaths = named === null ? null : [...new Set([...named, ...only])];
       }
       const paths = () => {
         if (onlyPaths) return onlyPaths;
-        const staged = lines(run('git', ['diff', '--cached', '--name-only'], gitCwd));
+        const staged = lines(run('git', ['diff', '--cached', '--name-only'], segCwd));
         if (staged === null) return null;
-        const tracked = all ? (lines(run('git', ['diff', '--name-only'], gitCwd)) ?? []) : [];
+        const tracked = all ? (lines(run('git', ['diff', '--name-only'], segCwd)) ?? []) : [];
         return [...new Set([...staged, ...tracked, ...added])];
       };
-      const problem = writeProblem(branch, { paths, root, legacy: legacy(branch, 'origin') });
+      const problem = writeProblem(segBranch, { paths, root, legacy: legacy(segBranch, 'origin') });
       if (problem) problems.push(`Commit blocked: ${problem}.`);
     } else if (sub === 'push') {
       // `git push --delete <branch>` and `git push origin :<branch>` both remove
@@ -1248,13 +1475,16 @@ function checkBash(command, cwd, depth = 0) {
         // running the branch check over it would judge a name that was never a
         // branch. A short name containing a slash is still a branch: `claude/x`
         // and `feat/y` are the normal way to write one.
-        const raw = destination ?? source ?? branch;
+        // This segment's values, not the loop-level ones: `git -C` applies to the
+        // invocation it prefixes, and reading the loop-level branch made
+        // `git -C ../other push` judge the target against this checkout.
+        const raw = destination ?? source ?? segBranch;
         if (/^refs\//.test(raw) && !/^refs\/heads\//.test(raw)) continue;
         let target = raw.replace(/^refs\/heads\//, '');
-        if (target === 'HEAD') target = branch;
+        if (target === 'HEAD') target = segBranch;
         const from = source && source !== 'HEAD' ? source : 'HEAD';
         const paths = () =>
-          lines(run('git', ['diff', '--name-only', `${remote}/${target}...${from}`], gitCwd));
+          lines(run('git', ['diff', '--name-only', `${remote}/${target}...${from}`], segCwd));
         const problem = writeProblem(target, { paths, root, legacy: legacy(target, remote) });
         if (problem) problems.push(`Push blocked: ${problem}.`);
       }

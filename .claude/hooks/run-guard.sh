@@ -37,19 +37,29 @@ report() {
   exit "$2"
 }
 
-# With enforcement deliberately off there is no guard to run and nothing to
-# enforce, so a missing interpreter is a warning rather than a refusal. Without
-# this the opt-out would be unreachable: the hook matches Bash, Edit and Write, so
-# an unconditional refusal would block every call in the session, `ls` included.
-if [ "${LS_ENFORCE_BRANCH_NAMES:-1}" = "0" ]; then
-  report "Branch guard (warning only): enforcement is off, so no check ran." 0
-fi
-
+# The switch is read here only where it cannot be honoured by the guard itself,
+# that is when the guard cannot run at all. Short-circuiting on it unconditionally
+# would stop the guard from ever starting with enforcement off, which is the one
+# case where it still has something to say: it reports that a check was skipped
+# and lets the action proceed (contracts/hooks.md, FR-013). Only the missing
+# interpreter needs the decision made here, and without it the opt-out would be
+# unreachable: the hook matches Bash, Edit and Write, so an unconditional refusal
+# would block every call in the session, `ls` included.
 if ! command -v node >/dev/null 2>&1; then
+  if [ "${LS_ENFORCE_BRANCH_NAMES:-1}" = "0" ]; then
+    report "Branch guard (warning only): enforcement is off, so no check ran." 0
+  fi
   report "Branch guard blocked: node is not on PATH, so $GUARD cannot run. Install Node (see .claude/cloud/setup.sh), or start the session with LS_ENFORCE_BRANCH_NAMES=0 to work without the guard deliberately." 2
 fi
 
+# The switch applies here for the same reason it applies to the missing
+# interpreter, and it matters more: a missing guard file is exactly the case where
+# a developer needs to put the file back, and the hook matches Edit and Write. An
+# unconditional refusal would block the edit that repairs it.
 if [ ! -f "$GUARD" ]; then
+  if [ "${LS_ENFORCE_BRANCH_NAMES:-1}" = "0" ]; then
+    report "Branch guard (warning only): enforcement is off, so no check ran." 0
+  fi
   report "Branch guard blocked: $GUARD is missing, so no check ran." 2
 fi
 

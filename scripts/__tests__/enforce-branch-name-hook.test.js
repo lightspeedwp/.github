@@ -48,6 +48,35 @@ describe('naming and the session placeholder (T008)', () => {
     expect(runBash(fx, 'git push origin --delete claude/foo').status).toBe(0);
   });
 
+  // `git branch -m old new` renames old. When that is not the checked-out branch
+  // the session stays put, and the following commit is judged on the branch it is
+  // actually on.
+  test('does not treat a rename of another branch as moving the session', () => {
+    fx.branch('main');
+    fx.git('branch', 'legacy-thing');
+    const run = runBash(fx, 'git branch -m legacy-thing feat/good-name && git commit -m "x"');
+    // main is still checked out, so the commit is still refused.
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/'main' is protected/);
+  });
+
+  // `git checkout <path>` restores a file; HEAD does not move.
+  test('does not treat a file checkout as a branch switch', () => {
+    fx.branch('main');
+    fx.write('docs/guide.md', '# Changed\n', { stage: false });
+    const run = runBash(fx, 'git checkout docs/guide.md && git commit -m "x"');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/'main' is protected/);
+  });
+
+  test('still treats a real branch checkout as a switch', () => {
+    fx.branch('main');
+    fx.git('branch', 'feat/good-name');
+    const run = runBash(fx, 'git checkout feat/good-name && git commit -m "x"');
+    // The session moved off main, so the commit on the feature branch is allowed.
+    expect(run.status).toBe(0);
+  });
+
   test('allows rename then commit in one command', () => {
     fx.branch('chore/session-abc123');
     const run = runBash(fx, 'git branch -m feat/good-name && git commit -m "x"');
@@ -209,6 +238,28 @@ describe('protected branches and the documentation exception (T009)', () => {
   // `git commit <path>` records only that path and ignores the rest of the index,
   // so reading the index alone would let a non-documentation change reach the base
   // branch while only documentation is staged.
+  // `--signoff` takes no value. Treating it as if it did consumed the next word,
+  // so a named path was swallowed and the guard fell back to the index, which held
+  // only documentation, and let the file through onto the base branch.
+  // An attached value takes the rest of the word, so `-mfix` is the message "fix"
+  // and the next argument is still a path.
+  test.each(['git commit -mfix package.json', 'git commit -amfix package.json'])(
+    'refuses %s when only documentation is staged',
+    (command) => {
+      fx.write('docs/guide.md', '# Changed\n');
+      const run = runBash(fx, command);
+      expect(run.status).toBe(2);
+      expect(run.stderr).toMatch(/package\.json/);
+    }
+  );
+
+  test('refuses git commit --signoff package.json when only documentation is staged', () => {
+    fx.write('docs/guide.md', '# Changed\n');
+    const run = runBash(fx, 'git commit --signoff package.json');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/package\.json/);
+  });
+
   test.each(['git commit -m "x" package.json', 'git commit -m "x" -- package.json'])(
     'refuses %s when only documentation is staged',
     (command) => {
@@ -1274,6 +1325,66 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     }
   });
 
+  // `git -C` applies to the one invocation it prefixes. When the directory and
+  // branch were loop-level, the commit in the second segment was judged against
+  // the first one's checkout.
+  // `git -C` also applies to the push it prefixes: the target has to be judged
+  // against the checkout the push comes from, not the one the hook started in.
+  // The push names a protected branch, and the *other* checkout is the one on it,
+  // so the refusal can only come from that checkout being read. Naming a
+  // documentation path instead would be refused by the base-branch exception and
+  // would pass even with the -C scoping broken.
+  test('judges a git -C push against the checkout it comes from', () => {
+    const other = createFixture();
+    try {
+      other.branch('main');
+      fx.branch('feat/good-name');
+      const run = runBash(fx, `git -C ${JSON.stringify(other.repo)} push origin HEAD:main`, {
+        CLAUDE_PROJECT_DIR: path.dirname(other.repo),
+      });
+      expect(run.status).toBe(2);
+      expect(run.stderr).toMatch(/'main' is protected/);
+    } finally {
+      other.cleanup();
+    }
+  });
+
+  // The same command with an unprotected target is allowed, which is what makes
+  // the refusal attributable to the -C rather than to the refspec.
+  test('allows that push when the branch it names is not protected', () => {
+    const other = createFixture();
+    try {
+      other.branch('feat/other-work');
+      fx.branch('feat/good-name');
+      const run = runBash(
+        fx,
+        `git -C ${JSON.stringify(other.repo)} push origin HEAD:feat/other-work`,
+        { CLAUDE_PROJECT_DIR: path.dirname(other.repo) }
+      );
+      expect(run.status).toBe(0);
+    } finally {
+      other.cleanup();
+    }
+  });
+
+  test('does not carry git -C over to the next command', () => {
+    const other = createFixture();
+    try {
+      other.branch('feat/other-work');
+      fx.branch('main');
+      const run = runBash(
+        fx,
+        `git -C ${JSON.stringify(other.repo)} log -1 >/dev/null; git commit -m "x"`,
+        { CLAUDE_PROJECT_DIR: path.dirname(other.repo) }
+      );
+      // main is protected, and this checkout is the one the commit lands in.
+      expect(run.status).toBe(2);
+      expect(run.stderr).toMatch(/'main' is protected/);
+    } finally {
+      other.cleanup();
+    }
+  });
+
   test('still allows a commit after a cd into a compliant checkout', () => {
     const other = createFixture();
     try {
@@ -1319,6 +1430,90 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `bash -c "git commit -m 'x'"`).status).toBe(2);
   });
 
+  // A wrapper's own options and leading values sit between it and the command.
+  // Reading one of them as the command name left the push behind it unchecked.
+  // `env -i` is excluded from the command list below because it clears the
+  // environment, which takes the stubbed git off PATH and makes the command fail
+  // for an unrelated reason. It is covered by the `commandOf` assertion instead.
+  test.each([
+    'timeout 60 git push origin main',
+    'timeout --preserve-status 30 git push origin main',
+    'timeout -s TERM 5 git push origin main',
+    'nice -n 10 git push origin main',
+    'stdbuf -o0 git push origin main',
+  ])('refuses the protected push behind %s', (command) => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  test('still allows a compliant command behind a wrapper', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'timeout 60 git status').status).toBe(0);
+    expect(runBash(fx, 'nice -n 10 git status').status).toBe(0);
+  });
+
+  // `env -i` cannot be exercised through a real command here: clearing the
+  // environment takes the stubbed git off PATH, so the command fails before the
+  // guard can judge it. The option handling is asserted against the guard's own
+  // wrapper list instead, which is what decides the resolution.
+  // A cloud session reaches GitHub through a local proxy whose path carries the
+  // repository after a `git/` prefix, and whose authority is the proxy rather than
+  // github.com. Reading only the authority, or requiring exactly two path
+  // segments, meant the legacy pull-request exception and the gh checks silently
+  // never ran there.
+  test.each([
+    'http://local_proxy@127.0.0.1:/git/lightspeedwp/.github',
+    'http://local_proxy@127.0.0.1:/git/lightspeedwp/.github.git',
+  ])('identifies the repository behind the cloud proxy URL %s', (url) => {
+    fx.branch('copilot/fix-login');
+    fx.git('push', '--quiet', 'origin', 'copilot/fix-login');
+    // A cloud session has no GitHub remote, only the proxy. The fixture's GitHub
+    // remote is removed so the lookup has nothing else to find: with it still
+    // present the answer comes from there and the proxy is never consulted, which
+    // is exactly the gap this covers.
+    fx.git('remote', 'remove', 'github');
+    fx.git('remote', 'set-url', '--push', 'origin', url);
+    const run = runBash(fx, 'git commit -m "x"', { GH_STUB_MODE: 'open' });
+    expect(run.status).toBe(0);
+    const calls = fx.calls().filter((call) => call.startsWith('gh '));
+    expect(calls.some((call) => call.includes('repos/lightspeedwp/.github/pulls'))).toBe(true);
+  });
+
+  test('treats a wrapper option as belonging to the wrapper', () => {
+    const guard = fs.readFileSync(GUARD, 'utf8');
+    const wrappers = guard.match(/const WRAPPERS = new Set\(\[([\s\S]*?)\]\);/)[1];
+    // The wrappers that were missing, each of which prefixes a command in
+    // agent-issued shell text.
+    for (const wrapper of ['timeout', 'nice', 'stdbuf', 'ionice', 'chrt']) {
+      expect(wrappers).toContain(wrapper);
+    }
+    // Options are recorded per wrapper. A single shared list is wrong because a
+    // flag that takes a value for one wrapper takes none for another, and
+    // `env -i` taking a value there swallowed the command itself.
+    expect(guard).toMatch(/const WRAPPER_OPTIONS = \{/);
+    const table = guard.slice(guard.indexOf('const WRAPPER_OPTIONS = {'));
+    expect(table).toMatch(/env: new Set\(\[([^\]]*)\]\)/);
+    const envOptions = table.match(/env: new Set\(\[([^\]]*)\]\)/)[1];
+    // `-i` is the flag that made `env -i git push` resolve to "git"'s absence.
+    expect(envOptions).not.toContain("'-i'");
+  });
+
+  // `&>` redirects both streams, so a guard file can be written through it. The
+  // ampersand was read as a background operator, which put the write in the wrong
+  // place and let it through.
+  test.each(['echo x &> .claude/settings.json', 'echo x &>> .claude/settings.json'])(
+    'refuses the guard-file write %s',
+    (command) => {
+      fx.branch('feat/good-name');
+      expect(runBash(fx, command).status).toBe(2);
+    }
+  );
+
+  test('still allows a plain redirect to a file outside the guard', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'echo x > /tmp/opencode-note').status).toBe(0);
+  });
+
   test('still allows an allowed command hidden inside a nested shell', () => {
     fx.branch('feat/good-name');
     expect(runBash(fx, 'bash -c "git status"').status).toBe(0);
@@ -1327,6 +1522,60 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
 
   // A long option ending in c carries no command. Treating it as the command flag
   // would read the next word as a command to check.
+  // A command substitution inside a double-quoted argument is a command of its
+  // own. Collapsing it into the surrounding word hid it, so the inner command was
+  // never examined.
+  // The enclosing command is harmless and must be allowed on its own, so the only
+  // thing that can refuse the pair is the substitution. `echo` writes nothing the
+  // guard protects, and the outer command touches no branch.
+  test.each([
+    ['git commit -m plain text', 'git commit -m "$(git push origin main)"'],
+    [
+      'git commit -m plain text',
+      'git commit -m ' + String.fromCharCode(96) + 'git push origin main' + String.fromCharCode(96),
+    ],
+  ])('refuses the push hidden in the substitution of %s', (plain, substituted) => {
+    fx.branch('feat/good-name');
+    // The same command without a substitution is allowed, which is what makes
+    // the refusal attributable to the substitution rather than to the commit.
+    expect(runBash(fx, plain).status).toBe(0);
+    expect(runBash(fx, substituted).status).toBe(2);
+  });
+
+  // The substitution is checked as a command in its own right, so a guard-file
+  // delete hidden inside one is refused.
+  test('refuses a guard-file delete inside a command substitution', () => {
+    fx.branch('feat/good-name');
+    // Written with String.fromCharCode rather than a backtick literal: this file
+    // is a template-literal-containing module and a raw backtick would close it.
+    const tick = String.fromCharCode(96);
+    expect(runBash(fx, 'git commit -m ' + tick + 'rm .claude/settings.json' + tick).status).toBe(2);
+    const run = runBash(fx, 'git commit -m "$(rm .claude/settings.json)"');
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/guard|settings/i);
+  });
+
+  // The unquoted form reaches the same code path, and before this was handled
+  // `echo $(git push origin main)` was a single segment naming echo.
+  test('refuses the push hidden in an unquoted command substitution', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'echo plain text >/dev/null').status).toBe(0);
+    expect(runBash(fx, 'echo $(git push origin main) >/dev/null').status).toBe(2);
+  });
+
+  // Inside a parenthesised group the substitution was read as part of the outer
+  // word, so the inner command went unchecked there.
+  test('refuses the push hidden in a substitution inside a group', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'echo plain >/dev/null').status).toBe(0);
+    expect(runBash(fx, '(echo $(git push origin main))').status).toBe(2);
+  });
+
+  test('still allows a substitution that touches nothing protected', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'echo "$(git rev-parse HEAD)" >/dev/null').status).toBe(0);
+  });
+
   test('does not mistake a long option ending in c for the command flag', () => {
     fx.branch('feat/good-name');
     expect(runBash(fx, 'bash --norc').status).toBe(0);

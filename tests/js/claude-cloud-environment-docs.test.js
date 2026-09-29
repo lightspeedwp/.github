@@ -541,6 +541,49 @@ describe('the operations document', () => {
 
   // Branch protection and rulesets are configured separately, so the verification
   // step has to cover both or an Owner on a ruleset cannot confirm the setting.
+  // The check is required on the rulesets, which carry a merge-queue rule. A check
+  // that only runs on a pull request is never reported for a batch, so the
+  // requirement would block every queued merge.
+  test('runs the guard workflow for merge-queue batches as well as pull requests', () => {
+    const guardWorkflow = readDocument('.github/workflows/claude-guard-tests.yml');
+    expect(guardWorkflow).toMatch(/merge_group:/);
+    // And the event-specific fields it needs have to degrade rather than go empty,
+    // since a merge-queue event carries no pull_request.
+    expect(guardWorkflow).toMatch(
+      /pull_request\.base\.sha \|\| github\.event\.merge_group\.base_sha/
+    );
+    expect(guardWorkflow).toMatch(/pull_request\.number \|\| github\.event\.merge_group\.head_sha/);
+  });
+
+  // The summary states counts rather than a word like "addressed", which the table
+  // uses as one status among several. A count has to match the table, so it is
+  // checked against the marks actually present.
+  test('the summary counts match the statuses recorded in the tables', () => {
+    const response = readDocument('FEEDBACK_RESPONSE.md');
+    // The table statuses come from the part before the summary; the follow-up
+    // tables of fixed findings run after it, so the counts are taken from the
+    // whole document rather than from that prefix.
+    const table = response.split('## Summary')[0];
+    const addressed = (table.match(/\| ✅ Addressed/g) || []).length;
+    const upstream = (table.match(/\| ✅ Resolved upstream/g) || []).length;
+    const rejected = (table.match(/\| ❌ Rejected/g) || []).length;
+    const deferred = (table.match(/\| 📋 Deferred/g) || []).length;
+    // Case-insensitive: the follow-up tables use both 'fixed' and 'Fixed'.
+    const fixed = (response.match(/\|\s*fixed\s*\|/gi) || []).length;
+    const summary = response.split('## Summary')[1].split('##')[0];
+    expect(summary).toContain(`${addressed} addressed`);
+    expect(summary).toContain(`${rejected} assessed and rejected`);
+    // The table's own deferral, and the second one recorded outside it.
+    expect(summary).toContain(`${deferred} deferred`);
+    expect(summary).toContain(`${fixed} findings, all fixed`);
+    expect(addressed).toBeGreaterThan(0);
+    expect(upstream).toBeGreaterThan(0);
+    expect(deferred).toBeGreaterThan(0);
+    // The summary is not free to claim a total the table does not have.
+    const numbered = (table.match(/^\| \d+ /gm) || []).length;
+    expect(summary).toContain(`holds ${numbered} items`);
+  });
+
   test('covers both branch protection and rulesets in the verification step', () => {
     expect(docs).toMatch(/branches\/develop\/protection/);
     expect(docs).toMatch(/repos\/lightspeedwp\/\.github\/rulesets/);

@@ -10,13 +10,26 @@ on:
     branches:
       - develop
       - main
+  # The documentation tells Owners to add this check to the required status
+  # checks, and the rulesets carry a merge-queue rule. A check that only runs on
+  # pull_request is never reported for a merge-queue batch, so the requirement
+  # would sit unsatisfied and block every queued merge. merge_group fires when a
+  # batch enters the queue, which is where the check has to be reported.
+  merge_group:
+    branches:
+      - develop
+      - main
 
 # Read-only: the tests only read the checkout and spawn local processes.
 permissions:
   contents: read
 
 concurrency:
-  group: claude-guard-tests-${{ github.event.pull_request.number }}
+  # A merge-queue event has no pull_request, so its number is empty. Falling back to
+  # the merge_group head SHA gives each batch its own group; without that every
+  # queued batch shared `claude-guard-tests-`, and cancel-in-progress meant each new
+  # batch cancelled the run of the one before it.
+  group: claude-guard-tests-${{ github.event.pull_request.number || github.event.merge_group.head_sha }}
   cancel-in-progress: true
 
 jobs:
@@ -35,9 +48,27 @@ jobs:
       - name: Check for guard-related changes
         id: changes
         env:
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          # A merge-queue event has no pull_request, so the base falls back to the
+          # event's own SHA and the comparison runs against the merge commit's first
+          # parent, which is the base the batch was built on.
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.merge_group.base_sha }}
         run: |
-          if git diff --name-only "$BASE_SHA"...HEAD |
+          # The file list is captured before it is matched. Piping git diff
+          # straight into grep -q means grep exits at its first match, git diff
+          # takes SIGPIPE and exits 141, and `set -o pipefail` turns that into a
+          # failed pipeline. The `if` then takes the else branch and the required
+          # check reports success having run nothing. That is reachable: any
+          # change set larger than the pipe buffer trips it, and this repository
+          # has pull requests that change well over a thousand files.
+          #
+          # A git diff that fails outright — a missing BASE_SHA, say — has to fail
+          # the step rather than look like "no relevant changes", so its status is
+          # checked explicitly and the step exits non-zero.
+          if ! changed="$(git diff --name-only "$BASE_SHA"...HEAD)"; then
+            echo "Could not list changed files against $BASE_SHA." >&2
+            exit 1
+          fi
+          if printf '%s\n' "$changed" |
             grep -qE '^(\.claude/|scripts/__tests__/(enforce-branch-name-hook|session-start-hook)\.test\.js$|scripts/__tests__/helpers/|tests/js/claude-cloud-environment-docs\.test\.js$|\.github/specs/(CATALOG\.md|018-claude-cloud-environment/)|docs/CLAUDE_CLOUD_ENVIRONMENT\.md$|lib/validate-branch-name\.js$|\.github/workflows/claude-guard-tests\.yml$|package\.json$|package-lock\.json$|^\.nvmrc$|^\.jest\.config\.cjs$)'; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
@@ -56,7 +87,9 @@ jobs:
         if: steps.changes.outputs.run == 'true'
         run: npm ci --ignore-scripts --no-audit --no-fund
 
-      # The hooks need git and jq, which ubuntu-latest provides.
+      # The hooks need git and bash, which ubuntu-latest provides. jq is not required:
+    # session-start.sh reads its input without it, and a test runs the hook with no
+    # jq on PATH so that stays true.
       - name: Run contract tests
         if: steps.changes.outputs.run == 'true'
         env:

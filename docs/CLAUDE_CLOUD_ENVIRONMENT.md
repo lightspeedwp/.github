@@ -27,13 +27,13 @@ branches, which breaks PR template routing, labelling and the `branch-name-valid
 
 The fix is layered, so the rule holds even when one layer is skipped:
 
-| Layer                 | Lives in                                                                                                          | Runs                                                                  | What it does                                                                                                                                                                                                               |
-| --------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Setup script          | Environment settings (copy in [`.claude/cloud/setup.sh`](../.claude/cloud/setup.sh))                              | Once per environment cache build (about every 7 days)                 | Installs Node matching `.nvmrc`, `shellcheck`, `actionlint` and `gh`; sets git defaults                                                                                                                                    |
-| Environment variables | Environment settings (copy in [`.claude/cloud/environment.env`](../.claude/cloud/environment.env))                | Every session                                                         | `LS_BASE_BRANCH=develop`, the enforcement switch, npm and locale defaults                                                                                                                                                  |
-| SessionStart hook     | [`.claude/hooks/session-start.sh`](../.claude/hooks/session-start.sh)                                             | Every session, cloud and local                                        | Moves a fresh `claude/*` branch onto a local placeholder, syncs it with `develop`, runs `npm install`, and injects the branching rules into Claude's context, stating that they override the platform's branch instruction |
-| Branch guard          | [`.claude/hooks/enforce-branch-name.mjs`](../.claude/hooks/enforce-branch-name.mjs) (PreToolUse)                  | Before every Bash, file-editing and GitHub tool call, cloud and local | Refuses commits, pushes, branches, file writes and PRs that break the strategy, and protects its own files                                                                                                                 |
-| CI                    | [`claude-guard-tests.yml`](../.github/workflows/claude-guard-tests.yml), `branch-name-validation.yml`, CODEOWNERS | Every PR and push                                                     | Runs the guard's contract tests, validates branch names, and requires an Owner's review for `.claude/`                                                                                                                     |
+| Layer                 | Lives in                                                                                                          | Runs                                                                           | What it does                                                                                                                                                                                                               |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Setup script          | Environment settings (copy in [`.claude/cloud/setup.sh`](../.claude/cloud/setup.sh))                              | Once per environment cache build (about every 7 days)                          | Installs Node matching `.nvmrc`, `shellcheck`, `actionlint` and `gh`; sets git defaults                                                                                                                                    |
+| Environment variables | Environment settings (copy in [`.claude/cloud/environment.env`](../.claude/cloud/environment.env))                | Every session                                                                  | `LS_BASE_BRANCH=develop`, the enforcement switch, npm and locale defaults                                                                                                                                                  |
+| SessionStart hook     | [`.claude/hooks/session-start.sh`](../.claude/hooks/session-start.sh)                                             | Every session, cloud and local                                                 | Moves a fresh `claude/*` branch onto a local placeholder, syncs it with `develop`, runs `npm install`, and injects the branching rules into Claude's context, stating that they override the platform's branch instruction |
+| Branch guard          | [`.claude/hooks/enforce-branch-name.mjs`](../.claude/hooks/enforce-branch-name.mjs) (PreToolUse)                  | Before every Bash, file-editing and GitHub tool call, cloud and local          | Refuses commits, pushes, branches, file writes and PRs that break the strategy, and protects its own files                                                                                                                 |
+| CI                    | [`claude-guard-tests.yml`](../.github/workflows/claude-guard-tests.yml), `branch-name-validation.yml`, CODEOWNERS | Every PR on `develop` and `main`, and merge-queue batches on the same branches | Runs the guard's contract tests, validates branch names, and requires an Owner's review for `.claude/`                                                                                                                     |
 
 The hooks are committed to the repository, so they apply to every session on this repository, in the cloud and on
 your own machine, whichever environment it uses. The environment adds the toolchain and the shared variables.
@@ -56,7 +56,9 @@ your own machine, whichever environment it uses. The environment adds the toolch
   `lightspeedwp` aren't policed.
 - **Git states**: commits during a rebase are judged by the branch being rebased. A commit on a detached HEAD with no
   rebase, merge, cherry-pick or revert in progress is refused. A refspec push is judged by its target. Force-pushes
-  to your own compliant branch and branch deletions are allowed.
+  to your own compliant branch are allowed. Branch deletions are allowed, except for `main` and the base branch, which are
+  refused both locally and on the remote, since a remote deletion is the one that cannot be undone by re-creating
+  the branch.
 - **Self-protection**: while enforcement is on, Claude can't change, move or delete `.claude/hooks/**`,
   `.claude/settings.json`, `.claude/settings.local.json`, `~/.claude/settings.json` or
   `/etc/claude-code/managed-settings.json`, through its editing tools or shell commands such as `sed -i`, `rm`,
@@ -119,7 +121,9 @@ An organisation-shared environment gives the whole team one configuration that o
 8. In branch protection (or the ruleset) for both `develop` and `main`:
    - turn on **Require review from Code Owners**, so the `/.claude/` entry in `CODEOWNERS` blocks unreviewed changes
      to the guard;
-   - add **Claude guard contract tests** (from `claude-guard-tests.yml`) to the required status checks.
+   - add **Claude guard contract tests** (from `claude-guard-tests.yml`) to the required status checks. The
+     workflow also runs on `merge_group`, because a check that only runs on a pull request is never reported for a
+     merge-queue batch and the requirement would then block every queued merge.
 9. Optional, for `claude --cloud`: copy the environment's ID (`env_...`) and add
    `"remote": { "defaultEnvironmentId": "env_..." }` to `.claude/settings.json` in a follow-up PR. Project settings take
    precedence over each person's `/remote-env` choice, so terminal-started cloud sessions from this repository use it too.
@@ -238,14 +242,24 @@ settings, not branch-protection fields.
   for anything a command could construct at run time.
 - The guard parses shell commands with heuristics. It catches the usual forms — plain commands, pipelines, background
   and list operators, `if`/`while`/`for`/`case` arms, parenthesised groups, redirects, here-documents and nested
-  interpreters — including a `cd` in the same command, so `cd other-repo && git commit` is resolved against the
-  directory it runs in. It does not follow aliases, and a command assembled from variables is only as checkable as
-  the expression it expands to.
-- If Node is missing, the hook can't run and the guard fails open. The setup script installs Node.
+  interpreters — and a `cd` in the same command list moves the directory the following git commands are judged
+  against, so `cd other-repo && git commit` resolves to the directory it runs in. A `cd` inside a subshell is the
+  exception: `(cd other-repo && git commit)` cannot change the parent's directory, so that command is judged against
+  the branch the session is actually on, which is the stricter reading rather than a gap.
+- The guard reads shell syntax. It does not follow aliases, and it cannot know a name the shell builds at run time.
+  A command substitution is read, so a command hidden inside `$(...)` or backticks is checked, and a wrapper such as
+  `timeout` or `env` is stepped through to the command behind it.
+- If Node is missing, the launcher refuses the call rather than letting it through, because a hook that cannot
+  start is treated as non-blocking. Start the session with `LS_ENFORCE_BRANCH_NAMES=0` to turn that into a warning.
+  The switch is honoured by the launcher whenever the guard cannot run at all, which is
+  a missing interpreter and a missing guard file; in both cases a session that would otherwise
+  be blocked from every Bash, Edit and Write call can be recovered deliberately. The setup
+  script installs Node.
 - Pushing a renamed branch relies on the platform's push protection allowing the session's current branch. If the
   platform changes this, pushes are rejected (not redirected), and the checks above catch it.
-- `release/vX.Y.Z` names are documented in the branching strategy but rejected by the validator today, so release PRs
-  into `main` can't be opened from a session until the validator is fixed.
+- `release/vX.Y.Z` names are accepted by the validator, so a release branch into `main` opens normally. The guard's
+  allowance for a `release/*` or `hotfix/*` target is keyed on the prefix, so a release branch whose name is not a
+  semantic version is still checked against the convention.
 - Cloud sessions do not read your personal `~/.claude/` settings. Anything the team relies on must live in the
   repository or the shared environment.
 
