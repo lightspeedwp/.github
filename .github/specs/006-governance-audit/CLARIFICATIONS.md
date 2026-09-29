@@ -215,7 +215,13 @@ $ git commit  # after fix
 
 - Full validation of all governance files (not just staged)
 - If violations found: check fails, comments on PR with violations
-- Merge blocked until check passes (cannot override)
+- Merge blocked until the check passes, but only once `validate-governance`
+  is a required status check on the target branch. A push-triggered check
+  cannot prevent the push itself, and without the branch-protection
+  requirement a failing check does not block a normal merge.
+
+This clarification describes the intended behaviour only. This PR adds no CI
+workflow and no enforcement, so no such check exists yet.
 
 **User experience**:
 
