@@ -210,20 +210,5 @@ Run `scripts/validate_redirect_migration_pack.py` plus the full package validato
 
 When adding or renaming related Yoast skills, update `SKILL.md`, `references/related-skills-routing.md`, `references/file-routing-index.md`, `tests/related-skills-routing-scenario-tests.md`, and `scripts/validate_related_skill_routing.py`. If the auditor skill slug changes, replace `woocommerce-yoast-auditor` everywhere in the routing layer.
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

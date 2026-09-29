@@ -42,5 +42,3 @@ Run a monthly Gravity Forms health check for this production WordPress site. Do 
 ## Output
 
 Use `templates/form-inventory-audit.md`.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

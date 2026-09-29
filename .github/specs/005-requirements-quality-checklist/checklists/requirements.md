@@ -123,4 +123,4 @@
 **Integration Note:** This framework is foundational for validating Changelog Audit and Branch Naming specifications before implementation.
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -106,19 +106,3 @@ const slide = presentation.slides.add({ layout: "Title Body" });
 slide.placeholders.getItem("title").text = "Market overview";
 slide.placeholders.getItem("body").text = "Three editable points go here.";
 ```
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

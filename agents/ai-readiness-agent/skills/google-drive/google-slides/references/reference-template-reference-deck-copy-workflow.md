@@ -171,25 +171,3 @@ If any validator item fails, fix the slide before final handoff by using the rig
 ## Final Handoff
 
 Report only the copied Google Slides deck as the deliverable. Name the template/reference deck and copied deck identities verified by connector readback, summarize the slide creation strategy used, and call out any remaining content, fidelity, or human-design exception. When source media was adapted, a brief success confirmation is enough if everything migrated normally; provide slide-specific details only for exceptions. State honestly when charts or complex evidence remain image-based rather than editable.
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

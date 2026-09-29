@@ -96,5 +96,3 @@ For any batch, include at least:
 - Include approval owner, implementation owner, and QA owner separately.
 - Make the difference between metadata quality, Yoast configuration, and Google result display explicit.
 - Do not promise Google will display the exact title or description.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

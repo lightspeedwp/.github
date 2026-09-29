@@ -82,10 +82,6 @@ Unifies two complementary product planning agents into a single multi-provider p
 | [IMPLEMENTATION_NOTES.md](./IMPLEMENTATION_NOTES.md) | Historical decision log for the original Phase 1-2 catalogue merge | 📋 Historical (Phase 1-2 only) |
 | [COMPLETION_SUMMARY.md](./COMPLETION_SUMMARY.md) | Original Phase 1-2 completion record | 📋 Historical (Phase 1-2 only — Phase 3 is separately tracked and not yet complete) |
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Related Issues
 
 This project is coordinated with:
@@ -110,8 +106,8 @@ flowchart TD
 
   classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
   classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
+  classDef run fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#4a2c00;
+  classDef gate fill:#f3e8ff,stroke:#7e22ce,stroke-width:2px,color:#3b0764;
   classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
 
   class A start;

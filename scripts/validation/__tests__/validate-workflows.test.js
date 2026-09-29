@@ -2,15 +2,15 @@
  * @jest-environment jsdom
  */
 // Test for validate-workflows.js
-const path = require("path");
-const { execSync } = require("child_process");
+const path = require('path');
+const { execSync } = require('child_process');
 
-describe("Workflow Validation", () => {
-  it("should run the workflow validation script and output expected result", () => {
-    const scriptPath = path.join(__dirname, "../validate-workflows.js");
+describe('Workflow Validation', () => {
+  it('should run the workflow validation script and output expected result', () => {
+    const scriptPath = path.join(__dirname, '../validate-workflows.js');
     let output;
     try {
-      output = execSync(`node ${scriptPath}`, { encoding: "utf8" });
+      output = execSync(`node ${scriptPath}`, { encoding: 'utf8' });
     } catch (err) {
       output = err.stdout || err.message;
     }

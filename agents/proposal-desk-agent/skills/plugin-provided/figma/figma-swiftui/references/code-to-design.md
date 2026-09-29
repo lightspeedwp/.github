@@ -190,25 +190,3 @@ Per [`figma-use`](../../figma-use/SKILL.md), every `use_figma` script must `retu
 2. **Tokens before components.** If you are creating variables (per §4), do it before building any view that binds to them.
 3. **Components before screens.** Translate each SwiftUI view into a Figma component before composing a screen from instances. Don't inline.
 4. **One screen at a time.** Even for multi-screen flows, build one screen, take a screenshot, get sign-off, then move on. The same checkpoint discipline from [`figma-generate-design`](../../figma-generate-design/SKILL.md) and [`figma-generate-library`](../../figma-generate-library/SKILL.md) applies.
-
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)

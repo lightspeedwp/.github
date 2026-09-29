@@ -4,7 +4,7 @@ description: Automated PR review agent that posts review summaries, CI status ch
 file_type: agent
 version: v1.0
 created_date: '2025-12-10'
-last_updated: '2025-12-10'
+last_updated: "2026-09-22"'
 author: LightSpeed Team
 maintainer: Ash Shaw
 category: automation
@@ -171,21 +171,6 @@ The workflow accepts these inputs:
 ---
 
 *Reviewer Agent - Automated PR quality gates and review assistance*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
 
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

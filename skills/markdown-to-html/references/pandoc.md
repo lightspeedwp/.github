@@ -249,5 +249,3 @@ Get-ChildItem -Filter *.md | ForEach-Object {
 - [Pandoc Demos](https://pandoc.org/demos.html)
 - [Pandoc FAQ](https://pandoc.org/faqs.html)
 - [GitHub Repository](https://github.com/jgm/pandoc)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

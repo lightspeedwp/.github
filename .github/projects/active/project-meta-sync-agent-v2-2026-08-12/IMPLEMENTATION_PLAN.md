@@ -22,6 +22,7 @@ status: active
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     subgraph "LightSpeedWP Organization"
         direction TB
         
@@ -60,6 +61,7 @@ graph TB
     
     SPEC_CP -->|documents| AGENT_CP
     PROMPT_CP -->|drives| AGENT_CP
+accDescr: Detailed diagram
 ```
 
 ### 1.2 Component Structure
@@ -110,6 +112,7 @@ packages/metadata-agent/                    # Shared npm package
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     subgraph "Test Coverage Hierarchy (80%+ Target)"
         E2E["<b>E2E Tests (10%)</b><br/>Real GitHub repos<br/>Full workflow validation<br/>5-10 tests"]
         INT["<b>Integration Tests (20%)</b><br/>Agent + Orchestrator<br/>Mocked GitHub API<br/>20-30 tests"]
@@ -127,6 +130,7 @@ graph TB
     style INT fill:#f59e0b,color:#fff
     style UNIT fill:#3b82f6,color:#fff
     style COVER fill:#8b5cf6,color:#fff
+accDescr: Detailed diagram
 ```
 
 ### 2.2 Test Execution Plan
@@ -537,6 +541,7 @@ export const blockThemeConfig = {
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     Agent["Agent<br/>(prompt + spec)"]
     Orch["label-orchestrator.js<br/>(Phase 3-4)"]
     PKG["@lightspeedwp/<br/>metadata-agent<br/>(npm)"]
@@ -548,12 +553,14 @@ graph LR
     PKG -->|wraps| API
     Agent -->|loads| Ext
     Orch -->|calls| API
+accDescr: Detailed diagram
 ```
 
 ### 6.2 Data Flow: Label Audit & Sync
 
 ```mermaid
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant User
     participant Agent
     participant Orch as label-orchestrator.js
@@ -571,15 +578,18 @@ sequenceDiagram
     GitHub API-->>Orch: Success (N changes)
     Orch-->>Agent: Results summary
     Agent->>User: "Fixed 42 labels. Coverage increased to 95%."
+accDescr: Detailed diagram
 ```
 
 ### 6.3 Test Coverage Distribution
 
 ```mermaid
 pie title "Test Coverage by Type"
+    accTitle: Diagram
     "Unit Tests (60-80 tests, 60%)" : 60
     "Integration Tests (20-30 tests, 20%)" : 20
     "E2E Tests (5-10 tests, 10%)" : 10
+accDescr: Detailed diagram
 ```
 
 ---

@@ -1,6 +1,6 @@
 ---
 version: "v2.1.0"
-last_updated: "2025-12-08"
+last_updated: "2026-09-22""
 owners: ["lightspeedwp"]
 file_type: "process-guide"
 category: "release-management"
@@ -110,23 +110,5 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 ---
 
 *This document is authoritative for the release flow, gating, and automation alignment in `lightspeedwp/.github`.*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

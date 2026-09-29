@@ -20,6 +20,7 @@ tags:- planning
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     User["👤 User<br/>(Creates Issue/PR)"]
     
     subgraph IssuAgent["Issues Agent v2.1<br/>(Content Quality)"]
@@ -62,9 +63,10 @@ graph TB
     style User fill:#fff9c4
     style Issue fill:#e0e0e0
     style IssuAgent fill:#e1f5ff
-    style LabelAgent fill:#f3e5f5
-    style MgmtAgent fill:#c8e6c9
-    style Dashboard fill:#fff3e0
+    style LabelAgent fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style MgmtAgent fill:#dcfce7,color:#14532d,stroke:#14532d
+    style Dashboard fill:#fef3c7,color:#4a2c00,stroke:#b45309
+accDescr: Detailed diagram
 ```
 
 ---

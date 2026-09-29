@@ -36,12 +36,14 @@ This skill enables visual inspection and validation of website design quality, i
 
 ```mermaid
 flowchart TD
+    accTitle: Flowchart
     A[Step 1: Information Gathering] --> B[Step 2: Visual Inspection]
     B --> C[Step 3: Issue Fixing]
     C --> D[Step 4: Re-verification]
     D --> E{Issues Remaining?}
     E -->|Yes| B
     E -->|No| F[Completion Report]
+accDescr: Detailed diagram
 ```
 
 ---
@@ -220,9 +222,11 @@ See [references/framework-fixes.md](references/framework-fixes.md) for details.
 
 ```mermaid
 flowchart TD
+    accTitle: Flowchart
     A{Issues Remaining?}
     A -->|Yes| B[Return to Step 2]
     A -->|No| C[Proceed to Completion Report]
+accDescr: Detailed diagram
 ```
 
 **Iteration Limit**: If more than 3 fix attempts are needed for a specific issue, consult the user

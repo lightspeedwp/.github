@@ -1,0 +1,121 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T013",
+  "source": {
+    "policy": ".github/label-governance-policy.yml",
+    "canonical": ".github/labels.yml"
+  },
+  "never_delete_count": 57,
+  "present_in_canonical": 45,
+  "findings_count": 12,
+  "findings": [
+    {
+      "finding_type": "mismatch",
+      "source_label": "type:documentation",
+      "canonical_label": "type:docs",
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 15
+      }
+    },
+    {
+      "finding_type": "mismatch",
+      "source_label": "type:maintenance",
+      "canonical_label": "type:chore",
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 21
+      }
+    },
+    {
+      "finding_type": "mismatch",
+      "source_label": "type:ai-ops",
+      "canonical_label": "type:aiops",
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 24
+      }
+    },
+    {
+      "finding_type": "mismatch",
+      "source_label": "type:compatibility",
+      "canonical_label": "type:compat",
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 28
+      }
+    },
+    {
+      "finding_type": "mismatch",
+      "source_label": "type:investigation",
+      "canonical_label": "type:research",
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 30
+      }
+    },
+    {
+      "finding_type": "missing",
+      "source_label": "type:support",
+      "canonical_label": null,
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 36
+      }
+    },
+    {
+      "finding_type": "missing",
+      "source_label": "type:story",
+      "canonical_label": null,
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 38
+      }
+    },
+    {
+      "finding_type": "mismatch",
+      "source_label": "type:enhancement",
+      "canonical_label": "type:improve",
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 42
+      }
+    },
+    {
+      "finding_type": "missing",
+      "source_label": "type:help",
+      "canonical_label": null,
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 43
+      }
+    },
+    {
+      "finding_type": "missing",
+      "source_label": "area:labels",
+      "canonical_label": null,
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 46
+      }
+    },
+    {
+      "finding_type": "missing",
+      "source_label": "meta:duplicate",
+      "canonical_label": null,
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 68
+      }
+    },
+    {
+      "finding_type": "missing",
+      "source_label": "meta:dependabot-security",
+      "canonical_label": null,
+      "evidence": {
+        "file": ".github/label-governance-policy.yml",
+        "line": 69
+      }
+    }
+  ]
+}

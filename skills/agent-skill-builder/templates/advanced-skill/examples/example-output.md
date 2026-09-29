@@ -37,5 +37,3 @@ The decision appears here.
 
 1. Confirm owner.
 2. Run validation.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

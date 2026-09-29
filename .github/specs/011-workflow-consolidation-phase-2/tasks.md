@@ -65,6 +65,25 @@ phases: 7
 - [ ] T013 Create consolidation mapping reference in `.github/docs/CONSOLIDATION_MATRIX.md` showing archived workflow → unified workflow cross-references
 - [ ] T014 Create performance baseline targets document at `.github/docs/PERFORMANCE_TARGETS.md` with per-workflow minute budgets (total: ≤2,125/month)
 
+> **Disposition of T007, T008, T010 and T011 (2026-09-25, #3570).** These four were
+> built on this branch and merged to `develop`, but as shipped they were inert:
+>
+> - T007 / T008 — `validate-check` and `aggregate-tests` had no caller in any
+>   active workflow on `develop`, so their contract tests passed while nothing
+>   could execute them. #3478 asked for their removal and was closed without it.
+> - T010 / T011 — both files declare `on:` triggers but sit in `.github/tests/`,
+>   which GitHub does not register as a workflow directory, so neither could ever
+>   run. T010's five-type matrix also targets the 71→5 design that #3488 replaces.
+>
+> They were removed on `develop` and replaced by
+> `.github/actions/__tests__/workflow-reachability.test.js`, which fails if a
+> composite action has no caller, if a local `uses:` does not resolve, or if a
+> workflow-shaped file is committed outside `.github/workflows/`. That test
+> reproduces the original defect when run against the pre-fix tree.
+>
+> PR #3359 re-adds and wires these as part of the 71→5 consolidation, and
+> reconciles with this change when that PR lands.
+
 ---
 
 ## Phase 3: US1 — labeling-unified.yml (MVP)

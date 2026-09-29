@@ -337,19 +337,3 @@ Portrait cards (400-500px wide) with centered content. Tinted backgrounds per ca
 ### Top-to-Bottom Flow
 
 Vertical flowchart. Green Yes / Red No pills on connector paths. Distinct fills per node type. `createShapeWithText` for all nodes.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -34,21 +34,3 @@ This register stores source targets and scanned evidence for Yoast configuration
 | WordPress.org plugin listing | WordPress.org | plugin availability and version context | research target | low until scanned | Use for availability context only. |
 | Google Search Central | Google | search interpretation and structured data | research target | low until scanned | Use for Google behaviour, not Yoast settings. |
 | Schema.org | Schema.org | vocabulary | research target | low until scanned | Use for vocabulary checks. |
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

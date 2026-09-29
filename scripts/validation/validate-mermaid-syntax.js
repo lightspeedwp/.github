@@ -5,28 +5,28 @@
  * @module scripts/validation/validate-mermaid-syntax.js
  */
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { globSync } from "glob";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { globSync } from 'glob';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, "../../");
+const ROOT = path.join(__dirname, '../../');
 
 const getMarkdownFiles = () =>
-  globSync("**/*.{md,mdx}", {
+  globSync('**/*.{md,mdx}', {
     cwd: ROOT,
     ignore: [
-      "**/node_modules/**",
-      "**/.git/**",
-      "**/coverage/**",
-      "**/logs/**",
-      "**/.github/projects/**",
-      "**/plugin-provided/**",
-      "**/platform-managed/**",
-      "**/directory-installed/**",
-      "**/agentskills-main/**",
-      "**/tests/fixtures/**",
+      '**/node_modules/**',
+      '**/.git/**',
+      '**/coverage/**',
+      '**/logs/**',
+      '**/.github/projects/**',
+      '**/plugin-provided/**',
+      '**/platform-managed/**',
+      '**/directory-installed/**',
+      '**/agentskills-main/**',
+      '**/tests/fixtures/**',
     ],
   }).sort();
 
@@ -40,6 +40,16 @@ const DIAGRAM_TYPES = {
   gantt: /^\s*gantt\b/m,
   pie: /^\s*pie\b/m,
   mindmap: /^\s*mindmap\b/m,
+  // Further types accepted by mermaid 12 (verified with its parser, #3490).
+  classDiagram: /^\s*classDiagram\b/m,
+  journey: /^\s*journey\b/m,
+  quadrantChart: /^\s*quadrantChart\b/m,
+  requirementDiagram: /^\s*requirementDiagram\b/m,
+  gitGraph: /^\s*gitGraph\b/m,
+  c4: /^\s*C4(Context|Container|Component|Dynamic|Deployment)\b/m,
+  timeline: /^\s*timeline\b/m,
+  beta: /^\s*(xychart|sankey|block|packet|architecture)-beta\b/m,
+  kanban: /^\s*kanban\b/m,
 };
 
 function extractMermaidDiagrams(content) {
@@ -57,26 +67,26 @@ function extractMermaidDiagrams(content) {
 
 function getDiagramType(content) {
   const types = [
-    "graph",
-    "flowchart",
-    "sequenceDiagram",
-    "stateDiagram",
-    "erDiagram",
-    "gantt",
-    "pie",
-    "mindmap",
+    'graph',
+    'flowchart',
+    'sequenceDiagram',
+    'stateDiagram',
+    'erDiagram',
+    'gantt',
+    'pie',
+    'mindmap',
   ];
-  const lines = content.split("\n");
+  const lines = content.split('\n');
 
   for (const line of lines) {
     const trimmed = line.trim();
 
     if (
-      trimmed === "" ||
-      trimmed.startsWith("%%") ||
-      trimmed === "---" ||
-      trimmed.startsWith("accTitle") ||
-      trimmed.startsWith("accDescr")
+      trimmed === '' ||
+      trimmed.startsWith('%%') ||
+      trimmed === '---' ||
+      trimmed.startsWith('accTitle') ||
+      trimmed.startsWith('accDescr')
     ) {
       continue;
     }
@@ -88,14 +98,14 @@ function getDiagramType(content) {
     }
 
     if (/^stateDiagram-v2\b/.test(trimmed)) {
-      return "stateDiagram";
+      return 'stateDiagram';
     }
 
     const match = trimmed.match(/^(\w+)/);
-    return match ? match[1] : "unknown";
+    return match ? match[1] : 'unknown';
   }
 
-  return "unknown";
+  return 'unknown';
 }
 
 function validateDiagramSyntax(content) {
@@ -103,25 +113,64 @@ function validateDiagramSyntax(content) {
 
   // Check for basic structure
   if (!content || content.length === 0) {
-    errors.push("Empty diagram");
+    errors.push('Empty diagram');
     return errors;
   }
 
+  // Mermaid detects the diagram type from the first statement, so
+  // accTitle/accDescr before the type line makes the whole diagram fail to
+  // render ("No diagram type detected", #3490). Skip blank lines, %%
+  // comments/directives and a leading --- frontmatter block.
+  const statements = content.split('\n').map((line) => line.trim());
+  let index = 0;
+  const skip = () => {
+    while (
+      index < statements.length &&
+      (statements[index] === '' || statements[index].startsWith('%%'))
+    ) {
+      index += 1;
+    }
+  };
+  skip();
+  if (statements[index] === '---') {
+    const close = statements.indexOf('---', index + 1);
+    index = close === -1 ? statements.length : close + 1;
+    skip();
+  }
+  const noColon = statements.find((line) => /^acc(Title|Descr)\s+"/.test(line));
+  if (noColon) {
+    errors.push(
+      `Use the colon form for accessibility statements (mermaid rejects ${noColon.split(' ')[0]} "..."): ${noColon}`
+    );
+  }
+
+  const firstStatement = statements[index] || '';
+  if (/^acc(Title|Descr)\b/.test(firstStatement)) {
+    errors.push(
+      'accTitle/accDescr must come after the diagram type line; Mermaid reads the type from the first statement'
+    );
+  } else if (
+    firstStatement &&
+    !Object.values(DIAGRAM_TYPES).some((pattern) =>
+      new RegExp(`^(?:${pattern.source.replace(/^\^\\s\*/, '')})`).test(firstStatement)
+    )
+  ) {
+    // The /m type patterns below match a type keyword on any line, so a
+    // stray preamble line would otherwise pass.
+    errors.push(`First statement must be a diagram type, found: ${firstStatement}`);
+  }
+
   // Check for valid diagram type
-  const firstLine = content.split("\n")[0].trim();
-  const hasValidType = Object.values(DIAGRAM_TYPES).some((pattern) =>
-    pattern.test(content),
-  );
+  const firstLine = content.split('\n')[0].trim();
+  const hasValidType = Object.values(DIAGRAM_TYPES).some((pattern) => pattern.test(content));
 
   if (!hasValidType) {
     errors.push(`Unknown diagram type: ${firstLine}`);
   } else {
-    const directionMatch = firstLine.match(
-      /^\s*(graph|flowchart)\s+([A-Za-z]{2})\b/,
-    );
+    const directionMatch = firstLine.match(/^\s*(graph|flowchart)\s+([A-Za-z]{2})\b/);
     if (directionMatch) {
       const direction = directionMatch[2].toUpperCase();
-      const validDirections = new Set(["TD", "TB", "BT", "LR", "RL"]);
+      const validDirections = new Set(['TD', 'TB', 'BT', 'LR', 'RL']);
       if (!validDirections.has(direction)) {
         errors.push(`Invalid direction for ${directionMatch[1]}: ${direction}`);
       }
@@ -133,28 +182,28 @@ function validateDiagramSyntax(content) {
   // Check for accTitle/accDescr format
   // Both single-line (accDescr: "text") and block (accDescr { ... }) formats are valid
   let inAccDescrBlock = false;
-  const lines = content.split("\n");
+  const lines = content.split('\n');
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
 
-    if (line.startsWith("accDescr {")) {
+    if (line.startsWith('accDescr {')) {
       inAccDescrBlock = true;
     }
 
-    if (inAccDescrBlock && line === "}") {
+    if (inAccDescrBlock && line === '}') {
       inAccDescrBlock = false;
     }
   }
 
   if (inAccDescrBlock) {
-    errors.push("Unclosed accDescr block");
+    errors.push('Unclosed accDescr block');
   }
 
   // Basic syntax checks for common issues
   // Strip double-quoted string literals to avoid false positives in brace/bracket matching
   // Basic syntax checks for common issues
   // Strip double-quoted string literals to avoid false positives in brace/bracket matching
-  const cleanContent = content.replace(/"[^"\\]*(?:\\.[^"\\]*)*"/g, "");
+  const cleanContent = content.replace(/"[^"\\]*(?:\\.[^"\\]*)*"/g, '');
 
   const openBraces = (cleanContent.match(/{/g) || []).length;
   const closeBraces = (cleanContent.match(/}/g) || []).length;
@@ -167,17 +216,13 @@ function validateDiagramSyntax(content) {
     : 0;
   const closeBrackets = (cleanContent.match(/]/g) || []).length;
   if (openBrackets !== closeBrackets) {
-    errors.push(
-      `Mismatched brackets: ${openBrackets} open, ${closeBrackets} close`,
-    );
+    errors.push(`Mismatched brackets: ${openBrackets} open, ${closeBrackets} close`);
   }
 
   const openParens = (cleanContent.match(/\(/g) || []).length;
   const closeParens = (cleanContent.match(/\)/g) || []).length;
   if (openParens !== closeParens) {
-    errors.push(
-      `Mismatched parentheses: ${openParens} open, ${closeParens} close`,
-    );
+    errors.push(`Mismatched parentheses: ${openParens} open, ${closeParens} close`);
   }
 
   return errors;
@@ -185,28 +230,23 @@ function validateDiagramSyntax(content) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
-  const changedFilesListArg = args.find((a) =>
-    a.startsWith("--changed-files-list="),
-  );
+  const changedFilesArg = args.find((a) => a.startsWith('--changed-files='));
+  const changedFilesListArg = args.find((a) => a.startsWith('--changed-files-list='));
   const isVendorPath = (filePath) =>
     /(^|\/)(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
-      filePath,
+      filePath
     );
   const targetFiles = (
     changedFilesListArg
       ? fs
-          .readFileSync(
-            changedFilesListArg.replace("--changed-files-list=", ""),
-            "utf8",
-          )
-          .split("\n")
+          .readFileSync(changedFilesListArg.replace('--changed-files-list=', ''), 'utf8')
+          .split('\n')
           .map((f) => f.trim())
           .filter(Boolean)
       : changedFilesArg
         ? changedFilesArg
-            .replace("--changed-files=", "")
-            .split(",")
+            .replace('--changed-files=', '')
+            .split(',')
             .map((f) => f.trim())
             .filter(Boolean)
         : getMarkdownFiles()
@@ -214,7 +254,7 @@ async function main() {
     .filter((f) => /\.mdx?$/i.test(f))
     .filter((f) => !isVendorPath(f));
 
-  console.log("🔍 Validating Mermaid diagram syntax...\n");
+  console.log('🔍 Validating Mermaid diagram syntax...\n');
 
   const report = {
     totalDiagrams: 0,
@@ -231,7 +271,7 @@ async function main() {
       continue;
     }
 
-    const content = fs.readFileSync(filePath, "utf-8");
+    const content = fs.readFileSync(filePath, 'utf-8');
     const diagrams = extractMermaidDiagrams(content);
 
     if (diagrams.length === 0) {
@@ -249,13 +289,13 @@ async function main() {
       const errors = validateDiagramSyntax(diagramContent);
       if (errors.length > 0) {
         report.errorDiagrams++;
-        const errorMsg = errors.join("; ");
+        const errorMsg = errors.join('; ');
         console.log(`   ❌ Diagram ${i + 1} [${type}]: ${errorMsg}`);
         report.errors.push({
           file,
           diagramIndex: i + 1,
           type,
-          content: diagramContent.substring(0, 50) + "...",
+          content: diagramContent.substring(0, 50) + '...',
           error: errorMsg,
         });
       } else {
@@ -265,21 +305,19 @@ async function main() {
     }
   }
 
-  console.log("\n" + "=".repeat(60));
-  console.log("📊 VALIDATION SUMMARY");
-  console.log("=".repeat(60));
+  console.log('\n' + '='.repeat(60));
+  console.log('📊 VALIDATION SUMMARY');
+  console.log('='.repeat(60));
   console.log(`Total diagrams:  ${report.totalDiagrams}`);
   console.log(`Valid diagrams:  ${report.validDiagrams}`);
   console.log(`Error diagrams:  ${report.errorDiagrams}`);
   const successRate =
-    report.totalDiagrams === 0
-      ? 100
-      : (report.validDiagrams / report.totalDiagrams) * 100;
+    report.totalDiagrams === 0 ? 100 : (report.validDiagrams / report.totalDiagrams) * 100;
 
   console.log(`Success rate:    ${successRate.toFixed(1)}%`);
 
   if (report.errorDiagrams > 0) {
-    console.log("\n❌ ERRORS FOUND:");
+    console.log('\n❌ ERRORS FOUND:');
     for (const error of report.errors) {
       console.log(`\n  📄 ${error.file}`);
       console.log(`  📊 Diagram: #${error.diagramIndex} (${error.type})`);
@@ -313,25 +351,25 @@ stability: stable
 - **Success rate**: ${(report.totalDiagrams === 0 ? 100 : (report.validDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
 ## Files Analyzed
 
-${targetFiles.map((f) => `- ${f}`).join("\n")}
+${targetFiles.map((f) => `- ${f}`).join('\n')}
 
 ## Detailed Results
 
-${report.totalDiagrams === report.validDiagrams ? "✅ All diagrams are syntactically valid!" : ""}
+${report.totalDiagrams === report.validDiagrams ? '✅ All diagrams are syntactically valid!' : ''}
 
 ${
   report.errorDiagrams > 0
     ? `### Diagrams with Errors (${report.errorDiagrams})
 
-${report.errors.map((e) => `- **${e.file}** — Diagram #${e.diagramIndex} (${e.type})\n  - Error: ${e.error}`).join("\n\n")}`
-    : ""
+${report.errors.map((e) => `- **${e.file}** — Diagram #${e.diagramIndex} (${e.type})\n  - Error: ${e.error}`).join('\n\n')}`
+    : ''
 }
 
 ## Recommendations
 
 ${
   report.errorDiagrams === 0
-    ? "✅ All Mermaid diagrams pass syntax validation. Proceed to accessibility compliance audit (#669)."
+    ? '✅ All Mermaid diagrams pass syntax validation. Proceed to accessibility compliance audit (#669).'
     : `⚠️ Found ${report.errorDiagrams} diagram(s) with syntax errors. Recommended actions:
 1. Review the errors listed above
 2. Consult [Mermaid Documentation](https://mermaid.js.org/)
@@ -340,18 +378,17 @@ ${
 }
 `;
 
-  fs.writeFileSync(
-    path.join(ROOT, ".github/reports/mermaid-validation-report.md"),
-    reportContent,
-  );
-  console.log(
-    "\n✅ Validation report saved to .github/reports/mermaid-validation-report.md",
-  );
+  // MERMAID_SYNTAX_REPORT overrides the report path (tests write to a temp dir).
+  const reportPath =
+    process.env.MERMAID_SYNTAX_REPORT ||
+    path.join(ROOT, '.github/reports/mermaid-validation-report.md');
+  fs.writeFileSync(reportPath, reportContent);
+  console.log(`\n✅ Validation report saved to ${path.relative(ROOT, reportPath) || reportPath}`);
 
   process.exit(report.errorDiagrams > 0 ? 1 : 0);
 }
 
 main().catch((err) => {
-  console.error("Validation error:", err);
+  console.error('Validation error:', err);
   process.exit(1);
 });

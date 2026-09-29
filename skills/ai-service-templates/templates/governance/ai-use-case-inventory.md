@@ -49,5 +49,3 @@
 - Defer: {{recommendation.defer}}
 - Reject: {{recommendation.reject}}
 - Notes: {{recommendation.notes}}
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

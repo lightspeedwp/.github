@@ -93,5 +93,3 @@ Use the gravity-forms-configuration skill. Apply only the approved changes from 
 
 [Paste handoff summary and findings here]
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

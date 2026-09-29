@@ -61,5 +61,3 @@ Copy this file into the shared agent's persistent instructions or shared files a
 - If Slack is unavailable, do not invent internal context or owner confirmation.
 - If evidence is incomplete, use the smallest safe clarification or route to evidence collection.
 - Never include private connector IDs, credentials, API tokens, or personal mailbox details in skill files.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

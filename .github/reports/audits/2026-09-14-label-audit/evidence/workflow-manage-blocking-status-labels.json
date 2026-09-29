@@ -1,0 +1,52 @@
+{
+  "workflow": "manage-blocking-status-labels.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml",
+  "size_bytes": 4323,
+  "purpose": "Keep status:blocked in step with '- Blocked by: #N' lines in issue bodies: add it while any referenced blocker is open, remove it when none are.",
+  "triggers": ["issues: types [opened, reopened, edited]", "schedule: \"0 9 * * *\""],
+  "jobs": [
+    {
+      "id": "update-blocking-labels",
+      "summary": "github-script paginates all open issues, parses the first '- Blocked by:' line, checks each blocker's state via issues.get, and adds or removes status:blocked."
+    }
+  ],
+  "scripts_called": [],
+  "actions_used": ["actions/github-script@v9"],
+  "labels_referenced": ["status:blocked"],
+  "labels_not_in_canonical": [],
+  "permissions": {
+    "workflow": {
+      "contents": "read",
+      "issues": "write"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "Every issue opened/edited/reopened event rescans all open issues instead of the one that changed, plus one issues.get per blocker, so the API cost grows with the backlog.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml:23"
+    },
+    {
+      "issue": "No concurrency group, so bursts of edits run overlapping full scans.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml:14"
+    },
+    {
+      "issue": "Regex has no g flag and requires a '- Blocked by:' list item; only the first such line is read.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml:42"
+    },
+    {
+      "issue": "Removes status:blocked from any issue without a 'Blocked by' line, so manually applied blocks (for example external blockers) are cleared.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml:61"
+    },
+    {
+      "issue": "Adds status:blocked without removing the existing status:* label; one-hot resolution is left to the agent's status-enforcer.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml:113"
+    },
+    {
+      "issue": "Only same-repository #N references are parsed; owner/repo#N blockers are ignored.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/manage-blocking-status-labels.yml:46"
+    }
+  ],
+  "overlaps_with": [
+    "labeling-unified.yml (same issues opened/edited/reopened events; status one-hot enforcement in status-enforcer.js)"
+  ]
+}

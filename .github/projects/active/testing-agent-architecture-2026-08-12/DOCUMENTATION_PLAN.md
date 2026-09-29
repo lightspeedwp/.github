@@ -522,6 +522,7 @@ Claude excels at:
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     subgraph Repos["Repository Layer"]
         GH[".github (control-plane)"]
         BP["Block Plugins"]
@@ -552,12 +553,14 @@ graph TD
     PA --> PHP
     PA --> PY
     PA --> PW
+accDescr: Detailed diagram
 ```
 
 ### 2. Delegation Flow Diagram
 
 ```mermaid
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant R as Repository
     participant CP as Control-Plane<br/>Agent
     participant PA as Portable<br/>Agent
@@ -572,12 +575,14 @@ sequenceDiagram
     S->>PA: Return results
     PA->>CP: Report results
     CP->>R: Display results
+accDescr: Detailed diagram
 ```
 
 ### 3. Test Execution Pipeline
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     subgraph Input["Input"]
         PR["Pull Request<br/>or<br/>Workflow"]
     end
@@ -619,12 +624,14 @@ graph LR
     
     R1 --> R2
     R1 --> R3
+accDescr: Detailed diagram
 ```
 
 ### 4. Framework Coverage Matrix
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     subgraph Frameworks["Framework Coverage"]
         J["Jest<br/>JavaScript/TypeScript<br/>Block Plugins"]
         P["PHPUnit<br/>PHP<br/>Plugins & Themes"]
@@ -646,12 +653,14 @@ graph TB
     PY -.-> CI
     PW -.-> STATE
     PW -.-> API
+accDescr: Detailed diagram
 ```
 
 ### 5. Jest Testing Flow
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     J1["Jest Config<br/>Detected"] 
     J2["Mock WordPress<br/>REST API"]
     J3["Setup Block<br/>Utilities"]
@@ -664,12 +673,14 @@ graph LR
     J3 --> J4
     J4 --> J5
     J5 --> J6
+accDescr: Detailed diagram
 ```
 
 ### 6. PHPUnit Testing Flow
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     PHP1["PHPUnit Config<br/>Detected"]
     PHP2["Mock WordPress<br/>Globals"]
     PHP3["Setup Database<br/>Mocking"]
@@ -684,12 +695,14 @@ graph LR
     PHP4 --> PHP5
     PHP5 --> PHP6
     PHP6 --> PHP7
+accDescr: Detailed diagram
 ```
 
 ### 7. pytest Testing Flow
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     PY1["pytest Config<br/>Detected"]
     PY2["Setup CI<br/>Environment"]
     PY3["Run Test Suite"]
@@ -702,12 +715,14 @@ graph LR
     PY3 --> PY4
     PY4 --> PY5
     PY5 --> PY6
+accDescr: Detailed diagram
 ```
 
 ### 8. Playwright Testing Flow
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     PW1["Playwright Config<br/>Detected"]
     PW2["Setup Browsers<br/>Chrome, Firefox,<br/>Safari, Edge"]
     PW3["Login to<br/>WordPress"]
@@ -722,6 +737,7 @@ graph LR
     PW4 --> PW5
     PW5 --> PW6
     PW6 --> PW7
+accDescr: Detailed diagram
 ```
 
 ---

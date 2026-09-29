@@ -253,7 +253,7 @@ class ComplianceChecker {
       };
     }
 
-    const similarities = this.findSimilarEntries(entry.content, existingEntries, 0.9);
+    const similarities = this.findSimilarEntries(entry.content, existingEntries, 0.9, entry);
 
     const passed = similarities.length === 0;
 
@@ -269,11 +269,21 @@ class ComplianceChecker {
     };
   }
 
-  findSimilarEntries(content, allEntries, threshold = 0.9) {
+  findSimilarEntries(content, allEntries, threshold = 0.9, currentEntry = null) {
     const similar = [];
 
     for (const otherEntry of allEntries) {
-      if (otherEntry.id === content || otherEntry.content === content) {
+      // Skip the entry being validated, by identity rather than by content.
+      // Skipping on equal content meant an entry that was byte-identical to a
+      // different entry was never compared, so exact duplicates passed
+      // CHK_UNIQUE_CONTENT unnoticed. That mattered once CHANGELOG.md became
+      // union-merged (#3574), where combining two identical entries is the
+      // most likely way to produce one.
+      //
+      // `otherEntry.id === content` used to sit here as well. Entry ids are
+      // `unreleased-N` (see lib/parser.js), so that comparison could never
+      // match and was dead code.
+      if (currentEntry && otherEntry === currentEntry) {
         continue;
       }
 

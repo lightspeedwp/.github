@@ -84,11 +84,13 @@ references:
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A[File with Frontmatter] --> B[Schema Validation]
     B -->|Valid| C[Accepted]
     B -->|Invalid| D[Error: Fix Required]
     D --> A
     C --> E[Automation, Search, Discoverability]
+accDescr: Detailed diagram
 ```
 
 ## References
