@@ -72,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **README Bot No Longer Touches Workflows** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. ([#3687](https://github.com/lightspeedwp/.github/issues/3687))
+- **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
 - **Merged Advisory and Spec Defects Corrected** — The advisories newsletter form survives a failed request, tells a blocked address from a fault and counts its rate limit atomically; spec 018 defers auto-approved branch deletion. (#1396)
 - **Docs-Bot Changelog Exemption** — The gate now matches the docs bot in either login shape, so its exemption applies. Bot pull requests with no user-facing content no longer need a changelog entry. (#3603, #3448)
 - **Semantic-Version Release Branches** — Branch checks in CI and the npm script now accept documented release names such as `release/v1.2.3` and `release/v1.2.3-rc1`. ([#3555](https://github.com/lightspeedwp/.github/issues/3555))
