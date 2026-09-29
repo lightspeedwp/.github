@@ -1628,45 +1628,76 @@ function graphqlQuery(args) {
 }
 
 /**
- * Problems with the branch names a GraphQL mutation mentions.
+ * Branch names a GraphQL mutation names, with the key each was bound to.
  *
- * A mutation is not decomposed: the document is scanned for the string values
- * bound to `refName`, `oid`, `headRefName`, `baseRefName` and `name`, and each is
- * judged as a branch. That is a deliberate widening — the guard cannot execute the
- * document to see what it does — so it is also the reason a value that is not a
- * branch is left alone rather than refused.
+ * The keys are the ones the mutations that write a branch actually use:
+ * `branchName` inside the nested `branch` input of createCommitOnBranch, and `name`
+ * for createRef, which is given a qualified `refs/heads/...` name. `oid`,
+ * `expression` and `repositoryNameWithOwner` are deliberately not read: they carry
+ * a commit id, a path expression and an owner/repository, none of which is a branch
+ * name, and judging them refused a query that was never a write.
+ *
+ * `updateRef` and `deleteRef` identify their ref by node id, so no field in those
+ * documents names a branch. The caller refuses a mutation that writes a branch
+ * without naming one, which is what covers them.
  */
-function graphqlBranchProblems(query, owner, repo) {
+function graphqlBranchNames(query) {
+  const found = [];
+  for (const match of query.matchAll(/\bbranchName\b\s*:\s*"([^"]*)"/g)) {
+    found.push(match[1].trim());
+  }
+  for (const match of query.matchAll(/\bname\b\s*:\s*"(refs\/heads\/[^"]*)"/g)) {
+    found.push(match[1].trim());
+  }
+  return found.filter(Boolean);
+}
+
+/** The mutations that can change a ref, and so cannot be judged by name alone. */
+const BRANCH_MUTATIONS = 'createRef|updateRef|deleteRef|createCommitOnBranch';
+
+/**
+ * Problems with the branch names a GraphQL mutation names.
+ *
+ * A mutation is not decomposed: the values bound to the branch keys are judged by
+ * the same rules as any other branch name, and a mutation that writes a branch
+ * without naming one is refused because nothing about it can be shown to be safe.
+ */
+function graphqlBranchProblems(query) {
   if (!query) return [];
-  if (owner && !OWNER.includes(owner)) return [];
+  // A GraphQL call names no owner in its path, so the owner has to come from the
+  // document. The contract says a call whose owner isn't `lightspeedwp` is always
+  // allowed, and a document that names no repository at all has said nothing
+  // about which one it means, so neither is checked.
+  if (!new RegExp(`repositoryNameWithOwner\\s*:\\s*"${OWNER}/`, 'i').test(query)) return [];
   const problems = [];
   const seen = new Set();
-  for (const match of query.matchAll(
-    /\b(?:refName|headRefName|baseRefName|name|oid|expression)\b\s*:\s*"([^"]*)"/g
-  )) {
-    const value = match[1].trim();
-    if (!value || seen.has(value)) continue;
-    // A commit SHA or a tree reference is not a branch name and is not judged as
-    // one, which is why `oid` is read but never refused.
-    if (/^[0-9a-f]{7,40}$/i.test(value)) continue;
-    if (/^[0-9a-f]{2,40}$/i.test(value) && !value.includes('/')) continue;
-    seen.add(value);
-    if (PROTECTED.has(value)) {
-      problems.push(`Write blocked: '${value}' is a protected branch.`);
+  for (const value of graphqlBranchNames(query)) {
+    // createRef is given a qualified ref name, so the branch part is what is judged.
+    const name = value.replace(/^refs\/heads\//, '').replace(/\.git$/, '');
+    if (!name || seen.has(name)) continue;
+    seen.add(name);
+    if (PROTECTED.has(name)) {
+      problems.push(`Write blocked: '${name}' is protected.`);
       continue;
     }
-    if (PLACEHOLDER.test(value)) {
-      problems.push(
-        `Write blocked: '${value}' is the session placeholder, not a real branch name.`
-      );
+    if (PLACEHOLDER.test(name)) {
+      problems.push(`Write blocked: '${name}' is the session placeholder, not a real branch name.`);
       continue;
     }
-    const result = nameProblem(value);
+    const result = nameProblem(name);
     if (result) problems.push(`Write blocked: ${result}.`);
   }
-  // The owner and repository are not branch names, so a mutation naming only those
-  // has nothing to judge and is left alone.
-  if (repo && seen.has(repo)) seen.delete(repo);
+  if (
+    !seen.size &&
+    new RegExp(`\\bmutation\\b[\\s\\S]*?\\b(?:${BRANCH_MUTATIONS})\\b`).test(query)
+  ) {
+    // A mutation that writes a branch without naming one — updateRef and deleteRef
+    // both identify their ref by node id. Refusing is the direction the contract
+    // requires when a check cannot be completed.
+    problems.push(
+      'Write blocked: a ref mutation names no branch, so the target cannot be checked.'
+    );
+  }
   return problems;
 }
 
@@ -1702,7 +1733,7 @@ function checkGh(args, cwd, branch) {
   // ground as the REST branches below: a forbidden name is refused, and a mutation
   // that names no branch is not this guard's business.
   if (/^graphql$/.test(apiEndpoint(args))) {
-    return graphqlBranchProblems(graphqlQuery(args), owner, repo);
+    return graphqlBranchProblems(graphqlQuery(args));
   }
 
   const endpoint = apiEndpoint(args)

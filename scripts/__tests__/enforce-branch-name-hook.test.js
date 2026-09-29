@@ -1537,63 +1537,81 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
   });
 
   // GraphQL reaches the same writes as the REST API through a different
-  // transport: the whole mutation arrives as one `query=` field and there is no
-  // `repos/...` path to match, so every GraphQL call was allowed outright.
-  test.each([
-    ['createRef', 'main', 'protected'],
-    ['createRef', 'develop', 'the base branch'],
-    ['updateRef', 'main', 'protected'],
-  ])('refuses a %s mutation naming %s (%s)', (mutation, ref) => {
+  // transport, and the whole document arrives as one `query=` field, so there is
+  // no `repos/...` path to match. Every call was allowed, including a commit
+  // straight to main.
+  test('refuses a createCommitOnBranch naming the base branch', () => {
     fx.branch('feat/good-name');
-    const command = `gh api graphql -f query='mutation { ${mutation}(input: {refName: "${ref}", oid: "a1b2c3d4e5"}) { clientMutationId } }'`;
+    const command =
+      'gh api graphql -f query=\'mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "main"}, message: {headline: "x"}}) { commit { oid } } }\'';
     const run = runBash(fx, command);
     expect(run.status).toBe(2);
-    expect(run.stderr).toMatch(/protected|base branch/);
+    expect(run.stderr).toMatch(/protected/);
   });
 
-  test('refuses a GraphQL mutation naming the session placeholder', () => {
+  test.each([
+    ['createCommitOnBranch', 'develop'],
+    ['createCommitOnBranch', 'chore/session-abc123'],
+  ])('refuses a %s naming %s', (mutation, branch) => {
     fx.branch('feat/good-name');
-    const command = `gh api graphql -f query='mutation { createRef(input: {refName: "chore/session-abc123", oid: "a1b2c3d4e5"}) { clientMutationId } }'`;
+    const command = `gh api graphql -f query='mutation { ${mutation}(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "${branch}"}, message: {headline: "x"}}) { commit { oid } } }'`;
     expect(runBash(fx, command).status).toBe(2);
   });
 
-  // The same naming rules as the normal path, applied to what the document names.
-  // A commit SHA beside a ref is not itself a branch name and is not judged as one,
-  // and a name with no scope fails the convention the same way it does anywhere
-  // else in the guard.
   test.each([
-    ['main', 2],
-    ['develop', 2],
-    ['chore/session-abc123', 2],
-    ['feat/from-graphql', 0],
-    ['no-scope', 2],
-  ])('applies the branch rules to a GraphQL ref named %s', (ref, expected) => {
+    ['createCommitOnBranch', 'feat/good-name', 0],
+    ['createCommitOnBranch', 'feat/new-thing', 0],
+  ])('allows a %s naming %s', (mutation, branch, expected) => {
     fx.branch('feat/good-name');
-    const command = `gh api graphql -f query='mutation { createRef(input: {refName: "${ref}", oid: "a1b2c3d4e5"}) { clientMutationId } }'`;
+    const command = `gh api graphql -f query='mutation { ${mutation}(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "${branch}"}, message: {headline: "x"}}) { commit { oid } } }'`;
     expect(runBash(fx, command).status).toBe(expected);
   });
 
-  test('allows a GraphQL mutation that names no branch', () => {
+  // createRef is given a qualified ref name, so the branch part is what is judged.
+  test.each([
+    ['refs/heads/main', 2],
+    ['refs/heads/feat/good-name', 0],
+  ])('refuses a createRef of %s only when it is a forbidden branch', (ref, expected) => {
     fx.branch('feat/good-name');
-    // A query about a viewer names no ref and is not this guard's business.
-    const command = `gh api graphql -f query='query { viewer { login } }'`;
+    const command = `gh api graphql -f query='mutation { createRef(input: {repositoryId: "R_1", repositoryNameWithOwner: "lightspeedwp/.github", name: "${ref}", oid: "a1b2c3d4e5"}) { clientMutationId } }'`;
+    expect(runBash(fx, command).status).toBe(expected);
+  });
+
+  // updateRef and deleteRef identify their ref by node id, so nothing in the
+  // document names a branch. A check that cannot be completed refuses.
+  test.each(['updateRef', 'deleteRef'])('refuses a %s that names no branch', (mutation) => {
+    fx.branch('feat/good-name');
+    const command = `gh api graphql -f query='mutation { ${mutation}(input: {repositoryNameWithOwner: "lightspeedwp/.github", refId: "REF_kwDOabc"}) { clientMutationId } }'`;
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
+  // A GraphQL call names no owner in its path, so the owner comes from the
+  // document. The contract allows a call whose owner isn't `lightspeedwp`, and a
+  // document naming no repository has not said which one it means.
+  test.each([
+    ['another organisation', 'someoneelse/otherrepo', 0],
+    ['this organisation', 'lightspeedwp/.github', 2],
+  ])('judges a mutation in %s only for the protected owner', (_label, repo, expected) => {
+    fx.branch('feat/good-name');
+    const document = `mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "${repo}", branchName: "main"}, message: {headline: "x"}}) { commit { oid } } }`;
+    expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(expected);
+  });
+
+  // A query is not a write. `name` on a repository and `expression` on a path are
+  // not branch names, and refusing them was a wrong refusal.
+  test.each([
+    'query { repository(owner: "lightspeedwp", name: ".github") { object(expression: "main:README.md") { id } } }',
+    'query { viewer { login } }',
+  ])('allows the read-only document %s', (document) => {
+    fx.branch('feat/good-name');
+    const command = `gh api graphql -f query='${document}'`;
     expect(runBash(fx, command).status).toBe(0);
   });
 
-  test('allows a GraphQL mutation that names no branch', () => {
+  test('reads the document from --query and from an attached field', () => {
     fx.branch('feat/good-name');
-    // A mutation about a viewer names no ref and is not this guard's business.
-    const command = `gh api graphql -f query='query { viewer { login } }'`;
-    expect(runBash(fx, command).status).toBe(0);
-  });
-
-  test('reads the mutation from --query and from an attached field', () => {
-    fx.branch('feat/good-name');
-    // Read from every form gh accepts the document in, so the value is the same
-    // whether it is a separate argument or attached to the flag. A compliant ref is
-    // used so the assertion is about where the document was read, not its verdict.
     const document =
-      'mutation { createRef(input: {refName: "feat/from-flag", oid: "a1b2"}) { clientMutationId } }';
+      'mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "feat/from-flag"}, message: {headline: "x"}}) { commit { oid } } }';
     expect(runBash(fx, `gh api graphql --query '${document}'`).status).toBe(0);
     expect(runBash(fx, `gh api graphql -fquery='${document}'`).status).toBe(0);
   });
