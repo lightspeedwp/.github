@@ -184,4 +184,53 @@ describe('footer-shape', () => {
       expect(findTrailingFooterShapedBlocks(text).blocks).toHaveLength(0);
     });
   });
+
+  describe('a heading inside a fence is not a heading of the document', () => {
+    // Regression: the heading scan did not consult fenceMask, so a fenced ATX
+    // heading set lastHeading and the candidate loop then discarded every line
+    // above it — hiding real footer-shaped blocks from the report entirely.
+    const TWO_FOOTERS_ABOVE_FENCED_HEADING = [
+      'Some content here.',
+      '',
+      '**Made with love by the LightSpeed team.**',
+      '',
+      '*Built with \u{1F680} by LightSpeedWP with love.*',
+      '```markdown',
+      '# Example heading inside a fence',
+      '```',
+    ].join('\n');
+
+    test('the two real footers above a fenced heading are still reported', () => {
+      const blocks = findTrailingFooterShapedBlocks(TWO_FOOTERS_ABOVE_FENCED_HEADING);
+      expect(blocks.blocks).toHaveLength(2);
+      expect(blocks.blocks.map((b) => b.line)).toEqual([3, 5]);
+    });
+
+    test('the signal flags the file rather than reporting it clean', () => {
+      const r = findShapeMultiples(TWO_FOOTERS_ABOVE_FENCED_HEADING);
+      expect(r.count).toBe(2);
+      expect(r.regions).toHaveLength(2);
+    });
+
+    test('a fenced heading does not narrow the zone on CRLF files either', () => {
+      const crlf = TWO_FOOTERS_ABOVE_FENCED_HEADING.replace(/\n/g, '\r\n');
+      expect(findShapeMultiples(crlf).count).toBe(2);
+    });
+
+    test('an unfenced heading still narrows the zone', () => {
+      // The fix must not weaken the rule for a real heading: a footer-shaped
+      // line above a genuine heading is section content, not a trailing footer.
+      const text = [
+        '# Title',
+        '',
+        '**A bolded note about the section.**',
+        '',
+        '## Contributing',
+        '',
+        '_Maintained with \u2764\uFE0F by the team_',
+        '',
+      ].join('\n');
+      expect(findShapeMultiples(text).count).toBe(0);
+    });
+  });
 });

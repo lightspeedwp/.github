@@ -160,8 +160,14 @@ export function findTrailingFooterShapedBlocks(content) {
   const zone = lines.slice(zoneStart);
 
   // Narrow the zone to the part after the last heading, when there is one.
+  // A heading shown inside a fenced example is not a heading of the document: it
+  // would set the boundary, and the candidate loop then discards everything
+  // before it, which hides the real footer above the fence from the report
+  // entirely. The mask is consulted for the same reason the candidate loop
+  // consults it.
   let lastHeading = -1;
   zone.forEach((line, i) => {
+    if (fenceMask[zoneStart + i]) return;
     if (ATX_HEADING_RE.test(line)) lastHeading = i;
   });
   // Track the document index of each candidate line explicitly rather than
