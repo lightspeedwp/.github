@@ -412,10 +412,20 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: command.slice(1) });
     });
 
+    // Five reasons never reach a parsed command — kill-switch, bot-sender,
+    // not-a-pr, not-a-command and unsupported-event — so they carry no tool.
+    // Every other reason names the requested tool, but only when the command is
+    // on the allow list: the comment body is untrusted, so a refused request
+    // must not be able to write an arbitrary value into the pilot report.
     it.each([
-      ['not-a-pr', { issue: {}, comment: { body: '/review', author_association: 'OWNER' } }],
+      [
+        'not-a-pr',
+        'none',
+        { issue: {}, comment: { body: '/review', author_association: 'OWNER' } },
+      ],
       [
         'not-a-command',
+        'none',
         {
           issue: { pull_request: {} },
           comment: { body: 'ordinary comment', author_association: 'OWNER' },
@@ -423,6 +433,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
       ],
       [
         'author-not-allowed',
+        'review',
         {
           issue: { pull_request: {} },
           comment: { body: '/review', author_association: 'CONTRIBUTOR' },
@@ -430,15 +441,50 @@ describe('Qodo PR-Agent reusable workflow', () => {
       ],
       [
         'command-not-allowed',
+        'none',
         {
           issue: { pull_request: {} },
           comment: { body: '/generate_labels', author_association: 'OWNER' },
         },
       ],
-    ])('rejects issue comments with reason %s', (reason, payload) => {
+    ])('rejects issue comments with reason %s and tool %s', (reason, tool, payload) => {
       const { outputs, core } = runPreflight({ eventName: 'issue_comment', payload });
-      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool: 'none' });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
       expect(core.notice).toHaveBeenCalledTimes(reason === 'not-a-command' ? 0 : 1);
+    });
+
+    // The comment body is untrusted input. These pin the boundaries that stop a
+    // refused request writing an unrecognised or reserved value into the report.
+    it.each([
+      // The association check runs first, so a non-allow-listed command from an
+      // unauthorised author stops there; OWNER is used to reach the allow list.
+      ['a bare slash', 'OWNER', '/', 'not-a-command', 'none'],
+      ['a slash with trailing text', 'OWNER', '  /  extra', 'not-a-command', 'none'],
+      ['an attempt to forge the auto sentinel', 'OWNER', '/auto', 'command-not-allowed', 'none'],
+      ['an attempt to forge the none sentinel', 'OWNER', '/none', 'command-not-allowed', 'none'],
+      [
+        'an allow-listed command from an unauthorised author',
+        'CONTRIBUTOR',
+        '/review',
+        'author-not-allowed',
+        'review',
+      ],
+      [
+        'a non-allow-listed command from an unauthorised author',
+        'CONTRIBUTOR',
+        '/auto',
+        'author-not-allowed',
+        'none',
+      ],
+    ])('refuses %s without leaking a tool value', (_label, association, body, reason, tool) => {
+      const { outputs } = runPreflight({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: {} },
+          comment: { body, author_association: association },
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
     });
 
     it('rejects authorised commands when the credential is missing', () => {
@@ -446,7 +492,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
         eventName: 'issue_comment',
         env: { HAS_CREDENTIAL: 'false' },
       });
-      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'no-credential', tool: 'none' });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'no-credential', tool: 'review' });
     });
 
     it.each(['OWNER', 'MEMBER', 'COLLABORATOR'])(
@@ -481,7 +527,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
         expect(outputs).toStrictEqual({
           enabled: 'false',
           reason: 'author-not-allowed',
-          tool: 'none',
+          tool: 'review',
         });
         expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent skipped: author-not-allowed');
       }

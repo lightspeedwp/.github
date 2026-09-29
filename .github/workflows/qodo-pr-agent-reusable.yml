@@ -144,12 +144,23 @@ jobs:
                 const comment = payload.comment;
                 if (!payload.issue?.pull_request) return { reason: 'not-a-pr' };
                 const command = String(comment?.body || '').trim().split(/\s+/)[0].toLowerCase();
-                if (!command.startsWith('/')) return { reason: 'not-a-command' };
-                if (!ALLOWED_ASSOCIATIONS.includes(comment?.author_association)) {
-                  return { reason: 'author-not-allowed' };
+                if (command.length < 2 || !command.startsWith('/')) {
+                  return { reason: 'not-a-command' };
                 }
-                if (!ALLOWED_COMMANDS.includes(command)) return { reason: 'command-not-allowed' };
-                if (process.env.HAS_CREDENTIAL !== 'true') return { reason: 'no-credential' };
+                // Only an allow-listed command may be named as the tool. The
+                // comment body is untrusted, so a refused request must not be
+                // able to inject 'auto' or 'none' into the pilot report, or any
+                // other value the report does not recognise.
+                const requested = ALLOWED_COMMANDS.includes(command) ? command.slice(1) : 'none';
+                if (!ALLOWED_ASSOCIATIONS.includes(comment?.author_association)) {
+                  return { reason: 'author-not-allowed', tool: requested };
+                }
+                if (!ALLOWED_COMMANDS.includes(command)) {
+                  return { reason: 'command-not-allowed', tool: requested };
+                }
+                if (process.env.HAS_CREDENTIAL !== 'true') {
+                  return { reason: 'no-credential', tool: requested };
+                }
                 return { reason: 'ok', tool: command.slice(1) };
               }
 

@@ -69,11 +69,13 @@ A failed exchange (denied rule, incomplete configuration, endpoint unreachable) 
 
 ## Required job structure
 
-1. **`preflight`** (runs-on `ubuntu-latest`, `timeout-minutes: 2`, `permissions: {}`). It produces `enabled` (`true`/`false`) and `reason`. It sets `enabled=false` when any of these holds:
+1. **`preflight`** (runs-on `ubuntu-latest`, `timeout-minutes: 2`, `permissions: {}`). It produces `enabled` (`true`/`false`), `reason` and `tool`. It sets `enabled=false` when any of these holds:
    - `vars.QODO_PR_AGENT_ENABLED == 'false'` (kill-switch, FR-020)
    - there is no credential: no `model_credential` and no complete federation configuration
    - `pull_request`: the PR is a draft, the sender type is `Bot`, the author is in `excluded_authors`, or the head repository is a fork (`reason=fork`; forks get neither secrets nor an OIDC token)
    - `issue_comment`: the comment is not on a PR, `author_association` is not in {`OWNER`, `MEMBER`, `COLLABORATOR`}, or the first token of the body is not in the command allow-list
+
+   `tool` names the command the run was requested for, so a refused request still records what was asked for. It is `auto` for a `pull_request` event and `none` for the five reasons that never reach a parsed command (`kill-switch`, `bot-sender`, `not-a-pr`, `not-a-command`, `unsupported-event`). Because the comment body is untrusted, `tool` is set to an allow-listed command id or to `none`, never to raw comment text: an unauthorised or unknown command cannot write a reserved or unrecognised value into the pilot report.
 2. **`run`** (`needs: preflight`, `if: needs.preflight.outputs.enabled == 'true'`, `timeout-minutes: 15`). Its steps:
    - Token exchange (`id: token`, only when `inputs.federation_rule_id` is set): see [Credential resolution](#credential-resolution).
    - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow. The step uses `continue-on-error: true`, so an invalid key, rate limit or upstream outage records `failure` and emits a notice without failing the PR (FR-006, SC-003).
