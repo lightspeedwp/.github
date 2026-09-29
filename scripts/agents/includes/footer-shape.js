@@ -11,7 +11,7 @@ import { isFooterPhraseLine } from './footer-policy.js';
  * @param {string[]} lines - Document split on '\n'
  * @returns {boolean[]} True where the line is inside (or is) a fence
  */
-function computeFenceMask(lines) {
+export function computeFenceMask(lines) {
   const mask = new Array(lines.length).fill(false);
   let openChar = null;
   let openLength = 0;
@@ -32,9 +32,11 @@ function computeFenceMask(lines) {
     const length = match[1].length;
     const info = match[2];
     if (openChar === null) {
-      // A backtick fence's info string may not contain a backtick.
+      // A backtick fence's info string may not contain a backtick, so ```a`b is
+      // code, not a fence opener. It is left unmasked and opens nothing, which is
+      // what dedupe-footers.js does for the same line; an earlier version of this
+      // copy masked it instead, and the two disagreed.
       if (char === '`' && info.includes('`')) {
-        mask[i] = true;
         continue;
       }
       openChar = char;

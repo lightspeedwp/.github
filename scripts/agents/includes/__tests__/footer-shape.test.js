@@ -6,6 +6,7 @@ import {
   findShapeMultiples,
   findTrailingFooterShapedBlocks,
   emphasisedPhraseText,
+  computeFenceMask,
 } from '../footer-shape.js';
 
 describe('footer-shape', () => {
@@ -182,6 +183,21 @@ describe('footer-shape', () => {
         '',
       ].join('\n');
       expect(findTrailingFooterShapedBlocks(text).blocks).toHaveLength(0);
+    });
+  });
+
+  describe('the fence-mask copy stays in step with dedupe-footers.js', () => {
+    // This module keeps its own copy of computeFenceMask because importing the
+    // one in dedupe-footers.js would close an import cycle, and its docstring
+    // requires the two to agree. They had drifted: on a backtick fence whose info
+    // string contains a backtick, dedupe-footers.js leaves the line unmasked
+    // (asserted in its own test suite) while this copy masked it. The line can
+    // never be a heading or a footer phrase, so the drift was invisible in this
+    // module's output — which is exactly why it needs a test rather than a
+    // corpus measurement.
+    test('a backtick opener whose info string contains a backtick is not a fence', () => {
+      const mask = computeFenceMask(['```a`b', 'A phrase inside nothing.', 'text']);
+      expect(mask).toEqual([false, false, false]);
     });
   });
 
