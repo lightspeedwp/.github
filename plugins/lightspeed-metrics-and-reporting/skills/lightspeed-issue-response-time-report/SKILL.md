@@ -4,5 +4,9 @@ description: generate issue response-time reporting with trend interpretation an
 version: 0.1.1
 ---
 
+# LightSpeed Issue Response Time Report
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Use this skill to generate issue response-time reporting with trend interpretation and action cues.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

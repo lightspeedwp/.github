@@ -4,5 +4,9 @@ description: verify issue content against required template sections and governa
 version: 0.1.1
 ---
 
+# LightSpeed Issue Template Compliance
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Use this skill to verify issue content against required template sections and governance checks.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

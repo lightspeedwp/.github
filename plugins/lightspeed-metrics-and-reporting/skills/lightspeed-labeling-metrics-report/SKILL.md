@@ -4,5 +4,9 @@ description: generate labeling quality and consistency metrics for governance re
 version: 0.1.1
 ---
 
+# LightSpeed Labeling Metrics Report
 
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+Use this skill to generate labeling quality and consistency metrics for governance reporting.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
