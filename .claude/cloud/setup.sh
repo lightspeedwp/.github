@@ -76,6 +76,16 @@ install_node() {
       log "Node ${NODE_VERSION} install failed; keeping the existing install"
     fi
     rm -rf "$stage"
+    # On a fresh machine there is no earlier install to keep, and the links below
+    # would point at a directory that was never created. A dangling link in
+    # /root/.local/bin and a "Node  is the default" line both read as success, so
+    # the snapshot would be taken with no working Node and the failure would only
+    # surface later as a confusing tool error. Return before linking instead, and
+    # leave any install that does exist exactly as it was.
+    if [ ! -x "${dir}/bin/node" ]; then
+      log "Node ${NODE_VERSION} is unavailable; leaving the image's Node unchanged"
+      return 0
+    fi
   fi
   mkdir -p /root/.local/bin
   for bin in node npm npx corepack; do
