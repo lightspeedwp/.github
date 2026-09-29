@@ -394,10 +394,15 @@ jobs:
         # Advisory only, and deliberately a separate step from the failing check
         # above. This signal reports files whose trailing zone holds two or more
         # footer-shaped blocks that the wording-based deduper cannot recognise.
-        # Measured across 11,474 tracked Markdown files it flags 930 files, of
-        # which 280 (30.1%) hold no known footer at all, so it must never fail a
-        # build. It exists to ask a human to look, and to surface footers whose
-        # wording is missing from footer-policy.js. See issue #3451.
+        # Measured across 11,474 tracked Markdown files it flags 899 files, of
+        # which 255 (28.4%) hold no known footer at all, so it must never fail a
+        # build. That 28.4% is a share of flagged files, not a false-positive
+        # rate; a file with an unrecognised but genuine duplicate footer is in
+        # it, and a file with known phrases is not independently confirmed, so no
+        # rate follows. Figures are from `npm run measure:footers:shape` and match
+        # docs/FOOTER_REMEDIATION_GUIDE.md. It exists to ask a human to look, and
+        # to surface footers whose wording is missing from footer-policy.js. See
+        # issue #3451.
         if: always() && steps.range.outputs.enabled == 'true'
         continue-on-error: true
         env:
@@ -443,7 +448,8 @@ jobs:
                 " of " +
                 findings.length +
                 " changed file(s) hold a footer-shaped block the deduper cannot see. Advisory only: " +
-                "the measured false-positive rate is 30.1%, so this does not fail the build."
+                "the measured share of flagged files with no known footer phrase is 28.4%, " +
+                "so this does not fail the build."
             );
           '
 
