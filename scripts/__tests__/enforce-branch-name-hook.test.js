@@ -16,6 +16,18 @@ const { GUARD, createFixture, runBash, runGuard } = require('./helpers/claude-ho
 
 jest.setTimeout(30000);
 
+/**
+ * The environment that makes the guard fault.
+ *
+ * `NODE_ENV: 'test'` is stated rather than inherited: `loadValidator` honours the
+ * fault flag only in test mode, so a constant that left it out was relying on
+ * whatever Jest happened to set in the ambient environment.
+ *
+ * At file scope because a fault test in one describe block asserts on a write in
+ * another, and a per-block constant makes that look like it needs duplicating.
+ */
+const FAULT = { NODE_ENV: 'test', LS_GUARD_FORCE_FAULT: '1' };
+
 let fx;
 
 beforeEach(() => {
@@ -957,11 +969,9 @@ describe('GitHub MCP tools (T011)', () => {
   });
 
   test('refuses a guard-file write on a fault that cds first', () => {
-    const run = runBash(fx, 'cd .claude/hooks && rm enforce-branch-name.mjs', {
-      NODE_ENV: 'test',
-      LS_GUARD_FORCE_FAULT: '1',
-    });
+    const run = runBash(fx, 'cd .claude/hooks && rm enforce-branch-name.mjs', FAULT);
     expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
   });
 
   // @- means standard input, which the guard has already consumed.
@@ -1116,8 +1126,6 @@ describe('guard faults (T013)', () => {
     expect(run.stderr).toBe('');
   });
 
-  const FAULT = { NODE_ENV: 'test', LS_GUARD_FORCE_FAULT: '1' };
-
   test('warns and allows a non-git command on a fault', () => {
     const run = runBash(fx, 'ls', FAULT);
     expect(run.status).toBe(0);
@@ -1169,16 +1177,19 @@ describe('guard faults (T013)', () => {
       FAULT
     );
     expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
   });
 
   test('refuses a shell write to a guard file on a fault', () => {
     const run = runBash(fx, 'rm .claude/hooks/enforce-branch-name.mjs', FAULT);
     expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
   });
 
   test('refuses a heredoc redirect to a guard file on a fault', () => {
     const run = runBash(fx, "cat <<'EOF' > .claude/settings.json\n{}\nEOF", FAULT);
     expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
   });
 
   test('still allows an edit to a normal file on a fault', () => {
@@ -1194,12 +1205,17 @@ describe('guard faults (T013)', () => {
       FAULT
     );
     expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
   });
 
   test.each(['git branch -D old-thing', 'git checkout -b feat/new-thing', 'gh pr create --fill'])(
     'refuses the branch operation %s on a fault (FR-012a)',
     (command) => {
-      expect(runBash(fx, command, FAULT).status).toBe(2);
+      const run = runBash(fx, command, FAULT);
+      expect(run.status).toBe(2);
+      // Status 2 alone proves nothing here: the normal path refuses these too.
+      // The refusal message is what shows the fault path is the reason.
+      expect(run.stderr).toMatch(/^Branch guard unavailable:/);
     }
   );
 
@@ -1692,7 +1708,6 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
 
   // Self-protection has to hold while the guard is broken, which is exactly when
   // isGuardFileWrite runs. A nested command names the interpreter, not the file.
-  const FAULT = { LS_GUARD_FORCE_FAULT: '1' };
   // `-XDELETE` attaches the value to the flag, so it has no word boundary after
   // the flag letter. Read as a read, the deletion was allowed on the fault path.
   test.each([
@@ -1701,6 +1716,7 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
   ])('refuses the write %s on a fault', (command) => {
     const run = runBash(fx, command, FAULT);
     expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
   });
 
   // The normal path refuses a command nested deeper than NESTED_DEPTH. The fault
@@ -1727,11 +1743,16 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
   ])('blocks the nested guard-file write %s on a fault', (command) => {
     const run = runBash(fx, command, FAULT);
     expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/^Branch guard unavailable:/);
   });
 
   test('still allows a nested non-guard command on a fault', () => {
     const run = runBash(fx, 'bash -c "ls"', FAULT);
     expect(run.status).toBe(0);
+    // Allowed, but only because the guard failed: the warning is the whole
+    // difference from the normal path, and without it a broken guard would look
+    // like a clean allow.
+    expect(run.json().systemMessage).toMatch(/^Branch guard unavailable:/);
   });
 });
 
