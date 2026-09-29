@@ -4,6 +4,9 @@ description: assess release risk signals and recommend mitigations before cutove
 version: 0.1.1
 ---
 
+# LightSpeed Release Risk Assessment
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Use this skill to assess release risk signals and recommend mitigations before cutover.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
