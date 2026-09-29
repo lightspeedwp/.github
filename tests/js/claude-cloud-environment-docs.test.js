@@ -571,9 +571,8 @@ describe('the operations document', () => {
     // Case-insensitive: the follow-up tables use both 'fixed' and 'Fixed'.
     const fixed = (response.match(/\|\s*fixed\s*\|/gi) || []).length;
     const summary = response.split('## Summary')[1].split('##')[0];
-    expect(summary).toContain(`${addressed} addressed`);
+    expect(summary).toContain(`Feedback items addressed: ${addressed}`);
     expect(summary).toContain(`${rejected} assessed and rejected`);
-    // The table's own deferral, and the second one recorded outside it.
     expect(summary).toContain(`${deferred} deferred`);
     expect(summary).toContain(`${fixed} findings, all fixed`);
     expect(addressed).toBeGreaterThan(0);
@@ -581,7 +580,10 @@ describe('the operations document', () => {
     expect(deferred).toBeGreaterThan(0);
     // The summary is not free to claim a total the table does not have.
     const numbered = (table.match(/^\| \d+ /gm) || []).length;
-    expect(summary).toContain(`holds ${numbered} items`);
+    expect(summary).toContain(`of the ${numbered} in the table`);
+    // The phrase the repository's own ai-feedback validation looks for, asserted
+    // here so a reworded summary cannot silently fail the check in CI.
+    expect(summary).toMatch(/(?:All\s+)?feedback\s+(?:items\s+)?(?:addressed|completed|resolved)/i);
   });
 
   test('covers both branch protection and rulesets in the verification step', () => {

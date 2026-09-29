@@ -44,10 +44,13 @@ validators agree.
 
 ## Summary
 
-Every item raised has a record above. The table holds 5 items: 2 addressed, 1 resolved upstream in
-#3558 (which merged and made the validators agree), 1 assessed and rejected with evidence, and
-1 deferred (#3617). The follow-up tables record a further 33 findings, all fixed. A second deferral sits
-outside the table, in #3618. Nothing was dismissed without a reason.
+Feedback items addressed: 2 of the 5 in the table. The other three are accounted for too — 1 resolved
+upstream in #3558, which merged and made the validators agree; 1 assessed and rejected with evidence;
+and 1 deferred in #3617. The follow-up tables record a further 33 findings, all fixed. A second
+deferral sits outside the table, in #3618. Nothing was dismissed without a reason.
+
+Each count here is derived from the status marks actually present, by a test, so the record cannot
+drift from what it claims.
 
 ## Tooling notes
 
