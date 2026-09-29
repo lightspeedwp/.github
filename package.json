@@ -108,6 +108,7 @@
     "validate:footers": "node scripts/dedupe-footers.js --check",
     "validate:footers:fix": "node scripts/dedupe-footers.js --fix",
     "validate:footers:shape": "node scripts/dedupe-footers.js --check --shape",
+    "measure:footers:shape": "node scripts/measure-footer-shape.js",
     "validate:mermaid-contrast": "node scripts/validation/validate-mermaid-colour-contrast.js",
     "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:linear-guidance && npm run validate:json:all",
     "create:agent": "node scripts/create-agent-spec.js",
