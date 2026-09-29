@@ -425,6 +425,12 @@ describe('Claude cloud environment specification contracts', () => {
       expect(contractRow(cleanup, 'Condition')).toMatch(
         /no commits of its own, re-checked immediately before deletion/
       );
+      // Scenario 5 is the other half of the same promise: a placeholder that has
+      // received commits must not satisfy the positive scenario either, or the
+      // two acceptance criteria disagree about the same branch.
+      expect(spec).toMatch(
+        /branch-origin check identifies as a platform placeholder, has no commits of its own/
+      );
       expect(spec).toMatch(
         /branch that has its own commits.*it is not auto-deleted: it follows spec 009's normal categorisation/
       );

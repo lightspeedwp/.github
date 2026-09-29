@@ -72,6 +72,7 @@ implementation in lightspeedwp/.github#3524.
   - **Categorisation**: `scripts/lib/branch-categorization.js` returns `DELETE` with `autoApproved: true` and the
     reason code `auto_delete_empty_agent_branch` for a `claude/*` branch when all of these hold:
     - it is a platform placeholder, proven by a **separate branch-origin check** rather than by merge status
+    - it has no commits of its own, because a placeholder that received commits after creation stops being empty
     - open-PR verification succeeded and found no open PR
     - it has been continuously observable as a branch for at least 1 day, from a branch-age signal such as a first-observed timestamp, never from the age of its tip commit
 
@@ -81,15 +82,21 @@ implementation in lightspeedwp/.github#3524.
     empty agent branches and FR-021 promises a branch failing an FR-020 condition is never auto-deleted. Until a
     reliable origin signal exists, the same reasoning that defers the deletion itself defers this condition too.
 
-    This check runs before the naming-violation check. The rule is specified but **cannot fire yet**: the
-    branch-age signal its third condition depends on does not exist, so no branch satisfies it and the
-    categoriser returns the result spec 009 would have produced anyway. See "Age" below.
+    This check runs before the naming-violation check. The rule is specified but **cannot fire yet**, and
+    it is blocked twice over: the branch-age signal its third condition depends on does not exist, and
+    neither does a reliable branch-origin signal. Building only the age signal would still leave the
+    condition unsatisfiable, so the rule stays deferred until both exist. Until then the categoriser
+    returns the result spec 009 would have produced anyway. See "Age" below.
+
   - **Audit command**: `cleanup-branches.js` stays report-only, as 009 FR-011 requires. The JSON report lists the
     auto-approved branches, which is an empty set for as long as the deferral holds.
   - **Scheduled workflow (deferred)**: 009's workflow gains a deletion step **once the branch-age signal exists**.
     While the deferral holds the step has nothing to do: it reads the JSON report, finds no `autoApproved` entry,
-    and deletes nothing. Everything else goes to the draft PR as before. When the step is enabled it re-checks
-    each auto-approved branch (still merged, still no open PR), records the branch tip OID it checked, and deletes
+    and deletes nothing. Everything else follows 009's categorisation as before: its DELETE candidates go to the
+    draft PR, while an invalid `claude/*` name or one carrying its own commits goes to DISCUSS, and this spec
+    defines no route from DISCUSS to that approval. When the step is enabled it re-checks each auto-approved
+    branch against the tip it is about to act on (still a platform placeholder, still no commits of its own,
+    still no open PR -- not merge status, which is no longer a condition), records that tip OID, and deletes
     with `git push origin --delete <branch> --force-with-lease=<branch>:<oid>` so a push landing between the
     re-check and the delete aborts the deletion instead of discarding work.
 - **Rationale**:
@@ -99,7 +106,7 @@ implementation in lightspeedwp/.github#3524.
 - **Consequences**:
   - FR-020 to FR-022 depend on #3358 merging first.
   - The exit codes follow 009: 0 for success, 1 for fatal, 2 for partial failure.
-- **"Age"**: how long the branch has been continuously observable, measured from a branch-age signal such as a first-observed timestamp. This was originally the tip commit's date by analogy with 009 FR-005, but that is not a safe basis: a branch created moments ago can carry an old tip commit, so a fresh working branch would be auto-deleted within a day of being created. Because no branch-age signal exists to replace it and this spec keeps no persistent storage, the auto-approved deletion is deferred rather than shipped on the flawed basis; candidates fall back to 009's categorisation and draft-PR approval until the signal's storage is decided. While the deferral holds, no empty branch is auto-deleted at any age; every candidate falls back to 009's normal categorisation instead, which is KEEP, DISCUSS, or a draft-PR-approved DELETE. An invalid `claude/*` name or one carrying its own commits lands in DISCUSS, and this spec defines no route from DISCUSS to draft-PR approval, so "every candidate gets a draft PR" would be wrong.
+- **"Age"**: how long the branch has been continuously observable, measured from a branch-age signal such as a first-observed timestamp. This was originally the tip commit's date by analogy with 009 FR-005, but that is not a safe basis: a branch created moments ago can carry an old tip commit, so a fresh working branch would be auto-deleted within a day of being created. Because no branch-age signal exists to replace it and this spec keeps no persistent storage, the auto-approved deletion is deferred rather than shipped on the flawed basis; candidates fall back to 009's categorisation until the signal's storage is decided. While the deferral holds, no empty branch is auto-deleted at any age; every candidate falls back to 009's normal categorisation instead, which is KEEP, DISCUSS, or a draft-PR-approved DELETE. An invalid `claude/*` name or one carrying its own commits lands in DISCUSS, and this spec defines no route from DISCUSS to draft-PR approval, so "every candidate gets a draft PR" would be wrong.
 - **Alternatives considered**:
   - A: route `claude/*` through the draft PR. This needs a person to approve every day to meet SC-002, so it was
     rejected.
@@ -113,7 +120,7 @@ implementation in lightspeedwp/.github#3524.
   - Node from `.nvmrc` into `/opt/node<major>`, symlinked into `/root/.local/bin`, which is first on `PATH`.
   - `shellcheck`, via apt.
   - `actionlint`, via `go install`.
-  It also sets system-level git defaults.
+    It also sets system-level git defaults.
 - **Rationale**: The image ships Node 22 on `PATH` from `/opt/node22/bin`. GitHub release assets from repositories
   not attached to the session return 403, so actionlint comes from the Go module proxy. A measured run took about
   22 s, well under the 5-minute limit (FR-016).
@@ -136,6 +143,7 @@ implementation in lightspeedwp/.github#3524.
 
   Each step has a 5-second timeout. Any failure, timeout or empty result means "not verified", and the action is
   refused (FR-006).
+
 - **Rationale**:
   - Cloud sessions authenticate `gh` through the GitHub proxy, so they need no
     separately configured token. Setup must install or confirm `gh` and verify authentication. Local sessions
@@ -198,6 +206,7 @@ implementation in lightspeedwp/.github#3524.
   All three accept `disableAllHooks` or overriding hook entries.
 
   **Spec**: FR-013a lists all five paths: the four above plus `/etc/claude-code/managed-settings.json` (security checklist review, CHK001).
+
 - **CODEOWNERS**: Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed`, following the existing explicit-path
   convention. The global `*` rule already covers it, but an explicit line makes the requirement visible and
   survives changes to the fallback.
@@ -214,7 +223,7 @@ implementation in lightspeedwp/.github#3524.
   when they launched Claude locally.
 - **Why the agent can't flip it in a session**:
   - Hooks run as children of the Claude Code process, not of the agent's Bash tool. So `export
-    LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash call never reaches the hook.
+LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash call never reaches the hook.
   - The only in-session route is a settings file `env` block or `disableAllHooks`, and R12 already protects those
     files.
 - **Local developers**: someone who launches Claude with the switch set to `0` in their own shell is making a
