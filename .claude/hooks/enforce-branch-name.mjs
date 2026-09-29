@@ -1600,31 +1600,51 @@ function checkGitHub(tool, input, cwd) {
 
 /** Problems found in a `gh` command (FR-008, FR-009). */
 /**
- * The GraphQL document an `api graphql` call carries, from `--query`, `-f query`
- * or `--input`, as text. A value that cannot be read yields an empty string, which
- * the caller treats as a mutation naming no branch rather than as a pass.
+ * The GraphQL document an `api graphql` call carries, as text.
+ *
+ * The document can arrive through gh's own `--query` option, through a field
+ * (`-f`, `-F`, `--field`, `--raw-field`) or as the `query` key of an `--input`
+ * body, so all three are read. The fields go through the same helpers the REST
+ * path uses, which is what makes `-F query=@file` resolve `@file` against the
+ * command's own working directory the way gh does.
  */
-function graphqlQuery(args) {
-  for (let i = 1; i < args.length; i += 1) {
-    if (args[i] === '--query') return String(args[i + 1] || '');
-    const attached = args[i].match(/^--query=(.*)$/);
-    if (attached) return attached[1];
-    if (args[i] === '-f' && String(args[i + 1] || '').startsWith('query=')) {
-      return String(args[i + 1]).slice('query='.length);
-    }
-    const field = args[i].match(/^(?:-f|-F)(?:query=)(.*)$/);
-    if (field) return field[1];
-    if (args[i] === '--input' || args[i] === '-F') {
-      const file = String(args[i + 1] || '');
-      if (!file || file === '-') continue;
-      try {
-        return JSON.parse(readFileSync(expandHome(file), 'utf8')).query || '';
-      } catch {
-        return '';
-      }
-    }
+function graphqlQuery(args, cwd) {
+  const option = args.find((arg) => arg === '--query' || arg.startsWith('--query='));
+  if (option) {
+    const at = args.indexOf(option);
+    const value = option === '--query' ? args[at + 1] : option.slice('--query='.length);
+    if (typeof value === 'string') return value;
   }
+  for (const [flag, argument] of fieldArgs(args)) {
+    const [key, ...rest] = argument.split('=');
+    if (key !== 'query') continue;
+    const value = resolveFieldValue(rest.join('='), cwd, flag);
+    if (value !== null) return value;
+  }
+  const body = readBody(inputArg(args), cwd);
+  if (body && typeof body === 'object' && typeof body.query === 'string') return body.query;
   return '';
+}
+
+/**
+ * Whether the document itself could not be read, as opposed to naming no branch.
+ *
+ * `gh` sends the document from a field the guard cannot resolve — a typed
+ * `-F query=@absent.graphql`, or an `--input` file that is not there. That is not
+ * a document naming no branch, it is a document the guard never saw, and a write
+ * on an unseen document is refused rather than judged on an empty one. The REST
+ * path reaches the same conclusion through `unreadableApiFields`.
+ */
+function graphqlQueryUnreadable(args, cwd) {
+  if (args.includes('--query') && typeof args[args.indexOf('--query') + 1] !== 'string') {
+    return true;
+  }
+  for (const [flag, argument] of fieldArgs(args)) {
+    const [key, ...rest] = argument.split('=');
+    if (key !== 'query') continue;
+    if (resolveFieldValue(rest.join('='), cwd, flag) === null) return true;
+  }
+  return inputArg(args) ? readBody(inputArg(args), cwd) === null : false;
 }
 
 /**
@@ -1641,7 +1661,7 @@ function graphqlQuery(args) {
  * documents names a branch. The caller refuses a mutation that writes a branch
  * without naming one, which is what covers them.
  */
-function graphqlBranchNames(query) {
+function graphqlBranchNames(query, variables = {}) {
   const found = [];
   for (const match of query.matchAll(/\bbranchName\b\s*:\s*"([^"]*)"/g)) {
     found.push(match[1].trim());
@@ -1649,11 +1669,53 @@ function graphqlBranchNames(query) {
   for (const match of query.matchAll(/\bname\b\s*:\s*"(refs\/heads\/[^"]*)"/g)) {
     found.push(match[1].trim());
   }
+  // A name bound to a variable is read from the value gh would send with it, so
+  // `name: $n` with `-f n=refs/heads/main` is judged on `refs/heads/main` rather
+  // than skipped.
+  //
+  // Only read when the document writes a branch at all. `name:` is a field on many
+  // operations that are nothing to do with a branch — `createCheckRun(name: "ci")`,
+  // and every read of `repository(owner:, name:)` — and judging those as branch names
+  // refused a read-only query and reported a check name as a protected branch. The
+  // variable spelling of a document must not be treated more strictly than the
+  // literal spelling of the same document.
+  if (WRITES_A_BRANCH.test(query)) {
+    for (const match of query.matchAll(/\b(?:branchName|name)\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+      const value = variables[match[1]];
+      if (typeof value === 'string' && value) found.push(value.trim());
+    }
+  }
   return found.filter(Boolean);
 }
 
-/** The mutations that can change a ref, and so cannot be judged by name alone. */
-const BRANCH_MUTATIONS = 'createRef|updateRef|deleteRef|createCommitOnBranch';
+/** The mutations that write a branch, by ref id or by committing to a named one. */
+const WRITES_A_BRANCH = /\b(?:createRef|updateRef|deleteRef|createCommitOnBranch)\b/;
+
+/**
+ * The GraphQL variables a call carries, keyed by the name the document refers to.
+ *
+ * Every field other than `query` and `operationName` is sent as a variable, so
+ * `-f n=refs/heads/main` supplies `$n`. Nested GraphQL input fields arrive as
+ * `b[branchName]=main`, which supplies the variable `b`; only the leaf is used
+ * here, since a branch name is what a leaf carries.
+ */
+function graphqlVariables(args, cwd) {
+  const variables = {};
+  for (const [flag, argument] of fieldArgs(args)) {
+    const index = argument.indexOf('=');
+    if (index < 1) continue;
+    const key = argument.slice(0, index);
+    const raw = argument.slice(index + 1);
+    if (key === 'query' || key === 'operationName') continue;
+    const value = resolveFieldValue(raw, cwd, flag);
+    if (value === null) continue;
+    // A nested field keeps its full key. Flattening `b[branchName]` onto
+    // `branchName` collided with a genuine top-level variable of that name, and the
+    // first one seen won, so the verdict depended on the order the flags were given.
+    if (!(key in variables)) variables[key] = value;
+  }
+  return variables;
+}
 
 /**
  * Problems with the branch names a GraphQL mutation names.
@@ -1662,16 +1724,32 @@ const BRANCH_MUTATIONS = 'createRef|updateRef|deleteRef|createCommitOnBranch';
  * the same rules as any other branch name, and a mutation that writes a branch
  * without naming one is refused because nothing about it can be shown to be safe.
  */
-function graphqlBranchProblems(query) {
+function graphqlBranchProblems(query, variables = {}) {
   if (!query) return [];
-  // A GraphQL call names no owner in its path, so the owner has to come from the
-  // document. The contract says a call whose owner isn't `lightspeedwp` is always
-  // allowed, and a document that names no repository at all has said nothing
-  // about which one it means, so neither is checked.
-  if (!new RegExp(`repositoryNameWithOwner\\s*:\\s*"${OWNER}/`, 'i').test(query)) return [];
+  // A GraphQL call names no owner in its path, so the owner comes from the
+  // document. A document naming only another organisation is allowed: the contract
+  // says a call whose owner isn't `lightspeedwp` is always allowed.
+  //
+  // A document naming no owner is still judged. Only createCommitOnBranch takes
+  // `repositoryNameWithOwner`; CreateRefInput, UpdateRefInput and DeleteRefInput
+  // identify their target by node id, so the commonest real ref mutations name no
+  // owner and could equally well target this organisation. Judging them is a wrong
+  // refusal for a ref mutation in another organisation, in the direction the
+  // contract already prefers: a check that cannot be scoped to this repository has
+  // to fail closed.
+  //
+  // A ref mutation is never covered by a repository named elsewhere in the same
+  // document, so only a document with no ref mutation at all is skipped on the
+  // strength of a foreign owner. Otherwise one foreign field would vouch for the
+  // ref mutation beside it.
+  const owners = [...query.matchAll(/\brepositoryNameWithOwner\s*:\s*"([^"/\s]+)\//gi)].map(
+    (match) => match[1].toLowerCase()
+  );
+  const refMutation = /\b(?:createRef|updateRef|deleteRef)\b/.test(query);
+  if (!refMutation && owners.length && owners.every((owner) => owner !== OWNER)) return [];
   const problems = [];
   const seen = new Set();
-  for (const value of graphqlBranchNames(query)) {
+  for (const value of graphqlBranchNames(query, variables)) {
     // createRef is given a qualified ref name, so the branch part is what is judged.
     const name = value.replace(/^refs\/heads\//, '').replace(/\.git$/, '');
     if (!name || seen.has(name)) continue;
@@ -1687,15 +1765,52 @@ function graphqlBranchProblems(query) {
     const result = nameProblem(name);
     if (result) problems.push(`Write blocked: ${result}.`);
   }
-  if (
+  // A ref mutation has to resolve to a branch the guard can read, and one that
+  // does not is refused. There are three ways to fail that, all of them real:
+  //
+  //   - `updateRef` and `deleteRef` identify their ref by node id, so no branch is
+  //     named at all;
+  //   - `createRef` may bind its name to a GraphQL variable, and gh sends every
+  //     field other than `query` as a variable, so `name:$n` with `-f n=refs/heads/main`
+  //     writes `main` without the word appearing in the document;
+  //   - `createRef` may simply omit the name.
+  //
+  // The test is per mutation rather than per document, so a compliant branch named
+  // elsewhere in the document cannot stand in for one of these. That was the sharpest
+  // bypass here: it took one extra field beside a valid `branchName` and nothing else.
+  //
+  // A variable-carried name is refused rather than resolved. gh's own help says
+  // every non-`query` field becomes a variable, so the value is on the command line
+  // and could be read — but a variable may equally arrive in an `--input` body or be
+  // built at runtime, and a guard that trusts one source and not another is not a
+  // check. Refusing is the direction the contract requires when a check cannot be
+  // completed, and it is the same reason the REST path refuses a ref write that
+  // names no branch.
+  //
+  // Two conditions, and they are independent of each other:
+  //
+  //   - `updateRef` and `deleteRef` identify their ref by node id, so they name no
+  //     branch however many other fields the document carries. Either is refused
+  //     wherever it appears, including beside a compliant `branchName` — the branch
+  //     it acts on is not the one that field names.
+  //   - `createRef` names a branch only as a literal. Bound to a variable, nested in
+  //     an input, or omitted, the document yields no name, and a document with no
+  //     name at all is refused.
+  //
+  // Judged per document rather than per mutation, so a compliant name in one field
+  // cannot stand in for the ref mutation in the next.
+  const nodeIdRefWrite = /\b(?:updateRef|deleteRef)\b/.test(query);
+  const namedRefWrite = /\bcreateRef\b/.test(query) && !seen.size;
+  // A branch-writing mutation that resolves to no branch is refused. That includes a
+  // `createCommitOnBranch` whose `branchName` is bound to a variable the guard cannot
+  // read, which would otherwise be allowed precisely because its name was hidden.
+  const unreadableBranchWrite =
+    WRITES_A_BRANCH.test(query) &&
     !seen.size &&
-    new RegExp(`\\bmutation\\b[\\s\\S]*?\\b(?:${BRANCH_MUTATIONS})\\b`).test(query)
-  ) {
-    // A mutation that writes a branch without naming one — updateRef and deleteRef
-    // both identify their ref by node id. Refusing is the direction the contract
-    // requires when a check cannot be completed.
+    /\b(?:branchName|name)\s*:\s*\$[A-Za-z_]/.test(query);
+  if (nodeIdRefWrite || namedRefWrite || unreadableBranchWrite) {
     problems.push(
-      'Write blocked: a ref mutation names no branch, so the target cannot be checked.'
+      'Write blocked: a ref mutation names no branch the guard can read, so the target cannot be checked.'
     );
   }
   return problems;
@@ -1720,9 +1835,19 @@ function checkGh(args, cwd, branch) {
   if (args[0] !== 'api') return [];
 
   const fields = apiFields(args, cwd);
+  // A GraphQL document is a write signal in itself. `gh api graphql --query '...'`
+  // carries no field flag, so without this the method was inferred as GET and the
+  // call returned before the GraphQL branch, letting the mutation through on the
+  // strength of the document alone. A `query` field the guard could not resolve
+  // counts too, or an unreadable one would read as a read.
+  const carriesDocument =
+    args.includes('--query') ||
+    args.some((arg) => arg.startsWith('--query=')) ||
+    Object.keys(fields).includes('query') ||
+    fieldArgs(args).some(([, argument]) => argument.split('=')[0] === 'query');
   const method = (
     flagValue(args, ['--method', '-X']) ||
-    (Object.keys(fields).length || inputArg(args) ? 'POST' : 'GET')
+    (Object.keys(fields).length || inputArg(args) || carriesDocument ? 'POST' : 'GET')
   ).toUpperCase();
   if (method === 'GET') return [];
   // GraphQL reaches the same writes through a different transport: createRef,
@@ -1733,7 +1858,12 @@ function checkGh(args, cwd, branch) {
   // ground as the REST branches below: a forbidden name is refused, and a mutation
   // that names no branch is not this guard's business.
   if (/^graphql$/.test(apiEndpoint(args))) {
-    return graphqlBranchProblems(graphqlQuery(args));
+    if (graphqlQueryUnreadable(args, cwd)) {
+      return [
+        'Write blocked: could not read the GraphQL document, so the target branch cannot be checked.',
+      ];
+    }
+    return graphqlBranchProblems(graphqlQuery(args, cwd), graphqlVariables(args, cwd));
   }
 
   const endpoint = apiEndpoint(args)
