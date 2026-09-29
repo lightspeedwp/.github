@@ -376,23 +376,107 @@ describe('Claude cloud environment specification contracts', () => {
     });
 
     test('rechecks before deletion and continues after an individual failure', () => {
-      expect(model).toMatch(/Re-check that the branch is still merged and has no open PR/);
+      expect(model).toMatch(
+        /still a platform placeholder, still has no commits of its own, and still has no open PR/
+      );
+      expect(model).toMatch(/Merge status is deliberately not re-checked/);
+      expect(model).not.toMatch(/Re-check that the branch is still merged/);
       expect(model).toMatch(/Any failure → carry on with the other branches.*exit 2/);
-      expect(contractRow(cleanup, 'Auto-delete (new)')).toMatch(/re-check merged and no open PR/);
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(
+        /still a platform placeholder.*still no commits of its own.*still no open PR/
+      );
       expect(contractRow(cleanup, 'Schedule')).toContain('At least daily');
       expect(contractRow(cleanup, 'Permissions')).toMatch(
         /`contents: write`.*`pull-requests: read`/
       );
     });
 
-    test('requires a merged branch, verified absence of an open PR, and a full day of age', () => {
-      expect(requirement('FR-020')).toMatch(
-        /merged to a base branch.*open-PR verification succeeded.*at least 24 hours old/
-      );
+    test('requires a proven placeholder origin, verified absence of an open PR, and a full day of age', () => {
+      // The origin condition is a separate branch-origin check, not merge
+      // status. Spec 009 FR-002 counts a branch as merged once its tip appears
+      // in a base branch's merge-base history, which is also true of a
+      // `claude/*` branch holding real work that was later merged upstream.
+      // FR-021 requires such a branch to follow normal categorisation, so the
+      // merge test cannot stand in for "is a platform placeholder".
+      // Read in order, so assert each clause on its own rather than one long
+      // pattern that would silently pass on any reordering.
+      const fr020 = requirement('FR-020');
+      expect(fr020).toMatch(/separate branch-origin check/);
+      expect(fr020).toMatch(/still has no commits of its own/);
+      expect(fr020).toMatch(/is not the same test as being merged/);
+      expect(fr020).toMatch(/open-PR verification succeeded and found none/);
+      expect(fr020).toMatch(/at least 24 hours/);
       expect(contractRow(cleanup, 'Condition')).toMatch(
-        /merged to a base branch.*no open PR.*`AUTO_DELETE_MIN_AGE_DAYS` \(1\)/
+        /platform placeholder by a separate branch-origin check, not by merge status.*no commits of its own.*no open PR.*`AUTO_DELETE_MIN_AGE_DAYS` \(1\)/
       );
       expect(requirement('FR-021')).toMatch(/fails an FR-020 condition MUST NOT be auto-deleted/);
+    });
+
+    test('keeps a placeholder that received commits out of auto-approval', () => {
+      // Scenario 6 promises a branch with its own commits is never
+      // auto-deleted. An origin check identifies how a branch was *created*, so
+      // a placeholder that later received commits could still satisfy the other
+      // conditions. The no-own-commits test therefore has to be stated
+      // explicitly rather than left to implication, and re-checked before
+      // deletion because the branch can change in between.
+      expect(requirement('FR-020')).toMatch(
+        /still has no commits of its own, because a placeholder that later received commits stops being one/
+      );
+      expect(contractRow(cleanup, 'Condition')).toMatch(
+        /no commits of its own, re-checked immediately before deletion/
+      );
+      // Scenario 5 is the other half of the same promise: a placeholder that has
+      // received commits must not satisfy the positive scenario either, or the
+      // two acceptance criteria disagree about the same branch.
+      expect(spec).toMatch(
+        /branch-origin check identifies as a platform placeholder, has no commits of its own/
+      );
+      expect(spec).toMatch(
+        /branch that has its own commits.*it is not auto-deleted: it follows spec 009's normal categorisation/
+      );
+    });
+
+    test('re-checks placeholder origin and own commits before deleting, not merge status', () => {
+      // The lease binds the delete to one tip OID, so every eligibility
+      // condition must be re-checked against that same tip. A placeholder that
+      // received a commit after the audit would otherwise be deleted with the
+      // new work still on it, and merge status is no longer a condition at all.
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(
+        /re-check against the same tip the delete will act on.*still a platform placeholder.*still no commits of its own.*still no open PR.*Record that tip OID/
+      );
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).not.toMatch(
+        /re-check merged and no open PR/
+      );
+    });
+
+    test('does not promise draft-PR approval for every deferred candidate', () => {
+      // Spec 009's unchanged naming rule sends an invalid `claude/*` name, or
+      // one carrying its own commits, to DISCUSS, and nothing routes DISCUSS to
+      // draft-PR approval. Claiming every candidate gets a draft PR would
+      // contradict the documented rule order in data-model.md.
+      expect(contractRow(cleanup, 'Configuration')).toMatch(
+        /follows 009's categorisation, which is not always draft-PR approval.*routed to DISCUSS.*no route from DISCUSS to draft-PR approval/
+      );
+      expect(model).toMatch(/Invalid name .*claude\/\*.* → DISCUSS/);
+      // The same promise must not survive in FR-020 or research.md.
+      expect(requirement('FR-020')).not.toMatch(
+        /every candidate follows spec 009's normal categorisation and draft-PR approval/
+      );
+      expect(requirement('FR-020')).toMatch(/KEEP, DISCUSS, or a draft-PR-approved DELETE/);
+      expect(research).not.toMatch(
+        /every candidate goes through 009's categorisation and draft-PR approval instead/
+      );
+    });
+
+    test('records the missing branch-origin signal as a second blocker', () => {
+      expect(contractRow(cleanup, 'Branch-origin check')).toMatch(
+        /Not specified.*second blocker.*FR-021 requires a branch failing an FR-020 condition/
+      );
+      // The spec must not still assert the merge test as the origin condition.
+      expect(requirement('FR-020')).not.toMatch(
+        /merged to a base branch \(no commits of its own\)/
+      );
+      expect(contractRow(cleanup, 'Condition')).not.toMatch(/merged to a base branch/);
     });
 
     test('keeps audit dry-run-only and rechecks eligibility before deletion', () => {
@@ -400,8 +484,8 @@ describe('Claude cloud environment specification contracts', () => {
         /audit command never deletes.*re-verifies each branch first/
       );
       expect(cleanup).toMatch(/`--dryRun=false` is still rejected with exit 1/);
-      expect(contractRow(cleanup, 'Auto-delete (new)')).toMatch(
-        /re-check merged and no open PR.*manual run chooses report-only/
+      expect(contractRow(cleanup, 'Auto-delete (deferred)')).toMatch(
+        /still no open PR.*manual run chooses report-only/
       );
     });
 
@@ -412,12 +496,18 @@ describe('Claude cloud environment specification contracts', () => {
       expect(cleanup).toMatch(/All other results carry `autoApproved: false`/);
     });
 
-    test('keeps younger or unmerged agent branches out of the auto-delete rule', () => {
-      expect(requirement('FR-020')).toMatch(/merged to a base branch \(no commits of its own\)/);
-      expect(requirement('FR-020')).toMatch(/at least 24 hours old/);
+    test('keeps younger agent branches out of the auto-delete rule', () => {
+      // The placeholder-origin condition is asserted above, where the reasoning
+      // for separating it from merge status is recorded. Here the subject is the
+      // age gate.
+      expect(requirement('FR-020')).toMatch(/at least 24 hours/);
+      // The age gate must come from a branch-age signal, not the age of the
+      // tip commit: a branch created recently can carry an old tip commit.
+      expect(requirement('FR-020')).toMatch(/branch-age signal/);
+      expect(requirement('FR-020')).toMatch(/never from the age of its tip commit/);
       expect(requirement('FR-021')).toMatch(/fails an FR-020 condition MUST NOT be auto-deleted/);
       expect(contractRow(cleanup, 'Condition')).toMatch(
-        /merged to a base branch.*at least `AUTO_DELETE_MIN_AGE_DAYS` \(1\)/
+        /separate branch-origin check.*at least `AUTO_DELETE_MIN_AGE_DAYS` \(1\)/
       );
       expect(model).toMatch(
         /Invalid name \(including `claude\/\*` branches with their own commits\) → DISCUSS/
