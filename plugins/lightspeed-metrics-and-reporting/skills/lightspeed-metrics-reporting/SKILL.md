@@ -4,6 +4,9 @@ description: Plans and executes metrics reporting runs with clear outputs and go
 version: 0.1.1
 ---
 
+# LightSpeed Metrics Reporting
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Use this skill to run repeatable metrics and reporting workflows.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
