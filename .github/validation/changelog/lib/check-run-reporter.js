@@ -6,6 +6,36 @@
 import * as github from '@actions/github';
 import * as core from '@actions/core';
 
+/**
+ * Collect the violations from a validator report into a single list.
+ *
+ * The validator used in production emits violations per entry, under
+ * `validations[].violations`, and those violations carry no `entry_id` of their
+ * own, so the parent entry's id is added to each. A report that also carries a
+ * top-level `violations` array contributes those too: both shapes are merged
+ * rather than one replacing the other, because an empty top-level array would
+ * otherwise discard every nested violation.
+ *
+ * Non-array `validations` or `violations` values are ignored rather than
+ * thrown on, matching the guard in `buildAnnotations`.
+ *
+ * @param {Object} report - Validator report, with nested or top-level violations.
+ * @returns {Object[]} Violations, each carrying an `entry_id` and a `rule_id`.
+ */
+function flattenViolations(report) {
+  const flattened = Array.isArray(report?.violations) ? [...report.violations] : [];
+
+  for (const entry of Array.isArray(report?.validations) ? report.validations : []) {
+    const violations = Array.isArray(entry?.violations) ? entry.violations : [];
+    for (const violation of violations) {
+      // The violation's own id wins: it is the more specific value.
+      flattened.push({ entry_id: entry?.entry_id ?? 'unknown', ...violation });
+    }
+  }
+
+  return flattened;
+}
+
 export class CheckRunReporter {
   /**
    * Configure the GitHub client and repository used for check run creation.
@@ -88,13 +118,15 @@ export class CheckRunReporter {
 
   /**
    * Format the check title and summary from passed, failed, and warning counts.
-   * Missing counts default to zero; annotations come from top-level violations
-   * and are not limited here.
+   * Missing counts default to zero; annotations come from `flattenViolations`
+   * and are not capped here, because the 50-annotation cap is applied by
+   * `reportCheckRun` when the request is built.
    * @param {Object} validationResult - Report with summary and optional violations.
    * @returns {Object} Check output with title, summary, and annotations.
    */
   buildCheckOutput(validationResult) {
-    const { summary = {}, violations = [] } = validationResult;
+    const { summary = {} } = validationResult;
+    const annotations = this.buildAnnotations(flattenViolations(validationResult));
     const { passed = 0, failed = 0, warnings = 0 } = summary;
     const totalEntries = passed + failed + warnings;
 
@@ -117,9 +149,6 @@ export class CheckRunReporter {
       summaryText += `- ⚠️ Warnings: ${warnings}\n`;
     }
 
-    // Build annotations from violations
-    const annotations = this.buildAnnotations(violations);
-
     return {
       title,
       summary: summaryText,
@@ -131,6 +160,12 @@ export class CheckRunReporter {
    * Annotate each violation at line 1 of CHANGELOG.md using its rule, entry,
    * message, optional details, and severity. Missing fields use fallback text;
    * non-array or empty input produces no annotations.
+   *
+   * The parser records a line number per entry, but the rule engine does not
+   * carry it onto the violations it produces, so every annotation is anchored to
+   * line 1. The Checks API requires `end_line` alongside `start_line`, so both
+   * are emitted with the same value.
+   *
    * @param {Array} violations - Violation objects to annotate.
    * @returns {Array} GitHub annotation objects, without a count limit.
    */
@@ -140,22 +175,29 @@ export class CheckRunReporter {
     }
 
     return violations.map((violation) => {
-      const {
-        entry_id = 'unknown',
-        rule_id = 'unknown',
-        severity = 'notice',
-        message = 'Validation error',
-        details = '',
-      } = violation;
+      const { rule_id = 'unknown', severity = 'notice', message = 'Validation error' } = violation;
 
+      const entryId = violation?.entry_id ?? 'unknown';
       const annotationLevel = this.severityToAnnotationLevel(severity);
+
+      // Rule details are structured data, so they belong in raw_details rather
+      // than in the message: interpolating an object into a template literal
+      // would render the literal text "[object Object]".
+      const rawDetails =
+        violation?.details === undefined || violation?.details === null
+          ? undefined
+          : typeof violation.details === 'string'
+            ? violation.details
+            : JSON.stringify(violation.details, null, 2);
 
       return {
         path: 'CHANGELOG.md',
-        start_line: 1, // Line number not tracked in current impl, default to start
+        start_line: 1,
+        end_line: 1,
         annotation_level: annotationLevel,
-        title: `[${rule_id}] Entry ${entry_id}`,
-        message: `${message}${details ? `\n\n${details}` : ''}`,
+        title: `[${rule_id}] Entry ${entryId}`,
+        message,
+        ...(rawDetails ? { raw_details: rawDetails } : {}),
       };
     });
   }
