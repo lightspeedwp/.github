@@ -23,7 +23,7 @@ timeline_weeks: 4-5
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#3367](../../../issues/3367) | task | Workflow consolidation master plan & execution | ⏰ Planned |
+| [#2896](https://github.com/lightspeedwp/.github/issues/2896) | epic | Workflow consolidation master plan & execution | ⏰ Planned |
 
 **Note:** Additional phase tracking issues to be created as execution begins.
 

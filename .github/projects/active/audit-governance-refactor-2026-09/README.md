@@ -14,7 +14,7 @@
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#3367](../../../issues/3367) | task | Governance audit implementation & CI remediation | 🟡 In Progress |
+| [#3366](https://github.com/lightspeedwp/.github/issues/3366) | task | Governance audit implementation & CI remediation | 🟡 In Progress |
 
 **Note:** Additional project tracking issues to be linked as work progresses through phases.
 

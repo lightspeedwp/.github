@@ -21,8 +21,7 @@ owner: "ashley@lightspeedwp.agency"
 
 | Issue | Type | Purpose | Status |
 |-------|------|---------|--------|
-| [#1271](../../../issues/1271) | epic | Changelog Automation Hardening — master epic | 🟡 In Progress |
-| [#3367](../../../issues/3367) | task | Phase 5 planning & quality audit initial assessment | 🟡 In Progress |
+| [#1271](https://github.com/lightspeedwp/.github/issues/1271) | epic | Changelog Automation Hardening — master epic | 🟡 In Progress |
 
 ---
 
