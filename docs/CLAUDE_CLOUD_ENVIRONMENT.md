@@ -238,8 +238,10 @@ settings, not branch-protection fields.
   distinguishes them. Beyond the depth limit the guard refuses the command rather than allowing something it has
   not read. Two limits remain: a payload assembled at run time (`eval "git $cmd"`) is only as checkable as the
   variable it expands to, and a command written in another language entirely — `python -c`, `node -e` — is still
-  out of scope, because the guard reads shell syntax and not those. CI branch validation remains the final gate
-  for anything a command could construct at run time.
+  out of scope, because the guard reads shell syntax and not those. For branch names specifically, CI branch
+  validation remains the final gate for anything a command could construct at run time. That covers the naming
+  convention only: it does not enforce the protected-branch policy for every transport, as the REST `git/refs`
+  gap in the bullet below shows.
 - The guard parses shell commands with heuristics. It catches the usual forms — plain commands, pipelines, background
   and list operators, `if`/`while`/`for`/`case` arms, parenthesised groups, redirects, here-documents and nested
   interpreters — and a `cd` in the same command list moves the directory the following git commands are judged
