@@ -130,6 +130,39 @@ drift from what it claims.
 | A deletion of a branch whose name predates the convention was blocked, leaving no way to clean those up.                       | fixed  | A deletion is judged on protection only; name validity still applies when creating or renaming.                                                            | the delete branch.                      |
 | A remote-tracking deletion such as `git branch -dr origin/main` was judged as a local branch name.                             | fixed  | `-r`/`--remotes` targets are not local branches, and short clusters such as `-dr` and `-rd` are expanded so the flag is recognised.                        | `gitBranchFlags`.                       |
 
+## Findings from the independent adversarial review of the GraphQL fix
+
+An independent reviewer was given the GraphQL change and told to assume it was wrong.
+It raised nine findings. Three were regressions that change introduced and they are
+fixed in `af0c67a30a`, each with a test that fails before:
+
+- A `createCommitOnBranch` whose `branchName` is a variable the guard cannot read had
+  become allowed. Hidden names were passing because they were hidden. It is back in the
+  fail-closed net.
+- A variable was read as a branch name on any operation, so `name: $var` on a
+  `repository(owner:, name:)` read was refused and a `createCheckRun(name:)` was reported
+  as a protected branch. A variable is now read only when the document writes a branch.
+- A nested input field `b[branchName]` was flattened onto `branchName`, colliding with a
+  real variable of that name, so the verdict depended on flag order. Nested fields now
+  keep their own key.
+
+Six were pre-existing and are **not** fixed here. This pull request has to converge, and
+each new guard capability has drawn new findings, so these are recorded as stated limits
+rather than added here. They are in `contracts/hooks.md` and
+`docs/CLAUDE_CLOUD_ENVIRONMENT.md`, and they need a follow-up issue:
+
+1. `createCommitOnBranch(input: $b)` — a whole input object as one variable names no
+   branch key in the document.
+2. The check is per document, not per mutation field.
+3. `gh api /graphql` reaches the same endpoint and is not matched; the REST path strips a
+   leading slash and the GraphQL test does not.
+4. A variable supplied only in an `--input` body's `variables` map is not a field, so it
+   is refused rather than read.
+5. `gh api` is last-wins for a repeated `--input` or `-X`; the guard reads the first.
+6. The REST path can still create a protected branch: `POST repos/{owner}/{repo}/git/refs`
+   judges the name with the naming rules, which exempt `main`, rather than with the
+   protected-branch check. This is a gap rather than a limit of the new check.
+
 ## Stated limitations
 
 `sh -c`, `bash -c`, `zsh -c`, `dash -c`, `ksh -c`, `busybox sh -c` and `eval` are now **read** rather than
