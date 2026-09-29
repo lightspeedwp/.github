@@ -2,20 +2,23 @@
 
 **Complete documentation hub for LightSpeed branch naming strategy across all 50+ repositories.**
 
-> **Status:** ✅ Production Ready | **Last Updated:** 2026-09-18 | **Version:** 1.0
+> **Status:** ✅ Production Ready | **Last Updated:** 2026-09-29 | **Version:** 1.0
 
 ---
 
 ## Quick Reference
 
-**All branches MUST follow this pattern:**
+**Branches MUST follow this pattern, apart from the exemptions listed below:**
 
 ```
 {type}/{scope}-{title}
 ```
 
-> **Exemptions:** `main` and `develop` skip validation (protected branches).
-> `release/*` additionally accepts semantic-version format (`release/v1.0.0`);
+> **Exemptions:** `main` and `develop` skip validation (protected branches), as
+> do `dependabot/*` and `renovate/*` bot branches.
+> `release/*` additionally accepts a dot-separated numeric version, where the `v`
+> prefix is optional and hyphen-separated lowercase suffixes may follow the patch
+> number — `release/v1.0.0`, `release/2.1.5`, `release/v2.0.0-rc1`;
 > all other types must use `{scope}-{title}`.
 
 ### Examples
