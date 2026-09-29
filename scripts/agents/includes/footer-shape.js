@@ -195,7 +195,15 @@ export function findTrailingFooterShapedBlocks(content) {
     const blockLines = [effective[i].l];
     const blockText = [phrase];
     // An optional bare link line directly beneath makes this one footer block.
-    if (effective[i + 1] && LINK_LINE_RE.test(effective[i + 1].l)) {
+    // "Directly beneath" is checked by document index, not by position in the
+    // candidate list: fenced lines were filtered out, so the next candidate is
+    // not necessarily the next line, and joining across a code fence would
+    // report a block that spans the fence.
+    if (
+      effective[i + 1] &&
+      effective[i + 1].i === effective[i].i + 1 &&
+      LINK_LINE_RE.test(effective[i + 1].l)
+    ) {
       blockLines.push(effective[i + 1].l);
       blockText.push(effective[i + 1].l.trim());
       i++;

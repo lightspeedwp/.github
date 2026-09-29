@@ -201,6 +201,42 @@ describe('footer-shape', () => {
     });
   });
 
+  describe('a link line only joins a block when it is directly beneath it', () => {
+    // The candidate list has fenced lines removed, so the next candidate is not
+    // always the next line. Joining a link line across a code fence reported a
+    // block that spans the fence, which reads as one footer when the file has
+    // two separate things there.
+    const SEPARATED_BY_A_FENCE = [
+      'Body text here.',
+      '',
+      '**Made with love by the LightSpeed team.**',
+      '```markdown',
+      'an example line',
+      '```',
+      '[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)',
+    ].join('\n');
+
+    test('a link below a fence is not pulled into the block', () => {
+      const blocks = findTrailingFooterShapedBlocks(SEPARATED_BY_A_FENCE).blocks;
+      expect(blocks).toHaveLength(1);
+      expect(blocks[0].lines).toEqual(['**Made with love by the LightSpeed team.**']);
+      expect(blocks[0].line).toBe(3);
+    });
+
+    test('a link directly beneath still joins the block', () => {
+      const adjacent = [
+        'Body text here.',
+        '',
+        '**Made with love by the LightSpeed team.**',
+        '[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)',
+      ].join('\n');
+      const blocks = findTrailingFooterShapedBlocks(adjacent).blocks;
+      expect(blocks).toHaveLength(1);
+      expect(blocks[0].lines).toHaveLength(2);
+      expect(blocks[0].line).toBe(3);
+    });
+  });
+
   describe('a heading inside a fence is not a heading of the document', () => {
     // Regression: the heading scan did not consult fenceMask, so a fenced ATX
     // heading set lastHeading and the candidate loop then discarded every line
