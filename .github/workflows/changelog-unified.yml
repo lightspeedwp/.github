@@ -62,7 +62,16 @@ jobs:
             const labels = (context.payload.pull_request?.labels || []).map((l) => l.name);
             const has = (name) => labels.includes(name);
 
-            if (author === "dependabot[bot]" || author === "app/dependabot") {
+            // GitHub reports a bot's identity in two shapes: the webhook
+            // payload carries "app-slug[bot]", while GraphQL carries
+            // "app/app-slug". Comparing against the wrong shape silently never
+            // matches, which is how the docs-bot exemption below became dead
+            // code: it only ever matched the GraphQL form, so every
+            // docs-bot pull request reached the changelog requirement. Compare
+            // on the bare slug so an exemption holds for either shape.
+            const slug = (login) => login.replace(/^app\//, "").replace(/\[bot\]$/, "");
+
+            if (slug(author) === "dependabot") {
               core.info("Skipping changelog requirement for Dependabot pull requests.");
               core.setOutput("run_validation", "false");
               return;
@@ -71,7 +80,7 @@ jobs:
             // Automated docs-maintenance bots open fixed-branch normalization
             // PRs with no user-facing content; requiring a changelog entry on
             // every run would spam release notes. Same precedent as Dependabot.
-            if (author === "app/lightspeed-docs-bot") {
+            if (slug(author) === "lightspeed-docs-bot") {
               core.info("Skipping changelog requirement for docs-bot pull requests.");
               core.setOutput("run_validation", "false");
               return;
