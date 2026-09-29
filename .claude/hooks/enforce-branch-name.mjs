@@ -40,6 +40,23 @@ const OWNER = 'lightspeedwp';
 const THIS_REPO = '.github';
 const DETACHED = '(detached HEAD)';
 const CHECK_TIMEOUT_MS = 5000;
+
+/**
+ * Total time the guard may spend on the pull-request check in one invocation.
+ *
+ * This has to sit well below the hook timeout in .claude/settings.json, and below
+ * the time every other check can take together. A hook that reaches its timeout is
+ * killed, and a killed hook is treated as non-blocking, so a budget that matched
+ * the timeout would fail open exactly when the budget was exhausted. The check
+ * makes two network calls of at most CHECK_TIMEOUT_MS each, and it runs per
+ * refspec and per commit, so without a ceiling one command could hold the guard
+ * for a minute.
+ *
+ * The budget is a gate, not a measurement: it is consulted before the check runs
+ * and cannot interrupt one in progress, so the real worst case is this plus a
+ * single in-flight check.
+ */
+const PR_CHECK_BUDGET_MS = 5000;
 const HOME = process.env.HOME || '';
 
 // ── Branch names ────────────────────────────────────────────────────────────
@@ -207,7 +224,46 @@ function normaliseRepoPath(file, root) {
  */
 function hasOpenPr(branch, { cwd, remote = 'origin', repo = null }) {
   if (!branch) return false;
-  if (!repo && run('git', ['ls-remote', '--exit-code', '--heads', remote, branch], cwd) === null) {
+  // Cached per branch, and the total spent here is capped. Without either, a
+  // command listing several refspecs ran the two network calls once per refspec
+  // and once per commit, so a push naming five branches could hold the guard for
+  // fifty seconds. The answer cannot change within one invocation, and a branch
+  // with no pull request is a permanent answer rather than a transient one.
+  const key = `${repo || ''}|${remote}|${cwd}|${branch}`;
+  if (openPrCache.has(key)) return openPrCache.get(key);
+  // Past the budget the answer is "not verified", which is the direction the
+  // contract already requires for a timeout: the exception does not apply.
+  const left = PR_CHECK_BUDGET_MS - openPrSpent;
+  if (left <= 0) return false;
+  const started = Date.now();
+  try {
+    // Each call is capped by half of what is left, because the check makes two
+    // sequential calls (ls-remote, then the API) and passing the whole remainder
+    // to each let one check take twice the budget. The floor is one second: below
+    // that a call cannot complete anyway, and its timeout is the answer either
+    // way, so the exception simply does not apply.
+    const perCall = Math.max(Math.floor(left / 2), 1000);
+    const answer = checkOpenPr(branch, { cwd, remote, repo, timeout: perCall });
+    openPrCache.set(key, answer);
+    return answer;
+  } finally {
+    // Accumulated as a number rather than a Set: two checks taking the same number
+    // of milliseconds are two checks, and a Set would drop the second.
+    openPrSpent += Date.now() - started;
+  }
+}
+
+/** Answers already looked up, keyed by repository, remote, directory and branch. */
+const openPrCache = new Map();
+
+/** Milliseconds already spent on the pull-request check in this invocation. */
+let openPrSpent = 0;
+
+function checkOpenPr(branch, { cwd, remote = 'origin', repo = null, timeout = CHECK_TIMEOUT_MS }) {
+  if (
+    !repo &&
+    run('git', ['ls-remote', '--exit-code', '--heads', remote, branch], cwd, timeout) === null
+  ) {
     return false;
   }
   // `gh api` has no --repo flag. Its flags are -X, -f, -F, -H, --input, --jq,
@@ -241,7 +297,7 @@ function hasOpenPr(branch, { cwd, remote = 'origin', repo = null }) {
     '-f',
     'per_page=1',
   ];
-  const out = run('gh', args, cwd);
+  const out = run('gh', args, cwd, timeout);
   try {
     const prs = JSON.parse(out);
     if (!Array.isArray(prs) || prs.length === 0) return false;
@@ -485,9 +541,14 @@ function parseShell(command) {
       // the rest of the list as a subshell, so the write that followed was judged
       // in the wrong place and a guard file could be overwritten through
       // `echo x &> .claude/settings.json`.
+      // The target follows as its own word, exactly as the single-`>` branch below
+      // does: marking the word that happens to be open would leave an attached
+      // target (`&>.claude/settings.json`) inside that word, where the candidate
+      // scan does not look for a write.
       const width = src[i + 1] === '>' && src[i + 2] === '>' ? 3 : 2;
-      word = word || { text: '' };
-      word.redirect = true;
+      if (word && /^\d+$/.test(word.text)) word = null;
+      end();
+      segments.at(-1).push({ redirect: true });
       i += width - 1;
     } else if (c === '$' && src[i + 1] === '(') {
       // The unquoted form: `echo $(git push origin main)` is two commands and only
@@ -1363,7 +1424,10 @@ function checkBash(command, cwd, depth = 0) {
       // an existing branch switches, and a path that does not. Reading the
       // operand as a branch either way meant a following commit was judged against
       // a branch that had not been checked out.
-      if (sub === 'switch' || run('git', ['rev-parse', '--verify', positional[0]], segCwd) !== null) {
+      if (
+        sub === 'switch' ||
+        run('git', ['rev-parse', '--verify', positional[0]], segCwd) !== null
+      ) {
         segBranch = positional[0];
         // A checkout moves the current branch, so the loop-level value follows it
         // for the commands that follow in the same list.
@@ -1531,9 +1595,13 @@ function checkGitHub(tool, input, cwd) {
 /** Problems found in a `gh` command (FR-008, FR-009). */
 function checkGh(args, cwd, branch) {
   const repoFlag = flagValue(args, ['--repo', '-R']);
+  // The repository is resolved the same way the pull-request check resolves it,
+  // so a clone whose origin names no repository still finds the one that does. A
+  // `gh pr create` with an empty owner was judged against a repository that does
+  // not exist, which either refused a legitimate command or let one through.
   const [owner, repo] = repoFlag
     ? repoFlag.split('/')
-    : Object.values(remoteRepo(cwd) || { owner: '', repo: '' });
+    : Object.values(repositoryIdentity(cwd, 'origin') || { owner: '', repo: '' });
   const root = projectDir(cwd);
 
   if (args[0] === 'pr' && args[1] === 'create') {
@@ -1703,7 +1771,12 @@ const GIT_WRITE = [
   /\bgit\b[^|;&]*\bcheckout\b[^|;&]*\s-[bB]\b/,
   /\bgit\b[^|;&]*\bswitch\b[^|;&]*\s(-[cC]|--create|--force-create)\b/,
   /\bgh\s+pr\s+create\b/,
-  /\bgh\s+api\b[^|;&]*\s(-X|--method|-f|-F|--field|--raw-field|--input)\b/,
+  // A short flag accepts its value attached, so `-XDELETE` names the same method
+  // as `-X DELETE`. The alternatives are matched in that order because the
+  // attached form has no word boundary after the flag letter: with `\b` after
+  // `-X` it did not match at all, and a call on the fault path was then read as a
+  // read and allowed.
+  /\bgh\s+api\b[^|;&]*\s(-X[A-Za-z]+|-X\b|--method|-f[A-Za-z]|-f\b|-F[A-Za-z]|-F\b|--field|--raw-field|--input)/,
 ];
 
 /** Whether a call is a git or GitHub write, judged without the validator. */
@@ -1726,7 +1799,12 @@ function isWrite(input) {
  * self-protection cannot depend on the rest of the guard working.
  */
 function mentionsGuardFile(command, cwd, guard, depth) {
-  if (depth > NESTED_DEPTH) return false;
+  // Past the bound this is treated as a write, not as "nothing found". The normal
+  // path refuses a command nested deeper than NESTED_DEPTH; returning false here
+  // meant the fault path did the opposite and allowed it, so a guard-file removal
+  // nested four shells deep was only permitted while the guard was broken. That is
+  // the one case the self-protection contract says must not relax.
+  if (depth > NESTED_DEPTH) return true;
   const tracker = createCwdTracker(cwd);
   for (const segment of parseShell(command)) {
     if (shellGuardWrites(segment, tracker, guard).length) return true;

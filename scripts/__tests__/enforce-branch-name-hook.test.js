@@ -1479,6 +1479,47 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(calls.some((call) => call.includes('repos/lightspeedwp/.github/pulls'))).toBe(true);
   });
 
+  // The check makes two network calls of up to five seconds each, and it ran once
+  // per refspec and once per commit, so a push naming several branches held the
+  // guard for tens of seconds. It is now cached per branch and bounded in total.
+  // The time spent is accumulated as a number. A Set of durations drops duplicate
+  // values, so several checks that each took the same number of milliseconds would
+  // have been counted once and the budget would not have been reached.
+  test('accumulates the time spent rather than collecting distinct durations', () => {
+    const guard = fs.readFileSync(GUARD, 'utf8');
+    expect(guard).toMatch(/openPrSpent \+= Date\.now\(\) - started;/);
+    // The spent time is not collected anywhere: only the cache is a Set-like
+    // structure, and it holds answers rather than durations.
+    expect(guard).not.toMatch(/openPrSpent\.(?:add|set)\(/);
+    expect(guard).toMatch(/let openPrSpent = 0;/);
+  });
+
+  // Each call is capped by the time left, so a check started just inside the
+  // budget cannot overrun it by a whole timeout and reach the hook timeout.
+  test('caps each pull-request call by the time left in the budget', () => {
+    const guard = fs.readFileSync(GUARD, 'utf8');
+    expect(guard).toMatch(/const left = PR_CHECK_BUDGET_MS - openPrSpent;/);
+    // Halved, because the check makes two sequential calls and each was given the
+    // whole remainder, letting one check take twice the budget.
+    expect(guard).toMatch(/Math\.max\(Math\.floor\(left \/ 2\), 1000\)/);
+  });
+
+  test('checks the pull request once per branch however many refspecs name it', () => {
+    fx.branch('copilot/fix-login');
+    fx.git('push', '--quiet', 'origin', 'copilot/fix-login');
+    fx.clearCalls();
+    const run = runBash(
+      fx,
+      'git push origin copilot/fix-login copilot/fix-login:copilot/fix-login HEAD:copilot/fix-login',
+      { GH_STUB_MODE: 'open' }
+    );
+    const calls = fx.calls();
+    expect(calls.filter((call) => call.startsWith('gh ')).length).toBe(1);
+    expect(calls.filter((call) => call.startsWith('git ls-remote')).length).toBe(1);
+    // The verdict is still the guard's own: the branch is allowed.
+    expect(run.status).toBe(0);
+  });
+
   test('treats a wrapper option as belonging to the wrapper', () => {
     const guard = fs.readFileSync(GUARD, 'utf8');
     const wrappers = guard.match(/const WRAPPERS = new Set\(\[([\s\S]*?)\]\);/)[1];
@@ -1501,13 +1542,19 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
   // `&>` redirects both streams, so a guard file can be written through it. The
   // ampersand was read as a background operator, which put the write in the wrong
   // place and let it through.
-  test.each(['echo x &> .claude/settings.json', 'echo x &>> .claude/settings.json'])(
-    'refuses the guard-file write %s',
-    (command) => {
-      fx.branch('feat/good-name');
-      expect(runBash(fx, command).status).toBe(2);
-    }
-  );
+  // The target may be attached to the operator with no space, so the form the
+  // parser has to survive is `&>.claude/settings.json` as much as `&> .claude/...`.
+  test.each([
+    'echo x &> .claude/settings.json',
+    'echo x &>> .claude/settings.json',
+    'echo x &>.claude/settings.json',
+    'echo x &>>.claude/settings.json',
+    'echo x >.claude/settings.json',
+    'echo x >>.claude/settings.json',
+  ])('refuses the guard-file write %s', (command) => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, command).status).toBe(2);
+  });
 
   test('still allows a plain redirect to a file outside the guard', () => {
     fx.branch('feat/good-name');
@@ -1584,6 +1631,32 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
   // Self-protection has to hold while the guard is broken, which is exactly when
   // isGuardFileWrite runs. A nested command names the interpreter, not the file.
   const FAULT = { LS_GUARD_FORCE_FAULT: '1' };
+  // `-XDELETE` attaches the value to the flag, so it has no word boundary after
+  // the flag letter. Read as a read, the deletion was allowed on the fault path.
+  test.each([
+    'gh api -XDELETE repos/lightspeedwp/.github/git/refs/heads/main',
+    'gh api -XPUT repos/lightspeedwp/.github/contents/README.md',
+  ])('refuses the write %s on a fault', (command) => {
+    const run = runBash(fx, command, FAULT);
+    expect(run.status).toBe(2);
+  });
+
+  // The normal path refuses a command nested deeper than NESTED_DEPTH. The fault
+  // path did the opposite, so the refusal only happened while the guard worked.
+  // The depth bound is asserted on the function itself rather than through a
+  // command. Building a chain that survives the tokenizer is not possible: it
+  // flattens at three levels, which is the bound, so a shell command cannot reach
+  // the branch that handles it. What matters is that both paths treat the same
+  // depth the same way, and that the fault path fails closed.
+  test('treats exceeding the depth limit as a write on the fault path', () => {
+    const guard = fs.readFileSync(GUARD, 'utf8');
+    const start = guard.indexOf('function mentionsGuardFile(');
+    const body = guard.slice(start, guard.indexOf('\n}\n', start));
+    expect(body).toMatch(/if \(depth > NESTED_DEPTH\) return true;/);
+    // The normal path refuses for the same reason, stated the same way.
+    expect(guard).toMatch(/Refused: a command nested \$\{NESTED_DEPTH\} shells deep/);
+  });
+
   test.each([
     'bash -c "rm .claude/settings.json"',
     'bash -c "rm -f .claude/hooks/enforce-branch-name.mjs"',
@@ -1705,7 +1778,9 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
   // repository already known, so it is the one that would have broken.
   test('sends no --repo flag, which gh api would reject', () => {
     const guard = fs.readFileSync(GUARD, 'utf8');
-    const whole = guard.slice(guard.indexOf('function hasOpenPr'));
+    // The flag is asserted on the function that issues the request, which is the
+    // one behind the cache and the budget.
+    const whole = guard.slice(guard.indexOf('function checkOpenPr'));
     const body = whole.slice(0, whole.indexOf('\n}\n'));
     expect(body).not.toMatch(/'--repo'/);
     // The repository travels in the endpoint instead.
