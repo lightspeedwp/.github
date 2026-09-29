@@ -14,6 +14,55 @@ const { execFileSync } = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
+/**
+ * Directories the regeneration bot must never write into.
+ *
+ * GitHub treats a file directly in `.github/workflows/` as a workflow
+ * definition -- including a plain Markdown file such as
+ * `.github/workflows/README.md` -- and refuses a push that touches one unless
+ * the pushing token carries the `workflows` permission:
+ *
+ *   refusing to allow a GitHub App to create or update workflow
+ *   '.github/workflows/README.md' without 'workflows' permission
+ *
+ * The App token minted in documentation.yml is deliberately least-privilege
+ * (`permission-contents: write` and `permission-pull-requests: write` only), so
+ * any run that regenerated that README failed at the push.
+ *
+ * The whole subtree is excluded, not just the top level. GitHub only reads
+ * workflow files placed directly in `.github/workflows/`, so the nested
+ * directories (`archived/`, `__tests__/`) are not themselves a risk; excluding
+ * them costs nothing and removes the need to reason about which is which. The
+ * bot is kept away from the directory outright rather than the App's
+ * permissions being widened.
+ */
+const EXCLUDED_README_DIRS = [".github/workflows"];
+
+/**
+ * Normalise a git-reported path to a POSIX-style relative path.
+ *
+ * `git diff --name-only` emits forward slashes, but a path reaching this
+ * function from any other caller (or a Windows-style input) may carry backslashes
+ * or a leading `./`. Comparing raw strings would let `.github\workflows\x.yml`
+ * slip past the exclusion, so both spellings are folded to one form first.
+ */
+function toPosixPath(file) {
+  return file.replace(/\\/g, "/").replace(/^\.\//, "");
+}
+
+/**
+ * True when `readmePath` lives inside one of the excluded directories.
+ *
+ * The check is on a path-segment boundary, so `.github/workflows-old/README.md`
+ * is NOT excluded -- only `.github/workflows` and its descendants are.
+ */
+function isExcludedReadme(readmePath) {
+  const posix = toPosixPath(readmePath);
+  return EXCLUDED_README_DIRS.some(
+    (dir) => posix === dir || posix.startsWith(`${dir}/`),
+  );
+}
+
 function getChangedFiles(baseSha, headSha) {
   try {
     const output = execFileSync(
@@ -38,11 +87,11 @@ function resolveReadmeFiles(changedFiles) {
   let hasSubdirChanges = false;
 
   changedFiles.forEach((file) => {
-    const dir = path.dirname(file);
+    const dir = path.dirname(toPosixPath(file));
 
     // Check for README.md in the changed file's directory
     const readmeInDir = path.join(dir, "README.md");
-    if (fs.existsSync(readmeInDir)) {
+    if (fs.existsSync(readmeInDir) && !isExcludedReadme(readmeInDir)) {
       readmes.add(readmeInDir);
     }
 
@@ -88,4 +137,8 @@ function main() {
   }
 }
 
-main();
+module.exports = { getChangedFiles, resolveReadmeFiles, main };
+
+if (require.main === module) {
+  main();
+}
