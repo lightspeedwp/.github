@@ -68,8 +68,9 @@ export function computeFenceMask(lines) {
  * shares the same closed list, so a file whose footer it does not recognise
  * looks like a file with no footer, and the next automation run appends
  * another one. That is the compounding mechanism behind #3451, and it is still
- * live: roughly 650 files carry a second, different footer the wording-based
- * path cannot see.
+ * live: 657 files carry two known footer phrases in their trailing zone, far
+ * more than the wording-based path can see. `npm run measure:footers:shape`
+ * reproduces that count and explains what it does and does not prove.
  *
  * This module deliberately does not try to decide whether a block *is* a
  * footer. It recognises the shape — a short, emphasised, standalone line,
