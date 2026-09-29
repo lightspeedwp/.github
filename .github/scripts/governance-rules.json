@@ -166,7 +166,7 @@
   "reporting": {
     "outputFormats": ["json", "markdown"],
     "outputDirectory": ".github/reports",
-    "reportFilePattern": "governance-audit-{YYYYMMDD}-{HHMMSS}",
+    "reportFilePattern": "audit-{YYYYMMDD}-{HHMMSS}",
     "retentionDays": 90,
     "summarizeAfterDays": 30
   },

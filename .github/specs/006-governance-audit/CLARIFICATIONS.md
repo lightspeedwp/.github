@@ -54,8 +54,8 @@ The audit "completion status" is a comprehensive JSON and Markdown report contai
    - Compliance trend: % change since last audit
 
 5. **Accessibility**
-   - JSON format (machine-readable): `.github/reports/governance-audit-[DATE].json`
-   - Markdown format (human-readable): `.github/reports/governance-audit-[DATE].md`
+   - JSON format (machine-readable): `.github/reports/audit-[DATE].json`
+   - Markdown format (human-readable): `.github/reports/audit-[DATE].md`
 
 ### Impact on Tasks
 
