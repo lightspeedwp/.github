@@ -72,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Footer Shape Figures Corrected** — The advisory notice quotes the measured 899 / 255 / 28.4% share, a share of flagged files not a false-positive rate. Spec 018's removal bound applies once FR-020's deferral lifts. (#3682, #3604)
+- **Footer Shape Figures Corrected** — The advisory notice quotes the measured 899 / 255 / 28.4% share, a share of flagged files not a false-positive rate. The spec 018 removal bound applies once that requirement defers no more. (#3682, #3604)
 - **Merged Advisory and Spec Defects Corrected** — The advisories newsletter form survives a failed request, tells a blocked address from a fault and counts its rate limit atomically; spec 018 defers auto-approved branch deletion. (#1396)
 - **Docs-Bot Changelog Exemption** — The gate now matches the docs bot in either login shape, so its exemption applies. Bot pull requests with no user-facing content no longer need a changelog entry. (#3603, #3448)
 - **Semantic-Version Release Branches** — Branch checks in CI and the npm script now accept documented release names such as `release/v1.2.3` and `release/v1.2.3-rc1`. ([#3555](https://github.com/lightspeedwp/.github/issues/3555))
