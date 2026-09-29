@@ -77,6 +77,12 @@ describe('measure-footer-shape', () => {
     // shape of the report against a throwaway repository with a known layout.
     let repo;
 
+    /** Stage and commit whatever the test just wrote, so `git ls-files` sees it. */
+    const commitFixture = () => {
+      execFileSync('git', ['add', '-A'], { cwd: repo });
+      execFileSync('git', ['commit', '-q', '-m', 'fixture'], { cwd: repo });
+    };
+
     beforeAll(() => {
       repo = fs.mkdtempSync(path.join(os.tmpdir(), 'footer-shape-measure-'));
       // measure() enumerates files with `git ls-files`, so the fixture has to be
@@ -113,6 +119,57 @@ describe('measure-footer-shape', () => {
       expect(r.missed).toBe(r.groundTruth - r.caught);
       expect(r.caught).toBeLessThanOrEqual(r.groundTruth);
       expect(r.twoKnown).toBeLessThanOrEqual(r.flagged);
+    });
+
+    test('reads the configuration from the tree it is given, not the checkout', () => {
+      // Two phrases only the fixture declares. If measure() built its inventory
+      // from this repository's configuration instead of the fixture's, neither
+      // would be found and the file would not count as ground truth. Two
+      // *distinct* phrases are needed, since the count is of distinct phrases.
+      const one = 'Curated by the fixture team for this measurement test.';
+      const two = 'Maintained by the fixture stewards for this measurement test.';
+      fs.writeFileSync(
+        path.join(repo, '.github/footers.yml'),
+        `phrases:\n  - "${one}"\n  - "${two}"\n`,
+        'utf8'
+      );
+      fs.writeFileSync(
+        path.join(repo, 'A.md'),
+        ['# Doc', '', `*${one}*`, '', `*${two}*`, ''].join('\n'),
+        'utf8'
+      );
+      commitFixture();
+
+      const r = measure(repo);
+      expect(r.groundTruthFiles).toContain('A.md');
+    });
+
+    test('examines eight real lines, so a file ending in a newline is not short a line', () => {
+      // findTrailingFooterShapedBlocks drops the empty element a trailing newline
+      // leaves behind before taking its eight lines. If the ground truth did not,
+      // it would see seven real lines and the two sides of the recall figure
+      // would be comparing different windows. Both phrases here sit on the
+      // eighth-from-last real line, so neither is in a seven-line window.
+      const one = 'Curated by the fixture team for this measurement test.';
+      const two = 'Maintained by the fixture stewards for this measurement test.';
+      fs.writeFileSync(
+        path.join(repo, '.github/footers.yml'),
+        `phrases:\n  - "${one}"\n  - "${two}"\n`,
+        'utf8'
+      );
+      const after = Array.from(
+        { length: 6 },
+        (_, i) => `Filler line number ${i} of trailing prose.`
+      );
+      fs.writeFileSync(
+        path.join(repo, 'B.md'),
+        [`*${one}*`, `*${two}*`, ...after, ''].join('\n'),
+        'utf8'
+      );
+      commitFixture();
+
+      const r = measure(repo);
+      expect(r.groundTruthFiles).toContain('B.md');
     });
   });
 });

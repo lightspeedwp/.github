@@ -20,10 +20,12 @@
  * - **Two known** is how many flagged files also carry two or more *distinct
  *   known footer phrases* in the trailing eight lines. It is a cross-check
  *   against a phrase list, not a judgement that the file is wrong.
- * - **No known footer** is the remainder, reported here as a false-positive
- *   rate. That is a lower bound on the real one: a file carrying a genuine
- *   duplicate footer whose wording is absent from the inventory is counted here
- *   as a false positive.
+ * - **No known footer** is the remainder. It is deliberately *not* called a
+ *   false-positive rate and is not a bound on one. A file carrying a genuine
+ *   duplicate footer whose wording is absent from the inventory lands here, and
+ *   a file holding known phrases is not independently confirmed to be a genuine
+ *   duplicate either, so the two errors do not simply cancel and no rate follows
+ *   from this ratio.
  *
  * ## Read the recall figure with care
  *
@@ -47,7 +49,13 @@ import { DEFAULT_FOOTERS } from './agents/includes/header-footer.js';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** Trailing lines the signal and the ground truth both look at. */
+/**
+ * Trailing lines the signal and the ground truth both look at.
+ *
+ * The signal drops the empty element a trailing newline leaves behind before it
+ * slices, so anything comparing against it has to do the same or it reads a
+ * seven-line window where the signal reads eight.
+ */
 const ZONE_LINES = 8;
 
 /** Strip emphasis and case so a phrase matches however it is written. */
@@ -163,7 +171,9 @@ export function knownPhraseIn(line, inventory) {
  *   caught: number, missed: number, recall: string, missedPaths: string[]}}
  */
 export function measure(repo = REPO) {
-  const inventory = buildPhraseInventory();
+  // The inventory must come from the same tree as the file list, or a caller
+  // measuring another checkout would score it against this one's footers.
+  const inventory = buildPhraseInventory(true, repo);
   const curated = CURATED_PHRASES.map(normalise).filter((p) => inventory.has(p));
   const files = cp
     .execFileSync('git', ['ls-files', '*.md'], { cwd: repo, encoding: 'utf8', maxBuffer: 1 << 28 })
@@ -175,6 +185,7 @@ export function measure(repo = REPO) {
   let groundTruth = 0;
   let caught = 0;
   const missedPaths = [];
+  const groundTruthFiles = [];
   // Per file, the distinct phrases it carries, so the curated phrases can be
   // ablated afterwards without re-reading the corpus.
   const perFile = [];
@@ -186,7 +197,13 @@ export function measure(repo = REPO) {
     } catch {
       continue;
     }
-    const tail = content.split('\n').slice(-ZONE_LINES);
+    // Take the same window the signal takes. findTrailingFooterShapedBlocks drops
+    // the empty element a trailing newline leaves behind before slicing, so
+    // without this the ground truth would see seven real lines where the signal
+    // sees eight, and the two sides of the recall figure would not be comparable.
+    const all = content.split('\n');
+    if (all.length > 1 && all[all.length - 1] === '') all.pop();
+    const tail = all.slice(-ZONE_LINES);
     const matched = new Set(tail.map((l) => knownPhraseIn(l, inventory)).filter(Boolean));
     const carriesTwoKnown = matched.size >= 2;
     const isFlagged = findShapeMultiples(content).count >= 2;
@@ -194,6 +211,7 @@ export function measure(repo = REPO) {
 
     if (carriesTwoKnown) {
       groundTruth += 1;
+      groundTruthFiles.push(rel);
       if (isFlagged) caught += 1;
       else missedPaths.push(rel);
     }
@@ -234,6 +252,7 @@ export function measure(repo = REPO) {
     missed: groundTruth - caught,
     recall: pct(caught, groundTruth),
     missedPaths,
+    groundTruthFiles,
     curatedContribution,
   };
 }
@@ -257,7 +276,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   console.log(`  of which none known   : ${r.noKnownFooter}`);
   console.log('');
   console.log(
-    `FALSE-POSITIVE RATE (of flagged) : ${r.falsePositiveRate}%  (${r.noKnownFooter}/${r.flagged})`
+    `NO-KNOWN-FOOTER SHARE (of flagged) : ${r.falsePositiveRate}%  (${r.noKnownFooter}/${r.flagged})`
   );
   console.log('');
   console.log('Ground-truth files lost if one hand-curated phrase is removed:');

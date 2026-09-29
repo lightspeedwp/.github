@@ -956,11 +956,11 @@ if (isDirectInvocation()) {
   if (options.check && !options.shapeOnly && report.files > 0) {
     process.exit(1);
   }
-  // The shape signal is never a gate, in any mode. Measured false-positive
-  // rate is 28.4% (255 of 899 flagged files, across 11,474 tracked Markdown
-  // files), which is far too high to fail a build on. It asks for a human.
-  // Re-run with `npm run measure:footers:shape`; that figure is a lower bound,
-  // because a genuine duplicate whose wording is absent from the phrase list is
-  // counted as a false positive.
+  // The shape signal is never a gate, in any mode. 28.4% of the files it flags
+  // (255 of 899, across 11,474 tracked Markdown files) carry no known footer
+  // phrase, which is far too high to fail a build on. It asks for a human.
+  // Re-run with `npm run measure:footers:shape`. That share is not a
+  // false-positive rate: a genuine duplicate whose wording is absent from the
+  // phrase list is counted here too.
   process.exit(0);
 }

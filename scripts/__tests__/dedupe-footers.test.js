@@ -1113,9 +1113,9 @@ describe('the footer shape signal is reported separately and never auto-fixed', 
       const listFile = path.join(dir, 'paths.txt');
       fs.writeFileSync(listFile, 'NOTES.md\n', 'utf8');
 
-      // The measured false-positive rate is 28.4% (255 of 899 flagged files,
-      // measured on this branch with `npm run measure:footers:shape`), so this
-      // must not fail a build. execFileSync throws on a non-zero exit, so
+      // 28.4% of flagged files (255 of 899) carry no known footer phrase, so
+      // this must not fail a build. Measured with
+      // `npm run measure:footers:shape`. execFileSync throws on a non-zero exit, so
       // reaching the assertions at all is the exit-code guarantee.
       const output = execFileSync(
         process.execPath,

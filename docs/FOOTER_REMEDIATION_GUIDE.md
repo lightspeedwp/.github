@@ -275,7 +275,7 @@ npm run measure:footers:shape
 
 The script prints the commit it ran on, because these numbers describe the
 corpus at a point in time and move whenever footers are rewritten. The figures
-quoted here were measured on this branch at `f95916fa0e`, across all 11,474
+quoted here were measured on this branch at `2f474806e0`, across all 11,474
 tracked Markdown files:
 
 | Figure | Value | Definition |
@@ -283,17 +283,20 @@ tracked Markdown files:
 | Flagged | 899 | Trailing zone holds two or more footer-shaped blocks. Identical to what `npm run validate:footers:shape` reports. |
 | Two known | 644 | Flagged, and the trailing eight lines hold two or more *distinct known footer phrases*. |
 | No known footer | 255 (28.4%) | Flagged, but no known footer phrase in the trailing eight lines — report metadata such as `Status: READY FOR EXECUTION`. |
-| Recall | 98.0% (644 of 657) | Of the files carrying two known footer phrases, how many the signal flags. |
+| Recall | 96.7% (644 of 666) | Of the files carrying two known footer phrases, how many the signal flags. |
 
-A 28.4% false-positive rate is far too high to gate on, so the Footer Duplicate
-Guard emits a `::warning` annotation in its own step and the job continues.
-Nothing is ever rewritten by this signal: `--fix` leaves a signal-only file
-byte-identical.
+A 28.4% no-known-footer share is far too high to gate on, so the Footer
+Duplicate Guard emits a `::warning` annotation in its own step and the job
+continues. Nothing is ever rewritten by this signal: `--fix` leaves a
+signal-only file byte-identical.
 
-Note that 28.4% is a **lower bound** on the false-positive rate, not an estimate
-of it. A file carrying a real duplicate footer whose wording is missing from the
-phrase list is counted as a false positive here, so the true figure is lower and
-the true recall higher than the numbers suggest.
+That 28.4% is a **share, not a false-positive rate**, and no rate follows from
+it. A file carrying a real duplicate footer whose wording is missing from the
+phrase list is counted here, and a file holding known phrases is not
+independently confirmed to be a genuine duplicate either, so the two errors do
+not simply cancel. What the number does establish is the practical one: roughly
+seven files in ten that this signal flags do carry a known footer, which is why
+it is worth a human reading them and not worth a build failing on them.
 
 #### Read the recall figure with care
 
@@ -306,9 +309,9 @@ That list is also lopsided. The inventory is assembled from the footer
 configuration, plus a short set of wordings this repository writes but no
 configuration file declares. The measurement script prints what each of those
 contributes, and one of them — `Maintained by the 🤖 LightSpeedWP Automation
-Team` — accounts for **557 of the 657** ground-truth files. Remove it and the
-figure collapses to 100; take away the configuration-derived phrases alone and
-only 4 files qualify. So 98.0% should be read as "the signal does not miss the
+Team` — accounts for **534 of the 666** ground-truth files. Remove it and the
+figure collapses to 132; take away the configuration-derived phrases alone and
+only 4 files qualify. So 96.7% should be read as "the signal does not miss the
 footers this list knows about", not as a general accuracy claim. Treat the
 signal as advisory in both directions: it neither proves nor rules out a
 duplicate.
