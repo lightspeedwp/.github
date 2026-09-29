@@ -11,7 +11,7 @@
       "file": ".github/labels.yml",
       "validation": {
         "type": "label-prefix",
-        "requiredPrefixes": ["type:", "status:", "priority:", "area:", "meta:"],
+        "requiredPrefixes": ["ai-ops:", "area:", "comp:", "compat:", "contrib:", "cpt:", "discussion:", "env:", "lang:", "meta:", "openspec:", "priority:", "release:", "status:", "type:"],
         "pattern": "^[a-z-]+:[a-z0-9-]+$"
       }
     },
