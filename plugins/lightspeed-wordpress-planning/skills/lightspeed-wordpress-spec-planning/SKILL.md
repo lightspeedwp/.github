@@ -14,8 +14,9 @@ description: Create practical WordPress implementation plans from requirements, 
 ## Output expectations
 
 - Requirements summary
+- Acceptance criteria
 - Design outline
-- Ordered implementation tasks
+- Phased delivery tasks, ordered by implementation sequence
 - Validation checklist
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
