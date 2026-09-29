@@ -99,8 +99,8 @@ sessions keep their starting setting. With enforcement on, guard faults still bl
 2 (FR-012a). Restore enforcement after the fault is fixed.
 
 **Legacy PR exception check**: `git ls-remote --exit-code --heads origin <branch>`, then
-`gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST: cloud sessions can't reach GitHub's GraphQL API, which `gh pr list` uses), each with a 5-second timeout. Any failure means
-the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (the PR's `head.repo.full_name` equals its `base.repo.full_name`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
+`gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST: cloud sessions can't reach GitHub's GraphQL API, which `gh pr list` uses). Each call is given a timeout of up to 5 seconds, and the whole check is bounded to 5 seconds per invocation and cached per branch. The two bounds are separate on purpose: the check makes two sequential calls, and each is given half of what is left of the invocation budget so neither can spend the whole of it. A command listing several refspecs or several commits would otherwise run the check once per refspec and once per commit, and a hook that reaches its timeout fails open, so the per-invocation total is what keeps the guard answering at all.
+Any failure means the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (the PR's `head.repo.full_name` equals its `base.repo.full_name`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
 
 **Refusal message** (FR-011) contains, in order:
 
