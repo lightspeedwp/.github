@@ -418,4 +418,4 @@ If forward-testing only succeeds when subagents see leaked context, tighten the 
 forward-testing setup before trusting the result.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

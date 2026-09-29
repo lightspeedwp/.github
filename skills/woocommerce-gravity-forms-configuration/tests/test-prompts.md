@@ -889,20 +889,5 @@ Prompt: "Use this `woocommerce-gravity-forms-auditor` handoff packet with `hando
 
 Expected behaviour: Expected: stay in `woocommerce-gravity-forms-configuration`; validate or normalise the canonical packet against `schemas/auditor-handoff.schema.json`, preserve every finding ID, verify current site state through MCP where possible, treat missing fields as readiness gaps, and produce an approval-first change plan before any writes.
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

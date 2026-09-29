@@ -206,4 +206,4 @@ Before finalising, verify that:
 - the output works for both a client/stakeholder and the person doing the implementation
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

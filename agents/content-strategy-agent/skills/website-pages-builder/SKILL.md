@@ -93,4 +93,4 @@ Return a clean page structure or draft using the matched template shape, plus th
 - `references/page-type-map.md`
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

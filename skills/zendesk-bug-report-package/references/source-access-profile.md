@@ -49,5 +49,3 @@ Use supplied evidence, mark missing facts, and ask for the smallest next extract
 ## Redaction guidance
 
 Summarise sensitive evidence and link back to Zendesk or the authorised source when possible. Do not copy credentials, tokens, payment details, personal data, security-sensitive logs, or unnecessary raw payloads into a bug package.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

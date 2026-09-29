@@ -136,4 +136,4 @@ App tools support the workflow, but installed files remain the governing source 
 - Do not let app exploration replace the installed commercial rules, package rules, or output rules.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -247,10 +247,6 @@ tags:
 **Next Review**: End of Week 2
 **Related PR**: #1221
 
----
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-
 ## Visual Workflow
 
 ```mermaid

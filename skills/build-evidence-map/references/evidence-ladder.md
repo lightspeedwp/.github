@@ -63,5 +63,3 @@ evidence node.
 | `contradicts` | Both cannot hold under the same scope and conditions | Different dates or populations |
 | `qualifies` | The source narrows scope, strength, or applicability | Hiding inconvenient evidence |
 | `missing` | A specific absent fact blocks or could reverse the target | Generic “more research needed” |
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

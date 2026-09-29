@@ -126,15 +126,3 @@ The flow is detailed enough when every required step has:
 - a reason to use an existing Skill, a new Skill, another tool, or no extra capability.
 
 If the generated flow looks suspiciously similar to a prior example, discard it and derive again from the current outcome.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

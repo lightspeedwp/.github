@@ -180,5 +180,3 @@ Use this for the detailed task breakdown. Include enough context for estimating,
 ## Cross-phase Assumptions and Open Questions
 - [Assumption or question]
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

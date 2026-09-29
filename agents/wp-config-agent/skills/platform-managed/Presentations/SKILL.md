@@ -282,18 +282,4 @@ For a concrete chart, table, image, diagram, or callout, include `object_id` onl
 
 Do not cite internal previews, contact sheets, layout JSON, source notes, scratch files, builders, manifests, or QA outputs unless asked. If slide or object IDs are not reliable, cite the slide without object detail rather than guessing.
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

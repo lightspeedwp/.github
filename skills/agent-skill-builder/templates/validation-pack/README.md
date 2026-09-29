@@ -34,5 +34,3 @@ Copy selected validators into a generated skill when drift control is useful.
 3. Template-schema alignment.
 
 Do not add validators that nobody will run or maintain.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

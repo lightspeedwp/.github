@@ -164,4 +164,4 @@
 | `agent/templates/agent_files/templates/questionnaire-intake/questionnaire-field-library.yaml` | `/workspace/agent_files/templates/questionnaire-intake/questionnaire-field-library.yaml` | agent file | yes |  |
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -66,4 +66,4 @@ Read this reference **before finalizing any outgoing Slack text**:
 - If you cannot resolve the correct user or group, **tell the user** and compose the draft or message without implying the mention will work.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

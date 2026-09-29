@@ -74,5 +74,3 @@ State when the escalation should be reviewed if no owner response or decision ar
 ## Customer-facing commitment / next update
 
 Record what the customer has already been told and what support should say next. If no customer-facing update has been promised, say so.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -171,5 +171,3 @@ Route away or hand off when the user needs:
 - Whole-site tracking audit.
 
 Provide a Gravity Forms handoff with confirmed form IDs, confirmation types, hidden fields, feed state, and recommended event names.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

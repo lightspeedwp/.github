@@ -122,5 +122,3 @@ Use:
 Use:
 
 > Thanks for your patience while we check this. I do not want to overstate the cause before we have confirmed it, so the next step is to verify the evidence and come back with a clear update.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

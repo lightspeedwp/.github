@@ -68,4 +68,4 @@ See `scripts/docx_ooxml_patch.py` (`--add-comment`). It:
 - For each comment id, `document.xml` has start/end/reference anchors
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

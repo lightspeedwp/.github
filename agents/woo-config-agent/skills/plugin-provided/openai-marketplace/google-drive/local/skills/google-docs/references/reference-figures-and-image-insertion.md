@@ -66,25 +66,3 @@ Do not claim that a figure looks clean, sits well on the page, is cropped correc
 3. Verify no required figure is represented only by placeholder text unless that fallback was approved.
 4. Record any unverified rendered properties, such as crop, page fit, visual spacing, or final on-page size.
 5. If visuals are required for task success and connector insertion/readback is unavailable, stop and report the limitation rather than claiming the document is complete.
-
----
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

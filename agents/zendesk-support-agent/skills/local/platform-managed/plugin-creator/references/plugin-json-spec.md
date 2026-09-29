@@ -241,24 +241,3 @@ personal marketplace unless the caller explicitly requests a repo-local destinat
   generated manifests.
 - Run `scripts/validate_plugin.py <plugin-path>` before handing back a generated plugin. It adds one
   intentional preflight check that rejects leftover `[TODO: ...]` placeholders.
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

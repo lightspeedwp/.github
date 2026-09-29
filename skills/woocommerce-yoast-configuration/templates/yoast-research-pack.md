@@ -72,15 +72,3 @@ Summarise lean v1 and fuller v2 structure.
 
 | Page title | URL | Accessed date | Source type | Key facts | Relevance | Limitations | Duplicate status | Confidence |
 |---|---|---|---|---|---|---|---|---|
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

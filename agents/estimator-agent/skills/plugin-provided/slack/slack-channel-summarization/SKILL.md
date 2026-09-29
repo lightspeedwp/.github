@@ -67,4 +67,4 @@ Use this skill to summarize activity from one Slack channel, using a requested t
 - For a canvas, expand each topic into a short section and use `slack_create_canvas`. Do this only when the user explicitly asked for a canvas, doc, or Slack-hosted summary.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
