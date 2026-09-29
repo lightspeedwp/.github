@@ -56,12 +56,15 @@ describe('the guard workflow change filter', () => {
     expect(pattern.test(file)).toBe(true);
   });
 
-  test.each(['package.json', 'package-lock.json', '.nvmrc', '.jest.config.cjs', 'lib/validate-branch-name.js'])(
-    'runs the guard tests when %s changes',
-    (file) => {
-      expect(pattern.test(file)).toBe(true);
-    }
-  );
+  test.each([
+    'package.json',
+    'package-lock.json',
+    '.nvmrc',
+    '.jest.config.cjs',
+    'lib/validate-branch-name.js',
+  ])('runs the guard tests when %s changes', (file) => {
+    expect(pattern.test(file)).toBe(true);
+  });
 
   // The guard suites import from the harness helpers directory, so any file in
   // it must trigger them. Matching one filename left every other helper, and
@@ -203,9 +206,12 @@ describe('Claude cloud environment specification contracts', () => {
       // the base branch is never moved.
       // The reset must be gated on the rename, so a clean branch parked behind
       // the base branch is never moved.
-      expect(contractRow(hooks, 'Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>`')).toMatch(
-        /is gated on the rename this hook performed.*never reset/
-      );
+      expect(
+        contractRow(
+          hooks,
+          'Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>`'
+        )
+      ).toMatch(/is gated on the rename this hook performed.*never reset/);
       expect(requirement('FR-003')).toMatch(/after context compaction/);
       expect(contractRow(hooks, 'Any source, cloud or local')).toMatch(
         /Emit branching rules as context/
@@ -521,9 +527,16 @@ describe('Claude cloud environment specification contracts', () => {
 // The operations document and the validator's known limitation, kept in step with
 // the feedback record rather than asserting an agreement that does not hold.
 describe('the operations document', () => {
-  test('states the known validator mismatch rather than claiming agreement', () => {
+  // The mismatch this used to state is gone: #3558 merged and the library now
+  // accepts the semver release form, so the document describes it as accepted
+  // rather than pointing at a fixed issue. The guard is still not the library,
+  // so the claim stays sourced to the library rather than asserted outright.
+  test('describes the semver release form as accepted, with no open mismatch', () => {
     expect(docs).not.toMatch(/always agree/);
-    expect(docs).toMatch(/#3558/);
+    expect(docs).toMatch(/release\/v1\.2\.3/);
+    expect(docs).toMatch(/accepts/);
+    expect(docs).not.toMatch(/known mismatch/);
+    expect(docs).not.toMatch(/#3558/);
   });
 
   // Branch protection and rulesets are configured separately, so the verification
@@ -538,17 +551,25 @@ describe('the operations document', () => {
   // requirement under parameters.require_code_owner_review.
   // The limitation is stated, not implicit: a reader must not assume the guard
   // inspects a command handed to another interpreter.
-  test.each(['sh -c', 'bash -c', 'eval'])(
-    'states that %s is out of scope rather than implying coverage',
+  // The guard now reads a command handed to another shell, so these forms are
+  // covered rather than disclaimed. The test still has to name them: a form that
+  // quietly stopped being recognised would otherwise be invisible here.
+  test.each(['sh -c', 'bash -c', 'zsh -c', 'eval'])(
+    'covers %s rather than disclaiming it',
     (form) => {
       expect(docs).toMatch(new RegExp(form.replace(/[-]/g, '\\-')));
-      expect(docs).toMatch(/out of scope/);
+      expect(docs).not.toMatch(new RegExp(`${form.replace(/[-]/g, '\\-')} .*out of scope`));
     }
   );
 
-  test('states the limitation in the hooks contract', () => {
-    expect(hooks).toMatch(/out of scope/);
+  test('states the depth limit and the limits that remain in the hooks contract', () => {
     expect(hooks).toMatch(/SC-009/);
+    expect(hooks).toMatch(/NESTED_DEPTH/);
+    // The remaining out-of-scope case is a command in another language, which
+    // the guard does not read. It has to stay stated or the claim becomes a
+    // blanket guarantee.
+    expect(hooks).toMatch(/out of scope/);
+    expect(hooks).toMatch(/python -c/);
   });
 
   test('documents the ruleset fields that the API actually returns', () => {

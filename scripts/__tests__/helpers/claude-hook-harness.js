@@ -78,15 +78,27 @@ function createFixture() {
   git(repo, 'commit', '--quiet', '-m', 'initial');
   git(repo, 'branch', 'main');
   git(repo, 'remote', 'add', 'origin', origin);
+  // `origin` stays the local bare repository: the session-start hook fetches
+  // origin/develop to decide whether a branch is a fresh platform placeholder,
+  // and a URL-shaped origin would leave that fetch failing and the rename
+  // skipped. The guard, separately, resolves the owner and repository from a
+  // remote's URL when it asks about an open pull request, and a local path names
+  // neither, so a second remote carries the GitHub URL for that lookup alone.
+  // Nothing reaches github.com: no test pushes to or fetches this one.
   git(repo, 'push', '--quiet', 'origin', 'develop', 'main');
+  git(repo, 'remote', 'add', 'github', 'git@github.com:lightspeedwp/.github.git');
 
   writeExecutable(
     path.join(stubs, 'gh'),
     `#!/bin/sh
 echo "gh $*" >> "${log}"
 case "\${GH_STUB_MODE:-empty}" in
-  open) echo '[{"number":1,"isCrossRepository":false}]' ;;
-  fork) echo '[{"number":1,"isCrossRepository":true}]' ;;
+  # The guard asks the REST pulls endpoint, not 'gh pr list', because a cloud
+  # session cannot reach GraphQL. A REST pull reports the head and base
+  # repositories as nested objects, so a fork is a different full_name rather
+  # than an isCrossRepository flag.
+  open) echo '[{"number":1,"head":{"repo":{"full_name":"lightspeedwp/.github"}},"base":{"repo":{"full_name":"lightspeedwp/.github"}}}]' ;;
+  fork) echo '[{"number":1,"head":{"repo":{"full_name":"someone/.github"}},"base":{"repo":{"full_name":"lightspeedwp/.github"}}}]' ;;
   empty) echo '[]' ;;
   fail) exit 1 ;;
   hang) exec sleep 30 ;;
@@ -97,7 +109,15 @@ esac
     path.join(stubs, 'git'),
     `#!/bin/sh
 for arg in "$@"; do
-  if [ "$arg" = "ls-remote" ]; then echo "git ls-remote" >> "${log}"; break; fi
+  if [ "$arg" = "ls-remote" ]; then
+    echo "git ls-remote" >> "${log}"
+    # The guard asks about the remote it would push to, which is the local one
+    # here. Answer from the bare repository so the result still reflects whether
+    # the branch really exists, and the github.com URL is never contacted.
+    previous=""
+    for candidate in "$@"; do previous="$candidate"; done
+    exec "${REAL_GIT}" ls-remote --exit-code --heads "${origin}" "$previous"
+  fi
 done
 exec "${REAL_GIT}" "$@"
 `

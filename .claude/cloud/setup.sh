@@ -43,8 +43,8 @@ install_node() {
       return 0
     }
     chmod 700 "$stage"
-    if { curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/${tarball}" -o "${stage}/${tarball}" &&
-      tar -xJf "${stage}/${tarball}" -C "$stage" --strip-components=1 &&
+    if { timeout 120 curl -fsSL "https://nodejs.org/dist/v${NODE_VERSION}/${tarball}" -o "${stage}/${tarball}" &&
+      timeout 120 tar -xJf "${stage}/${tarball}" -C "$stage" --strip-components=1 &&
       [ -x "${stage}/bin/node" ] &&
       [ "$("${stage}/bin/node" -v 2>/dev/null)" = "v${NODE_VERSION}" ]; }; then
       # Keep the old install until the new one is known good, so the swap is
@@ -80,7 +80,7 @@ install_linters() {
   # gh is needed by the branch guard's legacy PR check (spec 016 FR-006). One
   # apt run for both, so the two installs never fight over the apt lock.
   log "Installing shellcheck and gh"
-  { apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get install -y -qq shellcheck gh; } >/dev/null 2>&1 ||
+  { timeout 90 apt-get update -qq && timeout 150 env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq shellcheck gh; } >/dev/null 2>&1 ||
     log "shellcheck/gh install failed (non-fatal)"
   if command -v gh >/dev/null 2>&1; then
     log "gh $(gh --version | head -1 | awk '{print $3}') available"
@@ -91,10 +91,15 @@ install_linters() {
   # actionlint via the Go module proxy (GitHub release assets from repos not
   # attached to the session return 403 through the GitHub proxy).
   log "Installing actionlint"
-  GOBIN=/usr/local/bin go install github.com/rhysd/actionlint/cmd/actionlint@latest >/dev/null 2>&1 ||
+  timeout 150 env GOBIN=/usr/local/bin go install github.com/rhysd/actionlint/cmd/actionlint@latest >/dev/null 2>&1 ||
     log "actionlint install failed (non-fatal)"
 }
 
+# Every network step is bounded. A stalled curl, apt-get or go install would
+# otherwise hold the script open past the roughly five-minute cache limit, and
+# the session is aborted mid-install with no log to show why. Each job is
+# backgrounded so the two still install in parallel, and each is capped well
+# inside the budget so the slower of the two still has room to report.
 install_node &
 install_linters &
 wait

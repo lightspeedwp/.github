@@ -10,7 +10,7 @@ const { spawnSync } = require('child_process');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
-const { createFixture, runSessionStart } = require('./helpers/claude-hook-harness');
+const { GUARD, createFixture, runSessionStart } = require('./helpers/claude-hook-harness');
 
 jest.setTimeout(60000);
 
@@ -173,8 +173,31 @@ describe('without jq on PATH (FR-003)', () => {
     try {
       // Only tools the hook needs beyond the fixture stubs. npm and git are
       // deliberately absent so the stubs are what resolve.
-      for (const tool of ['bash', 'sh', 'node', 'cat', 'printf', 'sed', 'grep', 'mktemp', 'rm', 'mkdir', 'dirname', 'basename', 'tr', 'cut', 'head', 'tail', 'date', 'uname', 'id', 'env']) {
-        const real = spawnSync('sh', ['-c', `command -v ${tool}`], { encoding: 'utf8' }).stdout.trim();
+      for (const tool of [
+        'bash',
+        'sh',
+        'node',
+        'cat',
+        'printf',
+        'sed',
+        'grep',
+        'mktemp',
+        'rm',
+        'mkdir',
+        'dirname',
+        'basename',
+        'tr',
+        'cut',
+        'head',
+        'tail',
+        'date',
+        'uname',
+        'id',
+        'env',
+      ]) {
+        const real = spawnSync('sh', ['-c', `command -v ${tool}`], {
+          encoding: 'utf8',
+        }).stdout.trim();
         if (!real) continue;
         fs.symlinkSync(real, path.join(withoutJq, tool));
       }
@@ -259,5 +282,50 @@ describe('dependency install (T014, FR-004)', () => {
   test('does not install in a local session', () => {
     contextOf(runSessionStart(fx, 'startup'));
     expect(npmCalls()).toHaveLength(0);
+  });
+});
+
+describe('the platform placeholder suffix (CodeRabbit #3524)', () => {
+  // The platform's branch names carry a mixed-case hash, "claude/charming-
+  // goldberg-Pqc69" being a real one. The suffix was copied through unchanged, so
+  // the rename produced chore/session-Pqc69, which the guard's placeholder
+  // pattern (^chore/session-[a-z0-9]+$) does not match. The commit was then
+  // refused with a naming error rather than the placeholder message, and only
+  // after a pointless network check on the legacy pull-request path.
+  test.each([
+    ['claude/charming-goldberg-Pqc69', 'chore/session-pqc69'],
+    ['claude/UPPER-Case-XyZ99', 'chore/session-xyz99'],
+    ['claude/admiring-mendel-nqdk8j', 'chore/session-nqdk8j'],
+  ])('renames %s to %s', (platformBranch, expected) => {
+    fx.branch(platformBranch);
+    runSessionStart(fx, 'startup', CLOUD);
+    expect(fx.git('branch', '--show-current')).toBe(expected);
+  });
+
+  // The reason the normalisation exists: whatever the hook derives has to satisfy
+  // the guard's own placeholder pattern, or it hands the session a branch the
+  // guard will not recognise. The pattern is read from the guard rather than
+  // restated, so the two cannot drift apart.
+  test('every derived name is a placeholder the guard recognises', () => {
+    const guard = fs.readFileSync(GUARD, 'utf8');
+    // The source is read as `/.../ `, so the delimiters are stripped before it
+    // becomes a RegExp: leaving them in would match a literal slash at each end.
+    const source = guard.match(/const PLACEHOLDER = \/(.*)\/;/)[1];
+    const placeholder = new RegExp(source);
+    for (const platformBranch of [
+      'claude/charming-goldberg-Pqc69',
+      'claude/UPPER-Case-XyZ99',
+      'claude/trailing-dash-',
+      'claude/no-trailing-hash',
+    ]) {
+      const fresh = createFixture();
+      try {
+        fresh.branch(platformBranch);
+        runSessionStart(fresh, 'startup', CLOUD);
+        expect(placeholder.test(fresh.git('branch', '--show-current'))).toBe(true);
+      } finally {
+        fresh.cleanup();
+      }
+    }
   });
 });

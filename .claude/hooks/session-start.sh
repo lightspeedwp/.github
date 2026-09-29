@@ -25,6 +25,17 @@ fi
 
 cd "${CLAUDE_PROJECT_DIR:-.}" || exit 0
 
+# An inherited GIT_DIR or GIT_WORK_TREE overrides the working directory: git
+# resolves the repository from them and treats the current directory as a
+# worktree or as nothing at all. A session started from a subdirectory of another
+# repository, or from a git command that exported them, would then have every
+# command below act on that other repository while the branch renaming and the
+# dependency install reported on this one. Unsetting them makes the project
+# directory the single thing that decides which repository these commands touch.
+# GIT_COMMON_DIR, GIT_INDEX_FILE and GIT_OBJECT_DIRECTORY have the same effect and
+# are cleared for the same reason.
+unset GIT_DIR GIT_WORK_TREE GIT_COMMON_DIR GIT_INDEX_FILE GIT_OBJECT_DIRECTORY GIT_ALTERNATE_OBJECT_DIRECTORIES
+
 log() { printf '==> %s\n' "$*" >&2; }
 
 # ── 1 + 2. Cloud-only setup, on startup/resume (not clear/compact) ───────────
@@ -46,7 +57,18 @@ if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && { [ "$SOURCE" = "startup" ] || [ "$
     if [ "$AHEAD" = "0" ]; then
       # "claude/admiring-mendel-nqdk8j" → "chore/session-nqdk8j". This is only a
       # placeholder: the guard blocks commits on it until Claude renames it.
-      NEW_BRANCH="chore/session-${CURRENT_BRANCH##*-}"
+      #
+      # The suffix is lowercased and stripped to alphanumerics because the
+      # platform's branch names carry a mixed-case hash — "claude/charming-
+      # goldberg-Pqc69" is a real one. Passed through unchanged, the rename
+      # produced chore/session-Pqc69, which the guard's placeholder pattern
+      # (^chore/session-[a-z0-9]+$) does not match, so the commit was refused
+      # with a naming error instead of the placeholder message, after a pointless
+      # network check on the legacy PR path.
+      SUFFIX="${CURRENT_BRANCH##*-}"
+      SUFFIX="${SUFFIX,,}"
+      SUFFIX="${SUFFIX//[^a-z0-9]/}"
+      NEW_BRANCH="chore/session-${SUFFIX:-placeholder}"
       if git branch -m "$CURRENT_BRANCH" "$NEW_BRANCH" 2>/dev/null; then
         log "Renamed forbidden branch ${CURRENT_BRANCH} → ${NEW_BRANCH} (placeholder, not pushed)"
         CURRENT_BRANCH="$NEW_BRANCH"

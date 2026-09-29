@@ -111,13 +111,15 @@ the exception doesn't apply (research R9). The exception applies only to a PR wh
 4. A statement that the rule overrides the platform's `claude/*` branch.
 5. A pointer to `docs/BRANCHING_STRATEGY.md`.
 
-**Stated limitation — deferred commands (SC-009)**: the guard evaluates the shell
-command it is given. It does not evaluate a command that is handed to another
-interpreter, because doing so would mean parsing a nested language and, for `eval`,
-an unbounded one. `sh -c '<command>'`, `bash -c '<command>'`, `zsh -c '<command>'`,
-`eval '<command>'` and equivalents are **out of scope**: the guard neither inspects
-nor refuses them, and no coverage is claimed for them. They are stated here rather
-than left implicit so that nothing assumes a check that does not exist.
+**Nested interpreters (SC-009)**: a command handed to another shell is still a
+shell command, so it is parsed and checked rather than declared out of scope.
+`sh -c '<command>'`, `bash -c '<command>'`, `zsh -c '<command>'`, `dash -c '<command>'`,
+`ksh -c '<command>'`, `busybox sh -c '<command>'` and `eval '<command>'` are read as
+the command they carry, from the directory the outer shell has reached. `NESTED_DEPTH`
+levels are read and a command nested deeper is refused rather than allowed unchecked.
+The limits that remain are stated rather than implied: a payload assembled at run time
+is only as checkable as the expression it expands to, and a command written in another
+language (`python -c`, `node -e`) is out of scope, because the guard reads shell syntax.
 
 **What the parser does cover**: plain commands, pipelines (every stage, which is
 treated as a subshell), background and list operators, `if`/`while`/`for`/`case`

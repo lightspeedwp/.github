@@ -112,12 +112,46 @@ function statusPaths(cwd) {
   return out && out.map((line) => line.slice(3).split(' -> ').pop());
 }
 
-/** `owner/repo` of a remote, parsed from its URL, or null. */
+/**
+ * Owner and repository of the first remote that names both, starting with
+ * `preferred`. Null when none does, which the caller treats as "not verified".
+ */
+function repositoryIdentity(cwd, preferred) {
+  for (const name of [preferred, ...(lines(run('git', ['remote'], cwd)) ?? [])]) {
+    if (!name) continue;
+    const found = remoteRepo(cwd, name);
+    if (found) return found;
+  }
+  return null;
+}
+
+/** Owner and repository of the named remote, or null when its URL names neither. */
 function remoteRepo(cwd, remote = 'origin') {
   const url = (run('git', ['remote', 'get-url', remote], cwd) ?? '').trim();
-  const match = url.match(/[/:]([^/:]+)\/([^/]+?)(?:\.git)?\/?$/);
-  return match ? { owner: match[1], repo: match[2] } : null;
+  if (!url) return null;
+  // A local path, as a test fixture or a self-hosted mirror uses, names no owner
+  // and repository. The scp-like form git writes for SSH and an explicit URL are
+  // the only forms that carry one, and a path is refused rather than split, since
+  // /srv/git/origin would otherwise become owner "git", repository "origin" and a
+  // request against a repository that does not exist.
+  // The scp-like form git writes for SSH is [user@]host:owner/repo. The owner
+  // and repository are the path after the colon, not the host: taking the host
+  // instead would ask GitHub about an organisation named after github.com.
+  const scp = url.match(/^(?:[A-Za-z0-9._-]+@)?[^/:]+:(.+?)(?:\.git)?\/?$/);
+  if (scp) {
+    const parts = scp[1].split('/');
+    if (parts.length === 2 && parts[0] && parts[1]) return { owner: parts[0], repo: parts[1] };
+  }
+  if (!/^(https?|git):\/\//.test(url)) return null;
+  try {
+    const parts = new URL(url).pathname.replace(/^\//, '').replace(/\.git\/?$/, '').split('/');
+    if (parts.length !== 2 || !parts[0] || !parts[1]) return null;
+    return { owner: parts[0], repo: parts[1] };
+  } catch {
+    return null;
+  }
 }
+
 
 // ── Exceptions ──────────────────────────────────────────────────────────────
 
@@ -152,13 +186,42 @@ function hasOpenPr(branch, { cwd, remote = 'origin', repo = null }) {
   if (!repo && run('git', ['ls-remote', '--exit-code', '--heads', remote, branch], cwd) === null) {
     return false;
   }
-  const args = ['pr', 'list', '--head', branch, '--state', 'open'];
+  // The REST endpoint, not `gh pr list`, and that is not a style choice:
+  // `gh pr list` goes through GraphQL, which a cloud session cannot reach. The
+  // call failed there, hasOpenPr returned false, the legacy exception never
+  // applied, and every commit on an existing copilot/* PR branch was refused in
+  // the one environment the guard exists for (contracts/hooks.md, research R9).
+  // The identity comes from the first remote whose URL names an owner and a
+  // repository. A local or self-hosted path names neither, so the lookup moves on
+  // rather than asking GitHub about a repository that does not exist. Scanning
+  // also covers a clone configured with both an internal mirror and the GitHub
+  // remote, where only one of the two can answer the question.
+  const target =
+    repo ? { owner: repo.split('/')[0], repo: repo.split('/')[1] } : repositoryIdentity(cwd, remote);
+  if (!target) return false;
+  const args = [
+    'api',
+    '-X',
+    'GET',
+    `repos/${target.owner}/${target.repo}/pulls`,
+    '-f',
+    `head=${target.owner}:${branch}`,
+    '-f',
+    'state=open',
+    '-f',
+    'per_page=1',
+  ];
   if (repo) args.push('--repo', repo);
-  args.push('--json', 'number,isCrossRepository', '--limit', '1');
   const out = run('gh', args, cwd);
   try {
     const prs = JSON.parse(out);
-    return Array.isArray(prs) && prs.some((pr) => pr && pr.isCrossRepository === false);
+    if (!Array.isArray(prs) || prs.length === 0) return false;
+    // The exception is for a PR whose head is in this repository. A fork's branch
+    // is not, so a cross-repository PR does not qualify.
+    const pr = prs[0];
+    const head = pr && pr.head && pr.head.repo ? pr.head.repo.full_name : null;
+    const base = pr && pr.base && pr.base.repo ? pr.base.repo.full_name : null;
+    return Boolean(head && base && head === base);
   } catch {
     return false;
   }
@@ -481,6 +544,21 @@ const BRANCH_QUERY_FLAGS = new Set([
 ]);
 
 const WRAPPERS = new Set(['sudo', 'env', 'command', 'time', 'nohup', 'exec', 'xargs']);
+
+/**
+ * Interpreters whose command string is still a shell command this guard has to
+ * read. `env` and `sudo` are wrappers and are already skipped by WRAPPERS; these
+ * take the command as an argument instead, so the name alone tells the guard
+ * nothing and the argument has to be parsed.
+ */
+const NESTED_SHELLS = new Set(['sh', 'bash', 'zsh', 'dash', 'ksh', 'busybox']);
+
+/**
+ * How many levels of nested interpreter are read. Three is far past any
+ * legitimate use, and the bound is what stops `bash -c "bash -c ..."` becoming
+ * unbounded recursion in a guard that runs on every command.
+ */
+const NESTED_DEPTH = 3;
 
 /**
  * Shell keywords that can appear where a command word is expected. In a
@@ -858,7 +936,7 @@ function shellGuardWrites({ words, writes }, tracker, guard) {
 // ── Bash ────────────────────────────────────────────────────────────────────
 
 /** Problems found in a Bash command, in order. */
-function checkBash(command, cwd) {
+function checkBash(command, cwd, depth = 0) {
   const problems = [];
   const project = projectDir(cwd);
   const guard = protectedFiles(project);
@@ -875,8 +953,44 @@ function checkBash(command, cwd) {
     for (const file of shellGuardWrites(segment, tracker, guard)) problems.push(guardFileProblem(file));
 
     const { name, args } = commandOf(segment.words);
+
+    // A command handed to another interpreter is still this shell's command, so
+    // it is checked rather than declared out of scope: `bash -c "git push origin
+    // main"` is the same write as the unquoted form, and a guard that only sees
+    // the interpreter name is bypassed by adding four characters. The quoted
+    // text arrives as one word because the tokenizer strips the quotes, which is
+    // what makes the inner command recoverable.
+    //
+    // The inner check starts from the directory the outer shell has reached, so
+    // a `cd` before the nested call still applies, and it is passed the same
+    // guard list. The recursion is bounded by NESTED_DEPTH, because each level
+    // can nest another.
+    if (NESTED_SHELLS.has(name) || name === 'eval') {
+      const inner = name === 'eval' ? args.join(' ') : args[args.indexOf('-c') + 1];
+      if (inner) {
+        if (depth >= NESTED_DEPTH) {
+          problems.push(
+            `Refused: a command nested ${NESTED_DEPTH} shells deep was not checked, so its effect is unknown.`
+          );
+        } else {
+          problems.push(...checkBash(inner, tracker.cwd, depth + 1));
+        }
+      }
+      continue;
+    }
+
     if (name === 'cd') {
       tracker.cd(args, segment.subshell);
+      // A cd in the same list moves the directory the following git and gh
+      // commands run in, so their cwd and the branch they judge have to follow
+      // it. Without this, `cd ../other-checkout && git commit` was judged against
+      // this repository's branch and staged files, so a commit into a checkout
+      // sitting on main was allowed. A cd inside a subshell is deliberately not
+      // followed: it cannot affect the parent shell's directory.
+      if (!segment.subshell && tracker.known) {
+        gitCwd = tracker.cwd;
+        branch = currentBranch(gitCwd) || branch;
+      }
       continue;
     }
     if (name === 'gh') {
@@ -889,7 +1003,9 @@ function checkBash(command, cwd) {
     let i = 0;
     while (i < args.length && args[i].startsWith('-')) {
       if (args[i] === '-C' && args[i + 1]) {
-        gitCwd = path.resolve(cwd, args[i + 1]);
+        // `git -C` is relative to the shell's current directory, which a
+        // preceding cd may have moved, not to the directory the hook started in.
+        gitCwd = path.resolve(tracker.cwd, args[i + 1]);
         branch = currentBranch(gitCwd) || branch;
       }
       i += ['-C', '-c'].includes(args[i]) ? 2 : 1;
@@ -980,7 +1096,20 @@ function checkBash(command, cwd) {
       const problem = writeProblem(branch, { paths, root, legacy: legacy(branch, 'origin') });
       if (problem) problems.push(`Commit blocked: ${problem}.`);
     } else if (sub === 'push') {
-      if (rest.some((arg) => ['-d', '--delete'].includes(arg))) continue;
+      // `git push --delete <branch>` and `git push origin :<branch>` both remove
+      // a remote branch, and neither reaches the refspec loop below, so the
+      // protected names have to be refused here. A local `git branch -D main` is
+      // already refused, but a remote deletion is the irreversible one: the
+      // branch is gone from the shared repository, and re-creating it does not
+      // restore a merge that only existed there.
+      if (rest.some((arg) => ['-d', '--delete'].includes(arg))) {
+        for (const target of positional) {
+          if (PROTECTED.has(target.replace(/^refs\/heads\//, ''))) {
+            problems.push(`Remote branch deletion blocked: '${target}' is protected.`);
+          }
+        }
+        continue;
+      }
       if (rest.some((arg) => ['--all', '--branches', '--mirror'].includes(arg))) {
         problems.push(
           'Push blocked: --all/--branches/--mirror push protected branches; push one branch.'
@@ -998,7 +1127,15 @@ function checkBash(command, cwd) {
           problems.push('Push blocked: an empty refspec pushes every ref; name a branch.');
           continue;
         }
-        if (destination === '') continue; // `git push origin :branch` deletes it
+        if (destination === '') {
+          // `git push origin :branch` deletes the branch named by the empty
+          // source, so the protected names apply here too.
+          const target = source.replace(/^refs\/heads\//, '');
+          if (PROTECTED.has(target)) {
+            problems.push(`Remote branch deletion blocked: '${target}' is protected.`);
+          }
+          continue;
+        }
         // Only branch destinations carry branch-name rules. An explicitly
         // qualified non-branch ref such as refs/tags/... is out of scope, and
         // running the branch check over it would judge a name that was never a
@@ -1236,6 +1373,29 @@ function isWrite(input) {
  * validator. Self-protection must hold even when the validator cannot be
  * loaded, otherwise the guard's own fault is the way around it.
  */
+/**
+ * Whether a command, or anything nested inside it, writes a guard file. Used on
+ * the fault path, where the guard is loaded but a check could not run, so the
+ * self-protection cannot depend on the rest of the guard working.
+ */
+function mentionsGuardFile(command, cwd, guard, depth) {
+  if (depth > NESTED_DEPTH) return false;
+  const tracker = createCwdTracker(cwd);
+  for (const segment of parseShell(command)) {
+    if (shellGuardWrites(segment, tracker, guard).length) return true;
+    const { name, args } = commandOf(segment.words);
+    if (name === 'cd') {
+      tracker.cd(args, segment.subshell);
+      continue;
+    }
+    if (NESTED_SHELLS.has(name) || name === 'eval') {
+      const inner = name === 'eval' ? args.join(' ') : args[args.indexOf('-c') + 1];
+      if (inner && mentionsGuardFile(inner, tracker.cwd, guard, depth + 1)) return true;
+    }
+  }
+  return false;
+}
+
 function isGuardFileWrite(input) {
   const tool = input.tool_name || '';
   const toolInput = input.tool_input || {};
@@ -1247,6 +1407,12 @@ function isGuardFileWrite(input) {
     return Boolean(file) && isGuardFile(resolvePath(file, project), guard);
   }
   if (tool !== 'Bash') return false;
+  // Recurses for the same reason checkBash does. This path runs when the guard
+  // itself could not load, and self-protection has to hold there too: a
+  // `bash -c "rm .claude/settings.json"` names the interpreter, not the file, so
+  // without recursion the write was allowed while the guard was broken. The
+  // check is deliberately cheap, so nesting is expanded to the same bound.
+  if (mentionsGuardFile(String(toolInput.command || ''), cwd, guard, 0)) return true;
   const tracker = createCwdTracker(cwd);
   for (const segment of parseShell(String(toolInput.command || ''))) {
     if (shellGuardWrites(segment, tracker, guard).length) return true;

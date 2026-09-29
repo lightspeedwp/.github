@@ -219,7 +219,7 @@ settings, not branch-protection fields.
   `.claude/cloud/` in the same PR so the repository stays the source of truth.
 - Changing the setup script triggers a cache rebuild on the next session. The cache also expires after about seven days.
 - When `.nvmrc` changes, update `LS_NODE_VERSION` in both the environment variables and `setup.sh`.
-- Branch types come from `lib/validate-branch-name.js`, which both the guard and CI call, so they agree on everything the library accepts. There is one known mismatch: the library's component pattern only allows hyphens, so a documented `release/v1.2.3` name is rejected by CI and locally, while the guard's carve-out for `release/*` and `hotfix/*` targets for `main` is keyed on the prefix alone. That is tracked in #3558. Add new types there.
+- Branch types come from `lib/validate-branch-name.js`, which both the guard and CI call, so they agree on everything the library accepts. That includes the semantic-version release form `release/v1.2.3`, which the library matches ahead of the general pattern. The guard's carve-out for `release/*` and `hotfix/*` targets for `main` is keyed on the prefix alone, so a `release/*` branch that is not a semantic version is still checked for its name. Add new types in the library.
 - Changes to the guard need an Owner's review (CODEOWNERS) and green contract tests. Claude can't edit the guard's
   files while enforcement is on, so guard changes come from a person, or from a session an Owner started with
   `LS_ENFORCE_BRANCH_NAMES=0`.
@@ -228,15 +228,19 @@ settings, not branch-protection fields.
 
 ## Limitations
 
-- The guard checks **direct shell commands only**. When a command is deferred to another interpreter, the guard does
-  not see inside it and does not detect what that interpreter runs. `sh -c '...'`, `bash -c '...'`, `zsh -c '...'`,
-  `eval '...'` and equivalents are therefore **out of scope**: the guard neither inspects nor refuses them, and no
-  coverage is claimed for them. This is a stated limit of the contract, not a silent gap, and it is one reason CI
-  branch validation stays the final gate. A session that must not bypass the guard should not hand commands to
-  another interpreter.
+- The guard reads a command handed to another interpreter, up to three levels deep. `sh -c '...'`, `bash -c '...'`,
+  `zsh -c '...'`, `dash -c '...'`, `ksh -c '...'`, `busybox sh -c '...'` and `eval '...'` are parsed as the shell
+  command they carry and checked the same way as an unquoted one, because the quoting is the only thing that
+  distinguishes them. Beyond the depth limit the guard refuses the command rather than allowing something it has
+  not read. Two limits remain: a payload assembled at run time (`eval "git $cmd"`) is only as checkable as the
+  variable it expands to, and a command written in another language entirely — `python -c`, `node -e` — is still
+  out of scope, because the guard reads shell syntax and not those. CI branch validation remains the final gate
+  for anything a command could construct at run time.
 - The guard parses shell commands with heuristics. It catches the usual forms — plain commands, pipelines, background
-  and list operators, `if`/`while`/`for`/`case` arms, parenthesised groups, redirects and here-documents — but not
-  every creative variant (for example `cd other-repo && git commit` or aliases).
+  and list operators, `if`/`while`/`for`/`case` arms, parenthesised groups, redirects, here-documents and nested
+  interpreters — including a `cd` in the same command, so `cd other-repo && git commit` is resolved against the
+  directory it runs in. It does not follow aliases, and a command assembled from variables is only as checkable as
+  the expression it expands to.
 - If Node is missing, the hook can't run and the guard fails open. The setup script installs Node.
 - Pushing a renamed branch relies on the platform's push protection allowing the session's current branch. If the
   platform changes this, pushes are rejected (not redirected), and the checks above catch it.

@@ -9,7 +9,9 @@
  */
 
 const fs = require('fs');
+const { spawnSync } = require('child_process');
 const path = require('path');
+const os = require('os');
 const { GUARD, createFixture, runBash, runGuard } = require('./helpers/claude-hook-harness');
 
 jest.setTimeout(30000);
@@ -491,10 +493,7 @@ describe('GitHub MCP tools (T011)', () => {
   });
 
   test('refuses a gh api write whose request body is on stdin', () => {
-    const run = runBash(
-      fx,
-      'gh api -X POST repos/lightspeedwp/.github/pulls --input - -f title=x'
-    );
+    const run = runBash(fx, 'gh api -X POST repos/lightspeedwp/.github/pulls --input - -f title=x');
     expect(run.status).toBe(2);
   });
 
@@ -585,7 +584,7 @@ describe('GitHub MCP tools (T011)', () => {
   test.each([
     'cd .claude/hooks && rm enforce-branch-name.mjs',
     'cd .claude/hooks && tee session-start.sh',
-    'cd .claude && cat <<\'EOF\' > settings.json\n{}\nEOF',
+    "cd .claude && cat <<'EOF' > settings.json\n{}\nEOF",
   ])('refuses a guard-file write that cds first: %s', (command) => {
     const run = runBash(fx, command);
     expect(run.status).toBe(2);
@@ -730,12 +729,12 @@ describe('GitHub MCP tools (T011)', () => {
 
   // A single `&` backgrounds the whole list it terminates, so a `cd` earlier in
   // that list runs in the subshell too and must not move the tracked directory.
-  test.each([
-    'cd / && rm .claude/settings.json &',
-    'cd / || rm .claude/settings.json &',
-  ])('keeps the directory for a cd in a backgrounded list: %s', (command) => {
-    expect(runBash(fx, command).status).toBe(2);
-  });
+  test.each(['cd / && rm .claude/settings.json &', 'cd / || rm .claude/settings.json &'])(
+    'keeps the directory for a cd in a backgrounded list: %s',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(2);
+    }
+  );
 
   // A `;` or newline starts a new list, which a trailing `&` does not cross: the
   // cd before it ran in the parent shell, so the backgrounded command really does
@@ -764,23 +763,21 @@ describe('GitHub MCP tools (T011)', () => {
     expect(runBash(fx, command).status).toBe(2);
   });
 
-  test.each([
-    '( echo hi )',
-    '{ echo hi; }',
-    'if true; then echo hi; fi',
-    "echo 'notes)'",
-  ])('allows shell syntax with no guard write: %s', (command) => {
-    expect(runBash(fx, command).status).toBe(0);
-  });
+  test.each(['( echo hi )', '{ echo hi; }', 'if true; then echo hi; fi', "echo 'notes)'"])(
+    'allows shell syntax with no guard write: %s',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(0);
+    }
+  );
 
   // Every stage of a pipeline runs in a subshell, so a `cd` after the pipe moves
   // nothing. Marking only the stage before it left this exploitable.
-  test.each([
-    'cat x | cd / ; rm .claude/settings.json',
-    'true | cd / && rm .claude/settings.json',
-  ])('refuses a write that follows a cd in the stage after a pipe: %s', (command) => {
-    expect(runBash(fx, command).status).toBe(2);
-  });
+  test.each(['cat x | cd / ; rm .claude/settings.json', 'true | cd / && rm .claude/settings.json'])(
+    'refuses a write that follows a cd in the stage after a pipe: %s',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(2);
+    }
+  );
 
   test.each(['cat x | wc -l', 'cat x | cd /', 'cd / | cat'])(
     'allows a harmless pipeline: %s',
@@ -815,12 +812,12 @@ describe('GitHub MCP tools (T011)', () => {
   );
 
   // touch changes a file, so it belongs with the other write verbs.
-  test.each([
-    'touch .claude/settings.json',
-    'touch .claude/hooks/enforce-branch-name.mjs',
-  ])('refuses touch on a guard file: %s', (command) => {
-    expect(runBash(fx, command).status).toBe(2);
-  });
+  test.each(['touch .claude/settings.json', 'touch .claude/hooks/enforce-branch-name.mjs'])(
+    'refuses touch on a guard file: %s',
+    (command) => {
+      expect(runBash(fx, command).status).toBe(2);
+    }
+  );
 
   test('allows touch on a file that is not a guard file', () => {
     expect(runBash(fx, 'touch README.md').status).toBe(0);
@@ -844,9 +841,12 @@ describe('GitHub MCP tools (T011)', () => {
 
   // A branch that predates the naming convention can only be removed by deleting
   // it, so a deletion is judged on protection rather than on the name.
-  test.each(['legacy-thing', 'old-name'])('allows deleting a branch with a legacy name: %s', (name) => {
-    expect(runBash(fx, `git branch -D ${name}`).status).toBe(0);
-  });
+  test.each(['legacy-thing', 'old-name'])(
+    'allows deleting a branch with a legacy name: %s',
+    (name) => {
+      expect(runBash(fx, `git branch -D ${name}`).status).toBe(0);
+    }
+  );
 
   test('still refuses creating a branch with a legacy name', () => {
     expect(runBash(fx, 'git branch legacy-thing').status).toBe(2);
@@ -1190,5 +1190,155 @@ describe('speed on the normal path (T041, SC-008)', () => {
 
     expect(median(timings)).toBeLessThanOrEqual(150);
     expect(fx.calls().filter((call) => /^(gh |git ls-remote)/.test(call))).toEqual([]);
+  });
+});
+
+describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)', () => {
+  // A cd in the same list moves the directory the following git commands run in.
+  // Judging them against the hook's own directory let a commit into a checkout
+  // on main through, which is the one thing the guard exists to stop.
+  test('judges a git command after a cd against the directory it runs in', () => {
+    const other = createFixture();
+    try {
+      // The other checkout is on main and this one is on a compliant branch, so
+      // the two answers differ. Asserting only the exit code is not enough: the
+      // guard refuses for several unrelated reasons, and before the fix this case
+      // was refused because the *first* repository was read as detached rather
+      // than because main was seen. The message names the branch that was judged.
+      other.branch('main');
+      const run = runBash(fx, `cd ${JSON.stringify(other.repo)} && git commit -m "x"`, {
+        CLAUDE_PROJECT_DIR: path.dirname(other.repo),
+      });
+      expect(run.status).toBe(2);
+      expect(run.stderr).toMatch(/'main' is protected/);
+    } finally {
+      other.cleanup();
+    }
+  });
+
+  test('still allows a commit after a cd into a compliant checkout', () => {
+    const other = createFixture();
+    try {
+      other.branch('feat/other-work');
+      const run = runBash(fx, `cd ${JSON.stringify(other.repo)} && git commit -m "x"`, {
+        CLAUDE_PROJECT_DIR: path.dirname(other.repo),
+      });
+      expect(run.status).toBe(0);
+    } finally {
+      other.cleanup();
+    }
+  });
+
+  // The contract requires the REST endpoint because a cloud session cannot reach
+  // GraphQL. `gh pr list` failing there made hasOpenPr return false, so the legacy
+  // exception never applied and every commit on an existing PR branch was refused.
+  test('asks for open pull requests over REST, not through the GraphQL-backed gh pr list', () => {
+    fx.branch('copilot/legacy');
+    fx.git('push', '--quiet', 'origin', 'copilot/legacy');
+    const run = runBash(fx, 'git commit -m "x"', { GH_STUB_MODE: 'open' });
+    expect(run.status).toBe(0);
+    const calls = fx.calls().filter((call) => call.startsWith('gh '));
+    expect(calls.some((call) => call.includes('api -X GET repos/lightspeedwp/.github/pulls'))).toBe(
+      true
+    );
+    expect(calls.some((call) => call.includes('pr list'))).toBe(false);
+  });
+
+  // Self-protection has to hold while the guard is broken, which is exactly when
+  // isGuardFileWrite runs. A nested command names the interpreter, not the file.
+  const FAULT = { LS_GUARD_FORCE_FAULT: '1' };
+  test.each([
+    'bash -c "rm .claude/settings.json"',
+    'bash -c "rm -f .claude/hooks/enforce-branch-name.mjs"',
+    'eval "rm .claude/settings.json"',
+  ])('blocks the nested guard-file write %s on a fault', (command) => {
+    const run = runBash(fx, command, FAULT);
+    expect(run.status).toBe(2);
+  });
+
+  test('still allows a nested non-guard command on a fault', () => {
+    const run = runBash(fx, 'bash -c "ls"', FAULT);
+    expect(run.status).toBe(0);
+  });
+});
+
+describe('the guard launcher (CodeRabbit #3524)', () => {
+  // A hook command that cannot start is treated as non-blocking, so invoking the
+  // guard through `node` fails open wherever node is absent. settings.json calls a
+  // launcher instead, which can refuse for that reason — and can still be switched
+  // off, which matters because the hook matches Bash, Edit and Write: an
+  // unconditional refusal would block every call in the session, `ls` included.
+  const LAUNCHER = path.join(path.dirname(GUARD), 'run-guard.sh');
+  const PROJECT = path.join(path.dirname(GUARD), '..', '..');
+  const settings = require('../../.claude/settings.json');
+  const preToolUse = settings.hooks.PreToolUse.flatMap((entry) => entry.hooks);
+
+  /** A PATH with the shell utilities the launcher needs but no node. */
+  const pathWithoutNode = () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'guard-path-'));
+    for (const tool of ['bash', 'sh', 'printf', 'cat']) {
+      const source = spawnSync('bash', ['-c', `command -v ${tool}`], {
+        encoding: 'utf8',
+      }).stdout.trim();
+      if (source) fs.symlinkSync(source, path.join(dir, tool));
+    }
+    return dir;
+  };
+
+  const launch = (env) => {
+    const run = spawnSync('bash', [LAUNCHER], { input: '{}', encoding: 'utf8', env });
+    return { status: run.status, stdout: run.stdout, stderr: run.stderr };
+  };
+
+  test('is what settings.json invokes, not a bare node call', () => {
+    const commands = preToolUse.map((hook) => hook.command);
+    expect(commands).toHaveLength(1);
+    expect(commands[0]).toContain('.claude/hooks/run-guard.sh');
+    expect(commands[0]).not.toBe(
+      'node "$CLAUDE_PROJECT_DIR"/.claude/hooks/enforce-branch-name.mjs'
+    );
+  });
+
+  test('refuses with exit 2 when node is not on PATH', () => {
+    const dir = pathWithoutNode();
+    try {
+      const run = launch({ PATH: dir, CLAUDE_PROJECT_DIR: PROJECT });
+      expect(run.status).toBe(2);
+      expect(run.stderr).toMatch(/node is not on PATH/);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('warns and allows with the enforcement switch off, even without node', () => {
+    const dir = pathWithoutNode();
+    try {
+      const run = launch({ PATH: dir, CLAUDE_PROJECT_DIR: PROJECT, LS_ENFORCE_BRANCH_NAMES: '0' });
+      expect(run.status).toBe(0);
+      expect(run.stderr).toMatch(/enforcement is off/);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  // The message reaches the session as JSON on stdout, so a broken message there
+  // would be worse than none at all.
+  test('emits a parseable JSON system message when it refuses', () => {
+    const run = launch({
+      ...process.env,
+      CLAUDE_PROJECT_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'guard-proj-')),
+    });
+    expect(run.status).toBe(2);
+    const parsed = JSON.parse(run.stdout.trim());
+    expect(parsed.systemMessage).toMatch(/is missing/);
+  });
+
+  test("passes the guard's own exit code through when node is available", () => {
+    const run = spawnSync('bash', [LAUNCHER], {
+      input: JSON.stringify({ tool_name: 'Bash', tool_input: { command: 'git status' } }),
+      encoding: 'utf8',
+      env: { ...process.env, CLAUDE_PROJECT_DIR: PROJECT },
+    });
+    expect(run.status).toBe(0);
   });
 });
