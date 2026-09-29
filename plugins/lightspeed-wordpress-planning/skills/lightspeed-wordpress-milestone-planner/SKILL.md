@@ -4,5 +4,9 @@ description: convert approved WordPress plans into milestone-aligned delivery ch
 version: 0.1.1
 ---
 
+# LightSpeed WordPress Milestone Planner
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Use this skill to convert approved WordPress plans into milestone-aligned delivery checkpoints.
+
+*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
