@@ -144,14 +144,16 @@ function remoteRepo(cwd, remote = 'origin') {
   }
   if (!/^(https?|git):\/\//.test(url)) return null;
   try {
-    const parts = new URL(url).pathname.replace(/^\//, '').replace(/\.git\/?$/, '').split('/');
+    const parts = new URL(url).pathname
+      .replace(/^\//, '')
+      .replace(/\.git\/?$/, '')
+      .split('/');
     if (parts.length !== 2 || !parts[0] || !parts[1]) return null;
     return { owner: parts[0], repo: parts[1] };
   } catch {
     return null;
   }
 }
-
 
 // ── Exceptions ──────────────────────────────────────────────────────────────
 
@@ -186,6 +188,11 @@ function hasOpenPr(branch, { cwd, remote = 'origin', repo = null }) {
   if (!repo && run('git', ['ls-remote', '--exit-code', '--heads', remote, branch], cwd) === null) {
     return false;
   }
+  // `gh api` has no --repo flag. Its flags are -X, -f, -F, -H, --input, --jq,
+  // --paginate and --hostname, so passing one makes the call fail outright and the
+  // exception never applies. The repository is already carried by the endpoint, so
+  // an explicit `repo` needs nothing further.
+  //
   // The REST endpoint, not `gh pr list`, and that is not a style choice:
   // `gh pr list` goes through GraphQL, which a cloud session cannot reach. The
   // call failed there, hasOpenPr returned false, the legacy exception never
@@ -196,8 +203,9 @@ function hasOpenPr(branch, { cwd, remote = 'origin', repo = null }) {
   // rather than asking GitHub about a repository that does not exist. Scanning
   // also covers a clone configured with both an internal mirror and the GitHub
   // remote, where only one of the two can answer the question.
-  const target =
-    repo ? { owner: repo.split('/')[0], repo: repo.split('/')[1] } : repositoryIdentity(cwd, remote);
+  const target = repo
+    ? { owner: repo.split('/')[0], repo: repo.split('/')[1] }
+    : repositoryIdentity(cwd, remote);
   if (!target) return false;
   const args = [
     'api',
@@ -211,7 +219,6 @@ function hasOpenPr(branch, { cwd, remote = 'origin', repo = null }) {
     '-f',
     'per_page=1',
   ];
-  if (repo) args.push('--repo', repo);
   const out = run('gh', args, cwd);
   try {
     const prs = JSON.parse(out);
@@ -567,11 +574,26 @@ const NESTED_DEPTH = 3;
  * `if true; then rm <guard file>; fi` passed.
  */
 const SHELL_KEYWORDS = new Set([
-  'if', 'then', 'else', 'elif', 'fi',
-  'while', 'until', 'do', 'done',
-  'case', 'esac', 'select',
-  'for', 'in', 'function',
-  '{', '}', '[[', ']]', '!',
+  'if',
+  'then',
+  'else',
+  'elif',
+  'fi',
+  'while',
+  'until',
+  'do',
+  'done',
+  'case',
+  'esac',
+  'select',
+  'for',
+  'in',
+  'function',
+  '{',
+  '}',
+  '[[',
+  ']]',
+  '!',
 ]);
 
 /** Leading grouping punctuation, as in `(rm file)`. */
@@ -609,7 +631,13 @@ function gitBranchFlags(rest) {
       flags.push(arg);
       continue;
     }
-    if (/^-[a-zA-Z]+$/.test(arg)) flags.push(...arg.slice(1).split('').map((c) => `-${c}`));
+    if (/^-[a-zA-Z]+$/.test(arg))
+      flags.push(
+        ...arg
+          .slice(1)
+          .split('')
+          .map((c) => `-${c}`)
+      );
     else flags.push(arg);
   }
   return flags;
@@ -704,83 +732,83 @@ function fieldArgs(args) {
 const FILE_FIELD_FLAGS = new Set(['-F', '--field']);
 const FIELD_FLAGS = new Set(['-f', '-F', '--field', '--raw-field']);
 
-  function apiFields(args, cwd) {
-    const fields = {};
-    for (const [flag, argument] of fieldArgs(args)) {
-      const [key, ...rest] = argument.split('=');
-      const value = resolveFieldValue(rest.join('='), cwd, flag);
-      if (value !== null) fields[key] = value;
-    }
-    // A write sent as `--input body.json` carries its branch there, not in -f.
-    const body = readBody(inputArg(args), cwd);
-    if (body && typeof body === 'object' && !Array.isArray(body)) {
-      for (const [key, value] of Object.entries(body)) {
-        if (typeof value === 'string' && !(key in fields)) fields[key] = value;
-      }
-    }
-    return fields;
+function apiFields(args, cwd) {
+  const fields = {};
+  for (const [flag, argument] of fieldArgs(args)) {
+    const [key, ...rest] = argument.split('=');
+    const value = resolveFieldValue(rest.join('='), cwd, flag);
+    if (value !== null) fields[key] = value;
   }
+  // A write sent as `--input body.json` carries its branch there, not in -f.
+  const body = readBody(inputArg(args), cwd);
+  if (body && typeof body === 'object' && !Array.isArray(body)) {
+    for (const [key, value] of Object.entries(body)) {
+      if (typeof value === 'string' && !(key in fields)) fields[key] = value;
+    }
+  }
+  return fields;
+}
 
-  /**
-   * The value gh would send for a field, or null when it cannot be determined.
-   * `gh` reads `@file` as the file's contents, so the guard has to do the same
-   * to know the real value; storing the literal "@file" would judge a branch
-   * name the caller never sent.
-   */
-  function resolveFieldValue(value, cwd, flag) {
-    if (!flag || !FILE_FIELD_FLAGS.has(flag) || !value.startsWith('@')) return value;
-    return readInline(value.slice(1), cwd);
-  }
+/**
+ * The value gh would send for a field, or null when it cannot be determined.
+ * `gh` reads `@file` as the file's contents, so the guard has to do the same
+ * to know the real value; storing the literal "@file" would judge a branch
+ * name the caller never sent.
+ */
+function resolveFieldValue(value, cwd, flag) {
+  if (!flag || !FILE_FIELD_FLAGS.has(flag) || !value.startsWith('@')) return value;
+  return readInline(value.slice(1), cwd);
+}
 
-  function readInline(file, cwd) {
-    // `@-` reads standard input, which the guard has already consumed for its
-    // own payload. Treat it as unreadable rather than looking for a file named
-    // "-" in the working directory.
-    if (file === '-') return null;
-    try {
-      return readFileSync(path.resolve(cwd, file), 'utf8').trim();
-    } catch {
-      return null;
-    }
+function readInline(file, cwd) {
+  // `@-` reads standard input, which the guard has already consumed for its
+  // own payload. Treat it as unreadable rather than looking for a file named
+  // "-" in the working directory.
+  if (file === '-') return null;
+  try {
+    return readFileSync(path.resolve(cwd, file), 'utf8').trim();
+  } catch {
+    return null;
   }
+}
 
-  /**
-   * Fields the call asked for that the guard could not read. A write whose
-   * branch names cannot be read is refused, never judged on an empty value.
-   */
-  function unreadableApiFields(args, cwd) {
-    const unreadable = [];
-    for (const [flag, argument] of fieldArgs(args)) {
-      const [key, ...rest] = argument.split('=');
-      if (resolveFieldValue(rest.join('='), cwd, flag) === null) unreadable.push(key);
-    }
-    const file = inputArg(args);
-    // `--input -` reads the caller's stdin, which the guard has already
-    // consumed for its own payload and cannot recover.
-    if (file && (file === '-' || readBody(file, cwd) === null)) {
-      unreadable.push('the request body');
-    }
-    return unreadable;
+/**
+ * Fields the call asked for that the guard could not read. A write whose
+ * branch names cannot be read is refused, never judged on an empty value.
+ */
+function unreadableApiFields(args, cwd) {
+  const unreadable = [];
+  for (const [flag, argument] of fieldArgs(args)) {
+    const [key, ...rest] = argument.split('=');
+    if (resolveFieldValue(rest.join('='), cwd, flag) === null) unreadable.push(key);
   }
+  const file = inputArg(args);
+  // `--input -` reads the caller's stdin, which the guard has already
+  // consumed for its own payload and cannot recover.
+  if (file && (file === '-' || readBody(file, cwd) === null)) {
+    unreadable.push('the request body');
+  }
+  return unreadable;
+}
 
-  /** The `--input` argument, for both `--input file` and `--input=file`. */
-  function inputArg(args) {
-    const at = args.indexOf('--input');
-    if (at >= 0) return args[at + 1];
-    const attached = args.find((arg) => arg.startsWith('--input='));
-    return attached ? attached.slice('--input='.length) : null;
-  }
+/** The `--input` argument, for both `--input file` and `--input=file`. */
+function inputArg(args) {
+  const at = args.indexOf('--input');
+  if (at >= 0) return args[at + 1];
+  const attached = args.find((arg) => arg.startsWith('--input='));
+  return attached ? attached.slice('--input='.length) : null;
+}
 
-  /** Parse a JSON request body from a file, or null if absent or invalid. */
-  function readBody(file, cwd) {
-    if (file === '-') return null;
-    try {
-      // Relative to the command's own working directory, not the hook's.
-      return JSON.parse(readFileSync(path.resolve(cwd, file), 'utf8'));
-    } catch {
-      return null;
-    }
+/** Parse a JSON request body from a file, or null if absent or invalid. */
+function readBody(file, cwd) {
+  if (file === '-') return null;
+  try {
+    // Relative to the command's own working directory, not the hook's.
+    return JSON.parse(readFileSync(path.resolve(cwd, file), 'utf8'));
+  } catch {
+    return null;
   }
+}
 
 /**
  * The directory a `cd` segment leaves the shell in, or null when it cannot be
@@ -936,6 +964,66 @@ function shellGuardWrites({ words, writes }, tracker, guard) {
 // ── Bash ────────────────────────────────────────────────────────────────────
 
 /** Problems found in a Bash command, in order. */
+/**
+ * The paths `git commit` will record instead of the whole index, or null when the
+ * command commits the index.
+ *
+ * `git commit -- <path>` and `git commit -m x <path>` both record only the named
+ * paths and ignore everything else staged. Parsing them off the command line needs
+ * the flags that take a value to be skipped, since `-m "some message"` would
+ * otherwise look like a path.
+ */
+function commitOperands(rest) {
+  const separator = rest.indexOf('--');
+  if (separator >= 0) return rest.slice(separator + 1).filter(Boolean);
+  const operands = [];
+  for (let i = 0; i < rest.length; i += 1) {
+    const arg = rest[i];
+    // A long option that takes a value consumes it.
+    if (/^--(message|file|author|date|reuse-message|fixup|squash|trailer|signoff)$/.test(arg)) {
+      i += 1;
+      continue;
+    }
+    // A combined cluster such as `-am` is a flag list, and `m`, `F`, `C` and `c`
+    // each take a value. Skipping only an exact `-m` left `git commit -am "docs"`
+    // reading the message "docs" as a path, which then looked like a named path
+    // and was judged in place of the index.
+    if (/^-[A-Za-z]+$/.test(arg)) {
+      if (/[mFCc]/.test(arg.slice(1))) i += 1;
+      continue;
+    }
+    if (arg.startsWith('-')) continue;
+    operands.push(arg);
+  }
+  return operands.length ? operands : null;
+}
+
+/**
+ * The command string an interpreter invocation carries, or null when it carries
+ * none.
+ *
+ * `sh -c`, `bash -c` and `eval` pass it as a separate argument, but a combined
+ * cluster is the common form in agent-issued commands: `bash -lc`, `sh -ec`. The
+ * `-c` is then inside a single word like "-lc", so looking for an exact "-c"
+ * misses it and the command is never read. The cluster is split and the option
+ * that ends in `c` is treated as the command flag.
+ */
+function nestedCommand(name, args) {
+  if (name === 'eval') return args.join(' ') || null;
+  if (args.includes('-c')) return args[args.indexOf('-c') + 1] || null;
+  for (let i = 0; i < args.length; i += 1) {
+    const arg = args[i];
+    if (!arg.startsWith('-') || arg === '-') continue;
+    const letters = arg.replace(/^-+/, '');
+    // Only a leading cluster counts: `-lc` is a cluster, `sh -s -c` is not, and a
+    // long option such as --norc must not be mistaken for one.
+    if (/^[a-zA-Z]+$/.test(letters) && letters.endsWith('c')) {
+      return args[i + 1] || null;
+    }
+  }
+  return null;
+}
+
 function checkBash(command, cwd, depth = 0) {
   const problems = [];
   const project = projectDir(cwd);
@@ -950,7 +1038,8 @@ function checkBash(command, cwd, depth = 0) {
   const added = [];
 
   for (const segment of parseShell(command)) {
-    for (const file of shellGuardWrites(segment, tracker, guard)) problems.push(guardFileProblem(file));
+    for (const file of shellGuardWrites(segment, tracker, guard))
+      problems.push(guardFileProblem(file));
 
     const { name, args } = commandOf(segment.words);
 
@@ -966,7 +1055,7 @@ function checkBash(command, cwd, depth = 0) {
     // guard list. The recursion is bounded by NESTED_DEPTH, because each level
     // can nest another.
     if (NESTED_SHELLS.has(name) || name === 'eval') {
-      const inner = name === 'eval' ? args.join(' ') : args[args.indexOf('-c') + 1];
+      const inner = nestedCommand(name, args);
       if (inner) {
         if (depth >= NESTED_DEPTH) {
           problems.push(
@@ -1033,9 +1122,7 @@ function checkBash(command, cwd, depth = 0) {
       // `-r`/`--remotes` deletes a remote-tracking ref such as origin/main, which
       // is a normal operation and not a write to the local protected branch, so
       // the local branch-name rule does not apply to those targets.
-      const remote = gitBranchFlags(rest).some((flag) =>
-        ['-r', '--remotes'].includes(flag)
-      );
+      const remote = gitBranchFlags(rest).some((flag) => ['-r', '--remotes'].includes(flag));
       // `git branch -D main develop` names two branches, so every positional is
       // a deletion target and each has to be checked.
       for (const target of positional) {
@@ -1079,7 +1166,9 @@ function checkBash(command, cwd, depth = 0) {
         // `-u` stages modified tracked files only, and only under any pathspec
         // given. `git status --porcelain` would add untracked files that `-u`
         // never stages and would ignore the pathspec, so both over-block.
-        added.push(...(lines(run('git', ['diff', '--name-only', 'HEAD', '--', ...positional], gitCwd)) ?? []));
+        added.push(
+          ...(lines(run('git', ['diff', '--name-only', 'HEAD', '--', ...positional], gitCwd)) ?? [])
+        );
       } else if (rest.some((arg) => ['-A', '--all', '.', ':/'].includes(arg))) {
         added.push(...(statusPaths(gitCwd) ?? []));
       } else {
@@ -1087,7 +1176,25 @@ function checkBash(command, cwd, depth = 0) {
       }
     } else if (sub === 'commit') {
       const all = rest.some((arg) => arg === '--all' || /^-[a-zA-Z]*a/.test(arg));
+      // `git commit -m x <path>` has --only semantics: git records the named paths
+      // and ignores the rest of the index. Reading the index alone would miss that,
+      // so with only documentation staged, `git commit -m x package.json` passed
+      // the documentation exception and put a non-documentation change on the base
+      // branch.
+      //
+      // The named paths come from the index diff for exactly those paths, which is
+      // what git will record and needs no re-parsing of the command line to tell a
+      // path from a flag's value. A named path with no staged change is still
+      // listed: it is being committed, and the guard cannot show it is
+      // documentation.
+      const only = commitOperands(rest);
+      let onlyPaths = null;
+      if (only) {
+        const named = lines(run('git', ['diff', '--cached', '--name-only', '--', ...only], gitCwd));
+        onlyPaths = named === null ? null : [...new Set([...named, ...only])];
+      }
       const paths = () => {
+        if (onlyPaths) return onlyPaths;
         const staged = lines(run('git', ['diff', '--cached', '--name-only'], gitCwd));
         if (staged === null) return null;
         const tracked = all ? (lines(run('git', ['diff', '--name-only'], gitCwd)) ?? []) : [];
@@ -1234,7 +1341,9 @@ function checkGh(args, cwd, branch) {
   };
   const refuseUnreadable = (keys, missing) => {
     if (bodyUnreadable) {
-      return ['Write blocked: could not read the request body, so the target branch cannot be checked.'];
+      return [
+        'Write blocked: could not read the request body, so the target branch cannot be checked.',
+      ];
     }
     const found = unreadableKey(keys);
     if (found) {
@@ -1263,6 +1372,14 @@ function checkGh(args, cwd, branch) {
     return problem ? [`Branch creation blocked: ${problem}.`] : [];
   }
   const ref = resource.match(/^git\/refs\/heads\/(.+)$/);
+  // A DELETE against a ref removes the branch, so it is judged like the other
+  // writes rather than skipped. `gh api -X DELETE repos/.../git/refs/heads/main`
+  // is the REST form of the remote deletion the push path already refuses, and
+  // leaving it out made the documented protection depend on which command was
+  // used.
+  if (ref && method === 'DELETE' && PROTECTED.has(ref[1].replace(/^refs\/heads\//, ''))) {
+    return [`Remote branch deletion blocked: '${ref[1]}' is protected.`];
+  }
   if (ref && method !== 'DELETE') {
     const problem = fileWriteProblem({
       owner: apiOwner,
@@ -1389,7 +1506,7 @@ function mentionsGuardFile(command, cwd, guard, depth) {
       continue;
     }
     if (NESTED_SHELLS.has(name) || name === 'eval') {
-      const inner = name === 'eval' ? args.join(' ') : args[args.indexOf('-c') + 1];
+      const inner = nestedCommand(name, args);
       if (inner && mentionsGuardFile(inner, tracker.cwd, guard, depth + 1)) return true;
     }
   }

@@ -206,6 +206,36 @@ describe('protected branches and the documentation exception (T009)', () => {
   // `-u` must not be read as "all files": it stages modified tracked files only,
   // and only under a pathspec. An untracked file it would never stage must not
   // block, and a pathspec must limit the check to that subtree.
+  // `git commit <path>` records only that path and ignores the rest of the index,
+  // so reading the index alone would let a non-documentation change reach the base
+  // branch while only documentation is staged.
+  test.each(['git commit -m "x" package.json', 'git commit -m "x" -- package.json'])(
+    'refuses %s when only documentation is staged',
+    (command) => {
+      fx.write('docs/guide.md', '# Changed\n');
+      const run = runBash(fx, command);
+      expect(run.status).toBe(2);
+      expect(run.stderr).toMatch(/package\.json/);
+    }
+  );
+
+  test('still allows a commit naming only documentation paths', () => {
+    fx.write('docs/guide.md', '# Changed\n');
+    expect(runBash(fx, 'git commit -m "docs" docs/guide.md').status).toBe(0);
+  });
+
+  test.each([
+    'git commit -m "update package.json handling"',
+    'git commit -am "docs"',
+    'git commit -a -m "docs"',
+  ])('does not read the message of %s as a path', (command) => {
+    fx.write('docs/guide.md', '# Changed\n');
+    // A message is a value of the m flag, not a path. Reading it as one makes the
+    // commit look like it named a path, which is then judged in place of the
+    // index: `git commit -am "docs"` looked like a commit of a file called "docs".
+    expect(runBash(fx, command).status).toBe(0);
+  });
+
   test('does not treat an untracked file as staged by git add -u', () => {
     fx.write('docs/a.md', 'docs\n');
     fx.git('add', 'docs/a.md');
@@ -1193,6 +1223,34 @@ describe('speed on the normal path (T041, SC-008)', () => {
   });
 });
 
+describe('the guard launcher (API ref deletion, CodeRabbit #3524)', () => {
+  // `gh api -X DELETE repos/.../git/refs/heads/main` is the REST form of the
+  // remote deletion the push path refuses. Skipping DELETE left the documented
+  // protection dependent on which command was used.
+  test.each(['main', 'develop'])('refuses deleting the %s ref through the API', (branch) => {
+    fx.branch('feat/good-name');
+    const run = runGuard(fx, {
+      tool_name: 'Bash',
+      tool_input: {
+        command: `gh api -X DELETE repos/lightspeedwp/.github/git/refs/heads/${branch}`,
+      },
+    });
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/protected/);
+  });
+
+  test('still allows deleting an unprotected ref through the API', () => {
+    fx.branch('feat/good-name');
+    const run = runGuard(fx, {
+      tool_name: 'Bash',
+      tool_input: {
+        command: 'gh api -X DELETE repos/lightspeedwp/.github/git/refs/heads/feat/good-name',
+      },
+    });
+    expect(run.status).toBe(0);
+  });
+});
+
 describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)', () => {
   // A cd in the same list moves the directory the following git commands run in.
   // Judging them against the hook's own directory let a commit into a checkout
@@ -1244,12 +1302,43 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(calls.some((call) => call.includes('pr list'))).toBe(false);
   });
 
+  // A command handed to another shell is the same command as the unquoted form, so
+  // it is read rather than disclaimed. A combined cluster is the common form in
+  // agent-issued commands, and there the `-c` sits inside one word like "-lc", so
+  // a lookup for a standalone "-c" missed it entirely.
+  test.each(['sh -c', 'bash -c', 'zsh -c', 'bash -lc', 'sh -ec'])(
+    'refuses a protected push hidden inside %s',
+    (form) => {
+      fx.branch('feat/good-name');
+      expect(runBash(fx, `${form} "git push origin main"`).status).toBe(2);
+    }
+  );
+
+  test('refuses a placeholder commit hidden inside a nested shell', () => {
+    fx.branch('chore/session-abc123');
+    expect(runBash(fx, `bash -c "git commit -m 'x'"`).status).toBe(2);
+  });
+
+  test('still allows an allowed command hidden inside a nested shell', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'bash -c "git status"').status).toBe(0);
+    expect(runBash(fx, 'bash -lc "git status"').status).toBe(0);
+  });
+
+  // A long option ending in c carries no command. Treating it as the command flag
+  // would read the next word as a command to check.
+  test('does not mistake a long option ending in c for the command flag', () => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, 'bash --norc').status).toBe(0);
+  });
+
   // Self-protection has to hold while the guard is broken, which is exactly when
   // isGuardFileWrite runs. A nested command names the interpreter, not the file.
   const FAULT = { LS_GUARD_FORCE_FAULT: '1' };
   test.each([
     'bash -c "rm .claude/settings.json"',
     'bash -c "rm -f .claude/hooks/enforce-branch-name.mjs"',
+    'bash -lc "rm .claude/settings.json"',
     'eval "rm .claude/settings.json"',
   ])('blocks the nested guard-file write %s on a fault', (command) => {
     const run = runBash(fx, command, FAULT);
@@ -1321,6 +1410,22 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
     }
   });
 
+  // The switch is only the launcher's business when the guard cannot run at all.
+  // With node present the guard must still start, because that is the one case
+  // where it has something to say with enforcement off: it reports the skipped
+  // check and lets the action through (FR-013). Short-circuiting before it ran
+  // would leave that warning-only mode unreachable through settings.json.
+  test('still starts the guard with the switch off when node is available', () => {
+    const run = spawnSync('bash', [LAUNCHER], {
+      input: JSON.stringify({ tool_name: 'Bash', tool_input: { command: 'git commit -m x' } }),
+      encoding: 'utf8',
+      env: { ...process.env, CLAUDE_PROJECT_DIR: PROJECT, LS_ENFORCE_BRANCH_NAMES: '0' },
+    });
+    expect(run.status).toBe(0);
+    // The guard's own warning names the guard, not the launcher.
+    expect(run.stderr).not.toMatch(/node is not on PATH/);
+  });
+
   // The message reaches the session as JSON on stdout, so a broken message there
   // would be worse than none at all.
   test('emits a parseable JSON system message when it refuses', () => {
@@ -1331,6 +1436,31 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
     expect(run.status).toBe(2);
     const parsed = JSON.parse(run.stdout.trim());
     expect(parsed.systemMessage).toMatch(/is missing/);
+  });
+
+  // A missing guard file is exactly the case where a developer needs to put the
+  // file back, and the hook matches Edit and Write, so the opt-out has to be
+  // reachable here too.
+  test('warns and allows with the switch off when the guard file is missing', () => {
+    const run = launch({
+      ...process.env,
+      CLAUDE_PROJECT_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'guard-proj-')),
+      LS_ENFORCE_BRANCH_NAMES: '0',
+    });
+    expect(run.status).toBe(0);
+    expect(run.stderr).toMatch(/enforcement is off/);
+  });
+
+  // `gh api` has no --repo flag, so passing one makes the call fail and the
+  // exception never applies. The file-write path reaches hasOpenPr with the
+  // repository already known, so it is the one that would have broken.
+  test('sends no --repo flag, which gh api would reject', () => {
+    const guard = fs.readFileSync(GUARD, 'utf8');
+    const whole = guard.slice(guard.indexOf('function hasOpenPr'));
+    const body = whole.slice(0, whole.indexOf('\n}\n'));
+    expect(body).not.toMatch(/'--repo'/);
+    // The repository travels in the endpoint instead.
+    expect(body).toMatch(/repos\/\$\{target\.owner\}\/\$\{target\.repo\}\/pulls/);
   });
 
   test("passes the guard's own exit code through when node is available", () => {
