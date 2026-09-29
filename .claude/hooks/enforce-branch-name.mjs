@@ -757,8 +757,9 @@ const SHELL_KEYWORDS = new Set([
   '!',
 ]);
 
-const GROUPING_LEAD = /^[({\[]+/;
-const GROUPING_ONLY = /^[({\[]+[)\]}]*$/;
+// The `[` is a literal member of the class, so it needs no escape of its own.
+const GROUPING_LEAD = /^[({[]+/;
+const GROUPING_ONLY = /^[({[]+[)\]}]*$/;
 
 // Options each wrapper takes before its command, per wrapper rather than shared:
 // a flag that takes a value for one wrapper takes none for another, and a shared
@@ -1084,7 +1085,9 @@ function createCwdTracker(start) {
         target = expanded;
       }
       const destination = path.resolve(cwd, expandHome(target));
-      let isDir = false;
+      // Declared without an initialiser because both paths below assign it before
+      // it is read: a `statSync` that throws still has to say the cd failed.
+      let isDir;
       try {
         isDir = statSync(destination).isDirectory();
       } catch {
@@ -1361,7 +1364,9 @@ function checkBash(command, cwd, depth = 0) {
       // session stays where it is, and treating the new name as current would judge
       // the following commit against a branch nobody is on.
       else if (positional.length < 2 || positional[0] === segBranch) {
-        segBranch = target;
+        // Only the loop-level value is set. `segBranch` is read by the commit and
+        // refspec branches below, which a rename does not reach, and the next
+        // command in the list starts from `branch` anyway.
         branch = target;
       }
     } else if (
@@ -1428,9 +1433,10 @@ function checkBash(command, cwd, depth = 0) {
         sub === 'switch' ||
         run('git', ['rev-parse', '--verify', positional[0]], segCwd) !== null
       ) {
-        segBranch = positional[0];
         // A checkout moves the current branch, so the loop-level value follows it
-        // for the commands that follow in the same list.
+        // for the commands that follow in the same list. As with the rename above,
+        // only `branch` is set: the commit and refspec branches that read
+        // `segBranch` are not reached from a checkout.
         branch = positional[0];
       }
     } else if (sub === 'add') {
@@ -1650,7 +1656,9 @@ function graphqlBranchProblems(query, owner, repo) {
       continue;
     }
     if (PLACEHOLDER.test(value)) {
-      problems.push(`Write blocked: '${value}' is the session placeholder, not a real branch name.`);
+      problems.push(
+        `Write blocked: '${value}' is the session placeholder, not a real branch name.`
+      );
       continue;
     }
     const result = nameProblem(value);
