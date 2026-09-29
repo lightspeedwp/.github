@@ -67,5 +67,3 @@
 ## Client-safe caveat
 
 These items are metadata recommendations and approval decisions. Search engines may rewrite displayed titles or descriptions, and approval does not guarantee ranking, indexing, rich results, or AI visibility.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

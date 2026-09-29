@@ -18,6 +18,10 @@ import {
   isHighConfidenceFooterPhraseLine,
   HIGH_CONFIDENCE_FOOTER_PATTERNS,
   FOOTER_EXEMPT_DIR_NAMES,
+  contributorsLink,
+  repoSlug,
+  repoUrl,
+  DEFAULT_REPO_SLUG,
 } from '../footer-policy.js';
 
 describe('footer-policy', () => {
@@ -236,7 +240,10 @@ describe('footer-policy', () => {
       expect(
         regex.test(
           'Doc\n\n*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n' +
-            '[Contributors](https://github.com/lsx-demo-theme/graphs/contributors)'
+            // Derived, not written out, so this cannot drift from what the
+      // generator emits. The assertion is that the link line after a footer
+      // phrase still matches; the URL is incidental to that.
+      contributorsLink({ GITHUB_REPOSITORY: 'lightspeedwp/.github' })
         )
       ).toBe(true);
       expect(
@@ -336,5 +343,53 @@ describe('footer-policy', () => {
         expect(name).not.toContain('/');
       }
     });
+  });
+});
+
+describe('repo-scoped links', () => {
+  test('defaults to this repository when GITHUB_REPOSITORY is unset', () => {
+    expect(repoSlug({})).toBe(DEFAULT_REPO_SLUG);
+    expect(repoUrl('graphs/contributors', {})).toBe(
+      'https://github.com/lightspeedwp/.github/graphs/contributors'
+    );
+  });
+
+  test('follows GITHUB_REPOSITORY when it is a well-formed slug', () => {
+    // The bug this fixes: the Contributors link was hardcoded to
+    // lsx-demo-theme, so a file generated for any other repository inherited a
+    // link to an unrelated project.
+    expect(repoSlug({ GITHUB_REPOSITORY: 'acme/other-repo' })).toBe('acme/other-repo');
+    expect(contributorsLink({ GITHUB_REPOSITORY: 'acme/other-repo' })).toBe(
+      '[Contributors](https://github.com/acme/other-repo/graphs/contributors)'
+    );
+  });
+
+  test.each([
+    ['empty', ''],
+    ['whitespace', '   '],
+    ['not a slug', 'not a slug!!'],
+    ['owner only', 'lightspeedwp'],
+    ['path traversal', '../../etc'],
+    ['scheme injection', 'https://evil.example/x'],
+  ])('falls back to the default for a malformed value (%s)', (_label, value) => {
+    expect(repoSlug({ GITHUB_REPOSITORY: value })).toBe(DEFAULT_REPO_SLUG);
+  });
+
+  test('no generator emits a link to lsx-demo-theme any more', () => {
+    // Guards the regression directly rather than by inspection.
+    for (const env of [{}, { GITHUB_REPOSITORY: 'acme/other-repo' }]) {
+      expect(contributorsLink(env)).not.toContain('lsx-demo-theme');
+    }
+  });
+
+  test('repoUrl accepts an array, a string, or nothing', () => {
+    expect(repoUrl(['tree', 'main', 'profile'])).toBe(
+      'https://github.com/lightspeedwp/.github/tree/main/profile'
+    );
+    expect(repoUrl('tree/main/profile')).toBe(
+      'https://github.com/lightspeedwp/.github/tree/main/profile'
+    );
+    expect(repoUrl([])).toBe('https://github.com/lightspeedwp/.github');
+    expect(repoUrl()).toBe('https://github.com/lightspeedwp/.github');
   });
 });

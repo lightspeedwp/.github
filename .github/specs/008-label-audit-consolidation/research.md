@@ -350,4 +350,4 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 - **Alternatives considered**: An architecture-decision-record file per decision instead of an issue (still possible: the issue links to it under Linked work).
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

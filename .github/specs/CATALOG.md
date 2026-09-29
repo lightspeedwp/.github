@@ -55,6 +55,7 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
+| 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
 | 016 | changelog-agent-quality | Changelog Agent Quality & Validation Framework | Draft | 2026-09-18 | [./016-changelog-agent-quality/spec.md](./016-changelog-agent-quality/spec.md) |
@@ -216,6 +217,19 @@ Audit and refactor the SpecKit folder organization (001-012 specifications) to e
 - **Created**: 2026-09-16
 - **Updated**: 2026-09-18
 - **Link**: [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md)
+
+---
+
+### 018 - Standardised Claude Code Cloud Environment
+
+Give every cloud session on this repository the same environment, and stop agents creating branches that break
+the branching strategy, through SessionStart and PreToolUse hooks.
+
+- **Status**: Draft
+- **Phase**: Specification (implementation in lightspeedwp/.github#3524)
+- **Created**: 2026-09-23
+- **Updated**: 2026-09-24
+- **Link**: [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md)
 
 ---
 

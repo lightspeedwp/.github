@@ -3,7 +3,7 @@ title: 'Changelog'
 description: 'All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning'
 file_type: 'documentation'
 created_date: '2025-09-20'
-last_updated: '2026-09-15'
+last_updated: '2026-09-27'
 consolidation_phase: 'Phase 1 (merged sections)'
 owners:
   - LightSpeed Team
@@ -28,12 +28,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Footer Shape Signal** — `npm run validate:footers:shape` reports files holding two or more footer-shaped blocks the wording-based deduper cannot see. Advisory only: never edits a file, never fails a build. (#3682)
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
 - **Linear Review Platform** — Pull requests now carry a risk score in Linear, and an agent's comment names the agent and model behind it. Setup is in the Linear Integration guide. (#2234)
 - **Linear Merge Status Caveat** — The guide now records that a Linear issue left in Triage is silently skipped by the merge automation, and that ready-to-merge needs a stable check state. (#3593)
 - **Verifiable Code Intelligence Guidance** — Guidance for Linear now covers all repository families, not just `.github`, and is validated and fingerprinted so drift and Enterprise-only advice are detectable. (#3596)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
+- **Cloud Environment Specification** — Documented the shared Claude Code cloud setup and the branch-name rules Claude sessions must follow, with automated checks that keep the spec consistent. (#3525)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
 - **Footer Duplicates Caught Before Merge** — A new check blocks compounded or misplaced footer blocks, and a tool clears those already committed when run with `--fix`. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
@@ -43,6 +45,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Task-Issue Creation Gated** — Bulk issue creation is now opt-in per spec with stale-path checks, and the skill file is free of bot footer spam. ([#3540](https://github.com/lightspeedwp/.github/issues/3540))
 - **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
 - **Footer Policy Actually Enforced** — Reference, example, and template files no longer get a footer added, matching the exemptions the documentation has always described. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Compounded Footers Cleared, Batch 1 of 6** — 1,950 files under `agents/`: footer-exempt files lost their footer, the rest were collapsed to one. Deletion-only. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Footer Duplicates Halved, Batch 2 of 6** — The second `agents/` tranche: 1,154 more footer-exempt files shed their footer, while 796 kept one each. 7,586 files still queued. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Agent Specs Now Footer-Clean, Batch 3 of 6** — The `agents/` tree is finished: 1,158 exempt files stripped, 667 left with one footer. The remainder sits in `skills/` and elsewhere. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Repository Root and Templates Footer-Clean** — The remaining governance documents, reports, tests and website pages are done, closing the sweep. (Relates to #3451)
+- **Prompt Library Footer-Clean** — Repeated footer blocks stripped from `prompts/`; each file keeps at most one. (Relates to #3451)
+- **Documentation Footer-Clean** — Compounded stacks removed across `docs/`, with a single footer left wherever a file is meant to have one. (Relates to #3451)
+- **Plugin Documentation Footer-Clean** — The `plugins/` tree is clear, including the reference and example files that should never have carried a footer. (Relates to #3451)
+- **Skill Library Footer-Clean** — Every compounded block under `skills/` is gone, and the skill reference files the policy exempts now carry no footer at all. (Relates to #3451)
+- **Footer Contributors Link Names the Right Repository** — The generated `Contributors` link is now derived from the repository the file belongs to, instead of naming an unrelated project. (Relates to #3451)
 - **Stale Pull Requests Self-Update** — Eligible non-draft, non-fork PRs targeting `develop` now merge it in as soon as they fall behind, so nothing stays blocked on staleness alone. ([#3563](https://github.com/lightspeedwp/.github/pull/3563))
 - **Weekly Dependabot Updates** — Moved Dependabot npm update proposals from daily to weekly on Mondays, and kept a human code-owner review on every proposal. Left GitHub Actions update checks on a daily schedule. (#3476)
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
@@ -61,6 +72,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Docs-Bot Changelog Exemption** — The gate now matches the docs bot in either login shape, so its exemption applies. Bot pull requests with no user-facing content no longer need a changelog entry. (#3603, #3448)
+- **Semantic-Version Release Branches** — Branch checks in CI and the npm script now accept documented release names such as `release/v1.2.3` and `release/v1.2.3-rc1`. ([#3555](https://github.com/lightspeedwp/.github/issues/3555))
 - **Linear Plan Claims Corrected** — Workspace exports and third-party app approvals are Business features, not Enterprise-only. The validator, guide and guidance now cite Linear's docs for every Enterprise-only claim. (#3599)
 - **Registry Schema Enforced** — The registry validator now checks objects against the loaded schema, rejecting entries that match no branch. ([#3522](https://github.com/lightspeedwp/.github/issues/3522))
 - **Validation Small Defects Fixed** — Backup opt-out is honoured, default-only footer configs apply, and null labels no longer throw. ([#3538](https://github.com/lightspeedwp/.github/issues/3538))
@@ -147,6 +160,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Requirements Quality Checklist** — Assessment checklists for 8 quality dimensions with 35+ automated checks and 4 audience templates; tests tracked in T089–T095. ([PR #3371](https://github.com/lightspeedwp/.github/pull/3371))
+- **Plugin Advisories and Register** — Added current scaffold tracking, safe asset versioning, a rate-limited newsletter example and project-controlled gateway approval. ([#1396](https://github.com/lightspeedwp/.github/issues/1396))
 - **GitHub Label Audit** — Audited all 169 canonical labels: `type:decision` had no issue type and 12 protected labels were missing from the label list, so they were removed from it. Added evidence and the label consolidation plan. (#3362)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
 - **Changelog pre-release validation tools** — Added automated validator script and release manager checklist for pre-release changelog quality audits. (#3350)

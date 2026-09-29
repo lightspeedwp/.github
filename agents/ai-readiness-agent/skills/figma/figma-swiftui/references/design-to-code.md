@@ -296,21 +296,3 @@ For colors, walk this priority order:
 **A Figma accent variable on a specific element is not necessarily the iOS `AccentColor`.** When the Tailwind reference uses a custom color variable — `var(--accents/custom-accent, …)`, `var(--brand/highlight, …)`, `var(--colors/green-lime, …)`, or any similar per-element tint path — to color a badge, kicker label, or decorative text, that color should become a named color set in `Assets.xcassets` (rule 3 above), **not** go into `AccentColor`. The variable name in the Figma file is your cue: if it scopes to a component or element (e.g. `--accents/custom-accent`, `--status/active`) rather than the whole app (e.g. `--brand/primary`, `--app/tint`), it is a custom color, not the app tint. Setting `AccentColor` to it would recolor every system button, toggle, and link in the app. Check what color the design uses for interactive controls (tapped buttons, selected tabs) to determine the real `AccentColor`; when that information is not visible in the current frame, leave `AccentColor` at the Xcode default and flag the uncertainty to the user.
 
 Standard SwiftUI modifiers always beat transliterated `position: absolute` / `mix-blend-mode` stacks from the Tailwind reference.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

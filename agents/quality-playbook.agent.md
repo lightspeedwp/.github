@@ -161,4 +161,4 @@ If the tool runs out of context mid-phase, the phase's incremental writes to dis
 - "Help" — Explain how it works
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

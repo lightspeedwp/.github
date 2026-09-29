@@ -59,19 +59,3 @@ Read this file when the user wants to reply to an email, draft a response, decid
 6. When formatting matters, write clean Markdown-friendly email body text rather than describing the output as plain text only.
 7. If a term or ask in the thread is ambiguous, start by using the sender's own wording and ask a compact clarifying question rather than jumping to one product-family interpretation.
 8. Keep rationale focused on why the draft moves the thread forward. Avoid boilerplate notes about inaccessible internal sources unless that absence meaningfully shaped the draft.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

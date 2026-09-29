@@ -62,5 +62,3 @@ This report does not confirm the full Yoast state because the listed evidence is
 ## Client-safe note
 
 These recommendations are based on the reviewed evidence. They are intended to reduce SEO risk and improve search appearance clarity; they do not guarantee ranking changes.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

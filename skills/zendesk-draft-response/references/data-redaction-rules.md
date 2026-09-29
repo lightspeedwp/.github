@@ -88,5 +88,3 @@ Avoid replacing every meaningful detail with vague text. A useful redacted suppo
 - what the safe next step is
 
 If redaction makes the support scenario impossible to understand, rewrite the scenario as synthetic data instead of preserving the original thread structure.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
