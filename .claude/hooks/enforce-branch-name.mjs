@@ -1593,6 +1593,75 @@ function checkGitHub(tool, input, cwd) {
 }
 
 /** Problems found in a `gh` command (FR-008, FR-009). */
+/**
+ * The GraphQL document an `api graphql` call carries, from `--query`, `-f query`
+ * or `--input`, as text. A value that cannot be read yields an empty string, which
+ * the caller treats as a mutation naming no branch rather than as a pass.
+ */
+function graphqlQuery(args) {
+  for (let i = 1; i < args.length; i += 1) {
+    if (args[i] === '--query') return String(args[i + 1] || '');
+    const attached = args[i].match(/^--query=(.*)$/);
+    if (attached) return attached[1];
+    if (args[i] === '-f' && String(args[i + 1] || '').startsWith('query=')) {
+      return String(args[i + 1]).slice('query='.length);
+    }
+    const field = args[i].match(/^(?:-f|-F)(?:query=)(.*)$/);
+    if (field) return field[1];
+    if (args[i] === '--input' || args[i] === '-F') {
+      const file = String(args[i + 1] || '');
+      if (!file || file === '-') continue;
+      try {
+        return JSON.parse(readFileSync(expandHome(file), 'utf8')).query || '';
+      } catch {
+        return '';
+      }
+    }
+  }
+  return '';
+}
+
+/**
+ * Problems with the branch names a GraphQL mutation mentions.
+ *
+ * A mutation is not decomposed: the document is scanned for the string values
+ * bound to `refName`, `oid`, `headRefName`, `baseRefName` and `name`, and each is
+ * judged as a branch. That is a deliberate widening — the guard cannot execute the
+ * document to see what it does — so it is also the reason a value that is not a
+ * branch is left alone rather than refused.
+ */
+function graphqlBranchProblems(query, owner, repo) {
+  if (!query) return [];
+  if (owner && !OWNER.includes(owner)) return [];
+  const problems = [];
+  const seen = new Set();
+  for (const match of query.matchAll(
+    /\b(?:refName|headRefName|baseRefName|name|oid|expression)\b\s*:\s*"([^"]*)"/g
+  )) {
+    const value = match[1].trim();
+    if (!value || seen.has(value)) continue;
+    // A commit SHA or a tree reference is not a branch name and is not judged as
+    // one, which is why `oid` is read but never refused.
+    if (/^[0-9a-f]{7,40}$/i.test(value)) continue;
+    if (/^[0-9a-f]{2,40}$/i.test(value) && !value.includes('/')) continue;
+    seen.add(value);
+    if (PROTECTED.has(value)) {
+      problems.push(`Write blocked: '${value}' is a protected branch.`);
+      continue;
+    }
+    if (PLACEHOLDER.test(value)) {
+      problems.push(`Write blocked: '${value}' is the session placeholder, not a real branch name.`);
+      continue;
+    }
+    const result = nameProblem(value);
+    if (result) problems.push(`Write blocked: ${result}.`);
+  }
+  // The owner and repository are not branch names, so a mutation naming only those
+  // has nothing to judge and is left alone.
+  if (repo && seen.has(repo)) seen.delete(repo);
+  return problems;
+}
+
 function checkGh(args, cwd, branch) {
   const repoFlag = flagValue(args, ['--repo', '-R']);
   // The repository is resolved the same way the pull-request check resolves it,
@@ -1617,6 +1686,17 @@ function checkGh(args, cwd, branch) {
     (Object.keys(fields).length || inputArg(args) ? 'POST' : 'GET')
   ).toUpperCase();
   if (method === 'GET') return [];
+  // GraphQL reaches the same writes through a different transport: createRef,
+  // updateRef and createCommitOnBranch all take a branch or a commit on a named
+  // ref, and the whole mutation arrives as one `query=` field. There is no REST
+  // path to match, so the endpoint returned nothing and the call was allowed. The
+  // branch names the mutation mentions are checked instead, which covers the same
+  // ground as the REST branches below: a forbidden name is refused, and a mutation
+  // that names no branch is not this guard's business.
+  if (/^graphql$/.test(apiEndpoint(args))) {
+    return graphqlBranchProblems(graphqlQuery(args), owner, repo);
+  }
+
   const endpoint = apiEndpoint(args)
     .replace(/^\//, '')
     .replace('{owner}', owner)
