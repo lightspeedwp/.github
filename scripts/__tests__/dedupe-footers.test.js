@@ -1173,11 +1173,7 @@ describe('--shape reports the signal alone and ignores the gating findings', () 
       expect(() =>
         execFileSync(
           process.execPath,
-          [
-            path.join(__dirname, '..', 'dedupe-footers.js'),
-            '--check',
-            `--paths-from=${listFile}`,
-          ],
+          [path.join(__dirname, '..', 'dedupe-footers.js'), '--check', `--paths-from=${listFile}`],
           { cwd: dir, encoding: 'utf8', stdio: 'pipe' }
         )
       ).toThrow();
@@ -1243,5 +1239,33 @@ describe('--shape and --fix cannot be combined', () => {
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
+  });
+});
+
+describe('the workflow command announcing the shape signal is well formed', () => {
+  // GitHub splits a workflow command on the first "::" after the properties, so
+  // a title/message separator written as "==" is not a separator at all: the
+  // runner never splits, and the annotation renders with the whole string as its
+  // title instead of appearing as a notice. The step does not fail either way,
+  // which is why it needs a test to catch it.
+  const workflowPath = path.join(__dirname, '..', '..', '.github/workflows/documentation.yml');
+  const workflow = fs.readFileSync(workflowPath, 'utf8');
+  const commands = [...workflow.matchAll(/"::(error|warning|notice|debug)\b([^"]*)"/g)];
+
+  test('the workflow file is readable and declares commands', () => {
+    expect(commands.length).toBeGreaterThan(0);
+  });
+
+  test('every command separates its title from its message with ::', () => {
+    for (const [, kind, rest] of commands) {
+      // Properties end at "::"; anything after it is the message.
+      expect([kind, rest, rest.includes('::')]).toStrictEqual([kind, rest, true]);
+      // "==" is the trap: it looks like a separator and is not one.
+      expect([kind, rest, rest.includes('==')]).toStrictEqual([kind, rest, false]);
+    }
+  });
+
+  test('the footer shape signal notice names its title', () => {
+    expect(workflow).toContain('::notice title=Footer shape signal::');
   });
 });

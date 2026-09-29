@@ -1,6 +1,56 @@
 import { isFooterPhraseLine } from './footer-policy.js';
 
 /**
+ * Mark lines that sit inside a fenced code block.
+ *
+ * Copied from dedupe-footers.js rather than imported, because that module
+ * imports this one: an import here would close the cycle. The copy is why
+ * computeFenceMask is exported and covered by its own tests in dedupe-footers.js
+ * — a change to fence semantics has to be made in both places.
+ *
+ * @param {string[]} lines - Document split on '\n'
+ * @returns {boolean[]} True where the line is inside (or is) a fence
+ */
+function computeFenceMask(lines) {
+  const mask = new Array(lines.length).fill(false);
+  let openChar = null;
+  let openLength = 0;
+
+  for (let i = 0; i < lines.length; i += 1) {
+    // Strip the carriage return a CRLF document leaves on every line, so the
+    // fence opener is recognised on those files too.
+    const line = lines[i].replace(/\r$/, '');
+    // A fence opens or closes only after 0-3 spaces of indent, so an indented
+    // code block must not be read as a delimiter.
+    const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if (!match) {
+      // Everything between an opening and a closing fence is content.
+      if (openChar !== null) mask[i] = true;
+      continue;
+    }
+    const char = match[1][0];
+    const length = match[1].length;
+    const info = match[2];
+    if (openChar === null) {
+      // A backtick fence's info string may not contain a backtick.
+      if (char === '`' && info.includes('`')) {
+        mask[i] = true;
+        continue;
+      }
+      openChar = char;
+      openLength = length;
+      mask[i] = true;
+    } else if (char === openChar && length >= openLength && info.trim() === '') {
+      openChar = null;
+      mask[i] = true;
+    } else {
+      mask[i] = true; // Nested or annotated fence: content, not a delimiter.
+    }
+  }
+  return mask;
+}
+
+/**
  * footer-shape.js
  * Shape-based detection of footer-shaped blocks in a file's trailing zone.
  *
@@ -100,6 +150,12 @@ export function findTrailingFooterShapedBlocks(content) {
   if (lines.length === 0) return null;
   if (lines.length > 1 && lines[lines.length - 1] === '') lines.pop();
 
+  // A footer-shaped line inside a fenced code block is an example, not a footer.
+  // The wording-based deduper already refuses to touch those, so a signal that
+  // counted them would point a maintainer at documentation showing the shape
+  // rather than at a file that needs reconciling.
+  const fenceMask = computeFenceMask(lines);
+
   const zoneStart = Math.max(0, lines.length - ZONE_LINES);
   const zone = lines.slice(zoneStart);
 
@@ -108,7 +164,17 @@ export function findTrailingFooterShapedBlocks(content) {
   zone.forEach((line, i) => {
     if (ATX_HEADING_RE.test(line)) lastHeading = i;
   });
-  const effective = lastHeading === -1 ? zone.map((l, i) => ({ l, i })) : zone.slice(lastHeading + 1).map((l, i) => ({ l, i: lastHeading + 1 + i }));
+  // Track the document index of each candidate line explicitly rather than
+  // re-deriving it from a slice offset, which is where an earlier version of
+  // this filter looked up the wrong line once a heading was present.
+  const candidates = [];
+  zone.forEach((line, i) => {
+    if (lastHeading !== -1 && i <= lastHeading) return;
+    const docIndex = zoneStart + i;
+    if (fenceMask[docIndex]) return;
+    candidates.push({ l: line, i: docIndex });
+  });
+  const effective = candidates;
 
   const blocks = [];
   let i = 0;
@@ -132,7 +198,8 @@ export function findTrailingFooterShapedBlocks(content) {
       blocks.push({
         lines: blockLines,
         text: blockText,
-        line: zoneStart + effective[i - blockLines.length + 1].i + 1,
+        // effective[i] already carries the document index.
+        line: effective[i - blockLines.length + 1].i + 1,
       });
     }
     i++;

@@ -59,7 +59,8 @@ describe('footer-shape', () => {
     });
 
     test('two identical footers are flagged', () => {
-      const two = '# D\n\nC\n\n---\n\n*Made with ❤️ by the LightSpeed team.*\n\n*Made with ❤️ by the LightSpeed team.*\n';
+      const two =
+        '# D\n\nC\n\n---\n\n*Made with ❤️ by the LightSpeed team.*\n\n*Made with ❤️ by the LightSpeed team.*\n';
       expect(findShapeMultiples(two).count).toBe(2);
     });
   });
@@ -76,9 +77,19 @@ describe('footer-shape', () => {
 
   describe('shape rules', () => {
     test('accepts the emphasis forms footers are actually written in', () => {
-      expect(emphasisedPhraseText('*Built by \u{1F9F1} LightSpeedWP with \u2615, \u{1F680}, and open-source spirit!*')).toBeTruthy();
-      expect(emphasisedPhraseText('_Maintained with ❤️ by the \u{1F680} LightSpeedWP Automation Team_')).toBeTruthy();
-      expect(emphasisedPhraseText('**\u{1F680} Built by LightSpeedWP with \u2615, open source, and automation spirit!**')).toBeTruthy();
+      expect(
+        emphasisedPhraseText(
+          '*Built by \u{1F9F1} LightSpeedWP with \u2615, \u{1F680}, and open-source spirit!*'
+        )
+      ).toBeTruthy();
+      expect(
+        emphasisedPhraseText('_Maintained with ❤️ by the \u{1F680} LightSpeedWP Automation Team_')
+      ).toBeTruthy();
+      expect(
+        emphasisedPhraseText(
+          '**\u{1F680} Built by LightSpeedWP with \u2615, open source, and automation spirit!**'
+        )
+      ).toBeTruthy();
     });
 
     test('rejects document structure that is not a footer phrase', () => {
@@ -114,6 +125,63 @@ describe('footer-shape', () => {
       expect(findShapeMultiples('').count).toBe(0);
       expect(findShapeMultiples('   \n\n').count).toBe(0);
       expect(findTrailingFooterShapedBlocks('')).toBeNull();
+    });
+  });
+  describe('footer-shaped lines inside a fenced code block are not footers', () => {
+    // The wording-based deduper already refuses to touch fenced content, so a
+    // signal that counted it would point a maintainer at documentation *showing*
+    // the footer shape rather than at a file needing reconciliation.
+    const fenced = (eol) =>
+      [
+        '# Docs',
+        '',
+        '```markdown',
+        '*Thanks for reading the guide*',
+        '[Docs](https://example.invalid)',
+        '```',
+        '',
+      ].join(eol);
+    const real = (eol) =>
+      [
+        '# Docs',
+        '',
+        'Some body text here.',
+        '*Thanks for reading the guide*',
+        '[Docs](https://example.invalid)',
+        '',
+      ].join(eol);
+
+    test.each([
+      ['LF', '\n'],
+      ['CRLF', '\r\n'],
+    ])('ignores a fenced example on %s files', (_label, eol) => {
+      // No block found, so the result object is empty rather than null: null
+      // means "no trailing zone at all", which is a different condition.
+      expect(findTrailingFooterShapedBlocks(fenced(eol)).blocks).toHaveLength(0);
+      expect(findShapeMultiples(fenced(eol)).count).toBe(0);
+    });
+
+    test.each([
+      ['LF', '\n'],
+      ['CRLF', '\r\n'],
+    ])('still reports the real block on %s files', (_label, eol) => {
+      const blocks = findTrailingFooterShapedBlocks(real(eol));
+      expect(blocks).not.toBeNull();
+      expect(blocks.blocks).toHaveLength(1);
+      // One-based, so the number matches an editor and `grep -n`.
+      expect(blocks.blocks[0].line).toBe(4);
+    });
+
+    test('an unclosed fence still masks the rest of the zone', () => {
+      const text = [
+        '# Docs',
+        '',
+        '```markdown',
+        '*Thanks for reading the guide*',
+        '[Docs](https://example.invalid)',
+        '',
+      ].join('\n');
+      expect(findTrailingFooterShapedBlocks(text).blocks).toHaveLength(0);
     });
   });
 });

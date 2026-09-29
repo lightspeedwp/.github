@@ -438,7 +438,7 @@ jobs:
               );
             }
             console.log(
-              "::notice title=Footer shape signal==" +
+              "::notice title=Footer shape signal::" +
                 unrecognised.length +
                 " of " +
                 findings.length +
