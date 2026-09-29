@@ -15,7 +15,7 @@
  *    mid-document (AGENTS.md), and the two need opposite treatment.
  */
 
-import { execFileSync } from 'child_process';
+import { execFileSync, spawnSync } from 'child_process';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
@@ -1019,5 +1019,254 @@ describe('an indented footer phrase is code content, not a footer', () => {
 
     expect(result.changed).toBe(false);
     expect(result.cleaned.match(/Docs signed by/g) || []).toHaveLength(2);
+  });
+});
+
+describe('the footer shape signal is reported separately and never auto-fixed', () => {
+  // Two different footer-shaped blocks, neither in FOOTER_PATTERNS, so the
+  // wording-based deduper cannot see them. This is the shape of the original
+  // report: a file the deduper passes cleanly while carrying two different
+  // footers.
+  const COMPOUNDED =
+    '# Title\n\nBody.\n\n' +
+    '---\n\n' +
+    '*This repository is managed by the LightSpeed team*\n' +
+    '\n' +
+    '---\n\n' +
+    '*🚀 Built by LightSpeedWP with ☕, open source, and automation spirit!*\n';
+
+  /** run() scans via git ls-files, so point it at an explicit file list. */
+  const scan = (dir, names, extra = {}) => {
+    const listFile = path.join(dir, 'paths.txt');
+    fs.writeFileSync(listFile, `${names.join('\n')}\n`, 'utf8');
+    return run({ cwd: dir, quiet: true, pathsFrom: listFile, ...extra });
+  };
+
+  test('the wording-based deduper genuinely sees nothing in such a file', () => {
+    expect(analyseContent(COMPOUNDED, { exempt: false }).removedBlocks).toBe(0);
+  });
+
+  test('adds shapeFiles and shapeFindings to the run() report', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-report-'));
+    try {
+      fs.writeFileSync(path.join(dir, 'NOTES.md'), COMPOUNDED, 'utf8');
+      const report = scan(dir, ['NOTES.md']);
+
+      expect(report.shapeFiles).toBe(1);
+      expect(Array.isArray(report.shapeFindings)).toBe(true);
+      expect(report.shapeFindings).toHaveLength(1);
+
+      const [finding] = report.shapeFindings;
+      expect(finding.path).toBe('NOTES.md');
+      expect(finding.blocks).toBe(2);
+      expect(finding.recognisedByDedupe).toBe(false);
+      expect(finding.regions).toHaveLength(2);
+      for (const region of finding.regions) {
+        expect(region.texts.length).toBeGreaterThan(0);
+      }
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('adds no dedupe findings of its own', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-intact-'));
+    try {
+      fs.writeFileSync(path.join(dir, 'PLAIN.md'), '# Title\n\nBody.\n', 'utf8');
+      fs.writeFileSync(path.join(dir, 'NOTES.md'), COMPOUNDED, 'utf8');
+      const report = scan(dir, ['PLAIN.md', 'NOTES.md']);
+
+      // The signal adds its own field; it must not create dedupe findings.
+      expect(report.files).toBe(0);
+      expect(report.findings).toHaveLength(0);
+      expect(report.shapeFiles).toBe(1);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('--fix leaves a signal-only file byte-identical', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-fix-'));
+    try {
+      const file = path.join(dir, 'NOTES.md');
+      fs.writeFileSync(file, COMPOUNDED, 'utf8');
+      const before = fs.readFileSync(file, 'utf8');
+
+      const report = scan(dir, ['NOTES.md'], { fix: true, force: true });
+
+      expect(report.shapeFiles).toBe(1);
+      expect(fs.readFileSync(file, 'utf8')).toBe(before);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('parseArgs accepts --shape and it defaults to off', () => {
+    expect(parseArgs(['--shape']).shapeOnly).toBe(true);
+    expect(parseArgs([]).shapeOnly).toBe(false);
+  });
+
+  test('the signal never gates: --check exits 0 for a signal-only file', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-exit-'));
+    try {
+      fs.writeFileSync(path.join(dir, 'NOTES.md'), COMPOUNDED, 'utf8');
+      const listFile = path.join(dir, 'paths.txt');
+      fs.writeFileSync(listFile, 'NOTES.md\n', 'utf8');
+
+      // 28.4% of flagged files (255 of 899) carry no known footer phrase, so
+      // this must not fail a build. Measured with
+      // `npm run measure:footers:shape`. execFileSync throws on a non-zero exit, so
+      // reaching the assertions at all is the exit-code guarantee.
+      const output = execFileSync(
+        process.execPath,
+        [
+          path.join(__dirname, '..', 'dedupe-footers.js'),
+          '--check',
+          '--shape',
+          `--paths-from=${listFile}`,
+        ],
+        { cwd: dir, encoding: 'utf8' }
+      );
+
+      expect(output).toContain('footer shape signal (advisory, never gates, never auto-fixes)');
+      expect(output).toContain('possible unrecognised footers: 1 file(s)');
+      expect(output).toContain('NOTES.md');
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('--shape reports the signal alone and ignores the gating findings', () => {
+  // A file carrying both problem types: a compounded *known* footer, which the
+  // wording-based deduper catches and would gate on, plus footer-shaped blocks
+  // it cannot see. `--shape` must report only the second and must not gate.
+  const MIXED =
+    '# Title\n\nBody.\n\n' +
+    '_Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!_\n' +
+    '\n' +
+    '_Docs signed by \u{1F916} Copilot for LightSpeedWP \u2013 always fresh!_\n' +
+    '\n' +
+    '*This repository is managed by the LightSpeed team*\n';
+
+  test('the plain report gates on it, so the two findings are genuinely different', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-mixed-'));
+    try {
+      fs.writeFileSync(path.join(dir, 'MIXED.md'), MIXED, 'utf8');
+      const listFile = path.join(dir, 'paths.txt');
+      fs.writeFileSync(listFile, 'MIXED.md\n', 'utf8');
+      const report = run({ cwd: dir, quiet: true, pathsFrom: listFile });
+
+      expect(report.files).toBeGreaterThan(0);
+      expect(report.shapeFiles).toBeGreaterThan(0);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('--check without --shape exits 1 on that file', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-gate-'));
+    try {
+      fs.writeFileSync(path.join(dir, 'MIXED.md'), MIXED, 'utf8');
+      const listFile = path.join(dir, 'paths.txt');
+      fs.writeFileSync(listFile, 'MIXED.md\n', 'utf8');
+
+      expect(() =>
+        execFileSync(
+          process.execPath,
+          [path.join(__dirname, '..', 'dedupe-footers.js'), '--check', `--paths-from=${listFile}`],
+          { cwd: dir, encoding: 'utf8', stdio: 'pipe' }
+        )
+      ).toThrow();
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('--check --shape exits 0 and omits the wording-based finding', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-alone-'));
+    try {
+      fs.writeFileSync(path.join(dir, 'MIXED.md'), MIXED, 'utf8');
+      const listFile = path.join(dir, 'paths.txt');
+      fs.writeFileSync(listFile, 'MIXED.md\n', 'utf8');
+
+      // Reaching the assertions at all proves the non-zero-exit contract: the
+      // wording-based finding above would otherwise have failed this run.
+      const output = execFileSync(
+        process.execPath,
+        [
+          path.join(__dirname, '..', 'dedupe-footers.js'),
+          '--check',
+          '--shape',
+          `--paths-from=${listFile}`,
+        ],
+        { cwd: dir, encoding: 'utf8' }
+      );
+
+      expect(output).toContain('footer shape signal (advisory');
+      expect(output).not.toContain('footer duplicate DRY-RUN');
+      // The mixed case is the point: the two known blocks are recognised, but the
+      // third is not, so the file stays in the unrecognised list rather than
+      // being masked by the known footer sitting next to it.
+      expect(output).toContain('possible unrecognised footers: 1 file(s)');
+      expect(output).toContain('MIXED.md');
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('--shape and --fix cannot be combined', () => {
+  test('parseArgs rejects the pair', () => {
+    expect(() => parseArgs(['--shape', '--fix'])).toThrow(/never fixes/);
+    expect(() => parseArgs(['--fix', '--shape'])).toThrow(/never fixes/);
+  });
+
+  test('either flag on its own is still accepted', () => {
+    expect(parseArgs(['--shape']).shapeOnly).toBe(true);
+    expect(parseArgs(['--fix']).fix).toBe(true);
+  });
+
+  test('the CLI reports the rejection and exits non-zero', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'shape-conflict-'));
+    try {
+      const result = spawnSync(
+        process.execPath,
+        [path.join(__dirname, '..', 'dedupe-footers.js'), '--check', '--shape', '--fix'],
+        { cwd: dir, encoding: 'utf8' }
+      );
+      expect(result.status).not.toBe(0);
+      expect(result.stderr).toContain('never fixes');
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('the workflow command announcing the shape signal is well formed', () => {
+  // GitHub splits a workflow command on the first "::" after the properties, so
+  // a title/message separator written as "==" is not a separator at all: the
+  // runner never splits, and the annotation renders with the whole string as its
+  // title instead of appearing as a notice. The step does not fail either way,
+  // which is why it needs a test to catch it.
+  const workflowPath = path.join(__dirname, '..', '..', '.github/workflows/documentation.yml');
+  const workflow = fs.readFileSync(workflowPath, 'utf8');
+  const commands = [...workflow.matchAll(/"::(error|warning|notice|debug)\b([^"]*)"/g)];
+
+  test('the workflow file is readable and declares commands', () => {
+    expect(commands.length).toBeGreaterThan(0);
+  });
+
+  test('every command separates its title from its message with ::', () => {
+    for (const [, kind, rest] of commands) {
+      // Properties end at "::"; anything after it is the message.
+      expect([kind, rest, rest.includes('::')]).toStrictEqual([kind, rest, true]);
+      // "==" is the trap: it looks like a separator and is not one.
+      expect([kind, rest, rest.includes('==')]).toStrictEqual([kind, rest, false]);
+    }
+  });
+
+  test('the footer shape signal notice names its title', () => {
+    expect(workflow).toContain('::notice title=Footer shape signal::');
   });
 });
