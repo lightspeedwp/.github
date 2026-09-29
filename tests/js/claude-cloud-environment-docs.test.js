@@ -277,7 +277,13 @@ describe('Claude cloud environment specification contracts', () => {
       expect(hooks).toMatch(
         /`gh api repos\/\{owner\}\/\{repo\}\/pulls\?head=\{owner\}:<branch>&state=open&per_page=1`/
       );
-      expect(hooks).toMatch(/each with a 5-second timeout\. Any failure means/);
+      // The timeout is a per-call figure, and the total is bounded separately: the
+      // check runs per refspec and per commit, so without a total a single command
+      // could hold the guard well past the hook timeout, and a hook that reaches
+      // its timeout fails open.
+      expect(hooks).toMatch(/timeout of up to 5 seconds/);
+      expect(hooks).toMatch(/bounded to 5 seconds per invocation and cached per branch/);
+      expect(hooks).toMatch(/Any failure means/);
       expect(hooks).toMatch(
         /MCP calls and `gh` commands whose owner isn't `lightspeedwp`.*are always allowed/
       );
@@ -512,6 +518,28 @@ describe('Claude cloud environment specification contracts', () => {
       '`.claude/cloud/environment.env`'
     );
     expect(contractRow(model, 'Setup script')).toContain('`.claude/cloud/setup.sh`');
+  });
+
+  // The environment cache limit is about five minutes and the setup script must
+  // finish inside it. Bounding each install individually is not enough, because
+  // those bounds run one after another: 90 + 150 + 150 is over six minutes. The
+  // function therefore carries one deadline that each step is capped by.
+  test('gives the linter installs a total deadline, not only per-step timeouts', () => {
+    const setup = readDocument('.claude/cloud/setup.sh');
+    const body = setup.slice(setup.indexOf('install_linters() {'));
+    const fn = body.slice(0, body.indexOf('\n}\n'));
+    expect(fn).toMatch(/LINTERS_BUDGET_SECONDS/);
+    // The deadline is computed once and each step is capped by what is left of it,
+    // so a slow first step cannot consume the whole budget.
+    expect(fn).toMatch(/deadline=\$\(\(SECONDS \+ LINTERS_BUDGET_SECONDS\)\)/);
+    const perStep = (fn.match(/timeout "\$\(remaining\)"/g) || []).length;
+    expect(perStep).toBeGreaterThanOrEqual(3);
+    // And the budget is inside the cache limit, with room to spare.
+    const budget = Number(
+      setup.match(/LINTERS_BUDGET_SECONDS="\$\{LS_LINTERS_BUDGET_SECONDS:-(\d+)\}"/)[1]
+    );
+    expect(budget).toBeGreaterThan(0);
+    expect(budget).toBeLessThanOrEqual(240);
     expect(requirement('FR-018')).toMatch(/MUST NOT contain secrets/);
   });
 
@@ -584,6 +612,22 @@ describe('the operations document', () => {
     // The phrase the repository's own ai-feedback validation looks for, asserted
     // here so a reworded summary cannot silently fail the check in CI.
     expect(summary).toMatch(/(?:All\s+)?feedback\s+(?:items\s+)?(?:addressed|completed|resolved)/i);
+  });
+
+  // A hook that reaches its timeout is killed, and a killed hook is treated as
+  // non-blocking, so the guard's own network budget has to sit well inside the
+  // hook timeout. This is asserted rather than left to be re-derived.
+  test('keeps the guard network budget well below the hook timeout', () => {
+    const guard = readDocument('.claude/hooks/enforce-branch-name.mjs');
+    const budget = Number(guard.match(/const PR_CHECK_BUDGET_MS = (\d+);/)[1]);
+    const settings = JSON.parse(readDocument('.claude/settings.json'));
+    const hook = settings.hooks.PreToolUse.flatMap((entry) => entry.hooks).find((h) =>
+      h.command.includes('run-guard')
+    );
+    const timeoutSeconds = hook.timeout;
+    expect(timeoutSeconds).toBeGreaterThan(0);
+    // At most a third of it, and in milliseconds against a seconds value.
+    expect(budget).toBeLessThanOrEqual((timeoutSeconds * 1000) / 3);
   });
 
   test('covers both branch protection and rulesets in the verification step', () => {

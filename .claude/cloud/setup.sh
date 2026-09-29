@@ -22,6 +22,15 @@ log() { printf '==> [setup] %s\n' "$*"; }
 
 NODE_VERSION="${LS_NODE_VERSION:-24.20.0}" # keep in step with .nvmrc
 
+# Total time install_linters may take. The three installs it runs are bounded
+# individually too, but those bounds are sequential, so this is the figure that
+# keeps the whole function inside the environment cache limit.
+LINTERS_BUDGET_SECONDS="${LS_LINTERS_BUDGET_SECONDS:-150}"
+
+# A step is still given this much time when the budget is nearly spent: a failed
+# install is reported, which is better than a step that is never attempted.
+MIN_STEP_SECONDS=5
+
 # ── 1. Node.js matching .nvmrc ───────────────────────────────────────────────
 # The image ships Node 22 on PATH via /opt/node22/bin. /root/.local/bin comes
 # earlier on PATH, so symlinking Node there makes it the default.
@@ -77,10 +86,28 @@ install_node() {
 
 # ── 2. Linters used by CI but not pre-installed ──────────────────────────────
 install_linters() {
+  # The per-step timeouts below run one after another, so bounding each is not
+  # enough: 90 + 150 + 150 is over six minutes, and the environment cache limit is
+  # about five. A single deadline for the function is what actually bounds it, and
+  # each step is capped by whatever is left of that deadline rather than by its own
+  # fixed figure, so one slow step cannot consume the whole budget before the next
+  # one starts.
+  local deadline=$((SECONDS + LINTERS_BUDGET_SECONDS))
+
+  # Remaining seconds, at least MIN_STEP_SECONDS so a step is still attempted once
+  # the budget is nearly spent, and a failure is better than a skipped install.
+  local left
+  remaining() {
+    left=$((deadline - SECONDS))
+    [ "$left" -lt "$MIN_STEP_SECONDS" ] && left="$MIN_STEP_SECONDS"
+    printf '%s' "$left"
+  }
+
   # gh is needed by the branch guard's legacy PR check (spec 016 FR-006). One
   # apt run for both, so the two installs never fight over the apt lock.
   log "Installing shellcheck and gh"
-  { timeout 90 apt-get update -qq && timeout 150 env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq shellcheck gh; } >/dev/null 2>&1 ||
+  { timeout "$(remaining)" apt-get update -qq &&
+    timeout "$(remaining)" env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq shellcheck gh; } >/dev/null 2>&1 ||
     log "shellcheck/gh install failed (non-fatal)"
   if command -v gh >/dev/null 2>&1; then
     log "gh $(gh --version | head -1 | awk '{print $3}') available"
@@ -91,7 +118,7 @@ install_linters() {
   # actionlint via the Go module proxy (GitHub release assets from repos not
   # attached to the session return 403 through the GitHub proxy).
   log "Installing actionlint"
-  timeout 150 env GOBIN=/usr/local/bin go install github.com/rhysd/actionlint/cmd/actionlint@latest >/dev/null 2>&1 ||
+  timeout "$(remaining)" env GOBIN=/usr/local/bin go install github.com/rhysd/actionlint/cmd/actionlint@latest >/dev/null 2>&1 ||
     log "actionlint install failed (non-fatal)"
 }
 
