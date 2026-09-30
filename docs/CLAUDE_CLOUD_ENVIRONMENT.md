@@ -252,15 +252,17 @@ settings, not branch-protection fields.
 - The guard reads `gh api graphql` as well as the REST API, because GraphQL reaches the same branch writes. The
   document is read from `--query`, from a field and from an `--input` body, the branch names in it are judged by the
   same rules, and a document the guard cannot read is refused. A name bound to a GraphQL variable is resolved from
-  the value sent with it, since `gh` sends every field other than `query` as a variable. Five limits remain, all
-  recorded in the [hooks contract](../.github/specs/018-claude-cloud-environment/contracts/hooks.md): a whole input
-  object passed as one variable (`createCommitOnBranch(input: $b)`) names no branch in the document, so the branch
-  it commits to is not read; the check is per document rather than per mutation field; the endpoint is matched as
-  `graphql` exactly, so `gh api /graphql` is not checked; a variable value supplied only in an `--input` body's
-  `variables` map is not a field, so it is refused rather than read; and `gh api` is last-wins for a repeated
-  `--input` or `-X` where the guard reads the first. The REST path can also still create a protected branch, because
+  the value sent with it, since `gh` sends every field other than `query` as a variable. Seven things it does not do are
+  recorded in the [hooks contract](../.github/specs/018-claude-cloud-environment/contracts/hooks.md). Five are limits
+  of how the document can be read: a whole input object passed as one variable
+  (`createCommitOnBranch(input: $b)`) names no branch in the document, so the branch it commits to is not read; the
+  check is per document rather than per mutation field; the endpoint is matched as `graphql` exactly, so
+  `gh api /graphql` is not checked; a variable value supplied only in an `--input` body's `variables` map is not a
+  field, so it is refused rather than read; and `gh api` is last-wins for a repeated `--input` or `-X` where the guard
+  reads the first. Two are writes the check does not reach at all. `mergeBranch` writes to the branch in its `base`,
+  which is not a key the guard reads, so a merge into a protected branch is neither refused nor reported. And
   `POST repos/{owner}/{repo}/git/refs` judges the name with the naming rules, which exempt `main`, rather than with
-  the protected-branch check.
+  the protected-branch check, so the REST path can still create a protected branch.
 - The guard reads shell syntax. It does not follow aliases, and it cannot know a name the shell builds at run time.
   A command substitution is read, so a command hidden inside `$(...)` or backticks is checked, and a wrapper such as
   `timeout` or `env` is stepped through to the command behind it.

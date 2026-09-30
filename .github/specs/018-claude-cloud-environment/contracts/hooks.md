@@ -139,7 +139,8 @@ every field other than `query` as a variable. A branch-writing mutation that res
 to no readable branch is refused, which covers `updateRef` and `deleteRef` — they
 identify their ref by node id and name no branch at all.
 
-The limits of that check are stated rather than implied:
+The limits of that check are stated rather than implied. Five are limits of how the document can be
+read; the last two are writes the check does not reach at all, which is a different thing.
 
 - A document whose branch-writing mutation resolves to no readable branch is refused
   only when the mutation names a branch at all. A whole input object passed as a single
@@ -155,6 +156,11 @@ The limits of that check are stated rather than implied:
   the branch is not read and the mutation is refused.
 - `gh api` is last-occurrence-wins for a repeated `--input` or `-X`; the guard reads the
   first. The two disagree where a command gives either twice.
+- `mergeBranch` is not handled at all. It writes to the branch named in its `base`, and
+  that field is not one of the keys the branch-name reader looks at, so a merge into a
+  protected branch is neither refused nor reported. This is the same shape as the REST gap
+  below — a write to a protected branch that the check does not reach — rather than a
+  limit of what the document parser can read. It is tracked in #3691.
 - The REST path can still create a protected branch: `POST repos/{owner}/{repo}/git/refs`
   judges the name with the naming rules, which exempt `main` and the base branch, rather
   than with the protected-branch check the GraphQL path applies.
