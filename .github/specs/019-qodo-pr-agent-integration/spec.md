@@ -4,7 +4,7 @@
 
 **Created**: 2026-09-24
 
-**Status**: Draft
+**Status**: Implemented (pilot)
 
 **Input**: User description: "I would like to scope out installing pr-agent - <https://docs.pr-agent.ai/installation/> - and integrated the PR-agent tools with our various existing agents and skills"
 
