@@ -96,11 +96,31 @@ class DedupEngine {
    * Calculate combined similarity (weighted: 60% cosine, 40% Jaccard)
    */
   calculateSimilarity(content1, content2) {
-    const tokens1 = this.tokenize(content1);
-    const tokens2 = this.tokenize(content2);
+    return this.similarityFromProfiles(this.profile(content1), this.profile(content2));
+  }
 
-    const cosine = this.cosineSimilarity(tokens1, tokens2);
-    const jaccard = this.jaccardSimilarity(tokens1, tokens2);
+  /**
+   * Build the per-content structures similarity needs: tokens, the token set
+   * and the token frequency map. Each depends only on one document, so a
+   * caller comparing many pairs can build each once and reuse it.
+   */
+  profile(content) {
+    const tokens = this.tokenize(content);
+
+    return {
+      tokens,
+      tokenSet: new Set(tokens),
+      frequencies: this.tokenFrequency(tokens),
+    };
+  }
+
+  /**
+   * Combined similarity from two profiles. Same arithmetic, and the same edge
+   * cases, as cosineSimilarity and jaccardSimilarity applied to fresh tokens.
+   */
+  similarityFromProfiles(profile1, profile2) {
+    const cosine = this.cosineFromProfiles(profile1, profile2);
+    const jaccard = this.jaccardFromProfiles(profile1, profile2);
 
     // Weighted average: 60% cosine (content structure), 40% Jaccard (set overlap)
     const similarity = 0.6 * cosine + 0.4 * jaccard;
@@ -109,11 +129,77 @@ class DedupEngine {
   }
 
   /**
+   * Jaccard similarity between two prebuilt token sets
+   */
+  jaccardFromProfiles(profile1, profile2) {
+    const set1 = profile1.tokenSet;
+    const set2 = profile2.tokenSet;
+
+    let intersectionSize = 0;
+    for (const token of set1) {
+      if (set2.has(token)) intersectionSize++;
+    }
+
+    const unionSize = set1.size + set2.size - intersectionSize;
+
+    if (unionSize === 0) return 1.0; // Both empty
+
+    return intersectionSize / unionSize;
+  }
+
+  /**
+   * Cosine similarity between two prebuilt frequency maps
+   */
+  cosineFromProfiles(profile1, profile2) {
+    const freq1 = profile1.frequencies;
+    const freq2 = profile2.frequencies;
+
+    const keys = new Set([...Object.keys(freq1), ...Object.keys(freq2)]);
+
+    let dotProduct = 0;
+    let mag1 = 0;
+    let mag2 = 0;
+
+    for (const key of keys) {
+      const f1 = freq1[key] || 0;
+      const f2 = freq2[key] || 0;
+
+      dotProduct += f1 * f2;
+      mag1 += f1 * f1;
+      mag2 += f2 * f2;
+    }
+
+    const denominator = Math.sqrt(mag1) * Math.sqrt(mag2);
+    if (denominator === 0) return 0;
+
+    return dotProduct / denominator;
+  }
+
+  /**
+   * Profile for a skill, reading and tokenizing it on first use only.
+   * Keyed by hash so skills that share content are read once between them.
+   */
+  profileFor(profiles, skill) {
+    const key = skill.hash || skill.path;
+
+    if (!profiles.has(key)) {
+      profiles.set(key, this.profile(fs.readFileSync(skill.path, 'utf-8')));
+    }
+
+    return profiles.get(key);
+  }
+
+  /**
    * T049 & T052: Find near-duplicates using cosine similarity
    */
   findNearDuplicates(skills) {
     const nearDuplicates = [];
     const checked = new Set();
+
+    // Read and tokenize each skill at most once. The pair loop below visits
+    // every unordered pair, so tokenizing inside the loop tokenized each
+    // document once per partner, which is quadratic in the number of skills.
+    const profiles = new Map();
 
     for (let i = 0; i < skills.length; i++) {
       for (let j = i + 1; j < skills.length; j++) {
@@ -133,10 +219,10 @@ class DedupEngine {
 
         // Calculate similarity
         try {
-          const content1 = fs.readFileSync(skill1.path, 'utf-8');
-          const content2 = fs.readFileSync(skill2.path, 'utf-8');
+          const profile1 = this.profileFor(profiles, skill1);
+          const profile2 = this.profileFor(profiles, skill2);
 
-          const similarity = this.calculateSimilarity(content1, content2);
+          const similarity = this.similarityFromProfiles(profile1, profile2);
 
           // Report if above threshold
           if (similarity >= this.similarityThreshold) {
