@@ -17,13 +17,14 @@ Both hooks read a single JSON object on stdin, following the
 | --- | --- |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with 0 commits ahead of `origin/<base>` | Rename locally to `chore/session-<hash>`. Never push (FR-001). |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with its own commits | Leave it unchanged (FR-001). The context text notes the legacy PR exception. |
-| Cloud and source is `startup`/`resume`, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). |
-| Cloud and source is `startup`/`resume`, installed dependency tree missing or lockfile newer than the installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
+| Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). The reset is gated on the rename this hook performed, so a clean existing branch is never reset. |
+| Cloud and source is `startup`/`resume`, installed dependency tree missing, or `package-lock.json` or `package.json` newer than the installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
 | Any source, cloud or local | Emit branching rules as context (FR-003). |
 
 **Contract test (FR-004)**: In a temporary cloud project, stub `npm`, remove `node_modules`, and give the lockfile
 an old timestamp. Run the hook with both `startup` and `resume`; each must invoke `npm install`. With an installed
-tree newer than the lockfile, neither source should invoke it.
+tree newer than both the lockfile and `package.json`, neither source should invoke it. A `package.json` newer than the
+installed tree must invoke it even when the lockfile is not.
 
 **Output (stdout)**: exactly one JSON object:
 
@@ -98,8 +99,8 @@ sessions keep their starting setting. With enforcement on, guard faults still bl
 2 (FR-012a). Restore enforcement after the fault is fixed.
 
 **Legacy PR exception check**: `git ls-remote --exit-code --heads origin <branch>`, then
-`gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST: cloud sessions can't reach GitHub's GraphQL API, which `gh pr list` uses), each with a 5-second timeout. Any failure means
-the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (the PR's `head.repo.full_name` equals its `base.repo.full_name`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
+`gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST: cloud sessions can't reach GitHub's GraphQL API, which `gh pr list` uses). Each call is given a timeout of up to 5 seconds, and the whole check is bounded to 5 seconds per invocation and cached per branch. The two bounds are separate on purpose: the check makes two sequential calls, and each is given half of what is left of the invocation budget so neither can spend the whole of it. A command listing several refspecs or several commits would otherwise run the check once per refspec and once per commit, and a hook that reaches its timeout fails open, so the per-invocation total is what keeps the guard answering at all.
+Any failure means the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (the PR's `head.repo.full_name` equals its `base.repo.full_name`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
 
 **Refusal message** (FR-011) contains, in order:
 
@@ -109,3 +110,57 @@ the exception doesn't apply (research R9). The exception applies only to a PR wh
 3. The fix: `git branch -m <type>/<scope>-<title>` and `npm run validate:branch-name -- --current`.
 4. A statement that the rule overrides the platform's `claude/*` branch.
 5. A pointer to `docs/BRANCHING_STRATEGY.md`.
+
+**Nested interpreters (SC-009)**: a command handed to another shell is still a
+shell command, so it is parsed and checked rather than declared out of scope.
+`sh -c '<command>'`, `bash -c '<command>'`, `zsh -c '<command>'`, `dash -c '<command>'`,
+`ksh -c '<command>'`, `busybox sh -c '<command>'` and `eval '<command>'` are read as
+the command they carry, from the directory the outer shell has reached. `NESTED_DEPTH`
+levels are read and a command nested deeper is refused rather than allowed unchecked.
+The limits that remain are stated rather than implied: a payload assembled at run time
+is only as checkable as the expression it expands to, and a command written in another
+language (`python -c`, `node -e`) is out of scope, because the guard reads shell syntax.
+
+**What the parser does cover**: plain commands, pipelines (every stage, which is
+treated as a subshell), background and list operators, `if`/`while`/`for`/`case`
+arms, parenthesised groups (also subshells), redirects, here-documents, and
+`cd` resolution that follows the shell's real working directory, including a `cd`
+that fails, that the shell rejects, or that runs in a subshell. A write to a
+protected file that the guard cannot locate is refused rather than allowed.
+
+**GraphQL transport (`gh api graphql`)**: GraphQL reaches the same branch writes as the
+REST API, so the document is read and the branch names in it are judged by the same
+rules — a protected name, the session placeholder, or a name the convention rejects is
+refused wherever it appears. The document is read from `--query`, from a field
+(`-f`, `-F`, `--field`, `--raw-field`) and from an `--input` body, and a document the
+guard cannot read is refused rather than treated as one that names no branch. A name
+bound to a GraphQL variable is resolved from the value sent with it, since `gh` sends
+every field other than `query` as a variable. A branch-writing mutation that resolves
+to no readable branch is refused, which covers `updateRef` and `deleteRef` — they
+identify their ref by node id and name no branch at all.
+
+The limits of that check are stated rather than implied. Five are limits of how the document can be
+read; the last two are writes the check does not reach at all, which is a different thing.
+
+- A document whose branch-writing mutation resolves to no readable branch is refused
+  only when the mutation names a branch at all. A whole input object passed as a single
+  variable (`createCommitOnBranch(input: $b)`) names no branch key in the document, so
+  the branch it commits to is not read.
+- The check is per document, not per mutation field. A document naming a compliant
+  branch and also writing a ref by node id is refused, but a document whose ref-write
+  input is a variable is not distinguishable from a compliant one.
+- The endpoint is matched as `graphql` exactly. `gh api /graphql` reaches the same
+  endpoint and is not matched, so it is not checked.
+- A ref mutation whose name is a variable is judged on the value read from the command
+  line. A value supplied only in an `--input` body's `variables` map is not a field, so
+  the branch is not read and the mutation is refused.
+- `gh api` is last-occurrence-wins for a repeated `--input` or `-X`; the guard reads the
+  first. The two disagree where a command gives either twice.
+- `mergeBranch` is not handled at all. It writes to the branch named in its `base`, and
+  that field is not one of the keys the branch-name reader looks at, so a merge into a
+  protected branch is neither refused nor reported. This is the same shape as the REST gap
+  below — a write to a protected branch that the check does not reach — rather than a
+  limit of what the document parser can read. It is tracked in #3691.
+- The REST path can still create a protected branch: `POST repos/{owner}/{repo}/git/refs`
+  judges the name with the naming rules, which exempt `main` and the base branch, rather
+  than with the protected-branch check the GraphQL path applies.
