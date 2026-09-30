@@ -1,0 +1,238 @@
+name: Keep Pull Request Current
+
+# Replaces the Mergify `update` rule that used to merge `develop` into open
+# pull requests (see `.github/mergify.yml` and #3574).
+#
+# Why this is a workflow and not a Mergify rule: Mergify reports a `failure`
+# check whenever it cannot perform the update, with no option to change that.
+# The schema accepts only `bot_account` for the action
+# (https://docs.mergify.com/mergify-configuration-schema.json, `$defs.UpdateActionModel`,
+# `additionalProperties: false`), so the red check could only be avoided by
+# never attempting an update. That outcome is not gated — the attempt itself is
+# what produced the failures. This workflow performs the same merge through
+# GitHub's `update-branch` API and reports a conflict as a comment, so the
+# check is green whether or not the merge was possible.
+#
+# The up-to-date requirement is unchanged: `develop-branch-ruleset` still sets
+# `strict_required_status_checks_policy`, so a branch that is behind `develop`
+# and cannot be updated is still blocked from merging. Nothing here relaxes the
+# ruleset, and this workflow is deliberately not a required check.
+#
+# `synchronize` is deliberately absent from the `pull_request` types. Updating a
+# branch is itself a push to it, so including `synchronize` would make the
+# update re-trigger this workflow and loop. Branches fall behind because
+# `develop` moves, which is why `push` is the trigger that matters.
+#
+# GitHub cannot run `pull_request` workflows at all on a pull request that
+# conflicts (`refs/pull/<n>/merge` is 404 because the merge ref cannot be
+# built), so a conflicting pull request is only ever reached from a push to
+# `develop`. The `pull_request` trigger exists to cover the opened/reopened and
+# ready-for-review cases.
+#
+# A periodic `schedule` was considered as a backstop and deliberately rejected.
+# The gap it would close is real: a pull request can sit behind `develop` after
+# its author pushes a conflict resolution, and that push is a `synchronize`
+# event, which this workflow ignores. Measured against this repository on
+# 2026-09-30, with 15 open pull requests and `develop` moving 218 commits in the
+# preceding 7 days:
+#
+#   * `*/15` is 96 runs a day, each enumerating 15 pull requests, so ~1,440
+#     `update-branch` calls a day. Almost all resolve to the 422
+#     "There are no new commits on the base branch" path, which is one wasted API
+#     call per pull request per run.
+#   * The cost that matters is not minutes. `develop-branch-ruleset` sets
+#     `dismiss_stale_reviews_on_push`, so every branch update moves the head and
+#     dismisses the approval. A schedule that updated pull requests merely
+#     because they were behind would churn heads on a fixed cadence and
+#     repeatedly void approvals that were given against an exact head -- turning
+#     the strict rule this workflow exists to satisfy into the thing breaking it.
+#   * `schedule` runs only from the default branch and GitHub disables scheduled
+#     workflows after 60 days of repository inactivity, so it would also be the
+#     least reliable of the available triggers.
+#
+# `workflow_dispatch` is the backstop instead: one click, run on demand, and it
+# changes nothing that was not already stale.
+#
+# Why a GitHub App token and not GITHUB_TOKEN. A branch update is a push, and a
+# push made with GITHUB_TOKEN does not leave the new head's checks in a usable
+# state. Measured on a scratch pull request on 2026-09-30: after an update the
+# new head had ten `pull_request` workflow runs, every one of them
+# `action_required`, and therefore no check runs at all — no
+# `Route PR template and apply labels`, no `Validate changelog on PR`, no
+# `actionlint`, so the pull request sat BLOCKED with its required checks
+# missing. GitHub documents exactly this, at
+# https://docs.github.com/en/actions/concepts/security/github_token:
+# "pull_request events with the opened, synchronize, or reopened activity types:
+# when a workflow using GITHUB_TOKEN creates or updates a pull request, the
+# resulting pull_request event creates workflow runs in an approval-required
+# state." Reproduced twice, on two separate updates.
+#
+# The App is the same one `.github/workflows/documentation.yml` already uses for
+# the same reason — its comment reads "App token (not GITHUB_TOKEN) so the
+# regeneration PR triggers CI and can satisfy develop's required checks" — with
+# the same two repository secrets. `updateBranch` needs `contents: write`;
+# upserting a comment needs `Pull requests: write` or `Issues: write`
+# (https://docs.github.com/en/rest/issues/comments), so no additional
+# permission is requested. `permission-workflows` is deliberately absent, as in
+# documentation.yml: this workflow does not change workflow files.
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+  workflow_dispatch:
+
+# The job's own GITHUB_TOKEN is read-only: it only needs to check the helper out.
+# Every write goes through the App token below, so a compromised checkout cannot
+# push with a workflow-scoped write token.
+permissions:
+  contents: read
+
+# One run per repository state. Queued behind any run already in flight so a
+# burst of pushes to `develop` cannot have two runs merging the same branch.
+concurrency:
+  group: keep-pr-current
+  cancel-in-progress: false
+
+jobs:
+  keep-current:
+    name: Keep pull request current
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # Sparse checkout: the decision logic in scripts/ is all this needs, and
+      # no pull request code is ever checked out.
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            scripts/automation
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+
+      # Skipped for pull requests from forks, where repository secrets are not
+      # exposed. Those are skipped by shouldAttemptUpdate before any write, so
+      # falling back to the read-only GITHUB_TOKEN below is safe.
+      - name: Generate GitHub App token
+        id: app-token
+        # continue-on-error: if the App secrets are absent or invalid, the token
+        # is empty and github-token falls back to GITHUB_TOKEN, which is
+        # read-only. The run then updates nothing and says so, rather than
+        # failing every pull request's check over a missing secret.
+        continue-on-error: true
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          # Same secrets as documentation.yml. Not invented for this workflow.
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          # Least privilege: merge develop into the head branch, and upsert one
+          # comment. `permission-workflows` is deliberately absent — see the
+          # header comment.
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Merge develop into open pull requests
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          # The App token, so the update's push triggers the pull request's
+          # checks. Falls back to GITHUB_TOKEN (read-only here) only for forks,
+          # which are never written to.
+          github-token: ${{ steps.app-token.outputs.token || github.token }}
+          script: |
+            // Relative specifier, matching the other workflows here
+            // (ai-feedback-validation.yml, orchestrate-phase-progression.yml).
+            const { processPullRequest } = require('./scripts/automation/keep-pr-current.cjs');
+
+            const { owner, repo } = context.repo;
+
+            // A pull_request event carries its own number; a push to develop has
+            // to enumerate what is open against it.
+            let numbers = [];
+            if (context.eventName === 'pull_request') {
+              numbers = [context.payload.pull_request.number];
+            } else {
+              // Guarded so a listing failure cannot fail the job. The
+              // per-pull-request work is untouched, because this is the one call
+              // that decides how many pull requests there are.
+              try {
+                const open = await github.paginate(github.rest.pulls.list, {
+                  owner,
+                  repo,
+                  state: 'open',
+                  base: 'develop',
+                  per_page: 100,
+                });
+                numbers = open.map((item) => item.number);
+              } catch (error) {
+                const status = error?.status ?? 'unknown';
+                core.warning(
+                  `Could not list open pull requests (${status}): ${error?.message}. ` +
+                    'Nothing was updated; retry with workflow_dispatch.'
+                );
+                numbers = [];
+              }
+            }
+
+            core.info(`Considering ${numbers.length} pull request(s) against develop.`);
+
+            // Each pull request is handled independently by processPullRequest,
+            // which owns its own log lines and its own comment. Nothing is
+            // carried between iterations.
+            const summary = [];
+            const problems = [];
+            for (const number of numbers) {
+              // Belt and braces. processPullRequest handles every API rejection
+              // itself, but a throw here would stop every later pull request in
+              // the run, so the loop never depends on that remaining true.
+              let result;
+              try {
+                result = await processPullRequest({ github, owner, repo, number, logger: core });
+              } catch (error) {
+                const status = error?.status ?? 'unknown';
+                core.warning(`#${number}: unexpected failure (${status}): ${error?.message}`);
+                result = { outcome: 'error', status, message: error?.message || '' };
+              }
+              // A conflict whose comment could not be written is a problem worth
+              // counting, not a completed pull request.
+              const label = result.commentFailed
+                ? `${result.outcome} (comment not written, HTTP ${result.commentStatus})`
+                : result.outcome;
+              summary.push(`#${number}: ${label}`);
+              if (result.commentFailed || ['error', 'retry', 'denied'].includes(result.outcome)) {
+                problems.push(`#${number}: ${label}`);
+              }
+            }
+
+            core.info(`Processed ${numbers.length} pull request(s).`);
+
+            if (problems.length) {
+              // Visible on the run page. The job still exits 0, because a
+              // repository or permission problem must not turn every pull
+              // request's check red, but it must not look like a clean pass
+              // either.
+              core.warning(
+                `${problems.length} of ${numbers.length} pull request(s) were not fully processed: ` +
+                  `${problems.join('; ')}`
+              );
+            }
+            await core.summary
+              .addHeading('Keep pull request current')
+              .addTable([
+                [
+                  { data: 'Pull request', header: true },
+                  { data: 'Outcome', header: true },
+                ],
+                ...summary.map((line) => [line.split(':')[0], line.split(':').slice(1).join(':').trim()]),
+              ])
+              .write();
