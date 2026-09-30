@@ -117,29 +117,56 @@ describe('classifyUpdateResult', () => {
     ).toBe('current');
   });
 
-  test('422 from a concurrent push to the head is a benign retry', () => {
+  // Observed against this repository on 2026-09-30, on #3580 — a pull request
+  // merged four days earlier whose head branch was auto-deleted. This is the
+  // same text Mergify reported on #3580 and #3662 seconds after each merge.
+  test('422 saying the head ref does not exist means gone, not conflict', () => {
+    expect(classifyUpdateResult({ status: 422, message: 'head ref does not exist' })).toBe('gone');
+  });
+
+  // A wrong expected_head_sha did not produce this. On a genuinely behind pull
+  // request a deliberately wrong value still returned 202 and updated the
+  // branch, so the documented 422 mismatch was not reproducible and there is
+  // nothing to match on.
+  test('a response mentioning the expected head SHA is not silently accepted', () => {
+    expect(classifyUpdateResult({ status: 422, message: 'Expected head sha does not match' })).toBe(
+      'error'
+    );
+  });
+
+  // GitHub documents 422 as "Validation failed, or the endpoint has been
+  // spammed", so a throttled endpoint can arrive as 422. It must not be read
+  // as a conflict, which would comment on every pull request while throttled.
+  test('a throttled response is retryable whatever the status', () => {
     expect(
-      classifyUpdateResult({
-        status: 422,
-        message: 'Head branch was modified. Review and try the merge again.',
-      })
+      classifyUpdateResult({ status: 422, message: 'You have exceeded a secondary rate limit' })
     ).toBe('retry');
+    expect(classifyUpdateResult({ status: 429, message: 'Too Many Requests' })).toBe('retry');
+    expect(classifyUpdateResult({ status: 403, message: 'rate limit exceeded' })).toBe('retry');
   });
 
-  test('409 is treated as a conflict', () => {
-    expect(classifyUpdateResult({ status: 409 })).toBe('conflict');
+  // Not one of the three observed 422 messages, so it is surfaced as an error
+  // rather than turned into a conflict comment on a pull request that may have
+  // nothing wrong with it.
+  test('an unrecognised 422 is an error rather than a conflict', () => {
+    expect(classifyUpdateResult({ status: 422, message: 'something new' })).toBe('error');
   });
 
-  test('an unrecognised 422 is still surfaced rather than swallowed', () => {
-    expect(classifyUpdateResult({ status: 422, message: 'something new' })).toBe('conflict');
+  test('403 is denied rather than gone: they mean different things', () => {
+    expect(classifyUpdateResult({ status: 403 })).toBe('denied');
+  });
+
+  test('a 5xx is an error', () => {
+    expect(classifyUpdateResult({ status: 503, message: 'Service unavailable' })).toBe('error');
+    expect(classifyUpdateResult({ status: 500 })).toBe('error');
+  });
+
+  test('no status at all is an error, not a silent success', () => {
+    expect(classifyUpdateResult({})).toBe('error');
   });
 
   test('404 is the head branch having been deleted, not an error', () => {
     expect(classifyUpdateResult({ status: 404 })).toBe('gone');
-  });
-
-  test('403 is treated as gone rather than as an error to report', () => {
-    expect(classifyUpdateResult({ status: 403 })).toBe('gone');
   });
 
   test('anything else is an error', () => {
@@ -242,8 +269,17 @@ describe('keep-pr-current workflow', () => {
     expect(workflow).toMatch(/^\s{2}pull-requests:\s*write\s*$/m);
   });
 
-  test('guards the update with the head SHA it read', () => {
-    expect(workflow).toContain('expected_head_sha: pullRequest.head.sha');
+  // The API call moved into the module so it can be unit tested; the workflow
+  // must not reach back into the API itself.
+  test('delegates the API call to the module rather than duplicating it', () => {
+    expect(workflow).toContain('processPullRequest');
+    expect(workflow).not.toContain('updateBranch');
+  });
+
+  // The defect CodeRabbit raised: a log array declared outside the loop put one
+  // pull request's API response into a later one's comment.
+  test('keeps no state outside the per-pull-request loop', () => {
+    expect(workflow).not.toContain('const log = []');
   });
 
   test('never checks out pull request code', () => {
