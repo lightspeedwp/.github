@@ -15,6 +15,32 @@ import {
 import { ResultFormatter } from './utils/result-formatter';
 import { TemplateLoader } from './template-loader';
 import { BaseDimension } from './dimensions/base-dimension';
+import { AmbiguitiesDimension } from './dimensions/ambiguities';
+import { ClarityDimension } from './dimensions/clarity';
+import { CompletenessDimension } from './dimensions/completeness';
+import { ConsistencyDimension } from './dimensions/consistency';
+import { DependenciesDimension } from './dimensions/dependencies';
+import { EdgeCasesDimension } from './dimensions/edge-cases';
+import { MeasurabilityDimension } from './dimensions/measurability';
+import { ScenarioCoverageDimension } from './dimensions/scenario-coverage';
+
+/**
+ * The eight quality dimensions in FR-001, in specification order.
+ *
+ * Each entry is keyed by the dimension name that the templates use in an
+ * item's `dimension` field, which is also the evaluator's `name`, so the two
+ * join without a translation table.
+ */
+const DIMENSION_EVALUATORS: Array<new () => BaseDimension> = [
+  CompletenessDimension,
+  ClarityDimension,
+  ConsistencyDimension,
+  MeasurabilityDimension,
+  ScenarioCoverageDimension,
+  EdgeCasesDimension,
+  DependenciesDimension,
+  AmbiguitiesDimension,
+];
 
 /**
  * Core validation engine for the requirements checklist framework
@@ -33,12 +59,16 @@ export class ChecklistEngine {
   }
 
   /**
-   * Provide the initialization hook for dimension evaluators.
+   * Register the eight dimension evaluators, keyed by dimension name.
    *
-   * The current implementation leaves the registry empty.
+   * The registry was previously left empty, so no evaluator ever ran and
+   * every template item passed for any specification with content.
    */
   private initializeDimensions(): void {
-    // Dimensions will be lazily loaded when needed
+    for (const Evaluator of DIMENSION_EVALUATORS) {
+      const dimension = new Evaluator();
+      this.dimensions.set(dimension.name, dimension);
+    }
   }
 
   /**
@@ -95,7 +125,13 @@ export class ChecklistEngine {
   }
 
   /**
-   * Create one finding per template item from the specification content check.
+   * Create one finding per template item, judged by that item's dimension
+   * evaluator.
+   *
+   * Each dimension evaluator is run at most once per template, and its
+   * findings are shared by every item in the same dimension. An item therefore
+   * reports the dimension's verdict rather than a verdict of its own: the
+   * evaluators check one condition per dimension, not one per question.
    *
    * @returns Findings in the same order as the template items.
    */
@@ -104,20 +140,19 @@ export class ChecklistEngine {
     spec: ParsedSpecification
   ): Promise<Finding[]> {
     const findings: Finding[] = [];
+    const verdicts = new Map<string, { passed: boolean; reason?: string }>();
 
     for (const item of template.items) {
-      // For now, simple rule-based evaluation
-      // In full implementation, this would call dimension-specific evaluators
-      const passed = this.evaluateItem(item, spec);
+      const verdict = this.evaluateItem(item, spec, verdicts);
 
       findings.push({
         item_id: item.id,
         dimension: item.dimension,
-        status: passed ? 'pass' : 'fail',
-        message: passed
+        status: verdict.passed ? 'pass' : 'fail',
+        message: verdict.passed
           ? `✓ ${item.question}`
-          : `✗ ${item.question} - ${item.description || 'Item failed'}`,
-        suggestion: !passed ? item.suggestion : undefined,
+          : `✗ ${item.question} - ${verdict.reason || item.description || 'Item failed'}`,
+        suggestion: !verdict.passed ? item.suggestion : undefined,
       });
     }
 
@@ -125,15 +160,36 @@ export class ChecklistEngine {
   }
 
   /**
-   * Report whether the specification contains non-whitespace content.
+   * Judge one template item using the evaluator registered for its dimension.
    *
-   * @param item - The checklist item reserved for future item-specific evaluation.
+   * An item in a dimension with no registered evaluator falls back to the
+   * original check: does the specification contain any content at all.
+   *
+   * @param verdicts - Memo for this run, so an evaluator runs once per
+   * dimension rather than once per item.
    */
-  private evaluateItem(item: ChecklistTemplate['items'][0], spec: ParsedSpecification): boolean {
-    // This is a placeholder - in the full implementation,
-    // each dimension would have its own evaluation logic
-    // For now, assume items pass if spec has content
-    return (spec.raw_content || '').trim().length > 0;
+  private evaluateItem(
+    item: ChecklistTemplate['items'][0],
+    spec: ParsedSpecification,
+    verdicts: Map<string, { passed: boolean; reason?: string }>
+  ): { passed: boolean; reason?: string } {
+    const dimension = this.dimensions.get(item.dimension);
+
+    if (!dimension) {
+      return { passed: (spec.raw_content || '').trim().length > 0 };
+    }
+
+    const cached = verdicts.get(item.dimension);
+    if (cached) return cached;
+
+    const failures = dimension.evaluate(spec).filter((finding) => finding.status === 'fail');
+    const verdict = {
+      passed: failures.length === 0,
+      reason: failures.map((finding) => finding.message).join('; ') || undefined,
+    };
+
+    verdicts.set(item.dimension, verdict);
+    return verdict;
   }
 
   /**
