@@ -98,13 +98,40 @@ describe('classifyUpdateResult', () => {
     expect(classifyUpdateResult({ status: 202 })).toBe('updated');
   });
 
-  // This is the case Mergify reported as a failing check.
-  test('409 is a conflict', () => {
+  // Both messages below were observed against this repository on 2026-09-30,
+  // from `PUT /pulls/{n}/update-branch`. GitHub sends both as 422, so the
+  // message is what separates them.
+  test('422 with a merge-conflict message is a conflict', () => {
+    expect(
+      classifyUpdateResult({ status: 422, message: 'merge conflict between base and head' })
+    ).toBe('conflict');
+  });
+
+  // The regression this guards. Most open pull requests are not behind develop,
+  // so this is the response the workflow sees most often. Classifying it as a
+  // conflict would post a false conflict comment on every open pull request
+  // every time develop is pushed to.
+  test('422 saying there are no new commits means already current', () => {
+    expect(
+      classifyUpdateResult({ status: 422, message: 'There are no new commits on the base branch.' })
+    ).toBe('current');
+  });
+
+  test('422 from a concurrent push to the head is a benign retry', () => {
+    expect(
+      classifyUpdateResult({
+        status: 422,
+        message: 'Head branch was modified. Review and try the merge again.',
+      })
+    ).toBe('retry');
+  });
+
+  test('409 is treated as a conflict', () => {
     expect(classifyUpdateResult({ status: 409 })).toBe('conflict');
   });
 
-  test('422 is treated as a conflict, so a lost race does not turn the check red', () => {
-    expect(classifyUpdateResult({ status: 422 })).toBe('conflict');
+  test('an unrecognised 422 is still surfaced rather than swallowed', () => {
+    expect(classifyUpdateResult({ status: 422, message: 'something new' })).toBe('conflict');
   });
 
   test('404 is the head branch having been deleted, not an error', () => {
