@@ -60,11 +60,12 @@
   - [x] `ambiguities.ts` — Detect ambiguous requirements and unclear acceptance criteria
 - [x] T018 [P] Create base dimension class `packages/requirements-checklist/src/lib/dimensions/base-dimension.ts` with evaluate() method signature and keyword-detection helpers
 - [x] T019 Create `packages/requirements-checklist/src/lib/dimensions/keyword-registry.ts` with searchable keyword lists per dimension (e.g., vague adjectives for Clarity: "fast", "scalable", "robust", "intuitive")
-- [x] T020 Create embedded template files in `packages/requirements-checklist/src/lib/templates/`:
-  - [x] `author-pre-review.yaml` — ~50 items, self-directed, 30-min estimate
-  - [x] `peer-review.yaml` — ~50 items, technical review focus, 45-min estimate
-  - [x] `stakeholder-gate.yaml` — ~25 items, business-focused, 15-min estimate, no technical jargon
-  - [x] `cross-project-integration.yaml` — ~30 items, dependency/contract focus, 20-min estimate
+- [ ] T020 Create embedded template files in `packages/requirements-checklist/src/lib/templates/`. The four files exist and load, and T021 validates them against the schema, but the item counts are short of FR-003, so this task is not complete:
+  - [ ] `author-pre-review.yaml` — 10 items, self-directed, 30-min estimate. FR-003 asks for 45–55
+  - [ ] `peer-review.yaml` — 20 items, technical review focus, 45-min estimate. FR-003 asks for 45–55
+  - [ ] `stakeholder-gate.yaml` — 12 items, business-focused, 15-min estimate, no technical jargon. FR-003 asks for 20–30
+  - [ ] `cross-project-integration.yaml` — 16 items, dependency/contract focus, 20-min estimate. FR-003 asks for 25–35
+  - Remaining work is either authoring the missing items or agreeing a lower range with FR-003; see the note under FR-003 in `spec.md`.
 - [x] T021 Create template loader in `packages/requirements-checklist/src/lib/template-loader.ts` to load YAML templates and validate against `checklist-template.schema.json`
 - [ ] T022 Create evidence collector in `packages/requirements-checklist/src/lib/evidence-collector.ts` to extract quoted text from spec when a checklist item fails (supports Markdown heading navigation)
 - [ ] T023 Create recommendation generator in `packages/requirements-checklist/src/lib/recommendation-generator.ts` with templated suggestions per dimension and audience
