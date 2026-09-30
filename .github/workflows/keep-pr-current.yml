@@ -29,6 +29,30 @@ name: Keep Pull Request Current
 # `develop`. The `pull_request` trigger exists to cover the opened/reopened and
 # ready-for-review cases.
 #
+# A periodic `schedule` was considered as a backstop and deliberately rejected.
+# The gap it would close is real: a pull request can sit behind `develop` after
+# its author pushes a conflict resolution, and that push is a `synchronize`
+# event, which this workflow ignores. Measured against this repository on
+# 2026-09-30, with 15 open pull requests and `develop` moving 218 commits in the
+# preceding 7 days:
+#
+#   * `*/15` is 96 runs a day, each enumerating 15 pull requests, so ~1,440
+#     `update-branch` calls a day. Almost all resolve to the 422
+#     "There are no new commits on the base branch" path, which is one wasted API
+#     call per pull request per run.
+#   * The cost that matters is not minutes. `develop-branch-ruleset` sets
+#     `dismiss_stale_reviews_on_push`, so every branch update moves the head and
+#     dismisses the approval. A schedule that updated pull requests merely
+#     because they were behind would churn heads on a fixed cadence and
+#     repeatedly void approvals that were given against an exact head -- turning
+#     the strict rule this workflow exists to satisfy into the thing breaking it.
+#   * `schedule` runs only from the default branch and GitHub disables scheduled
+#     workflows after 60 days of repository inactivity, so it would also be the
+#     least reliable of the available triggers.
+#
+# `workflow_dispatch` is the backstop instead: one click, run on demand, and it
+# changes nothing that was not already stale.
+#
 # Why a GitHub App token and not GITHUB_TOKEN. A branch update is a push, and a
 # push made with GITHUB_TOKEN does not leave the new head's checks in a usable
 # state. Measured on a scratch pull request on 2026-09-30: after an update the
@@ -101,6 +125,11 @@ jobs:
       # falling back to the read-only GITHUB_TOKEN below is safe.
       - name: Generate GitHub App token
         id: app-token
+        # continue-on-error: if the App secrets are absent or invalid, the token
+        # is empty and github-token falls back to GITHUB_TOKEN, which is
+        # read-only. The run then updates nothing and says so, rather than
+        # failing every pull request's check over a missing secret.
+        continue-on-error: true
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
@@ -133,14 +162,26 @@ jobs:
             if (context.eventName === 'pull_request') {
               numbers = [context.payload.pull_request.number];
             } else {
-              const open = await github.paginate(github.rest.pulls.list, {
-                owner,
-                repo,
-                state: 'open',
-                base: 'develop',
-                per_page: 100,
-              });
-              numbers = open.map((item) => item.number);
+              // Guarded so a listing failure cannot fail the job. The
+              // per-pull-request work is untouched, because this is the one call
+              // that decides how many pull requests there are.
+              try {
+                const open = await github.paginate(github.rest.pulls.list, {
+                  owner,
+                  repo,
+                  state: 'open',
+                  base: 'develop',
+                  per_page: 100,
+                });
+                numbers = open.map((item) => item.number);
+              } catch (error) {
+                const status = error?.status ?? 'unknown';
+                core.warning(
+                  `Could not list open pull requests (${status}): ${error?.message}. ` +
+                    'Nothing was updated; retry with workflow_dispatch.'
+                );
+                numbers = [];
+              }
             }
 
             core.info(`Considering ${numbers.length} pull request(s) against develop.`);
@@ -149,12 +190,42 @@ jobs:
             // which owns its own log lines and its own comment. Nothing is
             // carried between iterations.
             const summary = [];
+            const problems = [];
             for (const number of numbers) {
-              const result = await processPullRequest({ github, owner, repo, number, logger: core });
-              summary.push(`#${number}: ${result.outcome}`);
+              // Belt and braces. processPullRequest handles every API rejection
+              // itself, but a throw here would stop every later pull request in
+              // the run, so the loop never depends on that remaining true.
+              let result;
+              try {
+                result = await processPullRequest({ github, owner, repo, number, logger: core });
+              } catch (error) {
+                const status = error?.status ?? 'unknown';
+                core.warning(`#${number}: unexpected failure (${status}): ${error?.message}`);
+                result = { outcome: 'error', status, message: error?.message || '' };
+              }
+              // A conflict whose comment could not be written is a problem worth
+              // counting, not a completed pull request.
+              const label = result.commentFailed
+                ? `${result.outcome} (comment not written, HTTP ${result.commentStatus})`
+                : result.outcome;
+              summary.push(`#${number}: ${label}`);
+              if (result.commentFailed || ['error', 'retry', 'denied'].includes(result.outcome)) {
+                problems.push(`#${number}: ${label}`);
+              }
             }
 
             core.info(`Processed ${numbers.length} pull request(s).`);
+
+            if (problems.length) {
+              // Visible on the run page. The job still exits 0, because a
+              // repository or permission problem must not turn every pull
+              // request's check red, but it must not look like a clean pass
+              // either.
+              core.warning(
+                `${problems.length} of ${numbers.length} pull request(s) were not fully processed: ` +
+                  `${problems.join('; ')}`
+              );
+            }
             await core.summary
               .addHeading('Keep pull request current')
               .addTable([

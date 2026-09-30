@@ -339,6 +339,44 @@ describe('keep-pr-current workflow', () => {
     expect(workflow).toMatch(/uses:\s*actions\/github-script@/);
   });
 
+  // A bot comment that merely mentions this workflow must not be adopted as its
+  // own. The Linear review comment is type: Bot and carries the branch and
+  // workflow names, so a substring match would rewrite it.
+  test('only claims a comment that starts with the marker', () => {
+    // This lives in the module, not the workflow: the marker match decides which
+    // comment is this workflow's, and a substring match would adopt any bot
+    // comment mentioning it.
+    const module = fs.readFileSync(
+      path.join(repositoryRoot, 'scripts/automation/keep-pr-current.cjs'),
+      'utf8'
+    );
+    expect(module).toContain('.startsWith(CONFLICT_COMMENT_MARKER)');
+    expect(module).not.toMatch(/includes\(CONFLICT_COMMENT_MARKER\)/);
+  });
+
+  // A missing or invalid App secret must not turn every pull request's check
+  // red: the run falls back to the read-only GITHUB_TOKEN and updates nothing.
+  test('survives the App token step failing', () => {
+    expect(tokenStep['continue-on-error']).toBe(true);
+  });
+
+  // The enumeration is the one call that decides how many pull requests there
+  // are, so it cannot be left to throw.
+  test('guards the pull request enumeration', () => {
+    expect(scriptStep.with.script).toMatch(
+      /try\s*\{[\s\S]*?github\.paginate\(github\.rest\.pulls\.list/
+    );
+    expect(scriptStep.with.script).toContain('Could not list open pull requests');
+  });
+
+  // Every API call in the script body must be inside a try/catch or delegated
+  // to the module, so no rejection can escape the loop.
+  test('the script body delegates all API work to the module', () => {
+    expect(scriptStep.with.script).toContain('processPullRequest');
+    expect(scriptStep.with.script).not.toContain('updateBranch');
+    expect(scriptStep.with.script).not.toContain('listComments');
+  });
+
   test('pins every action to a commit', () => {
     const uses = workflow.match(/uses:\s*\S+/g) || [];
 

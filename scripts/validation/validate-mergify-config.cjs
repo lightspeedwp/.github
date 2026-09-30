@@ -25,23 +25,32 @@ const SCHEMA_URL = 'https://docs.mergify.com/mergify-configuration-schema.json';
 const repositoryRoot = path.resolve(__dirname, '../..');
 const configPath = path.join(repositoryRoot, '.github/mergify.yml');
 
+const SCHEMA_FETCH_TIMEOUT_MS = 30_000;
+
 function fetchSchema(url) {
   return new Promise((resolve, reject) => {
-    https
-      .get(url, (response) => {
-        if (response.statusCode !== 200) {
-          reject(new Error(`GET ${url} responded ${response.statusCode}`));
-          response.resume();
-          return;
-        }
-        response.setEncoding('utf8');
-        let body = '';
-        response.on('data', (chunk) => {
-          body += chunk;
-        });
-        response.on('end', () => resolve(body));
-      })
-      .on('error', reject);
+    // Bounded, and the request is destroyed on timeout. https.get sets no
+    // timeout of its own, so without this a stalled connection leaves the
+    // promise pending forever and the validator hangs rather than reporting a
+    // failure.
+    const request = https.get(url, (response) => {
+      if (response.statusCode !== 200) {
+        request.destroy(new Error(`GET ${url} responded ${response.statusCode}`));
+        response.resume();
+        return;
+      }
+      response.setEncoding('utf8');
+      let body = '';
+      response.on('data', (chunk) => {
+        body += chunk;
+      });
+      response.on('end', () => resolve(body));
+    });
+
+    request.setTimeout(SCHEMA_FETCH_TIMEOUT_MS, () => {
+      request.destroy(new Error(`GET ${url} timed out after ${SCHEMA_FETCH_TIMEOUT_MS}ms`));
+    });
+    request.on('error', reject);
   });
 }
 
