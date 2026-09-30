@@ -17,6 +17,17 @@ name: Keep Pull Request Current
 # `strict_required_status_checks_policy`, so a branch that is behind `develop`
 # and cannot be updated is still blocked from merging. Nothing here relaxes the
 # ruleset, and this workflow is deliberately not a required check.
+#
+# `synchronize` is deliberately absent from the `pull_request` types. Updating a
+# branch is itself a push to it, so including `synchronize` would make the
+# update re-trigger this workflow and loop. Branches fall behind because
+# `develop` moves, which is why `push` is the trigger that matters.
+#
+# GitHub cannot run `pull_request` workflows at all on a pull request that
+# conflicts (`refs/pull/<n>/merge` is 404 because the merge ref cannot be
+# built), so a conflicting pull request is only ever reached from a push to
+# `develop`. The `pull_request` trigger exists to cover the opened/reopened and
+# ready-for-review cases.
 on:
   push:
     branches:
@@ -66,16 +77,9 @@ jobs:
           script: |
             // Relative specifier, matching the other workflows here
             // (ai-feedback-validation.yml, orchestrate-phase-progression.yml).
-            const {
-              CONFLICT_COMMENT_MARKER,
-              buildConflictComment,
-              classifyUpdateResult,
-              normaliseCommentBody,
-              shouldAttemptUpdate,
-            } = require('./scripts/automation/keep-pr-current.cjs');
+            const { processPullRequest } = require('./scripts/automation/keep-pr-current.cjs');
 
             const { owner, repo } = context.repo;
-            const log = [];
 
             // A pull_request event carries its own number; a push to develop has
             // to enumerate what is open against it.
@@ -95,85 +99,23 @@ jobs:
 
             core.info(`Considering ${numbers.length} pull request(s) against develop.`);
 
+            // Each pull request is handled independently by processPullRequest,
+            // which owns its own log lines and its own comment. Nothing is
+            // carried between iterations.
+            const summary = [];
             for (const number of numbers) {
-              let pullRequest;
-              try {
-                ({ data: pullRequest } = await github.rest.pulls.get({
-                  owner,
-                  repo,
-                  pull_number: number,
-                }));
-              } catch (error) {
-                // A pull request merged or deleted between listing and reading.
-                core.info(`#${number}: skipped, could not read (${error.status}).`);
-                continue;
-              }
-
-              const decision = shouldAttemptUpdate(pullRequest);
-              if (!decision.attempt) {
-                core.info(`#${number}: skipped (${decision.reason}).`);
-                continue;
-              }
-
-              let status;
-              let message = '';
-              try {
-                // expected_head_sha guards against merging into a branch that
-                // moved while this run was in flight.
-                const { status: responseStatus } = await github.rest.pulls.updateBranch({
-                  owner,
-                  repo,
-                  pull_number: number,
-                  expected_head_sha: pullRequest.head.sha,
-                });
-                status = responseStatus;
-              } catch (error) {
-                status = error.status;
-                // The API's own message is what distinguishes the two 422
-                // responses, so prefer it over Octokit's wrapper text.
-                message = error.response?.data?.message || error.message || '';
-              }
-
-              const outcome = classifyUpdateResult({ status, message });
-              core.info(`#${number}: ${outcome} (HTTP ${status}${message ? `, ${message}` : ''}).`);
-
-              if (outcome === 'conflict') {
-                log.push(`#${number} HTTP ${status}${message ? `: ${message}` : ''}`);
-
-                const body = buildConflictComment({
-                  pullNumber: number,
-                  mergeableState: pullRequest.mergeable_state || 'unknown',
-                  log,
-                });
-
-                // Upsert rather than append, so a pull request that stays
-                // conflicting across several pushes to develop carries one
-                // comment instead of one per run.
-                const { data: comments } = await github.rest.issues.listComments({
-                  owner,
-                  repo,
-                  issue_number: number,
-                  per_page: 100,
-                });
-                const existing = comments.find((comment) =>
-                  comment.user.type === 'Bot' &&
-                  comment.body.includes(CONFLICT_COMMENT_MARKER)
-                );
-
-                if (existing && normaliseCommentBody(existing.body) === normaliseCommentBody(body)) {
-                  core.info(`#${number}: conflict comment already up to date.`);
-                  continue;
-                }
-                if (existing) {
-                  await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
-                } else {
-                  await github.rest.issues.createComment({ owner, repo, issue_number: number, body });
-                }
-              }
-
-              // Nothing below this point reports a failure. A conflict is
-              // written as a comment and every other outcome is logged, so no
-              // outcome of this workflow turns a check red. See #3574.
+              const result = await processPullRequest({ github, owner, repo, number, logger: core });
+              summary.push(`#${number}: ${result.outcome}`);
             }
 
             core.info(`Processed ${numbers.length} pull request(s).`);
+            await core.summary
+              .addHeading('Keep pull request current')
+              .addTable([
+                [
+                  { data: 'Pull request', header: true },
+                  { data: 'Outcome', header: true },
+                ],
+                ...summary.map((line) => [line.split(':')[0], line.split(':').slice(1).join(':').trim()]),
+              ])
+              .write();

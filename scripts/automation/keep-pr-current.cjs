@@ -17,9 +17,8 @@
  * reasons, so a red `Base branch update has failed` is left behind on a pull
  * request that nobody can act on. See #3574.
  *
- * Everything here is a pure function of its arguments: the workflow performs
- * the API calls and passes in what it read, so the decision can be tested
- * without a network round trip.
+ * Everything here is a pure function of its arguments, or takes an injected
+ * Octokit-like client, so the behaviour is testable without a network round trip.
  */
 
 /**
@@ -77,24 +76,35 @@ function shouldAttemptUpdate(pullRequest) {
 /**
  * Classify the result of `PUT /repos/{owner}/{repo}/pulls/{pull_number}/update-branch`.
  *
- * Status alone is not enough to act on. GitHub answers **422** for two very
- * different situations, both observed against this repository on 2026-09-30:
+ * The status alone is not enough, because GitHub answers **422 for three
+ * unrelated situations**. All four responses below were observed against this
+ * repository on 2026-09-30 against a deliberately wrong `expected_head_sha`:
  *
- *   - `{"message": "merge conflict between base and head", "status": "422"}`
- *   - `{"message": "There are no new commits on the base branch.", "status": "422"}`
+ *   | HTTP | message                                             | when                                  |
+ *   | ---- | --------------------------------------------------- | ------------------------------------- |
+ *   | 202  | `Updating pull request branch.`                      | the merge was started                 |
+ *   | 422  | `There are no new commits on the base branch.`      | already current                       |
+ *   | 422  | `merge conflict between base and head`               | head conflicts with base              |
+ *   | 422  | `head ref does not exist`                            | head branch deleted after the merge   |
+ *   | 404  | `Not Found`                                          | the pull request itself is gone       |
  *
- * The second is the common case on a push to `develop`, because most open pull
- * requests are not behind. Reading 422 as "conflict" would post a false
- * conflict comment on every pull request in the repository, so the message is
- * part of the classification.
+ * The third is the same text Mergify reported on #3580 and #3662, seconds
+ * after those pull requests merged and their branches were auto-deleted. Reading
+ * it as a conflict would post a false conflict comment on a merged pull
+ * request, so the message is what decides.
  *
- * Every outcome other than a genuine infrastructure error is a success from
- * this workflow's point of view. A conflict is a fact about the repository, not
- * a failure of the automation, and the caller must never turn one into a red
- * check — that is the defect being fixed.
+ * GitHub documents only 202, 403 and 422 for this endpoint
+ * (https://docs.github.com/en/rest/pulls/pulls#update-a-pull-request-branch),
+ * where 422 is described as "Validation failed, or the endpoint has been
+ * spammed" — so a secondary rate limit can also arrive as 422 and is treated as
+ * retryable rather than as a conflict.
+ *
+ * An unrecognised response is `error`. It is surfaced as a warning and in the
+ * job summary, never as a passing no-op, and never as a conflict comment on a
+ * pull request that may have nothing wrong with it.
  *
  * @param {{status?: number, message?: string}} outcome
- * @returns {'updated'|'current'|'conflict'|'retry'|'gone'|'error'}
+ * @returns {'updated'|'current'|'conflict'|'gone'|'denied'|'retry'|'error'}
  */
 function classifyUpdateResult({ status, message = '' } = {}) {
   const text = String(message).toLowerCase();
@@ -104,46 +114,41 @@ function classifyUpdateResult({ status, message = '' } = {}) {
     return 'updated';
   }
 
-  // Already current. Not a conflict, and not worth a comment. Checked before
-  // the status because it arrives as 422, same as a real conflict.
+  // Message checks come before status checks, because the 422 cases are
+  // distinguished only by their message.
   if (text.includes('no new commits on the base branch')) {
     return 'current';
   }
-
-  // A real conflict. GitHub sent this as 422 with exactly this message; 409 is
-  // matched too because it is the status the same condition is documented under.
-  if (status === 409 || text.includes('merge conflict between base and head')) {
+  if (text.includes('merge conflict between base and head')) {
     return 'conflict';
   }
+  if (text.includes('head ref does not exist')) {
+    return 'gone';
+  }
 
-  // A push to the head branch between reading it and calling the API. Benign:
-  // the next run reads the new head and tries again.
-  if (text.includes('head branch was modified')) {
+  // Rate limiting and endpoint throttling: documented as 403/422, and the
+  // message is the only reliable signal. Not observed on this repository.
+  if (
+    status === 429 ||
+    /rate limit|abuse detection|try again later|endpoint has been spammed/.test(text)
+  ) {
     return 'retry';
   }
 
-  // 404 Not Found. In practice this is the head branch having been deleted
-  // after the pull request merged, which GitHub does automatically here
-  // (`delete_branch_on_merge` is on). Mergify reported the equivalent as
-  // "head ref does not exist" — a failure on a pull request that had already
-  // been merged, and that no one could act on.
+  // 403 Forbidden. GitHub documents the status but not the message; the most
+  // common cause is a token that cannot write this head branch, for example a
+  // fork whose author has not enabled maintainer edits. Not observed here.
+  if (status === 403) {
+    return 'denied';
+  }
+
+  // 404 Not Found. Observed for a pull request that no longer exists.
   if (status === 404) {
     return 'gone';
   }
 
-  // 403 Forbidden — the token cannot write this head branch, e.g. a fork whose
-  // author has not enabled maintainer edits. Same reasoning as 404: the merge
-  // is not going to happen, and that is not a failure to report.
-  if (status === 403) {
-    return 'gone';
-  }
-
-  // Any other 422 is treated as a conflict to report rather than swallowed, so
-  // an unfamiliar rejection is still visible to a human.
-  if (status === 422) {
-    return 'conflict';
-  }
-
+  // 5xx and anything unrecognised, including a 422 whose message is not one of
+  // the three above.
   return 'error';
 }
 
@@ -153,7 +158,7 @@ function classifyUpdateResult({ status, message = '' } = {}) {
  * @param {object} params
  * @param {number} params.pullNumber
  * @param {string} params.mergeableState - `mergeable_state` from the pull request.
- * @param {string[]} [params.log] - Per-pull-request log lines already emitted.
+ * @param {string[]} [params.log] - Log lines for this pull request only.
  * @returns {string} Markdown comment body.
  */
 function buildConflictComment({ pullNumber, mergeableState = 'unknown', log = [] }) {
@@ -170,7 +175,7 @@ function buildConflictComment({ pullNumber, mergeableState = 'unknown', log = []
     '',
     '**To resolve it:**',
     '',
-    `1. Merge \`develop\` into this branch locally (\`git merge origin/develop\`) and push the`,
+    '1. Merge `develop` into this branch locally (`git merge origin/develop`) and push the',
     '   result, or rebase the branch onto `develop`.',
     '2. Open the **Resolve conflicts** view to jump straight to the conflicting files:',
     `   ${conflictUrl}`,
@@ -201,10 +206,123 @@ function normaliseCommentBody(body) {
     .trim();
 }
 
+/**
+ * Run the update for one pull request and report the outcome.
+ *
+ * The per-pull-request log is built here rather than by the caller, so state
+ * cannot carry from one pull request to the next: the caller iterates over many
+ * pull requests in a single run, and a log array shared across iterations put
+ * every earlier pull request's status into a later one's comment.
+ *
+ * @param {object} params
+ * @param {object} params.github - Octokit-like client (actions/github-script `github`).
+ * @param {string} params.owner
+ * @param {string} params.repo
+ * @param {number} params.number - Pull request number.
+ * @param {{info: Function, warning: Function}} [params.logger] - actions/core-like.
+ * @returns {Promise<{outcome: string, status?: number, message?: string, commented?: boolean}>}
+ */
+async function processPullRequest({ github, owner, repo, number, logger = console }) {
+  let pullRequest;
+  try {
+    ({ data: pullRequest } = await github.rest.pulls.get({ owner, repo, pull_number: number }));
+  } catch (error) {
+    // Merged or deleted between listing and reading. Nothing to do, and not a
+    // failure of this workflow.
+    logger.info(`#${number}: skipped, could not read (${error.status}).`);
+    return { outcome: 'unreadable', status: error.status, message: error.message || '' };
+  }
+
+  const decision = shouldAttemptUpdate(pullRequest);
+  if (!decision.attempt) {
+    logger.info(`#${number}: skipped (${decision.reason}).`);
+    return { outcome: 'skipped', message: decision.reason };
+  }
+
+  let status;
+  let message = '';
+  try {
+    // expected_head_sha is documented as the guard against merging into a head
+    // that moved
+    // (https://docs.github.com/en/rest/pulls/pulls#update-a-pull-request-branch:
+    // "If the expected SHA does not match the pull request's HEAD, you will
+    // receive a 422 Unprocessable Entity status"). It was **not** observed to
+    // be enforced on 2026-09-30 — a deliberately wrong value still returned 202
+    // and updated the branch — so it is defence in depth, not the thing that
+    // makes this call safe. The staleness check also runs first, which is why a
+    // wrong value on an already-current pull request still returns the
+    // "no new commits" 422.
+    const response = await github.rest.pulls.updateBranch({
+      owner,
+      repo,
+      pull_number: number,
+      expected_head_sha: pullRequest.head.sha,
+    });
+    status = response.status;
+  } catch (error) {
+    status = error.status;
+    // The API's own message is what distinguishes the 422 cases, so prefer it
+    // over Octokit's wrapper text.
+    message = error.response?.data?.message || error.message || '';
+  }
+
+  const outcome = classifyUpdateResult({ status, message });
+  logger.info(`#${number}: ${outcome} (HTTP ${status}${message ? `, ${message}` : ''}).`);
+
+  if (outcome === 'conflict') {
+    // Scoped to this pull request. Deliberately not accumulated across calls.
+    const log = [`#${number} HTTP ${status}: ${message}`];
+    const body = buildConflictComment({
+      pullNumber: number,
+      mergeableState: pullRequest.mergeable_state || 'unknown',
+      log,
+    });
+
+    // Upsert rather than append, so a pull request that stays conflicting
+    // across several pushes to develop carries one comment instead of one per
+    // run. Paginated, so a pull request with more than a page of earlier
+    // comments still finds its own.
+    const comments = await github.paginate(github.rest.issues.listComments, {
+      owner,
+      repo,
+      issue_number: number,
+      per_page: 100,
+    });
+    const existing = comments.find(
+      (comment) =>
+        comment.user?.type === 'Bot' && String(comment.body || '').includes(CONFLICT_COMMENT_MARKER)
+    );
+
+    if (existing && normaliseCommentBody(existing.body) === normaliseCommentBody(body)) {
+      logger.info(`#${number}: conflict comment already up to date.`);
+      return { outcome, status, message, commented: false };
+    }
+    if (existing) {
+      await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+    } else {
+      await github.rest.issues.createComment({ owner, repo, issue_number: number, body });
+    }
+    return { outcome, status, message, commented: true };
+  }
+
+  // Surfaced rather than logged quietly. The job still exits 0, because a
+  // repository or permission problem is not a reason to fail every pull
+  // request's check, but it must not look like a clean success either.
+  if (outcome === 'error' || outcome === 'denied' || outcome === 'retry') {
+    logger.warning(
+      `#${number}: ${outcome} (HTTP ${status}${message ? `, ${message}` : ''}) — ` +
+        'no conflict comment was posted and this pull request was not updated.'
+    );
+  }
+
+  return { outcome, status, message };
+}
+
 module.exports = {
   CONFLICT_COMMENT_MARKER,
   buildConflictComment,
   classifyUpdateResult,
   normaliseCommentBody,
+  processPullRequest,
   shouldAttemptUpdate,
 };
