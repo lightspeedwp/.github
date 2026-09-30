@@ -931,7 +931,3 @@ Do not use Security variant for:
 - ❌ Internal tools with no external data access
 - ❌ Non-sensitive data (public marketing content)
 - ❌ Infrastructure-only (no application-level concerns)
-
----
-
-*Built by 🧱 LightSpeedWP with ☕ and security vigilance*

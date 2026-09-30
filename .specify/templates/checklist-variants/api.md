@@ -844,7 +844,3 @@ Do not use API variant for:
 - ❌ Frontend-only specifications (use UX variant instead)
 - ❌ Infrastructure/ops specifications
 - ❌ Internal-only code (not API exposed)
-
----
-
-*Built by 🧱 LightSpeedWP with ☕ and API precision*

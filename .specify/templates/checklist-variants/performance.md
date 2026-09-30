@@ -1004,7 +1004,3 @@ Do not use Performance variant for:
 - ❌ Low-traffic features or one-time operations
 - ❌ Specifications without specific performance targets
 - ❌ Hardware-only concerns (no software optimization possible)
-
----
-
-*Built by 🧱 LightSpeedWP with ☕ and performance precision*

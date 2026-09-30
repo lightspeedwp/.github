@@ -543,7 +543,3 @@ Do not use UX variant for:
 - ❌ Backend-only APIs (use API variant instead)
 - ❌ Infrastructure/ops specifications
 - ❌ Purely data-driven requirements without UI
-
----
-
-*Built by 🧱 LightSpeedWP with ☕ and meticulous UX precision*
