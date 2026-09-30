@@ -1,4 +1,5 @@
 const fs = require('node:fs');
+const YAML = require('yaml');
 const path = require('node:path');
 
 const {
@@ -263,17 +264,68 @@ describe('keep-pr-current workflow', () => {
     expect(workflow).toMatch(/^\s*- develop\s*$/m);
   });
 
-  test('has the write permissions the update API needs', () => {
-    expect(workflow).toMatch(/^permissions:\s*$/m);
-    expect(workflow).toMatch(/^\s{2}contents:\s*write\s*$/m);
-    expect(workflow).toMatch(/^\s{2}pull-requests:\s*write\s*$/m);
+  // Parsed rather than matched as text: these assertions must not be fooled by
+  // the header comment, which mentions updateBranch, permission-workflows and
+  // "contents: write" while explaining why they are absent. Asserting on the
+  // parsed document means a prose edit can neither satisfy nor break them.
+  const doc = YAML.parse(workflow);
+  const job = doc.jobs['keep-current'];
+  const scriptStep = job.steps.find(
+    (step) => step.uses && step.uses.startsWith('actions/github-script')
+  );
+  const tokenStep = job.steps.find(
+    (step) => step.uses && step.uses.startsWith('actions/create-github-app-token')
+  );
+
+  // The job's own token only checks the helper out; every write goes through
+  // the App token. A workflow-scoped `contents: write` would otherwise still
+  // be available to whatever the checkout brought in.
+  test('keeps the job token read-only', () => {
+    expect(doc.permissions).toEqual({ contents: 'read' });
+  });
+
+  // A branch update is a push. A push made with GITHUB_TOKEN leaves the new
+  // head's pull_request runs in `action_required`, so no required check runs
+  // appear and the pull request sits BLOCKED. Measured on a scratch pull
+  // request on 2026-09-30, twice. See the workflow header and
+  // https://docs.github.com/en/actions/concepts/security/github_token
+  test('updates branches with a GitHub App token, not GITHUB_TOKEN', () => {
+    expect(tokenStep).toBeDefined();
+    expect(tokenStep.with['client-id']).toBe('${{ secrets.BOT_PR_APP_CLIENT_ID }}');
+    expect(tokenStep.with['private-key']).toBe('${{ secrets.BOT_PR_APP_PRIVATE_KEY }}');
+    expect(scriptStep.with['github-token']).toBe(
+      '${{ steps.app-token.outputs.token || github.token }}'
+    );
+  });
+
+  test('asks the App for only the two permissions it uses', () => {
+    expect(Object.keys(tokenStep.with).sort()).toEqual([
+      'client-id',
+      'permission-contents',
+      'permission-pull-requests',
+      'private-key',
+    ]);
+    expect(tokenStep.with['permission-contents']).toBe('write');
+    expect(tokenStep.with['permission-pull-requests']).toBe('write');
+    // Never grant permission-workflows to work around a push failure: it would
+    // let the App change workflow files, which this job has no reason to do.
+    expect(tokenStep.with['permission-workflows']).toBeUndefined();
+  });
+
+  // Repository secrets are not exposed to workflows from forks, so the token
+  // step has to be skipped there rather than failing the job.
+  test('skips the App token step for fork pull requests', () => {
+    expect(tokenStep.if).toBe(
+      "github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository"
+    );
   });
 
   // The API call moved into the module so it can be unit tested; the workflow
   // must not reach back into the API itself.
   test('delegates the API call to the module rather than duplicating it', () => {
-    expect(workflow).toContain('processPullRequest');
-    expect(workflow).not.toContain('updateBranch');
+    expect(scriptStep.with.script).toContain('processPullRequest');
+    // The script body must not call the API itself; that belongs in the module.
+    expect(scriptStep.with.script).not.toContain('updateBranch');
   });
 
   // The defect CodeRabbit raised: a log array declared outside the loop put one

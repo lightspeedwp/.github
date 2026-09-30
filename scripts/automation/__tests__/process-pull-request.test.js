@@ -246,6 +246,10 @@ describe('processPullRequest', () => {
 
   test('an existing comment is updated rather than duplicated', async () => {
     const existing = {
+      // A real id: without one the fixture cannot tell a correct update from a
+      // call that forgot `comment_id`, and the assertion below would pass either
+      // way.
+      id: 4242,
       user: { type: 'Bot' },
       body: `${CONFLICT_COMMENT_MARKER}\n## Pull request #909 could not be updated automatically\n\nold body\n`,
     };
@@ -265,7 +269,9 @@ describe('processPullRequest', () => {
     expect(result.commented).toBe(true);
     expect(written.created).toHaveLength(0);
     expect(written.updated).toHaveLength(1);
-    expect(written.updated[0].comment_id).toBeUndefined();
+    // The id of the comment that was found, not an assertion that it is absent.
+    expect(written.updated[0].comment_id).toBe(4242);
+    expect(written.updated[0].body).toContain('#909');
   });
 
   test('an unchanged comment is left alone', async () => {
