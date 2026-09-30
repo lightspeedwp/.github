@@ -29,9 +29,10 @@ function runCli(...args) {
 describe('validate-branch-name CLI', () => {
   test('help lists the exact 38 authorised types', () => {
     const result = runCli('--help');
-    const allowedTypesMatch = result.stdout.match(
-      /Allowed Types \(38\):\s*([\s\S]*?)\n\nForbidden Prefixes:/
-    );
+    // The heading names the canonical list inline, so match the count and
+    // tolerate that qualifier. The list runs up to the first blank line,
+    // after which the protected-branch note follows.
+    const allowedTypesMatch = result.stdout.match(/Allowed Types \(38[^)]*\):\s*([\s\S]*?)\n\n/);
 
     expect(result.status).toBe(0);
     expect(result.stderr).toBe('');
