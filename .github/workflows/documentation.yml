@@ -221,18 +221,35 @@ jobs:
           # meta.agent.js always rewrites .github/metrics/meta-metrics.json
           # (fresh timestamp), even when no content changed. Only proceed
           # when at least one file other than the metrics file changed.
-          if git status --porcelain -- . ':(exclude).github/metrics/meta-metrics.json' | grep -q .; then
+          #
+          # `.github/workflows/` is excluded for the same reason the create-pull-request
+          # steps below exclude it from `add-paths`: GitHub treats a file directly in
+          # that directory as a workflow definition, so the App token (least privilege,
+          # no `workflows` permission) cannot push a change to it. Excluding it here
+          # keeps the "did anything change?" decision consistent with what the commit
+          # can actually contain, so a push whose only touched file was a workflow does
+          # not report has_changes=true on the strength of a file the push could not
+          # have made.
+          if git status --porcelain -- . ':(exclude).github/metrics/meta-metrics.json' ':(exclude).github/workflows' ':(exclude).github/workflows/**' | grep -q .; then
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
           else
             git checkout -- .github/metrics/meta-metrics.json 2>/dev/null || true
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
-            echo "No content changes (metrics only); skipping README PR."
+            echo "No content changes (metrics only, or .github/workflows/ only); skipping README PR."
           fi
 
       - name: Generate GitHub App token
         # App token (not GITHUB_TOKEN) so the regeneration PR triggers CI and
         # can satisfy develop's required checks. Requires repo/org secrets:
         # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        #
+        # `permission-workflows` is intentionally absent. The App stays at least
+        # privilege, and `.github/workflows/` is kept out of the bot's reach
+        # instead: resolve-readme-files.cjs never returns a README under that
+        # directory, and both create-pull-request steps below exclude it from
+        # `add-paths`. Do not add `permission-workflows` to work around a
+        # regeneration failure -- a failure means a workflow file leaked into
+        # the commit, which is the bug, not the missing permission.
         id: app-token
         if: github.event_name != 'pull_request' && steps.readmes.outputs.files != '' && steps.content.outputs.has_changes == 'true'
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -251,6 +268,23 @@ jobs:
           branch: chore/readme-regeneration
           base: develop
           commit-message: 'chore(docs): regenerate impacted README files'
+          # Defence in depth. resolve-readme-files.cjs already refuses to emit a README
+          # under `.github/workflows/`, but this step is the last gate before the push:
+          # GitHub classifies a file directly in that directory as a workflow -- even a
+          # plain Markdown one -- and rejects the push unless the token carries
+          # `workflows` permission, which this App deliberately does not have.
+          # `add-paths` restricts staging to the repository minus that directory, so
+          # nothing under it can reach the commit even if the resolver regresses or
+          # meta.agent.js rewrites a file some other way.
+          #
+          # The pathspecs are unquoted on purpose. The action passes each comma/newline
+          # separated token straight to git as an argv element (no shell), so quotes
+          # would become part of the pathspec and git fails with
+          # "pathspec '':(exclude)...'' did not match any files". Verified against
+          # peter-evans/create-pull-request@5f6978f.
+          add-paths: |
+            .
+            :(exclude).github/workflows
           title: 'chore(docs): regenerate impacted README files'
           body: |
             Automated README regeneration, Dependabot-style.
@@ -394,10 +428,19 @@ jobs:
         # Advisory only, and deliberately a separate step from the failing check
         # above. This signal reports files whose trailing zone holds two or more
         # footer-shaped blocks that the wording-based deduper cannot recognise.
-        # Measured across 11,474 tracked Markdown files it flags 930 files, of
-        # which 280 (30.1%) hold no known footer at all, so it must never fail a
-        # build. It exists to ask a human to look, and to surface footers whose
-        # wording is missing from footer-policy.js. See issue #3451.
+        # Measured across 11,474 tracked Markdown files it flags 899 files, of
+        # which 255 (28.4%) hold fewer than two distinct known footer phrases,
+        # so it must never fail a build. That 28.4% is a share of flagged files,
+        # not a false-positive rate; the remainder includes files with no known
+        # phrase and files with exactly one, and a file with an unrecognised
+        # genuine duplicate footer may be among them. Nothing here confirms that
+        # any flagged file really holds a duplicate, and a file with two or more
+        # known phrases is not independently confirmed either, so no rate follows.
+        # Figures are from `npm run measure:footers:shape`; the guide records the
+        # same figures under a "No known footer" label, which this comment does
+        # not adopt. It exists to ask a human to look, and
+        # to surface footers whose wording is missing from footer-policy.js. See
+        # issue #3451.
         if: always() && steps.range.outputs.enabled == 'true'
         continue-on-error: true
         env:
@@ -443,7 +486,8 @@ jobs:
                 " of " +
                 findings.length +
                 " changed file(s) hold a footer-shaped block the deduper cannot see. Advisory only: " +
-                "the measured false-positive rate is 30.1%, so this does not fail the build."
+                "the measured share of flagged files holding fewer than two " +
+                "distinct known footer phrases is 28.4%, so this does not fail the build."
             );
           '
 
@@ -540,12 +584,32 @@ jobs:
 
       - name: Check for changes
         id: changes
-        run: test "$(git status --porcelain | wc -l)" -gt 0 && echo "has_changes=true" >> "$GITHUB_OUTPUT" || echo "has_changes=false" >> "$GITHUB_OUTPUT"
+        # `.github/workflows/` is excluded for the same reason the regenerate job
+        # excludes it: GitHub treats a file directly in that directory as a
+        # workflow and the App token cannot push one. Note this job always
+        # rewrites the tracked .github/reports/mermaid-audit/maintenance-report.md
+        # with a fresh timestamp, so in practice this reads true regardless; the
+        # load-bearing guard against a workflow file reaching the commit is the
+        # `add-paths` on the create-pull-request step below.
+        run: |
+          if git status --porcelain -- . ':(exclude).github/workflows' ':(exclude).github/workflows/**' | grep -q .; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Generate GitHub App token
         # App token (not GITHUB_TOKEN) so the maintenance PR triggers CI and
         # can satisfy develop's required checks. Requires repo/org secrets:
         # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        #
+        # `permission-workflows` is intentionally absent, for the same reason as in
+        # the regenerate job above: the App stays at least privilege and
+        # `.github/workflows/` is excluded from the commit instead. This job runs
+        # repository-wide fixers (Mermaid, staleness) and inherited the identical
+        # latent flaw, so it carries the same guard. Do not add
+        # `permission-workflows`; a push failure here means a workflow file leaked
+        # into the commit.
         id: app-token
         if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
@@ -564,6 +628,14 @@ jobs:
           branch: chore/docs-maintenance
           base: develop
           commit-message: 'docs: maintenance updates (Mermaid + staleness)'
+          # Same last-gate guard as the regenerate job: keep anything under
+          # `.github/workflows/` out of the commit, because this App token has no
+          # `workflows` permission and GitHub would refuse the push. Unquoted
+          # pathspecs are required -- the action passes each token to git as an
+          # argv element with no shell involved. See the regenerate job above.
+          add-paths: |
+            .
+            :(exclude).github/workflows
           title: 'docs: maintenance updates (Mermaid + staleness)'
           body: |
             Automated documentation maintenance, Dependabot-style.
