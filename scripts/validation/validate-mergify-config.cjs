@@ -4,13 +4,17 @@
  *
  * Schema: https://docs.mergify.com/mergify-configuration-schema.json
  *
- * Not wired into npm run validate:* — the repo does not otherwise depend on a
- * schema download, and this script is the reproducible form of that check for
- * anyone editing the config. Pass a schema path as the first argument to
- * validate against a local copy instead of fetching.
+ * Wired as `npm run validate:mergify`. It is deliberately **not** one of the
+ * steps in `npm run validate:all` and no workflow runs it, because it downloads
+ * the schema over the network and every step in `validate:all` works offline.
+ * That makes it a maintainer-run check: run it by hand after editing
+ * `.github/mergify.yml`, or add it to a workflow that may reach the network.
+ *
+ * Pass a schema path as the first argument to validate against a local copy
+ * instead of fetching.
  *
  * Usage:
- *   node scripts/validation/validate-mergify-config.cjs
+ *   npm run validate:mergify
  *   node scripts/validation/validate-mergify-config.cjs /path/to/schema.json
  */
 const fs = require('node:fs');
