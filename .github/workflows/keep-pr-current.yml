@@ -1,0 +1,121 @@
+name: Keep Pull Request Current
+
+# Replaces the Mergify `update` rule that used to merge `develop` into open
+# pull requests (see `.github/mergify.yml` and #3574).
+#
+# Why this is a workflow and not a Mergify rule: Mergify reports a `failure`
+# check whenever it cannot perform the update, with no option to change that.
+# The schema accepts only `bot_account` for the action
+# (https://docs.mergify.com/mergify-configuration-schema.json, `$defs.UpdateActionModel`,
+# `additionalProperties: false`), so the red check could only be avoided by
+# never attempting an update. That outcome is not gated — the attempt itself is
+# what produced the failures. This workflow performs the same merge through
+# GitHub's `update-branch` API and reports a conflict as a comment, so the
+# check is green whether or not the merge was possible.
+#
+# The up-to-date requirement is unchanged: `develop-branch-ruleset` still sets
+# `strict_required_status_checks_policy`, so a branch that is behind `develop`
+# and cannot be updated is still blocked from merging. Nothing here relaxes the
+# ruleset, and this workflow is deliberately not a required check.
+#
+# `synchronize` is deliberately absent from the `pull_request` types. Updating a
+# branch is itself a push to it, so including `synchronize` would make the
+# update re-trigger this workflow and loop. Branches fall behind because
+# `develop` moves, which is why `push` is the trigger that matters.
+#
+# GitHub cannot run `pull_request` workflows at all on a pull request that
+# conflicts (`refs/pull/<n>/merge` is 404 because the merge ref cannot be
+# built), so a conflicting pull request is only ever reached from a push to
+# `develop`. The `pull_request` trigger exists to cover the opened/reopened and
+# ready-for-review cases.
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - ready_for_review
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# One run per repository state. Queued behind any run already in flight so a
+# burst of pushes to `develop` cannot have two runs merging the same branch.
+concurrency:
+  group: keep-pr-current
+  cancel-in-progress: false
+
+jobs:
+  keep-current:
+    name: Keep pull request current
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # Sparse checkout: the decision logic in scripts/ is all this needs, and
+      # no pull request code is ever checked out.
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          sparse-checkout: |
+            scripts/automation
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Merge develop into open pull requests
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            // Relative specifier, matching the other workflows here
+            // (ai-feedback-validation.yml, orchestrate-phase-progression.yml).
+            const { processPullRequest } = require('./scripts/automation/keep-pr-current.cjs');
+
+            const { owner, repo } = context.repo;
+
+            // A pull_request event carries its own number; a push to develop has
+            // to enumerate what is open against it.
+            let numbers = [];
+            if (context.eventName === 'pull_request') {
+              numbers = [context.payload.pull_request.number];
+            } else {
+              const open = await github.paginate(github.rest.pulls.list, {
+                owner,
+                repo,
+                state: 'open',
+                base: 'develop',
+                per_page: 100,
+              });
+              numbers = open.map((item) => item.number);
+            }
+
+            core.info(`Considering ${numbers.length} pull request(s) against develop.`);
+
+            // Each pull request is handled independently by processPullRequest,
+            // which owns its own log lines and its own comment. Nothing is
+            // carried between iterations.
+            const summary = [];
+            for (const number of numbers) {
+              const result = await processPullRequest({ github, owner, repo, number, logger: core });
+              summary.push(`#${number}: ${result.outcome}`);
+            }
+
+            core.info(`Processed ${numbers.length} pull request(s).`);
+            await core.summary
+              .addHeading('Keep pull request current')
+              .addTable([
+                [
+                  { data: 'Pull request', header: true },
+                  { data: 'Outcome', header: true },
+                ],
+                ...summary.map((line) => [line.split(':')[0], line.split(':').slice(1).join(':').trim()]),
+              ])
+              .write();
