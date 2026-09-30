@@ -75,18 +75,7 @@ function shouldAttemptUpdate(pullRequest) {
 }
 
 /**
- * Classify the result of `PUT /repos/{owner}/{repo}/pulls/{pull_number}/update-branch`.
- *
- * Status alone is not enough to act on. GitHub answers **422** for two very
- * different situations, both observed against this repository on 2026-09-30:
- *
- *   - `{"message": "merge conflict between base and head", "status": "422"}`
- *   - `{"message": "There are no new commits on the base branch.", "status": "422"}`
- *
- * The second is the common case on a push to `develop`, because most open pull
- * requests are not behind. Reading 422 as "conflict" would post a false
- * conflict comment on every pull request in the repository, so the message is
- * part of the classification.
+ * Classify the result of `PUT /repos/{owner}/{repo}/pulls/{n}/update-branch`.
  *
  * Every outcome other than a genuine infrastructure error is a success from
  * this workflow's point of view. A conflict is a fact about the repository, not
@@ -94,32 +83,18 @@ function shouldAttemptUpdate(pullRequest) {
  * check — that is the defect being fixed.
  *
  * @param {{status?: number, message?: string}} outcome
- * @returns {'updated'|'current'|'conflict'|'retry'|'gone'|'error'}
+ * @returns {'updated'|'conflict'|'gone'|'error'}
  */
 function classifyUpdateResult({ status, message = '' } = {}) {
-  const text = String(message).toLowerCase();
-
   // 202 Accepted — the base branch was merged into the head branch.
   if (status === 202) {
     return 'updated';
   }
 
-  // Already current. Not a conflict, and not worth a comment. Checked before
-  // the status because it arrives as 422, same as a real conflict.
-  if (text.includes('no new commits on the base branch')) {
-    return 'current';
-  }
-
-  // A real conflict. GitHub sent this as 422 with exactly this message; 409 is
-  // matched too because it is the status the same condition is documented under.
-  if (status === 409 || text.includes('merge conflict between base and head')) {
+  // 409 Conflict — the merge cannot be performed as-is. This is the case
+  // Mergify reported as a failed check.
+  if (status === 409) {
     return 'conflict';
-  }
-
-  // A push to the head branch between reading it and calling the API. Benign:
-  // the next run reads the new head and tries again.
-  if (text.includes('head branch was modified')) {
-    return 'retry';
   }
 
   // 404 Not Found. In practice this is the head branch having been deleted
@@ -131,20 +106,19 @@ function classifyUpdateResult({ status, message = '' } = {}) {
     return 'gone';
   }
 
-  // 403 Forbidden — the token cannot write this head branch, e.g. a fork whose
-  // author has not enabled maintainer edits. Same reasoning as 404: the merge
-  // is not going to happen, and that is not a failure to report.
-  if (status === 403) {
-    return 'gone';
-  }
-
-  // Any other 422 is treated as a conflict to report rather than swallowed, so
-  // an unfamiliar rejection is still visible to a human.
+  // 422 Unprocessable Entity. GitHub returns this both for a concurrent push
+  // that moved the head out from under `expected_head_sha` and for
+  // mergeability GitHub will not accept. Treat it as a conflict to report
+  // rather than as an error, so a lost race does not turn the check red.
   if (status === 422) {
     return 'conflict';
   }
 
-  return 'error';
+  if (status === 403) {
+    return 'gone';
+  }
+
+  return message ? 'error' : 'error';
 }
 
 /**
