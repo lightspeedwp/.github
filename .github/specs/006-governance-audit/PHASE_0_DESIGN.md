@@ -19,7 +19,7 @@ Phase 0 completed specification analysis and resolved all critical ambiguities. 
 |-----------|--------|--------|
 | **Spec Coverage** | 11/11 FRs mapped to tasks; 8/8 SCs mapped | ✅ PASS |
 | **Requirement Clarity** | 3 critical ambiguities resolved | ✅ PASS |
-| **Constitution Alignment** | 9/10 principles validated; 1 out of scope | ✅ PASS |
+| **Constitution Alignment** | 8/10 ALIGNED, 1 PARTIAL (VI), 1 out of scope (IX) | ✅ PASS |
 | **Task Organization** | 51 tasks with clear dependencies | ✅ PASS |
 | **Implementation Feasibility** | All tasks scoped and achievable | ✅ PASS |
 
@@ -69,22 +69,22 @@ Phase 0 completed specification analysis and resolved all critical ambiguities. 
 
 ### Decision 3: Defense-in-Depth Validation = Pre-commit Hook + CI Gate (A6)
 
-**What**:
+**What** (design intent; neither component is implemented in this phase):
 
 - Pre-commit hook (`.husky/pre-commit`): catches issues locally, fast feedback
-- CI gate (`.github/workflows/validate-governance.yml`): server-side enforcement, cannot bypass
+- CI gate (`.github/workflows/validate-governance.yml`, to be added): server-side check. It blocks a merge only once it is a required status check on the target branch; a push-triggered run cannot prevent the push
 
 **Why**:
 
 - Pre-commit: catches issues before they reach CI (saves resources, fast feedback)
-- CI gate: enforces even if pre-commit is bypassed (defense-in-depth)
+- CI gate: still runs when pre-commit is bypassed, which is the defense-in-depth case. Acting on that run depends on the branch-protection or ruleset configuration
 - Together: both developer experience and governance enforcement
 
 **Impact**:
 
-- Bad governance files cannot reach main branch
-- Audit trail of all validation runs in CI logs
-- Compliance tracking across all PRs
+- Bad governance files are caught on the pull request; blocking them from reaching the protected branch additionally depends on the gate being a required status check
+- Audit trail of the validation runs CI produces, once the gate workflow exists
+- Compliance tracking across PRs, once the gate workflow exists
 
 **Tasks Updated**: T027, T028
 
@@ -96,8 +96,8 @@ Phase 0 completed specification analysis and resolved all critical ambiguities. 
 
 | Principle | Validation | Result |
 |-----------|-----------|--------|
-| **I. Org-Wide Governance Authority** | Audit enforces `.github/` as authoritative source | ✅ ALIGNED |
-| **II. Curated Assets with Locked Governance** | Audit validates LOCKED files and detects drift | ✅ ALIGNED |
+| **I. Org-Wide Governance Authority** | Designed to treat `.github/` as the authoritative source | ✅ ALIGNED |
+| **II. Curated Assets with Locked Governance** | Designed to validate the LOCKED files and detect drift | ✅ ALIGNED |
 | **III. Clear Asset Boundaries** | Audit scripts in `.specify/scripts/bash/` (portable) + `.github/scripts/` (repo-local) | ✅ ALIGNED |
 | **IV. Tech-Agnostic Guidance** | Governance principles apply across all tech stacks | ✅ ALIGNED |
 | **V. Branch Naming Strategy** | FR-005 validates branch prefix → template routing | ✅ ALIGNED |
@@ -107,7 +107,7 @@ Phase 0 completed specification analysis and resolved all critical ambiguities. 
 | **IX. Requirements-Driven Quality & Changelog** | Compliance metrics tracked daily (SC-008); changelog not in scope for Phase 1 | ⚠️ OUT OF SCOPE |
 | **X. Automated Validation & Metrics** | SC-008 specifies daily dashboard; T047 generates compliance trends | ✅ ALIGNED |
 
-**Assessment**: 9/10 principles aligned; 1 correctly out of scope (project changelog, not governance files).
+**Assessment**: 8 of 10 principles ALIGNED, 1 PARTIAL (VI, UK English & A11y & Security) and 1 correctly out of scope (IX, project changelog rather than governance files).
 
 **No constitution violations**.
 
@@ -230,11 +230,11 @@ SC-008 (Daily dashboard, 30+ days)→ T047 ✅
 - Pre-commit hook integration
 - CI workflow integration
 
-**Layer 3: GitHub Actions Integration** (`.github/workflows/`)
+**Layer 3: GitHub Actions Integration** (`.github/workflows/`, not yet present)
 
-- `validate-governance.yml` — Runs on every PR/push
-- Enforces governance rules at repository boundary
-- Cannot be bypassed (server-side enforcement)
+- `validate-governance.yml` — to be added; will run on every PR/push
+- Runs at the repository boundary rather than on the contributor's machine, so a skipped local hook does not skip it
+- Blocks a merge only where the target branch lists it as a required status check; bypass actors and administrator overrides remain a branch-protection concern
 
 ### Data Flow
 
@@ -307,7 +307,7 @@ Compliance report (JSON + Markdown)
 
 - [x] Specification analysis complete (13 findings identified, categorized)
 - [x] All critical ambiguities resolved (A1, A2, A6 with detailed rationale)
-- [x] Constitution alignment verified (9/10 principles, 1 correctly deferred)
+- [x] Constitution alignment verified (8/10 ALIGNED, 1 PARTIAL, 1 correctly deferred)
 - [x] Requirement coverage 100% (11 FRs + 8 SCs mapped to tasks)
 - [x] Blockers removed (no "go/no-go" items blocking Phase 1)
 - [x] Documentation complete (CLARIFICATIONS.md + PHASE_0_DESIGN.md)
