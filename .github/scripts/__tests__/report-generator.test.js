@@ -209,6 +209,180 @@ runTest("markdown timestamp is UTC and matches the report id", () => {
   );
 });
 
+// --- Violation id allocation -------------------------------------------------
+
+const idPattern = new RegExp(
+  contractSchema.properties.violations.items.properties.id.pattern,
+);
+
+/** Assert every serialised id is unique. */
+function assertIdsUnique(json, label) {
+  const ids = json.violations.map((v) => v.id);
+  const seen = new Set();
+  for (const id of ids) {
+    assert.ok(
+      !seen.has(id),
+      `${label}: duplicate violation id ${id} among ${ids.length} violations`,
+    );
+    seen.add(id);
+  }
+}
+
+runTest("a passed-through id that collides with a generated one is reallocated", () => {
+  // The first violation arrives already carrying the id the second violation
+  // would be allocated positionally. Both were conformant, so the old code
+  // preserved the first and generated the same value for the second.
+  const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
+  const json = new ComplianceReport({
+    violations: [
+      base({ id: `violation-${date}-002` }),
+      base({ id: "not-conformant" }),
+    ],
+  }).toJSON();
+  assertIdsUnique(json, "collision with a generated id");
+});
+
+runTest("two violations carrying the same conformant id are both reallocated", () => {
+  const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
+  const json = new ComplianceReport({
+    violations: [
+      base({ id: `violation-${date}-001` }),
+      base({ id: `violation-${date}-001` }),
+    ],
+  }).toJSON();
+  assertIdsUnique(json, "duplicate passed-through id");
+});
+
+runTest("a preserved id is still preserved when it does not collide", () => {
+  const json = new ComplianceReport({
+    violations: [base({ id: "violation-20260929-007" })],
+  }).toJSON();
+  assert.strictEqual(
+    json.violations[0].id,
+    "violation-20260929-007",
+    "a unique conformant id should be kept as-is",
+  );
+});
+
+runTest("every reallocated id still matches the contract pattern", () => {
+  const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
+  const json = new ComplianceReport({
+    violations: [
+      base({ id: `violation-${date}-002` }),
+      base({ id: `violation-${date}-002` }),
+      base({ id: `violation-${date}-002` }),
+      base({ id: "plain" }),
+    ],
+  }).toJSON();
+  for (const violation of json.violations) {
+    assert.match(violation.id, idPattern);
+  }
+  assertIdsUnique(json, "reallocated ids");
+});
+
+runTest("allocation is sequential and never reuses a claimed sequence", () => {
+  // The first violation is non-conformant and the second arrives carrying 001.
+  // Allocation runs in order, so the first claims 001 and the second finds it
+  // taken and steps to 002. The invariant under test is uniqueness, not which
+  // of the two ends up with which sequence.
+  const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
+  const json = new ComplianceReport({
+    violations: [
+      base({ id: "plain" }),
+      base({ id: `violation-${date}-001` }),
+    ],
+  }).toJSON();
+  assertIdsUnique(json, "sequential allocation");
+  for (const violation of json.violations) {
+    assert.match(violation.id, idPattern);
+  }
+  assert.strictEqual(json.violations[0].id, `violation-${date}-001`);
+  assert.strictEqual(json.violations[1].id, `violation-${date}-002`);
+});
+
+runTest("an exhausted sequence range fails loudly rather than duplicating", () => {
+  // All 999 sequences are claimed by passed-through ids, so the next
+  // violation has nowhere to go and must not silently reuse one.
+  const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
+  const all = Array.from({ length: 999 }, (_, i) =>
+    base({ id: `violation-${date}-${String(i + 1).padStart(3, "0")}` }),
+  );
+  assert.throws(
+    () =>
+      new ComplianceReport({
+        violations: [...all, base({ id: "overflow" })],
+      }).toJSON(),
+    RangeError,
+    "an exhausted sequence range must fail loudly",
+  );
+});
+
+// --- Recommendation references ----------------------------------------------
+
+runTest("recommendation references follow the id rewrite", () => {
+  // Build the violation first so the recommendation can reference its real
+  // source id, which is not the id the contract receives.
+  const violation = createViolation("r1", "Rule", "HIGH");
+  const sourceId = violation.toJSON().id;
+  const json = new ComplianceReport({
+    violations: [violation],
+    recommendations: [
+      {
+        priority: "high",
+        title: "Fix it",
+        description: "desc",
+        affectedViolations: [sourceId],
+      },
+    ],
+  }).toJSON();
+  assert.notStrictEqual(json.violations[0].id, sourceId);
+  assert.strictEqual(
+    json.recommendations[0].affectedViolations[0],
+    json.violations[0].id,
+    `affectedViolations still points at the source id ${sourceId} rather than ` +
+      `${json.violations[0].id}`,
+  );
+});
+
+runTest("recommendation references follow a reallocated id", () => {
+  const date = new Date().toISOString().split("T")[0].replace(/-/g, "");
+  const json = new ComplianceReport({
+    violations: [base({ id: `violation-${date}-002` }), base({ id: "plain" })],
+    recommendations: [
+      {
+        priority: "high",
+        title: "t",
+        description: "d",
+        affectedViolations: [`violation-${date}-002`, "plain"],
+      },
+    ],
+  }).toJSON();
+  const known = new Set(json.violations.map((v) => v.id));
+  for (const ref of json.recommendations[0].affectedViolations) {
+    assert.ok(
+      known.has(ref),
+      `affectedViolations entry ${ref} does not match any serialised violation id`,
+    );
+  }
+});
+
+runTest("unmatched recommendation references are left intact", () => {
+  const json = new ComplianceReport({
+    violations: [base()],
+    recommendations: [
+      {
+        priority: "low",
+        title: "t",
+        description: "d",
+        affectedViolations: ["an-id-with-no-violation"],
+      },
+    ],
+  }).toJSON();
+  assert.deepStrictEqual(json.recommendations[0].affectedViolations, [
+    "an-id-with-no-violation",
+  ]);
+});
+
 runTest("written report file re-validates against the contract", () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "report-contract-"));
   try {

@@ -76,25 +76,40 @@ function text(value, fallback) {
  * @param {*} id - Id supplied by the caller, used when already conformant.
  * @param {number} index - Zero-based position within the report.
  * @param {string} timestamp - Report timestamp, ISO 8601.
- * @returns {string} Contract-conformant violation identifier.
+ * @param {Set<string>} used - Ids already allocated in this report.
+ * @returns {string} Contract-conformant violation identifier unique within the report.
  */
-function contractViolationId(id, index, timestamp) {
-	if (typeof id === 'string' && /^violation-\d{8}-\d{3}$/.test(id)) {
+function contractViolationId(id, index, timestamp, used) {
+	const stamp = dateStamp(new Date(timestamp));
+	const isTaken = (candidate) =>
+		used instanceof Set && used.has(candidate);
+
+	// Keep a conformant id only when nothing else in the report claims it.
+	// A passed-through id can otherwise collide with the positional id a later
+	// violation would be given, or with another passed-through id.
+	if (
+		typeof id === 'string' &&
+		/^violation-\d{8}-\d{3}$/.test(id) &&
+		!isTaken(id)
+	) {
 		return id;
 	}
+
 	// The contract's id pattern has a three-digit sequence, so a single report
-	// can carry at most 999 violations. Refuse rather than wrap and emit
-	// duplicates, which would also break recommendations.affectedViolations.
-	if (index >= MAX_CONTRACT_VIOLATIONS) {
-		throw new RangeError(
-			`Report carries more than ${MAX_CONTRACT_VIOLATIONS} violations; ` +
-				"the audit-report contract's violation id pattern " +
-				"(^violation-\\d{8}-\\d{3}$) cannot express a unique id beyond that.",
-		);
+	// can carry at most 999 violations. Search the whole range rather than
+	// deriving from the index, which can land on a taken sequence.
+	for (let sequence = 1; sequence <= MAX_CONTRACT_VIOLATIONS; sequence += 1) {
+		const candidate = `violation-${stamp}-${String(sequence).padStart(3, '0')}`;
+		if (!isTaken(candidate)) {
+			return candidate;
+		}
 	}
-	const stamp = dateStamp(new Date(timestamp));
-	const sequence = String(index + 1).padStart(3, '0');
-	return `violation-${stamp}-${sequence}`;
+
+	throw new RangeError(
+		`Report carries more than ${MAX_CONTRACT_VIOLATIONS} violations; ` +
+			"the audit-report contract's violation id pattern " +
+			"(^violation-\\d{8}-\\d{3}$) cannot express a unique id beyond that.",
+	);
 }
 
 /**
@@ -252,18 +267,20 @@ class ComplianceReport {
 	 * out of range are coerced rather than passed through.
 	 *
 	 * @param {Object} violation - AuditViolation instance or plain object.
-	 * @param {number} index - Position within the report, used to derive a
-	 *   contract-conformant id when the source id does not already match.
+	 * @param {string} contractId - Contract-conformant id allocated by the
+	 *   caller, unique within the report.
 	 * @returns {Object} Violation in the contract shape.
 	 */
-	_violationToContract(violation, index) {
+	_violationToContract(violation, contractId) {
 		const source =
 			violation && typeof violation.toJSON === 'function'
 				? violation.toJSON()
 				: violation || {};
 		const bucket = normaliseSeverity(source.severity);
 		const described = {
-			id: contractViolationId(source.id, index, this.timestamp),
+			// Allocated by the caller, which holds the set of ids already claimed
+			// in this report.
+			id: contractId,
 			ruleId: text(source.ruleId, 'unknown-rule'),
 			// UNKNOWN is not in the contract enum, so an unrecognised severity
 			// serialises as the default and is counted in the summary instead.
@@ -294,6 +311,34 @@ class ComplianceReport {
 		}
 
 		return described;
+	}
+
+	/**
+	 * Rewrite recommendation references to the contract violation ids.
+	 *
+	 * Recommendations are supplied against the source violation ids, which are
+	 * replaced during serialisation, so a reference left as-is would not
+	 * resolve against the emitted violations. References that match no
+	 * violation are left untouched.
+	 *
+	 * @param {Map<string, string>} idMap - Source id to contract id.
+	 * @returns {Array<Object>} Recommendations in the contract shape.
+	 */
+	_translateRecommendations(idMap) {
+		return this.recommendations.map((recommendation) => {
+			if (
+				!recommendation ||
+				!Array.isArray(recommendation.affectedViolations)
+			) {
+				return recommendation;
+			}
+			return {
+				...recommendation,
+				affectedViolations: recommendation.affectedViolations.map(
+					(reference) => idMap.get(reference) || reference,
+				),
+			};
+		});
 	}
 
 	/**
@@ -357,9 +402,26 @@ class ComplianceReport {
 	 */
 	toJSON() {
 		const stats = this.getViolationStats();
-		const serialised = this.violations.map((v, index) =>
-			this._violationToContract(v, index),
-		);
+		// Allocate ids in one pass so each can be checked against the ones
+		// already claimed, and record the source-to-contract mapping so
+		// recommendation references can be translated.
+		const usedIds = new Set();
+		const idMap = new Map();
+		const serialised = this.violations.map((violation, index) => {
+			const source =
+				violation && typeof violation.toJSON === 'function'
+					? violation.toJSON()
+					: violation || {};
+			const contractId = contractViolationId(
+				source.id,
+				index,
+				this.timestamp,
+				usedIds,
+			);
+			usedIds.add(contractId);
+			idMap.set(source.id, contractId);
+			return this._violationToContract(violation, contractId);
+		});
 		// Tallied from the serialised severities, so the four contract buckets
 		// always describe violations[] exactly.
 		const bySeverity = { critical: 0, high: 0, medium: 0, low: 0 };
@@ -399,7 +461,7 @@ class ComplianceReport {
 			// The contract types trends as an object and does not require it, so
 			// an absent trend is omitted rather than emitted as null.
 			...(this.trends ? { trends: this.trends } : {}),
-			recommendations: this.recommendations,
+			recommendations: this._translateRecommendations(idMap),
 			generatedBy: this.generatedBy,
 			metadata: this.metadata,
 		};
