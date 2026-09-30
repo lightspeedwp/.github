@@ -18,10 +18,13 @@ name: Keep Pull Request Current
 # and cannot be updated is still blocked from merging. Nothing here relaxes the
 # ruleset, and this workflow is deliberately not a required check.
 #
-# `synchronize` is deliberately absent from the `pull_request` types. Updating a
-# branch is itself a push to it, so including `synchronize` would make the
-# update re-trigger this workflow and loop. Branches fall behind because
-# `develop` moves, which is why `push` is the trigger that matters.
+# `synchronize` is deliberately absent from the `pull_request` types, not because
+# it would loop -- an already-current result makes no further push, so the chain
+# would terminate -- but because every update is itself a push and would double the
+# runs for no gain. Branches fall behind because `develop` moves, which is why
+# `push` is the trigger that matters. What `synchronize` would additionally cover
+# is a pull request its author has just de-conflicted; that gap is accepted, see
+# the schedule decision below.
 #
 # GitHub cannot run `pull_request` workflows at all on a pull request that
 # conflicts (`refs/pull/<n>/merge` is 404 because the merge ref cannot be
