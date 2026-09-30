@@ -103,6 +103,7 @@
     "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter.js",
     "validate:workflows": "node scripts/validation/validate-workflows.js",
     "validate:changelog": "node scripts/validation/validate-changelog-safety.js",
+    "validate:mergify": "node scripts/validation/validate-mergify-config.cjs",
     "validate:mermaid-syntax": "node scripts/validation/validate-mermaid-syntax.js",
     "validate:mermaid-accessibility": "node scripts/validation/validate-mermaid-accessibility.js",
     "validate:footers": "node scripts/dedupe-footers.js --check",
