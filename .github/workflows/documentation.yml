@@ -428,10 +428,19 @@ jobs:
         # Advisory only, and deliberately a separate step from the failing check
         # above. This signal reports files whose trailing zone holds two or more
         # footer-shaped blocks that the wording-based deduper cannot recognise.
-        # Measured across 11,474 tracked Markdown files it flags 930 files, of
-        # which 280 (30.1%) hold no known footer at all, so it must never fail a
-        # build. It exists to ask a human to look, and to surface footers whose
-        # wording is missing from footer-policy.js. See issue #3451.
+        # Measured across 11,474 tracked Markdown files it flags 899 files, of
+        # which 255 (28.4%) hold fewer than two distinct known footer phrases,
+        # so it must never fail a build. That 28.4% is a share of flagged files,
+        # not a false-positive rate; the remainder includes files with no known
+        # phrase and files with exactly one, and a file with an unrecognised
+        # genuine duplicate footer may be among them. Nothing here confirms that
+        # any flagged file really holds a duplicate, and a file with two or more
+        # known phrases is not independently confirmed either, so no rate follows.
+        # Figures are from `npm run measure:footers:shape`; the guide records the
+        # same figures under a "No known footer" label, which this comment does
+        # not adopt. It exists to ask a human to look, and
+        # to surface footers whose wording is missing from footer-policy.js. See
+        # issue #3451.
         if: always() && steps.range.outputs.enabled == 'true'
         continue-on-error: true
         env:
@@ -477,7 +486,8 @@ jobs:
                 " of " +
                 findings.length +
                 " changed file(s) hold a footer-shaped block the deduper cannot see. Advisory only: " +
-                "the measured false-positive rate is 30.1%, so this does not fail the build."
+                "the measured share of flagged files holding fewer than two " +
+                "distinct known footer phrases is 28.4%, so this does not fail the build."
             );
           '
 

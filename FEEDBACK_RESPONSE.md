@@ -20,6 +20,11 @@ including where no follow-up exists. Nothing is silently dropped: each is addres
 with its follow-up named or its absence stated, or recorded as assessed-and-not-actioned with the
 reason.
 
+This file is a single shared path that records one pull request at a time, so merging develop
+brings whichever pull request wrote it last. This branch keeps #3524's record, because that is the
+pull request it describes, and the record develop carried (#3604) is already committed there. The
+collision is tracked in #3618.
+
 ## Linked issues
 
 Refs #1592
