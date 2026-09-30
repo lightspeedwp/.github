@@ -32,6 +32,57 @@ const quickstart = readDocument(`${specDirectory}/quickstart.md`);
 const hooks = readDocument(`${specDirectory}/contracts/hooks.md`);
 const cleanup = readDocument(`${specDirectory}/contracts/branch-cleanup.md`);
 const catalogue = readDocument('.github/specs/CATALOG.md');
+const docs = readDocument('docs/CLAUDE_CLOUD_ENVIRONMENT.md');
+
+// The guard workflow skips the suite when no watched file changed, so any file
+// the contract test reads must be in that workflow's change filter. An edit to a
+// document outside the filter would otherwise pass CI having tested nothing.
+describe('the guard workflow change filter', () => {
+  const workflow = readDocument('.github/workflows/claude-guard-tests.yml');
+  const pattern = new RegExp(workflow.match(/grep -qE '([^']+)'/)[1]);
+
+  test.each([
+    ['.github/specs/CATALOG.md', catalogue],
+    ['.github/specs/018-claude-cloud-environment/spec.md', spec],
+    ['.github/specs/018-claude-cloud-environment/plan.md', plan],
+    ['.github/specs/018-claude-cloud-environment/tasks.md', tasks],
+    ['.github/specs/018-claude-cloud-environment/data-model.md', model],
+    ['.github/specs/018-claude-cloud-environment/research.md', research],
+    ['.github/specs/018-claude-cloud-environment/checklists/requirements.md', checklist],
+    ['.github/specs/018-claude-cloud-environment/quickstart.md', quickstart],
+    ['docs/CLAUDE_CLOUD_ENVIRONMENT.md', docs],
+  ])('runs the guard tests when %s changes', (file, content) => {
+    expect(content.length).toBeGreaterThan(0);
+    expect(pattern.test(file)).toBe(true);
+  });
+
+  test.each([
+    'package.json',
+    'package-lock.json',
+    '.nvmrc',
+    '.jest.config.cjs',
+    'lib/validate-branch-name.js',
+  ])('runs the guard tests when %s changes', (file) => {
+    expect(pattern.test(file)).toBe(true);
+  });
+
+  // The guard suites import from the harness helpers directory, so any file in
+  // it must trigger them. Matching one filename left every other helper, and
+  // every future one, unwatched.
+  test.each([
+    'scripts/__tests__/helpers/claude-hook-harness.js',
+    'scripts/__tests__/helpers/any-other-helper.js',
+  ])('runs the guard tests when %s changes', (file) => {
+    expect(pattern.test(file)).toBe(true);
+  });
+
+  test.each(['README.md', '.github/specs/017-ci-failure-remediation/spec.md'])(
+    'does not run the guard tests for unrelated %s',
+    (file) => {
+      expect(pattern.test(file)).toBe(false);
+    }
+  );
+});
 
 describe('Claude cloud environment specification contracts', () => {
   test('catalogues the draft under the correct number and a working spec link', () => {
@@ -148,9 +199,19 @@ describe('Claude cloud environment specification contracts', () => {
       expect(
         contractRow(
           hooks,
-          'Cloud and source is `startup`/`resume`, clean tree, 0 commits ahead of `origin/<base>`'
+          'Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>`'
         )
       ).toMatch(/Hard-reset to `origin\/<base>`/);
+      // The reset must be gated on the rename, so a clean branch parked behind
+      // the base branch is never moved.
+      // The reset must be gated on the rename, so a clean branch parked behind
+      // the base branch is never moved.
+      expect(
+        contractRow(
+          hooks,
+          'Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>`'
+        )
+      ).toMatch(/is gated on the rename this hook performed.*never reset/);
       expect(requirement('FR-003')).toMatch(/after context compaction/);
       expect(contractRow(hooks, 'Any source, cloud or local')).toMatch(
         /Emit branching rules as context/
@@ -172,7 +233,7 @@ describe('Claude cloud environment specification contracts', () => {
       expect(
         contractRow(
           hooks,
-          'Cloud and source is `startup`/`resume`, installed dependency tree missing or lockfile newer than the installed tree'
+          'Cloud and source is `startup`/`resume`, installed dependency tree missing, or `package-lock.json` or `package.json` newer than the installed tree'
         )
       ).toMatch(/`npm install`\. Failure is logged and not fatal/);
     });
@@ -216,7 +277,13 @@ describe('Claude cloud environment specification contracts', () => {
       expect(hooks).toMatch(
         /`gh api repos\/\{owner\}\/\{repo\}\/pulls\?head=\{owner\}:<branch>&state=open&per_page=1`/
       );
-      expect(hooks).toMatch(/each with a 5-second timeout\. Any failure means/);
+      // The timeout is a per-call figure, and the total is bounded separately: the
+      // check runs per refspec and per commit, so without a total a single command
+      // could hold the guard well past the hook timeout, and a hook that reaches
+      // its timeout fails open.
+      expect(hooks).toMatch(/timeout of up to 5 seconds/);
+      expect(hooks).toMatch(/bounded to 5 seconds per invocation and cached per branch/);
+      expect(hooks).toMatch(/Any failure means/);
       expect(hooks).toMatch(
         /MCP calls and `gh` commands whose owner isn't `lightspeedwp`.*are always allowed/
       );
@@ -541,6 +608,28 @@ describe('Claude cloud environment specification contracts', () => {
       '`.claude/cloud/environment.env`'
     );
     expect(contractRow(model, 'Setup script')).toContain('`.claude/cloud/setup.sh`');
+  });
+
+  // The environment cache limit is about five minutes and the setup script must
+  // finish inside it. Bounding each install individually is not enough, because
+  // those bounds run one after another: 90 + 150 + 150 is over six minutes. The
+  // function therefore carries one deadline that each step is capped by.
+  test('gives the linter installs a total deadline, not only per-step timeouts', () => {
+    const setup = readDocument('.claude/cloud/setup.sh');
+    const body = setup.slice(setup.indexOf('install_linters() {'));
+    const fn = body.slice(0, body.indexOf('\n}\n'));
+    expect(fn).toMatch(/LINTERS_BUDGET_SECONDS/);
+    // The deadline is computed once and each step is capped by what is left of it,
+    // so a slow first step cannot consume the whole budget.
+    expect(fn).toMatch(/deadline=\$\(\(SECONDS \+ LINTERS_BUDGET_SECONDS\)\)/);
+    const perStep = (fn.match(/timeout "\$\(remaining\)"/g) || []).length;
+    expect(perStep).toBeGreaterThanOrEqual(3);
+    // And the budget is inside the cache limit, with room to spare.
+    const budget = Number(
+      setup.match(/LINTERS_BUDGET_SECONDS="\$\{LS_LINTERS_BUDGET_SECONDS:-(\d+)\}"/)[1]
+    );
+    expect(budget).toBeGreaterThan(0);
+    expect(budget).toBeLessThanOrEqual(240);
     expect(requirement('FR-018')).toMatch(/MUST NOT contain secrets/);
   });
 
@@ -550,5 +639,95 @@ describe('Claude cloud environment specification contracts', () => {
     expect(requirement('FR-017')).toMatch(/runtime version pinned by the repository/);
     expect(contractRow(model, 'Setup script')).toMatch(/exits 0, under 5 min, idempotent/);
     expect(contractRow(model, '`LS_NODE_VERSION`')).toContain('`.nvmrc`');
+  });
+});
+
+// The operations document and the validator's known limitation, kept in step with
+// the feedback record rather than asserting an agreement that does not hold.
+describe('the operations document', () => {
+  // The mismatch this used to state is gone: #3558 merged and the library now
+  // accepts the semver release form, so the document describes it as accepted
+  // rather than pointing at a fixed issue. The guard is still not the library,
+  // so the claim stays sourced to the library rather than asserted outright.
+  test('describes the semver release form as accepted, with no open mismatch', () => {
+    expect(docs).not.toMatch(/always agree/);
+    expect(docs).toMatch(/release\/v1\.2\.3/);
+    expect(docs).toMatch(/accepts/);
+    expect(docs).not.toMatch(/known mismatch/);
+    expect(docs).not.toMatch(/#3558/);
+  });
+
+  // Branch protection and rulesets are configured separately, so the verification
+  // step has to cover both or an Owner on a ruleset cannot confirm the setting.
+  // The check is required on the rulesets, which carry a merge-queue rule. A check
+  // that only runs on a pull request is never reported for a batch, so the
+  // requirement would block every queued merge.
+  test('runs the guard workflow for merge-queue batches as well as pull requests', () => {
+    const guardWorkflow = readDocument('.github/workflows/claude-guard-tests.yml');
+    expect(guardWorkflow).toMatch(/merge_group:/);
+    // And the event-specific fields it needs have to degrade rather than go empty,
+    // since a merge-queue event carries no pull_request.
+    expect(guardWorkflow).toMatch(
+      /pull_request\.base\.sha \|\| github\.event\.merge_group\.base_sha/
+    );
+    expect(guardWorkflow).toMatch(/pull_request\.number \|\| github\.event\.merge_group\.head_sha/);
+  });
+
+  // FEEDBACK_RESPONSE.md is this pull request's record and is replaced by the next
+  // one, so nothing here asserts its contents: a test that bound to this file would
+  // fail every later pull request for no reason. Its rules are enforced by the
+  // repository's own ai-feedback validation, which runs on every pull request.
+
+  // A hook that reaches its timeout is killed, and a killed hook is treated as
+  // non-blocking, so the guard's own network budget has to sit well inside the
+  // hook timeout. This is asserted rather than left to be re-derived.
+  test('keeps the guard network budget well below the hook timeout', () => {
+    const guard = readDocument('.claude/hooks/enforce-branch-name.mjs');
+    const budget = Number(guard.match(/const PR_CHECK_BUDGET_MS = (\d+);/)[1]);
+    const settings = JSON.parse(readDocument('.claude/settings.json'));
+    const hook = settings.hooks.PreToolUse.flatMap((entry) => entry.hooks).find((h) =>
+      h.command.includes('run-guard')
+    );
+    const timeoutSeconds = hook.timeout;
+    expect(timeoutSeconds).toBeGreaterThan(0);
+    // At most a third of it, and in milliseconds against a seconds value.
+    expect(budget).toBeLessThanOrEqual((timeoutSeconds * 1000) / 3);
+  });
+
+  test('covers both branch protection and rulesets in the verification step', () => {
+    expect(docs).toMatch(/branches\/develop\/protection/);
+    expect(docs).toMatch(/repos\/lightspeedwp\/\.github\/rulesets/);
+  });
+
+  // The documented queries have to name the fields that actually exist: a
+  // ruleset reports branch coverage under conditions.ref_name and the code-owner
+  // requirement under parameters.require_code_owner_review.
+  // The limitation is stated, not implicit: a reader must not assume the guard
+  // inspects a command handed to another interpreter.
+  // The guard now reads a command handed to another shell, so these forms are
+  // covered rather than disclaimed. The test still has to name them: a form that
+  // quietly stopped being recognised would otherwise be invisible here.
+  test.each(['sh -c', 'bash -c', 'zsh -c', 'eval'])(
+    'covers %s rather than disclaiming it',
+    (form) => {
+      expect(docs).toMatch(new RegExp(form.replace(/[-]/g, '\\-')));
+      expect(docs).not.toMatch(new RegExp(`${form.replace(/[-]/g, '\\-')} .*out of scope`));
+    }
+  );
+
+  test('states the depth limit and the limits that remain in the hooks contract', () => {
+    expect(hooks).toMatch(/SC-009/);
+    expect(hooks).toMatch(/NESTED_DEPTH/);
+    // The remaining out-of-scope case is a command in another language, which
+    // the guard does not read. It has to stay stated or the claim becomes a
+    // blanket guarantee.
+    expect(hooks).toMatch(/out of scope/);
+    expect(hooks).toMatch(/python -c/);
+  });
+
+  test('documents the ruleset fields that the API actually returns', () => {
+    expect(docs).toMatch(/\.parameters\.require_code_owner_review/);
+    expect(docs).toMatch(/\.conditions\.ref_name/);
+    expect(docs).toMatch(/required_status_checks\[\]\.context/);
   });
 });
