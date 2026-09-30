@@ -1,0 +1,22 @@
+name: Phase Progression
+
+# This repository's caller for the organisation reusable workflow
+# orchestrate-phase-progression.yml. pull_request_target is safe: the
+# called workflow never checks out or runs PR code.
+
+on:
+  issues:
+    types: [opened, labeled, reopened, closed]
+  pull_request_target:
+    types: [opened, closed]
+
+permissions:
+  contents: read
+
+jobs:
+  phase-progression:
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: read
+    uses: ./.github/workflows/orchestrate-phase-progression.yml

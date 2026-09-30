@@ -2,7 +2,7 @@
 // Test PR template selection for all branch types
 
 import { describe, test, expect, beforeEach } from "@jest/globals";
-import { routePrTemplate } from "../../skills/route-pr-template/route-pr-template.js";
+import { routePrTemplate } from "../../skills/route-pr-template/scripts/route-pr-template.js";
 import { createMockConfig } from "./setup.js";
 
 describe("Category C: Template Routing Scenarios", () => {

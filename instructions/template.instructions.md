@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Template: Instructions"
 description: "Generic instruction file skeleton for LightSpeedWP documentation and automation."
 version: "v1.0"
-last_updated: "2025-10-23"
+last_updated: "2026-09-22""
 owners: ["LightSpeedWP Engineering"]
 tags: ["template", "instructions", "copilot", "guidance"]
 status: "draft"
@@ -126,20 +126,5 @@ You are a [role]. Follow our [framework/patterns] to [type of task]. Avoid [prac
 
 - [instructions.instructions.md](instructions.instructions.md)
 - [file-organisation.instructions.md](file-organisation.instructions.md)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

@@ -101,19 +101,3 @@ For basic docs with content, connector readback must prove:
 4. no placeholder text or unintended empty list items remain
 
 If connector-native creation starts requiring complex recovery, rendered visual QA, or large style normalization, stop and reassess whether the task has crossed the boundary into DOCX-first creation.
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

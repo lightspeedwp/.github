@@ -50,4 +50,4 @@ You are an expert in AI agent governance, safety, and trust systems. You help de
 - Keep governance code separate from business logic
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

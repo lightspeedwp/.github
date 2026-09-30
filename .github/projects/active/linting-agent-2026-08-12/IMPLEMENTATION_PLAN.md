@@ -30,6 +30,7 @@ Implement the portable linting agent as designed in Phase 1 specification, creat
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["Phase 1 Specification"] --> B["Agent Prompt Implementation"]
     A --> C["JavaScript Helper Enhancement"]
     A --> D["WordPress Configuration Guide"]
@@ -41,6 +42,7 @@ graph TD
     E --> H["Agent Ready for Phase 3"]
     F --> H
     G --> H
+accDescr: Detailed diagram
 ```
 
 ---
@@ -67,6 +69,7 @@ graph TD
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["Current linting.agent.js"] --> B["WordPress Config Detection"]
     A --> C["WordPress Helper Functions"]
     A --> D["Cross-Repo Path Resolution"]
@@ -87,6 +90,7 @@ graph TD
     E --> E1["Graceful timeout handling"]
     E --> E2["Missing linter fallback"]
     E --> E3["Config validation errors"]
+accDescr: Detailed diagram
 ```
 
 **Tasks:**
@@ -181,6 +185,7 @@ See [WORDPRESS_CONFIG_GUIDE.md](...) for setup details.
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["Start Phase 2"] --> B["Prepare Agent Prompt"]
     B --> C["Enhance JavaScript"]
     C --> D["Create Config Guide"]
@@ -192,6 +197,7 @@ graph TD
     G --> H["Ready for Phase 3"]
     
     style H fill:#90EE90
+accDescr: Detailed diagram
 ```
 
 ### Step-by-Step

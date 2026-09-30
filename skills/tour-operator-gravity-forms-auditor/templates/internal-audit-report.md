@@ -117,15 +117,3 @@ Use `templates/findings-register.md`.
 2. Confirm which quick wins should proceed.
 3. Route approved items to the `tour-operator-gravity-forms-configuration` skill.
 4. Retest after changes and produce closure note.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

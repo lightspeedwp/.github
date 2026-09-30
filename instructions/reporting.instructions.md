@@ -3,7 +3,7 @@ file_type: "instructions"
 title: Reporting Instructions
 description: Guidelines for generating and storing reports in this repository.
 version: "1.1"
-last_updated: "2025-12-08"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Engineering"]
 tags: ["reporting", "automation", "governance", "standards"]
 ---
@@ -267,21 +267,6 @@ Guidance:
 - [file-organisation.instructions.md](file-organisation.instructions.md)
 - [reports/README.md](../.github/reports/README.md) — directory map and examples
 - [reporting.agent.md](../agents/reporting.agent.md) — conversation flow and guardrails
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

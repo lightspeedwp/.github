@@ -1,0 +1,150 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T041a",
+  "organisation": "lightspeedwp",
+  "source": "GitHub organisation issue types (listed via the repository issue-types API on 2026-09-24)",
+  "native_type_count": 25,
+  "to_add": ["Decision", "Dependency Update", "Build"],
+  "issue_counts_status": "pending: this session cannot search issues by type across the organisation; open each count_search_url (or run T041 with a token) and record issue_count before T040c",
+  "types": [
+    {
+      "name": "Task",
+      "native_color": "blue",
+      "action": "keep"
+    },
+    {
+      "name": "Bug",
+      "native_color": "red",
+      "action": "keep"
+    },
+    {
+      "name": "Feature",
+      "native_color": "green",
+      "action": "keep"
+    },
+    {
+      "name": "Code Refactor",
+      "native_color": "gray",
+      "action": "rename",
+      "rename_to": "Refactor"
+    },
+    {
+      "name": "Build & CI",
+      "native_color": "blue",
+      "action": "rename",
+      "rename_to": "CI"
+    },
+    {
+      "name": "A11y",
+      "native_color": "pink",
+      "action": "rename",
+      "rename_to": "Accessibility"
+    },
+    {
+      "name": "Compatibility",
+      "native_color": "orange",
+      "action": "keep"
+    },
+    {
+      "name": "Security",
+      "native_color": "red",
+      "action": "keep"
+    },
+    {
+      "name": "Release",
+      "native_color": "green",
+      "action": "keep"
+    },
+    {
+      "name": "Maintenance",
+      "native_color": "gray",
+      "action": "remove",
+      "migrate_issues_to": "Chore",
+      "issue_count": null,
+      "count_search_url": "https://github.com/search?type=issues&q=org%3Alightspeedwp%20type%3A%22Maintenance%22"
+    },
+    {
+      "name": "Performance",
+      "native_color": "yellow",
+      "action": "keep"
+    },
+    {
+      "name": "Test Coverage",
+      "native_color": "yellow",
+      "action": "keep"
+    },
+    {
+      "name": "Epic",
+      "native_color": "purple",
+      "action": "keep"
+    },
+    {
+      "name": "Automation",
+      "native_color": "blue",
+      "action": "keep"
+    },
+    {
+      "name": "Code Review",
+      "native_color": "blue",
+      "action": "rename",
+      "rename_to": "Review"
+    },
+    {
+      "name": "Design",
+      "native_color": "purple",
+      "action": "keep"
+    },
+    {
+      "name": "Story",
+      "native_color": "blue",
+      "action": "remove",
+      "migrate_issues_to": "Feature",
+      "issue_count": null,
+      "count_search_url": "https://github.com/search?type=issues&q=org%3Alightspeedwp%20type%3A%22Story%22"
+    },
+    {
+      "name": "Improvement",
+      "native_color": "gray",
+      "action": "keep"
+    },
+    {
+      "name": "Documentation",
+      "native_color": "gray",
+      "action": "keep"
+    },
+    {
+      "name": "Integration",
+      "native_color": "orange",
+      "action": "remove",
+      "migrate_issues_to": "Feature",
+      "issue_count": null,
+      "count_search_url": "https://github.com/search?type=issues&q=org%3Alightspeedwp%20type%3A%22Integration%22"
+    },
+    {
+      "name": "Research",
+      "native_color": "gray",
+      "action": "keep"
+    },
+    {
+      "name": "Chore",
+      "native_color": "gray",
+      "action": "keep"
+    },
+    {
+      "name": "Audit",
+      "native_color": "gray",
+      "action": "keep"
+    },
+    {
+      "name": "AI Ops",
+      "native_color": "blue",
+      "action": "keep"
+    },
+    {
+      "name": "Content Modelling",
+      "native_color": "purple",
+      "action": "keep"
+    }
+  ],
+  "final_list": null
+}

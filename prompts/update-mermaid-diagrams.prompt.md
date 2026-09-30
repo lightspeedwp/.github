@@ -5,7 +5,7 @@ description: "Refresh Mermaid diagrams across the repository or targeted paths w
 mode: "agent"
 tools: ["read", "edit", "search", "shell"]
 tags: ["mermaid", "documentation", "a11y", "readme", "automation"]
-last_updated: "2025-12-12"
+last_updated: "2026-09-22""
 references:
   - path: ".github/instructions/mermaid.instructions.md"
     description: "Diagram crafting, WCAG AA contrast, placement"
@@ -74,19 +74,4 @@ Regenerate or add Mermaid diagrams with proper styling, accessibility (WCAG AA),
 - Clear summary of changes and any follow-up actions.
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

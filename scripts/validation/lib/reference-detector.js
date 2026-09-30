@@ -12,7 +12,9 @@ export class ReferenceDetector {
     this.patterns = {
       jsImport: [
         /require\(['"]([^'"]+)['"]?\)/g,
-        /import\s+(?:\*\s+as\s+\w+\s+)?from\s+['"]([^'"]+)['"]/g,
+        // Side-effect, default, named and namespace imports (#3460).
+        // Anchored to the start of a line so prose is not matched.
+        /^\s*import\s+(?:[\w$*{},\s]+?\s+from\s+)?['"]([^'"]+)['"]/gm,
         /import\(['"]([^'"]+)['"]\)/g,
       ],
       shellPath: [/agents\/[\w-]+/g, /scripts\/[\w-]+/g, /skills\/[\w-]+/g],

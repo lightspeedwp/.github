@@ -512,12 +512,14 @@ Document:
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     A["Phase 1:<br/>Implementation"] -->|Code review approved| B["Phase 2:<br/>Documentation"]
     B -->|User guide complete| C["Phase 3:<br/>Integration & Testing"]
     C -->|Alpha testing approved| D["Phase 4:<br/>Production Rollout"]
     
     A -->|Weekly progress| P1["Reporting Agent<br/>Working"]
     P1 -->|Integration ready| C
+accDescr: Detailed diagram
 ```
 
 ### External Dependencies

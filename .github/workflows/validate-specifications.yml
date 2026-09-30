@@ -21,20 +21,30 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: validate-specifications-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   validate:
     name: Specification Validation
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           # Full history is required to diff PR changes against develop.
           fetch-depth: 0
 
-      - name: Install dependencies
-        run: npm ci
+      # Only the markdown lint step needs npm packages; it installs them
+      # itself, and only when markdown files changed.
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Run specification audit
         id: audit
@@ -69,7 +79,7 @@ jobs:
 
       - name: Install Bats test framework
         if: always()
-        uses: bats-core/bats-action@4.0.0
+        uses: bats-core/bats-action@77d6fb60505b4d0d1d73e48bd035b55074bbfb43 # 4.0.0
         with:
           # Repository tests use plain bats only; skipping the unused
           # libraries avoids their failing cache restores.
@@ -106,6 +116,7 @@ jobs:
 
           printf 'Linting %d changed file(s):\n' "${#CHANGED_MD[@]}"
           printf '  %s\n' "${CHANGED_MD[@]}"
+          npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
           ./node_modules/.bin/markdownlint-cli2 "${CHANGED_MD[@]}"
           echo "✓ Markdown linting passed"
 

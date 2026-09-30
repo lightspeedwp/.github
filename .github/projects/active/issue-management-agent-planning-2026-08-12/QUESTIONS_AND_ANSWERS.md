@@ -482,6 +482,7 @@ What documentation should include Mermaid diagrams?
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     User["👤 Users/CI/Scheduler"]
     Agent["🤖 Issue Management Agent"]
     
@@ -527,12 +528,14 @@ graph TB
     Agent -->|Integrate| GHA
     Agent -->|Integrate| CLI
     Agent -->|Integrate| Framework
+accDescr: Detailed diagram
 ```
 
 **2. Daily Sync Workflow** (Sequence Diagram)
 
 ```mermaid
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant Schedule as Scheduler/Manual
     participant Agent as Agent
     participant Skills as Skills
@@ -576,12 +579,14 @@ sequenceDiagram
     Agent->>Report: save operation summary
     Report-->>Agent: confirmation
     Agent->>User: notify results
+accDescr: Detailed diagram
 ```
 
 **3. Skill Composition** (Flowchart)
 
 ```mermaid
 flowchart TD
+    accTitle: Flowchart
     Start([Operation Triggered]) --> Config[Load Configuration]
     Config --> Validate{Validate<br/>Repo Access?}
     
@@ -608,12 +613,14 @@ flowchart TD
     Error3 --> End
     Save --> Notify["Notify Stakeholders<br/>(if configured)"]
     Notify --> End
+accDescr: Detailed diagram
 ```
 
 **4. Multi-Repo Orchestration** (State Diagram)
 
 ```mermaid
 stateDiagram-v2
+    accTitle: Diagram
     [*] --> SelectRepo
     
     SelectRepo: Choose Target Repository
@@ -653,6 +660,7 @@ stateDiagram-v2
     Error1 --> [*]
     Error2 --> [*]
     Error3 --> [*]
+accDescr: Detailed diagram
 ```
 
 #### Documentation Deliverables
@@ -711,6 +719,7 @@ Week 3 (Aug 27-Sep 2) — Core Skills 3-5
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     Shared["Shared Utilities<br/>(label-management.js<br/>report-generator.js<br/>activity-analyzer.js)"]
     
     Audit["📊 audit-label-coverage"]
@@ -731,11 +740,12 @@ graph LR
     Troubleshoot -.->|uses utilities| Report
     
     style Shared fill:#e1f5ff,color:#000000
-    style Audit fill:#c8e6c9,color:#000000
-    style Sync fill:#c8e6c9,color:#000000
-    style Health fill:#c8e6c9,color:#000000
-    style Troubleshoot fill:#c8e6c9,color:#000000
+    style Audit fill:#dcfce7,color:#14532d,stroke:#14532d
+    style Sync fill:#dcfce7,color:#14532d,stroke:#14532d
+    style Health fill:#dcfce7,color:#14532d,stroke:#14532d
+    style Troubleshoot fill:#dcfce7,color:#14532d,stroke:#14532d
     style Report fill:#fff9c4,color:#000000
+accDescr: Detailed diagram
 ```
 
 #### Week-by-Week Breakdown
@@ -1068,12 +1078,14 @@ theme:design-system-sync:        # Design system sync needed
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     Detect["Detect Stale<br/>Issues"] -->|Preview| Review["Human Review<br/>(with Preview)"]
     Review -->|✅ Approve| Apply["Apply Labels<br/>& Mark Stale"]
     Review -->|❌ Reject| Skip["Skip Marking<br/>Log Decision"]
     Apply --> Report["Generate Report"]
     Skip --> Report
     Report --> End["Store Results"]
+accDescr: Detailed diagram
 ```
 
 #### WordPress-Specific Documentation

@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Project Meta Sync Instructions"
 description: "Standards for syncing GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names"
 version: "v1.0"
-last_updated: "2025-12-15"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Engineering"]
 tags: ["project-management", "automation", "github-projects", "synchronisation", "labels"]
 applyTo: ["../agents/project-meta-sync.agent.md", "scripts/agents/project-meta-sync.agent.js", ".github/workflows/project-meta-sync.yml"]
@@ -67,21 +67,6 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [project-meta-sync.agent.md](../agents/project-meta-sync.agent.md) — Agent specification
 - [labels.yml](../.github/labels.yml) — Canonical label definitions
 - [GitHub Projects V2 API](https://docs.github.com/en/issues/planning-and-tracking-with-projects/automating-your-project/using-the-api-to-manage-projects)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

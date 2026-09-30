@@ -2,7 +2,7 @@
 file_type: "instructions"
 applyTo: [".github/workflows/**/*.yml", ".github/workflows/**/*.yaml"]
 description: "Write secure, cache-efficient, reusable workflows with tests."
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 version: "v1.0"
 owners: ["LightSpeed Engineering"]
 ---
@@ -99,21 +99,6 @@ Standard pipeline order: **lint → unit → e2e → build → release** (tag/ch
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [GitHub Actions Tutorials](https://docs.github.com/en/actions/tutorials)
 - [Create an Example Workflow](https://docs.github.com/en/actions/tutorials/create-an-example-workflow)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
