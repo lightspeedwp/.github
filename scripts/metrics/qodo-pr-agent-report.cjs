@@ -52,6 +52,14 @@ function parseAmount(value, flag) {
  *   non-negative number, or a flag is unrecognized.
  */
 function parseArgs(argv) {
+  const VALUE_FLAGS = new Set([
+    '--since',
+    '--out',
+    '--repo',
+    '--workflow',
+    '--tokens-per-run',
+    '--price-per-mtok',
+  ]);
   const args = {
     repo: 'lightspeedwp/.github',
     workflow: 'qodo-pr-agent.yml',
@@ -61,6 +69,11 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i += 1) {
     const key = argv[i];
     const value = argv[i + 1];
+    // A missing value, or another flag in its place, must not be consumed as
+    // the value: `--out --since …` would otherwise swallow --since.
+    if (VALUE_FLAGS.has(key) && (value === undefined || value.startsWith('--'))) {
+      throw new Error(`${key} requires a value`);
+    }
     switch (key) {
       case '--since':
         args.since = value;

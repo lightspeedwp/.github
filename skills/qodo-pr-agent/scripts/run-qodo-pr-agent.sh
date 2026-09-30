@@ -130,49 +130,44 @@ md_out="$out_dir/out.md"
 json_out="$out_dir/out.json"
 # A previous run's output must never be readable as this run's. Removing them
 # up front means a failed or skipped run leaves nothing behind to be mistaken
-# for a fresh result, and an empty file is never a valid result. stdout.txt is
-# removed too, because the fallback below copies it into $md_out when the tool
-# prints instead of writing --output.
+# for a fresh result, and an empty file is never a valid result.
 rm -f "$md_out" "$json_out" "$out_dir/stdout.txt"
 
-# Run the pinned container against a PR URL or a read-only mounted diff.
+# PR-Agent 0.46.0 accepts --output/--json-output only in plain-diff mode, and a
+# PR run with publish_output=false prints nothing. PR mode therefore runs
+# pr_mode_adapter.py inside the pinned image, which writes the tool's stored
+# result to out.md. Diff mode uses the CLI and its output flags directly.
+readonly ADAPTER="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/pr_mode_adapter.py"
+
+# Run the pinned container against a PR URL (via the adapter) or a read-only mounted diff.
 run_docker() {
   local args=(run --rm -e ANTHROPIC__KEY --entrypoint python)
-  local target=()
   if [ -n "$pr_url" ]; then
-    # publish_output=false gates posting only, so the run still generates
-    # content. Give it somewhere to write it, exactly as the diff path does,
-    # rather than relying on it happening to print to stdout.
-    args+=(-e GITHUB__USER_TOKEN -v "$out_dir:/work/out")
-    target=(--pr_url "$pr_url" --output /work/out/out.md)
-    if [ "$tool" = "review" ]; then target+=(--json-output /work/out/out.json); fi
-  else
-    local abs_diff
-    abs_diff="$(cd "$(dirname "$diff_file")" && pwd)/$(basename "$diff_file")"
-    args+=(-v "$abs_diff:/work/input.diff:ro" -v "$out_dir:/work/out")
-    target=(--diff-file /work/input.diff --output /work/out/out.md)
-    # Upstream accepts --json-output for review only.
-    if [ "$tool" = "review" ]; then target+=(--json-output /work/out/out.json); fi
+    args+=(-e GITHUB__USER_TOKEN -v "$ADAPTER:/work/adapter.py:ro" -v "$out_dir:/work/out")
+    docker "${args[@]}" "$IMAGE" /work/adapter.py /work/out/out.md "$pr_url" \
+      "${tool_args[@]}" "${settings[@]}"
+    return
   fi
+  local abs_diff target
+  abs_diff="$(cd "$(dirname "$diff_file")" && pwd)/$(basename "$diff_file")"
+  args+=(-v "$abs_diff:/work/input.diff:ro" -v "$out_dir:/work/out")
+  target=(--diff-file /work/input.diff --output /work/out/out.md)
+  # Upstream accepts --json-output for review only.
+  if [ "$tool" = "review" ]; then target+=(--json-output /work/out/out.json); fi
   docker "${args[@]}" "$IMAGE" -m pr_agent.cli "${target[@]}" "${tool_args[@]}" "${settings[@]}"
 }
 
-# Run the pinned pipx CLI against a PR URL or a local diff and output files.
+# Run the pinned pipx CLI against a local diff. pipx cannot run the adapter, so
+# PR mode needs Docker (see the runtime selection below).
 run_pipx() {
-  local target=()
-  if [ -n "$pr_url" ]; then
-    target=(--pr_url "$pr_url" --output "$md_out")
-    if [ "$tool" = "review" ]; then target+=(--json-output "$json_out"); fi
-  else
-    target=(--diff-file "$diff_file" --output "$md_out")
-    if [ "$tool" = "review" ]; then target+=(--json-output "$json_out"); fi
-  fi
+  local target=(--diff-file "$diff_file" --output "$md_out")
+  if [ "$tool" = "review" ]; then target+=(--json-output "$json_out"); fi
   pipx run --spec "$PIP_SPEC" pr-agent "${target[@]}" "${tool_args[@]}" "${settings[@]}"
 }
 
 if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
   runner=run_docker
-elif command -v pipx >/dev/null 2>&1 && python3 -c 'import sys; sys.exit(sys.version_info < (3, 12))' 2>/dev/null; then
+elif [ -z "$pr_url" ] && command -v pipx >/dev/null 2>&1 && python3 -c 'import sys; sys.exit(sys.version_info < (3, 12))' 2>/dev/null; then
   runner=run_pipx
 else
   emit skipped no-runtime
@@ -184,12 +179,6 @@ set +e
 exit_code=$?
 set -e
 
-# Some tools print their result to stdout instead of writing --output. Keep that
-# as a fallback, but never let a previous run's file stand in for this one.
-if [ -n "$pr_url" ] && [ ! -s "$md_out" ] && [ -s "$out_dir/stdout.txt" ]; then
-  cp "$out_dir/stdout.txt" "$md_out"
-fi
-
 truncated=false
 if grep -qiE 'clipped|omitted|other modified files' "$md_out" 2>/dev/null; then truncated=true; fi
 
@@ -200,9 +189,8 @@ if [ "$exit_code" -ne 0 ]; then
   emit error upstream-error
 fi
 
-# publish_output only gates posting, never generation. If neither the output
-# file nor stdout carried anything, nothing was generated and saying otherwise
-# would report a result that does not exist.
+# If the output file is empty, the tool produced no retrievable result (in PR
+# mode, ask stores none), and reporting ok would describe a result that does not exist.
 if [ ! -s "$md_out" ]; then
   emit skipped no-output
 fi

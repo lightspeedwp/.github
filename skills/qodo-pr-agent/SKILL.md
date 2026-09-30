@@ -18,12 +18,14 @@ Qodo PR-Agent is the third-party tool, and is **not** the internal [`agents/pr-a
 | `review` | ✅ | ✅ | `skills/pr-review`, `agents/reviewer-agent/`, internal PR agent self-review gate |
 | `improve` | ✅ | ✅ | Internal PR agent self-review gate |
 | `describe` | ✅ | ✅ | Internal PR agent (diff-derived body section) |
-| `ask` | ✅ | ✅ | `skills/pr-review`, `agents/qa-subagent.agent.md` |
+| `ask` | — (returns `no-output`) | ✅ | `skills/pr-review`, `agents/qa-subagent.agent.md` |
 | `generate_labels` | ✅ | — | `agents/labeling-agent/`, `skills/label-governance` |
 | `update_changelog` | ✅ | — | `agents/changelog-agent/`, `skills/changelog-generator` |
 | `add_docs` | ✅ | — | `agents/document-reviewer-agent/` |
 
 `similar_issue` is not supported, because it is deferred (spec 019, research R8).
+
+In PR mode a result comes back only from tools that store one when publishing is off: `review`, `describe` and `improve`. The others run but return `skipped` / `no-output`, so ask questions in diff mode.
 
 ## Input Interface
 
@@ -41,7 +43,7 @@ scripts/run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--que
 | `ANTHROPIC_API_KEY_QODO_PR_AGENT` | yes | The dedicated key only; a shared `ANTHROPIC_API_KEY` is ignored so spend stays separate |
 | `GITHUB_TOKEN` | PR mode | Read access to the PR is enough |
 
-**Runtime**: Docker, preferred, runs the same digest-pinned image as the workflow. Otherwise `pipx` with Python 3.12 or newer runs `pr-agent==0.46.0`.
+**Runtime**: Docker, preferred, runs the same digest-pinned image as the workflow. For a diff, `pipx` with Python 3.12 or newer can run `pr-agent==0.46.0` instead. PR mode needs Docker: it runs `scripts/pr_mode_adapter.py` in the image, because the 0.46.0 CLI has no non-publishing output for a PR.
 
 ## Output Interface
 
@@ -50,7 +52,7 @@ The script writes `<out>/result.json` and prints the same JSON to stdout:
 | Field | Type | Meaning |
 | --- | --- | --- |
 | `status` | `ok`, `skipped` or `error` | `skipped` means "no input", and is never a failure |
-| `reason` | string or null | `no-credential`, `no-runtime`, `tool-disabled`, `rate-limited` or `upstream-error` |
+| `reason` | string or null | `no-credential`, `no-runtime`, `no-output`, `tool-disabled`, `rate-limited` or `upstream-error` |
 | `tool` | string | The tool that was requested |
 | `markdown` | string or null | The tool's Markdown output when `status` is `ok` |
 | `data` | object or null | Structured output, when the tool provides it (diff mode) |
@@ -72,7 +74,8 @@ Every caller documents these obligations in its own `## Qodo PR-Agent integratio
 | Situation | Result |
 | --- | --- |
 | No model key, or no `GITHUB_TOKEN` in PR mode | `skipped` / `no-credential` |
-| Neither Docker nor pipx with Python ≥ 3.12 | `skipped` / `no-runtime` |
+| Neither Docker nor pipx with Python ≥ 3.12, or PR mode without Docker | `skipped` / `no-runtime` |
+| The tool stored no result (for example `ask` in PR mode) | `skipped` / `no-output` |
 | Tool not allowed for the mode | `skipped` / `tool-disabled` |
 | Provider rate limit (HTTP 429) | `error` / `rate-limited` |
 | Any other upstream failure | `error` / `upstream-error`. Details are in `<out>/qodo-pr-agent.log`, which never contains the key. |
@@ -86,11 +89,19 @@ git diff origin/develop...HEAD > /tmp/pr.diff
 skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh review --diff-file /tmp/pr.diff --out /tmp/qodo
 ```
 
-Ask about an open PR:
+Ask about a change (diff mode; PR-mode `ask` stores no result):
 
 ```bash
-GITHUB_TOKEN=… skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh ask \
-  --pr-url https://github.com/lightspeedwp/.github/pull/123 --question "What does this change affect?"
+git diff origin/develop...HEAD > /tmp/pr.diff
+skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh ask \
+  --diff-file /tmp/pr.diff --question "What does this change affect?"
+```
+
+Review an open PR (needs Docker):
+
+```bash
+GITHUB_TOKEN=… skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh review \
+  --pr-url https://github.com/lightspeedwp/.github/pull/123
 ```
 
 Skipped result, returned when no key is configured:

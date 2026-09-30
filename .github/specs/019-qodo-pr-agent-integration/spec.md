@@ -33,7 +33,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 
 ### User Story 1 - Governed Qodo PR-Agent pilot on this repository (Priority: P1)
 
-A LightSpeed maintainer opens or updates a pull request in `lightspeedwp/.github` and, without doing anything else, receives a generated description and code-improvement suggestions from Qodo PR-Agent. CodeRabbit continues to provide the code review. The output follows organisation rules: UK English, canonical prefixed labels only, and no secrets exposed. The maintainer can also trigger any other Qodo PR-Agent command on demand by commenting on the PR.
+A LightSpeed maintainer opens, reopens or marks ready for review a pull request in `lightspeedwp/.github` and, without doing anything else, receives a generated description and code-improvement suggestions from Qodo PR-Agent. CodeRabbit continues to provide the code review. The output follows organisation rules: UK English, canonical prefixed labels only, and no secrets exposed. Pushing further commits does not refresh this automatic output; the maintainer can trigger any Qodo PR-Agent command on demand, including a refresh, by commenting on the PR.
 
 **Why this priority**: Nothing else can be integrated until the tool is installed, secured and producing trustworthy output somewhere. A single-repository pilot proves the value and the cost before any wider rollout.
 

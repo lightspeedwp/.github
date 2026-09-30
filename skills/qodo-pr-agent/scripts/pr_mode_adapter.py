@@ -1,0 +1,42 @@
+"""Run one Qodo PR-Agent tool against a PR without publishing, and keep its result.
+
+PR-Agent 0.46.0's CLI accepts --output and --json-output only in plain-diff mode,
+and with config.publish_output=false it prints nothing. The tools that support a
+non-publishing run (review, describe, improve) store their Markdown result in
+get_settings().data["artifact"] instead, so this adapter calls the agent directly
+and writes that artifact to a file. A tool that stores no artifact (ask, for
+example) leaves the file absent, and the runner reports no-output.
+
+Usage (inside the pinned image): python pr_mode_adapter.py <out.md> <pr_url> <tool> [args...]
+"""
+
+import asyncio
+import os
+import sys
+
+# Run as a script, Python puts this file's directory on sys.path; `-m pr_agent.cli`
+# would put the image's working directory there instead. Match that, so pr_agent
+# imports whether the image installs it or serves it from its working directory.
+sys.path.insert(0, os.getcwd())
+
+from pr_agent.agent.pr_agent import PRAgent
+from pr_agent.config_loader import get_settings
+
+
+def main() -> int:
+    """Run the request, write any stored artifact, and return the process exit code."""
+    out_md, pr_url, *request = sys.argv[1:]
+    get_settings().set("CONFIG.CLI_MODE", True)
+    result = asyncio.run(PRAgent().handle_request(pr_url, request))
+
+    data = get_settings().get("data") or {}
+    artifact = data.get("artifact") if isinstance(data, dict) else None
+    if isinstance(artifact, str) and artifact.strip():
+        with open(out_md, "w", encoding="utf-8") as handle:
+            handle.write(artifact)
+
+    return 1 if result is False else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -81,7 +81,7 @@ A failed exchange (denied rule, incomplete configuration, endpoint unreachable) 
    - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow. The step uses `continue-on-error: true`, so an invalid key, rate limit or upstream outage records `failure` and emits a notice without failing the PR (FR-006, SC-003).
 3. **`record`** (`needs: [preflight, run]`, `if: always()` unless the preflight reason is `not-a-command`, `bot-sender` or `not-a-pr`, `permissions: {}`). It writes the run record ([data model](../data-model.md#run-record)), with outcome `success`, `failure` or `skipped:<reason>`, to `$GITHUB_STEP_SUMMARY`, and uploads it as artefact `qodo-pr-agent-run-${{ github.run_id }}` (retention 30 days). It then calls `lightspeedwp/.github/.github/actions/collect-metrics@<sha>` (non-blocking). It is referenced by path and SHA so it needs no checkout, and works in consuming repositories too.
 4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write`, `issues: write` and the `id-token` permission as `write` (used only by the federation exchange), and nothing else. It does **not** get `contents: write`, because nothing is ever pushed.
-5. **Concurrency**: `group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one.
+5. **Concurrency** (on the `run` job, so only runs preflight enabled enter the group and an ordinary comment cannot cancel a queued command): `group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one.
 
 ## Environment passed to the Qodo PR-Agent step
 
@@ -103,6 +103,8 @@ Untrusted event values, such as the comment body and branch names, are passed to
 Only these commands are accepted: `/describe`, `/improve`, `/review`, `/ask`, `/update_changelog`, `/add_docs`, `/help`.
 
 These are rejected in preflight, with `reason=command-not-allowed`: `/generate_labels`, `/similar_issue`, `/config`, `/settings` and anything else.
+
+An allowed command that carries a `--section.key=value` token anywhere after it, `/ask` included, is rejected with `reason=arguments-not-allowed`. PR-Agent would otherwise apply that token as a setting after the environment, overriding the locked keys.
 
 ## Acceptance checks
 

@@ -487,6 +487,35 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
     });
 
+    // PR-Agent applies later `--section.key=value` tokens as settings, which would
+    // bypass the locked keys, so preflight refuses them for every command.
+    it.each([
+      ['/review --config.model=gpt-4o', 'review'],
+      ['/ask why? --pr_description.publish_description_as_comment=false', 'ask'],
+      ['/describe\n--config.response_language=fr', 'describe'],
+    ])('refuses setting arguments in %j', (body, tool) => {
+      const { outputs, core } = runPreflight({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: {} },
+          comment: { body, author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'arguments-not-allowed', tool });
+      expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent skipped: arguments-not-allowed');
+    });
+
+    it('still accepts a question that mentions a flag without a value', () => {
+      const { outputs } = runPreflight({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: {} },
+          comment: { body: '/ask What does --verbose do here?', author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'ask' });
+    });
+
     it('rejects authorised commands when the credential is missing', () => {
       const { outputs } = runPreflight({
         eventName: 'issue_comment',
@@ -682,8 +711,12 @@ describe('Qodo PR-Agent reusable workflow', () => {
   });
 
   it('serialises runs per PR without cancelling commands', () => {
-    expect(String(doc.concurrency.group)).toMatch(/^qodo-pr-agent-/);
-    expect(doc.concurrency['cancel-in-progress']).toBe(false);
+    // Only runs preflight enabled may enter the group: at workflow level every
+    // comment would join it, and GitHub cancels the older pending run.
+    expect(doc.concurrency).toBeUndefined();
+    expect(doc.jobs.preflight.concurrency).toBeUndefined();
+    expect(String(doc.jobs.run.concurrency.group)).toMatch(/^qodo-pr-agent-/);
+    expect(doc.jobs.run.concurrency['cancel-in-progress']).toBe(false);
   });
 
   it('pins every other action by full SHA', () => {

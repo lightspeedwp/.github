@@ -352,4 +352,15 @@ describe('qodo-pr-agent-report helpers', () => {
       'Unknown argument: --unknown'
     );
   });
+
+  it.each([
+    [['--out', '--since', '2026-10-01'], '--out requires a value'],
+    [['--since', '2026-10-01', '--repo'], '--repo requires a value'],
+    [
+      ['--since', '2026-10-01', '--tokens-per-run', '--out', 'x'],
+      '--tokens-per-run requires a value',
+    ],
+  ])('rejects a flag with no value instead of consuming the next token: %j', (argv, message) => {
+    expect(() => parseArgs(argv)).toThrow(message);
+  });
 });

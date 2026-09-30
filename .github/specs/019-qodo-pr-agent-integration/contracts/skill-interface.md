@@ -33,7 +33,9 @@ run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--question "<
 - `ANTHROPIC_API_KEY_QODO_PR_AGENT` only (FR-002: a dedicated key, with no fallback to a shared `ANTHROPIC_API_KEY`). The script maps it to `ANTHROPIC__KEY`.
 - `GITHUB_TOKEN`, for PR mode only.
 
-**Runtime**: the script prefers `docker run` of the pinned image digest, which is the same digest as the reusable workflow. Otherwise it uses `pipx run pr-agent==0.46.0` (needs Python ≥ 3.12).
+**Runtime**: the script prefers `docker run` of the pinned image digest, which is the same digest as the reusable workflow. In diff mode it otherwise uses `pipx run pr-agent==0.46.0` (needs Python ≥ 3.12).
+
+**PR mode needs Docker.** PR-Agent 0.46.0 accepts `--output` and `--json-output` only in plain-diff mode, and a PR run with `config.publish_output=false` prints nothing. PR mode therefore runs `scripts/pr_mode_adapter.py` inside the pinned image. The adapter calls the agent directly and writes the Markdown result the tool stores (review, describe and improve do; ask does not). `pipx` can run only the CLI, so PR mode without Docker is `skipped` / `no-runtime`.
 
 **Always-set upstream flags**: `--config.publish_output=false`, `--config.verbosity_level=2`, `--config.propagate_tool_errors=true`, `--config.response_language=en-GB`. The skill **never publishes to a PR**.
 
@@ -54,8 +56,8 @@ The script writes `<out>/result.json` and prints the same JSON to stdout:
 
 Exit codes: `0` for `ok` **and** `skipped`, and `2` for `error`. A skipped result is never a failure (FR-014).
 
-`no-output` means the tool ran and exited cleanly but produced no content: neither an output file
-nor stdout carried anything. It is reported as `skipped` rather than `ok` so a caller is never handed
+`no-output` means the tool ran and exited cleanly but left no result in the output file (in PR
+mode, `ask` stores none). It is reported as `skipped` rather than `ok` so a caller is never handed
 an empty `markdown` as though it were a real review. Output files from a previous run are removed
 before each run, so this can never be a stale result read back as current. Callers should treat
 `no-output` as "nothing to report this time" and may retry or fall through; it is not an error.

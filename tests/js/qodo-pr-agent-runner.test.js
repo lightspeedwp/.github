@@ -36,10 +36,18 @@ while [ "$#" -gt 0 ]; do
     -v)
       case "$2" in *:/work/out) output_dir="\${2%:/work/out}" ;; esac
       shift ;;
-    --json-output) json=true; shift ;;
+    --json-output) json=true; output_flag=true; shift ;;
+    --output) output_flag=true; shift ;;
+    --diff-file) diff_mode=true; shift ;;
   esac
   shift
 done
+# PR-Agent 0.46.0 rejects the output flags outside plain-diff mode.
+if [ "$output_flag" = 'true' ] && [ "$diff_mode" != 'true' ]; then
+  echo '--output is only supported in plain-diff mode (--stdin or --diff-file)' >&2
+  exit 2
+fi
+if [ "$MOCK_SILENT" = 'true' ]; then exit 0; fi
 if [ -n "$output_dir" ]; then
   printf '%s\\n' 'Docker diff suggestion' > "$output_dir/out.md"
   if [ "$json" = 'true' ]; then printf '%s\\n' '{"suggestions":[]}' > "$output_dir/out.json"; fi
@@ -274,43 +282,16 @@ fi
     expect(path.isAbsolute(outputArg)).toBe(true);
   });
 
-  // publish_output=false gates posting, not generation, so a PR run must write
-  // its result to the output file rather than depend on the tool happening to
-  // print. The mock writes only what --output names, so a working channel is
-  // the only way the Markdown can appear.
-  // A tool that prints instead of writing a file is still captured. The
-  // `> "$out_dir/stdout.txt"` redirect truncates that file on every run, so a
-  // previous run's stdout cannot survive to be read as this run's result.
-  it('keeps the stdout fallback for a tool that only prints', () => {
-    const url = 'https://github.com/org/repo/pull/1';
-    const result = run(['describe', '--pr-url', url], {
-      ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
-      GITHUB_TOKEN: 'test-only-token',
-      MOCK_NO_OUTPUT_CHANNEL: 'true',
-    });
-    expect(result.status).toBe(0);
-    expect(JSON.parse(result.stdout)).toMatchObject({
-      status: 'ok',
-      markdown: 'Suggested PR summary\n',
-    });
-  });
-
-  it('gives a PR-mode run a real output channel without publishing', () => {
-    const url = 'https://github.com/org/repo/pull/1';
-    const result = run(['describe', '--pr-url', url], {
+  // pipx can run only the CLI, and the CLI has no non-publishing output channel
+  // for a PR, so PR mode needs Docker to run the adapter.
+  it('skips PR mode when only pipx is available', () => {
+    const result = run(['describe', '--pr-url', 'https://github.com/org/repo/pull/1'], {
       ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
       GITHUB_TOKEN: 'test-only-token',
     });
     expect(result.status).toBe(0);
-    expect(JSON.parse(result.stdout)).toMatchObject({
-      status: 'ok',
-      tool: 'describe',
-      markdown: 'Suggestion: clipped output\n',
-      data: null,
-      truncated: true,
-    });
-    expect(fs.readFileSync(capture, 'utf8')).toContain(url);
-    expect(fs.readFileSync(capture, 'utf8')).not.toContain('test-only-token');
+    expect(JSON.parse(result.stdout)).toMatchObject({ status: 'skipped', reason: 'no-runtime' });
+    expect(fs.existsSync(capture)).toBe(false);
   });
 
   it.each([
@@ -421,7 +402,7 @@ fi
       }
     );
 
-    it('passes PR credentials through the environment and captures the output file', () => {
+    it('runs PR mode through the adapter without the plain-diff output flags', () => {
       const url = 'https://github.com/org/repo/pull/1';
       const result = run(['review', '--pr-url', url], {
         ANTHROPIC_API_KEY_QODO_PR_AGENT: 'docker-test-key',
@@ -434,23 +415,49 @@ fi
         reason: null,
         tool: 'review',
         markdown: 'Docker diff suggestion\n',
-        data: { suggestions: [] },
+        data: null,
         truncated: false,
       });
       const args = fs.readFileSync(capture, 'utf8').trimEnd().split('\n');
-      expect(args[args.indexOf('--pr_url') + 1]).toBe(url);
       expect(args[args.indexOf('GITHUB__USER_TOKEN') - 1]).toBe('-e');
-      // A PR run needs somewhere to write its result, so the out directory must
-      // be mounted and both output flags passed, exactly as the diff path does.
-      const mount = args[args.indexOf('-v') + 1];
-      expect(mount.endsWith(':/work/out')).toBe(true);
-      expect(args[args.indexOf('--output') + 1]).toBe('/work/out/out.md');
-      expect(args[args.indexOf('--json-output') + 1]).toBe('/work/out/out.json');
+      const adapterMount = args.find((arg) => arg.endsWith(':/work/adapter.py:ro'));
+      expect(adapterMount).toMatch(/skills\/qodo-pr-agent\/scripts\/pr_mode_adapter\.py:/);
+      expect(args).toContain(`${output}:/work/out`);
+      const image = args.findIndex((arg) => arg.startsWith('pragent/'));
+      expect(args.slice(image + 1, image + 5)).toStrictEqual([
+        '/work/adapter.py',
+        '/work/out/out.md',
+        url,
+        'review',
+      ]);
+      expect(args).toEqual(expect.arrayContaining(['--config.publish_output=false']));
+      expect(args).not.toContain('--output');
+      expect(args).not.toContain('--json-output');
+      expect(args).not.toContain('-m');
       expect(fs.readFileSync(credentialCapture, 'utf8')).toBe(
         'docker-test-key\ndocker-test-token\n'
       );
       expect(args.join('\n')).not.toMatch(/docker-test-key|docker-test-token/);
       expect(result.stdout + result.stderr).not.toMatch(/docker-test-key|docker-test-token/);
+    });
+
+    it('reports no-output when a PR-mode tool stores no result', () => {
+      const result = run(
+        ['ask', '--pr-url', 'https://github.com/org/repo/pull/1', '--question', 'Why?'],
+        {
+          ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+          GITHUB_TOKEN: 'test-only-token',
+          MOCK_DOCKER: 'true',
+          MOCK_SILENT: 'true',
+        }
+      );
+      expect(result.status).toBe(0);
+      expect(JSON.parse(result.stdout)).toMatchObject({
+        status: 'skipped',
+        reason: 'no-output',
+        tool: 'ask',
+        markdown: null,
+      });
     });
   });
 });

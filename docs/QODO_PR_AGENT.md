@@ -60,6 +60,7 @@ Only repository **owners, members and collaborators** can run commands. Comment 
 | `/generate_labels` | Qodo PR-Agent never applies labels. Label suggestions reach the labelling agent through the shared skill and are filtered against `.github/labels.yml` ([research R7](../.github/specs/019-qodo-pr-agent-integration/research.md#r7-keeping-governance-intact-labels-descriptions-changelog)). |
 | `/similar_issue` | Deferred. The upstream tool is experimental, needs OpenAI embeddings, and isn't included in the Action image ([research R8](../.github/specs/019-qodo-pr-agent-integration/research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)). |
 | `/config`, other commands | Not allow-listed; they are skipped. |
+| Any command with a `--section.key=value` setting | Skipped with `arguments-not-allowed`, `/ask` included, because a setting in a comment would override the locked keys. |
 
 ## Who does what
 

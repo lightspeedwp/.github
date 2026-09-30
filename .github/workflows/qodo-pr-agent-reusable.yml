@@ -74,11 +74,6 @@ on:
 permissions:
   contents: read
 
-# One run per PR at a time; never cancel a maintainer's command for an unrelated event.
-concurrency:
-  group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}
-  cancel-in-progress: false
-
 jobs:
   preflight:
     name: Decide whether Qodo PR-Agent runs
@@ -158,6 +153,14 @@ jobs:
                 if (!ALLOWED_COMMANDS.includes(command)) {
                   return { reason: 'command-not-allowed', tool: requested };
                 }
+                // PR-Agent applies any later `--section.key=value` token as a
+                // setting after the environment, which would override the locked
+                // keys (for example config.model). That holds for /ask too, so
+                // every command is checked.
+                const rest = String(comment?.body || '').trim().split(/\s+/).slice(1);
+                if (rest.some((arg) => arg.startsWith('--') && arg.includes('='))) {
+                  return { reason: 'arguments-not-allowed', tool: requested };
+                }
                 if (process.env.HAS_CREDENTIAL !== 'true') {
                   return { reason: 'no-credential', tool: requested };
                 }
@@ -180,6 +183,13 @@ jobs:
     name: Run Qodo PR-Agent
     needs: preflight
     if: needs.preflight.outputs.enabled == 'true'
+    # One run per PR at a time, set on this job rather than the workflow so that
+    # only runs preflight enabled enter the group. GitHub keeps one pending run
+    # per group and cancels the older one, so at workflow level any ordinary
+    # comment would cancel a maintainer's queued command.
+    concurrency:
+      group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
