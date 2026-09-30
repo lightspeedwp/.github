@@ -72,6 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **No Red Check on Stale Pull Requests** — A workflow now merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported it as a failing check nobody could act on. The up-to-date rule is unchanged. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
 - **Footer Shape Figures Corrected** — Workflow comment: 899 flagged files, 255 holding fewer than two distinct known footer phrases. The runtime notice calls 28.4% a share of flagged files, not a false-positive rate. (#3682, #3604)
 - **Merged Advisory and Spec Defects Corrected** — The advisories newsletter form survives a failed request, tells a blocked address from a fault and counts its rate limit atomically; spec 018 defers auto-approved branch deletion. (#1396)
