@@ -119,8 +119,7 @@ jobs:
               let message = '';
               try {
                 // expected_head_sha guards against merging into a branch that
-                // moved while this run was in flight; GitHub answers 422 rather
-                // than writing a merge onto a head nobody reviewed.
+                // moved while this run was in flight.
                 const { status: responseStatus } = await github.rest.pulls.updateBranch({
                   owner,
                   repo,
@@ -130,7 +129,9 @@ jobs:
                 status = responseStatus;
               } catch (error) {
                 status = error.status;
-                message = error.message || '';
+                // The API's own message is what distinguishes the two 422
+                // responses, so prefer it over Octokit's wrapper text.
+                message = error.response?.data?.message || error.message || '';
               }
 
               const outcome = classifyUpdateResult({ status, message });
