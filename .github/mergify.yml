@@ -1,87 +1,73 @@
 # Mergify configuration.
 # Schema: https://docs.mergify.com/mergify-configuration-schema.json
 #
-# Scope: keep pull requests current against develop, and auto-merge Dependabot
-# updates once the develop ruleset is satisfied. The ruleset still requires the
-# required checks and one code-owner approval, so Mergify never merges anything
-# a human has not approved.
+# Scope: auto-merge Dependabot updates once the develop ruleset is satisfied.
+# The ruleset still requires the required checks and one code-owner approval,
+# so Mergify never merges anything a human has not approved.
 #
 # Removed (#3476): the queue, auto-approve, imgbot and meta-agent rules.
 # They gated on a check named "All Checks Passed" that no workflow has
 # produced since the workflow consolidation, and the imgbot and
 # lightspeed-bot authors have opened no PRs recently. The only mechanism
 # that actually merged Dependabot PRs is auto_merge below, so it is kept.
-
-pull_request_rules:
-  # Every open same-repository pull request against develop merges it in as
-  # soon as it falls behind, so nothing is ever blocked on staleness alone.
-  #
-  # develop's ruleset uses a strict up-to-date policy, so a PR one commit
-  # behind is blocked from merging exactly as much as one twenty behind. An
-  # earlier revision of this rule waited until a PR was more than five commits
-  # behind; that left a band of PRs permanently stuck until they drifted past
-  # the threshold. The threshold is gone so the rule fires at any staleness.
-  #
-  # This replaced a Dependabot-only rule. It is a strict superset of it, so
-  # keeping both would have matched every Dependabot pull request twice and
-  # run the same update action from two rules.
-  #
-  # `-draft` excludes work-in-progress, following Mergify's own documented
-  # linear history example. A draft is not waiting to merge, and re-running CI
-  # on every open draft on every develop push is pure cost.
-  #
-  # `-from-fork` excludes forks because Mergify can only write a fork head
-  # branch when the contributor enabled maintainer edits. Without that
-  # permission the action fails and the pull request stays behind, so the rule
-  # must not claim to cover every fork.
-  #
-  # `update` rather than `rebase`: `rebase` has to impersonate a GitHub user
-  # and cannot impersonate a bot-owned account, so it fails outright on
-  # Dependabot pull requests, and it refuses fork pull requests entirely.
-  # `update` merges the base in and needs no impersonation.
-  #
-  # Mergify skips pull requests in a conflict or already in the merge queue
-  # (`queue-position = -1`), so one needing manual conflict resolution still
-  # reports DIRTY, and a queued one is left to the queue. Mergify applies the
-  # same no-conflict requirement itself, independent of `-conflict` here, so
-  # that condition is belt-and-braces rather than the only guard.
-  #
-  # A pull request that is behind *and* conflicting is the one case this rule
-  # cannot help, and the `update` check stays red until someone resolves it by
-  # hand. Two separate things are going on, and it is worth keeping them apart:
-  #
-  #   1. `update` merges the base in, and merging cannot resolve a conflict, so
-  #      this rule has nothing to contribute once the pull request is already
-  #      classified as conflicting. It also declines earlier than that: it asks
-  #      the API whether the pull request is mergeable, so on a conflicting one
-  #      it reports "nothing to do" without attempting a merge.
-  #   2. What the human then has to do used to be resolve a CHANGELOG.md
-  #      conflict by hand, because the changelog gate requires an `[Unreleased]`
-  #      entry on nearly every pull request and every entry lands in the same
-  #      short list (#3574). `.gitattributes` now marks that file `merge=union`,
-  #      so a git merge keeps both sides' additions and that step is just a
-  #      merge and a push.
-  #
-  # Step 2 only helps merges git performs. It does not make this rule able to
-  # update a conflicting pull request, and the red check still appears in that
-  # state — #3574 tracks that separately. `changelog-merge-strategy.test.js`
-  # covers the git merge and the attribute; nothing here tests the automated
-  # update, because the automated update does not consult `.gitattributes`.
-  #
-  # Cost: develop's ruleset sets `dismiss_stale_reviews_on_push`, so this
-  # action dismisses existing approvals on the pull request it touches. That is
-  # correct rather than incidental — the code the reviewer approved has moved
-  # underneath them — but it does mean a review must be given again after each
-  # merge to develop.
-  - name: Keep same-repository pull requests on develop current
-    conditions:
-      - base=develop
-      - -draft
-      - -from-fork
-      - -conflict
-      - '#commits-behind > 0'
-    actions:
-      update: {}
+#
+# Removed (#3574): the `update` rule "Keep same-repository pull requests on
+# develop current". Merging develop into open branches is now done by
+# `.github/workflows/keep-pr-current.yml`, for the reasons below.
+#
+# Keeping this repository's branches current is unchanged in intent and is not
+# dropped with the rule:
+#
+#   * `develop-branch-ruleset` sets `strict_required_status_checks_policy`, so a
+#     branch behind develop is still blocked from merging. That requirement is
+#     untouched and is what makes the update worth doing at all.
+#   * `.github/workflows/keep-pr-current.yml` performs the merge, through
+#     GitHub's `PUT /pulls/{n}/update-branch` API, on the same exclusions the
+#     rule used: non-draft, same-repository, non-archived, base develop, any
+#     staleness.
+#
+# Why the rule had to go rather than be adjusted. The `update` action's schema
+# accepts only `bot_account` (`additionalProperties: false` in
+# `$defs.UpdateActionModel`, https://docs.mergify.com/mergify-configuration-schema.json),
+# so there is no option for how a failure is reported. Mergify reports the
+# rule's check run with conclusion `failure` whenever it cannot perform the
+# update — including when it declines for its own reasons, not only when the
+# merge conflicts. Observed on the 394 pull requests opened between 2026-09-03
+# and 2026-09-29:
+#
+#   * #3524 and #3532 — "merge conflict between base and head". Both were
+#     conflicting in `FEEDBACK_RESPONSE.md` only, one commit behind develop.
+#   * #3580 and #3662 — "head ref does not exist", recorded 5 and 6 seconds
+#     after those pull requests merged and their branches were auto-deleted
+#     (`delete_branch_on_merge` is enabled on this repository). A failure on a
+#     merged pull request, actionable by nobody.
+#
+# `-conflict` did not prevent the first pair. Mergify's own preconditions
+# already include "has no conflict"
+# (https://docs.mergify.com/workflow/actions/update), so `-conflict` and the
+# precondition read the same signal and share the same gap: for a short window
+# after develop moves, the pull request's mergeability is not yet computed, the
+# condition does not hold, and the update is attempted. On #3524 the rule was
+# correctly skipped at 04:33 UTC when Mergify already knew the pull request
+# conflicted, then fired at 05:35 UTC — 44 seconds after #3689 landed on
+# develop — and failed. No additional condition can close that window, because
+# the only available signal is the one that is briefly unavailable.
+#
+# The merge queue was considered and rejected: Mergify documents
+# `strict_required_status_checks_policy` as incompatible with its queue
+# (https://docs.mergify.com/merge-queue/github-rulesets — "Preferred: disable
+# the Require branches to be up to date before merging setting"), and the only
+# queue designs that avoid the clash rely on batch or in-place pull requests.
+# Adopting one would mean weakening a ruleset setting, which is the opposite of
+# what this change is for.
+#
+# `merge=union` on CHANGELOG.md (#3581) remains in place and remains the right
+# fix for the changelog specifically: it stops two pull requests each adding an
+# `[Unreleased]` entry from colliding, which is the highest-churn conflict in
+# this repository. It is not a fix for the reporting problem above, because
+# `FEEDBACK_RESPONSE.md` is rewritten whole by each pull request that carries
+# AI feedback and union-merging two such documents would produce a meaningless
+# hybrid rather than a resolved file.
 
 merge_protections_settings:
   reporting_method: check-runs
