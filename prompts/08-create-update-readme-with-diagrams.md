@@ -517,17 +517,21 @@ done
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     A["Step 1"] --> B["Step 2"]
     B --> C{Decision}
     C -->|Yes| D["Action A"]
     C -->|No| E["Action B"]
+accDescr: Detailed diagram
 ```
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     Client["Client"] -->|Request| Agent["Agent"]
     Agent -->|Process| Engine["Execution Engine"]
     Engine -->|Result| Client
+accDescr: Detailed diagram
 ```
 
 ---
@@ -547,21 +551,6 @@ graph LR
 **Use When:** Need to create/update README for agents/, skills/, workflows/, instructions/, scripts/, or sub-folders  
 **Output:** Well-structured README with frontmatter, sections, optional Mermaid diagrams  
 **Dependencies:** Markdown knowledge, Mermaid (for diagrams), npm (for linting)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

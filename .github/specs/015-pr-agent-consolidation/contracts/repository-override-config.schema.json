@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/lightspeedwp/.github/agents/pr-agent/repository-override-config.schema.json",
+  "title": "pr-agent Repository Override Config",
+  "description": "Optional, checked-in per-repository file (.github/pr-agent.config.json) overriding pr-agent's organisation-wide defaults for review-budget thresholds and the approved branch-prefix list. Absent by default. Assignee and base branch are never configured here — both are resolved dynamically at invocation time.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "reviewBudget": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Overrides for the review-size thresholds. Any field omitted falls back to the organisation-wide default.",
+      "properties": {
+        "preferredFiles": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Default: 15. Files above this count are noted as exceeding the preferred budget."
+        },
+        "preferredLines": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Default: 400. Lines above this count are noted as exceeding the preferred budget."
+        },
+        "hardFlagFiles": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Default: 25. Files above this count require a stacked PR set or a documented maintainer exception."
+        },
+        "hardFlagLines": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Default: 800. Lines above this count require a stacked PR set or a documented maintainer exception."
+        },
+        "maxStackSize": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Default: 5. Maximum PRs in a single stack before it should be split under an epic."
+        }
+      }
+    },
+    "approvedPrefixes": {
+      "type": "array",
+      "description": "Default: this repository's own constitution.md 'Branch Type to PR Template Routing' table (38 types). Set only to document an intentional, narrower or repository-specific list — never to work around a naming mistake.",
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9]+/$"
+      },
+      "minItems": 1
+    }
+  }
+}

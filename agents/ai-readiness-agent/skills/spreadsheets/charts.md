@@ -95,21 +95,5 @@ Prefer the chart that makes the intended takeaway easiest to see, even if it dif
 
 Before editing, inspect the chart object, source ranges and formulas, and rendered output. Preserve the existing layout and scope unless redesign is requested; resize or move the chart minimally to avoid overlap. After editing, recheck the source, formulas, axes, labels, and rendered chart. Leave unrelated pre-existing errors unchanged unless they break the requested chart or the user asks for an audit or repair.
 
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

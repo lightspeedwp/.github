@@ -69,6 +69,7 @@ tags: [process, cicd, github-actions, automation, [domain-specific-tags]]
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A[Trigger Event] --> B[Job 1]
     B --> C[Job 2]
     C --> D[Job 3]
@@ -77,8 +78,9 @@ graph TD
     B --> F[Parallel Job]
     F --> D
 
-    style A fill:#e1f5fe
-    style E fill:#e8f5e8
+    style A fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+    style E fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 ````
 
@@ -277,11 +279,11 @@ When analyzing the workflow file:
 - **Conditional**: `A --> B{Decision}; B -->|Yes| C; B -->|No| D`
 
 ### Styling
-```mermaid
-style TriggerNode fill:#e1f5fe
-style SuccessNode fill:#e8f5e8
-style FailureNode fill:#ffebee
-style ProcessNode fill:#f3e5f5
+```text
+style TriggerNode fill:#dbeafe,color:#1e3a5f,stroke:#1e3a5f
+style SuccessNode fill:#dcfce7,color:#14532d,stroke:#14532d
+style FailureNode fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
+style ProcessNode fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
 ````
 
 ### Complex Workflows
@@ -290,6 +292,8 @@ For workflows with 5+ jobs, use subgraphs:
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
+    accDescr: Detailed diagram
     subgraph "Build Phase"
         A[Lint] --> B[Test] --> C[Build]
     end
@@ -308,21 +312,6 @@ graph TD
 5. **Cross-Reference**: Link instead of repeat information
 
 Focus on creating a specification that serves as both documentation and a template for workflow updates.
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

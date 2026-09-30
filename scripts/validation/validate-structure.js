@@ -9,18 +9,18 @@
  * @license GPL-3.0-or-later
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 const REQUIRED_PORTABLE_FOLDERS = [
-  ".schemas",
-  "agents",
-  "cookbook",
-  "hooks",
-  "instructions",
-  "plugins",
-  "skills",
-  "workflows",
+  '.schemas',
+  'agents',
+  'cookbook',
+  'hooks',
+  'instructions',
+  'plugins',
+  'skills',
+  'workflows',
 ];
 
 function parseArgs(argv) {
@@ -32,11 +32,11 @@ function parseArgs(argv) {
     const arg = argv[index];
 
     switch (arg) {
-      case "--root":
+      case '--root':
         config.root = path.resolve(argv[++index]);
         break;
-      case "--help":
-      case "-h":
+      case '--help':
+      case '-h':
         config.help = true;
         break;
       default:
@@ -48,8 +48,8 @@ function parseArgs(argv) {
 }
 
 function hasIndexFile(root, folder) {
-  return ["README.md", "index.md"].some((fileName) =>
-    fs.existsSync(path.join(root, folder, fileName)),
+  return ['README.md', 'index.md'].some((fileName) =>
+    fs.existsSync(path.join(root, folder, fileName))
   );
 }
 
@@ -65,25 +65,19 @@ function validateStructure(root) {
     }
 
     if (!hasIndexFile(root, folder)) {
-      errors.push(
-        `Missing README.md or index.md in required directory: ${folder}`,
-      );
+      errors.push(`Missing README.md or index.md in required directory: ${folder}`);
     }
   }
 
-  const pilotPlugin = path.join(root, "plugins", "lightspeed-github-ops");
+  const pilotPlugin = path.join(root, 'plugins', 'lightspeed-github-ops');
   if (fs.existsSync(pilotPlugin)) {
     if (!fs.statSync(pilotPlugin).isDirectory()) {
-      errors.push(
-        "Pilot plugin path exists but is not a directory: plugins/lightspeed-github-ops",
-      );
+      errors.push('Pilot plugin path exists but is not a directory: plugins/lightspeed-github-ops');
     } else {
-      for (const fileName of ["README.md"]) {
+      for (const fileName of ['README.md']) {
         const filePath = path.join(pilotPlugin, fileName);
         if (!fs.existsSync(filePath) || !fs.statSync(filePath).isFile()) {
-          errors.push(
-            `Missing pilot plugin file: plugins/lightspeed-github-ops/${fileName}`,
-          );
+          errors.push(`Missing pilot plugin file: plugins/lightspeed-github-ops/${fileName}`);
         }
       }
     }
@@ -123,14 +117,14 @@ function main() {
   const errors = validateStructure(config.root);
 
   if (errors.length > 0) {
-    console.error("Structure validation failed:");
+    console.error('Structure validation failed:');
     for (const error of errors) {
       console.error(`- ${error}`);
     }
     return 1;
   }
 
-  console.log("Structure validation passed.");
+  console.log('Structure validation passed.');
   return 0;
 }
 

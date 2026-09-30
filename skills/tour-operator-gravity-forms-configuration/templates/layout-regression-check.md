@@ -61,5 +61,3 @@
 - Required fix before launch:
 - Retest owner:
 - Handoff note:
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

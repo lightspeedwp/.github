@@ -24,6 +24,7 @@
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     Root["PR Creation Agent<br/>Documentation Suite"]
     
     GettingStarted["📘 Getting Started Guide"]
@@ -51,6 +52,7 @@ graph TB
     style ByRepoType fill:#9C27B0,color:#fff
     style Troubleshoot fill:#F44336,color:#fff
     style Examples fill:#2196F3,color:#fff
+accDescr: Detailed diagram
 ```
 
 ---
@@ -453,6 +455,7 @@ Examples:
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     Input["PR Input<br/>(branch, files)"]
     
     Validator["Validation Layer<br/>(5 checks)"]
@@ -466,12 +469,14 @@ graph TB
     style Validator fill:#FF6B6B,color:#fff
     style Composer fill:#4ECDC4,color:#000
     style Output fill:#45B7D1,color:#fff
+accDescr: Detailed diagram
 ```
 
 #### 3.9.2 WORKFLOW_DIAGRAMS.md
 
 ```mermaid
 sequenceDiagram
+    accTitle: Sequence Diagram
     Developer->>Agent: Trigger PR creation
     Agent->>Skill1: Validate branch
     Agent->>Skill2: Route template
@@ -480,12 +485,14 @@ sequenceDiagram
     Agent->>Skill5: Draft description
     Agent->>Skill6: Create PR
     Agent-->>Developer: PR #1234 created
+accDescr: Detailed diagram
 ```
 
 #### 3.9.3 CONFIGURATION_DIAGRAMS.md
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     Default["Default Config<br/>(Agent Level)"]
     Repo["Repo Config<br/>(.claude/pr-agent.config.yml)"]
     Hooks["Custom Hooks<br/>(.claude/pr-agent-hooks.js)"]
@@ -495,6 +502,7 @@ graph TD
     Default -->|Override| Final
     Repo -->|Override| Final
     Hooks -->|Extend| Final
+accDescr: Detailed diagram
 ```
 
 ---
@@ -597,6 +605,7 @@ docs/
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     README["README.md<br/>(Master Index)"]
     
     STARTED["GETTING_STARTED.md<br/>(5 min quickstart)"]
@@ -640,6 +649,7 @@ graph TB
     style INSTALL fill:#9C27B0,color:#fff
     style TROUBLESHOOT fill:#F44336,color:#fff
     style EXAMPLES fill:#2196F3,color:#fff
+accDescr: Detailed diagram
 ```
 
 ### 7.2 Quick Links by Role

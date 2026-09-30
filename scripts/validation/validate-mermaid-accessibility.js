@@ -5,28 +5,28 @@
  * @module scripts/validation/validate-mermaid-accessibility.js
  */
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-import { globSync } from "glob";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { globSync } from 'glob';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const ROOT = path.join(__dirname, "../../");
+const ROOT = path.join(__dirname, '../../');
 
 const getMarkdownFiles = () =>
-  globSync("**/*.{md,mdx}", {
+  globSync('**/*.{md,mdx}', {
     cwd: ROOT,
     ignore: [
-      "**/node_modules/**",
-      "**/.git/**",
-      "**/.claude/**",
-      "**/coverage/**",
-      "**/logs/**",
-      "**/.github/projects/**",
-      "**/plugin-provided/**",
-      "**/platform-managed/**",
-      "**/directory-installed/**",
-      "**/agentskills-main/**",
+      '**/node_modules/**',
+      '**/.git/**',
+      '**/.claude/**',
+      '**/coverage/**',
+      '**/logs/**',
+      '**/.github/projects/**',
+      '**/plugin-provided/**',
+      '**/platform-managed/**',
+      '**/directory-installed/**',
+      '**/agentskills-main/**',
     ],
     dot: true,
   }).sort();
@@ -46,26 +46,26 @@ function extractMermaidDiagrams(content) {
 
 function getDiagramType(content) {
   const types = [
-    "graph",
-    "flowchart",
-    "sequenceDiagram",
-    "stateDiagram",
-    "erDiagram",
-    "gantt",
-    "pie",
-    "mindmap",
+    'graph',
+    'flowchart',
+    'sequenceDiagram',
+    'stateDiagram',
+    'erDiagram',
+    'gantt',
+    'pie',
+    'mindmap',
   ];
-  const lines = content.split("\n");
+  const lines = content.split('\n');
 
   for (const line of lines) {
     const trimmed = line.trim();
 
     if (
-      trimmed === "" ||
-      trimmed.startsWith("%%") ||
-      trimmed === "---" ||
-      trimmed.startsWith("accTitle") ||
-      trimmed.startsWith("accDescr")
+      trimmed === '' ||
+      trimmed.startsWith('%%') ||
+      trimmed === '---' ||
+      trimmed.startsWith('accTitle') ||
+      trimmed.startsWith('accDescr')
     ) {
       continue;
     }
@@ -77,30 +77,28 @@ function getDiagramType(content) {
     }
 
     if (/^stateDiagram-v2\b/.test(trimmed)) {
-      return "stateDiagram";
+      return 'stateDiagram';
     }
 
     const match = trimmed.match(/^(\w+)/);
-    return match ? match[1] : "unknown";
+    return match ? match[1] : 'unknown';
   }
 
-  return "unknown";
+  return 'unknown';
 }
 
 function validateAccessibility(content) {
   const issues = [];
-  const lines = content.split("\n");
+  const lines = content.split('\n');
 
   // Check for YAML front-matter header (--- blocks) — NOT supported by GitHub's renderer.
   // The first non-blank, non-comment line of a Mermaid block must be the diagram type,
   // not a YAML front-matter delimiter.
-  const firstMeaningfulLine = lines.find(
-    (l) => l.trim() !== "" && !l.trim().startsWith("%%"),
-  );
-  if (firstMeaningfulLine && firstMeaningfulLine.trim() === "---") {
+  const firstMeaningfulLine = lines.find((l) => l.trim() !== '' && !l.trim().startsWith('%%'));
+  if (firstMeaningfulLine && firstMeaningfulLine.trim() === '---') {
     issues.push(
       "YAML front-matter (---) syntax is not supported by GitHub's Mermaid renderer. " +
-        "Move accTitle and accDescr inline, after the diagram type declaration.",
+        'Move accTitle and accDescr inline, after the diagram type declaration.'
     );
     // Return early — remaining checks are meaningless if the block uses the unsupported format
     return issues;
@@ -109,24 +107,20 @@ function validateAccessibility(content) {
   // Reject accessibility attributes placed before the diagram type declaration.
   // The diagram type (e.g. flowchart TD) must be the very first line; accTitle/accDescr
   // that precede it are invisible to screen readers and indicate a mis-ordered block.
-  if (
-    firstMeaningfulLine &&
-    /^\s*(accTitle|accDescr)\s*[:{\s]/.test(firstMeaningfulLine)
-  ) {
+  if (firstMeaningfulLine && /^\s*(accTitle|accDescr)\s*[:{\s]/.test(firstMeaningfulLine)) {
     issues.push(
-      "accTitle/accDescr must appear after the diagram type declaration, not before it. " +
-        "Move the diagram type (e.g. `flowchart TD`) to the first line.",
+      'accTitle/accDescr must appear after the diagram type declaration, not before it. ' +
+        'Move the diagram type (e.g. `flowchart TD`) to the first line.'
     );
     return issues;
   }
 
   // Check for accTitle as an inline statement after the diagram type line.
   // Supported forms: "accTitle: text" or (rarely) "accTitle text"
-  const hasAccTitle =
-    /^\s*accTitle\s*:/m.test(content) || /^\s*accTitle\s+\S/m.test(content);
+  const hasAccTitle = /^\s*accTitle\s*:/m.test(content) || /^\s*accTitle\s+\S/m.test(content);
   if (!hasAccTitle) {
     issues.push(
-      "Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)",
+      'Missing accTitle — add it inline after the diagram type (e.g. `    accTitle: My title`)'
     );
   }
 
@@ -138,7 +132,7 @@ function validateAccessibility(content) {
     /^\s*accDescr\s+\S/m.test(content);
   if (!hasAccDescr) {
     issues.push(
-      "Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)",
+      'Missing accDescr — add it inline after the diagram type (e.g. `    accDescr: My description`)'
     );
   }
 
@@ -151,13 +145,13 @@ function validateAccessibility(content) {
       inAccDescrBlock = true;
     }
 
-    if (inAccDescrBlock && line === "}") {
+    if (inAccDescrBlock && line === '}') {
       inAccDescrBlock = false;
     }
   }
 
   if (inAccDescrBlock) {
-    issues.push("Unclosed accDescr block — add a closing `}` on its own line");
+    issues.push('Unclosed accDescr block — add a closing `}` on its own line');
   }
 
   return issues;
@@ -165,28 +159,23 @@ function validateAccessibility(content) {
 
 async function main() {
   const args = process.argv.slice(2);
-  const changedFilesArg = args.find((a) => a.startsWith("--changed-files="));
-  const changedFilesListArg = args.find((a) =>
-    a.startsWith("--changed-files-list="),
-  );
+  const changedFilesArg = args.find((a) => a.startsWith('--changed-files='));
+  const changedFilesListArg = args.find((a) => a.startsWith('--changed-files-list='));
   const isVendorPath = (filePath) =>
     /(^|\/)(plugin-provided|platform-managed|directory-installed|agentskills-main)\//.test(
-      filePath,
+      filePath
     );
   const targetFiles = (
     changedFilesListArg
       ? fs
-          .readFileSync(
-            changedFilesListArg.replace("--changed-files-list=", ""),
-            "utf8",
-          )
-          .split("\n")
+          .readFileSync(changedFilesListArg.replace('--changed-files-list=', ''), 'utf8')
+          .split('\n')
           .map((f) => f.trim())
           .filter(Boolean)
       : changedFilesArg
         ? changedFilesArg
-            .replace("--changed-files=", "")
-            .split(",")
+            .replace('--changed-files=', '')
+            .split(',')
             .map((f) => f.trim())
             .filter(Boolean)
         : getMarkdownFiles()
@@ -194,7 +183,7 @@ async function main() {
     .filter((f) => /\.mdx?$/i.test(f))
     .filter((f) => !isVendorPath(f));
 
-  console.log("♿ Validating Mermaid diagram accessibility compliance...\n");
+  console.log('♿ Validating Mermaid diagram accessibility compliance...\n');
 
   const report = {
     totalDiagrams: 0,
@@ -204,7 +193,7 @@ async function main() {
   };
 
   const csvRows = [
-    "File,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Compliance Status",
+    'File,Diagram Number,Diagram Type,Has accTitle,Has accDescr,Missing Attributes,Compliance Status',
   ];
 
   for (const file of targetFiles) {
@@ -215,7 +204,7 @@ async function main() {
       continue;
     }
 
-    const content = fs.readFileSync(filePath, "utf-8");
+    const content = fs.readFileSync(filePath, 'utf-8');
     const diagrams = extractMermaidDiagrams(content);
 
     if (diagrams.length === 0) {
@@ -241,16 +230,14 @@ async function main() {
 
       if (issues.length === 0) {
         report.accessibleDiagrams++;
-        console.log(
-          `   ✅ Diagram ${i + 1} [${type}]: Accessible (accTitle & accDescr present)`,
-        );
+        console.log(`   ✅ Diagram ${i + 1} [${type}]: Accessible (accTitle & accDescr present)`);
         csvRows.push(`${file},${i + 1},${type},Yes,Yes,"—",✅ Accessible`);
       } else {
         report.inaccessibleDiagrams++;
-        const issueMsg = issues.join("; ");
+        const issueMsg = issues.join('; ');
         console.log(`   ⚠️  Diagram ${i + 1} [${type}]: ${issueMsg}`);
         csvRows.push(
-          `${file},${i + 1},${type},${hasAccTitle ? "Yes" : "No"},${hasAccDescr ? "Yes" : "No"},"${issueMsg}",⚠️ Non-Compliant`,
+          `${file},${i + 1},${type},${hasAccTitle ? 'Yes' : 'No'},${hasAccDescr ? 'Yes' : 'No'},"${issueMsg}",⚠️ Non-Compliant`
         );
         report.issues.push({
           file,
@@ -262,20 +249,18 @@ async function main() {
     }
   }
 
-  console.log("\n" + "=".repeat(60));
-  console.log("📊 ACCESSIBILITY SUMMARY");
-  console.log("=".repeat(60));
+  console.log('\n' + '='.repeat(60));
+  console.log('📊 ACCESSIBILITY SUMMARY');
+  console.log('='.repeat(60));
   console.log(`Total diagrams:       ${report.totalDiagrams}`);
   console.log(`Accessible diagrams:  ${report.accessibleDiagrams}`);
   console.log(`Non-compliant:        ${report.inaccessibleDiagrams}`);
   const complianceRate =
-    report.totalDiagrams === 0
-      ? 100
-      : (report.accessibleDiagrams / report.totalDiagrams) * 100;
+    report.totalDiagrams === 0 ? 100 : (report.accessibleDiagrams / report.totalDiagrams) * 100;
   console.log(`Compliance rate:      ${complianceRate.toFixed(1)}%`);
 
   if (report.inaccessibleDiagrams > 0) {
-    console.log("\n⚠️  ACCESSIBILITY ISSUES FOUND:");
+    console.log('\n⚠️  ACCESSIBILITY ISSUES FOUND:');
     for (const issue of report.issues) {
       console.log(`\n  📄 ${issue.file}`);
       console.log(`  📊 Diagram: #${issue.diagramIndex} (${issue.type})`);
@@ -285,24 +270,15 @@ async function main() {
     }
   }
 
-  const reportPath = path.join(
-    ROOT,
-    ".github/reports/mermaid-accessibility-report.md",
-  );
-  const existingReport = fs.existsSync(reportPath)
-    ? fs.readFileSync(reportPath, "utf-8")
-    : "";
+  const reportPath = path.join(ROOT, '.github/reports/mermaid-accessibility-report.md');
+  const existingReport = fs.existsSync(reportPath) ? fs.readFileSync(reportPath, 'utf-8') : '';
   const fallbackGeneratedAt = new Date().toISOString();
-  const fallbackDate = fallbackGeneratedAt.split("T")[0];
-  const createdDate =
-    existingReport.match(/^created_date:\s*"([^"]+)"/m)?.[1] ?? fallbackDate;
-  const lastUpdated =
-    existingReport.match(/^last_updated:\s*"([^"]+)"/m)?.[1] ?? fallbackDate;
+  const fallbackDate = fallbackGeneratedAt.split('T')[0];
+  const createdDate = existingReport.match(/^created_date:\s*"([^"]+)"/m)?.[1] ?? fallbackDate;
+  const lastUpdated = existingReport.match(/^last_updated:\s*"([^"]+)"/m)?.[1] ?? fallbackDate;
   const generatedAt =
-    existingReport.match(/^\*\*Generated\*\*:\s*(.+)$/m)?.[1] ??
-    fallbackGeneratedAt;
-  const auditDate =
-    existingReport.match(/^\*\*Date\*\*:\s*(.+)$/m)?.[1] ?? fallbackDate;
+    existingReport.match(/^\*\*Generated\*\*:\s*(.+)$/m)?.[1] ?? fallbackGeneratedAt;
+  const auditDate = existingReport.match(/^\*\*Date\*\*:\s*(.+)$/m)?.[1] ?? fallbackDate;
 
   // Create accessibility audit report
   const reportContent = `---
@@ -337,11 +313,11 @@ stability: stable
 - **Total diagrams**: ${report.totalDiagrams}
 - **Accessible diagrams**: ${report.accessibleDiagrams}
 - **Non-compliant diagrams**: ${report.inaccessibleDiagrams}
-- **Compliance rate**: ${report.totalDiagrams === 0 ? "100.0" : ((report.accessibleDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
+- **Compliance rate**: ${report.totalDiagrams === 0 ? '100.0' : ((report.accessibleDiagrams / report.totalDiagrams) * 100).toFixed(1)}%
 
 ## Files Analyzed
 
-${targetFiles.map((f) => `- ${f}`).join("\n")}
+${targetFiles.map((f) => `- ${f}`).join('\n')}
 
 ## Compliance Criteria
 
@@ -357,23 +333,23 @@ Supported formats:
 
 ${
   report.inaccessibleDiagrams === 0
-    ? "✅ All diagrams are fully accessible with proper accTitle and accDescr attributes!"
+    ? '✅ All diagrams are fully accessible with proper accTitle and accDescr attributes!'
     : `⚠️ ${report.inaccessibleDiagrams} diagram(s) missing accessibility attributes:
 
 ${report.issues
   .map(
     (i) => `### ${i.file} — Diagram #${i.diagramIndex} (${i.type})
 
-${i.issues.map((issue) => `- ${issue}`).join("\n")}`,
+${i.issues.map((issue) => `- ${issue}`).join('\n')}`
   )
-  .join("\n\n")}`
+  .join('\n\n')}`
 }
 
 ## Recommendations
 
 ${
   report.inaccessibleDiagrams === 0
-    ? "✅ All Mermaid diagrams meet WCAG 2.2 AA accessibility requirements. Proceed to Issue #670 (Fix & Refresh README Files)."
+    ? '✅ All Mermaid diagrams meet WCAG 2.2 AA accessibility requirements. Proceed to Issue #670 (Fix & Refresh README Files).'
     : `⚠️ Recommended actions:
 1. Add missing \`accTitle\` attributes to identify each diagram
 2. Add comprehensive \`accDescr\` blocks describing diagram purpose and key relationships
@@ -390,27 +366,22 @@ ${
 `;
 
   fs.writeFileSync(reportPath, reportContent);
-  console.log(
-    "\n✅ Accessibility report saved to .github/reports/mermaid-accessibility-report.md",
-  );
+  console.log('\n✅ Accessibility report saved to .github/reports/mermaid-accessibility-report.md');
 
   // Create/update comprehensive audit spreadsheet
-  const spreadsheetContent = csvRows.join("\n");
+  const spreadsheetContent = csvRows.join('\n');
   fs.writeFileSync(
-    path.join(
-      ROOT,
-      ".github/reports/mermaid-diagram-accessibility-spreadsheet.csv",
-    ),
-    spreadsheetContent,
+    path.join(ROOT, '.github/reports/mermaid-diagram-accessibility-spreadsheet.csv'),
+    spreadsheetContent
   );
   console.log(
-    "✅ Accessibility spreadsheet saved to .github/reports/mermaid-diagram-accessibility-spreadsheet.csv",
+    '✅ Accessibility spreadsheet saved to .github/reports/mermaid-diagram-accessibility-spreadsheet.csv'
   );
 
   process.exit(report.inaccessibleDiagrams > 0 ? 1 : 0);
 }
 
 main().catch((err) => {
-  console.error("Accessibility validation error:", err);
+  console.error('Accessibility validation error:', err);
   process.exit(1);
 });

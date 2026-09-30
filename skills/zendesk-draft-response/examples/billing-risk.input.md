@@ -37,5 +37,3 @@ Risk flags:
 - billing
 - complaint
 Reply goal: Acknowledge the complaint and avoid promising a refund before billing review.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

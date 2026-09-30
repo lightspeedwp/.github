@@ -1,91 +1,100 @@
-queue_rules:
-  - name: dependabot-develop
-    merge_method: squash
-    batch_size: 1
-
-merge_queue:
-  max_parallel_checks: 1
+# Mergify configuration.
+# Schema: https://docs.mergify.com/mergify-configuration-schema.json
+#
+# Scope: keep pull requests current against develop, and auto-merge Dependabot
+# updates once the develop ruleset is satisfied. The ruleset still requires the
+# required checks and one code-owner approval, so Mergify never merges anything
+# a human has not approved.
+#
+# Removed (#3476): the queue, auto-approve, imgbot and meta-agent rules.
+# They gated on a check named "All Checks Passed" that no workflow has
+# produced since the workflow consolidation, and the imgbot and
+# lightspeed-bot authors have opened no PRs recently. The only mechanism
+# that actually merged Dependabot PRs is auto_merge below, so it is kept.
 
 pull_request_rules:
-  # Keep Dependabot PRs up-to-date by rebasing if develop has moved ahead
-  - name: Keep Dependabot dependency updates on develop current
+  # Every open same-repository pull request against develop merges it in as
+  # soon as it falls behind, so nothing is ever blocked on staleness alone.
+  #
+  # develop's ruleset uses a strict up-to-date policy, so a PR one commit
+  # behind is blocked from merging exactly as much as one twenty behind. An
+  # earlier revision of this rule waited until a PR was more than five commits
+  # behind; that left a band of PRs permanently stuck until they drifted past
+  # the threshold. The threshold is gone so the rule fires at any staleness.
+  #
+  # This replaced a Dependabot-only rule. It is a strict superset of it, so
+  # keeping both would have matched every Dependabot pull request twice and
+  # run the same update action from two rules.
+  #
+  # `-draft` excludes work-in-progress, following Mergify's own documented
+  # linear history example. A draft is not waiting to merge, and re-running CI
+  # on every open draft on every develop push is pure cost.
+  #
+  # `-from-fork` excludes forks because Mergify can only write a fork head
+  # branch when the contributor enabled maintainer edits. Without that
+  # permission the action fails and the pull request stays behind, so the rule
+  # must not claim to cover every fork.
+  #
+  # `update` rather than `rebase`: `rebase` has to impersonate a GitHub user
+  # and cannot impersonate a bot-owned account, so it fails outright on
+  # Dependabot pull requests, and it refuses fork pull requests entirely.
+  # `update` merges the base in and needs no impersonation.
+  #
+  # Mergify skips pull requests in a conflict or already in the merge queue
+  # (`queue-position = -1`), so one needing manual conflict resolution still
+  # reports DIRTY, and a queued one is left to the queue. Mergify applies the
+  # same no-conflict requirement itself, independent of `-conflict` here, so
+  # that condition is belt-and-braces rather than the only guard.
+  #
+  # A pull request that is behind *and* conflicting is the one case this rule
+  # cannot help, and the `update` check stays red until someone resolves it by
+  # hand. Two separate things are going on, and it is worth keeping them apart:
+  #
+  #   1. `update` merges the base in, and merging cannot resolve a conflict, so
+  #      this rule has nothing to contribute once the pull request is already
+  #      classified as conflicting. It also declines earlier than that: it asks
+  #      the API whether the pull request is mergeable, so on a conflicting one
+  #      it reports "nothing to do" without attempting a merge.
+  #   2. What the human then has to do used to be resolve a CHANGELOG.md
+  #      conflict by hand, because the changelog gate requires an `[Unreleased]`
+  #      entry on nearly every pull request and every entry lands in the same
+  #      short list (#3574). `.gitattributes` now marks that file `merge=union`,
+  #      so a git merge keeps both sides' additions and that step is just a
+  #      merge and a push.
+  #
+  # Step 2 only helps merges git performs. It does not make this rule able to
+  # update a conflicting pull request, and the red check still appears in that
+  # state — #3574 tracks that separately. `changelog-merge-strategy.test.js`
+  # covers the git merge and the attribute; nothing here tests the automated
+  # update, because the automated update does not consult `.gitattributes`.
+  #
+  # Cost: develop's ruleset sets `dismiss_stale_reviews_on_push`, so this
+  # action dismisses existing approvals on the pull request it touches. That is
+  # correct rather than incidental — the code the reviewer approved has moved
+  # underneath them — but it does mean a review must be given again after each
+  # merge to develop.
+  - name: Keep same-repository pull requests on develop current
     conditions:
-      - author~=^(dependabot\[bot\]|app/dependabot)$
       - base=develop
-      - label=area:dependencies
       - -draft
+      - -from-fork
       - -conflict
-      - "#commits-behind > 0"
+      - '#commits-behind > 0'
     actions:
       update: {}
-
-  # Auto-approve and queue Dependabot dependency updates when CI passes
-  - name: Auto-approve and queue Dependabot dependency updates on develop
-    conditions:
-      - author~=^(dependabot\[bot\]|app/dependabot)$
-      - base=develop
-      - label=area:dependencies
-      - check-success=All Checks Passed
-      - -draft
-      - -conflict
-    actions:
-      review:
-        type: APPROVE
-      queue:
-        name: dependabot-develop
-
-  # Keep imgbot image optimizations up-to-date by rebasing if develop has moved ahead
-  - name: Keep imgbot image optimizations current on develop
-    conditions:
-      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge
-      - author~=^(imgbot\[bot\]|app/imgbot)$
-      - base=develop
-      - -draft
-      - -conflict
-      - "#commits-behind > 0"
-    actions:
-      update: {}
-
-  # Auto-merge imgbot image optimizations when CI passes
-  - name: Auto-merge imgbot image optimizations on develop
-    conditions:
-      # ImgBot has used both identities here, so keep both to avoid breaking auto-merge
-      - author~=^(imgbot\[bot\]|app/imgbot)$
-      - base=develop
-      - check-success=All Checks Passed
-      - -draft
-      - -conflict
-    actions:
-      merge:
-        method: squash
-
-  # Auto-merge meta-agent sync PRs when CI passes
-  - name: Auto-merge meta-agent sync on develop
-    conditions:
-      - author=lightspeed-bot
-      - base=develop
-      - label=meta:no-changelog
-      - "title~=^chore\\(meta\\).*automated meta-agent sync$"
-      - check-success=All Checks Passed
-      - -draft
-      - -conflict
-    actions:
-      merge:
-        method: squash
 
 merge_protections_settings:
   reporting_method: check-runs
-  # `true` here means unconditional auto-merge of ANY mergeable PR, for ANY
-  # author, on ANY base branch, the moment GitHub branch protection is
-  # satisfied (see https://docs.mergify.com/merge-protections/auto-merge/).
-  # Every pull_request_rule above deliberately scopes auto-merge to specific
-  # bot authors (dependabot/imgbot/lightspeed-bot) on `develop` only, gated
-  # by `check-success=All Checks Passed` — but this blanket setting bypassed
-  # all of that scoping. Combined with release/v1.0.0 having no branch
-  # protection at all, it auto-merged human/agent-authored PRs against the
-  # release branch within seconds of opening, before CI had even finished.
-  # Restricting the condition list to the same three bot identities used
-  # above restores the intended scope: only they get unconditional
-  # auto-merge, everyone else must merge manually.
+  # Merge once GitHub branch protection is satisfied (required checks plus a
+  # code-owner approval), for Dependabot only. `true` here would mean every
+  # author on every branch, which previously auto-merged human PRs against
+  # an unprotected release branch
+  # (https://docs.mergify.com/merge-protections/auto-merge/).
+  #
+  # This is inert unless a `merge_protections` rule below matches the PR, or
+  # the merge queue is enabled: with no matching rule there are no
+  # success_conditions to evaluate, and Mergify reports "does not match any
+  # conditions of the merge protections". Left as-is deliberately — the gate
+  # that matters is the develop ruleset (code-owner review), not Mergify's.
   auto_merge_conditions:
-    - author~=^(dependabot\[bot\]|app/dependabot|imgbot\[bot\]|app/imgbot|lightspeed-bot)$
+    - author~=^(dependabot\[bot\]|app/dependabot)$

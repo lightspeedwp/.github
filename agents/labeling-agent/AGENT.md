@@ -8,7 +8,7 @@ handoffs:
     prompt: Now implement the labeling changes outlined above.
     send: false
 version: v2.0
-last_updated: '2025-11-20'
+last_updated: "2026-09-22"'
 author: LightSpeedWP
 maintainer: Ash Shaw
 file_type: agent
@@ -246,39 +246,5 @@ Maps issue template types to labels:
 - [Labeling Documentation](../../docs/LABELING.md) - Complete labeling system docs
 - [Label Strategy](../../docs/LABEL_STRATEGY.md) - Label philosophy and best practices
 - [Coding Standards](../instructions/coding-standards.instructions.md) - Development guidelines
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

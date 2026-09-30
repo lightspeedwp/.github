@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Pull Request Creation Instructions"
 description: "Canonical instructions for creating, labeling, and submitting Pull Requests in LightSpeedWP projects. Reference for templates, automation, and labeling strategy."
 version: "1.1"
-last_updated: "2025-10-23"
+last_updated: "2026-09-22""
 owners: ["lightspeedwp/maintainers"]
 tags: ["pull requests", "templates", "frontmatter", "automation", "labels", "branching", "checklists"]
 ---
@@ -238,20 +238,5 @@ For maintainers and reviewers, reference these [Saved Replies](../.github/SAVED_
 - [Frontmatter Schema](../.schemas/frontmatter.schema.json)
 - [Frontmatter Schema Guide](../docs/FRONTMATTER_SCHEMA.md)
 - [Saved Replies](../.github/SAVED_REPLIES/pull-requests/)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

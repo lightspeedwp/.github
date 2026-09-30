@@ -563,6 +563,7 @@ Shows how the unified agent handles different repository types.
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["📋 Task Planning Request<br/>(description, repositoryType)"] --> B{Load Config}
     B -->|"github"| C["⚙️ Control Plane Config<br/>(labels, branch rules, standards)"]
     B -->|"wordpress-plugin"| D["⚙️ WordPress Plugin Config<br/>(WP standards, block knowledge)"]
@@ -573,6 +574,7 @@ graph TD
     F --> G["📊 Research Report<br/>(findings, questions, audit)"]
     G --> H["📐 Task Planner Agent"]
     H --> I["✅ Task Plan Output<br/>(scope, subtasks, effort, dependencies)"]
+accDescr: Detailed diagram
 ```
 
 #### Diagram 2: Data Flow (Detailed)
@@ -581,6 +583,7 @@ Shows how data flows from research through planning to output.
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     A["🔍 Raw Input<br/>(task description)"] 
     --> B["📂 Repository<br/>Analyzer Skill"]
     
@@ -603,7 +606,8 @@ graph LR
     M --> N["🎯 Final<br/>Task Plan"]
     
     style A fill:#e1f5ff,color:#000
-    style N fill:#c8e6c9,color:#000
+    style N fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 
 #### Diagram 3: Repository-Type Branching
@@ -612,6 +616,7 @@ Shows how configuration differs per repository type.
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["Configuration Object"] --> B["repositoryType"]
     B -->|"github"| C["GitHub Control Plane"]
     B -->|"wordpress-plugin"| D["WordPress Plugin"]
@@ -632,10 +637,11 @@ graph TD
     E --> E3["Standards: WordPress Coding Standards"]
     E --> E4["Block Knowledge: TRUE"]
     
-    style A fill:#fff3e0,color:#000
+    style A fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style C fill:#e8f5e9,color:#000
-    style D fill:#f3e5f5,color:#000
-    style E fill:#f3e5f5,color:#000
+    style D fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+    style E fill:#f3e8ff,color:#3b0764,stroke:#7e22ce
+accDescr: Detailed diagram
 ```
 
 #### Diagram 4: Integration Points
@@ -644,6 +650,7 @@ Shows how agents integrate with GitHub API, MCP servers, and skills.
 
 ```mermaid
 graph TB
+    accTitle: Graph Diagram
     A["Task Planning Agent"]
     
     A --> B["MCP: GitHub REST API"]
@@ -673,11 +680,12 @@ graph TB
     E --> F["Task Plan JSON"]
     
     style A fill:#bbdefb,color:#000
-    style B fill:#c8e6c9,color:#000
+    style B fill:#dcfce7,color:#14532d,stroke:#14532d
     style C fill:#fff9c4,color:#000
     style D fill:#f8bbd0,color:#000
     style F fill:#e1bee7,color:#000
-    style G fill:#c8e6c9,color:#000
+    style G fill:#dcfce7,color:#14532d,stroke:#14532d
+accDescr: Detailed diagram
 ```
 
 #### Diagram 5: Skill Architecture
@@ -686,6 +694,7 @@ Shows how skills are organized and called by agents.
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     Agent["🤖 Task Researcher Agent"]
     
     subgraph Research["🔍 Research Phase"]
@@ -730,12 +739,13 @@ graph TD
     
     style Agent fill:#bbdefb,color:#000
     style Agent2 fill:#bbdefb,color:#000
-    style Research fill:#c8e6c9,color:#000
+    style Research fill:#dcfce7,color:#14532d,stroke:#14532d
     style Reporting fill:#fff9c4,color:#000
     style Planning fill:#f8bbd0,color:#000
     style Out1 fill:#e1bee7,color:#000
     style Out2 fill:#e1bee7,color:#000
     style Out3 fill:#e1bee7,color:#000
+accDescr: Detailed diagram
 ```
 
 #### Diagram 6: Test Coverage Map
@@ -744,6 +754,7 @@ Shows what's tested and how.
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["Test Suite"] --> B["Unit Tests<br/>(60%)"]
     A --> C["Integration Tests<br/>(30%)"]
     A --> D["E2E Tests<br/>(10%)"]
@@ -767,11 +778,12 @@ graph TD
     C1 --> Cov
     D1 --> Cov
     
-    style A fill:#fff3e0,color:#000
+    style A fill:#fef3c7,color:#4a2c00,stroke:#b45309
     style B fill:#e8f5e9,color:#000
-    style C fill:#c8e6c9,color:#000
+    style C fill:#dcfce7,color:#14532d,stroke:#14532d
     style D fill:#a5d6a7,color:#000
     style Cov fill:#81c784,color:#000
+accDescr: Detailed diagram
 ```
 
 ### Documentation Spec

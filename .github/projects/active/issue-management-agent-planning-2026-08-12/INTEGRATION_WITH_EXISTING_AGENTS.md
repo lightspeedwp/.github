@@ -108,7 +108,7 @@ graph LR
     MgmtAgent --> |monitored, reported| Dashboard["Dashboard/Reports"]
     
     style IssuAgent fill:#e1f5ff
-    style MgmtAgent fill:#c8e6c9
+    style MgmtAgent fill:#dcfce7,color:#14532d,stroke:#14532d
 ```
 
 **Workflow**:

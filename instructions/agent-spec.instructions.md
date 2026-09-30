@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Agent Specification Instructions"
 description: "How to design, write, and review LightSpeed Copilot agent specification files."
 version: "v1.0"
-last_updated: "2025-12-11"
+last_updated: "2026-09-22""
 owners: ["GitHub Community Health Team"]
 tags: ["agents", "specs", "templates", "copilot", "governance"]
 applyTo: ["agents/*.agent.md", ".github/agents/*.agent.md"]
@@ -147,20 +147,5 @@ metadata:
 - [documentation-formats.instructions.md](documentation-formats.instructions.md)
 - [quality-assurance.instructions.md](quality-assurance.instructions.md)
 - [SECURITY.md](../SECURITY.md)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
-
-_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
-[Contact](https://lightspeedwp.agency/contact)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

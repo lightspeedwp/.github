@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Issue Creation Instructions"
 description: "Canonical instructions for creating, labeling, and managing Issues in LightSpeedWP projects. Reference for templates, types, automation, and labeling strategy."
 version: "1.1"
-last_updated: "2025-12-04"
+last_updated: "2026-09-22""
 owners: ["lightspeedwp/maintainers"]
 tags: ["issues", "templates", "frontmatter", "automation", "labels", "issue types", "triage", "branching"]
 ---
@@ -235,21 +235,6 @@ See [docs/frontmatter/issue-templates.md](../docs/frontmatter/issue-templates.md
 - [Issue Types](../.github/issue-types.yml)
 - [Workflows](../docs/WORKFLOWS.md)
 - [Automated Labeling](../scripts/agents/labeling.agent.js)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

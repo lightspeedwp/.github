@@ -55,6 +55,7 @@ A **portable, configurable linting agent** that:
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["Linting Agent Invoked"] --> B["Parse Input Targets"]
     B --> C["Load Canonical Config"]
     C --> D["Match Rules to Files"]
@@ -70,6 +71,7 @@ graph TD
     M -->|Yes| N["Handoff to Lint-Fixer Agent"]
     M -->|No| O["End"]
     N --> O
+accDescr: Detailed diagram
 ```
 
 ### 2.2 Scope: Single vs Multiple Agents
@@ -102,6 +104,7 @@ graph TD
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     A["Linting Agent"] --> B["JavaScript/TypeScript"]
     A --> C["Markdown"]
     A --> D["YAML"]
@@ -121,6 +124,7 @@ graph LR
     H --> H1["stylelint"]
     I --> I1["htmlhint + a11y"]
     J --> J1["flake8 + black + isort"]
+accDescr: Detailed diagram
 ```
 
 ---
@@ -268,6 +272,7 @@ graph LR
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A["Unit Tests<br/>linting.agent.js functions"] -->|covers| B["Config Parsing"]
     A -->|covers| C["File Matching"]
     A -->|covers| D["Finding Normalisation"]
@@ -281,6 +286,7 @@ graph TD
     K["E2E Tests<br/>3+ repos"] -->|verifies| L[".github Control Plane"]
     K -->|verifies| M["WordPress Plugin"]
     K -->|verifies| N["WordPress Theme"]
+accDescr: Detailed diagram
 ```
 
 ### Test Coverage Requirements

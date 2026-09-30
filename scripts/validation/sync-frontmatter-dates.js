@@ -5,21 +5,21 @@
  * that contain YAML frontmatter.
  */
 
-const { execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
-const ROOT = path.join(__dirname, "../..");
+const ROOT = path.join(__dirname, '../..');
 const TODAY_UTC = new Date().toISOString().slice(0, 10);
 
 function runGit(cmd) {
-  return execSync(cmd, { cwd: ROOT, encoding: "utf8", stdio: "pipe" }).trim();
+  return execSync(cmd, { cwd: ROOT, encoding: 'utf8', stdio: 'pipe' }).trim();
 }
 
 function stagedMarkdownFiles() {
   const output = runGit("git diff --cached --name-only -- '*.md' '*.mdx'");
   return output
-    .split("\n")
+    .split('\n')
     .map((s) => s.trim())
     .filter(Boolean)
     .filter((file) => fs.existsSync(path.join(ROOT, file)));
@@ -30,15 +30,13 @@ function updateLastUpdated(content) {
   if (!fmMatch) return { changed: false, content };
 
   const frontmatter = fmMatch[1];
-  if (
-    !/^\s*last_updated:\s*["']?\d{4}-\d{2}-\d{2}["']?\s*$/m.test(frontmatter)
-  ) {
+  if (!/^\s*last_updated:\s*["']?\d{4}-\d{2}-\d{2}["']?\s*$/m.test(frontmatter)) {
     return { changed: false, content };
   }
 
   const updatedFrontmatter = frontmatter.replace(
     /^\s*last_updated:\s*["']?\d{4}-\d{2}-\d{2}["']?\s*$/m,
-    `last_updated: "${TODAY_UTC}"`,
+    `last_updated: "${TODAY_UTC}"`
   );
 
   if (updatedFrontmatter === frontmatter) return { changed: false, content };
@@ -54,25 +52,25 @@ function updateLastUpdated(content) {
 function main() {
   const files = stagedMarkdownFiles();
   if (!files.length) {
-    console.log("No staged markdown files found.");
+    console.log('No staged markdown files found.');
     return;
   }
 
   let updatedCount = 0;
   for (const relPath of files) {
     const absPath = path.join(ROOT, relPath);
-    const original = fs.readFileSync(absPath, "utf8");
+    const original = fs.readFileSync(absPath, 'utf8');
     const result = updateLastUpdated(original);
     if (!result.changed) continue;
 
     fs.writeFileSync(absPath, result.content);
-    execSync(`git add -- "${relPath}"`, { cwd: ROOT, stdio: "pipe" });
+    execSync(`git add -- "${relPath}"`, { cwd: ROOT, stdio: 'pipe' });
     updatedCount++;
     console.log(`Updated last_updated: ${relPath}`);
   }
 
   if (!updatedCount) {
-    console.log("No last_updated fields needed changes.");
+    console.log('No last_updated fields needed changes.');
     return;
   }
 

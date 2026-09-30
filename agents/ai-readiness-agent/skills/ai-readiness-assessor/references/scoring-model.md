@@ -71,24 +71,3 @@ Assess approved source content, chatbot job definition, boundaries, human escala
 | 31-60% | Partly ready | Run a guided assessment and fix high-risk gaps before AI workflows or chatbot pilots. |
 | 61-80% | Mostly ready | Create an AI governance plan, tighten ownership and test bounded use cases. |
 | 81-100% | Strong foundation | Move into phased governance and implementation planning. |
-
----
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

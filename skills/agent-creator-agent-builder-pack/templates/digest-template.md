@@ -48,5 +48,3 @@
 ## Validation notes
 
 Used by digest-generation tests.
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

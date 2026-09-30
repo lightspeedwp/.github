@@ -86,15 +86,18 @@ You are the test style and quality enforcer for LightSpeed projects. Maintain co
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A[E2E Tests<br/>Playwright] --> B[Integration Tests<br/>Jest + PHPUnit]
     B --> C[Unit Tests<br/>Jest + PHPUnit + pytest]
     C --> D[Static Analysis<br/>ESLint + PHPCS + mypy]
+accDescr: Detailed diagram
 ```
 
 ## 🔄 Test Execution Flow
 
 ```mermaid
 sequenceDiagram
+    accTitle: Sequence Diagram
     participant Dev as Developer
     participant Local as Local Tests
     participant CI as CI Pipeline
@@ -108,6 +111,7 @@ sequenceDiagram
     CI->>CI: E2E Tests
     CI->>QA: Quality Gates
     QA->>CI: Pass/Fail Status
+accDescr: Detailed diagram
 ```
 
 ## 🔗 Integration Points
@@ -174,6 +178,7 @@ sequenceDiagram
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     A[Code Changes] --> B{Test Type}
     B --> C[Unit Tests<br/>Fast & Isolated]
     B --> D[Integration Tests<br/>Component Interaction]
@@ -186,6 +191,7 @@ graph LR
     F --> I[Quality Gate]
     G --> I
     H --> I
+accDescr: Detailed diagram
 ```
 
 ## 💡 Best Practices

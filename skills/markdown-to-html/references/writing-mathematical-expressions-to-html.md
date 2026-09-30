@@ -373,5 +373,3 @@ To split <span>$</span>100 in half, we calculate $100/2$
  </math-renderer>
 </p>
 ```
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

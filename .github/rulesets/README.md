@@ -31,19 +31,26 @@ This directory contains version-controlled JSON definitions of the GitHub reposi
   - Deletion blocked
   - Non-fast-forward merges (force pushes) blocked
   - Pull request required before merging (1 approval, dismiss stale approvals, resolve conversations, respect Code Owners)
-  - Required status checks:
-    - `Validate PR Template / validate-pr-template`
-    - `CI • Unified Checks (Lint, Test, Validate) / All Checks Passed`
+  - Required status checks (live check-run names, verified 2026-09-22):
+    - `Route PR template and apply labels`
+    - `Validate changelog on PR`
+    - `actionlint`
+- **Not enforced:** no merge-queue rule — the repo merges directly and via Mergify, not the GitHub merge queue. No bypass actors.
 
 ### 2. `main` Branch Ruleset ([main.ruleset.json](./main.ruleset.json))
 
 - **Target Ref:** `refs/heads/main`
-- **Enforcement:** Active
+- **Enforcement:** Active in JSON — **not yet applied** (needs explicit go-ahead before enforcing on `main`)
 - **Key Rules:**
   - Deletion blocked
   - Non-fast-forward merges (force pushes) blocked
   - Pull request required before merging (1 approval, dismiss stale approvals, resolve conversations, respect Code Owners)
-  - Required status check: `validate-release-branch` (enforcing only release/hotfix merges)
+  - Required status checks (live check-run names, verified 2026-09-22):
+    - `Route PR template and apply labels`
+    - `Validate branch name`
+    - `actionlint`
+  - No `validate-release-branch` check exists; the changelog gate only targets develop PRs, so it is intentionally excluded here.
+- **Not enforced:** no merge-queue rule — the repo merges directly and via Mergify, not the GitHub merge queue.
 
 ## Importing and Applying Rulesets
 
@@ -68,8 +75,8 @@ flowchart TD
 
   classDef start fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20;
   classDef prep fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1;
-  classDef run fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100;
-  classDef gate fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#4A148C;
+  classDef run fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#4a2c00;
+  classDef gate fill:#f3e8ff,stroke:#7e22ce,stroke-width:2px,color:#3b0764;
   classDef done fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#004D40;
 
   class A start;

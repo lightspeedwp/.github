@@ -57,7 +57,6 @@ project_field_mappings:
     # Quality & Maintenance Group
     type:chore: Chore
     type:refactor: Chore
-    type:maintenance: Chore
 
     # Automation & Infrastructure Group
     type:automation: Automation
@@ -66,7 +65,6 @@ project_field_mappings:
     type:build: Automation
 
     # Integration & Dependencies Group
-    type:integration: Compatibility
     type:compat: Compatibility
 
     # Analysis & Exploration Group
@@ -77,19 +75,11 @@ project_field_mappings:
     type:performance: Task
     type:audit: Task
     type:epic: Task
-    type:question: Task
-    type:ux-feedback: Task
-    type:help: Task
-    type:support: Task
+    type:decision: Task
     type:content-modelling: Task
-    type:story: Task
     type:review: Task
-    type:ui: Feature
-    type:enhancement: Feature
     type:ci: Automation
-    type:qa: Automation
     type:dependency: Dependency Update
-    type:investigation: Research
 
 organization_issue_fields:
   universal_issue_fields:
@@ -98,28 +88,28 @@ organization_issue_fields:
       - Task
       - Bug
       - Feature
-      - Refactor
-      - Build
-      - Accessibility
-      - Compatibility
-      - Security
-      - Release
-      - Maintenance
-      - Performance
-      - Testing
-      - Epic
-      - Automation
-      - Review
       - Design
-      - Story
+      - Epic
+      - Decision
       - Improvement
-      - Documentation
-      - Integration
-      - Research
       - Chore
+      - CI
+      - Automation
+      - Test Coverage
+      - Performance
+      - Accessibility
+      - Security
+      - Compatibility
+      - Refactor
+      - Release
+      - Dependency Update
+      - Documentation
+      - Research
       - Audit
+      - Review
       - AI Ops
       - Content Modelling
+      - Build
   field_usage:
     Priority:
       type: single_select
@@ -165,6 +155,8 @@ organization_issue_fields:
       organization_only: true
       notes:
         - Relative sizing estimate for implementation effort.
+  # Native types sync-issue-fields.cjs may write: every target in
+  # project_field_mappings.Type. The full 25-type list is .github/issue-types.yml.
   enabled_issue_types:
     - Bug
     - Feature
@@ -173,7 +165,8 @@ organization_issue_fields:
     - Design
     - Chore
     - Automation
-    - Integration
+    - Compatibility
+    - Dependency Update
     - Research
     - Documentation
   pinned_per_issue_type:

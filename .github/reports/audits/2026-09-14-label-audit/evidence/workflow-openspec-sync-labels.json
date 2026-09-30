@@ -1,0 +1,73 @@
+{
+  "workflow": "openspec-sync-labels.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/openspec-sync-labels.yml",
+  "size_bytes": 1326,
+  "purpose": "On label add/remove, run OpenSpec phase-progression label sync through handle-issue-labeled.cjs.",
+  "triggers": [
+    "issues: types [labeled, unlabeled]",
+    "pull_request: types [labeled, unlabeled]",
+    "workflow_dispatch (inputs: dry_run)"
+  ],
+  "jobs": [
+    {
+      "id": "sync-labels",
+      "summary": "Checkout, setup Node, npm ci, run handle-issue-labeled.cjs with --issue, --label, --dry-run, --verbose; echo results."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/automation/handlers/handle-issue-labeled.cjs",
+      "exists": true
+    }
+  ],
+  "actions_used": ["actions/checkout@v7", "actions/setup-node@v7"],
+  "labels_referenced": [],
+  "labels_not_in_canonical": [],
+  "script_labels_not_in_canonical": [
+    {
+      "label": "openspec:specification-pending",
+      "evidence": "scripts/automation/includes/phase-state-machine.cjs:7"
+    }
+  ],
+  "permissions": {
+    "workflow": {
+      "issues": "write",
+      "pull-requests": "write",
+      "contents": "read"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "handle-issue-labeled.cjs only has module.exports and parses no arguments, so `node handle-issue-labeled.cjs --issue=...` loads and exits without doing anything.",
+      "evidence": "scripts/automation/handlers/handle-issue-labeled.cjs:210"
+    },
+    {
+      "issue": "PR events pass github.event.issue.number, which is empty for pull_request payloads.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/openspec-sync-labels.yml:43"
+    },
+    {
+      "issue": "`github.event.label.name` is interpolated directly into the shell; label names with spaces or metacharacters break the command or inject.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/openspec-sync-labels.yml:44"
+    },
+    {
+      "issue": "workflow_dispatch has no issue input, so manual runs pass an empty --issue.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/openspec-sync-labels.yml:11"
+    },
+    {
+      "issue": "Fires on every labeled/unlabeled event (the #3531 event-storm pattern).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/openspec-sync-labels.yml:3"
+    },
+    {
+      "issue": "The phase state machine uses openspec:specification-pending, which is not in labels.yml.",
+      "evidence": "scripts/automation/includes/phase-state-machine.cjs:7"
+    },
+    {
+      "issue": "Spec 008 renames openspec:* to spec:* (FR-011) and replaces OpenSpec with Spec Kit (FR-013), so the workflow's subject is being retired.",
+      "evidence": ".github/specs/008-label-audit-consolidation/spec.md:179"
+    }
+  ],
+  "overlaps_with": [
+    "openspec-validate-labels.yml (same handler on issues labeled)",
+    "labeling.yml (label-change triggers)"
+  ]
+}

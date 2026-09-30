@@ -140,19 +140,3 @@ Possible `interactiveSlideElementType` values: `'POLL'`, `'EMBED'`, `'FACEPILE'`
      share/plugin-api/src/api/constants.ts to unblock TABLE and MEDIA for Slides
      (same pattern as the SYMBOL unblock for MCP/assistant). Remove this limitation
      note once fixed. -->
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -226,7 +226,7 @@ CodeRabbit documentation references issue-types.yml (line 4 in issue-types.yml h
 | Feature | `type:feature` | ✅ Yes | ✅ Correct |
 | Design | `type:design` | ✅ Yes | ✅ Correct |
 | Epic | `type:epic` | ✅ Yes | ✅ Correct |
-| Question | `type:question` | ✅ Yes | ✅ Correct |
+| Decision | `type:decision` | ✅ Yes | ✅ Correct |
 | Improvement | `type:improve` | ✅ Yes | ✅ Correct |
 | Chore | `type:chore` | ✅ Yes | ✅ Correct |
 | CI | `type:ci` | ✅ Yes | ✅ Correct |
@@ -330,39 +330,5 @@ When `.github/labels.yml` or `.github/issue-types.yml` changes:
 **Last Validated**: 2026-09-11  
 **Status**: T013 Complete  
 **Validation Result**: ✅ PERFECT ALIGNMENT (100% of documented labels/templates verified)
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

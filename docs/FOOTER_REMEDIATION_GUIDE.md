@@ -236,6 +236,91 @@ References: branding meta agent initiative #33"
 
 ---
 
+## The Footer Shape Signal (advisory)
+
+`scripts/dedupe-footers.js` recognises footers by **wording**: if a file's
+footer text is in `footer-policy.js` or a configured footer list, the deduper
+can see it, collapse duplicates, and gate a pull request on it.
+
+Some footers are in neither. The shape signal is a second, independent check
+that looks only at the **shape** of a file's trailing zone — the last eight
+lines, narrowed to after the last heading — and reports any file holding **two
+or more** blocks that look like a footer. It asks a human to look at the case
+where wording matching is blind.
+
+Run it on its own:
+
+```bash
+npm run validate:footers:shape
+```
+
+Add `--json` for the machine-readable report. Each finding carries the file
+path, the block count, the one-based line number and text of each block, and
+`recognisedByDedupe` — which is `true` only when the wording-based deduper
+recognises **every** block in the file. `recognisedBlocks` and
+`unrecognisedBlocks` give the split.
+
+Recognition is judged per block, not per file, on purpose. A file can carry a
+known footer and an unrecognised one side by side, and a per-file flag would let
+the known footer mask the unrecognised one — which is precisely the case worth
+looking at.
+
+### It never fails a build, and never auto-fixes
+
+This is deliberate, and it is measured. Reproduce every figure below with:
+
+```bash
+npm run measure:footers:shape
+```
+
+The script prints the commit it ran on, because these numbers describe the
+corpus at a point in time and move whenever footers are rewritten. The figures
+quoted here were measured on this branch at `2f474806e0`, across all 11,474
+tracked Markdown files:
+
+| Figure | Value | Definition |
+| --- | --- | --- |
+| Flagged | 899 | Trailing zone holds two or more footer-shaped blocks. Identical to what `npm run validate:footers:shape` reports. |
+| Two known | 644 | Flagged, and the trailing eight lines hold two or more *distinct known footer phrases*. |
+| No known footer | 255 (28.4%) | Flagged, but no known footer phrase in the trailing eight lines — report metadata such as `Status: READY FOR EXECUTION`. |
+| Recall | 96.7% (644 of 666) | Of the files carrying two known footer phrases, how many the signal flags. |
+
+A 28.4% no-known-footer share is far too high to gate on, so the Footer
+Duplicate Guard emits a `::warning` annotation in its own step and the job
+continues. Nothing is ever rewritten by this signal: `--fix` leaves a
+signal-only file byte-identical.
+
+That 28.4% is a **share, not a false-positive rate**, and no rate follows from
+it. A file carrying a real duplicate footer whose wording is missing from the
+phrase list is counted here, and a file holding known phrases is not
+independently confirmed to be a genuine duplicate either, so the two errors do
+not simply cancel. What the number does establish is the practical one: roughly
+seven files in ten that this signal flags do carry a known footer, which is why
+it is worth a human reading them and not worth a build failing on them.
+
+#### Read the recall figure with care
+
+Recall here is **agreement with a phrase list, not an independent accuracy
+measure**. Ground truth is built from the same footer inventory the signal uses
+to decide whether a block is `recognised`, so a footer whose wording is missing
+from that list is invisible to both sides at once.
+
+That list is also lopsided. The inventory is assembled from the footer
+configuration, plus a short set of wordings this repository writes but no
+configuration file declares. The measurement script prints what each of those
+contributes, and one of them — `Maintained by the 🤖 LightSpeedWP Automation
+Team` — accounts for **534 of the 666** ground-truth files. Remove it and the
+figure collapses to 132; take away the configuration-derived phrases alone and
+only 4 files qualify. So 96.7% should be read as "the signal does not miss the
+footers this list knows about", not as a general accuracy claim. Treat the
+signal as advisory in both directions: it neither proves nor rules out a
+duplicate.
+
+To act on a warning, read the reported block texts and reconcile them by hand.
+If the blocks are genuine footers whose wording is simply missing, add the
+wording to `scripts/agents/includes/footer-policy.js` so the deduper can see it
+in future. If they are report metadata, dismiss the warning.
+
 ## Using the Validation Script
 
 ### Check All Files
@@ -456,61 +541,6 @@ Action: Replace and note in commit
 7. ⬜ **Plan automation** — Implement branding meta agent and footer validation hardening (issue #33)
 
 ---
-
----
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
