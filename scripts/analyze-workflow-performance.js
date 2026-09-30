@@ -110,7 +110,7 @@ class WorkflowPerformanceAnalysis {
       let jobsNeedCaching = 0;
       let jobsNeedFetchDepth = 0;
 
-      for (const [jobName, job] of Object.entries(parsed.jobs)) {
+      for (const [, job] of Object.entries(parsed.jobs)) {
         if (!job.steps) continue;
 
         let jobNeedsCaching = false;

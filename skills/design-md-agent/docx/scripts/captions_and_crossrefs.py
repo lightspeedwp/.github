@@ -12,9 +12,7 @@ It targets common automation needs, not the full Word caption feature set.
 from __future__ import annotations
 
 import argparse
-import re
 import tempfile
-from copy import deepcopy
 from pathlib import Path
 
 from lxml import etree

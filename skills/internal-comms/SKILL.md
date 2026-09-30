@@ -34,6 +34,4 @@ If the communication type doesn't match any existing guideline, ask for clarific
 
 3P updates, company newsletter, company comms, weekly update, faqs, common questions, updates, internal comms
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

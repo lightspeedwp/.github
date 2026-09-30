@@ -101,7 +101,7 @@ def _next_comment_id(comments_root: etree._Element) -> int:
         try:
             ids.append(int(c.get(w("id"))))
         except Exception:
-            pass
+            continue
     return (max(ids) + 1) if ids else 0
 
 

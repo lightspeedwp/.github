@@ -60,7 +60,6 @@ async function runMajorReleaseScenario() {
     harness.execInRepo("git checkout -b release/v2.0.0-main");
 
     // Add ADR reference to commit message
-    const commitMsg = 'chore: Release v2.0.0\n\nARCHITECTURE_DECISION: ADR-2026-0001';
     harness.createReleaseTag("2.0.0");
 
     harness.verifyRepositoryState({

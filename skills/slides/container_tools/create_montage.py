@@ -109,8 +109,6 @@ def create_montage(
         font = ImageFont.truetype("arial.ttf", font_size)
     except Exception:
         font = ImageFont.load_default()
-        # Adjust default font effect size estimate
-        font_size = 12
 
     draw_labels = label_mode != "none"
     label_height = 0
@@ -148,8 +146,6 @@ def create_montage(
         if draw_labels:
             bbox = draw.textbbox((0, 0), label, font=font)
             text_w = bbox[2] - bbox[0]
-        else:
-            text_w = 0
 
         if img:
             resized = ImageOps.contain(

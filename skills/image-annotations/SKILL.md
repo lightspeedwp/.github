@@ -600,6 +600,4 @@ for frame_idx in range(total_frames):
 - Animated GIF annotations require frame-by-frame processing which can be slow for long recordings
 - Algorithmic placement works best with 2-6 annotations; more than that may produce crowded results
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

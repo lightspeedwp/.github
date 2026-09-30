@@ -22,6 +22,7 @@ import json
 import subprocess
 import sys
 from dataclasses import dataclass, asdict
+from contextlib import suppress
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -89,11 +90,9 @@ def inspect_pdf(path: Path, password: Optional[str] = None) -> PdfSummary:
 
     if encrypted:
         if password:
-            try:
-                reader.decrypt(password)
-            except Exception:
+            with suppress(Exception):
                 # keep going; some data may remain inaccessible
-                pass
+                reader.decrypt(password)
 
     pages = len(reader.pages)
     page_sizes = _unique_page_sizes(reader)
@@ -106,7 +105,7 @@ def inspect_pdf(path: Path, password: Optional[str] = None) -> PdfSummary:
             for k, v in meta.items():
                 md[str(k)] = str(v) if v is not None else None
     except Exception:
-        pass
+        md = {}
 
     # Outlines
     outline_items = 0

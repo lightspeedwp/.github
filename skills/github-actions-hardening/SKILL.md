@@ -159,6 +159,4 @@ Load these as needed:
   remediation blocks.
   * Search patterns: `report`, `format`, `finding`, `summary`, `remediation`, `before`, `after`
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

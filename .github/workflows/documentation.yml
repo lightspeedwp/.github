@@ -1,51 +1,52 @@
 name: Documentation Validation & Maintenance
+# ci-resync: force synchronize event after PR reopen didn't retrigger checks
 
 on:
   workflow_dispatch:
     inputs:
       action:
-        description: "Action to perform"
+        description: 'Action to perform'
         required: true
         type: choice
         options:
           - audit
           - maintain
       scope:
-        description: "Scope (audit: all/syntax/accessibility/contrast/staleness; maintain: all/mermaid/staleness)"
+        description: 'Scope (audit: all/syntax/accessibility/contrast/staleness; maintain: all/mermaid/staleness)'
         required: false
-        default: "all"
+        default: 'all'
         type: string
       dry_run:
-        description: "Preview changes without committing (maintain action only)"
+        description: 'Preview changes without committing (maintain action only)'
         required: false
-        default: "false"
+        default: 'false'
         type: choice
         options:
-          - "true"
-          - "false"
+          - 'true'
+          - 'false'
 
   pull_request:
     branches:
       - develop
     types: [opened, edited, synchronize, reopened, ready_for_review]
     paths:
-      - "**/*.md"
-      - ".github/workflows/**"
-      - "agents/**"
-      - ".github/instructions/**"
-      - "docs/**"
-      - "scripts/**"
+      - '**/*.md'
+      - '.github/workflows/**'
+      - 'agents/**'
+      - '.github/instructions/**'
+      - 'docs/**'
+      - 'scripts/**'
 
   push:
     branches:
       - develop
     paths:
-      - "**/*.md"
-      - ".github/workflows/**"
-      - "agents/**"
-      - ".github/instructions/**"
-      - "docs/**"
-      - "scripts/**"
+      - '**/*.md'
+      - '.github/workflows/**'
+      - 'agents/**'
+      - '.github/instructions/**'
+      - 'docs/**'
+      - 'scripts/**'
 
 permissions:
   contents: read
@@ -63,6 +64,7 @@ jobs:
   audit:
     name: Documentation Audit
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'audit'
     permissions:
       contents: read
@@ -71,16 +73,16 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -118,7 +120,7 @@ jobs:
         if: contains(fromJson('["all", "staleness"]'), env.AUDIT_SCOPE)
         run: |
           echo "Checking for stale README files (>6 months old)..."
-          find . -name "README.md" -type f | while read file; do
+          find . -name "README.md" -type f | while read -r file; do
             echo "Checking staleness for $file..."
           done
 
@@ -142,7 +144,7 @@ jobs:
 
       - name: Upload audit artifacts
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: documentation-audit-report-${{ github.run_number }}
           path: .github/reports/mermaid-audit/
@@ -150,7 +152,7 @@ jobs:
 
       - name: Create issue for critical findings
         if: failure()
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             github.rest.issues.create({
@@ -164,25 +166,25 @@ jobs:
   regenerate:
     name: Auto-regenerate Documentation
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: |
       github.event_name == 'pull_request' ||
       (github.event_name == 'push' && github.ref == 'refs/heads/develop')
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-          persist-credentials: true
+          persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -213,45 +215,292 @@ jobs:
           README_FILES: ${{ steps.readmes.outputs.files }}
         run: node scripts/agents/meta.agent.js --files "$README_FILES"
 
-      - name: Commit README updates
-        if: github.event_name != 'pull_request' && steps.readmes.outputs.files != ''
+      - name: Check for content changes
+        id: content
         run: |
-          git config user.name "lightspeed-bot"
-          git config user.email "ops@lightspeedwp.agency"
-          git add -A
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(docs): regenerate impacted README files [skip ci]"
-            git push origin ${{ github.ref_name }}
+          # meta.agent.js always rewrites .github/metrics/meta-metrics.json
+          # (fresh timestamp), even when no content changed. Only proceed
+          # when at least one file other than the metrics file changed.
+          #
+          # `.github/workflows/` is excluded for the same reason the create-pull-request
+          # steps below exclude it from `add-paths`: GitHub treats a file directly in
+          # that directory as a workflow definition, so the App token (least privilege,
+          # no `workflows` permission) cannot push a change to it. Excluding it here
+          # keeps the "did anything change?" decision consistent with what the commit
+          # can actually contain, so a push whose only touched file was a workflow does
+          # not report has_changes=true on the strength of a file the push could not
+          # have made.
+          if git status --porcelain -- . ':(exclude).github/metrics/meta-metrics.json' ':(exclude).github/workflows' ':(exclude).github/workflows/**' | grep -q .; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            git checkout -- .github/metrics/meta-metrics.json 2>/dev/null || true
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "No content changes (metrics only, or .github/workflows/ only); skipping README PR."
           fi
+
+      - name: Generate GitHub App token
+        # App token (not GITHUB_TOKEN) so the regeneration PR triggers CI and
+        # can satisfy develop's required checks. Requires repo/org secrets:
+        # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        #
+        # `permission-workflows` is intentionally absent. The App stays at least
+        # privilege, and `.github/workflows/` is kept out of the bot's reach
+        # instead: resolve-readme-files.cjs never returns a README under that
+        # directory, and both create-pull-request steps below exclude it from
+        # `add-paths`. Do not add `permission-workflows` to work around a
+        # regeneration failure -- a failure means a workflow file leaked into
+        # the commit, which is the bug, not the missing permission.
+        id: app-token
+        if: github.event_name != 'pull_request' && steps.readmes.outputs.files != '' && steps.content.outputs.has_changes == 'true'
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          # Least privilege: push the branch, open/update the PR, label it.
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Create or update README PR
+        if: github.event_name != 'pull_request' && steps.readmes.outputs.files != '' && steps.content.outputs.has_changes == 'true'
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: chore/readme-regeneration
+          base: develop
+          commit-message: 'chore(docs): regenerate impacted README files'
+          # Defence in depth. resolve-readme-files.cjs already refuses to emit a README
+          # under `.github/workflows/`, but this step is the last gate before the push:
+          # GitHub classifies a file directly in that directory as a workflow -- even a
+          # plain Markdown one -- and rejects the push unless the token carries
+          # `workflows` permission, which this App deliberately does not have.
+          # `add-paths` restricts staging to the repository minus that directory, so
+          # nothing under it can reach the commit even if the resolver regresses or
+          # meta.agent.js rewrites a file some other way.
+          #
+          # The pathspecs are unquoted on purpose. The action passes each comma/newline
+          # separated token straight to git as an argv element (no shell), so quotes
+          # would become part of the pathspec and git fails with
+          # "pathspec '':(exclude)...'' did not match any files". Verified against
+          # peter-evans/create-pull-request@5f6978f.
+          add-paths: |
+            .
+            :(exclude).github/workflows
+          title: 'chore(docs): regenerate impacted README files'
+          body: |
+            Automated README regeneration, Dependabot-style.
+
+            - Fixed branch; subsequent runs update this same PR until merged.
+
+            ## Linked issues
+
+            N/A - automated README normalization, no tracked issue.
+
+            ## Summary
+
+            README formatting normalization produced by meta.agent.js (headers, badges, footers, indexes).
+
+            ## Changes
+
+            See the diff: README formatting normalization only, no intentional content changes. Review carefully before merging.
+
+            ## Impact / Compatibility
+
+            Docs only; no code or behavior changes.
+
+            ## Verification
+
+            - [x] Generated by the documentation.yml regenerate job; CI checks run on this PR via App token.
+
+            ## Risk & Rollback
+
+            - Risk level: Low
+            - Rollback plan: close this PR unmerged, or revert after merge; the next regeneration run recreates it if still needed.
+
+            ## Changelog
+
+            N/A - automated formatting normalization, exempt from changelog (bot author).
+          labels: |
+            type:documentation
+            area:documentation
 
       - name: Upload regeneration artifacts
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: documentation-regeneration-${{ github.run_number }}
           path: .github/reports/
           if-no-files-found: ignore
           retention-days: 14
 
+  footer-guard:
+    name: Footer Duplicate Guard
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Ratchet, not a wall. Only the Markdown files this event touched are
+    # checked, so the pre-existing #3451 backlog does not block unrelated work
+    # while it is being cleared in dedicated cleanup PRs. Once
+    # `npm run validate:footers` reports zero findings, replace the
+    # changed-files check below with the whole-repo run.
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Do not leave the job token in .git/config. This job runs `npm ci`
+          # and then a script from the checkout, so on a pull request both are
+          # contributor-controlled; the read-scoped token should not be
+          # reachable from them. Matches every other job in this workflow.
+          persist-credentials: false
+          # Full history so the base of the diff resolves, and the head ref
+          # checked out so the working tree matches the files being verified.
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          # Match every other job in this repo. Pinning a literal here drifted
+          # behind .nvmrc and `npm ci` failed on @babel/core's engine range.
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve diff range
+        id: range
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          PUSH_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            base="$PR_BASE"
+            head="$PR_HEAD"
+          else
+            base="$PUSH_BEFORE"
+            head="$PUSH_SHA"
+          fi
+          # A branch's first push reports an all-zero `before`, and a push that
+          # creates `develop` can also report one. There is no meaningful base in
+          # that case, so diff against the empty tree rather than `head^`:
+          # `head^` covers only the final commit and would miss Markdown files
+          # changed by earlier commits pushed in the same event.
+          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+            base="$(git hash-object -t tree /dev/null 2>/dev/null || true)"
+          fi
+          if [ -z "$base" ]; then
+            {
+              echo "enabled=false"
+            } >> "$GITHUB_OUTPUT"
+            echo "No resolvable diff range; skipping the footer guard."
+          else
+            {
+              echo "enabled=true"
+              echo "base=$base"
+              echo "head=$head"
+            } >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Check changed Markdown files for duplicate footer blocks
+        if: steps.range.outputs.enabled == 'true'
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+          HEAD: ${{ steps.range.outputs.head }}
+        run: |
+          if ! node scripts/dedupe-footers.js --check --changed-only --base="$BASE" --head="$HEAD"; then
+            echo "::error title=Duplicate footer blocks::A file in this change carries compounded, stranded, or footer-policy-exempt blocks. Run 'npm run validate:footers:fix' to repair, then re-run this job. See issue #3451."
+            exit 1
+          fi
+
+      - name: Report remaining whole-repo backlog
+        if: always() && steps.range.outputs.enabled == 'true'
+        run: |
+          # Progress signal for the #3451 cleanup; never fails the build.
+          node scripts/dedupe-footers.js --check || \
+            echo "::notice title=Footer backlog::Whole-repo footer backlog remains; tracked in issue #3451."
+
+      - name: Warn on possible unrecognised duplicate footers
+        # Advisory only, and deliberately a separate step from the failing check
+        # above. This signal reports files whose trailing zone holds two or more
+        # footer-shaped blocks that the wording-based deduper cannot recognise.
+        # Measured across 11,474 tracked Markdown files it flags 930 files, of
+        # which 280 (30.1%) hold no known footer at all, so it must never fail a
+        # build. It exists to ask a human to look, and to surface footers whose
+        # wording is missing from footer-policy.js. See issue #3451.
+        if: always() && steps.range.outputs.enabled == 'true'
+        continue-on-error: true
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+          HEAD: ${{ steps.range.outputs.head }}
+        run: |
+          node scripts/dedupe-footers.js --check --changed-only \
+            --base="$BASE" --head="$HEAD" --json > shape-report.json || true
+          node -e '
+            const fs = require("fs");
+            let report;
+            try {
+              report = JSON.parse(fs.readFileSync("shape-report.json", "utf8"));
+            } catch (error) {
+              console.log("::notice title=Footer shape signal::Could not read the report: " + error.message);
+              process.exit(0);
+            }
+            const findings = report.shapeFindings || [];
+            if (findings.length === 0) {
+              console.log("No footer-shaped blocks found in the changed Markdown files.");
+              process.exit(0);
+            }
+            const unrecognised = findings.filter((f) => !f.recognisedByDedupe);
+            for (const f of unrecognised) {
+              const texts = (f.regions || [])
+                .map((r) => r.texts.join(" "))
+                .join(" | ")
+                .slice(0, 200);
+              console.log(
+                "::warning title=Possible unrecognised duplicate footer::" +
+                  f.path +
+                  " holds " +
+                  f.blocks +
+                  " footer-shaped blocks the wording-based deduper does not recognise: " +
+                  texts +
+                  " Confirm and reconcile by hand. Nothing is auto-fixed; run " +
+                  "npm run validate:footers:shape for the full report."
+              );
+            }
+            console.log(
+              "::notice title=Footer shape signal::" +
+                unrecognised.length +
+                " of " +
+                findings.length +
+                " changed file(s) hold a footer-shaped block the deduper cannot see. Advisory only: " +
+                "the measured false-positive rate is 30.1%, so this does not fail the build."
+            );
+          '
+
   maintain:
     name: Documentation Maintenance
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'maintain'
     permissions:
-      contents: write
+      contents: read
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
-          persist-credentials: true
+          persist-credentials: false
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: '.nvmrc'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -325,39 +574,119 @@ jobs:
 
       - name: Check for changes
         id: changes
-        run: test "$(git status --porcelain | wc -l)" -gt 0 && echo "has_changes=true" >> "$GITHUB_OUTPUT" || echo "has_changes=false" >> "$GITHUB_OUTPUT"
-
-      - name: Commit changes
-        if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
+        # `.github/workflows/` is excluded for the same reason the regenerate job
+        # excludes it: GitHub treats a file directly in that directory as a
+        # workflow and the App token cannot push one. Note this job always
+        # rewrites the tracked .github/reports/mermaid-audit/maintenance-report.md
+        # with a fresh timestamp, so in practice this reads true regardless; the
+        # load-bearing guard against a workflow file reaching the commit is the
+        # `add-paths` on the create-pull-request step below.
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git add -A
-          git commit -m "docs: maintenance updates (Mermaid + staleness)
+          if git status --porcelain -- . ':(exclude).github/workflows' ':(exclude).github/workflows/**' | grep -q .; then
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+          fi
 
-          - Update Mermaid diagrams with accTitle, accDescr, and approved palette values
-          - Refresh last_updated dates for stale files (6+ months)
-          - Scope: ${{ env.AUDIT_SCOPE }}
-          - Generated by: documentation.yml workflow"
-
-      - name: Push changes
+      - name: Generate GitHub App token
+        # App token (not GITHUB_TOKEN) so the maintenance PR triggers CI and
+        # can satisfy develop's required checks. Requires repo/org secrets:
+        # BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY.
+        #
+        # `permission-workflows` is intentionally absent, for the same reason as in
+        # the regenerate job above: the App stays at least privilege and
+        # `.github/workflows/` is excluded from the commit instead. This job runs
+        # repository-wide fixers (Mermaid, staleness) and inherited the identical
+        # latent flaw, so it carries the same guard. Do not add
+        # `permission-workflows`; a push failure here means a workflow file leaked
+        # into the commit.
+        id: app-token
         if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
-        run: |
-          git push origin HEAD:$(git rev-parse --abbrev-ref HEAD)
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          # Least privilege: push the branch, open/update the PR, label it.
+          permission-contents: write
+          permission-pull-requests: write
+
+      - name: Create or update maintenance PR
+        if: ${{ steps.changes.outputs.has_changes == 'true' && env.DRY_RUN == 'false' }}
+        uses: peter-evans/create-pull-request@5f6978faf089d4d20b00c7766989d076bb2fc7f1 # v8.1.1
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: chore/docs-maintenance
+          base: develop
+          commit-message: 'docs: maintenance updates (Mermaid + staleness)'
+          # Same last-gate guard as the regenerate job: keep anything under
+          # `.github/workflows/` out of the commit, because this App token has no
+          # `workflows` permission and GitHub would refuse the push. Unquoted
+          # pathspecs are required -- the action passes each token to git as an
+          # argv element with no shell involved. See the regenerate job above.
+          add-paths: |
+            .
+            :(exclude).github/workflows
+          title: 'docs: maintenance updates (Mermaid + staleness)'
+          body: |
+            Automated documentation maintenance, Dependabot-style.
+
+            - Mermaid diagrams: accTitle, accDescr, approved palette values.
+            - Staleness: refreshed `last_updated` dates for files exceeding 6-month threshold.
+            - Scope: `${{ env.AUDIT_SCOPE }}`
+            - Fixed branch; subsequent runs update this same PR until merged.
+
+            ## Linked issues
+
+            N/A - automated documentation maintenance, no tracked issue.
+
+            ## Summary
+
+            Documentation maintenance produced by the documentation.yml maintain job (Mermaid fixes, staleness updates).
+
+            ## Changes
+
+            See the diff: maintenance updates only, no intentional content changes. Review carefully before merging.
+
+            ## Impact / Compatibility
+
+            Docs only; no code or behavior changes.
+
+            ## Verification
+
+            - [x] Generated by the documentation.yml maintain job; CI checks run on this PR via App token.
+
+            ## Risk & Rollback
+
+            - Risk level: Low
+            - Rollback plan: close this PR unmerged, or revert after merge; the next maintenance run recreates it if still needed.
+
+            ## Changelog
+
+            N/A - automated maintenance updates, exempt from changelog (bot author).
+          labels: |
+            type:documentation
+            area:documentation
 
       - name: Upload maintenance report
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: documentation-maintenance-report-${{ github.run_number }}
           path: .github/reports/mermaid-audit/
 
       - name: Maintenance summary
         if: always()
+        env:
+          JOB_STATUS: ${{ job.status }}
+          HAS_CHANGES: ${{ steps.changes.outputs.has_changes }}
         run: |
-          echo "## Documentation Maintenance Summary" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "**Status**: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Scope**: ${{ env.AUDIT_SCOPE }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Dry Run**: ${{ env.DRY_RUN }}" >> $GITHUB_STEP_SUMMARY
-          echo "**Changes Made**: ${{ steps.changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
+          # AUDIT_SCOPE and DRY_RUN are already job env; read them as shell
+          # variables rather than inlining expressions into the script.
+          {
+            echo "## Documentation Maintenance Summary"
+            echo ""
+            echo "**Status**: $JOB_STATUS"
+            echo "**Scope**: $AUDIT_SCOPE"
+            echo "**Dry Run**: $DRY_RUN"
+            echo "**Changes Made**: $HAS_CHANGES"
+          } >> "$GITHUB_STEP_SUMMARY"

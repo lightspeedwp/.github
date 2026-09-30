@@ -215,6 +215,4 @@ python scripts/check_skill_quality.py --skill-dir . --strict
 - `references/safety-and-governance.md`: approval gates, sandbox rules, and memory boundaries.
 - `references/output-templates.md`: reusable templates for briefs, mutation proposals, and changelog entries.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

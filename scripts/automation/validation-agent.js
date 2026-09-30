@@ -232,7 +232,6 @@ async function main() {
 
     const issueNumber = args.issue;
     const repo = args.repo;
-    const token = args.token;
 
     if (!issueNumber || !repo) {
       console.error("Missing required arguments: --issue and --repo");

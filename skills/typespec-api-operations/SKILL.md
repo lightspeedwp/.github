@@ -447,6 +447,4 @@ After adding operations, test with these prompts:
 
 **Solution**: Check if property needs `@visibility(Lifecycle.Read)` or remove it if it should be writable
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

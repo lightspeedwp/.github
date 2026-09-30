@@ -2,7 +2,7 @@
 import re
 import sys
 from pathlib import Path
-from validator_common import iter_files, make_report, print_report, rel, should_skip
+from validator_common import iter_files, make_report, print_report, rel
 
 LINK_RE = re.compile(r'\[[^\]]+\]\(([^)]+)\)')
 

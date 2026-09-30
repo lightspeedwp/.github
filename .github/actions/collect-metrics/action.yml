@@ -36,13 +36,14 @@ runs:
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
+        # Inputs pass through env, never inline in the script, so a value
+        # containing shell syntax cannot execute.
+        WORKFLOW_NAME: ${{ inputs.workflow-name }}
+        JOB_NAME: ${{ inputs.job-name }}
+        METRICS_FILE: ${{ inputs.metrics-file }}
+        REPO: ${{ github.repository }}
+        RUN_ID: ${{ github.run_id }}
       run: |
-        WORKFLOW_NAME="${{ inputs.workflow-name }}"
-        JOB_NAME="${{ inputs.job-name }}"
-        METRICS_FILE="${{ inputs.metrics-file }}"
-        REPO="${{ github.repository }}"
-        RUN_ID="${{ github.run_id }}"
-
         echo "Collecting metrics for: $WORKFLOW_NAME / $JOB_NAME"
 
         # Get job timing information
@@ -50,7 +51,7 @@ runs:
 
         # Attempt to fetch workflow run information via GitHub API
         # Note: This requires proper authentication and workflow visibility
-        RUN_INFO=$(gh api repos/$REPO/actions/runs/$RUN_ID --jq '.jobs_url // empty' 2>/dev/null || echo "")
+        RUN_INFO=$(gh api "repos/$REPO/actions/runs/$RUN_ID" --jq '.jobs_url // empty' 2>/dev/null || echo "")
 
         if [[ -z "$RUN_INFO" ]]; then
           echo "Note: Could not fetch real-time metrics from GitHub API (may require additional permissions)"
@@ -112,13 +113,15 @@ runs:
         echo "$METRICS_JSON" | jq '{workflow, job, estimated_minutes: .metrics.estimated_github_actions_minutes, duration_seconds: .timing.duration_seconds}'
 
         # Output metrics for downstream jobs
-        echo "metrics-file=$METRICS_FILE" >> $GITHUB_OUTPUT
-        echo "workflow-minutes=$ESTIMATED_MINUTES" >> $GITHUB_OUTPUT
-        echo "job-duration=$JOB_DURATION" >> $GITHUB_OUTPUT
+        {
+          echo "metrics-file=$METRICS_FILE"
+          echo "workflow-minutes=$ESTIMATED_MINUTES"
+          echo "job-duration=$JOB_DURATION"
+        } >> "$GITHUB_OUTPUT"
 
     - name: Archive metrics
       if: always()
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
       with:
         name: workflow-metrics
         path: ${{ steps.collect.outputs.metrics-file }}

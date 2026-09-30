@@ -75,6 +75,7 @@ User Input (Branch Name)
 
 ```mermaid
 flowchart LR
+  accTitle: Flowchart
   Input["User Input<br/>(branch name)"]
   S1["Skill 1<br/>validate-branch-name"]
   S2["Skill 2<br/>route-pr-template"]
@@ -87,6 +88,7 @@ flowchart LR
   S2 -->|template_path, content| S3
   S3 -->|labels, errors| S4
   S4 -->|title, body, labels| GitHub
+accDescr: Detailed diagram
 ```
 
 ---

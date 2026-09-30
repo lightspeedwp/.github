@@ -26,7 +26,6 @@ class MetricsReporter {
         return this.generateEmptyReport(repository);
       }
 
-      const history = await this.storage.getMetricsHistory(repository);
       const trends = includeTrends
         ? await this.trendAnalyzer.analyzeTrends(repository, this.storage)
         : {};
@@ -39,7 +38,6 @@ class MetricsReporter {
         : [];
 
       const reportDate = new Date(metrics.timestamp);
-      const weekAgo = new Date(reportDate.getTime() - 7 * 24 * 60 * 60 * 1000);
 
       const report = [
         this.generateHeader(repository, reportDate, period),

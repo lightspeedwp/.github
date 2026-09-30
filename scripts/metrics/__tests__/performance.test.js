@@ -148,30 +148,12 @@ describe("Metrics Agent Phase 2 - Performance Benchmarks", () => {
     test("report generation should be <2 seconds per repository", () => {
       const startTime = Date.now();
 
-      // Simulate report generation (report not used in simple performance test)
-      `# Report
-## Section 1
-Content about metrics
-## Section 2
-More analysis
-## Section 3
-Trends and forecasts
-## Section 4
-Anomalies detected`;
-
       const elapsed = Date.now() - startTime;
 
       expect(elapsed).toBeLessThan(2000);
     });
 
     test("GitHub issue creation should be <5 seconds including API call", () => {
-      const startTime = Date.now();
-
-      // Simulate issue creation (includes API latency)
-      // Mock: Network latency ~500ms + processing
-      const simulatedApiCall = new Promise((resolve) => {
-        setTimeout(() => resolve({ number: 123 }), 500);
-      });
 
       // In actual tests with mocks, this would be instant
       // But we measure the expected time with real API calls

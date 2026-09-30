@@ -208,20 +208,6 @@ describe("Metrics Agent Phase 2 - Security Validation", () => {
       let activeRequests = 0;
       const requestLog = [];
 
-      const makeRequest = async (repoName) => {
-        if (activeRequests >= maxConcurrentRequests) {
-          throw new Error("Too many concurrent requests");
-        }
-
-        activeRequests++;
-        requestLog.push(`Start: ${repoName}`);
-
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 100));
-
-        activeRequests--;
-        requestLog.push(`End: ${repoName}`);
-      };
 
       // Verify constraint
       expect(maxConcurrentRequests).toBeLessThanOrEqual(10);

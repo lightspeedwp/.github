@@ -201,8 +201,5 @@ await app.close();
 - Electron capture requires Node.js Playwright (not Python)
 - Some SPAs with heavy client-side rendering may need custom wait logic beyond networkidle
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

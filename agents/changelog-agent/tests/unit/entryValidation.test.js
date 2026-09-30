@@ -18,7 +18,7 @@ describe('Entry Validation - Individual Rules', () => {
       };
 
       const result = validator.validate(entry, RULES_FILE);
-      expect(result.summary.failed).toBeGreaterThan(0);
+      expect(result.validation.summary.failed).toBeGreaterThan(0);
     });
 
     test('should pass when entry has no code patterns', () => {

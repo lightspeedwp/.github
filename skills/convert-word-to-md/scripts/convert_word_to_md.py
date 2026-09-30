@@ -50,7 +50,6 @@ EXIT_CONVERSION_FAILED = 1
 EXIT_MISSING_DEPENDENCY = 2
 EXIT_INVALID_INPUT = 3
 
-_W_NS = "http://schemas.openxmlformats.org/wordprocessingml/2006/main"
 _R_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
 _REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
 

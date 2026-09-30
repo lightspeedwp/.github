@@ -68,6 +68,9 @@ describe("Workspace Cleaner Module", () => {
   describe("getCurrentBranch", () => {
     test("should get current branch name", () => {
       const repoPath = path.join(testDir, "branch-repo");
+      // Start fresh: a residue from an interrupted run would leave
+      // nothing to commit and fail the commit below.
+      fs.rmSync(repoPath, { recursive: true, force: true });
       fs.mkdirSync(repoPath, { recursive: true });
       execFileSync("git", ["init"], { cwd: repoPath });
       execFileSync("git", ["config", "user.email", "test@test.com"], {
@@ -82,7 +85,14 @@ describe("Workspace Cleaner Module", () => {
 
       const branch = workspaceCleaner.getCurrentBranch(repoPath);
 
-      expect(branch).toBe("master");
+      // Assert against the repo's actual default branch (modern git
+      // initialises to `main`, older git to `master`).
+      const expected = execFileSync(
+        "git",
+        ["symbolic-ref", "--short", "HEAD"],
+        { cwd: repoPath, encoding: "utf8" },
+      ).trim();
+      expect(branch).toBe(expected);
 
       fs.rmSync(repoPath, { recursive: true });
     });

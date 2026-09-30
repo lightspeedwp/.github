@@ -168,6 +168,4 @@ assume someone is neurodivergent, and keep every affordance optional. See
 - `references/customize.md` — theming, the file-backed-state upgrade (agent can read/write
   progress), and the optional "shared signals" bridge for people who run a multi-agent workshop.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

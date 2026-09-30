@@ -1,0 +1,83 @@
+name: Workflow Lint
+
+# Static checks for GitHub Actions workflow files: actionlint covers workflow
+# schema, expression types, action inputs and script-injection checks, and
+# pipes inline `run:` scripts through shellcheck when available.
+# See https://github.com/rhysd/actionlint
+
+on:
+  # No paths filter on pull_request: this workflow backs the required
+  # "actionlint" status check, and a filtered-out run never reports,
+  # leaving the check at "Expected" forever. The job itself is seconds.
+  pull_request:
+  push:
+    branches:
+      - develop
+    paths:
+      - '.github/workflows/**'
+      - '.github/actionlint.yaml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: workflow-lint-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  actionlint:
+    name: actionlint
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Read-only job: nothing pushes, so do not persist credentials.
+          persist-credentials: false
+          # Only workflow files and local actions are linted.
+          sparse-checkout: .github
+
+      - name: Download actionlint
+        env:
+          ACTIONLINT_VERSION: '1.7.12'
+          # SHA-256 of actionlint_1.7.12_linux_amd64.tar.gz from the release
+          # assets (actionlint_1.7.12_checksums.txt). Update both together.
+          ACTIONLINT_SHA256: '8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8'
+        run: |
+          curl -sSfL -o actionlint.tar.gz \
+            "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+          echo "${ACTIONLINT_SHA256}  actionlint.tar.gz" | sha256sum -c -
+          tar xzf actionlint.tar.gz actionlint
+          ./actionlint --version
+
+      - name: Run actionlint on active workflows
+        # shellcheck (preinstalled on ubuntu runners) runs at its default
+        # severity: active workflows are clean at every level (#3478), so
+        # style and info findings gate this check too.
+        run: |
+          # Explicit file list, not repo-wide. Archived workflows are
+          # frozen history and stay unlinted. Every active workflow must be
+          # listed here.
+          # job.workflow_repository / job.workflow_sha are documented job
+          # context properties for reusable workflows
+          # (https://docs.github.com/en/actions/reference/workflows-and-actions/contexts)
+          # that actionlint 1.7.12 does not know yet.
+          ./actionlint -shellcheck="$(command -v shellcheck || true)" \
+            -ignore 'missing input "app-id" which is required by action "actions/create-github-app-token@' \
+            -ignore 'input "client-id" is not defined in action "actions/create-github-app-token@' \
+            -ignore 'property "workflow_repository" is not defined in object type \{check_run_id' \
+            -ignore 'property "workflow_sha" is not defined in object type \{check_run_id' \
+            .github/workflows/ai-feedback.yml \
+            .github/workflows/ai-feedback-validation.yml \
+            .github/workflows/branch-name-validation.yml \
+            .github/workflows/branch-validation-metrics-aggregator.yml \
+            .github/workflows/changelog-unified.yml \
+            .github/workflows/documentation.yml \
+            .github/workflows/labeling-unified.yml \
+            .github/workflows/orchestrate-phase-progression.yml \
+            .github/workflows/phase-progression.yml \
+            .github/workflows/pr-template-routing.yml \
+            .github/workflows/tests.yml \
+            .github/workflows/validate-specifications.yml \
+            .github/workflows/workflow-lint.yml

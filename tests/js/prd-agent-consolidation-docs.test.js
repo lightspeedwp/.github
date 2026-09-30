@@ -483,9 +483,7 @@ describe("PRD agent consolidation convergence documentation", () => {
         /^## \[/m,
       );
 
-      expect(unreleased).toContain(
-        "PRD Agent Consolidation — Phase 7 Decision Logic Consistency",
-      );
+      expect(unreleased).toContain("Agent Consolidation Phase 7 Fixed");
       expect(unreleased).toContain("Critical Blockers == 0");
       expect(unreleased).toContain("T080-Defer");
     });

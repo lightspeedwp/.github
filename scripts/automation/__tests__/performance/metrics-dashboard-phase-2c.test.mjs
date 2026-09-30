@@ -7,7 +7,6 @@
 
 import { strict as assert } from "assert";
 import fs from "fs";
-import path from "path";
 import {
   generateHTMLDashboard,
   generateMarkdownReport,

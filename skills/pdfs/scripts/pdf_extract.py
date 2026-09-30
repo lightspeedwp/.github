@@ -28,12 +28,10 @@ from __future__ import annotations
 import argparse
 import csv
 import json
-import os
 import re
 import subprocess
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Sequence, Tuple
-
+from typing import Any, Dict, Iterable, List, Optional, Tuple
 
 def _parse_page_ranges(spec: Optional[str]) -> Optional[List[Tuple[int, int]]]:
     if not spec:
@@ -102,7 +100,6 @@ def cmd_text(args: argparse.Namespace) -> int:
         text = _read_pdf_text_pdftotext(args.input_pdf, ranges)
     elif method == "pypdf":
         from pypdf import PdfReader
-        from pypdf.generic import DictionaryObject, StreamObject
 
         reader = PdfReader(args.input_pdf)
         out_parts: List[str] = []

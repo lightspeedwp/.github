@@ -22,33 +22,17 @@ describe("GitHub Client", () => {
 
   describe("createIssueViaAPI", () => {
     test("should create an issue with required fields", async () => {
-      const issueData = {
-        title: "Test Issue",
-        body: "This is a test issue body",
-        labels: ["type:bug", "priority:normal"],
-      };
-
       // This test would require mocking https.request
       // Placeholder for actual implementation
       expect(typeof githubClient.createIssueViaAPI).toBe("function");
     });
 
     test("should throw error if title is missing", async () => {
-      const issueData = {
-        body: "Missing title",
-      };
-
       // Would be tested with actual async implementation
       expect(typeof githubClient.createIssueViaAPI).toBe("function");
     });
 
     test("should handle optional fields (milestone, assignees)", async () => {
-      const issueData = {
-        title: "Issue with milestone",
-        milestone: 5,
-        assignees: ["user1", "user2"],
-      };
-
       expect(typeof githubClient.createIssueViaAPI).toBe("function");
     });
 
@@ -241,7 +225,6 @@ describe("GitHub Client", () => {
 
   describe("Cache Management", () => {
     test("should clear all cache entries", () => {
-      const statsBefore = githubClient.getCacheStats();
       githubClient.clearCache();
       const statsAfter = githubClient.getCacheStats();
       expect(statsAfter.size).toBe(0);

@@ -87,19 +87,20 @@ function generateRecommendations(failing_entries, issue_breakdown) {
   const ruleIssues = {};
   for (const category in issue_breakdown) {
     const categoryData = issue_breakdown[category];
-    for (const issue of categoryData.issues) {
-      if (!ruleIssues[issue.rule]) {
-        ruleIssues[issue.rule] = {
-          rule: issue.rule,
+    for (const issue of categoryData.issues || []) {
+      const ruleKey = issue.rule || issue.ruleId || issue.rule_id;
+      if (!ruleIssues[ruleKey]) {
+        ruleIssues[ruleKey] = {
+          rule: ruleKey,
           count: 0,
           messages: [],
         };
       }
-      ruleIssues[issue.rule].count += 1;
+      ruleIssues[ruleKey].count += 1;
       if (
-        !ruleIssues[issue.rule].messages.includes(issue.message)
+        !ruleIssues[ruleKey].messages.includes(issue.message)
       ) {
-        ruleIssues[issue.rule].messages.push(issue.message);
+        ruleIssues[ruleKey].messages.push(issue.message);
       }
     }
   }

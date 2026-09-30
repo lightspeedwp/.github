@@ -332,6 +332,4 @@ today."
 - Analyzing customer calls for sales or support patterns
 - Studying negotiation tactics and outcomes
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

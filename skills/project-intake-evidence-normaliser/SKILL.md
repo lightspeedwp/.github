@@ -294,8 +294,5 @@ Use exactly one final divider line at the end of the document. Do not add duplic
 - Recommended Next Step: either proceed to chatbot planning or pause for source approval
 - Relevant References Collected During Onboarding: the live FAQ page, policy pages, discovery email thread, and any uploaded draft FAQ document, each labelled with approval state
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

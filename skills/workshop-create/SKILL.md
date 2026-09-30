@@ -142,6 +142,4 @@ Tell the operator:
 - If an existing directory already has work in it, preserve everything.
   Only add what's missing.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

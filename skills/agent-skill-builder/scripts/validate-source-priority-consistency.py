@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
-import re
 import sys
 from pathlib import Path
-from validator_common import make_report, print_report, rel
-
+from validator_common import make_report, print_report
 REQUIRED_PHRASES = ['current user request', 'memory', 'templates', 'examples', 'prior assumptions']
 FILES = ['SKILL.md', 'references/source-priority-guide.md', 'references/business-context.md', 'memory/defaults/user-preferences.md']
 

@@ -25,9 +25,7 @@ const path = require("path");
 /**
  * Configuration constants with environment variable overrides
  */
-const lineLength = parseInt(process.env.MARKDOWNLINT_LINE_LENGTH) || 120;
 const strictMode = process.env.MARKDOWNLINT_STRICT === "true";
-const ignoreGenerated = process.env.MARKDOWNLINT_IGNORE_GENERATED !== "false";
 
 /**
  * Load ignore patterns from .markdownlintignore file

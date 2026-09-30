@@ -290,10 +290,6 @@ function validateParameters(action, options) {
   return { valid: errors.length === 0, errors };
 }
 
-// Format output
-function formatOutput(result) {
-  return JSON.stringify(result, null, 2);
-}
 
 // Log action execution
 function logExecution(action, startTime, endTime, success, message) {

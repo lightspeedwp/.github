@@ -57,8 +57,5 @@ The output should be a complete Epic PRD in Markdown format, saved to `/docs/way
 - **Epic Idea:** [A high-level description of the epic from the user]
 - **Target Users:** [Optional: Any initial thoughts on who this is for]
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/lsx-demo-theme/graphs/contributors)
+_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
+[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

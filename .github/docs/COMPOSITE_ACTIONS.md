@@ -15,9 +15,12 @@ This document defines the contracts, inputs, outputs, and usage patterns for all
 | Action | Purpose | Location | Used By |
 |--------|---------|----------|---------|
 | **apply-labels** | Apply labels to PR/issue with validation | `.github/actions/apply-labels/action.yml` | labeling-unified.yml |
-| **validate-check** | Create/update GitHub check runs | `.github/actions/validate-check/action.yml` | validation-unified.yml |
-| **aggregate-tests** | Aggregate test results and coverage | `.github/actions/aggregate-tests/action.yml` | testing-unified.yml |
-| **collect-metrics** | Collect workflow execution metrics | `.github/actions/collect-metrics/action.yml` | All unified workflows |
+| **collect-metrics** | Collect workflow execution metrics | `.github/actions/collect-metrics/action.yml` | labeling-unified.yml |
+
+Every action listed here is called by an active workflow. That is enforced by
+`workflow-reachability.test.js`, which fails if a composite action has no
+caller or if a `uses:` reference does not resolve — see
+[Maintenance & Updates](#maintenance--updates).
 
 ---
 
@@ -75,113 +78,6 @@ This document defines the contracts, inputs, outputs, and usage patterns for all
 - Label application is **case-sensitive**
 - Does not remove existing labels (only adds)
 - Requires `contents: write` permission on the repository
-
----
-
-## validate-check
-
-**Purpose:** Create or update GitHub check runs with validation results, supporting detailed reporting and annotations.
-
-### Contract
-
-#### Inputs
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `check-name` | string | ✓ | | Name of the check (e.g., "Branch Validation", "PR Template Validation") |
-| `status` | enum | ✓ | | Check status: `queued`, `in_progress`, or `completed` |
-| `conclusion` | enum | ✓* | | Check conclusion (required if status=completed): `success`, `failure`, `neutral`, `cancelled`, `skipped`, `timed_out` |
-| `summary` | string | ✓ | | Short summary of check result |
-| `details-url` | string | | | URL to details page (optional) |
-| `text` | string | | | Detailed text output (markdown supported) |
-| `annotations` | string (JSON) | | | Array of annotations (errors/warnings) |
-
-#### Outputs
-
-| Name | Type | Description |
-|------|------|-------------|
-| `check-id` | string | GitHub check run ID |
-| `status` | string | Check status |
-
-#### Status Transitions
-
-```
-queued → in_progress → completed (with conclusion)
-```
-
-#### Example Usage
-
-```yaml
-- name: Create validation check
-  uses: ./.github/actions/validate-check@v1
-  with:
-    check-name: 'Branch Name Validation'
-    status: 'completed'
-    conclusion: 'success'
-    summary: 'Branch name matches pattern: feat/*, fix/*, docs/*, etc.'
-    text: |
-      ✓ Branch name is valid
-      ✓ Matches required pattern
-      ✓ No forbidden prefixes (claude/, copilot/)
-```
-
-#### Known Limitations
-
-- Annotations support is pending full implementation
-- Check runs are associated with a commit SHA
-- Requires `checks: write` permission
-
----
-
-## aggregate-tests
-
-**Purpose:** Aggregate test results from multiple test jobs and generate coverage reports with automated thresholds.
-
-### Contract
-
-#### Inputs
-
-| Name | Type | Required | Default | Description |
-|------|------|----------|---------|-------------|
-| `test-results-path` | string | ✓ | | Path to test results directory or glob pattern (e.g., `coverage/` or `**/*.json`) |
-| `coverage-threshold` | number | | `80` | Minimum coverage percentage required (0-100) |
-| `artifact-name` | string | | `test-results` | Name of artifact to upload results to |
-| `github-token` | string | | `${{ github.token }}` | GitHub token for uploading artifacts |
-
-#### Outputs
-
-| Name | Type | Description |
-|------|------|-------------|
-| `total-tests` | string (number) | Total number of tests |
-| `passed-tests` | string (number) | Number of passed tests |
-| `failed-tests` | string (number) | Number of failed tests |
-| `coverage-percent` | string (number) | Code coverage percentage |
-| `coverage-status` | string | Coverage status: `PASS` or `FAIL` |
-
-#### Supported Formats
-
-- **JUnit XML:** `*.xml` files in test results directory
-- **Coverage JSON:** `coverage-summary.json` (expected format: `{ total: { lines: { pct: 80 } } }`)
-
-#### Example Usage
-
-```yaml
-- name: Run tests
-  run: npm test -- --coverage --reporters=junit
-
-- name: Aggregate test results
-  uses: ./.github/actions/aggregate-tests@v1
-  with:
-    test-results-path: './coverage'
-    coverage-threshold: 80
-    artifact-name: 'unit-test-results'
-```
-
-#### Known Limitations
-
-- Coverage file format must be `coverage-summary.json`
-- JUnit XML parsing is simplified (grep-based)
-- `bc` command required for decimal comparisons
 
 ---
 
@@ -283,33 +179,20 @@ queued → in_progress → completed (with conclusion)
     job-name: pr-labeling
 ```
 
-### In validation-unified.yml
-
-```yaml
-- uses: ./.github/actions/validate-check
-  with:
-    check-name: 'Branch Validation'
-    status: completed
-    conclusion: success
-    summary: 'Branch naming validated'
-```
-
-### In testing-unified.yml
-
-```yaml
-- uses: ./.github/actions/aggregate-tests
-  with:
-    test-results-path: ./coverage
-    coverage-threshold: 80
-```
-
 ---
 
 ## Maintenance & Updates
 
 - **Versioning:** Use semantic versioning (v1, v2, etc.)
 - **Breaking Changes:** Major version bump required
-- **Testing:** All composite actions tested in workflow-harness.yml
+- **Testing:** Every composite action is covered by
+  `workflow-consolidation-actions.test.js`, which asserts its declared outputs
+  and exercises each step's script. Run it with
+  `npx jest --config .jest.config.cjs .github/actions/__tests__/`.
+- **Reachability:** `workflow-reachability.test.js` fails if an action has no
+  caller in an active workflow, if a local `uses:` does not resolve, or if a
+  workflow-shaped file sits outside `.github/workflows/`. Add a composite
+  action and its contract test in the same change, or that suite fails.
 - **Documentation:** Update this file when adding inputs/outputs
 
 ---

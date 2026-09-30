@@ -42,7 +42,3 @@ status: draft
 - Approved by: {{approval.approved_by}}
 - Date: {{approval.date}}
 - Notes: {{approval.notes}}
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

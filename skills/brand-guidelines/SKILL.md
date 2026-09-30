@@ -72,8 +72,5 @@ To access Anthropic's official brand identity and style resources, use this skil
 - Applied via python-pptx's RGBColor class
 - Maintains color fidelity across different systems
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

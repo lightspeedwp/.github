@@ -333,7 +333,6 @@ Update docs.
 
       typesWithBranchPrefixRequirement.forEach((type) => {
         const template = dorDodTemplates.getTemplate(type);
-        const hasPrefix = template.dod.toLowerCase().includes("branch prefix");
         // Note: Not all templates mention branch prefix, which is fine
       });
     });

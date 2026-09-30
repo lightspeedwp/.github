@@ -84,7 +84,7 @@ def _parse_scalar(value: str) -> Any:
         try:
             return int(value)
         except ValueError:
-            pass
+            return value
     return value
 
 
@@ -415,7 +415,7 @@ def validate_markdown(path: Path, body: str, result: FileResult, root: Path) -> 
                 try:
                     resolved.relative_to(root.resolve())
                 except ValueError:
-                    pass
+                    continue
                 if file_target and not resolved.exists():
                     result.add("error", f"Line {idx}: broken internal link `{target}`")
 

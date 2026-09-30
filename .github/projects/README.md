@@ -40,6 +40,8 @@ The following diagram and table provide an overview of the available report cate
 
 ```mermaid
 graph TD
+    accTitle: Report categories
+    accDescr: The .github/reports folder and the fifteen report categories it contains, from Agents to Validation.
     A[📂 .github/reports] --> B[🤖 Agents]
     A --> C[🔬 Analysis]
     A --> D[🛡️ Audits]
@@ -55,8 +57,6 @@ graph TD
     A --> N[⚡ Optimisation]
     A --> O[🛠️ Tech Debt]
     A --> P[✅ Validation]
-
-**`active/`** - Current Active Projects
     subgraph "Report Categories"
         B
         C
@@ -74,6 +74,10 @@ graph TD
         O
         P
     end
+    style A fill:#dbeafe,stroke:#1e3a5f,stroke-width:2px,color:#1e3a5f
+```
+
+**`active/`** - Current Active Projects
 
 - Work-in-progress project files
 - Active sprint plans and task tracking
@@ -99,9 +103,7 @@ graph TD
 
 Use descriptive project names:
 
-    style A fill:#e1f5fe,stroke:#333,stroke-width:2px
-```
-
+```text
 {project-name}-{type}.md
 
 Examples:
@@ -109,8 +111,8 @@ context-reduction-tasks.md
 instruction-consolidation-guide.md
 labeling-system-roadmap.md
 phase6-planning-suite-consolidation.md
-
 ```
+
 | Category | Purpose |
 | :--- | :--- |
 | **/agents** | Logs and outputs from AI agent executions. |

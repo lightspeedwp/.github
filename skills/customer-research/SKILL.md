@@ -152,6 +152,4 @@ Before returning the brief, check that:
 - unsupported sales assumptions are labelled as assumptions or removed
 - the recommendation is safe given relationship, delivery, and support evidence
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

@@ -273,6 +273,4 @@ When asked to refine or package this skill:
 
 Use the templates in `templates/` unless the user asks for a different format. Keep outputs practical, evidence-led, UK English, and agency-ready.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

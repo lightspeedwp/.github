@@ -769,21 +769,3 @@ This gives you positions (grid working?), dimensions (size differentiation?), an
 | INSTANCE_SWAP shows no swap option | Default value was not a valid component ID | Pass a real existing component ID as `defaultValue` |
 | `combineAsVariants` throws | At least one node in the array is not a `ComponentNode` | Filter array: `nodes.filter(n => n.type === 'COMPONENT')` |
 | `addComponentProperty` returns unexpected key | Expected — the key gets a `#id:id` suffix | Save the returned value immediately: `const key = cs.addComponentProperty(...)` |
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

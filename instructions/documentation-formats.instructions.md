@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Documentation Formats Standards"
 description: "Unified standards for Markdown, YAML frontmatter, and Mermaid diagrams across all GitHub community health documentation"
 version: "v1.0"
-last_updated: "2025-12-07"
+last_updated: "2026-09-22""
 owners: ["GitHub Community Health Team"]
 tags:
   ["markdown", "frontmatter", "mermaid", "documentation", "diagrams", "yaml"]
@@ -478,8 +478,8 @@ flowchart TD
     C -->|Success| D[Output]
     C -->|Error| E[Error Handler]
 
-    classDef success fill:#e8f5e8
-    classDef error fill:#ffebee
+    classDef success fill:#dcfce7,color:#14532d,stroke:#14532d
+    classDef error fill:#fee2e2,color:#7f1d1d,stroke:#b91c1c
 
     class D success
     class E error
@@ -611,21 +611,6 @@ jobs:
 - [GitHub Mermaid Support](https://github.blog/2022-02-14-include-diagrams-markdown-files-mermaid/)
 - [Mermaid Live Editor](https://mermaid.live)
 - [W3C Complex Images](https://www.w3.org/WAI/tutorials/images/complex/)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
 
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

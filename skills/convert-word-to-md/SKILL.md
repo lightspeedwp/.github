@@ -129,8 +129,5 @@ conversion. Never guess or assume the directory.
 | `NOTE: skipped N non-.docx file(s)` | Folder contains non-Word files | Expected — those files are intentionally ignored |
 | `WARNING: found N image placeholder(s) ... but extracted M image file(s)` | Mismatch between MarkItDown's placeholder count and images found in `word/media/` (unusual/malformed docx) | Placeholders are left unreplaced rather than risk wrong images; inspect the source file's media manually if images are needed |
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

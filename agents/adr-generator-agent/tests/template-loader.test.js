@@ -1,4 +1,4 @@
-const templateLoader = require("../skills/adr-template-loader");
+const templateLoader = require("../skills/adr-template-loader/adr-template-loader");
 
 describe("ADR Template Loader", () => {
   beforeEach(() => {

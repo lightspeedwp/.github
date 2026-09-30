@@ -20,7 +20,3 @@
 ## Screenshots (optional)
 
 <!-- If UI changes, add screenshots here. -->
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

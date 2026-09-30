@@ -223,6 +223,4 @@ Load only the reference needed for the current task:
 - `references/quality-rubric.md`: validation checks for artefacts, WordPress implementation, Figma mapping, and agent prompts.
 - `references/tool-targets.md`: guidance for VS Code, Claude Code, Codex, ChatGPT, and Figma MCP targets.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

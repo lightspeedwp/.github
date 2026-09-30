@@ -234,8 +234,5 @@ Use this compact structure by default:
 - If there is not enough evidence to assign severity confidently, say so and explain what is missing.
 - Do not ask the user to restate details that are already present in the ticket, email, or pasted source material.
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

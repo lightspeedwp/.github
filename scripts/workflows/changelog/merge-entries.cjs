@@ -9,7 +9,6 @@
  */
 
 const fs = require('fs');
-const path = require('path');
 
 const PR_ENTRIES_FILE = process.env.PR_ENTRIES;
 const CHANGELOG_PATH = process.env.CHANGELOG_PATH || 'CHANGELOG.md';

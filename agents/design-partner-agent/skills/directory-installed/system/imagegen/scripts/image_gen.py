@@ -875,7 +875,7 @@ class _SingleFile:
             try:
                 self._handle.close()
             except Exception:
-                pass
+                return False
         return False
 
 
@@ -893,7 +893,7 @@ class _FileBundle:
             try:
                 handle.close()
             except Exception:
-                pass
+                continue
         return False
 
 

@@ -1,0 +1,79 @@
+{
+  "generated_at": "2026-09-24",
+  "task": "T014",
+  "gap_count": 12,
+  "gaps": [
+    {
+      "line": 15,
+      "policy_label": "type:documentation",
+      "canonical_label": "type:docs",
+      "recommendation": "replace with type:docs"
+    },
+    {
+      "line": 21,
+      "policy_label": "type:maintenance",
+      "canonical_label": "type:chore",
+      "recommendation": "replace with type:chore"
+    },
+    {
+      "line": 24,
+      "policy_label": "type:ai-ops",
+      "canonical_label": "type:aiops",
+      "recommendation": "replace with type:aiops"
+    },
+    {
+      "line": 28,
+      "policy_label": "type:compatibility",
+      "canonical_label": "type:compat",
+      "recommendation": "replace with type:compat"
+    },
+    {
+      "line": 30,
+      "policy_label": "type:investigation",
+      "canonical_label": "type:research",
+      "recommendation": "replace with type:research"
+    },
+    {
+      "line": 36,
+      "policy_label": "type:support",
+      "canonical_label": null,
+      "recommendation": "remove from never_delete_labels, or add to labels.yml if still needed"
+    },
+    {
+      "line": 38,
+      "policy_label": "type:story",
+      "canonical_label": null,
+      "recommendation": "remove from never_delete_labels, or add to labels.yml if still needed"
+    },
+    {
+      "line": 42,
+      "policy_label": "type:enhancement",
+      "canonical_label": "type:improve",
+      "recommendation": "replace with type:improve"
+    },
+    {
+      "line": 43,
+      "policy_label": "type:help",
+      "canonical_label": null,
+      "recommendation": "remove from never_delete_labels, or add to labels.yml if still needed"
+    },
+    {
+      "line": 46,
+      "policy_label": "area:labels",
+      "canonical_label": null,
+      "recommendation": "remove from never_delete_labels, or add to labels.yml if still needed"
+    },
+    {
+      "line": 68,
+      "policy_label": "meta:duplicate",
+      "canonical_label": null,
+      "recommendation": "remove from never_delete_labels, or add to labels.yml if still needed"
+    },
+    {
+      "line": 69,
+      "policy_label": "meta:dependabot-security",
+      "canonical_label": null,
+      "recommendation": "remove from never_delete_labels, or add to labels.yml if still needed"
+    }
+  ]
+}

@@ -83,7 +83,7 @@ class DocxXMLEditor(XMLEditor):
                     try:
                         max_id = max(max_id, int(change_id))
                     except ValueError:
-                        pass
+                        continue
         return max_id + 1
 
     def _ensure_w16du_namespace(self):
@@ -691,7 +691,7 @@ class Document:
             DocxXMLEditor instance for the specified file
 
         Raises:
-            ValueError: If the file does not exist
+            KeyError: If the file does not exist
 
         Example:
             # Get node from document.xml
@@ -703,7 +703,7 @@ class Document:
         if xml_path not in self._editors:
             file_path = self.unpacked_path / xml_path
             if not file_path.exists():
-                raise ValueError(f"XML file not found: {xml_path}")
+                raise KeyError(f"XML file not found: {xml_path}")
             # Use DocxXMLEditor with RSID, author, and initials for all editors
             self._editors[xml_path] = DocxXMLEditor(
                 file_path, rsid=self.rsid, author=self.author, initials=self.initials
@@ -898,7 +898,7 @@ class Document:
                 try:
                     max_id = max(max_id, int(comment_id))
                 except ValueError:
-                    pass
+                    continue
         return max_id + 1
 
     def _load_existing_comments(self):

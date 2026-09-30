@@ -45,6 +45,10 @@ function setupTestRepo() {
 
   execSync('git add .');
   execSync('git commit -m "Initial commit"');
+  // Modern git initialises the repo on `main` already, which would make
+  // later `git checkout -b main` steps fail with "already exists".
+  // Rename the initial branch aside so tests control branch creation.
+  execSync('git branch -m tmp-init');
   execSync('git branch develop');
   execSync('git checkout develop');
 }

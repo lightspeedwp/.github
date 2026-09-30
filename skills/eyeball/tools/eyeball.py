@@ -160,7 +160,7 @@ def _convert_with_libreoffice(soffice_path, source_path, output_pdf_path):
                 shutil.move(tmp_pdf, output_pdf_path)
                 return True
         except (subprocess.TimeoutExpired, FileNotFoundError):
-            pass
+            return False
     return False
 
 
@@ -199,7 +199,7 @@ def _convert_with_word_windows(source_path, output_pdf_path):
         try:
             word.AutomationSecurity = 3  # msoAutomationSecurityForceDisable
         except Exception:
-            pass
+            print("  Note: Could not enforce Word macro-security setting; continuing.")
 
         doc = word.Documents.Open(
             FileName=source_abs,
@@ -221,12 +221,12 @@ def _convert_with_word_windows(source_path, output_pdf_path):
             try:
                 doc.Close(False)
             except Exception:
-                pass
+                print("  Note: Document close during cleanup failed.")
         if word is not None:
             try:
                 word.Quit()
             except Exception:
-                pass
+                print("  Note: Word quit during cleanup failed.")
 
 
 def render_url_to_pdf(url, output_pdf_path):
@@ -538,25 +538,25 @@ def cmd_setup_check():
         import fitz
         checks["PyMuPDF"] = True
     except ImportError:
-        pass
+        checks["PyMuPDF"] = False
 
     try:
         from PIL import Image
         checks["Pillow"] = True
     except ImportError:
-        pass
+        checks["Pillow"] = False
 
     try:
         from docx import Document
         checks["python-docx"] = True
     except ImportError:
-        pass
+        checks["python-docx"] = False
 
     try:
         from playwright.sync_api import sync_playwright
         checks["Playwright"] = True
     except ImportError:
-        pass
+        checks["Playwright"] = False
 
     # Check Chromium across all platforms
     pw_cache_candidates = []
@@ -597,9 +597,9 @@ def cmd_setup_check():
                     checks["Word (Windows)"] = True
                     break
                 except OSError:
-                    pass
+                    continue
         except ImportError:
-            pass
+            checks["Word (Windows)"] = False
         # Check if pywin32 is available for Word automation
         if checks["Word (Windows)"]:
             try:

@@ -9,8 +9,6 @@
 const auditLogger = require("../includes/audit-logger.cjs");
 const labelValidator = require("../includes/label-validator.cjs");
 
-const OWNER = "lightspeedwp";
-const REPO = ".github";
 
 /**
  * Handle issue closed event

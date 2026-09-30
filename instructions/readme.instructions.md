@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "README Standards"
 description: "Standards for creating and maintaining README files, including required sections, Mermaid usage rules, and consistency expectations."
 applyTo: "README.md"
-last_updated: "2025-12-10"
+last_updated: "2026-09-22""
 status: "active"
 owners: ["lightspeedwp/maintainers"]
 tags: ["readme", "documentation", "mermaid", "structure", "a11y"]
@@ -129,21 +129,6 @@ Add/maintain:
 - [a11y.instructions.md](a11y.instructions.md)
 - [mermaid.instructions.md](mermaid.instructions.md)
 - [file-organisation.instructions.md](file-organisation.instructions.md)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

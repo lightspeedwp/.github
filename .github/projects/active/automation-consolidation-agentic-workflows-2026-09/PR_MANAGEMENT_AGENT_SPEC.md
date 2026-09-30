@@ -171,11 +171,11 @@ graph TD
     S -->|Yes| U["✅ PR Ready for Review"]
     
     style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style U fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style D fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style H fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style L fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style T fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
+    style U fill:#dcfce7,stroke:#14532d,stroke-width:2px,color:#14532d
+    style D fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style H fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style L fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style T fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#4a2c00
 ```
 
 ---
@@ -209,9 +209,9 @@ graph TD
     M -->|No| O["⚠️ CI Failing"]
     
     style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style N fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style E fill:#FFCDD2,stroke:#C62828,stroke-width:2px,color:#B71C1C
-    style O fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
+    style N fill:#dcfce7,stroke:#14532d,stroke-width:2px,color:#14532d
+    style E fill:#fee2e2,stroke:#b91c1c,stroke-width:2px,color:#7f1d1d
+    style O fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#4a2c00
 ```
 
 ---
@@ -242,9 +242,9 @@ graph TD
     E --> J
     
     style A fill:#E8F5E9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
-    style I fill:#C8E6C9,stroke:#2E7D32,stroke-width:2px,color:#1B5E20
+    style I fill:#dcfce7,stroke:#14532d,stroke-width:2px,color:#14532d
     style J fill:#E3F2FD,stroke:#1565C0,stroke-width:2px,color:#0D47A1
-    style N fill:#FFF3E0,stroke:#EF6C00,stroke-width:2px,color:#E65100
+    style N fill:#fef3c7,stroke:#b45309,stroke-width:2px,color:#4a2c00
 ```
 
 ---

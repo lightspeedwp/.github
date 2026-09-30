@@ -6,8 +6,6 @@
  * Usage: node orchestrate-phase-progression.js --event <type> --issue <number> [--pr <number>]
  */
 
-const fs = require("fs");
-const path = require("path");
 const {
   syncLabelsOnEvent,
 } = require("../../scripts/automation/handlers/sync-labels-on-event.cjs");

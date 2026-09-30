@@ -3,7 +3,7 @@
  * Tests all 6 assignment rules and edge cases
  */
 
-const { MilestoneAssignmentAgent } = require("../milestone-assignment.cjs");
+const { MilestoneAssignmentAgent } = require("../milestone-assignment.js");
 
 describe("MilestoneAssignmentAgent", () => {
   let agent;
@@ -105,8 +105,8 @@ describe("MilestoneAssignmentAgent", () => {
 
       const result = await agent.assignMilestone(issue);
 
-      expect(result.milestoneNumber).toBe(2);
-      expect(result.milestoneTitle).toBe("v2.0");
+      expect(result.milestone.number).toBe(2);
+      expect(result.milestone.title).toBe("v2.0");
       expect(result.confidence).toBe(0.95);
       expect(result.reason).toBe("version-keyword");
     });
@@ -121,8 +121,8 @@ describe("MilestoneAssignmentAgent", () => {
 
       const result = await agent.assignMilestone(issue);
 
-      expect(result.milestoneNumber).toBe(1);
-      expect(result.milestoneTitle).toBe("v1.5");
+      expect(result.milestone.number).toBe(1);
+      expect(result.milestone.title).toBe("v1.5");
     });
 
     it("should prioritize version keyword rule over other rules", async () => {
@@ -162,7 +162,7 @@ describe("MilestoneAssignmentAgent", () => {
 
       expect(result.reason).toBe("epic-type");
       expect(result.confidence).toBe(0.9);
-      expect(result.milestoneTitle).toBe("v3.0");
+      expect(result.milestone.title).toBe("v3.0");
     });
 
     it("should skip epic rule if version keyword is present", async () => {
@@ -201,7 +201,7 @@ describe("MilestoneAssignmentAgent", () => {
 
       expect(result.reason).toBe("release-type");
       expect(result.confidence).toBe(0.9);
-      expect(result.milestoneTitle).toBe("release-2.0");
+      expect(result.milestone.title).toBe("release-2.0");
     });
   });
 
@@ -227,7 +227,7 @@ describe("MilestoneAssignmentAgent", () => {
 
       expect(result.reason).toBe("phase-match");
       expect(result.confidence).toBe(0.85);
-      expect(result.milestoneTitle).toBe("Phase 2");
+      expect(result.milestone.title).toBe("Phase 2");
     });
 
     it("should match phase with decimal (Phase 2.1)", async () => {
@@ -240,7 +240,7 @@ describe("MilestoneAssignmentAgent", () => {
 
       const result = await agent.assignMilestone(issue);
 
-      expect(result.milestoneTitle).toBe("Phase 2.1");
+      expect(result.milestone.title).toBe("Phase 2.1");
     });
   });
 
@@ -270,7 +270,7 @@ describe("MilestoneAssignmentAgent", () => {
 
       expect(result.reason).toBe("high-priority");
       expect(result.confidence).toBe(0.8);
-      expect(result.milestoneTitle).toBe("Current Sprint");
+      expect(result.milestone.title).toBe("Current Sprint");
     });
 
     it("should assign current milestone to high-priority issues", async () => {
@@ -322,7 +322,7 @@ describe("MilestoneAssignmentAgent", () => {
 
       expect(result.reason).toBe("default");
       expect(result.confidence).toBe(0.5);
-      expect(result.milestoneTitle).toBe("Backlog");
+      expect(result.milestone.title).toBe("Backlog");
     });
 
     it("should use next open milestone if backlog not found", async () => {
@@ -344,8 +344,8 @@ describe("MilestoneAssignmentAgent", () => {
 
       const result = await agent.assignMilestone(issue);
 
-      expect(result.milestoneNumber).toBe(2);
-      expect(result.milestoneTitle).toBe("v3.0");
+      expect(result.milestone.number).toBe(2);
+      expect(result.milestone.title).toBe("v3.0");
     });
   });
 
@@ -369,7 +369,8 @@ describe("MilestoneAssignmentAgent", () => {
 
       const result = await agent.assignMilestone(issue);
 
-      expect(result).toBe(1);
+      expect(result.milestone.number).toBe(1);
+      expect(result.reason).toBe("already-assigned");
     });
 
     it("should handle string labels", async () => {

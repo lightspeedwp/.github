@@ -32,7 +32,6 @@ import { EVENT_SCHEMAS } from "../../scripts/telemetry/event-schemas.js";
 
 const VERSION_FILE = "VERSION";
 const CHANGELOG_FILE = "CHANGELOG.md";
-const CHANGELOG_SCHEMA = "schemas/changelog.schema.json";
 const REPORTS_DIR = ".github/reports/agentic-releases";
 
 // Changelog validation rules per Keep a Changelog 1.1.0
@@ -316,7 +315,6 @@ Respond with JSON:
 
       // Check 3: Verify valid version sections (pattern: [X.Y.Z] - YYYY-MM-DD)
       const versionPattern = CHANGELOG_VALIDATION.requiresVersionFormat;
-      const hasVersionSections = versionPattern.test(changelogContent);
 
       // Check 4: Verify [Unreleased] has entries (is not empty)
       const unreleasedRegex = /## \[Unreleased\]\n\n([\s\S]*?)\n## \[/;

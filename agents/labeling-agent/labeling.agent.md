@@ -8,7 +8,7 @@ handoffs:
     prompt: Now implement the labeling changes outlined above.
     send: false
 version: v2.0
-last_updated: '2025-11-20'
+last_updated: "2026-09-22"'
 author: LightSpeedWP
 maintainer: Ash Shaw
 file_type: agent
@@ -211,13 +211,15 @@ Maps file patterns and branch names to labels:
 
 ```yaml
 "type:feature":
-  head-branch: ["^feat/.*", "^feature/.*"]
+  - head-branch:
+      - "^feat/.*"
+      - "^feature/.*"
 
 "area:block-editor":
-  changed-files:
-    any-glob-to-any-file:
-      - "src/blocks/**"
-      - "**/block.json"
+  - changed-files:
+      - any-glob-to-any-file:
+          - "src/blocks/**"
+          - "**/block.json"
 ```
 
 ### `.github/issue-types.yml`
@@ -234,6 +236,11 @@ Maps issue template types to labels:
   label: type:feature
 ```
 
+For issues, the live GitHub native issue type is authoritative. Its mapped
+`type:*` label is applied before content fallback; keyword detection is used
+only when no native type is available. Content fallback uses explicit,
+whole-word signals rather than substring matches.
+
 ---
 
 ## References
@@ -246,39 +253,5 @@ Maps issue template types to labels:
 - [Labeling Documentation](../../docs/LABELING.md) - Complete labeling system docs
 - [Label Strategy](../../docs/LABEL_STRATEGY.md) - Label philosophy and best practices
 - [Coding Standards](../instructions/coding-standards.instructions.md) - Development guidelines
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

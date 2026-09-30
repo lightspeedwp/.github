@@ -68,14 +68,16 @@ async function makeGitHubApiRequest(owner, repo, path) {
   // In production with Octokit, this would be proper error handling
   try {
     // Simulated API response - in production would use Octokit
-    // This is a placeholder for the actual GitHub API call
+    // This is a placeholder for the actual GitHub API call.
+    // NOTE: no setCache here — caching belongs to the validation layer
+    // (validatePRReference/validateIssueReference), which keys results by
+    // owner/repo/number. Caching here too stored every response twice.
     const result = {
       exists: true,
       status: "open",
       number: parseInt(path.split("/").pop()),
     };
 
-    setCache(cacheKey, result);
     return result;
   } catch (error) {
     console.warn(

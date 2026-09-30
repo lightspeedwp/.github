@@ -12,6 +12,19 @@ class ChangelogValidator {
     this.layerOrder = ['format', 'structure', 'content', 'reference'];
   }
 
+  /**
+   * Validate a single entry with the canonical rules file.
+   * Convenience wrapper over validate() for callers (e.g. the agent
+   * audit flow) that do not carry a rules-file path.
+   */
+  validateEntry(entry, rulesFilePath = null) {
+    const path = require('path');
+    const resolved =
+      rulesFilePath ||
+      path.join(__dirname, '../../../.github/changelog-rules.yml');
+    return this.validate(entry, resolved);
+  }
+
   validate(entry, rulesFilePath, options = {}) {
     const { stopOnError = false, context = {} } = options;
 

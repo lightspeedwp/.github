@@ -6,7 +6,6 @@
 const handleIssueCreated = require("../handlers/handle-issue-created.cjs");
 const handleIssueLabled = require("../handlers/handle-issue-labeled.cjs");
 const handlePROpened = require("../handlers/handle-pr-opened.cjs");
-const handlePRMerged = require("../handlers/handle-pr-merged.cjs");
 const handleIssueClosed = require("../handlers/handle-issue-closed.cjs");
 const phaseStateMachine = require("../includes/phase-state-machine.cjs");
 const labelValidator = require("../includes/label-validator.cjs");
@@ -111,17 +110,7 @@ describe("Phase 3 Integration Tests", () => {
     });
 
     it("should trigger phase progression when PR opens", () => {
-      const pr = {
-        number: 100,
-        title: "Implement feature",
-      };
 
-      // Mock issue that we would fetch
-      const mockIssue = {
-        number: 1010,
-        labels: [{ name: "openspec:specification-pending" }],
-        title: "Feature spec",
-      };
 
       // The handler would normally fetch this via API
       // For testing, we just check the logic
@@ -370,10 +359,6 @@ describe("Phase 3 Integration Tests", () => {
     });
 
     it("should not error when processing PR without issue link", () => {
-      const pr = {
-        number: 101,
-        title: "Random improvement",
-      };
 
       // Simulate handler behavior
       const result = {

@@ -1,0 +1,99 @@
+{
+  "workflow": "remediate-bare-labels.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml",
+  "size_bytes": 8396,
+  "purpose": "Weekly and on-demand migration of bare (unprefixed) labels on issues and PRs to canonical labels using .github/reports/label-remediation/bare-label-mapping.json, with a Markdown report.",
+  "triggers": [
+    "schedule: \"0 8 * * 1\"",
+    "workflow_dispatch (inputs: dry_run choice default \"true\")"
+  ],
+  "jobs": [
+    {
+      "id": "remediate",
+      "summary": "Checkout, setup Node 24, npm ci; load the mapping into step outputs; for each bare label list matching issues/PRs; rewrite each item's label set (unless dry-run); build a report, emit it as a notice and upload REMEDIATION_REPORT.md."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": ".github/reports/label-remediation/bare-label-mapping.json",
+      "exists": true,
+      "note": "JSON mapping read by inline node; no external script"
+    }
+  ],
+  "actions_used": [
+    "actions/checkout@v7",
+    "actions/setup-node@v7",
+    "actions/github-script@v9",
+    "actions/upload-artifact@v7"
+  ],
+  "labels_referenced": [],
+  "labels_not_in_canonical": [],
+  "script_labels_not_in_canonical": [
+    {
+      "label": "type:documentation (from 'documentation')",
+      "evidence": ".github/reports/label-remediation/bare-label-mapping.json"
+    },
+    {
+      "label": "type:ui (from 'ui')",
+      "evidence": ".github/reports/label-remediation/bare-label-mapping.json"
+    },
+    {
+      "label": "type:ux-feedback (from 'ux', 'feedback')",
+      "evidence": ".github/reports/label-remediation/bare-label-mapping.json"
+    },
+    {
+      "label": "type:help (from 'help', 'support')",
+      "evidence": ".github/reports/label-remediation/bare-label-mapping.json"
+    },
+    {
+      "label": "type:story (from 'story')",
+      "evidence": ".github/reports/label-remediation/bare-label-mapping.json"
+    },
+    {
+      "label": "type:qa (from 'qa')",
+      "evidence": ".github/reports/label-remediation/bare-label-mapping.json"
+    }
+  ],
+  "permissions": {
+    "workflow": {
+      "contents": "read",
+      "issues": "write",
+      "pull-requests": "write"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "Scheduled runs write labels: DRY_RUN comes from github.event.inputs.dry_run, which is empty on schedule, so dryRun is false.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml:165"
+    },
+    {
+      "issue": "issues.listForRepo is called once per label with per_page 100 and no pagination, so items beyond the first 100 are missed.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml:66"
+    },
+    {
+      "issue": "issues.update replaces the item's whole label set from a read taken moments earlier (race with concurrent changes).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml:143"
+    },
+    {
+      "issue": "8 of the 77 mapping entries target labels that are not in labels.yml, so remediation would add non-canonical labels.",
+      "evidence": ".github/reports/label-remediation/bare-label-mapping.json"
+    },
+    {
+      "issue": "Item type is derived from `item.title`, which PRs also have, so every item is logged as 'Issue'.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml:149"
+    },
+    {
+      "issue": "Configuration data is read from a reports folder rather than from labels.yml or another config file.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml:46"
+    },
+    {
+      "issue": "always() report steps JSON.parse empty outputs and throw if the query step failed, hiding the original error.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/remediate-bare-labels.yml:173"
+    }
+  ],
+  "overlaps_with": [
+    "labeling-unified.yml / labeling.agent.js standardisation step (per item; removes rather than migrates)",
+    "validate-issue-labels.yml",
+    "labeling-governance.yml (detect-bare-labels)"
+  ]
+}

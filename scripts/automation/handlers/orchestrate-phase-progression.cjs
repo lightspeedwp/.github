@@ -11,8 +11,6 @@ const phaseStateMachine = require("../includes/phase-state-machine.cjs");
 const labelValidator = require("../includes/label-validator.cjs");
 const auditLogger = require("../includes/audit-logger.cjs");
 
-const OWNER = "lightspeedwp";
-const REPO = ".github";
 
 /**
  * Orchestrate phase progression on issue event
@@ -82,7 +80,6 @@ function orchestratePhaseProgression(issue, trigger, options = {}) {
       phaseLabel,
       nextPhase,
     );
-    const isRollingBack = phaseStateMachine.isRollback(phaseLabel, nextPhase);
 
     // Record progression
     const phase = phaseStateMachine.getPhase(phaseLabel);

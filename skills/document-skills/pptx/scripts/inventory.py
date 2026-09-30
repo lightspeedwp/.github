@@ -217,7 +217,7 @@ class ParagraphData:
                         if font.color.theme_color:
                             self.theme_color = font.color.theme_color.name
                     except (AttributeError, TypeError):
-                        pass
+                        self.theme_color = None
 
         # Add line spacing if set
         if hasattr(paragraph, "line_spacing") and paragraph.line_spacing is not None:
@@ -382,8 +382,7 @@ class ShapeData:
                             return float(sz) / 100.0  # Convert EMUs to points
                     break
         except Exception:
-            pass
-        return None
+            return None
 
     def __init__(
         self,
@@ -502,9 +501,7 @@ class ShapeData:
                         if "sz" in elem.attrib:
                             return int(elem.attrib["sz"]) // 100
         except Exception:
-            pass
-
-        return 14  # Conservative default for body text
+            return 14  # Conservative default for body text
 
     def _get_usable_dimensions(self, text_frame) -> Tuple[int, int]:
         """Get usable width and height in pixels after accounting for margins."""

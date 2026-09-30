@@ -210,8 +210,5 @@ Client-safe outputs must exclude secrets, licence keys, API keys, private logs, 
 
 Route to `woocommerce-gravity-forms-configuration` for approved WooCommerce Gravity Forms configuration changes, new WooCommerce-scoped form creation, remediation implementation, approved test submissions, post-change validation that requires writes, or manual implementation plans. Route broader legal, security incident, WooCommerce checkout architecture, order/tax/subscription/stock/shipping/refund/fulfilment architecture, whole-site accessibility, whole-site performance, custom plugin development, copywriting, launch QA, or SEO work to the relevant specialist skill.
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

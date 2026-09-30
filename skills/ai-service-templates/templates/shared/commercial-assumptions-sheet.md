@@ -58,9 +58,3 @@ status: draft
 - Status: {{commercial.status}}
 - Approved by: {{commercial.approved_by}}
 - Notes: {{commercial.notes}}
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

@@ -48,7 +48,7 @@ const DEFAULT_PLACEHOLDERS = {
 let templateCache = {};
 
 function getTemplatesDirectory() {
-  return path.join(__dirname, "../templates");
+  return path.join(__dirname, "../../templates");
 }
 
 function validateTemplateType(templateType) {

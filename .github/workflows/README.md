@@ -1,40 +1,38 @@
 ---
 file_type: "documentation"
 title: ".github Workflows Directory"
-description: "Reusable GitHub Actions workflows and automation for the LightSpeed .github control plane"
-version: "v1.0"
-last_updated: '2026-06-01'
+description: "Active GitHub Actions workflows for the LightSpeed .github control plane"
+version: "v2.0"
+last_updated: '2026-09-18'
 maintainer: "LightSpeed Team"
 tags: ["workflows", "github-actions", "automation", "ci-cd"]
 ---
 
 # .github Workflows Directory
 
-This directory contains reusable GitHub Actions workflows used for automation, CI/CD, labeling, metrics collection, and community health across the LightSpeed organization.
+This directory contains the active GitHub Actions workflows for this repository. Previous consolidation (2026-09-11) archived 71 superseded workflows under `archived/` and removed 7 placeholder stubs in Sep 2026.
 
-## Workflow Categories
+## Active Workflows
 
-### Validation & Quality Checks
+### Branch & PR Governance
 
-- **checks.yml** - Unified linting, testing, and validation workflow
-- **validate.yml** - Frontmatter, JSON schema, and configuration validation
-- **lint-and-links.yml** - Markdown linting and link validation
-- **main-branch-guard.yml** - PR branch-name guard for `main`
+- **branch-name-validation.yml** - Enforces the `{type}/{scope}-{title}` branch naming strategy on push
+- **branch-validation-metrics-aggregator.yml** - Aggregates branch validation metrics hourly and on validation completion
+- **pr-template-routing.yml** - Routes PR templates and applies labels from the branch name
 
-### Automation & Labeling
+### Changelog
 
-- **labeling.yml** - Automatic issue and PR labeling based on paths and content
-- **branding.yml** - Branding, frontmatter, and metadata automation
+- **changelog-management.yml** - Gates PRs on `develop` for CHANGELOG updates and syncs entries on merge
+- **changelog-validation.yml** - Scores CHANGELOG entry quality on PRs touching `CHANGELOG.md`
 
-### Metrics & Reporting
+### Documentation & Specs
 
-- **metrics.yml** - Frontmatter coverage and quality metrics collection
-- **reporting.yml** - Generate audit and status reports
+- **documentation.yml** - Regenerates impacted READMEs on PR/push to `develop`; audit and maintenance via manual dispatch
+- **validate-specifications.yml** - Audits `.github/specs/`, validates the catalog, lints changed markdown, runs Bats tests
 
-### Release Management
+## Archived Workflows
 
-- **release.yml** - Automated release orchestration and changelog generation
-- **publish.yml** - Artifact publishing and distribution
+Superseded workflows are preserved under `archived/2026-09-11/` with a manifest and restoration procedures. See `archived/INDEX.md`.
 
 ## Usage
 
@@ -42,16 +40,15 @@ Workflows are triggered by:
 
 1. **Pull Request Events** - Code quality checks on PR creation/update
 2. **Push Events** - Validation and automation on push to branches
-3. **Schedule** - Periodic metrics and reporting collection
+3. **Schedule** - Periodic metrics collection
 4. **Manual Dispatch** - On-demand workflow execution via GitHub UI
 
 ## Configuration
 
 Workflow behavior is configured via:
 
-- **`.github/labeler.yml`** - Label matching rules
-- **`.github/metrics/metrics.config.json`** - Metrics collection configuration
-- **`.github/schemas/`** - JSON schemas for validation
+- **`../labeler.yml`** - Label matching rules
+- **`../metrics/README.md`** - Metrics collection and reporting
 
 ## Best Practices
 
@@ -60,12 +57,6 @@ Workflow behavior is configured via:
 - Leverage reusable workflow blocks to reduce duplication
 - Test workflows locally with `act` before committing
 - Document non-obvious workflow logic inline
-
-## Related Documentation
-
-- [Automation Governance](../automation/AUTOMATION_GOVERNANCE.md) - Workflow standards and oversight
-- [Labeling System](./labels.yml) - Label definitions and rules
-- [Metrics Directory](../metrics/README.md) - Metrics collection and reporting
 
 ---
 

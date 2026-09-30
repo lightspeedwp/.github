@@ -174,6 +174,4 @@ python scripts/evolution_log.py --skill self-evolving-agent --source feedback.tx
 - `references/safety-and-governance.md`: approval gates, sandbox rules, and memory boundaries.
 - `references/output-templates.md`: reusable templates for briefs, mutation proposals, and changelog entries.
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

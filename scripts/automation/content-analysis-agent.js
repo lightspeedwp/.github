@@ -318,7 +318,6 @@ async function main() {
     // Perform analysis
     const { type, confidence } = analyzeIssue(issue.title, issue.body);
     const keywords = extractKeywords(issue.title, issue.body);
-    const structure = assessStructure(issue.title, issue.body);
 
     // Generate suggested labels
     const labels = [`type:${type}`, "status:needs-triage", "priority:normal"];

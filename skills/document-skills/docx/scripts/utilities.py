@@ -296,7 +296,7 @@ class XMLEditor:
                 try:
                     max_id = max(max_id, int(rel_id[3:]))
                 except ValueError:
-                    pass
+                    continue
         return f"rId{max_id + 1}"
 
     def save(self):

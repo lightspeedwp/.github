@@ -1,0 +1,96 @@
+{
+  "workflow": "labeling.yml",
+  "path": ".github/workflows/archived/2026-09-11/labeling/labeling.yml",
+  "size_bytes": 3876,
+  "purpose": "Original unified labelling for discussions, issues and PRs: label sync, template-label guardrail, actions/labeler file/branch rules, labelling agent, Markdown report and optional report commit.",
+  "triggers": [
+    "push: branches [develop]",
+    "pull_request: branches [develop], types [opened, edited, synchronize, reopened, ready_for_review, labeled, unlabeled]",
+    "issues: types [opened, edited, reopened, labeled, unlabeled, transferred]",
+    "discussion: types [created, edited, answered, labeled, unlabeled]",
+    "workflow_dispatch (inputs: dry_run, report_commit)"
+  ],
+  "jobs": [
+    {
+      "id": "labeling",
+      "summary": "Checkout develop, setup Node, `npm ci || true`, label-sync.js, check-template-labels.js (continue-on-error), actions/labeler on PRs (sync-labels), labeling.agent.js, report-writer.js, upload report, optional commit and push to develop."
+    }
+  ],
+  "scripts_called": [
+    {
+      "path": "scripts/agents/includes/label-sync.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/agents/includes/check-template-labels.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/agents/labeling.agent.js",
+      "exists": true
+    },
+    {
+      "path": "scripts/agents/includes/report-writer.js",
+      "exists": true
+    }
+  ],
+  "actions_used": [
+    "actions/checkout@v7",
+    "actions/setup-node@v7",
+    "actions/labeler@v7",
+    "actions/upload-artifact@v7"
+  ],
+  "labels_referenced": ["meta:skip-labeling"],
+  "labels_not_in_canonical": ["meta:skip-labeling"],
+  "permissions": {
+    "workflow": {
+      "contents": "read",
+      "issues": "write",
+      "pull-requests": "write",
+      "discussions": "write"
+    }
+  },
+  "failure_points": [
+    {
+      "issue": "Triggers on labeled/unlabeled for issues and PRs; a bulk relabel queues one run per change (labeling-unified.yml:7-9 records ~660 runs in #3531, with stale payloads undoing manual changes).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling.yml:21"
+    },
+    {
+      "issue": "Concurrency key uses github.event.number, which exists only on PR events, so every issue event got its own group (documented at labeling-unified.yml:27-29).",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling.yml:43"
+    },
+    {
+      "issue": "Always checks out ref develop, so PR runs use develop's labeler config rather than the PR's.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling.yml:62"
+    },
+    {
+      "issue": "`npm ci || true` hides install failures; js-yaml is then installed ad hoc twice.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling.yml:70"
+    },
+    {
+      "issue": "label-sync.js has no entrypoint, so the sync step is a no-op.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling.yml:75"
+    },
+    {
+      "issue": "report-writer.js throws ReferenceError under ESM, failing the job after the agent ran.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling.yml:107"
+    },
+    {
+      "issue": "report_commit pushes to develop with contents: read only.",
+      "evidence": ".github/workflows/archived/2026-09-11/labeling/labeling.yml:124"
+    },
+    {
+      "issue": "dry_run has no effect: the agent's direct-run guard calls runLabelingAgent() without options and dryRun comes only from opts.",
+      "evidence": "scripts/agents/labeling.agent.js:277"
+    },
+    {
+      "issue": "Discussion events trigger the job but the agent handles only issues and PRs.",
+      "evidence": "scripts/agents/labeling.agent.js:282"
+    }
+  ],
+  "overlaps_with": [
+    "labeling-governance.yml (identical triggers; its standard-labeling job is marked 'from labeling.yml')",
+    "labeling-unified.yml",
+    "validate-issue-labels.yml (issue label events)"
+  ]
+}

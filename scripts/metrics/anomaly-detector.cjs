@@ -41,7 +41,6 @@ class AnomalyDetector {
 
           const latestValue = values[values.length - 1];
           const movingAvg = this.calculateMovingAverage(values, 7);
-          const stdDev = this.calculateStdDev(values);
           const deviation =
             Math.abs(latestValue - movingAvg) / (movingAvg || 1);
 

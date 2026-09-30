@@ -161,6 +161,4 @@ private class AccountServiceTest {
 | `System.assert` / `System.assertEquals` style | Upgrade to `Assert.isTrue` / `Assert.areEqual` |
 | Hardcoded record ID (`'001...'`) | Replace with queried or inserted test record ID |
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

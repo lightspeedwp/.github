@@ -1,25 +1,24 @@
 ---
-name: "PR Creation Agent"
-description: "Portable PR creation agent with configuration-driven workflows for GitHub pull request automation."
+name: "PR Agent"
+description: "Portable agent for GitHub pull request creation, template routing, labelling, and error handling."
 file_type: "agent"
 category: "automation"
 status: "active"
 visibility: "public"
 tags:
   - automation
-  - pr-creation
+  - pull-requests
   - github
   - workflow-automation
-  - configuration-driven
   - portable
 version: "v1.0.0"
 created_date: "2026-08-01"
-last_updated: "2026-08-29"
+last_updated: "2026-09-21"
 author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
 language: "en"
-implementation: "agents/pr-creation-agent/"
+implementation: "agents/pr-agent/"
 permissions:
   - read
   - write
@@ -27,98 +26,38 @@ permissions:
   - git
 ---
 
-# PR Creation Agent
+# PR Agent
 
 ## Purpose
 
-Automate GitHub pull request creation with configuration-driven workflows for consistent, repeatable PR generation across repositories.
+Coordinate the current GitHub pull-request workflow: validate branch names, route caller-supplied PR data through static template and label mappings, submit it, and recover from errors. First-class in `lightspeedwp/.github`, portable to any other LightSpeedWP repository.
 
-## Core Responsibilities
+The complete User Story 2 guarantees are not implemented yet. Commit/diff-derived content is deferred to T015, repository-configuration-driven template routing to T020, and repository-backed exact label validation and atomic application to T021. Until those tasks land, callers must supply accurate PR content and any repository-specific policy inputs themselves.
 
-1. **Branch Validation** – Validate branch naming conventions
-2. **PR Template** – Use configured PR templates
-3. **PR Generation** – Create PRs with proper formatting
-4. **Workflow Automation** – Automate PR creation workflows
-5. **Configuration Management** – Use configuration-driven behavior
-6. **Validation** – Validate branch names and PR structure
-7. **Multi-provider Support** – Support Claude, Copilot, OpenAI
+## Skills
 
-## Key Features
-
-- Configuration-driven workflows
-- Branch naming validation
-- PR template support
-- Automated PR creation
-- Consistent PR formatting
-- Portable design
-- Multi-provider support
-- Integration with GitHub workflows
+| Skill | Responsibility |
+| --- | --- |
+| [`validate-branch-name`](skills/validate-branch-name/SKILL.md) | Validates a branch name follows `{type}/{scope}-{short-title}`, checking it against this repository's canonical forbidden and approved prefix lists. |
+| [`route-pr-template`](skills/route-pr-template/SKILL.md) | Selects a template from its static branch-type map or an explicit user override. |
+| [`orchestrate-pr-creation`](skills/orchestrate-pr-creation/SKILL.md) | Validates and assembles caller-supplied PR data (title, body, head, base, labels) before submission. |
+| [`validate-and-apply-labels`](skills/validate-and-apply-labels/SKILL.md) | Applies static or caller-configured branch-type mappings and validates labels against its current built-in or caller-supplied policy. |
+| [`submit-pr`](skills/submit-pr/SKILL.md) | Submits the orchestrated PR object to GitHub, or validates it without creating anything in dry-run mode. |
+| [`handle-pr-errors`](skills/handle-pr-errors/SKILL.md) | Catches errors from any stage of the PR workflow and suggests recovery actions. |
 
 ## Operating Modes
 
-**Create PR** - Generate new pull request
-**Validate** - Validate branch and PR structure
-**Template Mode** - Use preconfigured templates
+**Create PR** — validate branch name, route template, orchestrate PR data, apply labels, submit.
+**Validate only** — run validation skills (branch name, labels) without submitting.
+**Dry run** — orchestrate and validate the PR object without creating it on GitHub.
 
 ## Implementation Reference
 
-- **Folder:** `agents/pr-creation-agent/`
-- **Entry Point:** [package.json](pr-creation-agent/package.json)
-- **Related:** [pr-orchestrator.js](pr-creation-agent/pr-orchestrator.js)
+- **Folder:** `agents/pr-agent/`
+- **Entry points:** each skill's own `skills/<name>/scripts/<name>.js`
+- **Tests:** `skills/<name>/scripts/__tests__/<name>.test.js` (unit), `__tests__/integration/` (cross-skill)
 
 ---
 
-*Generated during Phase 2 Agent Specification Audit*
-
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*

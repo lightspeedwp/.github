@@ -558,6 +558,4 @@ Recommended structure for writing projects:
 - Writing case studies
 - Developing course outlines
 
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

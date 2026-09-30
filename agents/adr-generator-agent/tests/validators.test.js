@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const os = require("os");
-const validators = require("../skills/adr-validators");
+const validators = require("../skills/adr-validators/adr-validators");
 
 describe("ADR Validators", () => {
   let tempDir;

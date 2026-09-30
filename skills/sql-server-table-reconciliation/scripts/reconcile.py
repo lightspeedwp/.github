@@ -23,12 +23,9 @@ Environment variables for credentials (when --auth sql):
 
 import argparse
 import os
-import sys
 from getpass import getpass
 
 import pandas as pd
-import pyarrow as pa
-import pyarrow.compute as pc
 from mssql_python import connect as mssql_connect
 
 

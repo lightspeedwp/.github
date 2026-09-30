@@ -152,7 +152,7 @@ def main() -> int:
             try:
                 d.rmdir()
             except OSError:
-                pass
+                continue
 
     return 0
 

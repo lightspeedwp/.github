@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const yaml = require("js-yaml");
+const fs = require('fs');
+const path = require('path');
+const yaml = require('js-yaml');
 
 function readFrontmatter(filePath) {
-  const content = fs.readFileSync(filePath, "utf8");
+  const content = fs.readFileSync(filePath, 'utf8');
   const match = content.match(/^---\n([\s\S]*?)\n---/);
 
   if (!match) {
@@ -13,9 +13,9 @@ function readFrontmatter(filePath) {
   return yaml.load(match[1]) || {};
 }
 
-describe("issue template contract", () => {
-  it("uses about instead of description in issue template frontmatter", () => {
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+describe('issue template contract', () => {
+  it('uses about instead of description in issue template frontmatter', () => {
+    const templateDir = path.join(__dirname, '../../../.github/ISSUE_TEMPLATE');
     const templateFiles = fs
       .readdirSync(templateDir)
       .filter((file) => /^\d{2}-.+\.md$/u.test(file));
@@ -28,7 +28,7 @@ describe("issue template contract", () => {
     expect(violations).toEqual([]);
   });
 
-  it("references existing template files in the issue creation workflow", () => {
+  it('references existing template files in the issue creation workflow', () => {
     // issue-create-enhanced.yml was archived on 2026-09-11 to
     // .github/workflows/archived/2026-09-11/issue-management/ per
     // ARCHIVED_WORKFLOWS_MANIFEST.md, which claims its canonical_type
@@ -37,22 +37,20 @@ describe("issue template contract", () => {
     // template drift against the last known-good definition.
     const workflowPath = path.join(
       __dirname,
-      "../../../.github/workflows/archived/2026-09-11/issue-management/issue-create-enhanced.yml",
+      '../../../.github/workflows/archived/2026-09-11/issue-management/issue-create-enhanced.yml'
     );
-    const workflow = fs.readFileSync(workflowPath, "utf8");
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+    const workflow = fs.readFileSync(workflowPath, 'utf8');
+    const templateDir = path.join(__dirname, '../../../.github/ISSUE_TEMPLATE');
     const existingFiles = new Set(
-      fs
-        .readdirSync(templateDir)
-        .filter((file) => /^\d{2}-.+\.md$/u.test(file)),
+      fs.readdirSync(templateDir).filter((file) => /^\d{2}-.+\.md$/u.test(file))
     );
 
-    const referencedFiles = [
-      ...workflow.matchAll(/file:\s*['"]([^'"]+)['"]/g),
-    ].map((match) => match[1]);
+    const referencedFiles = [...workflow.matchAll(/file:\s*['"]([^'"]+)['"]/g)].map(
+      (match) => match[1]
+    );
 
     const missing = referencedFiles.filter((file) => {
-      if (!file.startsWith(".github/ISSUE_TEMPLATE/")) {
+      if (!file.startsWith('.github/ISSUE_TEMPLATE/')) {
         return false;
       }
 
@@ -67,39 +65,37 @@ describe("issue template contract", () => {
     // formally retires) issue creation's template-reference validation.
     if (missing.length > 0) {
       console.warn(
-        "issue-create-enhanced.yml (archived) references template files " +
-          "that no longer exist -- expected drift against a frozen " +
-          "workflow, not asserted:",
-        missing,
+        'issue-create-enhanced.yml (archived) references template files ' +
+          'that no longer exist -- expected drift against a frozen ' +
+          'workflow, not asserted:',
+        missing
       );
     }
   });
 
-  it("supports canonical_type overrides without conflicting type labels", () => {
+  it('supports canonical_type overrides without conflicting type labels', () => {
     // See the note in the previous test: issue-create-enhanced.yml is
     // archived, not active; reading it from its archived path here.
     const workflowPath = path.join(
       __dirname,
-      "../../../.github/workflows/archived/2026-09-11/issue-management/issue-create-enhanced.yml",
+      '../../../.github/workflows/archived/2026-09-11/issue-management/issue-create-enhanced.yml'
     );
-    const workflow = fs.readFileSync(workflowPath, "utf8");
+    const workflow = fs.readFileSync(workflowPath, 'utf8');
 
     expect(workflow).toMatch(/canonical_type:/u);
     expect(workflow).toMatch(/requestedType\s*\|\|\s*explicitTypeLabels\[0\]/u);
-    expect(workflow).toMatch(
-      /filter\(\(label\)\s*=>\s*!\/\^type:\/i\.test\(label\)\)/u,
-    );
+    expect(workflow).toMatch(/filter\(\(label\)\s*=>\s*!\/\^type:\/i\.test\(label\)\)/u);
   });
 
   // ---------------------------------------------------------------------------
   // Additional edge case coverage
   // ---------------------------------------------------------------------------
 
-  it("has all template files referenced in workflow", () => {
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+  it('has all template files referenced in workflow', () => {
+    const templateDir = path.join(__dirname, '../../../.github/ISSUE_TEMPLATE');
     const workflowPath = path.join(
       __dirname,
-      "../../../.github/workflows/issue-create-enhanced.yml",
+      '../../../.github/workflows/issue-create-enhanced.yml'
     );
 
     if (!fs.existsSync(workflowPath)) {
@@ -107,7 +103,7 @@ describe("issue template contract", () => {
       return;
     }
 
-    const workflow = fs.readFileSync(workflowPath, "utf8");
+    const workflow = fs.readFileSync(workflowPath, 'utf8');
     const templateFiles = fs
       .readdirSync(templateDir)
       .filter((file) => /^\d{2}-.+\.md$/u.test(file));
@@ -117,21 +113,19 @@ describe("issue template contract", () => {
     expect(templateFiles.length).toBeGreaterThan(0);
   });
 
-  it("issue templates have consistent naming convention", () => {
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+  it('issue templates have consistent naming convention', () => {
+    const templateDir = path.join(__dirname, '../../../.github/ISSUE_TEMPLATE');
     const files = fs
       .readdirSync(templateDir)
-      .filter((file) => file.endsWith(".md") && file !== "README.md");
+      .filter((file) => file.endsWith('.md') && file !== 'README.md');
 
-    const invalidFiles = files.filter(
-      (file) => !/^\d{2}-[a-z0-9-]+\.md$/i.test(file),
-    );
+    const invalidFiles = files.filter((file) => !/^\d{2}-[a-z0-9-]+\.md$/i.test(file));
 
     expect(invalidFiles).toEqual([]);
   });
 
-  it("frontmatter does not use deprecated description field", () => {
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+  it('frontmatter does not use deprecated description field', () => {
+    const templateDir = path.join(__dirname, '../../../.github/ISSUE_TEMPLATE');
     const templateFiles = fs
       .readdirSync(templateDir)
       .filter((file) => /^\d{2}-.+\.md$/u.test(file));
@@ -144,8 +138,8 @@ describe("issue template contract", () => {
     expect(violations).toEqual([]);
   });
 
-  it("all issue templates have about field", () => {
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+  it('all issue templates have about field', () => {
+    const templateDir = path.join(__dirname, '../../../.github/ISSUE_TEMPLATE');
     const templateFiles = fs
       .readdirSync(templateDir)
       .filter((file) => /^\d{2}-.+\.md$/u.test(file));
@@ -158,8 +152,8 @@ describe("issue template contract", () => {
     expect(missing).toEqual([]);
   });
 
-  it("frontmatter contains required fields", () => {
-    const templateDir = path.join(__dirname, "../../../.github/ISSUE_TEMPLATE");
+  it('frontmatter contains required fields', () => {
+    const templateDir = path.join(__dirname, '../../../.github/ISSUE_TEMPLATE');
     const templateFiles = fs
       .readdirSync(templateDir)
       .filter((file) => /^\d{2}-.+\.md$/u.test(file));
@@ -172,11 +166,8 @@ describe("issue template contract", () => {
     expect(violations).toEqual([]);
   });
 
-  it("handles missing workflow gracefully", () => {
-    const workflowPath = path.join(
-      __dirname,
-      "../../../.github/workflows/nonexistent.yml",
-    );
+  it('handles missing workflow gracefully', () => {
+    const workflowPath = path.join(__dirname, '../../../.github/workflows/nonexistent.yml');
 
     if (!fs.existsSync(workflowPath)) {
       // File doesn't exist, so skip test

@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Metrics Collection & Reporting Instructions"
 description: "Standards and guidelines for collecting, aggregating, and reporting repository health metrics including issue/PR activity, response times, and project health indicators"
 version: "v1.0"
-last_updated: "2025-12-15"
+last_updated: "2026-09-22""
 owners: ["LightSpeed Engineering"]
 tags: ["metrics", "analytics", "reporting", "automation", "github"]
 applyTo: ["../agents/metrics.agent.md", "scripts/agents/metrics.agent.js", ".github/workflows/metrics.yml"]
@@ -65,15 +65,5 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 - [metrics.agent.md](../agents/metrics.agent.md) — Metrics agent specification
 - [file-organisation.instructions.md](./file-organisation.instructions.md) — File placement rules
 - [GitHub Issue Metrics Action](https://github.com/github/issue-metrics)
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

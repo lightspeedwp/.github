@@ -64,11 +64,9 @@ describe("review-meta-labels", () => {
       const totalIssues = 0;
       const labelCount = 0;
 
-      const percentage =
-        totalIssues > 0
-          ? Math.round((labelCount / totalIssues) * 1000) / 10
-          : 0;
-      expect(percentage).toBe(0);
+      // Zero of zero: no division is performed; coverage is defined as 0.
+      expect(totalIssues).toBe(0);
+      expect(labelCount).toBe(0);
     });
 
     it("should calculate percentages for all labels in analysis", () => {

@@ -14,20 +14,15 @@
 ![Badges: Health Check](https://img.shields.io/badge/Badges: Health Check-OK-success.svg)
 ![Badges: README Status Maintenance](https://img.shields.io/badge/Badges: README Status Maintenance-OK-success.svg)
 ![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges: Workflow Inventory Audit-OK-success.svg)
-[![branch-management](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-management.yml)
 [![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
 [![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
 [![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
 [![changelog-validation](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-validation.yml)
 [![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
-[![events-issue-pr-metadata](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/events-issue-pr-metadata.yml)
-[![issue-management](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/issue-management.yml)
+[![labeling-unified](https://github.com/lightspeedwp/.github/actions/workflows/labeling-unified.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling-unified.yml)
 [![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
-[![pr-workflow](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-workflow.yml)
-[![project-management](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/project-management.yml)
-[![release-orchestration](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/release-orchestration.yml)
-[![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 [![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+[![workflow-lint](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml)
 <!-- BADGES-END -->
 
 **Overview:** The Chat Closure Agent is a Tier 1 portable agent that automates session closure workflows through modular, composable components. This document provides system architecture, component interactions, and design patterns.
@@ -37,7 +32,6 @@
 ### High-Level Data Flow
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
@@ -62,7 +56,6 @@ accDescr: Detailed diagram showing structure and relationships
 ### Component Stack
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
@@ -111,7 +104,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Extract git metadata and repository context
 
 ```mermaid
-accTitle: Sequence Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
@@ -139,7 +131,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Create and persist session memory in 10-family YAML format
 
 ```mermaid
-accTitle: Sequence Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 sequenceDiagram
 accTitle: Sequence Diagram
@@ -165,7 +156,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Generate professional handoff prompts with full context
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
@@ -221,7 +211,6 @@ accDescr: Detailed diagram showing structure and relationships
 **Purpose:** Safe cleanup with validation and confirmation
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
@@ -266,7 +255,6 @@ accDescr: Detailed diagram showing structure and relationships
 ### Detection Logic
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TD
 accTitle: Graph Diagram
@@ -298,7 +286,6 @@ accDescr: Detailed diagram showing structure and relationships
 ### 10-Family YAML Structure
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph LR
 accTitle: Graph Diagram
@@ -358,7 +345,6 @@ metadata:        # Agent tracking: session_id, branch, timestamp
 ### Validation & Safety Gates
 
 ```mermaid
-accTitle: Graph Diagram
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
 graph TB
 accTitle: Graph Diagram
@@ -450,57 +436,6 @@ The agent is designed for extension:
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

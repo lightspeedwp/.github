@@ -10,7 +10,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const ACTIVE_DIR = process.env.ACTIVE_PROJECTS_DIR || '.github/projects/active';
 const ARCHIVED_DIR = process.env.ARCHIVED_PROJECTS_DIR || '.github/projects/archived';
 const DRY_RUN = process.env.DRY_RUN === 'true';
 const PROJECTS_JSON = process.env.PROJECTS_JSON || '[]';
@@ -36,7 +35,6 @@ try {
     process.exit(0);
   }
 
-  const timestamp = new Date().toISOString().split('T')[0];
   const report = [];
   report.push(`# Project Archival Report\n`);
   report.push(`**Date:** ${new Date().toISOString()}`);

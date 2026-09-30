@@ -19,7 +19,6 @@ describe("Release Agent", () => {
   describe("Version Determination", () => {
     test("should correctly bump patch version", () => {
       const currentVersion = "1.2.3";
-      const scope = "patch";
 
       // Test version bumping logic
       const parts = currentVersion.split(".").map(Number);
@@ -31,7 +30,6 @@ describe("Release Agent", () => {
 
     test("should correctly bump minor version and reset patch", () => {
       const currentVersion = "1.2.3";
-      const scope = "minor";
 
       const parts = currentVersion.split(".").map(Number);
       parts[1] += 1;
@@ -43,7 +41,6 @@ describe("Release Agent", () => {
 
     test("should correctly bump major version and reset minor/patch", () => {
       const currentVersion = "1.2.3";
-      const scope = "major";
 
       const parts = currentVersion.split(".").map(Number);
       parts[0] += 1;
@@ -56,7 +53,6 @@ describe("Release Agent", () => {
 
     test("should handle versions with leading zeros", () => {
       const currentVersion = "0.1.0";
-      const scope = "minor";
 
       const parts = currentVersion.split(".").map(Number);
       parts[1] += 1;

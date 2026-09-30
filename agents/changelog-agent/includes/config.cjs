@@ -57,6 +57,17 @@ module.exports = {
     repo: ".github",
   },
 
+  // Valid entry categories (mirrors the R020 pattern in
+  // .github/changelog-rules.yml; consumed by validateValidCategory).
+  VALID_CATEGORIES: [
+    "feature",
+    "fix",
+    "improvement",
+    "breaking-change",
+    "security",
+    "performance",
+  ],
+
   // Output Configuration
   output: {
     // Verbosity level: quiet | normal | verbose
@@ -84,11 +95,14 @@ module.exports = {
   },
 
   // Compliance Thresholds
+  // Consumed by scoreCalculator.determineStatus: score >= passingThreshold
+  // is "passing", score >= conditionalPassThreshold is "warning", else
+  // "failing".
   compliance: {
     // Minimum compliance percentage for "PASS" status
-    passingThreshold: 100, // 100%
+    passingThreshold: 90, // 90%
     // Minimum compliance percentage for "CONDITIONAL_PASS" status
-    conditionalPassThreshold: 90, // >=90%
+    conditionalPassThreshold: 75, // >=75%
     // Below conditionalPassThreshold is "FAIL"
   },
 

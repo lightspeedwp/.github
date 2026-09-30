@@ -3,7 +3,7 @@ file_type: "instructions"
 title: "Saved Replies Usage Instructions"
 description: "How to use, maintain, and extend GitHub Saved Replies for issues and pull requests in LightSpeedWP projects."
 version: "1.0"
-last_updated: "2025-10-23"
+last_updated: "2026-09-22""
 owners:
   - "lightspeedwp/maintainers"
 tags: ["saved replies", "instructions", "automation", "github"]
@@ -95,21 +95,6 @@ See our [PR Label Reference](../../PR_LABELS.md) for label meanings.
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
 
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

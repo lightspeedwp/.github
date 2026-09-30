@@ -148,8 +148,5 @@ For short reviews, keep the same headings but compress the detail. Never omit th
 - Use `references/memory-behaviour-checks.md` to review durable defaults, project memory and run-specific evidence.
 - Use `references/output-contract-checks.md` to assess whether the skill produces consistent, useful deliverables.
 
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
-
-*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
+_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)

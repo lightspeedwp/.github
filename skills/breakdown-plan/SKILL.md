@@ -64,6 +64,7 @@ Create two primary deliverables:
 
 ```mermaid
 graph TD
+    accTitle: Graph Diagram
     A[Epic: {Epic Name}] --> B[Feature: {Feature Name}]
     B --> C[Story 1: {User Story}]
     B --> D[Story 2: {User Story}]
@@ -83,6 +84,7 @@ graph TD
 
     F --> O[Task: CI/CD Pipeline]
     F --> P[Task: Monitoring Setup]
+accDescr: Detailed diagram
 ```
 
 #### 3. GitHub Issues Breakdown
@@ -319,6 +321,7 @@ This enabler supports:
 
 ```mermaid
 graph LR
+    accTitle: Graph Diagram
     A[Epic Planning] --> B[Feature Definition]
     B --> C[Enabler Implementation]
     C --> D[Story Development]
@@ -329,6 +332,7 @@ graph LR
     H[API Design] --> D
     I[Database Schema] --> C
     J[Authentication] --> D
+accDescr: Detailed diagram
 ```
 
 ##### Dependency Types
@@ -507,7 +511,5 @@ jobs:
 - **Planning Accuracy**: <10% variance between estimated and actual delivery time
 
 This comprehensive GitHub project management approach ensures complete traceability from epic-level planning down to individual implementation tasks, with automated tracking and clear accountability for all team members.
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*

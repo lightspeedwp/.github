@@ -11,7 +11,6 @@ from __future__ import annotations
 import argparse
 import ast
 import re
-import sys
 from pathlib import Path
 
 MAX_ZIP_BYTES = 25 * 1024 * 1024

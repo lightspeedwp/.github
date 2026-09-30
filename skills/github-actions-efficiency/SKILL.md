@@ -78,8 +78,5 @@ From the six candidates below, keep only those supported by audit evidence from 
 - [`references/patterns.md`](./references/patterns.md)
 - [`references/review-rubric.md`](./references/review-rubric.md) — load when reviewing completed efficiency work
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
-
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
+_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
