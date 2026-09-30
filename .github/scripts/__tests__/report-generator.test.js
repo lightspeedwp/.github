@@ -15,12 +15,18 @@ import fs from "fs";
 import module from "module";
 import os from "os";
 import path from "path";
+import { fileURLToPath } from "url";
 
 // `require` and `__dirname` are declared by the CommonJS transform Babel
 // applies to this file, so binding them here raises a TDZ error under Jest.
 // Use distinct names and `import.meta.url` to locate the repo root.
+//
+// fileURLToPath decodes percent-encoding and strips the leading slash Windows
+// paths carry; `new URL(import.meta.url).pathname` does neither, so a
+// checkout whose path contains a space would resolve ROOT to a directory that
+// does not exist and the suite would fail while loading.
 const load = module.createRequire(import.meta.url);
-const TEST_DIR = path.dirname(new URL(import.meta.url).pathname);
+const TEST_DIR = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(TEST_DIR, "../../../");
 
 const { ComplianceReport, ReportWriter, SEVERITIES, normaliseSeverity } =
