@@ -75,7 +75,8 @@ rename and validation commands. Claude sees it, and so do you in the session tra
 
 The guard is built to stop accidental non-compliance and the obvious self-bypasses: editing its own files or
 settings, or changing the enforcement switch from inside a session. It is not built to stop a determined adversary
-using unusual shell constructions. CI branch validation and CODEOWNERS review are the final gate.
+using unusual shell constructions. For branch names, CI branch validation and CODEOWNERS review are the final gate;
+neither enforces the protected-branch policy for every transport, and the limits below say where that does not hold.
 
 ### The enforcement switch
 
