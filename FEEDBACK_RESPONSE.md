@@ -15,7 +15,7 @@ tags:
 Pull request: #3604 — corrects defects in the content merged by #3387 (plugin advisories) and #3525
 (spec 018), and folds in the renumber residue and the Section 1 advisories table column label.
 
-Everything CodeRabbit and Qodo raised is listed above with a status. Nothing is silently
+Everything CodeRabbit and Qodo raised is listed above and below with a status. Nothing is silently
 dropped: each item is addressed in this pull request, explicitly deferred with the place where
 the outstanding decision is recorded, or explicitly rejected with the evidence that disproves it.
 
