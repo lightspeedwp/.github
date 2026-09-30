@@ -1767,6 +1767,54 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
   });
 
+  // Every form gh accepts for a field flag reaches the same handler. The attached
+  // short form was missing, so `-fquery=...` produced no field at all: the method
+  // was inferred as GET and the call passed unchecked while gh still sent it.
+  test.each([
+    ['separated', `-f query='DOC'`],
+    ['attached short', `-fquery='DOC'`],
+    ['typed attached short', `-Fquery='DOC'`],
+    ['long separated', `--field query='DOC'`],
+    ['long equals', `--field=query='DOC'`],
+    ['raw-field separated', `--raw-field query='DOC'`],
+    ['raw-field equals', `--raw-field=query='DOC'`],
+  ])('reads a GraphQL document passed as a field, %s', (_label, build) => {
+    fx.branch('feat/good-name');
+    const mutation =
+      'mutation { createRef(input: {repositoryId: "R", name: "refs/heads/main", oid: "a"}) { clientMutationId } }';
+    expect(runBash(fx, `gh api graphql ${build.replace('DOC', mutation)}`).status).toBe(2);
+  });
+
+  // A variable value can arrive attached to the flag as well as separated from it.
+  test.each([
+    ['separated', '-f n=refs/heads/main'],
+    ['typed attached', '-Fn=refs/heads/main'],
+    ['raw attached', '-fn=refs/heads/main'],
+  ])('refuses a createRef whose variable arrives %s', (_label, flag) => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($n: String!) { createRef(input: {repositoryId: "R", name: $n, oid: "a"}) { clientMutationId } }';
+    expect(runBash(fx, `gh api graphql -fquery='${document}' ${flag}`).status).toBe(2);
+  });
+
+  // SC-007: reading one more form must not refuse a compliant command. Both a
+  // literal and a variable name are allowed, attached or not.
+  test.each([
+    [
+      'attached literal',
+      `-fquery='mutation { createRef(input: {repositoryId: "R", name: "refs/heads/feat/ok-name", oid: "a"}) { clientMutationId } }'`,
+      '',
+    ],
+    [
+      'attached variable',
+      `-fquery='mutation ($n: String!) { createRef(input: {repositoryId: "R", name: $n, oid: "a"}) { clientMutationId } }'`,
+      '-fn=refs/heads/feat/ok-name',
+    ],
+  ])('allows a compliant createRef with an %s', (_label, document, flag) => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, `gh api graphql ${document} ${flag}`).status).toBe(0);
+  });
+
   // `updateRefs` is plural, and a word boundary after `updateRef` does not match the
   // trailing `s`, so the mutation was absent from the set of branch writers. Its
   // literal form was read by the name loop, which is why only the variable form

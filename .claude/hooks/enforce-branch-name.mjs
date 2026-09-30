@@ -913,21 +913,58 @@ function apiEndpoint(args) {
 }
 
 /**
- * Each field flag with its `key=value` argument, for both `--flag value` and
- * the attached `--flag=value` form gh also accepts.
+ * Each field flag with its `key=value` argument, in every form gh accepts.
+ *
+ * Four, and all four reach the same handler:
+ *
+ *   - separated:        `-f key=value`
+ *   - long `=`:         `--field=key=value`
+ *   - attached short:   `-fkey=value`
+ *   - attached `=`:     `-fkey` is `-f` with the value attached, and
+ *                       `-fkey=` likewise, so both are read as one flag.
+ *
+ * The attached short form was missing, which let `-fquery=...` past this function
+ * entirely: no pair was produced, the method was inferred as GET, and `checkGh`
+ * returned no problems while gh still sent the field. That is a bypass of the
+ * checks below, and of every caller of this function.
+ *
+ * Semantics verified against the installed `gh` (2.102.0) rather than assumed: it
+ * accepts `-fquery=`, `-Fquery=` and `-XPOST`, and rejects `--fieldquery=` with
+ * `unknown flag`. A long flag does not take an attached value, so `--fieldquery=`
+ * is correctly not matched here. A short flag whose value is empty (`-fn=`) is
+ * still a pair with an empty value, and a value beginning with `-` is still a
+ * value, so neither is skipped.
  */
 function fieldArgs(args) {
   const pairs = [];
+  const record = (flag, argument) => {
+    if (argument !== undefined) pairs.push([flag, argument]);
+  };
   for (let i = 0; i < args.length; i += 1) {
     const arg = args[i];
     if (FIELD_FLAGS.has(arg)) {
-      if (args[i + 1] !== undefined) pairs.push([arg, args[i + 1]]);
+      // The separated form consumes the next argument even when it is absent, so
+      // a trailing `-f` does not also read as an endpoint.
+      record(arg, args[i + 1]);
       i += 1;
       continue;
     }
+    let matched = false;
     for (const flag of FIELD_FLAGS) {
       if (arg.startsWith(`${flag}=`)) {
-        pairs.push([flag, arg.slice(flag.length + 1)]);
+        record(flag, arg.slice(flag.length + 1));
+        matched = true;
+        break;
+      }
+    }
+    if (matched) continue;
+    // The attached short form, for the single-letter flags only. `-Fquery=x` and
+    // `-fquery=x` are the flag with its value attached, which pflag accepts and
+    // which the `--fieldquery=` spelling above deliberately does not.
+    for (const flag of SHORT_FIELD_FLAGS) {
+      if (arg.startsWith(flag) && arg.length > flag.length) {
+        const attached = arg.slice(flag.length);
+        record(flag, attached.startsWith('=') ? attached.slice(1) : attached);
         break;
       }
     }
@@ -942,6 +979,8 @@ function fieldArgs(args) {
 // one.
 const FILE_FIELD_FLAGS = new Set(['-F', '--field']);
 const FIELD_FLAGS = new Set(['-f', '-F', '--field', '--raw-field']);
+// The single-letter field flags, which also accept their value attached.
+const SHORT_FIELD_FLAGS = new Set(['-f', '-F']);
 
 function apiFields(args, cwd) {
   const fields = {};
