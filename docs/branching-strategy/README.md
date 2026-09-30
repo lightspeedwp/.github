@@ -85,7 +85,10 @@
 
 ### 2. Three Forbidden Prefixes (NEVER USE)
 
-These are **permanently reserved** and will **block PR creation**:
+These are **permanently reserved**. A branch using one fails the
+`branch-name-validation` check, and where that check is required the pull request
+cannot merge. The prefixes do not prevent the branch or the pull request from
+being created.
 
 - ❌ `claude/` — Reserved for Claude Code internal sessions
 - ❌ `copilot/` — Reserved for GitHub Copilot integration

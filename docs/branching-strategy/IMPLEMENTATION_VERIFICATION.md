@@ -160,21 +160,29 @@ docs → pr_docs.md → type:documentation
 **Status:** Complete
 
 **Test Suites:**
-- [x] T122-T124: Remote Enforcement Integration Tests
-  - [x] Valid branch push to remote (all 38 types)
-  - [x] Invalid branches with forbidden prefixes
-  - [x] Invalid types, uppercase, underscores
-- [x] T131-T135: Template & Label Routing
-  - [x] Feature branch template routing
-  - [x] Security branch routing
+- [ ] T122-T124: Remote Enforcement Integration Tests — **pending**. Not covered by this
+  suite. It validates branch strings locally with `validateBranchName`; it does not push
+  to a remote or observe the `branch-name-validation` workflow.
+  - [ ] Valid branch push to remote (all 38 types)
+  - [ ] Invalid branches with forbidden prefixes
+  - [ ] Invalid types, uppercase, underscores
+- [ ] T131-T135: Template & Label Routing — **partially covered, not verified end to end**.
+  The suite asserts that the routing configuration files declare the expected templates and
+  labels; it does not run the routing workflow or apply labels.
+  - [x] Feature branch template routing (configuration read, not an applied route)
+  - [x] Security branch routing (configuration read, not an applied route)
   - [x] Area label auto-detection (api keyword → area:api)
-  - [x] All 38 types coverage
-  - [x] GitHub Actions execution order
+  - [x] All 38 types coverage (configuration coverage)
+  - [ ] GitHub Actions execution order — **not verified**. The T135 test asserts only that
+  `validateBranchName('feat/user-preferences').valid` is true; it observes no workflow run.
 - [x] T139-T140: Specification Compliance
   - [x] All 9 quickstart scenarios
   - [x] Configuration file coverage (38 types + 3 prefixes)
 
-**Test Coverage:** 100%
+**Test Coverage:** full for the scope this suite exercises — branch-string validation
+and the routing configuration files. It does not cover the remote enforcement tests
+(T122–T124), end-to-end routing or label application (T131–T135), or workflow execution
+order; those are listed as pending or partially covered above.
 
 ---
 

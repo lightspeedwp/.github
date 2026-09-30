@@ -274,7 +274,7 @@ jobs:
 | `build/` | `pr_ci.md` | type:build |
 | `automation/` | `pr_ci.md` | type:automation |
 | `deps/` | `pr_dep_update.md` | — |
-| `security/` | `pr_bug.md` | type:security |
+| `security/` | `pr_security.md` | type:security |
 | `design/` | `pr_feature.md` | type:design |
 | `a11y/` | `pr_feature.md` | type:a11y |
 | `audit/` | `pr_feature.md` | type:audit |

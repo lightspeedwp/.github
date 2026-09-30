@@ -295,11 +295,15 @@ audit, codex, revert, research, aiops, automation, epic
 ### Integration Readiness ✅
 
 - [x] Local validation (pre-push hook via Husky)
-- [x] Remote enforcement (GitHub Actions workflow)
-- [x] PR template routing (automated selection)
-- [x] Label application (automated with area detection)
-- [x] Error messaging (clear feedback to developers)
-- [x] Workflow execution order (no conflicts)
+- [x] Local validation (pre-push hook via Husky) — verified by the local test suite
+- [ ] Remote enforcement (GitHub Actions workflow) — **pending**; the workflow exists but
+  no test in this pull request observes it
+- [ ] PR template routing (automated selection) — **pending**; the routing configuration is
+  asserted, the routing workflow is not run
+- [ ] Label application (automated with area detection) — **pending**; mappings are asserted,
+  labels are not applied
+- [x] Error messaging (clear feedback to developers) — verified by local validation output
+- [ ] Workflow execution order (no conflicts) — **pending**; not observed by any test
 
 ---
 

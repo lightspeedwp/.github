@@ -161,7 +161,7 @@ git checkout -B docs/branching-strategy-guide origin/develop
 1. Check your branch name against the pattern: `{type}/{scope}-{title}`
 2. Ensure type is in the 38 authorized list (see table above)
 3. Ensure no uppercase, underscores, or special characters
-4. Delete and recreate: `git branch -D old-name && git checkout -B new-name origin/develop`
+4. Rename, which keeps the commits already on the branch: `git branch -m old-name correct-name`, then push the new name and delete the old one
 
 **"I already created an invalid branch" — how do I fix it?**
 

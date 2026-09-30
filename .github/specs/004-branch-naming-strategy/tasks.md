@@ -229,7 +229,7 @@
 
 #### Documentation Tasks
 
-- [x] T064 Create `docs/BRANCHING_STRATEGY.md` main guide; include 24 type definitions with purpose, example, and recommendation for each; organized for quick lookup
+- [x] T064 Create `docs/BRANCHING_STRATEGY.md` main guide; include all 38 type definitions with purpose, example, and recommendation for each; organized for quick lookup. The guide states 38 allowed types and `.github/branch-types.yml` maps 38, so the previous "24" in this line was stale.
 - [x] T065 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Pattern explanation (`{type}/{scope}-{title}`), examples for each component, common mistakes
 - [x] T066 [P] Add section to `docs/BRANCHING_STRATEGY.md`: Scope/title naming rules (lowercase, hyphens, no underscores, no special chars); provide do's and don'ts
 - [x] T067 [P] Add section to `docs/BRANCHING_STRATEGY.md`: When to use each type; decision tree for choosing correct type (e.g., "Is it a new feature?" → feat, "Is it a bug fix?" → fix)
