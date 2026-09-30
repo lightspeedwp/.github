@@ -1684,6 +1684,22 @@ function graphqlBranchNames(query, variables = {}) {
       const value = variables[match[1]];
       if (typeof value === 'string' && value) found.push(value.trim());
     }
+    // `createCommitOnBranch` takes its target as a nested input, so the branch can
+    // arrive as `branch: $b` rather than as `branchName:`. gh sends a nested GraphQL
+    // input field as `b[branchName]=main`, and that field is the one supplying `$b`,
+    // so the value is read from it and judged like any other name.
+    //
+    // Resolving it is what keeps this consistent rather than merely safe: refusing
+    // every `branch: $b` would also refuse a compliant commit, while `branchName: $b`
+    // and `name: $n` are both resolved. A variable is not treated more strictly for
+    // being spelled this way.
+    for (const match of query.matchAll(/\bbranch\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+      // Keyed by the full field name, as graphqlVariables stores it. Flattening it to
+      // `branchName` would collide with a real variable of that name, and the verdict
+      // would depend on the order the flags were given.
+      const value = variables[`${match[1]}[branchName]`];
+      if (typeof value === 'string' && value) found.push(value.trim());
+    }
   }
   return found.filter(Boolean);
 }
@@ -1804,13 +1820,16 @@ function graphqlBranchProblems(query, variables = {}) {
   // A branch-writing mutation that resolves to no branch is refused. That includes a
   // `createCommitOnBranch` whose `branchName` is bound to a variable the guard cannot
   // read, which would otherwise be allowed precisely because its name was hidden.
-  // `branch` is included because `createCommitOnBranch` takes the target as a nested
-  // input: `input: {branch: $b}` names the branch field but binds it to a variable,
-  // which is as unreadable as `branchName: $b` and was not caught.
-  // `updateRefs` is included because `updateRef` does not match it — the trailing
-  // `s` is a word character — so a variable-carried name inside `refUpdates` was
-  // neither resolved nor refused. Its literal form was already read by the loop
-  // above, which is why only the variable form showed the gap.
+  // `updateRefs` is included in WRITES_A_BRANCH because a word boundary after
+  // `updateRef` does not match it — the trailing `s` is a word character — so a
+  // variable-carried name inside `refUpdates` was neither resolved nor refused. Its
+  // literal form was already read by the loop above, which is why only the variable
+  // form showed the gap.
+  // A branch name bound to a variable the guard cannot read is a branch write it
+  // cannot judge, so it is refused. `branch` is included because the nested input
+  // form reaches here with nothing resolved: a `branch: $b` whose value was not
+  // supplied as a field leaves `seen` empty, and the variable form of a nested
+  // input is exactly the shape that supplies no literal name.
   const unreadableBranchWrite =
     WRITES_A_BRANCH.test(query) &&
     !seen.size &&

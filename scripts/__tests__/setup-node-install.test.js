@@ -71,6 +71,19 @@ echo "RC=$?"
       `local dir="${opt}/node\${NODE_VERSION%%.*}"`
     )
     .replaceAll('/root/.local/bin', localBin);
+  // If the script is reworded or reformatted so the redirect stops matching, it
+  // becomes a no-op and the harness would write to the real /opt and /root. Only
+  // executable lines are checked: the script's own comments name both paths while
+  // describing them, and those are inert.
+  const executable = redirected
+    .split('\n')
+    .filter((line) => !/^\s*#/.test(line))
+    .join('\n');
+  for (const real of ['/opt/node', '/root/.local/bin']) {
+    if (executable.includes(`"${real}`) || executable.includes(` ${real}`)) {
+      throw new Error(`setup.sh no longer redirects as expected; still contains ${real}`);
+    }
+  }
   const file = path.join(sandbox, 'harness.sh');
   fs.writeFileSync(file, harness.replace(body, redirected));
   const result = spawnSync('bash', [file], {
