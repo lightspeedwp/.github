@@ -6,6 +6,7 @@
 
 import StructureChecker from '../lib/structure-checker.js';
 import PackageJsonValidator from '../lib/package-json-validator.js';
+import { listAgentNames } from '../lib/package-conventions.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -196,6 +197,39 @@ describe('StructureChecker', () => {
       expect(summary.summary.conformancePercentage).toBe(70);
     });
   });
+
+  // The Phase 4 audit creates agents/reports before it scans, so the scan used
+  // to count its own output as a non-conformant agent and inflate the
+  // denominator. Reproduce that ordering here.
+  describe('checkAllAgents', () => {
+    const agentsDir = path.join(ORG_ROOT, 'agents');
+    const reportsDir = path.join(agentsDir, 'reports');
+
+    afterEach(() => {
+      fs.rmSync(reportsDir, { recursive: true, force: true });
+    });
+
+    it('should not count the audit output directory as an agent', () => {
+      fs.mkdirSync(reportsDir, { recursive: true });
+
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
+      const results = checker.checkAllAgents();
+
+      expect(results.byAgent.map((entry) => entry.agent)).not.toContain('reports');
+      expect(results.total).toBe(1);
+    });
+
+    it('should report the same agent count whether or not the output directory exists', () => {
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
+      const before = checker.checkAllAgents().total;
+
+      fs.mkdirSync(reportsDir, { recursive: true });
+
+      const after = new StructureChecker({ rootDir: ORG_ROOT }).checkAllAgents().total;
+
+      expect(after).toBe(before);
+    });
+  });
 });
 
 describe('PackageJsonValidator', () => {
@@ -326,6 +360,31 @@ describe('PackageJsonValidator', () => {
         fs.rmSync(tempDir, { recursive: true });
       }
     );
+  });
+});
+
+// listAgentNames feeds the package validator, so the audit output directory
+// has to be excluded there too or every agent package is validated against a
+// phantom agent named "reports".
+describe('listAgentNames', () => {
+  const reportsDir = path.join(ORG_ROOT, 'agents', 'reports');
+
+  afterEach(() => {
+    fs.rmSync(reportsDir, { recursive: true, force: true });
+  });
+
+  it('should list real agents', () => {
+    expect(listAgentNames(ORG_ROOT).has('other-agent')).toBe(true);
+  });
+
+  it('should exclude the audit output directory', () => {
+    fs.mkdirSync(reportsDir, { recursive: true });
+
+    const before = listAgentNames(ORG_ROOT).size;
+    fs.rmSync(reportsDir, { recursive: true, force: true });
+
+    expect(before).toBe(listAgentNames(ORG_ROOT).size);
+    expect(listAgentNames(ORG_ROOT).has('reports')).toBe(false);
   });
 });
 

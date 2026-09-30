@@ -9,6 +9,7 @@
 import fs from 'fs';
 import path from 'path';
 import PackageJsonValidator from './package-json-validator.js';
+import { NON_AGENT_DIRS } from './package-conventions.js';
 
 /**
  * Required components for agent structure (7-item template)
@@ -251,7 +252,10 @@ class StructureChecker {
 
     const entries = fs.readdirSync(this.agentsDir, { withFileTypes: true });
     const agentDirs = entries
-      .filter((entry) => entry.isDirectory() && !entry.name.startsWith('.'))
+      .filter(
+        (entry) =>
+          entry.isDirectory() && !entry.name.startsWith('.') && !NON_AGENT_DIRS.has(entry.name)
+      )
       .map((entry) => path.join(this.agentsDir, entry.name));
 
     for (const agentPath of agentDirs) {

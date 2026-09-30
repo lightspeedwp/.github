@@ -6,6 +6,20 @@
 import fs from 'fs';
 import path from 'path';
 
+/**
+ * Directories under agents/ that are not agents.
+ *
+ * The Phase 4 audit writes its own report into agents/reports before the scan
+ * runs, so without this the audit counts its own output as a non-conformant
+ * agent with every component missing, which corrupts the conformance
+ * percentage and adds a phantom entry to the remediation list.
+ *
+ * This lives here rather than in structure-checker.js because this module is
+ * the shared source of agent conventions and imports nothing local, so both
+ * the structure checker and the package validator can read it without a cycle.
+ */
+export const NON_AGENT_DIRS = new Set(['reports']);
+
 export function getOrgConventions(rootDir = process.cwd()) {
   try {
     const rootPkg = JSON.parse(fs.readFileSync(path.join(rootDir, 'package.json'), 'utf-8'));
@@ -27,7 +41,10 @@ export function listAgentNames(rootDir = process.cwd()) {
   return new Set(
     fs
       .readdirSync(agentsDir, { withFileTypes: true })
-      .filter((entry) => entry.isDirectory() && !entry.name.startsWith('.'))
+      .filter(
+        (entry) =>
+          entry.isDirectory() && !entry.name.startsWith('.') && !NON_AGENT_DIRS.has(entry.name)
+      )
       .map((entry) => entry.name)
   );
 }
