@@ -28,6 +28,7 @@
 /.github/instructions/ @ashleyshaw @lightspeedwp/lightspeed
 /instructions/ @ashleyshaw @lightspeedwp/lightspeed
 /AGENTS.md @ashleyshaw @lightspeedwp/lightspeed
+/.claude/ @ashleyshaw @lightspeedwp/lightspeed
 
 # Core Documentation
 /docs/ @ashleyshaw @lightspeedwp/lightspeed
