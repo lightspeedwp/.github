@@ -25,7 +25,9 @@ function pullRequest(number, overrides = {}) {
  * should produce. `comments` is the existing comment set per pull request, and
  * the client records what was written where.
  */
-function mockGithub({ results = {}, pulls = {}, comments = {} } = {}) {
+function mockGithub({ results = {}, pulls = {}, comments = {}, commentStatus = {} } = {}) {
+  // `commentStatus` makes one comment call fail for a given pull request, to
+  // model a transient 5xx or a secondary rate limit on the comment path.
   const written = { created: [], updated: [] };
 
   const github = {
@@ -53,14 +55,27 @@ function mockGithub({ results = {}, pulls = {}, comments = {} } = {}) {
         }),
       },
       issues: {
-        listComments: jest.fn(async ({ issue_number: number }) => ({
-          data: comments[number] || [],
-        })),
+        listComments: jest.fn(async ({ issue_number: number }) => {
+          if (commentStatus[number]?.listComments) {
+            throw Object.assign(new Error('boom'), { status: commentStatus[number].listComments });
+          }
+          return { data: comments[number] || [] };
+        }),
         createComment: jest.fn(async (params) => {
+          if (commentStatus[params.issue_number]?.createComment) {
+            throw Object.assign(new Error('boom'), {
+              status: commentStatus[params.issue_number].createComment,
+            });
+          }
           written.created.push(params);
           return { data: { id: written.created.length } };
         }),
         updateComment: jest.fn(async (params) => {
+          if (commentStatus[params.comment_id]?.updateComment) {
+            throw Object.assign(new Error('boom'), {
+              status: commentStatus[params.comment_id].updateComment,
+            });
+          }
           written.updated.push(params);
           return { data: { id: 1 } };
         }),
@@ -300,6 +315,88 @@ describe('processPullRequest', () => {
     expect(result.commented).toBe(false);
     expect(second.written.updated).toHaveLength(0);
     expect(second.written.created).toHaveLength(0);
+  });
+
+  // The defect this covers. The caller loops over every open pull request in one
+  // run, so a rejection on the comment path for one pull request must not stop
+  // the rest, and must not fail the job: the workflow's contract is that no
+  // outcome turns a check red.
+  test('a failing comment call does not stop the next pull request', async () => {
+    const { github, written } = mockGithub({
+      results: { 111: conflict(), 222: conflict() },
+      commentStatus: { 111: { createComment: 502 } },
+    });
+
+    const first = await processPullRequest({
+      github,
+      owner: 'lightspeedwp',
+      repo: '.github',
+      number: 111,
+      logger: silentLogger,
+    });
+    const second = await processPullRequest({
+      github,
+      owner: 'lightspeedwp',
+      repo: '.github',
+      number: 222,
+      logger: silentLogger,
+    });
+
+    // The first still reports the real outcome...
+    expect(first.outcome).toBe('conflict');
+    // ...and did not throw, so the loop reached the second.
+    expect(second.outcome).toBe('conflict');
+    expect(written.created).toHaveLength(1);
+    expect(written.created[0].body).toContain('#222');
+  });
+
+  test.each([
+    ['listComments', 'listing comments'],
+    ['createComment', 'creating a comment'],
+    ['updateComment', 'updating a comment'],
+  ])('a failing %s is reported and does not throw', async (call) => {
+    const existing = { id: 77, user: { type: 'Bot' }, body: '<!-- keep-pr-current -->\nold\n' };
+    const warnings = [];
+    const status = call === 'updateComment' ? 502 : call === 'createComment' ? 429 : 500;
+    const comments = call === 'updateComment' ? { 333: [existing] } : {};
+    const { github } = mockGithub({
+      results: { 333: conflict() },
+      comments,
+      commentStatus: { [call === 'updateComment' ? 77 : 333]: { [call]: status } },
+    });
+
+    const result = await processPullRequest({
+      github,
+      owner: 'lightspeedwp',
+      repo: '.github',
+      number: 333,
+      logger: { info: () => {}, warning: (line) => warnings.push(line) },
+    });
+
+    expect(result.outcome).toBe('conflict');
+    expect(result.commented).toBe(false);
+    expect(warnings.join('\n')).toContain('#333');
+    expect(warnings.join('\n')).toContain(String(status));
+  });
+
+  // A failure writing the comment must be visible as more than a log line, so
+  // the job summary counts it rather than reporting every pull request as done.
+  test('a failed comment is reflected in the returned result', async () => {
+    const { github } = mockGithub({
+      results: { 444: conflict() },
+      commentStatus: { 444: { createComment: 503 } },
+    });
+
+    const result = await processPullRequest({
+      github,
+      owner: 'lightspeedwp',
+      repo: '.github',
+      number: 444,
+      logger: silentLogger,
+    });
+
+    expect(result.commentFailed).toBe(true);
+    expect(result.commentStatus).toBe(503);
   });
 
   test('comments are paginated, so an older marker comment is still found', async () => {

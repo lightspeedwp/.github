@@ -220,17 +220,33 @@ function normaliseCommentBody(body) {
  * @param {string} params.repo
  * @param {number} params.number - Pull request number.
  * @param {{info: Function, warning: Function}} [params.logger] - actions/core-like.
- * @returns {Promise<{outcome: string, status?: number, message?: string, commented?: boolean}>}
+ * @returns {Promise<{outcome: string, status?: number|null, message?: string,
+ *   commented?: boolean, commentFailed?: boolean, commentStatus?: number|null}>}
+ *
+ * Never throws for an API rejection. The caller iterates over every open pull
+ * request in one run, so any escape would stop the rest of them; each failure is
+ * returned instead, classified, and raised as a warning.
  */
 async function processPullRequest({ github, owner, repo, number, logger = console }) {
   let pullRequest;
   try {
     ({ data: pullRequest } = await github.rest.pulls.get({ owner, repo, pull_number: number }));
   } catch (error) {
-    // Merged or deleted between listing and reading. Nothing to do, and not a
-    // failure of this workflow.
-    logger.info(`#${number}: skipped, could not read (${error.status}).`);
-    return { outcome: 'unreadable', status: error.status, message: error.message || '' };
+    const status = error.status ?? null;
+    if (status === 404) {
+      // Merged or deleted between listing and reading. Nothing to do, and not a
+      // failure of this workflow.
+      logger.info(`#${number}: gone, could not read (404).`);
+      return { outcome: 'gone', status, message: error.message || '' };
+    }
+    // Anything else — a 5xx, a throttled call — is transient and must be
+    // visible. It is reported as retryable so the next run tries again, and it
+    // is raised as a warning so it is not mistaken for a clean pass.
+    logger.warning(
+      `#${number}: could not read the pull request (HTTP ${status ?? 'unknown'}` +
+        `${error.message ? `, ${error.message}` : ''}). Retried on the next run.`
+    );
+    return { outcome: 'retry', status, message: error.message || '' };
   }
 
   const decision = shouldAttemptUpdate(pullRequest);
@@ -278,31 +294,65 @@ async function processPullRequest({ github, owner, repo, number, logger = consol
       log,
     });
 
-    // Upsert rather than append, so a pull request that stays conflicting
-    // across several pushes to develop carries one comment instead of one per
-    // run. Paginated, so a pull request with more than a page of earlier
-    // comments still finds its own.
-    const comments = await github.paginate(github.rest.issues.listComments, {
-      owner,
-      repo,
-      issue_number: number,
-      per_page: 100,
-    });
-    const existing = comments.find(
-      (comment) =>
-        comment.user?.type === 'Bot' && String(comment.body || '').includes(CONFLICT_COMMENT_MARKER)
-    );
+    // Every call on the comment path is guarded. The caller loops over every
+    // open pull request in one run, so a rejection here — a transient 5xx, or a
+    // secondary rate limit on a shared token — must not escape and stop the
+    // remaining pull requests, and must not fail the job. The conflict itself
+    // is still reported; only the comment is missed, and the miss is visible.
+    try {
+      // Upsert rather than append, so a pull request that stays conflicting
+      // across several pushes to develop carries one comment instead of one per
+      // run. Paginated, so a pull request with more than a page of earlier
+      // comments still finds its own.
+      const comments = await github.paginate(github.rest.issues.listComments, {
+        owner,
+        repo,
+        issue_number: number,
+        per_page: 100,
+      });
+      // Anchored to the start of the body, not `includes`. Other bot comments
+      // on this repository are `type: Bot` and mention this workflow by name --
+      // the Linear review comment carries the branch and workflow names -- so a
+      // substring match would treat one of those as this workflow's comment and
+      // rewrite it. Anchoring is used rather than an App-login comparison
+      // because the App login is not known to this module and would have to be
+      // threaded in for no extra safety: only a comment this workflow wrote
+      // starts with the marker.
+      const existing = comments.find(
+        (comment) =>
+          comment.user?.type === 'Bot' &&
+          String(comment.body || '')
+            .trimStart()
+            .startsWith(CONFLICT_COMMENT_MARKER)
+      );
 
-    if (existing && normaliseCommentBody(existing.body) === normaliseCommentBody(body)) {
-      logger.info(`#${number}: conflict comment already up to date.`);
-      return { outcome, status, message, commented: false };
+      if (existing && normaliseCommentBody(existing.body) === normaliseCommentBody(body)) {
+        logger.info(`#${number}: conflict comment already up to date.`);
+        return { outcome, status, message, commented: false };
+      }
+      if (existing) {
+        await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
+      } else {
+        await github.rest.issues.createComment({ owner, repo, issue_number: number, body });
+      }
+      return { outcome, status, message, commented: true };
+    } catch (error) {
+      // Surfaced three ways so it cannot pass unnoticed: a warning annotation,
+      // the outcome the caller puts in its summary, and the return value.
+      logger.warning(
+        `#${number}: conflict comment could not be written (HTTP ${error.status ?? 'unknown'}` +
+          `${error.message ? `, ${error.message}` : ''}). The conflict is real and this ` +
+          'pull request was not updated; the comment will be retried on the next run.'
+      );
+      return {
+        outcome,
+        status,
+        message,
+        commented: false,
+        commentFailed: true,
+        commentStatus: error.status ?? null,
+      };
     }
-    if (existing) {
-      await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
-    } else {
-      await github.rest.issues.createComment({ owner, repo, issue_number: number, body });
-    }
-    return { outcome, status, message, commented: true };
   }
 
   // Surfaced rather than logged quietly. The job still exits 0, because a
