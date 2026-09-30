@@ -2,7 +2,11 @@
 
 **Applies to**: `{agent}/package.json` in all agents
 
-**Validation**: Enforced by CI via `npm run validate:package-json`
+**Validation**: checked by `PackageJsonValidator`, which runs only when you invoke
+`node scripts/validation/phase-4-structure-audit.js` directly. No npm script or
+workflow calls it, and there is no `validate:package-json` script. The
+`audit:structure` script runs a different program that does not use this
+validator, so this is a manual check rather than a CI gate.
 
 ---
 
@@ -139,18 +143,29 @@
 
 ## Validation Rules
 
-**CI validates**:
+Reported as an `error`, so they fail the run:
 
 1. ✅ Valid JSON syntax
-2. ✅ `name` field matches folder name
-3. ✅ `version` matches CHANGELOG.md
-4. ✅ `main` file exists and is resolvable
+2. ✅ `name` matches the agent folder name
+3. ✅ `version` is valid semver
+4. ✅ `main` file exists. Existence only; the validator does not resolve or load it.
 5. ✅ `type` is `"module"`
-6. ✅ `engines.node` requires >=18.0.0
-7. ✅ `test` script exists and runs successfully
-8. ✅ `lint` script exists and passes
-9. ✅ No cross-agent dependencies
-10. ✅ All required fields present
+6. ✅ `license` matches the organisation licence in the root `package.json`
+7. ✅ `test` and `lint` scripts are declared. **Presence only** — the validator
+   never executes them, so a declared script that fails is not caught here.
+8. ✅ `dependencies` do not reference another agent
+
+Reported as a `warning`, so they do not fail the run:
+
+- `engines.node` is a valid range resolving to 18 or later.
+- `devDependencies` do not reference another agent.
+
+**Not implemented.** No check covers any of the following:
+
+- `version` matching CHANGELOG.md.
+- `test` or `lint` being executed and passing.
+
+Required fields are `name`, `version`, `description`, `main`, `type` and `license`.
 
 ---
 

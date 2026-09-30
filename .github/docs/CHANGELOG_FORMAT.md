@@ -100,15 +100,31 @@ Each entry should be concise and reference associated PR/issue:
 
 ## Validation Rules
 
-**CI validates**:
+Run `node scripts/validation/validate-changelog.cjs CHANGELOG.md`, which
+`changelog-unified.yml` calls in CI. `validateChangelog` in
+`scripts/agents/includes/changelogUtils.cjs` reports **errors**, not warnings, and
+a non-empty error list fails the run.
 
-1. ✅ Valid Markdown syntax
-2. ✅ Versions in descending order
-3. ✅ Versions match semver pattern
-4. ✅ Dates in ISO 8601 format
-5. ✅ Each version has at least one entry
-6. ✅ No draft sections (`[UNRELEASED]` only at top if present)
-7. ✅ PR/Issue references are formatted correctly
+Checked, and failing the run:
+
+1. ✅ The changelog parses and contains a releases array
+2. ✅ There is at least one release
+3. ✅ Every release has a version, matching `Unreleased` or a semver pattern
+4. ✅ Every release except `Unreleased` has a date, in the expected format
+
+**Not implemented.** No check covers any of the following, so a changelog that
+passes is not evidence for them:
+
+- Versions being in descending order.
+- Each version having at least one entry.
+- Absence of draft sections.
+- PR or issue reference formatting.
+
+A separate and stricter validator also runs in CI for pull requests:
+`node .github/validation/changelog/bin/validate.js` with
+`--trigger pr_submission`. It applies further rules of its own, including
+maximum entry length, tense and unexplained abbreviations. Run it with
+`--output text` to see the rules it reports.
 
 ---
 

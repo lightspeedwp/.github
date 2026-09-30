@@ -1,10 +1,14 @@
 # Agent Folder Structure: Standardized Template
 
-**Purpose**: Define and enforce the 7-component folder structure for all agents in the repository.
+**Purpose**: Define the 7-component folder structure for all agents in the repository, and
+record which parts of it a validator checks.
 
 **Applies to**: All agents in `agents/` folder
 
-**Status**: Mandatory (enforced by CI validation)
+**Status**: Mandatory by convention only. `StructureChecker` is reached solely by
+running `node scripts/validation/phase-4-structure-audit.js` directly. No npm
+script, workflow or other script invokes it, so nothing here blocks a merge. See
+[Validation Rules](#validation-rules) for what is actually checked.
 
 ---
 
@@ -167,7 +171,8 @@ tests/
 
 - Minimum test file: `{agent-name}.test.js`
 - Framework: Jest
-- Coverage: Minimum 70% (enforced by CI)
+- Coverage: Minimum 70%. Not currently measured by any validator, so this is a
+  convention rather than an enforced threshold.
 - No skipped tests (`.skip` or `.only`)
 
 **Can be empty initially** but MUST be populated before release
@@ -206,18 +211,50 @@ AGENT_TIMEOUT=30000
 
 ## Validation Rules
 
-**Enforced by CI:**
+These rules are checked by `StructureChecker`, which runs only when you invoke
+`node scripts/validation/phase-4-structure-audit.js` directly. Nothing else calls
+it: there is no npm script for it, and no workflow runs it. The `audit:structure`
+script runs a different program, `scripts/validation/audit-agents.js`, which does
+not use `StructureChecker`.
 
-1. ✅ All 7 components present
-2. ✅ AGENT.md is valid Markdown with required sections
-3. ✅ CHANGELOG.md follows Keep a Changelog format
-4. ✅ package.json is valid and `name` matches folder
-5. ✅ README.md has Table of Contents and usage examples
-6. ✅ skills/ directory exists (can be empty)
-7. ✅ tests/ directory exists with at least one test file
-8. ✅ config/default.json exists and is valid JSON
-9. ✅ config/.env.example exists
-10. ✅ No unexpected files in the agent root: only the required `AGENT.md`, `CHANGELOG.md`, `package.json` and `README.md` sit there; everything else lives in its subdirectory
+`StructureChecker` reports an `error` for these:
+
+1. ✅ The 7 required components exist with the correct type: `AGENT.md`, `CHANGELOG.md`,
+   `package.json` and `README.md` as files, and `skills/`, `tests/` and `config/` as
+   directories. A directory is accepted whether or not it is empty.
+2. ✅ `CHANGELOG.md` is readable (an unreadable file is an error).
+3. ✅ `package.json` is present, parses, and its required fields are set
+4. ✅ `package.json` `name` matches the agent folder name
+5. ✅ `package.json` `version` is valid semver
+6. ✅ `package.json` `main` file exists
+7. ✅ `package.json` `type` is `"module"`
+8. ✅ `package.json` `license` matches the organisation licence from the root `package.json`
+9. ✅ `package.json` declares `test` and `lint` scripts. Presence only: the validator
+   never executes them, so a script that exists but fails is not caught here.
+10. ✅ `package.json` `dependencies` do not reference another agent
+
+Reported as a `warning`, so they do not fail the run:
+
+- `config/default.json` exists. Its **contents are not parsed**, so an invalid
+  JSON file is not detected.
+- `config/.env.example` exists.
+- `engines.node` is a valid range that resolves to 18 or later.
+
+**Not implemented.** Nothing in the validator checks any of the following, so
+they are conventions rather than validated rules:
+
+- `AGENT.md` Markdown validity or required sections.
+- `README.md` table of contents or usage examples.
+- That `tests/` contains at least one test file, or that the file is named
+  `{agent-name}.test.js`.
+- That `config/default.json` is valid JSON.
+- That the agent root contains no unexpected files.
+- Any test coverage threshold.
+- That the `test` or `lint` scripts pass.
+
+If any of these should gate a pull request, they need implementing in
+`StructureChecker` or `PackageJsonValidator` first; today a conformant result
+does not prove the agent meets the conventions above.
 
 ---
 
@@ -263,5 +300,4 @@ This structure balances:
 - [Standardized Template](../templates/agent-structure-template/)
 - [CHANGELOG Format](CHANGELOG_FORMAT.md)
 - [package.json Requirements](PACKAGE_JSON_REQUIREMENTS.md)
-- [Structure Audit Guide](AGENT_FOLDER_STRUCTURE_AUDIT.md)
-- [Agent Registry](../agents/registry.json)
+- [Structure audit script](../../scripts/validation/phase-4-structure-audit.js)
