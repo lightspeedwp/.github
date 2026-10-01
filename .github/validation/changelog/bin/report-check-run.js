@@ -76,10 +76,23 @@ async function main() {
     const reportContent = fs.readFileSync(reportPath, 'utf-8');
     const validationResult = JSON.parse(reportContent);
 
+    // The validator emits { error, exit_code } with no summary for a parse or
+    // unexpected failure, so read the summary defensively rather than
+    // dereferencing it.
+    const summary = validationResult?.summary ?? {};
+
     if (verbose) {
-      console.error(
-        `Parsed report: ${validationResult.summary.passed} passed, ${validationResult.summary.failed} failed`
-      );
+      console.error(`Parsed report: ${summary.passed ?? 0} passed, ${summary.failed ?? 0} failed`);
+      if (validationResult?.error) {
+        console.error(`Report carries a validator error: ${validationResult.error}`);
+      }
+    }
+
+    // A report with no summary cannot produce a meaningful conclusion, and
+    // silently reporting 'neutral' would read as a validation that passed.
+    if (!validationResult || typeof summary !== 'object' || !('summary' in validationResult)) {
+      console.error('✗ Validation report has no summary; refusing to publish a check run.');
+      process.exit(1);
     }
 
     // Create check run reporter

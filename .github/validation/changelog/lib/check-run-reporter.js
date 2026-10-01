@@ -126,7 +126,15 @@ export class CheckRunReporter {
       return 'failure';
     }
 
-    if (warnings > 0) {
+    // The validator's summary carries total_entries, passed, failed and
+    // pass_rate — no `warnings` field. It signals advisory results through
+    // ci_gate_result instead, so read that when present rather than relying on
+    // a summary key the report never emits.
+    const hasWarnings = Number.isInteger(warnings)
+      ? warnings > 0
+      : validationResult.ci_gate_result === 'warning';
+
+    if (hasWarnings) {
       return 'neutral'; // Warnings don't fail the check but still show as noteable
     }
 

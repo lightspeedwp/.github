@@ -264,6 +264,18 @@ describe('CheckRunReporter - GitHub Check Run Integration', () => {
       );
     });
 
+    it('reaches neutral from a real report, which has no warnings field', () => {
+      // The validator's summary carries total_entries, passed, failed and
+      // pass_rate. It has never carried a `warnings` key, so a neutral
+      // conclusion read from that field alone would be unreachable.
+      const report = {
+        summary: { total_entries: 5, passed: 4, failed: 1, pass_rate: '80', new_failed: 0 },
+        ci_gate_result: 'warning',
+      };
+
+      assert.equal(reporter.determineConclusion(report), 'neutral');
+    });
+
     it('returns neutral when there is no validation result', () => {
       assert.equal(reporter.determineConclusion(null), 'neutral');
       assert.equal(reporter.determineConclusion({}), 'neutral');
