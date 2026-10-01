@@ -40,7 +40,7 @@ The calling job must grant the `id-token` permission as `write`, because the `ru
 
 | Input | Type | Default | Meaning |
 | --- | --- | --- | --- |
-| `config_ref` | string | `main` | The git ref of `lightspeedwp/.github` whose `.pr_agent.toml` is loaded as `CONFIG.EXTRA_CONFIG_URL` |
+| `config_ref` | string | `develop` | The git ref of `lightspeedwp/.github` whose `.pr_agent.toml` is loaded as `CONFIG.EXTRA_CONFIG_URL`. It must name a ref that carries the file: `main` does not, and a 404 fetch leaves PR-Agent on upstream defaults. |
 | `auto_describe` | boolean | `true` | Maps to `github_action_config.auto_describe` |
 | `auto_improve` | boolean | `true` | Maps to `github_action_config.auto_improve` |
 | `excluded_authors` | string (JSON array) | `["dependabot[bot]","lightspeed-docs-bot[bot]"]` | PR authors that never trigger automatic runs |

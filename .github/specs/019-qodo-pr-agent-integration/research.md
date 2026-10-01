@@ -8,7 +8,7 @@ Sources:
 - Docker Hub (`pragent/pr-agent`) and PyPI (`pr-agent`).
 - The existing conventions of this repository.
 
-The upstream repository now presents itself as **`the-pr-agent/pr-agent`**. `qodo-ai/pr-agent` resolves to the same commits and tags. All references below use the new name.
+The upstream repository now presents itself as **`The-PR-Agent/pr-agent`** (Qodo donated the project; the old `the-pr-agent/pr-agent` and `qodo-ai/pr-agent` names still redirect to it). Its documentation is `docs.pr-agent.ai`, not the older `qodo-merge-docs.qodo.ai`. Re-checked against the `v0.46.0` tag on 2026-10-01: latest release `v0.46.0`, published 2026-09-21.
 
 Each item below uses the Decision / Rationale / Alternatives format. Items marked **Verify in pilot** could not be proven from source alone and have a matching check in [quickstart.md](./quickstart.md).
 
@@ -19,7 +19,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 - **Decision**: Run the upstream GitHub Action's container image directly, referenced by **image digest**: `uses: docker://pragent/pr-agent@sha256:<digest>`. The digest is recorded in the workflow with a version comment (`# 0.46.0-github_action`). At research time, `0.46.0-github_action` resolved to `sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7`. Re-resolve the digest when implementing with `docker buildx imagetools inspect pragent/pr-agent:0.46.0-github_action --format '{{.Manifest.Digest}}'`, and verify provenance with `gh attestation verify "oci://index.docker.io/pragent/pr-agent@sha256:<digest>" --repo The-PR-Agent/pr-agent`.
 - **Rationale**: `uses: the-pr-agent/pr-agent@<sha or tag>` does **not** pin the code that runs. The action's Dockerfile is `FROM pragent/pr-agent:github_action`, a floating tag, even at the `v0.46.0` tag. Only a digest reference makes a run reproducible, which matches the repo rule that every action is pinned to a full SHA (FR-003).
 - **Alternatives considered**:
-  - `the-pr-agent/pr-agent@main`: this is what the docs show. It floats on every upstream commit, so it was rejected.
+  - `The-PR-Agent/pr-agent@main`: this is what the docs show. It floats on every upstream commit, so it was rejected.
   - Pinning the action to a SHA: this looks pinned but isn't, because of the floating base image. Rejected.
   - `docker://pragent/pr-agent:0.46.0-github_action` by tag: readable, but a tag can be re-pushed. Rejected in favour of the digest.
   - Installing the `pr-agent` pip package in a job: this works (see R9), but would duplicate the action's entry point and event handling.
@@ -38,7 +38,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 
 - **Decision**:
   - A root-level **`.pr_agent.toml`** in `lightspeedwp/.github` holds the organisation-standard settings. Qodo PR-Agent requires this file name and location for repository-local configuration, and `.coderabbit.yml` sets the root-level precedent.
-  - The reusable workflow passes `CONFIG.EXTRA_CONFIG_URL` pointing at the raw URL of that file at the **same ref the caller pinned** (input `config_ref`, default `main`).
+  - The reusable workflow passes `CONFIG.EXTRA_CONFIG_URL` pointing at the raw URL of that file at the **same ref the caller pinned** (input `config_ref`, default `develop`). The default was corrected from `main` on 2026-10-01: `main` is this repository's oldest branch and carries neither `.pr_agent.toml` nor the reusable workflow, so a `main` URL 404s and PR-Agent would silently run on upstream defaults.
   - A consuming repository's own `.pr_agent.toml`, if present, overrides individual keys, **except locked keys**, which the workflow re-sets as environment variables (the top precedence layer) so they cannot be weakened (review finding, 2026-09-24). Precedence, as documented upstream: defaults < `extra_config_url` < org `pr-agent-settings` repo < local `.pr_agent.toml` < environment variables.
 - **Rationale**:
   - `extra_config_url` is a *host-only* key, so a repository's own `.pr_agent.toml` cannot set it. It can be set by the workflow environment, which is the host.

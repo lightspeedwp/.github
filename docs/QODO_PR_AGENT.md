@@ -10,7 +10,7 @@ tags: ["ai-ops", "code-review", "qodo-pr-agent", "automation"]
 
 # Qodo PR-Agent
 
-Qodo PR-Agent is an open-source AI pull-request assistant ([`the-pr-agent/pr-agent`](https://github.com/the-pr-agent/pr-agent), formerly `qodo-ai/pr-agent`). LightSpeed runs it in our own GitHub Actions on `lightspeedwp/.github` as a **pilot**, and it **complements CodeRabbit** rather than replacing it.
+Qodo PR-Agent is an open-source AI pull-request assistant ([`The-PR-Agent/pr-agent`](https://github.com/The-PR-Agent/pr-agent), formerly `qodo-ai/pr-agent`; documentation at [`docs.pr-agent.ai`](https://docs.pr-agent.ai/)). LightSpeed runs it in our own GitHub Actions on `lightspeedwp/.github` as a **pilot**, and it **complements CodeRabbit** rather than replacing it.
 
 > [!IMPORTANT]
 > Qodo PR-Agent is **not** the internal [`agents/pr-agent/`](../agents/pr-agent/AGENT.md). That is LightSpeed's own agent for creating PRs, validating branch names, routing templates and applying labels. To avoid confusion, we always write "Qodo PR-Agent" for the third-party tool.
@@ -117,7 +117,7 @@ This is a known limitation: the model's output can't be guaranteed never to repe
 
 There are two ways to provide the credential. If both are configured, the stored key wins, as it does in the Anthropic SDKs.
 
-- **Secret**: the organisation secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`. It holds a key used **only** by Qodo PR-Agent, with repository access set to *selected repositories*.
+- **Secret**: the repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot. It holds a key used **only** by Qodo PR-Agent. A repository that opts in later needs the organisation secret of the same name, with that repository added to its selected repositories; a repository secret does not cover other repositories.
 - **Keyless (Workload Identity Federation)**: no key is stored. Each run exchanges the job's GitHub OIDC token for an Anthropic access token that expires within about 10 minutes.
   1. In the Claude Console, open **Settings → Workload identity → Connect workload** and choose **GitHub Actions**. Create:
      - an issuer for `https://token.actions.githubusercontent.com` with OIDC discovery;
@@ -160,10 +160,10 @@ Only `lightspeedwp/.github` is enabled in the pilot. These steps are for later o
 2. **Workflow**: copy [`.github/workflows/qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) into the repository's `.github/workflows/`, and change the `uses:` line to:
 
    ```yaml
-   uses: lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@main
+   uses: lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@develop
    ```
 
-   `@main` follows the released organisation standard. Use a release tag instead to pin a version and upgrade deliberately.
+   The ref must be one where the reusable workflow actually exists. `develop` is this repository's default branch and carries it; `main` does not. A ref is tracked in the URL, so it follows that branch — if the standard must not move under an opt-in, wait for a release tag and use that instead.
 3. **Configuration (optional)**: by default the repository inherits this repository's `.pr_agent.toml`. Pass `with: config_ref: <tag>` to load it from a specific ref.
 4. **Overrides (optional)**: add a `.pr_agent.toml` at the repository root and follow the rules below. It takes effect once merged to that repository's default branch.
 5. **Check**: open a small non-draft PR. Within 10 minutes you should see a summary comment and a suggestions comment, and no label changes. Then comment `/ask What does this change affect?` and expect a reply.
