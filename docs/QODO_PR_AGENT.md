@@ -91,19 +91,19 @@ Qodo PR-Agent feedback is AI review feedback, and follows the same `FEEDBACK_RES
 ## Safety
 
 - **No code is checked out or executed.** Qodo PR-Agent reads the PR through the GitHub API.
-- **Fork PRs**: automatic runs on fork `pull_request` events receive no secrets, so they are skipped with a `fork` notice. A maintainer command on a fork PR is a separate `issue_comment` path: it runs in this repository's context and does use the configured credential, so only run commands on fork PRs you trust.
-- **It never blocks a PR.** A missing or invalid credential, a provider rate limit or outage, the kill-switch, or an ineligible event all produce a notice and a successful check. Failed runs are still recorded as `failure` in the run record.
+- **Fork PRs**: they are skipped with a `fork` notice, checked fail-closed, so a deleted or renamed fork is treated as a fork. A maintainer command on a fork PR is a separate path: it runs in this repository's context and does use the configured credential, so only run commands on fork PRs you trust.
+- **It never blocks a PR.** An invalid credential, a provider rate limit or outage, the kill-switch, or an ineligible event all produce a notice and a successful check. Failed runs are still recorded as `failure` in the run record. The privileged receiver runs on `workflow_run`, so even a hard failure there is on the receiver's own run and cannot gate the pull request.
+- **A key the environment never released is an error, not a skip.** If the `qodo-pr-agent` environment does not hand over `ANTHROPIC_API_KEY_QODO_PR_AGENT`, the run job exits 1 with an `::error::` naming the ref. That is deliberate: it means the environment's deployment branch policy is wrong, and a quiet skip would hide a broken credential behind a green run. It does not block the pull request.
 - **It never commits, merges, approves or labels.** The locked keys in `.pr_agent.toml` enforce this, and `tests/js/qodo-pr-agent-config.test.js` asserts them.
-- **Configuration is read from the default branch.** A PR cannot change its own review settings.
+- **Configuration is read from the default branch.** A PR cannot change its own review settings: the ref is a constant `develop` URL, never an event or input value.
+- **The key is not reachable from a pull request branch.** The workflow that runs on `pull_request` holds no secret, and the one that holds the key is triggered by `workflow_run`, so GitHub reads its definition from `develop`. See [What limits who can run the pilot](#what-limits-who-can-run-the-pilot).
 - **Known limitation**: upstream's fixed headings are in US English, even though the generated text is UK English. If a model call fails part-way, the persistent comment may be incomplete. The check still passes, and `/describe` or `/improve` refreshes it.
 
 ## Operations
 
 ### Kill-switch
 
-The pilot is **off unless switched on**. It runs only when the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` is `true`, at repository or organisation level. Unset, `false` or any other value skips every run with `kill-switch`. To stop it, set the variable to `false` or delete it; to start it, set it to `true`. Either takes effect on the next event, with no commit needed. Do not set it to `true` until the US$50 monthly limit is confirmed on the key ([#3535](https://github.com/lightspeedwp/.github/issues/3535)).
-
-A command on a closed or merged pull request is skipped with `pr-closed`.
+Set the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` to `false`, at repository or organisation level. It takes effect on the next event, with no commit needed, and every run is skipped with `kill-switch`. Delete the variable, or set it to anything else, to resume.
 
 As a second line of defence, revoke or cap the dedicated key in the Anthropic console.
 
@@ -113,59 +113,83 @@ This is a known limitation: the model's output can't be guaranteed never to repe
 
 1. **Delete the comment.** Any maintainer can do this, and it should be done straight away.
 2. **Rotate the exposed secret** wherever it's used. Deleting the comment doesn't undo the exposure, because notifications and caches may already hold a copy.
-3. **If it happens again**, set `QODO_PR_AGENT_ENABLED` to `false` or delete it (see [Kill-switch](#kill-switch)) and open an issue describing the PR and the kind of secret, without repeating it.
+3. **If it happens again**, set `QODO_PR_AGENT_ENABLED` to `false` (see [Kill-switch](#kill-switch)) and open an issue describing the PR and the kind of secret, without repeating it.
 
 ### Credential and spend
 
 There is one way to provide the credential: a stored key.
 
-- **Secret**: the repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot. It holds a key used **only** by Qodo PR-Agent. A repository that opts in later needs the organisation secret of the same name, with that repository added to its selected repositories; a repository secret does not reach other repositories.
+- **Secret**: the **environment** secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent` environment. It holds a key used **only** by Qodo PR-Agent. It is deliberately an environment secret and not a repository secret: GitHub passes repository secrets to a same-repository `pull_request` run, so a repository secret is reachable by a pull request author, while an environment secret can be withheld by the environment's deployment branch policy. See [What limits who can run the pilot](#what-limits-who-can-run-the-pilot). A repository that opts in later needs its own environment, because the deployment branch policy is a per-repository setting.
 - **Monthly spend limit**: US$50 for the pilot (spec 019, SC-008). Set it on that key in the Anthropic console. The console's usage page gives exact spend.
-- **Provisioning**: tracked in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002).
+- **Provisioning**: the key is tracked in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002); the environment and its deployment branch policy are the repository owner's settings, listed in [Validate the credential boundary](#validate-the-credential-boundary).
 
 #### Workload Identity Federation is not configured
 
-Keyless authentication through Workload Identity Federation is **deliberately not part of the pilot**, and nothing in the shipped workflows supports it. It was removed on 2026-10-01 because it required `id-token: write` on the same job that runs the third-party `pragent/pr-agent` container, which gave that container the job's OIDC capability. No job in either workflow holds `id-token: write` now, and no federation input exists.
+Keyless authentication through Workload Identity Federation is **deliberately not part of the pilot**, and nothing in the shipped workflows supports it. It was removed on 2026-10-01 because it required `id-token: write` on the same job that runs the third-party `pragent/pr-agent` container, which gave that container the job's OIDC capability. No job in any of the three workflows holds `id-token: write` now, and no federation input exists.
 
-If it is ever wanted, it must not be added back to the `run` job. It needs **its own job** whose only content is the token exchange, with `id-token: write` on that job and no third-party or untrusted code in it.
-
-That exchange job would also have to hand the short-lived token to `run`, and **not as a job output**. GitHub documents the rule: once a value is masked it is treated as a secret and redacted on the runner, and "after you mask a value, you won't be able to set that value as an output" ([workflow commands](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#masking-a-value-in-a-log)). A masked value may still be written to `GITHUB_OUTPUT` for later steps **within the same job** — which is why the token exchange has to be its own job and cannot be a step that precedes `run`. Across jobs or workflows, GitHub's documented answer is to store the value in a secret store and retrieve it in the consuming job, passing only the non-secret handle between them ([workflow commands, masking between jobs](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands#masking-and-passing-a-secret-between-jobs-or-workflows)). Design that handoff, and its store, as part of any change that reintroduces federation; treat it as its own change with its own review.
+If it is ever wanted, it must not be added back to the `run` job. It needs **its own job** whose only content is the token exchange, with `id-token: write` on that job and no third-party or untrusted code in it. It also needs a supported way to hand the short-lived token to `run`: a job output cannot carry it, because GitHub treats a masked value as a secret and does not pass it to downstream jobs. Design that handoff (for example through a short-lived secret store) as part of the change. Treat that as its own change with its own review, and re-check the two findings it was removed for.
 
 ### What limits who can run the pilot
 
-The caller triggers on `pull_request` (`opened`, `reopened`, `ready_for_review`) and `issue_comment` (`created`). Those two paths are limited very differently.
+The pilot is two workflows. The split is the security boundary, so it is worth being exact about which copy of which file runs.
 
-| Trigger | Which copy of the workflow runs | What limits it |
-| --- | --- | --- |
-| `issue_comment` | The **default branch** copy, so a pull request author cannot change the code that runs. | The comment's `author_association` must be `OWNER`, `MEMBER` or `COLLABORATOR`; the command must be allow-listed; the comment must be on a pull request; and any `--section.key=value` token is refused. |
-| `pull_request` | The **pull request's** ref, so a branch that edits `qodo-pr-agent-reusable.yml` runs its own version of it. | Not a fork (checked fail-closed, including a deleted fork), not a draft, not a bot sender, not `dependabot[bot]` or `lightspeed-docs-bot[bot]`, and a credential must be present. There is **no** author-association or label gate on this path. |
-| Fork `pull_request` | Same as above, but no credential is in scope. | GitHub withholds repository secrets from fork events, and the `fork` check is a second, independent barrier. |
+| Workflow | Trigger | Which copy of the definition runs | What it can reach |
+| --- | --- | --- | --- |
+| `qodo-pr-agent-trigger.yml` | `pull_request` (`opened`, `reopened`, `ready_for_review`) and `issue_comment` (`created`) | The **pull request's** ref, because that is how GitHub evaluates `pull_request`. | **Nothing.** No secret, no write scope, no environment. It classifies the event and publishes a request hint. |
+| `qodo-pr-agent.yml` | `workflow_run` on the trigger's completion, and `workflow_dispatch` | The **default branch** copy, always. A pull request author cannot change the code that runs. | The model key, through the `qodo-pr-agent` environment, and `pull-requests: write` / `issues: write` on `GITHUB_TOKEN`. |
 
-The `pull_request` row is the reason the caller keeps a local `./` reference only temporarily. See [Pin the caller to a commit SHA](#pin-the-caller-to-a-commit-sha).
+Both facts were verified on a scratch pull request rather than assumed:
 
-No further gate was added to the automatic path, so **anyone with push access to this repository is trusted with the key.** A same-repository branch can edit the caller or the reusable workflow and run its own version with the key before anyone reviews it. Pinning the caller (below) protects the called workflow only, not a branch that edits the caller itself. This is the same trust GitHub already gives push access: [any user with write access to a repository has read access to all of its secrets](https://docs.github.com/en/actions/reference/security/secure-use#use-secrets-for-sensitive-information), so no workflow setting can withdraw a secret from someone who can already edit any workflow. Branch protection and `CODEOWNERS` do not change this, because they gate merging, not the workflow running.
+- A `pull_request` run of a branch-only workflow reported `workflow_ref` of `refs/pull/<n>/merge` and a repository secret **present** in its secret context. That is the exposure the split removes.
+- A branch edit to an existing `workflow_run` workflow did **not** execute, and that run's `head_sha` was the `develop` tip. That is the boundary the design relies on.
 
-Three things are worth being precise about, because they decide what a gate could and could not achieve:
+The receiver does not trust the trigger. It downloads the `qodo-pr-agent-signal` artefact, parses it as data, and then re-reads the pull request and its comments through the API, re-checking that the hint names the pull request the triggering run was for, that the pull request is still open and at the head that run observed, plus draft state, excluded authors, fork status, the command allow-list, the commenter's `author_association` and the refusal of `--section.key=value` tokens. A pull request author who edits the trigger can at worst cause a receiver run that immediately skips.
 
-- **A gate written in the caller cannot be trusted.** GitHub runs a `pull_request` workflow from the [merge commit of the pull request](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target), so a branch that edits the gate out of `qodo-pr-agent.yml` runs without the gate. A path, author or label check inside the caller is therefore not a boundary against a motivated actor; it only catches edits made in good faith.
-- **`pull_request_target` would fix it, and is being withdrawn.** On that event the workflow is taken from the default branch rather than the pull request, which is why GitHub considers it safe to grant secrets when nothing untrusted is checked out — and the pilot checks out nothing. But GitHub is adding a [default policy blocking `pull_request_target`](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target#default-policy-for-pull_request_target) in public repositories, enforced from **2 November 2026**, and this repository is public. That is the same event `research.md` R6 already rejected as a foot-gun.
-- **An environment with required reviewers is the supported way to withhold a secret until approval**: "a workflow job cannot access environment secrets until approval is granted by a reviewer" ([secure use reference](https://docs.github.com/en/actions/reference/security/secure-use#consider-requiring-review-for-access-to-secrets)). Holding the key as an *environment* secret also means a branch that drops the `environment:` key loses access to it rather than gaining any. The cost is that every automatic run then waits for a human, which contradicts FR-009's automatic-run promise and the SC-001 measurement, so it is not a pilot default.
+`workflow_dispatch` is the one trigger that is **not** protected by the default-branch rule, because it runs the definition from the ref you select. It is safe here only because of the environment: a dispatch from a branch the deployment branch policy does not admit cannot start the `run` job, and so cannot read the key. If the environment is ever removed, remove the `workflow_dispatch` trigger with it.
 
-The realistic options are therefore: keep the current design and accept that write access is trusted with the key (the status quo for every secret in this repository); move the pilot behind a `workflow_run` handoff so the secret-bearing definition always comes from `develop`, which GitHub describes as the better trigger for privilege separation but which changes the pilot's architecture and adds an untrusted-artifact surface to reason about; or hold the automatic path until this merges and the caller is pinned. Choosing between them is a decision for the repository owner, not a documentation change.
+#### Why not `pull_request_target`
 
-### Pin the caller to a commit SHA
+`pull_request_target` would also give a default-branch definition, and it is still excluded. Two reasons, and only one of them is the checkout:
 
-`qodo-pr-agent.yml` currently calls the reusable workflow locally:
+- **The event is being withdrawn for public repositories.** GitHub adds a default Actions event policy that blocks `pull_request_target` in public repositories, in evaluate mode now and enforced from **2 November 2026**. This repository is public. The documented exceptions are private or internal repositories and a pre-existing applicable policy; there is no fork-versus-same-repository carve-out. Using it would mean buying a boundary with a five-week shelf life, plus a settings change to revisit.
+- **The checkout objection never applied here.** Neither the old design nor this one uses `actions/checkout`, and the original R6 reasoning said so at the time. `actions/checkout` v7 refuses fork pull request code under `pull_request_target` unless `allow-unsafe-pr-checkout` is set, while stating that same-repository pull requests are unaffected — which is a different threat from the one the finding describes.
 
-```yaml
-uses: ./.github/workflows/qodo-pr-agent-reusable.yml
-```
+`workflow_run` is not in the scope of that default policy and its definition is likewise read from the default branch, so the exclusion **stands**: `workflow_run` meets the same goal without relying on a withdrawing event. See [research.md R6](../.github/specs/019-qodo-pr-agent-integration/research.md).
 
-A commit-SHA pin **cannot** be applied in the pull request that first introduces the workflow, because no trusted ref contains it yet — any SHA written there would 404 or point at the same unreviewed content. Once this lands on `develop`, a follow-up pins the caller to a full commit SHA, matching how `.github/actions/collect-metrics` is already pinned. Tracked in [lightspeedwp/.github#3710](https://github.com/lightspeedwp/.github/issues/3710), which also carries the acceptance criteria and the validation plan.
+#### Static analysis and the `workflow_run` trade-off
 
-Until that pin lands, the trigger table above is the accurate statement of the boundary. Do not read the local reference as equivalent to a pinned one. This pilot caller is the only **live** cross-repository reference in this repository that is not pinned: the one other, `.github/actions/collect-metrics`, is pinned to a full commit SHA.
+`zizmor --offline --persona regular` over the three pilot workflows reports one unsuppressed finding, `dangerous-triggers` on the receiver's `workflow_run`. That is the trade-off being made deliberately, so it is recorded rather than silenced.
 
-There is also no release tag of this workflow. Consumers are pointed at `@develop`, which tracks the branch; cutting a tag so consumers have an immutable ref is a separate release-policy decision, noted in #3710.
+The audit is right about the pattern in general: `workflow_run` hands a privileged run to code that a pull request can influence, and the usual failure is downloading the triggering run's artefact and executing it. This pilot does not do that. The receiver downloads the trigger's `qodo-pr-agent-signal` artefact, **parses it as JSON, and re-derives every field from the API** — the pull request with `pulls.get`, the comment with `listComments` — and refuses when the hint does not name the pull request the triggering run was for, or when that pull request has moved on. It never checks out the triggering run, never runs anything from the artefact, and reads the key only in a job whose environment admits the default branch. `tests/js/qodo-pr-agent-workflow.test.js` asserts each of those properties, so the audit cannot be satisfied by accident later.
+
+The alternative trigger, `pull_request_target`, produces the same default-branch definition and would not draw the finding, but it is blocked in public repositories by default from 2 November 2026. Trading an audited-and-tested `workflow_run` for an event with a five-week shelf life is the wrong direction.
+
+#### Why there are no required reviewers
+
+The control that withholds the key until a person approves is an environment with **required reviewers**. It is deliberately not used, because every automatic run would then wait for a human, which contradicts SC-001 (95% of eligible pull requests answered within 10 minutes) and the FR-009 constraint that the pilot never blocks. The environment's **deployment branch policy** is the control used instead: it is automatic, needs no person, and fails closed. The rule is matched against the run's `GITHUB_REF`, and a `pull_request` run's ref is `refs/pull/<n>/merge`, which the policy must not admit.
+
+If the owner later decides a human gate is worth the wait, adding required reviewers to the `qodo-pr-agent` environment is a settings-only change and needs no code edit.
+
+#### The trust boundary, stated plainly
+
+**The boundary is the authority to merge to `develop`.** Anyone who can merge can obtain the key: they change the receiver, and the receiver's definition is read from `develop`. That is unavoidable — a key in CI is reachable by whoever controls the code CI runs — and it is the same trust GitHub already gives push access.
+
+What has changed is that a branch can no longer reach the key *before review*. Branch protection, `CODEOWNERS` and workflow execution protections narrow *who* holds merge authority; they are defence in depth, not the fix, because they govern merging rather than what a run can read. Recommended as an additional control:
+
+- `CODEOWNERS` on `.github/workflows/**` requiring a review from someone other than the author.
+- A repository Actions **event policy** with an actor rule, so contributing code and executing privileged workflows are separable. This also gives the 2 November 2026 `pull_request_target` default somewhere to be evaluated deliberately rather than inherited.
+- A **GitHub App installation token** with narrowly scoped permissions in place of `GITHUB_TOKEN`, which bounds the blast radius of a stolen token. It does not address this finding and is a follow-up.
+
+The key itself is worth bounding regardless: a per-repository key with a spend cap and a rotation schedule limits what a leak costs and how long it is good for. The US$50 monthly cap is an open prerequisite tracked on [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535).
+
+#### Validate the credential boundary
+
+After the environment exists, two runs confirm the gate. Both are read-only checks:
+
+1. Open a scratch pull request that adds a workflow with `environment: qodo-pr-agent`. Its run must fail closed rather than receive the key, because the ref is `refs/pull/<n>/merge`.
+2. Trigger one `workflow_dispatch` run on `develop`. It must receive the key and complete.
+
+Delete the scratch branch afterwards.
 
 ### Run records and the pilot report
 
@@ -191,17 +215,40 @@ The [daily report workflow](../.github/workflows/qodo-pr-agent-report.yml) runs 
 
 Only `lightspeedwp/.github` is enabled in the pilot. These steps are for later opt-in.
 
-1. **Credential**: ask the organisation owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` organisation secret's selected repositories. The copied caller needs no other permission: it does not request `id-token: write`, and it passes only `model_credential`. If you later want keyless authentication, follow [Workload Identity Federation is not configured](#workload-identity-federation-is-not-configured) rather than adding the federation inputs back. Once the key and its spend limit are in place, set the repository's Actions variable `QODO_PR_AGENT_ENABLED` to `true`; until then every run is skipped.
-2. **Workflow**: copy [`.github/workflows/qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) into the repository's `.github/workflows/`, and change the `uses:` line to:
+Both files are needed. The split is the security boundary, so copying only the privileged half reintroduces the exposure it removes.
+
+1. **Environment** (a repository setting, so the owner does this): create an environment, for example `qodo-pr-agent`; set **Selected branches and tags** to your default branch only, with **no** `refs/pull/*/merge` pattern and **no** required reviewers; and add `ANTHROPIC_API_KEY_QODO_PR_AGENT` as an **environment** secret on it. A repository secret will not work — it is reachable from a same-repository `pull_request` run.
+
+   Add **two** patterns for the default branch: `develop` and `refs/heads/develop`. GitHub's documentation says the rule is matched against the run's `GITHUB_REF`, which is the fully qualified `refs/heads/develop` on a push, but it does not settle whether the bare or the qualified spelling is what it compares, and `github/docs` has an open issue on exactly that ambiguity. Both patterns name the same branch, so neither widens the policy; a pattern that admits a pull request ref is what would break the control. This repository's `github-pages` environment already gates on the bare `develop` alone and has served deployments, which is supporting but not conclusive evidence. Confirm with the two runs in [Validate the credential boundary](#validate-the-credential-boundary) before relying on it.
+2. **Credential**: the same key, added to that environment. Each repository needs its own environment because the deployment branch policy is a per-repository setting.
+3. **Workflows**: copy [`.github/workflows/qodo-pr-agent-trigger.yml`](../.github/workflows/qodo-pr-agent-trigger.yml) and [`.github/workflows/qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) into the repository's `.github/workflows/`, keeping both filenames — the receiver's `workflow_run` trigger names the trigger's `name:` value, not a path, so changing either `name:` silently stops the split working.
+
+   The shipped receiver inlines the privileged run, so it works with no cross-repository reference at all. To use the shared run definition instead, **keep the receiver's `preflight` job** (it resolves the request and re-derives it from the API), **delete its inlined `run` and `record` jobs**, and add a `qodo` job that calls the reusable workflow. The reusable workflow runs its own preflight, run and record, so the receiver's `preflight` is the only one left and it is what feeds the call:
 
    ```yaml
-   uses: lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@develop
+   jobs:
+     preflight:
+       # unchanged: resolves the request and re-derives it from the API
+     qodo:
+       needs: preflight
+       if: needs.preflight.outputs.enabled == 'true'
+       uses: lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>
+       with:
+         pr_number: ${{ needs.preflight.outputs.pr }}
+         command: ${{ needs.preflight.outputs.command }}
+         decision_reason: ${{ needs.preflight.outputs.reason }}
+         environment_name: <your environment>
+       secrets:
+         model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}
    ```
 
-   The ref must be one where the reusable workflow actually exists. `develop` is this repository's default branch and carries it; `main` does not. A ref is tracked in the URL, so it follows that branch — if the standard must not move under an opt-in, wait for a release tag and use that instead.
-3. **Configuration (optional)**: by default the repository inherits this repository's `.pr_agent.toml`. Pass `with: config_ref: <tag>` to load it from a specific ref.
-4. **Overrides (optional)**: add a `.pr_agent.toml` at the repository root and follow the rules below. It takes effect once merged to that repository's default branch.
-5. **Check**: open a small non-draft PR. Within 10 minutes you should see a summary comment and a suggestions comment, and no label changes. Then comment `/ask What does this change affect?` and expect a reply.
+   Note the `needs:` and the `if:`. The `with:` expressions read `needs.preflight.outputs`, which do not resolve without them, and gating on `enabled` keeps a skipped request from starting a second preflight downstream. The `secrets:` mapping names the declared input of the reusable workflow; the value it forwards is still your **environment** secret, not a repository one.
+
+   Two things matter here. The **environment name goes in `with: environment_name:`**, not in an `environment:` key on the calling job: a reusable-workflow call job cannot declare its own environment, and the reusable workflow's own `run` job declares the environment named by that input. And the secret is still an **environment** secret on your environment, passed explicitly as `secrets.model_credential` — a repository secret of the same name would be reachable from a `pull_request` run. The ref must be one where the reusable workflow exists: `develop` is this repository's default branch and carries it; `main` does not. A ref is tracked in the URL, so it follows that branch — if the standard must not move under an opt-in, wait for a release tag.
+4. **Keep the triggers as shipped.** The trigger takes `pull_request` and `issue_comment`; the receiver takes `workflow_run` and `workflow_dispatch` and **must not** take `pull_request`, `issue_comment` or `pull_request_target`. Those would make GitHub read the receiver's definition from the pull request, which is the finding this split closes. The full list of constraints a caller must satisfy is in [contracts/reusable-workflow.md](../.github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md).
+5. **Configuration (optional)**: by default the repository inherits this repository's `.pr_agent.toml` from `develop`. To load it from elsewhere, change the constant `CONFIG.EXTRA_CONFIG_URL` in the receiver — as a literal. Do not build it from an event value: PR-Agent's own `--config-branch` would then let a pull request supply its own configuration.
+6. **Overrides (optional)**: add a `.pr_agent.toml` at the repository root and follow the rules below. It takes effect once merged to that repository's default branch.
+7. **Check**: open a small non-draft PR. Within 10 minutes you should see a summary comment and a suggestions comment, and no label changes. Then comment `/ask What does this change affect?` and expect a reply.
 
 ### Overrides
 

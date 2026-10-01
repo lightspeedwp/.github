@@ -1,0 +1,163 @@
+# Qodo PR-Agent • Trigger (unprivileged)
+#
+# Half one of the two-workflow split that keeps the model key out of reach of a
+# pull request author. This file holds NO secret and NO write scope. Under
+# `pull_request` GitHub evaluates the definition from the PR merge commit
+# (verified: workflow_ref resolves to refs/pull/<n>/merge and a repository
+# secret is present in the secret context), so anything privileged belongs in
+# the receiver, not here.
+#
+# This workflow's only job is to decide whether a pull request is worth
+# analysing and to publish that decision as an artifact. The decision is
+# recomputed from scratch by the receiver, which re-reads the pull request
+# through the API; this artifact is a trigger hint, never an authority.
+#
+# The receiver is .github/workflows/qodo-pr-agent.yml (workflow_run). Because
+# that file is read from the default branch, a pull request author cannot
+# change the code that holds the key. Proven on a scratch pull request: a
+# branch edit to a workflow_run receiver did not execute, while the
+# branch's own pull_request definition did.
+#
+# Fork pull requests: no secret is passed, the receiver is not triggered from
+# this workflow, and nothing is analysed. See docs/QODO_PR_AGENT.md.
+#
+# Docs: docs/QODO_PR_AGENT.md
+# Spec: .github/specs/019-qodo-pr-agent-integration/
+name: Qodo PR-Agent • Trigger
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+  issue_comment:
+    types: [created]
+
+# Read-only, and narrower than the repository default. This workflow must never
+# be able to write: it is the half of the split that a pull request author can
+# edit.
+permissions:
+  contents: read
+
+jobs:
+  signal:
+    name: Decide whether the receiver should analyse
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions: {}
+    steps:
+      - name: Classify the event
+        id: classify
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          KILL_SWITCH: ${{ vars.QODO_PR_AGENT_ENABLED }}
+        with:
+          script: |
+            const payload = context.payload;
+            const EXCLUDED = ['dependabot[bot]', 'lightspeed-docs-bot[bot]'];
+            const ALLOWED_COMMANDS = [
+              '/describe', '/improve', '/review', '/ask',
+              '/update_changelog', '/add_docs', '/help',
+            ];
+            const ALLOWED_ASSOCIATIONS = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+
+            function classify() {
+              // Opt-in: the pilot spends money, so it runs only once the
+              // variable is explicitly 'true'. Unset or any other value skips.
+              if (String(process.env.KILL_SWITCH).toLowerCase() !== 'true') {
+                return { analyse: false, reason: 'kill-switch' };
+              }
+              if (payload.sender?.type === 'Bot') {
+                return { analyse: false, reason: 'bot-sender' };
+              }
+
+              if (context.eventName === 'pull_request') {
+                const pr = payload.pull_request;
+                if (pr?.draft) return { analyse: false, reason: 'draft' };
+                if (EXCLUDED.includes(pr?.user?.login)) {
+                  return { analyse: false, reason: 'excluded-author' };
+                }
+                // Fail-closed fork check. A deleted fork leaves head.repo null, and
+                // a missing or mismatched head repository must be treated as a
+                // fork, never as same-repository.
+                const headRepo = pr?.head?.repo?.full_name;
+                if (!headRepo || headRepo !== payload.repository?.full_name) {
+                  return { analyse: false, reason: 'fork' };
+                }
+                return { analyse: true, reason: 'ok', pr: pr.number, command: '' };
+              }
+
+              if (context.eventName === 'issue_comment') {
+                const comment = payload.comment;
+                if (!payload.issue?.pull_request) {
+                  return { analyse: false, reason: 'not-a-pr' };
+                }
+                const body = String(comment?.body || '').trim();
+                const command = body.split(/\s+/)[0].toLowerCase();
+                if (command.length < 2 || !command.startsWith('/')) {
+                  return { analyse: false, reason: 'not-a-command' };
+                }
+                if (!ALLOWED_COMMANDS.includes(command)) {
+                  return { analyse: false, reason: 'command-not-allowed' };
+                }
+                // A command on a closed or merged pull request has nothing left
+                // to act on. Adopted with the opt-in switch on the branch head.
+                if (payload.issue?.state === 'closed') {
+                  return { analyse: false, reason: 'pr-closed' };
+                }
+                if (!ALLOWED_ASSOCIATIONS.includes(comment?.author_association)) {
+                  return { analyse: false, reason: 'author-not-allowed' };
+                }
+                // PR-Agent applies any later `--section.key=value` token as a
+                // setting after the environment, which would override the locked
+                // keys. The body is untrusted, so the check stays here as well
+                // as in the receiver.
+                if (body.split(/\s+/).slice(1).some((a) => a.startsWith('--') && a.includes('='))) {
+                  return { analyse: false, reason: 'arguments-not-allowed' };
+                }
+                return { analyse: true, reason: 'ok', pr: payload.issue.number, command };
+              }
+
+              return { analyse: false, reason: 'unsupported-event' };
+            }
+
+            const r = classify();
+            core.setOutput('analyse', String(Boolean(r.analyse)));
+            core.setOutput('reason', r.reason);
+            core.setOutput('pr', r.pr ? String(r.pr) : '');
+            core.setOutput('command', r.command || '');
+            if (!r.analyse && r.reason !== 'not-a-command') {
+              core.notice(`Qodo PR-Agent not requested: ${r.reason}`);
+            }
+
+      - name: Publish the decision for the receiver
+        if: steps.classify.outputs.analyse == 'true'
+        env:
+          PR_NUMBER: ${{ steps.classify.outputs.pr }}
+          COMMAND: ${{ steps.classify.outputs.command }}
+          REASON: ${{ steps.classify.outputs.reason }}
+        run: |
+          # A hint, not an authority. The receiver re-derives eligibility and
+          # author association from the API and ignores anything here that it
+          # cannot confirm, so a pull request author who edits this file can at
+          # worst cause a no-op receiver run.
+          jq -n \
+            --argjson pr "$PR_NUMBER" \
+            --arg command "$COMMAND" \
+            --arg reason "$REASON" \
+            '{pr: $pr, command: $command, reason: $reason}' \
+            > qodo-signal.json
+          {
+            echo "### Qodo PR-Agent request"
+            echo
+            echo '```json'
+            cat qodo-signal.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload the request hint
+        if: steps.classify.outputs.analyse == 'true'
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: qodo-pr-agent-signal
+          path: qodo-signal.json
+          if-no-files-found: error
+          retention-days: 1

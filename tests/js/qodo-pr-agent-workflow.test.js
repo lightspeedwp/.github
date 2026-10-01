@@ -1,6 +1,11 @@
 /**
  * Contract test for the Qodo PR-Agent workflows.
  *
+ * Three files, split so that a pull request author cannot reach the model key:
+ * the trigger holds the unprivileged half and publishes a hint, the pilot caller
+ * is the privileged receiver, and the reusable workflow is the organisation
+ * standard other repositories call.
+ *
  * Source of truth: .github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md
  */
 import fs from 'node:fs';
@@ -13,6 +18,7 @@ import YAML from 'yaml';
 const repoRoot = path.resolve(__dirname, '../..');
 const reusablePath = '.github/workflows/qodo-pr-agent-reusable.yml';
 const callerPath = '.github/workflows/qodo-pr-agent.yml';
+const triggerPath = '.github/workflows/qodo-pr-agent-trigger.yml';
 
 /**
  * Read and parse a workflow fixture, tolerating a missing file.
@@ -28,6 +34,7 @@ function load(relativePath) {
 
 const reusable = load(reusablePath);
 const caller = load(callerPath);
+const trigger = load(triggerPath);
 
 const ALLOWED_COMMANDS = [
   '/describe',
@@ -38,6 +45,21 @@ const ALLOWED_COMMANDS = [
   '/add_docs',
   '/help',
 ];
+
+// A same-repository, non-draft, human-authored pull request. The harness reads it
+// only to derive environment variables, so a case may replace any branch of it.
+const REPO = 'lightspeedwp/.github';
+const PR_NUMBER = 42;
+const PR_PAYLOAD = {
+  sender: { type: 'User' },
+  repository: { full_name: REPO },
+  pull_request: {
+    number: PR_NUMBER,
+    draft: false,
+    user: { login: 'maintainer' },
+    head: { repo: { full_name: REPO } },
+  },
+};
 
 /**
  * Gather steps from every job in a workflow.
@@ -70,11 +92,82 @@ function preflightScript(doc) {
 }
 
 /**
- * Execute preflight with a synthetic event and mocked Actions core.
+ * Read one step's script by its step id.
+ * @param {object} doc - Parsed workflow document.
+ * @param {string} jobName - Job that holds the step.
+ * @param {string} stepId - Step id declared on the step.
+ * @returns {string} The github-script body, or the run body.
+ */
+function stepScript(doc, jobName, stepId) {
+  const step = (doc.jobs?.[jobName]?.steps || []).find((candidate) => candidate.id === stepId);
+  return String(step?.with?.script || step?.run || '');
+}
+
+/**
+ * List the jobs whose definition mentions a token, in workflow order.
+ * @param {object} doc - Parsed workflow document.
+ * @param {string} token - Text to look for.
+ * @returns {string[]} Job names that mention the token.
+ */
+function jobsMentioning(doc, token) {
+  return Object.entries(doc.jobs || {})
+    .filter(([, job]) => JSON.stringify(job).includes(token))
+    .map(([name]) => name);
+}
+
+/**
+ * Build the environment the reusable preflight's verify step reads.
+ *
+ * The step is env-driven on purpose: it runs in a job with no environment, in a
+ * workflow whose definition came from the default branch, so the caller's request
+ * may only reach it as values. The command token is therefore derived here the
+ * way the trigger workflow's classify step derives it, and nothing else about the
+ * event is carried across.
+ * @param {object} [options] - Event, payload and explicit environment overrides.
+ * @param {string} [options.eventName] - GitHub event name the caller ran on.
+ * @param {object} [options.payload] - Event payload of that run.
+ * @param {object} [options.env] - Variables that replace the derived ones.
+ * @returns {object} Environment for the verify step.
+ */
+function preflightEnv({ eventName = 'pull_request', payload = PR_PAYLOAD, env = {} } = {}) {
+  const comment = payload.comment || {};
+  const token = String(comment.body || '')
+    .trim()
+    .split(/\s+/)[0]
+    .toLowerCase();
+  return {
+    KILL_SWITCH: 'true',
+    // A caller that already refused hands its reason over and it is not
+    // reinterpreted here.
+    CALLER_REASON: 'ok',
+    // Read in a job with no environment, so a value here can only have come from
+    // repository scope. Absent in a correctly wired pilot.
+    HAS_REPO_SECRET: 'false',
+    HAS_CREDENTIAL: 'false',
+    PR_NUMBER: String(payload.pull_request?.number ?? payload.issue?.number ?? PR_NUMBER),
+    COMMAND: token.length >= 2 && token.startsWith('/') ? token : '',
+    EXCLUDED_AUTHORS: '["dependabot[bot]","lightspeed-docs-bot[bot]"]',
+    PAYLOAD_SENDER: payload.sender?.type || 'User',
+    PAYLOAD_DRAFT: String(Boolean(payload.pull_request?.draft)),
+    PAYLOAD_HEAD_REPO:
+      eventName === 'pull_request' ? payload.pull_request?.head?.repo?.full_name || '' : '',
+    PAYLOAD_REPO: payload.repository?.full_name || REPO,
+    PAYLOAD_BODY: comment.body || '',
+    PAYLOAD_ASSOCIATION: comment.author_association || '',
+    PAYLOAD_ISSUE_STATE: payload.issue?.state || '',
+    ...env,
+  };
+}
+
+/**
+ * Execute the reusable preflight's verify step with a synthetic event.
+ *
+ * Only the verify step runs here. Its sibling, the confirm step, awaits the
+ * GitHub API and is asserted structurally in the API-confirming guard block.
  * @param {object} [options] - Event, payload and environment overrides.
  * @param {string} [options.eventName] - GitHub event name.
  * @param {object} [options.payload] - Event payload; a fixture is used when absent.
- * @param {object} [options.env] - Variables supplied to the script.
+ * @param {object} [options.env] - Variables that replace the derived ones.
  * @returns {object} Captured outputs and Actions core mock.
  */
 function runPreflight({ eventName = 'pull_request', payload, env = {} } = {}) {
@@ -86,27 +179,36 @@ function runPreflight({ eventName = 'pull_request', payload, env = {} } = {}) {
     notice: jest.fn(),
     warning: jest.fn(),
   };
-  const defaultPayload =
-    eventName === 'pull_request'
-      ? {
-          sender: { type: 'User' },
-          repository: { full_name: 'lightspeedwp/.github' },
-          pull_request: {
-            draft: false,
-            user: { login: 'maintainer' },
-            head: { repo: { full_name: 'lightspeedwp/.github' } },
-          },
-        }
-      : {
-          sender: { type: 'User' },
-          issue: { pull_request: {} },
-          comment: { body: '/review', author_association: 'OWNER' },
-        };
   vm.runInNewContext(
-    preflightScript(reusable.doc),
+    stepScript(reusable.doc, 'preflight', 'verify'),
+    { process: { env: preflightEnv({ eventName, payload, env }) }, core },
+    { timeout: 1000 }
+  );
+  return { outputs, core };
+}
+
+/**
+ * Execute the trigger workflow's classify step with a synthetic event.
+ * @param {object} [options] - Event, payload and environment overrides.
+ * @param {string} [options.eventName] - GitHub event name.
+ * @param {object} [options.payload] - Event payload; a fixture is used when absent.
+ * @param {object} [options.env] - Variables that replace the derived ones.
+ * @returns {object} Captured outputs and Actions core mock.
+ */
+function runTriggerClassify({ eventName = 'pull_request', payload, env = {} } = {}) {
+  const outputs = {};
+  const core = {
+    setOutput: jest.fn((key, value) => {
+      outputs[key] = value;
+    }),
+    notice: jest.fn(),
+    warning: jest.fn(),
+  };
+  vm.runInNewContext(
+    stepScript(trigger.doc, 'signal', 'classify'),
     {
-      context: { eventName, payload: payload || defaultPayload },
-      process: { env: { HAS_CREDENTIAL: 'true', KILL_SWITCH: 'true', ...env } },
+      context: { eventName, payload: payload || PR_PAYLOAD },
+      process: { env: { KILL_SWITCH: 'true', ...env } },
       core,
     },
     { timeout: 1000 }
@@ -124,9 +226,27 @@ describe('Qodo PR-Agent reusable workflow', () => {
   it('is a workflow_call workflow with the contracted inputs and secret', () => {
     const call = doc.on?.workflow_call;
     expect(call).toBeDefined();
-    expect(call.inputs.config_ref.default).toBe('develop');
+    expect(Object.keys(call.inputs).sort()).toStrictEqual([
+      'auto_describe',
+      'auto_improve',
+      'command',
+      'decision_reason',
+      'environment_name',
+      'excluded_authors',
+      'pr_number',
+    ]);
+    // `config_ref` is gone with it: PR-Agent's --config-branch indirection would
+    // let the ref that names the config come from the caller, and with it a
+    // repository's own .pr_agent.toml. The run job holds a constant instead.
+    expect(call.inputs.config_ref).toBeUndefined();
     expect(call.inputs.auto_describe.default).toBe(true);
     expect(call.inputs.auto_improve.default).toBe(true);
+    expect(call.inputs.pr_number.required).toBe(true);
+    expect(call.inputs.command.default).toBe('');
+    expect(call.inputs.decision_reason.default).toBe('ok');
+    // The name of the Environment holding the credential is an input, so a
+    // repository that provisions its own Environment can use this definition.
+    expect(call.inputs.environment_name.default).toBe('qodo-pr-agent');
     expect(JSON.parse(call.inputs.excluded_authors.default)).toStrictEqual([
       'dependabot[bot]',
       'lightspeed-docs-bot[bot]',
@@ -149,7 +269,9 @@ describe('Qodo PR-Agent reusable workflow', () => {
   it('uses least-privilege permissions', () => {
     expect(doc.permissions).toStrictEqual({ contents: 'read' });
     expect(doc.jobs.preflight.permissions).toStrictEqual({});
-    expect(doc.jobs.preflight['timeout-minutes']).toBe(2);
+    // Three minutes, because the confirm step makes two API calls after the
+    // env-driven one. Two was enough for a single script.
+    expect(doc.jobs.preflight['timeout-minutes']).toBe(3);
     expect(doc.jobs.run.permissions).toStrictEqual({
       contents: 'read',
       'pull-requests': 'write',
@@ -201,7 +323,10 @@ describe('Qodo PR-Agent reusable workflow', () => {
   it.each([
     ['ok', 'success', 'success'],
     ['ok', 'failure', 'failure'],
-    ['no-credential', 'skipped', 'skipped:no-credential'],
+    // `no-credential` is gone from the enum: the credential is an Environment
+    // secret, so a missing one is a deployment-policy failure that stops the run
+    // job rather than a skip. The record still maps any other reason verbatim.
+    ['credential-not-environment-scoped', 'skipped', 'skipped:credential-not-environment-scoped'],
     // A preflight job that errors leaves every output empty. Interpolating that
     // straight into the outcome produced `skipped:` — a value outside the declared
     // `skipped:<reason>` enum, which the pilot report then listed as its own row.
@@ -252,10 +377,13 @@ describe('Qodo PR-Agent reusable workflow', () => {
     expect(env['github_action_config.auto_review']).toBe('false');
     expect(env['ANTHROPIC.KEY']).toContain('secrets.model_credential');
     expect(env.GITHUB_TOKEN).toContain('secrets.GITHUB_TOKEN');
-    expect(env['CONFIG.EXTRA_CONFIG_URL']).toContain(
-      'raw.githubusercontent.com/lightspeedwp/.github/'
+    // A constant, not `inputs.config_ref`: an expression here would hand the ref
+    // that names the config to whoever controls the call, and PR-Agent would then
+    // read that ref's .pr_agent.toml.
+    expect(env['CONFIG.EXTRA_CONFIG_URL']).toBe(
+      'https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml'
     );
-    expect(env['CONFIG.EXTRA_CONFIG_URL']).toContain('inputs.config_ref');
+    expect(env['CONFIG.EXTRA_CONFIG_URL']).not.toMatch(/\$\{\{/);
     expect(JSON.parse(env['github_action_config.pr_actions'])).toStrictEqual([
       'opened',
       'reopened',
@@ -286,28 +414,45 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(script).not.toMatch(/exit 1|core\.setFailed\(/);
     });
 
-    it('enables a non-draft human PR with a credential', () => {
+    // The step reads the caller's request, never the event. Pinned so a future
+    // edit cannot reintroduce a `context.payload` read, which under workflow_run
+    // is a hint the same repository's pull request author wrote.
+    it('reads its request from the environment only', () => {
+      expect(stepScript(doc, 'preflight', 'verify')).not.toMatch(/context\.|github\.event/);
+    });
+
+    it('enables a non-draft human PR from a same-repository head', () => {
       const { outputs, core } = runPreflight();
-      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'auto' });
+      // The tool is `none` on the automatic path, not `auto`: this step
+      // sanitises its own output to an allow-listed command id, and `auto` is
+      // reserved. Only the confirm step, which has re-read the pull request
+      // through the API, may write it, and the job output prefers that verdict.
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'none' });
       expect(core.notice).not.toHaveBeenCalled();
     });
 
     it.each([
-      // PR-event skips after the kill-switch and bot checks are automatic attempts ('auto'),
-      // so the report can count them against SC-001.
       ['kill-switch', { env: { KILL_SWITCH: 'FALSE' } }, 'none'],
       ['kill-switch', { env: { KILL_SWITCH: '' } }, 'none'],
-      ['kill-switch', { env: { KILL_SWITCH: undefined } }, 'none'],
       ['kill-switch', { env: { KILL_SWITCH: 'yes' } }, 'none'],
       ['bot-sender', { payload: { sender: { type: 'Bot' } } }, 'none'],
-      ['draft', { payload: { pull_request: { draft: true } } }, 'auto'],
-      ['excluded-author', { env: { EXCLUDED_AUTHORS: '["maintainer"]' } }, 'auto'],
-      ['no-credential', { env: { HAS_CREDENTIAL: 'false' } }, 'auto'],
+      ['draft', { payload: { pull_request: { draft: true } } }, 'none'],
+      // A caller that already refused passes its own reason along rather than
+      // having it reinterpreted here, so the report names the trigger's verdict.
+      ['caller-refused', { env: { CALLER_REASON: 'draft' } }, 'none'],
+      // Replaces the old `no-credential` row. A repository-scoped credential is
+      // no longer a skip condition but the CWE-200 misconfiguration itself: this
+      // job holds no environment, so a readable secret can only be repository
+      // scope. A missing Environment secret is a hard failure in the run job
+      // instead, so it is not a reason here.
+      ['credential-not-environment-scoped', { env: { HAS_REPO_SECRET: 'true' } }, 'none'],
+      // PR-event skips are automatic attempts ('auto'), so the report can count
+      // them against SC-001.
       [
         'fork',
         {
           payload: {
-            repository: { full_name: 'lightspeedwp/.github' },
+            repository: { full_name: REPO },
             pull_request: {
               draft: false,
               user: { login: 'maintainer' },
@@ -315,21 +460,12 @@ describe('Qodo PR-Agent reusable workflow', () => {
             },
           },
         },
-        'auto',
+        'none',
       ],
     ])('skips a PR on %s without failing the check', (reason, overrides, tool) => {
-      const defaultPayload = {
-        sender: { type: 'User' },
-        repository: { full_name: 'lightspeedwp/.github' },
-        pull_request: {
-          draft: false,
-          user: { login: 'maintainer' },
-          head: { repo: { full_name: 'lightspeedwp/.github' } },
-        },
-      };
       const { outputs, core } = runPreflight({
         ...overrides,
-        payload: { ...defaultPayload, ...overrides.payload },
+        payload: { ...PR_PAYLOAD, ...(overrides.payload || {}) },
       });
       expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
       expect(core.notice).toHaveBeenCalledWith(`Qodo PR-Agent skipped: ${reason}`);
@@ -339,51 +475,84 @@ describe('Qodo PR-Agent reusable workflow', () => {
       const { outputs } = runPreflight({
         payload: {
           sender: { type: 'User' },
-          repository: { full_name: 'lightspeedwp/.github' },
+          repository: { full_name: REPO },
           pull_request: {
             draft: false,
             user: { login: 'maintainer' },
-            head: { repo: { full_name: 'lightspeedwp/.github' } },
+            head: { repo: { full_name: REPO } },
           },
         },
       });
-      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'auto' });
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'none' });
     });
 
-    // A deleted fork leaves head.repo null. The guard must treat an unknown head
-    // repository as a fork, independently of the credential check.
+    // The old payload-driven fork test was fail-closed: a deleted fork leaves
+    // head.repo null, and a null or missing head repository was a fork. The
+    // verify step no longer decides fork status from the caller's payload, because
+    // that payload is a hint rather than authority; it refuses only a head
+    // repository that contradicts the base. The fail-closed test now lives in the
+    // confirm step, which compares head against base after re-reading the pull
+    // request, and it is asserted in the API-confirming guard block.
     it.each([
       ['a null head repository', { head: { repo: null } }],
       ['a missing head key', {}],
-      ['a missing base repository', { repository: undefined, head: { repo: undefined } }],
-    ])('skips an untrusted PR with %s', (_label, override) => {
+      ['an undefined head repository', { head: { repo: undefined } }],
+    ])('defers %s to the API-confirming step', (_label, override) => {
       const { outputs } = runPreflight({
-        payload: {
-          sender: { type: 'User' },
-          repository: { full_name: 'lightspeedwp/.github' },
-          pull_request: {
-            draft: false,
-            user: { login: 'maintainer' },
-            head: { repo: { full_name: 'lightspeedwp/.github' } },
-            ...override,
-          },
-          ...(override.repository === undefined ? { repository: undefined } : {}),
-        },
+        payload: { ...PR_PAYLOAD, pull_request: { ...PR_PAYLOAD.pull_request, ...override } },
       });
-      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'fork', tool: 'auto' });
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'none' });
     });
 
     it('treats the stored key as the only credential', () => {
-      const expression = String(doc.jobs.preflight.steps[0].env.HAS_CREDENTIAL);
+      const verifyStep = doc.jobs.preflight.steps.find((step) => step.id === 'verify');
+      const expression = String(verifyStep.env.HAS_CREDENTIAL);
       expect(expression).toBe("${{ secrets.model_credential != '' }}");
     });
 
-    it('warns on malformed excluded authors and still handles a valid PR', () => {
+    // Replaces the old malformed-`excluded_authors` warning. The exclusion list
+    // is now a constant in the steps that can see the author, so a caller can
+    // neither widen the list nor break the guard with a malformed value.
+    // The input ADDS to the defaults rather than replacing them, so a malformed
+    // or absent value cannot silently re-admit a bot author.
+    // The verify step is env-driven, so the reusable's closed-pull-request case
+    // arrives as PAYLOAD_ISSUE_STATE rather than in the event context. The
+    // API-confirming step then re-checks it authoritatively via pull.state.
+    it('skips a command on a closed or merged pull request', () => {
+      const { outputs } = runPreflight({
+        eventName: 'issue_comment',
+        payload: {
+          sender: { type: 'User' },
+          issue: { pull_request: {} },
+          comment: { body: '/review', author_association: 'OWNER' },
+        },
+        env: { PAYLOAD_ISSUE_STATE: 'closed' },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'pr-closed', tool: 'review' });
+    });
+
+    it('keeps the default excluded authors when the input is malformed', () => {
       const { outputs, core } = runPreflight({ env: { EXCLUDED_AUTHORS: '[invalid' } });
-      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'auto' });
-      expect(core.warning).toHaveBeenCalledWith(
-        'excluded_authors is not valid JSON; treating it as empty.'
+      expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'none' });
+      expect(core.warning).not.toHaveBeenCalled();
+      // The verify step is env-driven and does no author filtering of its own.
+      expect(stepScript(doc, 'preflight', 'verify')).not.toContain('EXCLUDED_AUTHORS');
+      const confirm = stepScript(doc, 'preflight', 'confirm');
+      expect(confirm).toContain(
+        "const DEFAULT_EXCLUDED = ['dependabot[bot]', 'lightspeed-docs-bot[bot]']"
       );
+      // The defaults are spread in first, so the union keeps them.
+      expect(confirm).toContain('[...DEFAULT_EXCLUDED, ...extra.filter');
+      // Both fallbacks yield the defaults rather than an empty list: a
+      // non-array JSON value, and a parse failure.
+      expect(confirm.match(/(?:return|:) DEFAULT_EXCLUDED;/g)).toHaveLength(2);
+      expect(confirm).toContain("core.warning('excluded_authors is not valid JSON");
+    });
+
+    it('lets a valid excluded_authors input add an author', () => {
+      const confirm = stepScript(doc, 'preflight', 'confirm');
+      expect(confirm).toContain('JSON.parse(process.env.EXCLUDED_AUTHORS');
+      expect(confirm).toContain('EXCLUDED.includes(pull.user?.login)');
     });
 
     it.each(ALLOWED_COMMANDS)('enables authorised maintainer command %s', (command) => {
@@ -400,25 +569,11 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: command.slice(1) });
     });
 
-    // Five reasons never reach a parsed command — kill-switch, bot-sender,
-    // not-a-pr, not-a-command and unsupported-event — so they carry no tool.
-    // Every other reason names the requested tool, but only when the command is
-    // on the allow list: the comment body is untrusted, so a refused request
-    // must not be able to write an arbitrary value into the pilot report.
+    // Only two of the four reasons this step used to produce survive here. The
+    // other two, `not-a-pr` and `not-a-command`, are decided by the trigger's
+    // classify step, because the receiver only ever sees a request the trigger
+    // published; both are asserted in the trigger workflow block.
     it.each([
-      [
-        'not-a-pr',
-        'none',
-        { issue: {}, comment: { body: '/review', author_association: 'OWNER' } },
-      ],
-      [
-        'not-a-command',
-        'none',
-        {
-          issue: { pull_request: {} },
-          comment: { body: 'ordinary comment', author_association: 'OWNER' },
-        },
-      ],
       [
         'author-not-allowed',
         'review',
@@ -438,16 +593,16 @@ describe('Qodo PR-Agent reusable workflow', () => {
     ])('rejects issue comments with reason %s and tool %s', (reason, tool, payload) => {
       const { outputs, core } = runPreflight({ eventName: 'issue_comment', payload });
       expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
-      expect(core.notice).toHaveBeenCalledTimes(reason === 'not-a-command' ? 0 : 1);
+      expect(core.notice).toHaveBeenCalledWith(`Qodo PR-Agent skipped: ${reason}`);
     });
 
     // The comment body is untrusted input. These pin the boundaries that stop a
     // refused request writing an unrecognised or reserved value into the report.
+    // A one-character token is not among them: the trigger refuses `/` and
+    // `  /  extra` as `not-a-command` before publishing anything, so this step
+    // never sees a command token that is not on the allow-list. Both are asserted
+    // in the trigger workflow block.
     it.each([
-      // The association check runs first, so a non-allow-listed command from an
-      // unauthorised author stops there; OWNER is used to reach the allow list.
-      ['a bare slash', 'OWNER', '/', 'not-a-command', 'none'],
-      ['a slash with trailing text', 'OWNER', '  /  extra', 'not-a-command', 'none'],
       ['an attempt to forge the auto sentinel', 'OWNER', '/auto', 'command-not-allowed', 'none'],
       ['an attempt to forge the none sentinel', 'OWNER', '/none', 'command-not-allowed', 'none'],
       [
@@ -461,7 +616,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
         'a non-allow-listed command from an unauthorised author',
         'CONTRIBUTOR',
         '/auto',
-        'author-not-allowed',
+        'command-not-allowed',
         'none',
       ],
     ])('refuses %s without leaking a tool value', (_label, association, body, reason, tool) => {
@@ -475,24 +630,6 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(outputs).toStrictEqual({ enabled: 'false', reason, tool });
     });
 
-    // PR-Agent applies later `--section.key=value` tokens as settings, which would
-    // bypass the locked keys, so preflight refuses them for every command.
-    it.each([
-      ['/review --config.model=gpt-4o', 'review'],
-      ['/ask why? --pr_description.publish_description_as_comment=false', 'ask'],
-      ['/describe\n--config.response_language=fr', 'describe'],
-    ])('refuses setting arguments in %j', (body, tool) => {
-      const { outputs, core } = runPreflight({
-        eventName: 'issue_comment',
-        payload: {
-          issue: { pull_request: {} },
-          comment: { body, author_association: 'OWNER' },
-        },
-      });
-      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'arguments-not-allowed', tool });
-      expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent skipped: arguments-not-allowed');
-    });
-
     it('still accepts a question that mentions a flag without a value', () => {
       const { outputs } = runPreflight({
         eventName: 'issue_comment',
@@ -504,14 +641,6 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'ask' });
     });
 
-    it('rejects authorised commands when the credential is missing', () => {
-      const { outputs } = runPreflight({
-        eventName: 'issue_comment',
-        env: { HAS_CREDENTIAL: 'false' },
-      });
-      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'no-credential', tool: 'review' });
-    });
-
     it.each(['OWNER', 'MEMBER', 'COLLABORATOR'])(
       'accepts a command from %s on a fork PR in the base repository context',
       (association) => {
@@ -519,7 +648,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
           eventName: 'issue_comment',
           payload: {
             sender: { type: 'User' },
-            repository: { full_name: 'lightspeedwp/.github' },
+            repository: { full_name: REPO },
             issue: {
               pull_request: { url: 'https://api.github.com/repos/lightspeedwp/.github/pulls/42' },
             },
@@ -531,6 +660,10 @@ describe('Qodo PR-Agent reusable workflow', () => {
       }
     );
 
+    // An association this step was given and does not recognise stops the run
+    // here. A missing one cannot: the caller's payload is a hint, so the verdict
+    // belongs to the confirm step, which re-reads the comment and requires the
+    // association to be in the allow list.
     it.each(['NONE', 'FIRST_TIMER', 'FIRST_TIME_CONTRIBUTOR', undefined])(
       'denies a recognised command from an unauthorised association: %s',
       (association) => {
@@ -541,12 +674,14 @@ describe('Qodo PR-Agent reusable workflow', () => {
             comment: { body: '/review', author_association: association },
           },
         });
-        expect(outputs).toStrictEqual({
-          enabled: 'false',
-          reason: 'author-not-allowed',
-          tool: 'review',
-        });
-        expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent skipped: author-not-allowed');
+        const expected =
+          association === undefined
+            ? { enabled: 'true', reason: 'ok', tool: 'review' }
+            : { enabled: 'false', reason: 'author-not-allowed', tool: 'review' };
+        expect(outputs).toStrictEqual(expected);
+        if (association !== undefined) {
+          expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent skipped: author-not-allowed');
+        }
       }
     );
 
@@ -583,38 +718,123 @@ describe('Qodo PR-Agent reusable workflow', () => {
       });
       expect(outputs).toStrictEqual({ enabled: 'false', reason, tool: 'none' });
     });
+  });
 
-    it('skips a command on a closed or merged pull request', () => {
-      const { outputs } = runPreflight({
-        eventName: 'issue_comment',
-        payload: {
-          sender: { type: 'User' },
-          issue: { pull_request: {}, state: 'closed' },
-          comment: { body: '/review', author_association: 'OWNER' },
-        },
-      });
-      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'pr-closed', tool: 'review' });
+  // The confirm step awaits the GitHub API, so the vm harness cannot run it. Its
+  // structure is what matters: it is the second, independent gate, and it must
+  // re-derive every eligibility fact the caller's hint claimed.
+  describe('API-confirming guard', () => {
+    const script = stepScript(doc, 'preflight', 'confirm');
+    const step = doc.jobs.preflight.steps.find((candidate) => candidate.id === 'confirm');
+
+    it('runs only when the env-driven step enabled the request', () => {
+      expect(step.if).toBe("steps.verify.outputs.enabled == 'true'");
+      // The confirm verdict wins wherever it exists, so a skip is attributed to
+      // the reason the API gave rather than to the hint's.
+      for (const name of ['enabled', 'reason', 'tool']) {
+        expect(doc.jobs.preflight.outputs[name]).toBe(
+          '${{ steps.confirm.outputs.' + name + ' || steps.verify.outputs.' + name + ' }}'
+        );
+      }
     });
 
-    it.each(['', '  ', 'Please /review this PR', '> /review'])(
-      'ignores an ordinary comment without emitting a skip notice: %j',
-      (body) => {
-        const { outputs, core } = runPreflight({
-          eventName: 'issue_comment',
-          payload: { issue: { pull_request: {} }, comment: { body, author_association: 'OWNER' } },
-        });
-        expect(outputs).toStrictEqual({ enabled: 'false', reason: 'not-a-command', tool: 'none' });
-        expect(core.notice).not.toHaveBeenCalled();
-      }
-    );
+    it('re-reads the pull request and re-checks draft, author and fork status', () => {
+      expect(script).toContain('github.rest.pulls.get');
+      expect(script).toContain("if (pull.state !== 'open') return refuse('pr-not-open')");
+      expect(script).toContain("if (pull.draft) return refuse('draft')");
+      expect(script).toContain(
+        "if (EXCLUDED.includes(pull.user?.login)) return refuse('excluded-author')"
+      );
+      // Fail-closed: only an identical head and base is same-repository, so a
+      // deleted fork, whose head repository is null, is a fork.
+      expect(script).toContain('pull.head?.repo?.full_name !== pull.base?.repo?.full_name');
+    });
 
-    it('skips unsupported events rather than running a tool', () => {
-      const { outputs } = runPreflight({ eventName: 'push' });
-      expect(outputs).toStrictEqual({
-        enabled: 'false',
-        reason: 'unsupported-event',
-        tool: 'none',
-      });
+    it('re-validates the command against the allow-list', () => {
+      for (const command of ALLOWED_COMMANDS) {
+        expect(script).toContain(`'${command}'`);
+      }
+      expect(script).toContain(
+        "if (!ALLOWED_COMMANDS.includes(command)) return refuse('command-not-allowed')"
+      );
+    });
+
+    it('re-reads the comments and re-checks the author association', () => {
+      expect(script).toContain('github.paginate(github.rest.issues.listComments');
+      expect(script).toContain("if (!match) return refuse('no-matching-comment')");
+      expect(script).toContain('match.author_association');
+      expect(script).toContain("return refuse('author-not-allowed', command.slice(1))");
+    });
+
+    // PR-Agent applies a later `--section.key=value` token as a setting after the
+    // environment, which would override the locked keys, so the arguments of the
+    // re-read comment are refused as well as its command.
+    it('refuses setting arguments in the re-read comment', () => {
+      expect(script).toContain("return refuse('arguments-not-allowed', command.slice(1))");
+      expect(script).toMatch(/a\.startsWith\('--'\) && a\.includes\('='\)/);
+    });
+
+    it('cannot reach the credential or the event from this step', () => {
+      expect(JSON.stringify(step)).not.toContain('secrets.');
+      // Only `context.repo` is read, for the API owner and name. No event data
+      // reaches this step, so a forged hint cannot steer it.
+      expect(script).not.toMatch(/context\.payload|github\.event/);
+    });
+  });
+
+  describe('environment-gated credential', () => {
+    it('declares the environment on the job that reads the key', () => {
+      expect(doc.jobs.run.environment).toBe("${{ inputs.environment_name || 'qodo-pr-agent' }}");
+    });
+
+    it('hands the key to a step only from that job', () => {
+      // preflight references the name twice, both as a `!= ''` probe in a job with
+      // no environment: that is how a repository-scoped copy is caught, and the
+      // value never reaches a step.
+      expect(doc.jobs.preflight.environment).toBeUndefined();
+      const references =
+        JSON.stringify(doc.jobs.preflight).match(/secrets\.model_credential[^}]*/g) || [];
+      for (const reference of references) {
+        expect(reference.trim()).toBe("secrets.model_credential != ''");
+      }
+      expect(jobsMentioning(doc, 'secrets.model_credential }}')).toStrictEqual(['run']);
+    });
+
+    // Replaces the old `no-credential` skip. The credential is an Environment
+    // secret, so a missing one means the deployment branch policy refused this
+    // ref. That must stop the run rather than quietly skip it, because a skipped
+    // run looks identical to a pull request that was never eligible.
+    it('fails closed when the Environment did not release the key', () => {
+      const step = doc.jobs.run.steps.find((candidate) =>
+        String(candidate.name || '').startsWith('Fail closed')
+      );
+      expect(step.env.HAS_CREDENTIAL).toBe("${{ secrets.model_credential != '' }}");
+      const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'qodo-credential-test-'));
+      try {
+        const run = (credential) =>
+          spawnSync('bash', ['-e', '-c', step.run], {
+            cwd: directory,
+            encoding: 'utf8',
+            timeout: 10000,
+            env: {
+              ...process.env,
+              HAS_CREDENTIAL: credential,
+              GITHUB_REF: 'refs/pull/3532/merge',
+            },
+          });
+        const released = run('true');
+        expect(released.status).toBe(0);
+        const withheld = run('false');
+        expect({
+          status: withheld.status,
+          namesTheEnvironment: withheld.stdout.includes(
+            '::error::The qodo-pr-agent Environment did not release model_credential.'
+          ),
+          namesTheRef: withheld.stdout.includes('refs/pull/3532/merge'),
+        }).toStrictEqual({ status: 1, namesTheEnvironment: true, namesTheRef: true });
+      } finally {
+        fs.rmSync(directory, { recursive: true, force: true });
+      }
     });
   });
 
@@ -727,11 +947,59 @@ describe('Qodo PR-Agent reusable workflow', () => {
   });
 });
 
-describe('Qodo PR-Agent pilot caller workflow', () => {
-  const { doc, raw } = caller;
+describe('Qodo PR-Agent trigger workflow', () => {
+  const { doc, raw } = trigger;
 
   it('exists', () => {
     expect(raw.length).toBeGreaterThan(0);
+  });
+
+  // The whole split rests on this file being unable to see the key. Structural
+  // rather than a text search: the comments explain at length why it must stay
+  // unprivileged, so what matters is the definition GitHub reads.
+  it('holds no secret and grants no write scope', () => {
+    expect(JSON.stringify(doc)).not.toContain('secrets');
+    expect(doc.permissions).toStrictEqual({ contents: 'read' });
+    for (const [name, job] of Object.entries(doc.jobs)) {
+      expect({ job: name, permissions: job.permissions }).toStrictEqual({
+        job: name,
+        permissions: {},
+      });
+    }
+    for (const scope of [doc, ...Object.values(doc.jobs)]) {
+      for (const [scopeName, value] of Object.entries(scope.permissions || {})) {
+        expect({ scope: scopeName, value }).not.toBe('write');
+      }
+    }
+  });
+
+  it('classifies the event with no environment of its own', () => {
+    const step = doc.jobs.signal.steps.find((candidate) => candidate.id === 'classify');
+    expect(step.uses).toMatch(/^actions\/github-script@[a-f0-9]{40}$/);
+    expect(Object.keys(step.env)).toStrictEqual(['KILL_SWITCH']);
+    expect(doc.jobs.signal.environment).toBeUndefined();
+  });
+
+  // The hint is a request, not an authority: it is written from step outputs only,
+  // so a pull request author who edits this file can put no field of their own
+  // into it, and both receivers re-derive eligibility from the API.
+  it('publishes a request hint that is only a request', () => {
+    const publish = doc.jobs.signal.steps.find((candidate) =>
+      String(candidate.name || '').startsWith('Publish the decision')
+    );
+    expect(publish.if).toBe("steps.classify.outputs.analyse == 'true'");
+    expect(publish.run).toContain('--argjson pr "$PR_NUMBER"');
+    expect(publish.env).toStrictEqual({
+      PR_NUMBER: '${{ steps.classify.outputs.pr }}',
+      COMMAND: '${{ steps.classify.outputs.command }}',
+      REASON: '${{ steps.classify.outputs.reason }}',
+    });
+    expect(publish.run).not.toMatch(/github\.event|event_name|head_ref/);
+    const upload = doc.jobs.signal.steps.find(
+      (candidate) => candidate.with?.name === 'qodo-pr-agent-signal'
+    );
+    expect(upload.if).toBe("steps.classify.outputs.analyse == 'true'");
+    expect(upload.with['if-no-files-found']).toBe('error');
   });
 
   it('triggers only on the contracted events', () => {
@@ -742,39 +1010,517 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
     expect(raw).not.toMatch(/synchronize/);
   });
 
-  // The local `./` reference stays until the reusable workflow exists on a trusted
-  // ref; a SHA pin is impossible before that. Tracked in docs/QODO_PR_AGENT.md.
-  it('calls the local reusable workflow with the dedicated credential', () => {
-    const jobs = Object.values(doc.jobs);
-    expect(jobs).toHaveLength(1);
-    const [job] = jobs;
-    expect(job.uses).toBe('./.github/workflows/qodo-pr-agent-reusable.yml');
-    expect(job.secrets.model_credential).toBe('${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}');
-    expect(job.permissions).toStrictEqual({
-      contents: 'read',
-      'pull-requests': 'write',
-      issues: 'write',
+  // These verdicts live here and nowhere else now. The receivers only ever see a
+  // request this step published, so a comment that is not an allow-listed command
+  // on a pull request never reaches them at all.
+  describe('classify step', () => {
+    it('enables a non-draft human PR and names its number', () => {
+      const { outputs } = runTriggerClassify();
+      expect(outputs).toStrictEqual({
+        analyse: 'true',
+        reason: 'ok',
+        pr: String(PR_NUMBER),
+        command: '',
+      });
     });
+
+    it.each([
+      ['the kill-switch', 'kill-switch', { env: { KILL_SWITCH: 'false' } }],
+      ['a bot sender', 'bot-sender', { payload: { sender: { type: 'Bot' } } }],
+      [
+        'a draft pull request',
+        'draft',
+        { payload: { pull_request: { ...PR_PAYLOAD.pull_request, draft: true } } },
+      ],
+      [
+        'an excluded author',
+        'excluded-author',
+        {
+          payload: {
+            pull_request: { ...PR_PAYLOAD.pull_request, user: { login: 'dependabot[bot]' } },
+          },
+        },
+      ],
+      [
+        'a fork head',
+        'fork',
+        {
+          payload: {
+            pull_request: {
+              ...PR_PAYLOAD.pull_request,
+              head: { repo: { full_name: 'someone/.github' } },
+            },
+          },
+        },
+      ],
+      [
+        'a deleted fork',
+        'fork',
+        { payload: { pull_request: { ...PR_PAYLOAD.pull_request, head: { repo: null } } } },
+      ],
+    ])('refuses a pull request from %s', (_label, reason, overrides) => {
+      const { outputs, core } = runTriggerClassify({
+        ...overrides,
+        payload: { ...PR_PAYLOAD, ...(overrides.payload || {}) },
+      });
+      expect(outputs).toStrictEqual({ analyse: 'false', reason, pr: '', command: '' });
+      expect(core.notice).toHaveBeenCalledWith(`Qodo PR-Agent not requested: ${reason}`);
+    });
+
+    it.each([
+      [
+        'not-a-pr',
+        { issue: { number: PR_NUMBER }, comment: { body: '/review', author_association: 'OWNER' } },
+      ],
+      [
+        'not-a-command',
+        {
+          issue: { pull_request: {} },
+          comment: { body: 'ordinary comment', author_association: 'OWNER' },
+        },
+      ],
+    ])('refuses an issue comment with reason %s and publishes no request', (reason, payload) => {
+      const { outputs, core } = runTriggerClassify({ eventName: 'issue_comment', payload });
+      expect(outputs).toStrictEqual({ analyse: 'false', reason, pr: '', command: '' });
+      expect(core.notice).toHaveBeenCalledTimes(reason === 'not-a-command' ? 0 : 1);
+    });
+
+    // A one-character token is not a command. The receivers only ever see
+    // allow-listed commands, so this refusal happens before anything is published.
+    it.each(['/', '  /  extra'])('refuses the bare token %j as not-a-command', (body) => {
+      const { outputs, core } = runTriggerClassify({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: {} },
+          comment: { body, author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({
+        analyse: 'false',
+        reason: 'not-a-command',
+        pr: '',
+        command: '',
+      });
+      expect(core.notice).not.toHaveBeenCalled();
+    });
+
+    it.each(['/generate_labels', '/reviewer', '/review;echo'])(
+      'refuses the non-allow-listed command %s',
+      (body) => {
+        const { outputs, core } = runTriggerClassify({
+          eventName: 'issue_comment',
+          payload: {
+            issue: { pull_request: {} },
+            comment: { body, author_association: 'OWNER' },
+          },
+        });
+        expect(outputs).toStrictEqual({
+          analyse: 'false',
+          reason: 'command-not-allowed',
+          pr: '',
+          command: '',
+        });
+        expect(core.notice).toHaveBeenCalledWith(
+          'Qodo PR-Agent not requested: command-not-allowed'
+        );
+      }
+    );
+
+    it('refuses a command from an unauthorised commenter without publishing it', () => {
+      const { outputs, core } = runTriggerClassify({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: {} },
+          comment: { body: '/review', author_association: 'CONTRIBUTOR' },
+        },
+      });
+      expect(outputs).toStrictEqual({
+        analyse: 'false',
+        reason: 'author-not-allowed',
+        pr: '',
+        command: '',
+      });
+      expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent not requested: author-not-allowed');
+    });
+
+    // PR-Agent applies a later `--section.key=value` token as a setting after the
+    // environment, which would override the locked keys, so the untrusted body is
+    // refused here as well as in both receivers.
+    it.each([
+      '/review --config.model=gpt-4o',
+      '/ask why? --pr_description.publish_description_as_comment=false',
+      '/describe\n--config.response_language=fr',
+    ])('refuses setting arguments in %j', (body) => {
+      const { outputs, core } = runTriggerClassify({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: { number: PR_NUMBER } },
+          comment: { body, author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({
+        analyse: 'false',
+        reason: 'arguments-not-allowed',
+        pr: '',
+        command: '',
+      });
+      expect(core.notice).toHaveBeenCalledWith(
+        'Qodo PR-Agent not requested: arguments-not-allowed'
+      );
+    });
+
+    it('accepts a question that mentions a flag without a value', () => {
+      const { outputs } = runTriggerClassify({
+        eventName: 'issue_comment',
+        payload: {
+          issue: { pull_request: {}, number: PR_NUMBER },
+          comment: { body: '/ask What does --verbose do here?', author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({
+        analyse: 'true',
+        reason: 'ok',
+        pr: String(PR_NUMBER),
+        command: '/ask',
+      });
+    });
+
+    it('skips a command on a closed or merged pull request', () => {
+      const { outputs } = runTriggerClassify({
+        eventName: 'issue_comment',
+        payload: {
+          sender: { type: 'User' },
+          issue: { pull_request: {}, state: 'closed' },
+          comment: { body: '/review', author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({
+        analyse: 'false',
+        reason: 'pr-closed',
+        pr: '',
+        command: '',
+      });
+    });
+
+    it.each(['', '  ', 'Please /review this PR', '> /review'])(
+      'ignores an ordinary comment without emitting a skip notice: %j',
+      (body) => {
+        const { outputs, core } = runTriggerClassify({
+          eventName: 'issue_comment',
+          payload: {
+            issue: { pull_request: {} },
+            comment: { body, author_association: 'OWNER' },
+          },
+        });
+        expect(outputs).toStrictEqual({
+          analyse: 'false',
+          reason: 'not-a-command',
+          pr: '',
+          command: '',
+        });
+        expect(core.notice).not.toHaveBeenCalled();
+      }
+    );
+
+    it('refuses an unsupported event rather than publishing a request', () => {
+      const { outputs } = runTriggerClassify({ eventName: 'push' });
+      expect(outputs).toStrictEqual({
+        analyse: 'false',
+        reason: 'unsupported-event',
+        pr: '',
+        command: '',
+      });
+    });
+  });
+});
+
+describe('Qodo PR-Agent pilot caller workflow', () => {
+  const { doc, raw } = caller;
+
+  it('exists', () => {
+    expect(raw.length).toBeGreaterThan(0);
+  });
+
+  // Under `pull_request` GitHub evaluates the definition from the PR merge commit
+  // and passes repository secrets to that run, which is the CWE-200 finding. Only
+  // `workflow_run` and `workflow_dispatch` are resolved against the default
+  // branch, so they are the only triggers the key may hang off.
+  it('triggers only on default-branch events', () => {
+    expect(Object.keys(doc.on).sort()).toStrictEqual(['workflow_dispatch', 'workflow_run']);
+    expect(doc.on.workflow_run).toStrictEqual({
+      workflows: ['Qodo PR-Agent • Trigger'],
+      types: ['completed'],
+    });
+    expect(doc.on.workflow_dispatch.inputs.pr.required).toBe(true);
+    expect(doc.on.workflow_dispatch.inputs.command.default).toBe('');
+    expect(doc.on.pull_request).toBeUndefined();
+    expect(doc.on.pull_request_target).toBeUndefined();
+    expect(doc.on.issue_comment).toBeUndefined();
+    expect(doc.on.push).toBeUndefined();
+    expect(raw).not.toMatch(/synchronize/);
+  });
+
+  // Replaces the old `uses:` call. A workflow_call job cannot declare an
+  // environment of its own, so the privileged half is inlined and the Environment
+  // is declared on the job that reads the key.
+  it('inlines the privileged run behind the qodo-pr-agent environment', () => {
+    expect(Object.values(doc.jobs).some((job) => job.uses)).toBe(false);
+    expect(doc.jobs.run.environment).toStrictEqual({ name: 'qodo-pr-agent' });
+    expect(doc.jobs.run.needs).toBe('preflight');
+    expect(doc.jobs.run.if).toBe("needs.preflight.outputs.enabled == 'true'");
+    // The credential is named by nothing but the run job, so the deciding job
+    // cannot read it even when the run came from a fork's pull request. The
+    // receiver is not a workflow_call, so it names the environment secret
+    // literally rather than receiving a `secrets:` mapping.
+    expect(jobsMentioning(doc, 'secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT')).toStrictEqual(['run']);
+    expect(jobsMentioning(doc, 'secrets.model_credential')).toStrictEqual([]);
     expect(doc.permissions).toStrictEqual({ contents: 'read' });
+    // Enough to download the trigger's artifact, and nothing more.
+    expect(doc.jobs.preflight.permissions).toStrictEqual({ actions: 'read' });
+    expect(doc.jobs.record.permissions).toStrictEqual({});
+  });
+
+  // The artifact is downloaded and parsed as data, and every field it claims is
+  // re-derived from the API. A pull request author who edits the trigger can at
+  // worst cause this run to disagree with itself, which skips the run.
+  it('treats the request hint as a hint and re-derives it from the API', () => {
+    // Downloaded with the pinned action, so extraction is a reviewed
+    // dependency rather than a require() of whatever the runner bundles.
+    const download = (doc.jobs.preflight.steps || []).find((s) => s.id === 'download');
+    expect(download.uses).toBe(
+      'actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c'
+    );
+    expect(download.with.name).toBe('qodo-pr-agent-signal');
+    expect(download.with['run-id']).toContain('github.event.workflow_run.id');
+    // A missing hint is a skip, not a failure, so the download must not go red.
+    expect(download['continue-on-error']).toBe(true);
+
+    const script = stepScript(doc, 'preflight', 'hint');
+    // A failed or absent download is a plain skip.
+    expect(script).toContain('DOWNLOAD_OUTCOME');
+    expect(script).toContain("return out('no-request')");
+    // Parsed as data from disk, never executed.
+    expect(script).toContain('JSON.parse(fs.readFileSync');
+    expect(script).toContain("return out('unreadable-request')");
+    // Every fact is re-derived: the PR itself, and the comment and its author.
+    expect(script).toContain('github.rest.pulls.get');
+    expect(script).toContain('github.paginate(github.rest.issues.listComments');
+    expect(script).toContain('match.author_association');
+    expect(script).toContain("return out('arguments-not-allowed')");
+    // The triggering run must be one of ours, from this repository, or the
+    // receiver refuses it as a fork.
+    expect(script).toContain("return out('fork')");
+  });
+
+  it('binds the run to the pull request and head the trigger saw', () => {
+    // A hint is only usable if it names the pull request the triggering run was
+    // for, at the head that run observed. Otherwise a stale or forged hint
+    // points a successful trigger at an unrelated or already-pushed pull request.
+    const env = (doc.jobs.preflight.steps || []).find((s) => s.id === 'hint').env;
+    expect(env.TRIGGER_PR).toContain('github.event.workflow_run.pull_requests[0].number');
+    const script = stepScript(doc, 'preflight', 'hint');
+    expect(script).toContain('hint-does-not-match-trigger');
+    expect(script).toContain('pull.head?.sha !== context.payload.workflow_run.head_sha');
+    expect(script).toContain('trigger-head-superseded');
+    // A closed pull request is not analysed on a stale trigger either.
+    expect(script).toContain("return out('pr-not-open')");
+  });
+
+  it('reads the triggering run event, not its own', () => {
+    // Under workflow_run, github.event_name is 'workflow_run'. Reading it here
+    // would make every automatic run look like an unsupported trigger.
+    const env = (doc.jobs.preflight.steps || []).find((s) => s.id === 'hint').env;
+    expect(env.TRIGGER_EVENT).toContain('github.event.workflow_run.event');
+    expect(env.TRIGGER_EVENT).not.toContain('${{ github.event_name }}');
   });
 
   it('grants no OIDC capability and passes no federation input', () => {
-    const [job] = Object.values(doc.jobs);
-    expect(job.permissions).not.toHaveProperty('id-token');
-    expect(job.with).toBeUndefined();
+    for (const job of Object.values(doc.jobs)) {
+      expect(job.permissions).not.toHaveProperty('id-token');
+      expect(job.with).toBeUndefined();
+    }
     // Structural, not a text search: the workflows still explain in comments why
     // federation is absent, so the guarantee is about what the jobs can actually do.
-    for (const job_ of [doc, reusable.doc]) {
-      for (const scope of [job_, ...Object.values(job_.jobs || {})]) {
+    for (const workflowDoc of [doc, reusable.doc, trigger.doc]) {
+      for (const scope of [workflowDoc, ...Object.values(workflowDoc.jobs || {})]) {
         expect(scope.permissions || {}).not.toHaveProperty('id-token');
       }
-      for (const input of Object.keys(job_.on?.workflow_call?.inputs || {})) {
+      for (const input of Object.keys(workflowDoc.on?.workflow_call?.inputs || {})) {
         expect(input).not.toMatch(/federation|organization_id|service_account_id|workspace_id/);
       }
     }
-    const serialised = JSON.stringify(reusable.doc);
-    for (const token of ['getIDToken', 'v1/oauth/token', 'federation_rule_id', 'id-token']) {
+    const serialised = JSON.stringify([doc, reusable.doc, trigger.doc]);
+    for (const token of [
+      'getIDToken',
+      'v1/oauth_token',
+      'v1/oauth/token',
+      'federation_rule_id',
+      'id-token',
+    ]) {
       expect(serialised).not.toContain(token);
     }
+  });
+});
+
+/**
+ * The properties that keep the model key out of a pull request author's reach.
+ * They span all three files, so they are asserted together: a change that
+ * satisfies one workflow while breaking another has to fail here.
+ */
+describe('Qodo PR-Agent secret boundary', () => {
+  it('reaches the key only from an environment-gated run job', () => {
+    // The two workflows name the key differently, and both names are correct.
+    // The reusable workflow is a workflow_call, so it receives it as a declared
+    // `secrets:` input. The receiver inlines its privileged run rather than
+    // calling the reusable workflow, so it has no mapping to inherit and names
+    // the environment secret directly. What matters is the same in both: exactly
+    // one job declares the environment, and it is the only job that can read the
+    // value.
+    for (const [name, workflowDoc, secretRef] of [
+      ['reusable', reusable.doc, 'secrets.model_credential'],
+      ['caller', caller.doc, 'secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT'],
+    ]) {
+      const gated = Object.entries(workflowDoc.jobs)
+        .filter(([, job]) => job.environment)
+        .map(([jobName]) => jobName);
+      expect({ workflow: name, gatedJobs: gated }).toStrictEqual({
+        workflow: name,
+        gatedJobs: ['run'],
+      });
+      // Anywhere else, the name may only appear as the `!= ''` probe that proves
+      // the credential is not repository-scoped. The value is passed on from the
+      // run job alone.
+      for (const [jobName, job] of Object.entries(workflowDoc.jobs)) {
+        if (jobName === 'run') continue;
+        const escaped = secretRef.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const references = JSON.stringify(job).match(new RegExp(`${escaped}[^}]*`, 'g')) || [];
+        for (const reference of references) {
+          expect({ workflow: name, job: jobName, reference: reference.trim() }).toStrictEqual({
+            workflow: name,
+            job: jobName,
+            reference: `${secretRef} != ''`,
+          });
+        }
+      }
+      expect({
+        workflow: name,
+        reads: jobsMentioning(workflowDoc, `${secretRef} }}`),
+      }).toStrictEqual({ workflow: name, reads: ['run'] });
+    }
+  });
+
+  it('reads the environment secret by name in the receiver, not a workflow_call mapping', () => {
+    // A receiver that `uses:` the reusable workflow would receive the key as a
+    // declared secret. It does not, so the name must appear literally, or the
+    // key resolves to nothing and the run fails closed on every pull request.
+    const run = caller.doc.jobs.run;
+    expect(JSON.stringify(run)).toContain('secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT');
+    expect(caller.doc.on?.workflow_call).toBeUndefined();
+    // The reusable workflow keeps the declared-secret form, since it is called.
+    expect(reusable.doc.on.workflow_call.secrets.model_credential).toBeDefined();
+  });
+
+  it('grants no OIDC capability in any of the three workflows', () => {
+    for (const [name, workflow] of [
+      ['trigger', trigger],
+      ['reusable', reusable],
+      ['caller', caller],
+    ]) {
+      for (const scope of [workflow.doc, ...Object.values(workflow.doc.jobs || {})]) {
+        expect(Object.keys(scope.permissions || {})).not.toContain('id-token');
+      }
+      expect({
+        workflow: name,
+        namesIt: JSON.stringify(workflow.doc).includes('id-token'),
+      }).toStrictEqual({ workflow: name, namesIt: false });
+    }
+  });
+
+  // PR-Agent reads `.pr_agent.toml` from the ref named by the config URL, so an
+  // expression there would hand that ref to the caller and let a pull request
+  // supply its own configuration. Both privileged workflows hold the same literal.
+  it('loads the Qodo config from a constant develop URL in both run jobs', () => {
+    const constant =
+      'https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml';
+    for (const [name, workflowDoc] of [
+      ['reusable', reusable.doc],
+      ['caller', caller.doc],
+    ]) {
+      const url = qodoStep(workflowDoc).env['CONFIG.EXTRA_CONFIG_URL'];
+      expect({ workflow: name, url, derived: /\$\{\{/.test(url) }).toStrictEqual({
+        workflow: name,
+        url: constant,
+        derived: false,
+      });
+    }
+  });
+
+  it('treats the trigger artifact as a hint in both receivers', () => {
+    for (const [name, job] of [
+      ['caller', caller.doc.jobs.preflight],
+      ['reusable', reusable.doc.jobs.preflight],
+    ]) {
+      const serialised = JSON.stringify(job);
+      expect({
+        receiver: name,
+        readsPullRequest: serialised.includes('github.rest.pulls.get'),
+        readsComments: serialised.includes('github.rest.issues.listComments'),
+        hasEnvironment: job.environment !== undefined,
+      }).toStrictEqual({
+        receiver: name,
+        readsPullRequest: true,
+        readsComments: true,
+        hasEnvironment: false,
+      });
+    }
+  });
+
+  it('states the split contract in the specification, not the superseded one', () => {
+    const contract = fs.readFileSync(
+      path.join(
+        repoRoot,
+        '.github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md'
+      ),
+      'utf8'
+    );
+    // One label per clause, so a failure says which one drifted. The superseded
+    // clauses are matched on the table rows that declared them, not on the words
+    // alone: the updated document may name a removed input while explaining why
+    // it went, and that must not read as a live requirement.
+    expect({
+      namesPrivilegedReceiver: contract.includes('workflow_run'),
+      namesUnprivilegedTrigger:
+        contract.includes('pull_request') && contract.includes('issue_comment'),
+      namesTheTriggerWorkflow: contract.includes('qodo-pr-agent-trigger.yml'),
+      namesTheConstantDevelopConfigUrl: contract.includes('develop/.pr_agent.toml'),
+      namesTheEnvironmentSecret: contract.includes('qodo-pr-agent'),
+      forbidsCheckout: contract.includes('actions/checkout'),
+      stillDeclaresAConfigRefInput: /^\|\s*`config_ref`\s*\|/m.test(contract),
+      stillBuildsTheConfigUrlFromAnInput: /^\|\s*`CONFIG\.EXTRA_CONFIG_URL`\s*\|.*\$\{\{/m.test(
+        contract
+      ),
+      stillDocumentsTheNoCredentialSkip: /^\|\s*`model_credential`\s*\|.*no-credential/m.test(
+        contract
+      ),
+    }).toStrictEqual({
+      namesPrivilegedReceiver: true,
+      namesUnprivilegedTrigger: true,
+      namesTheTriggerWorkflow: true,
+      namesTheConstantDevelopConfigUrl: true,
+      namesTheEnvironmentSecret: true,
+      forbidsCheckout: true,
+      stillDeclaresAConfigRefInput: false,
+      stillBuildsTheConfigUrlFromAnInput: false,
+      stillDocumentsTheNoCredentialSkip: false,
+    });
+    // The tasks file still points its acceptance list at this suite. Its clause
+    // text is what the contract above replaces, so only the pointer is asserted.
+    const tasks = fs.readFileSync(
+      path.join(repoRoot, '.github/specs/019-qodo-pr-agent-integration/tasks.md'),
+      'utf8'
+    );
+    const t005 = tasks.split('\n').find((line) => line.startsWith('- [X] T005'));
+    expect(t005).toBeDefined();
+    expect(t005).toContain('tests/js/qodo-pr-agent-workflow.test.js');
   });
 });
