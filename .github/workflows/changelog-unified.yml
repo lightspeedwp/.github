@@ -410,8 +410,13 @@ jobs:
       # It runs after the status check so the required context is already
       # decided, and it reads the report the validate step already wrote rather
       # than re-running the validator.
+      # always(), because the status check step above exits non-zero when this
+      # change introduces failures. Without it the job stops there and the
+      # annotations are never published — which is exactly the case they exist
+      # for. The file changed guard still skips the run entirely when no
+      # changelog file was touched.
       - name: Report validation as a check run
-        if: steps.changed-files.outputs.any_changed == 'true'
+        if: always() && steps.changed-files.outputs.any_changed == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.repository_owner }}

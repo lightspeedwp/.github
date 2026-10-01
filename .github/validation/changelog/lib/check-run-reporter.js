@@ -28,8 +28,13 @@ function flattenViolations(report) {
   for (const entry of Array.isArray(report?.validations) ? report.validations : []) {
     const violations = Array.isArray(entry?.violations) ? entry.violations : [];
     for (const violation of violations) {
-      // The violation's own id wins: it is the more specific value.
-      flattened.push({ entry_id: entry?.entry_id ?? 'unknown', ...violation });
+      // The violation's own id and line win: they are the more specific values.
+      // The parent entry supplies them only when the violation is silent.
+      flattened.push({
+        entry_id: entry?.entry_id ?? 'unknown',
+        line_number: entry?.line_number ?? null,
+        ...violation,
+      });
     }
   }
 

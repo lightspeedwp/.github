@@ -28,8 +28,8 @@ describe('reportCheckRun annotations', () => {
   const perEntryReport = {
     summary: { total_entries: 2, passed: 1, failed: 1, pass_rate: '50' },
     validations: [
-      { entry_id: 'good', violations: [], passed: true },
-      { entry_id: 'bad', violations: [violation], passed: false },
+      { entry_id: 'good', line_number: 12, violations: [], passed: true },
+      { entry_id: 'bad', line_number: 34, violations: [violation], passed: false },
     ],
   };
 
@@ -76,13 +76,51 @@ describe('reportCheckRun annotations', () => {
     assert.equal(annotation.end_line, annotation.start_line);
   });
 
-  it('anchors to line 1 because the rule engine does not carry line numbers onto violations', async () => {
+  it('anchors to the line recorded on the entry the violation came from', async () => {
     await reporter.reportCheckRun(context, perEntryReport);
 
     const [annotation] = created[0].output.annotations;
-    assert.equal(annotation.start_line, 1);
-    assert.equal(annotation.end_line, 1);
+    assert.equal(annotation.start_line, 34);
+    assert.equal(annotation.end_line, 34);
     assert.equal(annotation.path, 'CHANGELOG.md');
+  });
+
+  it('anchors an annotation to the line of the entry that failed', async () => {
+    await reporter.reportCheckRun(context, perEntryReport);
+
+    const [{ start_line, end_line }] = created[0].output.annotations;
+    // The parser records the line per entry, and the report carries it on the
+    // validation rather than on the violation, so it has to be inherited.
+    assert.equal(start_line, 34);
+    assert.equal(end_line, 34);
+  });
+
+  it('lets a violation override the line of its parent entry', async () => {
+    await reporter.reportCheckRun(context, {
+      summary: { total_entries: 1, passed: 0, failed: 1, pass_rate: '0' },
+      validations: [
+        {
+          entry_id: 'bad',
+          line_number: 34,
+          violations: [{ ...violation, line_number: 99 }],
+          passed: false,
+        },
+      ],
+    });
+
+    const [{ start_line }] = created[0].output.annotations;
+    assert.equal(start_line, 99);
+  });
+
+  it('falls back to line 1 when no line number is available', async () => {
+    await reporter.reportCheckRun(context, {
+      summary: { total_entries: 1, passed: 0, failed: 1, pass_rate: '0' },
+      validations: [{ entry_id: 'bad', violations: [violation], passed: false }],
+    });
+
+    const [{ start_line, end_line }] = created[0].output.annotations;
+    assert.equal(start_line, 1);
+    assert.equal(end_line, 1);
   });
 
   it('accepts a report that already carries a top-level violations array', async () => {
