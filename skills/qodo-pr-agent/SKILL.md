@@ -15,17 +15,17 @@ Qodo PR-Agent is the third-party tool, and is **not** the internal [`agents/pr-a
 
 | Tool | PR mode (`--pr-url`) | Diff mode (`--diff-file`) | Typical caller |
 | --- | --- | --- | --- |
-| `review` | ✅ | ✅ | `skills/pr-review`, `agents/reviewer-agent/`, internal PR agent self-review gate |
-| `improve` | ✅ | ✅ | Internal PR agent self-review gate |
-| `describe` | ✅ | ✅ | Internal PR agent (diff-derived body section) |
-| `ask` | — (returns `no-output`) | ✅ | `skills/pr-review`, `agents/qa-subagent.agent.md` |
-| `generate_labels` | ✅ | — | `agents/labeling-agent/`, `skills/label-governance` |
-| `update_changelog` | ✅ | — | `agents/changelog-agent/`, `skills/changelog-generator` |
-| `add_docs` | ✅ | — | `agents/document-reviewer-agent/` |
+| `review` | result | result | `skills/pr-review`, `agents/reviewer-agent/`, internal PR agent self-review gate |
+| `improve` | result | result | Internal PR agent self-review gate |
+| `describe` | result | result | Internal PR agent (diff-derived body section) |
+| `ask` | no result | result | `skills/pr-review`, `agents/qa-subagent.agent.md` |
+| `generate_labels` | no result | not allowed | `agents/labeling-agent/`, `skills/label-governance` |
+| `update_changelog` | no result | not allowed | `agents/changelog-agent/`, `skills/changelog-generator` |
+| `add_docs` | no result | not allowed | `agents/document-reviewer-agent/` |
+
+"result" means the run returns `ok` with Markdown. "no result" means the tool is allowed in that mode but returns `skipped` / `no-output`: with publishing off, only `review`, `describe` and `improve` store a result for a PR. That is upstream behaviour, not a runner limit — `pr_reviewer.py`, `pr_description.py` and `pr_code_suggestions.py` are the only tools that write their stored artifact, so `ask` in PR mode and all three label, changelog and docs tools cannot answer a caller. Ask questions in diff mode, or use the `/ask` comment command on the PR itself.
 
 `similar_issue` is not supported, because it is deferred (spec 019, research R8).
-
-In PR mode a result comes back only from tools that store one when publishing is off: `review`, `describe` and `improve`. The others run but return `skipped` / `no-output`, so ask questions in diff mode.
 
 ## Input Interface
 
