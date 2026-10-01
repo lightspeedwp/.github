@@ -427,6 +427,14 @@ jobs:
         run: |
           cd .github/validation/changelog
 
+          # Fail closed, the same way the validate step above does. If the
+          # report is absent or has no summary, publishing a check run would
+          # report "neutral" for a validation that never actually ran.
+          if ! jq -e '.summary | type == "object"' validation-report.json >/dev/null 2>&1; then
+            echo "::error::Validation report is missing or has no summary; not publishing a check run."
+            exit 1
+          fi
+
           # The check run's conclusion is keyed on failures this pull request
           # introduces, matching the gate above and the rule recorded at the
           # validate step: pre-existing Unreleased debt never blocks.

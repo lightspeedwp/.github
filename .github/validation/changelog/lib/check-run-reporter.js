@@ -144,8 +144,13 @@ export class CheckRunReporter {
   buildCheckOutput(validationResult) {
     const { summary = {} } = validationResult;
     const annotations = this.buildAnnotations(flattenViolations(validationResult));
-    const { passed = 0, failed = 0, warnings = 0 } = summary;
-    const totalEntries = passed + failed + warnings;
+    const { passed = 0, failed = 0, warnings = 0, total_entries: reportedTotal } = summary;
+    // The validator reports total_entries, and warnings are not a separate
+    // class of entry — an entry that carries warnings is still counted in
+    // total_entries. Summing passed + failed + warnings therefore inflates the
+    // total whenever any entry carries a warning, so prefer the reported figure
+    // and fall back to the sum of the two disjoint counts.
+    const totalEntries = Number.isInteger(reportedTotal) ? reportedTotal : passed + failed;
 
     // Build title and summary
     let title = '✅ Changelog entries pass validation';

@@ -51,7 +51,9 @@ describe('CheckRunReporter - GitHub Check Run Integration', () => {
     };
 
     mockValidationResult = {
-      summary: { passed: 2, failed: 3, warnings: 1 },
+      // total_entries is what the validator reports; warnings are not a
+      // disjoint class of entry, so the total is not passed+failed+warnings.
+      summary: { total_entries: 5, passed: 2, failed: 3, warnings: 1 },
       violations: [
         {
           entry_id: 'entry-1',
@@ -111,7 +113,7 @@ describe('CheckRunReporter - GitHub Check Run Integration', () => {
       const { output } = calls[0];
       assert.match(output.title, /failed/);
       assert.match(output.title, /3 error\(s\)/);
-      assert.match(output.summary, /3 of 6 entries have validation errors/);
+      assert.match(output.summary, /3 of 5 entries have validation errors/);
       assert.ok(Array.isArray(output.annotations));
       assert.ok(output.annotations.length > 0);
     });
