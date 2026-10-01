@@ -343,6 +343,19 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 - **Decision**: Spec-number labels move to `spec-id:NNN` in the configuration PR, so `spec:*` holds only the spec-status labels and one-per-family checks stay correct. This matches the existing `task:<ID>` labels.
 - **Alternatives considered**: Keep `spec:NNN` beside the status labels; retire spec-number labels and link specs in the issue body.
 
+### R21. Run safety for Stages 3 to 5 (FR-023, SC-011, SC-012)
+
+- **Finding**: FR-023 sets ten rules for stopping, repeating and undoing consolidation runs. `label-consolidate.js` (T062) and the Linear clean-up (T069, T070) do not exist yet, so the rules are design input, not a change to existing code. GitHub's REST API asks for mutating requests to be made one at a time, at least one second apart, with `Retry-After` and `x-ratelimit-reset` honoured; Linear limits requests by query complexity.
+- **Decision**:
+  - The dry-run file is the run's state. A finished repository sets `executed_at`, and a re-run skips it.
+  - Every action compares the current state with the approved set first and writes nothing when they match. This gives idempotence and the no-op re-run check in Test 12.
+  - Before deleting, the tool re-reads the repository's labels and the items carrying each listed label, and skips the repository if anything differs from the approved dry run.
+  - Two append-only logs record what changed: `evidence/consolidation-log.json` for GitHub (one record per change) and `evidence/linear-writes.json` for Linear (one record per issue write). Rollback reads from them.
+  - One shared request helper serialises mutating calls with a one-second gap and pauses on rate-limit headers. A paused run resumes like a stopped one.
+  - Linear labels are matched by ID and scope. Labels that differ only by case or spacing are separate sources and are never merged automatically.
+- **Rationale**: The dry-run file already holds per-repository approval, so making it the resume point needs no extra state. Append-only logs give one rollback source and one audit trail, which the gate-issue summary comment points to.
+- **Alternatives considered**: A separate run-state file (duplicates the dry run); rolling back from GitHub's audit log (not available for every repository, and it does not cover Linear); running repositories in parallel (risks secondary rate limits).
+
 ### R10. Decision issue template
 
 - **Decision**: `.github/ISSUE_TEMPLATE/06-decision.md` replaces `06-question.md`, following the existing template frontmatter (`name`, `about`, `title`, `labels`, `recommended_branch`, `file_type`) and ending with Definition of Ready and Definition of Done checklists. Full content in `contracts/decision-issue-template.md`.

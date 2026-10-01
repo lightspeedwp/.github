@@ -1,6 +1,6 @@
 # Dry-Run and Drift Report Schema
 
-Defines the per-repository deletion dry run that @ashley approves before anything is deleted (spec FR-016) and the weekly drift report issue (spec FR-017).
+Defines the per-repository deletion dry run that @ashley approves before anything is deleted (spec FR-016), the two run logs (spec FR-023), and the weekly drift report issue (spec FR-017).
 
 ## Per-repository dry run
 
@@ -43,6 +43,51 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 3. The snapshot keeps name, colour, description and item numbers, so any deleted label can be recreated and reapplied (research R8).
 4. Deletion runs only when `approval.status` is `approved`, `approved_by` is `ashleyshaw`, and `gate_comment_url` points to a comment reading `Approved: <repo> dry run <generated_at>` whose repository and timestamp match this file. Repositories without approval are skipped. If `labels.yml` on `develop` differs from `approved_set_commit`, the dry run is stale and must be regenerated.
 5. `destructive_cleanup.enabled` in `label-governance-policy.yml` stays `false`. Deletion requires the run-time flags `--apply --confirm-gate <gate issue number>`, and the tool refuses any repository whose `approval.status` is not `approved`.
+6. Before deleting, the tool re-reads the repository's labels and the items carrying each `to_delete` label. If either differs from this file, it skips the repository, records the reason on the gate issue, and needs a new dry run and approval (FR-023 point 4).
+7. When the repository's run finishes, the tool sets `executed_at`. A re-run skips any repository with `executed_at` set, and makes no API write for one whose current state already matches the approved set (FR-023 points 1 and 2).
+
+## Run logs (FR-023)
+
+Both files are append-only JSON arrays in `evidence/`. A record is written only after its API call succeeds.
+
+### `consolidation-log.json` (GitHub, Stages 3 and 4)
+
+```json
+[
+  {
+    "run_by": "ashleyshaw",
+    "at": "2026-10-01T00:00:00Z",
+    "repository": "lightspeedwp/example-repo",
+    "action": "delete",
+    "label": "migrate:priority:normal",
+    "before": { "name": "migrate:priority:normal", "color": "ededed", "description": "" },
+    "after": null,
+    "gate_issue": 0
+  }
+]
+```
+
+`action` is one of `rename`, `create`, `update`, `relabel` or `delete`; a `relabel` record adds `item` (the issue or PR number). Each run also posts one summary comment on the gate issue, with counts per action and repository.
+
+### `linear-writes.json` (Linear, Stage 5)
+
+```json
+[
+  {
+    "issue": "GIT-0000",
+    "old_label": { "id": "<label id>", "name": "area:agents", "scope": "workspace" },
+    "new_label": { "id": "<label id>", "name": "aiops:agents", "scope": "workspace" },
+    "at": "2026-10-01T00:00:00Z",
+    "mapping": "area:agents -> aiops:agents"
+  }
+]
+```
+
+### Log rules
+
+1. Linear labels are identified by `id` and `scope`, never by name alone.
+2. Rolling back reads these logs: a GitHub deletion is reversed from the dry-run snapshot plus its `delete` records; a Linear merge is reversed by reapplying `old_label` and restoring the retired label.
+3. Mutating requests run one at a time, at least one second apart, and pause on `Retry-After` or `x-ratelimit-reset`; Linear calls stay within Linear's complexity limits. A paused run resumes as in dry-run rule 7.
 
 ## Weekly drift report issue
 

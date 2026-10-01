@@ -456,6 +456,35 @@ Added to each label record in the four 2026-09-14 snapshot files (`canonical-lab
 
 **Rule**: counts, families and every other recorded value stay unchanged.
 
+### 14. Consolidation Log Entry
+
+One record per destructive change in Stages 3 and 4, appended to `evidence/consolidation-log.json` (FR-023 point 10). Contract: `contracts/dry-run-and-drift-report-schema.md`.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `run_by` | string | GitHub login of the person running the tool |
+| `at` | timestamp | UTC, ISO 8601 |
+| `repository` | string | `lightspeedwp/{repo}` |
+| `action` | enum | `rename`, `create`, `update`, `relabel`, `delete` |
+| `label` | string | The label acted on |
+| `before` / `after` | object or null | Name, colour, description (and item number for `relabel`); `after` is null for `delete` |
+| `gate_issue` | integer | The gate issue the run was confirmed against |
+
+**Rules**: append-only; a record is written only after the API call succeeds; a re-run that makes no write adds no record.
+
+### 15. Linear Write Log Entry
+
+One record per Linear issue write in Stage 5, appended to `evidence/linear-writes.json` (FR-023 point 5).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `issue` | string | Linear issue identifier (for example `GIT-2340`) |
+| `old_label` / `new_label` | object | Label ID, name and scope (`workspace` or team key); either may be null for a pure add or removal |
+| `at` | timestamp | UTC, ISO 8601 |
+| `mapping` | string | The `linear-labels.json` mapping entry applied |
+
+**Rules**: append-only; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label.
+
 ### Consolidation State Transitions
 
 ```text
@@ -463,6 +492,7 @@ Approval Gate Label: applied (decision pending) → removed (dated decision reco
 Label Mapping:     proposed → approved (Change Request merged) → applied-github → applied-linear → verified (drift report clean)
 Repository Dry Run: generated → approved → executed → verified
                               ↘ skipped (no approval: nothing deleted)
+                    approved → stale (re-read differs, or labels.yml changed) → regenerated → approved again
 ```
 
 *This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
