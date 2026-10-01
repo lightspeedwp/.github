@@ -10,6 +10,22 @@
 
 **Tasks**: [specs/012-audit-governance-structure/tasks.md](../../../specs/012-audit-governance-structure/tasks.md)
 
+## Related Issues
+
+**No tracking issue exists for Spec 012 yet.** A repository search across open
+and closed issues (`012 audit governance structure`, `audit governance structure`,
+`governance structure`, `spec 012`, `governance files audit`, `CLAUDE.md AGENTS.md
+audit`) returned no issue scoped to this specification, and
+`specs/012-audit-governance-structure/` names none in its own text.
+
+Do not link [Spec 006's #3366](https://github.com/lightspeedwp/.github/issues/3366)
+here: that issue tracks the separate governance-audit implementation, not this
+audit of `CLAUDE.md` and `AGENTS.md`.
+
+**Note:** Add a tracking issue link once one is raised; the specification is
+tracked by `specs/012-audit-governance-structure/` and implemented on
+`audit/governance-files-refactor`.
+
 ## Kanban Board Status
 
 ### Backlog (0)
