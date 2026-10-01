@@ -1867,6 +1867,33 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
     expect(outputs.args).toBe('');
   });
 
+  it('enables only on the literal string true, in any workflow that checks it', async () => {
+    // FR-020 requires the exact string. A case-insensitive match would also accept
+    // 'True' and 'TRUE', which the requirement does not, so the comparison is
+    // asserted on the parsed workflow rather than left to a comment.
+    for (const [name, workflow] of [
+      ['trigger', trigger],
+      ['reusable', reusable],
+      ['caller', caller],
+    ]) {
+      const body = JSON.stringify(workflow.doc);
+      expect({
+        workflow: name,
+        caseInsensitive: /KILL_SWITCH\)\.toLowerCase\(\)/.test(body),
+      }).toStrictEqual({ workflow: name, caseInsensitive: false });
+      expect({ workflow: name, strict: /KILL_SWITCH\) !== 'true'/.test(body) }).toStrictEqual({
+        workflow: name,
+        strict: true,
+      });
+    }
+  });
+
+  it('leaves the pilot off for a capitalised true', async () => {
+    const { outputs, refused } = await runReceiverPreflight({ env: { KILL_SWITCH: 'True' } });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('kill-switch');
+  });
+
   it('releases no key on any refusal path', async () => {
     // The environment is attached to the run job alone, and that job is gated on
     // this output, so enabled: false on every refusal means the key is

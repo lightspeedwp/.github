@@ -134,7 +134,10 @@ jobs:
             function decide() {
               // Opt-in: the pilot spends money, so it runs only once the
               // variable is explicitly 'true'. Unset or any other value skips.
-              if (String(process.env.KILL_SWITCH).toLowerCase() !== 'true') {
+              // Exactly 'true', not a case-insensitive match. FR-020 requires the
+              // literal string, and the conservative direction is the safe one for a
+              // spend control: 'True' leaves the pilot off rather than starting it.
+              if (String(process.env.KILL_SWITCH) !== 'true') {
                 return { reason: 'kill-switch' };
               }
               if (process.env.CALLER_REASON && process.env.CALLER_REASON !== 'ok') {
