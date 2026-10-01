@@ -28,9 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
-- **Governance audit report ids are unique and self-consistent** — Fixed duplicate violation ids and recommendation references that no longer resolved, plus Spec 006 count and enforcement wording. (#3367)
-- **Governance audit reports now render in a stable order** — Fixed report output changing with the order findings arrived, so two runs of the same audit are comparable. (#3367)
+- **Badge Links Stop Breaking On Spaces** — The generator percent-encodes labels, so a multi-word badge resolves instead of ending at the first space. A check reports the 76,594 broken ones, with a fix mode. (#3702)
+- **Badge Check Handles Titled and Nested Examples** — A badge carrying a quoted title is no longer reported or rewritten, and a badge inside a nested code fence is left alone. (#3702)
+- **Skill Documentation Contracts Enforced in CI** — A new check fails a pull request when a skill entry point offers a status label its own reference files do not define, and closes the contract against the bundled references. (#3702)
 - **Footer Shape Signal** — `npm run validate:footers:shape` reports files holding two or more footer-shaped blocks the wording-based deduper cannot see. Advisory only: never edits a file, never fails a build. (#3682)
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
@@ -47,8 +47,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Local Scans No Longer Dirty the Repository** — Semgrep's settings and log files are ignored, so a security scan leaves no untracked files to commit by accident. (#3713)
-- **Jest Config Lint Error Fixed** — A redundant escape in the transform ignore pattern is gone and the file is formatted, clearing the only lint error it carried. (#3713)
 - **Task-Issue Creation Gated** — Bulk issue creation is now opt-in per spec with stale-path checks, and the skill file is free of bot footer spam. ([#3540](https://github.com/lightspeedwp/.github/issues/3540))
 - **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
 - **Footer Policy Actually Enforced** — Reference, example, and template files no longer get a footer added, matching the exemptions the documentation has always described. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
@@ -79,6 +77,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Twelve Skill Documentation Defects Corrected** — Readiness bands, Chat app developer-mode paths, the design.md lint rule list, a triage label, chatbot-safe criteria, go/no-go gates and starter-pattern headers. (#3702)
+- **Project Memory Status Vocabulary Aligned** — The memory manager's core rule offered `Unknown`, a status its own reference does not define. (#3702)
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
 - **Footer Shape Figures Corrected** — Workflow comment: 899 flagged files, 255 holding fewer than two distinct known footer phrases. The runtime notice calls 28.4% a share of flagged files, not a false-positive rate. (#3682, #3604)

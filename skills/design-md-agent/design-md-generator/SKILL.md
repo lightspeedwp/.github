@@ -207,7 +207,7 @@ Check the following before finalising:
 
 ## Official CLI Rules
 
-The official CLI currently exposes these default lint rules. Reflect them accurately in audits and validation notes:
+The official CLI (`@google/design.md`) exposes these default lint rules. This list was verified against version 0.4.0 with `designmd spec --rules-only --format json`, which is the authoritative source; re-run it and sync this list whenever the CLI version changes. Reflect the rules accurately in audits and validation notes:
 
 1. `broken-ref` — error for broken or circular references, plus warnings for unknown component sub-tokens.
 2. `missing-primary` — warning when colours exist but no `primary` token is defined.
@@ -217,6 +217,11 @@ The official CLI currently exposes these default lint rules. Reflect them accura
 6. `missing-sections` — info when spacing or rounded tokens are absent.
 7. `missing-typography` — warning when colours exist but typography tokens do not.
 8. `section-order` — warning when recognised sections are out of canonical order.
+9. `unknown-key` — warning when a top-level YAML key looks like a typo of a known schema key.
+10. `token-like-ignored` — warning when a top-level YAML key looks like a token map but is not part of the export schema, so it will be silently ignored.
+11. `omitted-rules` — info for `omitted:` declarations. Emits the sub-rule ids `declared-omission` (info), `redundant-omission` (warning, when a section is listed as omitted but its tokens exist) and `unknown-omission` (warning, for an unrecognised name in `omitted`).
+
+`unknown-key` (rule 9) existed in 0.3.0, which ran eight rules. `token-like-ignored` (10) and `omitted-rules` (11) arrived in 0.4.0, which runs eleven. Treat a rule list from upstream prose as secondary: the bundled npm README lagged the code and listed a rule count that matched neither its own table nor the shipped binary.
 
 ## Companion CI Bundle
 

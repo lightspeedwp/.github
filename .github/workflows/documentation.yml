@@ -491,6 +491,51 @@ jobs:
             );
           '
 
+  skill-doc-contracts:
+    name: Skill Documentation Contracts
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    # Fails when a SKILL.md offers a status label that none of its own bundled
+    # reference files define, so an agent cannot be told to emit a value the
+    # skill's authority rejects. That contradiction is what issue #3702 found
+    # twice in the same tree.
+    #
+    # Whole-repo, not changed-files, because a skill and its references are
+    # separate files: fixing the SKILL.md alone leaves the reference wrong, and
+    # a changed-files check would not see it. The current tree reports zero
+    # findings, so this needs no ratchet.
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Do not leave the job token in .git/config. This job runs `npm ci`
+          # and then a script from the checkout, so on a pull request both are
+          # contributor-controlled; the read-scoped token should not be
+          # reachable from them. Matches every other job in this workflow.
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          # Match every other job in this repo. Pinning a literal here drifted
+          # behind .nvmrc and `npm ci` failed on @babel/core's engine range.
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Check skill entry points against their own references
+        run: |
+          if ! npm run --silent validate:skill-doc-contracts; then
+            echo "::error title=Skill documentation contract::A SKILL.md offers a status label that none of its own reference files define. Either use a label the reference defines, or add the label to the reference that owns it. See issue #3702."
+            exit 1
+          fi
+
   maintain:
     name: Documentation Maintenance
     runs-on: ubuntu-latest
