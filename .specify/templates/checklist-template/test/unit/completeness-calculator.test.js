@@ -154,6 +154,28 @@ describe('Completeness Calculator', () => {
 
   describe('calculateReport', () => {
     it('should generate report for valid checklist', () => {
+      // 7 of 10 checked is 70% completion: above the 60% caution floor, below the
+      // 80% pass threshold, and with no gaps or ambiguities, so the result is
+      // `caution` with a completion warning rather than `pass`.
+      const items = Array(10)
+        .fill(null)
+        .map((_, i) => ({
+          id: `CHK-${String(i + 1).padStart(3, '0')}-Completeness`,
+          question: `Question ${i + 1}`,
+          dimension: 'Completeness',
+          state: i < 7 ? 'checked' : 'unchecked',
+        }));
+
+      const report = calculateReport(items);
+
+      expect(report.status).toBe('caution');
+      expect(report.warnings.length).toBeGreaterThan(0);
+      expect(report.canProceed).toBe(true);
+    });
+
+    it('should pass a checklist at the completion threshold with no gaps', () => {
+      // 8 of 10 checked is exactly 80%, the documented pass threshold for
+      // checkedPercent, with no gaps and no ambiguities.
       const items = Array(10)
         .fill(null)
         .map((_, i) => ({
@@ -165,8 +187,8 @@ describe('Completeness Calculator', () => {
 
       const report = calculateReport(items);
 
-      expect(report.status).toBe('caution');
-      expect(report.warnings.length).toBeGreaterThan(0);
+      expect(report.status).toBe('pass');
+      expect(report.warnings).toEqual([]);
       expect(report.canProceed).toBe(true);
     });
 

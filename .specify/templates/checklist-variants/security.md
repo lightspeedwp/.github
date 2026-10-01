@@ -8,7 +8,7 @@
 
 ---
 
-## Security-Specific Items (18 items)
+## Security-Specific Items (19 items)
 
 ### Completeness: Threat Model and Attack Vectors
 
@@ -899,15 +899,48 @@ SLA for remediation:
 - Monitoring rules are defined and tested
 - Alert thresholds are based on risk, not arbitrary
 
+### Consistency: Security Controls Across Surfaces and Environments
+
+**CHK-064-Security-Consistency**
+
+**Question**: Are security controls applied consistently across every surface, environment and client?
+
+**Guidance**: Document:
+
+- **Surface parity**: is the same control applied everywhere it applies?
+  - Web, REST API, GraphQL, mobile client, CLI: same authentication and authorisation rules?
+  - Admin and front-end: same controls where the data is the same?
+  - Public pages and authenticated areas: is anything exposed that should not be?
+- **Environment parity**: do staging, preview and production behave the same?
+  - Staging uses production-grade authentication, not a bypass or shared account
+  - Preview and review deployments apply the same access restrictions
+  - Test and demo environments hold no real customer or personal data
+- **Terminology**: is the same vocabulary used for roles, permissions and data classes?
+  - A role named the same way in the spec, the code and the documentation
+  - One agreed definition per data classification level
+  - No synonym pairs (for example "admin" in one place and "administrator" in another)
+- **Client parity**: do client and theme copies carry the same controls?
+  - Copied server and client code has not diverged from the source
+  - Repeated implementations do not weaken a control that exists in one copy
+- **Policy drift**: is there a named owner and a review date for each control?
+
+**Success Criteria**:
+
+- Every surface listed, with its control set, and differences explained rather than assumed
+- No environment bypasses a control that production relies on
+- One agreed vocabulary for roles, permissions and data classes
+- Each control has a named owner and a last-reviewed date
+- Divergence between copies is either reconciled or recorded with a reason
+
 ---
 
 ## Documentation
 
-All 18 Security-specific items extend the base 40-45 item checklist. When generating a Security variant:
+All 19 Security-specific items extend the base 40-45 item checklist. When generating a Security variant:
 
 1. Include all base template items (completeness, clarity, consistency, measurability, scenario coverage, edge cases, dependencies, ambiguities)
-2. Add these 18 Security-specific items
-3. **Total for Security variant**: ~58-63 items (40-45 base + 18 Security-specific)
+2. Add these 19 Security-specific items
+3. **Total for Security variant**: ~59-64 items (40-45 base + 19 Security-specific)
 
 ### Composition Rules
 

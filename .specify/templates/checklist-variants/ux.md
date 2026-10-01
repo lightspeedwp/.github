@@ -515,11 +515,11 @@ Avoid ambiguity:
 
 ## Documentation
 
-All 18 UX-specific items extend the base 40-45 item checklist. When generating a UX variant:
+All 15 UX-specific items extend the base 40-45 item checklist. When generating a UX variant:
 
 1. Include all base template items (completeness, clarity, consistency, measurability, scenario coverage, edge cases, dependencies, ambiguities)
-2. Add these 18 UX-specific items
-3. **Total for UX variant**: ~58-63 items (40-45 base + 18 UX-specific)
+2. Add these 15 UX-specific items
+3. **Total for UX variant**: ~55-60 items (40-45 base + 15 UX-specific)
 
 ### Composition Rules
 

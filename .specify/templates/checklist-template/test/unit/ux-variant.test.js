@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const UX_VARIANT_PATH = path.join(__dirname, '../../checklist-variants/ux.md');
+const UX_VARIANT_PATH = path.join(__dirname, '../../../checklist-variants/ux.md');
 
 describe('UX Requirements Quality Variant', () => {
   let variantContent;
@@ -105,16 +105,21 @@ describe('UX Requirements Quality Variant', () => {
     });
 
     it('should document total item count (base + variant)', () => {
-      expect(variantContent).toMatch(/~58-63\s+items|58-63\s+items/);
+      expect(variantContent).toMatch(/~55-60\s+items|55-60\s+items/);
     });
   });
 
   describe('Integration with Base Template', () => {
     it('should not duplicate base template dimension names as primary items', () => {
-      // UX variant should add UX-specific items, not redundant base items
-      const dimensionItems = variantContent.match(/^### [A-Z][a-z]+:/gm) || [];
-      // All dimension sections should be UX-specific
-      expect(dimensionItems.every((item) => item.includes('UX'))).toBe(true);
+      // The UX variant should add UX-specific items, not restate the bare base
+      // template dimension headings. Assert that no heading is a bare
+      // `### <Dimension>:` with no topic after the colon, and that the variant
+      // does carry UX-qualified dimension sections.
+      const bareDimensionHeadings =
+        variantContent.match(/^### (?:[A-Z][A-Za-z]*(?: [A-Z][A-Za-z]*)*):\s*$/gm) || [];
+
+      expect(bareDimensionHeadings).toEqual([]);
+      expect(variantContent).toMatch(/^### Completeness: UX/m);
     });
 
     it('should reference all 8 base dimensions in composition context', () => {

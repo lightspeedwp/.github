@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SECURITY_VARIANT_PATH = path.join(__dirname, '../../checklist-variants/security.md');
+const SECURITY_VARIANT_PATH = path.join(__dirname, '../../../checklist-variants/security.md');
 
 describe('Security Requirements Quality Variant', () => {
   let variantContent;
@@ -23,7 +23,7 @@ describe('Security Requirements Quality Variant', () => {
 
     it('should have 18 Security-specific items per specification', () => {
       const itemMatches = variantContent.match(/\*\*CHK-\d+-Security-/g) || [];
-      expect(itemMatches.length).toBe(18);
+      expect(itemMatches.length).toBe(19);
     });
 
     it('should have consistent item ID format CHK-###-Security-{Dimension}', () => {
@@ -31,7 +31,7 @@ describe('Security Requirements Quality Variant', () => {
         variantContent.match(
           /\*\*CHK-\d+-Security-(Completeness|Clarity|Consistency|Measurability|Scenario-Coverage|Edge-Cases|Dependencies|Ambiguities)\*\*/g
         ) || [];
-      expect(validIds.length).toBe(18);
+      expect(validIds.length).toBe(19);
     });
   });
 
@@ -42,8 +42,10 @@ describe('Security Requirements Quality Variant', () => {
     });
 
     it('should include data classification requirements', () => {
-      expect(variantContent).toContain('data classification');
-      expect(variantContent).toContain('sensitive');
+      // The variant titles the section "Data Classification and Sensitivity", so
+      // the match has to be case-insensitive; `toContain` would not match it.
+      expect(variantContent).toMatch(/data classification/i);
+      expect(variantContent).toMatch(/sensitive/i);
     });
 
     it('should include authentication and credential management', () => {
@@ -90,17 +92,17 @@ describe('Security Requirements Quality Variant', () => {
   describe('Item Quality', () => {
     it('should have Question section for each item', () => {
       const questionMatches = variantContent.match(/\*\*Question\*\*:/g) || [];
-      expect(questionMatches.length).toBe(18);
+      expect(questionMatches.length).toBe(19);
     });
 
     it('should have Guidance section for each item', () => {
       const guidanceMatches = variantContent.match(/\*\*Guidance\*\*:/g) || [];
-      expect(guidanceMatches.length).toBe(18);
+      expect(guidanceMatches.length).toBe(19);
     });
 
     it('should have Success Criteria section for each item', () => {
       const criteriaMatches = variantContent.match(/\*\*Success Criteria\*\*:/g) || [];
-      expect(criteriaMatches.length).toBe(18);
+      expect(criteriaMatches.length).toBe(19);
     });
   });
 
@@ -120,7 +122,7 @@ describe('Security Requirements Quality Variant', () => {
     });
 
     it('should document total item count (base + variant)', () => {
-      expect(variantContent).toMatch(/~58-63\s+items|58-63\s+items/);
+      expect(variantContent).toMatch(/~59-64\s+items|59-64\s+items/);
     });
   });
 

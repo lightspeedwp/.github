@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const API_VARIANT_PATH = path.join(__dirname, '../../checklist-variants/api.md');
+const API_VARIANT_PATH = path.join(__dirname, '../../../checklist-variants/api.md');
 
 describe('API Requirements Quality Variant', () => {
   let variantContent;

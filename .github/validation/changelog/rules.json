@@ -155,7 +155,6 @@
       "error_message": "Entry contains unexplained abbreviation '{abbreviation}'. Either spell it out or add definition in first mention.",
       "known_acronyms": [
         "API",
-        "CLI",
         "PR",
         "CI",
         "CD",
@@ -169,7 +168,6 @@
         "UUID",
         "ID",
         "URL",
-        "UX",
         "FAQ",
         "etc",
         "vs",

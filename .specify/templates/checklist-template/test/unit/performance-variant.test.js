@@ -6,7 +6,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const PERFORMANCE_VARIANT_PATH = path.join(__dirname, '../../checklist-variants/performance.md');
+const PERFORMANCE_VARIANT_PATH = path.join(__dirname, '../../../checklist-variants/performance.md');
 
 describe('Performance Requirements Quality Variant', () => {
   let variantContent;
@@ -23,7 +23,7 @@ describe('Performance Requirements Quality Variant', () => {
 
     it('should have 18 Performance-specific items per specification', () => {
       const itemMatches = variantContent.match(/\*\*CHK-\d+-Performance-/g) || [];
-      expect(itemMatches.length).toBe(18);
+      expect(itemMatches.length).toBe(19);
     });
 
     it('should have consistent item ID format CHK-###-Performance-{Dimension}', () => {
@@ -31,7 +31,7 @@ describe('Performance Requirements Quality Variant', () => {
         variantContent.match(
           /\*\*CHK-\d+-Performance-(Completeness|Clarity|Consistency|Measurability|Scenario-Coverage|Edge-Cases|Dependencies|Ambiguities)\*\*/g
         ) || [];
-      expect(validIds.length).toBe(18);
+      expect(validIds.length).toBe(19);
     });
   });
 
@@ -85,17 +85,17 @@ describe('Performance Requirements Quality Variant', () => {
   describe('Item Quality', () => {
     it('should have Question section for each item', () => {
       const questionMatches = variantContent.match(/\*\*Question\*\*:/g) || [];
-      expect(questionMatches.length).toBe(18);
+      expect(questionMatches.length).toBe(19);
     });
 
     it('should have Guidance section for each item', () => {
       const guidanceMatches = variantContent.match(/\*\*Guidance\*\*:/g) || [];
-      expect(guidanceMatches.length).toBe(18);
+      expect(guidanceMatches.length).toBe(19);
     });
 
     it('should have Success Criteria section for each item', () => {
       const criteriaMatches = variantContent.match(/\*\*Success Criteria\*\*:/g) || [];
-      expect(criteriaMatches.length).toBe(18);
+      expect(criteriaMatches.length).toBe(19);
     });
   });
 
@@ -115,7 +115,7 @@ describe('Performance Requirements Quality Variant', () => {
     });
 
     it('should document total item count (base + variant)', () => {
-      expect(variantContent).toMatch(/~58-63\s+items|58-63\s+items/);
+      expect(variantContent).toMatch(/~59-64\s+items|59-64\s+items/);
     });
   });
 

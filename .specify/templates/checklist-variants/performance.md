@@ -8,7 +8,7 @@
 
 ---
 
-## Performance-Specific Items (18 items)
+## Performance-Specific Items (19 items)
 
 ### Completeness: All Performance Requirements Documented
 
@@ -971,15 +971,41 @@ Breach response:
 - Test environment reflects production infrastructure
 - Test results validated against production metrics
 
+### Scenario Coverage: Concurrency and Throughput
+
+**CHK-064-Performance-Scenario-Coverage**
+
+**Question**: Are concurrency and throughput requirements documented and tested?
+
+**Guidance**: Document:
+
+- **Concurrency**: simultaneous in-flight requests or jobs
+  - Expected concurrent users at peak: how many at once?
+  - Peak window: how long does the peak last? (e.g., 15 minutes)
+  - Lock contention: which shared resources serialise under concurrency?
+- **Throughput**: completed work per unit time
+  - Requests per second: sustained and burst (e.g., 500 rps sustained, 2000 rps burst)
+  - Jobs or transactions per minute: for queued or batch work
+  - Saturation point: the throughput at which latency starts to degrade
+- **Relationship**: does the documented concurrency limit bound the throughput target?
+- **Testing**: are concurrency and throughput cases present in the load profile?
+
+**Success Criteria**:
+
+- Concurrency and throughput stated as numbers, not adjectives
+- Peak window identified and load-tested
+- Saturation point measured rather than assumed
+- Throughput target consistent with the documented concurrency limit
+
 ---
 
 ## Documentation
 
-All 18 Performance-specific items extend the base 40-45 item checklist. When generating a Performance variant:
+All 19 Performance-specific items extend the base 40-45 item checklist. When generating a Performance variant:
 
 1. Include all base template items (completeness, clarity, consistency, measurability, scenario coverage, edge cases, dependencies, ambiguities)
-2. Add these 18 Performance-specific items
-3. **Total for Performance variant**: ~58-63 items (40-45 base + 18 Performance-specific)
+2. Add these 19 Performance-specific items
+3. **Total for Performance variant**: ~59-64 items (40-45 base + 19 Performance-specific)
 
 ### Composition Rules
 
