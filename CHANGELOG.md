@@ -76,7 +76,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Pilot Run Record** — An event whose preflight job errors is now recorded as `skipped:preflight-error` instead of a bare `skipped:`, which the pilot report listed as its own row. (#3532)
-- **Pilot Upstream Claims** — Three Qodo PR-Agent descriptions that did not match its source are corrected: the token cap is one global limit, `/similar_issue` needs a dependency the image omits, and a rate limit records a failure. (#3532)
+- **Pilot Upstream Claims** — Three Qodo PR-Agent descriptions that did not match its source are corrected: the token cap is one global limit, `/similar_issue` cannot run in the pinned image, and a rate limit records a failure. (#3532)
 - **Pilot Report Completeness** — The report now reads every workflow run since the requested date instead of stopping at 1,000, so a longer pilot window is no longer silently truncated. (#3532)
 - **Pilot Report Flags** — Non-numeric or negative cost flags are now rejected instead of rendering the spend estimate as `$NaN`. (#3532)
 - **Pilot Preflight Tool Reporting** — A refused `/command` request now records the command it asked for instead of `none`, and an unrecognised or unauthorised command can no longer write an arbitrary value into the pilot report. (#3532)
