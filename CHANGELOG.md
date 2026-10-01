@@ -49,7 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Local Scans No Longer Dirty the Repository** — Semgrep's settings and log files are ignored, so a security scan leaves no untracked files to commit by accident. (#3713)
 - **Jest Config Lint Error Fixed** — A redundant escape in the transform ignore pattern is gone and the file is formatted, clearing the only lint error it carried. (#3713)
-- **CommonJS and ESM Files Are Linted** — The lint scope now covers `.cjs` and `.mjs`, so 36 previously invisible errors are reported. (#3713)
+- **CommonJS Files Are Now Linted** — The lint scope covers CommonJS and `.mjs` files, so 36 previously invisible errors are reported. (#3713)
 - **Lint Baseline That Must Shrink** — The 189 existing errors are recorded per file and rule; fixing any makes the build fail until the baseline is pruned. (#3713)
 - **Pre-Commit Lints CommonJS Files** — Staged `.cjs` and `.mjs` files are now linted and formatted on commit, matching the scripts. (#3713)
 - **Task-Issue Creation Gated** — Bulk issue creation is now opt-in per spec with stale-path checks, and the skill file is free of bot footer spam. ([#3540](https://github.com/lightspeedwp/.github/issues/3540))
