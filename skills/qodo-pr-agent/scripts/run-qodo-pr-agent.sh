@@ -142,7 +142,11 @@ rm -f "$md_out" "$json_out" "$out_dir/stdout.txt"
 # PR run with publish_output=false prints nothing. PR mode therefore runs
 # pr_mode_adapter.py inside the pinned image, which writes the tool's stored
 # result to out.md. Diff mode uses the CLI and its output flags directly.
-readonly ADAPTER="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/pr_mode_adapter.py"
+# Assigned separately from the declaration: `readonly X="$(cmd)"` would swallow a
+# failing `cd` under `set -e`, leaving ADAPTER as `/pr_mode_adapter.py` and turning
+# a clear failure into a confusing docker mount error.
+ADAPTER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly ADAPTER="$ADAPTER_DIR/pr_mode_adapter.py"
 
 # Run the pinned container against a PR URL (via the adapter) or a read-only mounted diff.
 run_docker() {
