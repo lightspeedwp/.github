@@ -25,6 +25,15 @@ from pr_agent.config_loader import get_settings
 
 def main() -> int:
     """Run the request, write any stored artifact, and return the process exit code."""
+    # Usage is checked before unpacking, so a short command line prints the
+    # documented line instead of raising "not enough values to unpack". 64 is
+    # EX_USAGE and matches the sibling runner's convention for a usage error.
+    if len(sys.argv) < 4:
+        print(
+            "Usage: python pr_mode_adapter.py <out.md> <pr_url> <tool> [args...]",
+            file=sys.stderr,
+        )
+        return 64
     out_md, pr_url, *request = sys.argv[1:]
     get_settings().set("CONFIG.CLI_MODE", True)
     # This adapter must never publish. `publish_output=false` is not enough on its

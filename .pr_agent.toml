@@ -11,11 +11,12 @@
 # - Contract (asserted by tests/js/qodo-pr-agent-config.test.js):
 #   .github/specs/019-qodo-pr-agent-integration/contracts/pr-agent-config.md
 #
-# Qodo PR-Agent reads this file from the DEFAULT branch, so changes take effect
-# only after merge. Other repositories inherit it via the reusable workflow
-# (.github/workflows/qodo-pr-agent-reusable.yml), which loads it as
-# `extra_config_url`. They may override individual keys in their own
-# `.pr_agent.toml`, except keys marked `# locked:` below.
+# Qodo PR-Agent reads this file from the DEFAULT branch, so changes take effect only
+# after merge. Only this repository is enabled in the pilot. A repository that adopts
+# the shared standard later gets this file from the constant URL the receiver sets
+# through `PR_AGENT_EXTRA_CONFIG_URL`, which is the CLI's own name for the setting the
+# action runner read as `CONFIG.EXTRA_CONFIG_URL`; it may then override individual
+# keys in its own `.pr_agent.toml`, except the keys marked `# locked:` below.
 #
 # Trigger policy (which tools run automatically, who may run commands) lives in
 # the workflow, not here. Never put credentials in this file.

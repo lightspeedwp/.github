@@ -464,13 +464,31 @@ fi
       );
       // The contract the skill documents: publishing stays off.
       expect(adapter).toContain('CONFIG.CLI_MODE');
-      const run = ['review', '--pr-url', 'https://github.com/org/repo/pull/1'];
-      expect(() =>
-        spawnSync('bash', [runner, ...run], {
+      // Asserted on the result, not on the absence of a throw: a run that failed
+      // for any reason also does not throw, so the old form passed even when the
+      // no-credential path had stopped working.
+      const result = spawnSync(
+        'bash',
+        [runner, 'review', '--pr-url', 'https://github.com/org/repo/pull/1', '--out', output],
+        {
           encoding: 'utf8',
-          env: { ...process.env, ANTHROPIC_API_KEY_QODO_PR_AGENT: '', GITHUB_TOKEN: '' },
-        })
-      ).not.toThrow();
+          env: {
+            ...process.env,
+            ANTHROPIC_API_KEY_QODO_PR_AGENT: '',
+            ANTHROPIC_API_KEY: '',
+            GITHUB_TOKEN: '',
+          },
+        }
+      );
+      expect({ status: result.status, stderr: result.stderr }).toStrictEqual({
+        status: 0,
+        stderr: '',
+      });
+      const emitted = JSON.parse(fs.readFileSync(path.join(output, 'result.json'), 'utf8'));
+      expect({ status: emitted.status, reason: emitted.reason }).toStrictEqual({
+        status: 'skipped',
+        reason: 'no-credential',
+      });
     });
 
     it('reports no-output when a PR-mode tool stores no result', () => {
