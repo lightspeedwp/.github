@@ -8,81 +8,79 @@ require('dotenv').config();
 
 /** @type {import('jest').Config} */
 module.exports = {
-    // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
-    testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
-    // Provide a setup file that polyfills localStorage (defensive if environment overridden).
-    setupFilesAfterEnv: [
-        '<rootDir>/.github/tests/jest.setup.localstorage.js',
-    ],
-    // Fail the run if any test writes into the repository (#3498).
-    globalSetup: '<rootDir>/tests/jest.global-setup.cjs',
-    globalTeardown: '<rootDir>/tests/jest.global-teardown.cjs',
-    globals: {
-        'babel-jest': {
-            useESM: true,
-        },
+  // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
+  testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
+  // Provide a setup file that polyfills localStorage (defensive if environment overridden).
+  setupFilesAfterEnv: ['<rootDir>/.github/tests/jest.setup.localstorage.js'],
+  // Fail the run if any test writes into the repository (#3498).
+  globalSetup: '<rootDir>/tests/jest.global-setup.cjs',
+  globalTeardown: '<rootDir>/tests/jest.global-teardown.cjs',
+  globals: {
+    'babel-jest': {
+      useESM: true,
     },
-    // Treat TypeScript as ESM so import.meta and top-level await work in tests (.mjs is already ESM)
-    extensionsToTreatAsEsm: ['.ts', '.tsx'],
-    testMatch: [
-        process.env.JEST_TEST_MATCH_1 || '**/tests/**/*.test.js',
-        process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',
-        process.env.JEST_TEST_MATCH_3 || '**/tests/**/*.test.mjs',
-        process.env.JEST_TEST_MATCH_4 || '**/__tests__/**/*.test.js',
-        process.env.JEST_TEST_MATCH_5 || '**/__tests__/**/*.test.ts',
-        process.env.JEST_TEST_MATCH_6 || '**/__tests__/**/*.test.mjs',
+  },
+  // Treat TypeScript as ESM so import.meta and top-level await work in tests (.mjs is already ESM)
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  testMatch: [
+    process.env.JEST_TEST_MATCH_1 || '**/tests/**/*.test.js',
+    process.env.JEST_TEST_MATCH_2 || '**/tests/**/*.test.ts',
+    process.env.JEST_TEST_MATCH_3 || '**/tests/**/*.test.mjs',
+    process.env.JEST_TEST_MATCH_4 || '**/__tests__/**/*.test.js',
+    process.env.JEST_TEST_MATCH_5 || '**/__tests__/**/*.test.ts',
+    process.env.JEST_TEST_MATCH_6 || '**/__tests__/**/*.test.mjs',
+  ],
+  verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
+  transform: {
+    '^.+\\.(js|mjs|ts|tsx|jsx)?$': [
+      process.env.JEST_TRANSFORM || 'babel-jest',
+      { configFile: './babel.config.cjs' },
     ],
-    verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
-    transform: {
-        '^.+\\.(js|mjs|ts|tsx|jsx)?$': [
-            process.env.JEST_TRANSFORM || 'babel-jest',
-            { configFile: './babel.config.cjs' },
-        ],
-    },
-    // Enable Babel to transform ES modules in scripts directory
-    transformIgnorePatterns: [
-        'node_modules/(?!(scripts|@actions|octokit|@octokit)\/)',
-        '<rootDir>/scripts/agents/includes/sync-version.js',
-    ],
-    // Module name mapper is disabled to allow proper .cjs resolution
-    // moduleNameMapper: {
-    //     '^(\.{1,2}/.*)\.js$': '$1',
-    // },
-    moduleFileExtensions: ['js', 'cjs', 'mjs', 'ts', 'tsx', 'jsx', 'json'],
-    coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
-    collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
-    collectCoverageFrom: [
-        process.env.JEST_COVERAGE_FROM_1 || 'scripts/**/*.js',
-        process.env.JEST_COVERAGE_FROM_2 || 'tests/**/*.{js,ts,mjs}',
-        process.env.JEST_COVERAGE_FROM_3 || '**/__tests__/**/*.{js,ts,mjs}',
-        '!**/*.test.{js,ts,mjs}',
-        '!**/*.spec.{js,ts,mjs}',
-        '!**/test-*.{js,ts,mjs}',
-    ],
-    testPathIgnorePatterns: [
-        process.env.JEST_IGNORE_PATTERN || '<rootDir>/node_modules/',
-        '<rootDir>/dist/',
-        '<rootDir>/build/',
-        '<rootDir>/coverage/',
-        '<rootDir>/test-results/',
-        '<rootDir>/logs/',
-        '<rootDir>/tmp/',
-        '<rootDir>/.cache/',
-        '<rootDir>/.husky/',
-        '<rootDir>/.vercel/',
-        '<rootDir>/.netlify/',
-        '<rootDir>/.storybook/',
-        '<rootDir>/docs/mustache-repo-templates/',
-        // Standalone CLI validation scripts, not Jest suites: each defines
-        // its own test()/assert helpers and calls process.exit() directly,
-        // which crashes the Jest worker instead of reporting a failure.
-        // They already run via dedicated `npm run test:*` scripts.
-        '<rootDir>/.github/scripts/__tests__/create-agent-spec.test.js',
-        '<rootDir>/.github/scripts/__tests__/generate-agent-index.test.js',
-        '<rootDir>/.github/scripts/__tests__/validate-agent-specs.test.js',
-        '<rootDir>/.github/scripts/__tests__/workflow-integration.test.js',
-        // Runs under the changelog package's own node:test runner.
-        '<rootDir>/.github/validation/changelog/test/unit/check-run-annotations.test.js',
-        '<rootDir>/.github/validation/changelog/test/integration/check-run-annotations.test.js',
-    ],
+  },
+  // Enable Babel to transform ES modules in scripts directory
+  transformIgnorePatterns: [
+    'node_modules/(?!(scripts|@actions|octokit|@octokit)/)',
+    '<rootDir>/scripts/agents/includes/sync-version.js',
+  ],
+  // Module name mapper is disabled to allow proper .cjs resolution
+  // moduleNameMapper: {
+  //     '^(\.{1,2}/.*)\.js$': '$1',
+  // },
+  moduleFileExtensions: ['js', 'cjs', 'mjs', 'ts', 'tsx', 'jsx', 'json'],
+  coverageDirectory: process.env.JEST_COVERAGE_DIR || './coverage',
+  collectCoverage: process.env.JEST_COLLECT_COVERAGE === 'false' ? false : true,
+  collectCoverageFrom: [
+    process.env.JEST_COVERAGE_FROM_1 || 'scripts/**/*.js',
+    process.env.JEST_COVERAGE_FROM_2 || 'tests/**/*.{js,ts,mjs}',
+    process.env.JEST_COVERAGE_FROM_3 || '**/__tests__/**/*.{js,ts,mjs}',
+    '!**/*.test.{js,ts,mjs}',
+    '!**/*.spec.{js,ts,mjs}',
+    '!**/test-*.{js,ts,mjs}',
+  ],
+  testPathIgnorePatterns: [
+    process.env.JEST_IGNORE_PATTERN || '<rootDir>/node_modules/',
+    '<rootDir>/dist/',
+    '<rootDir>/build/',
+    '<rootDir>/coverage/',
+    '<rootDir>/test-results/',
+    '<rootDir>/logs/',
+    '<rootDir>/tmp/',
+    '<rootDir>/.cache/',
+    '<rootDir>/.husky/',
+    '<rootDir>/.vercel/',
+    '<rootDir>/.netlify/',
+    '<rootDir>/.storybook/',
+    '<rootDir>/docs/mustache-repo-templates/',
+    // Standalone CLI validation scripts, not Jest suites: each defines
+    // its own test()/assert helpers and calls process.exit() directly,
+    // which crashes the Jest worker instead of reporting a failure.
+    // They already run via dedicated `npm run test:*` scripts.
+    '<rootDir>/.github/scripts/__tests__/create-agent-spec.test.js',
+    '<rootDir>/.github/scripts/__tests__/generate-agent-index.test.js',
+    '<rootDir>/.github/scripts/__tests__/validate-agent-specs.test.js',
+    '<rootDir>/.github/scripts/__tests__/workflow-integration.test.js',
+    // Runs under the changelog package's own node:test runner.
+    '<rootDir>/.github/validation/changelog/test/unit/check-run-annotations.test.js',
+    '<rootDir>/.github/validation/changelog/test/integration/check-run-annotations.test.js',
+  ],
 };
