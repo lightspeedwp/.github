@@ -16,13 +16,15 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 
 ## R1. How Qodo PR-Agent is executed in CI
 
-- **Decision**: Run the upstream GitHub Action's container image directly, referenced by **image digest**: `uses: docker://pragent/pr-agent@sha256:<digest>`. The digest is recorded in the workflow with a version comment (`# 0.46.0-github_action`). At research time, `0.46.0-github_action` resolved to `sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7`. Re-resolve the digest when implementing with `docker buildx imagetools inspect pragent/pr-agent:0.46.0-github_action --format '{{.Manifest.Digest}}'`, and verify provenance with `gh attestation verify "oci://index.docker.io/pragent/pr-agent@sha256:<digest>" --repo The-PR-Agent/pr-agent`.
+- **Decision**: Run the upstream image's **own CLI**, by overriding its entry point: `docker run --rm -i --entrypoint python "${env_args[@]}" "$image" -m pr_agent.cli --pr_url "$pr_url" "$command"`, where `image` is `pragent/pr-agent@sha256:<digest>` — referenced by **image digest**, not by tag.
 - **Rationale**: `uses: the-pr-agent/pr-agent@<sha or tag>` does **not** pin the code that runs. The action's Dockerfile is `FROM pragent/pr-agent:github_action`, a floating tag, even at the `v0.46.0` tag. Only a digest reference makes a run reproducible, which matches the repo rule that every action is pinned to a full SHA (FR-003).
 - **Alternatives considered**:
   - `The-PR-Agent/pr-agent@main`: this is what the docs show. It floats on every upstream commit, so it was rejected.
   - Pinning the action to a SHA: this looks pinned but isn't, because of the floating base image. Rejected.
   - `docker://pragent/pr-agent:0.46.0-github_action` by tag: readable, but a tag can be re-pushed. Rejected in favour of the digest.
-  - Installing the `pr-agent` pip package in a job: this works (see R9), but would duplicate the action's entry point and event handling.
+  - Installing the `pr-agent` pip package on the runner: rejected. It needs an unpinned install on the runner host, and it would put the code outside the digest pin.
+  - Leaving the image's own entry point, which runs the GitHub action runner: **rejected 2026-10-01 after reading its source at `v0.46.0`.** It dispatches on `GITHUB_EVENT_NAME` over five branches only, its `workflow_run` branch returns unless the originating event is `pull_request` or `pull_request_target`, there is no `workflow_dispatch` branch, and it never reads `PR_NUMBER` or `PR_AGENT_COMMAND`. A maintainer command and a manual dispatch would therefore have run no tool at all while reporting success. The CLI takes the pull request explicitly and does not depend on the event, so one invocation serves the automatic path, a command and a dispatch.
+  - The `pr_mode_adapter.py` skill script: it needs `pr_agent` importable on the runner, which has the same unpinned-install problem. Rejected for the pilot and the shared standard; it remains the right entry point for an agent on a host that already has the package.
 
 ## R2. Where the workflows live (platform constraint versus Principle III)
 
@@ -38,7 +40,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 
 - **Decision**:
   - A root-level **`.pr_agent.toml`** in `lightspeedwp/.github` holds the organisation-standard settings. Qodo PR-Agent requires this file name and location for repository-local configuration, and `.coderabbit.yml` sets the root-level precedent.
-  - The reusable workflow passes `CONFIG.EXTRA_CONFIG_URL` pointing at the raw URL of that file at the fixed ref `develop`, written as a constant: there is no caller-supplied `config_ref` input, so no caller can select the configuration. `develop` replaced `main` on 2026-10-01: `main` is this repository's oldest branch and carries neither `.pr_agent.toml` nor the reusable workflow, so a `main` URL 404s and PR-Agent would silently run on upstream defaults.
+  - Both workflows pass `PR_AGENT_EXTRA_CONFIG_URL` pointing at the raw URL of that file at the fixed ref `develop`, written as a constant: there is no caller-supplied `config_ref` input, so no caller can select the configuration. `develop` replaced `main` on 2026-10-01: `main` is this repository's oldest branch and carries neither `.pr_agent.toml` nor the reusable workflow, so a `main` URL 404s and PR-Agent would silently run on upstream defaults.
   - A consuming repository's own `.pr_agent.toml`, if present, overrides individual keys, **except locked keys**, which the workflow re-sets as environment variables (the top precedence layer) so they cannot be weakened (review finding, 2026-09-24). Precedence, as documented upstream: defaults < `extra_config_url` < org `pr-agent-settings` repo < local `.pr_agent.toml` < environment variables.
 - **Rationale**:
   - `extra_config_url` is a *host-only* key, so a repository's own `.pr_agent.toml` cannot set it. It can be set by the workflow environment, which is the host.
@@ -48,7 +50,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 - **Alternatives considered**:
   - An org-wide `lightspeedwp/pr-agent-settings` repository, the upstream mechanism: it needs a new repository and a token that can read it (the default `GITHUB_TOKEN` cannot read another private repository). Deferred as a possible follow-up once more repositories opt in.
   - Environment variables only: these cannot be overridden per repository, because env has the highest precedence. Rejected.
-- **Verify in pilot**: that `CONFIG.EXTRA_CONFIG_URL` set through the workflow environment is honoured by the Action runner (quickstart Q-09). Fallback if it isn't: consumers keep a `.pr_agent.toml` copied from the documented template, and a parity test flags drift.
+- **Verify in pilot**: that `PR_AGENT_EXTRA_CONFIG_URL` set through the workflow environment is honoured by the CLI (quickstart Q-09). The action runner read it as `CONFIG.EXTRA_CONFIG_URL`; the CLI reads the `PR_AGENT_` name, which is the default of its own `--extra_config_url` argument. Fallback if it isn't: consumers keep a `.pr_agent.toml` copied from the documented template, and a parity test flags drift.
 
 ## R4. Language model and credential
 
@@ -76,7 +78,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
   - **Triggers**: `pull_request: [opened, reopened, ready_for_review]` and `issue_comment: [created]`. There is no `synchronize` trigger (no re-run on every push), which mirrors CodeRabbit's non-incremental policy (#3517).
   - **Automatic eligibility** (workflow `if:`): the PR is not a draft; `sender.type != 'Bot'`; the PR author is not `dependabot[bot]` or `lightspeed-docs-bot[bot]`; and the enable variable `vars.QODO_PR_AGENT_ENABLED == 'true'` (opt-in since 2026-10-01: unset or any other value is a `kill-switch` skip).
   - **Comment eligibility**: the comment is on a PR (`github.event.issue.pull_request`); `author_association` is `OWNER`, `MEMBER` or `COLLABORATOR`; and the body starts with an **allow-listed** command: `/describe`, `/improve`, `/review`, `/ask`, `/update_changelog`, `/add_docs`, `/help`.
-  - **Automatic tools**: `github_action_config.auto_describe = "true"`, `auto_improve = "true"`, `auto_review = "false"`. All three must be set explicitly, because unset means *on*.
+  - **Automatic tools**: the CLI names the two tools directly — `run_tool describe` and `run_tool improve` — and no review is ever run automatically. An automatic review cannot be requested through this path at all, which satisfies FR-010 more strongly than switching an `auto_review` setting off did. The shared standard still gates the two tools on its `auto_describe` and `auto_improve` inputs, so a consumer can turn either off. The upstream runner required all three to be set explicitly, because unset means *on*.
 - **Rationale**:
   - The upstream runner performs **no commenter permission check**. Any user who can comment could run tools and spend budget. The author-association guard enforces the spec assumption that commands are for maintainers only.
   - The PR-level ignore settings (`ignore_pr_authors`, `ignore_pr_labels`, `ignore_pr_title`) are **not applied by the Action runner**, only by the webhook servers. So exclusions must be expressed as workflow `if:` conditions, which is also how existing workflows do it.

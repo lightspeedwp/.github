@@ -37,13 +37,13 @@ The pilot satisfies all four. Two of them are repository settings rather than fi
 | `command` | string | `''` | An allow-listed command, or empty for the automatic summary and suggestions path. |
 | `decision_reason` | string | `ok` | The caller's own decision, recorded verbatim. Anything other than `ok` is a skip. |
 | `excluded_authors` | string (JSON array) | `["dependabot[bot]","lightspeed-docs-bot[bot]"]` | PR authors that never trigger automatic runs. The API-confirming step parses the array and adds the valid entries to the default list; a non-array value or a parse failure falls back to the defaults. |
-| `auto_describe` | boolean | `true` | Maps to `github_action_config.auto_describe` |
-| `auto_improve` | boolean | `true` | Maps to `github_action_config.auto_improve` |
+| `auto_describe` | boolean | `true` | Gates the automatic summary: the step runs `describe` only when this is `true` |
+| `auto_improve` | boolean | `true` | Gates the automatic suggestions: the step runs `improve` only when this is `true` |
 | `environment_name` | string | `qodo-pr-agent` | The Environment whose deployment branch policy gates the key. Named so consuming repositories can use their own. |
 
 There is deliberately **no** federation input, and there is deliberately **no** `config_ref` input. The `config_ref` input was removed on 2026-10-01: it made the ref that supplies `.pr_agent.toml` a caller-supplied value, and PR-Agent's own `--config-branch` indirection means a value derived from an event would let a pull request author supply their own configuration. The ref is now the constant `develop`, and PR-Agent independently reads `.pr_agent.toml` from the repository's default branch by default.
 
-There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`, because FR-010 makes the automatic review verdict CodeRabbit's.
+There is deliberately **no** `auto_review` input, and no automatic review is reachable at all: the CLI invocation names each tool it runs, and `review` is only ever reached through the `command` input. FR-010 makes the automatic review verdict CodeRabbit's, and this removes the path rather than switching it off.
 
 ## Secrets
 
@@ -66,7 +66,7 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
    `tool` names the command the run was requested for, so a refused request still records what was asked for. Because the comment body is untrusted, it is an allow-listed command id or `none`, never raw comment text, and `auto` is written only by `confirm` after it has re-derived eligibility from the API. The `not-a-pr`, `not-a-command` and `unsupported-event` reasons now live in the trigger workflow, because the receiver only ever sees a published request.
 2. **`run`** (`needs: preflight`, `if: needs.preflight.outputs.enabled == 'true'`, `timeout-minutes: 15`, **`environment: ${{ inputs.environment_name || 'qodo-pr-agent' }}`**). Its steps:
    - **Fail closed when the Environment did not release the key**: exits 1 with `::error::` if `model_credential` is empty, naming the ref so the operator can see which `GITHUB_REF` failed the deployment branch policy.
-   - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow. The step uses `continue-on-error: true`, so an invalid key, rate limit or upstream outage records `failure` and emits a notice without failing the PR (FR-006, SC-003). The Environment is declared on this job and on no other, so it is the only job that can read the key.
+   - Qodo PR-Agent: a `run:` step that overrides the pinned image's entry point and calls PR-Agent's own CLI — `docker run --rm -i --entrypoint python "${env_args[@]}" "$image" -m pr_agent.cli --pr_url "$pr_url" "$command"`. `image` is `pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow. The step uses `continue-on-error: true`, so an invalid key, rate limit or upstream outage records `failure` and emits a notice without failing the PR (FR-006, SC-003). The Environment is declared on this job and on no other, so it is the only job that can read the key.
 3. **`record`** (`needs: [preflight, run]`, `if: always()` unless the preflight reason is `not-a-command`, `bot-sender` or `not-a-pr`, `permissions: {}`). It writes the run record ([data model](../data-model.md#run-record)), with outcome `success`, `failure` or `skipped:<reason>`, to `$GITHUB_STEP_SUMMARY`, and uploads it as artefact `qodo-pr-agent-run-${{ github.run_id }}` (retention 30 days). It then calls `lightspeedwp/.github/.github/actions/collect-metrics@<sha>` (non-blocking). It is referenced by path and SHA so it needs no checkout, and works in consuming repositories too. An empty `reason` means the `preflight` job itself failed and produced no outputs; that is recorded as `skipped:preflight-error`, so no outcome can fall outside the declared `skipped:<reason>` enum.
 4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write` and `issues: write`, and nothing else — in particular not `contents: write`, which upstream's own recommended workflow grants and which turns a configuration-injection defect into a supply-chain incident. It does **not** get `contents: write`, because nothing is ever pushed, and it does **not** get `id-token` set to `write`: no job in this workflow requests an OIDC token, so the third-party container never holds that capability. `preflight` and `record` have `permissions: {}`.
 5. **Concurrency** (on the `run` job, so only runs preflight enabled enter the group and an ordinary comment cannot cancel a queued command): `group: qodo-pr-agent-${{ inputs.pr_number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one. The pull request number comes from the input rather than from the event, because in the pilot the privileged run is a `workflow_run` whose own payload is the triggering run, not the pull request.
@@ -103,11 +103,11 @@ These are enforced by `tests/js/qodo-pr-agent-workflow.test.js`:
 - The privileged workflow's triggers include no `pull_request`, no `issue_comment` and no `pull_request_target`; they are `workflow_run` and `workflow_dispatch`.
 - The unprivileged trigger workflow contains no `secrets` reference and grants no write scope.
 - Only the environment-gated `run` job reads `secrets.model_credential`; every other reference is a `!= ''` presence probe.
-- `PR_AGENT_EXTRA_CONFIG_URL` is the constant `develop` URL and contains no expression.
+- `PR_AGENT_EXTRA_CONFIG_URL` is the constant `develop` URL and contains no expression. The action runner read this same setting as `CONFIG.EXTRA_CONFIG_URL`; the CLI reads the `PR_AGENT_` name, which is the default of its own `--extra_config_url` argument.
 - No workflow in the pilot sets `id-token` to `write`.
 - The receiver re-derives eligibility from the API rather than trusting the trigger's artefact.
 - The allow-list and author-association guard are present.
 - The kill-switch variable is checked.
-- `github_action_config.auto_review` is `"false"`.
+- The step names each tool directly (`run_tool describe`, `run_tool improve`) and sets no `github_action_config.*` key, so no automatic review is possible.
 - The run job's fail-closed step exits 1 when the Environment released no key, and exits 0 when it did.
 - The `verify` step refuses `credential-not-environment-scoped` when a repository-scoped secret is visible in a job with no environment.

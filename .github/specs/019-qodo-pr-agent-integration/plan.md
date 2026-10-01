@@ -152,7 +152,7 @@ CHANGELOG.md                                     # EDIT: Added entry
 
 | Risk | Mitigation |
 | --- | --- |
-| `CONFIG.EXTRA_CONFIG_URL` via env is not honoured by the Action runner (R3) | Quickstart Q-09. Fallback: a consumer-side copy of the config plus a parity test. |
+| The config URL env var is not honoured by the CLI entry point (R3) | `PR_AGENT_EXTRA_CONFIG_URL` is the CLI's own default for `--extra_config_url`, and Quickstart Q-09 confirms it. Fallback: a consumer-side copy of the config plus a parity test. |
 | An upstream image changes behaviour | Digest pin. Bumps go through a normal PR with a changelog note, and provenance is verified with `gh attestation verify`. |
 | The upstream repo moved (`qodo-ai` → `the-pr-agent`) | Docs link the new name. The digest is independent of the repo name. |
 | Comment noise alongside CodeRabbit | The matrix, persistent comments, no automatic review, and the SC-004 duplicate-rate measure. |

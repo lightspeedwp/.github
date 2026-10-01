@@ -44,7 +44,7 @@ These are forbidden because they would change the PR body, apply labels or commi
 
 - `pr_description.use_description_markers = true`, until the PR templates carry markers via a `[TEMPLATE-UPDATE-REQUEST]`.
 - Any `[custom_labels.*]` table.
-- `github_action_config.*`. These keys belong in the workflow environment only, so that the trigger policy lives in one reviewed place.
+- `github_action_config.*`. Neither workflow sets these any more — the tools are named directly by the CLI invocation — and they must not be added here either. Trigger policy belongs in the workflow, not in the repository configuration.
 - Any secret or key value.
 
 **Verified 2026-10-01.** `anthropic/claude-sonnet-5` and `anthropic/claude-haiku-4-5-20251001` are both present in the model map bundled with litellm 1.101.0, which pr-agent v0.46.0 pins in `uv.lock` and the image freezes with `LITELLM_LOCAL_MODEL_COST_MAP=True`. `claude-sonnet-5-5` is **not** in that map, which is why the primary model does not move to Sonnet 5.5 without a pr-agent release that bumps litellm. The image digest resolves for the `0.46.0-github_action` tag and its Sigstore provenance verifies; see `docs/QODO_PR_AGENT.md` -> *Pinned version* and *Model and version, as verified*.
