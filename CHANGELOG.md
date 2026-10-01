@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Label Write Queue** — Label consolidation writes now go through one queue that spaces them one second apart and pauses on GitHub or Linear rate limits, so a long run can stop and resume safely. (#3704)
 - **Footer Shape Signal** — `npm run validate:footers:shape` reports files holding two or more footer-shaped blocks the wording-based deduper cannot see. Advisory only: never edits a file, never fails a build. (#3682)
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
