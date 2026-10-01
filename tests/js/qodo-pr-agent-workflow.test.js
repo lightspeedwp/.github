@@ -1465,7 +1465,9 @@ describe.each([
     // renamed or nested declaration still fails rather than passing as a substring.
     const envKeys = Object.keys(step.env || {});
     expect({
-      keys: envKeys.filter((key) => /PR_AGENT_COMMAND|auto_describe|auto_improve|auto_review/.test(key)),
+      keys: envKeys.filter((key) =>
+        /PR_AGENT_COMMAND|auto_describe|auto_improve|auto_review/.test(key)
+      ),
       inScript: /PR_AGENT_COMMAND|auto_describe|auto_improve|auto_review/.test(script),
     }).toStrictEqual({ keys: [], inScript: false });
   });
@@ -1519,8 +1521,9 @@ describe.each([
     expect(passed).toContain('ANTHROPIC.KEY');
     // Neither workflow's raw secret name may be handed in under its own name: the
     // container is given the key as ANTHROPIC.KEY, which is what the image reads.
-    expect(passed.filter((name) => /model_credential|ANTHROPIC_API_KEY_QODO_PR_AGENT/.test(name)))
-      .toStrictEqual([]);
+    expect(
+      passed.filter((name) => /model_credential|ANTHROPIC_API_KEY_QODO_PR_AGENT/.test(name))
+    ).toStrictEqual([]);
     expect(new Set(passed).size).toBe(passed.length);
     // The step's own env holds the key under the name the image expects, and never
     // under the secret's own name. The source differs by design: the pilot reads its
@@ -1534,9 +1537,7 @@ describe.each([
       String(candidate.run || '').includes('did not release')
     );
     expect(guard).toBeDefined();
-    expect(guard.env.HAS_CREDENTIAL).toBe(
-      "${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT != '' }}"
-    );
+    expect(guard.env.HAS_CREDENTIAL).toBe("${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT != '' }}");
     expect(run.if).toBe("needs.preflight.outputs.enabled == 'true'");
   });
 });
