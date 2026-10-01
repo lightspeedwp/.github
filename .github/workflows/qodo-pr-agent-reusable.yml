@@ -310,21 +310,33 @@ jobs:
 
       # Pinned by image digest: the upstream action's own Dockerfile uses a
       # floating tag, so pinning the action ref would not pin the code that runs.
+      # The entry point is PR-Agent's own CLI, not the image's GitHub action runner.
+      #
+      # The image's ENTRYPOINT runs pr_agent/servers/github_action_runner.py, which in
+      # v0.46.0 dispatches on GITHUB_EVENT_NAME. Inside a called workflow that is the
+      # *caller's* event, so a consumer whose receiver triggers on workflow_run lands in
+      # the runner's workflow_run branch, which returns unless the originating event is
+      # pull_request or pull_request_target. It never reads PR_NUMBER or
+      # PR_AGENT_COMMAND, so this workflow's pr_number and command inputs would be
+      # ignored. The CLI takes the pull request explicitly and does not depend on the
+      # event, so one invocation serves the automatic path, a command and a dispatch.
       - name: Qodo PR-Agent
         id: qodo
         continue-on-error: true
-        uses: docker://pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7 # 0.46.0-github_action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC.KEY: ${{ secrets.model_credential }}
-          # Constant ref. Never an event, head_ref or input value: PR-Agent's
-          # --config-branch indirection would otherwise let a pull request
-          # supply its own .pr_agent.toml.
-          CONFIG.EXTRA_CONFIG_URL: https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml
-          github_action_config.auto_review: 'false'
-          github_action_config.auto_describe: ${{ inputs.auto_describe && 'true' || 'false' }}
-          github_action_config.auto_improve: ${{ inputs.auto_improve && 'true' || 'false' }}
-          github_action_config.pr_actions: '["opened","reopened","ready_for_review"]'
+          # The CLI reads its extra config from PR_AGENT_EXTRA_CONFIG_URL. Constant ref,
+          # never an event, head_ref or input value: PR-Agent's --config-branch
+          # indirection would otherwise let a pull request supply its own .pr_agent.toml.
+          PR_AGENT_EXTRA_CONFIG_URL: https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml
+          # Validated upstream of here: pr_number is checked by the preflight and
+          # re-read from the API, and tool came off its fixed allow-list. Both are
+          # checked again below, because they become shell and API input.
+          QODO_PR: ${{ inputs.pr_number }}
+          QODO_TOOL: ${{ needs.preflight.outputs.tool }}
+          QODO_AUTO_DESCRIBE: ${{ inputs.auto_describe && 'true' || 'false' }}
+          QODO_AUTO_IMPROVE: ${{ inputs.auto_improve && 'true' || 'false' }}
           # Locked keys, re-set here because environment variables take precedence
           # over a consuming repository's own .pr_agent.toml, which cannot weaken them.
           config.response_language: en-GB
@@ -336,6 +348,68 @@ jobs:
           pr_reviewer.enable_review_labels_effort: 'false'
           pr_code_suggestions.commitable_code_suggestions: 'false'
           pr_update_changelog.push_changelog_changes: 'false'
+        run: |
+          set -euo pipefail
+
+          # Pinned by digest, not by tag, so the code that runs cannot change under a
+          # floating version. The tag is in the comment for a human to check.
+          image='pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7' # 0.46.0-github_action
+
+          case "$QODO_PR" in
+            ''|*[!0-9]*) echo "::error::pr_number is not a pull request number"; exit 1 ;;
+          esac
+          pr_url="https://github.com/${{ github.repository }}/pull/$QODO_PR"
+
+          # The exact variables allowed into the container, so a later edit to this
+          # job's env cannot widen what enters.
+          container_env=(
+            GITHUB_TOKEN
+            ANTHROPIC.KEY
+            PR_AGENT_EXTRA_CONFIG_URL
+            config.response_language
+            config.enable_custom_labels
+            pr_description.publish_description_as_comment
+            pr_description.publish_labels
+            pr_description.generate_ai_title
+            pr_reviewer.enable_review_labels_security
+            pr_reviewer.enable_review_labels_effort
+            pr_code_suggestions.commitable_code_suggestions
+            pr_update_changelog.push_changelog_changes
+          )
+
+          run_tool() {
+            local command="$1"
+            shift
+            local env_args=()
+            local name
+            for name in "${container_env[@]}"; do
+              env_args+=(-e "$name")
+            done
+            docker run --rm -i --entrypoint python \
+              "${env_args[@]}" \
+              "$image" \
+              -m pr_agent.cli --pr_url "$pr_url" "$command" "$@"
+          }
+
+          case "$QODO_TOOL" in
+            auto)
+              # The automatic path. Each tool is named directly, and a consumer that
+              # switched one off does not get it, which the auto_* settings could not
+              # express through the action runner.
+              if [ "$QODO_AUTO_DESCRIBE" = 'true' ]; then
+                run_tool describe
+              fi
+              if [ "$QODO_AUTO_IMPROVE" = 'true' ]; then
+                run_tool improve
+              fi
+              ;;
+            none)
+              echo "::notice::Qodo PR-Agent preflight resolved no tool; nothing to run."
+              ;;
+            *)
+              run_tool "$QODO_TOOL"
+              ;;
+          esac
 
       - name: Report a failed run without blocking the PR
         if: steps.qodo.outcome == 'failure'

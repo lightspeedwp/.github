@@ -17,7 +17,7 @@ Qodo PR-Agent is an open-source AI pull-request assistant ([`The-PR-Agent/pr-age
 
 - Specification: [`.github/specs/019-qodo-pr-agent-integration/`](../.github/specs/019-qodo-pr-agent-integration/spec.md)
 - Configuration: [`.pr_agent.toml`](../.pr_agent.toml)
-- Workflows: [`qodo-pr-agent-reusable.yml`](../.github/workflows/qodo-pr-agent-reusable.yml) (the shared definition) and [`qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) (this repository's caller)
+- Workflows: three files. [`qodo-pr-agent-trigger.yml`](../.github/workflows/qodo-pr-agent-trigger.yml) is the **unprivileged trigger** — the half a pull request author can edit, holding no secret and no write scope. [`qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) is the **privileged receiver**, reached by `workflow_run`, which never checks out pull request files and re-reads the pull request and the command comment by id with `issues.getComment` rather than trusting the trigger. [`qodo-pr-agent-reusable.yml`](../.github/workflows/qodo-pr-agent-reusable.yml) is the **shared definition** other repositories call.
 - Shared skill for agents: [`skills/qodo-pr-agent/`](../skills/qodo-pr-agent/SKILL.md)
 
 ## Pinned version

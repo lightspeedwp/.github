@@ -385,21 +385,25 @@ describe('Qodo PR-Agent reusable workflow', () => {
 
   it('passes the contracted environment to Qodo PR-Agent', () => {
     const env = qodoStep(doc).env;
-    expect(env['github_action_config.auto_review']).toBe('false');
     expect(env['ANTHROPIC.KEY']).toContain('secrets.model_credential');
     expect(env.GITHUB_TOKEN).toContain('secrets.GITHUB_TOKEN');
     // A constant, not `inputs.config_ref`: an expression here would hand the ref
     // that names the config to whoever controls the call, and PR-Agent would then
-    // read that ref's .pr_agent.toml.
-    expect(env['CONFIG.EXTRA_CONFIG_URL']).toBe(
+    // read that ref's .pr_agent.toml. The CLI reads this name, not the action
+    // runner's CONFIG.EXTRA_CONFIG_URL.
+    expect(env.PR_AGENT_EXTRA_CONFIG_URL).toBe(
       'https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml'
     );
-    expect(env['CONFIG.EXTRA_CONFIG_URL']).not.toMatch(/\$\{\{/);
-    expect(JSON.parse(env['github_action_config.pr_actions'])).toStrictEqual([
-      'opened',
-      'reopened',
-      'ready_for_review',
-    ]);
+    expect(env.PR_AGENT_EXTRA_CONFIG_URL).not.toMatch(/\$\{\{/);
+    // Which tool to run is passed explicitly, so the action runner's trigger-policy
+    // settings are gone rather than inert.
+    const keys = Object.keys(env);
+    expect(keys.filter((key) => key.startsWith('github_action_config'))).toStrictEqual([]);
+    expect(env.QODO_PR).toContain('pr_number');
+    expect(env.QODO_TOOL).toContain('needs.preflight.outputs.tool');
+    // The automatic path is still the consumer's choice, and it cannot be widened.
+    expect(env.QODO_AUTO_DESCRIBE).toContain('inputs.auto_describe');
+    expect(env.QODO_AUTO_IMPROVE).toContain('inputs.auto_improve');
   });
 
   describe('preflight guard', () => {
@@ -1437,9 +1441,13 @@ function runReceiverDispatch({ pr = String(PR_NUMBER), command = '' } = {}) {
  * having run nothing, and continue-on-error would hide it. These assertions are
  * what stop that shape coming back.
  */
-describe('Qodo PR-Agent entry point', () => {
-  const run = caller.doc.jobs.run;
-  const step = qodoStep(caller.doc);
+describe.each([
+  ['pilot receiver', () => caller],
+  ['shared reusable standard', () => reusable],
+])('Qodo PR-Agent entry point: %s', (_label, load) => {
+  const doc = load().doc;
+  const run = doc.jobs.run;
+  const step = qodoStep(doc);
   const script = String(step?.run || '');
 
   it('overrides the image entry point instead of using the action runner', () => {
@@ -1453,15 +1461,27 @@ describe('Qodo PR-Agent entry point', () => {
   it('passes the pull request explicitly rather than through the event', () => {
     expect(script).toContain('--pr_url');
     expect(script).toContain('pr_url="https://github.com/${{ github.repository }}/pull/$QODO_PR"');
-    // The variables the action runner never read must not be relied on.
-    expect(script).not.toContain('PR_AGENT_COMMAND');
-    expect(String(step.env || {})).not.toContain('PR_AGENT_COMMAND');
+    // The two variables the upstream runner never reads. Checked as env keys, so a
+    // renamed or nested declaration still fails rather than passing as a substring.
+    const envKeys = Object.keys(step.env || {});
+    expect({
+      keys: envKeys.filter((key) => /PR_AGENT_COMMAND|auto_describe|auto_improve|auto_review/.test(key)),
+      inScript: /PR_AGENT_COMMAND|auto_describe|auto_improve|auto_review/.test(script),
+    }).toStrictEqual({ keys: [], inScript: false });
   });
 
   it('names the automatic path explicitly rather than through auto_* settings', () => {
     expect(script).toContain('run_tool describe');
     expect(script).toContain('run_tool improve');
-    expect(String(step.env || {})).not.toContain('auto_describe');
+    // Where the workflow has a consumer switch for the automatic path, the script
+    // must actually consult it, so a consumer that turns a tool off does not get it.
+    if (step.env.QODO_AUTO_DESCRIBE) {
+      expect(script).toContain('[ "$QODO_AUTO_DESCRIBE" = \'true\' ]');
+      expect(script).toMatch(/if \[ "\$QODO_AUTO_DESCRIBE" = 'true' \]; then\s+run_tool describe/);
+    }
+    if (step.env.QODO_AUTO_IMPROVE) {
+      expect(script).toMatch(/if \[ "\$QODO_AUTO_IMPROVE" = 'true' \]; then\s+run_tool improve/);
+    }
   });
 
   it('refuses a pull request value that is not a plain number', () => {
@@ -1469,9 +1489,14 @@ describe('Qodo PR-Agent entry point', () => {
     expect(script).toMatch(/QODO_PR[\s\S]{0,200}\*\[!0-9\]\*/);
   });
 
-  it('passes the trailing text as one argument, never word-split', () => {
-    expect(script).toContain('run_tool "$QODO_TOOL" "$QODO_ARGS"');
-    expect(script).not.toMatch(/run_tool\s+"?\$QODO_TOOL"?\s+\$QODO_ARGS(?!")/);
+  it('runs a named command with no free arguments, so no text can become a flag', () => {
+    // The shared standard's `command` input is the allow-listed token only, so it has
+    // no trailing text to pass. The pilot does, and quotes it. Neither form lets a
+    // comment reach the argv unquoted.
+    expect(script).not.toMatch(/run_tool\s+"?\$QODO_TOOL"?\s+\$[A-Z_]+(?!")/);
+    if (/QODO_ARGS/.test(script)) {
+      expect(script).toContain('run_tool "$QODO_TOOL" "$QODO_ARGS"');
+    }
   });
 
   it('keeps the image pinned by digest on the new invocation path', () => {
@@ -1492,13 +1517,16 @@ describe('Qodo PR-Agent entry point', () => {
     expect(passed.length).toBeGreaterThan(0);
     expect(passed).toContain('GITHUB_TOKEN');
     expect(passed).toContain('ANTHROPIC.KEY');
-    expect(passed).not.toContain('ANTHROPIC_API_KEY_QODO_PR_AGENT');
+    // Neither workflow's raw secret name may be handed in under its own name: the
+    // container is given the key as ANTHROPIC.KEY, which is what the image reads.
+    expect(passed.filter((name) => /model_credential|ANTHROPIC_API_KEY_QODO_PR_AGENT/.test(name)))
+      .toStrictEqual([]);
     expect(new Set(passed).size).toBe(passed.length);
-    // The step's own env holds the raw secret name; the container is given the
-    // key under the name the image expects and never the secret's own name.
-    expect(step.env['ANTHROPIC.KEY']).toBe(
-      '${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}'
-    );
+    // The step's own env holds the key under the name the image expects, and never
+    // under the secret's own name. The source differs by design: the pilot reads its
+    // environment secret, the shared standard a declared input.
+    expect(step.env['ANTHROPIC.KEY']).toMatch(/^\$\{\{ secrets\.[A-Za-z_]+ \}\}$/);
+    expect(Object.keys(step.env)).not.toContain('ANTHROPIC_API_KEY_QODO_PR_AGENT');
   });
 
   it('still fails closed when the environment did not release the key', () => {
