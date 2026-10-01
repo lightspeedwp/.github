@@ -82,6 +82,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Pilot Command Settings** — A comment command can no longer change the pilot's protected settings, such as the model or output language; a command that tries is refused with a notice. (#3532)
 - **Pilot Command Queue** — Ordinary PR comments can no longer cancel a maintainer's queued Qodo PR-Agent command. (#3532)
 - **Pilot Report Arguments** — The report now rejects a flag given without a value instead of silently reading the next flag as its value. (#3532)
+- **Pilot Fork Check** — A pull request whose head repository is unknown is now treated as a fork and skipped, so a deleted fork cannot enable the automatic path. (#3532)
+- **Pilot Config Ref** — The shared configuration is loaded from `develop`, the branch that carries it, instead of a ref where it is absent. (#3532)
 - **Docs-Bot Changelog Exemption** — The gate now matches the docs bot in either login shape, so its exemption applies. Bot pull requests with no user-facing content no longer need a changelog entry. (#3603, #3448)
 - **Semantic-Version Release Branches** — Branch checks in CI and the npm script now accept documented release names such as `release/v1.2.3` and `release/v1.2.3-rc1`. ([#3555](https://github.com/lightspeedwp/.github/issues/3555))
 - **Linear Plan Claims Corrected** — Workspace exports and third-party app approvals are Business features, not Enterprise-only. The validator, guide and guidance now cite Linear's docs for every Enterprise-only claim. (#3599)
