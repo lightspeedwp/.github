@@ -75,6 +75,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Pilot Run Record** — An event whose preflight job errors is now recorded as `skipped:preflight-error` instead of a bare `skipped:`, which the pilot report listed as its own row. (#3532)
+- **Pilot Upstream Claims** — Three Qodo PR-Agent descriptions that did not match its source are corrected: the token cap is one global limit, `/similar_issue` needs a dependency the image omits, and a rate limit records a failure. (#3532)
 - **Pilot Report Completeness** — The report now reads every workflow run since the requested date instead of stopping at 1,000, so a longer pilot window is no longer silently truncated. (#3532)
 - **Pilot Report Flags** — Non-numeric or negative cost flags are now rejected instead of rendering the spend estimate as `$NaN`. (#3532)
 - **Pilot Preflight Tool Reporting** — A refused `/command` request now records the command it asked for instead of `none`, and an unrecognised or unauthorised command can no longer write an arbitrary value into the pilot report. (#3532)
@@ -86,6 +88,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Pilot Config Ref** — The shared configuration is loaded from `develop`, the branch that carries it, instead of a ref where it is absent. (#3532)
 - **No Federation Token for the Pilot** — Keyless sign-in is removed, so the job running Qodo PR-Agent no longer grants the identity-token permission and the container cannot mint a repository token. The stored key is the only credential. (#3532)
 - **Pilot Caller Pin Tracked** — The pilot caller keeps its local workflow reference until the reusable workflow exists on a trusted ref; the follow-up that pins it to a commit hash is tracked. (#3710, #3532)
+- **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
+- **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
+- **Footer Shape Figures Corrected** — Workflow comment: 899 flagged files, 255 holding fewer than two distinct known footer phrases. The runtime notice calls 28.4% a share of flagged files, not a false-positive rate. (#3682, #3604)
+- **Merged Advisory and Spec Defects Corrected** — The advisories newsletter form survives a failed request, tells a blocked address from a fault and counts its rate limit atomically; spec 018 defers auto-approved branch deletion. (#1396)
 - **Docs-Bot Changelog Exemption** — The gate now matches the docs bot in either login shape, so its exemption applies. Bot pull requests with no user-facing content no longer need a changelog entry. (#3603, #3448)
 - **Semantic-Version Release Branches** — Branch checks in CI and the npm script now accept documented release names such as `release/v1.2.3` and `release/v1.2.3-rc1`. ([#3555](https://github.com/lightspeedwp/.github/issues/3555))
 - **Linear Plan Claims Corrected** — Workspace exports and third-party app approvals are Business features, not Enterprise-only. The validator, guide and guidance now cite Linear's docs for every Enterprise-only claim. (#3599)
