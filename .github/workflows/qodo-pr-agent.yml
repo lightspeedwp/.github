@@ -163,10 +163,15 @@ jobs:
             }
             const pr = Number.parseInt(parsed?.pr, 10);
             if (!Number.isInteger(pr) || pr < 1) return out('unreadable-request');
-            // The hint must name the pull request the triggering run was for.
-            // Without this a stale or forged hint could point a successful
-            // trigger at an unrelated pull request and get it analysed.
-            if (Number.parseInt(process.env.TRIGGER_PR, 10) !== pr) {
+            const isCommand = context.payload.workflow_run.event === 'issue_comment';
+            // Only a pull_request trigger is bound to its pull request by the
+            // platform: workflow_run.pull_requests is populated for those runs
+            // and is empty for an issue_comment run, whose ref is the default
+            // branch. Authorising on that field for a command run would refuse
+            // every command, so the command path is bound by the comment id
+            // instead, resolved through the API below. Nothing is authorised on
+            // a nullable field.
+            if (!isCommand && Number.parseInt(process.env.TRIGGER_PR, 10) !== pr) {
               return out('hint-does-not-match-trigger');
             }
 
@@ -194,15 +199,27 @@ jobs:
             // Command path: the comment and its author are re-read from the API
             // so a forged artifact cannot grant a command to an unauthorised
             // commenter or introduce one that is not allow-listed.
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner: context.repo.owner, repo: context.repo.repo, issue_number: pr,
-              per_page: 100,
-            });
-            const wanted = String(parsed?.command || '');
-            const match = [...comments].reverse().find((c) =>
-              String(c.body || '').trim().split(/\s+/)[0].toLowerCase() === wanted,
+            // The comment is fetched by id, so the pull request and the author
+            // come from GitHub. A hint that names a comment on a different pull
+            // request is rejected rather than followed.
+            const wanted = String(parsed?.command || '').toLowerCase();
+            const commentId = Number.parseInt(parsed?.comment_id, 10);
+            if (!Number.isInteger(commentId) || commentId < 1) return out('unreadable-request');
+            let match;
+            try {
+              ({ data: match } = await github.rest.issues.getComment({
+                owner: context.repo.owner, repo: context.repo.repo, comment_id: commentId,
+              }));
+            } catch {
+              return out('no-matching-comment');
+            }
+            const commentPr = Number.parseInt(
+              String(match?.issue_url || '').split('/').pop(), 10
             );
-            if (!match) return out('no-matching-comment');
+            if (commentPr !== pr) return out('comment-not-on-this-pull-request');
+            if (String(match?.body || '').trim().split(/\s+/)[0].toLowerCase() !== wanted) {
+              return out('no-matching-comment');
+            }
             if (!ALLOWED_ASSOCIATIONS.includes(match.author_association)) {
               return out('author-not-allowed');
             }

@@ -635,7 +635,11 @@ describe('Qodo PR-Agent reusable workflow', () => {
         eventName: 'issue_comment',
         payload: {
           issue: { pull_request: {} },
-          comment: { body: '/ask What does --verbose do here?', author_association: 'OWNER' },
+          comment: {
+            id: 7788,
+            body: '/ask What does --verbose do here?',
+            author_association: 'OWNER',
+          },
         },
       });
       expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'ask' });
@@ -992,6 +996,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
     expect(publish.env).toStrictEqual({
       PR_NUMBER: '${{ steps.classify.outputs.pr }}',
       COMMAND: '${{ steps.classify.outputs.command }}',
+      COMMENT_ID: '${{ steps.classify.outputs.comment_id }}',
       REASON: '${{ steps.classify.outputs.reason }}',
     });
     expect(publish.run).not.toMatch(/github\.event|event_name|head_ref/);
@@ -1021,6 +1026,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
         reason: 'ok',
         pr: String(PR_NUMBER),
         command: '',
+        comment_id: '',
       });
     });
 
@@ -1063,7 +1069,13 @@ describe('Qodo PR-Agent trigger workflow', () => {
         ...overrides,
         payload: { ...PR_PAYLOAD, ...(overrides.payload || {}) },
       });
-      expect(outputs).toStrictEqual({ analyse: 'false', reason, pr: '', command: '' });
+      expect(outputs).toStrictEqual({
+        analyse: 'false',
+        reason,
+        pr: '',
+        command: '',
+        comment_id: '',
+      });
       expect(core.notice).toHaveBeenCalledWith(`Qodo PR-Agent not requested: ${reason}`);
     });
 
@@ -1081,7 +1093,13 @@ describe('Qodo PR-Agent trigger workflow', () => {
       ],
     ])('refuses an issue comment with reason %s and publishes no request', (reason, payload) => {
       const { outputs, core } = runTriggerClassify({ eventName: 'issue_comment', payload });
-      expect(outputs).toStrictEqual({ analyse: 'false', reason, pr: '', command: '' });
+      expect(outputs).toStrictEqual({
+        analyse: 'false',
+        reason,
+        pr: '',
+        command: '',
+        comment_id: '',
+      });
       expect(core.notice).toHaveBeenCalledTimes(reason === 'not-a-command' ? 0 : 1);
     });
 
@@ -1100,6 +1118,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
         reason: 'not-a-command',
         pr: '',
         command: '',
+        comment_id: '',
       });
       expect(core.notice).not.toHaveBeenCalled();
     });
@@ -1119,6 +1138,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
           reason: 'command-not-allowed',
           pr: '',
           command: '',
+          comment_id: '',
         });
         expect(core.notice).toHaveBeenCalledWith(
           'Qodo PR-Agent not requested: command-not-allowed'
@@ -1139,6 +1159,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
         reason: 'author-not-allowed',
         pr: '',
         command: '',
+        comment_id: '',
       });
       expect(core.notice).toHaveBeenCalledWith('Qodo PR-Agent not requested: author-not-allowed');
     });
@@ -1163,6 +1184,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
         reason: 'arguments-not-allowed',
         pr: '',
         command: '',
+        comment_id: '',
       });
       expect(core.notice).toHaveBeenCalledWith(
         'Qodo PR-Agent not requested: arguments-not-allowed'
@@ -1174,7 +1196,11 @@ describe('Qodo PR-Agent trigger workflow', () => {
         eventName: 'issue_comment',
         payload: {
           issue: { pull_request: {}, number: PR_NUMBER },
-          comment: { body: '/ask What does --verbose do here?', author_association: 'OWNER' },
+          comment: {
+            id: 7788,
+            body: '/ask What does --verbose do here?',
+            author_association: 'OWNER',
+          },
         },
       });
       expect(outputs).toStrictEqual({
@@ -1182,6 +1208,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
         reason: 'ok',
         pr: String(PR_NUMBER),
         command: '/ask',
+        comment_id: '7788',
       });
     });
 
@@ -1199,6 +1226,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
         reason: 'pr-closed',
         pr: '',
         command: '',
+        comment_id: '',
       });
     });
 
@@ -1217,6 +1245,7 @@ describe('Qodo PR-Agent trigger workflow', () => {
           reason: 'not-a-command',
           pr: '',
           command: '',
+          comment_id: '',
         });
         expect(core.notice).not.toHaveBeenCalled();
       }
@@ -1229,8 +1258,433 @@ describe('Qodo PR-Agent trigger workflow', () => {
         reason: 'unsupported-event',
         pr: '',
         command: '',
+        comment_id: '',
       });
     });
+  });
+});
+
+/**
+ * List the jobs that reference the model key, in workflow order.
+ * @param {object} doc - Parsed receiver workflow.
+ * @returns {string[]} Job names naming the secret.
+ */
+function jobsWithSecret(doc) {
+  return Object.entries(doc.jobs || {})
+    .filter(([, job]) => JSON.stringify(job).includes('ANTHROPIC_API_KEY_QODO_PR_AGENT'))
+    .map(([name]) => name);
+}
+
+/**
+ * Execute the receiver's preflight step with a synthetic triggering run.
+ *
+ * This runs the real script out of the workflow file rather than asserting on its
+ * text. String assertions pass against a broken implementation, which is how a
+ * nullable `workflow_run.pull_requests[0].number` read survived review: the
+ * command path compared NaN to a pull request number and refused every command.
+ * Each case drives the script and reads the decision it actually took, and the
+ * suite is mutation-checked, so removing a guard fails it.
+ *
+ * The hint is written to a real temporary workspace so the script's own file
+ * handling is exercised, and GitHub is mocked at the API boundary.
+ * @param {object} [options] - Trigger event and overrides.
+ * @param {string} [options.event] - The event that started the triggering run.
+ * @param {object|string|null} [options.hint] - Published hint, or null for none.
+ * @param {object} [options.comment] - Comment returned by issues.getComment.
+ * @param {string} [options.headSha] - Head SHA the triggering run observed.
+ * @param {object} [options.pullRequest] - Pull request returned by pulls.get.
+ * @param {object} [options.env] - Variables that replace the derived ones.
+ * @returns {Promise<object>} The decision: outputs, the API calls made, and
+ * whether the run was refused.
+ */
+async function runReceiverPreflight({
+  event = 'pull_request',
+  hint = { pr: PR_NUMBER, command: '', reason: 'ok' },
+  comment = null,
+  headSha = 'a'.repeat(40),
+  pullRequest = {
+    number: PR_NUMBER,
+    state: 'open',
+    merged: false,
+    draft: false,
+    user: { login: 'maintainer' },
+    head: { sha: headSha, repo: { full_name: REPO } },
+    base: { repo: { full_name: REPO } },
+  },
+  env = {},
+} = {}) {
+  const outputs = {};
+  const core = {
+    setOutput: jest.fn((key, value) => {
+      outputs[key] = value;
+    }),
+    notice: jest.fn(),
+    warning: jest.fn(),
+  };
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'qodo-hint-'));
+  if (hint) {
+    fs.mkdirSync(path.join(workspace, 'qodo-signal'));
+    fs.writeFileSync(
+      path.join(workspace, 'qodo-signal', 'qodo-signal.json'),
+      typeof hint === 'string' ? hint : JSON.stringify(hint),
+      'utf8'
+    );
+  }
+  const calls = { getComment: [], pulls: [] };
+  const github = {
+    rest: {
+      issues: {
+        getComment: jest.fn(async (args) => {
+          calls.getComment.push(args);
+          if (!comment) {
+            const error = new Error('Not Found');
+            error.status = 404;
+            throw error;
+          }
+          return { data: comment };
+        }),
+      },
+      pulls: {
+        get: jest.fn(async (args) => {
+          calls.pulls.push(args);
+          return { data: pullRequest };
+        }),
+      },
+    },
+  };
+  const context = {
+    eventName: 'workflow_run',
+    payload: { workflow_run: { event, head_sha: headSha } },
+    repo: { owner: 'lightspeedwp', repo: '.github' },
+  };
+  const base = {
+    KILL_SWITCH: 'true',
+    DOWNLOAD_OUTCOME: 'success',
+    TRIGGER_CONCLUSION: 'success',
+    TRIGGER_EVENT: event,
+    TRIGGER_REPO: REPO,
+    // A pull_request run is bound to its pull request by the platform. A command
+    // run leaves this empty, so a case that depends on the field has to set it.
+    TRIGGER_PR: String(PR_NUMBER),
+    GITHUB_WORKSPACE: workspace,
+    DISPATCH_PR: '',
+    ...env,
+  };
+  // github-script evaluates the body inside an async function, so a top-level
+  // `return` is a decision rather than a syntax error. The harness matches that.
+  const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
+  const body = stepScript(caller.doc, 'preflight', 'hint');
+  await new AsyncFunction('core', 'context', 'github', 'require', 'process', body)(
+    core,
+    context,
+    github,
+    require,
+    { env: base }
+  );
+  fs.rmSync(workspace, { recursive: true, force: true });
+  return { outputs, core, api: calls, refused: outputs.enabled !== 'true' };
+}
+
+/**
+ * The receiver's preflight, executed.
+ *
+ * The privileged half of the split. Every case drives the real script and asserts
+ * the reason it returned, so a change that weakens a guard fails here rather than
+ * passing on a string match. The environment holding the key is attached to the
+ * `run` job alone and that job is gated on `enabled`, so a refusal leaves the key
+ * unreachable. That is the assertion the CWE-200 finding turns on.
+ */
+describe('Qodo PR-Agent receiver preflight, executed', () => {
+  const COMMENT_ID = '555';
+  const SHA = 'a'.repeat(40);
+
+  /**
+   * A comment the API would return, on the given pull request.
+   * @param {number} [pr] - Pull request the comment lives on.
+   * @param {string} [association] - author_association the API reports.
+   * @param {string} [body] - Comment body.
+   * @returns {object} A comment object.
+   */
+  const commentOn = (
+    pr = PR_NUMBER,
+    association = 'MEMBER',
+    body = '/review look at the retry path'
+  ) => ({
+    id: 555,
+    body,
+    author_association: association,
+    issue_url: `https://api.github.com/repos/${REPO}/issues/${pr}`,
+  });
+
+  /**
+   * A pull request the API would return.
+   * @param {object} [over] - Fields to override.
+   * @returns {object} A pull request object.
+   */
+  const pullOn = (over = {}) => ({
+    number: PR_NUMBER,
+    state: 'open',
+    merged: false,
+    draft: false,
+    user: { login: 'maintainer' },
+    head: { sha: SHA, repo: { full_name: REPO } },
+    base: { repo: { full_name: REPO } },
+    ...over,
+  });
+
+  /**
+   * Run the command path, which leaves TRIGGER_PR empty the way a real
+   * issue_comment triggering run does.
+   * @param {object} [over] - Harness overrides.
+   * @returns {Promise<object>} The decision.
+   */
+  const command = (over = {}) =>
+    runReceiverPreflight({ event: 'issue_comment', env: { TRIGGER_PR: '' }, ...over });
+
+  it('runs the automatic path for a pull_request trigger', async () => {
+    const { outputs, api } = await runReceiverPreflight();
+    expect(outputs).toMatchObject({
+      enabled: 'true',
+      reason: 'ok',
+      tool: 'auto',
+      pr: String(PR_NUMBER),
+    });
+    expect(api.pulls).toHaveLength(1);
+  });
+
+  it('accepts a command on an issue_comment trigger whose run carries no pull request', async () => {
+    const { outputs, refused, api } = await command({
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: commentOn(),
+    });
+    expect(refused).toBe(false);
+    expect(outputs).toMatchObject({
+      enabled: 'true',
+      reason: 'ok',
+      pr: String(PR_NUMBER),
+      command: '/review',
+    });
+    expect(api.getComment).toHaveLength(1);
+  });
+
+  it('refuses a command hint with no comment id', async () => {
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/review', reason: 'ok' },
+      comment: commentOn(),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('unreadable-request');
+  });
+
+  it('refuses a comment id that does not exist', async () => {
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: '999', reason: 'ok' },
+      comment: null,
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('no-matching-comment');
+  });
+
+  it('refuses a comment id taken from a different pull request', async () => {
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: commentOn(PR_NUMBER + 1),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('comment-not-on-this-pull-request');
+  });
+
+  it('refuses a comment whose command is not allow-listed', async () => {
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/deploy', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: commentOn(PR_NUMBER, 'MEMBER', '/deploy to production'),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('command-not-allowed');
+  });
+
+  it('refuses a command from an author who is not a maintainer', async () => {
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: commentOn(PR_NUMBER, 'NONE'),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('author-not-allowed');
+  });
+
+  it('refuses an argument injection in a command', async () => {
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: commentOn(PR_NUMBER, 'MEMBER', '/review --config.url=https://evil.example/x.toml'),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('arguments-not-allowed');
+  });
+
+  it('refuses a pull request that is closed', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      pullRequest: pullOn({ state: 'closed', merged: true }),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('pr-not-open');
+  });
+
+  it('refuses a draft pull request', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      pullRequest: pullOn({ draft: true }),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('draft');
+  });
+
+  it('refuses an excluded bot author', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      pullRequest: pullOn({ user: { login: 'dependabot[bot]' } }),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('excluded-author');
+  });
+
+  it('refuses a pull request whose head is a fork', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      pullRequest: pullOn({ head: { sha: SHA, repo: { full_name: 'someone/fork' } } }),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('fork');
+  });
+
+  it('refuses a pull request whose head has moved since the trigger', async () => {
+    // The run saw one head; the pull request has since moved to another.
+    const { outputs, refused } = await runReceiverPreflight({
+      headSha: 'b'.repeat(40),
+      pullRequest: pullOn({ head: { sha: 'c'.repeat(40), repo: { full_name: REPO } } }),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('trigger-head-superseded');
+  });
+
+  it('refuses a hint naming a pull request other than the one the trigger ran for', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      env: { TRIGGER_PR: String(PR_NUMBER + 1) },
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('hint-does-not-match-trigger');
+  });
+
+  it('refuses a run that did not succeed', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      env: { TRIGGER_CONCLUSION: 'failure' },
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('trigger-not-successful');
+  });
+
+  it('refuses a triggering run from a fork', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      env: { TRIGGER_REPO: 'someone/fork' },
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('fork');
+  });
+
+  it('refuses a trigger event it does not handle', async () => {
+    const { outputs, refused } = await runReceiverPreflight({ env: { TRIGGER_EVENT: 'push' } });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('unsupported-trigger-event');
+  });
+
+  it('refuses when the kill switch is not exactly true', async () => {
+    const { outputs, refused } = await runReceiverPreflight({ env: { KILL_SWITCH: 'false' } });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('kill-switch');
+  });
+
+  it('refuses a malformed hint', async () => {
+    const { outputs, refused } = await runReceiverPreflight({ hint: 'not json' });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('unreadable-request');
+  });
+
+  it('refuses when no hint was published', async () => {
+    const { outputs, refused } = await runReceiverPreflight({ hint: null });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('no-request');
+  });
+
+  it('refuses when the hint could not be downloaded', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      env: { DOWNLOAD_OUTCOME: 'failure' },
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('no-request');
+  });
+
+  it('releases no key on any refusal path', async () => {
+    // The environment is attached to the run job alone, and that job is gated on
+    // this output, so enabled: false on every refusal means the key is
+    // unreachable on all of them.
+    const refusals = [
+      { env: { KILL_SWITCH: 'false' } },
+      { env: { TRIGGER_CONCLUSION: 'failure' } },
+      { env: { TRIGGER_REPO: 'someone/fork' } },
+      { env: { TRIGGER_EVENT: 'push' } },
+      { env: { TRIGGER_PR: String(PR_NUMBER + 1) } },
+      { env: { DOWNLOAD_OUTCOME: 'failure' } },
+      { hint: null },
+      { hint: 'not json' },
+      { pullRequest: pullOn({ state: 'closed', merged: true }) },
+      { pullRequest: pullOn({ draft: true }) },
+      { pullRequest: pullOn({ user: { login: 'dependabot[bot]' } }) },
+      { pullRequest: pullOn({ head: { sha: SHA, repo: { full_name: 'someone/fork' } } }) },
+      {
+        headSha: 'b'.repeat(40),
+        pullRequest: pullOn({ head: { sha: 'c'.repeat(40), repo: { full_name: REPO } } }),
+      },
+      {
+        event: 'issue_comment',
+        env: { TRIGGER_PR: '' },
+        hint: { pr: PR_NUMBER, command: '/review', reason: 'ok' },
+        comment: commentOn(),
+      },
+      {
+        event: 'issue_comment',
+        env: { TRIGGER_PR: '' },
+        hint: { pr: PR_NUMBER, command: '/review', comment_id: '999', reason: 'ok' },
+        comment: null,
+      },
+      {
+        event: 'issue_comment',
+        env: { TRIGGER_PR: '' },
+        hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+        comment: commentOn(PR_NUMBER + 1),
+      },
+      {
+        event: 'issue_comment',
+        env: { TRIGGER_PR: '' },
+        hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+        comment: commentOn(PR_NUMBER, 'NONE'),
+      },
+      {
+        event: 'issue_comment',
+        env: { TRIGGER_PR: '' },
+        hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+        comment: commentOn(PR_NUMBER, 'MEMBER', '/review --config.url=https://evil.example/x.toml'),
+      },
+    ];
+    for (const options of refusals) {
+      const { outputs, refused } = await runReceiverPreflight(options);
+      expect(refused).toBe(true);
+      expect(outputs.reason).not.toBe('ok');
+    }
+    // Structural half: only the run job may name the environment or the key, so
+    // there is no second path to the secret.
+    const envOf = (job) =>
+      typeof job?.environment === 'string' ? job.environment : job?.environment?.name;
+    const holders = Object.entries(caller.doc.jobs || {}).filter(([, job]) => envOf(job));
+    expect(holders.map(([name]) => name)).toEqual(['run']);
+    expect(envOf(caller.doc.jobs.run)).toBe('qodo-pr-agent');
+    expect(jobsWithSecret(caller.doc)).toEqual(['run']);
+    expect(caller.doc.jobs.run.if).toBe("needs.preflight.outputs.enabled == 'true'");
   });
 });
 
@@ -1304,7 +1758,10 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
     expect(script).toContain("return out('unreadable-request')");
     // Every fact is re-derived: the PR itself, and the comment and its author.
     expect(script).toContain('github.rest.pulls.get');
-    expect(script).toContain('github.paginate(github.rest.issues.listComments');
+    // The comment is fetched by id, so the pull request and the author come from
+    // GitHub rather than from a hint a pull request author can rewrite.
+    expect(script).toContain('github.rest.issues.getComment');
+    expect(script).toContain('comment-not-on-this-pull-request');
     expect(script).toContain('match.author_association');
     expect(script).toContain("return out('arguments-not-allowed')");
     // The triggering run must be one of ours, from this repository, or the
@@ -1456,23 +1913,33 @@ describe('Qodo PR-Agent secret boundary', () => {
   });
 
   it('treats the trigger artifact as a hint in both receivers', () => {
-    for (const [name, job] of [
-      ['caller', caller.doc.jobs.preflight],
-      ['reusable', reusable.doc.jobs.preflight],
+    // The pilot receiver resolves the command comment by id; the reusable
+    // standard, which other repositories call, still lists them. Each is asserted
+    // on its own contract so neither is relaxed into a shared, weaker one.
+    for (const [name, job, expectsLists] of [
+      ['caller', caller.doc.jobs.preflight, false],
+      ['reusable', reusable.doc.jobs.preflight, true],
     ]) {
       const serialised = JSON.stringify(job);
       expect({
         receiver: name,
         readsPullRequest: serialised.includes('github.rest.pulls.get'),
-        readsComments: serialised.includes('github.rest.issues.listComments'),
+        // Exactly one comment-read method per receiver, so neither can quietly
+        // fall back to scanning comments and lose the binding the id gives.
+        listsComments: serialised.includes('github.rest.issues.listComments'),
+        fetchesCommentById: serialised.includes('github.rest.issues.getComment'),
         hasEnvironment: job.environment !== undefined,
       }).toStrictEqual({
         receiver: name,
         readsPullRequest: true,
-        readsComments: true,
+        listsComments: expectsLists,
+        fetchesCommentById: !expectsLists,
         hasEnvironment: false,
       });
     }
+    // The pilot receiver authorises a command on the comment id alone, so that
+    // the two paths are not conflated.
+    expect(JSON.stringify(caller.doc.jobs.preflight)).not.toContain('listComments');
   });
 
   it('states the split contract in the specification, not the superseded one', () => {

@@ -113,7 +113,17 @@ jobs:
                 if (body.split(/\s+/).slice(1).some((a) => a.startsWith('--') && a.includes('='))) {
                   return { analyse: false, reason: 'arguments-not-allowed' };
                 }
-                return { analyse: true, reason: 'ok', pr: payload.issue.number, command };
+                // The comment id, not just the number: the receiver resolves it
+                // through the API, so the pull request and the commenter are
+                // authoritative rather than taken from a file a pull request
+                // author can rewrite.
+                return {
+                  analyse: true,
+                  reason: 'ok',
+                  pr: payload.issue.number,
+                  command,
+                  commentId: comment?.id,
+                };
               }
 
               return { analyse: false, reason: 'unsupported-event' };
@@ -124,6 +134,7 @@ jobs:
             core.setOutput('reason', r.reason);
             core.setOutput('pr', r.pr ? String(r.pr) : '');
             core.setOutput('command', r.command || '');
+            core.setOutput('comment_id', r.commentId ? String(r.commentId) : '');
             if (!r.analyse && r.reason !== 'not-a-command') {
               core.notice(`Qodo PR-Agent not requested: ${r.reason}`);
             }
@@ -133,6 +144,7 @@ jobs:
         env:
           PR_NUMBER: ${{ steps.classify.outputs.pr }}
           COMMAND: ${{ steps.classify.outputs.command }}
+          COMMENT_ID: ${{ steps.classify.outputs.comment_id }}
           REASON: ${{ steps.classify.outputs.reason }}
         run: |
           # A hint, not an authority. The receiver re-derives eligibility and
@@ -142,8 +154,9 @@ jobs:
           jq -n \
             --argjson pr "$PR_NUMBER" \
             --arg command "$COMMAND" \
+            --arg comment_id "$COMMENT_ID" \
             --arg reason "$REASON" \
-            '{pr: $pr, command: $command, reason: $reason}' \
+            '{pr: $pr, command: $command, comment_id: $comment_id, reason: $reason}' \
             > qodo-signal.json
           {
             echo "### Qodo PR-Agent request"
