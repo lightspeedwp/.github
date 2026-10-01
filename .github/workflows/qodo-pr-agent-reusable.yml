@@ -454,11 +454,11 @@ jobs:
           REPOSITORY: ${{ github.repository }}
           PR_NUMBER: ${{ inputs.pr_number }}
           TOOL: ${{ needs.preflight.outputs.tool }}
-          TRIGGER: ${{ github.event_name }}
+          TRIGGER: ${{ github.event.workflow_run.event || github.event_name }}
           REASON: ${{ needs.preflight.outputs.reason }}
           RUN_RESULT: ${{ needs.run.outputs.outcome || needs.run.result }}
           STARTED_AT: ${{ needs.run.outputs.started_at }}
-          EVENT_AT: ${{ github.event.workflow_run.updated_at || github.event.repository.updated_at }}
+          EVENT_AT: ${{ github.event.workflow_run.created_at || '' }}
         run: |
           if [ -z "$REASON" ]; then
             outcome="skipped:preflight-error"
