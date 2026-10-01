@@ -28,6 +28,11 @@ out_dir=""
 
 while [ $# -gt 0 ]; do
   case "$1" in
+    --pr-url | --diff-file | --question | --out)
+      # A value-taking option needs a value, and the next option is not one.
+      case "${2:-}" in "" | --*) echo "Missing value for $1" >&2; exit 64 ;; esac ;;
+  esac
+  case "$1" in
     --pr-url) pr_url="${2:-}"; shift 2 ;;
     --diff-file) diff_file="${2:-}"; shift 2 ;;
     --question) question="${2:-}"; shift 2 ;;

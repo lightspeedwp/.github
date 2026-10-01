@@ -143,6 +143,10 @@ fi
     ],
     [['review', '--diff-file', 'missing.diff'], /Diff file not found/],
     [['review', '--diff-file', 'file.diff', '--unexpected'], /Unknown argument/],
+    [['review', '--pr-url'], /Missing value for --pr-url/],
+    [['review', '--diff-file'], /Missing value for --diff-file/],
+    [['ask', '--diff-file', 'file.diff', '--question'], /Missing value for --question/],
+    [['review', '--diff-file', 'file.diff', '--out'], /Missing value for --out/],
   ])('rejects invalid inputs without running the agent', (args, message) => {
     const result = run(args);
     expect(result.status).toBe(64);

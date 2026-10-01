@@ -46,6 +46,9 @@ Refs #3535 (pilot credential and spend limit, non-closing).
 | Preflight checked only the first token, so `--section.key=value` settings in a comment (including `/ask`) could override locked keys | ✅ Addressed | New `arguments-not-allowed` reason, contract and docs updated, tests for review, ask and describe | this commit |
 | Workflow-level concurrency let any ordinary comment cancel a maintainer's queued command | ✅ Addressed | Concurrency moved to the `run` job; test asserts it is absent at workflow and preflight level | this commit |
 | Report `parseArgs` consumed the next flag as a missing value | ✅ Addressed | A value flag without a value now throws `<flag> requires a value`; three tests | this commit |
+| Runner: a value-taking option given last (`--pr-url`, `--diff-file`, `--question`, `--out`) made `shift 2` fail under `set -e`, exiting 1 with no usage message | ✅ Addressed | Each value-taking option now needs a value, and a following `--option` is not taken as one; either case prints `Missing value for <option>` and exits 64, the documented usage code. Four runner tests cover it | this commit |
+| `FEEDBACK_RESPONSE.md` still said PR mode passes `--output` and `--json-output` | ✅ Addressed | The row now says PR mode uses `pr_mode_adapter.py` and diff mode still passes both flags | this commit |
+| The Jest totals under Verification named no commit | ✅ Addressed | The earlier totals are attributed to `62c9344f`, and this pull request's own full run is added with its commit and the two network-only suites that fail in the sandbox | this commit |
 | Spec promised a refresh on every PR update, but `synchronize` is excluded | ✅ Addressed | User Story 1 now names the supported events and says a push does not refresh the output | this commit |
 
 ## Qodo review of the current head
@@ -134,7 +137,12 @@ as checklist items rather than fixed here:
 
 ## Verification
 
-- Full Jest suite: 285 suites, 5651 passed, 14 todo, 0 failed.
+- Full Jest suite, earlier run for the #3500 specifications at `62c9344f`: 285 suites, 5651 passed, 14 todo, 0 failed.
+- Full Jest suite on this pull request at `dd5c2ff3`: 313 suites, 6891 passed, 3 skipped, 14 todo. 8 tests failed, in two
+  integration suites (`agents/meta-agent/__tests__/integration/ci-workflows.test.js` and
+  `scripts/metrics/__tests__/metrics-agent-integration.test.js`) that call the live GitHub API, which the local sandbox
+  cannot reach. This pull request changes neither suite, and CI's "No new test failures" check passes on the same head.
+  The six Qodo PR-Agent suites: 217 of 217 after the runner fix below.
 - `additionalProperties: false` change verified by validating documents against the schema before and after.
 - `node .github/validation/changelog/bin/validate.js` executed to confirm the corrected quickstart command runs.
 - Every changelog label named in the specifications exists in `.github/labels.yml`.
@@ -143,7 +151,7 @@ as checklist items rather than fixed here:
 
 | Feedback | Status | Response | Reference |
 | --- | --- | --- | --- |
-| A PR-mode run with `publish_output=false` had no real output channel, so the result existed only if the tool happened to print to stdout. | fixed | PR mode now passes `--output` (and `--json-output` for `review`) and mounts the output directory, exactly as the diff path does. | `run-qodo-pr-agent.sh` `run_docker`/`run_pipx`; runner tests assert the mounted output file. |
+| A PR-mode run with `publish_output=false` had no real output channel, so the result existed only if the tool happened to print to stdout. | fixed (superseded) | PR-Agent 0.46.0 accepts `--output` and `--json-output` only in plain-diff mode, so PR mode does not pass them. It runs `scripts/pr_mode_adapter.py` in the pinned image, which writes the tool's stored result to the mounted output directory. Diff mode still passes both flags. | `run-qodo-pr-agent.sh` `run_docker`, `pr_mode_adapter.py`; runner tests assert the mounted output file. |
 | Prior tool output was not cleared before a run. | rejected as a live defect | `$md_out` and `$json_out` are already removed up front, and `> "$out_dir/stdout.txt"` truncates stdout on every run, so no previous output can be read as this run's. The removal of stdout.txt is kept as explicit defence in depth. | `run-qodo-pr-agent.sh` initialisation and the run redirect. |
 | T036 catalogued the spec as `017` while linking the `019` path. | fixed | The catalog row number now matches the spec path in the same row. | `tasks.md` T036. |
 | Another `spec 017` reference remained in the skill. | fixed | Removed; no `017` reference remains under `skills/qodo-pr-agent/` or the 019 spec. | `skills/qodo-pr-agent/SKILL.md`. |
