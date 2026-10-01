@@ -113,6 +113,53 @@ function codeSpans(text) {
 }
 
 /**
+ * Tracks fenced code blocks using CommonMark's closing rules.
+ *
+ * A fence closes only on a marker of the same character that is at least as
+ * long as the opening run and carries nothing but whitespace after it. Treating
+ * any backtick or tilde line as a toggle misreads real documents: inside a
+ * four-backtick fence a three-backtick line is content, not a close, so a naive
+ * toggle both reads example content as vocabulary and hides the real list.
+ */
+function createFenceTracker() {
+  let marker = null;
+  let length = 0;
+
+  return {
+    /**
+     * Feed one line. Returns true when the line is part of a fenced block, so
+     * callers skip it. A closing line returns true as well, and clears the
+     * state so the next line is read again.
+     */
+    consume(line) {
+      const match = line.match(/^\s{0,3}(`{3,}|~{3,})(.*)$/u);
+      if (marker === null) {
+        if (match) {
+          // A backtick fence's info string may not contain a backtick.
+          if (match[1].startsWith('`') && match[2].includes('`')) {
+            return false;
+          }
+          marker = match[1][0];
+          length = match[1].length;
+          return true;
+        }
+        return false;
+      }
+
+      if (match && match[1][0] === marker && match[1].length >= length && match[2].trim() === '') {
+        marker = null;
+        length = 0;
+      }
+      return true;
+    },
+
+    get isOpen() {
+      return marker !== null;
+    },
+  };
+}
+
+/**
  * Labels a reference file defines as vocabulary.
  *
  * A heading opens a vocabulary section that runs until the next heading. Short
@@ -123,17 +170,13 @@ function codeSpans(text) {
 function extractVocabulary(content) {
   const labels = new Set();
   const lines = content.split(/\r?\n/u);
-  let inFence = false;
+  const fence = createFenceTracker();
   let inVocabularySection = false;
   let sawLeadIn = false;
   let inFirstList = false;
 
   for (const rawLine of lines) {
-    if (/^\s*(?:```|~~~)/u.test(rawLine)) {
-      inFence = !inFence;
-      continue;
-    }
-    if (inFence) {
+    if (fence.consume(rawLine)) {
       continue;
     }
 
@@ -215,16 +258,12 @@ function isProhibition(line) {
 function extractEnumeratedLabels(content) {
   const labels = new Map();
   const lines = content.split(/\r?\n/u);
-  let inFence = false;
+  const fence = createFenceTracker();
   let pendingLeadIn = false;
 
   lines.forEach((rawLine, index) => {
-    if (/^\s*(?:```|~~~)/u.test(rawLine)) {
-      inFence = !inFence;
+    if (fence.consume(rawLine)) {
       pendingLeadIn = false;
-      return;
-    }
-    if (inFence) {
       return;
     }
 
@@ -248,14 +287,22 @@ function extractEnumeratedLabels(content) {
         }
       }
       // "State one of:" introduces a bullet list on the following lines rather
-      // than enumerating inline, so arm the lead-in as well.
-      if (LIST_LEAD_IN.test(rawLine.trim()) || /:$/u.test(rawLine.trim())) {
-        pendingLeadIn = true;
-      }
+      // than enumerating inline, so arm the lead-in as well. A prohibited lead-in
+      // does not: "Do not use any of these:" introduces a list of values that are
+      // excluded, and collecting them would report every one of them.
+      const leadsToList = LIST_LEAD_IN.test(rawLine.trim()) || /:$/u.test(rawLine.trim());
+      pendingLeadIn = leadsToList && !isProhibition(rawLine);
       return;
     }
 
     if (rawLine.trim() === '') {
+      return;
+    }
+
+    // A prohibited lead-in such as "Do not use any of these:" introduces a list
+    // whose values are forbidden, so it must not arm list collection either.
+    if (isProhibition(rawLine)) {
+      pendingLeadIn = false;
       return;
     }
 
@@ -387,6 +434,7 @@ module.exports = {
   LIST_LEAD_IN,
   VOCABULARY_HEADINGS,
   extractEnumeratedLabels,
+  createFenceTracker,
   extractVocabulary,
   findSkillDirectories,
   isBacktickedLabel,

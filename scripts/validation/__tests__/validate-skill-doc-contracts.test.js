@@ -5,6 +5,7 @@ const { spawnSync } = require('child_process');
 
 const {
   VOCABULARY_HEADINGS,
+  createFenceTracker,
   extractEnumeratedLabels,
   extractVocabulary,
   findSkillDirectories,
@@ -109,6 +110,54 @@ describe('validate-skill-doc-contracts', () => {
       expect(labels.size).toBe(0);
     });
 
+    it('ignores labels inside a tilde fence', () => {
+      const labels = extractVocabulary(
+        ['## Status labels', '', 'Use:', '', '~~~', '- `Fake Label`', '~~~', '', '- `Real`'].join(
+          '\n'
+        )
+      );
+      expect([...labels]).toEqual(['Real']);
+    });
+
+    it('does not close a long fence with a shorter marker', () => {
+      // A three-backtick line is content inside a four-backtick fence. A naive
+      // toggle ends the block early, which both reads example content as
+      // vocabulary and hides the real list.
+      const labels = extractVocabulary(
+        [
+          '## Status labels',
+          '',
+          '~~~~',
+          '- `Real`',
+          '```',
+          '- `AlsoFake`',
+          '```',
+          '~~~~',
+          '',
+          '- `Genuine`',
+        ].join('\n')
+      );
+      expect([...labels]).toEqual(['Genuine']);
+    });
+
+    it('does not close a fence when the marker has trailing text', () => {
+      const labels = extractVocabulary(
+        [
+          '## Status labels',
+          '',
+          'Use:',
+          '',
+          '```',
+          '- `Inside`',
+          '``` not a close',
+          '',
+          '- `Real',
+        ].join('\n')
+      );
+      expect(labels.has('Inside')).toBe(false);
+      expect(labels.has('Real')).toBe(false);
+    });
+
     it('stops at the next heading', () => {
       const labels = extractVocabulary(
         ['## Status labels', '', 'Use:', '', '- `Real`', '', '## Other', '', '- `Other`'].join('\n')
@@ -181,6 +230,70 @@ describe('validate-skill-doc-contracts', () => {
           ).keys(),
         ].sort()
       ).toEqual(['Legal Review', 'Needs Review', 'Not for Chatbot']);
+    });
+
+    it('ignores a list introduced by a prohibited lead-in', () => {
+      // "Do not use any of these:" is a list of excluded values. Arming list
+      // collection on it would report every member as an undefined label.
+      const labels = extractEnumeratedLabels(
+        ['Do not use any of these:', '', '- `Alpha`', '- `Beta`'].join('\n')
+      );
+      expect(labels.size).toBe(0);
+    });
+
+    it('still collects a list under a permitted lead-in', () => {
+      const labels = extractEnumeratedLabels(['State one of:', '', '- `Alpha`'].join('\n'));
+      expect([...labels.keys()]).toEqual(['Alpha']);
+    });
+  });
+
+  describe('createFenceTracker', () => {
+    it('treats a same-length marker of the same character as a close', () => {
+      const fence = createFenceTracker();
+      expect(fence.consume('```')).toBe(true);
+      expect(fence.isOpen).toBe(true);
+      expect(fence.consume('```')).toBe(true);
+      expect(fence.isOpen).toBe(false);
+    });
+
+    it('does not close on a different marker character', () => {
+      const fence = createFenceTracker();
+      fence.consume('~~~');
+      expect(fence.consume('```')).toBe(true);
+      expect(fence.isOpen).toBe(true);
+    });
+
+    it('does not close on a shorter run', () => {
+      const fence = createFenceTracker();
+      fence.consume('~~~~');
+      expect(fence.consume('```')).toBe(true);
+      expect(fence.isOpen).toBe(true);
+    });
+
+    it('closes on a longer run of the same character', () => {
+      const fence = createFenceTracker();
+      fence.consume('```');
+      expect(fence.consume('`````')).toBe(true);
+      expect(fence.isOpen).toBe(false);
+    });
+
+    it('does not treat a backtick info string containing a backtick as a fence', () => {
+      const fence = createFenceTracker();
+      expect(fence.consume('``` a`b')).toBe(false);
+      expect(fence.isOpen).toBe(false);
+    });
+
+    it('does not close on a marker followed by text', () => {
+      const fence = createFenceTracker();
+      fence.consume('```');
+      expect(fence.consume('``` still code')).toBe(true);
+      expect(fence.isOpen).toBe(true);
+    });
+
+    it('reads ordinary prose outside a fence', () => {
+      const fence = createFenceTracker();
+      expect(fence.consume('## Status labels')).toBe(false);
+      expect(fence.isOpen).toBe(false);
     });
   });
 

@@ -110,7 +110,14 @@ A page pattern appears in the new-post-type picker only when all of the followin
 - `Block Types` includes `core/post-content`. This is the hard gate: the editor filters the registered patterns down to those carrying that block type before it looks at anything else, so a pattern with `Post Types: page` but no `Block Types` never appears.
 - `Post Types` includes the post type, or is omitted. With no `Post Types` the pattern is offered for pages.
 
-So a page starter pattern needs `Block Types: core/post-content`, and normally `Post Types: page` as well: the block type is what makes it a starter pattern, and the post type is what scopes it.
+So a page starter pattern needs only `Block Types: core/post-content`. Add `Post Types: page` to restrict it to pages; omit the field and the pattern is offered for every post type that uses the block editor. The core filter is:
+
+```js
+( postType === 'page' && ! pattern.postTypes ) ||
+( Array.isArray( pattern.postTypes ) && pattern.postTypes.includes( postType ) )
+```
+
+which is why neither field alone makes a non-page pattern appear for that post type.
 
 ### Starter template patterns
 
@@ -230,7 +237,7 @@ Expected behaviour:
 
 - output a complete pattern file
 - use a suitable core category where possible
-- include `Block Types: core/post-content` and `Post Types: page` — both are required for a page starter pattern, and without the former it is not a starter pattern at all
+- include `Block Types: core/post-content`; that alone makes it a starter page pattern. `Post Types: page` is optional and only scopes it to pages — without it the pattern is offered for every post type that uses the block editor
 - do not require `Template Types` here; this is a page starter, not a template starter
 - keep the output aligned with starter-pattern usage
 
