@@ -54,6 +54,7 @@ Use a throw-away branch such as `test/qodo-pr-agent-smoke`, with a small real ch
 | Q-10 | Set `QODO_PR_AGENT_ENABLED=false`, then open a PR | Preflight skips with `kill-switch`, and no runs start. Afterwards, unset the variable. | US5 AS2, SC-007 |
 | Q-11 | A comment command from a non-member account (or check via a test) | Skipped with `author-not-allowed` | Spec assumption, R5 |
 | Q-12 | Open a PR over 25 files or 800 lines | The output notes clipped content, and the run doesn't fail | Edge case |
+| Q-14 | Comment `/review --config.model=anthropic/claude-haiku-4-5-20251001` as a member | Preflight skips with `arguments-not-allowed`, and nothing is posted by Qodo PR-Agent | FR-007, FR-011, locked keys |
 | Q-13 | Keyless only: with the key secret unset and the federation variables set, open a PR | The token step succeeds and Q-01's comments appear. This proves Qodo PR-Agent accepts the exchanged `sk-ant-oat01-` token as its key. If the token step passes but the Qodo step fails with an authentication error, the token is not accepted in the `x-api-key` header: fall back to the key secret and record the finding. | FR-002, R4 |
 
 ## Integration checks (US3)

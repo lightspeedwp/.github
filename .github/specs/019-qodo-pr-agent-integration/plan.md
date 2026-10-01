@@ -26,10 +26,11 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 - **Language/Version**:
   - GitHub Actions YAML
   - Bash (skill runner script)
+  - Python 3 (the skill's PR-mode adapter, run inside the pinned image)
   - Node.js ≥ 20, CommonJS (report script and Jest contract tests, matching the repo's `scripts/` and `tests/js/`)
   - TOML (Qodo PR-Agent config)
 - **Primary Dependencies**:
-  - Qodo PR-Agent `0.46.0` via the container `pragent/pr-agent@sha256:<digest>` (`-github_action` variant), or PyPI `pr-agent==0.46.0` for the skill fallback
+  - Qodo PR-Agent `0.46.0` via the container `pragent/pr-agent@sha256:<digest>` (`-github_action` variant), or PyPI `pr-agent==0.46.0` for the skill's diff-mode fallback (PR mode needs Docker; research R9)
   - Anthropic API (`anthropic/claude-sonnet-5`, fallback `anthropic/claude-haiku-4-5-20251001`), authenticated by the dedicated key or, optionally, by Workload Identity Federation (`POST /v1/oauth/token`)
   - Existing: `smol-toml`, `yaml`, `jest`, `.github/actions/collect-metrics`
 - **Storage**: None. Run records are Actions artefacts (30 days) plus a Markdown pilot report in `.github/reports/metrics/qodo-pr-agent/`.
@@ -37,7 +38,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
   - Jest contract tests in `tests/js/qodo-pr-agent-*.test.js` for the config, workflows (including the token exchange), integration docs, report script and skill runner
   - Existing `validate:workflows`, `lint:workflows` (spectral), actionlint (`workflow-lint.yml`), `validate:skills` and `lint:md`
   - Manual end-to-end validation via [quickstart.md](./quickstart.md)
-- **Target Platform**: GitHub-hosted `ubuntu-latest` runners, and maintainer or agent workstations with Docker or Python ≥ 3.12 (skill).
+- **Target Platform**: GitHub-hosted `ubuntu-latest` runners, and maintainer or agent workstations with Docker, or Python ≥ 3.12 for diff mode only (skill).
 - **Project Type**: Governance and automation assets in a control-plane repository: workflow, config, skill and documentation.
 - **Performance Goals**: The automatic output is posted within 10 minutes of a PR being opened or marked ready (SC-001). The job timeout is 15 minutes.
 - **Constraints**:
@@ -101,7 +102,9 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 skills/qodo-pr-agent/                            # NEW: shared skill (contract: skill-interface.md)
 ├── SKILL.md
 ├── metadata.yml
-└── scripts/run-qodo-pr-agent.sh
+└── scripts/
+    ├── run-qodo-pr-agent.sh
+    └── pr_mode_adapter.py                       # PR mode: returns the stored result without publishing (research R9)
 skills/SKILL_REGISTRY.json                       # EDIT: register lightspeed-qodo-pr-agent in the core group
 
 # EDIT: add a "## Qodo PR-Agent integration" section (invocation, on-output, fallback)

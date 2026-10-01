@@ -94,7 +94,7 @@ The normalised output of `skills/qodo-pr-agent`. See [`contracts/skill-interface
 | Field | Type | Rules |
 | --- | --- | --- |
 | `status` | enum | `ok`, `skipped`, or `error` |
-| `reason` | string | Required when `status != ok`, e.g. `no-credential`, `rate-limited`, `tool-disabled`, `upstream-error` |
+| `reason` | string | Required when `status != ok`: `no-credential`, `no-runtime`, `no-output`, `tool-disabled`, `rate-limited` or `upstream-error` |
 | `tool` | Qodo PR-Agent tool id | — |
 | `markdown` | string | Present when `status == ok` |
 | `data` | object or null | Parsed JSON output when the tool provides it |

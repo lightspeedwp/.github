@@ -91,7 +91,7 @@ An engineer or AI agent working through an existing LightSpeed agent or skill ca
 | update changelog | `agents/changelog-agent/`, `skills/changelog-generator`, changelog gate | Proposed entries must pass the existing changelog validation (≤250 characters, user-focused, linked to a PR or issue). |
 | similar issues | `agents/issue-agent/`, `skills/ticket-triage` | **Deferred** (see plan research R8). The upstream tool is experimental, needs OpenAI embeddings and isn't in the Action image. When delivered, duplicate candidates are surfaced during triage for a human to confirm, and issues are never closed automatically. |
 | add docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | On-demand only; output is reviewed by the documentation agent. |
-| ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | Available as an on-demand question tool inside review and QA flows. |
+| ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | Available as an on-demand question tool inside review and QA flows, through the shared skill's **diff mode**. In PR mode `ask` stores no result, so the skill returns `skipped`/`no-output`; on a PR, maintainers use the `/ask` comment command instead. |
 | (all) | AI feedback validation process (`workflows/ai-feedback-validation.yml`) | Qodo PR-Agent feedback is recognised as AI review feedback and recorded under the same process as CodeRabbit feedback. |
 
 **Acceptance Scenarios**:
@@ -203,7 +203,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - **SC-001**: 95% of eligible (non-draft, human-authored) pilot PRs receive their automatic Qodo PR-Agent output within 10 minutes of opening or being marked ready.
 - **SC-002**: 0 non-canonical labels are applied, and 0 secrets are exposed, across the whole pilot.
 - **SC-003**: 0 PRs are blocked from merging solely because Qodo PR-Agent was unavailable.
-- **SC-004**: At least 70% of surveyed maintainers rate Qodo PR-Agent output as useful after a 14-day pilot, and fewer than 20% of its automatic comments are marked as duplicating another bot's.
+- **SC-004**: At least 70% of surveyed maintainers rate Qodo PR-Agent output as useful after a 14-day pilot, and fewer than 20% of its automatic comments are marked as duplicating another bot's. "Surveyed maintainers" means every maintainer who received Qodo PR-Agent output during the pilot, asked one question (useful or not useful). A comment counts as "marked duplicate" when the PR's author or a reviewing maintainer records it as duplicating another bot's primary finding (T013).
 - **SC-005**: Every integration point in User Story 3 has documented fallback behaviour, and each passes an "unavailable" test.
 - **SC-006**: A second maintainer walks through the opt-in guide against a non-`.github` repository, without enabling it, and finds no missing step or prerequisite. The guide relies only on the central configuration and the documentation. Actually enabling another repository is outside this feature's scope.
 - **SC-007**: The kill-switch stops all new runs within 15 minutes of use.

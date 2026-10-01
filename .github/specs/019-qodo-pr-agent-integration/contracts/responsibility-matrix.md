@@ -35,6 +35,6 @@ Each concern has exactly one owner. "Automatic" means it runs without a command.
 | generate_labels | `agents/labeling-agent/`, `skills/label-governance` | skill | Keep only names present in `.github/labels.yml`; log the dropped ones | Existing labelling | in-scope |
 | update_changelog | `agents/changelog-agent/`, `skills/changelog-generator` | pr-comment or skill | Validate (≤250 chars, user-facing, linked); reject naming the failing rule | Existing changelog flow | in-scope |
 | add_docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | pr-comment | Review the suggestions before any adoption | None needed | in-scope |
-| ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | skill | Answer targeted questions | Proceed without an answer | in-scope |
+| ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | skill (diff mode; PR mode returns `no-output`) | Answer targeted questions | Proceed without an answer | in-scope |
 | similar_issue | `agents/issue-agent/`, `skills/ticket-triage` | — | — | — | **deferred** (R8) |
 | all | AI feedback validation (`docs/AI_FEEDBACK_*.md`) | process | Qodo PR-Agent comments count as AI review feedback | — | in-scope |

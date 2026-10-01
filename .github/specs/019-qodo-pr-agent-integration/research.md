@@ -122,10 +122,11 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 ## R9. How existing agents and skills call Qodo PR-Agent (FR-017)
 
 - **Decision**: Add one shared skill, `skills/qodo-pr-agent/`, that runs Qodo PR-Agent's CLI with **publishing disabled** (`--config.publish_output=false`, `--config.verbosity_level=2`, `--config.propagate_tool_errors=true`). It returns a normalised result: `status: ok | skipped | error`, `reason`, `markdown`, `data`. It supports two modes:
-  - **PR mode**: `--pr_url <url> <tool>`. Needs `GITHUB__USER_TOKEN` plus the model key.
-  - **Diff mode**: `--diff-file <file> --output <md> --json-output <json> <tool>`, for review, improve, describe or ask with no GitHub token, e.g. before a PR exists (the internal PR agent's pre-PR self-review).
+  - **PR mode**: a small adapter, `scripts/pr_mode_adapter.py`, run inside the pinned image. It calls `PRAgent().handle_request(<url>, [<tool>, …])` and writes the result the tool stores in `get_settings().data["artifact"]`. Needs `GITHUB__USER_TOKEN` plus the model key, and Docker.
+  - **Diff mode**: the CLI, `--diff-file <file> --output <md> <tool>` (plus `--json-output <json>` for review), for review, improve, describe or ask with no GitHub token, e.g. before a PR exists (the internal PR agent's pre-PR self-review).
 
-  It runs the pinned container image by digest (R1) when Docker is available, and otherwise the pinned pip package (`pr-agent==0.46.0`, Python ≥ 3.12).
+  It runs the pinned container image by digest (R1) when Docker is available. In diff mode only, it otherwise falls back to the pinned pip package (`pr-agent==0.46.0`, Python ≥ 3.12).
+- **Correction (2026-10-01)**: the first version of this decision used the CLI with `--pr_url` in PR mode. PR-Agent 0.46.0's `cli.py` accepts `--output` and `--json-output` only in plain-diff mode, and with `publish_output=false` a PR run prints nothing, so the CLI has no non-publishing output for a PR. `push_outputs` runs only when publishing, so it cannot help either. `review`, `describe` and `improve` store their result as an artifact when publishing is off; `ask` does not, so PR-mode `ask` returns `no-output`. pipx can run only the CLI, which is why PR mode needs Docker.
 - **Rationale**:
   - One entry point prevents every agent from re-implementing invocation and fallback.
   - "Publishing off" guarantees agents only *consume* output, which fits the matrix and FR-009.
