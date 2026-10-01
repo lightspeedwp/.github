@@ -221,7 +221,7 @@ The official CLI (`@google/design.md`) exposes these default lint rules. This li
 10. `token-like-ignored` — warning when a top-level YAML key looks like a token map but is not part of the export schema, so it will be silently ignored.
 11. `omitted-rules` — info for `omitted:` declarations. Emits the sub-rule ids `declared-omission` (info), `redundant-omission` (warning, when a section is listed as omitted but its tokens exist) and `unknown-omission` (warning, for an unrecognised name in `omitted`).
 
-Rules 9 and 10 existed in 0.3.0; rules 10 and 11 arrived in 0.4.0. Treat a rule list from upstream prose as secondary: the bundled npm README lagged the code and listed a rule count that matched neither its own table nor the shipped binary.
+`unknown-key` (rule 9) existed in 0.3.0, which ran eight rules. `token-like-ignored` (10) and `omitted-rules` (11) arrived in 0.4.0, which runs eleven. Treat a rule list from upstream prose as secondary: the bundled npm README lagged the code and listed a rule count that matched neither its own table nor the shipped binary.
 
 ## Companion CI Bundle
 
