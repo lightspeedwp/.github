@@ -67,3 +67,6 @@ node_modules/
 .claude/.settings*.json
 /graft/
 /graphify-out/
+
+# Semgrep CLI writes local state (anonymous_user_id) here; it is machine-specific
+.semgrep/
