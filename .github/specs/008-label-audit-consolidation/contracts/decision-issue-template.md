@@ -45,8 +45,9 @@ Each section has an HTML comment prompt, as in the existing templates. Section h
 
 ## Replacement rules
 
-- `06-question.md` stays in place until the three change requests merge, and must not be used for new issues (constitution v1.3.1).
-- The same PR that adds `06-decision.md` removes `06-question.md`, updates `.github/issue-types.yml` (Question → Decision), `.github/issue-fields.yml` (`type:question` → `type:decision`), and removes `type:question` from `label-governance-policy.yml`'s never-delete list.
+- Two change requests cover this replacement: #3556 (`[ISSUE-TYPE-UPDATE-REQUEST]`) and #3557 (`[TEMPLATE-UPDATE-REQUEST]`). The constitution change it relies on was approved in #3530.
+- The same PR that adds `06-decision.md` removes `06-question.md` and updates `.github/issue-types.yml` (Question → Decision) and `.github/issue-fields.yml` (`type:question` → `type:decision`). This was #3534.
+- `type:question` is removed from the never-delete list in `label-governance-policy.yml` by task T055, which shipped in #3362 with the other never-delete clean-up. The label itself is deleted only in Stage 4, after open `type:question` issues are converted to Discussions (FR-014).
 - Question-style requests go to GitHub Discussions (`discussion:support`). The issue template chooser (`.github/ISSUE_TEMPLATE/config.yml`) should link to Discussions for questions.
 
 ## Validation
