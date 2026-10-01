@@ -35,8 +35,14 @@ jobs:
     timeout-minutes: 10
 
     steps:
+      # SCRATCH PROBE PROOF-7QK2 - temporary marker. If this step appears in the
+      # run log, the definition came from the scratch branch. If it does not,
+      # GitHub used the copy on the default branch.
+      - name: PROOF-EDIT-EXECUTED-PROOF-7QK2
+        run: echo "PROOF-7QK2 this definition came from the scratch branch"
+
       - name: Checkout repository
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@3d3c42e5aac5ba805da76410c181273ba90b1 # v7.0.1
         with:
           # Full history is required so the metrics commit can rebase
           # onto the latest develop when the push races another writer.
