@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Qodo PR-Agent Pilot** — Pull requests on this repository now get an automatic summary and improvement suggestions alongside CodeRabbit, and maintainers can ask questions with commands such as `/ask`. (#3532)
 - **Qodo PR-Agent Commands and Dispatches Now Run** — A command or a manual dispatch ran no tool and still reported success; both workflows now call PR-Agent's CLI. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
 - **Qodo PR-Agent Model and Image Verified** — The model, fallback and image digest are verified against their sources. Sonnet 5 stays until a release bundles a litellm knowing 5.5. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-- **Qodo PR-Agent Spend Limit Lowered to US$20** — The pilot's monthly cap is US$20, with a per-run cost estimate and the inputs behind it recorded in the guide.
+- **Qodo PR-Agent Spend Limit Lowered to US$20** — The pilot's monthly cap is now US$20, with a per-run cost estimate and the inputs behind it in the guide. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
 - **Qodo PR-Agent Pilot Validation Corrected** — The report described the key as a repository secret and used the pre-opt-in rule, contradicting the spec. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
 - **Qodo PR-Agent Credential Boundary** — A pull request author can no longer reach the model key before review, and the pilot never waits for a human approval to do so. (#3532)
 - **Shared Claude Code Cloud Environment** — One cloud setup for the whole team. The branch guard now refuses covered shell commands that would break the branching strategy, including commands hidden in a nested shell. (#3524)
@@ -83,7 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
 - **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
-- **`smol-toml` Declared as a Development Dependency** — A test imported it directly but it was declared only as a version override, so it resolved by accident of hoisting. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
+- **`smol-toml` Declared for Tests** — A test imported it directly but it was listed only as a version override, so a clean install could have failed to run the test. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
 
 ### Fixed
 
