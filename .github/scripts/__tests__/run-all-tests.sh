@@ -105,6 +105,10 @@ run_test_suite \
   "$SCRIPT_DIR/create-agent-spec.test.js"
 
 run_test_suite \
+  "Governance Audit Report Generator Tests" \
+  "$SCRIPT_DIR/report-generator.test.js"
+
+run_test_suite \
   "PRD Agent Test Suite (Mock Fixture Validation)" \
   "$REPO_ROOT/agents/prd-agent/tests/test-runner.js"
 
