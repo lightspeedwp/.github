@@ -17,6 +17,14 @@ owner: "ashley@lightspeedwp.agency"
 
 ---
 
+## Related Issues
+
+| Issue | Type | Purpose | Status |
+|-------|------|---------|--------|
+| [#1271](https://github.com/lightspeedwp/.github/issues/1271) | epic | Changelog Automation Hardening — master epic | 🟡 In Progress |
+
+---
+
 ## 📋 Quick Links
 
 ### Core Documents (START HERE)
