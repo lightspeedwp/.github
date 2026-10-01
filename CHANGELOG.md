@@ -79,7 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Orphan Jest Config Removed** — A stray root Jest config broke bare `npx jest` here. It scoped test discovery to a directory that does not exist. (#3711)
+- **Bare Jest Uses the Intended Config** — The broken root Jest config is gone and a root `jest.config.cjs` now forwards to `.jest.config.cjs`, so bare `npx jest` no longer runs 76 suites this repository excludes. (#3711)
 
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
