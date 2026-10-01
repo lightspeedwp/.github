@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Skill Documentation Contracts Checked** — `npm run validate:skill-doc-contracts` fails when a SKILL.md offers a status label its own reference files do not define. (#3702)
 - **Footer Shape Signal** — `npm run validate:footers:shape` reports files holding two or more footer-shaped blocks the wording-based deduper cannot see. Advisory only: never edits a file, never fails a build. (#3682)
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
@@ -74,6 +75,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Twelve Skill Documentation Defects Corrected** — Readiness bands, ChatGPT Developer Mode paths, the design.md lint rule list, a triage label, chatbot-safe criteria, go/no-go gates and starter-pattern headers. (#3702)
+- **Project Memory Status Vocabulary Aligned** — The memory manager's core rule offered `Unknown`, a status its own reference does not define. (#3702)
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
 - **Footer Shape Figures Corrected** — Workflow comment: 899 flagged files, 255 holding fewer than two distinct known footer phrases. The runtime notice calls 28.4% a share of flagged files, not a false-positive rate. (#3682, #3604)

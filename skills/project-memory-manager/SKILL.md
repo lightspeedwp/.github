@@ -13,7 +13,7 @@ Use this after or alongside PRD creation, Figma-to-WordPress technical briefs, t
 
 ## Core rule
 
-Do not invent decisions, owners, repo paths, deadlines, estimates or implementation status. If information is missing, mark it as `Unknown`, `Assumption`, or `Needs Confirmation`.
+Do not invent decisions, owners, repo paths, deadlines, estimates or implementation status. If information is missing, mark it with a status from the reference vocabulary: `Assumption` or `Needs Confirmation`. Do not invent a status such as `Unknown`; `references/status-and-decision-rules.md` is the authority for the permitted values.
 
 ## Inputs to accept
 

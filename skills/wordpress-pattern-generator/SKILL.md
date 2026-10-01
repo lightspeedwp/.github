@@ -93,10 +93,34 @@ If required metadata is incomplete, call on `wordpress-asset-parameter-generator
 - Always use a namespaced slug such as `theme-slug/hero-default`.
 - Prefer WordPress core categories before custom categories.
 - Use `Inserter: false` for hidden implementation-only patterns.
-- Use `Block Types` when the pattern is meant to surface for a specific block context.
-- Use `Template Types` when the pattern is meant as a starting point for a template context.
+- Use `Block Types` when the pattern is meant to surface for a specific block context. For a starter page pattern it is mandatory, not optional — see the starter-pattern rule below.
+- Use `Template Types` when the pattern is meant as a starting point for a template context. This is what makes it a starter template pattern, and such a pattern needs no `Block Types`.
 - Use `Post Types` when the pattern is intentionally scoped to certain content types.
+- Starter patterns come in two kinds. A starter *page* pattern needs `Block Types: core/post-content`; a starter *template* pattern needs `Template Types`. Do not require `core/post-content` of a template pattern.
 - Keep the body as valid WordPress block markup suitable for theme patterns.
+
+## Starter Patterns
+
+WordPress has two kinds of starter pattern, and they are registered differently.
+
+### Starter page patterns
+
+A page pattern appears in the new-post-type picker only when all of the following hold:
+
+- `Block Types` includes `core/post-content`. This is the hard gate: the editor filters the registered patterns down to those carrying that block type before it looks at anything else, so a pattern with `Post Types: page` but no `Block Types` never appears.
+- `Post Types` includes the post type, or is omitted. With no `Post Types` the pattern is offered for pages.
+
+So a page starter pattern needs `Block Types: core/post-content`, and normally `Post Types: page` as well: the block type is what makes it a starter pattern, and the post type is what scopes it.
+
+### Starter template patterns
+
+A template pattern appears in the Site Editor when creating a new template. It is keyed on `Template Types` instead:
+
+- `Template Types` names one or more template types, separated by commas (for example `front-page, home`).
+- `Block Types` is not required and not consulted. Do not add `core/post-content` to a template pattern; it represents a whole template, including header, footer and sidebar regions.
+- `Inserter: false` is usually set, so the pattern does not also clutter the inserter.
+
+See [Starter patterns](https://developer.wordpress.org/themes/patterns/starter-patterns/).
 
 ## Pattern Header Template
 
@@ -206,7 +230,8 @@ Expected behaviour:
 
 - output a complete pattern file
 - use a suitable core category where possible
-- include `Post Types` or related metadata if the scope is explicit
+- include `Block Types: core/post-content` and `Post Types: page` — both are required for a page starter pattern, and without the former it is not a starter pattern at all
+- do not require `Template Types` here; this is a page starter, not a template starter
 - keep the output aligned with starter-pattern usage
 
 ### Test prompt: boundary case
