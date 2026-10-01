@@ -103,7 +103,7 @@ Qodo PR-Agent feedback is AI review feedback, and follows the same `FEEDBACK_RES
 
 ### Kill-switch
 
-Set the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` to anything other than exactly `true`, at repository or organisation level. The pilot is opt-in: it runs only while the value is the string `true`, so deleting the variable, setting it to `false`, or setting it to anything else all stop it. Setting it back to exactly `true` resumes the pilot. It takes effect on the next event, with no commit needed, and every run is skipped with `kill-switch`. Delete the variable, or set it to anything else, to resume.
+Set the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` to anything other than exactly `true`, at repository or organisation level. The pilot is opt-in: it runs only while the value is the string `true`, so deleting the variable, setting it to `false`, or setting it to anything else all stop it. Setting it back to exactly `true` resumes the pilot. It takes effect on the next event, with no commit needed, and every run is skipped with `kill-switch`.
 
 As a second line of defence, revoke or cap the dedicated key in the Anthropic console.
 

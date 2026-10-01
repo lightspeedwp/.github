@@ -13,7 +13,7 @@ The organisation-standard behaviour lives in two places:
 - a root `.pr_agent.toml` central configuration, in UK English, technology-agnostic, with governance-safe settings;
 - a `workflow_call` reusable workflow that future repositories can call.
 
-The pilot calls that same reusable workflow.
+The pilot does not call it: its receiver inlines the privileged run, so a pull request has no local workflow reference to repoint (contract: reusable-workflow.md).
 
 The model credential is the dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT` and nothing else (FR-002, clarified 2026-09-24; keyless Workload Identity Federation removed 2026-10-01, see T038).
 
@@ -60,7 +60,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 | III. Clear asset boundaries | The skill is in `skills/` and the docs in `docs/`. **Exception (platform-required locations, constitution v1.3.0)**: the reusable workflow lives in `.github/workflows/`, because GitHub only resolves callable workflows there, and `.pr_agent.toml` sits at the root, where Qodo PR-Agent reads it. The workflow is documented as callable in `docs/WORKFLOWS.md` and `docs/QODO_PR_AGENT.md`. Its preflight logic stays inline because the no-checkout design forbids loading repository scripts; all other reusable logic is in `skills/qodo-pr-agent`. | ✅ exception |
 | IV. Technology-agnostic guidance | `extra_instructions` point to AGENTS.md, and a contract test rejects stack-specific terms. | ✅ |
 | V / VIII. Branch naming | The branch is `aiops/qodo-pr-agent-integration`, validated. No change to routing. | ✅ |
-| VI. UK English, accessibility, security | `response_language = "en-GB"`. The credential is a dedicated key in a repository secret (an organisation secret for later opt-ins); no job requests `id-token`. The credential is passed only through `env:` and the secret context, never interpolated into a `run:` command line and never printed. Pinned by digest. Secrets repeated in model output are a documented known limitation with a response procedure. | ✅ |
+| VI. UK English, accessibility, security | `response_language = "en-GB"`. The credential is a dedicated key held only as an environment secret on the `qodo-pr-agent` Environment, whose deployment branch policy admits the default branch only; no job requests `id-token`. The credential is passed only through `env:` and the secret context, never interpolated into a `run:` command line and never printed. Pinned by digest. Secrets repeated in model output are a documented known limitation with a response procedure. | ✅ |
 | VII. Spec quality | The spec checklist is at 16/16, and clarifications are resolved (2026-09-24). | ✅ |
 | IX. Changelog compliance | `update_changelog` only proposes. Proposals must pass changelog-agent validation (≤250 chars, linked). The PR gate is unchanged. | ✅ |
 | X. Metrics-driven governance | Run records, the `collect-metrics` integration and a 14-day pilot report. | ✅ |
@@ -96,7 +96,8 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 
 .github/workflows/
 ├── qodo-pr-agent-reusable.yml                   # NEW: workflow_call definition (contract: reusable-workflow.md)
-├── qodo-pr-agent.yml                            # NEW: pilot caller (triggers, then the local reusable workflow)
+├── qodo-pr-agent-trigger.yml                    # NEW: unprivileged trigger (pull_request, issue_comment); holds no secret
+├── qodo-pr-agent.yml                            # NEW: privileged receiver (workflow_run, workflow_dispatch); inlines the run
 └── qodo-pr-agent-report.yml                     # NEW: daily pilot report (Principle X; analysis finding C2)
 
 skills/qodo-pr-agent/                            # NEW: shared skill (contract: skill-interface.md)

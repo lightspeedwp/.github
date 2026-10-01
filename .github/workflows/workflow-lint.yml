@@ -80,6 +80,7 @@ jobs:
             .github/workflows/pr-template-routing.yml \
             .github/workflows/qodo-pr-agent-report.yml \
             .github/workflows/qodo-pr-agent-reusable.yml \
+            .github/workflows/qodo-pr-agent-trigger.yml \
             .github/workflows/qodo-pr-agent.yml \
             .github/workflows/tests.yml \
             .github/workflows/validate-specifications.yml \

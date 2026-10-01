@@ -192,9 +192,9 @@
 **Independent Test**: the pilot runs purely from the central configuration, and a walkthrough of the opt-in guide against a non-`.github` repository finds no missing step (spec US4, SC-006).
 
 - [X] T026 [US4] Add an "Enable in another repository" section to `docs/QODO_PR_AGENT.md`, with numbered steps:
-  1. Ask the org owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` secret's selected repositories.
-  2. Copy `.github/workflows/qodo-pr-agent.yml` from this repository, and replace the `uses:` line with `lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>`, explaining `main` versus a release tag.
-  3. Optionally set the `config_ref` input.
+  1. Have the repository owner create a `qodo-pr-agent` Environment whose deployment branch policy admits the default branch only, with no required reviewers, and add `ANTHROPIC_API_KEY_QODO_PR_AGENT` to it as an **environment** secret. A repository or organisation secret does not work: it is reachable from a same-repository `pull_request` run (FR-006a).
+  2. Copy both `.github/workflows/qodo-pr-agent-trigger.yml` and `.github/workflows/qodo-pr-agent.yml`, keeping their `name:` values, because the receiver's `workflow_run` trigger names the trigger workflow.
+  3. Optionally switch the receiver's inlined run to the shared reusable workflow, as the guide describes. The configuration URL is a constant and there is no `config_ref` input.
   4. Optionally add a local `.pr_agent.toml` for overrides.
   5. Open a test PR and check quickstart Q-01.
 

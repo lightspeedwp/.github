@@ -145,7 +145,12 @@ function aggregate(records, options = {}) {
     }
 
     // SC-001: every eligible automatic attempt counts; only timely successes pass.
-    if (tool === 'auto' && SC001_ELIGIBLE_OUTCOMES.has(outcome)) {
+    // A manual dispatch is not an automatic response to a pull request event.
+    if (
+      tool === 'auto' &&
+      record.trigger !== 'workflow_dispatch' &&
+      SC001_ELIGIBLE_OUTCOMES.has(outcome)
+    ) {
       automatic += 1;
       if (outcome === 'success' && record.event_at && record.started_at) {
         const finished =

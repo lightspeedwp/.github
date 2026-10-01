@@ -171,6 +171,22 @@ describe('qodo-pr-agent-report SC-001 eligibility', () => {
     expect(sc001).toStrictEqual({ automatic: 3, withinLimit: 1, rate: 1 / 3 });
   });
 
+  it('keeps a manual dispatch out of the rate', () => {
+    const dispatched = {
+      tool: 'auto',
+      trigger: 'workflow_dispatch',
+      outcome: 'success',
+      event_at: '',
+      started_at: '2026-10-01T10:01:00Z',
+      duration_seconds: 60,
+    };
+    expect(aggregate([dispatched]).sc001).toStrictEqual({
+      automatic: 0,
+      withinLimit: 0,
+      rate: null,
+    });
+  });
+
   it('keeps command runs out of the rate even when they finish promptly', () => {
     const event_at = '2026-10-01T10:00:00Z';
     const started_at = '2026-10-01T10:01:00Z';

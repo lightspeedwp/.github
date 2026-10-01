@@ -53,7 +53,7 @@ A LightSpeed maintainer opens, reopens or marks ready for review a pull request 
 1. **Given** `QODO_PR_AGENT_ENABLED` is `true` and a non-draft PR opened by a human, **When** the PR is opened or marked ready for review, **Then** Qodo PR-Agent posts one description update and one set of improvement suggestions within 10 minutes, and does not post an automatic review verdict.
 2. **Given** an open PR, **When** a maintainer comments with a supported Qodo PR-Agent command, **Then** the corresponding tool runs and replies on that PR.
 3. **Given** a PR authored by `dependabot[bot]` or `lightspeed-docs-bot[bot]`, or a PR in draft, **When** it is opened or updated, **Then** no automatic Qodo PR-Agent run occurs, matching the existing CodeRabbit exclusions.
-4. **Given** the language-model credential is missing or invalid, **When** a run is triggered, **Then** the check reports a clear, non-blocking warning and does not fail or block the PR, following the existing "warn, don't fail" convention for AI keys.
+4. **Given** the language-model credential is invalid or rate-limited, **When** a run is triggered, **Then** the receiver reports a clear, non-blocking notice, records the outcome as `failure`, and does not block the PR, following the existing "warn, don't fail" convention for AI keys. If the Environment releases no credential at all, the receiver run fails closed instead (FR-006), which is an operator error to fix; the PR is still not gated, because the receiver is not a check on the PR.
 5. **Given** a PR from a fork or an untrusted contributor, **When** it triggers Qodo PR-Agent, **Then** no repository secret is exposed to code from that PR.
 
 ---

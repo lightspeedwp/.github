@@ -38,7 +38,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 
 - **Decision**:
   - A root-level **`.pr_agent.toml`** in `lightspeedwp/.github` holds the organisation-standard settings. Qodo PR-Agent requires this file name and location for repository-local configuration, and `.coderabbit.yml` sets the root-level precedent.
-  - The reusable workflow passes `CONFIG.EXTRA_CONFIG_URL` pointing at the raw URL of that file at the **same ref the caller pinned** (input `config_ref`, default `develop`). The default was corrected from `main` on 2026-10-01: `main` is this repository's oldest branch and carries neither `.pr_agent.toml` nor the reusable workflow, so a `main` URL 404s and PR-Agent would silently run on upstream defaults.
+  - The reusable workflow passes `CONFIG.EXTRA_CONFIG_URL` pointing at the raw URL of that file at the fixed ref `develop`, written as a constant: there is no caller-supplied `config_ref` input, so no caller can select the configuration. `develop` replaced `main` on 2026-10-01: `main` is this repository's oldest branch and carries neither `.pr_agent.toml` nor the reusable workflow, so a `main` URL 404s and PR-Agent would silently run on upstream defaults.
   - A consuming repository's own `.pr_agent.toml`, if present, overrides individual keys, **except locked keys**, which the workflow re-sets as environment variables (the top precedence layer) so they cannot be weakened (review finding, 2026-09-24). Precedence, as documented upstream: defaults < `extra_config_url` < org `pr-agent-settings` repo < local `.pr_agent.toml` < environment variables.
 - **Rationale**:
   - `extra_config_url` is a *host-only* key, so a repository's own `.pr_agent.toml` cannot set it. It can be set by the workflow environment, which is the host.
@@ -56,7 +56,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
   - `config.model = "anthropic/claude-sonnet-5"` and `config.fallback_models = ["anthropic/claude-haiku-4-5-20251001"]`.
   - `config.max_model_tokens = 64000`. The upstream default is 32000, and every model is clamped to this value.
   - Large patches use `large_patch_policy = "clip"`.
-  - The credential is a **dedicated** Anthropic API key, held as a repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot (an organisation secret for later opt-ins). The reusable workflow maps it to the env var the runner reads, `ANTHROPIC.KEY`.
+  - The credential is a **dedicated** Anthropic API key, held only as the environment secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent` Environment, whose deployment branch policy admits the default branch only. Each opting-in repository creates its own Environment. The reusable workflow maps it to the env var the runner reads, `ANTHROPIC.KEY`.
   - **Keyless alternative — added 2026-09-24, removed 2026-10-01**: Workload Identity Federation exchanged the job's GitHub OIDC token for a short-lived Anthropic access token, so no key was stored. It was removed because it required `id-token` set to `write` on the same job that runs the third-party `pragent/pr-agent` container, and it was never configured in the first place. The dedicated key is the only route; reinstating keyless needs its own job for the exchange.
 - **Rationale**:
   - Both model IDs are in the runner's built-in model table, so no `custom_model_max_tokens` is needed.

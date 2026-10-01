@@ -1750,6 +1750,18 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
     expect(raw.length).toBeGreaterThan(0);
   });
 
+  // The receiver's own event is workflow_run or workflow_dispatch. SC-001 needs the
+  // originating event and when GitHub received it, not when the trigger finished.
+  it('records the originating event and its time, not the receiver event', () => {
+    const recordStep = doc.jobs.record.steps.find((step) => step.name === 'Write run record');
+    expect(recordStep.env.TRIGGER).toBe(
+      '${{ github.event.workflow_run.event || github.event_name }}'
+    );
+    expect(recordStep.env.EVENT_AT).toBe("${{ github.event.workflow_run.created_at || '' }}");
+    expect(raw).not.toContain('workflow_run.updated_at');
+    expect(raw).not.toContain('repository.updated_at');
+  });
+
   // Under `pull_request` GitHub evaluates the definition from the PR merge commit
   // and passes repository secrets to that run, which is the CWE-200 finding. Only
   // `workflow_run` and `workflow_dispatch` are resolved against the default

@@ -9,7 +9,7 @@ This guide proves the feature works end to end on `lightspeedwp/.github`. The ex
 | # | Item | Who |
 | --- | --- | --- |
 | P-1 | A dedicated Anthropic API key with a monthly spend limit of US$50 set in the Anthropic console (spec SC-008) | @ashley |
-| P-2 | Repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot. A repository that opts in later needs the organisation secret of the same name, with that repository in its selected repositories. See `docs/QODO_PR_AGENT.md` → Credential and spend. The spend limit in P-1 is set on whichever key is in use. | @ashley |
+| P-2 | Environment secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent` Environment, whose deployment branch policy admits `develop` and `refs/heads/develop` only, with no required reviewers. A repository or organisation secret does not work. A repository that opts in later creates its own Environment. See `docs/QODO_PR_AGENT.md` → Credential and spend. The spend limit in P-1 is set on whichever key is in use. | @ashley |
 | P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is set to `true`, only after P-1's spend limit is confirmed. Unset or any other value keeps the pilot off. | Maintainer |
 | P-4 | The implementation PR is merged to `develop`, because upstream reads `.pr_agent.toml` from the default branch | Maintainer |
 
@@ -47,7 +47,7 @@ Use a throw-away branch such as `test/qodo-pr-agent-smoke`, with a small real ch
 | Q-03 | Comment `/review` as a member | An on-demand review is posted with no effort or security labels | Matrix, FR-008 |
 | Q-04 | Comment `/generate_labels`, then `/similar_issue` | Preflight skips with `command-not-allowed`, and nothing is posted by Qodo PR-Agent | Matrix, R5, R8 |
 | Q-05 | Open a **draft** PR, then mark it ready | Nothing while it's a draft. It runs once on ready-for-review. | US1 AS3 |
-| Q-06 | Temporarily set the secret to an invalid value (or test on a fork PR) | The check is green, with a notice in the run summary. The PR isn't blocked. | US1 AS4/AS5, FR-006, SC-003 |
+| Q-06 | (a) Temporarily set the environment secret to an invalid value and open a PR. (b) Open a PR from a fork. | (a) The receiver runs, the Qodo PR-Agent step fails with a notice in the run summary, the outcome is recorded as `failure`, and the PR isn't blocked. (b) The trigger skips with `fork` and publishes no request, so the receiver runs no tool and posts nothing; the PR isn't blocked. | US1 AS4/AS5, FR-006, SC-003 |
 | Q-07 | Inspect a Qodo PR-Agent comment body | Record the exact header or marker text in `docs/QODO_PR_AGENT.md`, under "Recognising Qodo PR-Agent feedback" | FR-016, R10 |
 | Q-08 | Comment `/update_changelog` | A proposal appears as a **comment**, with no commit. Run it through the changelog agent's validation: pass, or reject naming the rule. | US3 AS4, FR-009 |
 | Q-09 | Check the run log for the loaded config | The log shows `extra_config_url` loaded from `raw.githubusercontent.com/lightspeedwp/.github/<ref>/.pr_agent.toml` | R3 (verify in pilot) |

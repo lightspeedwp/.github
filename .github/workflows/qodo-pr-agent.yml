@@ -26,9 +26,9 @@
 # do not govern pre-run credential access, and no GitHub setting makes them do
 # so. See docs/QODO_PR_AGENT.md -> "What limits who can run the pilot".
 #
-# Other repositories copy this file and point the `uses:` line at
-# lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>
-# (docs/QODO_PR_AGENT.md -> "Enable in another repository").
+# Other repositories copy this file together with qodo-pr-agent-trigger.yml and
+# create their own qodo-pr-agent Environment holding the key as an environment
+# secret (docs/QODO_PR_AGENT.md -> "Enable in another repository").
 name: Qodo PR-Agent • Pilot
 
 on:
@@ -336,11 +336,19 @@ jobs:
           # Empty for a skip, and the shell's :-0 default covers that.
           PR_NUMBER: ${{ needs.preflight.outputs.pr }}
           TOOL: ${{ needs.preflight.outputs.tool }}
-          TRIGGER: ${{ github.event_name }}
+          # The originating event, not this receiver's: a workflow_run carries the
+          # event that started the trigger, so the record keeps pull_request or
+          # issue_comment. A manual dispatch has no originating event and records
+          # workflow_dispatch, which the report keeps out of SC-001.
+          TRIGGER: ${{ github.event.workflow_run.event || github.event_name }}
           REASON: ${{ needs.preflight.outputs.reason }}
           RUN_RESULT: ${{ needs.run.outputs.outcome || needs.run.result }}
           STARTED_AT: ${{ needs.run.outputs.started_at }}
-          EVENT_AT: ${{ github.event.workflow_run.updated_at || github.event.repository.updated_at }}
+          # When the trigger run was created, which is when GitHub received the
+          # pull request or comment event. Not updated_at, which is when the
+          # trigger finished and would start the SC-001 clock late. Empty for a
+          # manual dispatch, which has no originating event.
+          EVENT_AT: ${{ github.event.workflow_run.created_at || '' }}
         run: |
           # An empty reason means the preflight job itself failed, so its outputs
           # never arrived. Name it explicitly: no tool ran, so this is a skip.

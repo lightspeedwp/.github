@@ -95,6 +95,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **No Federation Token for the Pilot** — Keyless sign-in is removed, so the Qodo PR-Agent job can no longer request an identity token. The stored key is its only model credential; the GitHub token still posts comments. (#3532)
 - **Pilot Receiver Inlines Its Privileged Run** — The pilot receiver holds no reference to the reusable workflow, so a pull request has no local reference to repoint and there is no caller to pin to a commit hash. (#3532)
 - **Pilot Off Until Switched On** — The pilot now runs only after its enable setting is switched on, so it cannot spend before its limit is confirmed, and a command on a closed pull request is skipped. (#3532)
+- **Pilot Run Origin** — Run records now name the pull request or comment event that started a run and when it arrived, and manual runs are left out of the 10-minute response rate. (#3532)
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
 - **Footer Shape Figures Corrected** — Workflow comment: 899 flagged files, 255 holding fewer than two distinct known footer phrases. The runtime notice calls 28.4% a share of flagged files, not a false-positive rate. (#3682, #3604)

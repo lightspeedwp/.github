@@ -109,12 +109,12 @@ One Qodo PR-Agent execution in CI.
 | `repository` | string | `owner/repo` |
 | `pr` | int | — |
 | `tool` | Qodo PR-Agent tool id or `auto` | `auto` means one automatic run covering describe and improve |
-| `trigger` | enum | `pull_request` or `issue_comment` |
+| `trigger` | enum | `pull_request`, `issue_comment` or `workflow_dispatch`. A `workflow_run` receiver records the event that started the trigger workflow, never `workflow_run` itself. `workflow_dispatch` is a manual run and is excluded from SC-001. |
 | `outcome` | enum | `success`, `skipped:<reason>`, or `failure`. `reason` is always one of the preflight reasons, or `preflight-error` when the preflight job itself failed and produced no outputs, so `skipped:` with an empty reason cannot occur. |
 | `duration_seconds` | int | From the job timestamps |
 | `model` | string | From the config |
 | `started_at` | ISO-8601 | — |
-| `event_at` | ISO-8601 | When the triggering comment was posted, or the PR's `updated_at` for PR events. Used for the SC-001 "within 10 minutes" measure. |
+| `event_at` | ISO-8601 | When GitHub received the originating pull request or comment event, taken as the trigger run's `created_at`. Empty for `workflow_dispatch`. Used for the SC-001 "within 10 minutes" measure. |
 
 **Storage**: the job summary, plus artefact `qodo-pr-agent-run-<run_id>` (30-day retention), plus `collect-metrics` output. Records are aggregated into `.github/reports/metrics/qodo-pr-agent/pilot-report-YYYY-MM-DD.md` (FR-021).
 
