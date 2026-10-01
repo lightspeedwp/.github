@@ -16,7 +16,7 @@ A caller breaks the CWE-200 boundary, and is rejected at review, if it does all 
 1. **Its privileged half is reached by a trigger GitHub evaluates on the default branch.** `workflow_run` reads the definition from the default branch, so a pull request author cannot change the privileged file. `workflow_dispatch` runs the definition from the **selected** ref, so it is safe only in combination with point 3: the environment's deployment branch policy gates the run job, and a dispatch from a ref the policy does not admit cannot start that job. `pull_request`, `pull_request_review` and `pull_request_review_comment` must never trigger the privileged half, because GitHub reads the definition from the pull request. Verified on a scratch pull request: a `pull_request` run reported `workflow_ref` of `refs/pull/<n>/merge` and had a repository secret present in its secret context.
 2. **The credential is an `environment` secret, and the `run` job references that environment.** A repository secret is reachable from a same-repository `pull_request` run, because GitHub passes repository secrets to those runs. Only an environment secret can be withheld.
 3. **The environment's deployment branch policy admits the default branch only**, and must not admit `refs/pull/*/merge`. The rule is matched against the run's `GITHUB_REF`; for a `pull_request` run that is `refs/pull/<n>/merge`, so the policy fails closed and the job never starts.
-4. **No job holds `id-token: write`**, so the third-party container has no OIDC capability.
+4. **No job holds `id-token` set to `write`**, so the third-party container has no OIDC capability.
 
 The pilot satisfies all four. Two of them are repository settings rather than files, and are listed in [the pilot's trust-boundary documentation](../../../docs/QODO_PR_AGENT.md#what-limits-who-can-run-the-pilot): the environment's deployment branch policy, and the fact that the boundary is exactly the authority to merge to `develop`.
 
@@ -105,7 +105,7 @@ These are enforced by `tests/js/qodo-pr-agent-workflow.test.js`:
 - The unprivileged trigger workflow contains no `secrets` reference and grants no write scope.
 - Only the environment-gated `run` job reads `secrets.model_credential`; every other reference is a `!= ''` presence probe.
 - `CONFIG.EXTRA_CONFIG_URL` is the constant `develop` URL and contains no expression.
-- No workflow in the pilot sets `id-token: write`.
+- No workflow in the pilot sets `id-token` to `write`.
 - The receiver re-derives eligibility from the API rather than trusting the trigger's artefact.
 - The allow-list and author-association guard are present.
 - The kill-switch variable is checked.
