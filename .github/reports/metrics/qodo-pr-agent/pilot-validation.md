@@ -61,8 +61,29 @@ To be filled in after five pilot PRs.
   feature's edits start below each file's frontmatter.
 - `markdownlint` on every Markdown file changed by the feature: 0 issues.
 
-**Live checks (key set and unset):** not run. They need the pilot live, or a maintainer running the
-skill locally with the key.
+**Local checks re-run, 2026-10-01 (commit dd90f420):**
+
+- `npx jest tests/js/qodo-pr-agent-integrations.test.js`: 19 of 19 pass. All six Qodo PR-Agent
+  suites: 213 of 213.
+- `npm run validate:agents` still fails only on `agents/mode-thinking.agent.md`, which this feature
+  doesn't touch.
+- `npm run validate:frontmatter`: three of the files this feature changes are reported
+  (`FEEDBACK_RESPONSE.md`, `agents/pr-agent/AGENT.md`, `docs/AI_FEEDBACK_SYSTEM_SUMMARY.md`). Each
+  error is in a frontmatter field this feature doesn't change, so it is already on `develop`.
+- `markdownlint` on every linted Markdown file changed by the feature: 0 issues in 21 files.
+
+**Key unset, 2026-10-01:** the shared skill was run with no credential in the environment:
+
+| Command | Result |
+| --- | --- |
+| `run-qodo-pr-agent.sh review --diff-file <diff>` | `skipped` / `no-credential`, exit 0 |
+| `run-qodo-pr-agent.sh ask --diff-file <diff> --question "What changed?"` | `skipped` / `no-credential`, exit 0 |
+| `run-qodo-pr-agent.sh review --pr-url <#3532>` | `skipped` / `no-credential`, exit 0 |
+
+So callers get the normalised skipped result they fall back on, not an error.
+
+**Key set:** not run. It needs the pilot live, or a maintainer running the skill locally with the
+key. T025 stays open until this is recorded.
 
 ## US4 opt-in walkthrough (T027)
 
