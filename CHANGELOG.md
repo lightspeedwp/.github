@@ -93,7 +93,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Pilot Fork Check** — A pull request whose head repository is unknown is now treated as a fork and skipped, so a deleted fork cannot enable the automatic path. (#3532)
 - **Pilot Config Ref** — The shared configuration is loaded from `develop`, the branch that carries it, instead of a ref where it is absent. (#3532)
 - **No Federation Token for the Pilot** — Keyless sign-in is removed, so the Qodo PR-Agent job can no longer request an identity token. The stored key is its only model credential; the GitHub token still posts comments. (#3532)
-- **Pilot Caller Pin Tracked** — The pilot caller keeps its local workflow reference until the reusable workflow exists on a trusted ref; the follow-up that pins it to a commit hash is tracked. (#3710, #3532)
+- **Pilot Receiver Inlines Its Privileged Run** — The pilot receiver holds no reference to the reusable workflow, so there is no `./` a pull request could repoint and no caller to pin to a commit SHA.
 - **Pilot Off Until Switched On** — The pilot now runs only after its enable setting is switched on, so it cannot spend before its limit is confirmed, and a command on a closed pull request is skipped. (#3532)
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)

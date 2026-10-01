@@ -1386,6 +1386,37 @@ async function runReceiverPreflight({
 }
 
 /**
+ * Execute the receiver's preflight for a workflow_dispatch run.
+ * @param {object} [options] - Pull request number and command typed by the operator.
+ * @param {string} [options.pr] - The pr input.
+ * @param {string} [options.command] - The command input.
+ * @returns {Promise<object>} The decision.
+ */
+function runReceiverDispatch({ pr = String(PR_NUMBER), command = '' } = {}) {
+  const outputs = {};
+  const core = {
+    setOutput: jest.fn((key, value) => {
+      outputs[key] = value;
+    }),
+    notice: jest.fn(),
+    warning: jest.fn(),
+  };
+  const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
+  const body = stepScript(caller.doc, 'preflight', 'hint');
+  return new AsyncFunction('core', 'context', 'github', 'require', 'process', body)(
+    core,
+    {
+      eventName: 'workflow_dispatch',
+      payload: {},
+      repo: { owner: 'lightspeedwp', repo: '.github' },
+    },
+    { rest: { issues: {}, pulls: {} } },
+    require,
+    { env: { KILL_SWITCH: 'true', DISPATCH_PR: pr, DISPATCH_COMMAND: command } }
+  ).then(() => ({ outputs, core, refused: outputs.enabled !== 'true' }));
+}
+
+/**
  * The receiver's preflight, executed.
  *
  * The privileged half of the split. Every case drives the real script and asserts
@@ -1617,6 +1648,30 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
     });
     expect(refused).toBe(true);
     expect(outputs.reason).toBe('no-request');
+  });
+
+  it('runs the automatic path for a dispatch with a blank command', async () => {
+    const { outputs, refused } = await runReceiverDispatch({});
+    expect(refused).toBe(false);
+    expect(outputs).toMatchObject({ enabled: 'true', reason: 'ok', tool: 'auto' });
+  });
+
+  it('honours an allow-listed command typed on a dispatch', async () => {
+    const { outputs, refused } = await runReceiverDispatch({ command: '/ask' });
+    expect(refused).toBe(false);
+    expect(outputs).toMatchObject({ enabled: 'true', reason: 'ok', tool: 'ask', command: '/ask' });
+  });
+
+  it('refuses a command typed on a dispatch that is not allow-listed', async () => {
+    const { outputs, refused } = await runReceiverDispatch({ command: '/deploy' });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('command-not-allowed');
+  });
+
+  it('refuses a dispatch with no pull request number', async () => {
+    const { outputs, refused } = await runReceiverDispatch({ pr: 'nope' });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('bad-dispatch-input');
   });
 
   it('releases no key on any refusal path', async () => {

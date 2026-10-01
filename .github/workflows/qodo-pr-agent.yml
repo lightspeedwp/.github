@@ -128,11 +128,16 @@ jobs:
               return out('kill-switch');
             }
 
-            // workflow_dispatch: the operator typed the pull request number.
+            // workflow_dispatch: the operator typed the pull request number and,
+            // optionally, a command. Both are validated here rather than trusted,
+            // because a blank command means the automatic summary and suggestions.
             if (context.eventName === 'workflow_dispatch') {
               const pr = Number.parseInt(process.env.DISPATCH_PR, 10);
               if (!Number.isInteger(pr) || pr < 1) return out('bad-dispatch-input');
-              return out('ok', { pr, command: '', tool: 'auto' });
+              const wanted = String(process.env.DISPATCH_COMMAND || '').trim().toLowerCase();
+              if (!wanted) return out('ok', { pr, command: '', tool: 'auto' });
+              if (!ALLOWED_COMMANDS.includes(wanted)) return out('command-not-allowed');
+              return out('ok', { pr, command: wanted, tool: wanted.slice(1) });
             }
 
             if (context.eventName !== 'workflow_run') return out('unsupported-event');

@@ -36,7 +36,7 @@ The pilot satisfies all four. Two of them are repository settings rather than fi
 | `pr_number` | string | (required) | The pull request the caller analysed. Re-read from the API before any tool runs. |
 | `command` | string | `''` | An allow-listed command, or empty for the automatic summary and suggestions path. |
 | `decision_reason` | string | `ok` | The caller's own decision, recorded verbatim. Anything other than `ok` is a skip. |
-| `excluded_authors` | string (JSON array) | `["dependabot[bot]","lightspeed-docs-bot[bot]"]` | PR authors that never trigger automatic runs. A malformed value is ignored rather than parsed, because the API-confirming step compares against a constant list. |
+| `excluded_authors` | string (JSON array) | `["dependabot[bot]","lightspeed-docs-bot[bot]"]` | PR authors that never trigger automatic runs. The API-confirming step parses the array and adds the valid entries to the default list; a non-array value or a parse failure falls back to the defaults. |
 | `auto_describe` | boolean | `true` | Maps to `github_action_config.auto_describe` |
 | `auto_improve` | boolean | `true` | Maps to `github_action_config.auto_improve` |
 | `environment_name` | string | `qodo-pr-agent` | The Environment whose deployment branch policy gates the key. Named so consuming repositories can use their own. |

@@ -103,7 +103,7 @@ Qodo PR-Agent feedback is AI review feedback, and follows the same `FEEDBACK_RES
 
 ### Kill-switch
 
-Set the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` to `false`, at repository or organisation level. It takes effect on the next event, with no commit needed, and every run is skipped with `kill-switch`. Delete the variable, or set it to anything else, to resume.
+Set the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` to anything other than exactly `true`, at repository or organisation level. The pilot is opt-in: it runs only while the value is the string `true`, so deleting the variable, setting it to `false`, or setting it to anything else all stop it. Setting it back to exactly `true` resumes the pilot. It takes effect on the next event, with no commit needed, and every run is skipped with `kill-switch`. Delete the variable, or set it to anything else, to resume.
 
 As a second line of defence, revoke or cap the dedicated key in the Anthropic console.
 
@@ -143,7 +143,7 @@ Both facts were verified on a scratch pull request rather than assumed:
 - A `pull_request` run of a branch-only workflow reported `workflow_ref` of `refs/pull/<n>/merge` and a repository secret **present** in its secret context. That is the exposure the split removes.
 - A branch edit to an existing `workflow_run` workflow did **not** execute, and that run's `head_sha` was the `develop` tip. That is the boundary the design relies on.
 
-The receiver does not trust the trigger. It downloads the `qodo-pr-agent-signal` artefact, parses it as data, and then re-reads the pull request and its comments through the API, re-checking that the hint names the pull request the triggering run was for, that the pull request is still open and at the head that run observed, plus draft state, excluded authors, fork status, the command allow-list, the commenter's `author_association` and the refusal of `--section.key=value` tokens. A pull request author who edits the trigger can at worst cause a receiver run that immediately skips.
+The receiver does not trust the trigger. It downloads the `qodo-pr-agent-signal` artefact, parses it as data, and then re-reads the pull request and the specific comment the trigger named by id through the API, re-checking that the hint names the pull request the triggering run was for, that the pull request is still open and at the head that run observed, plus draft state, excluded authors, fork status, the command allow-list, the commenter's `author_association` and the refusal of `--section.key=value` tokens. A pull request author who edits the trigger can at worst cause a receiver run that immediately skips.
 
 `workflow_dispatch` is the one trigger that is **not** protected by the default-branch rule, because it runs the definition from the ref you select. It is safe here only because of the environment: a dispatch from a branch the deployment branch policy does not admit cannot start the `run` job, and so cannot read the key. If the environment is ever removed, remove the `workflow_dispatch` trigger with it.
 
@@ -208,7 +208,7 @@ The [daily report workflow](../.github/workflows/qodo-pr-agent-report.yml) runs 
 
 1. Resolve the new digest: `docker buildx imagetools inspect pragent/pr-agent:<version>-github_action --format '{{.Manifest.Digest}}'`.
 2. Verify provenance: `gh attestation verify "oci://index.docker.io/pragent/pr-agent@sha256:<digest>" --repo The-PR-Agent/pr-agent`.
-3. In **one PR**, update the digest in `.github/workflows/qodo-pr-agent-reusable.yml` and `skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh` (a test checks they match), plus the table above. Add a `CHANGELOG.md` entry.
+3. In **one PR**, update the digest in all three places that pin it: `.github/workflows/qodo-pr-agent-reusable.yml`, `.github/workflows/qodo-pr-agent.yml` and `skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh` (a test checks they match), plus the table above. Add a `CHANGELOG.md` entry.
 4. Read the upstream release notes for changes to configuration keys.
 
 ## Enable in another repository
