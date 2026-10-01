@@ -1518,6 +1518,9 @@ describe.each([
       .filter(Boolean);
     expect(passed.length).toBeGreaterThan(0);
     expect(passed).toContain('GITHUB_TOKEN');
+    // pr_agent.cli reads get_settings().github.user_token with no GITHUB_TOKEN
+    // fallback; without this every tool run fails before it posts anything.
+    expect(passed).toContain('GITHUB.USER_TOKEN');
     expect(passed).toContain('ANTHROPIC.KEY');
     // Neither workflow's raw secret name may be handed in under its own name: the
     // container is given the key as ANTHROPIC.KEY, which is what the image reads.

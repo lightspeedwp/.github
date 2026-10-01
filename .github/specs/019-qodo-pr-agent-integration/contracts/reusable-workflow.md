@@ -76,12 +76,11 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
 | Env var | Value |
 | --- | --- |
 | `GITHUB_TOKEN` | `${{ secrets.GITHUB_TOKEN }}` |
+| `GITHUB.USER_TOKEN` | `${{ secrets.GITHUB_TOKEN }}`. `pr_agent.cli` reads its token from `github.user_token` and has no fallback to `GITHUB_TOKEN`, so without it every tool run fails before posting. |
 | `ANTHROPIC.KEY` | `${{ secrets.model_credential }}` |
-| `CONFIG.EXTRA_CONFIG_URL` | the constant `https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml` — a literal, never derived from an event, a head ref or a caller input |
-| `github_action_config.auto_review` | `"false"` |
-| `github_action_config.auto_describe` | from the input |
-| `github_action_config.auto_improve` | from the input |
-| `github_action_config.pr_actions` | `'["opened","reopened","ready_for_review"]'` |
+| `PR_AGENT_EXTRA_CONFIG_URL` | the constant `https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml` — a literal, never derived from an event, a head ref or a caller input. The CLI reads its extra configuration from this variable. |
+| `QODO_PR`, `QODO_TOOL` | the pull request number from the input, and the tool preflight selected. The run step refuses a `QODO_PR` that is not a plain number. |
+| `QODO_AUTO_DESCRIBE`, `QODO_AUTO_IMPROVE` | `'true'` or `'false'`, from the inputs, for the automatic path |
 | every **locked** key from [pr-agent-config.md](./pr-agent-config.md) (e.g. `pr_description.publish_description_as_comment: 'true'`) | the locked value; env beats a consumer's `.pr_agent.toml` |
 
 Untrusted event values, such as the comment body and branch names, are passed to scripts **only** through `env:` and never interpolated into `run:`. This follows existing repository practice.

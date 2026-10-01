@@ -311,6 +311,9 @@ jobs:
         continue-on-error: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The CLI reads its token from github.user_token and has no fallback to
+          # GITHUB_TOKEN; the action runner used to copy it across, the CLI does not.
+          GITHUB.USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC.KEY: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}
           # The CLI reads its extra config from PR_AGENT_EXTRA_CONFIG_URL, so the
           # ref stays a constant and can never be an event or pull request value.
@@ -356,6 +359,7 @@ jobs:
           # the step's env is passed selectively, not wholesale.
           container_env=(
             GITHUB_TOKEN
+            GITHUB.USER_TOKEN
             ANTHROPIC.KEY
             PR_AGENT_EXTRA_CONFIG_URL
             config.response_language
