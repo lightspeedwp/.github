@@ -536,6 +536,13 @@ jobs:
             exit 1
           fi
 
+      - name: Check badge URLs for unencoded spaces
+        run: |
+          if ! npm run --silent validate:badge-urls; then
+            echo "::error title=Badge URL encoding::A shields.io badge URL ends at an unencoded space, so GitHub renders a broken autolink instead of an image. Run 'npm run validate:badge-urls:fix' to repair, then re-run this job. See issue #3702."
+            exit 1
+          fi
+
   maintain:
     name: Documentation Maintenance
     runs-on: ubuntu-latest

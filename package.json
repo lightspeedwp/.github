@@ -114,7 +114,7 @@
     "validate:footers:shape": "node scripts/dedupe-footers.js --check --shape",
     "measure:footers:shape": "node scripts/measure-footer-shape.js",
     "validate:mermaid-contrast": "node scripts/validation/validate-mermaid-colour-contrast.js",
-    "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:skill-doc-contracts && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:linear-guidance && npm run validate:json:all",
+    "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:skill-doc-contracts && npm run validate:badge-urls && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:linear-guidance && npm run validate:json:all",
     "create:agent": "node scripts/create-agent-spec.js",
     "validate:report": "node scripts/generate-validation-report.js",
     "validate:report:json": "node scripts/generate-validation-report.js --format json",
