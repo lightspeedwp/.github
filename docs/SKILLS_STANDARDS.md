@@ -69,7 +69,7 @@ graph TD
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Shared vs dedicated skill decision
     accDescr: Decision tree for determining whether to create a shared skill or dedicated skill based on reusability and domain specificity.
-    A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"} 
+    A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"}
     A -->|NO| C["Dedicated Skill<br/>agents/agent-name/skills/"]
     B -->|YES| D["Shared Skill<br/>skills/skill-name/"]
     B -->|NO| C
@@ -154,35 +154,114 @@ agents/{agent-name}/
 
 Every skill must include a `SKILL.md` file as the entrypoint.
 
+### Authoring a new skill
+
+Follow the official documentation rather than this summary, which can only go
+out of date:
+
+| What                                                                 | Where                                      |
+| -------------------------------------------------------------------- | ------------------------------------------ |
+| The open Agent Skills format, and the `skills-ref` validator         | https://agentskills.io/specification       |
+| Claude Code skills, and the fields it adds on top of the open format | https://code.claude.com/docs/en/skills     |
+| Claude Code subagent definitions                                     | https://code.claude.com/docs/en/sub-agents |
+| The AGENTS.md convention                                             | https://agents.md                          |
+
+A skill is a directory holding at least `SKILL.md`:
+
+```text
+skill-name/
+├── SKILL.md          # required: frontmatter plus the instructions
+├── scripts/          # optional: code the agent can run
+├── references/       # optional: documentation loaded on demand
+└── assets/           # optional: templates and data files
+```
+
+Three rules catch most mistakes:
+
+1. `name` must equal the directory name, lower case, digits and single hyphens.
+2. The body must contain instructions. Frontmatter alone is not a skill.
+3. Anything that is not a specification field or a documented platform field
+   belongs under `metadata`.
+
+### Checking your work
+
+```bash
+npm run validate:skills          # gate: fails on a finding not in the baseline
+node scripts/validation/validate-skills.js --report   # per-class counts
+node scripts/validation/validate-skills.js --write-baseline
+```
+
+### File classes and the rules each is held to
+
+`npm run validate:skills` classifies every file it checks and applies that
+class's rules, so a platform extension is only permitted where the platform
+actually applies.
+
+| Class                 | Files                                                                                                    | Allowed fields                                                                                                                | Source                                     |
+| --------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| `open-spec-skill`     | `skills/**`, `agents/**`, `plugins/**` bundled skills                                                    | the six specification fields                                                                                                  | https://agentskills.io/specification       |
+| `claude-code-skill`   | `.claude/skills/**`, and any skill using `argument-hint`, `user-invocable` or `disable-model-invocation` | those six plus the documented Claude Code platform fields                                                                     | https://code.claude.com/docs/en/skills     |
+| `subagent-definition` | `*.agent.md`                                                                                             | the subagent frontmatter table plus this repository's own `schemas/agent-config.schema.json` required and optional field sets | https://code.claude.com/docs/en/sub-agents |
+| `agents-md`           | `AGENTS.md`                                                                                              | the document frontmatter this repository uses                                                                                 | https://agents.md                          |
+
+The specification permits exactly six top-level fields on a skill:
+
+| Field           | Required | Constraint                                                                                                                     |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `name`          | Yes      | 1-64 characters; `a-z`, `0-9` and single hyphens only; no leading or trailing hyphen; **must match the parent directory name** |
+| `description`   | Yes      | 1-1024 characters; say what the skill does and when to use it                                                                  |
+| `license`       | No       | Licence name, or a reference to a bundled licence file                                                                         |
+| `compatibility` | No       | Up to 500 characters; environment requirements only                                                                            |
+| `metadata`      | No       | A flat map of string keys to **string** values                                                                                 |
+| `allowed-tools` | No       | Space-separated pre-approved tools (experimental)                                                                              |
+
+There is no top-level `version`, `category`, `tags`, `dependencies`,
+`interfaces`, `maintainer` or `last_updated`. Record that information under
+`metadata` instead. Claude Code's platform fields are permitted only on the
+`claude-code-skill` class, because a claude.ai upload or a `package_skill.py`
+build rejects them.
+
+### Known findings
+
+`scripts/validation/skills-baseline.json` lists every finding the validator
+reports today, one `"<path>#<rule>"` entry each. A finding in that file is a
+warning; a finding outside it fails the run, so the baseline cannot hide a
+regression. It shrinks as the per-class fixes land, and the last of those
+deletes the file.
+
 ### Format
 
-```yaml
+````markdown
 ---
 name: skill-name
-description: One-line description of what the skill does
-version: 1.0.0
-category: code-analysis  # or testing, documentation, security, etc.
-tags: [tag1, tag2]
-dependencies:
-  - dependency-name@^1.0.0
-interfaces:
-  - input
-  - output
-maintainer: "@username"
-last_updated: 2026-07-24
+description: One-line description of what the skill does and when to use it
+license: GPL-3.0-or-later
+metadata:
+  version: '1.0.0'
+  category: code-analysis
+  tags: 'analysis, quality'
+  dependencies: 'dependency-name@^1.0.0'
+  interfaces: 'input, output'
+  maintainer: 'LightSpeed Team'
+  last_updated: '2026-07-24'
+  last_reviewed: '2026-10-01'
 ---
 
 # Skill Name
 
 ## Purpose
+
 Detailed explanation of what this skill does and why it exists.
 
 ## Capabilities
+
 - Capability 1
 - Capability 2
 
 ## Input Interface
+
 ### Schema
+
 ```json
 {
   "type": "object",
@@ -245,8 +324,7 @@ Include real-world usage examples.
 ## Testing
 
 How to test this skill independently.
-
-```
+````
 
 ---
 
@@ -255,10 +333,11 @@ How to test this skill independently.
 All skills must include:
 
 1. **SKILL.md** with:
-   - `name` (kebab-case, unique)
+   - `name` (kebab-case, unique, and equal to the directory name)
    - `description` (one-line summary)
-   - `version` (semantic)
-   - `category` (domain/purpose)
+   - instructions in the body; frontmatter alone is not a skill
+   - `metadata.version` (semantic, quoted) and `metadata.category`, where the
+     skill records them
    - Purpose section
    - Input and output documentation
 
@@ -326,11 +405,11 @@ The dependency resolution system ensures:
 
 Skills follow [semantic versioning](./VERSIONING.md):
 
-| Change | Version | Example |
-|--------|---------|---------|
-| Breaking change (input/output format change) | MAJOR | 1.0.0 → 2.0.0 |
-| New capability (backwards-compatible) | MINOR | 1.0.0 → 1.1.0 |
-| Bug fix or internal improvement | PATCH | 1.0.0 → 1.0.1 |
+| Change                                       | Version | Example       |
+| -------------------------------------------- | ------- | ------------- |
+| Breaking change (input/output format change) | MAJOR   | 1.0.0 → 2.0.0 |
+| New capability (backwards-compatible)        | MINOR   | 1.0.0 → 1.1.0 |
+| Bug fix or internal improvement              | PATCH   | 1.0.0 → 1.0.1 |
 
 ### Backward Compatibility
 
@@ -409,13 +488,14 @@ When deprecating a skill:
 
 ### Example: Code Analysis Skill
 
-```yaml
+````yaml
 ---
 name: code-analysis
 description: Analyses code for quality metrics, complexity, and patterns
-version: 1.0.0
-category: code-analysis
-tags: [analysis, quality, metrics]
+metadata:
+  version: "1.0.0"
+  category: code-analysis
+  tags: "analysis, quality, metrics"
 ---
 
 # Code Analysis Skill
@@ -435,7 +515,7 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
   "code": "string",
   "language": "javascript|python|go|rust"
 }
-```
+````
 
 ## Output Schema
 
@@ -454,7 +534,7 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
 
 ---
 
-**Last Updated:** 2026-07-24  
+**Last Updated:** 2026-07-24
 **Version:** 1.0.0
 
 ---
@@ -472,3 +552,4 @@ _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+```
