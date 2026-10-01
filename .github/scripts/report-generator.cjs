@@ -497,7 +497,13 @@ class ComplianceReport {
 				usedIds,
 			);
 			usedIds.add(contractId);
-			idMap.set(source.id, contractId);
+			// Only map ids that can actually be referenced. Several violations
+			// with no source id would otherwise share one entry keyed undefined,
+			// and when two share a source id the first wins, so a reference
+			// resolves the same way on every run.
+			if (source.id !== undefined && source.id !== null && !idMap.has(source.id)) {
+				idMap.set(source.id, contractId);
+			}
 			return this._violationToContract(violation, contractId);
 		});
 		// Tallied from the serialised severities, so the four contract buckets

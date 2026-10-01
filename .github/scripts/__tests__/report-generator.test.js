@@ -366,6 +366,54 @@ runTest("recommendation references follow a reallocated id", () => {
   }
 });
 
+runTest("a duplicated source id resolves to the first violation's contract id", () => {
+  // Two violations share a source id. Last-wins would make a recommendation
+  // resolve to whichever happened to be serialised last; first-wins is stable
+  // and matches the allocator, which keeps the first id it is given.
+  const shared = "violation-20260929-042";
+  const json = new ComplianceReport({
+    violations: [base({ id: shared }), base({ id: shared })],
+    recommendations: [
+      {
+        priority: "high",
+        title: "t",
+        description: "d",
+        affectedViolations: [shared],
+      },
+    ],
+  }).toJSON();
+  assert.strictEqual(
+    json.recommendations[0].affectedViolations[0],
+    json.violations[0].id,
+    `reference resolved to ${json.recommendations[0].affectedViolations[0]} rather than the first violation ${json.violations[0].id}`,
+  );
+});
+
+runTest("a violation with no source id creates no mapping entry", () => {
+  // Several violations with a missing id would otherwise share one map entry
+  // keyed undefined, and any malformed reference could resolve through it.
+  const json = new ComplianceReport({
+    violations: [
+      { ruleId: "r", severity: "HIGH", message: "m", file: "f.yml" },
+      { ruleId: "r", severity: "LOW", message: "m", file: "f.yml" },
+    ],
+    recommendations: [
+      {
+        priority: "low",
+        title: "t",
+        description: "d",
+        affectedViolations: [undefined],
+      },
+    ],
+  }).toJSON();
+  assert.strictEqual(json.violations.length, 2);
+  assert.strictEqual(
+    json.recommendations[0].affectedViolations[0],
+    undefined,
+    "an undefined reference must not resolve through the mapping",
+  );
+});
+
 runTest("unmatched recommendation references are left intact", () => {
   const json = new ComplianceReport({
     violations: [base()],
