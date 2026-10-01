@@ -132,6 +132,76 @@ function normaliseSeverity(severity) {
 	return SEVERITIES.includes(upper) ? upper : 'UNKNOWN';
 }
 
+/**
+ * Display order for the severity buckets, most severe first.
+ *
+ * UNKNOWN ranks last: an unrecognised severity is not treated as more urgent
+ * than a recognised one.
+ */
+const SEVERITY_RANK = {
+	CRITICAL: 0,
+	HIGH: 1,
+	MEDIUM: 2,
+	LOW: 3,
+	UNKNOWN: 4,
+};
+
+/**
+ * Read a violation's line number from either location shape.
+ *
+ * AuditViolation exposes `line`; a plain object may carry `location.line`.
+ *
+ * @param {Object} violation - Violation to inspect.
+ * @returns {number|null} The line, or null when absent or not a number.
+ */
+function violationLine(violation) {
+	const raw =
+		violation && violation.location && violation.location.line !== undefined
+			? violation.location.line
+			: violation && violation.line;
+	// Number(null) is 0 and Number("") is 0, so an absent line has to be
+	// rejected before coercion or it would sort as line 0.
+	if (raw === undefined || raw === null || raw === '') {
+		return null;
+	}
+	const parsed = Number(raw);
+	return Number.isFinite(parsed) ? parsed : null;
+}
+
+/**
+ * Order violations for rendering, per clarification A1: grouped by severity,
+ * then ascending by line number within each file.
+ *
+ * The id is a final tiebreak so the order is total: two violations with the
+ * same severity and line would otherwise be ordered by input, which would make
+ * the rendered report depend on the order the violations happened to arrive in.
+ *
+ * @param {Object} a - First violation.
+ * @param {Object} b - Second violation.
+ * @returns {number} Negative, zero or positive, for Array.sort.
+ */
+function compareViolations(a, b) {
+	const rank =
+		(SEVERITY_RANK[normaliseSeverity(a && a.severity)] ??
+			SEVERITY_RANK.UNKNOWN) -
+		(SEVERITY_RANK[normaliseSeverity(b && b.severity)] ??
+			SEVERITY_RANK.UNKNOWN);
+	if (rank !== 0) {
+		return rank;
+	}
+
+	const lineA = violationLine(a);
+	const lineB = violationLine(b);
+	// A violation with no line sorts after those that have one.
+	const lineRank = (lineA === null ? Number.MAX_SAFE_INTEGER : lineA) -
+		(lineB === null ? Number.MAX_SAFE_INTEGER : lineB);
+	if (lineRank !== 0) {
+		return lineRank;
+	}
+
+	return String(text(a && a.id, '')).localeCompare(String(text(b && b.id, '')));
+}
+
 class ComplianceReport {
 	constructor(options = {}) {
 		// Read the clock once so reportId and timestamp cannot disagree.
@@ -217,14 +287,22 @@ class ComplianceReport {
 	 * Get violations by file
 	 */
 	getViolationsByFile() {
-		const byFile = {};
+		const grouped = new Map();
 
 		for (const violation of this.violations) {
 			const file = violation.file || 'unknown';
-			if (!byFile[file]) {
-				byFile[file] = [];
+			if (!grouped.has(file)) {
+				grouped.set(file, []);
 			}
-			byFile[file].push(violation);
+			grouped.get(file).push(violation);
+		}
+
+		// Both levels are sorted so the rendered report does not depend on the
+		// order the violations were supplied in: files by path, then violations
+		// within each file per compareViolations (A1).
+		const byFile = {};
+		for (const file of [...grouped.keys()].sort((a, b) => a.localeCompare(b))) {
+			byFile[file] = grouped.get(file).sort(compareViolations);
 		}
 
 		return byFile;
@@ -502,7 +580,9 @@ class ComplianceReport {
 		md += `| 🔵 LOW | ${stats.low} |\n`;
 		md += `| ⚪ UNKNOWN | ${stats.unknown} |\n\n`;
 
-		// Violations by file
+		// Violations by file. getViolationsByFile() has already ordered the
+		// files by path and the violations within each by severity then line,
+		// so this loop inherits a stable, input-order-independent rendering.
 		if (Object.keys(byFile).length > 0) {
 			md += `## Violations by File\n\n`;
 			for (const [file, violations] of Object.entries(byFile)) {
@@ -649,4 +729,6 @@ module.exports = {
 	normaliseSeverity,
 	generateReportId,
 	contractViolationId,
+	compareViolations,
+	SEVERITY_RANK,
 };

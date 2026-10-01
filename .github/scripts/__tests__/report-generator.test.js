@@ -383,6 +383,139 @@ runTest("unmatched recommendation references are left intact", () => {
   ]);
 });
 
+// --- Deterministic rendering (A1: grouped by severity, sorted by line) ------
+
+/** A violation carrying the fields the Markdown renderer reads. */
+function located(overrides = {}) {
+  return Object.assign(
+    {
+      id: "violation-20260929-001",
+      ruleId: "label-prefix-validation",
+      severity: "MEDIUM",
+      file: ".github/labels.yml",
+      message: "m",
+      location: { path: ".github/labels.yml", line: 10 },
+    },
+    overrides,
+  );
+}
+
+runTest("Markdown output does not depend on input order", () => {
+  // Two report instances carry different report ids and timestamps, so compare
+  // the body with those two volatile header lines removed. The assertion is
+  // about violation ordering, not about the clock.
+  const stripVolatile = (markdown) =>
+    markdown
+      .split("\n")
+      .filter((line) => !/^\*\*(Report ID|Generated)\*\*/.test(line))
+      .join("\n");
+
+  const violations = [
+    located({ id: "violation-20260929-001", file: "b.yml", location: { path: "b.yml", line: 5 }, severity: "LOW" }),
+    located({ id: "violation-20260929-002", file: "a.yml", location: { path: "a.yml", line: 9 }, severity: "HIGH" }),
+    located({ id: "violation-20260929-003", file: "a.yml", location: { path: "a.yml", line: 2 }, severity: "CRITICAL" }),
+  ];
+  const forward = stripVolatile(new ComplianceReport({ violations }).toMarkdown());
+  const reversed = stripVolatile(
+    new ComplianceReport({ violations: [...violations].reverse() }).toMarkdown(),
+  );
+  assert.strictEqual(
+    forward,
+    reversed,
+    "reordering the same violations changed the rendered report",
+  );
+});
+
+runTest("violations render grouped by severity, then by ascending line (A1)", () => {
+  // Real AuditViolation objects so each block renders a distinguishable
+  // "### <ruleName>" heading. Asserting on bare severity names would match the
+  // fixed-order summary table at the top of the report instead.
+  const md = new ComplianceReport({
+    violations: [
+      createViolation("r", "LowRule", "LOW", { file: "f.yml", line: 1 }),
+      createViolation("r", "CriticalRule", "CRITICAL", { file: "f.yml", line: 90 }),
+      createViolation("r", "HighRule", "HIGH", { file: "f.yml", line: 40 }),
+      createViolation("r", "MediumRule", "MEDIUM", { file: "f.yml", line: 4 }),
+    ],
+  }).toMarkdown();
+  const order = ["CriticalRule", "HighRule", "MediumRule", "LowRule"].map(
+    (name) => md.indexOf(`### ${name}`),
+  );
+  for (const [name, index] of [
+    ["CriticalRule", order[0]],
+    ["HighRule", order[1]],
+    ["MediumRule", order[2]],
+    ["LowRule", order[3]],
+  ]) {
+    assert.ok(index >= 0, `${name} was not rendered`);
+  }
+  assert.deepStrictEqual(
+    [...order].sort((a, b) => a - b),
+    order,
+    `severity blocks out of order: ${order.join(", ")}`,
+  );
+});
+
+runTest("within one severity, violations render in ascending line order", () => {
+  const md = new ComplianceReport({
+    violations: [
+      createViolation("r", "Late", "HIGH", { file: "f.yml", line: 70 }),
+      createViolation("r", "Early", "HIGH", { file: "f.yml", line: 12 }),
+      createViolation("r", "Middle", "HIGH", { file: "f.yml", line: 33 }),
+    ],
+  }).toMarkdown();
+  const order = ["Early", "Middle", "Late"].map(
+    (name) => md.indexOf(`### ${name}`),
+  );
+  for (const [name, index] of [
+    ["Early", order[0]],
+    ["Middle", order[1]],
+    ["Late", order[2]],
+  ]) {
+    assert.ok(index >= 0, `${name} was not rendered`);
+  }
+  assert.deepStrictEqual(
+    [...order].sort((a, b) => a - b),
+    order,
+    `HIGH violations are not in ascending line order: ${order.join(", ")}`,
+  );
+});
+
+runTest("file sections render in a stable order", () => {
+  const md = new ComplianceReport({
+    violations: [
+      located({ id: "violation-20260929-001", file: "z.yml", location: { path: "z.yml", line: 1 } }),
+      located({ id: "violation-20260929-002", file: "m.yml", location: { path: "m.yml", line: 1 } }),
+      located({ id: "violation-20260929-003", file: "a.yml", location: { path: "a.yml", line: 1 } }),
+    ],
+  }).toMarkdown();
+  const at = ["a.yml", "m.yml", "z.yml"].map((f) => md.indexOf(`### ${f}`));
+  assert.ok(at.every((i) => i >= 0), "a file section is missing");
+  assert.deepStrictEqual(
+    [...at].sort((x, y) => x - y),
+    at,
+    `file sections are not in a stable order: ${at.join(", ")}`,
+  );
+});
+
+runTest("violations with no line sort after those that have one", () => {
+  // Real violations, so each block renders a distinguishable "### <ruleName>".
+  const md = new ComplianceReport({
+    violations: [
+      createViolation("r", "NoLine", "HIGH", { file: "f.yml" }),
+      createViolation("r", "HasLine", "HIGH", { file: "f.yml", line: 5 }),
+    ],
+  }).toMarkdown();
+  const noLine = md.indexOf("### NoLine");
+  const withLine = md.indexOf("### HasLine");
+  assert.ok(noLine >= 0, "the violation without a line was not rendered");
+  assert.ok(withLine >= 0, "the violation with a line was not rendered");
+  assert.ok(
+    withLine < noLine,
+    "a violation without a line should sort after those that have one",
+  );
+});
+
 runTest("written report file re-validates against the contract", () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "report-contract-"));
   try {
