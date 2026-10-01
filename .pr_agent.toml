@@ -21,14 +21,33 @@
 # the workflow, not here. Never put credentials in this file.
 
 [config]
+# Verified 2026-10-01 against Anthropic's models documentation and against the
+# model map bundled with the litellm this image pins.
+#
+# Claude Sonnet 5.5 (`claude-sonnet-5-5`) is the current Sonnet and costs the same as
+# Sonnet 5, but litellm 1.101.0 — pinned by pr-agent v0.46.0, and frozen at build
+# time by LITELLM_LOCAL_MODEL_COST_MAP=True in the image — has no entry for it. Its
+# bundled map has `claude-sonnet-5` and no `claude-sonnet-5-5`. Moving to 5.5 therefore
+# needs a pr-agent release that bumps litellm, then a new image digest and a fresh
+# provenance check, which is T001's job rather than a config edit here.
+#
+# Sonnet 5 is Active (legacy) and Anthropic recommends migrating to 5.5, so this is a
+# dated choice, not a preference. Retirement is not sooner than 2027-06-30.
 model = "anthropic/claude-sonnet-5"
+# The exact API ID for Claude Haiku 4.5, and present in the same bundled map. It is
+# retired not sooner than 2026-10-15, so the fallback has a shorter runway than the
+# primary and must not be relied on as a long-term default.
 fallback_models = ["anthropic/claude-haiku-4-5-20251001"]
 # A single cap on the tokens any model may use, whatever that model's own context
 # window is; upstream's default is 32000 (pr_agent/settings/configuration.toml).
 # That file registers no per-model limits, so the 1,000,000-token context window
 # litellm publishes for anthropic/claude-sonnet-5 comes from litellm's model map,
 # not from here. 64000 trades most of that context for a bounded prompt and cost.
-# Raise it only with the spend limit in mind.
+# Raise it only with the spend limit in mind. 64000 is deliberately the *fallback's*
+# ceiling, not Sonnet's: the bundled map gives claude-sonnet-5 a 128000 max output and
+# claude-haiku-4-5-20251001 a 64000 one, and a run that falls back mid-flight must not
+# then ask for more than the fallback supports. Both ids resolve in the bundled map, so
+# `custom_model_max_tokens` — for models litellm does not know — is not needed here.
 max_model_tokens = 64000
 large_patch_policy = "clip"
 # locked: all output in UK English (FR-007). Upstream static headings stay US English.

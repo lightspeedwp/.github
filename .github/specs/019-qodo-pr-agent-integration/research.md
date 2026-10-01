@@ -101,7 +101,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
   - Environment with **required reviewers**: correct, and explicitly rejected for the pilot because every automatic run would wait for a person, breaking SC-001 and the FR-009 no-blocking constraint. Recorded as the escalation if the owner later wants a human gate.
   - A repository or organisation ruleset restricting who may change `.github/workflows/**` (CODEOWNERS, workflow execution protections with actor rules): valuable defence in depth, and it narrows *who* can obtain the key, but it does not change *where* the key is available once merged code runs. Recommended as an additional control, not as the resolution.
   - A GitHub App installation token with narrowly scoped permissions in place of `GITHUB_TOKEN`: reduces the blast radius of a stolen token, and does not touch the finding, which is about the key's reachability. Recommended as a follow-up.
-  - A per-repo model key with a spend cap and rotation, plus an egress allow-list: bounds the cost and the destination of a leak, and does not prevent the exposure. The US$50 cap is already an open prerequisite on #3535.
+  - A per-repo model key with a spend cap and rotation, plus an egress allow-list: bounds the cost and the destination of a leak, and does not prevent the exposure. The US$20 cap is already an open prerequisite on #3535.
 
 ## R7. Keeping governance intact: labels, descriptions, changelog
 

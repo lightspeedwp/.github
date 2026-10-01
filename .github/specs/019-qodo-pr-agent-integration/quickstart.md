@@ -8,7 +8,7 @@ This guide proves the feature works end to end on `lightspeedwp/.github`. The ex
 
 | # | Item | Who |
 | --- | --- | --- |
-| P-1 | A dedicated Anthropic API key with a monthly spend limit of US$50 set in the Anthropic console (spec SC-008) | @ashley |
+| P-1 | A dedicated Anthropic API key with a monthly spend limit of US$20 set in the Anthropic console (spec SC-008) | @ashley |
 | P-2 | Environment secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent` Environment, whose deployment branch policy admits `develop` and `refs/heads/develop` only, with no required reviewers. A repository or organisation secret does not work. A repository that opts in later creates its own Environment. See `docs/QODO_PR_AGENT.md` → Credential and spend. The spend limit in P-1 is set on whichever key is in use. | @ashley |
 | P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is set to `true`, only after P-1's spend limit is confirmed. Unset or any other value keeps the pilot off. | Maintainer |
 | P-4 | The implementation PR is merged to `develop`, because upstream reads `.pr_agent.toml` from the default branch | Maintainer |

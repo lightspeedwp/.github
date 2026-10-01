@@ -24,7 +24,7 @@ Qodo PR-Agent is an open-source AI pull-request assistant ([`The-PR-Agent/pr-age
 
 | Version | Image digest | Resolved | Provenance verified |
 | --- | --- | --- | --- |
-| `0.46.0-github_action` | `sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7` | 2026-09-24, from Docker Hub tag metadata and the registry manifest | **Pending**. Run the attestation command in [Upgrading the pinned version](#upgrading-the-pinned-version) before the pilot goes live. |
+| `0.46.0-github_action` | `sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7` | 2026-09-24 from Docker Hub tag metadata, and **re-confirmed 2026-10-01**: the registry's `docker-content-digest` for the tag is the digest above | **Yes, 2026-10-01**. `gh attestation verify` returns a valid Sigstore bundle for this digest, issued by `https://token.actions.githubusercontent.com` for `The-PR-Agent/pr-agent/.github/workflows/publish.yml@refs/tags/v0.46.0` (workflow run 6627664820) |
 
 The workflow and the skill both reference the image **by digest**. Pinning the upstream action by tag or commit would not pin the code that runs, because the action's Dockerfile uses a floating image tag.
 
@@ -120,8 +120,27 @@ This is a known limitation: the model's output can't be guaranteed never to repe
 There is one way to provide the credential: a stored key.
 
 - **Secret**: the **environment** secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent` environment. It holds a key used **only** by Qodo PR-Agent. It is deliberately an environment secret and not a repository secret: GitHub passes repository secrets to a same-repository `pull_request` run, so a repository secret is reachable by a pull request author, while an environment secret can be withheld by the environment's deployment branch policy. See [What limits who can run the pilot](#what-limits-who-can-run-the-pilot). A repository that opts in later needs its own environment, because the deployment branch policy is a per-repository setting.
-- **Monthly spend limit**: US$50 for the pilot (spec 019, SC-008). Set it on that key in the Anthropic console. The console's usage page gives exact spend.
+- **Monthly spend limit**: **US$20** for the pilot (spec 019, SC-008). Set it on that key in the Anthropic console. The console's usage page gives exact spend.
+- **What that buys, as an estimate**: an automatic run makes two model calls, `describe` then `improve`. At Sonnet 5's published US$2 per input MTok and US$10 per output MTok, a run costing about 30,000 input and 8,000 output tokens in total lands near **US$0.14**, so US$20 is roughly **140 automatic runs a month** before the cap bites. A single on-demand command is one call, about half that. Treat these as estimates: they assume a medium-sized pull request and typical output, and the real figure scales with the diff. The inputs are the per-call token counts, the published prices, and the two calls per automatic run; all three are stated here so the arithmetic can be rechecked when a price changes.
 - **Provisioning**: the key is tracked in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002); the environment and its deployment branch policy are the repository owner's settings, listed in [Validate the credential boundary](#validate-the-credential-boundary).
+
+#### Model and version, as verified
+
+Checked 2026-10-01. Nothing below is inferred; each row says where it came from.
+
+| Item | Value | Source |
+| --- | --- | --- |
+| PR-Agent / Qodo | **v0.46.0**, the latest release (published 2026-09-21) | GitHub releases for `The-PR-Agent/pr-agent` |
+| Primary model | `anthropic/claude-sonnet-5` — Claude Sonnet 5, **Active (legacy)**, 1M context, 128K max output, US$2 / US$10 per MTok, retired not sooner than 2027-06-30 | [Sonnet 5 overview](https://platform.claude.com/docs/en/models/sonnet-5/overview) |
+| Current Sonnet | `claude-sonnet-5-5` (Sonnet 5.5), same price, retired not sooner than 2027-09-28 | [Models overview](https://platform.claude.com/docs/en/models/overview) |
+| Fallback model | `anthropic/claude-haiku-4-5-20251001` — the exact API ID for Claude Haiku 4.5, 200K context, 64K max output, US$1 / US$5 per MTok, **retired not sooner than 2026-10-15** | [Models overview](https://platform.claude.com/docs/en/models/overview) |
+| Image | `pragent/pr-agent` `0.46.0-github_action`, pinned by digest | the digest in the receiver step, with the tag beside it |
+
+**Why the model is not on Sonnet 5.5 yet.** The image freezes litellm's model map at build time (`LITELLM_LOCAL_MODEL_COST_MAP=True` in pr-agent's `docker/Dockerfile`) and pins litellm 1.101.0 in `uv.lock`. That bundled map has an entry for `claude-sonnet-5` and **none** for `claude-sonnet-5-5`, so naming 5.5 today would leave PR-Agent without cost or token metadata for it. Upstream says the same in its Dockerfile comment: new models arrive with a deliberate litellm bump. Moving to 5.5 therefore means a pr-agent release that bumps litellm, then a new image digest and a fresh provenance check — the upgrade procedure below, not a config edit.
+
+**Two dated items to watch.** The fallback, Haiku 4.5, is retired not sooner than **2026-10-15** — two weeks away — so the fallback needs a replacement before the pilot can rely on it. And Sonnet 5 is legacy, with Anthropic recommending 5.5; the upgrade path is the same one.
+
+**Token limit.** `max_model_tokens = 64000` is the *fallback's* max output, not Sonnet's 128000, so a run that falls back mid-flight cannot then request more than the fallback supports. Both model ids resolve in the bundled map, so `custom_model_max_tokens` — the setting for models litellm does not know — is not used.
 
 #### Workload Identity Federation is not configured
 
@@ -180,7 +199,7 @@ What has changed is that a branch can no longer reach the key *before review*. B
 - A repository Actions **event policy** with an actor rule, so contributing code and executing privileged workflows are separable. This also gives the 2 November 2026 `pull_request_target` default somewhere to be evaluated deliberately rather than inherited.
 - A **GitHub App installation token** with narrowly scoped permissions in place of `GITHUB_TOKEN`, which bounds the blast radius of a stolen token. It does not address this finding and is a follow-up.
 
-The key itself is worth bounding regardless: a per-repository key with a spend cap and a rotation schedule limits what a leak costs and how long it is good for. The US$50 monthly cap is an open prerequisite tracked on [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535).
+The key itself is worth bounding regardless: a per-repository key with a spend cap and a rotation schedule limits what a leak costs and how long it is good for. The US$20 monthly cap is an open prerequisite tracked on [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535).
 
 #### Validate the credential boundary
 

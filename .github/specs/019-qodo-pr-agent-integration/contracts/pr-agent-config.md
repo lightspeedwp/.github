@@ -10,7 +10,7 @@ The root `.pr_agent.toml` in `lightspeedwp/.github` MUST contain these keys with
 | --- | --- | --- | --- |
 | `config.model` | `"anthropic/claude-sonnet-5"` | no | R4 |
 | `config.fallback_models` | `["anthropic/claude-haiku-4-5-20251001"]` | no | R4 |
-| `config.max_model_tokens` | `64000` | no | Large-PR edge case |
+| `config.max_model_tokens` | `64000` | no | Large-PR edge case. 64000 is the *fallback's* max output, not the primary's 128000, so a run that falls back mid-flight cannot ask for more than the fallback supports. Both model ids resolve in the litellm map the image freezes, so `custom_model_max_tokens` is not used. |
 | `config.large_patch_policy` | `"clip"` | no | Large-PR edge case |
 | `config.response_language` | `"en-GB"` | **yes** | FR-007 |
 | `config.enable_custom_labels` | `false` | **yes** | FR-008 |
@@ -46,3 +46,5 @@ These are forbidden because they would change the PR body, apply labels or commi
 - Any `[custom_labels.*]` table.
 - `github_action_config.*`. These keys belong in the workflow environment only, so that the trigger policy lives in one reviewed place.
 - Any secret or key value.
+
+**Verified 2026-10-01.** `anthropic/claude-sonnet-5` and `anthropic/claude-haiku-4-5-20251001` are both present in the model map bundled with litellm 1.101.0, which pr-agent v0.46.0 pins in `uv.lock` and the image freezes with `LITELLM_LOCAL_MODEL_COST_MAP=True`. `claude-sonnet-5-5` is **not** in that map, which is why the primary model does not move to Sonnet 5.5 without a pr-agent release that bumps litellm. The image digest resolves for the `0.46.0-github_action` tag and its Sigstore provenance verifies; see `docs/QODO_PR_AGENT.md` -> *Pinned version* and *Model and version, as verified*.
