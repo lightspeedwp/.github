@@ -27,6 +27,15 @@ def main() -> int:
     """Run the request, write any stored artifact, and return the process exit code."""
     out_md, pr_url, *request = sys.argv[1:]
     get_settings().set("CONFIG.CLI_MODE", True)
+    # This adapter must never publish. `publish_output=false` is not enough on its
+    # own: PR-Agent 0.46.0 loads repository settings before the request's own
+    # overrides are applied, and its configuration-error handler calls
+    # `publish_persistent_comment` without consulting `publish_output`
+    # (pr_agent/git_providers/utils.py). A malformed `.pr_agent.toml` on the
+    # repository would therefore still post a comment from a non-publishing run.
+    # Turning off repository settings loading removes that path: the error
+    # handler is reached from the repo-config loader, which no longer runs.
+    get_settings().set("CONFIG.USE_REPO_SETTINGS_FILE", False)
     result = asyncio.run(PRAgent().handle_request(pr_url, request))
 
     data = get_settings().get("data") or {}

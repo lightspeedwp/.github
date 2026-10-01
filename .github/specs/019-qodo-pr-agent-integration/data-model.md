@@ -40,7 +40,7 @@ This maps each **review concern** to exactly one owner. It lives in [`contracts/
 | --- | --- | --- |
 | `concern` | string | Unique |
 | `owner` | enum | `CodeRabbit`, `Qodo PR-Agent`, or `<internal agent path>` |
-| `mode` | enum | `automatic` or `on-demand` |
+| `mode` | enum | One of the values the responsibility matrix declares: `automatic`, `on-demand`, `manual`, `deferred` or `process`. `deferred` means a concern the pilot does not implement yet and carries a reason in that matrix (for example `similar_issue`, research R8). |
 | `notes` | string | Optional |
 
 **Invariants**:

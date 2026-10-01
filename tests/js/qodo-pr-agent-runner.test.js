@@ -445,6 +445,31 @@ fi
       expect(result.stdout + result.stderr).not.toMatch(/docker-test-key|docker-test-token/);
     });
 
+    // Upstream's configuration-error handler publishes a comment without
+    // consulting `publish_output`, so `publish_output=false` alone does not keep
+    // a non-publishing PR-mode run off GitHub. The adapter must switch off
+    // repository settings loading, which is the only way that handler is reached.
+    it('keeps the PR-mode adapter from publishing on a configuration error', () => {
+      const adapter = fs.readFileSync(
+        path.resolve(__dirname, '../../skills/qodo-pr-agent/scripts/pr_mode_adapter.py'),
+        'utf8'
+      );
+      expect(adapter).toContain('get_settings().set("CONFIG.USE_REPO_SETTINGS_FILE", False)');
+      // The set must happen before the request, not after it.
+      expect(adapter.indexOf('CONFIG.USE_REPO_SETTINGS_FILE')).toBeLessThan(
+        adapter.indexOf('PRAgent().handle_request')
+      );
+      // The contract the skill documents: publishing stays off.
+      expect(adapter).toContain('CONFIG.CLI_MODE');
+      const run = ['review', '--pr-url', 'https://github.com/org/repo/pull/1'];
+      expect(() =>
+        spawnSync('bash', [runner, ...run], {
+          encoding: 'utf8',
+          env: { ...process.env, ANTHROPIC_API_KEY_QODO_PR_AGENT: '', GITHUB_TOKEN: '' },
+        })
+      ).not.toThrow();
+    });
+
     it('reports no-output when a PR-mode tool stores no result', () => {
       const result = run(
         ['ask', '--pr-url', 'https://github.com/org/repo/pull/1', '--question', 'Why?'],

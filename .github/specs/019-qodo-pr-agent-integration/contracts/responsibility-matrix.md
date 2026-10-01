@@ -17,11 +17,11 @@ Each concern has exactly one owner. "Automatic" means it runs without a command.
 | Changelog entry drafting | Qodo PR-Agent (`update_changelog`) | on-demand | Comment only. Validated by `agents/changelog-agent/` before adoption. |
 | Changelog presence and quality gate | `changelog-unified.yml` | automatic | Unchanged. |
 | Missing documentation suggestions | Qodo PR-Agent (`add_docs`) | on-demand | Reviewed by `agents/document-reviewer-agent/`. |
-| Label application | `labeling-unified.yml`, `pr-template-routing.yml`, `agents/labeling-agent/` | automatic | Qodo PR-Agent applies **no** labels. |
+| Label application | `labeling-unified.yml` | automatic | Qodo PR-Agent applies **no** labels. `pr-template-routing.yml` and `agents/labeling-agent/` are implementation inputs to that owner, not co-owners. |
 | Label suggestions | Qodo PR-Agent (`generate_labels`) through `skills/qodo-pr-agent` | on-demand (skill only) | Filtered against `.github/labels.yml`, and never published by Qodo PR-Agent. |
 | Branch-name validation | `branch-name-validation.yml` | automatic | Unchanged. |
 | PR creation, template routing, PR body | Internal PR agent (`agents/pr-agent/`) | automatic | May use `describe` output as an input (spec 015 US2). |
-| Duplicate-issue detection | `agents/issue-agent/` | — | The Qodo PR-Agent `similar_issue` tool is **deferred** ([research R8](../research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)). |
+| Duplicate-issue detection | `agents/issue-agent/` | deferred | The Qodo PR-Agent `similar_issue` tool is **deferred** ([research R8](../research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)). |
 
 ## Integration points (US3)
 
@@ -36,5 +36,5 @@ Each concern has exactly one owner. "Automatic" means it runs without a command.
 | update_changelog | `agents/changelog-agent/`, `skills/changelog-generator` | pr-comment or skill | Validate (≤250 chars, user-facing, linked); reject naming the failing rule | Existing changelog flow | in-scope |
 | add_docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | pr-comment | Review the suggestions before any adoption | None needed | in-scope |
 | ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | skill (diff mode; PR mode returns `no-output`) | Answer targeted questions | Proceed without an answer | in-scope |
-| similar_issue | `agents/issue-agent/`, `skills/ticket-triage` | — | — | — | **deferred** (R8) |
+| similar_issue | `agents/issue-agent/`, `skills/ticket-triage` | deferred | — | — | **deferred** (R8) |
 | all | AI feedback validation (`docs/AI_FEEDBACK_*.md`) | process | Qodo PR-Agent comments count as AI review feedback | — | in-scope |
