@@ -54,7 +54,7 @@ The organisation-standard Qodo PR-Agent settings. This is the root file `.pr_age
 
 | Field | Rules |
 | --- | --- |
-| `version` | Recorded as a comment header plus the git ref that consumers pin through `config_ref` (`develop` by default) |
+| `version` | Recorded as a comment header plus the constant configuration ref, which is `develop` and is not an input |
 | governed keys | Must equal the values in the config contract; this is enforced by a contract test |
 | `extra_instructions` | Technology-agnostic and UK English (Principle IV, FR-011) |
 

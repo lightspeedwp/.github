@@ -5,18 +5,20 @@ Evidence for spec 019's live and walkthrough tasks. The scenarios are defined in
 
 - **Pilot start date (`PILOT_START`)**: not started. Set this to the date Q-01 first passes. The
   pilot report uses it as `--since "$PILOT_START"`.
-- **Credential**: the repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` was provisioned on
-  2026-09-24 ([lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535)).
-  Keyless federation was removed on 2026-10-01 and is deliberately not configured; no job
-  requests an OIDC token.
+- **Credential**: the key tracked in
+  [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) must be
+  stored as an **environment** secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent`
+  Environment, never as a repository or organisation secret. The Environment does not exist
+  yet, so the pilot cannot run until the owner creates it. Keyless federation was removed on
+  2026-10-01 and is deliberately not configured; no job requests an OIDC token.
 
 ## Prerequisites
 
 | # | Item | Status |
 | --- | --- | --- |
 | P-1 | Dedicated key with a monthly spend limit | Key created; spend limit not yet confirmed |
-| P-2 | Secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` | Done (repository secret) |
-| P-3 | `QODO_PR_AGENT_ENABLED` unset or not `false` | Not checked |
+| P-2 | Environment secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on `qodo-pr-agent`, default branch only | Not created yet |
+| P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is exactly `true` | Not set |
 | P-4 | Implementation merged to `develop` | Waiting on lightspeedwp/.github#3532 |
 | T001 | Image provenance (`gh attestation verify`) | Not run |
 
