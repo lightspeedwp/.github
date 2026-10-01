@@ -95,7 +95,7 @@ Use:
 
 ## Go/no-go rules
 
-`references/go-no-go-rules.md` is the normative definition of these verdicts and is mandatory: the summary here is a reading aid, not a substitute. Every gate below must be satisfied, and the verdict must name any gate that is unmet.
+`references/go-no-go-rules.md` is the normative definition of these verdicts and is mandatory: the summary here is a reading aid, not a substitute. Read each verdict against its own conditions rather than as one shared list: the nine gates apply to `Go`, the `Conditional Go` conditions apply instead when they are met, and any `No-Go` trigger on its own forces `No-Go` regardless of the others. Every condition that applies to the chosen verdict must be satisfied, and the verdict must name any that is unmet.
 
 - `Go`: no launch blockers remain; critical pages pass QA; redirects are tested or not required; forms and conversion routes work; analytics and tracking are tested; privacy/policy pages are present; accessibility testing found no critical blockers; indexing controls are correct; and a rollback plan exists. All nine gates are required — "no blockers" alone is not sufficient.
 - `Conditional Go`: no blockers remain; high-risk issues are non-critical or explicitly accepted; every issue has a named owner and a target date; and post-launch monitoring is agreed.

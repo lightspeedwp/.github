@@ -46,11 +46,63 @@ const path = require('path');
  * Adding it blind would mean guessing at a shape with no evidence to test
  * against.
  *
- * Group 1 is the alt text, group 2 the destination, so a repair can keep the
- * accessible name and rewrite only the URL.
+ * Markdown permits an optional quoted title after the destination, as in
+ * `![X](https://example.com/a.svg "Build status")`. A title is not part of the
+ * URL, so it is excluded from the capture and from the repair; without that,
+ * `--fix` would percent-encode the title into the path and corrupt a valid
+ * badge.
+ *
+ * Group 1 is the alt text, group 2 is everything inside the parentheses. The
+ * destination and the optional title are separated explicitly by
+ * `splitDestination` rather than by one more regex, because the two cases that
+ * must not be reported — an already-encoded URL and a quoted title — are easier
+ * to get right as steps than as nested groups.
  */
-const BROKEN_BADGE =
-  /!\[\s*([^\]]*?)\s*\]\(\s*(https:\/\/img\.shields\.io\/[^)\s]*\s[^)]*?)\s*\)/gu;
+const BROKEN_BADGE = /!\[([^\]]*)\]\(([^)]*)\)/gu;
+
+const SHIELDS_HOST = 'https://img.shields.io/';
+
+/**
+ * Split the inside of an image into its destination and optional title.
+ *
+ * Markdown allows a quoted title after the destination, separated by
+ * whitespace. The title is not part of the URL, so a badge that carries one is
+ * not a broken-URL case, and encoding the title into the path would corrupt it.
+ *
+ * @param {string} inner Contents between the image's parentheses.
+ * @returns {{destination: string, title: string}|null} Null when unparseable.
+ */
+function splitDestination(inner) {
+  const text = inner.trim();
+  if (text === '') {
+    return null;
+  }
+
+  // Anchor on the shields host rather than on non-space characters: the
+  // destination of a *broken* badge contains spaces by definition, so a
+  // `\S+` prefix would never match it and the title would be swallowed.
+  const quoted = text.match(/^(https:\/\/img\.shields\.io\/.*?)\s+("[^"]*")$/u);
+  if (quoted) {
+    return { destination: quoted[1], title: quoted[2] };
+  }
+  return { destination: text, title: '' };
+}
+
+/**
+ * Whether one image's destination is a shields.io URL broken by a space.
+ *
+ * A space is only a defect when it sits inside the shields.io path, since that
+ * is where the URL ends. A space between the destination and a title is not.
+ *
+ * @param {string} destination Image destination.
+ * @returns {boolean}
+ */
+function isBrokenBadgeDestination(destination) {
+  if (!destination.startsWith(SHIELDS_HOST)) {
+    return false;
+  }
+  return destination.slice(SHIELDS_HOST.length).includes(' ');
+}
 
 /** Directories never walked, matching the other repository validators. */
 const SKIP_DIRECTORIES = new Set(['node_modules', '.git', 'coverage', 'dist', 'build', 'vendor']);
@@ -64,9 +116,58 @@ const SKIP_DIRECTORIES = new Set(['node_modules', '.git', 'coverage', 'dist', 'b
  * is legal in a shields.io path and is left readable. The alt text is preserved
  * exactly, since it is the accessible name and not the defect.
  */
-function repairBadge(_match, altText, destination) {
-  const encoded = destination.trim().replace(/\s+/gu, '%20');
-  return `![${altText}](${encoded})`;
+/**
+ * Tracks fenced code blocks using CommonMark's closing rules.
+ *
+ * A fence closes only on a marker of the same character that is at least as
+ * long as the opening run and carries nothing but whitespace after it. Toggling
+ * on any fence-like line misreads a four-backtick example that contains a
+ * three-backtick block, which is how badge examples inside documentation would
+ * be rewritten as if they were live badges.
+ */
+function createFenceTracker() {
+  let marker = null;
+  let length = 0;
+
+  return {
+    consume(line) {
+      const match = line.match(/^\s{0,3}(`{3,}|~{3,})(.*)$/u);
+      if (marker === null) {
+        if (match) {
+          if (match[1].startsWith('`') && match[2].includes('`')) {
+            return false;
+          }
+          marker = match[1][0];
+          length = match[1].length;
+          return true;
+        }
+        return false;
+      }
+      if (match && match[1][0] === marker && match[1].length >= length && match[2].trim() === '') {
+        marker = null;
+        length = 0;
+      }
+      return true;
+    },
+  };
+}
+
+/**
+ * Whether a line carries at least one image whose destination is broken.
+ *
+ * @param {string} line Single line of Markdown.
+ * @returns {boolean}
+ */
+function lineHasBrokenBadge(line) {
+  BROKEN_BADGE.lastIndex = 0;
+  let match;
+  while ((match = BROKEN_BADGE.exec(line)) !== null) {
+    const parsed = splitDestination(match[2]);
+    if (parsed && isBrokenBadgeDestination(parsed.destination)) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /**
@@ -77,23 +178,27 @@ function repairBadge(_match, altText, destination) {
  */
 function findBrokenBadges(content) {
   const findings = [];
-  let inFence = false;
+  const fence = createFenceTracker();
   content.split(/\r?\n/u).forEach((line, index) => {
-    // A fenced block holds an example, not a rendered badge, so track the
-    // fence rather than only skipping its opening line.
-    if (/^\s*(?:```|~~~)/u.test(line)) {
-      inFence = !inFence;
+    // A fenced block holds an example, not a rendered badge.
+    if (fence.consume(line)) {
       return;
     }
-    if (inFence) {
-      return;
-    }
-    BROKEN_BADGE.lastIndex = 0;
-    if (BROKEN_BADGE.test(line)) {
+    if (lineHasBrokenBadge(line)) {
       findings.push({ lineNumber: index + 1, line });
     }
   });
   return findings;
+}
+
+function repairBadge(match, altText, inner) {
+  const parsed = splitDestination(inner);
+  if (!parsed) {
+    return match;
+  }
+  const encoded = parsed.destination.replace(/\s+/gu, '%20');
+  const title = parsed.title ? ` ${parsed.title}` : '';
+  return `![${altText}](${encoded}${title})`;
 }
 
 /**
@@ -103,20 +208,19 @@ function findBrokenBadges(content) {
  * @returns {string} Repaired contents.
  */
 function repairContent(content) {
-  let inFence = false;
+  const fence = createFenceTracker();
   return content
     .split(/\r?\n/u)
     .map((line) => {
-      if (/^\s*(?:```|~~~)/u.test(line)) {
-        inFence = !inFence;
+      if (fence.consume(line)) {
         return line;
       }
-      if (inFence) {
-        return line;
-      }
-      return line.replace(BROKEN_BADGE, (match, altText, destination) =>
-        repairBadge(match, altText, destination)
-      );
+      return line.replace(BROKEN_BADGE, (match, altText, inner) => {
+        const parsed = splitDestination(inner);
+        return parsed && isBrokenBadgeDestination(parsed.destination)
+          ? repairBadge(match, altText, inner)
+          : match;
+      });
     })
     .join('\n');
 }
@@ -209,8 +313,12 @@ function main() {
 
 module.exports = {
   BROKEN_BADGE,
+  createFenceTracker,
   findBrokenBadges,
+  isBrokenBadgeDestination,
+  lineHasBrokenBadge,
   repairContent,
+  splitDestination,
 };
 
 if (require.main === module) {

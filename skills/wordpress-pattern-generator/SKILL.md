@@ -108,9 +108,9 @@ WordPress has two kinds of starter pattern, and they are registered differently.
 A page pattern appears in the new-post-type picker only when all of the following hold:
 
 - `Block Types` includes `core/post-content`. This is the hard gate: the editor filters the registered patterns down to those carrying that block type before it looks at anything else, so a pattern with `Post Types: page` but no `Block Types` never appears.
-- `Post Types` includes the post type, or is omitted. With no `Post Types` the pattern is offered for pages.
+- `Post Types` names the post types the pattern is offered for. Omitting the field does **not** mean every post type: the filter accepts an absent `postTypes` only when the current post type is `page`, so an omitted field offers the pattern for pages alone.
 
-So a page starter pattern needs only `Block Types: core/post-content`. Add `Post Types: page` to restrict it to pages; omit the field and the pattern is offered for every post type that uses the block editor. The core filter is:
+So a page starter pattern needs only `Block Types: core/post-content`. Omitting `Post Types` offers it for pages, which is the same outcome as `Post Types: page`; naming other post types as well widens it, for example `page, wp_template`. The core filter is:
 
 ```js
 ( postType === 'page' && ! pattern.postTypes ) ||
@@ -237,7 +237,7 @@ Expected behaviour:
 
 - output a complete pattern file
 - use a suitable core category where possible
-- include `Block Types: core/post-content`; that alone makes it a starter page pattern. `Post Types: page` is optional and only scopes it to pages — without it the pattern is offered for every post type that uses the block editor
+- include `Block Types: core/post-content`; that alone makes it a starter page pattern. `Post Types` is optional and names which post types see it — omit it, or use `page`, and the pattern is offered for pages
 - do not require `Template Types` here; this is a page starter, not a template starter
 - keep the output aligned with starter-pattern usage
 

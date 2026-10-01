@@ -1,4 +1,10 @@
-const { BROKEN_BADGE, findBrokenBadges, repairContent } = require('../validate-badge-urls.cjs');
+const {
+  BROKEN_BADGE,
+  findBrokenBadges,
+  isBrokenBadgeDestination,
+  repairContent,
+  splitDestination,
+} = require('../validate-badge-urls.cjs');
 
 /** One badge exactly as the generator used to emit it, with a bare space. */
 const BROKE_SPACES =
@@ -95,17 +101,100 @@ describe('validate-badge-urls', () => {
     });
   });
 
+  describe('splitDestination', () => {
+    it('separates a quoted title from the destination', () => {
+      const parsed = splitDestination('https://img.shields.io/badge/X-OK-green.svg "Build status"');
+      expect(parsed.destination).toBe('https://img.shields.io/badge/X-OK-green.svg');
+      expect(parsed.title).toBe('"Build status"');
+    });
+
+    it('separates a title from a destination that itself contains spaces', () => {
+      // A broken badge has spaces in its URL by definition, so a `\\S+` prefix
+      // would never match and the title would be swallowed into the path.
+      const parsed = splitDestination(
+        'https://img.shields.io/badge/Docs Validation-OK-success.svg "Tip"'
+      );
+      expect(parsed.destination).toBe(
+        'https://img.shields.io/badge/Docs Validation-OK-success.svg'
+      );
+      expect(parsed.title).toBe('"Tip"');
+    });
+
+    it('returns no title when there is none', () => {
+      expect(splitDestination(BROKE_SPACES).title).toBe('');
+    });
+  });
+
+  describe('isBrokenBadgeDestination', () => {
+    it('treats a space inside the shields path as broken', () => {
+      expect(
+        isBrokenBadgeDestination('https://img.shields.io/badge/Docs Validation-OK-success.svg')
+      ).toBe(true);
+    });
+
+    it('treats a space-free shields URL as sound', () => {
+      expect(isBrokenBadgeDestination('https://img.shields.io/badge/Checks-OK-success.svg')).toBe(
+        false
+      );
+    });
+
+    it('ignores a non-shields host', () => {
+      expect(isBrokenBadgeDestination('https://example.com/a b.svg')).toBe(false);
+    });
+  });
+
+  describe('image titles', () => {
+    // Markdown permits a quoted title after the destination. Treating it as
+    // part of the URL made a valid badge report as broken, and `--fix` then
+    // percent-encoded the title into the path and corrupted it.
+    const withTitle = '![X](https://img.shields.io/badge/X-OK-green.svg "Build status")';
+
+    it('does not report a valid badge that carries a title', () => {
+      expect(findBrokenBadges(withTitle)).toHaveLength(0);
+    });
+
+    it('leaves a titled badge unchanged under repair', () => {
+      expect(repairContent(withTitle)).toBe(withTitle);
+    });
+
+    it('repairs the destination while keeping the title', () => {
+      const broken = '![Docs](https://img.shields.io/badge/Docs Validation-OK-success.svg "Tip")';
+      expect(repairContent(broken)).toBe(
+        '![Docs](https://img.shields.io/badge/Docs%20Validation-OK-success.svg "Tip")'
+      );
+    });
+  });
+
+  describe('nested fences', () => {
+    // A four-backtick example may contain a three-backtick block. Toggling on
+    // every fence-like line ends the block early and rewrites badge examples
+    // inside documentation.
+    const nested = ['````markdown', '```', BROKE_SPACES, '```', '````', ''].join('\n');
+
+    it('ignores a badge inside a nested fence', () => {
+      expect(findBrokenBadges(nested)).toHaveLength(0);
+    });
+
+    it('leaves a nested fence unchanged under repair', () => {
+      expect(repairContent(nested)).toBe(nested);
+    });
+  });
+
   describe('BROKEN_BADGE', () => {
     it('matches the bare-space form', () => {
       BROKEN_BADGE.lastIndex = 0;
       expect(BROKEN_BADGE.test(BROKE_SPACES)).toBe(true);
     });
 
-    it('does not match an encoded destination', () => {
+    // The pattern deliberately matches any image; whether that image is a
+    // broken badge is decided by isBrokenBadgeDestination. Keeping the two
+    // apart is what lets a titled badge and an encoded URL be handled as steps
+    // rather than as nested capture groups.
+    it('matches an encoded badge, which the destination check then rejects', () => {
+      const encoded = '![X](https://img.shields.io/badge/A%20B-OK-success.svg)';
       BROKEN_BADGE.lastIndex = 0;
-      expect(BROKEN_BADGE.test('![X](https://img.shields.io/badge/A%20B-OK-success.svg)')).toBe(
-        false
-      );
+      expect(BROKEN_BADGE.test(encoded)).toBe(true);
+      expect(findBrokenBadges(encoded)).toHaveLength(0);
     });
   });
 });
