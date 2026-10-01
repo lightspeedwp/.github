@@ -74,7 +74,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 
 - **Decision**:
   - **Triggers**: `pull_request: [opened, reopened, ready_for_review]` and `issue_comment: [created]`. There is no `synchronize` trigger (no re-run on every push), which mirrors CodeRabbit's non-incremental policy (#3517).
-  - **Automatic eligibility** (workflow `if:`): the PR is not a draft; `sender.type != 'Bot'`; the PR author is not `dependabot[bot]` or `lightspeed-docs-bot[bot]`; and the kill-switch variable `vars.QODO_PR_AGENT_ENABLED != 'false'`.
+  - **Automatic eligibility** (workflow `if:`): the PR is not a draft; `sender.type != 'Bot'`; the PR author is not `dependabot[bot]` or `lightspeed-docs-bot[bot]`; and the enable variable `vars.QODO_PR_AGENT_ENABLED == 'true'` (opt-in since 2026-10-01: unset or any other value is a `kill-switch` skip).
   - **Comment eligibility**: the comment is on a PR (`github.event.issue.pull_request`); `author_association` is `OWNER`, `MEMBER` or `COLLABORATOR`; and the body starts with an **allow-listed** command: `/describe`, `/improve`, `/review`, `/ask`, `/update_changelog`, `/add_docs`, `/help`.
   - **Automatic tools**: `github_action_config.auto_describe = "true"`, `auto_improve = "true"`, `auto_review = "false"`. All three must be set explicitly, because unset means *on*.
 - **Rationale**:
@@ -146,7 +146,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 - **Decision**:
   - **Run records**: each run writes one JSON [Run record](./data-model.md#run-record) to the job summary and to a 30-day artefact, and calls the existing `.github/actions/collect-metrics` action.
   - **Report**: a small report script aggregates the artefacts over the 14-day pilot into `.github/reports/metrics/qodo-pr-agent/`, covering runs per tool, failures and estimated spend. Spend comes from the dedicated key's usage in the Anthropic console (exact), with a token-based estimate in the report.
-  - **Kill-switch**: the organisation or repository Actions variable `QODO_PR_AGENT_ENABLED = 'false'` short-circuits every job. It needs no commit, and takes effect on the next event (SC-007). Revoking the key is the second-line stop.
+  - **Kill-switch**: the pilot runs only while the organisation or repository Actions variable `QODO_PR_AGENT_ENABLED` is `'true'`; unset or any other value short-circuits every job. It was opt-out until 2026-10-01 and is now opt-in, so it cannot start spending before the key's limit is confirmed. It needs no commit, and takes effect on the next event (SC-007). Revoking the key is the second-line stop.
 - **Rationale**: This reuses the existing metrics action and report locations, and a variable flip is faster than a code change.
 - **Alternatives considered**: upstream `[push_outputs]` JSONL/webhook. It's a possible enrichment later, but adds a moving part now. Deferred.
 

@@ -101,7 +101,9 @@ Qodo PR-Agent feedback is AI review feedback, and follows the same `FEEDBACK_RES
 
 ### Kill-switch
 
-Set the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` to `false`, at repository or organisation level. It takes effect on the next event, with no commit needed, and every run is skipped with `kill-switch`. Delete the variable, or set it to anything else, to resume.
+The pilot is **off unless switched on**. It runs only when the GitHub Actions **variable** `QODO_PR_AGENT_ENABLED` is `true`, at repository or organisation level. Unset, `false` or any other value skips every run with `kill-switch`. To stop it, set the variable to `false` or delete it; to start it, set it to `true`. Either takes effect on the next event, with no commit needed. Do not set it to `true` until the US$50 monthly limit is confirmed on the key ([#3535](https://github.com/lightspeedwp/.github/issues/3535)).
+
+A command on a closed or merged pull request is skipped with `pr-closed`.
 
 As a second line of defence, revoke or cap the dedicated key in the Anthropic console.
 
@@ -111,7 +113,7 @@ This is a known limitation: the model's output can't be guaranteed never to repe
 
 1. **Delete the comment.** Any maintainer can do this, and it should be done straight away.
 2. **Rotate the exposed secret** wherever it's used. Deleting the comment doesn't undo the exposure, because notifications and caches may already hold a copy.
-3. **If it happens again**, set `QODO_PR_AGENT_ENABLED` to `false` (see [Kill-switch](#kill-switch)) and open an issue describing the PR and the kind of secret, without repeating it.
+3. **If it happens again**, set `QODO_PR_AGENT_ENABLED` to `false` or delete it (see [Kill-switch](#kill-switch)) and open an issue describing the PR and the kind of secret, without repeating it.
 
 ### Credential and spend
 
@@ -189,7 +191,7 @@ The [daily report workflow](../.github/workflows/qodo-pr-agent-report.yml) runs 
 
 Only `lightspeedwp/.github` is enabled in the pilot. These steps are for later opt-in.
 
-1. **Credential**: ask the organisation owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` organisation secret's selected repositories. The copied caller needs no other permission: it does not request `id-token: write`, and it passes only `model_credential`. If you later want keyless authentication, follow [Workload Identity Federation is not configured](#workload-identity-federation-is-not-configured) rather than adding the federation inputs back.
+1. **Credential**: ask the organisation owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` organisation secret's selected repositories. The copied caller needs no other permission: it does not request `id-token: write`, and it passes only `model_credential`. If you later want keyless authentication, follow [Workload Identity Federation is not configured](#workload-identity-federation-is-not-configured) rather than adding the federation inputs back. Once the key and its spend limit are in place, set the repository's Actions variable `QODO_PR_AGENT_ENABLED` to `true`; until then every run is skipped.
 2. **Workflow**: copy [`.github/workflows/qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) into the repository's `.github/workflows/`, and change the `uses:` line to:
 
    ```yaml

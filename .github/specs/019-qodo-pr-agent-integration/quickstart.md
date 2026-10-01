@@ -10,7 +10,7 @@ This guide proves the feature works end to end on `lightspeedwp/.github`. The ex
 | --- | --- | --- |
 | P-1 | A dedicated Anthropic API key with a monthly spend limit of US$50 set in the Anthropic console (spec SC-008) | @ashley |
 | P-2 | Repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot. A repository that opts in later needs the organisation secret of the same name, with that repository in its selected repositories. See `docs/QODO_PR_AGENT.md` → Credential and spend. The spend limit in P-1 is set on whichever key is in use. | @ashley |
-| P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is unset, or anything other than `false` | Maintainer |
+| P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is set to `true`, only after P-1's spend limit is confirmed. Unset or any other value keeps the pilot off. | Maintainer |
 | P-4 | The implementation PR is merged to `develop`, because upstream reads `.pr_agent.toml` from the default branch | Maintainer |
 
 ## Local checks (before merge)
@@ -51,7 +51,7 @@ Use a throw-away branch such as `test/qodo-pr-agent-smoke`, with a small real ch
 | Q-07 | Inspect a Qodo PR-Agent comment body | Record the exact header or marker text in `docs/QODO_PR_AGENT.md`, under "Recognising Qodo PR-Agent feedback" | FR-016, R10 |
 | Q-08 | Comment `/update_changelog` | A proposal appears as a **comment**, with no commit. Run it through the changelog agent's validation: pass, or reject naming the rule. | US3 AS4, FR-009 |
 | Q-09 | Check the run log for the loaded config | The log shows `extra_config_url` loaded from `raw.githubusercontent.com/lightspeedwp/.github/<ref>/.pr_agent.toml` | R3 (verify in pilot) |
-| Q-10 | Set `QODO_PR_AGENT_ENABLED=false`, then open a PR | Preflight skips with `kill-switch`, and no runs start. Afterwards, unset the variable. | US5 AS2, SC-007 |
+| Q-10 | Set `QODO_PR_AGENT_ENABLED=false` (or delete it), then open a PR | Preflight skips with `kill-switch`, and no runs start. Afterwards, set it back to `true`. | US5 AS2, SC-007 |
 | Q-11 | A comment command from a non-member account (or check via a test) | Skipped with `author-not-allowed` | Spec assumption, R5 |
 | Q-12 | Open a PR over 25 files or 800 lines | The output notes clipped content, and the run doesn't fail | Edge case |
 | Q-14 | Comment `/review --config.model=anthropic/claude-haiku-4-5-20251001` as a member | Preflight skips with `arguments-not-allowed`, and nothing is posted by Qodo PR-Agent | FR-007, FR-011, locked keys |

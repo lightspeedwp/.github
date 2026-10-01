@@ -56,10 +56,10 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
 ## Required job structure
 
 1. **`preflight`** (runs-on `ubuntu-latest`, `timeout-minutes: 2`, `permissions: {}`). It produces `enabled` (`true`/`false`), `reason` and `tool`. It sets `enabled=false` when any of these holds:
-   - `vars.QODO_PR_AGENT_ENABLED == 'false'` (kill-switch, FR-020)
+   - `vars.QODO_PR_AGENT_ENABLED` is not `true`: unset, `false` or any other value (`reason=kill-switch`, FR-020). The pilot is opt-in, so it never runs until the variable is set.
    - there is no credential: `model_credential` is absent
    - `pull_request`: the PR is a draft, the sender type is `Bot`, the author is in `excluded_authors`, or the head repository is a fork (`reason=fork`, checked fail-closed: a missing or mismatched head repository is a fork, and a fork pull request receives no secret)
-   - `issue_comment`: the comment is not on a PR, `author_association` is not in {`OWNER`, `MEMBER`, `COLLABORATOR`}, or the first token of the body is not in the command allow-list
+   - `issue_comment`: the comment is not on a PR, the PR is closed or merged (`reason=pr-closed`), `author_association` is not in {`OWNER`, `MEMBER`, `COLLABORATOR`}, or the first token of the body is not in the command allow-list
 
    `tool` names the command the run was requested for, so a refused request still records what was asked for. It is `auto` for a `pull_request` event and `none` for the five reasons that never reach a parsed command (`kill-switch`, `bot-sender`, `not-a-pr`, `not-a-command`, `unsupported-event`). Because the comment body is untrusted, `tool` is set to an allow-listed command id or to `none`, never to raw comment text: an unauthorised or unknown command cannot write a reserved or unrecognised value into the pilot report.
 2. **`run`** (`needs: preflight`, `if: needs.preflight.outputs.enabled == 'true'`, `timeout-minutes: 15`). Its steps:

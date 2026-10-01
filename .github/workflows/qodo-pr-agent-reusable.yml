@@ -10,7 +10,8 @@
 #   and improvement suggestions (improve); everything else is a maintainer command.
 # - No actions/checkout: Qodo PR-Agent reads the PR through the API, so no PR
 #   code is ever executed. Fork PRs receive no secrets and are skipped with a notice.
-# - Kill-switch: set the Actions variable QODO_PR_AGENT_ENABLED to "false".
+# - Enable switch: runs only when the Actions variable QODO_PR_AGENT_ENABLED is "true";
+#   unset or any other value skips every run with reason kill-switch.
 # - Credential: the `model_credential` secret, a dedicated Anthropic API key stored
 #   only for Qodo PR-Agent. Workload Identity Federation is deliberately NOT part of
 #   the pilot, so no job here needs `id-token: write` and the third-party container
@@ -88,7 +89,9 @@ jobs:
             const payload = context.payload;
 
             function decide() {
-              if (String(process.env.KILL_SWITCH).toLowerCase() === 'false') {
+              // Opt-in: the pilot spends money, so it runs only once the variable is
+              // explicitly "true". Unset, "false" or anything else is a skip.
+              if (String(process.env.KILL_SWITCH).toLowerCase() !== 'true') {
                 return { reason: 'kill-switch' };
               }
               if (payload.sender?.type === 'Bot') {
@@ -129,6 +132,10 @@ jobs:
                 // able to inject 'auto' or 'none' into the pilot report, or any
                 // other value the report does not recognise.
                 const requested = ALLOWED_COMMANDS.includes(command) ? command.slice(1) : 'none';
+                // A command on a closed or merged pull request has nothing left to act on.
+                if (payload.issue?.state === 'closed') {
+                  return { reason: 'pr-closed', tool: requested };
+                }
                 if (!ALLOWED_ASSOCIATIONS.includes(comment?.author_association)) {
                   return { reason: 'author-not-allowed', tool: requested };
                 }

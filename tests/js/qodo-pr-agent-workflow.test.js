@@ -106,7 +106,7 @@ function runPreflight({ eventName = 'pull_request', payload, env = {} } = {}) {
     preflightScript(reusable.doc),
     {
       context: { eventName, payload: payload || defaultPayload },
-      process: { env: { HAS_CREDENTIAL: 'true', ...env } },
+      process: { env: { HAS_CREDENTIAL: 'true', KILL_SWITCH: 'true', ...env } },
       core,
     },
     { timeout: 1000 }
@@ -296,6 +296,9 @@ describe('Qodo PR-Agent reusable workflow', () => {
       // PR-event skips after the kill-switch and bot checks are automatic attempts ('auto'),
       // so the report can count them against SC-001.
       ['kill-switch', { env: { KILL_SWITCH: 'FALSE' } }, 'none'],
+      ['kill-switch', { env: { KILL_SWITCH: '' } }, 'none'],
+      ['kill-switch', { env: { KILL_SWITCH: undefined } }, 'none'],
+      ['kill-switch', { env: { KILL_SWITCH: 'yes' } }, 'none'],
       ['bot-sender', { payload: { sender: { type: 'Bot' } } }, 'none'],
       ['draft', { payload: { pull_request: { draft: true } } }, 'auto'],
       ['excluded-author', { env: { EXCLUDED_AUTHORS: '["maintainer"]' } }, 'auto'],
@@ -579,6 +582,18 @@ describe('Qodo PR-Agent reusable workflow', () => {
         },
       });
       expect(outputs).toStrictEqual({ enabled: 'false', reason, tool: 'none' });
+    });
+
+    it('skips a command on a closed or merged pull request', () => {
+      const { outputs } = runPreflight({
+        eventName: 'issue_comment',
+        payload: {
+          sender: { type: 'User' },
+          issue: { pull_request: {}, state: 'closed' },
+          comment: { body: '/review', author_association: 'OWNER' },
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'pr-closed', tool: 'review' });
     });
 
     it.each(['', '  ', 'Please /review this PR', '> /review'])(
