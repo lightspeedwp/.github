@@ -47,6 +47,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
 - **Footer Duplicates Caught Before Merge** — A new check blocks compounded or misplaced footer blocks, and a tool clears those already committed when run with `--fix`. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Requirements Quality Checklists — Multi-Audience Guidance** — Added audience guidance for authors, reviewers, stakeholders, and integration teams. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Domain-Specific Variants** — Added specialized checklist variants for User Experience (UX), API, Security, and Performance requirements assessment. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Automated Generation** — Enabled checklist generation with command-line interface (CLI) tool, validator, and `/speckit-checklist` integration. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Specification Traceability** — Added cross-references linking checklist items to specification requirements for bidirectional traceability. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Schema & Documentation** — Fixed data model format consistency, aligned generator output, and improved code documentation for schema compliance. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
 ### Changed
 
@@ -78,16 +83,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
 - **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
-  ### Added
-
-- **Requirements Quality Checklists — Multi-Audience Guidance** — Added audience guidance for authors, reviewers, stakeholders, and integration teams. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
-- **Requirements Quality Checklists — Domain-Specific Variants** — Added specialized checklist variants for User Experience (UX), API, Security, and Performance requirements assessment. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
-
-- **Requirements Quality Checklists — Automated Generation** — Enabled checklist generation with command-line interface (CLI) tool, validator, and `/speckit-checklist` integration. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
-
-- **Requirements Quality Checklists — Specification Traceability** — Added cross-references linking checklist items to specification requirements for bidirectional traceability. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
-
-- **Requirements Quality Checklists — Schema & Documentation** — Fixed data model format consistency, aligned generator output, and improved code documentation for schema compliance. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 
 ### Fixed
 
