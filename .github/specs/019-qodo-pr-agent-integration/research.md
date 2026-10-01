@@ -28,13 +28,18 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 
 ## R2. Where the workflows live (platform constraint versus Principle III)
 
-- **Decision**: Use two files, both in `.github/workflows/`:
-  1. `.github/workflows/qodo-pr-agent-reusable.yml` (`on: workflow_call`): the organisation-standard run definition. Other repositories consume it with `uses: lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>`.
-  2. `.github/workflows/qodo-pr-agent.yml`: the pilot caller for this repository. It declares the triggers and calls the reusable workflow locally (`uses: ./.github/workflows/qodo-pr-agent-reusable.yml`), so the pilot uses exactly the same path a future repository would (US4, Independent Test).
-- **Rationale**: GitHub only resolves reusable workflows from `{owner}/{repo}/.github/workflows/<file>.yml@ref`. A file in the root `workflows/` folder cannot be called. `docs/WORKFLOWS.md` currently implies it can (`uses: lightspeedwp/.github/workflows/ai-feedback-validation@main`), which is inaccurate. Placing the reusable workflow under `.github/` is therefore forced by the platform. Constitution v1.3.0 covers this with the Principle III "platform-required locations" exception, so the plan records it as an exception in its Constitution Check rather than as a violation (FR-018, clarified 2026-09-24).
+- **Decision**: four files, all in `.github/workflows/`:
+  1. `qodo-pr-agent-reusable.yml` (`on: workflow_call`): the organisation-standard run definition. Other repositories consume it with `uses: lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>`, so changes reach them without a per-repository edit (US4).
+  2. `qodo-pr-agent-trigger.yml`: the **unprivileged half**. It runs on `pull_request` and `issue_comment`, which is the only way a repository-owned workflow can act on a comment. It holds no secret and no write scope, and publishes a request hint and nothing else.
+  3. `qodo-pr-agent.yml`: the **privileged receiver** for this repository. It triggers on `workflow_run` and `workflow_dispatch`, reads the key, and **inlines its run job** rather than calling file 1 — see R6 for why an inlined run, and R1 for why the CLI.
+  4. `qodo-pr-agent-report.yml`: the daily pilot report. It reads run records and holds no model credential.
+- **Rationale**: GitHub only resolves a reusable workflow from `{owner}/{repo}/.github/workflows/<file>.yml@ref`, so file 1 cannot live in a root `workflows/` folder. The privileged half must be reachable on the default branch, which is what `workflow_run` gives: GitHub reads that workflow's definition from the default branch, so a branch edit to it does not execute.
+- **The pilot does not exercise file 1.** That is the point of the split and the cost of it. `qodo-pr-agent.yml` inlines its run job, so the shared standard's code path is not covered by this repository's own runs; it is covered by the entry-point tests, which execute both invocations, and it will first run for real in the first adopting repository. A consumer therefore inherits code this repository has tested structurally rather than live, which is stated in the reusable contract rather than left to be discovered.
 - **Alternatives considered**:
-  - Putting the workflow in root `workflows/` for consumers to copy: copies drift, and FR-018/US4 AS2 require that changes reach consumers without per-repository edits. Rejected.
-  - A single non-reusable workflow: meets the pilot but not US4. Rejected.
+  - Putting the workflow in root `workflows/` for consumers to copy: copies drift, and FR-018/US4 AS2 require that changes reach consumers without per-repository edits.
+  - A single non-reusable workflow: met the pilot but not US4. Rejected.
+  - The receiver calling file 1 by a local `uses: ./`: reintroduces a reference a same-repository branch can repoint, which is the CWE-200 shape T042 closed. Rejected — see the contract's caller security requirements.
+  - The receiver calling file 1 by a pinned `@<sha>`: safer than a local path, but it still runs code a pull request author cannot influence, and it adds a second privileged reference to keep pinned. Rejected in favour of the inlined run, with the reusable kept for consumers.
 
 ## R3. Central configuration and how consumers inherit it
 
@@ -87,6 +92,13 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 - **Alternatives considered**:
   - `synchronize`: this would give re-runs on every push, at a cost the pilot shouldn't carry. Deferred; it can be switched on later through `handle_push_trigger`.
   - No command allow-list: that would allow label and similar-issue commands that break FR-008 or can't run (R8). Rejected.
+
+## R5b. Why a run refuses a pull request whose head has moved
+
+- **Decision**: the receiver compares the pull request's current head SHA with the one the triggering run saw, and returns `trigger-head-superseded` when they differ.
+- **Rationale**: the run's record, and the `head_sha` the report counts, must describe the commit the eligibility check was actually performed against. Analysing a different commit would make that record wrong rather than merely stale. A later push does not retrigger the pilot — the trigger fires only on `opened`, `reopened` and `ready_for_review` — so the commit the author most recently pushed is covered by the next one of those events, not by a re-analysis of the earlier trigger.
+- **The trade-off, stated rather than hidden**: a run in flight when a push lands is refused, so that push is not analysed until the next qualifying event. That is a coverage gap of seconds-to-minutes, in exchange for the record never lying about which commit it analysed. The opposite choice — analysing whatever the head happens to be when the privileged job starts — is defensible too, and would close the gap.
+- **Why it is not removed on a review suggestion**: a suggestion to drop the check was verified against the source and against the data model, and declined. The check is a property of the record, not only of the analysis, and removing it would let `head_sha` and the triggering event disagree. If the trade-off above is judged wrong, this is the place to change it, and the two tests that assert the reason change with it.
 
 ## R6. Fork and secret safety
 

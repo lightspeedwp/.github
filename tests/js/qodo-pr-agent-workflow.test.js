@@ -73,6 +73,15 @@ function allSteps(doc) {
 }
 
 /**
+ * Find the step that writes the run record.
+ * @param {object} doc - Parsed workflow document.
+ * @returns {object} The record step.
+ */
+function qodoRecordStep(doc) {
+  return allSteps(doc).find((step) => step.env && step.env.EVENT_AT);
+}
+
+/**
  * Find the step that runs the pinned PR-Agent container.
  *
  * The reusable standard invokes the image as a Docker container action. The pilot
@@ -1299,6 +1308,79 @@ describe('Qodo PR-Agent trigger workflow', () => {
 });
 
 /**
+ * Execute the reusable standard's API-confirming step with a synthetic event.
+ *
+ * The pilot receiver has a harness for its own preflight; this is the equivalent
+ * for the step that re-derives eligibility for every other repository that adopts
+ * the standard. A string assertion on this step would pass against a broken
+ * implementation, which is how the argument-injection guard survived review
+ * untested in both halves.
+ * @param {object} [options] - Command, comment list and pull request overrides.
+ * @param {string} [options.command] - The command input.
+ * @param {Array} [options.comments] - Comments listComments returns, oldest first.
+ * @param {object} [options.pullRequest] - Pull request pulls.get returns.
+ * @param {object} [options.requestedTool] - The verify step's tool output.
+ * @param {object} [options.env] - Variables that replace the derived ones.
+ * @returns {Promise<object>} The decision: outputs and whether the run was refused.
+ */
+async function runReusableConfirm({
+  command = '',
+  comments = [],
+  pullRequest = {
+    number: PR_NUMBER,
+    state: 'open',
+    draft: false,
+    merged: false,
+    user: { login: 'maintainer' },
+    head: { repo: { full_name: REPO } },
+    base: { repo: { full_name: REPO } },
+  },
+  requestedTool = 'auto',
+  env = {},
+} = {}) {
+  const outputs = {};
+  const core = {
+    setOutput: jest.fn((key, value) => {
+      outputs[key] = value;
+    }),
+    notice: jest.fn(),
+    warning: jest.fn(),
+  };
+  const github = {
+    rest: {
+      pulls: { get: jest.fn(async () => ({ data: pullRequest })) },
+      // Present because the step names it in the call; paginate is the mock that
+      // decides what it returns.
+      issues: { listComments: jest.fn() },
+    },
+    paginate: jest.fn(async () => comments),
+  };
+  const context = {
+    eventName: 'workflow_call',
+    payload: {},
+    repo: { owner: 'lightspeedwp', repo: '.github' },
+  };
+  const AsyncFunction = Object.getPrototypeOf(async () => {}).constructor;
+  const body = stepScript(reusable.doc, 'preflight', 'confirm');
+  await new AsyncFunction('core', 'context', 'github', 'require', 'process', body)(
+    core,
+    context,
+    github,
+    require,
+    {
+      env: {
+        PR_NUMBER: String(PR_NUMBER),
+        COMMAND: command,
+        REQUESTED_TOOL: requestedTool,
+        EXCLUDED_AUTHORS: '["dependabot[bot]","lightspeed-docs-bot[bot]"]',
+        ...env,
+      },
+    }
+  );
+  return { outputs, core, refused: outputs.enabled !== 'true' };
+}
+
+/**
  * List the jobs that reference the model key, in workflow order.
  * @param {object} doc - Parsed receiver workflow.
  * @returns {string[]} Job names naming the secret.
@@ -1573,6 +1655,94 @@ describe.each([
  * `run` job alone and that job is gated on `enabled`, so a refusal leaves the key
  * unreachable. That is the assertion the CWE-200 finding turns on.
  */
+/**
+ * The argument-injection guards, executed in all three places they exist.
+ *
+ * PR-Agent applies a later `--section.key=value` token as a setting after the
+ * environment, which would override the locked keys. The refusal therefore has to
+ * be in the trigger, the receiver and the shared standard, and each has to be
+ * exercised rather than matched.
+ */
+describe('Qodo PR-Agent argument-injection guards, executed', () => {
+  const INJECTION = '/review please check --config.model=gpt-4o';
+  const comment = (body) => ({
+    id: 555,
+    body,
+    author_association: 'MEMBER',
+    issue_url: `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}`,
+  });
+
+  it('refuses a setting token that is not the first word, in the receiver', async () => {
+    // Isolates the `=` check: the token is not leading, so only that check can
+    // refuse it. A leading-hyphen refusal would mask the removal.
+    const { outputs, refused } = await runReceiverPreflight({
+      event: 'issue_comment',
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: '555', reason: 'ok' },
+      comment: comment(INJECTION),
+      env: { TRIGGER_PR: '' },
+    });
+    expect({ refused, reason: outputs.reason }).toStrictEqual({
+      refused: true,
+      reason: 'arguments-not-allowed',
+    });
+  });
+
+  it('refuses a leading hyphen in the receiver', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      event: 'issue_comment',
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: '555', reason: 'ok' },
+      comment: comment('/review -x'),
+      env: { TRIGGER_PR: '' },
+    });
+    expect({ refused, reason: outputs.reason }).toStrictEqual({
+      refused: true,
+      reason: 'arguments-not-allowed',
+    });
+  });
+
+  it('refuses both shapes in the trigger, before anything is published', () => {
+    const payload = (body) => ({
+      issue: { pull_request: { number: PR_NUMBER } },
+      comment: { id: 7788, body, author_association: 'OWNER' },
+    });
+    for (const body of [INJECTION, '/review -x']) {
+      const { outputs } = runTriggerClassify({
+        eventName: 'issue_comment',
+        payload: payload(body),
+      });
+      expect({ body, analyse: outputs.analyse, reason: outputs.reason }).toStrictEqual({
+        body,
+        analyse: 'false',
+        reason: 'arguments-not-allowed',
+      });
+    }
+  });
+
+  it('refuses both shapes in the shared standard, before any tool runs', async () => {
+    for (const body of [INJECTION, '/review -x']) {
+      const { outputs, refused } = await runReusableConfirm({
+        command: '/review',
+        comments: [comment(body)],
+      });
+      expect({ body, refused, reason: outputs.reason }).toStrictEqual({
+        body,
+        refused: true,
+        reason: 'arguments-not-allowed',
+      });
+    }
+  });
+
+  it('still answers a question that mentions a flag mid-sentence', async () => {
+    const question = '/ask What does --verbose do here?';
+    const { outputs, refused } = await runReusableConfirm({
+      command: '/ask',
+      comments: [comment(question)],
+    });
+    expect(refused).toBe(false);
+    expect(outputs).toMatchObject({ enabled: 'true', tool: 'ask' });
+  });
+});
+
 describe('Qodo PR-Agent receiver preflight, executed', () => {
   const COMMENT_ID = '555';
   const SHA = 'a'.repeat(40);
@@ -1689,6 +1859,52 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
     });
     expect(refused).toBe(true);
     expect(outputs.reason).toBe('author-not-allowed');
+  });
+
+  it('refuses trailing text that begins with a hyphen', async () => {
+    // A setting is only applied upstream when the token carries an `=`, so the
+    // existing refusal already covers the dangerous shape. This refuses a leading
+    // hyphen anyway, so nothing depends on how a future upstream version might treat
+    // one, and it is the case that would otherwise look like a second flag.
+    for (const body of ['/review -x', '/review --config', '/ask --pr_url=https://evil.example/x']) {
+      const { outputs, refused } = await runReceiverPreflight({
+        event: 'issue_comment',
+        hint: {
+          pr: PR_NUMBER,
+          command: String(body).split(' ')[0],
+          comment_id: COMMENT_ID,
+          reason: 'ok',
+        },
+        comment: {
+          id: 555,
+          body,
+          author_association: 'MEMBER',
+          issue_url: `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}`,
+        },
+        env: { TRIGGER_PR: '' },
+      });
+      expect({ body, refused, reason: outputs.reason }).toStrictEqual({
+        body,
+        refused: true,
+        reason: 'arguments-not-allowed',
+      });
+    }
+  });
+
+  it('keeps a mid-sentence flag question answerable', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      event: 'issue_comment',
+      hint: { pr: PR_NUMBER, command: '/ask', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: {
+        id: 555,
+        body: '/ask What does --verbose do here?',
+        author_association: 'MEMBER',
+        issue_url: `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}`,
+      },
+      env: { TRIGGER_PR: '' },
+    });
+    expect(refused).toBe(false);
+    expect(outputs).toMatchObject({ args: 'What does --verbose do here?' });
   });
 
   it('refuses an argument injection in a command', async () => {
@@ -2162,6 +2378,28 @@ describe('Qodo PR-Agent secret boundary', () => {
     expect(caller.doc.on?.workflow_call).toBeUndefined();
     // The reusable workflow keeps the declared-secret form, since it is called.
     expect(reusable.doc.on.workflow_call.secrets.model_credential).toBeDefined();
+  });
+
+  it('records the originating event and the trigger start time in both workflows', () => {
+    // The record must describe the event that asked for the run, not the receiver's
+    // own event, and the time GitHub received that event, not the time the trigger
+    // finished. updated_at would start the SC-001 clock late.
+    for (const [name, workflow] of [
+      ['reusable', reusable],
+      ['caller', caller],
+    ]) {
+      const env = qodoRecordStep(workflow.doc).env;
+      expect({ workflow: name, trigger: env.TRIGGER, eventAt: env.EVENT_AT }).toStrictEqual({
+        workflow: name,
+        trigger: '${{ github.event.workflow_run.event || github.event_name }}',
+        eventAt: "${{ github.event.workflow_run.created_at || '' }}",
+      });
+      // Neither the old field nor the repository fallback may come back.
+      expect({
+        workflow: name,
+        stale: /workflow_run\.updated_at|repository\.updated_at/.test(JSON.stringify(workflow.doc)),
+      }).toStrictEqual({ workflow: name, stale: false });
+    }
   });
 
   it('grants no OIDC capability in any of the four Qodo PR-Agent workflows', () => {
