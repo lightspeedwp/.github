@@ -179,9 +179,9 @@ All paths are repository-relative from `.github/`:
 ### Implementation for User Story 6
 
 - [ ] T045 [P] [US6] Implement report-formatter.js: formatMarkdownReport(categorised, options) function in scripts/lib/report-formatter.js
-- [ ] T070 [P] [US6] Implement report-formatter.js: formatJSONReport(categorised, options) function in scripts/lib/report-formatter.js
-- [ ] T071 [US6] Implement report file writing: saveReport(report, reportDir, format, timestamp) in scripts/lib/report-formatter.js
-- [ ] T072 [US6] Implement Markdown report structure: header, summary table, KEEP/DELETE/DISCUSS sections, branch details in scripts/lib/report-formatter.js
+- [ ] T075 [P] [US6] Implement report-formatter.js: formatJSONReport(categorised, options) function in scripts/lib/report-formatter.js
+- [ ] T076 [US6] Implement report file writing: saveReport(report, reportDir, format, timestamp) in scripts/lib/report-formatter.js
+- [ ] T077 [US6] Implement Markdown report structure: header, summary table, KEEP/DELETE/DISCUSS sections, branch details in scripts/lib/report-formatter.js
 - [ ] T049 [US6] Implement JSON report structure: stats object, branches array with required fields (name, category, reason, metadata) in scripts/lib/report-formatter.js
 - [ ] T050 [US6] Add timestamp generation (ISO8601 format) for report filenames in scripts/lib/report-formatter.js
 - [ ] T051 [P] [US6] Write unit tests for Markdown report formatting in scripts/tests/unit/test-markdown-reporter.js
@@ -269,7 +269,7 @@ All paths are repository-relative from `.github/`:
 
 **Phase 3–8 (User Stories)**:
 
-- Once Foundational completes, all P1 stories (US1, US2, US3, US6) can start in parallel
+- Once Foundational completes, P1 stories US1, US2 and US3 can start in parallel; US6 starts after US1, since reporting needs categorised data
 - P2 stories (US4, US5) start after P1 stories or in parallel
 - Within each user story, tests marked [P] can run in parallel
 - Models/utilities marked [P] can run in parallel
@@ -369,21 +369,21 @@ Recommended for complete feature:
 
 ---
 
-## Total Task Count: 69 Tasks
+## Total Task Count: 77 Tasks
 
-| Phase                   | Tasks          | Parallel Opportunities      |
-| ----------------------- | -------------- | --------------------------- |
-| Setup                   | T001–T005 (5)  | 4 of 5 can parallel         |
-| Foundational            | T006–T011 (6)  | 5 of 6 can parallel         |
-| US1 Categorisation (P1) | T012–T018 (7)  | 5 of 7 can parallel (tests) |
-| US2 Metadata (P1)       | T019–T025 (7)  | 4 of 7 can parallel         |
-| US3 GitHub (P1)         | T026–T032 (7)  | 3 of 7 can parallel         |
-| US4 Exclusion (P2)      | T033–T037 (5)  | 2 of 5 can parallel         |
-| US5 Deletion (P2)       | T038–T044 (7)  | 3 of 7 can parallel         |
-| US6 Reporting (P1)      | T045–T053 (9)  | 5 of 9 can parallel         |
-| CLI Integration         | T054–T059 (6)  | 2 of 6 can parallel         |
-| Polish                  | T060–T069 (10) | 9 of 10 can parallel        |
-| **TOTAL**               | **69**         | **~38 parallelisable**      |
+| Phase                   | Tasks                                | Parallel Opportunities      |
+| ----------------------- | ------------------------------------ | --------------------------- |
+| Setup                   | T001–T005 (5)                        | 4 of 5 can parallel         |
+| Foundational            | T006–T011 (6)                        | 5 of 6 can parallel         |
+| US1 Categorisation (P1) | T012–T018 (7)                        | 5 of 7 can parallel (tests) |
+| US2 Metadata (P1)       | T019–T025 (7)                        | 4 of 7 can parallel         |
+| US3 GitHub (P1)         | T026–T032 (7)                        | 3 of 7 can parallel         |
+| US4 Exclusion (P2)      | T033–T037 (5)                        | 2 of 5 can parallel         |
+| US5 Deletion (P2)       | T038–T044, T046–T048, T070–T074 (15) | 5 of 15 can parallel        |
+| US6 Reporting (P1)      | T045, T049–T053, T075–T077 (9)       | 5 of 9 can parallel         |
+| CLI Integration         | T054–T059 (6)                        | 2 of 6 can parallel         |
+| Polish                  | T060–T069 (10)                       | 9 of 10 can parallel        |
+| **TOTAL**               | **77**                               | **~44 parallelisable**      |
 
 ---
 
