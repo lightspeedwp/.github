@@ -69,7 +69,7 @@ graph TD
 %%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
     accTitle: Shared vs dedicated skill decision
     accDescr: Decision tree for determining whether to create a shared skill or dedicated skill based on reusability and domain specificity.
-    A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"} 
+    A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"}
     A -->|NO| C["Dedicated Skill<br/>agents/agent-name/skills/"]
     B -->|YES| D["Shared Skill<br/>skills/skill-name/"]
     B -->|NO| C
@@ -156,20 +156,36 @@ Every skill must include a `SKILL.md` file as the entrypoint.
 
 ### Format
 
-```yaml
+The frontmatter is a **closed set**. The specification permits exactly six
+top-level fields, and anything else is a hard error:
+
+| Field           | Required | Constraint                                                                                                                     |
+| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `name`          | Yes      | 1-64 characters; `a-z`, `0-9` and single hyphens only; no leading or trailing hyphen; **must match the parent directory name** |
+| `description`   | Yes      | 1-1024 characters; say what the skill does and when to use it                                                                  |
+| `license`       | No       | Licence name, or a reference to a bundled licence file                                                                         |
+| `compatibility` | No       | Up to 500 characters; environment requirements only                                                                            |
+| `metadata`      | No       | A flat map of string keys to **string** values                                                                                 |
+| `allowed-tools` | No       | Space-separated pre-approved tools (experimental)                                                                              |
+
+There is no top-level `version`, `category`, `tags`, `dependencies`,
+`interfaces`, `maintainer` or `last_updated`. Record that information under
+`metadata` instead, where the specification allows it. `npm run validate:skills`
+enforces this.
+
+````yaml
 ---
 name: skill-name
-description: One-line description of what the skill does
-version: 1.0.0
-category: code-analysis  # or testing, documentation, security, etc.
-tags: [tag1, tag2]
-dependencies:
-  - dependency-name@^1.0.0
-interfaces:
-  - input
-  - output
-maintainer: "@username"
-last_updated: 2026-07-24
+description: One-line description of what the skill does and when to use it
+license: GPL-3.0-or-later
+metadata:
+  version: "1.0.0"
+  category: code-analysis
+  tags: "analysis, quality"
+  dependencies: "dependency-name@^1.0.0"
+  interfaces: "input, output"
+  maintainer: "LightSpeed Team"
+  last_updated: "2026-07-24"
 ---
 
 # Skill Name
@@ -190,7 +206,7 @@ Detailed explanation of what this skill does and why it exists.
     "parameter1": { "type": "string" }
   }
 }
-```
+````
 
 ### Example
 
@@ -246,7 +262,7 @@ Include real-world usage examples.
 
 How to test this skill independently.
 
-```
+````
 
 ---
 
@@ -255,10 +271,10 @@ How to test this skill independently.
 All skills must include:
 
 1. **SKILL.md** with:
-   - `name` (kebab-case, unique)
+   - `name` (kebab-case, unique, and equal to the directory name)
    - `description` (one-line summary)
-   - `version` (semantic)
-   - `category` (domain/purpose)
+   - `metadata.version` (semantic, as a quoted string), where the skill records
+     one, and `metadata.category` (domain or purpose) for the same reason
    - Purpose section
    - Input and output documentation
 
@@ -292,7 +308,7 @@ skills:
   - code-analysis
   - security-audit
   - documentation-generator
-```
+````
 
 At runtime, the agent can invoke skill operations:
 
@@ -326,11 +342,11 @@ The dependency resolution system ensures:
 
 Skills follow [semantic versioning](./VERSIONING.md):
 
-| Change | Version | Example |
-|--------|---------|---------|
-| Breaking change (input/output format change) | MAJOR | 1.0.0 → 2.0.0 |
-| New capability (backwards-compatible) | MINOR | 1.0.0 → 1.1.0 |
-| Bug fix or internal improvement | PATCH | 1.0.0 → 1.0.1 |
+| Change                                       | Version | Example       |
+| -------------------------------------------- | ------- | ------------- |
+| Breaking change (input/output format change) | MAJOR   | 1.0.0 → 2.0.0 |
+| New capability (backwards-compatible)        | MINOR   | 1.0.0 → 1.1.0 |
+| Bug fix or internal improvement              | PATCH   | 1.0.0 → 1.0.1 |
 
 ### Backward Compatibility
 
@@ -409,13 +425,14 @@ When deprecating a skill:
 
 ### Example: Code Analysis Skill
 
-```yaml
+````yaml
 ---
 name: code-analysis
 description: Analyses code for quality metrics, complexity, and patterns
-version: 1.0.0
-category: code-analysis
-tags: [analysis, quality, metrics]
+metadata:
+  version: "1.0.0"
+  category: code-analysis
+  tags: "analysis, quality, metrics"
 ---
 
 # Code Analysis Skill
@@ -435,7 +452,7 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
   "code": "string",
   "language": "javascript|python|go|rust"
 }
-```
+````
 
 ## Output Schema
 
@@ -454,7 +471,7 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
 
 ---
 
-**Last Updated:** 2026-07-24  
+**Last Updated:** 2026-07-24
 **Version:** 1.0.0
 
 ---
@@ -472,3 +489,4 @@ _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
 
 _Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
+```
