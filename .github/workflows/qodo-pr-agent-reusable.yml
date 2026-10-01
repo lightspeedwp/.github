@@ -1,7 +1,8 @@
 # Qodo PR-Agent • Reusable
 #
 # Organisation-standard run definition for Qodo PR-Agent
-# (https://github.com/the-pr-agent/pr-agent, formerly qodo-ai/pr-agent).
+# (https://github.com/The-PR-Agent/pr-agent, formerly qodo-ai/pr-agent;
+# docs at https://docs.pr-agent.ai/).
 # Callers declare the triggers; this workflow decides whether to run and runs it.
 #
 # - CodeRabbit owns the automatic review verdict, so `auto_review` is hard-coded
@@ -28,7 +29,10 @@ on:
         description: 'Ref of lightspeedwp/.github whose .pr_agent.toml is loaded as extra_config_url'
         type: string
         required: false
-        default: main
+        # develop is this repository's default branch and the only branch carrying
+        # .pr_agent.toml. A ref without the file makes the fetch 404, and PR-Agent
+        # then runs on upstream defaults, so this must name a branch that has it.
+        default: develop
       auto_describe:
         description: 'Post the summary comment automatically on PR events'
         type: boolean
@@ -127,8 +131,12 @@ jobs:
                 if (pr.draft) return { reason: 'draft', tool: 'auto' };
                 if (excluded.includes(pr.user?.login)) return { reason: 'excluded-author', tool: 'auto' };
                 // Fork PRs get no secrets and no OIDC token, so neither credential can work.
+                // The check is fail-closed: a deleted fork leaves head.repo null, and a
+                // missing or mismatched head repository must be treated as a fork, never
+                // as same-repository. The federation inputs are Actions variables, which
+                // a fork PR does receive, so HAS_CREDENTIAL cannot be relied on here.
                 const headRepo = pr.head?.repo?.full_name;
-                if (headRepo && headRepo !== payload.repository?.full_name) {
+                if (!headRepo || headRepo !== payload.repository?.full_name) {
                   return { reason: 'fork', tool: 'auto' };
                 }
                 if (process.env.HAS_CREDENTIAL !== 'true') return { reason: 'no-credential', tool: 'auto' };

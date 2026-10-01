@@ -140,7 +140,15 @@ function runPreflight({ eventName = 'pull_request', payload, env = {} } = {}) {
   };
   const defaultPayload =
     eventName === 'pull_request'
-      ? { sender: { type: 'User' }, pull_request: { draft: false, user: { login: 'maintainer' } } }
+      ? {
+          sender: { type: 'User' },
+          repository: { full_name: 'lightspeedwp/.github' },
+          pull_request: {
+            draft: false,
+            user: { login: 'maintainer' },
+            head: { repo: { full_name: 'lightspeedwp/.github' } },
+          },
+        }
       : {
           sender: { type: 'User' },
           issue: { pull_request: {} },
@@ -168,7 +176,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
   it('is a workflow_call workflow with the contracted inputs and secret', () => {
     const call = doc.on?.workflow_call;
     expect(call).toBeDefined();
-    expect(call.inputs.config_ref.default).toBe('main');
+    expect(call.inputs.config_ref.default).toBe('develop');
     expect(call.inputs.auto_describe.default).toBe(true);
     expect(call.inputs.auto_improve.default).toBe(true);
     expect(JSON.parse(call.inputs.excluded_authors.default)).toStrictEqual([
@@ -356,7 +364,12 @@ describe('Qodo PR-Agent reusable workflow', () => {
     ])('skips a PR on %s without failing the check', (reason, overrides, tool) => {
       const defaultPayload = {
         sender: { type: 'User' },
-        pull_request: { draft: false, user: { login: 'maintainer' } },
+        repository: { full_name: 'lightspeedwp/.github' },
+        pull_request: {
+          draft: false,
+          user: { login: 'maintainer' },
+          head: { repo: { full_name: 'lightspeedwp/.github' } },
+        },
       };
       const { outputs, core } = runPreflight({
         ...overrides,
@@ -379,6 +392,30 @@ describe('Qodo PR-Agent reusable workflow', () => {
         },
       });
       expect(outputs).toStrictEqual({ enabled: 'true', reason: 'ok', tool: 'auto' });
+    });
+
+    // A deleted fork leaves head.repo null. The guard must treat an unknown head
+    // repository as a fork: the federation inputs are Actions variables, which a
+    // fork pull_request does receive, so HAS_CREDENTIAL cannot decide this.
+    it.each([
+      ['a null head repository', { head: { repo: null } }],
+      ['a missing head key', {}],
+      ['a missing base repository', { repository: undefined, head: { repo: undefined } }],
+    ])('skips an untrusted PR with %s', (_label, override) => {
+      const { outputs } = runPreflight({
+        payload: {
+          sender: { type: 'User' },
+          repository: { full_name: 'lightspeedwp/.github' },
+          pull_request: {
+            draft: false,
+            user: { login: 'maintainer' },
+            head: { repo: { full_name: 'lightspeedwp/.github' } },
+            ...override,
+          },
+          ...(override.repository === undefined ? { repository: undefined } : {}),
+        },
+      });
+      expect(outputs).toStrictEqual({ enabled: 'false', reason: 'fork', tool: 'auto' });
     });
 
     it('treats either a stored key or a complete federation configuration as a credential', () => {
