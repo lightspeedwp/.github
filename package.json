@@ -91,6 +91,8 @@
     "validate:structure": "node scripts/validation/validate-structure.js",
     "validate:skills": "node scripts/validation/validate-skills.js",
     "validate:skill-doc-contracts": "node scripts/validation/validate-skill-doc-contracts.cjs",
+    "validate:badge-urls": "node scripts/validation/validate-badge-urls.cjs",
+    "validate:badge-urls:fix": "node scripts/validation/validate-badge-urls.cjs --fix",
     "validate:agent-hooks": "node scripts/validation/validate-agent-hooks.cjs",
     "validate:plugins": "node scripts/validation/validate-plugins.js",
     "validate:links": "node scripts/validation/validate-links.js",
