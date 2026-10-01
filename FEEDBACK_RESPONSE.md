@@ -138,11 +138,15 @@ as checklist items rather than fixed here:
 ## Verification
 
 - Full Jest suite, earlier run for the #3500 specifications at `62c9344f`: 285 suites, 5651 passed, 14 todo, 0 failed.
-- Full Jest suite on this pull request at `dd5c2ff3`: 313 suites, 6891 passed, 3 skipped, 14 todo. 8 tests failed, in two
-  integration suites (`agents/meta-agent/__tests__/integration/ci-workflows.test.js` and
-  `scripts/metrics/__tests__/metrics-agent-integration.test.js`) that call the live GitHub API, which the local sandbox
-  cannot reach. This pull request changes neither suite, and CI's "No new test failures" check passes on the same head.
-  The six Qodo PR-Agent suites: 217 of 217 after the runner fix below.
+- Full Jest suite on this pull request, re-run on 2026-10-01 after removing keyless federation, with
+  `--maxWorkers=2 --forceExit`: **313 suites, 6898 passed, 3 skipped, 14 todo, 0 failed**. The 8 failures this
+  section previously reported at `dd5c2ff3` do **not** reproduce: they were in two integration suites
+  (`agents/meta-agent/__tests__/integration/ci-workflows.test.js` and
+  `scripts/metrics/__tests__/metrics-agent-integration.test.js`) that reach the live GitHub API, and that reach was
+  available in the later run. The claim is corrected here rather than left standing, because a reader would otherwise
+  treat those two suites as permanently failing.
+  The six Qodo PR-Agent suites: 212 of 212. That is 217 minus the nine token-exchange tests removed with federation
+  (T038), plus one new assertion that no job holds `id-token: write`.
 - `additionalProperties: false` change verified by validating documents against the schema before and after.
 - `node .github/validation/changelog/bin/validate.js` executed to confirm the corrected quickstart command runs.
 - Every changelog label named in the specifications exists in `.github/labels.yml`.
