@@ -110,7 +110,14 @@ jobs:
                 // setting after the environment, which would override the locked
                 // keys. The body is untrusted, so the check stays here as well
                 // as in the receiver.
-                if (body.split(/\s+/).slice(1).some((a) => a.startsWith('--') && a.includes('='))) {
+                const rest = body.split(/\s+/).slice(1);
+                if (rest.some((a) => a.startsWith('--') && a.includes('='))) {
+                  return { analyse: false, reason: 'arguments-not-allowed' };
+                }
+                // The receiver passes the rest as one argument, and PR-Agent reads
+                // one that starts with '--' as a setting even when its '=' is in a
+                // later word ('--config.model =x'). Refuse it here too.
+                if (rest.join(' ').startsWith('-')) {
                   return { analyse: false, reason: 'arguments-not-allowed' };
                 }
                 // The comment id, not just the number: the receiver resolves it

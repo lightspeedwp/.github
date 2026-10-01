@@ -231,14 +231,19 @@ jobs:
               return out('author-not-allowed');
             }
             const body = String(match.body || '').trim();
-            if (body.split(/\s+/).slice(1).some((a) => a.startsWith('--') && a.includes('='))) {
+            const rest = body.split(/\s+/).slice(1);
+            if (rest.some((a) => a.startsWith('--') && a.includes('='))) {
               return out('arguments-not-allowed');
             }
             if (!ALLOWED_COMMANDS.includes(wanted)) return out('command-not-allowed');
-            // The rest of the comment is the question or instruction. It is passed
-            // as a single argument to the CLI, and never as a setting, because the
-            // argument-injection refusal above already removed any --x=y token.
-            const args = body.split(/\s+/).slice(1).join(' ');
+            // The rest of the comment is the question or instruction, passed to the
+            // CLI as a single argument. PR-Agent treats any argument that starts with
+            // '--' as a setting, stripping the dashes and splitting on the first '=',
+            // so '--config.model =x' would pass the per-word check above and still
+            // set config.model once joined. Refuse a joined argument that starts with
+            // '-'; a flag mentioned mid-question stays allowed.
+            const args = rest.join(' ');
+            if (args.startsWith('-')) return out('arguments-not-allowed');
             return out('ok', { pr, command: wanted, tool: wanted.slice(1), args });
 
   run:

@@ -791,6 +791,21 @@ describe('Qodo PR-Agent reusable workflow', () => {
     it('refuses setting arguments in the re-read comment', () => {
       expect(script).toContain("return refuse('arguments-not-allowed', command.slice(1))");
       expect(script).toMatch(/a\.startsWith\('--'\) && a\.includes\('='\)/);
+      // A joined argument starting with '-' is a setting to PR-Agent even when its
+      // '=' sits in a later word, so the per-word check alone is not enough.
+      expect(script).toContain(
+        "if (args.startsWith('-')) return refuse('arguments-not-allowed', command.slice(1))"
+      );
+    });
+
+    // /ask has no question without the trailing text, so the shared standard has to
+    // carry it from the re-read comment to the CLI, as the pilot receiver does.
+    it('passes the validated trailing text to the tool as one argument', () => {
+      expect(script).toContain("core.setOutput('args', args)");
+      expect(reusable.doc.jobs.preflight.outputs.args).toBe('${{ steps.confirm.outputs.args }}');
+      const qodo = reusable.doc.jobs.run.steps.find((s) => s.id === 'qodo');
+      expect(qodo.env.QODO_ARGS).toBe('${{ needs.preflight.outputs.args }}');
+      expect(qodo.run).toContain('run_tool "$QODO_TOOL" "$QODO_ARGS"');
     });
 
     it('cannot reach the credential or the event from this step', () => {
@@ -1186,6 +1201,10 @@ describe('Qodo PR-Agent trigger workflow', () => {
       '/review --config.model=gpt-4o',
       '/ask why? --pr_description.publish_description_as_comment=false',
       '/describe\n--config.response_language=fr',
+      // Split fragments: no single word is --x=y, but the receiver joins the rest
+      // into one argument, which PR-Agent then reads as a setting.
+      '/ask --config.model =other-model',
+      '/ask --config.model = other-model',
     ])('refuses setting arguments in %j', (body) => {
       const { outputs, core } = runTriggerClassify({
         eventName: 'issue_comment',
@@ -1679,6 +1698,30 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
     });
     expect(refused).toBe(true);
     expect(outputs.reason).toBe('arguments-not-allowed');
+  });
+
+  // The trailing text reaches PR-Agent as one argument, and PR-Agent reads one that
+  // starts with '--' as a setting, splitting on the first '=' wherever it falls. A
+  // split fragment passes the per-word check, so the joined text is checked too.
+  it.each(['/ask --config.model =other-model', '/ask --config.model = other-model', '/ask -x'])(
+    'refuses a split setting fragment in %j',
+    async (body) => {
+      const { outputs, refused } = await command({
+        hint: { pr: PR_NUMBER, command: '/ask', comment_id: COMMENT_ID, reason: 'ok' },
+        comment: commentOn(PR_NUMBER, 'MEMBER', body),
+      });
+      expect(refused).toBe(true);
+      expect(outputs.reason).toBe('arguments-not-allowed');
+    }
+  );
+
+  it('keeps a question that mentions a flag mid-sentence', async () => {
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/ask', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: commentOn(PR_NUMBER, 'MEMBER', '/ask What does --verbose do here?'),
+    });
+    expect(refused).toBe(false);
+    expect(outputs.args).toBe('What does --verbose do here?');
   });
 
   it('refuses a pull request that is closed', async () => {

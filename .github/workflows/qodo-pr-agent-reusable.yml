@@ -31,7 +31,9 @@
 # - Enable switch: runs only when the Actions variable QODO_PR_AGENT_ENABLED is
 #   "true"; unset or any other value skips every run with reason kill-switch.
 # - Credential: the `model_credential` secret, a dedicated Anthropic API key
-#   stored only in the qodo-pr-agent Environment.
+#   stored only as the environment secret MODEL_CREDENTIAL on the caller's
+#   Environment. Callers pass no `secrets:` mapping: the run job declares the
+#   Environment, so GitHub resolves the secret from it.
 # - A skipped run always concludes successfully; this workflow never blocks a PR.
 #
 # Docs: docs/QODO_PR_AGENT.md
@@ -95,6 +97,7 @@ jobs:
       enabled: ${{ steps.confirm.outputs.enabled || steps.verify.outputs.enabled }}
       reason: ${{ steps.confirm.outputs.reason || steps.verify.outputs.reason }}
       tool: ${{ steps.confirm.outputs.tool || steps.verify.outputs.tool }}
+      args: ${{ steps.confirm.outputs.args }}
     steps:
       - name: Verify the security contract and the caller's request
         id: verify
@@ -266,12 +269,19 @@ jobs:
               return refuse('author-not-allowed', command.slice(1));
             }
             const body = String(match.body || '').trim();
-            if (body.split(/\s+/).slice(1).some((a) => a.startsWith('--') && a.includes('='))) {
+            const rest = body.split(/\s+/).slice(1);
+            if (rest.some((a) => a.startsWith('--') && a.includes('='))) {
               return refuse('arguments-not-allowed', command.slice(1));
             }
+            // The question or instruction, passed to the CLI as one argument. PR-Agent
+            // reads an argument that starts with '--' as a setting even when its '='
+            // is in a later word, so a joined argument starting with '-' is refused.
+            const args = rest.join(' ');
+            if (args.startsWith('-')) return refuse('arguments-not-allowed', command.slice(1));
             core.setOutput('enabled', 'true');
             core.setOutput('reason', 'ok');
             core.setOutput('tool', command.slice(1));
+            core.setOutput('args', args);
 
   run:
     name: Run Qodo PR-Agent
@@ -338,6 +348,7 @@ jobs:
           # checked again below, because they become shell and API input.
           QODO_PR: ${{ inputs.pr_number }}
           QODO_TOOL: ${{ needs.preflight.outputs.tool }}
+          QODO_ARGS: ${{ needs.preflight.outputs.args }}
           QODO_AUTO_DESCRIBE: ${{ inputs.auto_describe && 'true' || 'false' }}
           QODO_AUTO_IMPROVE: ${{ inputs.auto_improve && 'true' || 'false' }}
           # Locked keys, re-set here because environment variables take precedence
@@ -411,7 +422,13 @@ jobs:
               echo "::notice::Qodo PR-Agent preflight resolved no tool; nothing to run."
               ;;
             *)
-              run_tool "$QODO_TOOL"
+              # The trailing text as one argument, never word-split, so it cannot
+              # become a second flag. /ask needs it: without it there is no question.
+              if [ -n "$QODO_ARGS" ]; then
+                run_tool "$QODO_TOOL" "$QODO_ARGS"
+              else
+                run_tool "$QODO_TOOL"
+              fi
               ;;
           esac
 

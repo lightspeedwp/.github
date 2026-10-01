@@ -18,7 +18,7 @@ A caller breaks the CWE-200 boundary, and is rejected at review, if it does all 
 3. **The environment's deployment branch policy admits the default branch only**, and must not admit `refs/pull/*/merge`. The rule is matched against the run's `GITHUB_REF`; for a `pull_request` run that is `refs/pull/<n>/merge`, so the policy fails closed and the job never starts.
 4. **No job holds `id-token` set to `write`**, so the third-party container has no OIDC capability.
 
-The pilot satisfies all four. Two of them are repository settings rather than files, and are listed in [the pilot's trust-boundary documentation](../../../docs/QODO_PR_AGENT.md#what-limits-who-can-run-the-pilot): the environment's deployment branch policy, and the fact that the boundary is exactly the authority to merge to `develop`.
+The pilot satisfies all four. Two of them are repository settings rather than files, and are listed in [the pilot's trust-boundary documentation](../../../../docs/QODO_PR_AGENT.md#what-limits-who-can-run-the-pilot): the environment's deployment branch policy, and the fact that the boundary is exactly the authority to merge to `develop`.
 
 ## Why not `pull_request_target`
 
@@ -51,7 +51,7 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
 | --- | --- | --- |
 | `model_credential` | no | The `run` job is environment-gated, so an absent key means the Environment did not release it. Its fail-closed step emits `::error::` and exits 1. This is deliberately **not** a skip: a key that went missing is an operator problem to see, and a silent skip would hide a broken credential behind a green run. The former skip-on-absent-key behaviour is withdrawn. |
 
-`model_credential` must be an **environment** secret on the Environment named by `environment_name`, never a repository secret. The `verify` step runs in a job with no `environment` and refuses with `credential-not-environment-scoped` if it can see a value, which is the CWE-200 regression guard: a value visible in a job with no environment can only have come from repository scope.
+`model_credential` must be an **environment** secret named `MODEL_CREDENTIAL` on the Environment named by `environment_name`, never a repository secret, and the caller passes **no** `secrets:` mapping. A calling job cannot read an environment secret; because the `run` job declares the Environment, GitHub resolves `secrets.model_credential` from that Environment's secret of the same name. The `verify` step runs in a job with no `environment` and refuses with `credential-not-environment-scoped` if it can see a value, which is the CWE-200 regression guard: a value visible in a job with no environment can only have come from repository scope.
 
 ## Credential resolution
 
@@ -103,7 +103,7 @@ These are enforced by `tests/js/qodo-pr-agent-workflow.test.js`:
 - The privileged workflow's triggers include no `pull_request`, no `issue_comment` and no `pull_request_target`; they are `workflow_run` and `workflow_dispatch`.
 - The unprivileged trigger workflow contains no `secrets` reference and grants no write scope.
 - Only the environment-gated `run` job reads `secrets.model_credential`; every other reference is a `!= ''` presence probe.
-- `CONFIG.EXTRA_CONFIG_URL` is the constant `develop` URL and contains no expression.
+- `PR_AGENT_EXTRA_CONFIG_URL` is the constant `develop` URL and contains no expression.
 - No workflow in the pilot sets `id-token` to `write`.
 - The receiver re-derives eligibility from the API rather than trusting the trigger's artefact.
 - The allow-list and author-association guard are present.
