@@ -67,6 +67,7 @@ jobs:
       tool: ${{ steps.hint.outputs.tool }}
       pr: ${{ steps.hint.outputs.pr }}
       command: ${{ steps.hint.outputs.command }}
+      args: ${{ steps.hint.outputs.args }}
     steps:
       # The Environment that holds the key. It must be referenced by the job
       # that reads the key, not by this one, so that a skipped run does not
@@ -118,6 +119,7 @@ jobs:
               core.setOutput('tool', 'none');
               core.setOutput('pr', '');
               core.setOutput('command', '');
+              core.setOutput('args', '');
               for (const [k, v] of Object.entries(extra)) core.setOutput(k, String(v));
               if (reason !== 'ok') core.notice(`Qodo PR-Agent skipped: ${reason}`);
             }
@@ -233,7 +235,11 @@ jobs:
               return out('arguments-not-allowed');
             }
             if (!ALLOWED_COMMANDS.includes(wanted)) return out('command-not-allowed');
-            return out('ok', { pr, command: wanted, tool: wanted.slice(1) });
+            // The rest of the comment is the question or instruction. It is passed
+            // as a single argument to the CLI, and never as a setting, because the
+            // argument-injection refusal above already removed any --x=y token.
+            const args = body.split(/\s+/).slice(1).join(' ');
+            return out('ok', { pr, command: wanted, tool: wanted.slice(1), args });
 
   run:
     name: Run Qodo PR-Agent
@@ -283,26 +289,40 @@ jobs:
       # floating tag, so pinning the action ref would not pin the code that runs.
       # continue-on-error: an invalid key, rate limit or upstream outage must never
       # turn the PR red. The outcome is recorded by the record job instead.
+      # The entry point is PR-Agent's own CLI, not the image's GitHub action runner.
+      #
+      # The image's ENTRYPOINT is /entrypoint.sh, which runs
+      # pr_agent/servers/github_action_runner.py. In v0.46.0 that runner dispatches on
+      # GITHUB_EVENT_NAME over exactly five branches: pull_request,
+      # pull_request_target, pull_request_review, issue_comment and workflow_run. Its
+      # workflow_run branch returns immediately unless the *originating* event is
+      # pull_request or pull_request_target, and it then reads only
+      # workflow_run.pull_requests[0]. It has no workflow_dispatch branch, and it never
+      # reads PR_NUMBER or PR_AGENT_COMMAND. So under the action runner a
+      # maintainer command and a manual dispatch would both exit having run no tool
+      # at all, and continue-on-error would hide it.
+      #
+      # The CLI takes the pull request explicitly and does not depend on the event, so
+      # the same invocation serves the automatic path, a command and a dispatch. The
+      # image digest still pins the code, and the container still holds no OIDC
+      # capability, because the job grants none.
       - name: Qodo PR-Agent
         id: qodo
         continue-on-error: true
-        uses: docker://pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7 # 0.46.0-github_action
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC.KEY: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}
-          # The config ref is a constant, never an event or pull request value.
-          # PR-Agent reads .pr_agent.toml from the default branch by default
-          # (github_provider.py get_repo_settings, no ref argument); this sets
-          # the same content explicitly so the ref cannot drift.
-          CONFIG.EXTRA_CONFIG_URL: https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml
-          github_action_config.auto_review: 'false'
-          github_action_config.auto_describe: ${{ needs.preflight.outputs.tool == 'auto' && 'true' || 'false' }}
-          github_action_config.auto_improve: ${{ needs.preflight.outputs.tool == 'auto' && 'true' || 'false' }}
-          # Not set from a comment, so PR-Agent's own --config-branch
-          # indirection can never be pointed at a pull request branch.
-          github_action_config.pr_actions: '["opened","reopened","ready_for_review"]'
-          PR_NUMBER: ${{ needs.preflight.outputs.pr }}
-          PR_AGENT_COMMAND: ${{ needs.preflight.outputs.command }}
+          # The CLI reads its extra config from PR_AGENT_EXTRA_CONFIG_URL, so the
+          # ref stays a constant and can never be an event or pull request value.
+          PR_AGENT_EXTRA_CONFIG_URL: https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml
+          # The pull request, its command and the trailing text, all validated by the
+          # preflight step. The number is an integer the preflight parsed; the command
+          # came off the allow-list; the text had every --x=y token removed.
+          QODO_PR: ${{ needs.preflight.outputs.pr }}
+          QODO_TOOL: ${{ needs.preflight.outputs.tool }}
+          QODO_ARGS: ${{ needs.preflight.outputs.args }}
+          # --config-branch is never passed, so PR-Agent reads .pr_agent.toml from the
+          # default branch and a comment cannot point it at a pull request branch.
           # Locked keys, re-set here because environment variables take
           # precedence over a consuming repository's own .pr_agent.toml, which
           # cannot weaken them.
@@ -315,6 +335,76 @@ jobs:
           pr_reviewer.enable_review_labels_effort: 'false'
           pr_code_suggestions.commitable_code_suggestions: 'false'
           pr_update_changelog.push_changelog_changes: 'false'
+        run: |
+          set -euo pipefail
+
+          # Pinned by digest, not by tag, so the code that runs cannot change under
+          # a floating version. The tag is in the comment for a human to check.
+          image='pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7' # 0.46.0-github_action
+
+          # Both values were validated upstream of here: QODO_PR is an integer the
+          # preflight parsed out of the artefact and re-read from the API, and
+          # QODO_TOOL came off a fixed allow-list. Refuse rather than trust if that
+          # ever stops being true, because both become shell and API input here.
+          case "$QODO_PR" in
+            ''|*[!0-9]*) echo "::error::QODO_PR is not a pull request number"; exit 1 ;;
+          esac
+          pr_url="https://github.com/${{ github.repository }}/pull/$QODO_PR"
+
+          # The exact variables allowed into the container. An explicit list, so a
+          # later step cannot widen what enters by adding a line to this job's env:
+          # the step's env is passed selectively, not wholesale.
+          container_env=(
+            GITHUB_TOKEN
+            ANTHROPIC.KEY
+            PR_AGENT_EXTRA_CONFIG_URL
+            config.response_language
+            config.enable_custom_labels
+            pr_description.publish_description_as_comment
+            pr_description.publish_labels
+            pr_description.generate_ai_title
+            pr_reviewer.enable_review_labels_security
+            pr_reviewer.enable_review_labels_effort
+            pr_code_suggestions.commitable_code_suggestions
+            pr_update_changelog.push_changelog_changes
+          )
+
+          # run_tool <command> [single trailing argument]
+          run_tool() {
+            local command="$1"
+            shift
+            local env_args=()
+            local name
+            for name in "${container_env[@]}"; do
+              env_args+=(-e "$name")
+            done
+            docker run --rm -i --entrypoint python \
+              "${env_args[@]}" \
+              "$image" \
+              -m pr_agent.cli --pr_url "$pr_url" "$command" "$@"
+          }
+
+          case "$QODO_TOOL" in
+            auto)
+              # The automatic path: a description, then the improvement suggestions.
+              # The same two tools the action runner would have run, named directly.
+              run_tool describe
+              run_tool improve
+              ;;
+            '')
+              echo "::notice::Qodo PR-Agent ran with no command; nothing to do."
+              ;;
+            *)
+              # A command, with the trailing text as one argument. It was stripped of
+              # every --x=y token by the preflight, and it is never word-split, so it
+              # cannot become a setting or a second flag.
+              if [ -n "$QODO_ARGS" ]; then
+                run_tool "$QODO_TOOL" "$QODO_ARGS"
+              else
+                run_tool "$QODO_TOOL"
+              fi
+              ;;
+          esac
 
       - name: Report a failed run without blocking the PR
         if: steps.qodo.outcome == 'failure'

@@ -19,6 +19,7 @@ const repoRoot = path.resolve(__dirname, '../..');
 const reusablePath = '.github/workflows/qodo-pr-agent-reusable.yml';
 const callerPath = '.github/workflows/qodo-pr-agent.yml';
 const triggerPath = '.github/workflows/qodo-pr-agent-trigger.yml';
+const reportPath = '.github/workflows/qodo-pr-agent-report.yml';
 
 /**
  * Read and parse a workflow fixture, tolerating a missing file.
@@ -35,6 +36,7 @@ function load(relativePath) {
 const reusable = load(reusablePath);
 const caller = load(callerPath);
 const trigger = load(triggerPath);
+const report = load(reportPath);
 
 const ALLOWED_COMMANDS = [
   '/describe',
@@ -72,12 +74,18 @@ function allSteps(doc) {
 
 /**
  * Find the step that runs the pinned PR-Agent container.
+ *
+ * The reusable standard invokes the image as a Docker container action. The pilot
+ * receiver overrides the entry point with `docker run` and calls PR-Agent's CLI,
+ * so both shapes count and neither is assumed.
  * @param {object} doc - Parsed workflow document.
  * @returns {object|undefined} Container step, if present.
  */
 function qodoStep(doc) {
-  return allSteps(doc).find((step) =>
-    String(step.uses || '').startsWith('docker://pragent/pr-agent')
+  return allSteps(doc).find(
+    (step) =>
+      String(step.uses || '').startsWith('docker://pragent/pr-agent') ||
+      /pragent\/pr-agent@sha256:[a-f0-9]{64}/.test(String(step.run || ''))
   );
 }
 
@@ -295,7 +303,10 @@ describe('Qodo PR-Agent reusable workflow', () => {
   it('pins the Qodo PR-Agent image by digest', () => {
     const step = qodoStep(doc);
     expect(step).toBeDefined();
-    expect(step.uses).toMatch(/^docker:\/\/pragent\/pr-agent@sha256:[a-f0-9]{64}$/);
+    // Either invocation form, but never a floating tag: the digest is the pin.
+    const reference = step.uses || String(step.run);
+    expect(reference).toMatch(/pragent\/pr-agent@sha256:[a-f0-9]{64}/);
+    expect(reference).not.toMatch(/pragent\/pr-agent:(latest|v?\d)/);
   });
 
   it('re-sets every locked key in the environment so repository config cannot weaken it', () => {
@@ -1417,6 +1428,92 @@ function runReceiverDispatch({ pr = String(PR_NUMBER), command = '' } = {}) {
 }
 
 /**
+ * The receiver's PR-Agent invocation, as it ships.
+ *
+ * The image's entry point runs the GitHub action runner, which in v0.46.0 skips a
+ * workflow_run whose originating event is not pull_request, has no
+ * workflow_dispatch branch, and never reads PR_NUMBER or PR_AGENT_COMMAND. Left as
+ * a `docker://` action, a maintainer command and a manual dispatch would exit
+ * having run nothing, and continue-on-error would hide it. These assertions are
+ * what stop that shape coming back.
+ */
+describe('Qodo PR-Agent entry point', () => {
+  const run = caller.doc.jobs.run;
+  const step = qodoStep(caller.doc);
+  const script = String(step?.run || '');
+
+  it('overrides the image entry point instead of using the action runner', () => {
+    // The upstream image is an action runner, not a general CLI. Reaching PR-Agent
+    // through it is what made commands and dispatches silently do nothing.
+    expect(step.uses).toBeUndefined();
+    expect(script).toContain('--entrypoint python');
+    expect(script).toContain('-m pr_agent.cli');
+  });
+
+  it('passes the pull request explicitly rather than through the event', () => {
+    expect(script).toContain('--pr_url');
+    expect(script).toContain('pr_url="https://github.com/${{ github.repository }}/pull/$QODO_PR"');
+    // The variables the action runner never read must not be relied on.
+    expect(script).not.toContain('PR_AGENT_COMMAND');
+    expect(String(step.env || {})).not.toContain('PR_AGENT_COMMAND');
+  });
+
+  it('names the automatic path explicitly rather than through auto_* settings', () => {
+    expect(script).toContain('run_tool describe');
+    expect(script).toContain('run_tool improve');
+    expect(String(step.env || {})).not.toContain('auto_describe');
+  });
+
+  it('refuses a pull request value that is not a plain number', () => {
+    // QODO_PR becomes shell and API input, so it is checked rather than trusted.
+    expect(script).toMatch(/QODO_PR[\s\S]{0,200}\*\[!0-9\]\*/);
+  });
+
+  it('passes the trailing text as one argument, never word-split', () => {
+    expect(script).toContain('run_tool "$QODO_TOOL" "$QODO_ARGS"');
+    expect(script).not.toMatch(/run_tool\s+"?\$QODO_TOOL"?\s+\$QODO_ARGS(?!")/);
+  });
+
+  it('keeps the image pinned by digest on the new invocation path', () => {
+    expect(script).toMatch(/pragent\/pr-agent@sha256:[a-f0-9]{64}/);
+    expect(script).not.toMatch(/pragent\/pr-agent:(latest|v?\d)/);
+  });
+
+  it('gives the container no more than the environment variables it needs', () => {
+    // An explicit allow-list, so a future step cannot widen what enters by accident.
+    // The allow-list is an explicit array, and the run passes exactly its entries,
+    // so a later edit to this job's env cannot widen what enters the container.
+    const block = script.match(/container_env=\(([^)]*)\)/);
+    expect(block).not.toBeNull();
+    const passed = block[1]
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean);
+    expect(passed.length).toBeGreaterThan(0);
+    expect(passed).toContain('GITHUB_TOKEN');
+    expect(passed).toContain('ANTHROPIC.KEY');
+    expect(passed).not.toContain('ANTHROPIC_API_KEY_QODO_PR_AGENT');
+    expect(new Set(passed).size).toBe(passed.length);
+    // The step's own env holds the raw secret name; the container is given the
+    // key under the name the image expects and never the secret's own name.
+    expect(step.env['ANTHROPIC.KEY']).toBe(
+      '${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}'
+    );
+  });
+
+  it('still fails closed when the environment did not release the key', () => {
+    const guard = allSteps(caller.doc).find((candidate) =>
+      String(candidate.run || '').includes('did not release')
+    );
+    expect(guard).toBeDefined();
+    expect(guard.env.HAS_CREDENTIAL).toBe(
+      "${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT != '' }}"
+    );
+    expect(run.if).toBe("needs.preflight.outputs.enabled == 'true'");
+  });
+});
+
+/**
  * The receiver's preflight, executed.
  *
  * The privileged half of the split. Every case drives the real script and asserts
@@ -1672,6 +1769,27 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
     const { outputs, refused } = await runReceiverDispatch({ pr: 'nope' });
     expect(refused).toBe(true);
     expect(outputs.reason).toBe('bad-dispatch-input');
+  });
+
+  it('emits the trailing text so a question can reach the CLI', async () => {
+    const { outputs, refused } = await runReceiverPreflight({
+      event: 'issue_comment',
+      hint: { pr: PR_NUMBER, command: '/ask', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: {
+        id: 555,
+        body: '/ask why is the retry unbounded here?',
+        author_association: 'MEMBER',
+        issue_url: `https://api.github.com/repos/${REPO}/issues/${PR_NUMBER}`,
+      },
+      env: { TRIGGER_PR: '' },
+    });
+    expect(refused).toBe(false);
+    expect(outputs).toMatchObject({ args: 'why is the retry unbounded here?', command: '/ask' });
+  });
+
+  it('clears the trailing text on every refusal', async () => {
+    const { outputs } = await runReceiverPreflight({ env: { KILL_SWITCH: 'false' } });
+    expect(outputs.args).toBe('');
   });
 
   it('releases no key on any refusal path', async () => {
@@ -1944,11 +2062,24 @@ describe('Qodo PR-Agent secret boundary', () => {
     expect(reusable.doc.on.workflow_call.secrets.model_credential).toBeDefined();
   });
 
-  it('grants no OIDC capability in any of the three workflows', () => {
+  it('grants no OIDC capability in any of the four Qodo PR-Agent workflows', () => {
+    // Enumerated from the directory rather than listed by hand, so a fifth file
+    // cannot be added without this assertion covering it.
+    const onDisk = fs
+      .readdirSync(path.join(repoRoot, '.github/workflows'))
+      .filter((name) => name.startsWith('qodo-pr-agent') && name.endsWith('.yml'))
+      .sort();
+    expect(onDisk).toStrictEqual([
+      'qodo-pr-agent-report.yml',
+      'qodo-pr-agent-reusable.yml',
+      'qodo-pr-agent-trigger.yml',
+      'qodo-pr-agent.yml',
+    ]);
     for (const [name, workflow] of [
       ['trigger', trigger],
       ['reusable', reusable],
       ['caller', caller],
+      ['report', report],
     ]) {
       for (const scope of [workflow.doc, ...Object.values(workflow.doc.jobs || {})]) {
         expect(Object.keys(scope.permissions || {})).not.toContain('id-token');
@@ -1970,7 +2101,11 @@ describe('Qodo PR-Agent secret boundary', () => {
       ['reusable', reusable.doc],
       ['caller', caller.doc],
     ]) {
-      const url = qodoStep(workflowDoc).env['CONFIG.EXTRA_CONFIG_URL'];
+      // The action runner reads CONFIG.EXTRA_CONFIG_URL; the CLI reads
+      // PR_AGENT_EXTRA_CONFIG_URL. Both are constants, so either spelling is a
+      // constant and neither may carry an expression.
+      const env = qodoStep(workflowDoc).env;
+      const url = env['CONFIG.EXTRA_CONFIG_URL'] || env.PR_AGENT_EXTRA_CONFIG_URL;
       expect({ workflow: name, url, derived: /\$\{\{/.test(url) }).toStrictEqual({
         workflow: name,
         url: constant,
