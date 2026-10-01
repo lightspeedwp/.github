@@ -9,7 +9,7 @@ This guide proves the feature works end to end on `lightspeedwp/.github`. The ex
 | # | Item | Who |
 | --- | --- | --- |
 | P-1 | A dedicated Anthropic API key with a monthly spend limit of US$50 set in the Anthropic console (spec SC-008) | @ashley |
-| P-2 | Organisation secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`, repository access **selected → `lightspeedwp/.github`**. **Or, keyless:** a Workload Identity Federation issuer, service account and rule in the Claude Console, with the Actions variables `QODO_PR_AGENT_FEDERATION_RULE_ID`, `ANTHROPIC_ORGANIZATION_ID` and `QODO_PR_AGENT_SERVICE_ACCOUNT_ID` (see `docs/QODO_PR_AGENT.md` → Credential and spend). In that case the spend limit in P-1 is set on the service account's workspace. | @ashley |
+| P-2 | Repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot. A repository that opts in later needs the organisation secret of the same name, with that repository in its selected repositories. See `docs/QODO_PR_AGENT.md` → Credential and spend. The spend limit in P-1 is set on whichever key is in use. | @ashley |
 | P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is unset, or anything other than `false` | Maintainer |
 | P-4 | The implementation PR is merged to `develop`, because upstream reads `.pr_agent.toml` from the default branch | Maintainer |
 
@@ -55,7 +55,7 @@ Use a throw-away branch such as `test/qodo-pr-agent-smoke`, with a small real ch
 | Q-11 | A comment command from a non-member account (or check via a test) | Skipped with `author-not-allowed` | Spec assumption, R5 |
 | Q-12 | Open a PR over 25 files or 800 lines | The output notes clipped content, and the run doesn't fail | Edge case |
 | Q-14 | Comment `/review --config.model=anthropic/claude-haiku-4-5-20251001` as a member | Preflight skips with `arguments-not-allowed`, and nothing is posted by Qodo PR-Agent | FR-007, FR-011, locked keys |
-| Q-13 | Keyless only: with the key secret unset and the federation variables set, open a PR | The token step succeeds and Q-01's comments appear. This proves Qodo PR-Agent accepts the exchanged `sk-ant-oat01-` token as its key. If the token step passes but the Qodo step fails with an authentication error, the token is not accepted in the `x-api-key` header: fall back to the key secret and record the finding. | FR-002, R4 |
+| Q-13 | Removed 2026-10-01 with the keyless route (T038/T039). There is no federation check to run, because no job requests an OIDC token. | Not applicable. | Removed with T038 |
 
 ## Integration checks (US3)
 

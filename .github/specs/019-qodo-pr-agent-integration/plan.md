@@ -15,7 +15,7 @@ The organisation-standard behaviour lives in two places:
 
 The pilot calls that same reusable workflow.
 
-The model credential is the dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT`. Keyless Workload Identity Federation is an optional alternative: the run job exchanges its GitHub OIDC token for a short-lived Anthropic token, and a stored key takes precedence (FR-002, clarified 2026-09-24).
+The model credential is the dedicated key `ANTHROPIC_API_KEY_QODO_PR_AGENT` and nothing else (FR-002, clarified 2026-09-24; keyless Workload Identity Federation removed 2026-10-01, see T038).
 
 Existing agents and skills consume Qodo PR-Agent through one new shared skill, `skills/qodo-pr-agent`, which runs the CLI with publishing disabled and returns `ok | skipped | error`. Each integration point documents its fallback.
 
@@ -31,7 +31,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
   - TOML (Qodo PR-Agent config)
 - **Primary Dependencies**:
   - Qodo PR-Agent `0.46.0` via the container `pragent/pr-agent@sha256:<digest>` (`-github_action` variant), or PyPI `pr-agent==0.46.0` for the skill's diff-mode fallback (PR mode needs Docker; research R9)
-  - Anthropic API (`anthropic/claude-sonnet-5`, fallback `anthropic/claude-haiku-4-5-20251001`), authenticated by the dedicated key or, optionally, by Workload Identity Federation (`POST /v1/oauth/token`)
+  - Anthropic API (`anthropic/claude-sonnet-5`, fallback `anthropic/claude-haiku-4-5-20251001`), authenticated by the dedicated key
   - Existing: `smol-toml`, `yaml`, `jest`, `.github/actions/collect-metrics`
 - **Storage**: None. Run records are Actions artefacts (30 days) plus a Markdown pilot report in `.github/reports/metrics/qodo-pr-agent/`.
 - **Testing**:
@@ -42,7 +42,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 - **Project Type**: Governance and automation assets in a control-plane repository: workflow, config, skill and documentation.
 - **Performance Goals**: The automatic output is posted within 10 minutes of a PR being opened or marked ready (SC-001). The job timeout is 15 minutes.
 - **Constraints**:
-  - Least privilege: no `contents: write`, and no checkout. The `run` job's OIDC write permission (`id-token` set to `write`) is used only by the optional federation exchange.
+  - Least privilege: no `contents: write`, no checkout, and no `id-token` on any job, so the third-party container never holds an OIDC capability.
   - No `pull_request_target`.
   - Never blocks merge (SC-003).
   - Spend is capped at the provider and reported (SC-008).
@@ -67,7 +67,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 
 **Gate result**: PASS. Principle III uses the platform-required locations exception; there are no violations.
 
-**Post-design re-check (after Phase 1, repeated 2026-09-24 after clarification)**: the contracts introduce no violations, including the federation token exchange (the OIDC write permission is granted to the `run` job only). The config contract locks the governance keys, the workflow contract forbids checkout, write-contents and `pull_request_target`, and the skill contract never publishes. Gate still **PASS**.
+**Post-design re-check (after Phase 1, repeated 2026-09-24 after clarification)**: the contracts introduce no violations. The config contract locks the governance keys, the workflow contract forbids checkout, write-contents and `pull_request_target`, and the skill contract never publishes. Gate still **PASS**.
 
 ## Project Structure
 
@@ -155,8 +155,8 @@ CHANGELOG.md                                     # EDIT: Added entry
 | An upstream image changes behaviour | Digest pin. Bumps go through a normal PR with a changelog note, and provenance is verified with `gh attestation verify`. |
 | The upstream repo moved (`qodo-ai` → `the-pr-agent`) | Docs link the new name. The digest is independent of the repo name. |
 | Comment noise alongside CodeRabbit | The matrix, persistent comments, no automatic review, and the SC-004 duplicate-rate measure. |
-| Spend overrun | Provider-side monthly limit on the dedicated key (or the federation service account's workspace), the kill-switch and the pilot report. |
-| Qodo PR-Agent may not accept a federated `sk-ant-oat01-` token as its key | The dedicated key stays the required route; federation is optional until quickstart Q-13 passes (FR-002). |
+| Spend overrun | Provider-side monthly limit on the dedicated key, the kill-switch and the pilot report. |
+| Qodo PR-Agent may not accept a federated `sk-ant-oat01-` token as its key | Not applicable: the dedicated key is the only route (FR-002). Reinstating keyless needs its own job and its own review. |
 | The model repeats a secret from the diff in a comment | Known limitation with a documented response: delete the comment, rotate the secret, use the kill-switch if it recurs. |
 | `docs/WORKFLOWS.md` wrongly claims root `workflows/` files are callable | Out of scope here; raise a separate fix. This feature documents the correct `.github/workflows/` path. |
 

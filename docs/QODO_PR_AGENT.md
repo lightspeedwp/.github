@@ -115,22 +115,45 @@ This is a known limitation: the model's output can't be guaranteed never to repe
 
 ### Credential and spend
 
-There are two ways to provide the credential. If both are configured, the stored key wins, as it does in the Anthropic SDKs.
+There is one way to provide the credential: a stored key.
 
-- **Secret**: the repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot. It holds a key used **only** by Qodo PR-Agent. A repository that opts in later needs the organisation secret of the same name, with that repository added to its selected repositories; a repository secret does not cover other repositories.
-- **Keyless (Workload Identity Federation)**: no key is stored. Each run exchanges the job's GitHub OIDC token for an Anthropic access token that expires within about 10 minutes.
-  1. In the Claude Console, open **Settings → Workload identity → Connect workload** and choose **GitHub Actions**. Create:
-     - an issuer for `https://token.actions.githubusercontent.com` with OIDC discovery;
-     - a service account, for example `qodo-pr-agent`, that is a member of a dedicated workspace;
-     - a rule with subject prefix `repo:lightspeedwp/.github:*`, audience `https://api.anthropic.com`, claims `repository_owner: lightspeedwp` and `repository: lightspeedwp/.github`, scope `workspace:developer` and a 600-second lifetime.
+- **Secret**: the repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot. It holds a key used **only** by Qodo PR-Agent. A repository that opts in later needs the organisation secret of the same name, with that repository added to its selected repositories; a repository secret does not reach other repositories.
+- **Monthly spend limit**: US$50 for the pilot (spec 019, SC-008). Set it on that key in the Anthropic console. The console's usage page gives exact spend.
+- **Provisioning**: tracked in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002).
 
-     The subject needs the trailing `*` because PR events arrive as `repo:<owner>/<repo>:pull_request` and comment commands as `repo:<owner>/<repo>:ref:refs/heads/<default branch>`.
-  2. Set these Actions **variables** (they are identifiers, not secrets): `QODO_PR_AGENT_FEDERATION_RULE_ID` (`fdrl_...`), `ANTHROPIC_ORGANIZATION_ID` and `QODO_PR_AGENT_SERVICE_ACCOUNT_ID` (`svac_...`). Set `QODO_PR_AGENT_WORKSPACE_ID` only if the rule covers more than one workspace.
-  3. Leave the key secret unset, then run quickstart Q-13. Until Q-13 passes it isn't confirmed that Qodo PR-Agent accepts the exchanged token, so keep the key route available.
+#### Workload Identity Federation is not configured
 
-  A denied exchange doesn't block the PR: the run is recorded as `failure`, and the reason is on the authentication history page in the Claude Console.
-- **Monthly spend limit**: US$50 for the pilot (spec 019, SC-008). With a key, set it on that key in the Anthropic console. With federation, set it on the service account's workspace. The console's usage page gives exact spend.
-- **Provisioning**: requested in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002).
+Keyless authentication through Workload Identity Federation is **deliberately not part of the pilot**, and nothing in the shipped workflows supports it. It was removed on 2026-10-01 because it required `id-token: write` on the same job that runs the third-party `pragent/pr-agent` container, which gave that container the job's OIDC capability. No job in either workflow holds `id-token: write` now, and no federation input exists.
+
+If it is ever wanted, it must not be added back to the `run` job. It needs **its own job** whose only content is the token exchange, with `id-token: write` on that job and no third-party or untrusted code in it, passing the short-lived token to `run` as a masked output. Treat that as its own change with its own review, and re-check the two findings it was removed for.
+
+### What limits who can run the pilot
+
+The caller triggers on `pull_request` (`opened`, `reopened`, `ready_for_review`) and `issue_comment` (`created`). Those two paths are limited very differently.
+
+| Trigger | Which copy of the workflow runs | What limits it |
+| --- | --- | --- |
+| `issue_comment` | The **default branch** copy, so a pull request author cannot change the code that runs. | The comment's `author_association` must be `OWNER`, `MEMBER` or `COLLABORATOR`; the command must be allow-listed; the comment must be on a pull request; and any `--section.key=value` token is refused. |
+| `pull_request` | The **pull request's** ref, so a branch that edits `qodo-pr-agent-reusable.yml` runs its own version of it. | Not a fork (checked fail-closed, including a deleted fork), not a draft, not a bot sender, not `dependabot[bot]` or `lightspeed-docs-bot[bot]`, and a credential must be present. There is **no** author-association or label gate on this path. |
+| Fork `pull_request` | Same as above, but no credential is in scope. | GitHub withholds repository secrets from fork events, and the `fork` check is a second, independent barrier. |
+
+The `pull_request` row is the reason the caller keeps a local `./` reference only temporarily. See [Pin the caller to a commit SHA](#pin-the-caller-to-a-commit-sha).
+
+No further gate was added to the automatic path, and the reason is specific rather than a shrug: the residual actor is someone with **push access to this repository**, and any gate such an actor can satisfy on their own pull request — applying a label, adding themselves to an allow-list — is not a security boundary, because push access already allows editing any workflow here and therefore reading any repository secret. A control that does bound it has to be a review or approval control (branch protection, `CODEOWNERS`), not a workflow condition. A label or actor gate would also contradict spec 019's automatic-run promise and its SC-001 measurement.
+
+### Pin the caller to a commit SHA
+
+`qodo-pr-agent.yml` currently calls the reusable workflow locally:
+
+```yaml
+uses: ./.github/workflows/qodo-pr-agent-reusable.yml
+```
+
+A commit-SHA pin **cannot** be applied in the pull request that first introduces the workflow, because no trusted ref contains it yet — any SHA written there would 404 or point at the same unreviewed content. Once this lands on `develop`, a follow-up pins the caller to a full commit SHA, matching how `.github/actions/collect-metrics` is already pinned. Tracked in [lightspeedwp/.github#3710](https://github.com/lightspeedwp/.github/issues/3710), which also carries the acceptance criteria and the validation plan.
+
+Until that pin lands, the trigger table above is the accurate statement of the boundary. Do not read the local reference as equivalent to a pinned one. This pilot caller is the only **live** cross-repository reference in this repository that is not pinned: the one other, `.github/actions/collect-metrics`, is pinned to a full commit SHA.
+
+There is also no release tag of this workflow. Consumers are pointed at `@develop`, which tracks the branch; cutting a tag so consumers have an immutable ref is a separate release-policy decision, noted in #3710.
 
 ### Run records and the pilot report
 
@@ -156,7 +179,7 @@ The [daily report workflow](../.github/workflows/qodo-pr-agent-report.yml) runs 
 
 Only `lightspeedwp/.github` is enabled in the pilot. These steps are for later opt-in.
 
-1. **Credential**: ask the organisation owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` secret's selected repositories. For keyless federation, ask an organisation admin to add a federation rule whose subject prefix is `repo:lightspeedwp/<repository>:*`, then set the federation variables on that repository (see [Credential and spend](#credential-and-spend)). The copied caller already grants `id-token: write` and passes the variables.
+1. **Credential**: ask the organisation owner to add the repository to the `ANTHROPIC_API_KEY_QODO_PR_AGENT` organisation secret's selected repositories. The copied caller needs no other permission: it does not request `id-token: write`, and it passes only `model_credential`. If you later want keyless authentication, follow [Workload Identity Federation is not configured](#workload-identity-federation-is-not-configured) rather than adding the federation inputs back.
 2. **Workflow**: copy [`.github/workflows/qodo-pr-agent.yml`](../.github/workflows/qodo-pr-agent.yml) into the repository's `.github/workflows/`, and change the `uses:` line to:
 
    ```yaml

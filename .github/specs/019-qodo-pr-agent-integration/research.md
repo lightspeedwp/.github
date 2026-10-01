@@ -56,8 +56,8 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
   - `config.model = "anthropic/claude-sonnet-5"` and `config.fallback_models = ["anthropic/claude-haiku-4-5-20251001"]`.
   - `config.max_model_tokens = 64000`. The upstream default is 32000, and every model is clamped to this value.
   - Large patches use `large_patch_policy = "clip"`.
-  - The credential is a **dedicated** Anthropic API key held as the organisation secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`, scoped to selected repositories. The reusable workflow maps it to the env var the runner reads, `ANTHROPIC.KEY`.
-  - **Keyless alternative (added 2026-09-24)**: Workload Identity Federation. The reusable workflow exchanges the job's GitHub OIDC token for a short-lived Anthropic access token and passes that as `ANTHROPIC.KEY`, so no key is stored. A stored key still takes precedence. Spend is attributed to the federation rule's service account and capped on its workspace. *Unverified until quickstart Q-13*: the runner sends the key in the `x-api-key` header, and Anthropic documents federated tokens with `Authorization: Bearer`.
+  - The credential is a **dedicated** Anthropic API key, held as a repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot (an organisation secret for later opt-ins). The reusable workflow maps it to the env var the runner reads, `ANTHROPIC.KEY`.
+  - **Keyless alternative — added 2026-09-24, removed 2026-10-01**: Workload Identity Federation exchanged the job's GitHub OIDC token for a short-lived Anthropic access token, so no key was stored. It was removed because it required `id-token: write` on the same job that runs the third-party `pragent/pr-agent` container, and it was never configured in the first place. The dedicated key is the only route; reinstating keyless needs its own job for the exchange.
 - **Rationale**:
   - Both model IDs are in the runner's built-in model table, so no `custom_model_max_tokens` is needed.
   - Sonnet balances quality and cost for description and suggestions, and Haiku is a cheap fallback.
@@ -68,7 +68,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
   - Reusing a shared `ANTHROPIC_API_KEY`: spend can't be separated. Rejected.
   - Opus models: higher cost for a pilot whose main outputs are summaries. Rejected for the default; a repository can override.
   - OpenAI: no existing organisation convention. Rejected.
-  - Federation only, with no key option: blocked until Q-13 confirms the runner accepts the exchanged token. Rejected for now. The federation route is implemented but stays unverified, and pending validation, until Q-13 passes; the dedicated key is the supported route.
+  - Federation only, with no key option: rejected, and since removed (2026-10-01). The dedicated key is the supported route, and Q-13 no longer exists because there is no keyless path to check.
 
 ## R5. Triggers, eligibility and command guard
 

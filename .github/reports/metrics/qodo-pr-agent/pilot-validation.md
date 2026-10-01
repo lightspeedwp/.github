@@ -7,7 +7,8 @@ Evidence for spec 019's live and walkthrough tasks. The scenarios are defined in
   pilot report uses it as `--since "$PILOT_START"`.
 - **Credential**: the repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` was provisioned on
   2026-09-24 ([lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535)).
-  Keyless federation isn't configured.
+  Keyless federation was removed on 2026-10-01 and is deliberately not configured; no job
+  requests an OIDC token.
 
 ## Prerequisites
 
@@ -36,7 +37,7 @@ Run on a throw-away branch such as `test/qodo-pr-agent-smoke` after P-4.
 | Q-10 | Not run | |
 | Q-11 | Not run | |
 | Q-12 | Not run | |
-| Q-13 | Not applicable (federation not configured) | |
+| Q-13 | Removed with the keyless route (no federation to check) | |
 
 Q-03, Q-04, Q-08 and Q-12 aren't assigned to T009 yet (`/speckit-analyze` finding G1), but they're
 listed here so they get run in the same pass.
