@@ -170,7 +170,10 @@ export async function githubApiRequest(
           );
           continue;
         }
-        throw new Error(errorMessage);
+        const error = new Error(errorMessage);
+        // Keep the headers so callers can honour Retry-After on the final failure.
+        error.headers = response.headers;
+        throw error;
       }
 
       // Handle 204 No Content (no response body)

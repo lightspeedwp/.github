@@ -185,7 +185,8 @@ export function githubWrite(
         /GitHub API error: (403|429)\b/.test(error.message) &&
         /rate limit/i.test(error.message)
       ) {
-        throw new RateLimitError(error.message);
+        const retryAfterMs = error.headers ? rateLimitDelayMs(error.headers) : null;
+        throw new RateLimitError(error.message, retryAfterMs ?? DEFAULT_PAUSE_MS);
       }
       throw error;
     }

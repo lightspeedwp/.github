@@ -188,6 +188,18 @@ describe('label-write-queue', () => {
       expect(queue.stats().pauses).toBe(1);
     });
 
+    test('pauses for the delay in the final rate-limit response headers', async () => {
+      const clock = fakeClock();
+      const queue = createWriteQueue({ now: clock.now, sleep: clock.sleep });
+      const limited = new Error('GitHub API error: 429 You have exceeded a secondary rate limit');
+      limited.headers = headers({ 'retry-after': '120' });
+      const request = jest.fn().mockRejectedValueOnce(limited).mockResolvedValueOnce(null);
+
+      await githubWrite(queue, 'DELETE', '/repos/o/r/labels/old', null, { token: 'test' }, request);
+
+      expect(clock.sleeps).toContain(120000);
+    });
+
     test('passes other GitHub errors straight through', async () => {
       const queue = createWriteQueue({ sleep: async () => {} });
       const request = jest.fn().mockRejectedValue(new Error('GitHub API error: 404 Not Found'));
