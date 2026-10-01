@@ -28,7 +28,7 @@ jobs:
       model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}
 ```
 
-No caller grants `id-token: write`, and no caller passes a `with:` block. Workload Identity Federation was removed from the pilot on 2026-10-01: it required `id-token: write` on the same job that runs the third-party `pragent/pr-agent` container. Reinstating it requires its own job for the token exchange, with no third-party code in that job.
+No caller may grant the `id-token` permission as write, and no caller passes a `with:` block. Workload Identity Federation was removed from the pilot on 2026-10-01: it required that permission on the same job that runs the third-party `pragent/pr-agent` container. Reinstating it requires its own job for the token exchange, with no third-party code in that job.
 
 ## Inputs
 
@@ -65,7 +65,7 @@ There is deliberately **no** `auto_review` input. It is hard-coded to `"false"`,
 2. **`run`** (`needs: preflight`, `if: needs.preflight.outputs.enabled == 'true'`, `timeout-minutes: 15`). Its steps:
    - Qodo PR-Agent: `uses: docker://pragent/pr-agent@sha256:<digest> # <version>-github_action`. **No `actions/checkout` step anywhere** in the workflow. The step uses `continue-on-error: true`, so an invalid key, rate limit or upstream outage records `failure` and emits a notice without failing the PR (FR-006, SC-003).
 3. **`record`** (`needs: [preflight, run]`, `if: always()` unless the preflight reason is `not-a-command`, `bot-sender` or `not-a-pr`, `permissions: {}`). It writes the run record ([data model](../data-model.md#run-record)), with outcome `success`, `failure` or `skipped:<reason>`, to `$GITHUB_STEP_SUMMARY`, and uploads it as artefact `qodo-pr-agent-run-${{ github.run_id }}` (retention 30 days). It then calls `lightspeedwp/.github/.github/actions/collect-metrics@<sha>` (non-blocking). It is referenced by path and SHA so it needs no checkout, and works in consuming repositories too.
-4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write` and `issues: write`, and nothing else. It does **not** get `contents: write`, because nothing is ever pushed, and it does **not** get `id-token: write`: no job in this workflow requests an OIDC token, so the third-party container never holds that capability. `preflight` and `record` have `permissions: {}`.
+4. **Permissions**: the top level is `contents: read`. The `run` job adds `pull-requests: write` and `issues: write`, and nothing else. It does **not** get `contents: write`, because nothing is ever pushed, and it does **not** get `id-token` set to `write`: no job in this workflow requests an OIDC token, so the third-party container never holds that capability. `preflight` and `record` have `permissions: {}`.
 5. **Concurrency** (on the `run` job, so only runs preflight enabled enter the group and an ordinary comment cannot cancel a queued command): `group: qodo-pr-agent-${{ github.event.pull_request.number || github.event.issue.number }}`, with `cancel-in-progress: false`, so a command is never cancelled by an unrelated one.
 
 ## Environment passed to the Qodo PR-Agent step

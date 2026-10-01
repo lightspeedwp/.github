@@ -57,7 +57,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
   - `config.max_model_tokens = 64000`. The upstream default is 32000, and every model is clamped to this value.
   - Large patches use `large_patch_policy = "clip"`.
   - The credential is a **dedicated** Anthropic API key, held as a repository secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` for this pilot (an organisation secret for later opt-ins). The reusable workflow maps it to the env var the runner reads, `ANTHROPIC.KEY`.
-  - **Keyless alternative — added 2026-09-24, removed 2026-10-01**: Workload Identity Federation exchanged the job's GitHub OIDC token for a short-lived Anthropic access token, so no key was stored. It was removed because it required `id-token: write` on the same job that runs the third-party `pragent/pr-agent` container, and it was never configured in the first place. The dedicated key is the only route; reinstating keyless needs its own job for the exchange.
+  - **Keyless alternative — added 2026-09-24, removed 2026-10-01**: Workload Identity Federation exchanged the job's GitHub OIDC token for a short-lived Anthropic access token, so no key was stored. It was removed because it required `id-token` set to `write` on the same job that runs the third-party `pragent/pr-agent` container, and it was never configured in the first place. The dedicated key is the only route; reinstating keyless needs its own job for the exchange.
 - **Rationale**:
   - Both model IDs are in the runner's built-in model table, so no `custom_model_max_tokens` is needed.
   - Sonnet balances quality and cost for description and suggestions, and Haiku is a cheap fallback.
