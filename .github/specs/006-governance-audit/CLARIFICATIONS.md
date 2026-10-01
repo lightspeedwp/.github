@@ -158,7 +158,7 @@ Documented purposes:
 Active usage detection:
 
 - Prevents orphaned labels (labels with no real purpose clogging the taxonomy)
-- Ensures audit reflects actual governance (not theoretical)
+- Keeps the audit tied to actual governance rather than intention
 - Reveals drift (labels in taxonomy but not used = governance drift)
 
 ---
@@ -172,7 +172,7 @@ Active usage detection:
 **Problem**: Enforcement layer undefined. Options:
 
 1. **Pre-commit hook only**: Developer-side, can bypass (`git commit --no-verify`)
-2. **CI gate only**: Server-side, cannot bypass, blocks merge
+2. **CI gate only**: Server-side, so a skipped local hook does not skip it; blocks a merge only where the target branch requires the check
 3. **Both**: Defense-in-depth (catch early locally, enforce server-side)
 
 ### Decision
@@ -233,7 +233,7 @@ workflow and no enforcement, so no such check exists yet.
    Fix violations and push again to re-run check.
 ```
 
-**Cannot be bypassed**: Requires admin approval to merge with failed checks (which should not be granted)
+**Merge blocking**: Applies only once the check is a required status check on the target branch. Before that a failing run does not stop a merge, and administrator overrides remain possible either way
 
 ### Impact on Tasks
 
@@ -254,8 +254,8 @@ Pre-commit hook alone:
 
 CI gate alone:
 
-- ✓ Cannot be bypassed
-- ✓ Guarantees only valid code reaches repository
+- ✓ Runs where a skipped local hook cannot skip it
+- ✓ Blocks a merge where the target branch requires the check (branch protection is a prerequisite, not a given)
 - ✗ Slower feedback (developer commits, waits for CI)
 - ✗ Wastes CI resources validating locally-fixable issues
 

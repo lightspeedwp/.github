@@ -196,7 +196,7 @@ SC-008 (Daily dashboard, 30+ days)→ T047 ✅
 - ✅ Critical ambiguities resolved
 - ✅ Constitution alignment verified
 - ✅ Implementation tasks scoped (T001-T051)
-- ✅ Team understanding confirmed
+- ✅ Team understanding confirmed — recorded as a reviewer sign-off step, not yet evidenced by a named reviewer in this document
 
 **Phase 1 Goals**:
 
