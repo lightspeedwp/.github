@@ -8,6 +8,9 @@ node_modules/
 /out
 metrics/out/
 
+# Tooling caches
+.semgrep/
+
 # WordPress specific
 /wp-content/uploads
 /wp-content/upgrade
