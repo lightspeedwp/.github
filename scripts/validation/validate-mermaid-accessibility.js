@@ -68,7 +68,12 @@ function textAlternativeAbove(lines, openIndex) {
       continue;
     }
 
-    if (/^#{1,6}\s/.test(line) || /^(```|~~~)/.test(line) || line === '---') {
+    // A thematic break (`---`, `- - -`, `***`, `___`) or a setext heading
+    // underline (`===`) is markup, not a description, in every spacing
+    // CommonMark allows.
+    const isRule = /^([-*_=])(?:[ \t]*\1)+[ \t]*$/u.test(line);
+
+    if (/^#{1,6}\s/u.test(line) || /^(```|~~~)/u.test(line) || isRule) {
       return null;
     }
 

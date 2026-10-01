@@ -99,6 +99,18 @@ describe('validate-mermaid-accessibility CLI: text alternative (#3526)', () => {
     expect(output).toContain('Missing text alternative');
   });
 
+  test.each(['- - -', '***', '___', '= = =', '---', '==='])(
+    'does not accept the rule %s as the text alternative',
+    (rule) => {
+      const { status, output } = runOn(
+        `Prose above.\n\n${rule}\n\n\`\`\`mermaid\nmindmap\n  root((X))\n\`\`\`\n`
+      );
+
+      expect(status).toBe(1);
+      expect(output).toContain('Missing text alternative');
+    }
+  );
+
   test('accepts prose that follows a horizontal rule', () => {
     const { status, output } = runOn(
       '---\n\nBands.\n\n```mermaid\nblock-beta\n    columns 1\n    block:a["A"]\n    end\n```\n'
