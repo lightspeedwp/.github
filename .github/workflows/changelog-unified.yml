@@ -415,8 +415,21 @@ jobs:
       # annotations are never published — which is exactly the case they exist
       # for. The file changed guard still skips the run entirely when no
       # changelog file was touched.
+      #
+      # The same-repository guard skips forks. This job needs `checks: write`,
+      # which GitHub downgrades to read-only on a fork pull request, and
+      # github.event.pull_request.head.sha then names a commit in the fork
+      # rather than this repository — a check run cannot be created against
+      # it. Because this step deliberately fails closed (no
+      # continue-on-error), an unguarded fork PR that touched a changelog file
+      # would fail the job for a reason that has nothing to do with the
+      # changelog. Forks keep the full validation, comment and status-check
+      # behaviour above; only the check-run publication is skipped.
       - name: Report validation as a check run
-        if: always() && steps.changed-files.outputs.any_changed == 'true'
+        if: >-
+          always()
+          && steps.changed-files.outputs.any_changed == 'true'
+          && github.event.pull_request.head.repo.full_name == github.repository
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO_OWNER: ${{ github.repository_owner }}
