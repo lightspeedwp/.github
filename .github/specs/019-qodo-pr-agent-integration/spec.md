@@ -50,7 +50,7 @@ A LightSpeed maintainer opens, reopens or marks ready for review a pull request 
 
 **Acceptance Scenarios**:
 
-1. **Given** a non-draft PR opened by a human, **When** the PR is opened or marked ready for review, **Then** Qodo PR-Agent posts one description update and one set of improvement suggestions within 10 minutes, and does not post an automatic review verdict.
+1. **Given** `QODO_PR_AGENT_ENABLED` is `true` and a non-draft PR opened by a human, **When** the PR is opened or marked ready for review, **Then** Qodo PR-Agent posts one description update and one set of improvement suggestions within 10 minutes, and does not post an automatic review verdict.
 2. **Given** an open PR, **When** a maintainer comments with a supported Qodo PR-Agent command, **Then** the corresponding tool runs and replies on that PR.
 3. **Given** a PR authored by `dependabot[bot]` or `lightspeed-docs-bot[bot]`, or a PR in draft, **When** it is opened or updated, **Then** no automatic Qodo PR-Agent run occurs, matching the existing CodeRabbit exclusions.
 4. **Given** the language-model credential is missing or invalid, **When** a run is triggered, **Then** the check reports a clear, non-blocking warning and does not fail or block the PR, following the existing "warn, don't fail" convention for AI keys.
@@ -186,7 +186,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 
 - **FR-018**: Reusable logic (the shared skill and its runner) MUST live in the portable top-level folders (Principle III). The reusable run definition MUST live in `.github/workflows/`, and the central configuration at the repository root as `.pr_agent.toml`, under the Principle III platform-required locations exception, because GitHub and Qodo PR-Agent only load them from there. All of them MUST be consumable by other repositories, and the reusable run definition MUST be documented as callable.
 - **FR-019**: Consuming repositories MUST be able to override individual settings with a documented reason, and all overrides MUST be discoverable.
-- **FR-020**: Qodo PR-Agent MUST be switchable off per repository and organisation-wide through a documented procedure.
+- **FR-020**: Qodo PR-Agent MUST be switchable on and off per repository and organisation-wide through a documented procedure, and MUST default to off: it runs only while the Actions variable `QODO_PR_AGENT_ENABLED` is exactly `true`, so it cannot spend before its spend limit is confirmed. Unset, `false` or any other value skips every run with `kill-switch`.
 - **FR-021**: Run counts per tool, failures and estimated spend MUST be reported, feeding the existing metrics and reporting practice.
 - **FR-022**: Human documentation in `docs/` MUST explain what Qodo PR-Agent does, the available commands, the responsibility matrix, and how it differs from the internal PR agent.
 - **FR-023**: Any change this feature needs to a LOCKED file (for example a new label or template section) MUST be raised as a tagged change-request issue, not edited directly.
