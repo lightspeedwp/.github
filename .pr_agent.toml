@@ -21,22 +21,30 @@
 # the workflow, not here. Never put credentials in this file.
 
 [config]
-# Verified 2026-10-01 against Anthropic's models documentation and against the
-# model map bundled with the litellm this image pins.
+# Verified 2026-10-01 against Anthropic's models overview and model-deprecations
+# pages, and against the model map this image freezes.
 #
-# Claude Sonnet 5.5 (`claude-sonnet-5-5`) is the current Sonnet and costs the same as
-# Sonnet 5, but litellm 1.101.0 — pinned by pr-agent v0.46.0, and frozen at build
-# time by LITELLM_LOCAL_MODEL_COST_MAP=True in the image — has no entry for it. Its
-# bundled map has `claude-sonnet-5` and no `claude-sonnet-5-5`. Moving to 5.5 therefore
-# needs a pr-agent release that bumps litellm, then a new image digest and a fresh
-# provenance check, which is T001's job rather than a config edit here.
+# THE PRIMARY. Claude Sonnet 5.5 (`claude-sonnet-5-5`) is the current Sonnet and
+# costs the same as Sonnet 5. But litellm 1.101.0 - pinned by pr-agent v0.46.0, and
+# frozen at build time by LITELLM_LOCAL_MODEL_COST_MAP=True in the image - has no
+# entry for it. Its bundled map's newest Sonnet is `claude-sonnet-5`, and the newest
+# small model is `claude-haiku-4-5`. Moving to 5.5 therefore needs a pr-agent release
+# that bumps litellm, then a new image digest and a fresh provenance check. That is
+# T001's upgrade procedure, not a config edit here.
 #
-# Sonnet 5 is Active (legacy) and Anthropic recommends migrating to 5.5, so this is a
-# dated choice, not a preference. Retirement is not sooner than 2027-06-30.
+# `claude-sonnet-5` is a valid, current id, and it is NOT an alias for 5.5: from the
+# 4.6 generation onward every dateless id is its own pinned snapshot. Anthropic lists
+# it as Active, retired not sooner than 2027-06-30. Its own model page marks the
+# generation Legacy, meaning no further updates, and recommends 5.5 - so this is a dated
+# choice with a known upgrade, not a preference and not a deprecation.
 model = "anthropic/claude-sonnet-5"
-# The exact API ID for Claude Haiku 4.5, and present in the same bundled map. It is
-# retired not sooner than 2026-10-15, so the fallback has a shorter runway than the
-# primary and must not be relied on as a long-term default.
+# The exact API ID for Claude Haiku 4.5, present in the same bundled map, and the
+# newest small model the pinned image can serve. Anthropic lists it Active and NOT
+# deprecated, so it carries no replacement and is not scheduled for retirement; the
+# 2026-10-15 date on the deprecations page is the *tentative* retirement date, a floor
+# on support rather than a deadline, and it sits alongside every Active model's
+# commitment. No action is required on this line today; re-check that page if the
+# fallback ever has to change.
 fallback_models = ["anthropic/claude-haiku-4-5-20251001"]
 # A single cap on the tokens any model may use, whatever that model's own context
 # window is; upstream's default is 32000 (pr_agent/settings/configuration.toml).

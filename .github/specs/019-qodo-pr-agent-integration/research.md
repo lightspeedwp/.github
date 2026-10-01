@@ -68,6 +68,7 @@ Each item below uses the Decision / Rationale / Alternatives format. Items marke
 - **Rationale**:
   - Both model IDs are in the runner's built-in model table, so no `custom_model_max_tokens` is needed.
   - Sonnet balances quality and cost for description and suggestions, and Haiku is a cheap fallback.
+  - **Lifecycle, checked 2026-10-01.** Anthropic lists `claude-sonnet-5` and `claude-haiku-4-5-20251001` as **Active**, not deprecated, so neither carries a mandated replacement. Sonnet 5's own page marks its generation Legacy — no further updates — and recommends `claude-sonnet-5-5`, which is the same price; that upgrade is blocked by the image's frozen litellm map, not by a deadline. The fallback's 2026-10-15 date is the column headed *tentative retirement date*: a floor on support, not a retirement date, and it is not a reason to change this line today.
   - A key used only by Qodo PR-Agent makes spend attributable exactly in the Anthropic console (FR-021, SC-008), and lets the organisation revoke or cap it independently.
   - The secret name follows the organisation's `ANTHROPIC_API_KEY*` convention (FR-002).
   - The runner reads `ANTHROPIC.KEY` or `ANTHROPIC__KEY`, and ambient `ANTHROPIC_API_KEY` is intentionally not relied on.

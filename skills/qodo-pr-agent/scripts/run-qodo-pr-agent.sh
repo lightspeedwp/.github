@@ -15,7 +15,14 @@ set -euo pipefail
 # Keep in step with .github/workflows/qodo-pr-agent-reusable.yml (a test checks they match).
 readonly IMAGE="pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7" # 0.46.0-github_action
 readonly PIP_SPEC="pr-agent==0.46.0"
-readonly MODEL="anthropic/claude-sonnet-5"
+# The model is NOT declared here. The repository's own .pr_agent.toml is the single
+# source: PR-Agent reads config.model from it, so passing --config.model here would
+# be a second declaration that can drift from the first. PR_AGENT_MODEL is an
+# explicit, host-only escape hatch for a one-off run; unset, the repository config
+# decides, and a repository with no .pr_agent.toml gets PR-Agent's own default rather
+# than a value this script invented.
+#   PR_AGENT_MODEL=anthropic/claude-sonnet-5 ./run-qodo-pr-agent.sh review --pr-url ...
+MODEL="${PR_AGENT_MODEL-}"
 readonly PR_TOOLS=" review improve describe ask generate_labels update_changelog add_docs "
 readonly DIFF_TOOLS=" review improve describe ask "
 
@@ -126,8 +133,9 @@ settings=(
   "--config.verbosity_level=2"
   "--config.propagate_tool_errors=true"
   "--config.response_language=en-GB"
-  "--config.model=$MODEL"
 )
+# Passed only when the operator named one. Otherwise the repository config decides.
+if [ -n "$MODEL" ]; then settings+=("--config.model=$MODEL"); fi
 tool_args=("$tool")
 if [ "$tool" = "ask" ]; then tool_args+=("$question"); fi
 

@@ -16,6 +16,16 @@ import vm from 'node:vm';
 import YAML from 'yaml';
 
 const repoRoot = path.resolve(__dirname, '../..');
+
+// The model the run record must carry, read from the authority rather than
+// restated, so this suite cannot drift from .pr_agent.toml. The drift guard in
+// qodo-pr-agent-config.test.js checks the record literal itself.
+const PRIMARY_MODEL = (() => {
+  const toml = fs.readFileSync(path.join(repoRoot, '.pr_agent.toml'), 'utf8');
+  const match = toml.match(/^model\s*=\s*"([^"]+)"/m);
+  if (!match) throw new Error('could not read config.model from .pr_agent.toml');
+  return match[1];
+})();
 const reusablePath = '.github/workflows/qodo-pr-agent-reusable.yml';
 const callerPath = '.github/workflows/qodo-pr-agent.yml';
 const triggerPath = '.github/workflows/qodo-pr-agent-trigger.yml';
@@ -382,7 +392,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
         trigger: 'pull_request',
         outcome,
         duration_seconds: 0,
-        model: 'anthropic/claude-sonnet-5',
+        model: PRIMARY_MODEL,
         started_at: '',
         event_at: '2026-10-01T10:00:00Z',
       });

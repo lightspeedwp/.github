@@ -388,9 +388,12 @@ fi
             '--config.publish_output=false',
             '--config.propagate_tool_errors=true',
             '--config.response_language=en-GB',
-            '--config.model=anthropic/claude-sonnet-5',
           ])
         );
+        // The runner passes no --config.model: the repository's .pr_agent.toml is
+        // the only declaration. Asserted as an absence, because its reappearance is
+        // the drift this guards against.
+        expect(args.some((arg) => arg.startsWith('--config.model='))).toBe(false);
         expect(args.find((arg) => arg.startsWith('pragent/'))).toMatch(
           /^pragent\/pr-agent@sha256:[a-f0-9]{64}$/
         );

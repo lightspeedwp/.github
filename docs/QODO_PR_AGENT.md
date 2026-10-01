@@ -120,8 +120,23 @@ This is a known limitation: the model's output can't be guaranteed never to repe
 There is one way to provide the credential: a stored key.
 
 - **Secret**: the **environment** secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent` environment. It holds a key used **only** by Qodo PR-Agent. It is deliberately an environment secret and not a repository secret: GitHub passes repository secrets to a same-repository `pull_request` run, so a repository secret is reachable by a pull request author, while an environment secret can be withheld by the environment's deployment branch policy. See [What limits who can run the pilot](#what-limits-who-can-run-the-pilot). A repository that opts in later needs its own environment, because the deployment branch policy is a per-repository setting.
-- **Monthly spend limit**: **US$20** for the pilot (spec 019, SC-008). Set it on that key in the Anthropic console. The console's usage page gives exact spend.
-- **What that buys, as an estimate**: an automatic run makes two model calls, `describe` then `improve`. At Sonnet 5's published US$2 per input MTok and US$10 per output MTok, a run costing about 30,000 input and 8,000 output tokens in total lands near **US$0.14**, so US$20 is roughly **140 automatic runs a month** before the cap bites. A single on-demand command is one call, about half that. Treat these as estimates: they assume a medium-sized pull request and typical output, and the real figure scales with the diff. The inputs are the per-call token counts, the published prices, and the two calls per automatic run; all three are stated here so the arithmetic can be rechecked when a price changes.
+- **Monthly spend limit: US$20**, chosen by the owner for the pilot (spec 019, SC-008). It is set **on the key in the Anthropic console by a person, not by this repository** — no workflow, script or file under `.github` can set it, and nothing here reads it back. The console's usage page is the only authoritative record of what was actually spent.
+- **Per-review cost: about US$0.14 for an automatic run — an estimate computed on 2026-10-01 from the cited prices.** The arithmetic, so it can be checked and redone when a price changes:
+
+  | Input | Value | Source |
+  | --- | --- | --- |
+  | Calls per automatic run | 2 — `describe` then `improve` | the receiver's automatic path |
+  | Input tokens per call | ~15,000 | a medium diff plus the locked repo context, at `repo_context_max_lines = 500` |
+  | Output tokens per call | ~4,000 | `max_description_tokens = 500` for the description; code suggestions run longer |
+  | Input price | US$2 / MTok | [Sonnet 5 pricing](https://platform.claude.com/docs/en/models/sonnet-5/overview) |
+  | Output price | US$10 / MTok | same |
+
+  2 × 15,000 = 30,000 input tokens → 30,000 ÷ 1,000,000 × US$2 = **US$0.06**
+  2 × 4,000 = 8,000 output tokens → 8,000 ÷ 1,000,000 × US$10 = **US$0.08**
+  **Total ≈ US$0.14 per automatic run**, so US$20 covers **roughly 140 automatic runs a month** before the cap bites.
+
+  **This is an estimate, not a measurement.** It assumes a medium-sized pull request; cost scales with the diff, so a large one costs proportionally more. A single on-demand command is one call, so about **US$0.07**. Prompt caching is not credited — a cache read is 10% of the input price — so the real figure may come out lower. The two token counts are the only assumed numbers, and they are what to revisit if actual spend disagrees with this estimate.
+- **Second line of defence**: revoke or cap the key in the Anthropic console.
 - **Provisioning**: the key is tracked in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002); the environment and its deployment branch policy are the repository owner's settings, listed in [Validate the credential boundary](#validate-the-credential-boundary).
 
 #### Model and version, as verified
@@ -130,17 +145,22 @@ Checked 2026-10-01. Nothing below is inferred; each row says where it came from.
 
 | Item | Value | Source |
 | --- | --- | --- |
-| PR-Agent / Qodo | **v0.46.0**, the latest release (published 2026-09-21) | GitHub releases for `The-PR-Agent/pr-agent` |
-| Primary model | `anthropic/claude-sonnet-5` — Claude Sonnet 5, **Active (legacy)**, 1M context, 128K max output, US$2 / US$10 per MTok, retired not sooner than 2027-06-30 | [Sonnet 5 overview](https://platform.claude.com/docs/en/models/sonnet-5/overview) |
-| Current Sonnet | `claude-sonnet-5-5` (Sonnet 5.5), same price, retired not sooner than 2027-09-28 | [Models overview](https://platform.claude.com/docs/en/models/overview) |
-| Fallback model | `anthropic/claude-haiku-4-5-20251001` — the exact API ID for Claude Haiku 4.5, 200K context, 64K max output, US$1 / US$5 per MTok, **retired not sooner than 2026-10-15** | [Models overview](https://platform.claude.com/docs/en/models/overview) |
-| Image | `pragent/pr-agent` `0.46.0-github_action`, pinned by digest | the digest in the receiver step, with the tag beside it |
+| Claude Sonnet 5.5, current | id `claude-sonnet-5-5`, alias `claude-sonnet-5-5`, **Active**, retire not sooner than 2027-09-28, 1M context, 128K max output, **US$2 in / US$10 out per MTok**, cache read 10% of input, batch 50% off | [Models overview](https://platform.claude.com/docs/en/models/overview), [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations) |
+| Claude Sonnet 5, **in use** | id `claude-sonnet-5`, alias `claude-sonnet-5-5` is a *different* model, **Active**, retire not sooner than 2027-06-30, same price and limits as 5.5. Its page marks the generation Legacy — no further updates — and recommends 5.5 | [Sonnet 5 overview](https://platform.claude.com/docs/en/models/sonnet-5/overview) |
+| Claude Haiku 4.5, **fallback in use** | id `claude-haiku-4-5-20251001`, alias `claude-haiku-4-5`, **Active and not deprecated**, tentative retirement not sooner than 2026-10-15, 200K context, 64K max output, **US$1 in / US$5 out per MTok** | [Models overview](https://platform.claude.com/docs/en/models/overview), [Model deprecations](https://platform.claude.com/docs/en/about-claude/model-deprecations) |
+| PR-Agent / Qodo | **v0.46.0**, latest release (2026-09-21) | GitHub releases for `The-PR-Agent/pr-agent` |
+| litellm | **1.101.0**, pinned in `uv.lock`; the map is frozen at build time by `LITELLM_LOCAL_MODEL_COST_MAP=True` | `uv.lock`, `docker/Dockerfile` |
+| Image | `pragent/pr-agent` `0.46.0-github_action`, pinned by digest `sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7` | the receiver step, with the tag beside it |
 
-**Why the model is not on Sonnet 5.5 yet.** The image freezes litellm's model map at build time (`LITELLM_LOCAL_MODEL_COST_MAP=True` in pr-agent's `docker/Dockerfile`) and pins litellm 1.101.0 in `uv.lock`. That bundled map has an entry for `claude-sonnet-5` and **none** for `claude-sonnet-5-5`, so naming 5.5 today would leave PR-Agent without cost or token metadata for it. Upstream says the same in its Dockerfile comment: new models arrive with a deliberate litellm bump. Moving to 5.5 therefore means a pr-agent release that bumps litellm, then a new image digest and a fresh provenance check — the upgrade procedure below, not a config edit.
+**Is `claude-sonnet-5` a valid id, and does it reach 5.5?** Both questions answered from the documentation, 2026-10-01. It is a valid, **Active** id. It is **not** an alias for 5.5: from the 4.6 generation onward, "every Claude model ID is a pinned snapshot, including the dateless IDs", so `claude-sonnet-5` and `claude-sonnet-5-5` are two different models at the same price. What is legacy is the *generation* — its page says Legacy, meaning no further updates, and recommends migrating to 5.5.
 
-**Two dated items to watch.** The fallback, Haiku 4.5, is retired not sooner than **2026-10-15** — two weeks away — so the fallback needs a replacement before the pilot can rely on it. And Sonnet 5 is legacy, with Anthropic recommending 5.5; the upgrade path is the same one.
+**Why the primary is not 5.5 yet.** The image freezes litellm's model map at build time and pins litellm 1.101.0. That bundled map has **29** Claude ids; its newest Sonnet is `claude-sonnet-5` and there is **no `claude-sonnet-5-5` entry**. Naming 5.5 today would leave PR-Agent without cost or token metadata for it, which is why upstream's Dockerfile says new models arrive with a deliberate litellm bump. Moving needs a pr-agent release that bumps litellm, then a new image digest and a fresh provenance check — the upgrade procedure below, not a config edit.
 
-**Token limit.** `max_model_tokens = 64000` is the *fallback's* max output, not Sonnet's 128000, so a run that falls back mid-flight cannot then request more than the fallback supports. Both model ids resolve in the bundled map, so `custom_model_max_tokens` — the setting for models litellm does not know — is not used.
+**Nothing needs to change on the fallback today.** `claude-haiku-4-5-20251001` is the exact API id, is in the map, and Anthropic lists it **Active and not deprecated** — the deprecations page lists no replacement for it, because that column is only populated for deprecated models. The 2026-10-15 date is the column headed *tentative retirement date*: a floor on support, "not sooner than", not a deadline. **An earlier note in this file called that a retirement date and treated it as two days away. That was wrong and is corrected here.** There is no replacement id to migrate to today; if the fallback ever must change, the constraint is that the new id must be in the image's frozen map.
+
+**The model is declared once.** `.pr_agent.toml` is the authority, because it is what PR-Agent reads. The run records, this table, the contract, the plan and the tests all restate the id for a human or a report, and `tests/js/qodo-pr-agent-config.test.js` fails if any of them diverges from the authority. The shared skill's runner used to hardcode a model as well; it now passes no `--config.model` at all, so the repository config decides.
+
+**Token limit.** `max_model_tokens = 64000` is the *fallback's* max output rather than the primary's 128000, so a run that falls back mid-flight cannot request more than the fallback supports. Both ids resolve in the frozen map, so `custom_model_max_tokens` — the setting for models litellm does not know — is not used.
 
 #### Workload Identity Federation is not configured
 
