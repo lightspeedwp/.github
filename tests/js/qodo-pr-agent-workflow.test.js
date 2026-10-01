@@ -202,6 +202,10 @@ describe('Qodo PR-Agent reusable workflow', () => {
     ['ok', 'success', 'success'],
     ['ok', 'failure', 'failure'],
     ['no-credential', 'skipped', 'skipped:no-credential'],
+    // A preflight job that errors leaves every output empty. Interpolating that
+    // straight into the outcome produced `skipped:` — a value outside the declared
+    // `skipped:<reason>` enum, which the pilot report then listed as its own row.
+    ['', 'skipped', 'skipped:preflight-error'],
   ])('writes a %s/%s run record as %s', (reason, runResult, outcome) => {
     const directory = fs.mkdtempSync(path.join(os.tmpdir(), 'qodo-record-test-'));
     const summaryPath = path.join(directory, 'summary.md');

@@ -110,7 +110,7 @@ One Qodo PR-Agent execution in CI.
 | `pr` | int | — |
 | `tool` | Qodo PR-Agent tool id or `auto` | `auto` means one automatic run covering describe and improve |
 | `trigger` | enum | `pull_request` or `issue_comment` |
-| `outcome` | enum | `success`, `skipped:<reason>`, or `failure` |
+| `outcome` | enum | `success`, `skipped:<reason>`, or `failure`. `reason` is always one of the preflight reasons, or `preflight-error` when the preflight job itself failed and produced no outputs, so `skipped:` with an empty reason cannot occur. |
 | `duration_seconds` | int | From the job timestamps |
 | `model` | string | From the config |
 | `started_at` | ISO-8601 | — |

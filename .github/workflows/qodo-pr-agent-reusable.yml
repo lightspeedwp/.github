@@ -240,7 +240,13 @@ jobs:
           STARTED_AT: ${{ needs.run.outputs.started_at }}
           EVENT_AT: ${{ github.event.comment.created_at || github.event.pull_request.updated_at }}
         run: |
-          if [ "$REASON" != "ok" ]; then
+          # An empty reason means the preflight job itself failed, so its outputs
+          # never arrived. Interpolating that directly produced `skipped:`, which is
+          # outside the `skipped:<reason>` enum and reached the pilot report as its
+          # own row. Name it explicitly: no tool ran, so this is a skip, not a failure.
+          if [ -z "$REASON" ]; then
+            outcome="skipped:preflight-error"
+          elif [ "$REASON" != "ok" ]; then
             outcome="skipped:${REASON}"
           elif [ "$RUN_RESULT" = "success" ]; then
             outcome="success"
