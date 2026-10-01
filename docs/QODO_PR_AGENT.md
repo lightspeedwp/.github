@@ -129,7 +129,7 @@ There are two ways to provide the credential. If both are configured, the stored
   3. Leave the key secret unset, then run quickstart Q-13. Until Q-13 passes it isn't confirmed that Qodo PR-Agent accepts the exchanged token, so keep the key route available.
 
   A denied exchange doesn't block the PR: the run is recorded as `failure`, and the reason is on the authentication history page in the Claude Console.
-- **Monthly spend limit**: with a key, set it on that key in the Anthropic console. With federation, set it on the service account's workspace. The console's usage page gives exact spend.
+- **Monthly spend limit**: US$50 for the pilot (spec 019, SC-008). With a key, set it on that key in the Anthropic console. With federation, set it on the service account's workspace. The console's usage page gives exact spend.
 - **Provisioning**: requested in [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535) (task T002).
 
 ### Run records and the pilot report

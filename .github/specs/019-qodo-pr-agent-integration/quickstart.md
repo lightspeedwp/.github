@@ -8,7 +8,7 @@ This guide proves the feature works end to end on `lightspeedwp/.github`. The ex
 
 | # | Item | Who |
 | --- | --- | --- |
-| P-1 | A dedicated Anthropic API key with a monthly spend limit set in the Anthropic console | @ashley |
+| P-1 | A dedicated Anthropic API key with a monthly spend limit of US$50 set in the Anthropic console (spec SC-008) | @ashley |
 | P-2 | Organisation secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`, repository access **selected → `lightspeedwp/.github`**. **Or, keyless:** a Workload Identity Federation issuer, service account and rule in the Claude Console, with the Actions variables `QODO_PR_AGENT_FEDERATION_RULE_ID`, `ANTHROPIC_ORGANIZATION_ID` and `QODO_PR_AGENT_SERVICE_ACCOUNT_ID` (see `docs/QODO_PR_AGENT.md` → Credential and spend). In that case the spend limit in P-1 is set on the service account's workspace. | @ashley |
 | P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is unset, or anything other than `false` | Maintainer |
 | P-4 | The implementation PR is merged to `develop`, because upstream reads `.pr_agent.toml` from the default branch | Maintainer |

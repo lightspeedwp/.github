@@ -29,6 +29,10 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 - Q: How should we measure whether the opt-in guide is good enough, given that the walkthrough deliberately doesn't enable another repository? → A: A second maintainer's walkthrough finds no missing step or prerequisite. The 30-minute target is dropped.
 - Q: What should the spec require when Qodo PR-Agent's comment might repeat a secret that appears in a PR's changes? → A: Record it as a known limitation, with a documented response: a maintainer deletes the comment, rotates the exposed secret, and uses the kill-switch if it recurs.
 
+### Session 2026-10-01
+
+- Q: What monthly spend limit, in US dollars, should be set on the pilot's dedicated Anthropic key? → A: US$50 per month.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Governed Qodo PR-Agent pilot on this repository (Priority: P1)
@@ -207,7 +211,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - **SC-005**: Every integration point in User Story 3 has documented fallback behaviour, and each passes an "unavailable" test.
 - **SC-006**: A second maintainer walks through the opt-in guide against a non-`.github` repository, without enabling it, and finds no missing step or prerequisite. The guide relies only on the central configuration and the documentation. Actually enabling another repository is outside this feature's scope.
 - **SC-007**: The kill-switch stops all new runs within 15 minutes of use.
-- **SC-008**: Monthly Qodo PR-Agent spend is reported and stays within a budget agreed by the organisation owner before any repository beyond the pilot is enabled.
+- **SC-008**: Monthly Qodo PR-Agent spend is reported. During the pilot it stays within the US$50 monthly limit set on the dedicated key; a run refused because the limit is reached is skipped with a notice (see Edge Cases). Before any repository beyond the pilot is enabled, the organisation owner agrees a rollout budget based on the pilot report.
 
 ## Assumptions
 
