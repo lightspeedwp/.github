@@ -1,33 +1,56 @@
-# task: label-consolidation - Use canonical labels in the AI Operations PR template [TEMPLATE-UPDATE-REQUEST]
+# task: label-consolidation - Use canonical labels in six PR templates [TEMPLATE-UPDATE-REQUEST]
 
-> Draft issue body for spec 008 task T046b (FR-011; research R18). Not opened yet: T050 opens it. Checked against `develop` (`d9c27f5a`) on 2026-10-01.
+> Draft issue body for spec 008 task T046b (FR-011; research R18). Not opened yet: T050 opens it. Checked against `develop` (`d9c27f5a`) on 2026-10-01. Covers all six PR templates with non-canonical labels, as decided in the spec 008 clarification of 2026-10-01 (one request, not six).
 
 ## Task Summary
 
-`[TEMPLATE-UPDATE-REQUEST]` (constitution §II): change the frontmatter of the locked PR template `.github/PULL_REQUEST_TEMPLATE/pr_aiops.md` so it applies only labels that exist in `.github/labels.yml`.
+`[TEMPLATE-UPDATE-REQUEST]` (constitution §II): change the frontmatter of six locked PR templates in `.github/PULL_REQUEST_TEMPLATE/` so they apply only labels that exist in `.github/labels.yml`.
 
-`pr_aiops.md` currently sets:
+`node scripts/validation/validate-labels-before-creation.cjs --scan-templates` reports seven "grandfathered non-canonical" labels in these templates, pending a template governance update. This request is that update. No other PR template is reported.
+
+| Template | Non-canonical value | Canonical replacement |
+| --- | --- | --- |
+| `pr_aiops.md` | `type:ai-ops` (label and `recommended_issue_type`) | `type:aiops` |
+| `pr_aiops.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
+| `pr_chore.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
+| `pr_ci.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
+| `pr_task.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
+| `pr_test.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
+| `pr_docs.md` | `type:documentation` (label and `recommended_issue_type`) | `type:docs` |
+
+Why these replacements:
+
+- `type:aiops` is already the canonical type label (`labels.yml` line 217), and `issue-types.yml`, `branch-labels.yml` and `issue-fields.yml` all use it.
+- `type:docs` is the canonical documentation label (`labels.yml` line 201), and the Documentation issue type in `issue-types.yml` uses `label: type:docs`. `type:documentation` is one of the labels the labelling agent used to apply before #3564 fixed it, so leaving it in `pr_docs.md` means every docs PR starts with a non-canonical type label.
+- `status:needs-review` is the canonical review label, and every affected template already sets it.
+
+## Requested change
+
+Only the `labels` and `recommended_issue_type` lines change. Other frontmatter, the body and routing stay as they are.
 
 ```yaml
-labels: ["type:ai-ops", "status:needs-review", "priority:normal", "area:ai", "meta:needs-review"]
-recommended_issue_type: "type:ai-ops"
-```
-
-Two of those labels are not in `labels.yml`:
-
-- `type:ai-ops`. The canonical type label is already `type:aiops` (`labels.yml` line 217), and `issue-types.yml`, `branch-labels.yml` and `issue-fields.yml` all use `type:aiops`.
-- `meta:needs-review`. The canonical review label is `status:needs-review`, which the template already sets.
-
-`node scripts/validation/validate-labels-before-creation.cjs --scan-templates` reports both as "grandfathered non-canonical" labels in `pr_aiops.md`, pending a template governance update. This request is that update.
-
-Requested change:
-
-```yaml
+# pr_aiops.md
 labels: ["type:aiops", "status:needs-review", "priority:normal", "area:ai"]
 recommended_issue_type: "type:aiops"
+
+# pr_chore.md
+labels: ["type:chore", "status:needs-review", "priority:minor", "area:core"]
+
+# pr_ci.md
+labels: ["type:ci", "status:needs-review", "priority:normal", "area:ci"]
+
+# pr_task.md
+labels: ["type:task", "status:needs-review", "priority:normal", "area:core"]
+
+# pr_test.md
+labels: ["type:test", "status:needs-review", "priority:normal", "area:testing"]
+
+# pr_docs.md
+labels: ["type:docs", "status:needs-review", "priority:minor", "area:documentation", "meta:no-changelog"]
+recommended_issue_type: "type:docs"
 ```
 
-The title prefix stays `aiops: {scope} - {short description}`, and routing is unchanged: `aiops/`, `codex/` and `proto/` branches still route to `pr_aiops.md` (`.github/PULL_REQUEST_TEMPLATE/config.yml`, `.github/branch-types.yml`).
+The title prefixes stay the same, and routing is unchanged; for example `aiops/`, `codex/` and `proto/` branches still route to `pr_aiops.md` (`.github/PULL_REQUEST_TEMPLATE/config.yml`, `.github/branch-types.yml`).
 
 ## Linked Stories/Tasks
 
@@ -41,9 +64,11 @@ The title prefix stays `aiops: {scope} - {short description}`, and routing is un
 
 ## Acceptance Criteria
 
-- [ ] @ashley approves the new frontmatter (comment on this issue)
-- [ ] `pr_aiops.md` applies only labels in `labels.yml`, and `validate-labels-before-creation.cjs --scan-templates` no longer reports it
+- [ ] @ashley approves the new frontmatter for all six templates (comment on this issue)
+- [ ] `validate-labels-before-creation.cjs --scan-templates` reports no grandfathered labels
 - [ ] An `aiops/` branch PR receives `type:aiops` and no `type:ai-ops` label
+- [ ] A `docs/` branch PR receives `type:docs` and no `type:documentation` label
+- [ ] No new PR receives `meta:needs-review`
 - [ ] `npm run validate:frontmatter` passes
 
 ## Steps / Checklist
@@ -59,23 +84,9 @@ The title prefix stays `aiops: {scope} - {short description}`, and routing is un
 
 ## Additional Context
 
-### Other PR templates with the same problem (optional, for your decision)
-
-The same scan reports five more grandfathered labels in locked PR templates. They are outside T046b, but they can be approved in this request so all PR templates are fixed in one change:
-
-| Template | Non-canonical label | Canonical replacement |
-| --- | --- | --- |
-| `pr_chore.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
-| `pr_ci.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
-| `pr_task.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
-| `pr_test.md` | `meta:needs-review` | Remove (`status:needs-review` is already set) |
-| `pr_docs.md` | `type:documentation` | `type:docs` |
-
-`type:documentation` is one of the labels the labelling agent used to apply before #3564 fixed it. Leaving it in `pr_docs.md` means every docs PR starts with a non-canonical type label.
-
 ### Impact analysis
 
-- Dependent systems: PR template routing (`.github/workflows/pr-template-routing.yml`) applies template labels to new PRs; the labelling agent and the weekly drift check (FR-017) will treat `type:ai-ops` and `meta:needs-review` as unapproved once Stage 3 starts.
+- Dependent systems: PR template routing (`.github/workflows/pr-template-routing.yml`) applies template labels to new PRs; the labelling agent and the weekly drift check (FR-017) will treat `type:ai-ops`, `type:documentation` and `meta:needs-review` as unapproved once Stage 3 starts.
 - Breaking changes: none. Open PRs keep their labels until Stage 3 relabels them.
 - Rollback: restore the previous frontmatter in a follow-up PR.
 
