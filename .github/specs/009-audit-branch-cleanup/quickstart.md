@@ -27,9 +27,14 @@ jq --version
 SOURCE_REPO="$(git rev-parse --show-toplevel)"
 
 # Create a temporary test repo
-mkdir -p /tmp/branch-cleanup-test/scripts
+mkdir -p /tmp/branch-cleanup-test/scripts /tmp/branch-cleanup-test/lib
 cp "$SOURCE_REPO/scripts/cleanup-branches.js" /tmp/branch-cleanup-test/scripts/
 cp -R "$SOURCE_REPO/scripts/lib" /tmp/branch-cleanup-test/scripts/
+# scripts/lib/constants.js and scripts/lib/branch-categorization.js import
+# ../../lib/validate-branch-name.js, which resolves to <test-repo>/lib. Without
+# this copy the CLI fails at module load before any validation scenario runs.
+cp "$SOURCE_REPO/lib/validate-branch-name.js" \
+  /tmp/branch-cleanup-test/lib/validate-branch-name.js
 cp "$SOURCE_REPO/.github/specs/009-audit-branch-cleanup/fixtures/test-lib-api.js" \
   /tmp/branch-cleanup-test/test-lib-api.js
 printf '%s\n' '{"type":"module"}' > /tmp/branch-cleanup-test/package.json
@@ -344,7 +349,7 @@ ls /tmp/custom-reports/branch-cleanup-*.md
 # Simulate missing git (if safe to do)
 # This would require PATH manipulation; skip in production
 
-# Expected: Error message, exit code 127
+# Expected: Error message, exit code 1 (per contracts/cli-interface.md)
 ```
 
 ### Invalid Arguments
@@ -380,6 +385,10 @@ node scripts/cleanup-branches.js --inactiveDays=invalid
 ```bash
 # On real .github repository:
 export PATH="${PATH#/tmp/branch-cleanup-test/bin:}"
+# Earlier scenarios left the shell in the temporary test repository. Stripping the
+# gh fixture from PATH does not change that, so return to the source repository
+# or the CLI audits the fixture repo and its local bare remote instead.
+cd "$SOURCE_REPO"
 node scripts/cleanup-branches.js --verbose
 
 # Verify that branches with open PRs are marked KEEP

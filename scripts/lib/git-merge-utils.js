@@ -27,20 +27,6 @@ function run(args) {
 }
 
 /**
- * Split successful Git output into nonempty trimmed lines.
- * Failed Git commands yield an empty array.
- *
- * @param {string[]} args - Git arguments.
- * @returns {string[]} Output lines.
- */
-function runLines(args) {
-  return run(args)
-    .split('\n')
-    .map((l) => l.trim())
-    .filter(Boolean);
-}
-
-/**
  * Check whether a remote-tracking reference exists locally.
  *
  * @param {string} ref - Remote reference, such as origin/main.
@@ -74,54 +60,95 @@ export function getMergeBase(baseRef, branchRef) {
 }
 
 /**
- * Check whether an origin branch appears in Git's branches merged into develop.
- * Git failures yield false.
+ * Report whether an origin branch is merged into one base.
+ *
+ * Three outcomes are kept apart on purpose. `true` and `false` are answers Git
+ * gave. `null` means the query itself failed, which is not the same claim as
+ * "not merged" and must not be reported as one.
  *
  * @param {string} branch - Branch name without origin/.
- * @returns {boolean} Whether the branch is merged into origin/develop.
+ * @param {string} base - Base branch name without origin/.
+ * @returns {boolean|null} Whether the branch is merged into origin/{base}, or
+ *   null when the query failed.
+ */
+function queryMerged(branch, base) {
+  const baseRef = `origin/${base}`;
+
+  // A missing base answers the question: the branch cannot be merged into a
+  // base that does not exist here. Only an unusable Git answers null.
+  const refCheck = spawnSync('git', ['show-ref', '--verify', '--quiet', `refs/remotes/${baseRef}`]);
+  if (refCheck.status === 1) return false;
+  if (refCheck.status !== 0) return null;
+
+  try {
+    const merged = execFileSync('git', ['branch', '-r', '--merged', baseRef], {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+    });
+
+    return merged
+      .split('\n')
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .includes(`origin/${branch}`);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Check whether an origin branch appears in Git's branches merged into develop.
+ *
+ * @param {string} branch - Branch name without origin/.
+ * @returns {boolean|null} Whether the branch is merged into origin/develop, or
+ *   null when the query failed.
  */
 export function isMergedToDevelop(branch) {
-  const branchRef = `origin/${branch}`;
-  const developMerged = runLines(['branch', '-r', '--merged', 'origin/develop']);
-  return developMerged.includes(branchRef);
+  return queryMerged(branch, 'develop');
 }
 
 /**
  * Check whether an origin branch appears in Git's branches merged into main.
- * Git failures yield false.
  *
  * @param {string} branch - Branch name without origin/.
- * @returns {boolean} Whether the branch is merged into origin/main.
+ * @returns {boolean|null} Whether the branch is merged into origin/main, or null
+ *   when the query failed.
  */
 export function isMergedToMain(branch) {
-  const branchRef = `origin/${branch}`;
-  const mainMerged = runLines(['branch', '-r', '--merged', 'origin/main']);
-  return mainMerged.includes(branchRef);
+  return queryMerged(branch, 'main');
 }
 
 /**
  * Report which of origin/develop and origin/main contain an origin branch.
- * Failed Git queries are treated as not merged for that base.
+ *
+ * A base that answers true settles the verdict even when the other base could
+ * not be queried, because a proven merge is a stronger fact than a failed
+ * query. `state` is unknown only when no available base proved a merge and at
+ * least one base failed.
  *
  * @param {string} branch - Branch name without origin/.
- * @returns {{state: string, merged: boolean, mergedToDevelop: boolean, mergedToMain: boolean}} Merge status; state is unmerged, develop, main, or both.
+ * @returns {{state: string, merged: boolean, mergedToDevelop: boolean|null, mergedToMain: boolean|null}}
+ *   Merge status; state is unmerged, develop, main, both, or unknown.
  */
 export function getMergeStatus(branch) {
   const mergedToDevelop = isMergedToDevelop(branch);
   const mergedToMain = isMergedToMain(branch);
+  const merged = mergedToDevelop === true || mergedToMain === true;
 
   let state = 'unmerged';
-  if (mergedToDevelop && mergedToMain) {
+  if (mergedToDevelop === true && mergedToMain === true) {
     state = 'both';
-  } else if (mergedToDevelop) {
+  } else if (mergedToDevelop === true) {
     state = 'develop';
-  } else if (mergedToMain) {
+  } else if (mergedToMain === true) {
     state = 'main';
+  } else if (mergedToDevelop === null || mergedToMain === null) {
+    state = 'unknown';
   }
 
   return {
     state,
-    merged: mergedToDevelop || mergedToMain,
+    merged,
     mergedToDevelop,
     mergedToMain,
   };

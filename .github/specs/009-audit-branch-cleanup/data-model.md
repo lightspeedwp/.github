@@ -130,6 +130,7 @@ Set of branch names that are never deleted:
 - `main`
 - `develop`
 - `production`
+- `staging`
 - `master` (legacy support)
 - Any branch matching organisation-specific protected patterns
 

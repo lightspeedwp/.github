@@ -164,7 +164,7 @@ All paths are repository-relative from `.github/`:
 - [x] T072 [US5] Carry `autoApproved` into the JSON and Markdown reports (per-branch field and `autoApprovedDelete` summary count) in scripts/cleanup-branches.js
 - [ ] T073 [US5] Add a daily schedule (for example `0 6 * * *`) and an auto-delete step to .github/workflows/branch-audit.yml, alongside the weekly full audit from T046. The daily run only auto-deletes, and never opens a draft PR: for each auto-approved entry in the JSON report, re-check it is merged and has no open PR, then `git push origin --delete`; skip when a manual run selects report-only; exit with partial-failure status if any deletion fails
 - [x] T074 [P] Replace the local branch-name rules in scripts/lib/constants.js and scripts/lib/branch-categorization.js with imports from lib/validate-branch-name.js (removes the drifted copy that lacked `doc`, `aiops`, `automation` and `epic`)
-- [ ] T048 [US5] Add optional workflow step: if --createIssue is enabled, parse DISCUSS candidates from JSON report and invoke scripts/lib/issue-generator.js (T036) to create summarising GitHub issue with team review link
+- [ ] T048 [US5] Create scripts/lib/issue-generator.js (no task previously owned this file) and add the optional workflow step: if --createIssue is enabled, parse DISCUSS candidates from JSON report and invoke it to create summarising GitHub issue with team review link
 
 **Checkpoint**: Safe branch deletion with dry-run mode working correctly
 
