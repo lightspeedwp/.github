@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChecklistDimension",
+  "description": "One of the eight quality dimensions. Mirrors the ChecklistDimension interface in src/lib/types.ts.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "description",
+    "success_threshold"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Stable slug, e.g. clarity"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name, e.g. Clarity"
+    },
+    "description": {
+      "type": "string"
+    },
+    "success_threshold": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 100,
+      "description": "Percentage a dimension must reach to pass, e.g. 75"
+    }
+  },
+  "additionalProperties": false
+}

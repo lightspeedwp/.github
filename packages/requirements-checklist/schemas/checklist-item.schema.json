@@ -1,0 +1,67 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ChecklistItem",
+  "description": "A single quality checkpoint. Mirrors the ChecklistItem interface in src/lib/types.ts, which is the contract the engine and template loader actually use.",
+  "type": "object",
+  "required": [
+    "id",
+    "dimension",
+    "question",
+    "audience",
+    "pass_criteria"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Item identifier, e.g. AUTH-001"
+    },
+    "dimension": {
+      "type": "string",
+      "description": "Name of the quality dimension this item assesses"
+    },
+    "question": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "audience": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "author",
+          "peer",
+          "stakeholder",
+          "integration"
+        ]
+      },
+      "description": "Audiences this item applies to"
+    },
+    "pass_criteria": {
+      "type": "string"
+    },
+    "suggestion": {
+      "type": "string",
+      "description": "Actionable advice shown when the item fails"
+    },
+    "reference_examples": {
+      "type": "object",
+      "properties": {
+        "good": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "poor": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

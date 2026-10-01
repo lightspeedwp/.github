@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Requirements Checklist Engine** — The checklist engine now registers all eight dimension evaluators and judges each template item from its dimension, so results depend on the specification instead of passing every item. (#3371)
 - **Footer Shape Signal** — `npm run validate:footers:shape` reports files holding two or more footer-shaped blocks the wording-based deduper cannot see. Advisory only: never edits a file, never fails a build. (#3682)
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
@@ -165,6 +166,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Requirements Quality Checklist** — Assessment checklists for 8 quality dimensions with 35+ automated checks and 4 audience templates; tests tracked in T089–T095. ([PR #3371](https://github.com/lightspeedwp/.github/pull/3371))
 - **Plugin Advisories and Register** — Added current scaffold tracking, safe asset versioning, a rate-limited newsletter example and project-controlled gateway approval. ([#1396](https://github.com/lightspeedwp/.github/issues/1396))
 - **GitHub Label Audit** — Audited all 169 canonical labels: `type:decision` had no issue type and 12 protected labels were missing from the label list, so they were removed from it. Added evidence and the label consolidation plan. (#3362)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))
