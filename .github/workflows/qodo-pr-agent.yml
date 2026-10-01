@@ -5,6 +5,10 @@
 #   lightspeedwp/.github/.github/workflows/qodo-pr-agent-reusable.yml@<ref>
 # (see docs/QODO_PR_AGENT.md → "Enable in another repository").
 #
+# This caller keeps the local `./` reference until the reusable workflow exists on
+# a trusted ref; the follow-up that pins it to a commit SHA is tracked in
+# docs/QODO_PR_AGENT.md → "Pin the caller to a commit SHA".
+#
 # Automatic: summary comment and improvement suggestions on non-draft PRs when
 # they are opened, reopened or marked ready for review. No re-run on every push.
 # On demand: maintainer comments such as `/ask`, `/review`, `/update_changelog`.
@@ -27,14 +31,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
-      id-token: write # lets the run job request a GitHub OIDC token for keyless auth
-    # Credential: the dedicated key secret, or keyless Workload Identity Federation
-    # configured through Actions variables (see docs/QODO_PR_AGENT.md → Credential and spend).
-    # A stored key takes precedence when both are set.
-    with:
-      federation_rule_id: ${{ vars.QODO_PR_AGENT_FEDERATION_RULE_ID }}
-      organization_id: ${{ vars.ANTHROPIC_ORGANIZATION_ID }}
-      service_account_id: ${{ vars.QODO_PR_AGENT_SERVICE_ACCOUNT_ID }}
-      workspace_id: ${{ vars.QODO_PR_AGENT_WORKSPACE_ID }}
+    # Credential: the dedicated key secret. Keyless Workload Identity Federation is
+    # not part of the pilot, so this job never needs `id-token: write`.
     secrets:
       model_credential: ${{ secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT }}

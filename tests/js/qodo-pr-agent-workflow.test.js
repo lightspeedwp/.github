@@ -60,58 +60,6 @@ function qodoStep(doc) {
 }
 
 /**
- * Find the token exchange step in the run job.
- * @param {object} doc - Parsed workflow document.
- * @returns {object|undefined} Token step, if present.
- */
-function tokenStep(doc) {
-  return (doc.jobs?.run?.steps || []).find((step) => step.id === 'token');
-}
-
-/**
- * Execute the workflow's token exchange script with mocked Actions services.
- * @param {object} [options] - Environment overrides and mock HTTP response.
- * @param {object} [options.env] - Variables supplied to the script.
- * @param {object} [options.response] - Fields overriding a successful response.
- * @returns {Promise<object>} Captured outputs and service mocks.
- */
-async function runTokenExchange({ env = {}, response } = {}) {
-  const outputs = {};
-  const core = {
-    getIDToken: jest.fn(async () => 'github-oidc-jwt'),
-    setSecret: jest.fn(),
-    setOutput: jest.fn((key, value) => {
-      outputs[key] = value;
-    }),
-    setFailed: jest.fn(),
-    info: jest.fn(),
-  };
-  const fetch = jest.fn(async () => ({
-    ok: true,
-    status: 200,
-    json: async () => ({ access_token: 'sk-ant-oat01-test', expires_in: 600 }),
-    ...response,
-  }));
-  // actions/github-script runs the script as the body of an async function.
-  const run = vm.runInNewContext(`(async () => {\n${tokenStep(reusable.doc).with.script}\n})`, {
-    core,
-    fetch,
-    process: {
-      env: {
-        HAS_API_KEY: 'false',
-        FEDERATION_RULE_ID: 'fdrl_test',
-        ORGANIZATION_ID: '00000000-0000-0000-0000-000000000000',
-        SERVICE_ACCOUNT_ID: 'svac_test',
-        WORKSPACE_ID: '',
-        ...env,
-      },
-    },
-  });
-  await run();
-  return { outputs, core, fetch };
-}
-
-/**
  * Join the preflight scripts from the workflow steps.
  * @param {object} doc - Parsed workflow document.
  * @returns {string} Script bodies joined with newlines.
@@ -185,13 +133,16 @@ describe('Qodo PR-Agent reusable workflow', () => {
     ]);
     expect(call.inputs.auto_review).toBeUndefined();
     expect(call.secrets.model_credential.required).toBe(false);
+    // Workload Identity Federation is deliberately not part of the pilot: no
+    // federation input may reappear, because each one needs `id-token: write`
+    // on the job that runs the third-party container.
     for (const input of [
       'federation_rule_id',
       'organization_id',
       'service_account_id',
       'workspace_id',
     ]) {
-      expect(call.inputs[input]).toMatchObject({ type: 'string', required: false, default: '' });
+      expect(call.inputs[input]).toBeUndefined();
     }
   });
 
@@ -203,10 +154,8 @@ describe('Qodo PR-Agent reusable workflow', () => {
       contents: 'read',
       'pull-requests': 'write',
       issues: 'write',
-      'id-token': 'write',
     });
     expect(doc.jobs.run['timeout-minutes']).toBe(15);
-    expect(doc.jobs.preflight.permissions).not.toHaveProperty('id-token');
     expect(doc.jobs.record.permissions).toStrictEqual({});
   });
 
@@ -395,8 +344,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
     });
 
     // A deleted fork leaves head.repo null. The guard must treat an unknown head
-    // repository as a fork: the federation inputs are Actions variables, which a
-    // fork pull_request does receive, so HAS_CREDENTIAL cannot decide this.
+    // repository as a fork, independently of the credential check.
     it.each([
       ['a null head repository', { head: { repo: null } }],
       ['a missing head key', {}],
@@ -418,13 +366,9 @@ describe('Qodo PR-Agent reusable workflow', () => {
       expect(outputs).toStrictEqual({ enabled: 'false', reason: 'fork', tool: 'auto' });
     });
 
-    it('treats either a stored key or a complete federation configuration as a credential', () => {
+    it('treats the stored key as the only credential', () => {
       const expression = String(doc.jobs.preflight.steps[0].env.HAS_CREDENTIAL);
-      expect(expression).toContain("secrets.model_credential != ''");
-      for (const input of ['federation_rule_id', 'organization_id', 'service_account_id']) {
-        expect(expression).toContain(`inputs.${input} != ''`);
-      }
-      expect(expression).not.toContain('workspace_id');
+      expect(expression).toBe("${{ secrets.model_credential != '' }}");
     });
 
     it('warns on malformed excluded authors and still handles a valid PR', () => {
@@ -655,98 +599,6 @@ describe('Qodo PR-Agent reusable workflow', () => {
     });
   });
 
-  describe('Workload Identity Federation token exchange', () => {
-    const steps = doc.jobs.run.steps;
-
-    it('runs before Qodo PR-Agent, only when federation is configured, and never fails the PR', () => {
-      const step = tokenStep(doc);
-      expect(step).toBeDefined();
-      expect(steps.indexOf(step)).toBeLessThan(steps.indexOf(qodoStep(doc)));
-      expect(String(step.if)).toContain("inputs.federation_rule_id != ''");
-      expect(step['continue-on-error']).toBe(true);
-      expect(step.uses).toMatch(/^actions\/github-script@[a-f0-9]{40}$/);
-      expect(step.env).toMatchObject({
-        HAS_API_KEY: "${{ secrets.model_credential != '' }}",
-        FEDERATION_RULE_ID: '${{ inputs.federation_rule_id }}',
-        ORGANIZATION_ID: '${{ inputs.organization_id }}',
-        SERVICE_ACCOUNT_ID: '${{ inputs.service_account_id }}',
-        WORKSPACE_ID: '${{ inputs.workspace_id }}',
-      });
-    });
-
-    it('hands the exchanged token to Qodo PR-Agent, falling back to the stored key', () => {
-      const qodo = qodoStep(doc);
-      expect(qodo.env['ANTHROPIC.KEY']).toBe(
-        '${{ steps.token.outputs.credential || secrets.model_credential }}'
-      );
-      expect(String(qodo.if)).toContain("steps.token.outcome != 'failure'");
-      expect(doc.jobs.run.outputs.outcome).toContain("steps.token.outcome == 'failure'");
-      const notice = steps.find(
-        (step) => step.name === 'Report a failed run without blocking the PR'
-      );
-      expect(String(notice.if)).toContain("steps.token.outcome == 'failure'");
-    });
-
-    it('exchanges the GitHub OIDC token and masks the Anthropic token', async () => {
-      const { outputs, core, fetch } = await runTokenExchange();
-      expect(core.getIDToken).toHaveBeenCalledWith('https://api.anthropic.com');
-      expect(fetch).toHaveBeenCalledTimes(1);
-      const [url, request] = fetch.mock.calls[0];
-      expect(url).toBe('https://api.anthropic.com/v1/oauth/token');
-      expect(request.method).toBe('POST');
-      expect(request.headers).toStrictEqual({ 'content-type': 'application/json' });
-      expect(JSON.parse(request.body)).toStrictEqual({
-        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-        assertion: 'github-oidc-jwt',
-        federation_rule_id: 'fdrl_test',
-        organization_id: '00000000-0000-0000-0000-000000000000',
-        service_account_id: 'svac_test',
-      });
-      expect(core.setSecret).toHaveBeenCalledWith('sk-ant-oat01-test');
-      expect(core.setSecret.mock.invocationCallOrder[0]).toBeLessThan(
-        core.setOutput.mock.invocationCallOrder[0]
-      );
-      expect(outputs).toStrictEqual({ credential: 'sk-ant-oat01-test' });
-      expect(core.setFailed).not.toHaveBeenCalled();
-    });
-
-    it('sends the workspace only when one is configured', async () => {
-      const { fetch } = await runTokenExchange({ env: { WORKSPACE_ID: 'wrkspc_test' } });
-      expect(JSON.parse(fetch.mock.calls[0][1].body).workspace_id).toBe('wrkspc_test');
-    });
-
-    it('lets a stored key take precedence without requesting any token', async () => {
-      const { outputs, core, fetch } = await runTokenExchange({ env: { HAS_API_KEY: 'true' } });
-      expect(core.getIDToken).not.toHaveBeenCalled();
-      expect(fetch).not.toHaveBeenCalled();
-      expect(outputs).toStrictEqual({});
-      expect(core.setFailed).not.toHaveBeenCalled();
-    });
-
-    it('fails the step, not the PR, when the configuration is incomplete', async () => {
-      const { outputs, core, fetch } = await runTokenExchange({ env: { SERVICE_ACCOUNT_ID: '' } });
-      expect(fetch).not.toHaveBeenCalled();
-      expect(core.setFailed).toHaveBeenCalledTimes(1);
-      expect(outputs).toStrictEqual({});
-    });
-
-    it('fails the step with the status, and no token, when the exchange is denied', async () => {
-      const { outputs, core } = await runTokenExchange({
-        response: { ok: false, status: 401, json: async () => ({}) },
-      });
-      expect(core.setFailed).toHaveBeenCalledWith(expect.stringContaining('HTTP 401'));
-      expect(core.setFailed.mock.calls[0][0]).not.toContain('github-oidc-jwt');
-      expect(core.setSecret).not.toHaveBeenCalled();
-      expect(outputs).toStrictEqual({});
-    });
-
-    it('fails the step when the response has no access token', async () => {
-      const { outputs, core } = await runTokenExchange({ response: { json: async () => ({}) } });
-      expect(core.setFailed).toHaveBeenCalledWith(expect.stringContaining('no access token'));
-      expect(outputs).toStrictEqual({});
-    });
-  });
-
   it('serialises runs per PR without cancelling commands', () => {
     // Only runs preflight enabled may enter the group: at workflow level every
     // comment would join it, and GitHub cancels the older pending run.
@@ -871,6 +723,8 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
     expect(raw).not.toMatch(/synchronize/);
   });
 
+  // The local `./` reference stays until the reusable workflow exists on a trusted
+  // ref; a SHA pin is impossible before that. Tracked in docs/QODO_PR_AGENT.md.
   it('calls the local reusable workflow with the dedicated credential', () => {
     const jobs = Object.values(doc.jobs);
     expect(jobs).toHaveLength(1);
@@ -881,18 +735,27 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
       contents: 'read',
       'pull-requests': 'write',
       issues: 'write',
-      'id-token': 'write',
     });
     expect(doc.permissions).toStrictEqual({ contents: 'read' });
   });
 
-  it('passes the keyless federation identifiers from Actions variables, never secrets', () => {
+  it('grants no OIDC capability and passes no federation input', () => {
     const [job] = Object.values(doc.jobs);
-    expect(job.with).toStrictEqual({
-      federation_rule_id: '${{ vars.QODO_PR_AGENT_FEDERATION_RULE_ID }}',
-      organization_id: '${{ vars.ANTHROPIC_ORGANIZATION_ID }}',
-      service_account_id: '${{ vars.QODO_PR_AGENT_SERVICE_ACCOUNT_ID }}',
-      workspace_id: '${{ vars.QODO_PR_AGENT_WORKSPACE_ID }}',
-    });
+    expect(job.permissions).not.toHaveProperty('id-token');
+    expect(job.with).toBeUndefined();
+    // Structural, not a text search: the workflows still explain in comments why
+    // federation is absent, so the guarantee is about what the jobs can actually do.
+    for (const job_ of [doc, reusable.doc]) {
+      for (const scope of [job_, ...Object.values(job_.jobs || {})]) {
+        expect(scope.permissions || {}).not.toHaveProperty('id-token');
+      }
+      for (const input of Object.keys(job_.on?.workflow_call?.inputs || {})) {
+        expect(input).not.toMatch(/federation|organization_id|service_account_id|workspace_id/);
+      }
+    }
+    const serialised = JSON.stringify(reusable.doc);
+    for (const token of ['getIDToken', 'v1/oauth/token', 'federation_rule_id', 'id-token']) {
+      expect(serialised).not.toContain(token);
+    }
   });
 });
