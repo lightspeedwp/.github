@@ -23,10 +23,12 @@
 [config]
 model = "anthropic/claude-sonnet-5"
 fallback_models = ["anthropic/claude-haiku-4-5-20251001"]
-# Upstream's per-model context-window cap, default 32000
-# (pr_agent/settings/configuration.toml). Upstream registers
-# anthropic/claude-sonnet-5 at 1000000, so this deliberately trades context for a
-# bounded prompt and cost. Raise it only with the spend limit in mind.
+# A single cap on the tokens any model may use, whatever that model's own context
+# window is; upstream's default is 32000 (pr_agent/settings/configuration.toml).
+# That file registers no per-model limits, so the 1,000,000-token context window
+# litellm publishes for anthropic/claude-sonnet-5 comes from litellm's model map,
+# not from here. 64000 trades most of that context for a bounded prompt and cost.
+# Raise it only with the spend limit in mind.
 max_model_tokens = 64000
 large_patch_policy = "clip"
 # locked: all output in UK English (FR-007). Upstream static headings stay US English.

@@ -143,7 +143,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 ### Edge Cases
 
 - **Very large PRs** (for example more than 25 files or 800 lines, the org hard-flag threshold): Qodo PR-Agent must degrade gracefully, reviewing a subset and saying so. It must not fail or post truncated output without noting the truncation.
-- **Rate limits and spend caps** on the language-model provider: runs are skipped with a visible notice and never retried endlessly.
+- **Rate limits and spend caps** on the language-model provider: the run emits a visible notice and is recorded as `failure`, the check still succeeds, and nothing is retried endlessly.
 - **Command collisions**: comment commands must not trigger CodeRabbit, Copilot or other bots, and other bots' commands must not trigger Qodo PR-Agent.
 - **Loops**: Qodo PR-Agent output and bot-authored commits must never re-trigger Qodo PR-Agent or the internal agents.
 - **Description overwrites**: if a PR body follows a routed PR template, an automatic describe must not remove required template sections. It adds content, or it runs on demand only.
