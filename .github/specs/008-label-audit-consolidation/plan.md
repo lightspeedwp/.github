@@ -135,7 +135,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 
 **Post-merge re-check (2026-10-01)**: ⚠️ **One Principle II violation, already merged.** #3534 changed locked files (`issue-types.yml`, `labels.yml`, `06-decision.md`, `06-question.md`, `ISSUE_TEMPLATE/config.yml`) and merged on 2026-09-25, while #3556 was approved only in principle and #3557 was pending. The 2026-09-24 re-check below required both approvals first. Remediation, in order of preference:
 
-1. @ashley records a dated sign-off on #3556 and #3557 covering what #3534 shipped, and `evidence/change-requests.json` records it.
+1. Reopen #3557 and any other request issue closed by the #3534 merge, and keep those issues open until dated sign-off is recorded. @ashley then records a dated sign-off on #3556 and #3557 covering what #3534 shipped, and `evidence/change-requests.json` records it.
 2. If either request is rejected, a revert PR restores the rejected part, and the spec, contracts and tasks are updated to match.
 
 No later stage that changes a locked file (Stage 2 onwards) starts until this is resolved. To stop a repeat, any PR that changes a locked file is opened as a draft and leaves the merge queue until its change requests show `approved` in `change-requests.json`.
