@@ -223,9 +223,13 @@ describe('changelog unified workflow contract', () => {
     expect(workflow.permissions).toEqual({
       contents: 'read',
     });
+    // The quality job writes the PR comment, and now also creates a check run
+    // with per-entry annotations, which the Checks API requires `checks: write`
+    // for. Nothing else is granted.
     expect(workflow.jobs.quality.permissions).toEqual({
       contents: 'read',
       'pull-requests': 'write',
+      checks: 'write',
     });
     expect(workflow.jobs.sync.permissions).toEqual({
       contents: 'write',
@@ -612,7 +616,8 @@ describe('quality feedback inline script', () => {
     expect(github.rest.issues.createComment).not.toHaveBeenCalled();
   });
 
-  test('does not overwrite a human comment that happens to use the report heading', async () => {    const github = githubWithComments([
+  test('does not overwrite a human comment that happens to use the report heading', async () => {
+    const github = githubWithComments([
       {
         id: 100,
         body: '## 📋 Changelog Quality Validation\nHuman-authored note',
@@ -693,7 +698,8 @@ describe('merged changelog sync inline script', () => {
     expect(outputValue(result.core, 'has_changelog')).toBe(false);
   });
 
-  test('guards every mutation step behind the extracted-entry output', () => {    for (const stepName of [
+  test('guards every mutation step behind the extracted-entry output', () => {
+    for (const stepName of [
       'Validate extracted entries',
       'Merge changelog entries',
       'Validate final changelog schema',

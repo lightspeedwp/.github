@@ -140,6 +140,7 @@ class ValidationWorkflow {
         if (byRule[ruleId].entries.length < 5) {
           byRule[ruleId].entries.push({
             entry_id: validation.entry_id,
+            line_number: validation.line_number ?? null,
             message: violation.message,
           });
         }

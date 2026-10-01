@@ -47,6 +47,11 @@ const STANDALONE = [
     file: '.github/validation/changelog/test/unit/check-run-annotations.test.js',
     script: 'test:changelog-validation',
   },
+  {
+    // Same runner as the unit suite above.
+    file: '.github/validation/changelog/test/integration/check-run-annotations.test.js',
+    script: 'test:changelog-validation',
+  },
 ];
 
 const STANDALONE_FILES = STANDALONE.map(({ file }) => file);

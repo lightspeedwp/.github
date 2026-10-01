@@ -93,9 +93,19 @@ export class CheckRunReporter {
   }
 
   /**
-   * Choose failure for any failed entries, neutral for warnings or a missing
-   * result or summary, and success otherwise.
-   * @param {Object} validationResult - Report whose summary contains failed and warning counts.
+   * Choose the conclusion from the count of failures this change introduced.
+   *
+   * The gate is on `new_failed`, not on the branch total. `.github/workflows/changelog-unified.yml`
+   * computes it as `summary.failed - base_failed` and states the rule: "Gate on new
+   * failures only; pre-existing Unreleased debt never blocks." Keying this check on
+   * the total instead would mark every changelog pull request as failing while
+   * legacy entries remain in `Unreleased`, contradicting that rule and making the
+   * badge disagree with the status check the same workflow enforces.
+   *
+   * `new_failed` falls back to `failed` when the caller has not computed it, so a
+   * report used outside the workflow still reaches a conclusion.
+   *
+   * @param {Object} validationResult - Report whose summary holds the failure counts.
    * @returns {string} The check run conclusion.
    */
   determineConclusion(validationResult) {
@@ -103,9 +113,11 @@ export class CheckRunReporter {
       return 'neutral';
     }
 
-    const { failed, warnings } = validationResult.summary;
+    const { failed, warnings, new_failed: newFailed } = validationResult.summary;
 
-    if (failed > 0) {
+    const introduced = Number.isInteger(newFailed) ? newFailed : failed;
+
+    if (introduced > 0) {
       return 'failure';
     }
 
@@ -135,12 +147,26 @@ export class CheckRunReporter {
     let summaryText = `All ${totalEntries} entries meet quality standards.`;
 
     if (failed > 0) {
-      title = `❌ Changelog validation failed: ${failed} error(s)`;
+      const hasIntroduced = Number.isInteger(summary.new_failed);
+      const introduced = hasIntroduced ? summary.new_failed : failed;
+
+      if (introduced > 0) {
+        // Only call them "new" when the caller actually supplied the count.
+        title = hasIntroduced
+          ? `❌ Changelog validation failed: ${introduced} new error(s)`
+          : `❌ Changelog validation failed: ${introduced} error(s)`;
+      } else {
+        title = `⚠️ Changelog validation: ${failed} pre-existing error(s), none introduced here`;
+      }
+
       summaryText = `${failed} of ${totalEntries} entries have validation errors.\n\n`;
       summaryText += `**Summary:**\n`;
       summaryText += `- ✅ Passing: ${passed}\n`;
       summaryText += `- ⚠️ Warnings: ${warnings}\n`;
       summaryText += `- ❌ Failing: ${failed}\n`;
+      if (hasIntroduced) {
+        summaryText += `- 🆕 Introduced by this change: ${summary.new_failed}\n`;
+      }
     } else if (warnings > 0) {
       title = `⚠️ Changelog validation: ${warnings} warning(s)`;
       summaryText = `${warnings} of ${totalEntries} entries have warnings.\n\n`;
@@ -157,14 +183,15 @@ export class CheckRunReporter {
   }
 
   /**
-   * Annotate each violation at line 1 of CHANGELOG.md using its rule, entry,
-   * message, optional details, and severity. Missing fields use fallback text;
-   * non-array or empty input produces no annotations.
+   * Annotate each violation at the changelog entry's own line using its rule,
+   * entry, message, optional details, and severity. Missing fields use fallback
+   * text; non-array or empty input produces no annotations.
    *
-   * The parser records a line number per entry, but the rule engine does not
-   * carry it onto the violations it produces, so every annotation is anchored to
-   * line 1. The Checks API requires `end_line` alongside `start_line`, so both
-   * are emitted with the same value.
+   * The parser records a line number per entry and the rule engine carries it
+   * onto each validation, so an annotation is anchored to the entry it belongs
+   * to. A violation without a usable line number falls back to line 1. The
+   * Checks API requires `end_line` alongside `start_line`, so both are emitted
+   * with the same value.
    *
    * @param {Array} violations - Violation objects to annotate.
    * @returns {Array} GitHub annotation objects, without a count limit.
@@ -180,6 +207,11 @@ export class CheckRunReporter {
       const entryId = violation?.entry_id ?? 'unknown';
       const annotationLevel = this.severityToAnnotationLevel(severity);
 
+      // Line numbers start at 1. Anything that is not a positive integer is
+      // treated as absent rather than sent to the API, which rejects it.
+      const line = Number(violation?.line_number);
+      const startLine = Number.isInteger(line) && line >= 1 ? line : 1;
+
       // Rule details are structured data, so they belong in raw_details rather
       // than in the message: interpolating an object into a template literal
       // would render the literal text "[object Object]".
@@ -192,8 +224,8 @@ export class CheckRunReporter {
 
       return {
         path: 'CHANGELOG.md',
-        start_line: 1,
-        end_line: 1,
+        start_line: startLine,
+        end_line: startLine,
         annotation_level: annotationLevel,
         title: `[${rule_id}] Entry ${entryId}`,
         message,

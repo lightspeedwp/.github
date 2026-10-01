@@ -396,9 +396,9 @@ At completion of Phase 9:
 **Remediation**:
 
 - [x] T084 [P] Implement GitHub Check Run API integration at `.github/validation/changelog/lib/check-run-reporter.js` (create check run with name "Changelog Validation", set conclusion (success/failure), attach annotation-style output with violation details per entry)
-- [x] T085 Integrate check-run-reporter into validation workflow at `.github/workflows/changelog-validation.yml` (step to create check run after validation completes, include violation summary + per-entry details)
+- [x] T085 Integrate check-run-reporter into the validation workflow at `.github/workflows/changelog-unified.yml` (step to create the check run after validation completes, include violation summary + per-entry details). Merged into the unified workflow by #3405; #3376 adds the check-run step there rather than restoring the separate `changelog-validation.yml` that #3405 retired.
 - [x] T086 [P] Test GitHub Check Run creation at `.github/validation/changelog/test/integration/test-check-run-annotations.js` (verify PR shows validation check in Checks tab with expected conclusion/message)
-- [x] T087 Update `.github/workflows/changelog-validation.yml` to report failure/success via check run conclusion (replaces current comment-only approach with proper API integration)
+- [x] T087 Report failure/success via the check run conclusion from `.github/workflows/changelog-unified.yml` (completes the comment-only approach with proper API integration). The conclusion is keyed on failures the change introduces, matching the gate the same workflow already enforces.
 
 **Deferred to Phase 4+ Backlog** (tracked separately, not blocking MVP):
 

@@ -83,5 +83,6 @@ module.exports = {
         '<rootDir>/.github/scripts/__tests__/workflow-integration.test.js',
         // Runs under the changelog package's own node:test runner.
         '<rootDir>/.github/validation/changelog/test/unit/check-run-annotations.test.js',
+        '<rootDir>/.github/validation/changelog/test/integration/check-run-annotations.test.js',
     ],
 };
