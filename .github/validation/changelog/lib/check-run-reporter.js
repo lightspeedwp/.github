@@ -41,6 +41,30 @@ function flattenViolations(report) {
   return flattened;
 }
 
+/**
+ * Whether a report carries advisory warnings.
+ *
+ * The validator's summary carries total_entries, passed, failed and pass_rate —
+ * it has never carried a `warnings` key. Advisory results are signalled through
+ * `ci_gate_result` instead, so that is what this reads. `summary.warnings` is
+ * still honoured for a caller that supplies one.
+ *
+ * Both `determineConclusion` and `buildCheckOutput` call this, so the badge and
+ * the text beside it cannot disagree about whether the run was advisory.
+ *
+ * @param {Object} validationResult - Parsed validation report.
+ * @returns {boolean} True when the report represents an advisory result.
+ */
+function hasWarnings(validationResult) {
+  const warnings = validationResult?.summary?.warnings;
+
+  if (Number.isInteger(warnings)) {
+    return warnings > 0;
+  }
+
+  return validationResult?.ci_gate_result === 'warning';
+}
+
 export class CheckRunReporter {
   /**
    * Configure the GitHub client and repository used for check run creation.
@@ -118,7 +142,7 @@ export class CheckRunReporter {
       return 'neutral';
     }
 
-    const { failed, warnings, new_failed: newFailed } = validationResult.summary;
+    const { failed, new_failed: newFailed } = validationResult.summary;
 
     const introduced = Number.isInteger(newFailed) ? newFailed : failed;
 
@@ -126,15 +150,7 @@ export class CheckRunReporter {
       return 'failure';
     }
 
-    // The validator's summary carries total_entries, passed, failed and
-    // pass_rate — no `warnings` field. It signals advisory results through
-    // ci_gate_result instead, so read that when present rather than relying on
-    // a summary key the report never emits.
-    const hasWarnings = Number.isInteger(warnings)
-      ? warnings > 0
-      : validationResult.ci_gate_result === 'warning';
-
-    if (hasWarnings) {
+    if (hasWarnings(validationResult)) {
       return 'neutral'; // Warnings don't fail the check but still show as noteable
     }
 
@@ -152,7 +168,10 @@ export class CheckRunReporter {
   buildCheckOutput(validationResult) {
     const { summary = {} } = validationResult;
     const annotations = this.buildAnnotations(flattenViolations(validationResult));
-    const { passed = 0, failed = 0, warnings = 0, total_entries: reportedTotal } = summary;
+    const { passed = 0, failed = 0, total_entries: reportedTotal } = summary;
+    // No default: an absent `warnings` has to stay distinguishable from a real
+    // zero, and the validator never emits the field.
+    const { warnings } = summary;
     // The validator reports total_entries, and warnings are not a separate
     // class of entry — an entry that carries warnings is still counted in
     // total_entries. Summing passed + failed + warnings therefore inflates the
@@ -174,23 +193,42 @@ export class CheckRunReporter {
           ? `❌ Changelog validation failed: ${introduced} new error(s)`
           : `❌ Changelog validation failed: ${introduced} error(s)`;
       } else {
-        title = `⚠️ Changelog validation: ${failed} pre-existing error(s), none introduced here`;
+        // Nothing introduced, but entries still fail. Say so, and carry the
+        // advisory gate when there is one, so the title agrees with the neutral
+        // conclusion rather than reading like a pass.
+        title = hasWarnings(validationResult)
+          ? `⚠️ Changelog validation: ${failed} pre-existing error(s), none introduced here (advisory gate)`
+          : `⚠️ Changelog validation: ${failed} pre-existing error(s), none introduced here`;
       }
 
       summaryText = `${failed} of ${totalEntries} entries have validation errors.\n\n`;
       summaryText += `**Summary:**\n`;
       summaryText += `- ✅ Passing: ${passed}\n`;
-      summaryText += `- ⚠️ Warnings: ${warnings}\n`;
+      // Only show a warning count when the report actually carries one. The
+      // validator does not emit it, and printing a hard zero beside an advisory
+      // gate reads as "no warnings" when the gate says otherwise.
+      if (Number.isInteger(warnings)) {
+        summaryText += `- ⚠️ Warnings: ${warnings}\n`;
+      }
       summaryText += `- ❌ Failing: ${failed}\n`;
       if (hasIntroduced) {
         summaryText += `- 🆕 Introduced by this change: ${summary.new_failed}\n`;
       }
-    } else if (warnings > 0) {
-      title = `⚠️ Changelog validation: ${warnings} warning(s)`;
-      summaryText = `${warnings} of ${totalEntries} entries have warnings.\n\n`;
+    } else if (hasWarnings(validationResult)) {
+      const advisory =
+        Number.isInteger(warnings) && warnings > 0
+          ? `${warnings} of ${totalEntries} entries have warnings.`
+          : 'The gate reported an advisory result.';
+      title =
+        Number.isInteger(warnings) && warnings > 0
+          ? `⚠️ Changelog validation: ${warnings} warning(s)`
+          : '⚠️ Changelog validation: advisory';
+      summaryText = `${advisory}\n\n`;
       summaryText += `**Summary:**\n`;
       summaryText += `- ✅ Passing: ${passed}\n`;
-      summaryText += `- ⚠️ Warnings: ${warnings}\n`;
+      if (Number.isInteger(warnings)) {
+        summaryText += `- ⚠️ Warnings: ${warnings}\n`;
+      }
     }
 
     return {

@@ -276,6 +276,22 @@ describe('CheckRunReporter - GitHub Check Run Integration', () => {
       assert.equal(reporter.determineConclusion(report), 'neutral');
     });
 
+    it('agrees with the check output about an advisory result', () => {
+      // Same report the conclusion is derived from: advisory, nothing
+      // introduced, and no `warnings` key anywhere in the summary.
+      const advisory = {
+        summary: { total_entries: 5, passed: 4, failed: 1, pass_rate: '80', new_failed: 0 },
+        ci_gate_result: 'warning',
+      };
+
+      const output = reporter.buildCheckOutput(advisory);
+
+      assert.equal(reporter.determineConclusion(advisory), 'neutral');
+      assert.match(output.title, /advisory gate/);
+      // A hard zero beside an advisory gate would read as "no warnings".
+      assert.ok(!/Warnings: 0/.test(output.summary), output.summary);
+    });
+
     it('returns neutral when there is no validation result', () => {
       assert.equal(reporter.determineConclusion(null), 'neutral');
       assert.equal(reporter.determineConclusion({}), 'neutral');

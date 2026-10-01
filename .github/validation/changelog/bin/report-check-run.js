@@ -90,7 +90,13 @@ async function main() {
 
     // A report with no summary cannot produce a meaningful conclusion, and
     // silently reporting 'neutral' would read as a validation that passed.
-    if (!validationResult || typeof summary !== 'object' || !('summary' in validationResult)) {
+    // Inspect the field itself rather than the coalesced copy: the copy
+    // defaults to {}, which is an object, so it cannot carry the signal.
+    if (
+      !validationResult ||
+      typeof validationResult.summary !== 'object' ||
+      validationResult.summary === null
+    ) {
       console.error('✗ Validation report has no summary; refusing to publish a check run.');
       process.exit(1);
     }
