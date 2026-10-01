@@ -125,7 +125,7 @@ There is one way to provide the credential: a stored key.
 
 Keyless authentication through Workload Identity Federation is **deliberately not part of the pilot**, and nothing in the shipped workflows supports it. It was removed on 2026-10-01 because it required `id-token: write` on the same job that runs the third-party `pragent/pr-agent` container, which gave that container the job's OIDC capability. No job in either workflow holds `id-token: write` now, and no federation input exists.
 
-If it is ever wanted, it must not be added back to the `run` job. It needs **its own job** whose only content is the token exchange, with `id-token: write` on that job and no third-party or untrusted code in it, passing the short-lived token to `run` as a masked output. Treat that as its own change with its own review, and re-check the two findings it was removed for.
+If it is ever wanted, it must not be added back to the `run` job. It needs **its own job** whose only content is the token exchange, with `id-token: write` on that job and no third-party or untrusted code in it. It also needs a supported way to hand the short-lived token to `run`: a job output cannot carry it, because GitHub treats a masked value as a secret and does not pass it to downstream jobs. Design that handoff (for example through a short-lived secret store) as part of the change. Treat that as its own change with its own review, and re-check the two findings it was removed for.
 
 ### What limits who can run the pilot
 
@@ -139,7 +139,9 @@ The caller triggers on `pull_request` (`opened`, `reopened`, `ready_for_review`)
 
 The `pull_request` row is the reason the caller keeps a local `./` reference only temporarily. See [Pin the caller to a commit SHA](#pin-the-caller-to-a-commit-sha).
 
-No further gate was added to the automatic path, and the reason is specific rather than a shrug: the residual actor is someone with **push access to this repository**, and any gate such an actor can satisfy on their own pull request — applying a label, adding themselves to an allow-list — is not a security boundary, because push access already allows editing any workflow here and therefore reading any repository secret. A control that does bound it has to be a review or approval control (branch protection, `CODEOWNERS`), not a workflow condition. A label or actor gate would also contradict spec 019's automatic-run promise and its SC-001 measurement.
+No further gate was added to the automatic path, so **anyone with push access to this repository is trusted with the key.** A same-repository branch can edit the caller or the reusable workflow and run its own version with the key before anyone reviews it. Pinning the caller (below) protects the called workflow only, not a branch that edits the caller itself. This is the same trust GitHub already gives push access: a user who can push can edit any workflow here and so read any repository secret. Branch protection and `CODEOWNERS` do not change this, because they block merging, not the workflow running.
+
+The control that would withhold the key until someone approves the run is a GitHub **environment with required reviewers** on the `run` job, holding the key as an environment secret. It is not used in the pilot because every automatic run would then wait for approval, which contradicts spec 019's automatic-run promise (FR-009) and its SC-001 measurement. Adopting it is a decision for the repository owner. A label or actor gate is no substitute, because a user with push access can satisfy it on their own pull request.
 
 ### Pin the caller to a commit SHA
 

@@ -35,7 +35,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
   - Existing: `smol-toml`, `yaml`, `jest`, `.github/actions/collect-metrics`
 - **Storage**: None. Run records are Actions artefacts (30 days) plus a Markdown pilot report in `.github/reports/metrics/qodo-pr-agent/`.
 - **Testing**:
-  - Jest contract tests in `tests/js/qodo-pr-agent-*.test.js` for the config, workflows (including the token exchange), integration docs, report script and skill runner
+  - Jest contract tests in `tests/js/qodo-pr-agent-*.test.js` for the config, workflows, integration docs, report script and skill runner
   - Existing `validate:workflows`, `lint:workflows` (spectral), actionlint (`workflow-lint.yml`), `validate:skills` and `lint:md`
   - Manual end-to-end validation via [quickstart.md](./quickstart.md)
 - **Target Platform**: GitHub-hosted `ubuntu-latest` runners, and maintainer or agent workstations with Docker, or Python ≥ 3.12 for diff mode only (skill).
@@ -57,10 +57,10 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 | --- | --- | --- |
 | I. Org-wide governance authority | The central `.pr_agent.toml` and reusable workflow are owned by this repository, and consumers inherit them. CodeRabbit stays the governed primary reviewer. | ✅ |
 | II. Locked curated assets | No edits to `labels.yml`, `issue-types.yml`, or the issue or PR templates. Posting descriptions as comments avoids template markers. Any future marker or label need goes through a tagged request (FR-023). | ✅ |
-| III. Clear asset boundaries | The skill is in `skills/` and the docs in `docs/`. **Exception (platform-required locations, constitution v1.3.0)**: the reusable workflow lives in `.github/workflows/`, because GitHub only resolves callable workflows there, and `.pr_agent.toml` sits at the root, where Qodo PR-Agent reads it. The workflow is documented as callable in `docs/WORKFLOWS.md` and `docs/QODO_PR_AGENT.md`. Its preflight and token-exchange logic stays inline because the no-checkout design forbids loading repository scripts; all other reusable logic is in `skills/qodo-pr-agent`. | ✅ exception |
+| III. Clear asset boundaries | The skill is in `skills/` and the docs in `docs/`. **Exception (platform-required locations, constitution v1.3.0)**: the reusable workflow lives in `.github/workflows/`, because GitHub only resolves callable workflows there, and `.pr_agent.toml` sits at the root, where Qodo PR-Agent reads it. The workflow is documented as callable in `docs/WORKFLOWS.md` and `docs/QODO_PR_AGENT.md`. Its preflight logic stays inline because the no-checkout design forbids loading repository scripts; all other reusable logic is in `skills/qodo-pr-agent`. | ✅ exception |
 | IV. Technology-agnostic guidance | `extra_instructions` point to AGENTS.md, and a contract test rejects stack-specific terms. | ✅ |
 | V / VIII. Branch naming | The branch is `aiops/qodo-pr-agent-integration`, validated. No change to routing. | ✅ |
-| VI. UK English, accessibility, security | `response_language = "en-GB"`. The credential is a dedicated key in an organisation or repository secret, or a per-run federated token that is masked in logs. No secrets reach the shell. Pinned by digest. Secrets repeated in model output are a documented known limitation with a response procedure. | ✅ |
+| VI. UK English, accessibility, security | `response_language = "en-GB"`. The credential is a dedicated key in a repository secret (an organisation secret for later opt-ins); no job requests `id-token`. No secrets reach the shell. Pinned by digest. Secrets repeated in model output are a documented known limitation with a response procedure. | ✅ |
 | VII. Spec quality | The spec checklist is at 16/16, and clarifications are resolved (2026-09-24). | ✅ |
 | IX. Changelog compliance | `update_changelog` only proposes. Proposals must pass changelog-agent validation (≤250 chars, linked). The PR gate is unchanged. | ✅ |
 | X. Metrics-driven governance | Run records, the `collect-metrics` integration and a 14-day pilot report. | ✅ |
@@ -126,7 +126,7 @@ scripts/metrics/qodo-pr-agent-report.cjs         # NEW: aggregates run-record ar
 
 tests/js/
 ├── qodo-pr-agent-config.test.js                 # NEW
-├── qodo-pr-agent-workflow.test.js               # NEW (includes the token exchange)
+├── qodo-pr-agent-workflow.test.js               # NEW
 ├── qodo-pr-agent-integrations.test.js           # NEW
 ├── qodo-pr-agent-report.test.js                 # NEW
 └── qodo-pr-agent-runner.test.js                 # NEW
