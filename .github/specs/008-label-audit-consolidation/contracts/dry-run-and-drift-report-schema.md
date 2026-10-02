@@ -48,7 +48,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 
 ## Run logs (FR-023)
 
-Both files are append-only JSON arrays in `evidence/`. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds.
+Both files are append-only JSON arrays in `evidence/`. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds. Each `op_id` starts with the `run_id` of the run that wrote it, and only the run holding `evidence/run-lock.json` may append (FR-023 point 11).
 
 ### `consolidation-log.json` (GitHub, Stages 3 and 4)
 
