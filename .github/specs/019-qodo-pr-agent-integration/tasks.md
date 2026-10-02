@@ -175,12 +175,12 @@
 
   Before editing, check the open stacked spec-015 PRs (lightspeedwp/.github#3400, lightspeedwp/.github#3401, lightspeedwp/.github#3403) for changes to this file, and merge `develop` first to avoid conflicts.
 - [X] T021 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/labeling-agent/AGENT.md` (after "Configuration Files") and `skills/label-governance/SKILL.md`. It says:
-  - **Invocation**: `skills/qodo-pr-agent` with `generate_labels` (publishing off).
+  - **Invocation**: none available. `/generate_labels` is refused by the receiver as `command-not-allowed`, and `generate_labels` stores no result at PR-Agent v0.46.0, so the skill cannot return it either. **Corrected 2026-10-02**: this originally offered the skill, which cannot work.
   - **On output**: keep only names that exist exactly in `.github/labels.yml`; never create or apply any other name; record the dropped names in the agent output.
   - **Fallback**: the existing labelling rules ("skipped").
   - State that Qodo PR-Agent itself never applies labels (FR-008).
 - [X] T022 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/changelog-agent/AGENT.md` and `skills/changelog-generator/SKILL.md`. It says:
-  - **Invocation**: pr-comment, which is the `/update_changelog` proposal comment, or the skill with `update_changelog`.
+  - **Invocation**: pr-comment only, which is the `/update_changelog` proposal comment. **Corrected 2026-10-02**: the skill with `update_changelog` was also offered; it stores no result at PR-Agent v0.46.0, so it cannot produce a proposal.
   - **On output**: validate against the changelog rules (≤250 characters, user-facing, no implementation detail, linked to a PR or issue, Keep a Changelog category). Reject naming the failing rule; the entry is never committed by Qodo PR-Agent.
   - **Fallback**: the existing changelog flow ("skipped").
 - [X] T023 [P] [US3] Add a `## Qodo PR-Agent integration` section to `agents/document-reviewer-agent/AGENT.md` and `skills/documentation-writer/SKILL.md`. It says:

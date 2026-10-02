@@ -63,7 +63,7 @@ Provide enterprise-grade, portable changelog management using Keep a Changelog 1
 
 [Qodo PR-Agent](../../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../../.github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
 
-- **Invocation**: pr-comment (the proposal a maintainer requests with `/update_changelog`) or [`skills/qodo-pr-agent`](../../skills/qodo-pr-agent/SKILL.md) with `update_changelog`.
+- **Invocation**: pr-comment only, which is the proposal a maintainer requests with the `/update_changelog` comment command. The shared [`skills/qodo-pr-agent`](../../skills/qodo-pr-agent/SKILL.md) skill is **not** a source for this proposal, because `update_changelog` stores no result at PR-Agent v0.46.0 and the skill cannot return it. The comment command is the only working path (publishing is always off).
 - **On output**: Validate the proposal against the changelog rules: at most 250 characters, user-facing, no implementation detail, linked to a PR or issue, and in a Keep a Changelog category. Reject it and name the failing rule if it fails. Qodo PR-Agent never commits the entry.
 - **Fallback**: The existing changelog flow applies unchanged. When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
 

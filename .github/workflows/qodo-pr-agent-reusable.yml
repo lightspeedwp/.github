@@ -62,6 +62,13 @@ on:
         type: string
         required: false
         default: ''
+      comment_id:
+        description: >-
+          Id of the comment that requested the command. Required when `command` is
+          set, so the run is bound to the exact comment that triggered it.
+        type: string
+        required: false
+        default: ''
       decision_reason:
         description: "Caller's decision reason, recorded verbatim in the run record"
         type: string
@@ -113,6 +120,7 @@ jobs:
           KILL_SWITCH: ${{ vars.QODO_PR_AGENT_ENABLED }}
           PR_NUMBER: ${{ inputs.pr_number }}
           COMMAND: ${{ inputs.command }}
+          COMMENT_ID: ${{ inputs.comment_id }}
           CALLER_REASON: ${{ inputs.decision_reason }}
           EXCLUDED_AUTHORS: ${{ inputs.excluded_authors }}
           PAYLOAD_PR: ${{ github.event.pull_request.number || github.event.issue.number }}
@@ -259,15 +267,28 @@ jobs:
             }
 
             if (!ALLOWED_COMMANDS.includes(command)) return refuse('command-not-allowed');
-            // The comment is re-read rather than trusted, so a forged command
-            // hint cannot grant a command to an unauthorised commenter.
-            const comments = await github.paginate(github.rest.issues.listComments, {
-              owner: context.repo.owner, repo: context.repo.repo, issue_number: pr, per_page: 100,
-            });
-            const match = [...comments].reverse().find(
-              (c) => String(c.body || '').trim().split(/\s+/)[0].toLowerCase() === command,
+            // The comment is resolved by the id the caller named, not by searching
+            // for the newest comment that happens to carry the same command. Two
+            // `/ask` comments arriving before confirmation would otherwise let a run
+            // answer the later one rather than the one that triggered it, and the run
+            // would not be attributable to the request that caused it.
+            const commentId = Number.parseInt(String(process.env.COMMENT_ID || '').trim(), 10);
+            if (!Number.isInteger(commentId) || commentId < 1) return refuse('unreadable-request');
+            let match;
+            try {
+              ({ data: match } = await github.rest.issues.getComment({
+                owner: context.repo.owner, repo: context.repo.repo, comment_id: commentId,
+              }));
+            } catch {
+              return refuse('no-matching-comment');
+            }
+            const commentPr = Number.parseInt(
+              String(match?.issue_url || '').split('/').pop(), 10
             );
-            if (!match) return refuse('no-matching-comment');
+            if (commentPr !== pr) return refuse('comment-not-on-this-pull-request');
+            if (String(match?.body || '').trim().split(/\s+/)[0].toLowerCase() !== command) {
+              return refuse('no-matching-comment');
+            }
             if (!ALLOWED_ASSOCIATIONS.includes(match.author_association)) {
               return refuse('author-not-allowed', command.slice(1));
             }

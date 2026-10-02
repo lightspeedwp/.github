@@ -214,6 +214,42 @@ globalThis.fetch = async (url, options) => {
       return run(['--since', '2026-10-01', ...args], { MOCK_RESPONSES: fixture });
     }
 
+    it('fails loudly when GitHub caps the run list at 1,000 results', () => {
+      // The API caps a list query at 1,000 results, so a wide window returns a
+      // short page at the cap. Publishing a partial report would understate
+      // SC-001 and SC-008 silently, so collection must refuse instead.
+      const firstPage = Array.from({ length: 100 }, (_, i) => ({ id: i + 1 }));
+      const responses = {
+        [runsUrl(1)]: { json: { workflow_runs: firstPage, total_count: 1500 } },
+        [runsUrl(2)]: { json: { workflow_runs: [], total_count: 1500 } },
+      };
+      for (const { id } of firstPage) responses[artefactsUrl(id)] = { json: { artifacts: [] } };
+
+      const result = runWithResponses(responses);
+      expect(result.status).not.toBe(0);
+      expect(result.stderr + result.stdout).toContain('1,000 results');
+      expect(result.stderr + result.stdout).toContain('1500');
+    });
+
+    it('proceeds when the reported total matches what was collected', () => {
+      const firstPage = Array.from({ length: 100 }, (_, i) => ({ id: i + 1 }));
+      const responses = {
+        [runsUrl(1)]: { json: { workflow_runs: firstPage, total_count: 101 } },
+        [runsUrl(2)]: { json: { workflow_runs: [{ id: 101 }], total_count: 101 } },
+        [artefactsUrl(101)]: { json: { artifacts: [selected] } },
+        [archiveUrl]: {
+          archive: zipRecord({ tool: 'review', outcome: 'success', duration_seconds: 12 }).toString(
+            'base64'
+          ),
+        },
+      };
+      for (const { id } of firstPage) responses[artefactsUrl(id)] = { json: { artifacts: [] } };
+
+      const result = runWithResponses(responses);
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain('| `review` | 1 |');
+    });
+
     it('continues after a full page and includes records from the next page', () => {
       const firstPage = Array.from({ length: 100 }, (_, i) => ({ id: i + 1 }));
       const responses = {

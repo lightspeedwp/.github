@@ -257,6 +257,7 @@ describe('Qodo PR-Agent reusable workflow', () => {
       'auto_describe',
       'auto_improve',
       'command',
+      'comment_id',
       'decision_reason',
       'environment_name',
       'excluded_authors',
@@ -798,8 +799,16 @@ describe('Qodo PR-Agent reusable workflow', () => {
     });
 
     it('re-reads the comments and re-checks the author association', () => {
-      expect(script).toContain('github.paginate(github.rest.issues.listComments');
-      expect(script).toContain("if (!match) return refuse('no-matching-comment')");
+      // Bound to the exact comment the caller named, never the newest match.
+      expect(script).toContain('github.rest.issues.getComment');
+      expect(script).toContain('comment_id');
+      expect(script).not.toContain('github.paginate(github.rest.issues.listComments');
+      // An unresolvable id is refused rather than falling back to a search.
+      expect(script).toContain("return refuse('unreadable-request')");
+      expect(script).toContain("return refuse('no-matching-comment')");
+      // A comment on another pull request, or whose command word differs, is refused
+      // rather than followed.
+      expect(script).toContain("return refuse('comment-not-on-this-pull-request')");
       expect(script).toContain('match.author_association');
       expect(script).toContain("return refuse('author-not-allowed', command.slice(1))");
     });
@@ -1361,7 +1370,14 @@ async function runReusableConfirm({
       pulls: { get: jest.fn(async () => ({ data: pullRequest })) },
       // Present because the step names it in the call; paginate is the mock that
       // decides what it returns.
-      issues: { listComments: jest.fn() },
+      issues: {
+        listComments: jest.fn(),
+        getComment: jest.fn(async ({ comment_id: id }) => {
+          const found = comments.find((c) => Number(c.id) === Number(id));
+          if (!found) throw new Error('not found');
+          return { data: found };
+        }),
+      },
     },
     paginate: jest.fn(async () => comments),
   };
@@ -1381,6 +1397,10 @@ async function runReusableConfirm({
       env: {
         PR_NUMBER: String(PR_NUMBER),
         COMMAND: command,
+        // The reusable now resolves the exact comment the caller named. Default to
+        // the first fixture comment so existing cases keep working, and let an
+        // explicit env override name a different one.
+        COMMENT_ID: comments.length ? String(comments[0].id) : '',
         REQUESTED_TOOL: requestedTool,
         EXCLUDED_AUTHORS: '["dependabot[bot]","lightspeed-docs-bot[bot]"]',
         ...env,
@@ -1513,12 +1533,30 @@ async function runReceiverPreflight({
 
 /**
  * Execute the receiver's preflight for a workflow_dispatch run.
- * @param {object} [options] - Pull request number and command typed by the operator.
+ *
+ * The dispatch paths call `pulls.get`: a blank command is the automatic tool
+ * path and carries the automatic eligibility rules, and a named command still
+ * refuses a closed pull request. The harness therefore models the API rather
+ * than passing an empty `pulls`, which is what let those checks be absent
+ * without any test noticing.
+ * @param {object} [options] - Pull request number, command and pull request state.
  * @param {string} [options.pr] - The pr input.
  * @param {string} [options.command] - The command input.
+ * @param {object} [options.pullRequest] - Pull request pulls.get returns.
  * @returns {Promise<object>} The decision.
  */
-function runReceiverDispatch({ pr = String(PR_NUMBER), command = '' } = {}) {
+function runReceiverDispatch({
+  pr = String(PR_NUMBER),
+  command = '',
+  pullRequest = {
+    number: PR_NUMBER,
+    state: 'open',
+    draft: false,
+    user: { login: 'maintainer' },
+    head: { repo: { full_name: 'lightspeedwp/.github' } },
+    base: { repo: { full_name: 'lightspeedwp/.github' } },
+  },
+} = {}) {
   const outputs = {};
   const core = {
     setOutput: jest.fn((key, value) => {
@@ -1536,10 +1574,23 @@ function runReceiverDispatch({ pr = String(PR_NUMBER), command = '' } = {}) {
       payload: {},
       repo: { owner: 'lightspeedwp', repo: '.github' },
     },
-    { rest: { issues: {}, pulls: {} } },
+    { rest: { issues: {}, pulls: { get: jest.fn(async () => ({ data: pullRequest })) } } },
     require,
     { env: { KILL_SWITCH: 'true', DISPATCH_PR: pr, DISPATCH_COMMAND: command } }
   ).then(() => ({ outputs, core, refused: outputs.enabled !== 'true' }));
+}
+
+/** The pull request fields the eligibility rules read, with one override applied. */
+function pullWith(override) {
+  return {
+    number: PR_NUMBER,
+    state: 'open',
+    draft: false,
+    user: { login: 'maintainer' },
+    head: { repo: { full_name: 'lightspeedwp/.github' } },
+    base: { repo: { full_name: 'lightspeedwp/.github' } },
+    ...override,
+  };
 }
 
 /**
@@ -1728,6 +1779,49 @@ describe('Qodo PR-Agent argument-injection guards, executed', () => {
     }
   });
 
+  it('answers the comment the caller named, not a later one with the same command', async () => {
+    // Two /ask comments before confirmation. The newest-matching behaviour that the
+    // reusable used to have would answer the second; resolving by id answers the
+    // first, which is the request that caused the run.
+    const first = { ...comment('/ask What does this change affect?'), id: 111 };
+    const second = { ...comment('/ask What does the second comment ask?'), id: 222 };
+    const { outputs } = await runReusableConfirm({
+      command: '/ask',
+      comments: [first, second],
+      env: { COMMENT_ID: '111' },
+    });
+    expect(outputs.args).toBe('What does this change affect?');
+
+    // Naming the second asks the second question, so the id really is the selector.
+    const other = await runReusableConfirm({
+      command: '/ask',
+      comments: [first, second],
+      env: { COMMENT_ID: '222' },
+    });
+    expect(other.outputs.args).toBe('What does the second comment ask?');
+  });
+
+  it('refuses a command when the caller names no comment', async () => {
+    // Without an id there is nothing to bind to, so the reusable must not search.
+    const { outputs, refused } = await runReusableConfirm({
+      command: '/review',
+      comments: [comment('/review')],
+      env: { COMMENT_ID: '' },
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('unreadable-request');
+  });
+
+  it('refuses a comment that belongs to another pull request', async () => {
+    const { outputs, refused } = await runReusableConfirm({
+      command: '/review',
+      comments: [{ ...comment('/review'), id: 333, issue_url: `https://api.github.com/repos/lightspeedwp/.github/issues/${PR_NUMBER + 1}` }],
+      env: { COMMENT_ID: '333' },
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('comment-not-on-this-pull-request');
+  });
+
   it('refuses both shapes in the shared standard, before any tool runs', async () => {
     for (const body of [INJECTION, '/review -x']) {
       const { outputs, refused } = await runReusableConfirm({
@@ -1824,6 +1918,50 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
       command: '/review',
     });
     expect(api.getComment).toHaveLength(1);
+  });
+
+  it('refuses a command on a closed pull request', async () => {
+    // The open-state rule is not an automatic-path rule. Without it on the shared
+    // path, a maintainer comment on a merged or closed pull request started the
+    // credentialed run, because every command check assumes an open pull request.
+    const { outputs, refused } = await command({
+      hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+      comment: commentOn(),
+      pullRequest: {
+        number: PR_NUMBER,
+        state: 'closed',
+        draft: false,
+        user: { login: 'maintainer' },
+        head: { repo: { full_name: 'lightspeedwp/.github' } },
+        base: { repo: { full_name: 'lightspeedwp/.github' } },
+      },
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('pr-not-open');
+  });
+
+  it('still runs a command on an open draft or fork pull request', async () => {
+    // Draft, excluded-author and fork are automatic-path rules; an authorised
+    // maintainer command must not inherit them.
+    for (const override of [
+      { draft: true },
+      { head: { repo: { full_name: 'someone/fork' } } },
+    ]) {
+      const { outputs, refused } = await command({
+        hint: { pr: PR_NUMBER, command: '/review', comment_id: COMMENT_ID, reason: 'ok' },
+        comment: commentOn(),
+        pullRequest: {
+          number: PR_NUMBER,
+          state: 'open',
+          user: { login: 'maintainer' },
+          head: { repo: { full_name: 'lightspeedwp/.github' } },
+          base: { repo: { full_name: 'lightspeedwp/.github' } },
+          ...override,
+        },
+      });
+      expect({ refused }).toStrictEqual({ refused: false });
+      expect(outputs.command).toBe('/review');
+    }
   });
 
   it('refuses a command hint with no comment id', async () => {
@@ -2073,6 +2211,53 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
     const { outputs, refused } = await runReceiverDispatch({ command: '/ask' });
     expect(refused).toBe(true);
     expect(outputs.reason).toBe('ask-needs-question');
+  });
+
+  it('applies the automatic eligibility rules to a blank dispatch', async () => {
+    // A blank command is the automatic tool path, so it must be vetted exactly as
+    // the trigger's automatic run is.
+    const cases = [
+      ['pr-not-open', { state: 'closed' }],
+      ['draft', { draft: true }],
+      ['excluded-author', { user: { login: 'dependabot[bot]' } }],
+      ['fork', { head: { repo: { full_name: 'someone/fork' } } }],
+    ];
+    for (const [reason, override] of cases) {
+      const { outputs, refused } = await runReceiverDispatch({
+        pullRequest: pullWith(override),
+      });
+      expect({ reason, refused, got: outputs.reason }).toStrictEqual({
+        reason,
+        refused: true,
+        got: reason,
+      });
+    }
+  });
+
+  it('refuses a named dispatch command on a closed pull request', async () => {
+    const { outputs, refused } = await runReceiverDispatch({
+      command: '/review',
+      pullRequest: pullWith({ state: 'closed' }),
+    });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('pr-not-open');
+  });
+
+  it('lets a named dispatch command run on an open draft or fork pull request', async () => {
+    // Draft, excluded-author and fork are automatic-path rules. An authorised
+    // command must not inherit them, or a maintainer could not review a draft.
+    for (const override of [
+      { draft: true },
+      { head: { repo: { full_name: 'someone/fork' } } },
+      { user: { login: 'dependabot[bot]' } },
+    ]) {
+      const { outputs, refused } = await runReceiverDispatch({
+        command: '/review',
+        pullRequest: pullWith(override),
+      });
+      expect({ refused }).toStrictEqual({ refused: false });
+      expect(outputs.command).toBe('/review');
+    }
   });
 
   it('still runs every other allowed command on a dispatch', async () => {
@@ -2483,11 +2668,12 @@ describe('Qodo PR-Agent secret boundary', () => {
 
   it('treats the trigger artifact as a hint in both receivers', () => {
     // The pilot receiver resolves the command comment by id; the reusable
-    // standard, which other repositories call, still lists them. Each is asserted
-    // on its own contract so neither is relaxed into a shared, weaker one.
-    for (const [name, job, expectsLists] of [
-      ['caller', caller.doc.jobs.preflight, false],
-      ['reusable', reusable.doc.jobs.preflight, true],
+    // Both now bind to the exact comment the trigger named. The reusable used to
+    // list comments and take the newest match, which let a run answer a later
+    // `/ask` than the one that triggered it.
+    for (const [name, job] of [
+      ['caller', caller.doc.jobs.preflight],
+      ['reusable', reusable.doc.jobs.preflight],
     ]) {
       const serialised = JSON.stringify(job);
       expect({
@@ -2501,14 +2687,14 @@ describe('Qodo PR-Agent secret boundary', () => {
       }).toStrictEqual({
         receiver: name,
         readsPullRequest: true,
-        listsComments: expectsLists,
-        fetchesCommentById: !expectsLists,
+        listsComments: false,
+        fetchesCommentById: true,
         hasEnvironment: false,
       });
     }
-    // The pilot receiver authorises a command on the comment id alone, so that
-    // the two paths are not conflated.
+    // Neither receiver may quietly fall back to scanning comments.
     expect(JSON.stringify(caller.doc.jobs.preflight)).not.toContain('listComments');
+    expect(JSON.stringify(reusable.doc.jobs.preflight)).not.toContain('listComments');
   });
 
   it('states the split contract in the specification, not the superseded one', () => {

@@ -37,7 +37,13 @@ readonly PIP_SPEC="pr-agent==0.46.0"
 readonly DEFAULT_MODEL="anthropic/claude-sonnet-5"
 MODEL="${PR_AGENT_MODEL-}"
 if [ -z "$MODEL" ]; then
-  repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+  # scripts/ -> qodo-pr-agent/ -> skills/ -> repository root. Three levels, no more:
+  # a fourth resolves to the repository's *parent*, where no .pr_agent.toml exists,
+  # which silently downgraded every run to DEFAULT_MODEL.
+  repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+  if [ ! -f "$repo_root/.pr_agent.toml" ]; then
+    echo "qodo-pr-agent: no .pr_agent.toml at $repo_root; using the pinned default model" >&2
+  fi
   if [ -f "$repo_root/.pr_agent.toml" ]; then
     # Scoped to the [config] table: a bare line match would also take a `model`
     # key from any other table that happened to appear first.

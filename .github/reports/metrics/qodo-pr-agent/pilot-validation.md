@@ -16,7 +16,7 @@ Evidence for spec 019's live and walkthrough tasks. The scenarios are defined in
 
 | # | Item | Status |
 | --- | --- | --- |
-| P-1 | Dedicated key with a monthly spend limit | Key created; spend limit not yet confirmed |
+| P-1 | Dedicated key with a monthly spend limit | Key created as environment secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`; US$20 monthly spend limit set on the key in the Anthropic console, confirmed by the maintainer on 2026-10-02. The repository can neither read that back nor verify it, so it must be re-confirmed on any key rotation |
 | P-2 | Environment secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on `qodo-pr-agent`, default branch only | Not created yet |
 | P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is exactly `true` | Not set |
 | P-4 | Implementation merged to `develop` | Waiting on lightspeedwp/.github#3532 |

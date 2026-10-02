@@ -140,8 +140,30 @@ jobs:
               const pr = Number.parseInt(process.env.DISPATCH_PR, 10);
               if (!Number.isInteger(pr) || pr < 1) return out('bad-dispatch-input');
               const wanted = String(process.env.DISPATCH_COMMAND || '').trim().toLowerCase();
-              if (!wanted) return out('ok', { pr, command: '', tool: 'auto' });
+              if (!wanted) {
+                // A blank command is the automatic tool path, so it carries the
+                // automatic eligibility rules. Skipping the checks here let a
+                // dispatch start the credentialed job for a closed, draft or fork
+                // pull request that the trigger itself would have refused.
+                const { data: dispatched } = await github.rest.pulls.get({
+                  owner: context.repo.owner, repo: context.repo.repo, pull_number: pr,
+                });
+                if (dispatched.state !== 'open') return out('pr-not-open');
+                if (dispatched.draft) return out('draft');
+                if (EXCLUDED.includes(dispatched.user?.login)) return out('excluded-author');
+                if (dispatched.head?.repo?.full_name !== dispatched.base?.repo?.full_name) {
+                  return out('fork');
+                }
+                return out('ok', { pr, command: '', tool: 'auto' });
+              }
               if (!ALLOWED_COMMANDS.includes(wanted)) return out('command-not-allowed');
+              // Draft, excluded-author and fork checks stay off a named command:
+              // an authorised maintainer may run a tool on any pull request. The
+              // open-state check is not that kind of rule, so it applies here too.
+              const { data: commanded } = await github.rest.pulls.get({
+                owner: context.repo.owner, repo: context.repo.repo, pull_number: pr,
+              });
+              if (commanded.state !== 'open') return out('pr-not-open');
               // /ask needs its question, and a dispatch has no comment to take one
               // from. Dispatching it without a question would reach the CLI with no
               // argument and store no result, recording a silent no-output run.
@@ -196,11 +218,16 @@ jobs:
               owner: context.repo.owner, repo: context.repo.repo, pull_number: pr,
             });
 
+            // A closed pull request is closed for every request type. Without this
+            // on the shared path, a maintainer comment on a closed pull request
+            // started the credentialed run; the command checks below all assume an
+            // open pull request.
+            if (pull.state !== 'open') return out('pr-not-open');
+
             if (context.payload.workflow_run.event === 'pull_request') {
               // The run must be for a pull request that is still open, at the
               // head the triggering run saw. A pull request pushed to since, or
               // closed since, is a different event and gets its own run.
-              if (pull.state !== 'open') return out('pr-not-open');
               if (pull.draft) return out('draft');
               if (EXCLUDED.includes(pull.user?.login)) return out('excluded-author');
               if (pull.head?.repo?.full_name !== pull.base?.repo?.full_name) return out('fork');

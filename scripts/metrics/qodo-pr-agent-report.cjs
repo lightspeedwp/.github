@@ -344,11 +344,21 @@ async function collectRecords({ repo, workflow, since }, token) {
   const api = `https://api.github.com/repos/${repo}`;
   const perPage = 100;
   const records = [];
+  // GitHub caps a list query at 1,000 results, so a window holding more runs than
+  // that returns a short page at the cap and the loop stops early. The report
+  // would then understate SC-001 and SC-008 without saying so, so the cap is
+  // detected and raised rather than absorbed.
+  let reportedTotal = null;
+  let runsSeen = 0;
   for (let page = 1; ; page += 1) {
     const runs = await github(
       `${api}/actions/workflows/${workflow}/runs?created=%3E%3D${since}&per_page=${perPage}&page=${page}`,
       token
     );
+    if (reportedTotal === null && Number.isInteger(runs.total_count)) {
+      reportedTotal = runs.total_count;
+    }
+    runsSeen += runs.workflow_runs.length;
     for (const run of runs.workflow_runs) {
       const { artifacts } = await github(`${api}/actions/runs/${run.id}/artifacts`, token);
       const artefact = artifacts.find((a) => a.name.startsWith('qodo-pr-agent-run-') && !a.expired);
@@ -370,6 +380,13 @@ async function collectRecords({ repo, workflow, since }, token) {
     // --since can now run to the job timeout, which fails the job visibly
     // rather than publishing a quietly wrong report.
     if (runs.workflow_runs.length < perPage) break;
+  }
+  if (reportedTotal !== null && runsSeen < reportedTotal) {
+    throw new Error(
+      `GitHub returned ${runsSeen} of ${reportedTotal} runs for ${workflow} since ${since}: ` +
+        'the API caps a list query at 1,000 results, so this window is too wide to report ' +
+        'accurately. Narrow --since and retry.'
+    );
   }
   return records;
 }

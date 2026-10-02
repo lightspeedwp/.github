@@ -14,11 +14,11 @@ Each concern has exactly one owner. "Automatic" means it runs without a command.
 | Code-improvement suggestions | Qodo PR-Agent (`improve`) | automatic | Persistent comment. Triaged through `skills/gh-address-comments`. |
 | Second-opinion review | Qodo PR-Agent (`review`) | on-demand | `/review`. Also consumed by `skills/pr-review` as an input. |
 | Questions about the PR | Qodo PR-Agent (`ask`) | on-demand | `/ask <question>` |
-| Changelog entry drafting | Qodo PR-Agent (`update_changelog`) | on-demand | Comment only. Validated by `agents/changelog-agent/` before adoption. |
+| Changelog entry drafting | Qodo PR-Agent (`/update_changelog`) | on-demand | Comment only, via the maintainer comment command. The skill cannot return this tool's result at v0.46.0. Validated by `agents/changelog-agent/` before adoption. |
 | Changelog presence and quality gate | `changelog-unified.yml` | automatic | Unchanged. |
-| Missing documentation suggestions | Qodo PR-Agent (`add_docs`) | on-demand | Reviewed by `agents/document-reviewer-agent/`. |
+| Missing documentation suggestions | Qodo PR-Agent (`/add_docs`) | on-demand | Comment only, via the maintainer comment command. Reviewed by `agents/document-reviewer-agent/`. |
 | Label application | `labeling-unified.yml` | automatic | Qodo PR-Agent applies **no** labels. `pr-template-routing.yml` and `agents/labeling-agent/` are implementation inputs to that owner, not co-owners. |
-| Label suggestions | Qodo PR-Agent (`generate_labels`) through `skills/qodo-pr-agent` | on-demand (skill only) | Filtered against `.github/labels.yml`, and never published by Qodo PR-Agent. |
+| Label suggestions | `agents/labeling-agent/` from the diff | on-demand | Qodo PR-Agent offers none: `/generate_labels` is refused as `command-not-allowed` and the skill cannot return that tool at v0.46.0. Names are filtered against `.github/labels.yml`, and Qodo PR-Agent publishes nothing. |
 | Branch-name validation | `branch-name-validation.yml` | automatic | Unchanged. |
 | PR creation, template routing, PR body | Internal PR agent (`agents/pr-agent/`) | automatic | May use `describe` output as an input (spec 015 US2). |
 | Duplicate-issue detection | `agents/issue-agent/` | deferred | The Qodo PR-Agent `similar_issue` tool is **deferred** ([research R8](../research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)). |
@@ -32,8 +32,8 @@ Each concern has exactly one owner. "Automatic" means it runs without a command.
 | improve | `skills/gh-address-comments`, `agents/address-comments.agent.md` | pr-comment | Treat suggestions as comments to triage (address, or reply with a reason) | Nothing to triage | in-scope |
 | describe | `agents/pr-agent/` (internal) | skill (diff mode) | Use the summary as a source for the diff-derived body section | Existing body generation | in-scope |
 | review / improve | `agents/pr-agent/` self-review gate | gate-input | Count the findings as "AI-review findings" | Gate records "no Qodo PR-Agent input" | in-scope |
-| generate_labels | `agents/labeling-agent/`, `skills/label-governance` | skill | Keep only names present in `.github/labels.yml`; log the dropped ones | Existing labelling | in-scope |
-| update_changelog | `agents/changelog-agent/`, `skills/changelog-generator` | pr-comment or skill | Validate (≤250 chars, user-facing, linked); reject naming the failing rule | Existing changelog flow | in-scope |
+| generate_labels | `agents/labeling-agent/`, `skills/label-governance` | unavailable | Keep only names present in `.github/labels.yml`; log the dropped ones | Existing labelling | in-scope |
+| update_changelog | `agents/changelog-agent/`, `skills/changelog-generator` | pr-comment | Validate (≤250 chars, user-facing, linked); reject naming the failing rule | Existing changelog flow | in-scope |
 | add_docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | pr-comment | Review the suggestions before any adoption | None needed | in-scope |
 | ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | skill (diff mode; PR mode returns `no-output`) | Answer targeted questions | Proceed without an answer | in-scope |
 | similar_issue | `agents/issue-agent/`, `skills/ticket-triage` | deferred | — | — | **deferred** (R8) |

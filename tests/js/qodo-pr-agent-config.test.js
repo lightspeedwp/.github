@@ -161,6 +161,199 @@ describe('Qodo PR-Agent model ids are single-sourced', () => {
     // The two claims that keep the statement honest rather than rot-prone.
     expect(line).toMatch(/cannot set it, read it back or verify it/);
     expect(line).toMatch(/re-confirmed whenever the key is rotated/);
+
+    // The pilot's own prerequisites table repeats the same fact, and drifted: it
+    // still read "spend limit not yet confirmed" after the limit was confirmed set
+    // on 2026-10-02.
+    const validation = read('.github/reports/metrics/qodo-pr-agent/pilot-validation.md');
+    const row = validation
+      .split('\n')
+      .find((l) => l.startsWith('| P-1 |') && l.includes('spend limit'));
+    expect(row).toBeDefined();
+    expect(row).not.toMatch(/not yet confirmed|not confirmed/);
+    expect(row).toMatch(/set on the key in the Anthropic console/);
+    expect(row).toMatch(/2026-10-02/);
+  });
+
+  it('no consumer offers the skill as a source for a tool that cannot return a result', () => {
+    // `generate_labels`, `update_changelog` and `add_docs` store no artifact at
+    // v0.46.0, so only the pr-comment path works for the latter two and no path
+    // works for labels. Round 4 fixed the skill's own docs and left every consumer
+    // still offering the skill, which is the class this guards.
+    const consumers = [
+      'skills/label-governance/SKILL.md',
+      'agents/labeling-agent/AGENT.md',
+      'skills/changelog-generator/SKILL.md',
+      'agents/changelog-agent/AGENT.md',
+      '.github/specs/019-qodo-pr-agent-integration/tasks.md',
+      '.github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md',
+      '.github/specs/019-qodo-pr-agent-integration/data-model.md',
+      'docs/QODO_PR_AGENT.md',
+    ];
+    for (const file of consumers) {
+      const text = read(file);
+      // Any remaining offer of the skill as an invocation source for these tools.
+      // Matched structurally: the skill reference comes *before* "with <tool>".
+      // That ordering is what separates a live offer from a disclaimer, since
+      // "a maintainer requests with `/update_changelog`" is legitimate and puts the
+      // tool name before the skill. No phrase exclusion, so a disclaimer sitting on
+      // the same line cannot excuse a live offer.
+      const offers = text.split('\n').filter(
+        (line) =>
+          /qodo-pr-agent[^\n]{0,160}?with\s+`?(generate_labels|update_changelog|add_docs)`?/.test(
+            line
+          )
+      );
+      expect({ file, offers }).toStrictEqual({ file, offers: [] });
+    }
+  });
+
+  it('labels have no Qodo path at all, and says so where labels are decided', () => {
+    // `/generate_labels` is refused by the receiver, so the labelling integrations
+    // must not claim a Qodo input at all.
+    const matrix = read(
+      '.github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md'
+    );
+    const row = matrix.split('\n').find((line) => line.startsWith('| Label suggestions |'));
+    expect(row).toBeDefined();
+    // The row may name the tool to explain the refusal, but it must not present
+    // Qodo as the source and must name the in-repo agent instead.
+    expect(row).toContain('`agents/labeling-agent/`');
+    expect(row).toMatch(/Qodo PR-Agent offers none/);
+
+    // And the receiver really does refuse it, or the claim above is wrong.
+    const receiver = read('.github/workflows/qodo-pr-agent.yml');
+    const allowed = receiver.match(/ALLOWED_COMMANDS = \[([^\]]*)\]/)[1];
+    expect(allowed).not.toContain('/generate_labels');
+  });
+
+  it('the receiver refuses a closed pull request on every path, but draft and fork only on the automatic one', () => {
+    // The class behind two findings: eligibility was applied only where the
+    // automatic run happened to be checked. The shared path carries the open-state
+    // rule; draft, excluded-author and fork stay on the automatic branch.
+    const receiver = read('.github/workflows/qodo-pr-agent.yml');
+    // Open-state is checked before the pull_request-only branch opens.
+    const openAt = receiver.indexOf("if (pull.state !== 'open') return out('pr-not-open');");
+    const branchAt = receiver.indexOf(
+      "if (context.payload.workflow_run.event === 'pull_request') {"
+    );
+    expect({ openBeforeBranch: openAt > 0 && openAt < branchAt }).toStrictEqual({
+      openBeforeBranch: true,
+    });
+    // And the draft check is inside that branch, after the shared rule.
+    const draftAt = receiver.indexOf("if (pull.draft) return out('draft');");
+    expect({ draftAfterBranch: draftAt > branchAt }).toStrictEqual({ draftAfterBranch: true });
+
+    // A blank dispatch is the automatic path, so it must apply the same rules, and
+    // a named dispatch command must still refuse a closed pull request.
+    expect(receiver).toContain('dispatched.state');
+    expect(receiver).toContain('dispatched.draft');
+    expect(receiver).toContain('commanded.state');
+  });
+
+  it('states that only pull_request reads the receiver definition from the pull request branch', () => {
+    // `issue_comment` and `pull_request_target` both run default-branch
+    // definitions, per GitHub's events table, so grouping them with
+    // `pull_request` as branch-loading events is wrong.
+    const docs = read('docs/QODO_PR_AGENT.md');
+    const line = docs.split('\n').find((l) => l.includes('Keep the triggers as shipped'));
+    expect(line).toBeDefined();
+    expect(line).toMatch(/Only one of those three/);
+    expect(line).toMatch(/`issue_comment` runs the default-branch definition/);
+    expect(line).not.toMatch(/Those would make GitHub read the receiver's definition from the pull request/);
+  });
+
+  it('lists each workflow once in the workflow README', () => {
+    // Round 5 merged a receiver sentence that left two entries for the reusable
+    // workflow, one of them opening with "As above".
+    const readme = read('.github/workflows/README.md');
+    const entries = readme
+      .split('\n')
+      .filter((line) => /^- \*\*([^*]+)\*\*/.test(line))
+      .map((line) => /^- \*\*([^*]+)\*\*/.exec(line)[1]);
+    const dupes = entries.filter((name, i) => entries.indexOf(name) !== i);
+    expect({ dupes }).toStrictEqual({ dupes: [] });
+    expect(readme).not.toMatch(/^- \*\*\*\*.*As above,/m);
+  });
+
+  it('binds both receivers to the exact triggering comment, and the opt-in forwards its id', () => {
+    // The pilot receiver resolved by id while the reusable took the newest
+    // matching comment, so two /ask comments could have the run answer the wrong
+    // one. Both now resolve the id.
+    for (const file of ['.github/workflows/qodo-pr-agent.yml', '.github/workflows/qodo-pr-agent-reusable.yml']) {
+      const wf = read(file);
+      expect({ file, byId: wf.includes('issues.getComment') }).toStrictEqual({ file, byId: true });
+      expect({ file, lists: wf.includes('issues.listComments') }).toStrictEqual({ file, lists: false });
+    }
+    // The reusable takes the id as an input, so the caller has to pass it.
+    const reusable = read('.github/workflows/qodo-pr-agent-reusable.yml');
+    expect(reusable).toMatch(/^\s+comment_id:$/m);
+    expect(reusable).toContain('COMMENT_ID: ${{ inputs.comment_id }}');
+    const docs = read('docs/QODO_PR_AGENT.md');
+    expect(docs).toMatch(/comment_id: \$\{\{ needs\.preflight\.outputs\.comment_id \}\}/);
+  });
+
+  it('instructs a single develop pattern everywhere, and never tells an adopter to add two', () => {
+    // Round 4 corrected the contract and T042 but left the operator-facing
+    // instructions and the quickstart prerequisite still listing a second,
+    // non-existent pattern.
+    const surfaces = [
+      'docs/QODO_PR_AGENT.md',
+      '.github/specs/019-qodo-pr-agent-integration/quickstart.md',
+      '.github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md',
+      '.github/specs/019-qodo-pr-agent-integration/tasks.md',
+    ];
+    for (const file of surfaces) {
+      // Any line that instructs adding two patterns, rather than recording that a
+      // draft once did so.
+      const instructions = read(file)
+        .split('\n')
+        .filter((line) => /refs\/heads\/develop/.test(line))
+        .filter((line) => !/earlier draft|corrected|previou|once did|no longer|not two/i.test(line));
+      expect({ file, instructions: instructions.length }).toStrictEqual({
+        file,
+        instructions: 0,
+      });
+    }
+  });
+
+  it('scopes the head-SHA check to automatic runs rather than every request', () => {
+    const docs = read('docs/QODO_PR_AGENT.md');
+    const line = docs
+      .split('\n')
+      .find((l) => l.includes('at the head that run observed'));
+    expect(line).toBeDefined();
+    expect(line).toMatch(/automatic.*`pull_request`/);
+    expect(line).toMatch(/compares no head SHA there/);
+  });
+
+  it('leaves the review verdict with human reviewers', () => {
+    const docs = read('docs/CODERABBIT_LABELS_ALIGNMENT.md');
+    const line = docs
+      .split('\n')
+      .find((l) => l.includes('primary automatic reviewer'));
+    expect(line).toBeDefined();
+    expect(line).toMatch(/verdict is owned by human reviewers/);
+    expect(line).not.toMatch(/it owns the review verdict/);
+  });
+
+  it('the runner resolves the model from the repository, not from a path above it', () => {
+    // Round 4 used four `..` from skills/<name>/scripts/, which resolves to the
+    // repository's *parent*, so no .pr_agent.toml was ever found and every run
+    // silently used the default. The earlier test only matched the string
+    // `repo_root/.pr_agent.toml`, which passed against the broken depth.
+    const script = read('skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh');
+    // Count `..` segments, not `../` pairs: the last segment carries no slash.
+    const depth = /dirname "\$\{BASH_SOURCE\[0\]\}"\)\/((?:\.\.\/*)+)/.exec(script);
+    expect(depth).not.toBeNull();
+    expect({ levels: (depth[1].match(/\.\./g) || []).length }).toStrictEqual({ levels: 3 });
+
+    // Executed against the real checkout, so this cannot pass on a depth that does
+    // not resolve: the repository root holds the authority and its parent does not,
+    // which is exactly the distinction the four-level path got wrong.
+    const root = path.resolve(__dirname, '../..');
+    expect(fs.existsSync(path.join(root, '.pr_agent.toml'))).toBe(true);
+    expect(fs.existsSync(path.join(path.dirname(root), '.pr_agent.toml'))).toBe(false);
   });
 
   it('the Q-12 fixture exceeds the budget it claims to exceed', () => {

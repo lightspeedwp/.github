@@ -29,7 +29,7 @@ One upstream command. There is a fixed set of nine.
 | update_changelog | on-demand, comment only |
 | add_docs | on-demand |
 | help | on-demand |
-| generate_labels | disabled on PRs; skill-only, with publishing off |
+| generate_labels | unavailable: refused as a command, and no non-publishing output path at v0.46.0 |
 | similar_issue | disabled (deferred, see [research R8](./research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)) |
 
 ## Responsibility matrix

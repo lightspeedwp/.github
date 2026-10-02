@@ -38,16 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Linear Merge Status Caveat** — The guide now records that a Linear issue left in Triage is silently skipped by the merge automation, and that ready-to-merge needs a stable check state. (#3593)
 - **Verifiable Code Intelligence Guidance** — Guidance for Linear now covers all repository families, not just `.github`, and is validated and fingerprinted so drift and Enterprise-only advice are detectable. (#3596)
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
-- **Qodo PR-Agent Pilot** — Pull requests on this repository now get an automatic summary and improvement suggestions alongside CodeRabbit, and maintainers can ask questions with commands such as `/ask`. (#3532)
-- **Qodo PR-Agent Skill Adapter Rejects a Short Command** — Too few arguments printed a Python traceback. It now prints its usage line and exits 64, matching the runner. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-- **Qodo PR-Agent No-Credential Path Is Asserted** — That check only asserted nothing threw, which any failure satisfies. It now asserts the exit code and the result. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-- **Qodo PR-Agent Model Facts Corrected** — The fallback was described as retiring on 2026-10-15, two days away. It is not: Anthropic lists it Active, and that date is a support floor. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-- **Qodo PR-Agent Model Declared Once** — The model id was restated in five executable places. The repository config is the only declaration now, and a test fails on drift. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-- **Qodo PR-Agent Invocation Documented** — The research, contracts, plan and guide still described the old entry point, contradicting the workflows. Each now describes what the step passes. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-- **Qodo PR-Agent Commands and Dispatches Now Run** — A command or a manual dispatch ran no tool and still reported success; both workflows now call PR-Agent's command-line tool. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
+- **Qodo PR-Agent Pilot** — Pull requests now get an automatic summary and improvement suggestions alongside CodeRabbit, and a maintainer can ask a question on the pull request. ([PR #3532](https://github.com/lightspeedwp/.github/pull/3532))
 - **Qodo PR-Agent Model and Image Verified** — The model, fallback and image digest are verified against their sources. Sonnet 5 stays until a release bundles a litellm knowing 5.5. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
 - **Qodo PR-Agent Spend Limit Lowered to $20** — The pilot's monthly cap is now $20, with a per-run cost estimate and the inputs behind it in the guide. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-- **Qodo PR-Agent Pilot Validation Corrected** — The report described the key as a repository secret and used the pre-opt-in rule, contradicting the spec. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
 - **Qodo PR-Agent Credential Boundary** — A pull request author can no longer reach the model key before review, and the pilot never waits for a human approval to do so. (#3532)
 - **Shared Claude Code Cloud Environment** — One cloud setup for the whole team. The branch guard now refuses covered shell commands that would break the branching strategy, including commands hidden in a nested shell. (#3524)
 - **Claude Guard Merge Queue Coverage** — The branch guard's contract tests now run for merge-queue batches as well as pull requests, so the check can be required without blocking every queued merge. (#3524)
@@ -88,9 +81,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
 - **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
-- **`smol-toml` Declared for Tests** — A test imported it directly but it was listed only as a version override, so a clean install could have failed to run the test. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
-
 ### Fixed
+
+- **Qodo PR-Agent Eligibility and Comment Binding** — A closed pull request is refused on every request path, and both receivers resolve the exact maintainer comment by id. ([PR #3532](https://github.com/lightspeedwp/.github/pull/3532))
+
+- **Qodo PR-Agent No-Credential Path Is Asserted** — That check only asserted nothing threw, which any failure satisfies. It now asserts the exit code and the result. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
+- **Qodo PR-Agent Model Declared Once** — The model id was restated in five executable places. The repository config is the only declaration now, and a test fails on drift. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
+- **Qodo PR-Agent Invocation Documented** — The research, contracts, plan and guide still described the old entry point, contradicting the workflows. Each now describes what the step passes. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
+- **Qodo PR-Agent Pilot Validation Corrected** — The report described the key as a repository secret and used the pre-opt-in rule, contradicting the spec. ([#3532](https://github.com/lightspeedwp/.github/pull/3532))
 
 - **Pilot Run Record** — An event whose preflight job errors is now recorded as `skipped:preflight-error` instead of a bare `skipped:`, which the pilot report listed as its own row. (#3532)
 - **Pilot Upstream Claims** — Three Qodo PR-Agent descriptions that did not match its source are corrected: the token cap is one global limit, `/similar_issue` cannot run in the pinned image, and a rate limit records a failure. (#3532)
