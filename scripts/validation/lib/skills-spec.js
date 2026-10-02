@@ -417,13 +417,26 @@ function splitFrontmatter(content) {
 }
 
 /**
- * Canonical footer openings, mirroring `DEFAULT_FOOTERS` in
- * `scripts/agents/includes/header-footer.js`.
+ * Every footer phrase opening the repository can actually emit.
  *
- * That module is ESM and this one is CommonJS, so the list cannot be imported.
- * `__tests__/validate-skills.test.js` reads the real `FOOTER_PATTERNS` out of
- * `footer-policy.js` and asserts every stem below is covered by it, which keeps
- * the two from drifting.
+ * Two sources define what a footer looks like, and both are honoured here:
+ *
+ * - `FOOTER_PATTERNS` in `scripts/agents/includes/footer-policy.js`, the shared
+ *   policy that owns footer recognition for the generator and the duplicate
+ *   guard.
+ * - `.github/footers.yml`, whose `categories` and `default` phrases the
+ *   generator resolves through `resolveFooterPhrases()`.
+ *
+ * An earlier version listed only the five `DEFAULT_FOOTERS` fallbacks, so a file
+ * holding only a heading and any *configured* footer — `Questions?`,
+ * `Prefer a guided`, `Copy, adapt`, `Keep tone`, `Need help?` and the rest — was
+ * not recognised as empty and passed the #3707 gate. That is the whole class of
+ * defect the finding describes, not one variant of it.
+ *
+ * Both owners are ESM and this module is CommonJS, so the list cannot be
+ * imported. `__tests__/validate-skills.test.js` reads the real `FOOTER_PATTERNS`
+ * and the real `footers.yml` and asserts this list covers both, which is what
+ * keeps them from drifting.
  */
 const FOOTER_STEMS = Object.freeze([
   'Maintained with',
@@ -432,11 +445,40 @@ const FOOTER_STEMS = Object.freeze([
   'This page brought to you by',
   'Docs signed by',
   'Made with',
+  'Questions?',
+  'Prefer a guided',
+  'Clarity first',
+  'Improvements welcome',
+  'Copy, adapt',
+  'Tweak the variables',
+  'Your feedback shapes',
+  'Reuse beats',
+  'Keep prompts',
+  'Use responsibly',
+  'Keep tone',
+  'Update when',
+  'Link policies',
+  'Thanks for helping',
+  'Need help?',
 ]);
 const FOOTER_LINE_RE = new RegExp(
   `^[*_>#\\s]*(${FOOTER_STEMS.map((stem) => stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`
 );
 const FOOTER_LINK_LINE_RE = /^\[(?:Contributors|Org Profile|Automation Docs)\]\(/;
+
+/**
+ * Is this line part of a generated footer?
+ *
+ * Exported so the anti-drift test can hold this module to the shared policy
+ * without re-deriving the regular expression.
+ *
+ * @param {string} line A single line, without its trailing newline.
+ * @returns {boolean} True when the line is a footer phrase or footer link line.
+ */
+function isFooterLine(line) {
+  const trimmed = typeof line === 'string' ? line.trim() : '';
+  return FOOTER_LINE_RE.test(trimmed) || FOOTER_LINK_LINE_RE.test(trimmed);
+}
 
 /**
  * Strip a trailing generated footer so only real instructions count as a body.
@@ -778,6 +820,8 @@ module.exports = {
   VENDORED_PLUGIN_ROOTS,
   classify,
   hasBody,
+  isFooterLine,
+  FOOTER_STEMS,
   isVendoredPlugin,
   splitFrontmatter,
   stripFooter,

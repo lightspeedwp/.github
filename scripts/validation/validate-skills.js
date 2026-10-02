@@ -423,25 +423,30 @@ const byKey = new Map(findings.map((finding) => [findingKey(finding), finding]))
 
 if (options.writeBaseline) {
   const sorted = [...findings].sort((a, b) => findingKey(a).localeCompare(findingKey(b)));
+  // Deduplicated: two findings that share a key are the same baseline entry, so
+  // the written count has to describe the written list rather than the raw one.
+  const keys = [...new Set(sorted.map(findingKey))].sort();
   fs.writeFileSync(
     BASELINE_PATH,
     `${JSON.stringify(
       {
         note:
           'Known findings of scripts/validation/validate-skills.js. Each entry is ' +
-          '`"<path>#<rule>"`. A finding listed here is a warning; a finding not listed here fails the run. ' +
+          '`"<path>#<rule>"`, or `"<path>#<rule>#<subject>"` for a rule that can fire ' +
+          'more than once in one file, where the subject names the offending field or the kind of ' +
+          'problem. The subject is what stops one baselined finding from excusing another of the ' +
+          'same rule. A finding listed here is a warning; a finding not listed here fails the run. ' +
           'Regenerate with `node scripts/validation/validate-skills.js --write-baseline`. The list shrinks as ' +
           'the per-class fix pull requests land, and the final one deletes this file.',
         generated: new Date().toISOString().slice(0, 10),
-        count: sorted.length,
-        // Deduplicated: two findings that share a key are the same baseline entry.
-      findings: [...new Set(sorted.map(findingKey))].sort(),
+        count: keys.length,
+        findings: keys,
       },
       null,
       2
     )}\n`
   );
-  console.log(`Baseline written with ${sorted.length} finding(s).`);
+  console.log(`Baseline written with ${keys.length} finding(s).`);
   process.exit(0);
 }
 

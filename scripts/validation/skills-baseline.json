@@ -1,5 +1,5 @@
 {
-  "note": "Known findings of scripts/validation/validate-skills.js. Each entry is `\"<path>#<rule>\"`. A finding listed here is a warning; a finding not listed here fails the run. Regenerate with `node scripts/validation/validate-skills.js --write-baseline`. The list shrinks as the per-class fix pull requests land, and the final one deletes this file.",
+  "note": "Known findings of scripts/validation/validate-skills.js. Each entry is `\"<path>#<rule>\"`, or `\"<path>#<rule>#<subject>\"` for a rule that can fire more than once in one file, where the subject names the offending field or the kind of problem. The subject is what stops one baselined finding from excusing another of the same rule. A finding listed here is a warning; a finding not listed here fails the run. Regenerate with `node scripts/validation/validate-skills.js --write-baseline`. The list shrinks as the per-class fix pull requests land, and the final one deletes this file.",
   "generated": "2026-10-02",
   "count": 518,
   "findings": [

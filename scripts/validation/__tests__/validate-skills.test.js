@@ -16,6 +16,7 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const { execFileSync } = require('child_process');
+const yaml = require('js-yaml');
 
 const SCRIPT = path.join(__dirname, '..', 'validate-skills.js');
 const spec = require('../lib/skills-spec.js');
@@ -951,5 +952,119 @@ describe('skills-spec: metadata values must be strings', () => {
 
   it('rejects metadata that is not a mapping', () => {
     expect(spec.validateMetadataValues({ metadata: 'x' })[0]).toContain('must be a mapping');
+  });
+});
+
+/**
+ * The anti-drift guard for footer recognition.
+ *
+ * `stripFooter` used to know only the five `DEFAULT_FOOTERS` fallbacks, so a
+ * skill holding a heading and any *configured* footer was counted as having a
+ * body and passed the #3707 gate. That is the whole class of defect the finding
+ * reports, not one variant of it.
+ *
+ * Two owners define what a footer looks like: `FOOTER_PATTERNS` in
+ * `scripts/agents/includes/footer-policy.js`, and the phrases the generator
+ * resolves from `.github/footers.yml`. Both are read here as the real files they
+ * are, so adding a phrase to either without teaching `FOOTER_STEMS` about it
+ * fails this suite instead of quietly reopening the hole.
+ */
+describe('footer recognition tracks the shared policy and the configured phrases', () => {
+  const REPO_ROOT = path.join(__dirname, '..', '..', '..');
+
+  /**
+   * The literal words a `FOOTER_PATTERNS` entry must begin with.
+   *
+   * Regex metacharacters are dropped, because they are the pattern's own syntax
+   * rather than the phrase's text — `Have questions\?` must reduce to
+   * "Have questions", which the stem "Have questions?" covers. Emoji are dropped
+   * for the same reason and because a stem is a word prefix, not a whole phrase.
+   *
+   * @param {string} pattern One entry of FOOTER_PATTERNS.
+   * @returns {string} The literal opening, or '' when the entry has none.
+   */
+  function literalOpening(pattern) {
+    const withoutLeadingClass = pattern.replace(/^\[[^\]]*\][?+]?/, '');
+    const literal = withoutLeadingClass.split(/[\\^$.*+?()[\]{}|]/)[0];
+    return literal.replace(/[^\x20-\x7E]/g, '').trim();
+  }
+
+  /** @returns {string[]} The real FOOTER_PATTERNS, read from the shared ESM policy. */
+  function sharedFooterPatterns() {
+    const source = fs.readFileSync(
+      path.join(REPO_ROOT, 'scripts', 'agents', 'includes', 'footer-policy.js'),
+      'utf8'
+    );
+    const block = source.match(/export const FOOTER_PATTERNS = \[([\s\S]*?)\n\];/);
+    if (!block) {
+      throw new Error('FOOTER_PATTERNS was not found in footer-policy.js');
+    }
+    return [...block[1].matchAll(/'((?:[^'\\]|\\.)*)'/g)].map((match) =>
+      match[1].replace(/\\\\/g, '\\')
+    );
+  }
+
+  it('reads every shared pattern, so the coverage test cannot pass vacuously', () => {
+    expect(sharedFooterPatterns().length).toBeGreaterThan(0);
+  });
+
+  it('covers every shared FOOTER_PATTERNS entry with a stem', () => {
+    const uncovered = sharedFooterPatterns()
+      .map((pattern) => ({ pattern, opening: literalOpening(pattern) }))
+      .filter(
+        ({ opening }) =>
+          opening.length > 0 && !spec.FOOTER_STEMS.some((stem) => stem.startsWith(opening))
+      )
+      .map(({ pattern, opening }) => `${pattern} (opening ${JSON.stringify(opening)})`);
+    expect(uncovered).toEqual([]);
+  });
+
+  it('recognises a real-looking line built from each stem', () => {
+    for (const stem of spec.FOOTER_STEMS) {
+      expect(spec.isFooterLine(`*${stem} and the rest of the phrase*`)).toBe(true);
+    }
+  });
+
+  /** @returns {[string, string][]} Every phrase the generator can emit, with its category. */
+  function configuredPhrases() {
+    const config = yaml.load(
+      fs.readFileSync(path.join(REPO_ROOT, '.github', 'footers.yml'), 'utf8')
+    );
+    const phrases = [];
+    for (const [category, value] of Object.entries(config.categories || {})) {
+      for (const phrase of value.phrases || []) {
+        phrases.push([`${category}: ${phrase}`, phrase]);
+      }
+    }
+    for (const phrase of (config.default || {}).phrases || []) {
+      phrases.push([`default: ${phrase}`, phrase]);
+    }
+    if (phrases.length === 0) {
+      throw new Error('no configured footer phrases were read from .github/footers.yml');
+    }
+    return phrases;
+  }
+
+  it('reads every configured phrase, so the coverage test cannot pass vacuously', () => {
+    expect(configuredPhrases().length).toBeGreaterThan(0);
+  });
+
+  it.each(configuredPhrases())(
+    'treats a heading plus the configured footer %j as an empty body',
+    (_label, phrase) => {
+      expect(spec.hasBody(`# Heading only\n\n*${phrase}*\n`)).toBe(false);
+    }
+  );
+
+  it('treats a heading plus a configured footer and link line as an empty body', () => {
+    const body =
+      '# Heading only\n\n*Prefer a guided setup? Book a consult.*\n[Org Profile](https://github.com/orgs/lightspeedwp)\n';
+    expect(spec.hasBody(body)).toBe(false);
+  });
+
+  it('still counts real instructions that precede a configured footer', () => {
+    expect(spec.hasBody('Follow these steps.\n\n*Prefer a guided setup? Book a consult.*\n')).toBe(
+      true
+    );
   });
 });

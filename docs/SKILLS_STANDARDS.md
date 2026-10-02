@@ -179,7 +179,10 @@ skill-name/
 Three rules catch most mistakes:
 
 1. `name` must equal the directory name, lower case, digits and single hyphens.
-2. The body must contain instructions. Frontmatter alone is not a skill.
+2. The body must contain instructions. Frontmatter alone is not a skill, and
+   neither is a heading and the generated footer — the footer is stripped before
+   the body is judged, whichever footer phrase the repository is configured to
+   use.
 3. Anything that is not a specification field or a documented platform field
    belongs under `metadata`.
 
