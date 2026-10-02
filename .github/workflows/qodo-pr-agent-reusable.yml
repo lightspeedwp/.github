@@ -1,0 +1,536 @@
+# Qodo PR-Agent • Reusable
+#
+# Organisation-standard run definition for Qodo PR-Agent
+# (https://github.com/The-PR-Agent/pr-agent, formerly qodo-ai/pr-agent;
+# docs at https://docs.pr-agent.ai/).
+# Callers declare the triggers; this workflow decides whether to run and runs it.
+#
+# SECURITY CONTRACT - a caller of this workflow must satisfy all of it, or the
+# model key is reachable by a pull request author:
+#   1. The privileged half must be reached by a trigger GitHub evaluates on the
+#      default branch. `workflow_run` does. `workflow_dispatch` runs the
+#      definition from the selected ref, so it is safe only with point 3 below.
+#      `pull_request` does not: GitHub reads the definition from the pull
+#      request. See .github/workflows/qodo-pr-agent.yml.
+#   2. The credential must be declared as an `environment` secret, and this
+#      workflow's `run` job must reference that environment. A repository
+#      secret is reachable from a `pull_request` run, because GitHub passes
+#      repository secrets to same-repository pull request runs.
+#   3. The environment's deployment branch policy must admit the default branch
+#      only, and must not admit `refs/pull/*/merge`.
+#   4. No job may hold `id-token: write`. The third-party container must have
+#      no OIDC capability, which is why keyless federation is not used.
+# Callers that break this contract reintroduce CWE-200 and are rejected at
+# review by the same reasoning that produced it.
+#
+# - CodeRabbit owns the automatic review verdict, so `auto_review` is hard-coded
+#   to "false". Qodo PR-Agent automatically posts a summary comment (describe)
+#   and improvement suggestions (improve); everything else is a maintainer command.
+# - No actions/checkout: Qodo PR-Agent reads the PR through the API, so no PR
+#   code is ever executed.
+# - Enable switch: runs only when the Actions variable QODO_PR_AGENT_ENABLED is
+#   "true"; unset or any other value skips every run with reason kill-switch.
+# - Credential: the `model_credential` secret, a dedicated Anthropic API key
+#   stored only as the environment secret MODEL_CREDENTIAL on the caller's
+#   Environment. Callers pass no `secrets:` mapping: the run job declares the
+#   Environment, so GitHub resolves the secret from it.
+# - A skipped run always concludes successfully; this workflow never blocks a PR.
+#
+# Docs: docs/QODO_PR_AGENT.md
+# Contract: .github/specs/019-qodo-pr-agent-integration/contracts/reusable-workflow.md
+name: Qodo PR-Agent • Reusable
+
+on:
+  workflow_call:
+    inputs:
+      auto_describe:
+        description: 'Post the summary comment automatically on PR events'
+        type: boolean
+        required: false
+        default: true
+      auto_improve:
+        description: 'Post improvement suggestions automatically on PR events'
+        type: boolean
+        required: false
+        default: true
+      pr_number:
+        description: 'Pull request number analysed by the caller'
+        type: string
+        required: true
+      command:
+        description: 'Allow-listed command to run, or empty for the automatic path'
+        type: string
+        required: false
+        default: ''
+      comment_id:
+        description: >-
+          Id of the comment that requested the command. Required when `command` is
+          set, so the run is bound to the exact comment that triggered it.
+        type: string
+        required: false
+        default: ''
+      decision_reason:
+        description: "Caller's decision reason, recorded verbatim in the run record"
+        type: string
+        required: false
+        default: 'ok'
+      excluded_authors:
+        description: 'JSON array of PR authors that never trigger automatic runs'
+        type: string
+        required: false
+        default: '["dependabot[bot]","lightspeed-docs-bot[bot]"]'
+      environment_name:
+        description: 'Environment holding model_credential; its deployment branch policy is load-bearing'
+        type: string
+        required: false
+        default: 'qodo-pr-agent'
+    secrets:
+      model_credential:
+        description: 'Anthropic API key dedicated to Qodo PR-Agent, held in the qodo-pr-agent Environment'
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    name: Confirm the caller honoured the security contract
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    permissions: {}
+    outputs:
+      # The confirm step is authoritative when it ran; otherwise the verify
+      # step's verdict stands, so a skip is always attributed to a real reason.
+      enabled: ${{ steps.confirm.outputs.enabled || steps.verify.outputs.enabled }}
+      reason: ${{ steps.confirm.outputs.reason || steps.verify.outputs.reason }}
+      tool: ${{ steps.confirm.outputs.tool || steps.verify.outputs.tool }}
+      args: ${{ steps.confirm.outputs.args }}
+    steps:
+      - name: Verify the security contract and the caller's request
+        id: verify
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          # Read here on purpose. A repository secret IS readable in this job,
+          # because it does not reference the environment. Finding one means
+          # the caller passed `secrets:` from repository scope, which is the
+          # exact misconfiguration behind CWE-200, so it fails loudly instead
+          # of running with a key no deployment policy ever gated.
+          HAS_REPO_SECRET: ${{ secrets.model_credential != '' }}
+          HAS_CREDENTIAL: ${{ secrets.model_credential != '' }}
+          KILL_SWITCH: ${{ vars.QODO_PR_AGENT_ENABLED }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+          COMMAND: ${{ inputs.command }}
+          COMMENT_ID: ${{ inputs.comment_id }}
+          CALLER_REASON: ${{ inputs.decision_reason }}
+          EXCLUDED_AUTHORS: ${{ inputs.excluded_authors }}
+          PAYLOAD_PR: ${{ github.event.pull_request.number || github.event.issue.number }}
+          PAYLOAD_SENDER: ${{ github.event.sender.type }}
+          PAYLOAD_DRAFT: ${{ github.event.pull_request.draft }}
+          PAYLOAD_HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          PAYLOAD_REPO: ${{ github.repository }}
+          PAYLOAD_BODY: ${{ github.event.comment.body }}
+          PAYLOAD_ASSOCIATION: ${{ github.event.comment.author_association }}
+          PAYLOAD_ISSUE_STATE: ${{ github.event.issue.state }}
+        with:
+          script: |
+            const ALLOWED_COMMANDS = [
+              '/describe', '/improve', '/review', '/ask',
+              '/update_changelog', '/add_docs', '/help',
+            ];
+            const ALLOWED_ASSOCIATIONS = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+
+            function decide() {
+              // Opt-in: the pilot spends money, so it runs only once the
+              // variable is explicitly 'true'. Unset or any other value skips.
+              // Exactly 'true', not a case-insensitive match. FR-020 requires the
+              // literal string, and the conservative direction is the safe one for a
+              // spend control: 'True' leaves the pilot off rather than starting it.
+              if (String(process.env.KILL_SWITCH) !== 'true') {
+                return { reason: 'kill-switch' };
+              }
+              if (process.env.CALLER_REASON && process.env.CALLER_REASON !== 'ok') {
+                return { reason: 'caller-refused' };
+              }
+              // CWE-200 regression guard. This job holds no environment, so a
+              // value here can only have come from repository scope.
+              if (process.env.HAS_REPO_SECRET === 'true') {
+                return { reason: 'credential-not-environment-scoped' };
+              }
+
+              const pr = Number.parseInt(process.env.PR_NUMBER, 10);
+              if (!Number.isInteger(pr) || pr < 1) return { reason: 'bad-pr-number' };
+
+              const command = String(process.env.COMMAND || '').trim().toLowerCase();
+
+              // The caller's event context, when the caller was itself a
+              // pull_request or issue_comment run. The trigger workflow proves
+              // nothing; these fields are the trigger's payload, and the
+              // confirm step below re-derives them from the API regardless.
+              if (process.env.PAYLOAD_SENDER === 'Bot') return { reason: 'bot-sender', tool: 'none' };
+
+              if (process.env.PAYLOAD_DRAFT === 'true') return { reason: 'draft', tool: 'none' };
+
+              // Fail-closed fork check: a missing or mismatched head repository
+              // is a fork, never same-repository.
+              const headRepo = process.env.PAYLOAD_HEAD_REPO;
+              const repo = process.env.PAYLOAD_REPO;
+              if (headRepo && repo && headRepo !== repo) return { reason: 'fork', tool: 'none' };
+
+              if (!command) {
+                // Automatic path. Eligibility beyond the payload is confirmed
+                // against the API in the next step.
+                return { reason: 'ok', tool: 'auto' };
+              }
+
+              if (!ALLOWED_COMMANDS.includes(command)) {
+                return { reason: 'command-not-allowed', tool: 'none' };
+              }
+              if (process.env.PAYLOAD_ASSOCIATION &&
+                  !ALLOWED_ASSOCIATIONS.includes(process.env.PAYLOAD_ASSOCIATION)) {
+                return { reason: 'author-not-allowed', tool: command.slice(1) };
+              }
+              // A command on a closed or merged pull request has nothing left to
+              // act on. The API-confirming step re-checks this authoritatively.
+              if (process.env.PAYLOAD_ISSUE_STATE === 'closed') {
+                return { reason: 'pr-closed', tool: command.slice(1) };
+              }
+              return { reason: 'ok', tool: command.slice(1) };
+            }
+
+            const { reason, tool = 'none' } = decide();
+            core.setOutput('enabled', String(reason === 'ok'));
+            core.setOutput('reason', reason);
+            core.setOutput('tool', ALLOWED_COMMANDS.includes('/' + tool) ? tool : 'none');
+            if (reason !== 'ok') core.notice(`Qodo PR-Agent skipped: ${reason}`);
+
+      # Second, independent gate. The trigger workflow's artifact is a hint, so
+      # every eligibility fact is re-read from the API here, from a job whose
+      # definition came from the default branch. A pull request author who edits
+      # the trigger can at worst cause this step to disagree, which skips the run.
+      - name: Re-derive eligibility from the API
+        id: confirm
+        if: steps.verify.outputs.enabled == 'true'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          PR_NUMBER: ${{ inputs.pr_number }}
+          COMMAND: ${{ inputs.command }}
+          REQUESTED_TOOL: ${{ steps.verify.outputs.tool }}
+          EXCLUDED_AUTHORS: ${{ inputs.excluded_authors }}
+        with:
+          script: |
+            const ALLOWED_COMMANDS = [
+              '/describe', '/improve', '/review', '/ask',
+              '/update_changelog', '/add_docs', '/help',
+            ];
+            const ALLOWED_ASSOCIATIONS = ['OWNER', 'MEMBER', 'COLLABORATOR'];
+            // The defaults always apply and the input adds to them, so a
+            // malformed or absent input cannot silently re-admit a bot author.
+            const DEFAULT_EXCLUDED = ['dependabot[bot]', 'lightspeed-docs-bot[bot]'];
+            const EXCLUDED = (() => {
+              try {
+                const extra = JSON.parse(process.env.EXCLUDED_AUTHORS || '[]');
+                return Array.isArray(extra)
+                  ? [...new Set([...DEFAULT_EXCLUDED, ...extra.filter((a) => typeof a === 'string')])]
+                  : DEFAULT_EXCLUDED;
+              } catch {
+                core.warning('excluded_authors is not valid JSON; using the defaults.');
+                return DEFAULT_EXCLUDED;
+              }
+            })();
+
+            function refuse(reason, tool = 'none') {
+              core.setOutput('enabled', 'false');
+              core.setOutput('reason', reason);
+              core.setOutput('tool', tool);
+              core.notice(`Qodo PR-Agent skipped: ${reason}`);
+            }
+
+            const pr = Number.parseInt(process.env.PR_NUMBER, 10);
+            if (!Number.isInteger(pr) || pr < 1) return refuse('bad-pr-number');
+
+            const { data: pull } = await github.rest.pulls.get({
+              owner: context.repo.owner, repo: context.repo.repo, pull_number: pr,
+            });
+            if (pull.state !== 'open') return refuse('pr-not-open');
+            if (pull.draft) return refuse('draft');
+            if (EXCLUDED.includes(pull.user?.login)) return refuse('excluded-author');
+            // Authoritative fork test: the API knows the head repository even
+            // when the payload was stripped or forged.
+            if (pull.head?.repo?.full_name !== pull.base?.repo?.full_name) return refuse('fork');
+
+            const command = String(process.env.COMMAND || '').trim().toLowerCase();
+            if (!command) {
+              core.setOutput('enabled', 'true');
+              core.setOutput('reason', 'ok');
+              core.setOutput('tool', 'auto');
+              return;
+            }
+
+            if (!ALLOWED_COMMANDS.includes(command)) return refuse('command-not-allowed');
+            // The comment is resolved by the id the caller named, not by searching
+            // for the newest comment that happens to carry the same command. Two
+            // `/ask` comments arriving before confirmation would otherwise let a run
+            // answer the later one rather than the one that triggered it, and the run
+            // would not be attributable to the request that caused it.
+            const commentId = Number.parseInt(String(process.env.COMMENT_ID || '').trim(), 10);
+            if (!Number.isInteger(commentId) || commentId < 1) return refuse('unreadable-request');
+            let match;
+            try {
+              ({ data: match } = await github.rest.issues.getComment({
+                owner: context.repo.owner, repo: context.repo.repo, comment_id: commentId,
+              }));
+            } catch {
+              return refuse('no-matching-comment');
+            }
+            const commentPr = Number.parseInt(
+              String(match?.issue_url || '').split('/').pop(), 10
+            );
+            if (commentPr !== pr) return refuse('comment-not-on-this-pull-request');
+            if (String(match?.body || '').trim().split(/\s+/)[0].toLowerCase() !== command) {
+              return refuse('no-matching-comment');
+            }
+            if (!ALLOWED_ASSOCIATIONS.includes(match.author_association)) {
+              return refuse('author-not-allowed', command.slice(1));
+            }
+            const body = String(match.body || '').trim();
+            const rest = body.split(/\s+/).slice(1);
+            if (rest.some((a) => a.startsWith('--') && a.includes('='))) {
+              return refuse('arguments-not-allowed', command.slice(1));
+            }
+            // The question or instruction, passed to the CLI as one argument. PR-Agent
+            // reads an argument that starts with '--' as a setting even when its '='
+            // is in a later word, so a joined argument starting with '-' is refused.
+            const args = rest.join(' ');
+            if (args.startsWith('-')) return refuse('arguments-not-allowed', command.slice(1));
+            core.setOutput('enabled', 'true');
+            core.setOutput('reason', 'ok');
+            core.setOutput('tool', command.slice(1));
+            core.setOutput('args', args);
+
+  run:
+    name: Run Qodo PR-Agent
+    needs: preflight
+    if: needs.preflight.outputs.enabled == 'true'
+    # Load-bearing. The environment is declared on the caller's run job, so the
+    # deployment branch policy is evaluated against the caller's GITHUB_REF
+    # before any step here can read the key.
+    environment: ${{ inputs.environment_name || 'qodo-pr-agent' }}
+    concurrency:
+      group: qodo-pr-agent-${{ inputs.pr_number }}
+      cancel-in-progress: false
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    outputs:
+      started_at: ${{ steps.start.outputs.at }}
+      outcome: ${{ steps.qodo.outcome }}
+    steps:
+      - name: Record start time
+        id: start
+        run: echo "at=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_OUTPUT"
+
+      - name: Fail closed when the Environment did not release the key
+        env:
+          HAS_CREDENTIAL: ${{ secrets.model_credential != '' }}
+        run: |
+          if [ "$HAS_CREDENTIAL" != "true" ]; then
+            echo "::error::The qodo-pr-agent Environment did not release model_credential."
+            echo "::error::Check the Environment's deployment branch policy admits ${GITHUB_REF}."
+            exit 1
+          fi
+
+      # Pinned by image digest: the upstream action's own Dockerfile uses a
+      # floating tag, so pinning the action ref would not pin the code that runs.
+      # The entry point is PR-Agent's own CLI, not the image's GitHub action runner.
+      #
+      # The image's ENTRYPOINT runs pr_agent/servers/github_action_runner.py, which in
+      # v0.46.0 dispatches on GITHUB_EVENT_NAME. Inside a called workflow that is the
+      # *caller's* event, so a consumer whose receiver triggers on workflow_run lands in
+      # the runner's workflow_run branch, which returns unless the originating event is
+      # pull_request or pull_request_target. It never reads PR_NUMBER or
+      # PR_AGENT_COMMAND, so this workflow's pr_number and command inputs would be
+      # ignored. The CLI takes the pull request explicitly and does not depend on the
+      # event, so one invocation serves the automatic path, a command and a dispatch.
+      - name: Qodo PR-Agent
+        id: qodo
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # The CLI reads its token from github.user_token and has no fallback to
+          # GITHUB_TOKEN; the action runner used to copy it across, the CLI does not.
+          GITHUB.USER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC.KEY: ${{ secrets.model_credential }}
+          # The CLI reads its extra config from PR_AGENT_EXTRA_CONFIG_URL. Constant ref,
+          # never an event, head_ref or input value: PR-Agent's --config-branch
+          # indirection would otherwise let a pull request supply its own .pr_agent.toml.
+          PR_AGENT_EXTRA_CONFIG_URL: https://raw.githubusercontent.com/lightspeedwp/.github/develop/.pr_agent.toml
+          # Validated upstream of here: pr_number is checked by the preflight and
+          # re-read from the API, and tool came off its fixed allow-list. Both are
+          # checked again below, because they become shell and API input.
+          QODO_PR: ${{ inputs.pr_number }}
+          QODO_TOOL: ${{ needs.preflight.outputs.tool }}
+          QODO_ARGS: ${{ needs.preflight.outputs.args }}
+          QODO_AUTO_DESCRIBE: ${{ inputs.auto_describe && 'true' || 'false' }}
+          QODO_AUTO_IMPROVE: ${{ inputs.auto_improve && 'true' || 'false' }}
+          # Locked keys, re-set here because environment variables take precedence
+          # over a consuming repository's own .pr_agent.toml, which cannot weaken them.
+          config.response_language: en-GB
+          config.enable_custom_labels: 'false'
+          pr_description.publish_description_as_comment: 'true'
+          pr_description.publish_labels: 'false'
+          pr_description.generate_ai_title: 'false'
+          pr_reviewer.enable_review_labels_security: 'false'
+          pr_reviewer.enable_review_labels_effort: 'false'
+          pr_code_suggestions.commitable_code_suggestions: 'false'
+          pr_update_changelog.push_changelog_changes: 'false'
+        run: |
+          set -euo pipefail
+
+          # Pinned by digest, not by tag, so the code that runs cannot change under a
+          # floating version. The tag is in the comment for a human to check.
+          image='pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7' # 0.46.0-github_action
+
+          case "$QODO_PR" in
+            ''|*[!0-9]*) echo "::error::pr_number is not a pull request number"; exit 1 ;;
+          esac
+          pr_url="https://github.com/${{ github.repository }}/pull/$QODO_PR"
+
+          # The exact variables allowed into the container, so a later edit to this
+          # job's env cannot widen what enters.
+          container_env=(
+            GITHUB_TOKEN
+            GITHUB.USER_TOKEN
+            ANTHROPIC.KEY
+            PR_AGENT_EXTRA_CONFIG_URL
+            config.response_language
+            config.enable_custom_labels
+            pr_description.publish_description_as_comment
+            pr_description.publish_labels
+            pr_description.generate_ai_title
+            pr_reviewer.enable_review_labels_security
+            pr_reviewer.enable_review_labels_effort
+            pr_code_suggestions.commitable_code_suggestions
+            pr_update_changelog.push_changelog_changes
+          )
+
+          run_tool() {
+            local command="$1"
+            shift
+            local env_args=()
+            local name
+            for name in "${container_env[@]}"; do
+              env_args+=(-e "$name")
+            done
+            docker run --rm -i --entrypoint python \
+              "${env_args[@]}" \
+              "$image" \
+              -m pr_agent.cli --pr_url "$pr_url" "$command" "$@"
+          }
+
+          case "$QODO_TOOL" in
+            auto)
+              # The automatic path. Each tool is named directly, and a consumer that
+              # switched one off does not get it, which the auto_* settings could not
+              # express through the action runner.
+              if [ "$QODO_AUTO_DESCRIBE" = 'true' ]; then
+                run_tool describe
+              fi
+              if [ "$QODO_AUTO_IMPROVE" = 'true' ]; then
+                run_tool improve
+              fi
+              ;;
+            none)
+              echo "::notice::Qodo PR-Agent preflight resolved no tool; nothing to run."
+              ;;
+            *)
+              # The trailing text as one argument, never word-split, so it cannot
+              # become a second flag. /ask needs it: without it there is no question.
+              if [ -n "$QODO_ARGS" ]; then
+                run_tool "$QODO_TOOL" "$QODO_ARGS"
+              else
+                run_tool "$QODO_TOOL"
+              fi
+              ;;
+          esac
+
+      - name: Report a failed run without blocking the PR
+        if: steps.qodo.outcome == 'failure'
+        run: echo "::notice::Qodo PR-Agent failed (invalid key, rate limit or upstream error). The PR is not blocked; see this job's log."
+
+  record:
+    name: Record run
+    needs: [preflight, run]
+    if: >-
+      always() &&
+      !contains(fromJSON('["not-a-command","bot-sender","not-a-pr"]'), needs.preflight.outputs.reason)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions: {}
+    steps:
+      - name: Write run record
+        env:
+          REPOSITORY: ${{ github.repository }}
+          PR_NUMBER: ${{ inputs.pr_number }}
+          TOOL: ${{ needs.preflight.outputs.tool }}
+          TRIGGER: ${{ github.event.workflow_run.event || github.event_name }}
+          REASON: ${{ needs.preflight.outputs.reason }}
+          RUN_RESULT: ${{ needs.run.outputs.outcome || needs.run.result }}
+          STARTED_AT: ${{ needs.run.outputs.started_at }}
+          EVENT_AT: ${{ github.event.workflow_run.created_at || '' }}
+        run: |
+          if [ -z "$REASON" ]; then
+            outcome="skipped:preflight-error"
+          elif [ "$REASON" != "ok" ]; then
+            outcome="skipped:${REASON}"
+          elif [ "$RUN_RESULT" = "success" ]; then
+            outcome="success"
+          else
+            outcome="failure"
+          fi
+          duration=0
+          if [ -n "$STARTED_AT" ]; then
+            duration=$(( $(date -u +%s) - $(date -u -d "$STARTED_AT" +%s) ))
+          fi
+          jq -n \
+            --arg repository "$REPOSITORY" \
+            --argjson pr "${PR_NUMBER:-0}" \
+            --arg tool "$TOOL" \
+            --arg trigger "$TRIGGER" \
+            --arg outcome "$outcome" \
+            --argjson duration_seconds "$duration" \
+            --arg model "anthropic/claude-sonnet-5" \
+            --arg started_at "${STARTED_AT:-}" \
+            --arg event_at "${EVENT_AT:-}" \
+            '{repository: $repository, pr: $pr, tool: $tool, trigger: $trigger, outcome: $outcome,
+              duration_seconds: $duration_seconds, model: $model, started_at: $started_at, event_at: $event_at}' \
+            > qodo-pr-agent-run.json
+          {
+            echo "### Qodo PR-Agent run record"
+            echo
+            echo '```json'
+            cat qodo-pr-agent-run.json
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Referenced by path and SHA rather than ./ so no checkout is needed and
+      # consuming repositories can use it too. It reads no repository files.
+      - name: Collect workflow metrics
+        continue-on-error: true
+        uses: lightspeedwp/.github/.github/actions/collect-metrics@8183af8ab41542bc71c5bd2be5ed44397874da9a # develop 2026-09
+        with:
+          workflow-name: qodo-pr-agent
+          job-name: run
+          metrics-file: qodo-pr-agent-metrics.json
+
+      - name: Upload run record
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: qodo-pr-agent-run-${{ github.run_id }}
+          path: |
+            qodo-pr-agent-run.json
+            qodo-pr-agent-metrics.json
+          if-no-files-found: warn
+          retention-days: 30
