@@ -48,3 +48,9 @@
 
 # Schemas (JSON validation)
 /.schemas/ @ashleyshaw @lightspeedwp/lightspeed
+
+# Locked-file approval controls: only @ashleyshaw approves.
+/.github/workflows/locked-files-guard.yml @ashleyshaw
+/scripts/validation/check-locked-file-approval.cjs @ashleyshaw
+/.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json @ashleyshaw
+/CODEOWNERS @ashleyshaw

@@ -142,7 +142,9 @@ export function incompleteRepositories(inventory) {
  */
 export function privateRepositoryGap(inventory) {
   const reported = inventory.reported_private_repository_count;
-  if (reported === null || reported === undefined) return null;
+  if (reported === null || reported === undefined) {
+    return `cannot read total_private_repos for ${inventory.organisation}; an organisation-owner token is required to verify private repository completeness`;
+  }
   if (inventory.private_repository_count < reported) {
     return `listed ${inventory.private_repository_count} private repositories but ${inventory.organisation} reports ${reported}; the token cannot see them all`;
   }

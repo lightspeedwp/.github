@@ -115,10 +115,35 @@ describe('label-inventory', () => {
       );
     });
 
-    it('skips the private check when the organisation count is not readable', async () => {
+    it('fails when the organisation count is not readable', async () => {
       const inv = await buildInventory(pagedClient([{ name: 'a' }], { a: 1 }), 'lightspeedwp');
       expect(inv.reported_private_repository_count).toBeNull();
-      expect(privateRepositoryGap(inv)).toBeNull();
+      expect(privateRepositoryGap(inv)).toMatch(
+        /total_private_repos.*organisation-owner token is required/
+      );
+    });
+
+    it.each([null, undefined])(
+      'requires organisation-owner permission when the reported count is %s',
+      (reported) => {
+        expect(
+          privateRepositoryGap({
+            organisation: 'lightspeedwp',
+            private_repository_count: 0,
+            reported_private_repository_count: reported,
+          })
+        ).toMatch(/total_private_repos.*organisation-owner token is required/);
+      }
+    );
+
+    it('accepts an organisation that reports zero private repositories', () => {
+      expect(
+        privateRepositoryGap({
+          organisation: 'lightspeedwp',
+          private_repository_count: 0,
+          reported_private_repository_count: 0,
+        })
+      ).toBeNull();
     });
   });
 });
