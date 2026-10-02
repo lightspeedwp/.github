@@ -234,4 +234,214 @@ describe('branch audit CLI with isolated Git, GitHub and filesystem operations',
     expect(exit).toHaveBeenCalledWith(1);
     expect(console.error).toHaveBeenCalledWith(expect.stringContaining('disk full'));
   });
+
+  it.each([
+    ['rev-parse', { status: 128 }, 'Not a git repository'],
+    ['remote', { status: 1, stdout: '' }, 'No "origin" remote found'],
+    ['remote', { status: 0, stdout: '  \n' }, 'No "origin" remote found'],
+  ])('stops before fetching when %s preflight fails', (operation, response, message) => {
+    const spawn = spawnSync.getMockImplementation();
+    spawnSync.mockImplementation((command, args) =>
+      command === 'git' && args[0] === operation ? response : spawn(command, args)
+    );
+
+    runCli(['--verbose']);
+
+    expect(exit).toHaveBeenCalledWith(1);
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining(message));
+    expect(spawnSync.mock.calls.some(([, args]) => args[0] === 'fetch')).toBe(false);
+    expect(execFileSync).not.toHaveBeenCalled();
+    expect(fs.writeFileSync).not.toHaveBeenCalled();
+  });
+
+  it('stops after a failed fetch before classifying stale remote refs', () => {
+    const spawn = spawnSync.getMockImplementation();
+    spawnSync.mockImplementation((command, args) =>
+      args[0] === 'fetch' ? { status: 1, stderr: 'network unavailable' } : spawn(command, args)
+    );
+    // Model process termination so the mock cannot continue past the fatal exit.
+    exit.mockImplementationOnce(() => {
+      throw new Error('simulated process exit');
+    });
+
+    runCli(['--verbose']);
+
+    expect(exit).toHaveBeenNthCalledWith(1, 1);
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('network unavailable'));
+    expect(execFileSync).not.toHaveBeenCalled();
+    expect(spawnSync.mock.calls.some(([command]) => command === 'gh')).toBe(false);
+    expect(fs.writeFileSync).not.toHaveBeenCalled();
+  });
+
+  it.each([true, false])(
+    'falls back to main after develop fails (merged to main: %s)',
+    (mergedToMain) => {
+      branches = { 'feat/account-login': { merged: mergedToMain } };
+      const git = execFileSync.getMockImplementation();
+      execFileSync.mockImplementation((command, args) => {
+        if (args[0] === 'branch' && args[3] === 'origin/develop') {
+          throw new Error('develop unavailable');
+        }
+        return git(command, args);
+      });
+
+      runCli(['--reportFormat=json']);
+
+      const report = jsonReport();
+      expect(exit).toHaveBeenCalledWith(0);
+      if (mergedToMain) {
+        expect(report.deleted).toEqual([
+          expect.objectContaining({ branch: 'feat/account-login', localDeleted: false }),
+        ]);
+        expect(report.preserved).toEqual([]);
+      } else {
+        expect(report.deleted).toEqual([]);
+        expect(report.preserved).toEqual([
+          expect.objectContaining({ branch: 'feat/account-login', category: 'DISCUSS' }),
+        ]);
+      }
+    }
+  );
+
+  it('does not select a merged branch when its commit date cannot be read', () => {
+    branches = { 'feat/account-login': { merged: true } };
+    const git = execFileSync.getMockImplementation();
+    execFileSync.mockImplementation((command, args) => {
+      if (args[0] === 'log' && args[2] === '--format=%cI') throw new Error('missing commit');
+      return git(command, args);
+    });
+
+    runCli(['--reportFormat=json']);
+
+    expect(jsonReport()).toMatchObject({
+      deleted: [],
+      preserved: [expect.objectContaining({ branch: 'feat/account-login', category: 'KEEP' })],
+    });
+  });
+
+  it('retains release and hotfix exclusions when a custom pattern is invalid', () => {
+    branches = {
+      'release/version-one': { merged: true },
+      'hotfix/account-login': { merged: true },
+      'feat/account-login': { merged: true },
+    };
+    runCli(['--reportFormat=json', '--excludePatterns=[']);
+
+    const report = jsonReport();
+    expect(report.deleted.map(({ branch }) => branch)).toEqual(['feat/account-login']);
+    expect(report.preserved).toEqual([
+      expect.objectContaining({ branch: 'release/version-one', category: 'KEEP' }),
+      expect.objectContaining({ branch: 'hotfix/account-login', category: 'KEEP' }),
+    ]);
+    expect(console.warn).toHaveBeenCalledWith(expect.stringContaining('falling back to defaults'));
+  });
+
+  it.each(['[', ' | '])('does not match every author with unusable patterns %j', (pattern) => {
+    branches = { 'feat/account-login': { merged: true } };
+    runCli(['--reportFormat=json', `--preserveAuthors=${pattern}`]);
+    expect(jsonReport().deleted.map(({ branch }) => branch)).toEqual(['feat/account-login']);
+    if (pattern === '[') {
+      expect(console.warn).toHaveBeenCalledWith(
+        expect.stringContaining('disabling author preservation')
+      );
+    }
+  });
+
+  it('honours author preservation even when PR verification is unavailable', () => {
+    prResult = { status: 1, stderr: 'not authenticated' };
+    branches = { 'feat/account-login': { merged: true, author: 'automation@example.test' } };
+    runCli(['--reportFormat=json', '--preserveAuthors=automation@']);
+    expect(jsonReport()).toMatchObject({
+      deleted: [],
+      preserved: [
+        {
+          branch: 'feat/account-login',
+          category: 'KEEP',
+          reason: 'Author matches an explicit preservation pattern: automation@example.test',
+        },
+      ],
+    });
+  });
+
+  it.each(['--dryRun', '--dryRun=invalid', '--dryRun=0'])(
+    'keeps preview mode for %s without enumerating local branches by default',
+    (flag) => {
+      runCli(['--reportFormat=json', flag]);
+      expect(jsonReport().dryRun).toBe(true);
+      expect(execFileSync.mock.calls.some(([, args]) => args[1] === 'refs/heads')).toBe(false);
+      expect(exit).toHaveBeenCalledWith(0);
+    }
+  );
+
+  it('applies a custom inactivity threshold at the exact millisecond boundary', () => {
+    branches = {
+      'feat/before-threshold': { merged: true, date: '2026-06-23T12:00:00.001Z' },
+      'feat/at-threshold': { merged: true, date: '2026-06-23T12:00:00.000Z' },
+      'feat/future-work': { merged: true, date: '2026-07-01T12:00:00.000Z' },
+    };
+    runCli(['--reportFormat=json', '--inactiveDays=7']);
+    const report = jsonReport();
+    expect(report.inactiveDays).toBe(7);
+    expect(report.deleted).toEqual([
+      expect.objectContaining({ branch: 'feat/at-threshold', age: 7 }),
+    ]);
+    expect(report.preserved).toEqual([
+      expect.objectContaining({ branch: 'feat/before-threshold', category: 'KEEP' }),
+      expect.objectContaining({ branch: 'feat/future-work', category: 'KEEP' }),
+    ]);
+  });
+
+  it('aggregates only deletion candidates into commit, storage, type and author metrics', () => {
+    branches = {
+      main: { merged: true },
+      'feat/account-login': { merged: true, author: 'zoe@example.test' },
+      'fix/widget-bug': { merged: true, author: 'alex@example.test' },
+      'feat/account-logout': { merged: true, author: 'zoe@example.test' },
+    };
+    const git = execFileSync.getMockImplementation();
+    execFileSync.mockImplementation((command, args) =>
+      args[0] === 'rev-list' ? '2' : git(command, args)
+    );
+    fs.existsSync.mockReturnValue(true);
+
+    runCli(['--reportFormat=json']);
+
+    const report = jsonReport();
+    expect(report.summary).toEqual({
+      candidates: 3,
+      autoApprovedDelete: 0,
+      deleted: 3,
+      preserved: 1,
+      errors: 0,
+      deletionSuccessRate: '100.00%',
+      preservedDeletedRatio: '1:3',
+      totalCommitsRemoved: 6,
+      estimatedStorageFreedBytes: 24576,
+      estimatedStorageFreedHuman: '24.00 KB',
+    });
+    expect(report.metrics).toEqual({
+      deletedByType: { feat: 2, fix: 1 },
+      authorsAffected: ['alex@example.test', 'zoe@example.test'],
+    });
+    expect(report.deleted).toHaveLength(3);
+    for (const candidate of report.deleted) {
+      expect(candidate).toMatchObject({
+        hash: 'abc123',
+        commitCount: 2,
+        estimatedStorageBytes: 8192,
+        localDeleted: false,
+      });
+    }
+    expect(fs.mkdirSync).not.toHaveBeenCalled();
+  });
+
+  it('fails the audit when the report directory cannot be created', () => {
+    fs.mkdirSync.mockImplementation(() => {
+      throw new Error('permission denied');
+    });
+    runCli(['--verbose']);
+    expect(exit).toHaveBeenCalledWith(1);
+    expect(fs.writeFileSync).not.toHaveBeenCalled();
+    expect(console.error).toHaveBeenCalledWith(expect.stringContaining('permission denied'));
+  });
 });

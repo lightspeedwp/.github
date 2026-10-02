@@ -211,6 +211,18 @@ describe('Git fallback and merge combinations', () => {
     expect(getUniqueCommitCount('feat/account-login', 'origin/main')).toBe(0);
     expect(execFileSync).toHaveBeenCalledTimes(1);
   });
+  it('returns zero when counting commits fails after finding a merge base', () => {
+    execFileSync.mockReturnValueOnce('abc123\n').mockImplementationOnce(() => {
+      throw new Error('object unavailable');
+    });
+    expect(getUniqueCommitCount('feat/account-login', 'origin/main')).toBe(0);
+    expect(execFileSync).toHaveBeenLastCalledWith(
+      'git',
+      ['rev-list', '--count', 'abc123..origin/feat/account-login'],
+      expect.any(Object)
+    );
+  });
+
   it.each(['', 'not-a-count', '0\n', '12\n'])('handles commit count output %j', (output) => {
     execFileSync.mockReturnValueOnce('abc123\n').mockReturnValueOnce(output);
     expect(getUniqueCommitCount('feat/account-login', 'origin/main')).toBe(

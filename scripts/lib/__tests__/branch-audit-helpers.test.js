@@ -27,6 +27,15 @@ describe.each([
   });
 
   it.each([
+    ['2024-03-01T00:00:00Z', '2024-02-28T00:00:00Z', 2],
+    ['2026-03-09T00:00:00-04:00', '2026-03-08T00:00:00-05:00', 23 / 24],
+    ['2026-11-02T00:00:00-05:00', '2026-11-01T00:00:00-04:00', 25 / 24],
+  ])('measures elapsed time across calendar boundaries ending %s', (now, then, expected) => {
+    Date.now.mockReturnValue(Date.parse(now));
+    expect(calculate(then)).toBeCloseTo(expected, 10);
+  });
+
+  it.each([
     ['2026-06-29T00:00:00Z', 1.5],
     ['2026-06-30T12:00:00Z', 0],
     ['2026-07-01T12:00:00Z', -1],
