@@ -215,6 +215,7 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - measurement (branch metrics plus the monthly review of 10 sessions, SC-007)
   - cleanup through spec 009's auto-approval
 - [x] T033 [P] [US3] Spec 009 auto-approval rule, config, report fields and shared validator in `scripts/lib/branch-categorization.js`, `scripts/lib/constants.js` and `scripts/cleanup-branches.js` (spec 009 T070–T072 and T074, done in #3358)
+  - Note (T060, 2026-10-02): #3358 hasn't merged, so none of this is on `develop` yet. Under FR-020 the `claude/*` auto-approval rule stays switched off until a branch-age signal exists. Revisit this task's status once T053 lands.
 - [ ] T034 [US3] Spec 009 T073, the daily auto-delete step in `.github/workflows/branch-audit.yml`, after spec 009 T046 creates the workflow (delivered in #3358 or its follow-up). Depends on #3358 merging.
 - [ ] T035 [US3] Run quickstart §5 against `develop` once #3358 merges, and confirm the auto-approved list only contains merged `claude/*` branches with no open PR that are at least a day old.
 - [x] T036 [US3] Add the CHANGELOG entry for the environment and guard (done in #3524).
@@ -303,5 +304,5 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 
 ## Phase 8: Convergence
 
-- [ ] T059 Add `scripts/__tests__/setup-node-install.test.js` to the quickstart §1 test command in `.github/specs/018-claude-cloud-environment/quickstart.md`, so a local run covers the same suites as Claude Guard Tests per FR-023 (partial)
+- [x] T059 Add `scripts/__tests__/setup-node-install.test.js` to the quickstart §1 test command in `.github/specs/018-claude-cloud-environment/quickstart.md`, so a local run covers the same suites as Claude Guard Tests per FR-023 (partial)
 - [ ] T060 Record against T033 that spec 009's `claude/*` auto-approval isn't on `develop` and stays switched off under FR-020 until a branch-age signal exists, and update T033's status once T053 lands per FR-020 (contradicts)

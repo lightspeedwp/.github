@@ -12,7 +12,7 @@
 ## 1. Guard: automated scenarios (FR-005 to FR-012)
 
 ```bash
-npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js
+npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js scripts/__tests__/setup-node-install.test.js tests/js/claude-cloud-environment-docs.test.js
 ```
 
 Expected: every case passes, including these:
