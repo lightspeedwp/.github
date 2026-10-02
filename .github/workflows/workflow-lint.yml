@@ -74,6 +74,7 @@ jobs:
             .github/workflows/branch-validation-metrics-aggregator.yml \
             .github/workflows/changelog-unified.yml \
             .github/workflows/documentation.yml \
+            .github/workflows/eslint-gate.yml \
             .github/workflows/labeling-unified.yml \
             .github/workflows/orchestrate-phase-progression.yml \
             .github/workflows/phase-progression.yml \

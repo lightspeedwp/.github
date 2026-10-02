@@ -1,0 +1,203 @@
+name: ESLint Gate
+
+# ESLint had no active workflow: the only caller of `npm run lint:js` was
+# the archived 2026-09-11 testing workflow. That is how 154 errors
+# persisted in the files the lint glob *did* cover, and how 668 `.cjs` and
+# `.mjs` files went unlinted entirely (#3713).
+#
+# This job is the gate. It reports errors only and compares them against the
+# checked-in `eslint-suppressions.json`. Existing errors are recorded there
+# per file and rule; any new error fails. Fixing a recorded error also fails,
+# because ESLint exits 2 on an unused suppression, so the recorded count can
+# only shrink. See https://eslint.org/docs/latest/use/suppressions
+#
+# The `Gate self-test` step is deliberate. An unverified gate is
+# indistinguishable from a gate that always passes, so every run proves both
+# halves of the mechanism: that the config reports an error in a `.cjs` and a
+# `.mjs` file, and that the npm scripts' glob still matches those
+# extensions. It lints the fixtures by path, so it costs seconds rather than
+# re-running the full repository lint five times.
+
+on:
+  pull_request:
+    paths:
+      - '**/*.js'
+      - '**/*.jsx'
+      - '**/*.ts'
+      - '**/*.tsx'
+      - '**/*.cjs'
+      - '**/*.mjs'
+      - 'eslint.config.cjs'
+      - 'eslint-suppressions.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/eslint-gate.yml'
+  push:
+    branches:
+      - develop
+    paths:
+      - '**/*.js'
+      - '**/*.jsx'
+      - '**/*.ts'
+      - '**/*.tsx'
+      - '**/*.cjs'
+      - '**/*.mjs'
+      - 'eslint.config.cjs'
+      - 'eslint-suppressions.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - '.github/workflows/eslint-gate.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eslint-gate-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  eslint:
+    name: ESLint Gate
+    runs-on: ubuntu-latest
+    # The full-repository lint is the slow step and the reason this is not
+    # 5: the gate covers 1,455 JavaScript files across six extensions.
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Read-only job: nothing is pushed, so do not persist credentials.
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        # --ignore-scripts: husky's prepare hook is irrelevant in CI and
+        # would try to write to .git/hooks in a read-only checkout.
+        run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
+
+      - name: Gate self-test
+        # Runs first and is cheap. If the config stopped reporting errors in
+        # `.cjs`/`.mjs`, or the script glob narrowed again, the job fails
+        # here with a precise message instead of reporting a meaningless green
+        # lint result.
+        run: |
+          set -uo pipefail
+
+          expect_exit() {
+            local expected="$1"
+            local label="$2"
+            # GitHub Actions runs `run:` blocks under `bash -e {0}`, so errexit
+            # is already on and this step's `set -uo pipefail` does not turn it
+            # off. Capturing the status of a command that is *meant* to fail
+            # therefore needs errexit disabled around it, or the step aborts at
+            # the first expected failure and reports a false alarm.
+            local actual=0
+            shift 2
+            set +e
+            "$@" > /dev/null 2>&1
+            actual=$?
+            set -e
+            if [ "$actual" -ne "$expected" ]; then
+              echo "FAIL: $label expected exit ${expected}, got ${actual}" >&2
+              exit 1
+            fi
+            echo "PASS: ${label} (exit ${actual})"
+          }
+
+          # 1. A clean CommonJS file must pass.
+          printf "'use strict';\n\nmodule.exports = { ok: true };\n" > gate-self-test-good.cjs
+          expect_exit 0 "a clean .cjs file passes" \
+            npx eslint --no-error-on-unmatched-pattern gate-self-test-good.cjs
+
+          # 2. The same file with one undeclared identifier must fail. This is
+          #    the assertion that would break if the `**/*.cjs` block were
+          #    dropped from eslint.config.cjs.
+          printf "'use strict';\n\nmodule.exports = notDefinedAnywhere;\n" > gate-self-test-bad.cjs
+          expect_exit 1 "a .cjs file with an undeclared identifier fails" \
+            npx eslint --no-error-on-unmatched-pattern gate-self-test-bad.cjs
+
+          # 3. Same for ESM.
+          printf "export const value = { ok: true };\n" > gate-self-test-good.mjs
+          expect_exit 0 "a clean .mjs file passes" \
+            npx eslint --no-error-on-unmatched-pattern gate-self-test-good.mjs
+
+          printf "export const value = alsoNotDefined;\n" > gate-self-test-bad.mjs
+          expect_exit 1 "a .mjs file with an undeclared identifier fails" \
+            npx eslint --no-error-on-unmatched-pattern gate-self-test-bad.mjs
+
+          rm -f gate-self-test-good.cjs gate-self-test-bad.cjs \
+                gate-self-test-good.mjs gate-self-test-bad.mjs
+
+          # 4. The npm scripts must still glob .cjs and .mjs. Asserting the
+          #    script text is the only fast check that the gate would notice
+          #    the scope narrowing again; the fixtures above only prove the
+          #    configuration is right.
+          node -e '
+            const pkg = require("./package.json");
+            const scripts = ["lint:js", "lint:js:ci", "format:js"];
+            let failed = false;
+            for (const name of scripts) {
+              const command = pkg.scripts[name];
+              if (!command) {
+                console.log("FAIL: package.json is missing the " + name + " script");
+                failed = true;
+                continue;
+              }
+              const missing = ["cjs", "mjs"].filter((ext) => !command.includes(ext));
+              if (missing.length) {
+                console.log("FAIL: " + name + " does not lint: " + missing.join(", "));
+                failed = true;
+              } else {
+                console.log("PASS: " + name + " lints .cjs and .mjs");
+              }
+            }
+            const staged = pkg["lint-staged"]["*.{js,jsx,ts,tsx,cjs,mjs}"];
+            if (staged) {
+              console.log("PASS: lint-staged lints .cjs and .mjs");
+            } else {
+              console.log("FAIL: lint-staged does not lint .cjs and .mjs");
+              failed = true;
+            }
+            process.exit(failed ? 1 : 0);
+          '
+
+      - name: Lint
+        id: lint
+        # No --fix. A fixing run would rewrite the 136,882 auto-fixable
+        # prettier warnings, and would make any auto-fixable entry in the
+        # baseline stale. Both are separate changes with their own counts.
+        run: npm run lint:js:ci
+
+      - name: Summarise the baseline
+        if: always()
+        env:
+          LINT_OUTCOME: ${{ steps.lint.outcome }}
+        run: |
+          node -e '
+            const fs = require("node:fs");
+            const file = "eslint-suppressions.json";
+            if (!fs.existsSync(file)) {
+              console.log("No baseline recorded; every error is new.");
+              process.exit(0);
+            }
+            const baseline = JSON.parse(fs.readFileSync(file, "utf8"));
+            const files = Object.keys(baseline);
+            const byRule = {};
+            let findings = 0;
+            for (const path of files) {
+              for (const [rule, record] of Object.entries(baseline[path])) {
+                findings += record.count;
+                byRule[rule] = (byRule[rule] || 0) + record.count;
+              }
+            }
+            console.log("Baseline: " + findings + " recorded errors across " + files.length + " files");
+            for (const [rule, count] of Object.entries(byRule).sort((a, b) => b[1] - a[1])) {
+              console.log("  " + rule + ": " + count);
+            }
+            console.log("Lint step outcome: " + process.env.LINT_OUTCOME);
+          '
