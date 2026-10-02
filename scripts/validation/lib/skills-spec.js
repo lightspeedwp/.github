@@ -578,32 +578,33 @@ function validateFieldSet(frontmatter, fileClass) {
   // Only steer an author towards `metadata` when this class actually allows it.
   // Telling a subagent author to move a field into `metadata` when the field set
   // excludes `metadata` sent them in a circle.
+  // One finding per unknown field, not one finding that lists them all. A combined
+  // message made fixing one field change the other fields' baseline key, so a
+  // partial fix could not be recorded independently.
   const metadataAllowed = allowed.includes('metadata');
-  const hints = unknown.map((key) => {
+  return unknown.map((key) => {
+    let fix;
     // `references` is prohibited outright by the repository Markdown standard, so
     // moving it into `metadata` is not the fix even for a class that allows
     // `metadata`. Checked before the metadata branch for that reason.
     if (key === 'references' && fileClass === 'agents-md') {
-      return (
+      fix =
         `\`references\` -> remove it. It is prohibited by ` +
         '.github/instructions/markdown.instructions.md; use inline links or a ' +
-        '`## Cross-References` section instead.'
-      );
+        '`## Cross-References` section instead.';
+    } else if (!metadataAllowed) {
+      fix = `\`${key}\` -> remove it, or move it into \`metadata.${key}\` if this class allows metadata.`;
+    } else if (key === 'version') {
+      fix = '`version` -> move it to `metadata.version` as a quoted string';
+    } else {
+      fix = `\`${key}\` -> move it to \`metadata.${key}\` as a string`;
     }
-    if (!metadataAllowed) {
-      return `\`${key}\` -> remove it, or move it into \`metadata.${key}\` if this class allows metadata.`;
-    }
-    if (key === 'version') {
-      return '`version` -> move it to `metadata.version` as a quoted string';
-    }
-    return `\`${key}\` -> move it to \`metadata.${key}\` as a string`;
+    return (
+      `\`${key}\` is not a field that ${fileClass} permits. ` +
+      `Permitted: ${allowed.join(', ')}. Fix: ${fix}. ` +
+      `See ${CLASS_URLS[fileClass]}.`
+    );
   });
-
-  return [
-    `frontmatter has fields that ${fileClass} does not permit: ${unknown.join(', ')}. ` +
-      `Permitted: ${allowed.join(', ')}. Fix: ${hints.join('; ')}. ` +
-      `See ${CLASS_URLS[fileClass]}.`,
-  ];
 }
 
 /**

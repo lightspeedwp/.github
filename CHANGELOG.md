@@ -81,6 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Per-Field Skill Findings** — Unknown fields and bad metadata keys report per field, so partial fixes record alone. The table now states directory-based classification. ([PR #3717](https://github.com/lightspeedwp/.github/pull/3717))
+
 - **Empty Skill Detection Covers Every Footer** — The validator strips the whole trailing footer block and knows every phrase in the shared footer policy and `footers.yml`, so a heading plus any footer fails the gate. A test guards it. (#3707, #3717)
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)

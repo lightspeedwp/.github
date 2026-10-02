@@ -582,6 +582,97 @@ describe('review findings on this branch', () => {
     }
   });
 
+  it('separates two invalid metadata keys, so baselining one does not hide the other', () => {
+    // validateMetadataValues emits one finding per invalid key. Without a metadata
+    // subject in the key, both collapsed into `<path>#metadata` and a file baselined
+    // for one bad key silently accepted another.
+    const tree = makeTree({
+      // Both invalid keys are lists: under the FAILSAFE_SCHEMA the validator
+      // parses with, lists and mappings are the only non-string values a mapping
+      // can actually hold.
+      'skills/example-skill/SKILL.md':
+        '---\nname: example-skill\ndescription: Does a thing.\n' +
+        'metadata:\n  keep: "fine"\n  drop: ["gone"]\n  lose: ["also gone"]\n---\n\nDo it.\n',
+    });
+    try {
+      const dir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
+      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+
+      const both = run(tree);
+      expect(both.status).toBe(1);
+      expect(both.stdout + both.stderr).toContain('metadata.drop is a list');
+      expect(both.stdout + both.stderr).toContain('metadata.lose is a list');
+
+      // Baseline one key only: the other must still fail.
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({ findings: ['skills/example-skill/SKILL.md#metadata#drop'] })
+      );
+      const one = run(tree);
+      expect(one.status).toBe(1);
+      expect(one.stdout + one.stderr).toContain('metadata.lose is a list');
+      expect(one.stdout + one.stderr).not.toContain('metadata.drop is a list');
+
+      // Both baselined: the file is accounted for.
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({
+          findings: [
+            'skills/example-skill/SKILL.md#metadata#drop',
+            'skills/example-skill/SKILL.md#metadata#lose',
+          ],
+        })
+      );
+      expect(run(tree).status).toBe(0);
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  });
+
+  it('states directory-based classification in the standards table, not field-based', () => {
+    // The validator assigns `claude-code-skill` by directory prefix alone, so a
+    // row claiming any skill using those fields is classified that way sends
+    // authors into failures the code cannot avoid.
+    const doc = fs.readFileSync(
+      path.join(__dirname, '..', '..', '..', 'docs', 'SKILLS_STANDARDS.md'),
+      'utf8'
+    );
+    const row = doc.split('\n').find((line) => line.startsWith('| `claude-code-skill`'));
+    expect(row).toBeDefined();
+    expect(row).toContain('CLAUDE_CODE_SKILL_ROOTS');
+    expect(row).not.toMatch(/and any skill using/);
+  });
+
+  it('skips worktree checkouts but still validates skills under .claude', () => {
+    // A worktree checkout holds a second copy of the repository, so a skill
+    // inside `.claude/worktrees` would be reported twice. The skip is on the
+    // root-relative path, so `.claude/skills` is still descended into.
+    const bad = '---\nname: Bad Name\ndescription: Does a thing.\n---\n\nDo it.\n';
+    const good = '---\nname: good-skill\ndescription: Does a thing.\n---\n\nDo it.\n';
+    const tree = makeTree({
+      '.claude/worktrees/evil/SKILL.md': bad,
+      '.claude/skills/good-skill/SKILL.md': good,
+    });
+    try {
+      const badDir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(badDir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(badDir, 'validate-skills.js'));
+      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(badDir, 'lib', 'skills-spec.js'));
+      // Baseline the one skill that must be reported.
+      fs.writeFileSync(
+        path.join(badDir, 'skills-baseline.json'),
+        JSON.stringify({ findings: ['.claude/skills/good-skill/SKILL.md#name#invalid-characters'] })
+      );
+      // Passes only if the worktree copy is never walked: its `name` finding is
+      // deliberately not baselined.
+      expect(run(tree).status).toBe(0);
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  });
+
   it('keeps an over-long name distinct from one with invalid characters', () => {
     // The length message also contains the word "characters", so a classifier that
     // tested for that word first would fold both problems into one key.
@@ -842,16 +933,26 @@ describe('skills-spec: closed top-level field set', () => {
     expect(failures[0]).toContain('agentskills_io_compliant');
   });
 
-  it('rejects several unknown fields and names each fix', () => {
+  it('returns one finding per unknown field, so each can be baselined alone', () => {
     const failures = spec.validateFieldSet({
       name: 'example-skill',
       version: '1',
       category: 'x',
       maintainer: 'y',
     });
-    expect(failures[0]).toContain('version');
-    expect(failures[0]).toContain('category');
-    expect(failures[0]).toContain('maintainer');
+    expect(failures).toHaveLength(3);
+    for (const [field, message] of [
+      ['version', 'metadata.version'],
+      ['category', 'metadata.category'],
+      ['maintainer', 'metadata.maintainer'],
+    ]) {
+      const hit = failures.find((f) => f.startsWith(`\`${field}\` is not a field`));
+      expect({ field, found: Boolean(hit), hint: hit && hit.includes(message) }).toStrictEqual({
+        field,
+        found: true,
+        hint: true,
+      });
+    }
   });
 });
 

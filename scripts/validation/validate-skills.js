@@ -240,6 +240,13 @@ function walk(directory) {
       if (SKIP_DIRECTORIES.has(entry.name) || FIXTURE_DIRECTORIES.has(entry.name)) {
         continue;
       }
+      // Worktree checkouts hold a second copy of the whole repository, and any
+      // skill inside one would be reported twice. Matched on the path relative to
+      // the walk root, not on the name, so a skill directory merely *named*
+      // "worktrees" is still checked and `.claude/skills` is still descended into.
+      if (relative === '.claude/worktrees') {
+        continue;
+      }
       // A SKILL.md holds no nested skills, so its directory is not descended.
       if (entry.name === 'SKILL.md') {
         continue;
@@ -378,11 +385,18 @@ reportVendoredPlugins();
  * baseline entry churned whenever a name was corrected.
  */
 const FINDING_SUBJECTS = Object.freeze({
+  // "metadata.enhancements is a list; metadata values must be strings."
+  // One finding per invalid key, so two of them in one file no longer collapse
+  // into a single baseline entry that hides the other.
+  'metadata': (message) =>
+    /^metadata\.([^\s]+) is (?:a list|undefined|object|number|boolean|function|symbol|bigint);/.exec(
+      message
+    )?.[1],
   // "frontmatter is missing the required field `title`."
   'required-fields': (message) => /required field `([^`]+)`/.exec(message)?.[1],
   // "frontmatter has fields that <class> does not permit: status, visibility."
   'closed-field-set': (message) =>
-    /does not permit: ([^.]+)\./.exec(message)?.[1]?.trim().split(/,\s*/).join('+'),
+    /^`([^`]+)` is not a field/.exec(message)?.[1],
   // "`allowed-tools` must be a list for a claude-code-skill but is a string."
   'optional-field-shape': (message) => /`([^`]+)` must be/.exec(message)?.[1],
   // validateName returns one message per rule it breaks, so a file with two name
