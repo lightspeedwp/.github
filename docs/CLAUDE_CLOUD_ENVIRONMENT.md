@@ -230,8 +230,8 @@ settings, not branch-protection fields.
   `LS_ENFORCE_BRANCH_NAMES=0`.
 - Empty `claude/*` branches left on GitHub by the platform are not deleted automatically yet. Spec 018 FR-020 defers
   auto-deletion until a branch-age signal, such as a first-observed timestamp, exists, because the age of a branch's
-  last commit says nothing about how long the branch itself has existed. Until then, spec 009's cleanup
-  sends every `claude/*` branch without an open PR or matching exclusion to DISCUSS for its forbidden prefix. A
+  last commit says nothing about how long the branch itself has existed. Until then, spec 009's cleanup (the
+  report-only CLI from lightspeedwp/.github#3358; `develop` keeps the older script until it merges) sends every `claude/*` branch without an open PR or matching exclusion to DISCUSS for its forbidden prefix. A
   maintainer reviewing DISCUSS may promote an empty, merged one with no open PR to DELETE, and it is then removed
   only through spec 009's draft-PR approval. A `claude/*` branch with commits of its own is never promoted this way.
 

@@ -332,4 +332,4 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 
 ## Phase 11: Convergence
 
-- [ ] T065 Qualify the cleanup note in `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (the "Empty `claude/*` branches" bullet under "Maintain it"). Until lightspeedwp/.github#3358 merges, `develop` still has the old `scripts/cleanup-branches.js`, which doesn't categorise `claude/*` branches as DISCUSS. So the bullet should say the DISCUSS and promotion behaviour applies once spec 009's report-only CLI lands, or this qualifier should be dropped if #3358 merges first. Per FR-019 and FR-020 (partial)
+- [x] T065 Qualify the cleanup note in `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (the "Empty `claude/*` branches" bullet under "Maintain it"). Until lightspeedwp/.github#3358 merges, `develop` still has the old `scripts/cleanup-branches.js`, which doesn't categorise `claude/*` branches as DISCUSS. So the bullet should say the DISCUSS and promotion behaviour applies once spec 009's report-only CLI lands, or this qualifier should be dropped if #3358 merges first. Per FR-019 and FR-020 (partial)
