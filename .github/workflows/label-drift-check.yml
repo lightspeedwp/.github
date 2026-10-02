@@ -1,0 +1,75 @@
+name: Label drift check
+
+# Weekly drift check for spec 008 (task T072; FR-017, FR-018).
+# Compares every lightspeedwp repository's labels and the Linear workspace
+# labels against .github/labels.yml, then creates or updates the single
+# "Label drift report" issue. Read-only: it never creates, edits or deletes
+# labels. GitHub authentication uses the organisation-wide App (manual step
+# T071a); Linear reads use the read-only LINEAR_API_KEY repository secret.
+
+on:
+  schedule:
+    # Sundays at 02:00 UTC, after the label inventory jobs.
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Render the report without creating or updating the issue'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift-check:
+    name: Check label drift
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request'
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Mint organisation App token
+        # FR-018 requires the organisation-wide GitHub App (Issues read/write,
+        # Metadata read). Requires repo secrets BOT_PR_APP_CLIENT_ID and
+        # BOT_PR_APP_PRIVATE_KEY with the App installed across lightspeedwp
+        # (manual step T071a). Least privilege: read code, write the report issue.
+        id: app-token
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          owner: lightspeedwp
+          permission-contents: read
+          permission-issues: write
+          permission-metadata: read
+
+      - name: Run label drift check
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+        run: |
+          args=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then args="--dry-run"; fi
+          npm run labels:drift-check -- $args
+
+      - name: Upload drift report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: label-drift-report-${{ github.run_id }}
+          path: .github/reports/audits/2026-09-14-label-audit/evidence/linear-drift-report.json
+          retention-days: 30
