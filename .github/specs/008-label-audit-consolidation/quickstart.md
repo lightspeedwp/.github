@@ -408,7 +408,7 @@ comm -23 /tmp/targets.txt /tmp/canonical.txt
 # Expected: no output
 ```
 
-**Pass condition**: No missing targets; the `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` issues are approved by @ashley.
+**Pass condition**: No missing targets; the `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` issues are approved by @ashleyshaw.
 
 ### Test 10: Configuration Update (after the config PR merges)
 
@@ -454,7 +454,7 @@ find . -path ./node_modules -prune -o -iname '*openspec*' -print | grep -vE '/re
 For each repository:
 
 1. Confirm `evidence/dry-run/{repo}.json` exists and `pages_read × 100 ≥ label_count`.
-2. Confirm the gate issue has @ashley's approval comment for that repository.
+2. Confirm the gate issue has @ashleyshaw's approval comment for that repository.
 3. After the run, list labels with pagination and compare with `labels.yml`:
 
 ```bash

@@ -1,6 +1,6 @@
 # Dry-Run and Drift Report Schema
 
-Defines the per-repository deletion dry run that @ashley approves before anything is deleted (spec FR-016), the two run logs (spec FR-023), and the weekly drift report issue (spec FR-017).
+Defines the per-repository deletion dry run that @ashleyshaw approves before anything is deleted (spec FR-016), the two run logs (spec FR-023), and the weekly drift report issue (spec FR-017).
 
 ## Per-repository dry run
 

@@ -8,7 +8,7 @@
 **Review Ownership**: This checklist is a reviewer-owned requirements-quality review artifact. Mark an item `[x]` only when the reviewer determines the requirements-quality criterion is satisfied.
 **Marker Semantics**: `[x]` means the criterion has been reviewed and satisfied for requirements quality. It does not mean implementation work is complete.
 
-**Audience and depth**: Release gate for @ashley's sign-off; formal depth.
+**Audience and depth**: Release gate for @ashleyshaw's sign-off; formal depth.
 
 ## Requirement Completeness
 
@@ -64,7 +64,7 @@
 ## Non-Functional Requirements
 
 - [x] CHK034 Are audit-trail requirements defined for every destructive action (who ran it, when, which repository, what changed), and where that record is kept? [Gap, Traceability]
-- [x] CHK035 Are the least-privilege requirements for @ashley's session credentials during deletion runs stated, alongside the CI GitHub App's permissions? [Gap, Spec §FR-018]
+- [x] CHK035 Are the least-privilege requirements for @ashleyshaw's session credentials during deletion runs stated, alongside the CI GitHub App's permissions? [Gap, Spec §FR-018]
 
 ## Dependencies & Assumptions
 

@@ -61,7 +61,7 @@
 | `discussion:*` | 7 | GitHub Discussions category labels |
 | `spec:*` (was `openspec:*`) | 9 | Spec status labels |
 
-**Curation Status**: Manually curated by @ashley, locked configuration, change requests via GitHub issues with specific tags.
+**Curation Status**: Manually curated by @ashleyshaw, locked configuration, change requests via GitHub issues with specific tags.
 
 ### 2. Issue Types Definition (`issue-types.yml`)
 
@@ -296,7 +296,7 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 
 ### R13. Credentials for organisation-wide changes (FR-018)
 
-- **Decision**: An organisation-wide GitHub App with only Issues (read/write) and Metadata (read), using short-lived installation tokens; a read-only Linear API key (`LINEAR_API_KEY`) for the drift check. Deletion runs and Linear writes run from @ashley's session, not CI.
+- **Decision**: An organisation-wide GitHub App with only Issues (read/write) and Metadata (read), using short-lived installation tokens; a read-only Linear API key (`LINEAR_API_KEY`) for the drift check. Deletion runs and Linear writes run from @ashleyshaw's session, not CI.
 - **Rationale**: The default workflow token can only reach `lightspeedwp/.github`. An App limits scope and lifetime; keeping destructive and write operations out of CI means a leaked CI secret cannot delete labels or change Linear.
 - **Alternatives considered**: A fine-grained personal access token (long-lived and tied to one person); running everything locally with no CI (loses the automated weekly drift check).
 

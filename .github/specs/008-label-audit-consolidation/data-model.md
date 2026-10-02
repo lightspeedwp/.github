@@ -435,7 +435,7 @@ One of the 25 canonical issue types (FR-014, FR-019, FR-020). Source: `.github/i
 
 | Field | Type | Rule |
 | --- | --- | --- |
-| `approver` | string | Named on the issue (for example `@ashley`) |
+| `approver` | string | Named on the issue (for example `@ashleyshaw`) |
 | `decision_requested` | string | What must be decided |
 | `scope` | string | What the decision affects |
 | `options` | string | The options or proposed change |

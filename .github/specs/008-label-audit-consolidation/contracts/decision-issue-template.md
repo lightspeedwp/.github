@@ -24,7 +24,7 @@ Each section has an HTML comment prompt, as in the existing templates. Section h
 | `## Summary` | One-paragraph statement of the decision needed | What needs deciding, and by when? |
 | `## Context` | Background, constraints and forces | What is the current situation? Which constraints, standards or deadlines apply? Link evidence. |
 | `## Options Considered` | Each option with pros, cons and cost | List at least two options, including "do nothing" where relevant. |
-| `## Decision` | The chosen option and who decided | State the decision, the decider (for governance decisions, @ashley) and the date. Leave blank until decided. |
+| `## Decision` | The chosen option and who decided | State the decision, the decider (for governance decisions, @ashleyshaw) and the date. Leave blank until decided. |
 | `## Consequences` | What changes as a result, positive and negative | What becomes easier or harder? What follow-up work, migrations or documentation are needed? |
 | `## Linked Work` | Related issues, PRs, specs and records | Link implementation issues, the `docs/` PR, any decision-record file, and superseded decisions. |
 
