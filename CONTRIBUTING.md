@@ -34,12 +34,14 @@ XDG_CONFIG_HOME="$PWD" semgrep scan --config p/secrets --metrics=off some-file.j
 # ?? .semgrep/
 ```
 
-`.semgrep/` is in `.gitignore`, so `git status` stays clean either way. To stop the file being written at all, which also keeps the machine identifier off disk, redirect both paths:
+`.semgrep/` is in `.gitignore`, so `git status` stays clean either way. To choose where Semgrep keeps that state instead of writing into the checkout, point both paths somewhere else:
 
 ```bash
 export SEMGREP_SETTINGS_FILE="$HOME/.semgrep/settings.yml"
 export SEMGREP_LOG_FILE="$HOME/.semgrep/semgrep.log"
 ```
+
+That redirects the files rather than suppressing them: Semgrep still writes a settings file holding an `anonymous_user_id`, it just does not land in your working tree.
 
 Both are needed. Setting only `SEMGREP_SETTINGS_FILE` still leaves `.semgrep/semgrep.log` in the checkout. `--metrics=off` does **not** prevent the write; it only disables metrics reporting. `--disable-version-check` is unrelated.
 
