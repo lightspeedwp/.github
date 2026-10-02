@@ -129,7 +129,13 @@ function validateDocument(absolutePath, relativePath) {
 
   let frontmatter;
   try {
-    frontmatter = yaml.load(parts.frontmatter, { schema: yaml.FAILSAFE_SCHEMA }) ?? {};
+    // JSON_SCHEMA, not FAILSAFE_SCHEMA. FAILSAFE resolves every scalar to a
+    // string, so `description: true`, `license: 42` and `metadata: {version: 1}`
+    // arrived as "true", "42" and "1" and satisfied the string rules that exist to
+    // catch exactly those. JSON_SCHEMA keeps booleans and numbers as themselves
+    // and, unlike the default schema, does not turn an ISO date into a Date
+    // object — which would break the string comparisons below.
+    frontmatter = yaml.load(parts.frontmatter, { schema: yaml.JSON_SCHEMA }) ?? {};
   } catch (error) {
     addFinding(
       relativePath,
@@ -389,7 +395,7 @@ const FINDING_SUBJECTS = Object.freeze({
   // One finding per invalid key, so two of them in one file no longer collapse
   // into a single baseline entry that hides the other.
   'metadata': (message) =>
-    /^metadata\.([^\s]+) is (?:a list|undefined|object|number|boolean|function|symbol|bigint);/.exec(
+    /^metadata\.(.+) is (?:a list|undefined|object|number|boolean|function|symbol|bigint);/.exec(
       message
     )?.[1],
   // "frontmatter is missing the required field `title`."

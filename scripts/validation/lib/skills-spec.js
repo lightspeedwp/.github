@@ -211,7 +211,20 @@ function requiredFieldsFor(fileClass) {
  */
 function validateOptionalFieldShapes(frontmatter, fileClass) {
   const findings = [];
-  const stringFields = ['license', 'version', 'domain', 'stability', 'file_type'];
+  // `title`, `last_updated` and `description` sit in this list although they are
+  // required rather than optional: the required-field rule only tests *presence*,
+  // so `title: []` satisfied it and nothing else looked at the value. The schema
+  // calls all of them strings.
+  const stringFields = [
+    'license',
+    'version',
+    'domain',
+    'stability',
+    'file_type',
+    'title',
+    'last_updated',
+    'description',
+  ];
 
   for (const field of stringFields) {
     const value = frontmatter[field];
@@ -417,34 +430,52 @@ function splitFrontmatter(content) {
 }
 
 /**
- * Every footer phrase opening the repository can actually emit.
+ * Footer openings, mirroring the two tiers of
+ * `scripts/agents/includes/footer-policy.js`.
  *
  * Two sources define what a footer looks like, and both are honoured here:
  *
- * - `FOOTER_PATTERNS` in `scripts/agents/includes/footer-policy.js`, the shared
- *   policy that owns footer recognition for the generator and the duplicate
- *   guard.
+ * - `FOOTER_PATTERNS` in `footer-policy.js`, the shared policy that owns footer
+ *   recognition for the generator and the duplicate guard.
  * - `.github/footers.yml`, whose `categories` and `default` phrases the
  *   generator resolves through `resolveFooterPhrases()`.
  *
- * An earlier version listed only the five `DEFAULT_FOOTERS` fallbacks, so a file
- * holding only a heading and any *configured* footer — `Questions?`,
- * `Prefer a guided`, `Copy, adapt`, `Keep tone`, `Need help?` and the rest — was
- * not recognised as empty and passed the #3707 gate. That is the whole class of
- * defect the finding describes, not one variant of it.
+ * Both owners are ESM and this module is CommonJS, so the lists cannot be
+ * imported. `__tests__/validate-skills.test.js` reads the real
+ * `HIGH_CONFIDENCE_FOOTER_PATTERNS`, `FOOTER_PATTERNS` and `footers.yml` and
+ * asserts these lists cover all three, which is what keeps them from drifting.
  *
- * Both owners are ESM and this module is CommonJS, so the list cannot be
- * imported. `__tests__/validate-skills.test.js` reads the real `FOOTER_PATTERNS`
- * and the real `footers.yml` and asserts this list covers both, which is what
- * keeps them from drifting.
+ * Two tiers, because one flat list cannot be both safe and complete.
+ *
+ * A generic opener — `Questions?`, `Update when`, `Use responsibly`,
+ * `Link policies` — also begins an ordinary sentence. Matching one in bare text
+ * deleted real instructions: a skill whose only content was "Update when the API
+ * version changes." was reported as having no body, which is the same class of
+ * false positive as the original false negative and worse, because it fails work
+ * that is correct. `footer-policy.js` already draws this line and requires a
+ * generic phrase to be emphasised before it counts, which is how the footers in
+ * this repository are actually written.
+ *
+ * The high-confidence openers are unmistakable and are matched in bare text, as
+ * the policy does. Their stems carry the emoji the policy's patterns carry:
+ * "Built by" alone is ordinary prose, "Built by \u{1F9F1}" is not.
  */
-const FOOTER_STEMS = Object.freeze([
-  'Maintained with',
-  'Built by',
-  'Have questions?',
+const FOOTER_STEMS_HIGH_CONFIDENCE = Object.freeze([
+  'Maintained with ❤️',
+  'Built by 🧱',
+  'Have questions? Ping us on GitHub',
   'This page brought to you by',
-  'Docs signed by',
-  'Made with',
+  'Docs signed by 🤖',
+  'Made with ❤️',
+]);
+
+/** Generic openers: recognised only when the line is emphasised, as the policy requires. */
+const FOOTER_STEMS_GENERIC = Object.freeze([
+  // 35 files in this repository carry an emphasised `Built by LightSpeedWP…` with
+  // no brick emoji, which the high-confidence opener cannot match. Emphasis
+  // carries it safely; the bare words "Built by" cannot, so it belongs here rather
+  // than there.
+  'Built by',
   'Questions?',
   'Prefer a guided',
   'Clarity first',
@@ -461,23 +492,47 @@ const FOOTER_STEMS = Object.freeze([
   'Thanks for helping',
   'Need help?',
 ]);
-const FOOTER_LINE_RE = new RegExp(
-  `^[*_>#\\s]*(${FOOTER_STEMS.map((stem) => stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`
+
+/** Every stem, for callers and tests that assert coverage rather than behaviour. */
+const FOOTER_STEMS = Object.freeze([...FOOTER_STEMS_HIGH_CONFIDENCE, ...FOOTER_STEMS_GENERIC]);
+
+/** Escape a stem for use inside a RegExp alternation. */
+function escapeForRegExp(literal) {
+  return literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+const FOOTER_HIGH_CONFIDENCE_RE = new RegExp(
+  `^[*_>#\\s]*(${FOOTER_STEMS_HIGH_CONFIDENCE.map(escapeForRegExp).join('|')})`
 );
+const FOOTER_GENERIC_RE = new RegExp(
+  `^[*_>#\\s]*(${FOOTER_STEMS_GENERIC.map(escapeForRegExp).join('|')})`
+);
+/** A closing emphasis marker at end of line, the way every footer here is written. */
+const EMPHASISED_RE = /[*_]\s*$/;
 const FOOTER_LINK_LINE_RE = /^\[(?:Contributors|Org Profile|Automation Docs)\]\(/;
 
 /**
  * Is this line part of a generated footer?
  *
- * Exported so the anti-drift test can hold this module to the shared policy
- * without re-deriving the regular expression.
+ * A generic opener only counts when the line is emphasised; a high-confidence
+ * opener counts in bare text. Exported so the anti-drift test can hold this
+ * module to the shared policy without re-deriving the regular expressions.
  *
  * @param {string} line A single line, without its trailing newline.
  * @returns {boolean} True when the line is a footer phrase or footer link line.
  */
 function isFooterLine(line) {
   const trimmed = typeof line === 'string' ? line.trim() : '';
-  return FOOTER_LINE_RE.test(trimmed) || FOOTER_LINK_LINE_RE.test(trimmed);
+  if (trimmed === '') {
+    return false;
+  }
+  if (FOOTER_LINK_LINE_RE.test(trimmed)) {
+    return true;
+  }
+  if (FOOTER_HIGH_CONFIDENCE_RE.test(trimmed)) {
+    return true;
+  }
+  return EMPHASISED_RE.test(trimmed) && FOOTER_GENERIC_RE.test(trimmed);
 }
 
 /**
@@ -505,7 +560,7 @@ function stripFooter(body) {
   }
   while (i >= 0) {
     const line = lines[i].trim();
-    if (FOOTER_LINE_RE.test(line) || FOOTER_LINK_LINE_RE.test(line)) {
+    if (isFooterLine(lines[i])) {
       cut = i;
       i -= 1;
       continue;
@@ -673,7 +728,16 @@ function validateName(name, directoryName) {
  * @returns {string[]} Human-readable failures.
  */
 function validateDescription(description, options = {}) {
-  if (typeof description !== 'string' || description.trim() === '') {
+  if (typeof description !== 'string') {
+    // Reported separately from emptiness: `description: true` used to arrive as the
+    // string "true" under FAILSAFE_SCHEMA and pass, and once the schema preserves
+    // the type, calling it "missing" describes a field that is present and wrong.
+    return [
+      `description must be a string but is ${typeof description}. ` +
+        'Fix: give it a one-line description of what the skill does and when to use it.',
+    ];
+  }
+  if (description.trim() === '') {
     return [
       'description is missing or empty. Fix: add a one-line description of what the skill does and when to use it.',
     ];
@@ -731,12 +795,19 @@ function validateMetadataValues(frontmatter) {
 
   const errors = [];
   for (const [key, value] of Object.entries(metadata)) {
-    if (typeof value !== 'string') {
-      errors.push(
-        `metadata.${key} is ${Array.isArray(value) ? 'a list' : typeof value}; metadata values must be strings. ` +
-          `Fix: write \`${key}: "${String(value).replace(/"/g, '\\"')}"\`.`
-      );
+    if (typeof value === 'string') {
+      continue;
     }
+    // The fix has to name something writable. String(value) on a nested object
+    // yields "[object Object]", which is what this rule used to tell authors to
+    // write; the shape has to be described instead.
+    const shape = Array.isArray(value) ? 'a list' : typeof value;
+    const fix = Array.isArray(value)
+      ? `write \`${key}: "one, two"\` as a single string.`
+      : typeof value === 'object' && value !== null
+        ? `flatten it, for example \`${key}_model: "sonnet"\`, or write the value as a string.`
+        : `write \`${key}: "${String(value).replace(/"/g, '\\"')}"\`.`;
+    errors.push(`metadata.${key} is ${shape}; metadata values must be strings. Fix: ${fix}`);
   }
   return errors;
 }
@@ -767,6 +838,21 @@ function validateFreshness(frontmatter, enforce) {
     errors.push(
       `metadata.last_reviewed is "${metadata.last_reviewed}"; it must be an ISO date, YYYY-MM-DD, quoted.`
     );
+  } else {
+    // The pattern alone admits dates that do not exist: 2026-99-99 and 2026-02-30
+    // are well-formed and impossible, and a freshness gate that accepts them
+    // reports a review that cannot have happened. Round-tripping through Date is
+    // what distinguishes them, and UTC is used so the local timezone cannot shift
+    // the day. A date the author meant to write one day later still round-trips,
+    // so this rejects only genuinely impossible values.
+    const text = String(metadata.last_reviewed);
+    const parsed = new Date(`${text}T00:00:00Z`);
+    if (Number.isNaN(parsed.getTime()) || parsed.toISOString().slice(0, 10) !== text) {
+      errors.push(
+        `metadata.last_reviewed is "${text}"; that is not a real date. ` +
+          'Fix: use a calendar date that exists, YYYY-MM-DD, quoted.'
+      );
+    }
   }
 
   return enforce ? errors : [];

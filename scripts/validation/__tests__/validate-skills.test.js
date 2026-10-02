@@ -1169,3 +1169,123 @@ describe('footer recognition tracks the shared policy and the configured phrases
     );
   });
 });
+
+/**
+ * Regression cases for the review findings raised on the per-field commit.
+ *
+ * Each asserts the rule rather than the message, and the footer cases exist
+ * because a flat stem list once stripped ordinary instructions: "Update when the
+ * API version changes." was reported as an empty body, which fails correct work.
+ */
+describe('review findings on the per-field commit', () => {
+  const REQUIRED_SHAPES = { file_type: 'agent', title: 'Reviewer', last_updated: '2026-10-02' };
+
+  it('rejects a required field that is present but the wrong shape', () => {
+    expect(spec.validateOptionalFieldShapes({ ...REQUIRED_SHAPES, title: [] })[0]).toContain(
+      '`title` must be a string but is a list'
+    );
+    const lastUpdated = spec.validateOptionalFieldShapes({ ...REQUIRED_SHAPES, last_updated: [] });
+    expect(lastUpdated[0]).toContain('`last_updated` must be a string but is a list');
+  });
+
+  it('rejects a boolean description, which FAILSAFE_SCHEMA used to turn into "true"', () => {
+    const result = check(
+      'skills/example-skill/SKILL.md',
+      '---\nname: example-skill\ndescription: true\n---\n\nDo it.\n'
+    );
+    expect(result.status).toBe(1);
+    expect(result.output).toContain('description must be a string but is boolean');
+  });
+
+  it('rejects a numeric license and a numeric metadata value', () => {
+    const result = check(
+      'skills/example-skill/SKILL.md',
+      '---\nname: example-skill\ndescription: Does a thing.\nlicense: 42\n' +
+        'metadata:\n  version: 1\n---\n\nDo it.\n'
+    );
+    expect(result.status).toBe(1);
+    expect(result.output).toContain('`license` must be a string but is number');
+    expect(result.output).toContain('metadata.version is number');
+  });
+
+  it('rejects an impossible date and accepts a real leap day', () => {
+    for (const impossible of ['2026-99-99', '2026-02-30', '2026-13-01']) {
+      const found = spec.validateFreshness({ metadata: { last_reviewed: impossible } }, true);
+      expect(found[0]).toContain('not a real date');
+    }
+    expect(spec.validateFreshness({ metadata: { last_reviewed: '2024-02-29' } }, true)).toEqual([]);
+    expect(spec.validateFreshness({ metadata: { last_reviewed: '2026-10-02' } }, true)).toEqual([]);
+  });
+
+  it('rejects a nested metadata object with a fix that can actually be written', () => {
+    const failures = spec.validateMetadataValues({ metadata: { tier: { model: 'sonnet' } } });
+    expect(failures[0]).toContain('metadata.tier is object');
+    // The old advice rendered String({}) and told the author to write "[object Object]".
+    expect(failures[0]).not.toContain('[object Object]');
+    expect(failures[0]).toContain('flatten it');
+  });
+
+  it('constrains the schema metadata entry to string values, as the standard documents', () => {
+    const schema = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', 'schemas', 'agent-config.schema.json'),
+        'utf8'
+      )
+    );
+    expect(
+      schema.definitions.optionalFrontmatterFields.properties.metadata.additionalProperties
+    ).toEqual({ type: 'string' });
+  });
+
+  it('names both metadata keys when two spaced keys are invalid', () => {
+    // The subject regex used to exclude whitespace, so `build mode` and
+    // `source notes` both produced no subject and shared one baseline entry.
+    const result = check(
+      'skills/example-skill/SKILL.md',
+      '---\nname: example-skill\ndescription: Does a thing.\n' +
+        'metadata:\n  build mode:\n    nested: 1\n  source notes:\n    - a\n---\n\nDo it.\n'
+    );
+    expect(result.status).toBe(1);
+    expect(result.output).toContain('metadata.build mode');
+    expect(result.output).toContain('metadata.source notes');
+  });
+
+  describe('footer recognition does not eat ordinary instructions', () => {
+    const ORDINARY_PROSE = [
+      'Update when the API version changes.',
+      'Questions? Ask the team.',
+      'Use responsibly when publishing.',
+      'Link policies; avoid assumptions.',
+      'Keep tone human, clear, and kind.',
+    ];
+
+    it.each(ORDINARY_PROSE)('keeps the prose %j as a body', (prose) => {
+      expect(spec.hasBody(`${prose}\n`)).toBe(true);
+    });
+
+    it.each(ORDINARY_PROSE)('keeps the prose %j when a real footer follows it', (prose) => {
+      expect(spec.hasBody(`${prose}\n\n*Built by 🧱 LightSpeedWP with spirit!*\n`)).toBe(true);
+    });
+
+    it('does not treat a bare generic opener as a footer', () => {
+      expect(spec.isFooterLine('Update when the API version changes.')).toBe(false);
+      expect(spec.isFooterLine('Questions? Ask the team.')).toBe(false);
+    });
+
+    it('treats an emphasised generic opener as a footer', () => {
+      expect(spec.isFooterLine('*Questions? Open an issue; we are listening.*')).toBe(true);
+      expect(spec.isFooterLine('_Update when guidance changes._')).toBe(true);
+    });
+
+    it('treats a high-confidence opener as a footer in bare text', () => {
+      // Mirrors footer-policy.js: these openers are unmistakable on their own.
+      expect(spec.isFooterLine('Built by 🧱 LightSpeedWP with spirit!')).toBe(true);
+      expect(spec.isFooterLine('Docs signed by 🤖 Copilot — always fresh!')).toBe(true);
+    });
+
+    it('keeps the emoji-less emphasised Built by footer the repository uses', () => {
+      expect(spec.hasBody('*Built by LightSpeedWP with open-source spirit!*\n')).toBe(false);
+      expect(spec.hasBody('_Built by LightSpeedWP_\n')).toBe(false);
+    });
+  });
+});
