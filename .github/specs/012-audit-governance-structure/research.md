@@ -270,5 +270,48 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified:
 
 ---
 
-**Phase 0 Status**: COMPLETE ✅  
+---
+
+## Implementation Clarifications (2026-09-17)
+
+During the `/speckit-clarify` phase, 5 additional clarifications were resolved to guide implementation:
+
+### Q1: Duplicate Content Consolidation Threshold
+
+**Decision**: Merge sections with ≥70% text overlap; use union of both versions' content
+
+- **Impact**: Label Creation Governance sections (DUP-001) will merge with ≥70% threshold applied
+- **Action**: Consolidate to single authoritative section; preserve all unique examples from both occurrences
+
+### Q2: Reference Validation Scope
+
+**Decision**: Validate all 4 categories: broken files, outdated paths, unimplemented consolidations, line-number mismatches
+
+- **Impact**: Reference validation (VER-001) becomes comprehensive 4-layer check
+- **Action**: Execute all 7 verification tasks with full scope coverage; update line references or use section anchors instead
+
+### Q3: Audit Report Format
+
+**Decision**: Structured markdown at `.github/specs/012-audit-governance-structure/AUDIT_REPORT.md`
+
+- **Impact**: Deliverable format specified; findings categorized with line-number references and remediation guidance
+- **Action**: Generate AUDIT_REPORT.md during Phase 2 with all findings from DUP-001, ORG-001, CONST-001, REF-001, VER-001
+
+### Q4: Audit/Refactoring Phasing
+
+**Decision**: Separate phases—Phase 1 audit findings for review, Phase 2 refactoring based on approved findings
+
+- **Impact**: Two-phase PR strategy implemented; @ashley reviews findings before refactoring begins
+- **Action**: Deliver audit findings first; implement refactoring in follow-up PR after approval
+
+### Q5: Constitution Conflict Handling
+
+**Decision**: Flag all conflicts in AUDIT_REPORT.md with evidence; classify as "governance error" or "constitution exception"; let @ashley decide per-case
+
+- **Impact**: CONST-001 (constitutional constraints framing) becomes explicit decision point
+- **Action**: If any governance guidance conflicts with constitution, document in AUDIT_REPORT.md with classification and decision options for @ashley
+
+---
+
+**Phase 0 Status**: COMPLETE ✅ (with 2026-09-17 clarifications integrated)  
 **Next**: Execute Phase 1 with `/speckit-plan` to generate data-model.md and quickstart.md
