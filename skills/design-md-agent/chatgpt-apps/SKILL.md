@@ -249,11 +249,15 @@ For local development, include explicit ChatGPT setup steps (not just code/run c
 - Run the MCP server locally on `http://localhost:<port>/mcp`
 - Expose the local server with a public HTTPS tunnel (for example `ngrok http <port>`)
 - Use the tunneled HTTPS URL plus `/mcp` path when connecting from ChatGPT
-- In ChatGPT, enable Developer Mode under **Settings → Apps & Connectors → Advanced settings**
+- In ChatGPT, enable Developer Mode. It is available on Pro, Plus, Business, Enterprise and Education accounts on the web; it is not available on Free, so say so rather than sending a Free user down a dead end. The path depends on the account type:
+  - Pro and Plus: **Settings → Security and login → Developer mode**, self-serve.
+  - Business, Enterprise and Education: an Admin or Owner enables it from **Settings → Apps → Advanced settings**. Enterprise and Education grant access first under **Workspace settings → Permissions & Roles → Connected Data**; on Business only Admins can use Developer Mode. Say which workspace steps apply, and do not promise a self-serve toggle on a plan where it is admin-only.
 - In ChatGPT app settings, create a new app for the remote MCP server and paste the public MCP URL
 - Tell users to refresh the app after MCP tool/metadata changes so ChatGPT reloads the latest descriptors
 
-Note: Some docs/screenshots still use older "connector" terminology. Prefer current product wording ("app") while acknowledging both labels when giving step-by-step instructions.
+Sources: [Developer mode](https://developers.openai.com/api/docs/guides/developer-mode) and [Developer mode and MCP apps in ChatGPT](https://help.openai.com/en/articles/12584461-developer-mode-and-mcp-apps-in-chatgpt). Re-check these before delivering steps, because the labels are still moving.
+
+Note: "Apps & Connectors" is retired wording — OpenAI renamed connectors to apps in December 2025. Some third-party docs and screenshots still show it. Use current product wording ("app") and mention the older label only when reconciling an existing screenshot or article.
 
 ### 8. Plan Production Hosting and Deployment
 

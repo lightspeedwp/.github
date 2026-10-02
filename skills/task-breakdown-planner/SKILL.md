@@ -15,7 +15,7 @@ This skill is focused on planning, not implementation. It should generate epics,
 
 Do not invent scope. If the PRD or technical brief is incomplete, create a safe task outline and list the missing decisions, blockers and assumptions.
 
-Do not create GitHub issues directly unless the user explicitly asks and the relevant connector/tool action is available. Default to Markdown issue drafts for human review.
+Do not create GitHub issues automatically. Generate Markdown issue drafts for a human to review first, and only use a GitHub connector or tool to create them once the user has reviewed those drafts and explicitly asked for it. Default to Markdown drafts.
 
 ## Inputs to accept
 
