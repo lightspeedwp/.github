@@ -224,14 +224,16 @@ settings, not branch-protection fields.
   `.claude/cloud/` in the same PR so the repository stays the source of truth.
 - Changing the setup script triggers a cache rebuild on the next session. The cache also expires after about seven days.
 - When `.nvmrc` changes, update `LS_NODE_VERSION` in both the environment variables and `setup.sh`.
-- Branch types come from `lib/validate-branch-name.js`, which both the guard and CI call, so they agree on everything the library accepts. That includes the semantic-version release form `release/v1.2.3`, which the library matches ahead of the general pattern. The guard's carve-out for `release/*` and `hotfix/*` targets for `main` is keyed on the prefix alone, so a `release/*` branch that is not a semantic version is still checked for its name. Add new types in the library.
+- Branch types come from `lib/validate-branch-name.js`, which both the guard and CI call, so they agree on everything the library accepts. That includes the semantic-version release form `release/v1.2.3`, which the library matches ahead of the general pattern. The guard's carve-out for `release/*` and `hotfix/*` targets for `main` is keyed on the prefix alone, so a `release/*` branch that is not a semantic version is still checked for its name. Only releases have a version-number form: hotfixes use `hotfix/{scope}-{title}` (for example `hotfix/auth-token-expiry`), and both the guard and CI refuse `hotfix/vX.Y.Z`. Add new types in the library.
 - Changes to the guard need an Owner's review (CODEOWNERS) and green contract tests. Claude can't edit the guard's
   files while enforcement is on, so guard changes come from a person, or from a session an Owner started with
   `LS_ENFORCE_BRANCH_NAMES=0`.
 - Empty `claude/*` branches left on GitHub by the platform are not deleted automatically yet. Spec 018 FR-020 defers
   auto-deletion until a branch-age signal, such as a first-observed timestamp, exists, because the age of a branch's
-  last commit says nothing about how long the branch itself has existed. Until then, spec 009's scheduled cleanup
-  lists them through its normal categorisation, and a person approves each deletion.
+  last commit says nothing about how long the branch itself has existed. Until then, spec 009's cleanup
+  sends every `claude/*` branch without an open PR or matching exclusion to DISCUSS for its forbidden prefix. A
+  maintainer reviewing DISCUSS may promote an empty, merged one with no open PR to DELETE, and it is then removed
+  only through spec 009's draft-PR approval. A `claude/*` branch with commits of its own is never promoted this way.
 
 ## Limitations
 

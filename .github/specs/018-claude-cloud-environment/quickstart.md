@@ -38,6 +38,9 @@ Expected: every case passes, including these:
 | Validator import failing (simulated), then `git commit` | exit 2, "guard unavailable" |
 | Validator import failing (simulated), then `git commit` with `LS_ENFORCE_BRANCH_NAMES=0` in the hook environment | exit 0 plus warning; write proceeds |
 | Validator import failing (simulated), then `ls` | exit 0 plus warning |
+| Node not on `PATH`, then `git commit` (after T052) | exit 2, "Branch guard unavailable" |
+| Node not on `PATH`, then `ls` (after T052) | exit 0 plus warning |
+| Node not on `PATH` with `LS_ENFORCE_BRANCH_NAMES=0`, then `git commit` | exit 0 plus warning |
 
 ## 2. SessionStart hook (FR-001 to FR-004)
 
