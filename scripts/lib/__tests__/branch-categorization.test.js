@@ -1,4 +1,8 @@
-import { categorizeBranches, validateBranchName } from '../branch-categorization.js';
+import {
+  categorizeBranch,
+  categorizeBranches,
+  validateBranchName,
+} from '../branch-categorization.js';
 
 describe('branch categorization', () => {
   afterEach(() => {
@@ -150,5 +154,125 @@ describe('branch categorization', () => {
     'epic/platform-modernisation',
   ])('accepts canonical branch type %s', (branch) => {
     expect(validateBranchName(branch)).toEqual({ valid: true });
+  });
+});
+
+describe('branch classification boundaries and precedence', () => {
+  const now = Date.parse('2026-06-30T12:00:00Z');
+  const branch = 'feat/account-login';
+  const metadataFor = (age, merged) => ({
+    author: 'author@example.test',
+    lastCommitDate: new Date(now - age * 86400000).toISOString(),
+    mergeStatus: { merged, state: merged ? 'both' : 'unmerged' },
+  });
+
+  beforeEach(() => jest.spyOn(Date, 'now').mockReturnValue(now));
+  afterEach(() => jest.restoreAllMocks());
+
+  it.each([
+    [true, 29.999, 'KEEP', 'Recently active'],
+    [true, 30, 'DELETE', 'Merged and inactive'],
+    [false, 29.999, 'KEEP', 'Not fully merged'],
+    [false, 30, 'DISCUSS', 'Unmerged and stale'],
+  ])('classifies merged=%s at age %s as %s', (merged, age, category, reason) => {
+    expect(categorizeBranch(branch, metadataFor(age, merged))).toEqual({
+      category,
+      reason: expect.stringContaining(reason),
+      metadata: { ...metadataFor(age, merged), type: 'feat', ageInDays: age },
+    });
+  });
+
+  it('honours a custom threshold, including zero days', () => {
+    expect(categorizeBranch(branch, metadataFor(7, true), new Set(), null, 7).category).toBe(
+      'DELETE'
+    );
+    expect(categorizeBranch(branch, metadataFor(0, true), new Set(), null, 0).category).toBe(
+      'DELETE'
+    );
+    expect(categorizeBranch(branch, metadataFor(-1, true), new Set(), null, 0).category).toBe(
+      'KEEP'
+    );
+  });
+
+  it.each([undefined, '', 'invalid-date'])(
+    'does not delete merged branches with date %s',
+    (lastCommitDate) => {
+      const result = categorizeBranch(branch, { lastCommitDate, mergeStatus: { merged: true } });
+      expect(result.category).toBe('KEEP');
+      expect(result.metadata.ageInDays).toBe(0);
+      expect(result.metadata.author).toBe('unknown');
+    }
+  );
+
+  it.each([
+    ['main', /^main$/, ['main'], 'Protected branch'],
+    ['claude/session-work', /^claude\//, ['claude/session-work'], 'Matches exclusion'],
+    ['copilot/session-work', null, ['copilot/session-work'], 'Has active pull request'],
+  ])(
+    'applies preservation gates before naming or deletion for %s',
+    (name, excluded, prs, reason) => {
+      const result = categorizeBranch(name, metadataFor(90, true), new Set(prs), excluded);
+      expect(result.category).toBe('KEEP');
+      expect(result.reason).toContain(reason);
+      expect(result.autoApproved).not.toBe(true);
+    }
+  );
+
+  it('requires a complete valid name even for a stale merged branch', () => {
+    expect(categorizeBranch('feat/login', metadataFor(90, true))).toMatchObject({
+      category: 'DISCUSS',
+      reason: expect.stringContaining('Invalid branch name'),
+    });
+    expect(validateBranchName('copilot/account-login')).toEqual({
+      valid: false,
+      reason: 'forbidden prefix: copilot',
+    });
+  });
+
+  it('groups each branch once, preserving order and metadata without mutating inputs', () => {
+    const branches = Object.freeze(['main', branch, 'fix/widget-bug', 'legacy']);
+    const metadata = Object.freeze({
+      [branch]: Object.freeze(metadataFor(45, true)),
+      'fix/widget-bug': Object.freeze(metadataFor(31, true)),
+    });
+    const result = categorizeBranches(branches, metadata);
+    expect(result.KEEP.map((entry) => entry.name)).toEqual(['main']);
+    expect(result.DELETE.map((entry) => entry.name)).toEqual([branch, 'fix/widget-bug']);
+    expect(result.DISCUSS.map((entry) => entry.name)).toEqual(['legacy']);
+    expect(result.DELETE[0]).toMatchObject({
+      name: branch,
+      ageInDays: 45,
+      author: 'author@example.test',
+      type: 'feat',
+      autoApproved: false,
+    });
+    expect(result.KEEP[0]).toMatchObject({
+      ageInDays: 0,
+      author: 'unknown',
+      lastCommitDate: '',
+      mergeStatus: { merged: false, state: 'unmerged' },
+    });
+    expect(metadata[branch]).toEqual(metadataFor(45, true));
+  });
+
+  it.each([
+    [null, {}, 30, 'branches'],
+    [[''], {}, 30, 'branches'],
+    [[branch, 123], {}, 30, 'branches'],
+    [[branch], null, 30, 'branchMetadata'],
+    [[branch], [], 30, 'branchMetadata'],
+    [[branch], {}, -1, 'inactiveDays'],
+    [[branch], {}, 0.5, 'inactiveDays'],
+    [[branch], {}, '30', 'inactiveDays'],
+    [[branch], {}, NaN, 'inactiveDays'],
+    [[branch], {}, Infinity, 'inactiveDays'],
+  ])('rejects invalid batch arguments (%s, %s, %s)', (branches, metadata, threshold, field) => {
+    const error = jest.spyOn(console, 'error').mockImplementation(() => {});
+    expect(categorizeBranches(branches, metadata, new Set(), null, threshold)).toEqual({
+      KEEP: [],
+      DELETE: [],
+      DISCUSS: [],
+    });
+    expect(error).toHaveBeenCalledWith(expect.stringContaining(field));
   });
 });
