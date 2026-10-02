@@ -302,7 +302,7 @@ async function mapPool(items, size, fn) {
     while (next < items.length) {
       const index = next;
       next += 1;
-      results[index] = await fn(items[index], index);
+      results[index] = await fn(items[index]);
     }
   });
   await Promise.all(workers);

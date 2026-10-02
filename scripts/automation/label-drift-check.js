@@ -77,6 +77,27 @@ export function normaliseColor(color) {
 }
 
 /**
+ * Escape a value for a Markdown table cell so a `|` in a label name cannot
+ * add columns (which would corrupt parseFirstSeen and the rendering).
+ * @param {*} value Cell value.
+ * @returns {string} Escaped cell text.
+ */
+export function escapeCell(value) {
+  return String(value ?? '').replace(/\|/g, '\\|');
+}
+
+/**
+ * Split a Markdown table row on unescaped pipes and restore escaped ones.
+ * @param {string} line Table row.
+ * @returns {string[]} Trimmed cell values.
+ */
+export function splitCells(line) {
+  return String(line)
+    .split(/(?<!\\)\|/)
+    .map((cell) => cell.trim().replace(/\\\|/g, '|'));
+}
+
+/**
  * Diff one GitHub repository's labels against the approved set.
  * @param {object} repo One repository entry from buildInventory.
  * @param {Map} canonical Approved labels.
@@ -184,7 +205,7 @@ export async function countGithubItems(client, repository, label) {
 export function parseFirstSeen(body) {
   const firstSeen = new Map();
   for (const line of String(body ?? '').split('\n')) {
-    const cells = line.split('|').map((cell) => cell.trim());
+    const cells = splitCells(line);
     if (
       cells.length < 7 ||
       cells[0] !== '' ||
@@ -218,6 +239,7 @@ export function renderReport({
   skippedRepos,
   org,
   firstSeen,
+  uncountedRows = 0,
   maxTableRows = MAX_TABLE_ROWS,
 }) {
   const today = generatedAt.slice(0, 10);
@@ -246,7 +268,7 @@ export function renderReport({
   if (githubOnly.length === 0) lines.push('| — | — | — | — | — |');
   for (const row of githubOnly.slice(0, maxTableRows)) {
     lines.push(
-      `| ${row.location} | ${row.label} | ${row.difference} | ${row.firstSeen} | ${row.items ?? ''} |`
+      `| ${escapeCell(row.location)} | ${escapeCell(row.label)} | ${row.difference} | ${row.firstSeen} | ${row.items ?? ''} |`
     );
   }
   if (githubOnly.length > maxTableRows) {
@@ -265,7 +287,7 @@ export function renderReport({
   if (linearOnly.length === 0) lines.push('| — | — | — | — | — |');
   for (const row of linearOnly.slice(0, maxTableRows)) {
     lines.push(
-      `| ${row.location} | ${row.label} | ${row.difference} | ${row.firstSeen} | ${row.items ?? ''} |`
+      `| ${escapeCell(row.location)} | ${escapeCell(row.label)} | ${row.difference} | ${row.firstSeen} | ${row.items ?? ''} |`
     );
   }
   if (linearOnly.length > maxTableRows) {
@@ -279,7 +301,9 @@ export function renderReport({
   } else {
     lines.push('| Location | Label | Items |', '| --- | --- | --- |');
     for (const label of allowed) {
-      lines.push(`| ${label.location} | ${label.name} | ${label.issue_count} |`);
+      lines.push(
+        `| ${escapeCell(label.location)} | ${escapeCell(label.name)} | ${label.issue_count} |`
+      );
     }
   }
   lines.push(
@@ -292,6 +316,9 @@ export function renderReport({
     `- GitHub differences: ${githubRows.length}`,
     `- Linear differences: ${linearRows.length}`,
     `- Allowed team-scoped exceptions: ${allowed.length}`,
+    uncountedRows === 0
+      ? '- Rows without issue counts: none'
+      : `- Rows without issue counts: ${uncountedRows} (count cap ${MAX_COUNTED_ROWS}; see the JSON artifact)`,
     skippedRepos.length === 0
       ? '- Skipped repositories: none'
       : `- Skipped repositories (archived/fork, out of scope per FR-016): ${skippedRepos.join(', ')}`
@@ -306,6 +333,17 @@ function sortRows(rows) {
     )
   );
 }
+
+/**
+ * Maximum GitHub rows enriched with issue/PR counts per run. Search is
+ * rate-limited and paced, so an unbounded pre-consolidation drift set could
+ * outlast the job timeout and produce no report at all. Rows past the cap
+ * keep an empty Items cell and are disclosed in Run details; the JSON
+ * artifact records which rows lack counts.
+ */
+export const MAX_COUNTED_ROWS = 300;
+
+const SEARCH_PACING_MS = 2200;
 
 /**
  * Find the open drift report issue by exact title.
@@ -342,6 +380,36 @@ export async function upsertDriftIssue(client, owner, repo, body) {
     body,
   });
   return { issue: data, created: false };
+}
+
+/**
+ * Enrich GitHub drift rows with issue/PR counts, paced for the search rate
+ * limit. `missing` rows carry no items; rows past MAX_COUNTED_ROWS keep an
+ * empty Items cell so a huge pre-consolidation drift set cannot outlast the
+ * job timeout.
+ * @param {object} client Octokit-style client.
+ * @param {Array<object>} rows Drift rows (mutated in place).
+ * @param {object} [options] Overrides: maxRows, paceMs.
+ * @returns {Promise<{counted: number, uncounted: number}>}
+ */
+export async function enrichGithubRows(client, rows, options = {}) {
+  const maxRows = options.maxRows ?? MAX_COUNTED_ROWS;
+  const paceMs = options.paceMs ?? SEARCH_PACING_MS;
+  let counted = 0;
+  let uncounted = 0;
+  for (const row of sortRows(rows)) {
+    if (row.difference === 'missing') {
+      row.items = '';
+    } else if (counted >= maxRows) {
+      row.items = '';
+      uncounted += 1;
+    } else {
+      row.items = await countGithubItems(client, row.location, row.label);
+      counted += 1;
+      await new Promise((resolve) => setTimeout(resolve, paceMs));
+    }
+  }
+  return { counted, uncounted };
 }
 
 function parseArgs(argv) {
@@ -392,14 +460,7 @@ async function main() {
   const { rows: linearRows, allowed } = diffLinearLabels(linear.labels, canonical);
 
   // Enrich GitHub rows with issue/PR counts, paced for the search rate limit.
-  for (const row of sortRows(githubRows)) {
-    if (row.difference === 'missing') {
-      row.items = '';
-    } else {
-      row.items = await countGithubItems(client, row.location, row.label);
-      await new Promise((resolve) => setTimeout(resolve, 2200));
-    }
-  }
+  const { uncounted: uncountedRows } = await enrichGithubRows(client, githubRows);
 
   let firstSeen = new Map();
   if (!dryRun) {
@@ -415,6 +476,7 @@ async function main() {
     skippedRepos,
     org,
     firstSeen,
+    uncountedRows,
   });
 
   const report = {

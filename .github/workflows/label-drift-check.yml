@@ -20,7 +20,6 @@ on:
 
 permissions:
   contents: read
-  issues: write
 
 jobs:
   drift-check:
@@ -62,9 +61,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
           args=""
-          if [ "${{ inputs.dry_run }}" = "true" ]; then args="--dry-run"; fi
+          if [ "$DRY_RUN" = "true" ]; then args="--dry-run"; fi
           npm run labels:drift-check -- $args
 
       - name: Upload drift report

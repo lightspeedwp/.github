@@ -13,9 +13,14 @@ import { describe, it, expect } from '@jest/globals';
 import {
   DRIFT_ISSUE_TITLE,
   DRIFT_ISSUE_LABELS,
+  MAX_COUNTED_ROWS,
   normaliseColor,
+  escapeCell,
+  splitCells,
   diffGithubRepo,
   diffLinearLabels,
+  countGithubItems,
+  enrichGithubRows,
   parseFirstSeen,
   renderReport,
   upsertDriftIssue,
@@ -186,6 +191,58 @@ describe('label-drift-check', () => {
     expect(body).toContain('Showing 200 of 250; see the run artifact for all rows.');
     expect(body).toContain('| o/r | label-199 | unapproved |');
     expect(body).not.toContain('| o/r | label-200 | unapproved |');
+  });
+
+  it('round-trips label names containing pipes through render and parse', () => {
+    expect(escapeCell('a|b')).toBe('a\\|b');
+    expect(splitCells('| o/r | a\\|b | unapproved | 2026-09-01 | 4 |')).toEqual([
+      '',
+      'o/r',
+      'a|b',
+      'unapproved',
+      '2026-09-01',
+      '4',
+      '',
+    ]);
+    const body = renderReport({
+      generatedAt: '2026-10-02T00:00:00.000Z',
+      canonicalCommit: 'abc123',
+      githubRows: [{ location: 'o/r', label: 'a|b', difference: 'unapproved', items: 4 }],
+      linearRows: [],
+      allowed: [],
+      skippedRepos: [],
+      org: 'lightspeedwp',
+      firstSeen: new Map(),
+    });
+    expect(body).toContain('| o/r | a\\|b | unapproved |');
+    expect(parseFirstSeen(body).get('o/r\0a|b\0unapproved')).toBe('2026-10-02');
+  });
+
+  it('caps GitHub count enrichment and discloses the remainder', async () => {
+    const client = {
+      rest: {
+        search: {
+          issuesAndPullRequests: async () => ({ data: { total_count: 3 } }),
+        },
+      },
+    };
+    const rows = [
+      { location: 'o/r', label: 'b', difference: 'unapproved' },
+      { location: 'o/r', label: 'a', difference: 'unapproved' },
+      { location: 'o/r', label: 'gone', difference: 'missing' },
+    ];
+    const { counted, uncounted } = await enrichGithubRows(client, rows, {
+      maxRows: 1,
+      paceMs: 0,
+    });
+    expect(counted).toBe(1);
+    expect(uncounted).toBe(1);
+    expect(MAX_COUNTED_ROWS).toBeGreaterThan(0);
+    // Deterministic order: 'a' is counted, 'b' is capped, 'gone' needs none.
+    expect(rows.find((r) => r.label === 'a').items).toBe(3);
+    expect(rows.find((r) => r.label === 'b').items).toBe('');
+    expect(rows.find((r) => r.label === 'gone').items).toBe('');
+    expect(await countGithubItems(client, 'o/r', 'a')).toBe(3);
   });
 
   it('creates the issue once, then updates it in place', async () => {
