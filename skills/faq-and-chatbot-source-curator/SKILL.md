@@ -18,14 +18,19 @@ Do not make draft, private, unverified or unsupported material chatbot-safe.
 A FAQ or source is chatbot-safe only when it is:
 
 - public or intended for public use
-- approved or clearly ready for approval
+- approved for public use by a named reviewer or role
 - current
 - owned by a named reviewer or role
 - free from unsupported claims
 - not legal, privacy, compliance or security advice unless approved policy wording exists
 - suitable for reuse by a public website assistant
 
-If evidence is missing, mark the item as `Needs Review`, `Evidence Required`, `Legal Review` or `Not for Chatbot`.
+Two status fields are in play, and they use different vocabularies. Keep them separate:
+
+- **Review status** (the curation state of the source) is `Approved`, `Needs Review`, `Evidence Required` or `Legal Review`. See `references/faq-taxonomy.md`.
+- **Chatbot-safe status** (whether a chatbot may quote it) is `Chatbot Safe`, `Chatbot Safe After Review`, `Not for Chatbot`, `Legal Review Required`, `Evidence Required` or `Escalate to Human`. See `references/chatbot-safe-source-rules.md`.
+
+If evidence is missing, the item is never `Chatbot Safe`: record the review status that applies and the chatbot-safe status that follows from it. Never promote an item to `Chatbot Safe After Review` on your own — that status asserts a review has happened, and only the named owner can confirm it.
 
 ## Inputs to accept
 
