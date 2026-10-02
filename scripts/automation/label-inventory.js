@@ -9,14 +9,22 @@
  * label-sync.js read only the first 100). Read-only: it never creates,
  * edits or deletes labels.
  *
+ * Credentials (FR-018, task T075): the token comes from LABEL_INVENTORY_TOKEN,
+ * a token with organisation read access (the organisation GitHub App or a
+ * fine-grained token). The repository-scoped Actions GITHUB_TOKEN sees only
+ * public repositories in other organisation repos, so the script refuses to
+ * run inside GitHub Actions and fails when private repositories are missing.
+ *
  * Usage:
- *   GITHUB_TOKEN=... node scripts/automation/label-inventory.js [--org lightspeedwp] [--output path]
+ *   LABEL_INVENTORY_TOKEN=... node scripts/automation/label-inventory.js [--org lightspeedwp] [--output path]
  */
 
 import fs from 'fs';
 import path from 'path';
 
 export const PER_PAGE = 100;
+
+export const TOKEN_VARIABLE = 'LABEL_INVENTORY_TOKEN';
 
 const DEFAULT_OUTPUT = path.join(
   '.github',
@@ -51,6 +59,16 @@ export async function collectPages(fetchPage) {
  * @returns {Promise<object>} Inventory with one entry per repository.
  */
 export async function buildInventory(client, org) {
+  // The organisation's own count of private repositories, used to detect a
+  // token that cannot see them. Null when the client cannot read it.
+  let reportedPrivateCount = null;
+  if (client.rest.orgs && typeof client.rest.orgs.get === 'function') {
+    const { data: orgData } = await client.rest.orgs.get({ org });
+    if (Number.isInteger(orgData.total_private_repos)) {
+      reportedPrivateCount = orgData.total_private_repos;
+    }
+  }
+
   const { items: repos } = await collectPages(async (page) => {
     const { data } = await client.rest.repos.listForOrg({
       org,
@@ -76,6 +94,7 @@ export async function buildInventory(client, org) {
       repository: `${org}/${repo.name}`,
       archived: Boolean(repo.archived),
       fork: Boolean(repo.fork),
+      private: Boolean(repo.private),
       label_count: labels.length,
       pages_read: pagesRead,
       labels: labels.map((l) => ({
@@ -90,6 +109,8 @@ export async function buildInventory(client, org) {
     generated_at: new Date().toISOString(),
     organisation: org,
     repository_count: repositories.length,
+    private_repository_count: repositories.filter((r) => r.private).length,
+    reported_private_repository_count: reportedPrivateCount,
     label_total: repositories.reduce((n, r) => n + r.label_count, 0),
     repositories,
   };
@@ -112,6 +133,45 @@ export function incompleteRepositories(inventory) {
     .map((r) => r.repository);
 }
 
+/**
+ * Check that the token could see every private repository the organisation
+ * reports, so a repository-scoped token cannot produce a silently incomplete
+ * inventory.
+ * @param {object} inventory Result of buildInventory.
+ * @returns {string|null} Error message, or null when the inventory is complete.
+ */
+export function privateRepositoryGap(inventory) {
+  const reported = inventory.reported_private_repository_count;
+  if (reported === null || reported === undefined) {
+    return `cannot read total_private_repos for ${inventory.organisation}; an organisation-owner token is required to verify private repository completeness`;
+  }
+  if (inventory.private_repository_count < reported) {
+    return `listed ${inventory.private_repository_count} private repositories but ${inventory.organisation} reports ${reported}; the token cannot see them all`;
+  }
+  return null;
+}
+
+/**
+ * Resolve the token from the environment (FR-018, task T075).
+ * @param {Record<string, string|undefined>} env Environment variables.
+ * @returns {{token?: string, error?: string}} The token, or why none can be used.
+ */
+export function resolveToken(env) {
+  if (env.GITHUB_ACTIONS === 'true') {
+    return {
+      error:
+        'refusing to run inside GitHub Actions: the inventory needs an organisation read token, never the repository-scoped GITHUB_TOKEN',
+    };
+  }
+  const token = env[TOKEN_VARIABLE];
+  if (!token) {
+    return {
+      error: `${TOKEN_VARIABLE} is required (a token with organisation read access; never GITHUB_TOKEN)`,
+    };
+  }
+  return { token };
+}
+
 function parseArgs(argv) {
   const args = { org: 'lightspeedwp', output: DEFAULT_OUTPUT };
   for (let i = 0; i < argv.length; i += 1) {
@@ -122,9 +182,9 @@ function parseArgs(argv) {
 }
 
 async function main() {
-  const token = process.env.GITHUB_TOKEN;
-  if (!token) {
-    console.error('❌ GITHUB_TOKEN environment variable is required');
+  const { token, error } = resolveToken(process.env);
+  if (error) {
+    console.error(`❌ ${error}`);
     process.exit(1);
   }
   const { Octokit } = await import('octokit');
@@ -135,6 +195,11 @@ async function main() {
   const incomplete = incompleteRepositories(inventory);
   if (incomplete.length > 0) {
     console.error(`❌ Incomplete pagination for: ${incomplete.join(', ')}`);
+    process.exit(1);
+  }
+  const privateGap = privateRepositoryGap(inventory);
+  if (privateGap) {
+    console.error(`❌ Incomplete inventory: ${privateGap}`);
     process.exit(1);
   }
 
