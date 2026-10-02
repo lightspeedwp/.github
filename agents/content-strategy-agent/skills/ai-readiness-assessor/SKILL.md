@@ -55,7 +55,7 @@ Calculate:
 percentage = total score / 60 * 100
 ```
 
-Readiness bands:
+Round the percentage to a whole number before classifying it, then use these bands. The bands are contiguous, so every score falls in exactly one:
 
 - 0-30%: Not ready - foundation work required
 - 31-60%: Partly ready - priority gaps to fix

@@ -42,7 +42,10 @@ Badge issue?
 
 ### Diagnosis Checklist
 
-- [ ] Document has `<!-- BADGES-START -->
+- [ ] Document has the opening marker:
+
+```markdown
+<!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
 ![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
 ![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
@@ -70,7 +73,8 @@ Badge issue?
 [![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
 [![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
 [![workflow-lint](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml)
-<!-- BADGES-END -->` marker?
+<!-- BADGES-END -->
+```
 
 - [ ] Markers are on separate lines?
 - [ ] Document has frontmatter section with `---`?
