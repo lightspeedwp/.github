@@ -489,7 +489,7 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 
 **Audit is COMPLETE when**:
 
-✅ All 112 tasks in phases 1-9 are completed  
+✅ All 114 tasks in phases 1-10 are completed  
 ✅ Phase 2 (Foundational) complete - BLOCKS all story work (done)  
 ✅ User Story 1 (P1) complete - Reconciliation report with all inconsistencies identified  
 ✅ User Story 2 (P2) complete - Duplicates analysis and consolidation strategy  
@@ -571,10 +571,10 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 
 ---
 
-**Total Tasks**: 112 | **Phases**: 9 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
+**Total Tasks**: 114 | **Phases**: 10 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
 
 **MVP Completion**: Phases 1-3 (Setup + Foundational + US1) ≈ 50% of tasks
-**Full Completion**: All 9 phases ≈ 100% of tasks (Phase 8, User Story 4, is 66 of the 112; Phase 9, Convergence, is 6)
+**Full Completion**: All 10 phases ≈ 100% of tasks (Phase 8, User Story 4, is 66 of the 114; Phase 9, Convergence, is 6; Phase 10, Convergence, is 2)
 
 **Next Step**: Run first task in Phase 1 (T001 - Create output directory). Report progress checkpoint after Phase 2 completion (all data extracted and verified).
 
@@ -586,6 +586,11 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 - [ ] T077 [US4] When T043 fills `mappings[]`, update `scripts/validation/__tests__/label-audit-stage-one.test.js` in the same commit: it currently asserts `mappings` is empty. Its OpenSpec target check (`openspec` → `spec`) already matches the 2026-10-02 Q3 answer and stays per T043, T048 (partial)
 - [ ] T078 [US4] Replace the approver handle `@ashley` with `@ashleyshaw` in `.github/specs/008-label-audit-consolidation/` (`spec.md`, `plan.md`, `tasks.md`, `contracts/`, `quickstart.md`, `checklists/`) and in the T049 gate draft `.github/reports/audits/2026-09-14-label-audit/change-requests/label-deletion-gate.md`, so the approval the FR-016 tool checks by login matches the text; leave `@ashleyshaw` unchanged and keep quoted historical comments as written (constitution v1.4.0, analysis finding I2) per FR-016 (contradicts)
 - [ ] T079 [US4] After #3703, #3704, #3725 and #3732 merge, reconcile `.github/specs/008-label-audit-consolidation/tasks.md` on `develop`: tick T062a (done in #3704), confirm T042, T046b, T048 and T049 are ticked (done in #3725), update the completion totals and the counts in `tests/js/label-consolidation-post-merge-docs.test.js`, and close T009 as superseded by T041 per plan: Progress (partial)
+
+## Phase 10: Convergence
+
+- [ ] T080 Add a required pull request check, `.github/workflows/locked-files-guard.yml` running a new `scripts/validation/check-locked-file-approval.cjs` (with tests in `scripts/validation/__tests__/`), that fails when a PR changes a constitution v1.4.0 LOCKED file (`.github/labels.yml`, `.github/issue-types.yml`, `.github/ISSUE_TEMPLATE/*.md`, `.github/PULL_REQUEST_TEMPLATE/*.md`, `.github/PULL_REQUEST_TEMPLATE/config.yml`, `.github/branch-types.yml`, `.github/branch-labels.yml`) unless the PR body links a change-request issue whose entry in `.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json` (or, outside spec 008, a dated approval comment by `ashleyshaw` on that issue) shows `status: "approved"`; also give those paths explicit `CODEOWNERS` lines owned by `@ashleyshaw` only, so a team member's approval cannot stand in for the approver's (the gap that let #3534 merge) per Constitution II, plan: Constitution Check remediation (partial)
+- [ ] T081 Extend `scripts/validation/validate-labeling-configs.cjs` (and its tests) to enforce the constitution v1.4.0 routing rules: every branch type in `.github/branch-types.yml` has exactly one `type:*` label in `.github/branch-labels.yml` `default_labels`, equal to the canonical type label in its routed template's frontmatter (mapping `type:documentation` → `type:docs` and `type:ai-ops` → `type:aiops` until T046b is applied), and every route in `.github/PULL_REQUEST_TEMPLATE/config.yml` matches `branch-types.yml`; run it after T074 and T076 so it starts green (depends on #3732, T074, T076) per Constitution v1.4.0 routing, plan: R23 (partial)
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)
