@@ -500,7 +500,7 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 | `started_at` | timestamp | UTC, ISO 8601 |
 | `stage` | enum | `3`, `4` or `5` |
 
-**Rules**: created when a run starts and deleted when it finishes; a run refuses to start while the file exists; a lock left by a stopped run is cleared only after @ashleyshaw confirms on the gate issue.
+**Rules**: created with an exclusive create (it fails if the file exists) when a run starts, in the one checkout used for consolidation runs, and deleted when it finishes; a run refuses to start while the file exists; a lock left by a stopped run is cleared only after @ashleyshaw confirms on the gate issue.
 
 ### Consolidation State Transitions
 

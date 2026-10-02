@@ -179,11 +179,19 @@ describe('Run-safety documentation and log examples', () => {
       );
 
       expect(Array.isArray(entries)).toBe(true);
-      expect(entries).toHaveLength(1);
+      expect(entries).toHaveLength(2);
       expect(fields.length).toBeGreaterThan(0);
-      expect(Object.keys(entries[0]).sort()).toEqual(fields.sort());
-      expect(entries[0].at).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
-      expect(Number.isNaN(Date.parse(entries[0].at))).toBe(false);
+      for (const entry of entries) {
+        expect(Object.keys(entry).sort()).toEqual([...fields].sort());
+        expect(entry.at).toMatch(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z$/);
+        expect(Number.isNaN(Date.parse(entry.at))).toBe(false);
+      }
+      // One change is an ordered intended/done pair sharing a run-prefixed op_id.
+      const [intended, done] = entries;
+      expect([intended.state, done.state]).toEqual(['intended', 'done']);
+      expect(done.op_id).toBe(intended.op_id);
+      expect(intended.op_id).toMatch(/^run-\d{8}T\d{4}-\d{4}$/);
+      expect(Date.parse(done.at)).toBeGreaterThan(Date.parse(intended.at));
       expect(research).toContain(`evidence/${file}`);
     }
   );
@@ -229,6 +237,7 @@ describe('Run-safety documentation and log examples', () => {
     expect(reread).toMatch(
       /either differs.*skips.*reason on the gate issue.*new dry run and approval/
     );
+    expect(reread).toMatch(/this run's own `done` records/);
     expect(task('T065a').text).toMatch(
       /approved_set_commit.*stale.*skip.*new dry run and approval/
     );

@@ -43,12 +43,12 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 3. The snapshot keeps name, colour, description and item numbers, so any deleted label can be recreated and reapplied (research R8).
 4. Deletion runs only when `approval.status` is `approved`, `approved_by` is `ashleyshaw`, and `gate_comment_url` points to a comment reading `Approved: <repo> dry run <generated_at>` whose repository and timestamp match this file. Repositories without approval are skipped. If `labels.yml` on `develop` differs from `approved_set_commit`, the dry run is stale and must be regenerated.
 5. `destructive_cleanup.enabled` in `label-governance-policy.yml` stays `false`. Deletion requires the run-time flags `--apply --confirm-gate <gate issue number>`, and the tool refuses any repository whose `approval.status` is not `approved`.
-6. Before deleting, the tool re-reads the repository's labels and the items carrying each `to_delete` label. If either differs from this file, it skips the repository, records the reason on the gate issue, and needs a new dry run and approval (FR-023 point 4).
+6. Before deleting, the tool re-reads the repository's labels and the items carrying each `to_delete` label. The expected state is this file plus the changes that this run's own `done` records already show for the repository (partial progress before a stop, while `executed_at` is unset). If either differs from that expected state, it skips the repository, records the reason on the gate issue, and needs a new dry run and approval (FR-023 point 4).
 7. When the repository's run finishes, the tool sets `executed_at`. A re-run skips any repository with `executed_at` set, and makes no API write for one whose current state already matches the approved set (FR-023 points 1 and 2).
 
 ## Run logs (FR-023)
 
-Both files are append-only JSON arrays in `evidence/`. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds. Each `op_id` starts with the `run_id` of the run that wrote it, and only the run holding `evidence/run-lock.json` may append (FR-023 point 11).
+Both files are append-only JSON arrays in `evidence/`. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds. Each `op_id` starts with the `run_id` of the run that wrote it, and only the run holding `evidence/run-lock.json` may append (FR-023 point 11). Each example below shows one change as its ordered `intended` and `done` pair.
 
 ### `consolidation-log.json` (GitHub, Stages 3 and 4)
 
@@ -63,7 +63,19 @@ Both files are append-only JSON arrays in `evidence/`. Each change is written tw
     "before": { "name": "migrate:priority:normal", "color": "ededed", "description": "" },
     "after": null,
     "gate_issue": 0,
-    "op_id": "example-repo-delete-0001",
+    "op_id": "run-20261001T0000-0001",
+    "state": "intended"
+  },
+  {
+    "run_by": "ashleyshaw",
+    "at": "2026-10-01T00:00:02Z",
+    "repository": "lightspeedwp/example-repo",
+    "action": "delete",
+    "label": "migrate:priority:normal",
+    "before": { "name": "migrate:priority:normal", "color": "ededed", "description": "" },
+    "after": null,
+    "gate_issue": 0,
+    "op_id": "run-20261001T0000-0001",
     "state": "done"
   }
 ]
@@ -81,7 +93,16 @@ Both files are append-only JSON arrays in `evidence/`. Each change is written tw
     "new_label": { "id": "<label id>", "name": "aiops:agents", "scope": "workspace" },
     "at": "2026-10-01T00:00:00Z",
     "mapping": "area:agents -> aiops:agents",
-    "op_id": "GIT-0000-0001",
+    "op_id": "run-20261001T0000-0002",
+    "state": "intended"
+  },
+  {
+    "issue": "GIT-0000",
+    "old_label": { "id": "<label id>", "name": "area:agents", "scope": "workspace" },
+    "new_label": { "id": "<label id>", "name": "aiops:agents", "scope": "workspace" },
+    "at": "2026-10-01T00:00:01Z",
+    "mapping": "area:agents -> aiops:agents",
+    "op_id": "run-20261001T0000-0002",
     "state": "done"
   }
 ]
