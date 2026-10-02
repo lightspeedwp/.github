@@ -46,6 +46,10 @@
     "optionalFrontmatterFields": {
       "type": "object",
       "properties": {
+        "metadata": {
+          "type": "object",
+          "description": "Extension bag. Permitted for skill and subagent definitions; CLASS_FIELD_SETS in scripts/validation/lib/skills-spec.js is the authority, and this entry records the sanction so the schema and the validator agree."
+        },
         "description": {
           "type": "string",
           "description": "Brief description of document purpose"

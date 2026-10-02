@@ -530,8 +530,6 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
 }
 ```
 
-```
-
 ---
 
 **Last Updated:** 2026-07-24
@@ -540,16 +538,3 @@ Provides comprehensive code analysis including complexity metrics, code smells, 
 ---
 
 *Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_
-```

@@ -160,8 +160,95 @@ const AGENTS_MD_FIELDS = Object.freeze([
   'tags',
   'domain',
   'stability',
-  'references',
 ]);
+
+/**
+ * Frontmatter each class must carry.
+ *
+ * A subagent definition is held to `description` (required upstream) plus this
+ * repository's own document frontmatter, from
+ * `requiredFrontmatterFields` in `schemas/agent-config.schema.json`. Checking
+ * skills only let a subagent carrying nothing but `name` pass.
+ */
+const REQUIRED_SUBAGENT_FIELDS = Object.freeze([
+  'description',
+  'file_type',
+  'title',
+  'last_updated',
+]);
+
+/**
+ * Required fields for a class.
+ *
+ * @param {string} fileClass One of the `CLASS_FIELD_SETS` keys.
+ * @returns {readonly string[]} Fields that must be present.
+ */
+function requiredFieldsFor(fileClass) {
+  if (fileClass === 'subagent-definition') {
+    return REQUIRED_SUBAGENT_FIELDS;
+  }
+  if (fileClass === 'agents-md') {
+    // agents.md defines no frontmatter; only the document fields this repository
+    // applies to its own AGENTS.md files are required.
+    return REQUIRED_SUBAGENT_FIELDS.filter((field) => field !== 'description');
+  }
+  return REQUIRED_SKILL_FIELDS;
+}
+
+/**
+ * Value shapes for optional fields that a specification documents.
+ *
+ * `docs/SKILLS_STANDARDS.md` requires strings for these. Allowing them without
+ * checking the shape accepted `allowed-tools: [Read]` and a list-valued
+ * `license`, which the documented format does not allow.
+ *
+ * The tool field is checked per class: open-spec skills document a comma-separated
+ * string, Claude Code skills a list, so one rule cannot cover both.
+ *
+ * @param {Record<string, unknown>} frontmatter Parsed frontmatter.
+ * @param {string} fileClass One of the `CLASS_FIELD_SETS` keys.
+ * @returns {string[]} Diagnostics.
+ */
+function validateOptionalFieldShapes(frontmatter, fileClass) {
+  const findings = [];
+  const stringFields = ['license', 'version', 'domain', 'stability', 'file_type'];
+
+  for (const field of stringFields) {
+    const value = frontmatter[field];
+    if (value === undefined) {
+      continue;
+    }
+    if (typeof value !== 'string') {
+      findings.push(
+        `\`${field}\` must be a string but is ${Array.isArray(value) ? 'a list' : typeof value}. ` +
+          'Fix: give it a string value.'
+      );
+    }
+  }
+
+  const tools = frontmatter['allowed-tools'];
+  if (tools !== undefined) {
+    if (fileClass === 'open-spec-skill') {
+      // docs/SKILLS_STANDARDS.md records this field as "Space-separated
+      // pre-approved tools", so for an open-spec skill it is a string.
+      if (typeof tools !== 'string') {
+        findings.push(
+          '`allowed-tools` must be a space-separated string for an open-spec skill but is ' +
+            `${Array.isArray(tools) ? 'a list' : typeof tools}. Fix: give it "Read Write Grep".`
+        );
+      }
+    } else if (!Array.isArray(tools) && typeof tools !== 'string') {
+      // Claude Code documents a YAML list, but the open-spec spelling is a string,
+      // so either is accepted here rather than failing a file for the representation.
+      findings.push(
+        `\`allowed-tools\` must be a list or a space-separated string for a ${fileClass} but is ` +
+          `${typeof tools}. Fix: give it a YAML list of tool names.`
+      );
+    }
+  }
+
+  return findings;
+}
 
 /** Field set per class. */
 const CLASS_FIELD_SETS = Object.freeze({
@@ -330,6 +417,28 @@ function splitFrontmatter(content) {
 }
 
 /**
+ * Canonical footer openings, mirroring `DEFAULT_FOOTERS` in
+ * `scripts/agents/includes/header-footer.js`.
+ *
+ * That module is ESM and this one is CommonJS, so the list cannot be imported.
+ * `__tests__/validate-skills.test.js` reads the real `FOOTER_PATTERNS` out of
+ * `footer-policy.js` and asserts every stem below is covered by it, which keeps
+ * the two from drifting.
+ */
+const FOOTER_STEMS = Object.freeze([
+  'Maintained with',
+  'Built by',
+  'Have questions?',
+  'This page brought to you by',
+  'Docs signed by',
+  'Made with',
+]);
+const FOOTER_LINE_RE = new RegExp(
+  `^[*_>#\\s]*(${FOOTER_STEMS.map((stem) => stem.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`
+);
+const FOOTER_LINK_LINE_RE = /^\[(?:Contributors|Org Profile|Automation Docs)\]\(/;
+
+/**
  * Strip a trailing generated footer so only real instructions count as a body.
  *
  * @param {string} body Markdown after the frontmatter.
@@ -338,18 +447,44 @@ function splitFrontmatter(content) {
 function stripFooter(body) {
   const lines = body.split(/\r?\n/);
 
-  // Scan from the end so a line that merely mentions one of the phrases partway
-  // through the instructions cannot be mistaken for the footer.
-  for (let index = lines.length - 1; index >= 0; index -= 1) {
-    if (/^(?:[ \t]*[_*#>][ \t]*)?(?:Built by|Have questions\? Ping us)/.test(lines[index])) {
-      return lines.slice(0, index).join('\n');
+  // A canonical footer is a *block*, not a line: most variants are a prose line
+  // with a link line beneath it. Scanning backwards and returning at the first
+  // match removed only the link and left the prose as apparent instructions, so
+  // the scan records the earliest line of the trailing block and cuts there.
+  //
+  // Scanning from the end also means a footer phrase quoted partway through the
+  // instructions is never mistaken for the footer, because a real footer sits at
+  // the end of the file.
+  let cut = -1;
+  let i = lines.length - 1;
+  // Trailing blank lines are not content and are not a footer either.
+  while (i >= 0 && lines[i].trim() === '') {
+    i -= 1;
+  }
+  while (i >= 0) {
+    const line = lines[i].trim();
+    if (FOOTER_LINE_RE.test(line) || FOOTER_LINK_LINE_RE.test(line)) {
+      cut = i;
+      i -= 1;
+      continue;
     }
-    if (/^\[Contributors\]\(/.test(lines[index].trim())) {
-      return lines.slice(0, index).join('\n');
+    // A blank line inside or above the block belongs to it.
+    if (line === '') {
+      i -= 1;
+      continue;
     }
+    break;
   }
 
-  return body;
+  if (cut === -1) {
+    return body;
+  }
+  // Trim the blank lines left above the block so they cannot read as content.
+  let head = lines.slice(0, cut);
+  while (head.length && head[head.length - 1].trim() === '') {
+    head.pop();
+  }
+  return head.join('\n');
 }
 
 /**
@@ -398,7 +533,24 @@ function validateFieldSet(frontmatter, fileClass) {
     return [];
   }
 
+  // Only steer an author towards `metadata` when this class actually allows it.
+  // Telling a subagent author to move a field into `metadata` when the field set
+  // excludes `metadata` sent them in a circle.
+  const metadataAllowed = allowed.includes('metadata');
   const hints = unknown.map((key) => {
+    // `references` is prohibited outright by the repository Markdown standard, so
+    // moving it into `metadata` is not the fix even for a class that allows
+    // `metadata`. Checked before the metadata branch for that reason.
+    if (key === 'references' && fileClass === 'agents-md') {
+      return (
+        `\`references\` -> remove it. It is prohibited by ` +
+        '.github/instructions/markdown.instructions.md; use inline links or a ' +
+        '`## Cross-References` section instead.'
+      );
+    }
+    if (!metadataAllowed) {
+      return `\`${key}\` -> remove it, or move it into \`metadata.${key}\` if this class allows metadata.`;
+    }
     if (key === 'version') {
       return '`version` -> move it to `metadata.version` as a quoted string';
     }
@@ -477,13 +629,16 @@ function validateName(name, directoryName) {
  * @param {string} description Parsed `description` value.
  * @returns {string[]} Human-readable failures.
  */
-function validateDescription(description) {
+function validateDescription(description, options = {}) {
   if (typeof description !== 'string' || description.trim() === '') {
     return [
       'description is missing or empty. Fix: add a one-line description of what the skill does and when to use it.',
     ];
   }
-  if (description.length > MAX_DESCRIPTION_LENGTH) {
+  // MAX_DESCRIPTION_LENGTH comes from the Agent Skills specification, which governs
+  // skills only. Subagent and AGENTS.md descriptions have no such cap, so enforcing
+  // it on them rejected documents their own contracts permit.
+  if (options.enforceLength !== false && description.length > MAX_DESCRIPTION_LENGTH) {
     return [
       `description is ${description.length} characters; the maximum is ${MAX_DESCRIPTION_LENGTH}. ` +
         'Fix: shorten it and move detail into the body or a references/ file.',
@@ -609,6 +764,8 @@ module.exports = {
   CLASS_FIELD_SETS,
   CLASS_URLS,
   MAX_COMPATIBILITY_LENGTH,
+  validateOptionalFieldShapes,
+  requiredFieldsFor,
   MAX_DESCRIPTION_LENGTH,
   MAX_NAME_LENGTH,
   NON_SKILL_DIRECTORIES,

@@ -18,6 +18,7 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 const SCRIPT = path.join(__dirname, '..', 'validate-skills.js');
+const spec = require('../lib/skills-spec.js');
 
 /** Build a temporary repository tree from a path-to-content map. */
 function makeTree(files) {
@@ -123,10 +124,12 @@ describe('per-class field sets', () => {
   });
 
   it('does not apply the skill character rules to a subagent name', () => {
-    // Upstream imposes no character set on a subagent identifier.
+    // Upstream imposes no character set on a subagent identifier. The
+    // frontmatter is complete so the assertion is about character rules alone.
     const result = check(
       'agents/example.agent.md',
-      '---\nname: Example Reviewer\ndescription: Reviews things\n---\n\nDo it.\n'
+      '---\nname: Example Reviewer\ndescription: Reviews things\nfile_type: agent\n' +
+        'title: Example\nlast_updated: "2026-10-02"\n---\n\nDo it.\n'
     );
     expect(result.status).toBe(0);
   });
@@ -155,7 +158,11 @@ describe('per-class field sets', () => {
   });
 
   it('does not apply the skill directory-name rule to an AGENTS.md', () => {
-    const result = check('AGENTS.md', '---\ntitle: Root\n---\n\n# Guide\n\n## Build\n\nRun it.\n');
+    const result = check(
+      'AGENTS.md',
+      '---\ntitle: Root\nfile_type: documentation\nlast_updated: "2026-10-02"\n' +
+        '---\n\n# Guide\n\n## Build\n\nRun it.\n'
+    );
     expect(result.status).toBe(0);
   });
 });
@@ -369,7 +376,9 @@ describe('repository walk', () => {
       );
       fs.writeFileSync(
         path.join(baselineDirectory, 'skills-baseline.json'),
-        JSON.stringify({ findings: ['skills/example-skill/SKILL.md#closed-field-set'] })
+        // The key carries the offending field, so a second problem with a different
+    // field in the same file is not covered by this entry.
+    JSON.stringify({ findings: ['skills/example-skill/SKILL.md#closed-field-set#version'] })
       );
       const baselined = run(tree);
       expect(baselined.status).toBe(0);
@@ -445,5 +454,502 @@ describe('error output', () => {
     expect(result.output).toContain('(open-spec-skill)');
     expect(result.output).toContain('https://agentskills.io/specification');
     expect(result.output).toContain('Fix:');
+  });
+});
+
+/**
+ * One test per finding raised in review on this branch.
+ *
+ * Each asserts the rule, not the message, and each is mutation-checked: the
+ * mutation is applied to the implementation and the test must fail.
+ */
+describe('review findings on this branch', () => {
+  // Every canonical footer in scripts/agents/includes/header-footer.js, so a
+  // file carrying only a heading and a footer is caught whichever variant it has.
+  const CANONICAL_FOOTERS = [
+    '*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*\n[Contributors](https://github.com/lightspeedwp/.github)',
+    '*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*',
+    '*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*\n[Org Profile](https://github.com/orgs/lightspeedwp)',
+    '*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*\n[Automation Docs](https://github.com/lightspeedwp/.github)',
+    '*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*',
+  ];
+
+  it.each(CANONICAL_FOOTERS)('treats a heading plus this footer as an empty body: %s', (footer) => {
+    const body = `# Heading only\n\n${footer}\n`;
+    const result = check('skills/example-skill/SKILL.md', `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`);
+    expect(result.status).toBe(1);
+    expect(result.output).toContain('[body]');
+  });
+
+  it('still accepts a body whose only content is real instructions above a footer', () => {
+    const body = `Follow these steps.\n\n${CANONICAL_FOOTERS[0]}\n`;
+    const result = check('skills/example-skill/SKILL.md', `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`);
+    expect(result.status).toBe(0);
+  });
+
+  it('does not excuse a footer phrase quoted mid-instructions', () => {
+    // stripFooter scans backwards, so a phrase named inside the instructions is
+    // still content rather than a footer to discard.
+    const body = `If a change says "Docs signed by" then review it.\n\n${CANONICAL_FOOTERS[4]}\n`;
+    const result = check('skills/example-skill/SKILL.md', `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`);
+    expect(result.status).toBe(0);
+  });
+
+  it('does not let one baseline entry cover a second problem with a different field', () => {
+    // The finding key carries the offending field. Without it, baselining the
+    // missing `title` also excused a `file_type` missing later.
+    const complete =
+      '---\nname: example\ndescription: Does a thing.\nfile_type: agent\ntitle: T\n' +
+      'last_updated: "2026-10-02"\n---\n\nDo it.\n';
+    const tree = makeTree({ 'agents/example.agent.md': complete });
+    try {
+      const dir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
+      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+
+      // Drop `title` only. One finding, and the baseline covers it.
+      fs.writeFileSync(
+        path.join(tree, 'agents', 'example.agent.md'),
+        complete.replace('title: T\n', '')
+      );
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({ findings: ['agents/example.agent.md#required-fields#title'] })
+      );
+      expect(run(tree).status).toBe(0);
+
+      // Drop `file_type` as well. A different field, so the entry above must not
+      // cover it: the file has regressed further and the gate must fail.
+      fs.writeFileSync(
+        path.join(tree, 'agents', 'example.agent.md'),
+        complete.replace('title: T\n', '').replace('file_type: agent\n', '')
+      );
+      const worse = run(tree);
+      expect(worse.status).toBe(1);
+      expect(worse.stdout + worse.stderr).toContain('required field `file_type`');
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  });
+
+  it('separates two name problems in one file, so baselining one does not excuse the other', () => {
+    // `Bad-Name` breaks two independent rules: it is not lowercase, and it does
+    // not match its directory. Both collapse to `<path>#name` without the
+    // discriminator, so baselining one would silently excuse the other.
+    const tree = makeTree({
+      'skills/other-directory/SKILL.md':
+        '---\nname: Bad-Name\ndescription: Does a thing.\n---\n\nDo it.\n',
+    });
+    try {
+      const dir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
+      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+
+      const both = run(tree);
+      expect(both.status).toBe(1);
+      expect(both.stdout + both.stderr).toContain('is not lowercase');
+      expect(both.stdout + both.stderr).toContain('does not match its directory');
+      // It breaks a third rule too, so the point is sharper: three findings, one key.
+      expect(both.stdout + both.stderr).toContain('contains characters outside');
+
+      // Baseline the lowercase problem only.
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({ findings: ['skills/other-directory/SKILL.md#name#lowercase'] })
+      );
+      const one = run(tree);
+      expect(one.status).toBe(1);
+      expect(one.stdout + one.stderr).not.toContain('is not lowercase');
+      expect(one.stdout + one.stderr).toContain('does not match its directory');
+
+      // All three baselined: the file is now fully accounted for.
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({
+          findings: [
+            'skills/other-directory/SKILL.md#name#lowercase',
+            'skills/other-directory/SKILL.md#name#directory-match',
+            'skills/other-directory/SKILL.md#name#invalid-characters',
+          ],
+        })
+      );
+      expect(run(tree).status).toBe(0);
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  });
+
+  it('keeps an over-long name distinct from one with invalid characters', () => {
+    // The length message also contains the word "characters", so a classifier that
+    // tested for that word first would fold both problems into one key.
+    const long = 'Bad'.repeat(22); // 66 characters, with an uppercase B
+    const tree = makeTree({
+      [`skills/${long}/SKILL.md`]:
+        `---\nname: ${long}\ndescription: Does a thing.\n---\n\nDo it.\n`,
+    });
+    try {
+      const dir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
+      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+
+      const both = run(tree);
+      expect(both.status).toBe(1);
+      expect(both.stdout + both.stderr).toContain('the maximum is 64');
+      expect(both.stdout + both.stderr).toContain('outside a-z, 0-9 and hyphen');
+
+      // Baselining the invalid character alone must not cover the length problem.
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({ findings: [`skills/${long}/SKILL.md#name#invalid-characters`] })
+      );
+      const one = run(tree);
+      expect(one.status).toBe(1);
+      expect(one.stdout + one.stderr).toContain('the maximum is 64');
+      expect(one.stdout + one.stderr).not.toContain('outside a-z, 0-9 and hyphen');
+
+      // All three problems baselined by name: the file is accounted for. This is
+      // the assertion that distinguishes the states — a classifier that folded
+      // length into the invalid-characters subject would key the length finding
+      // differently, so this baseline would no longer match and the run would fail.
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({
+          findings: [
+            `skills/${long}/SKILL.md#name#invalid-characters`,
+            `skills/${long}/SKILL.md#name#length`,
+            `skills/${long}/SKILL.md#name#lowercase`,
+            `skills/${long}#folder-name`,
+          ],
+        })
+      );
+      const all = run(tree);
+      expect({ status: all.status, output: (all.stdout + all.stderr).slice(0, 200) }).toStrictEqual({
+        status: 0,
+        output: expect.stringContaining('match the checked-in baseline'),
+      });
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  });
+
+  it('keys a consecutive-hyphen name separately from an invalid-character name', () => {
+    const tree = makeTree({
+      'skills/pdf--processing/SKILL.md':
+        '---\nname: pdf--processing\ndescription: Does a thing.\n---\n\nDo it.\n',
+    });
+    try {
+      const dir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
+      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+
+      fs.writeFileSync(
+        path.join(dir, 'skills-baseline.json'),
+        JSON.stringify({
+          findings: [
+            'skills/pdf--processing/SKILL.md#name#consecutive-hyphens',
+            'skills/pdf--processing#folder-name',
+          ],
+        })
+      );
+      expect(run(tree).status).toBe(0);
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  });
+
+  it('enforces the subagent required fields, not only the skill ones', () => {
+    // A subagent with nothing but a name previously passed.
+    const result = check('agents/example.agent.md', '---\nname: example\n---\n\nDo it.\n');
+    expect(result.status).toBe(1);
+    for (const field of ['description', 'file_type', 'title', 'last_updated']) {
+      expect(result.output).toContain(`required field \`${field}\``);
+    }
+  });
+
+  it('applies the description length cap to skills only', () => {
+    const long = 'x'.repeat(1100);
+    const skill = check(
+      'skills/example-skill/SKILL.md',
+      `---\nname: example-skill\ndescription: ${long}\n---\n\nDo it.\n`
+    );
+    expect(skill.status).toBe(1);
+    expect(skill.output).toContain('[description]');
+
+    // Neither the subagent reference nor the local schema imposes that cap, so a
+    // long description on a subagent is not a finding.
+    const subagent = check(
+      'agents/example.agent.md',
+      `---\nname: example\ndescription: ${long}\nfile_type: agent\ntitle: T\nlast_updated: "2026-10-02"\n---\n\nDo it.\n`
+    );
+    expect(subagent.status).toBe(0);
+  });
+
+  it('still rejects an empty description on a subagent', () => {
+    // Length is skills-only; emptiness is not.
+    const result = check(
+      'agents/example.agent.md',
+      '---\nname: example\ndescription: "  "\nfile_type: agent\ntitle: T\nlast_updated: "2026-10-02"\n---\n\nDo it.\n'
+    );
+    expect(result.status).toBe(1);
+    expect(result.output).toContain('[description]');
+  });
+
+  it('checks the value shape of optional fields, with the tool format per class', () => {
+    const bad = check(
+      'skills/example-skill/SKILL.md',
+      '---\nname: example-skill\ndescription: Does a thing.\nlicense:\n  - one\n  - two\n---\n\nDo it.\n'
+    );
+    expect(bad.status).toBe(1);
+    expect(bad.output).toContain('[optional-field-shape]');
+
+    // open-spec documents a comma-separated string; Claude Code a list. One rule
+    // must not impose either representation on the other.
+    const openSpec = check(
+      'skills/example-skill/SKILL.md',
+      '---\nname: example-skill\ndescription: Does a thing.\nallowed-tools:\n  - Read\n---\n\nDo it.\n'
+    );
+    expect(openSpec.status).toBe(1);
+    expect(openSpec.output).toContain('[optional-field-shape]');
+  });
+
+  it('permits metadata on a subagent and sanctions it in the schema', () => {
+    const result = check(
+      'agents/example.agent.md',
+      '---\nname: example\ndescription: Does a thing.\nfile_type: agent\ntitle: T\nlast_updated: "2026-10-02"\nmetadata:\n  tier: fast\n---\n\nDo it.\n'
+    );
+    expect(result.status).toBe(0);
+
+    const schema = JSON.parse(
+      fs.readFileSync(path.join(__dirname, '..', '..', '..', 'schemas', 'agent-config.schema.json'), 'utf8')
+    );
+    expect(
+      Object.keys(schema.definitions.optionalFrontmatterFields.properties)
+    ).toContain('metadata');
+  });
+
+  it('rejects references on an AGENTS.md and says where the field belongs', () => {
+    const result = check(
+      'AGENTS.md',
+      '---\ntitle: Root\nfile_type: documentation\nlast_updated: "2026-10-02"\nreferences:\n  - a.md\n---\n\n# Guide\n\nRun it.\n'
+    );
+    expect(result.status).toBe(1);
+    expect(result.output).toContain('[closed-field-set]');
+    // The advice must be class-specific: moving it into `metadata` is not the fix
+    // for a field the Markdown standard prohibits outright.
+    expect(result.output).toContain('Cross-References');
+    expect(result.output).not.toContain('metadata.references');
+  });
+});
+
+/**
+ * Unit tests for the rule library, ported from #3714.
+ *
+ * #3717 replaced these with end-to-end tests through the validator, which lost
+ * coverage of the boundaries themselves: a rule that never fires end to end can
+ * still have a broken boundary test, and the exact limits (64 characters,
+ * exactly 1024, 500 metadata characters) are only asserted here.
+ */
+const VALID = `---
+name: example-skill
+description: Does a thing. Use when you need the thing done.
+---
+
+# Example Skill
+
+Follow these steps to do the thing.
+`;
+
+describe('skills-spec: frontmatter splitting', () => {
+  it('splits frontmatter from body', () => {
+    const parts = spec.splitFrontmatter(VALID);
+    expect(parts.frontmatter).toContain('name: example-skill');
+    expect(parts.body).toContain('# Example Skill');
+  });
+
+  it('returns null when there is no frontmatter', () => {
+    expect(spec.splitFrontmatter('# Just a heading\n')).toBeNull();
+  });
+
+  it('returns null for an unterminated frontmatter block', () => {
+    expect(spec.splitFrontmatter('---\nname: x\n')).toBeNull();
+  });
+});
+
+describe('skills-spec: body presence', () => {
+  it('accepts a body with instructions', () => {
+    expect(spec.hasBody('\n# Title\n\nDo the thing.\n')).toBe(true);
+  });
+
+  it('rejects an empty body (#3707)', () => {
+    expect(spec.hasBody('\n')).toBe(false);
+    expect(spec.hasBody('\n\n   \n')).toBe(false);
+  });
+
+  it('rejects a body holding only a heading', () => {
+    expect(spec.hasBody('\n# Title Only\n')).toBe(false);
+  });
+
+  it('rejects a body holding only the generated footer', () => {
+    const footer = '\n*Have questions? Ping us on GitHub! Made with Love by LightSpeedWP*';
+    expect(spec.hasBody(footer)).toBe(false);
+  });
+
+  it('rejects a body holding only a Contributors link footer', () => {
+    const footer =
+      '\n_Built by LightSpeedWP_\n[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)';
+    expect(spec.hasBody(footer)).toBe(false);
+  });
+
+  it('keeps content that precedes the footer', () => {
+    expect(spec.hasBody('\nDo the thing.\n\n_Built by LightSpeedWP_\n')).toBe(true);
+  });
+
+  it('accepts a body of list items', () => {
+    expect(spec.hasBody('\n- first step\n- second step\n')).toBe(true);
+  });
+});
+
+describe('skills-spec: closed top-level field set', () => {
+  it('accepts the six permitted fields', () => {
+    const frontmatter = {
+      name: 'example-skill',
+      description: 'A description.',
+      license: 'MIT',
+      compatibility: 'Requires git.',
+      metadata: { version: '1.0' },
+      'allowed-tools': 'Bash(git:*)',
+    };
+    expect(spec.validateFieldSet(frontmatter)).toEqual([]);
+  });
+
+  it('rejects a top-level version and points at metadata.version', () => {
+    const failures = spec.validateFieldSet({ name: 'example-skill', version: '1.0.0' });
+    expect(failures).toHaveLength(1);
+    expect(failures[0]).toContain('version');
+    expect(failures[0]).toContain('metadata.version');
+  });
+
+  it('rejects agentskills_io_compliant', () => {
+    const failures = spec.validateFieldSet({
+      name: 'example-skill',
+      agentskills_io_compliant: true,
+    });
+    expect(failures[0]).toContain('agentskills_io_compliant');
+  });
+
+  it('rejects several unknown fields and names each fix', () => {
+    const failures = spec.validateFieldSet({
+      name: 'example-skill',
+      version: '1',
+      category: 'x',
+      maintainer: 'y',
+    });
+    expect(failures[0]).toContain('version');
+    expect(failures[0]).toContain('category');
+    expect(failures[0]).toContain('maintainer');
+  });
+});
+
+describe('skills-spec: name', () => {
+  it('accepts a conforming name equal to the directory', () => {
+    expect(spec.validateName('example-skill', 'example-skill')).toEqual([]);
+  });
+
+  it('accepts digits and single hyphens', () => {
+    expect(spec.validateName('wp-6-8-skill', 'wp-6-8-skill')).toEqual([]);
+  });
+
+  it('rejects a name that differs from the directory', () => {
+    const failures = spec.validateName('lightspeed-example', 'example');
+    expect(failures).toHaveLength(1);
+    expect(failures[0]).toContain('does not match its directory');
+    expect(failures[0]).toContain('name: example');
+  });
+
+  it('rejects uppercase', () => {
+    expect(spec.validateName('Presentations', 'Presentations')[0]).toContain('not lowercase');
+  });
+
+  it('rejects a leading hyphen', () => {
+    expect(spec.validateName('-pdf', '-pdf')[0]).toContain('hyphen');
+  });
+
+  it('rejects consecutive hyphens', () => {
+    expect(spec.validateName('pdf--processing', 'pdf--processing')[0]).toContain(
+      'consecutive hyphens'
+    );
+  });
+
+  it('rejects characters outside a-z, 0-9 and hyphen', () => {
+    expect(spec.validateName('example_skill', 'example_skill')[0]).toContain(
+      'outside a-z, 0-9 and hyphen'
+    );
+  });
+
+  it('rejects a name over 64 characters', () => {
+    const long = 'a'.repeat(65);
+    expect(spec.validateName(long, long)[0]).toContain('maximum is 64');
+  });
+
+  it('rejects an empty name', () => {
+    expect(spec.validateName('', 'example')[0]).toContain('missing or empty');
+  });
+});
+
+describe('skills-spec: description', () => {
+  it('accepts a description within bounds', () => {
+    expect(spec.validateDescription('Does a thing.')).toEqual([]);
+  });
+
+  it('rejects an empty description', () => {
+    expect(spec.validateDescription('   ')[0]).toContain('missing or empty');
+  });
+
+  it('accepts exactly 1024 characters', () => {
+    expect(spec.validateDescription('a'.repeat(1024))).toEqual([]);
+  });
+
+  it('rejects 1025 characters', () => {
+    expect(spec.validateDescription('a'.repeat(1025))[0]).toContain('maximum is 1024');
+  });
+});
+
+describe('skills-spec: compatibility length', () => {
+  it('accepts 500 characters', () => {
+    expect(spec.validateCompatibility('a'.repeat(500))).toEqual([]);
+  });
+
+  it('rejects 501 characters', () => {
+    expect(spec.validateCompatibility('a'.repeat(501))[0]).toContain('maximum is 500');
+  });
+});
+
+describe('skills-spec: metadata values must be strings', () => {
+  it('accepts string values', () => {
+    expect(spec.validateMetadataValues({ metadata: { version: '1.0', author: 'team' } })).toEqual(
+      []
+    );
+  });
+
+  it('rejects a list value', () => {
+    const failures = spec.validateMetadataValues({ metadata: { tags: ['a', 'b'] } });
+    expect(failures[0]).toContain('metadata.tags is a list');
+  });
+
+  it('rejects a nested mapping value', () => {
+    const failures = spec.validateMetadataValues({ metadata: { requires: { node: '20' } } });
+    expect(failures[0]).toContain('metadata.requires is object');
+  });
+
+  it('accepts an absent metadata field', () => {
+    expect(spec.validateMetadataValues({})).toEqual([]);
+  });
+
+  it('rejects metadata that is not a mapping', () => {
+    expect(spec.validateMetadataValues({ metadata: 'x' })[0]).toContain('must be a mapping');
   });
 });

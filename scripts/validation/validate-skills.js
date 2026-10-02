@@ -156,12 +156,12 @@ function validateDocument(absolutePath, relativePath) {
     ['closed-field-set', spec.validateFieldSet(frontmatter, fileClass)],
     [
       'required-fields',
-      isSkill
-        ? spec.REQUIRED_SKILL_FIELDS.filter((field) => frontmatter[field] === undefined).map(
-            (field) =>
-              `frontmatter is missing the required field \`${field}\`. Fix: add \`${field}\` to the frontmatter.`
-          )
-        : [],
+      spec.requiredFieldsFor(fileClass)
+        .filter((field) => frontmatter[field] === undefined)
+        .map(
+          (field) =>
+            `frontmatter is missing the required field \`${field}\`. Fix: add \`${field}\` to the frontmatter.`
+        ),
     ],
     [
       'name',
@@ -179,7 +179,10 @@ function validateDocument(absolutePath, relativePath) {
       'description',
       frontmatter.description === undefined
         ? []
-        : spec.validateDescription(frontmatter.description),
+        : spec.validateDescription(frontmatter.description, {
+            // The 1,024-character cap is the Agent Skills rule; it binds skills only.
+            enforceLength: isSkill,
+          }),
     ],
     [
       'compatibility',
@@ -188,6 +191,7 @@ function validateDocument(absolutePath, relativePath) {
         : spec.validateCompatibility(frontmatter.compatibility),
     ],
     ['metadata', spec.validateMetadataValues(frontmatter)],
+    ['optional-field-shape', spec.validateOptionalFieldShapes(frontmatter, fileClass)],
   ];
 
   // Freshness is opt-in: absence is a real finding, but recording it across
@@ -359,9 +363,60 @@ walk(root);
 validateSkillsTreeStructure();
 reportVendoredPlugins();
 
-/** Stable identity for a finding, so the baseline survives reordering. */
+/**
+ * The stable subject of a finding, per rule, for the rules that can fire more
+ * than once in the same file.
+ *
+ * Only these three rules are multi-fire. Everything else produces at most one
+ * finding per file, so its key stays `<path>#<rule>` and the existing baseline
+ * entries keep matching.
+ *
+ * The subject must be something that changes only when the file is edited, not
+ * something quoted from the message. An earlier attempt took the first
+ * backticked token, which for a `name` finding is the *fix suggestion* and for a
+ * `metadata` finding an arbitrarily long quoted value — both unstable, so every
+ * baseline entry churned whenever a name was corrected.
+ */
+const FINDING_SUBJECTS = Object.freeze({
+  // "frontmatter is missing the required field `title`."
+  'required-fields': (message) => /required field `([^`]+)`/.exec(message)?.[1],
+  // "frontmatter has fields that <class> does not permit: status, visibility."
+  'closed-field-set': (message) =>
+    /does not permit: ([^.]+)\./.exec(message)?.[1]?.trim().split(/,\s*/).join('+'),
+  // "`allowed-tools` must be a list for a claude-code-skill but is a string."
+  'optional-field-shape': (message) => /`([^`]+)` must be/.exec(message)?.[1],
+  // validateName returns one message per rule it breaks, so a file with two name
+  // problems collapsed into one baseline entry. Keyed by the *kind* of problem,
+  // never by the name: a key built from the value would change the moment the
+  // name was corrected, which is exactly when the entry must stay put.
+  'name': (message) => {
+    // Order matters: the length message also contains the word "characters", so
+    // it is matched before the invalid-character rule. Every message validateName
+    // can return gets its own subject, so none of them shares a key.
+    if (/does not match its directory/.test(message)) return 'directory-match';
+    if (/is not lowercase/.test(message)) return 'lowercase';
+    if (/the maximum is/.test(message)) return 'length';
+    if (/contains consecutive hyphens/.test(message)) return 'consecutive-hyphens';
+    if (/starts or ends with a hyphen/.test(message)) return 'hyphen';
+    if (/outside a-z, 0-9 and hyphen/.test(message)) return 'invalid-characters';
+    if (/missing or empty/.test(message)) return 'missing';
+    return undefined;
+  },
+});
+
+/**
+ * Stable identity for a finding, so the baseline survives reordering.
+ *
+ * A multi-fire rule needs its subject in the key. Without it `byKey` collapsed
+ * every finding of that rule in a file into one, and because the baseline stores
+ * only these keys, a file baselined for one missing field silently accepted any
+ * number of further missing fields.
+ */
 function findingKey(finding) {
-  return `${finding.file}#${finding.rule}`;
+  const base = `${finding.file}#${finding.rule}`;
+  const extract = FINDING_SUBJECTS[finding.rule];
+  const subject = extract ? extract(finding.message || '') : undefined;
+  return subject ? `${base}#${subject}` : base;
 }
 
 const byKey = new Map(findings.map((finding) => [findingKey(finding), finding]));
@@ -379,7 +434,8 @@ if (options.writeBaseline) {
           'the per-class fix pull requests land, and the final one deletes this file.',
         generated: new Date().toISOString().slice(0, 10),
         count: sorted.length,
-        findings: sorted.map(findingKey),
+        // Deduplicated: two findings that share a key are the same baseline entry.
+      findings: [...new Set(sorted.map(findingKey))].sort(),
       },
       null,
       2
