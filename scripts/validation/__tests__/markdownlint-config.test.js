@@ -33,7 +33,10 @@ describe('markdownlint fix-mode configuration', () => {
   it('keeps explicit --fix on every flow that intends to fix', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'package.json'), 'utf8'));
     expect(pkg.scripts['lint:md:fix']).toContain('--fix');
-    expect(pkg.scripts.lint).not.toContain('--fix');
+    // The read-only check flow is lint:md itself (lint only delegates to it);
+    // asserting on lint would guard nothing.
+    expect(pkg.scripts['lint:md']).not.toContain('--fix');
+    expect(pkg.scripts['format:md']).toContain('--fix');
     const hook = fs.readFileSync(
       path.join(REPO_ROOT, 'scripts/validation/lint-md-staged.cjs'),
       'utf8'
