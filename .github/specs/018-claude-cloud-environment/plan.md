@@ -160,6 +160,7 @@ tests/js/
 # Delivered with spec 009 / #3358 (FR-020 deferral, T053):
 scripts/lib/branch-categorization.js       # no auto-approval rule while deferred: claude/* → DISCUSS
 scripts/lib/__tests__/branch-categorization.test.js   # deferral cases (any tip age → DISCUSS)
+scripts/validation/__tests__/cleanup-branches-cli.test.js   # CLI with git, gh and fs mocked; no claude/* auto-approval
 .github/specs/009-audit-branch-cleanup/    # amendment recording the deferral (clarification, FR-010, US3, SC-007)
 # After the deferral is lifted (branch-age signal decided and built):
 scripts/lib/constants.js                   # AUTO_DELETE_PREFIXES, AUTO_DELETE_MIN_AGE_DAYS, reason code
@@ -191,9 +192,12 @@ These follow the user-story priorities in the spec:
 2. **P2, US2 (shared environment)**: already built in #3524. Needs verification only, following quickstart §3–4
    after the Owner has set it up.
 3. **P3, US3 (documentation and cleanup)**:
-   - The doc updates shipped in #3524. The FR-020 deferral note ships in #3726.
-   - The cleanup (FR-020 to FR-022) ships with spec 009 in #3358, in its deferred form: no auto-approval, and a
-     maintainer may promote empty branches from DISCUSS to the draft-PR route. Automatic deletion follows once a
+   - The doc updates shipped in #3524. In #3726: the FR-020 deferral note, the DISCUSS promotion route (T061),
+     hotfix naming (T062), and the guard-can't-start contract rows (T064). Until #3358 merges, the cleanup note
+     must say the DISCUSS behaviour arrives with it (T065).
+   - The cleanup (FR-020 to FR-022) ships with spec 009 in #3358, in its deferred form: no auto-approval (removed
+     in `f4fcec75`, with CLI tests covering it), and a maintainer may promote empty branches from DISCUSS to the
+     draft-PR route (documented in spec 009 by T063 after #3358 merges). Automatic deletion follows once a
      branch-age signal exists.
 
 ## Complexity Tracking
