@@ -93,6 +93,8 @@ These are rejected in preflight, with `reason=command-not-allowed`: `/generate_l
 
 An allowed command that carries a `--section.key=value` token anywhere after it, `/ask` included, is rejected with `reason=arguments-not-allowed`. PR-Agent would otherwise apply that token as a setting after the environment, overriding the locked keys.
 
+The text after the command, with its words joined by single spaces, is also rejected with `reason=arguments-not-allowed` when it starts with `-`. This catches a setting split across two words, such as `--config.model =other`, which the per-word check misses. A flag mentioned mid-question, such as `/ask What does --verbose do here?`, stays allowed.
+
 ## Acceptance checks
 
 These are enforced by `tests/js/qodo-pr-agent-workflow.test.js`:
