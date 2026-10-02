@@ -48,7 +48,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 
 ## Run logs (FR-023)
 
-Both files are append-only JSON arrays in `evidence/`. A record is written only after its API call succeeds.
+Both files are append-only JSON arrays in `evidence/`. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds.
 
 ### `consolidation-log.json` (GitHub, Stages 3 and 4)
 
@@ -62,7 +62,9 @@ Both files are append-only JSON arrays in `evidence/`. A record is written only 
     "label": "migrate:priority:normal",
     "before": { "name": "migrate:priority:normal", "color": "ededed", "description": "" },
     "after": null,
-    "gate_issue": 0
+    "gate_issue": 0,
+    "op_id": "example-repo-delete-0001",
+    "state": "done"
   }
 ]
 ```
@@ -78,7 +80,9 @@ Both files are append-only JSON arrays in `evidence/`. A record is written only 
     "old_label": { "id": "<label id>", "name": "area:agents", "scope": "workspace" },
     "new_label": { "id": "<label id>", "name": "aiops:agents", "scope": "workspace" },
     "at": "2026-10-01T00:00:00Z",
-    "mapping": "area:agents -> aiops:agents"
+    "mapping": "area:agents -> aiops:agents",
+    "op_id": "GIT-0000-0001",
+    "state": "done"
   }
 ]
 ```
@@ -88,6 +92,7 @@ Both files are append-only JSON arrays in `evidence/`. A record is written only 
 1. Linear labels are identified by `id` and `scope`, never by name alone.
 2. Rolling back reads these logs: a GitHub deletion is reversed from the dry-run snapshot plus its `delete` records; a Linear merge is reversed by reapplying `old_label` and restoring the retired label.
 3. Mutating requests run one at a time, at least one second apart, and pause on `Retry-After` or `x-ratelimit-reset`; Linear calls stay within Linear's complexity limits. A paused run resumes as in dry-run rule 7.
+4. On resume, every `intended` record without a matching `done` record is checked against the live state before anything else runs: if the change happened, a `done` record is appended; if it did not, the change is retried. A finished run leaves no unmatched `intended` record (research R21).
 
 ## Weekly drift report issue
 
@@ -96,7 +101,7 @@ One open issue, updated in place each run (not a new issue per run).
 | Element | Value |
 | --- | --- |
 | Title | `Label drift report` |
-| Labels | `type:audit`, `area:labels`, `status:needs-triage` |
+| Labels | `type:audit`, `area:governance`, `status:needs-triage` |
 | Body sections | `## Summary` (counts), `## GitHub repositories` (table), `## Linear`, `## Run details` |
 
 ### Table columns (GitHub and Linear)

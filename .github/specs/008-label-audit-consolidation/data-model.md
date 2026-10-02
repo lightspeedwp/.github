@@ -469,8 +469,10 @@ One record per destructive change in Stages 3 and 4, appended to `evidence/conso
 | `label` | string | The label acted on |
 | `before` / `after` | object or null | Name, colour, description (and item number for `relabel`); `after` is null for `delete` |
 | `gate_issue` | integer | The gate issue the run was confirmed against |
+| `op_id` | string | Unique per change; the `intended` and `done` records of one change share it |
+| `state` | enum | `intended` (written before the API call) or `done` (written after it succeeds) |
 
-**Rules**: append-only; a record is written only after the API call succeeds; a re-run that makes no write adds no record.
+**Rules**: append-only; every change has an `intended` record before its API call and a `done` record after it succeeds; on resume, an `intended` record with no `done` record is checked against the live state and then completed or retried; a re-run that makes no write adds no record.
 
 ### 15. Linear Write Log Entry
 
@@ -482,8 +484,10 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 | `old_label` / `new_label` | object | Label ID, name and scope (`workspace` or team key); either may be null for a pure add or removal |
 | `at` | timestamp | UTC, ISO 8601 |
 | `mapping` | string | The `linear-labels.json` mapping entry applied |
+| `op_id` | string | Shared by the `intended` and `done` records of one write |
+| `state` | enum | `intended` (before the call) or `done` (after it succeeds) |
 
-**Rules**: append-only; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label.
+**Rules**: append-only; written as `intended` before the call and `done` after it, with unmatched `intended` records reconciled on resume; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label.
 
 ### Consolidation State Transitions
 

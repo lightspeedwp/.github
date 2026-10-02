@@ -245,7 +245,9 @@ describe('Run-safety documentation and log examples', () => {
     );
     expect(task('T062c').text).toMatch(/failed API call writes no log record/);
     expect(logs).toMatch(/append-only JSON arrays/);
-    expect(logs).toMatch(/only after its API call succeeds/);
+    expect(logs).toMatch(
+      /`intended` record before the API call and a `done` record after it succeeds/
+    );
     expect(read('quickstart.md')).toMatch(
       /no API write and adds no record to `evidence\/consolidation-log.json`/
     );
@@ -268,10 +270,10 @@ describe('Run-safety documentation and log examples', () => {
   test('quickstart checks both audit logs and the per-run gate summary', () => {
     const quickstart = read('quickstart.md');
     expect(quickstart).toMatch(
-      /consolidation-log\.json` has one record per change.*summary comment/
+      /consolidation-log\.json` has a `done` record for every change.*no `intended` record without a matching `done` record.*summary comment/
     );
     expect(quickstart).toMatch(
-      /linear-writes\.json` has one record per relabelled Linear issue.*ID and scope/
+      /linear-writes\.json` has a `done` record for every relabelled Linear issue.*ID and scope.*no unmatched `intended` record/
     );
   });
 });

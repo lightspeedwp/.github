@@ -351,10 +351,25 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
   - Every action compares the current state with the approved set first and writes nothing when they match. This gives idempotence and the no-op re-run check in Test 12.
   - Before deleting, the tool re-reads the repository's labels and the items carrying each listed label, and skips the repository if anything differs from the approved dry run.
   - Two append-only logs record what changed: `evidence/consolidation-log.json` for GitHub (one record per change) and `evidence/linear-writes.json` for Linear (one record per issue write). Rollback reads from them.
+  - Each change is logged twice. An `intended` record, holding the before-state, is written before the API call; a `done` record with the same `op_id` is written after the call succeeds. On resume, any `intended` record without a `done` record is checked against the live state: if the change happened, its `done` record is added; if not, the change is retried. An interrupted write therefore never loses the old label needed for rollback (CodeRabbit review of #3703, 2026-10-02).
   - One shared request helper serialises mutating calls with a one-second gap and pauses on rate-limit headers. A paused run resumes like a stopped one.
   - Linear labels are matched by ID and scope. Labels that differ only by case or spacing are separate sources and are never merged automatically.
 - **Rationale**: The dry-run file already holds per-repository approval, so making it the resume point needs no extra state. Append-only logs give one rollback source and one audit trail, which the gate-issue summary comment points to.
-- **Alternatives considered**: A separate run-state file (duplicates the dry run); rolling back from GitHub's audit log (not available for every repository, and it does not cover Linear); running repositories in parallel (risks secondary rate limits).
+- **Alternatives considered**: A separate run-state file (duplicates the dry run); rolling back from GitHub's audit log (not available for every repository, and it does not cover Linear); running repositories in parallel (risks secondary rate limits); logging only after success (leaves a gap where a change happened but nothing records the old state).
+
+### R22. OpenSpec paths outside the three rename rules (FR-013)
+
+- **Finding**: 33 of the 149 live OpenSpec paths match none of FR-013's three rules, for example `openspec-labels-automation/`, two `openspec-strict/` folders, seven `.openspec.yml`, `.openspec.yaml` or `openspec.json` files, `PHASE2_OPENSPEC.md` and `openspec-labels.test.js`.
+- **Decision** (2026-10-02 clarification): replace `openspec` with `spec` and `OPENSPEC` with `SPEC`; `speckit-` is used only inside the renamed skill and `speckit-changes/`. The config files are renamed, not deleted.
+- **Rationale**: `spec` matches the `spec:*` label prefix. The T048 draft and `label-audit-stage-one.test.js` already follow this rule, so neither changes.
+- **Alternatives considered**: `speckit` everywhere (names the tool, not the artefacts); leaving the paths unchanged (fails FR-013's zero-match check); deleting the config files (nothing reads them, but deletion is outside this rename's scope).
+
+### R23. Which file defines PR routing (constitution v1.4.0)
+
+- **Finding**: `scripts/pr-template-router.js` takes the template from `.github/branch-types.yml` and the labels from `.github/branch-labels.yml`. It never applies a template's frontmatter `labels`. Constitution v1.3.1 named `PULL_REQUEST_TEMPLATE/config.yml` as canonical, but that file disagrees with the router for 18 prefixes. In `branch-labels.yml`, 13 branch types have no `type:*` label, and 10 differ from their template.
+- **Decision** (constitution v1.4.0, #3732): `branch-types.yml` is canonical and `config.yml` mirrors it. The template's type label is authoritative, so `branch-labels.yml` gives each branch type exactly that label. All three files are locked under `[TEMPLATE-UPDATE-REQUEST]`.
+- **Rationale**: This matches what already runs, so no live routing changes, and it gives every PR exactly one `type:*` label (SC-011).
+- **Alternatives considered**: making `config.yml` canonical (would change live routing for 18 prefixes, and #3725 would move from `pr_audit.md` to `pr_feature.md`); making the branch label win (template frontmatter would become dead data).
 
 ### R10. Decision issue template
 
