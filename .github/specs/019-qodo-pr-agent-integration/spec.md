@@ -31,7 +31,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 
 ### Session 2026-10-01
 
-- Q: What monthly spend limit, in US dollars, should be set on the pilot's dedicated Anthropic key? → A: US$20 per month. The working estimate in `docs/QODO_PR_AGENT.md` -> *Credential and spend* puts one automatic run at about US$0.14, so the cap is roughly 140 automatic runs a month.
+- Q: What monthly spend limit, in US dollars, should be set on the pilot's dedicated Anthropic key? → A: US$20 per month. The working estimate in `docs/QODO_PR_AGENT.md` -> *Credential and spend* puts one automatic run at about US$0.14, so the cap is roughly 140 automatic runs a month. The figure was confirmed by @ashleyshaw on 2026-10-02, replacing the US$50 first agreed on 2026-10-01.
 
 ## User Scenarios & Testing *(mandatory)*
 
