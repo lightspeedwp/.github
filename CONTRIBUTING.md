@@ -23,6 +23,26 @@ tags: ["contributing", "guidelines", "workflow", "standards", "pull-requests"]
 
 For details, see the full guidelines below and the [Documentation Index](./docs/README.md).
 
+### Local security scans
+
+Semgrep is a local tool in this repository, not a CI step: nothing here invokes it. When you run one, keep its state out of your checkout.
+
+Semgrep keeps a settings file holding a per-installation `anonymous_user_id`, plus a log. By default it writes both to `~/.semgrep/`, which is already outside the repository. It writes into your checkout only when `XDG_CONFIG_HOME` points at it, because it then resolves the state directory as `$XDG_CONFIG_HOME/.semgrep`:
+
+```bash
+XDG_CONFIG_HOME="$PWD" semgrep scan --config p/secrets --metrics=off some-file.js
+# ?? .semgrep/
+```
+
+`.semgrep/` is in `.gitignore`, so `git status` stays clean either way. To stop the file being written at all, which also keeps the machine identifier off disk, redirect both paths:
+
+```bash
+export SEMGREP_SETTINGS_FILE="$HOME/.semgrep/settings.yml"
+export SEMGREP_LOG_FILE="$HOME/.semgrep/semgrep.log"
+```
+
+Both are needed. Setting only `SEMGREP_SETTINGS_FILE` still leaves `.semgrep/semgrep.log` in the checkout. `--metrics=off` does **not** prevent the write; it only disables metrics reporting. `--disable-version-check` is unrelated.
+
 ---
 
 ```mermaid
