@@ -228,8 +228,10 @@ settings, not branch-protection fields.
 - Changes to the guard need an Owner's review (CODEOWNERS) and green contract tests. Claude can't edit the guard's
   files while enforcement is on, so guard changes come from a person, or from a session an Owner started with
   `LS_ENFORCE_BRANCH_NAMES=0`.
-- Empty `claude/*` branches left on GitHub by the platform are removed by spec 009's scheduled cleanup, which
-  auto-approves them once they are merged, have no open PR and are at least a day old.
+- Empty `claude/*` branches left on GitHub by the platform are not deleted automatically yet. Spec 018 FR-020 defers
+  auto-deletion until a branch-age signal, such as a first-observed timestamp, exists, because the age of a branch's
+  last commit says nothing about how long the branch itself has existed. Until then, spec 009's scheduled cleanup
+  lists them through its normal categorisation, and a person approves each deletion.
 
 ## Limitations
 
