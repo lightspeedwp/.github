@@ -300,3 +300,8 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 - [ ] T056 Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` so the cleanup note says auto-deletion of empty `claude/*` branches is deferred under FR-020, and the Node-missing note matches the T052 behaviour, per FR-019 (partial)
 - [x] T057 Add `scripts/__tests__/setup-node-install.test.js` to the path filter and test list in `.github/workflows/claude-guard-tests.yml` per FR-023 (missing)
 - [ ] T058 Replace the stale "spec 016" references with "spec 018" in `.claude/hooks/enforce-branch-name.mjs`, `.claude/cloud/setup.sh`, `.github/workflows/claude-guard-tests.yml`, `scripts/__tests__/helpers/claude-hook-harness.js`, `scripts/__tests__/enforce-branch-name-hook.test.js` and `scripts/__tests__/session-start-hook.test.js` per plan: spec identity (partial)
+
+## Phase 8: Convergence
+
+- [ ] T059 Add `scripts/__tests__/setup-node-install.test.js` to the quickstart §1 test command in `.github/specs/018-claude-cloud-environment/quickstart.md`, so a local run covers the same suites as Claude Guard Tests per FR-023 (partial)
+- [ ] T060 Record against T033 that spec 009's `claude/*` auto-approval isn't on `develop` and stays switched off under FR-020 until a branch-age signal exists, and update T033's status once T053 lands per FR-020 (contradicts)
