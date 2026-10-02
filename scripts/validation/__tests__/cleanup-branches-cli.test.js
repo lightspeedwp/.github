@@ -103,13 +103,18 @@ describe('branch audit CLI with isolated Git, GitHub and filesystem operations',
     const report = jsonReport();
     expect(exit).toHaveBeenCalledWith(0);
     expect(report.dryRun).toBe(true);
-    expect(report.deleted.map(({ branch }) => branch)).toEqual([
-      'feat/account-login',
-      'claude/session-work',
-    ]);
+    // Spec 018 FR-020 defers claude/* auto-approval, so a merged claude/*
+    // branch is a naming-violation DISCUSS, never a deletion candidate.
+    expect(report.deleted.map(({ branch }) => branch)).toEqual(['feat/account-login']);
     expect(report.deleted.every(({ localDeleted }) => localDeleted === false)).toBe(true);
+    expect(report.summary.autoApprovedDelete).toBe(0);
     expect(report.preserved).toEqual([
       expect.objectContaining({ branch: 'main', category: 'KEEP' }),
+      expect.objectContaining({
+        branch: 'claude/session-work',
+        category: 'DISCUSS',
+        reason: expect.stringContaining('forbidden prefix: claude'),
+      }),
       expect.objectContaining({ branch: 'fix/unmerged-work', category: 'DISCUSS' }),
     ]);
     expect(execFileSync).toHaveBeenCalledWith(
@@ -139,13 +144,19 @@ describe('branch audit CLI with isolated Git, GitHub and filesystem operations',
     const report = jsonReport();
     expect(report.deleted).toEqual([]);
     expect(report.summary.autoApprovedDelete).toBe(0);
-    for (const branch of ['feat/account-login', 'claude/session-work']) {
-      expect(report.preserved).toContainEqual({
-        branch,
+    expect(report.preserved).toContainEqual({
+      branch: 'feat/account-login',
+      category: 'DISCUSS',
+      reason: 'Open-PR verification unavailable; deletion blocked',
+    });
+    // Already DISCUSS for its name, so it keeps that reason (spec 018 FR-020).
+    expect(report.preserved).toContainEqual(
+      expect.objectContaining({
+        branch: 'claude/session-work',
         category: 'DISCUSS',
-        reason: 'Open-PR verification unavailable; deletion blocked',
-      });
-    }
+        reason: expect.stringContaining('forbidden prefix: claude'),
+      })
+    );
     expect(report.preserved).toContainEqual(
       expect.objectContaining({ branch: 'main', category: 'KEEP' })
     );
