@@ -52,7 +52,7 @@ Out of scope: `*/reports/*` and `*/archived/*` (historical records keep their na
 
 - [ ] No live path contains `openspec` (quickstart Test 11)
 - [ ] No link points to an old path
-- [ ] No live file mentions OpenSpec except where it describes the history of the rename
+- [ ] No live file mentions OpenSpec, including files that describe the history of the rename — historical wording lives only under `*/reports/*` or `*/archived/*` (FR-013, quickstart Test 11)
 - [ ] `*/reports/*` and `*/archived/*` are unchanged
 
 ## Additional Context

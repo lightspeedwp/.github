@@ -50,7 +50,7 @@ labels: ["type:docs", "status:needs-review", "priority:minor", "area:documentati
 recommended_issue_type: "type:docs"
 ```
 
-The title prefixes stay the same, and routing is unchanged; for example `aiops/`, `codex/` and `proto/` branches still route to `pr_aiops.md` (`.github/PULL_REQUEST_TEMPLATE/config.yml`, `.github/branch-types.yml`).
+The title prefixes stay the same, and this request changes no routing: `aiops/`, `codex/` and `automation/` route to `pr_aiops.md` while `proto/` routes to `pr_feature.md` (wording per T076 in #3703, pending merge). Note the current split underneath: `branch-types.yml` already routes that way, but `PULL_REQUEST_TEMPLATE/config.yml` still sends `codex/` → `pr_docs.md`; reconciling `config.yml` to mirror `branch-types.yml` ships in the T059 configuration PR under T076, not here.
 
 ## Linked Stories/Tasks
 

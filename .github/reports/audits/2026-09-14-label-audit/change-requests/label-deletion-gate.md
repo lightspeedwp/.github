@@ -50,7 +50,7 @@ This issue is the approval gate for deleting labels in `lightspeedwp` repositori
 
 ## Additional Context
 
-- Scope: non-archived `lightspeedwp` repositories where the organisation GitHub App is installed, including template repositories. No repository is exempt.
+- Scope: non-archived `lightspeedwp` repositories where the organisation GitHub App is installed, including template repositories. Archived repositories and forks are excluded and listed in the gate issue. A repository without the App blocks its own deletion until the App is installed or @ashley excludes it here. No repository is otherwise exempt (FR-016).
 - Credentials: the deletion run uses a fine-grained token valid for 7 days or less, from @ashleyshaw's session, and never runs in CI (FR-018).
 - Linear clean-up (Stage 5) starts only after this gate's deletions finish, so the Linear GitHub integration cannot recreate deleted labels.
 
