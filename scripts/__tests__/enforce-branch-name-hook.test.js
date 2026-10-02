@@ -1008,6 +1008,67 @@ describe('GitHub MCP tools (T011)', () => {
     expect(run.status).toBe(2);
   });
 
+  // gh sends the last occurrence of a repeated flag, so the guard judges the
+  // last one too: a benign first value cannot mask a hostile last one, nor
+  // does a hostile first value condemn a benign last one (issue #3691, gap 5).
+  test.each([
+    [
+      'a hostile last method',
+      'gh api -X GET repos/lightspeedwp/.github/git/refs -X POST -f ref=refs/heads/main -f sha=abc',
+      2,
+    ],
+    [
+      'a benign last method',
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -X GET -f ref=refs/heads/main -f sha=abc',
+      0,
+    ],
+    [
+      'a hostile last ref',
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -f ref=refs/heads/feat/ok-name -f ref=refs/heads/main -f sha=abc',
+      2,
+    ],
+    [
+      'a benign last ref',
+      'gh api -X POST repos/lightspeedwp/.github/git/refs -f ref=refs/heads/main -f ref=refs/heads/feat/ok-name -f sha=abc',
+      0,
+    ],
+  ])('judges a repeated flag by its last value: %s', (_label, command, expected) => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, command).status).toBe(expected);
+  });
+
+  test.each([
+    ['a hostile last body', ['ok-body.json', 'main-body.json'], 2],
+    ['a benign last body', ['main-body.json', 'ok-body.json'], 0],
+  ])('judges a repeated REST --input by the last file: %s', (_label, files, expected) => {
+    fx.branch('feat/good-name');
+    const bodies = {
+      'ok-body.json': { ref: 'refs/heads/feat/ok-name', sha: 'abc' },
+      'main-body.json': { ref: 'refs/heads/main', sha: 'abc' },
+    };
+    for (const [name, body] of Object.entries(bodies)) {
+      fs.writeFileSync(path.join(fx.repo, name), JSON.stringify(body));
+    }
+    const command = `gh api -X POST repos/lightspeedwp/.github/git/refs ${files.map((file) => `--input ${path.join(fx.repo, file)}`).join(' ')}`;
+    expect(runBash(fx, command).status).toBe(expected);
+  });
+
+  // A protected branch is a valid name, so the naming check alone lets it
+  // through. The protected set stops it here, matching the GraphQL
+  // createRef/createCommitOnBranch path (issue #3691, gap 6).
+  test.each([
+    ['main', 2],
+    ['develop', 2],
+    ['feat/good-name', 0],
+  ])('refuses a REST git/refs creation of %s only when it is protected', (branch, expected) => {
+    fx.branch('feat/good-name');
+    const run = runBash(
+      fx,
+      `gh api -X POST repos/lightspeedwp/.github/git/refs -f ref=refs/heads/${branch} -f sha=abc`
+    );
+    expect(run.status).toBe(expected);
+  });
+
   test('allows gh api reads and other owners (T044)', () => {
     expect(runBash(fx, 'gh api repos/lightspeedwp/.github/pulls').status).toBe(0);
     expect(runBash(fx, 'gh pr create -R someone/else --head claude/x-y').status).toBe(0);
@@ -1694,6 +1755,184 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
   });
 
+  // A variable supplied only in an `--input` body's `variables` map is read, so
+  // a compliant mutation is allowed rather than refused as unreadable
+  // (issue #3691, gap 4).
+  test('allows a commit to a compliant branch named only in an input body', () => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'compliant-commit.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($branchName: String!) { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: $branchName}, message: {headline: "x"}}) { commit { oid } } }',
+        variables: { branchName: 'feat/ok-name' },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(0);
+  });
+
+  // A whole input object bound to one variable names no branch key in the
+  // document itself. The leaves the body map carries are judged instead, and a
+  // mutation whose target cannot be read at all is refused (issue #3691, gap 1).
+  test.each([
+    ['a protected branch', 'main', 2],
+    ['a compliant branch', 'feat/ok-name', 0],
+  ])(
+    'judges a createCommitOnBranch whose input is the variable $b naming %s',
+    (_label, branch, expected) => {
+      fx.branch('feat/good-name');
+      const file = path.join(fx.repo, 'whole-input.json');
+      fs.writeFileSync(
+        file,
+        JSON.stringify({
+          query:
+            'mutation ($b: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $b) { commit { oid } } }',
+          variables: {
+            b: {
+              branch: { repositoryNameWithOwner: 'lightspeedwp/.github', branchName: branch },
+              message: { headline: 'x' },
+            },
+          },
+        })
+      );
+      expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(expected);
+    }
+  );
+
+  // The field-flag spelling of a whole input object: gh sends nested input as
+  // `b[branch][branchName]`, which the guard resolves rather than allowing
+  // through unseen (issue #3691, gap 1).
+  test.each([
+    ['a protected branch', 'main', 2],
+    ['a compliant branch', 'feat/ok-name', 0],
+  ])('judges field-flag input object $b naming %s', (_label, branch, expected) => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($b: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $b) { commit { oid } } }';
+    const command =
+      `gh api graphql -f query='${document}' ` +
+      '-F b[branch][repositoryNameWithOwner]=lightspeedwp/.github ' +
+      `-F b[branch][branchName]=${branch} -F b[message][headline]=x`;
+    expect(runBash(fx, command).status).toBe(expected);
+  });
+
+  test('refuses a createCommitOnBranch whose input variable names no branch at all', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($b: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $b) { commit { oid } } }';
+    expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
+  });
+
+  // A nested input object in the body variables map is read through its leaf:
+  // `branch: $b` with variables.b = {branchName} is judged on the leaf rather
+  // than refused as unreadable.
+  test.each([
+    ['a protected branch', 'main', 2],
+    ['a compliant branch', 'feat/ok-name', 0],
+  ])('judges branch $b bound to a body object naming %s', (_label, branch, expected) => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'nested-body.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($b: BranchInput!) { createCommitOnBranch(input: {branch: $b, message: {headline: "x"}}) { commit { oid } } }',
+        variables: {
+          b: { repositoryNameWithOwner: 'lightspeedwp/.github', branchName: branch },
+        },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(expected);
+  });
+
+  // When `--input` supplies the body, gh puts field flags in the URL query
+  // string, where the GraphQL endpoint ignores them: the body's variables
+  // decide, even when a flag names the opposite branch.
+  test.each([
+    ['a hostile body beside a compliant flag', 'main', 'feat/ok-name', 2],
+    ['a compliant body beside a hostile flag', 'feat/ok-name', 'main', 0],
+  ])('judges %s', (_label, bodyBranch, flagBranch, expected) => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'conflict.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($branchName: String!) { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: $branchName}, message: {headline: "x"}}) { commit { oid } } }',
+        variables: { branchName: bodyBranch },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file} -f branchName=${flagBranch}`).status).toBe(
+      expected
+    );
+  });
+
+  // A whole input object naming a foreign repository stays out of scope, like a
+  // literal repositoryNameWithOwner in another organisation.
+  test('allows input $b naming main in a foreign repository (body variables)', () => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'foreign-input.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($b: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $b) { commit { oid } } }',
+        variables: {
+          b: {
+            branch: { repositoryNameWithOwner: 'other-org/other-repo', branchName: 'main' },
+            message: { headline: 'x' },
+          },
+        },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(0);
+  });
+
+  test('allows input $b naming main in a foreign repository (field flags)', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($b: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $b) { commit { oid } } }';
+    const command =
+      `gh api graphql -f query='${document}' ` +
+      '-F b[branch][repositoryNameWithOwner]=other-org/other-repo ' +
+      '-F b[branch][branchName]=main -F b[message][headline]=x';
+    expect(runBash(fx, command).status).toBe(0);
+  });
+
+  // The foreign scope travels with the name it scopes: a foreign repository
+  // bound to an unrelated variable does not vouch for a write whose own
+  // repository cannot be read.
+  test('refuses input $b naming main beside an unrelated foreign variable', () => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'unrelated-foreign.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($b: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $b) { commit { oid } } }',
+        variables: {
+          b: { branch: { branchName: 'main' }, message: { headline: 'x' } },
+          f: { repositoryNameWithOwner: 'other-org/other-repo' },
+        },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
+  });
+
+  // A compliant field beside a variable-bound createRef of main: the variable
+  // leaf is judged on its own value, so the compliant name cannot vouch for
+  // the ref write (issue #3691, gap 2, input-variable shape).
+  test('refuses a variable-bound createRef of main beside a compliant field', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($i: CreateRefInput!) { a: createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "feat/ok-name"}, message: {headline: "h"}}) { commit { oid } } b: createRef(input: $i) { clientMutationId } }';
+    const command =
+      `gh api graphql -f query='${document}' ` +
+      '-F i[repositoryId]=R_1 -F i[name]=refs/heads/main -f i[oid]=a1b2c3';
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
   test('refuses a commit whose branch variable cannot be read at all', () => {
     fx.branch('feat/good-name');
     const document =
@@ -1871,6 +2110,69 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
       expect(run.stderr).toMatch(/could not read the GraphQL document/);
     }
   );
+
+  // gh sends the same request with or without a leading slash on the endpoint,
+  // so `/graphql` is checked exactly like `graphql` (issue #3691, gap 3).
+  test.each([
+    ['gh api graphql', 2],
+    ['gh api /graphql', 2],
+  ])('refuses a createRef of main through %s', (prefix, expected) => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation { createRef(input: {repositoryId: "R_1", name: "refs/heads/main", oid: "a1b2"}) { clientMutationId } }';
+    expect(runBash(fx, `${prefix} -f query='${document}'`).status).toBe(expected);
+  });
+
+  // gh sends the last `--input` file when the flag is repeated, so a decoy
+  // file cannot mask the document that is actually sent (issue #3691, gap 5).
+  test.each([
+    ['benign first, hostile last', ['benign.json', 'creates-main.json'], 2],
+    ['hostile first, benign last', ['creates-main.json', 'benign.json'], 0],
+  ])('judges a repeated --input by the last file: %s', (_label, files, expected) => {
+    fx.branch('feat/good-name');
+    fs.writeFileSync(
+      path.join(fx.repo, 'benign.json'),
+      JSON.stringify({
+        query:
+          'mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "feat/ok-name"}, message: {headline: "x"}}) { commit { oid } } }',
+      })
+    );
+    fs.writeFileSync(
+      path.join(fx.repo, 'creates-main.json'),
+      JSON.stringify({
+        query:
+          'mutation { createRef(input: {repositoryId: "R_1", name: "refs/heads/main", oid: "a1b2"}) { clientMutationId } }',
+      })
+    );
+    const command = `gh api graphql ${files.map((file) => `--input ${path.join(fx.repo, file)}`).join(' ')}`;
+    expect(runBash(fx, command).status).toBe(expected);
+  });
+
+  // `--input -` reads the caller's standard input, which the guard has already
+  // consumed: the body is unreadable, so the call is refused even when a flag
+  // carries a benign document — gh sends the body, not the flag.
+  test('refuses an unreadable stdin body beside a benign query flag', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation { createRef(input: {repositoryId: "R_1", name: "refs/heads/feat/ok-name", oid: "a1"}) { clientMutationId } }';
+    const run = runBash(fx, `gh api graphql --input - -f query='${document}'`);
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/could not read the GraphQL document/);
+  });
+
+  // A body without a query string supplies no document: gh ignores the flags
+  // beside it, so the call is refused rather than judged on a flag document gh
+  // never sends — even when that document looks benign.
+  test('refuses a query-less body beside a benign query flag', () => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'no-query.json');
+    fs.writeFileSync(file, JSON.stringify({ variables: { branchName: 'feat/ok-name' } }));
+    const document =
+      'mutation { createRef(input: {repositoryId: "R_1", name: "refs/heads/feat/ok-name", oid: "a1"}) { clientMutationId } }';
+    const run = runBash(fx, `gh api graphql --input ${file} -f query='${document}'`);
+    expect(run.status).toBe(2);
+    expect(run.stderr).toMatch(/could not read the GraphQL document/);
+  });
 
   // A query is not a write. `name` on a repository and `expression` on a path are
   // not branch names, and refusing them was a wrong refusal.
