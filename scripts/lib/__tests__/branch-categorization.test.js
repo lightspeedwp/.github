@@ -56,19 +56,42 @@ describe('branch categorization', () => {
     }
   );
 
-  describe('empty agent-session branches (spec 016)', () => {
+  describe('agent-session auto-approval deferral (spec 018 FR-020)', () => {
     const old = '2020-01-01T00:00:00Z';
     const merged = { merged: true, state: 'merged' };
     const unmerged = { merged: false, state: 'unmerged' };
 
-    it('auto-approves deletion of a merged claude/* branch at least a day old', () => {
-      const result = categorizeBranches(['claude/brave-otter-x1y2z3'], {
-        'claude/brave-otter-x1y2z3': { lastCommitDate: old, mergeStatus: merged },
-      });
+    it.each([0, 1, 30, 365])(
+      'sends merged claude/* branches with a %i-day-old tip to DISCUSS',
+      (ageInDays) => {
+        const result = categorizeBranches(['claude/brave-otter-x1y2z3'], {
+          'claude/brave-otter-x1y2z3': {
+            lastCommitDate: new Date(Date.now() - ageInDays * 86400000).toISOString(),
+            mergeStatus: merged,
+          },
+        });
 
-      expect(result.DELETE).toEqual([
-        expect.objectContaining({ name: 'claude/brave-otter-x1y2z3', autoApproved: true }),
-      ]);
+        expect(result.DELETE).toHaveLength(0);
+        expect(result.DISCUSS).toEqual([
+          expect.objectContaining({
+            name: 'claude/brave-otter-x1y2z3',
+            autoApproved: false,
+            reason: expect.stringContaining('forbidden prefix: claude'),
+          }),
+        ]);
+      }
+    );
+
+    it('keeps an explicitly excluded claude/* branch', () => {
+      const result = categorizeBranches(
+        ['claude/brave-otter-x1y2z3'],
+        { 'claude/brave-otter-x1y2z3': { lastCommitDate: old, mergeStatus: merged } },
+        new Set(),
+        /^claude\//
+      );
+
+      expect(result.KEEP).toEqual([expect.objectContaining({ autoApproved: false })]);
+      expect(result.DELETE).toHaveLength(0);
     });
 
     it('sends a claude/* branch with its own commits to DISCUSS', () => {

@@ -22,12 +22,6 @@ export const FORBIDDEN_PREFIXES = new Set(
 
 export const ALLOWED_BRANCH_TYPES = new Set(AUTHORIZED_TYPES);
 
-// Agent-session branches (spec 016) that may be deleted without the draft-PR
-// approval step when they hold no commits of their own and have no open PR.
-export const AUTO_DELETE_PREFIXES = new Set(['claude']);
-
-export const AUTO_DELETE_MIN_AGE_DAYS = 1;
-
 export const DEFAULT_INACTIVE_DAYS = 30;
 
 export const REASON_CODES = {
@@ -41,8 +35,6 @@ export const REASON_CODES = {
   },
   DELETE: {
     merged_stale: 'Merged and inactive beyond threshold',
-    auto_delete_empty_agent_branch:
-      'Empty agent-session branch (merged, no open PR); auto-approved for deletion',
   },
   DISCUSS: {
     naming_violation: 'Invalid branch name format',

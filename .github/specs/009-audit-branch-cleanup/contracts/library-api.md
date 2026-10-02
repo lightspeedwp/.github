@@ -326,7 +326,6 @@ export const REASON_CODES = {
   },
   DELETE: {
     merged_stale: 'Merged and inactive beyond threshold',
-    auto_delete_empty_agent_branch: 'Empty agent-session branch (merged, no open PR); auto-approved for deletion',
   },
   DISCUSS: {
     naming_violation: 'Invalid branch name format',

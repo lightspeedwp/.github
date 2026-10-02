@@ -8,7 +8,6 @@
  * 1. Protected branch? → KEEP
  * 2. Excluded by pattern? → KEEP
  * 3. Has open PR? → KEEP
- * 3b. Empty agent-session branch (claude/*, merged, old enough)? → DELETE (auto-approved)
  * 4. Invalid branch name? → DISCUSS
  * 5. Not merged to any base? → DISCUSS (if stale)
  * 6. Meets age threshold? → DELETE
@@ -18,13 +17,7 @@
  * @module scripts/lib/branch-categorization
  */
 
-import {
-  AUTO_DELETE_MIN_AGE_DAYS,
-  AUTO_DELETE_PREFIXES,
-  FORBIDDEN_PREFIXES,
-  PROTECTED_BRANCHES,
-  REASON_CODES,
-} from './constants.js';
+import { FORBIDDEN_PREFIXES, PROTECTED_BRANCHES, REASON_CODES } from './constants.js';
 import { getAgeInDays, meetsAgeThreshold } from './age-calculator.js';
 import { matchesExclusionPattern } from './exclusion-patterns.js';
 import { validateBranchName as validateCanonicalBranchName } from '../../lib/validate-branch-name.js';
@@ -77,9 +70,10 @@ function extractMetadata(branch, metadata = {}) {
 
 /**
  * Classify one branch as KEEP, DELETE, or DISCUSS with a reason and metadata.
- * Protected, excluded, and open-PR branches stay KEEP. Merged claude/* branches
- * at least one day old are marked auto-approved before naming checks; other
- * merged branches must meet the inclusive inactivity threshold to be DELETE.
+ * Protected, excluded, and open-PR branches stay KEEP. Auto-approval of claude/*
+ * branches is deferred under spec 018 FR-020: tip-commit age is not branch age.
+ * These branches fall through to naming validation; valid merged branches must
+ * meet the inclusive inactivity threshold to be DELETE.
  * Open-PR verification is the caller's responsibility: an empty Set does not
  * distinguish a confirmed empty list from a failed lookup.
  *
@@ -122,23 +116,6 @@ export function categorizeBranch(
     return {
       category: 'KEEP',
       reason: REASON_CODES.KEEP.active_pr,
-      metadata: extracted,
-    };
-  }
-
-  // Gate 3b: Empty agent-session branch? Merged means it holds no commits of
-  // its own, so deleting it cannot lose work. The caller downgrades this to
-  // DISCUSS when open-PR verification was unavailable (spec 016 FR-020).
-  const prefix = branch.split('/')[0];
-  if (
-    AUTO_DELETE_PREFIXES.has(prefix) &&
-    extracted.mergeStatus.merged === true &&
-    meetsAgeThreshold(extracted.ageInDays, AUTO_DELETE_MIN_AGE_DAYS)
-  ) {
-    return {
-      category: 'DELETE',
-      autoApproved: true,
-      reason: REASON_CODES.DELETE.auto_delete_empty_agent_branch,
       metadata: extracted,
     };
   }

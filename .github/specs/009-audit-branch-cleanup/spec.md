@@ -22,7 +22,7 @@
 
 ### Session 2026-09-24
 
-- Q: Spec 016 (standardised Claude Code cloud environment) needs the empty `claude/*` branches left by every agent session removed automatically. Should they bypass the draft-PR approval? → A: Yes, as a narrow exception. A `claude/*` branch that is merged to a base branch (no commits of its own), has no open PR (with open-PR verification available) and has a tip at least 1 day old is DELETE with `autoApproved: true`. The scheduled workflow deletes auto-approved branches without a draft PR, after re-checking each one. Every other deletion still needs the draft-PR approval. A `claude/*` branch with its own commits stays DISCUSS.
+- Q: Should empty `claude/*` branches bypass draft-PR approval? → A: Auto-approval is deferred under spec 018 FR-020. A tip commit's age cannot establish how long a branch has existed, and merge status alone cannot prove it is an empty platform placeholder. Until branch-age storage and a separate branch-origin check exist, no branch qualifies for auto-approval. `claude/*` branches follow the normal gates: KEEP for an open PR or exclusion, otherwise DISCUSS for the forbidden prefix. The report-only CLI never deletes branches; the approval-gated workflow remains follow-up work outside #3358.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -71,10 +71,10 @@ Repository maintainers need to identify edge cases and ambiguous branches that r
 **Acceptance Scenarios**:
 
 1. **Given** branches that are 30+ days old but unmerged to any base, **When** categorising, **Then** they are flagged as DISCUSS with reason "unmerged work, verify intent"
-2. **Given** branches with invalid names (`claude/*`, `copilot/*`) that are not auto-approved (see scenario 5), **When** categorising, **Then** they are flagged as DISCUSS with reason "naming violation, determine if rename or delete"
+2. **Given** branches with invalid names (`claude/*`, `copilot/*`) without an open PR or matching exclusion, **When** categorising, **Then** they are flagged as DISCUSS with reason "naming violation, determine if rename or delete"
 3. **Given** branches with no commits after 60 days with no PR history, **When** categorising, **Then** they are flagged as DISCUSS with reason "orphaned branch, unclear purpose"
 4. **Given** a branch that would otherwise be eligible for deletion while open-PR verification is unavailable, **When** categorising, **Then** it is flagged as DISCUSS and deletion is blocked
-5. **Given** a `claude/*` branch that is merged to a base branch, has no open PR and has a tip at least 1 day old, **When** categorising with open-PR verification available, **Then** it is DELETE with `autoApproved: true` and reason "empty agent-session branch"
+5. **Given** a `claude/*` branch that is merged to a base branch, has no open PR and has a tip at least 1 day old, **When** categorising with open-PR verification available, **Then**, while spec 018 FR-020 is deferred and no exclusion matches, it is DISCUSS with a naming violation and is never auto-approved, regardless of tip-commit age
 
 ---
 
@@ -132,7 +132,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - **FR-007**: System MUST support custom exclusion patterns (regex-based) to preserve branches matching user-defined rules
 - **FR-008**: System MUST generate audit reports in both Markdown (human-readable) and JSON (machine-readable) formats
 - **FR-009**: System MUST include detailed metadata in reports: branch name, type, author, last commit date, merge status, associated PR (if any)
-- **FR-010**: System MUST safely delete selected branches with no data loss risk (verify merge before deletion, handle git errors gracefully). Deletion via draft PR requiring human approval: script generates PR with deletion candidates listed; PR must be approved and merged to execute deletions. **Exception (spec 016):** auto-approved candidates (empty `claude/*` agent-session branches, see User Story 3 scenario 5) are deleted by the scheduled workflow without a draft PR, after the workflow re-checks that each is still merged and has no open PR.
+- **FR-010**: System MUST safely delete selected branches with no data loss risk (verify merge before deletion, handle git errors gracefully). Deletion via draft PR requiring human approval: script generates PR with deletion candidates listed; PR must be approved and merged to execute deletions. **Deferred exception (spec 018 FR-020):** automatic approval of empty `claude/*` branches is disabled until branch-age and branch-origin signals exist. The report-only CLI and libraries do not auto-approve any branch.
 - **FR-011**: System MUST support dry-run mode (preview deletions without executing) as the default safe behaviour for the cleanup script; draft PR workflow provides batch approval gate before any execution
 - **FR-012**: System MUST provide clear documentation on audit results, deletion criteria, and manual review process for edge cases
 - **FR-013**: Cleanup scripts MUST be maintained in `scripts/cleanup-branches.js` with clear usage examples and option reference
@@ -159,7 +159,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - **SC-004**: Audit report generated in <5 seconds for repositories with 500+ branches (performance acceptable for automation)
 - **SC-005**: Documentation and code examples are current and tested (all example commands execute successfully without errors)
 - **SC-006**: Team confidence in cleanup process increases through clear DISCUSS categorisation (all edge cases flagged for review, zero surprise deletions)
-- **SC-007**: Cleanup workflow successfully runs on schedule and produces artefacts (audit report, draft PR for deletion candidates). Deletion execution requires human approval via draft PR merge (not fully automated), except auto-approved empty agent-session branches, which the scheduled workflow deletes directly
+- **SC-007**: Cleanup workflow successfully runs on schedule and produces artefacts (audit report, draft PR for deletion candidates). Deletion execution requires human approval via draft PR merge; the workflow is deferred outside #3358, and the automatic approval exception is disabled under spec 018 FR-020
 - **SC-008**: Naming validation enforces all 30+ defined branch types and correctly rejects 3 forbidden prefixes
 
 ## Assumptions
@@ -170,7 +170,7 @@ Repository maintainers want a GitHub Actions workflow that can periodically audi
 - Branch authors are resolvable through git commit authorship of the first commit on the branch; bot detection uses first commit author (most reliable signal). Bot branches typically created by automation follow naming patterns (`dependabot/*`, `renovate/*`, etc.)
 - Repository has sufficient permissions to list all branches and open PRs (standard repository access)
 - GitHub CLI (`gh`) is available in execution environment for PR querying (alternative: use GitHub API)
-- Dry-run is the only direct CLI mode; destructive deletion requires the separate draft-PR approval and merge workflow, or the scheduled workflow's re-verified auto-delete step for auto-approved empty `claude/*` branches
+- Dry-run is the only direct CLI mode; destructive deletion requires the separate draft-PR approval and merge workflow; the scheduled auto-delete exception is deferred under spec 018 FR-020
 - Branch naming rules come from `lib/validate-branch-name.js`, the validator shared with CI, rather than a separate copy in `scripts/lib/`
 - Existing cleanup scripts, documentation, and prompts are in the codebase and can be audited; no external dependencies required
 - UK English and project-standard conventions apply to all refactored documentation and code

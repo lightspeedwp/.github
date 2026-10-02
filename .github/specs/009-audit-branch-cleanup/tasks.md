@@ -1,7 +1,7 @@
 # Tasks: Branch Cleanup Infrastructure (009-audit-branch-cleanup)
 
 **Input**: Design documents from `/specs/009-audit-branch-cleanup/`  
-**Status**: Generated | **Date**: 2026-09-16
+**Status**: Report-only implementation delivered; follow-up work outstanding | **Updated**: 2026-10-02
 
 ## Format: `[ID] [P?] [Story?] Description`
 
@@ -11,27 +11,19 @@
 
 ## Path Conventions
 
-All paths are repository-relative from `.github/`:
+All paths are relative to the repository root. Shared code is in `scripts/lib/`,
+with Jest tests in `scripts/lib/__tests__/` and `scripts/validation/__tests__/`.
+The CLI creates its report directory on demand (default `.github/reports/`).
 
-```text
-.github/
-├── scripts/
-│   ├── cleanup-branches.js           # CLI entry point
-│   ├── lib/
-│   │   ├── constants.js              # Shared constants
-│   │   ├── age-calculator.js         # Age calculation utilities
-│   │   ├── git-merge-utils.js        # Git merge detection
-│   │   ├── github-pr-utils.js        # GitHub PR detection
-│   │   ├── exclusion-patterns.js     # Regex exclusion patterns
-│   │   ├── branch-categorization.js  # 8-gate decision tree
-│   │   └── report-formatter.js       # Report generation
-│   ├── tests/
-│   │   ├── unit/
-│   │   ├── integration/
-│   │   └── fixtures/
-├── reports/
-│   └── branch-cleanup/               # Generated cleanup reports
-```
+## Implementation status for #3358
+
+Checked tasks reflect the delivered implementation; descriptions below name its
+actual functions and paths where these differ from the original plan. Unchecked
+tasks remain incomplete, including broader tests, performance checks and the
+workflow/deletion work (T046, T047, T073). Partially covered tasks stay unchecked.
+Spec 018 FR-020 defers auto-approval until branch-age and branch-origin signals
+exist. T070/T071 record disabling that rule and testing the deferral; T072 retains
+the report fields for compatibility, with no auto-approved candidates.
 
 ---
 
@@ -39,11 +31,11 @@ All paths are repository-relative from `.github/`:
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create script directory structure with `lib/` and `tests/` subdirectories
-- [ ] T002 [P] Create constants.js in scripts/lib/ with PROTECTED_BRANCHES, FORBIDDEN_PREFIXES, ALLOWED_BRANCH_TYPES, REASON_CODES
-- [ ] T003 [P] Create package.json with Node.js 22+ metadata, test scripts, no external dependencies
-- [ ] T004 [P] Setup test framework (Node.js built-in `test` runner or Jest)
-- [ ] T005 Create `.github/reports/branch-cleanup/` directory for report output
+- [x] T001 Create shared library and Jest test directories in scripts/lib/, `scripts/lib/__tests__/` and `scripts/validation/__tests__/`
+- [x] T002 [P] Create constants.js in scripts/lib/ with PROTECTED_BRANCHES, FORBIDDEN_PREFIXES, ALLOWED_BRANCH_TYPES, REASON_CODES
+- [x] T003 [P] Add audit:branches and audit:branches:json scripts to the existing root package.json; no new runtime dependencies
+- [x] T004 [P] Setup test framework (Node.js built-in `test` runner or Jest)
+- [x] T005 Create the configured report directory on demand via ensureReportDir() in scripts/cleanup-branches.js (default .github/reports/)
 
 ---
 
@@ -53,12 +45,12 @@ All paths are repository-relative from `.github/`:
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T006 [P] Implement age-calculator.js: getAgeInDays(isoDate), meetsAgeThreshold(ageInDays, thresholdDays), formatAge(ageInDays) in scripts/lib/age-calculator.js
-- [ ] T007 [P] Implement git-merge-utils.js: detectMergeStatus(branch, bases) using `git merge-base --is-ancestor` in scripts/lib/git-merge-utils.js
-- [ ] T008 [P] Implement github-pr-utils.js: detectOpenPRs(owner, repo, branch?) with error handling and graceful fallback in scripts/lib/github-pr-utils.js
-- [ ] T009 [P] Implement exclusion-patterns.js: buildExclusionRegex(userPatterns), matchesExclusionPattern(branch, pattern), filterByExclusionPattern() in scripts/lib/exclusion-patterns.js
-- [ ] T010 [P] Setup test fixtures directory with mock git responses and test data in scripts/tests/fixtures/
-- [ ] T011 Implement basic error logging and verbose debug output helper in scripts/lib/constants.js
+- [x] T006 [P] Implement age-calculator.js: getAgeInDays(isoDate), meetsAgeThreshold(ageInDays, thresholdDays), formatAge(ageInDays) in scripts/lib/age-calculator.js
+- [x] T007 [P] Implement merge detection via getMergeStatus(), isMergedToDevelop() and isMergedToMain() in scripts/lib/git-merge-utils.js using Git remote refs and merged-branch queries
+- [x] T008 [P] Implement getOpenPRs() with error handling and an unavailable-verification result in scripts/lib/github-pr-utils.js
+- [x] T009 [P] Implement exclusion-patterns.js: buildExclusionRegex(userPatterns), matchesExclusionPattern(branch, pattern), filterByExclusionPattern() in scripts/lib/exclusion-patterns.js
+- [x] T010 [P] Add inline mock Git responses and test data in `scripts/lib/__tests__/git-and-pr-utils.test.js`
+- [x] T011 Implement timestamped error logging and verbose debug output in scripts/cleanup-branches.js
 
 **Checkpoint**: All foundational utilities complete - user story implementation can now begin in parallel
 
@@ -72,12 +64,12 @@ All paths are repository-relative from `.github/`:
 
 ### Implementation for User Story 1
 
-- [ ] T012 [P] [US1] Implement validateBranchName(branch) function in scripts/lib/branch-categorization.js with forbidden prefix check, pattern validation, type check
-- [ ] T013 [US1] Implement extractMetadata(branch, metadata) helper in scripts/lib/branch-categorization.js to extract type, author, age, merge status
-- [ ] T014 [US1] Implement categorizeBranch(branch, metadata, openPRs, excludePattern, inactiveDays) function in scripts/lib/branch-categorization.js with 8-gate decision tree
-- [ ] T015 [US1] Implement categorizeBranches(branches[], branchMetadata, openPRs, excludePattern, inactiveDays) wrapper in scripts/lib/branch-categorization.js to categorise multiple branches
-- [ ] T016 [P] [US1] Write unit tests for branch name validation in scripts/tests/unit/test-branch-validation.js (test valid/invalid names, forbidden prefixes, format rules)
-- [ ] T017 [P] [US1] Write unit tests for 8-gate categorisation in scripts/tests/unit/test-branch-categorization.js (test each gate independently and in sequence)
+- [x] T012 [P] [US1] Implement validateBranchName(branch) function in scripts/lib/branch-categorization.js with forbidden prefix check, pattern validation, type check
+- [x] T013 [US1] Implement extractMetadata(branch, metadata) helper in scripts/lib/branch-categorization.js to extract type, author, age, merge status
+- [x] T014 [US1] Implement categorizeBranch(branch, metadata, openPRs, excludePattern, inactiveDays) function in scripts/lib/branch-categorization.js with 8-gate decision tree
+- [x] T015 [US1] Implement categorizeBranches(branches[], branchMetadata, openPRs, excludePattern, inactiveDays) wrapper in scripts/lib/branch-categorization.js to categorise multiple branches
+- [x] T016 [P] [US1] Write branch-name validation tests in `scripts/lib/__tests__/branch-categorization.test.js` and `scripts/validation/__tests__/validate-branch-name.test.js`
+- [ ] T017 [P] [US1] Write unit tests for 8-gate categorisation in scripts/tests/unit/test-branch-categorization.js (test each gate independently and in sequence) — Partial: existing categorisation tests do not cover every gate.
 - [ ] T018 [P] [US1] Write integration test for full categorisation workflow in scripts/tests/integration/test-categorisation-workflow.js
 
 **Checkpoint**: Branch categorisation complete and tested independently
@@ -92,12 +84,12 @@ All paths are repository-relative from `.github/`:
 
 ### Implementation for User Story 2
 
-- [ ] T019 [P] [US2] Create branch metadata collection orchestrator in scripts/lib/branch-metadata.js: collectBranchMetadata(branches, options) function
-- [ ] T020 [P] [US2] Implement git log parsing to extract author and last commit date in scripts/lib/git-merge-utils.js (extend existing module)
-- [ ] T021 [US2] Integrate merge status detection into metadata collection workflow in scripts/lib/branch-metadata.js
-- [ ] T022 [US2] Add graceful error handling and default values for missing/invalid dates in scripts/lib/age-calculator.js
+- [x] T019 [P] [US2] Collect per-branch metadata in the main() orchestrator in scripts/cleanup-branches.js
+- [x] T020 [P] [US2] Extract author and last commit date via getLastCommitAuthor() and getLastCommitDate() in scripts/cleanup-branches.js
+- [x] T021 [US2] Integrate merge status into the metadata passed to categorisation in scripts/cleanup-branches.js
+- [x] T022 [US2] Add graceful error handling and default values for missing/invalid dates in scripts/lib/age-calculator.js
 - [ ] T023 [P] [US2] Write unit tests for git log parsing in scripts/tests/unit/test-git-metadata.js
-- [ ] T024 [P] [US2] Write unit tests for date handling edge cases in scripts/tests/unit/test-age-calculator.js
+- [ ] T024 [P] [US2] Write unit tests for date handling edge cases in scripts/tests/unit/test-age-calculator.js — Partial: CLI daysSince() edge cases are tested in `scripts/validation/__tests__/cleanup-branches.test.js`.
 - [ ] T025 [US2] Write integration test for full metadata collection workflow in scripts/tests/integration/test-metadata-collection.js
 
 **Checkpoint**: Branch metadata collection complete and tested independently
@@ -112,13 +104,13 @@ All paths are repository-relative from `.github/`:
 
 ### Implementation for User Story 3
 
-- [ ] T026 [US3] Implement GitHub API querying in scripts/lib/github-pr-utils.js: use `gh pr list` to fetch all open PRs efficiently (single query, not per-branch)
+- [x] T026 [US3] Implement GitHub API querying in scripts/lib/github-pr-utils.js: use `gh pr list` to fetch all open PRs efficiently (single query, not per-branch)
 - [ ] T027 [US3] Add retry logic and exponential backoff for GitHub API errors in scripts/lib/github-pr-utils.js
-- [ ] T028 [US3] Implement caching mechanism to avoid repeated API calls in scripts/lib/github-pr-utils.js
-- [ ] T029 [US3] Add fail-closed fallback: if API verification is unavailable, mark deletion candidates DISCUSS or halt deletion and log a warning in scripts/lib/github-pr-utils.js
-- [ ] T030 [P] [US3] Write unit tests for PR detection in scripts/tests/unit/test-github-pr-utils.js (test PR matching, filtering, edge cases)
+- [x] T028 [US3] Reuse the fetched open-PR Set across branches in scripts/cleanup-branches.js and accept a cached Set in hasOpenPR() in scripts/lib/github-pr-utils.js
+- [x] T029 [US3] Return unavailable verification and log warnings in scripts/lib/github-pr-utils.js; downgrade DELETE candidates to DISCUSS in scripts/cleanup-branches.js
+- [x] T030 [P] [US3] Test PR-query failures, confirmed empty results and unavailable verification in `scripts/lib/__tests__/git-and-pr-utils.test.js`
 - [ ] T031 [US3] Write integration test for GitHub API error handling and fallback in scripts/tests/integration/test-github-integration.js
-- [ ] T032 [US3] Add mock GitHub API responses for offline testing in scripts/tests/fixtures/
+- [x] T032 [US3] Add inline mock GitHub CLI responses for offline testing in `scripts/lib/__tests__/git-and-pr-utils.test.js`
 
 **Checkpoint**: GitHub PR detection complete, API errors handled gracefully
 
@@ -132,9 +124,9 @@ All paths are repository-relative from `.github/`:
 
 ### Implementation for User Story 4
 
-- [ ] T033 [US4] Extend exclusion-patterns.js with support for combining default patterns with user patterns in scripts/lib/exclusion-patterns.js
-- [ ] T034 [US4] Implement error handling for invalid regex in buildExclusionRegex() in scripts/lib/exclusion-patterns.js (log warning, use defaults)
-- [ ] T035 [US4] Integrate exclusion pattern matching into branch categorisation workflow in scripts/lib/branch-categorization.js
+- [x] T033 [US4] Extend exclusion-patterns.js with support for combining default patterns with user patterns in scripts/lib/exclusion-patterns.js
+- [x] T034 [US4] Implement error handling for invalid regex in buildExclusionRegex() in scripts/lib/exclusion-patterns.js (log warning, use defaults)
+- [x] T035 [US4] Integrate exclusion pattern matching into branch categorisation workflow in scripts/lib/branch-categorization.js
 - [ ] T036 [P] [US4] Write unit tests for regex pattern matching in scripts/tests/unit/test-exclusion-patterns.js (test valid/invalid patterns, default patterns, combinations)
 - [ ] T037 [US4] Write integration test for exclusion patterns in categorisation workflow in scripts/tests/integration/test-exclusion-integration.js
 
@@ -152,17 +144,17 @@ All paths are repository-relative from `.github/`:
 
 - [ ] T038 [P] [US5] Create a deletion-candidate module in scripts/lib/branch-deletion.js that serialises verified candidates for draft-PR review
 - [ ] T039 [US5] Implement remote branch deletion using `git push origin --delete` only in the post-approval workflow invoked after the draft PR is approved and merged
-- [ ] T040 [US5] Keep direct CLI and local branch deletion disabled; local cleanup remains an explicit maintainer action
-- [ ] T041 [US5] Keep dry-run mode as the CLI default and reject direct `--dryRun=false` execution
+- [x] T040 [US5] Keep direct CLI and local branch deletion disabled; local cleanup remains an explicit maintainer action
+- [x] T041 [US5] Keep dry-run mode as the CLI default and reject direct `--dryRun=false` execution
 - [ ] T042 [US5] Implement per-branch error handling and success/failure reporting in the approval-gated workflow
 - [ ] T043 [P] [US5] Write unit tests for candidate generation and approval-gate enforcement in scripts/tests/unit/test-branch-deletion.js
-- [ ] T044 [US5] Write an integration test proving direct deletion is rejected and only the approved workflow can perform remote git operations
+- [ ] T044 [US5] Write an integration test proving direct deletion is rejected and only the approved workflow can perform remote git operations — Partial: CLI rejection is tested in `scripts/validation/__tests__/cleanup-branches.test.js`; approval workflow coverage is deferred.
 - [ ] T046 [US5] Create .github/workflows/branch-audit.yml GitHub Actions workflow with: trigger events (schedule: `0 9 * * 1` = every Monday 09:00 UTC; gate the "first business day" condition in workflow code if a stricter rule is needed, since cron cannot express it directly, manual workflow_dispatch), inputs (--dryRun default true, --inactiveDays default 30, --excludePatterns, --createIssue default false)
 - [ ] T047 [US5] [P] Implement workflow job: checkout repository (actions/checkout), setup Node.js (actions/setup-node with node-version-file: '.nvmrc'), run audit command (npm run audit:branches -- $OPTS), upload report artifact (actions/upload-artifact with separate path entries for `.github/reports/branch-cleanup-*.md` and `.github/reports/branch-cleanup-*.json`)
-- [x] T070 [US5] Add the auto-approval rule (spec 016) to scripts/lib/branch-categorization.js: merged `claude/*` branch with a tip at least AUTO_DELETE_MIN_AGE_DAYS old → DELETE with `autoApproved: true`, checked after the open-PR gate and before the naming gate; config in scripts/lib/constants.js
-- [x] T071 [P] [US5] Add unit tests for the auto-approval rule (merged/unmerged, open PR, under a day old, non-claude forbidden prefixes) in scripts/lib/**tests**/branch-categorization.test.js
+- [x] T070 [US5] Disable the claude/* auto-approval gate and remove its constants from scripts/lib/branch-categorization.js and scripts/lib/constants.js under spec 018 FR-020; tip-commit age is not branch age, so candidates follow normal categorisation
+- [x] T071 [P] [US5] Test the auto-approval deferral (old/recent merged tips, unmerged work, open PRs, exclusions and other forbidden prefixes) in `scripts/lib/__tests__/branch-categorization.test.js`
 - [x] T072 [US5] Carry `autoApproved` into the JSON and Markdown reports (per-branch field and `autoApprovedDelete` summary count) in scripts/cleanup-branches.js
-- [ ] T073 [US5] Add a daily schedule (for example `0 6 * * *`) and an auto-delete step to .github/workflows/branch-audit.yml, alongside the weekly full audit from T046. The daily run only auto-deletes, and never opens a draft PR: for each auto-approved entry in the JSON report, re-check it is merged and has no open PR, then `git push origin --delete`; skip when a manual run selects report-only; exit with partial-failure status if any deletion fails
+- [ ] T073 [US5] **Deferred under spec 018 FR-020 until branch-age and branch-origin signals exist.** Add a daily schedule (for example `0 6 * * *`) and an auto-delete step to .github/workflows/branch-audit.yml, alongside the weekly full audit from T046. The daily run only auto-deletes, and never opens a draft PR: for each auto-approved entry in the JSON report, re-check it is merged and has no open PR, then `git push origin --delete`; skip when a manual run selects report-only; exit with partial-failure status if any deletion fails
 - [x] T074 [P] Replace the local branch-name rules in scripts/lib/constants.js and scripts/lib/branch-categorization.js with imports from lib/validate-branch-name.js (removes the drifted copy that lacked `doc`, `aiops`, `automation` and `epic`)
 - [ ] T048 [US5] Create scripts/lib/issue-generator.js (no task previously owned this file) and add the optional workflow step: if --createIssue is enabled, parse DISCUSS candidates from JSON report and invoke it to create summarising GitHub issue with team review link
 
@@ -178,14 +170,14 @@ All paths are repository-relative from `.github/`:
 
 ### Implementation for User Story 6
 
-- [ ] T045 [P] [US6] Implement report-formatter.js: formatMarkdownReport(categorised, options) function in scripts/lib/report-formatter.js
-- [ ] T075 [P] [US6] Implement report-formatter.js: formatJSONReport(categorised, options) function in scripts/lib/report-formatter.js
-- [ ] T076 [US6] Implement report file writing: saveReport(report, reportDir, format, timestamp) in scripts/lib/report-formatter.js
-- [ ] T077 [US6] Implement Markdown report structure: header, summary table, KEEP/DELETE/DISCUSS sections, branch details in scripts/lib/report-formatter.js
-- [ ] T049 [US6] Implement JSON report structure: stats object, branches array with required fields (name, category, reason, metadata) in scripts/lib/report-formatter.js
-- [ ] T050 [US6] Add timestamp generation (ISO8601 format) for report filenames in scripts/lib/report-formatter.js
-- [ ] T051 [P] [US6] Write unit tests for Markdown report formatting in scripts/tests/unit/test-markdown-reporter.js
-- [ ] T052 [P] [US6] Write unit tests for JSON report formatting in scripts/tests/unit/test-json-reporter.js
+- [x] T045 [P] [US6] Implement Markdown report generation with writeMarkdownReport() in scripts/cleanup-branches.js and formatting helpers in scripts/lib/report-formatter.js
+- [x] T075 [P] [US6] Implement formatAuditReportJSON() in scripts/lib/report-formatter.js and writeJsonReport() in scripts/cleanup-branches.js
+- [x] T076 [US6] Write reports with writeMarkdownReport(), writeJsonReport() and ensureReportDir() in scripts/cleanup-branches.js
+- [x] T077 [US6] Implement Markdown header, summary table, candidate details and KEEP/DISCUSS sections in scripts/cleanup-branches.js
+- [x] T049 [US6] Implement JSON summary, metrics and branch records with writeJsonReport() in scripts/cleanup-branches.js
+- [x] T050 [US6] Generate timestamped report filenames in scripts/cleanup-branches.js
+- [x] T051 [P] [US6] Test Markdown summary fields and report sections in `scripts/validation/__tests__/cleanup-branches.test.js`
+- [x] T052 [P] [US6] Test JSON summary, metrics and branch records in `scripts/validation/__tests__/cleanup-branches.test.js`
 - [ ] T053 [US6] Write integration test for full report generation workflow in scripts/tests/integration/test-report-generation.js
 
 **Checkpoint**: Report generation complete with both formats
@@ -198,11 +190,11 @@ All paths are repository-relative from `.github/`:
 
 **Independent Test**: CLI accepts all options, calls appropriate modules, produces correct output, respects dry-run mode, handles errors gracefully
 
-- [ ] T054 Implement CLI argument parsing in scripts/cleanup-branches.js (dryRun, deleteLocal, verbose, inactiveDays, excludePatterns, preserveAuthors, reportFormat, reportDir)
-- [ ] T055 Implement main orchestration logic in scripts/cleanup-branches.js: fetch branches → collect metadata → detect PRs → categorise → (optionally delete) → generate report
-- [ ] T056 Implement logging and progress output in scripts/cleanup-branches.js with timestamp, log levels, emoji indicators
-- [ ] T057 Add error handling and exit codes in scripts/cleanup-branches.js (0: success, 1: fatal, 2: partial, 127: missing dependency)
-- [ ] T058 [P] Implement option validation and defaults in scripts/cleanup-branches.js
+- [x] T054 Implement CLI argument parsing in scripts/cleanup-branches.js (dryRun, deleteLocal, verbose, inactiveDays, excludePatterns, preserveAuthors, reportFormat, reportDir)
+- [x] T055 Implement report-only orchestration in scripts/cleanup-branches.js: fetch branches → collect metadata → detect PRs → categorise → generate report
+- [x] T056 Implement logging and progress output in scripts/cleanup-branches.js with timestamp, log levels, emoji indicators
+- [ ] T057 Add error handling and exit codes in scripts/cleanup-branches.js (0: success, 1: fatal, 2: partial, 127: missing dependency) — Partial: statuses 0, 1 and 2 are implemented and tested; the dedicated missing-dependency status remains outstanding.
+- [x] T058 [P] Implement option validation and defaults in scripts/cleanup-branches.js
 - [ ] T059 Write integration test for full CLI workflow in scripts/tests/integration/test-cli-workflow.js
 
 **Checkpoint**: CLI fully functional with all options
@@ -219,7 +211,7 @@ All paths are repository-relative from `.github/`:
 - [ ] T063 [P] Code cleanup: Remove debug code, ensure consistent formatting, run linter if configured
 - [ ] T064 [P] Performance testing: Verify cleanup-branches.js processes 100+ branches in <10 seconds in scripts/tests/performance/
 - [ ] T065 [P] Memory footprint testing: Verify <50 MB memory usage in scripts/tests/performance/
-- [ ] T066 Documentation: Add detailed comments to all library modules in scripts/lib/
+- [x] T066 Documentation: Add detailed comments to all library modules in scripts/lib/
 - [ ] T067 Documentation: Create USAGE.md guide with examples for different scenarios in scripts/
 - [ ] T068 Final validation: Run all tests (unit, integration, performance) in scripts/tests/
 - [ ] T069 README: Update main .github/README.md to reference branch cleanup feature
@@ -387,6 +379,6 @@ Recommended for complete feature:
 
 ---
 
-**Tasks Generation Status**: ✅ **COMPLETE** | Ready for implementation phase
+**Tasks Generation Status**: ✅ **COMPLETE** | Implementation status reconciled for #3358
 
-Run `/speckit-implement` to begin Phase 1 (Setup) through Phase 10 (Polish).
+Continue with the unchecked follow-up tasks; workflow execution and auto-approval remain deferred.
