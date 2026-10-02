@@ -42,7 +42,7 @@ describe('Label consolidation post-merge task plan', () => {
     );
     const phase8Count = [...phase8.matchAll(/^- \[[ xX]\] T\d{3}[a-z]?\b/gm)].length;
 
-    expect(taskRows).toHaveLength(110);
+    expect(taskRows).toHaveLength(112);
     expect(new Set(taskRows.map(({ id }) => id)).size).toBe(taskRows.length);
     expect(taskRows.filter(({ done }) => done)).toHaveLength(55);
     expect(phase8Count).toBe(66);
@@ -243,7 +243,9 @@ describe('Run-safety documentation and log examples', () => {
     expect(section(model, '### 14. Consolidation Log Entry')).toMatch(
       /re-run that makes no write adds no record/
     );
-    expect(task('T062c').text).toMatch(/failed API call writes no log record/);
+    expect(task('T062c').text).toMatch(
+      /failed API call writes no `done` record and leaves its `intended` record/
+    );
     expect(logs).toMatch(/append-only JSON arrays/);
     expect(logs).toMatch(
       /`intended` record before the API call and a `done` record after it succeeds/
