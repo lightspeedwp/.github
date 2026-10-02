@@ -64,7 +64,7 @@ The title prefixes stay the same, and routing is unchanged; for example `aiops/`
 
 ## Acceptance Criteria
 
-- [ ] @ashley approves the new frontmatter for all six templates (comment on this issue)
+- [ ] @ashleyshaw approves the new frontmatter for all six templates (comment on this issue)
 - [ ] `validate-labels-before-creation.cjs --scan-templates` reports no grandfathered labels
 - [ ] An `aiops/` branch PR receives `type:aiops` and no `type:ai-ops` label
 - [ ] A `docs/` branch PR receives `type:docs` and no `type:documentation` label
@@ -101,7 +101,7 @@ The title prefixes stay the same, and routing is unchanged; for example `aiops/`
 
 ## Definition of Done (DoD)
 
-- [ ] Approved by @ashley and recorded in `evidence/change-requests.json`
+- [ ] Approved by @ashleyshaw and recorded in `evidence/change-requests.json`
 - [ ] Stage 2 configuration PR merged with the new frontmatter
 - [ ] Task completed and documented
 - [ ] Changelog entry prepared for PR

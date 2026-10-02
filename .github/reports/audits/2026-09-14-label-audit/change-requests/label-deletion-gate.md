@@ -4,7 +4,7 @@
 
 ## Task Summary
 
-This issue is the approval gate for deleting labels in `lightspeedwp` repositories (spec 008 Stage 4). It replaces closed issue #95. Nothing is deleted from a repository until @ashley approves that repository's dry run in a comment on this issue.
+This issue is the approval gate for deleting labels in `lightspeedwp` repositories (spec 008 Stage 4). It replaces closed issue #95. Nothing is deleted from a repository until @ashleyshaw approves that repository's dry run in a comment on this issue.
 
 `destructive_cleanup.enabled` in `.github/label-governance-policy.yml` stays `false`. Deletion is authorised per run instead:
 
@@ -14,7 +14,7 @@ This issue is the approval gate for deleting labels in `lightspeedwp` repositori
 ## How approval works
 
 1. **Dry run.** For each repository, the tool writes `.github/reports/audits/2026-09-14-label-audit/evidence/dry-run/{repo}.json` (format: `.github/specs/008-label-audit-consolidation/contracts/dry-run-and-drift-report-schema.md`) and posts its summary here. The summary lists the labels to delete, create and rename, and the open items that move to another label.
-2. **Approval.** @ashley approves one repository at a time with a comment that reads exactly:
+2. **Approval.** @ashleyshaw approves one repository at a time with a comment that reads exactly:
 
    ```text
    Approved: lightspeedwp/{repo} dry run {generated_at}
@@ -24,7 +24,7 @@ This issue is the approval gate for deleting labels in `lightspeedwp` repositori
 3. **Stale dry runs.** An approval no longer counts if the dry run changes or `labels.yml` on `develop` no longer matches the file's `approved_set_commit`. Just before deleting, the tool also re-reads the repository. If its labels, or the items carrying a listed label, differ from the dry run, it skips the repository, says why here, and needs a new dry run and approval.
 4. **Run.** The run migrates open issues, PRs and Discussions to their target labels, and migrates closed items where the label has a mapping target. It then deletes the listed labels. Every change is appended to `evidence/consolidation-log.json`, and each run posts one summary comment here.
 5. **Resume.** A finished repository records `executed_at` and is skipped on a re-run. A stopped or rate-limited run resumes with the repositories that have no `executed_at`.
-6. **Rollback.** Only when @ashley asks for it here. A deleted label is recreated from its dry-run snapshot (name, colour, description) and reapplied to the recorded items.
+6. **Rollback.** Only when @ashleyshaw asks for it here. A deleted label is recreated from its dry-run snapshot (name, colour, description) and reapplied to the recorded items.
 
 ## Before the first dry run
 
@@ -51,7 +51,7 @@ This issue is the approval gate for deleting labels in `lightspeedwp` repositori
 ## Additional Context
 
 - Scope: non-archived `lightspeedwp` repositories where the organisation GitHub App is installed, including template repositories. No repository is exempt.
-- Credentials: the deletion run uses a fine-grained token valid for 7 days or less, from @ashley's session, and never runs in CI (FR-018).
+- Credentials: the deletion run uses a fine-grained token valid for 7 days or less, from @ashleyshaw's session, and never runs in CI (FR-018).
 - Linear clean-up (Stage 5) starts only after this gate's deletions finish, so the Linear GitHub integration cannot recreate deleted labels.
 
 ---

@@ -41,7 +41,7 @@ Out of scope: `*/reports/*` and `*/archived/*` (historical records keep their na
 
 ## Steps / Checklist
 
-- [ ] @ashley approves the rules and the **Proposed** rows (comment on this issue)
+- [ ] @ashleyshaw approves the rules and the **Proposed** rows (comment on this issue)
 - [ ] Rename every path below with `git mv` (T060)
 - [ ] Update every link to a renamed path (T060)
 - [ ] Replace OpenSpec text references in live files (T061)
