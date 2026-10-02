@@ -153,7 +153,9 @@
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check",
     "triage:analyze": "node scripts/triage-issues-needs-triage.js",
-    "triage:apply": "node scripts/apply-triage-improvements.js"
+    "triage:apply": "node scripts/apply-triage-improvements.js",
+    "linear:inventory": "node scripts/automation/linear-label-inventory.js",
+    "labels:drift-check": "node scripts/automation/label-drift-check.js"
   },
   "devDependencies": {
     "@actions/core": "3.0.1",

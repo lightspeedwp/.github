@@ -1,6 +1,57 @@
 {
-  "updated_at": "2026-09-25",
+  "updated_at": "2026-10-02",
   "requests": [
+    {
+      "kind": "APP-CREDENTIAL-VARIANCE",
+      "task": "T071a",
+      "requirement": "FR-018",
+      "decided_by": "chris",
+      "decided_at": "2026-10-02",
+      "status": "approved-variance",
+      "covers": [
+        "FR-018 App authentication for organisation-wide label changes and the drift check",
+        "T071a GitHub App installation and credential storage"
+      ],
+      "decision": "Reuse the existing BOT_PR_APP_* App unchanged. No new App is installed and no new secret values are created. The repository-level secrets BOT_PR_APP_CLIENT_ID, BOT_PR_APP_PRIVATE_KEY and LINEAR_API_KEY were confirmed as correct by Chris and remain repository-level.",
+      "reason": "The App is also used by documentation.yml, keep-pr-current.yml and branch-validation-metrics-aggregator.yml, so narrowing it to Issues (read/write) and Metadata (read) would break those workflows.",
+      "app": {
+        "app_name": null,
+        "installed_organisation": "lightspeedwp",
+        "installed_permissions": null,
+        "permissions_verified": false,
+        "permissions_verified_at": null,
+        "note": "The installed permission set has NOT been verified. It is not known to be limited to Issues (read/write) and Metadata (read), and that narrow set must not be claimed or relied upon until someone reads the App's actual permissions in GitHub Settings and records them here. No credential value is recorded, only names."
+      },
+      "secrets": {
+        "scope": "repository",
+        "names": ["BOT_PR_APP_CLIENT_ID", "BOT_PR_APP_PRIVATE_KEY", "LINEAR_API_KEY"],
+        "values_recorded": false,
+        "confirmed_by": "chris",
+        "confirmed_at": "2026-10-02"
+      },
+      "environment": {
+        "name": "label-drift-check",
+        "created_at": "2026-10-02",
+        "admin_bypass": false,
+        "deployment_branch_policy": ["develop"],
+        "secrets_stored": [],
+        "protects": "branch gating only",
+        "secret_isolation": false,
+        "note": "The drift-check job binds to this environment, so a workflow_dispatch from a branch other than develop cannot deploy it. Because the environment holds no secrets, it provides no secret isolation: every credential stays reachable at repository level by any workflow that runs in the repository. Moving the three secrets into the environment would be required for isolation and has not been done."
+      },
+      "variance_from": [
+        "FR-018: App limited to only Issues (read/write) and Metadata (read)",
+        "T071a: App permissions narrowed to that set, then recorded"
+      ],
+      "outstanding": [
+        "Read and record the App's actual installed permissions (names only, never values)",
+        "Move the three secrets into the label-drift-check environment if secret isolation is wanted"
+      ],
+      "recorded_in": [
+        ".github/specs/008-label-audit-consolidation/spec.md (FR-018 and the 2026-10-02 clarifications)",
+        ".github/specs/008-label-audit-consolidation/tasks.md (T071a)"
+      ]
+    },
     {
       "kind": "CONSTITUTION-APPROVAL",
       "task": "T040a",
