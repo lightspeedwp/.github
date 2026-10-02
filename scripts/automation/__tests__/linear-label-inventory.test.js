@@ -74,6 +74,18 @@ describe('linear-label-inventory', () => {
     delete process.env.LINEAR_TOKEN;
   });
 
+  it('sends the key as a Bearer token, matching the official SDK', async () => {
+    let authorization;
+    const fetchImpl = async (url, { headers }) => {
+      authorization = headers.Authorization;
+      return mockResponse({ jsonBody: labelPage([], false, null) });
+    };
+    await fetchAllLabels({ token: TOKEN, fetchImpl });
+    // @linear/sdk builds `Bearer ${accessToken}`; personal keys ride the
+    // same scheme, not verbatim. Pinned here so the scheme cannot drift.
+    expect(authorization).toBe(`Bearer ${TOKEN}`);
+  });
+
   it('follows pageInfo.hasNextPage, not a top-level flag', async () => {
     const calls = [];
     const fetchImpl = async (url, { body }) => {

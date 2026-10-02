@@ -132,6 +132,9 @@ export function diffGithubRepo(repo, canonical) {
 /**
  * Diff Linear labels against the approved set. Archived (retired) labels
  * are skipped: they are no longer usable and must not read as drift.
+ * Presence is tracked per scope (FR-023 point 7): labels are identified by
+ * ID and scope, never by name alone, so a team label sharing a canonical
+ * name neither satisfies the workspace entry nor escapes its own row.
  * @param {Array<object>} linearLabels Inventory records from buildLinearInventory.
  * @param {Map} canonical Approved labels.
  * @returns {{rows: Array<object>, allowed: Array<object>}} Drift rows and allowed exceptions.
@@ -139,12 +142,12 @@ export function diffGithubRepo(repo, canonical) {
 export function diffLinearLabels(linearLabels, canonical) {
   const rows = [];
   const allowed = [];
-  const seen = new Set();
+  const seenWorkspace = new Set();
   for (const label of linearLabels) {
     if (label.retired_at) continue;
-    seen.add(label.name);
     const approved = canonical.get(label.name);
     const location = label.scope === 'workspace' ? 'Linear (workspace)' : `Linear (${label.scope})`;
+    if (label.scope === 'workspace') seenWorkspace.add(label.name);
     if (!approved) {
       if (label.scope !== 'workspace' && ALLOWED_TEAM_SCOPED_LABELS.has(label.name)) {
         allowed.push({ ...label, location });
@@ -156,24 +159,35 @@ export function diffLinearLabels(linearLabels, canonical) {
           items: label.issue_count,
         });
       }
-    } else if (normaliseColor(label.color) !== approved.color) {
+    } else if (label.scope === 'workspace') {
+      if (normaliseColor(label.color) !== approved.color) {
+        rows.push({
+          location,
+          label: label.name,
+          difference: 'colour mismatch',
+          items: label.issue_count,
+        });
+      } else if ((label.description ?? '') !== approved.description) {
+        rows.push({
+          location,
+          label: label.name,
+          difference: 'description mismatch',
+          items: label.issue_count,
+        });
+      }
+    } else {
+      // Same name as a canonical label but team-scoped: a separate entry
+      // (FR-023 point 7), reported at its own scope, never as the workspace label.
       rows.push({
         location,
         label: label.name,
-        difference: 'colour mismatch',
-        items: label.issue_count,
-      });
-    } else if ((label.description ?? '') !== approved.description) {
-      rows.push({
-        location,
-        label: label.name,
-        difference: 'description mismatch',
+        difference: 'unapproved',
         items: label.issue_count,
       });
     }
   }
   for (const name of canonical.keys()) {
-    if (!seen.has(name)) {
+    if (!seenWorkspace.has(name)) {
       rows.push({ location: 'Linear (workspace)', label: name, difference: 'missing', items: '' });
     }
   }

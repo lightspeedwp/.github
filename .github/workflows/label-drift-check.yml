@@ -27,6 +27,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request'
     timeout-minutes: 20
+    # Serialise runs without cancelling: a scheduled run and a manual
+    # dispatch must never overlap, or their separate search-then-create
+    # sequences could create duplicate report issues. Queued runs wait.
+    concurrency:
+      group: label-drift-check
+      cancel-in-progress: false
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -53,7 +59,8 @@ jobs:
           client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
           owner: lightspeedwp
-          permission-contents: read
+          # FR-018 least privilege: the drift script reads repositories and
+          # labels and writes only the report issue. No contents access.
           permission-issues: write
           permission-metadata: read
 

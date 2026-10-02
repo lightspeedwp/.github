@@ -193,6 +193,29 @@ describe('label-drift-check', () => {
     expect(body).not.toContain('| o/r | label-200 | unapproved |');
   });
 
+  it('never lets a team duplicate mask a missing workspace label (FR-023 point 7)', () => {
+    const { rows, allowed } = diffLinearLabels(
+      [
+        {
+          name: 'type:task',
+          scope: 'LS',
+          color: '#FBCA04',
+          description: 'Work item',
+          retired_at: null,
+          issue_count: 5,
+        },
+      ],
+      canonical
+    );
+    // The team entry is its own unapproved row; the workspace entry is missing.
+    expect(rows).toEqual([
+      { location: 'Linear (LS)', label: 'type:task', difference: 'unapproved', items: 5 },
+      { location: 'Linear (workspace)', label: 'status:done', difference: 'missing', items: '' },
+      { location: 'Linear (workspace)', label: 'type:task', difference: 'missing', items: '' },
+    ]);
+    expect(allowed).toEqual([]);
+  });
+
   it('round-trips label names containing pipes through render and parse', () => {
     expect(escapeCell('a|b')).toBe('a\\|b');
     expect(splitCells('| o/r | a\\|b | unapproved | 2026-09-01 | 4 |')).toEqual([

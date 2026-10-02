@@ -54,6 +54,30 @@ describe('label drift check wiring', () => {
     expect(runStep.run).toContain('--dry-run');
   });
 
+  it('serialises runs so overlapping schedules cannot duplicate the issue', () => {
+    const doc = loadWorkflow();
+    const job = Object.values(doc.jobs)[0];
+    expect(job.concurrency.group).toBe('label-drift-check');
+    expect(job.concurrency['cancel-in-progress']).toBe(false);
+  });
+
+  it('keeps the App token within FR-018 least privilege', () => {
+    const doc = loadWorkflow();
+    const steps = Object.values(doc.jobs).flatMap((job) => job.steps);
+    const tokenStep = steps.find(
+      (step) =>
+        typeof step.uses === 'string' && step.uses.startsWith('actions/create-github-app-token@')
+    );
+    expect(tokenStep).toBeDefined();
+    const granted = Object.keys(tokenStep.with || {}).filter((key) =>
+      key.startsWith('permission-')
+    );
+    expect(granted.length).toBeGreaterThan(0);
+    for (const key of granted) {
+      expect(['permission-issues', 'permission-metadata']).toContain(key);
+    }
+  });
+
   it('only invokes npm scripts that package.json declares', () => {
     const pkg = JSON.parse(fs.readFileSync(path.join(REPO_ROOT, 'package.json'), 'utf8'));
     const doc = loadWorkflow();
