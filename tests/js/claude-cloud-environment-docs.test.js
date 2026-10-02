@@ -522,7 +522,7 @@ describe('Claude cloud environment specification contracts', () => {
       // draft-PR approval. Claiming every candidate gets a draft PR would
       // contradict the documented rule order in data-model.md.
       expect(contractRow(cleanup, 'Configuration')).toMatch(
-        /follows 009's categorisation, which is not always draft-PR approval.*routed to DISCUSS.*no route from DISCUSS to draft-PR approval/
+        /follows 009's categorisation, which is not always draft-PR approval.*routed to DISCUSS.*maintainer may promote an empty, merged one.*draft-PR approval.*never promoted/
       );
       expect(model).toMatch(/Invalid name .*claude\/\*.* → DISCUSS/);
       // The same promise must not survive in FR-020 or research.md.

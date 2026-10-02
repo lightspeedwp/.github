@@ -105,11 +105,15 @@ node scripts/cleanup-branches.js --reportFormat=json --reportDir=/tmp/cleanup
 jq '[.deleted[] | select(.autoApproved) | .branch]' /tmp/cleanup/*.json
 ```
 
-Expected:
+Expected while the FR-020 deferral holds:
 
-- Only `claude/*` branches that are merged, have no open PR and are at least a day old are auto-approved.
-- `claude/*` branches with their own commits appear under DISCUSS.
+- The `jq` query returns `[]`: no branch is auto-approved, whatever the age of its tip commit.
+- Every `claude/*` branch without an open PR or matching exclusion appears under DISCUSS for its forbidden prefix.
 - Nothing is deleted, and `--dryRun=false` exits with 1.
 
-Then run the spec 009 cleanup workflow manually in report-only mode, and check that its summary lists the same
-auto-approved branches.
+A maintainer can promote an empty, merged `claude/*` branch with no open PR to DELETE, and it is removed through
+spec 009's draft-PR approval (R16).
+
+Once the deferral is lifted, only branches that are platform placeholders with no commits of their own and no
+open PR, observable for at least a day by the branch-age signal, are auto-approved. Run the spec 009 cleanup
+workflow manually in report-only mode, and check that its summary lists the same auto-approved branches.

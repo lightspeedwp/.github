@@ -1,7 +1,7 @@
 # Implementation Plan: Standardised Claude Code Cloud Environment
 
-**Branch**: `config/claude-cloud-environment` (implementation, PR lightspeedwp/.github#3524) · spec on
-`docs/claude-cloud-environment-spec` | **Date**: 2026-09-24 | **Spec**: [spec.md](./spec.md)
+**Branch**: `docs/claude-cloud-spec-reconcile` (PR lightspeedwp/.github#3726). The first implementation merged in
+lightspeedwp/.github#3524 on 2026-09-30 | **Date**: 2026-10-02 (first drafted 2026-09-24) | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `.github/specs/018-claude-cloud-environment/spec.md`
 
@@ -15,14 +15,28 @@ This plan enforces the LightSpeed branching strategy with four repository-level 
 2. **PreToolUse guard**: blocks non-compliant commits, pushes, branches and PRs. It reuses the CI validator and
    allows the documentation exception on `develop` (never on `main`).
 3. **Shared cloud environment definition**: a setup script and variables, versioned in `.claude/cloud/`.
-4. **Cleanup of empty `claude/*` branches**: an auto-approval exception added to spec 009's categoriser and
-   scheduled workflow (lightspeedwp/.github#3358). There is no separate job.
+4. **Cleanup of empty `claude/*` branches**: deferred under FR-020. Spec 009's categoriser
+   (lightspeedwp/.github#3358) auto-approves nothing until a branch-age signal exists. Until then a maintainer
+   can promote an empty, merged `claude/*` branch with no open PR from DISCUSS to DELETE, and it is removed
+   through 009's draft-PR approval. There is no separate job.
 
 Most of this already exists in #3524. The second clarification session added the legacy PR exception,
 no-rename for `claude/*` branches that already have commits, fail-closed handling of guard faults while enforcing, and
 self-protection with CODEOWNERS review (research R9 to R12). The third session set the threat model (accidents plus the obvious self-bypasses) and
 named the validator authority (research R13). The rest of the work is the documentation exception (Q1), the spec 009 amendment
 for cleanup (Q4, revised after `/speckit-analyze`), automated tests and documentation updates.
+
+**Update, 2026-10-02**: #3524 merged on 2026-09-30, and this plan now tracks the follow-up work in #3726. The
+2026-10-01 and 2026-10-02 clarification sessions added:
+
+- the launcher's fault split when the guard can't start (R15)
+- the cleanup deferral in both specs, and the DISCUSS promotion route (R16)
+- the refusal to delete `main` or the base branch
+- the `main` rule on every LightSpeed repository
+- the hotfix naming decision (R17)
+
+The guard changes that follow from these (T049, T052, T054, T055) need a session started with
+`LS_ENFORCE_BRANCH_NAMES=0`, because the guard protects its own files.
 
 ## Technical Context
 
@@ -42,8 +56,8 @@ per `.nvmrc`.
 **Testing**:
 
 - Jest (`.jest.config.cjs`), black-box tests that spawn the hook with JSON on stdin
-- CI gate (FR-023): `.github/workflows/claude-guard-tests.yml` runs the guard, SessionStart and docs contract
-  tests on every PR into `develop` or `main`, exiting early when nothing guard-related changed; branch protection
+- CI gate (FR-023): `.github/workflows/claude-guard-tests.yml` runs the guard, SessionStart, setup Node install
+  and docs contract tests on every PR into `develop` or `main`, exiting early when nothing guard-related changed; branch protection
   requires it (T048)
 - shellcheck
 - actionlint
@@ -85,8 +99,8 @@ of branches a day.
 | IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
 | V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
 | VI. UK English, security | UK English in docs and messages. No secrets. While enforcing, the guard fails closed on unknown file sets, unverifiable legacy PRs and its own faults (for git writes). With enforcement off, guard faults warn and allow the writes (FR-013). It protects its own files and every settings file that can disable hooks. The switch can't be changed from inside a session. CODEOWNERS covers `.claude/`. The threat model is written down (R13). The workflow has least-privilege permissions and pinned actions | ✅ |
-| VII. Spec quality | Requirements checklist 16/16 and security checklist 32/32. Clarified across two recorded sessions (16 questions), plus two follow-up clarification rounds. FR-013a protected paths (five files) resolved | ✅ |
-| VIII. Enforcement and compliance ≥95% | The guard blocks before push. Cleanup removes empty `claude/*` branches that would lower the compliance metric | ✅ |
+| VII. Spec quality | Requirements checklist 16/16 and security checklist 32/32. Clarified in recorded sessions on 2026-09-24 (two sessions), 2026-10-01 (5 questions) and 2026-10-02 (2 questions). FR-013a protected paths (five files) resolved | ✅ |
+| VIII. Enforcement and compliance ≥95% | The guard blocks before push. While automatic cleanup is deferred (FR-020), empty `claude/*` branches are removed through maintainer-approved draft PRs | ✅ |
 | IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |
 | X. Metrics-driven | Automated validation runs on every PR (FR-023). Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 | ✅ (justified) |
 
@@ -143,12 +157,13 @@ scripts/
 tests/js/
 └── claude-cloud-environment-docs.test.js  # spec/plan/tasks/contract consistency checks
 
-# Delivered with spec 009 / #3358 (amendment, after #3358 merges):
+# Delivered with spec 009 / #3358 (FR-020 deferral, T053):
+scripts/lib/branch-categorization.js       # no auto-approval rule while deferred: claude/* → DISCUSS
+scripts/lib/__tests__/branch-categorization.test.js   # deferral cases (any tip age → DISCUSS)
+.github/specs/009-audit-branch-cleanup/    # amendment recording the deferral (clarification, FR-010, US3, SC-007)
+# After the deferral is lifted (branch-age signal decided and built):
 scripts/lib/constants.js                   # AUTO_DELETE_PREFIXES, AUTO_DELETE_MIN_AGE_DAYS, reason code
-scripts/lib/branch-categorization.js       # auto-approval rule (before naming-violation DISCUSS)
-scripts/lib/__tests__/branch-categorization.test.js   # auto-approval cases
 .github/workflows/<009 cleanup workflow>   # auto-delete step with re-verification
-.github/specs/009-audit-branch-cleanup/    # spec amendment (clarification, FR-010, US3, SC-007)
 
 docs/
 └── CLAUDE_CLOUD_ENVIRONMENT.md    # update: documentation exception, cleanup, local enforcement, measurement
@@ -165,9 +180,9 @@ top-level folders.
 
 These follow the user-story priorities in the spec:
 
-1. **P1, US1 (guard and session rules)**: ships in #3524 as one complete unit, with Jest contract tests. #3524
-   doesn't merge until every US1 task is done, because the session rules may only describe enforced behaviour
-   (FR-003). It covers:
+1. **P1, US1 (guard and session rules)**: shipped in #3524 (merged 2026-09-30), with Jest contract tests. The
+   session rules may only describe enforced behaviour (FR-003). The follow-ups from the 2026-10-01 clarifications
+   (T049, T052, T054, T055) ship in a guard PR started with enforcement off. #3524 covered:
    - the documentation exception and the legacy PR exception
    - fault handling and self-protection
    - the FR-001 no-rename rule
@@ -176,9 +191,10 @@ These follow the user-story priorities in the spec:
 2. **P2, US2 (shared environment)**: already built in #3524. Needs verification only, following quickstart §3–4
    after the Owner has set it up.
 3. **P3, US3 (documentation and cleanup)**:
-   - The doc updates ship in #3524.
-   - The cleanup (FR-020 to FR-022) ships as an amendment to spec 009 and #3358's code, after #3358 merges (or in
-     #3358 itself if its owner agrees).
+   - The doc updates shipped in #3524. The FR-020 deferral note ships in #3726.
+   - The cleanup (FR-020 to FR-022) ships with spec 009 in #3358, in its deferred form: no auto-approval, and a
+     maintainer may promote empty branches from DISCUSS to the draft-PR route. Automatic deletion follows once a
+     branch-age signal exists.
 
 ## Complexity Tracking
 
