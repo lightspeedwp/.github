@@ -132,6 +132,7 @@ it's refused (quickstart §1, §4).
   - that guard files can't be edited while enforcement is on
 
   Replace "Never commit directly to main or develop" with the exception wording (contracts/hooks.md, SessionStart output).
+
 - [x] T018 [US1] Implement naming, placeholder and protected-branch refusals for `git branch -m`, `checkout -b`, `switch -c`, `commit` and `push` in `.claude/hooks/enforce-branch-name.mjs` (done in #3524)
 - [x] T019 [US1] Implement the GitHub MCP checks (`create_branch`, `push_files`, `create_or_update_file`, `delete_file`, `create_pull_request` including the `main` base rule) in `.claude/hooks/enforce-branch-name.mjs` (done in #3524)
 - [x] T020 [US1] Implement the documentation exception in `.claude/hooks/enforce-branch-name.mjs`:
@@ -289,3 +290,13 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 1. US1 → #3524 ready for review.
 2. US2 → Owner creates the environment (T028), then verification (T030).
 3. US3 → docs update (T032) in #3524, Code Owners setting (T042, T043) after T024 merges, cleanup (T034 and T035) after #3358.
+
+## Phase 7: Convergence
+
+- [ ] T052 Change `.claude/hooks/run-guard.sh` so that, with enforcement on, a guard that cannot start (Node not on `PATH`, or the guard script missing) refuses only git commit, push and branch operations and the GitHub branch, file and PR tools with "Branch guard unavailable", and allows every other call with a visible warning; add contract tests in `scripts/__tests__/enforce-branch-name-hook.test.js` for both cases per FR-012a (contradicts)
+- [ ] T053 Before lightspeedwp/.github#3358 merges, switch off spec 009's `claude/*` auto-approval on that branch (no branch marked `autoApproved`, and `age_days` never used as the 24-hour gate) and align spec 009 T070 and its spec text with the deferral per FR-020 (contradicts)
+- [ ] T054 Refuse REST `POST repos/…/git/refs` that creates `main` or the configured base branch, and GraphQL `mergeBranch` whose `base` is `main` or the base branch, in `.claude/hooks/enforce-branch-name.mjs`, with refusal and compliant-allow tests, and record the fix against gaps 6 and 7 in lightspeedwp/.github#3691 per FR-008 and FR-009 (missing)
+- [ ] T055 Close or individually track the remaining lightspeedwp/.github#3691 gaps 1–5 (input-object variable, per-document check, `/graphql` leading slash, `--input` variables map, first-wins flag reading) in `.claude/hooks/enforce-branch-name.mjs` with tests per FR-007 and FR-008 (missing)
+- [ ] T056 Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` so the cleanup note says auto-deletion of empty `claude/*` branches is deferred under FR-020, and the Node-missing note matches the T052 behaviour, per FR-019 (partial)
+- [ ] T057 Add `scripts/__tests__/setup-node-install.test.js` to the path filter and test list in `.github/workflows/claude-guard-tests.yml` per FR-023 (missing)
+- [ ] T058 Replace the stale "spec 016" references with "spec 018" in `.claude/hooks/enforce-branch-name.mjs`, `.claude/cloud/setup.sh`, `.github/workflows/claude-guard-tests.yml`, `scripts/__tests__/helpers/claude-hook-harness.js`, `scripts/__tests__/enforce-branch-name-hook.test.js` and `scripts/__tests__/session-start-hook.test.js` per plan: spec identity (partial)
