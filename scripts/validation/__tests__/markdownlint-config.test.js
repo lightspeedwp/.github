@@ -1,15 +1,19 @@
 /**
  * Guards the markdownlint fix-mode invariants. A bare `markdownlint-cli2`
- * invocation once auto-fixed whole files (the loaded config defaulted to
- * `fix: true`), which rewrote unrelated lines and leaked them into commits
- * through lint-staged. A second, never-loaded config file carrying
- * `fix: false` made the behaviour harder to diagnose. Both are asserted
- * here rather than left to a code review to catch.
+ * invocation once auto-fixed whole files (the loaded config set `fix: true`),
+ * which rewrote unrelated lines and leaked them into commits through
+ * lint-staged. A second, never-loaded config file carrying `fix: false` made
+ * the behaviour harder to diagnose. Both are asserted here rather than left
+ * to a code review to catch.
  *
- * 1. The loaded `.markdownlint-cli2.cjs` defaults to `fix: false`.
+ * 1. The loaded `.markdownlint-cli2.cjs` carries no `fix` key at all. This
+ *    is deliberate and load-bearing: `fix: true` makes bare runs rewrite
+ *    files, while `fix: false` silently neuters even an explicit CLI `--fix`
+ *    (the flag is overridden by an explicit config value). Omitting the key
+ *    is the only setting under which bare runs check and `--fix` fixes.
  * 2. No dead `.markdownlint-cli2.config.cjs` exists to contradict it.
- * 3. Every flow that intends to fix passes `--fix` explicitly, so the new
- *    default does not silently disable fixing where it is wanted.
+ * 3. Every flow that intends to fix passes `--fix` explicitly, so the absent
+ *    key does not silently disable fixing where it is wanted.
  */
 
 const fs = require('fs');
