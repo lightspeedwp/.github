@@ -143,6 +143,7 @@ Pull request templates are automatically routed by branch prefix according to th
 | `hotfix/` | pr_hotfix.md | VIII | Urgent production fix; requires fast-track review |
 | `refactor/` | pr_refactor.md | VIII | Code structure, maintainability |
 | `chore/` | pr_chore.md | VIII | Maintenance, build tooling, no user impact |
+| `doc/` | pr_docs.md | VIII | Single documentation change, typo fix, comment update |
 | `docs/` | pr_docs.md | VIII | Documentation, guides, comments |
 | `task/` | pr_task.md | VIII | Scoped unit of work (often issue-bound) |
 | `test/` | pr_chore.md | VIII | Test infrastructure, coverage improvements |
@@ -151,7 +152,7 @@ Pull request templates are automatically routed by branch prefix according to th
 | `build/` | pr_ci.md | VIII | Build system, compilation, bundling |
 | `automation/` | pr_ci.md | VIII | Workflow automation, task scheduling |
 | `deps/` | pr_dep_update.md | VIII | Dependency updates, version bumps |
-| `security/` | pr_bug.md | VIII | Vulnerability fix; treated as urgent bug |
+| `security/` | pr_security.md | VIII | Vulnerability fix |
 | `design/` | pr_feature.md | VIII | Design system, UI, visual assets |
 | `a11y/` | pr_feature.md | VIII | Accessibility (WCAG 2.2 AA compliance) |
 | `ux/` | pr_feature.md | VIII | User experience improvements |

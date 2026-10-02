@@ -119,7 +119,7 @@ The branch naming pattern is: `{type}/{scope}-{title}`
 **Component 1: Type** (lowercase, no spaces or underscores)
 
 - Indicates the **kind of work** being done
-- Choose from the 24 allowed types (see Section 9.5)
+- Choose from the 38 allowed types (see Section 3.1–3.3)
 - Separate from scope with a single forward slash `/`
 - Example: `feat`, `fix`, `docs`, `refactor`
 
@@ -189,7 +189,7 @@ Use a single regex in a workflow to enforce naming discipline:
 **Non-release branches:**
 
 ```regex
-^(feat|fix|hotfix|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
+^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]+(?:-[a-z0-9]+)*-[a-z0-9]+(?:-[a-z0-9]+)*$
 ```
 
 **Release branches (semantic versioning):**
@@ -274,7 +274,7 @@ jobs:
 | `build/` | `pr_ci.md` | type:build |
 | `automation/` | `pr_ci.md` | type:automation |
 | `deps/` | `pr_dep_update.md` | — |
-| `security/` | `pr_bug.md` | type:security |
+| `security/` | `pr_security.md` | type:security |
 | `design/` | `pr_feature.md` | type:design |
 | `a11y/` | `pr_feature.md` | type:a11y |
 | `audit/` | `pr_feature.md` | type:audit |
@@ -886,7 +886,7 @@ START
 
 ## 9.5 Complete Type Reference Guide
 
-This section provides comprehensive details for each of the 24 allowed branch types, including purpose, when to use, template assignment, default labels, and examples.
+This section provides comprehensive details for each of the 38 allowed branch types, including purpose, when to use, template assignment, default labels, and examples.
 
 ### **feat** — New Feature
 
