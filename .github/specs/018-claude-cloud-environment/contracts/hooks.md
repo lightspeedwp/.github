@@ -133,34 +133,28 @@ REST API, so the document is read and the branch names in it are judged by the s
 rules — a protected name, the session placeholder, or a name the convention rejects is
 refused wherever it appears. The document is read from `--query`, from a field
 (`-f`, `-F`, `--field`, `--raw-field`) and from an `--input` body, and a document the
-guard cannot read is refused rather than treated as one that names no branch. A name
-bound to a GraphQL variable is resolved from the value sent with it, since `gh` sends
-every field other than `query` as a variable. A branch-writing mutation that resolves
-to no readable branch is refused, which covers `updateRef` and `deleteRef` — they
-identify their ref by node id and name no branch at all.
+guard cannot read is refused rather than treated as one that names no branch. When
+`--input` supplies the body, `gh` puts field flags in the URL query string, where the
+GraphQL endpoint ignores them: the body's query is then the document sent, a body
+without one leaves no document to judge (refused), and the body's `variables` map is
+the only source of variables. A repeated flag is judged on its last occurrence, as
+`gh` sends the last one. A name bound to a GraphQL variable is resolved from the value
+sent with it, since `gh` sends every field other than `query` as a variable — including
+a whole input object passed as one variable (`createCommitOnBranch(input: $b)`), whose
+branch and repository leaves are read from the fields or body map that supply it. A
+branch-writing mutation that resolves to no readable branch is refused, which covers
+`updateRef` and `deleteRef` — they identify their ref by node id and name no branch at
+all. A variable-bound name scoped to a foreign repository is out of scope, like a
+literal repositoryNameWithOwner in another organisation, and that scope travels with
+the name rather than the document.
 
-The limits of that check are stated rather than implied. Five are limits of how the document can be
-read; the last two are writes the check does not reach at all, which is a different thing.
+The limit of that check is stated rather than implied. One write is outside what the
+check reaches at all, which is a different thing from a limit of what it can read.
 
-- A document whose branch-writing mutation resolves to no readable branch is refused
-  only when the mutation names a branch at all. A whole input object passed as a single
-  variable (`createCommitOnBranch(input: $b)`) names no branch key in the document, so
-  the branch it commits to is not read.
-- The check is per document, not per mutation field. A document naming a compliant
-  branch and also writing a ref by node id is refused, but a document whose ref-write
-  input is a variable is not distinguishable from a compliant one.
-- The endpoint is matched as `graphql` exactly. `gh api /graphql` reaches the same
-  endpoint and is not matched, so it is not checked.
-- A ref mutation whose name is a variable is judged on the value read from the command
-  line. A value supplied only in an `--input` body's `variables` map is not a field, so
-  the branch is not read and the mutation is refused.
-- `gh api` is last-occurrence-wins for a repeated `--input` or `-X`; the guard reads the
-  first. The two disagree where a command gives either twice.
 - `mergeBranch` is not handled at all. It writes to the branch named in its `base`, and
   that field is not one of the keys the branch-name reader looks at, so a merge into a
-  protected branch is neither refused nor reported. This is the same shape as the REST gap
-  below — a write to a protected branch that the check does not reach — rather than a
-  limit of what the document parser can read. It is tracked in #3691.
-- The REST path can still create a protected branch: `POST repos/{owner}/{repo}/git/refs`
-  judges the name with the naming rules, which exempt `main` and the base branch, rather
-  than with the protected-branch check the GraphQL path applies.
+  protected branch is neither refused nor reported. It is tracked in #3691.
+- The foreign-repository skip is per name for variable-bound writes but per document
+  for literals: a document with no ref mutation and only foreign literal owners is
+  skipped as a whole, so a literal foreign repository vouches for the whole document.
+  Decomposing the document per mutation is deferred.
