@@ -51,7 +51,11 @@ describe('label drift check wiring', () => {
       .flatMap((job) => job.steps)
       .find((step) => typeof step.run === 'string' && step.run.includes('labels:drift-check'));
     expect(runStep).toBeDefined();
-    expect(runStep.run).toContain('--dry-run');
+    // Pin the wiring, not just the flag text: the input must travel through
+    // env into a live conditional, so a commented-out or unreachable
+    // --dry-run cannot pass this test.
+    expect(runStep.env.DRY_RUN).toBe('${{ inputs.dry_run }}');
+    expect(runStep.run).toMatch(/"\$DRY_RUN" = "true".*--dry-run/s);
   });
 
   it('serialises runs so overlapping schedules cannot duplicate the issue', () => {
@@ -73,21 +77,28 @@ describe('label drift check wiring', () => {
     expect(checkout.with.ref).toBe('develop');
   });
 
-  it('keeps the App token within FR-018 least privilege', () => {
+  it('splits read and write App tokens with least privilege each', () => {
     const doc = loadWorkflow();
     const steps = Object.values(doc.jobs).flatMap((job) => job.steps);
-    const tokenStep = steps.find(
+    const mintSteps = steps.filter(
       (step) =>
         typeof step.uses === 'string' && step.uses.startsWith('actions/create-github-app-token@')
     );
-    expect(tokenStep).toBeDefined();
-    const granted = Object.keys(tokenStep.with || {}).filter((key) =>
-      key.startsWith('permission-')
-    );
-    expect(granted.length).toBeGreaterThan(0);
-    for (const key of granted) {
-      expect(['permission-issues', 'permission-metadata']).toContain(key);
+    expect(mintSteps).toHaveLength(2);
+    const byId = Object.fromEntries(mintSteps.map((step) => [step.id, step]));
+    // Read token: organisation-wide (no repositories key), read-only.
+    expect(byId['app-token-read']).toBeDefined();
+    expect(Object.keys(byId['app-token-read'].with)).not.toContain('repositories');
+    for (const [key, value] of Object.entries(byId['app-token-read'].with)) {
+      if (key.startsWith('permission-')) {
+        expect(['permission-issues', 'permission-metadata']).toContain(key);
+        expect(String(value)).not.toMatch(/write/);
+      }
     }
+    // Write token: confined to the report repository, issues write only.
+    expect(byId['app-token-write']).toBeDefined();
+    expect(String(byId['app-token-write'].with.repositories)).toContain('.github');
+    expect(String(byId['app-token-write'].with['permission-issues'])).toBe('write');
   });
 
   it('only invokes npm scripts that package.json declares', () => {

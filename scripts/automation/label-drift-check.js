@@ -13,11 +13,13 @@
  * creates, edits or deletes labels (FR-017 rule 2, FR-018).
  *
  * Authentication (FR-018): GitHub via an organisation-wide App installation
- * token passed as `GITHUB_TOKEN` (manual step T071a), Linear via the
+ * token passed as `GITHUB_TOKEN` (manual step T071a) for reads, plus a
+ * report-scoped token as `GITHUB_WRITE_TOKEN` (issues write on the report
+ * repository only) for the single report-issue write. Linear via the
  * read-only `LINEAR_API_KEY` repository secret.
  *
  * Usage:
- *   GITHUB_TOKEN=... LINEAR_API_KEY=... node scripts/automation/label-drift-check.js [--org lightspeedwp] [--repo lightspeedwp/.github] [--output path] [--dry-run]
+ *   GITHUB_TOKEN=... GITHUB_WRITE_TOKEN=... LINEAR_API_KEY=... node scripts/automation/label-drift-check.js [--org lightspeedwp] [--repo lightspeedwp/.github] [--output path] [--dry-run]
  */
 
 import fs from 'fs';
@@ -374,11 +376,13 @@ export async function findDriftIssue(client, owner, repo) {
 /**
  * Create the report issue or update its body in place (never a new issue
  * per run). Only the report issue is written; labels are never touched.
+ * Lookup runs on the read client; the create/update runs on the
+ * report-scoped write client, so a read-only run cannot write at all.
  */
-export async function upsertDriftIssue(client, owner, repo, body) {
-  const existing = await findDriftIssue(client, owner, repo);
+export async function upsertDriftIssue(readClient, writeClient, owner, repo, body) {
+  const existing = await findDriftIssue(readClient, owner, repo);
   if (!existing) {
-    const { data } = await client.rest.issues.create({
+    const { data } = await writeClient.rest.issues.create({
       owner,
       repo,
       title: DRIFT_ISSUE_TITLE,
@@ -387,7 +391,7 @@ export async function upsertDriftIssue(client, owner, repo, body) {
     });
     return { issue: data, created: true };
   }
-  const { data } = await client.rest.issues.update({
+  const { data } = await writeClient.rest.issues.update({
     owner,
     repo,
     issue_number: existing.number,
@@ -449,8 +453,15 @@ async function main() {
       'GITHUB_TOKEN environment variable is required: pass the organisation-wide GitHub App installation token (manual step T071a, FR-018).'
     );
   }
+  const writeToken = process.env.GITHUB_WRITE_TOKEN;
+  if (!writeToken) {
+    throw new Error(
+      'GITHUB_WRITE_TOKEN environment variable is required: pass the report-scoped App token (issues write on the report repository only). For local runs it may equal GITHUB_TOKEN.'
+    );
+  }
   const { Octokit } = await import('octokit');
   const client = new Octokit({ auth: token });
+  const writeClient = new Octokit({ auth: writeToken });
   const { org, repo, output, dryRun } = parseArgs(process.argv.slice(2));
   const [owner, repoName] = repo.split('/');
   const generatedAt = new Date().toISOString();
@@ -515,7 +526,7 @@ async function main() {
     console.log(body);
     return;
   }
-  const { issue, created } = await upsertDriftIssue(client, owner, repoName, body);
+  const { issue, created } = await upsertDriftIssue(client, writeClient, owner, repoName, body);
   console.log(
     `✅ ${report.differences.length} difference(s), ${allowed.length} allowed exception(s) → ${created ? 'created' : 'updated'} issue #${issue.number}`
   );

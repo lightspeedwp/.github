@@ -269,35 +269,52 @@ describe('label-drift-check', () => {
   });
 
   it('creates the issue once, then updates it in place', async () => {
-    const calls = [];
-    const client = {
+    const readCalls = [];
+    const writeCalls = [];
+    const readClient = {
       rest: {
         search: {
-          issuesAndPullRequests: async () => ({ data: { items: [], total_count: 0 } }),
+          issuesAndPullRequests: async (params) => {
+            readCalls.push(params);
+            return { data: { items: [], total_count: 0 } };
+          },
         },
         issues: {
+          create: async () => {
+            throw new Error('read client must never write');
+          },
+          update: async () => {
+            throw new Error('read client must never write');
+          },
+        },
+      },
+    };
+    const writeClient = {
+      rest: {
+        issues: {
           create: async (params) => {
-            calls.push(['create', params]);
+            writeCalls.push(['create', params]);
             return { data: { number: 7 } };
           },
           update: async (params) => {
-            calls.push(['update', params]);
+            writeCalls.push(['update', params]);
             return { data: { number: 7 } };
           },
         },
       },
     };
-    const created = await upsertDriftIssue(client, 'o', 'r', 'body one');
+    const created = await upsertDriftIssue(readClient, writeClient, 'o', 'r', 'body one');
     expect(created).toEqual({ issue: { number: 7 }, created: true });
-    expect(calls[0][1].title).toBe(DRIFT_ISSUE_TITLE);
-    expect(calls[0][1].labels).toEqual(DRIFT_ISSUE_LABELS);
+    expect(writeCalls[0][1].title).toBe(DRIFT_ISSUE_TITLE);
+    expect(writeCalls[0][1].labels).toEqual(DRIFT_ISSUE_LABELS);
+    expect(readCalls).toHaveLength(1);
 
-    client.rest.search.issuesAndPullRequests = async () => ({
+    readClient.rest.search.issuesAndPullRequests = async () => ({
       data: { items: [{ title: DRIFT_ISSUE_TITLE, number: 7, body: 'body one' }], total_count: 1 },
     });
-    const updated = await upsertDriftIssue(client, 'o', 'r', 'body two');
+    const updated = await upsertDriftIssue(readClient, writeClient, 'o', 'r', 'body two');
     expect(updated.created).toBe(false);
-    expect(calls[1]).toEqual([
+    expect(writeCalls[1]).toEqual([
       'update',
       { owner: 'o', repo: 'r', issue_number: 7, body: 'body two' },
     ]);

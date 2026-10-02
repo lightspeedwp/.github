@@ -33,6 +33,13 @@ jobs:
     concurrency:
       group: label-drift-check
       cancel-in-progress: false
+    # Secrets below live in this environment, not the repository: a branch
+    # dispatched by workflow_dispatch runs its own workflow definition, so
+    # repository-level secrets would be reachable from unreviewed branch
+    # code. The environment must restrict deployments to `develop` (repo
+    # Settings → Environments; manual step alongside T071a) for the
+    # protection to hold — without that rule this binding is inert.
+    environment: label-drift-check
     steps:
       - name: Check out repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -53,25 +60,37 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Mint organisation App token
-        # FR-018 requires the organisation-wide GitHub App (Issues read/write,
-        # Metadata read). Requires repo secrets BOT_PR_APP_CLIENT_ID and
-        # BOT_PR_APP_PRIVATE_KEY with the App installed across lightspeedwp
-        # (manual step T071a). Least privilege: read code, write the report issue.
-        id: app-token
+      - name: Mint read App token
+        # FR-018 requires the organisation-wide GitHub App (manual step
+        # T071a; repo secrets BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY
+        # with the App installed across lightspeedwp). Read-only and
+        # organisation-wide: inventory, search and report lookup only.
+        id: app-token-read
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
           client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
           private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
           owner: lightspeedwp
-          # FR-018 least privilege: the drift script reads repositories and
-          # labels and writes only the report issue. No contents access.
-          permission-issues: write
+          permission-issues: read
           permission-metadata: read
+
+      - name: Mint report-write App token
+        # Write-scoped to the report repository only: a compromised
+        # token-bearing step cannot modify issues anywhere else, even where
+        # the App is installed.
+        id: app-token-write
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          owner: lightspeedwp
+          repositories: .github
+          permission-issues: write
 
       - name: Run label drift check
         env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token-read.outputs.token }}
+          GITHUB_WRITE_TOKEN: ${{ steps.app-token-write.outputs.token }}
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
