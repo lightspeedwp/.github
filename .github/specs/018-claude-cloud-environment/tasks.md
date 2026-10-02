@@ -261,7 +261,9 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - T042 is an Owner action that needs T024 merged. T043 needs T042.
   - T034, T035 and T063 depend on lightspeedwp/.github#3358 merging. T034 also waits for the FR-020 deferral to
     be lifted.
-  - T061 and T062 are documentation only and can run at any time.
+  - T061, T062 and T064 are documentation only (done in #3726).
+  - T065 depends on merge order. If #3726 merges before #3358, qualify the cleanup note. If #3358 merges first,
+    tick T065 with no change.
 - **Polish (Phase 6)**: After the stories you intend to ship.
 
 ### User Story Dependencies
@@ -298,7 +300,8 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 1. US1 → shipped in #3524. The remaining guard follow-ups (T045, T049, T052, T054, T055) go in one guard PR made
    with enforcement off.
 2. US2 → Owner creates the environment (T028), then verification (T030).
-3. US3 → docs (T032) shipped in #3524. The deferral and promotion notes (T056, T061, T062) go in #3726. The Code
+3. US3 → docs (T032) shipped in #3524. The deferral and promotion notes (T056, T061, T062), the guard-can't-start
+   contract rows (T064) and the merge-order qualifier (T065) go in #3726. The Code
    Owners settings (T042, T043, T048) are Owner actions. Cleanup (T035, T063) runs after #3358; T034 waits for
    the deferral to be lifted.
 
