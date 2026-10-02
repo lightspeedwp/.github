@@ -61,6 +61,18 @@ describe('label drift check wiring', () => {
     expect(job.concurrency['cancel-in-progress']).toBe(false);
   });
 
+  it('checks out the integration ref, never the dispatch branch code', () => {
+    const doc = loadWorkflow();
+    const steps = Object.values(doc.jobs).flatMap((job) => job.steps);
+    const checkout = steps.find(
+      (step) => typeof step.uses === 'string' && step.uses.startsWith('actions/checkout@')
+    );
+    expect(checkout).toBeDefined();
+    // workflow_dispatch can target any branch; executing that branch's code
+    // with the App token and LINEAR_API_KEY would leak both secrets.
+    expect(checkout.with.ref).toBe('develop');
+  });
+
   it('keeps the App token within FR-018 least privilege', () => {
     const doc = loadWorkflow();
     const steps = Object.values(doc.jobs).flatMap((job) => job.steps);
