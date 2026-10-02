@@ -31,7 +31,7 @@ Every artefact this feature produces MUST use the "Qodo PR-Agent" / `qodo-pr-age
 
 ### Session 2026-10-01
 
-- Q: What monthly spend limit, in US dollars, should be set on the pilot's dedicated Anthropic key? → A: US$20 per month. The working estimate in `docs/QODO_PR_AGENT.md` -> *Credential and spend* puts one automatic run at about US$0.14, so the cap is roughly 140 automatic runs a month. The figure was confirmed by @ashleyshaw on 2026-10-02, replacing the US$50 first agreed on 2026-10-01.
+- Q: What monthly spend limit, in US dollars, should be set on the pilot's dedicated Anthropic key? → A: US$20 per month, set on the key in the Anthropic console by a maintainer and confirmed on 2026-10-02. The repository can neither read that back nor verify it, so it must be re-confirmed on any key rotation. The working estimate in `docs/QODO_PR_AGENT.md` -> *Credential and spend* puts one automatic run at about US$0.14, so the cap is roughly 140 automatic runs a month. The figure was confirmed by @ashleyshaw on 2026-10-02, replacing the US$50 first agreed on 2026-10-01.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -214,7 +214,7 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 - **SC-005**: Every integration point in User Story 3 has documented fallback behaviour, and each passes an "unavailable" test.
 - **SC-006**: A second maintainer walks through the opt-in guide against a non-`.github` repository, without enabling it, and finds no missing step or prerequisite. The guide relies only on the central configuration and the documentation. Actually enabling another repository is outside this feature's scope.
 - **SC-007**: The kill-switch stops all new runs within 15 minutes of use.
-- **SC-008**: Monthly Qodo PR-Agent spend is reported. During the pilot it stays within the US$20 monthly limit set on the dedicated key; a run refused because the limit is reached is skipped with a notice (see Edge Cases). Before any repository beyond the pilot is enabled, the organisation owner agrees a rollout budget based on the pilot report.
+- **SC-008**: Monthly Qodo PR-Agent spend is reported. During the pilot it stays within the US$20 monthly limit set on the dedicated key in the Anthropic console. A run refused because the limit is reached **is recorded as `failure`**, with a visible notice, and does not fail the check — the outcome and reason come from the record job's mapping, not from a separate skip path. **Corrected 2026-10-02**: this previously said "skipped", contradicting both the Edge Cases entry above and the shipped receiver. Before any repository beyond the pilot is enabled, the organisation owner agrees a rollout budget based on the pilot report.
 
 ## Assumptions
 

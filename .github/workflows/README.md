@@ -33,7 +33,8 @@ This directory contains the active GitHub Actions workflows for this repository.
 ### AI Review
 
 - **qodo-pr-agent-trigger.yml** - Unprivileged half of the Qodo PR-Agent pilot: runs on non-draft PRs (opened, reopened, ready for review) and maintainer comment commands, holds no secret, and publishes a request hint
-- **qodo-pr-agent.yml** - Privileged half of the Qodo PR-Agent pilot: a `workflow_run` and `workflow_dispatch` receiver that re-derives each request from the API and is the only workflow that reads the model key
+- **qodo-pr-agent.yml** - Privileged half of the Qodo PR-Agent pilot: a `workflow_run` and `workflow_dispatch` receiver that re-derives each request from the API, and the only pilot execution workflow that reads its model key
+- **qodo-pr-agent-reusable.yml** - As above, and separately supplies `MODEL_CREDENTIAL` from the environment its caller selects, so the reusable workflow is not limited to the pilot's key
 - **qodo-pr-agent-reusable.yml** - Organisation-standard Qodo PR-Agent run definition (`workflow_call`), which other repositories can call; see `docs/QODO_PR_AGENT.md`
 - **qodo-pr-agent-report.yml** - Daily Qodo PR-Agent pilot report (runs, outcomes, estimated spend) on a schedule and by manual dispatch
 

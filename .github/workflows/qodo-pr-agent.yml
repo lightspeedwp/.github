@@ -142,6 +142,10 @@ jobs:
               const wanted = String(process.env.DISPATCH_COMMAND || '').trim().toLowerCase();
               if (!wanted) return out('ok', { pr, command: '', tool: 'auto' });
               if (!ALLOWED_COMMANDS.includes(wanted)) return out('command-not-allowed');
+              // /ask needs its question, and a dispatch has no comment to take one
+              // from. Dispatching it without a question would reach the CLI with no
+              // argument and store no result, recording a silent no-output run.
+              if (wanted === '/ask') return out('ask-needs-question');
               return out('ok', { pr, command: wanted, tool: wanted.slice(1) });
             }
 

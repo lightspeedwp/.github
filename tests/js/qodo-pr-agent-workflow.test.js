@@ -2055,15 +2055,32 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
   });
 
   it('honours an allow-listed command typed on a dispatch', async () => {
-    const { outputs, refused } = await runReceiverDispatch({ command: '/ask' });
+    const { outputs, refused } = await runReceiverDispatch({ command: '/improve' });
     expect(refused).toBe(false);
-    expect(outputs).toMatchObject({ enabled: 'true', reason: 'ok', tool: 'ask', command: '/ask' });
+    expect(outputs).toMatchObject({ enabled: 'true', reason: 'ok', tool: 'improve', command: '/improve' });
   });
 
   it('refuses a command typed on a dispatch that is not allow-listed', async () => {
     const { outputs, refused } = await runReceiverDispatch({ command: '/deploy' });
     expect(refused).toBe(true);
     expect(outputs.reason).toBe('command-not-allowed');
+  });
+
+  it('refuses /ask on a dispatch, which has no comment to take a question from', async () => {
+    // A dispatched command carries no trailing text, so /ask would reach the CLI
+    // with no argument. The tool stores no result, which would record a silent
+    // no-output run rather than saying the question was missing.
+    const { outputs, refused } = await runReceiverDispatch({ command: '/ask' });
+    expect(refused).toBe(true);
+    expect(outputs.reason).toBe('ask-needs-question');
+  });
+
+  it('still runs every other allowed command on a dispatch', async () => {
+    for (const command of ['/review', '/describe', '/improve', '/update_changelog']) {
+      const { outputs, refused } = await runReceiverDispatch({ command });
+      expect({ command, refused }).toStrictEqual({ command, refused: false });
+      expect(outputs.command).toBe(command);
+    }
   });
 
   it('refuses a dispatch with no pull request number', async () => {

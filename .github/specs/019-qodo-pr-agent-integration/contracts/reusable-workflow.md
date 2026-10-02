@@ -18,7 +18,9 @@ A caller breaks the CWE-200 boundary, and is rejected at review, if it does all 
 3. **The environment's deployment branch policy admits the default branch only**, and must not admit `refs/pull/*/merge`. The rule is matched against the run's `GITHUB_REF`; for a `pull_request` run that is `refs/pull/<n>/merge`, so the policy fails closed and the job never starts.
 4. **No job holds `id-token` set to `write`**, so the third-party container has no OIDC capability.
 
-The pilot satisfies all four. Two of them are repository settings rather than files, and are listed in [the pilot's trust-boundary documentation](../../../../docs/QODO_PR_AGENT.md#what-limits-who-can-run-the-pilot): the environment's deployment branch policy, and the fact that the boundary is exactly the authority to merge to `develop`.
+The pilot satisfies all four. Two of them are repository settings rather than files, and are listed in [the pilot's trust-boundary documentation](../../../../docs/QODO_PR_AGENT.md#what-limits-who-can-run-the-pilot): the environment's deployment branch policy, and the fact that the boundary is the authority to merge to `develop`.
+
+Verified on 2026-10-01, read-only: the `qodo-pr-agent` environment exists with `custom_branch_policies` enabled, its single deployment branch policy is the bare pattern `develop` and its type is `branch`, and it holds `ANTHROPIC_API_KEY_QODO_PR_AGENT` as an environment secret. No Qodo credential is scoped to the repository, so point 2 holds by absence as well as by design. The pilot is still inert: `QODO_PR_AGENT_ENABLED` is set at neither repository nor organisation level, and only the literal `true` enables it. A re-check of these settings is required before enabling, and after any key rotation or settings change, because they are repository state this file cannot enforce.
 
 ## Why not `pull_request_target`
 

@@ -7,6 +7,14 @@ import os from 'node:os';
 import path from 'node:path';
 
 const runner = path.resolve(__dirname, '../../skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh');
+
+// The model the runner must pass, read from the authority rather than restated.
+const authorityModel = (() => {
+  const toml = fs.readFileSync(path.resolve(__dirname, '../../.pr_agent.toml'), 'utf8');
+  const match = toml.match(/^model\s*=\s*"([^"]+)"/m);
+  if (!match) throw new Error('could not read config.model from .pr_agent.toml');
+  return match[1];
+})();
 const python = spawnSync('sh', ['-c', 'command -v python3'], { encoding: 'utf8' }).stdout.trim();
 
 describe('Qodo PR-Agent skill runner', () => {
@@ -152,6 +160,58 @@ fi
     expect(result.status).toBe(64);
     expect(result.stderr).toMatch(message);
     expect(fs.existsSync(capture)).toBe(false);
+  });
+
+  it('takes the model from the [config] table, not from any other table', () => {
+    // A bare line match would accept a `model` key from an earlier table, so the
+    // lookup is section-scoped. Executed against a fixture with a decoy.
+    const script = fs.readFileSync(runner, 'utf8');
+    const awk = script.match(/MODEL="\$\(awk '([\s\S]*?)' "\$repo_root\/.pr_agent\.toml"\)/);
+    expect(awk).not.toBeNull();
+
+    const fixture = [
+      '[lite]',
+      'model = "decoy/lite-model"',
+      '[config]',
+      'model="anthropic/claude-sonnet-5"',
+      'fallback_models=["anthropic/claude-sonnet-5"]',
+      '',
+    ].join('\n');
+    const file = path.join(os.tmpdir(), `pr-agent-toml-${process.pid}.toml`);
+    fs.writeFileSync(file, fixture);
+    try {
+      const out = spawnSync('awk', [awk[1], file], { encoding: 'utf8' }).stdout.trim();
+      expect(out).toBe(authorityModel);
+    } finally {
+      fs.unlinkSync(file);
+    }
+  });
+
+  it('promises in the skill description only tools that can produce output', () => {
+    // Guards the exact defect the review raised: the frontmatter advertised
+    // labels/changelog/docs while those tools store no artifact at v0.46.0 and
+    // therefore always answer skipped/no-output.
+    const skill = fs.readFileSync(
+      path.resolve(__dirname, '../../skills/qodo-pr-agent/SKILL.md'),
+      'utf8'
+    );
+    const description = skill.match(/^description: "(.*)"$/m);
+    expect(description).not.toBeNull();
+    const promised = description[1]
+      .match(/\(([^)]*)\)/)[1]
+      .split(',')
+      .map((name) => name.trim());
+    expect(promised).toStrictEqual(['review', 'improve', 'describe', 'ask']);
+
+    // Each unavailable tool must be labelled permanently unavailable, not as a
+    // transient skip, so a caller does not retry expecting a result.
+    for (const tool of ['generate_labels', 'update_changelog', 'add_docs']) {
+      const row = skill.split('\n').find((line) => line.startsWith(`| \`${tool}\` |`));
+      expect({ tool, prMode: row ? row.split('|')[2].trim() : null }).toStrictEqual({
+        tool,
+        prMode: 'unavailable',
+      });
+    }
   });
 
   it('skips a PR-only tool on diffs before requesting credentials', () => {
@@ -390,10 +450,11 @@ fi
             '--config.response_language=en-GB',
           ])
         );
-        // The runner passes no --config.model: the repository's .pr_agent.toml is
-        // the only declaration. Asserted as an absence, because its reappearance is
-        // the drift this guards against.
-        expect(args.some((arg) => arg.startsWith('--config.model='))).toBe(false);
+        // Always passed: neither mode reads a repository .pr_agent.toml, so an
+        // omitted flag would leave PR-Agent on its own default model.
+        expect(args.filter((arg) => arg.startsWith('--config.model='))).toEqual([
+          `--config.model=${authorityModel}`,
+        ]);
         expect(args.find((arg) => arg.startsWith('pragent/'))).toMatch(
           /^pragent\/pr-agent@sha256:[a-f0-9]{64}$/
         );

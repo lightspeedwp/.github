@@ -1,6 +1,6 @@
 ---
 name: "lightspeed-qodo-pr-agent"
-description: "Use this skill when an agent needs Qodo PR-Agent output (review, improve, describe, ask, labels, changelog, docs) for a PR or diff without publishing to GitHub. Returns a normalised ok/skipped/error result so callers can fall back cleanly."
+description: "Use this skill when an agent needs Qodo PR-Agent output (review, improve, describe, ask) for a PR or diff without publishing to GitHub. Returns a normalised ok/skipped/error result so callers can fall back cleanly."
 ---
 
 # lightspeed-qodo-pr-agent
@@ -19,11 +19,15 @@ Qodo PR-Agent is the third-party tool, and is **not** the internal [`agents/pr-a
 | `improve` | result | result | Internal PR agent self-review gate |
 | `describe` | result | result | Internal PR agent (diff-derived body section) |
 | `ask` | no result | result | `skills/pr-review`, `agents/qa-subagent.agent.md` |
-| `generate_labels` | no result | not allowed | `agents/labeling-agent/`, `skills/label-governance` |
-| `update_changelog` | no result | not allowed | `agents/changelog-agent/`, `skills/changelog-generator` |
-| `add_docs` | no result | not allowed | `agents/document-reviewer-agent/` |
+| `generate_labels` | unavailable | not allowed | use `agents/labeling-agent/`, `skills/label-governance` |
+| `update_changelog` | unavailable | not allowed | use `agents/changelog-agent/`, `skills/changelog-generator` |
+| `add_docs` | unavailable | not allowed | use `agents/document-reviewer-agent/` |
 
-"result" means the run returns `ok` with Markdown. "no result" means the tool is allowed in that mode but returns `skipped` / `no-output`: with publishing off, only `review`, `describe` and `improve` store a result for a PR. That is upstream behaviour, not a runner limit — `pr_reviewer.py`, `pr_description.py` and `pr_code_suggestions.py` are the only tools that write their stored artifact, so `ask` in PR mode and all three label, changelog and docs tools cannot answer a caller. Ask questions in diff mode, or use the `/ask` comment command on the PR itself.
+"result" means the run returns `ok` with Markdown. "no result" means the tool is allowed in that mode but returns `skipped` / `no-output`: with publishing off, only `review`, `describe` and `improve` store a result for a PR. That is upstream behaviour, not a runner limit — `pr_reviewer.py`, `pr_description.py` and `pr_code_suggestions.py` are the only tools that write their stored artifact.
+
+**Unavailable** is a stronger, permanent statement than "no result": these tools have **no** output path for this skill at PR-Agent v0.46.0, so they cannot answer a caller now or after a retry, and they are deliberately absent from this skill's description. `pr_generate_labels.py`, `pr_update_changelog.py` and `pr_add_docs.py` make no `get_settings().data = {"artifact": ...}` assignment; they publish to the pull request instead, which this skill never does. Use the in-repo agent named in the table, or the `/update_changelog` comment command on the PR itself. If a later version gives them a non-publishing path, this row becomes "result" and the description may widen again.
+
+Ask questions in diff mode, or use the `/ask` comment command on the PR itself.
 
 `similar_issue` is not supported, because it is deferred (spec 019, research R8).
 

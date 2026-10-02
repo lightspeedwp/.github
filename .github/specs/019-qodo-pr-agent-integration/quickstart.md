@@ -8,7 +8,7 @@ This guide proves the feature works end to end on `lightspeedwp/.github`. The ex
 
 | # | Item | Who |
 | --- | --- | --- |
-| P-1 | A dedicated Anthropic API key with a monthly spend limit of US$20 set in the Anthropic console (spec SC-008) | @ashley |
+| P-1 | A dedicated Anthropic API key with a monthly spend limit of US$20 set in the Anthropic console (spec SC-008). Set on the key in the console by a maintainer and confirmed on 2026-10-02; the repository cannot verify or read it back, and it must be re-confirmed on any key rotation | @ashley |
 | P-2 | Environment secret `ANTHROPIC_API_KEY_QODO_PR_AGENT` on the `qodo-pr-agent` Environment, whose deployment branch policy admits `develop` and `refs/heads/develop` only, with no required reviewers. A repository or organisation secret does not work. A repository that opts in later creates its own Environment. See `docs/QODO_PR_AGENT.md` → Credential and spend. The spend limit in P-1 is set on whichever key is in use. | @ashley |
 | P-3 | Actions variable `QODO_PR_AGENT_ENABLED` is set to `true`, only after P-1's spend limit is confirmed. Unset or any other value keeps the pilot off. | Maintainer |
 | P-4 | The implementation PR is merged to `develop`, because upstream reads `.pr_agent.toml` from the default branch | Maintainer |
@@ -53,7 +53,7 @@ Use a throw-away branch such as `test/qodo-pr-agent-smoke`, with a small real ch
 | Q-09 | Check the run log for the loaded config | The log shows `extra_config_url` loaded from `raw.githubusercontent.com/lightspeedwp/.github/<ref>/.pr_agent.toml` | R3 (verify in pilot) |
 | Q-10 | Set `QODO_PR_AGENT_ENABLED=false` (or delete it), then open a PR | The receiver's preflight skips with `kill-switch`, so no credential-bearing `run` job and no Qodo PR-Agent container starts. Afterwards, set it back to `true`. | US5 AS2, SC-007 |
 | Q-11 | A comment command from a non-member account (or check via a test) | Skipped with `author-not-allowed` | Spec assumption, R5 |
-| Q-12 | Open a PR over 25 files or 800 lines | The output notes clipped content, and the run doesn't fail | Edge case |
+| Q-12 | Open a PR whose diff exceeds the token budget set by `max_model_tokens` in `.pr_agent.toml` (currently 64,000 tokens, so on the order of hundreds of files or several thousand lines — **not** a 25-file or 800-line PR) | The output carries the `...(truncated)` marker, and the run doesn't fail | Edge case |
 | Q-14 | Comment `/review --config.model=anthropic/claude-haiku-4-5-20251001` as a member | Preflight skips with `arguments-not-allowed`, and nothing is posted by Qodo PR-Agent | FR-007, FR-011, locked keys |
 | Q-13 | Removed 2026-10-01 with the keyless route (T038/T039). There is no federation check to run, because no job requests an OIDC token. | Not applicable. | Removed with T038 |
 
@@ -80,3 +80,5 @@ node scripts/metrics/qodo-pr-agent-report.cjs --since "$PILOT_START" --out .gith
 ```
 
 Expected: `pilot-report-YYYY-MM-DD.md`, with runs per tool, failures, skipped reasons, estimated spend (cross-checked against the Anthropic console) and the usefulness survey result (SC-004, SC-008).
+
+**Corrected 2026-10-02.** Q-12 previously used a 25-file, 800-line fixture. `large_patch_policy = "clip"` clips the diff against `max_model_tokens` (64,000 here), so that fixture is roughly an order of magnitude under the threshold and the run clips nothing — the check could only ever have passed vacuously. The fixture now states the budget it must exceed, and a test asserts it still matches `.pr_agent.toml`.

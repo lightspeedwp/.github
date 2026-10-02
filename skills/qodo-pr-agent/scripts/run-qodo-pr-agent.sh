@@ -15,14 +15,41 @@ set -euo pipefail
 # Keep in step with .github/workflows/qodo-pr-agent-reusable.yml (a test checks they match).
 readonly IMAGE="pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7" # 0.46.0-github_action
 readonly PIP_SPEC="pr-agent==0.46.0"
-# The model is NOT declared here. The repository's own .pr_agent.toml is the single
-# source: PR-Agent reads config.model from it, so passing --config.model here would
-# be a second declaration that can drift from the first. PR_AGENT_MODEL is an
-# explicit, host-only escape hatch for a one-off run; unset, the repository config
-# decides, and a repository with no .pr_agent.toml gets PR-Agent's own default rather
-# than a value this script invented.
+# The model is resolved, never assumed, because neither mode below reads a
+# repository .pr_agent.toml:
+#   - PR mode runs the adapter, which sets CONFIG.USE_REPO_SETTINGS_FILE=False on
+#     purpose, and `apply_repo_settings` only fetches repo settings when that flag is
+#     on (pr_agent/git_providers/utils.py, v0.46.0).
+#   - diff mode sets config.git_provider=plain-diff, so no git provider is built and
+#     get_repo_settings() is never called.
+# Without an explicit --config.model both paths therefore fall through to PR-Agent's
+# own default, `gpt-5.6` with fallback `gpt-5.6-terra` (pr_agent/settings/
+# configuration.toml, v0.46.0), which is a different provider: a consumer that has
+# OPENAI_KEY set would send its diff to OpenAI instead of the Anthropic key this
+# skill is scoped to.
+#
+# So: PR_AGENT_MODEL wins; otherwise config.model is read from this repository's
+# .pr_agent.toml, which is the single source of truth; otherwise DEFAULT_MODEL, which
+# exists only so a consumer with no config still gets an Anthropic model. The test
+# in tests/js/qodo-pr-agent-config.test.js pins DEFAULT_MODEL to that same value, so
+# it cannot drift from the authority.
 #   PR_AGENT_MODEL=anthropic/claude-sonnet-5 ./run-qodo-pr-agent.sh review --pr-url ...
+readonly DEFAULT_MODEL="anthropic/claude-sonnet-5"
 MODEL="${PR_AGENT_MODEL-}"
+if [ -z "$MODEL" ]; then
+  repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../.." && pwd)"
+  if [ -f "$repo_root/.pr_agent.toml" ]; then
+    # Scoped to the [config] table: a bare line match would also take a `model`
+    # key from any other table that happened to appear first.
+    MODEL="$(awk '
+      /^[[:space:]]*\[/ { section = $0 }
+      section ~ /^[[:space:]]*\[config\][[:space:]]*$/ && /^[[:space:]]*model[[:space:]]*=/ {
+        sub(/^[^"]*"/, ""); sub(/".*$/, ""); print; exit
+      }
+    ' "$repo_root/.pr_agent.toml")"
+  fi
+fi
+MODEL="${MODEL:-$DEFAULT_MODEL}"
 readonly PR_TOOLS=" review improve describe ask generate_labels update_changelog add_docs "
 readonly DIFF_TOOLS=" review improve describe ask "
 
@@ -134,8 +161,9 @@ settings=(
   "--config.propagate_tool_errors=true"
   "--config.response_language=en-GB"
 )
-# Passed only when the operator named one. Otherwise the repository config decides.
-if [ -n "$MODEL" ]; then settings+=("--config.model=$MODEL"); fi
+# Always passed. Neither mode reads a repository config, so omitting it would let
+# PR-Agent pick its own default model.
+settings+=("--config.model=$MODEL")
 tool_args=("$tool")
 if [ "$tool" = "ask" ]; then tool_args+=("$question"); fi
 

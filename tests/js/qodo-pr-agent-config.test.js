@@ -31,6 +31,8 @@ const INSTRUCTION_SECTIONS = [
  * fails the suite rather than shipping a run whose record names a model that was not
  * used.
  */
+const TOKEN_BUDGET = 64000;
+
 const PRIMARY_MODEL = config?.config?.model;
 const PRIMARY_FALLBACK = config?.config?.fallback_models?.[0];
 const bareId = (id) => String(id).replace(/^anthropic\//, '');
@@ -119,16 +121,85 @@ describe('Qodo PR-Agent model ids are single-sourced', () => {
     }
   });
 
-  it('the skill runner does not declare a model at all', () => {
-    // It used to hardcode one, which was a second source that could disagree with
-    // the repository config. It now passes no --config.model unless the operator
-    // names one, so the repository config decides.
+  it('the skill runner always passes a model, and never relies on the upstream default', () => {
+    // Neither skill mode reads a repository .pr_agent.toml: PR mode disables
+    // repo settings on purpose, and diff mode never builds a git provider. So an
+    // omitted --config.model would leave PR-Agent on its own default, gpt-5.6,
+    // sending a consumer's diff to a different provider than the key is scoped to.
     const script = read('skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh');
+    // Unconditional, so it cannot become conditional again unnoticed.
+    expect(script).toContain('settings+=("--config.model=$MODEL")');
+    expect(script).not.toMatch(/if \[ -n "\$MODEL" \]; then settings\+=\("--config\.model/);
+  });
+
+  it('the spend-cap outcome agrees between SC-008, the edge cases and the receiver', () => {
+    // These three disagreed: the edge cases and the shipped record job mapped a
+    // provider refusal to `failure`, while SC-008 said `skipped`.
+    const spec = read('.github/specs/019-qodo-pr-agent-integration/spec.md');
+    const sc008 = spec.split('\n').find((line) => line.startsWith('- **SC-008**:'));
+    expect(sc008).toContain('`failure`');
+    expect(sc008).not.toMatch(/skipped with a notice/);
+
+    const edge = spec
+      .split('\n')
+      .find((line) => line.includes('Rate limits and spend caps'));
+    expect(edge).toContain('`failure`');
+
+    // And the receiver must still map a failed run to `failure`.
+    const receiver = read('.github/workflows/qodo-pr-agent.yml');
+    expect(receiver).toMatch(/outcome="failure"/);
+  });
+
+  it('the spend limit is documented as unverifiable from here and rotation-bound', () => {
+    const docs = read('docs/QODO_PR_AGENT.md');
+    const line = docs
+      .split('\n')
+      .find((l) => l.startsWith('- **Monthly spend limit:'));
+    expect(line).toBeDefined();
+    expect(line).toMatch(/US\$20/);
+    expect(line).toMatch(/Anthropic console/);
+    // The two claims that keep the statement honest rather than rot-prone.
+    expect(line).toMatch(/cannot set it, read it back or verify it/);
+    expect(line).toMatch(/re-confirmed whenever the key is rotated/);
+  });
+
+  it('the Q-12 fixture exceeds the budget it claims to exceed', () => {
+    // Q-12 asserted clipping for a 25-file/800-line diff, but clip works against
+    // max_model_tokens, so that fixture was an order of magnitude under the
+    // threshold and the check passed vacuously.
+    const toml = read('.pr_agent.toml');
+    const budget = toml.match(/^max_model_tokens\s*=\s*(\d+)/m);
+    expect({ budget: budget ? budget[1] : null }).toStrictEqual({
+      budget: String(TOKEN_BUDGET),
+    });
+    const quickstart = read('.github/specs/019-qodo-pr-agent-integration/quickstart.md');
+    const row = quickstart.split('\n').find((line) => line.startsWith('| Q-12 |'));
+    expect(row).toBeDefined();
+    // The row must cite the same budget, so raising the config raises the fixture.
+    expect(row).toContain(budget[1].replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+
+    // And the fixture must not be reachable by a small diff: clip triggers only
+    // above the budget, so the stated file count has to clear it.
+    const files = row.match(/order of (\w+) of files/);
+    expect(files ? files[1] : null).not.toBeNull();
+    const scale = { hundred: 100, hundreds: 100, thousand: 1000, thousands: 1000 }[
+      String(files[1]).toLowerCase()
+    ];
+    expect(scale).toBeGreaterThan(0);
+  });
+
+  it('the runner default equals the authority, so a consumer without a config gets the same model', () => {
+    const script = read('skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh');
+    const declared = script.match(/^readonly DEFAULT_MODEL="([^"]+)"/m);
+    expect({ declared: declared ? declared[1] : null }).toStrictEqual({
+      declared: PRIMARY_MODEL,
+    });
+  });
+
+  it('the runner resolves the model from the authority rather than repeating it', () => {
+    const script = read('skills/qodo-pr-agent/scripts/run-qodo-pr-agent.sh');
+    expect(script).toContain('repo_root/.pr_agent.toml');
     expect(script).toContain('PR_AGENT_MODEL');
-    expect(script).not.toContain('"anthropic/claude-');
-    // The only permitted reference is the escape hatch's usage example.
-    const modelFlags = script.match(/--config\.model=/g) || [];
-    expect(modelFlags).toHaveLength(1);
   });
 
   it('the tests that assert the model read it from the authority, not a literal', () => {

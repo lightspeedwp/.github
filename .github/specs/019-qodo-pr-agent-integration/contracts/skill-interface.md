@@ -22,7 +22,7 @@ run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--question "<
 
 | Argument | Rules |
 | --- | --- |
-| `<tool>` | One of `review`, `improve`, `describe`, `ask`, `generate_labels`, `update_changelog`, `add_docs`. With `--diff-file`, only `review`, `improve`, `describe` and `ask` are allowed. |
+| `<tool>` | One of `review`, `improve`, `describe`, `ask`, `generate_labels`, `update_changelog`, `add_docs`. With `--diff-file`, only `review`, `improve`, `describe` and `ask` are allowed. `generate_labels`, `update_changelog` and `add_docs` are **unavailable** in PR mode at PR-Agent v0.46.0: they store no artifact and have no non-publishing path, so they always return `skipped` / `no-output`. They are not part of the skill's promised output — see `skills/qodo-pr-agent/SKILL.md`. |
 | `--pr-url` | A GitHub PR URL. Requires `GITHUB_TOKEN` in the environment. |
 | `--diff-file` | A unified diff. Needs no GitHub token. Used for pre-PR self-review. |
 | `--question` | Required for `ask`. |
