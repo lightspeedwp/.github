@@ -469,10 +469,10 @@ One record per destructive change in Stages 3 and 4, appended to `evidence/conso
 | `label` | string | The label acted on |
 | `before` / `after` | object or null | Name, colour, description (and item number for `relabel`); `after` is null for `delete` |
 | `gate_issue` | integer | The gate issue the run was confirmed against |
-| `op_id` | string | Unique per change; the `intended` and `done` records of one change share it |
+| `op_id` | string | Starts with the `run_id` of the run that wrote it (for example `run-20261005T0900-0001`); unique per change; the `intended` and `done` records of one change share it |
 | `state` | enum | `intended` (written before the API call) or `done` (written after it succeeds) |
 
-**Rules**: append-only; every change has an `intended` record before its API call and a `done` record after it succeeds; on resume, an `intended` record with no `done` record is checked against the live state and then completed or retried; a re-run that makes no write adds no record.
+**Rules**: append-only; every change has an `intended` record before its API call and a `done` record after it succeeds; on resume, an `intended` record with no `done` record is checked against the live state and then completed or retried; a re-run that makes no write adds no record. Only the run holding the run lock (entity 16) may append, and a resumed run reconciles only `intended` records whose `op_id` starts with its own `run_id` (FR-023 point 11).
 
 ### 15. Linear Write Log Entry
 
@@ -484,15 +484,29 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 | `old_label` / `new_label` | object | Label ID, name and scope (`workspace` or team key); either may be null for a pure add or removal |
 | `at` | timestamp | UTC, ISO 8601 |
 | `mapping` | string | The `linear-labels.json` mapping entry applied |
-| `op_id` | string | Shared by the `intended` and `done` records of one write |
+| `op_id` | string | Starts with the `run_id` of the run that wrote it; shared by the `intended` and `done` records of one write |
 | `state` | enum | `intended` (before the call) or `done` (after it succeeds) |
 
 **Rules**: append-only; written as `intended` before the call and `done` after it, with unmatched `intended` records reconciled on resume; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label.
+
+### 16. Run Lock
+
+`evidence/run-lock.json`, held while a Stage 3–5 run writes (FR-023 point 11).
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `run_id` | string | Unique per run; prefixes every `op_id` the run writes |
+| `run_by` | string | GitHub login of the person running the tool |
+| `started_at` | timestamp | UTC, ISO 8601 |
+| `stage` | enum | `3`, `4` or `5` |
+
+**Rules**: created when a run starts and deleted when it finishes; a run refuses to start while the file exists; a lock left by a stopped run is cleared only after @ashleyshaw confirms on the gate issue.
 
 ### Consolidation State Transitions
 
 ```text
 Approval Gate Label: applied (decision pending) → removed (dated decision recorded)
+Run Lock: absent → held (run starts) → absent (run finishes, or a stale lock is cleared after @ashleyshaw confirms)
 Label Mapping:     proposed → approved (Change Request merged) → applied-github → applied-linear → verified (drift report clean)
 Repository Dry Run: generated → approved → executed → verified
                               ↘ skipped (no approval: nothing deleted)

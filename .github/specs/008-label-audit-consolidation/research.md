@@ -260,9 +260,10 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 
 ### R6. Stopping labels from being recreated
 
-- **Decision**: (a) Restrict label creation from Linear's GitHub integration; (b) limit repository label management to maintainers; (c) require automation that creates labels (for example the labeler and remediation scripts) to create only labels present in `labels.yml`; (d) weekly drift check (FR-017).
-- **Verify**: Which Linear integration settings control label creation, and which GitHub repository role can create labels. **Fallback**: rely on (c) and (d), which are fully under this repository's control.
+- **Decision**: (a) Turn off Linear's GitHub issue sync for the synced teams from the start of Stage 3 until Stage 5 ends (spec clarification 2026-10-02); (b) limit repository label management to maintainers; (c) require automation that creates labels (for example the labeler and remediation scripts) to create only labels present in `labels.yml`; (d) weekly drift check (FR-017).
+- **Verify**: Where in Linear the sync is turned off per team, and which GitHub repository role can create labels. **Fallback**: rely on (c) and (d), which are fully under this repository's control.
 - **Rationale**: Issue #95 itself carries `migrate:*` labels created by automation, so permissions alone are not enough.
+- **Alternatives considered**: Restricting label creation in Linear to admins (unconfirmed whether it stops the integration); drift check only (labels can be recreated mid-run, as `status:done` was on 2026-09-24).
 
 ### R7. Weekly drift check
 

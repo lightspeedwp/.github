@@ -42,7 +42,7 @@ describe('Label consolidation post-merge task plan', () => {
     );
     const phase8Count = [...phase8.matchAll(/^- \[[ xX]\] T\d{3}[a-z]?\b/gm)].length;
 
-    expect(taskRows).toHaveLength(114);
+    expect(taskRows).toHaveLength(116);
     expect(new Set(taskRows.map(({ id }) => id)).size).toBe(taskRows.length);
     expect(taskRows.filter(({ done }) => done)).toHaveLength(58);
     expect(phase8Count).toBe(66);

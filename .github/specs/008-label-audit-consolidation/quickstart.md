@@ -467,6 +467,7 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 2. Confirm every deleted label has a snapshot entry with name, colour, description and item numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
 3. Re-run the deletion for one finished repository and confirm it makes no API write and adds no record to `evidence/consolidation-log.json` (FR-023).
 4. Confirm `evidence/consolidation-log.json` has a `done` record for every change made in the run and no `intended` record without a matching `done` record, and that the gate issue has the run's summary comment (FR-023 point 10).
+5. While a run holds `evidence/run-lock.json`, start a second run and confirm it refuses to start and writes nothing. Stop the first run, resume it, and confirm it reconciles only `intended` records whose `op_id` starts with its own `run_id`, then removes the lock (FR-023 point 11).
 
 ### Test 13: Linear Clean-up
 
@@ -487,6 +488,12 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 # Every open spec 008 change request or gate issue waiting for a decision carries the label
 gh issue list --repo lightspeedwp/.github --label meta:needs-approval --state open --json number,title
 # Expected: the open change requests and the gate issue; none whose decision was recorded more than a day ago
+```
+
+```bash
+# After the Stage 2 swap, no waiting change request still uses the interim label (FR-021)
+gh issue list --repo lightspeedwp/.github --label status:blocked --state open --search "UPDATE-REQUEST in:title" --json number,title
+# Expected: no output
 ```
 
 Pass when the list matches the open requests and no issue keeps the label after its dated decision.
