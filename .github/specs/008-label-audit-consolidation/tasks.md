@@ -578,12 +578,12 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 
 **Next Step**: Run first task in Phase 1 (T001 - Create output directory). Report progress checkpoint after Phase 2 completion (all data extracted and verified).
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
-[Contact](https://lightspeedwp.agency/contact)
-
 ## Phase 9: Convergence
 
 - [ ] T074 [US4] Give every branch type in `.github/branch-types.yml` exactly one canonical `type:*` label in `.github/branch-labels.yml` `default_labels`, because `scripts/pr-template-router.js` applies those and never the template frontmatter `labels`: add entries for the 13 types that have none (`aiops`, `automation`, `epic`, `doc`, `content`, `api`, `schema`, `seo`, `config`, `migrate`, `qa`, `uat`, `telemetry`); record @ashley's decision on which type wins for the 10 that differ from their routed template (`hotfix`, `revert`, `docs`, `i18n`, `perf`, `build`, `ops`, `audit`, `codex`, `research`); ship in the T059 configuration PR and check the T046b acceptance criterion ("an `aiops/` branch PR receives `type:aiops`") by running `node scripts/pr-template-router.js aiops/example-branch` per FR-014, SC-011 (partial)
 - [ ] T075 [US4] Make `scripts/automation/label-inventory.js` read a dedicated variable (for example `LABEL_INVENTORY_TOKEN`) instead of `GITHUB_TOKEN`, refuse to run when `GITHUB_ACTIONS` is set, and exit non-zero when the organisation listing returns no private repositories although `GET /orgs/{org}` reports some, so a repository-scoped token cannot produce a silently incomplete `github-api-labels.json`; add tests and update T041's command per FR-010, FR-018 (partial)
 - [ ] T076 [US4] Add to the T046b `[TEMPLATE-UPDATE-REQUEST]` draft (`.github/reports/audits/2026-09-14-label-audit/change-requests/pr-aiops-template-request.md`) a reconciliation of `.github/PULL_REQUEST_TEMPLATE/config.yml` routes with `.github/branch-types.yml`, which the router reads (18 prefixes differ, for example `audit/`, `codex/`, `test/`, `security/`), and correct the draft's routing sentence (`aiops/`, `codex/` and `automation/` route to `pr_aiops.md`; `proto/` routes to `pr_feature.md`) per FR-011, research R18 (contradicts)
 - [ ] T077 [US4] When T043 fills `mappings[]`, and if the Q3 clarification picks an option other than A, update `scripts/validation/__tests__/label-audit-stage-one.test.js` in the same commit: it currently asserts `mappings` is empty and that proposed OpenSpec targets replace `openspec` with `spec` per T043, T048 (partial)
+
+*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+[Contact](https://lightspeedwp.agency/contact)
