@@ -92,6 +92,9 @@ heads (FR-009 scope). `git push` checks every refspec, allows tag-only pushes an
 | Guard fault, git write or GitHub branch/file/PR tool, enforcing (FR-012a) | 2 | empty | `Branch guard unavailable: <error>. Open an issue on lightspeedwp/.github` |
 | Guard fault, git write or GitHub branch/file/PR tool, `LS_ENFORCE_BRANCH_NAMES=0` (FR-013) | 0; write proceeds | `{"systemMessage":"Branch guard (warning only): Branch guard unavailable: <error>. Open an issue on lightspeedwp/.github"}` | empty |
 | Guard fault, any other call (FR-012a) | 0 | `{"systemMessage":"Branch guard unavailable: <error>"}` | empty |
+| Guard can't start (Node not on `PATH`, or the guard script missing), git write or GitHub branch/file/PR tool, enforcing (FR-012a, R15; launcher `run-guard.sh`, T052) | 2 | `{"systemMessage":"Branch guard unavailable: <reason>"}` | `Branch guard unavailable: <reason>` |
+| Guard can't start, any other call, enforcing (FR-012a, R15; T052) | 0 | `{"systemMessage":"Branch guard unavailable: <reason>"}` | `Branch guard unavailable: <reason>` |
+| Guard can't start, any call, `LS_ENFORCE_BRANCH_NAMES=0` (FR-013) | 0 | `{"systemMessage":"Branch guard (warning only): enforcement is off, so no check ran."}` | the same text |
 
 **Emergency procedure**: An Owner can set `LS_ENFORCE_BRANCH_NAMES=0` in the environment used to start a new
 session. In that session, guard faults produce a visible warning and allow the write to proceed (FR-013). Existing

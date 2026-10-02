@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Cloud Spec Decisions Recorded** — Spec 018 now records seven clarified rules, including that empty `claude/*` branches are not auto-deleted yet, and the guard tests also cover the setup script's Node install. (#3726)
 - **Local Scans No Longer Dirty the Repository** — Semgrep's settings and log files are ignored, so a security scan leaves no untracked files to commit by accident. (#3713)
 - **Jest Config Lint Error Fixed** — A redundant escape in the transform ignore pattern is gone and the file is formatted, clearing the only lint error it carried. (#3713)
 - **Local Security Scans Stay Out of the Checkout** — Guidance for keeping Semgrep's settings and log files out of the working tree. (#3713)

@@ -2,7 +2,7 @@
  * @jest-environment node
  *
  * Contract tests for the PreToolUse branch guard,
- * .claude/hooks/enforce-branch-name.mjs (spec 016, contracts/hooks.md).
+ * .claude/hooks/enforce-branch-name.mjs (spec 018, contracts/hooks.md).
  *
  * Each case spawns the real hook with a tool-call payload inside a temporary
  * repository. Exit 2 means refused, exit 0 means allowed.
