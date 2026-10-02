@@ -527,6 +527,18 @@ describe('GitHub MCP tools (T011)', () => {
     expect(run.status).toBe(0);
   });
 
+  test.each([
+    ['protected body branch beside feature field', 'main', 'refs/heads/feat/ok-name', 2],
+    ['feature body branch beside protected field', 'feat/ok-name', 'refs/heads/main', 0],
+  ])('uses only the REST input body for %s', (_label, bodyBranch, fieldRef, expected) => {
+    fx.write('body.json', JSON.stringify({ ref: `refs/heads/${bodyBranch}`, sha: 'abc' }));
+    const run = runBash(
+      fx,
+      `gh api -X POST repos/lightspeedwp/.github/git/refs --input body.json -f ref=${fieldRef}`
+    );
+    expect(run.status).toBe(expected);
+  });
+
   // A branch name the guard cannot read must not be treated as no branch name.
   // An empty head or ref reached nameProblem as '', which is not a problem, so
   // the write went ahead unchecked.
@@ -1730,6 +1742,21 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     const command = `gh api graphql -f query='${document}' -f n=${value}`;
     expect(runBash(fx, command).status).toBe(expected);
   });
+
+  test.each(['branchName', 'name'])(
+    'scopes a direct %s variable to its enclosing repository',
+    (field) => {
+      fx.branch('feat/good-name');
+      const foreignOwner = 'other-org/other-repo';
+      const document = `mutation ($n: String!) {
+        a: createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "${foreignOwner}", ${field}: $n}, message: {headline: "x"}}) { commit { oid } }
+        b: createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "feat/ok-name"}, message: {headline: "x"}}) { commit { oid } }
+      }`;
+      expect(runBash(fx, `gh api graphql -f query='${document}' -f n=main`).status).toBe(0);
+      const localDocument = document.replace(foreignOwner, 'lightspeedwp/.github');
+      expect(runBash(fx, `gh api graphql -f query='${localDocument}' -f n=main`).status).toBe(2);
+    }
+  );
 
   test('refuses a createRef that names no branch at all', () => {
     fx.branch('feat/good-name');

@@ -994,17 +994,20 @@ const SHORT_FIELD_FLAGS = new Set(['-f', '-F']);
 
 function apiFields(args, cwd) {
   const fields = {};
+  const input = inputArg(args);
+  if (input !== null) {
+    const body = readBody(input, cwd);
+    if (body && typeof body === 'object' && !Array.isArray(body)) {
+      for (const [key, value] of Object.entries(body)) {
+        if (typeof value === 'string') fields[key] = value;
+      }
+    }
+    return fields;
+  }
   for (const [flag, argument] of fieldArgs(args)) {
     const [key, ...rest] = argument.split('=');
     const value = resolveFieldValue(rest.join('='), cwd, flag);
     if (value !== null) fields[key] = value;
-  }
-  // A write sent as `--input body.json` carries its branch there, not in -f.
-  const body = readBody(inputArg(args), cwd);
-  if (body && typeof body === 'object' && !Array.isArray(body)) {
-    for (const [key, value] of Object.entries(body)) {
-      if (typeof value === 'string' && !(key in fields)) fields[key] = value;
-    }
   }
   return fields;
 }
@@ -1666,8 +1669,8 @@ function checkGitHub(tool, input, cwd) {
  * path uses, which is what makes `-F query=@file` resolve `@file` against the
  * command's own working directory the way gh does. When `--input` supplies the
  * body, gh puts field flags in the URL query string, where the GraphQL endpoint
- * ignores them — so the body's query is the document sent, and the flags are
- * only a fallback for a body that carries none.
+ * ignores them, so only the body's query is used. A body without a query is
+ * refused rather than checked against a document gh does not send.
  */
 function graphqlQuery(args, cwd) {
   // gh sends the last occurrence of a repeated flag, so every tier below keeps
@@ -1770,11 +1773,12 @@ function graphqlQueryUnreadable(args, cwd) {
 function graphqlBranchNames(query, variables = {}) {
   // Each entry carries the repository that scopes it, or null when the
   // document does not scope it: literals are judged by the document-wide owner
-  // check in the caller, while a variable-bound name (`branch: $b`,
-  // `input: $b`) is scoped by the `repositoryNameWithOwner` bound to the same
-  // stem. A foreign stem repository takes that name out of scope, exactly like
-  // a literal repositoryNameWithOwner in another organisation; an unscopable
-  // name is judged, so an unrelated foreign variable cannot vouch for it.
+  // check in the caller, while a variable-bound name is scoped by the
+  // `repositoryNameWithOwner` in its enclosing branch input or bound to the
+  // same stem for `branch: $b` and `input: $b`. A foreign repository takes that
+  // name out of scope, exactly like a literal repositoryNameWithOwner in another
+  // organisation; an unscopable name is judged, so an unrelated foreign variable
+  // cannot vouch for it.
   const found = [];
   const scoped = (value, owner) => {
     if (typeof value === 'string' && value.trim()) found.push({ value: value.trim(), owner });
@@ -1794,6 +1798,13 @@ function graphqlBranchNames(query, variables = {}) {
     }
     return null;
   };
+  const branchOwner = (offset) => {
+    const branch = [...query.matchAll(/\bbranch\s*:\s*\{([^{}]*)\}/g)].find(
+      (match) => offset > match.index && offset < match.index + match[0].length
+    );
+    const repository = branch?.[1].match(/\brepositoryNameWithOwner\s*:\s*"([^"/\s]+)\//i)?.[1];
+    return repository ? repository.toLowerCase() : null;
+  };
   for (const match of query.matchAll(/\bbranchName\b\s*:\s*"([^"]*)"/g)) {
     scoped(match[1], null);
   }
@@ -1812,7 +1823,7 @@ function graphqlBranchNames(query, variables = {}) {
   // literal spelling of the same document.
   if (WRITES_A_BRANCH.test(query)) {
     for (const match of query.matchAll(/\b(?:branchName|name)\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
-      scoped(variables[match[1]], null);
+      scoped(variables[match[1]], branchOwner(match.index));
     }
     // `createCommitOnBranch` takes its target as a nested input, so the branch can
     // arrive as `branch: $b` rather than as `branchName:`. gh sends a nested GraphQL
