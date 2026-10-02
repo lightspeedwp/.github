@@ -3,7 +3,7 @@ title: 'Changelog'
 description: 'All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning'
 file_type: 'documentation'
 created_date: '2025-09-20'
-last_updated: '2026-09-27'
+last_updated: '2026-10-02'
 consolidation_phase: 'Phase 1 (merged sections)'
 owners:
   - LightSpeed Team
@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Weekly Label Drift Check** — A scheduled workflow compares every org repository and Linear label against labels.yml and updates one drift report issue; read-only, never writes labels. (#3754)
 - **Badge Links Stop Breaking On Spaces** — The generator percent-encodes labels, so a multi-word badge resolves instead of ending at the first space. A check reports the 76,594 broken ones, with a fix mode. (#3702)
 - **Badge Check Handles Titled and Nested Examples** — A badge carrying a quoted title is no longer reported or rewritten, and a badge inside a nested code fence is left alone. (#3702)
 - **Skill Documentation Contracts Enforced in CI** — A new check fails a pull request when a skill entry point offers a status label its own reference files do not define, and closes the contract against the bundled references. (#3702)
