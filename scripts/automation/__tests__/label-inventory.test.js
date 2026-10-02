@@ -9,6 +9,8 @@ import {
   collectPages,
   buildInventory,
   incompleteRepositories,
+  privateRepositoryGap,
+  resolveToken,
 } from '../label-inventory.js';
 
 const labelsOf = (n, prefix = 'l') =>
@@ -75,5 +77,48 @@ describe('label-inventory', () => {
       ],
     };
     expect(incompleteRepositories(inv)).toEqual(['o/full', 'o/short']);
+  });
+
+  describe('token and private repository guards (T075)', () => {
+    it('reads the token from LABEL_INVENTORY_TOKEN, not GITHUB_TOKEN', () => {
+      expect(resolveToken({ LABEL_INVENTORY_TOKEN: 'org-token' })).toEqual({ token: 'org-token' });
+      expect(resolveToken({ GITHUB_TOKEN: 'repo-token' }).error).toMatch(
+        /LABEL_INVENTORY_TOKEN is required/
+      );
+    });
+
+    it('refuses to run inside GitHub Actions even when a token is set', () => {
+      const result = resolveToken({ GITHUB_ACTIONS: 'true', LABEL_INVENTORY_TOKEN: 'org-token' });
+      expect(result.token).toBeUndefined();
+      expect(result.error).toMatch(/refusing to run inside GitHub Actions/);
+    });
+
+    it('records private repositories and the organisation-reported count', async () => {
+      const client = pagedClient([{ name: 'pub' }, { name: 'priv', private: true }], {
+        pub: 1,
+        priv: 2,
+      });
+      client.rest.orgs = { get: async () => ({ data: { total_private_repos: 1 } }) };
+      const inv = await buildInventory(client, 'lightspeedwp');
+      expect(inv.private_repository_count).toBe(1);
+      expect(inv.reported_private_repository_count).toBe(1);
+      expect(inv.repositories.find((r) => r.repository === 'lightspeedwp/priv').private).toBe(true);
+      expect(privateRepositoryGap(inv)).toBeNull();
+    });
+
+    it('fails when the token cannot see every private repository', async () => {
+      const client = pagedClient([{ name: 'pub' }], { pub: 1 });
+      client.rest.orgs = { get: async () => ({ data: { total_private_repos: 3 } }) };
+      const inv = await buildInventory(client, 'lightspeedwp');
+      expect(privateRepositoryGap(inv)).toMatch(
+        /listed 0 private repositories but lightspeedwp reports 3/
+      );
+    });
+
+    it('skips the private check when the organisation count is not readable', async () => {
+      const inv = await buildInventory(pagedClient([{ name: 'a' }], { a: 1 }), 'lightspeedwp');
+      expect(inv.reported_private_repository_count).toBeNull();
+      expect(privateRepositoryGap(inv)).toBeNull();
+    });
   });
 });

@@ -1,0 +1,103 @@
+# Locked Files Guard
+#
+# Constitution Principle II: LOCKED files change only after an approved change
+# request. This check fails a pull request that changes a locked file unless
+# its body links a change-request issue that is approved, either recorded as
+# `approved` in the spec 008 change-request register or carrying an
+# "Approved…" comment by @ashleyshaw (spec 008, task T080).
+#
+# The guard script and the register are read from the BASE branch, so a pull
+# request cannot approve itself by editing them. Make this check required in
+# the branch protection rules for `develop` and `main`.
+
+name: Locked Files Guard
+
+on:
+  pull_request:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+concurrency:
+  group: locked-files-guard-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Locked files need an approved change request
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # pull-requests: read for the PR files API; issues: read for approval comments.
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      - name: Check out the base branch (guard and register only)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/validation/check-locked-file-approval.cjs
+            .github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json
+          sparse-checkout-cone-mode: false
+
+      - name: Check locked files
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const guardPath = path.join(process.env.GITHUB_WORKSPACE, 'scripts/validation/check-locked-file-approval.cjs');
+            if (!fs.existsSync(guardPath)) {
+              core.notice('The locked-file guard is not on the base branch yet; skipping this run.');
+              return;
+            }
+            const guard = require(guardPath);
+
+            const pr = context.payload.pull_request;
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100,
+            });
+            // A rename moves a locked file too, so check both paths.
+            const changedFiles = files.flatMap((file) =>
+              file.previous_filename ? [file.filename, file.previous_filename] : [file.filename]
+            );
+
+            let register = null;
+            const registerPath = path.join(process.env.GITHUB_WORKSPACE, guard.REGISTER_PATH);
+            if (fs.existsSync(registerPath)) {
+              register = JSON.parse(fs.readFileSync(registerPath, 'utf8'));
+            }
+
+            const commentsByIssue = {};
+            const issues = guard.referencedIssues(pr.body || '').slice(0, 20);
+            if (changedFiles.some(guard.isLocked)) {
+              for (const issue of issues) {
+                try {
+                  commentsByIssue[issue] = await github.paginate(github.rest.issues.listComments, {
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue,
+                    per_page: 100,
+                  });
+                } catch (error) {
+                  core.warning(`Could not read comments on #${issue}: ${error.message}`);
+                }
+              }
+            }
+
+            const result = guard.evaluate({ changedFiles, body: pr.body || '', register, commentsByIssue });
+            await core.summary.addHeading('Locked Files Guard', 3).addRaw(result.message).write();
+            if (result.ok) {
+              core.info(result.message);
+            } else {
+              core.setFailed(result.message);
+            }
