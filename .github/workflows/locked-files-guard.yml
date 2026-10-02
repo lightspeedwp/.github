@@ -67,6 +67,16 @@ jobs:
               pull_number: pr.number,
               per_page: 100,
             });
+            // The files API caps results at 3,000 entries: a locked file
+            // beyond the cap would otherwise pass silently, so refuse an
+            // incomplete file list instead of evaluating it.
+            if (typeof pr.changed_files === 'number' && pr.changed_files > files.length) {
+              core.setFailed(
+                `Locked Files Guard cannot verify: the pull request touches ${pr.changed_files} files ` +
+                  `but the API returned ${files.length}; refusing to pass an incomplete file list.`
+              );
+              return;
+            }
             // A rename moves a locked file too, so check both paths.
             const changedFiles = files.flatMap((file) =>
               file.previous_filename ? [file.filename, file.previous_filename] : [file.filename]
@@ -80,7 +90,11 @@ jobs:
 
             const commentsByIssue = {};
             const titlesByIssue = {};
-            const issues = guard.referencedIssues(pr.body || '').slice(0, 20);
+            // Fetch every referenced issue: guard.evaluate processes all of
+            // them, and truncating here would fail a valid approval linked
+            // after other references. Fetching happens only when locked files
+            // changed; the job timeout bounds pathological bodies, failing closed.
+            const issues = guard.referencedIssues(pr.body || '');
             if (changedFiles.some(guard.isLocked)) {
               for (const issue of issues) {
                 try {
