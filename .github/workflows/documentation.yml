@@ -511,14 +511,13 @@ jobs:
 
   skill-spec:
     name: Skill and Agent Spec Validation
-  # Validates the skill and agent rules for every pull request and push that can
-  # affect a SKILL.md, an agent definition or an AGENTS.md file. `develop` currently
-  # requires no status checks at all, so this is advisory: it reports when the
-  # workflow triggers and is skipped when the trigger-level `paths` filter does not
-  # match. If it is ever made a required check, it has to move to a workflow with
-  # no `paths` filter, or the check would never report on an unrelated change.
-    # that can affect a SKILL.md, an agent definition or an AGENTS.md. A
-    # filtered-out run never reports, which would leave the check pending.
+    # Validates the skill and agent rules for every pull request and push that can
+    # affect a SKILL.md, an agent definition or an AGENTS.md file. `develop` currently
+    # requires no status checks at all, so this is advisory: it reports when the
+    # workflow triggers and is skipped when the trigger-level `paths` filter does not
+    # match. A filtered-out run never reports, which would leave the check pending.
+    # If it is ever made a required check, it has to move to a workflow with
+    # no `paths` filter.
     runs-on: ubuntu-latest
     timeout-minutes: 10
     if: github.event_name == 'pull_request' || github.event_name == 'push'
