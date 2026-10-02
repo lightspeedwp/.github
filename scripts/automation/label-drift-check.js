@@ -213,12 +213,53 @@ export async function countGithubItems(client, repository, label) {
 }
 
 /**
+ * Join the identity of one drift row. The NUL separator keeps names that
+ * contain spaces or pipes unambiguous; it round-trips through JSON as \u0000.
+ */
+export function firstSeenKey(location, label, difference) {
+  return `${location}\0${label}\0${difference}`;
+}
+
+/**
+ * Read the hidden first-seen map from a report body, if present and valid.
+ * @param {string} body Existing issue body.
+ * @returns {Map<string, string>|null} Key to YYYY-MM-DD date, or null.
+ */
+export function parseFirstSeenBlock(body) {
+  const match = /<!-- drift-first-seen\n([\s\S]*?)\n-->/.exec(String(body ?? ''));
+  if (!match) return null;
+  let parsed;
+  try {
+    parsed = JSON.parse(match[1]);
+  } catch {
+    return null;
+  }
+  if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return null;
+  const firstSeen = new Map();
+  for (const [key, seen] of Object.entries(parsed)) {
+    if (typeof key === 'string' && typeof seen === 'string' && /^\d{4}-\d{2}-\d{2}/.test(seen)) {
+      firstSeen.set(key, seen.slice(0, 10));
+    }
+  }
+  return firstSeen;
+}
+
+/**
  * Read "First seen" dates from an existing report body so continuing drift
- * keeps its original date. Keys are location + label + difference.
+ * keeps its original date. Prefers the hidden map (covers rows omitted from
+ * the displayed tables); falls back to parsing table rows for bodies
+ * written before the map existed.
  * @param {string} body Existing issue body.
  * @returns {Map<string, string>} Key to YYYY-MM-DD date.
  */
 export function parseFirstSeen(body) {
+  return parseFirstSeenBlock(body) ?? parseFirstSeenTables(body);
+}
+
+/**
+ * Read "First seen" dates from rendered table rows only.
+ */
+export function parseFirstSeenTables(body) {
   const firstSeen = new Map();
   for (const line of String(body ?? '').split('\n')) {
     const cells = splitCells(line);
@@ -232,7 +273,7 @@ export function parseFirstSeen(body) {
     }
     const [, location, label, difference, seen] = cells;
     if (location && label && difference && /^\d{4}-\d{2}-\d{2}/.test(seen)) {
-      firstSeen.set(`${location}\0${label}\0${difference}`, seen.slice(0, 10));
+      firstSeen.set(firstSeenKey(location, label, difference), seen.slice(0, 10));
     }
   }
   return firstSeen;
@@ -243,8 +284,33 @@ export function parseFirstSeen(body) {
  *
  * Issue bodies are capped by the API, so each table shows at most
  * `maxTableRows` rows; the JSON report artifact always holds every row.
+ * First-seen dates for every row (including truncated ones) persist in a
+ * hidden map at the end of the body, bounded by `maxFirstSeenBytes` so a
+ * giant pre-consolidation report cannot overflow the API body limit; rows
+ * past the budget fall back to table parsing like before.
  */
 export const MAX_TABLE_ROWS = 200;
+export const MAX_FIRST_SEEN_BYTES = 15000;
+
+/**
+ * Serialise first-seen dates for as many rows as fit the byte budget, in
+ * sorted order, for the hidden persistence block.
+ * @param {Array<object>} withDates Rows carrying firstSeen dates.
+ * @param {number} maxBytes Payload budget (excluding markers).
+ * @returns {{json: string|null, kept: number}} Block payload and row count.
+ */
+export function buildFirstSeenBlock(withDates, maxBytes = MAX_FIRST_SEEN_BYTES) {
+  const parts = [];
+  let size = 2; // enclosing braces
+  for (const row of withDates) {
+    const part = `${JSON.stringify(firstSeenKey(row.location, row.label, row.difference))}:${JSON.stringify(row.firstSeen)}`;
+    if (size + part.length + 1 > maxBytes) break;
+    parts.push(part);
+    size += part.length + 1;
+  }
+  if (parts.length === 0) return { json: null, kept: 0 };
+  return { json: `{${parts.join(',')}}`, kept: parts.length };
+}
 
 export function renderReport({
   generatedAt,
@@ -257,17 +323,19 @@ export function renderReport({
   firstSeen,
   uncountedRows = 0,
   maxTableRows = MAX_TABLE_ROWS,
+  maxFirstSeenBytes = MAX_FIRST_SEEN_BYTES,
 }) {
   const today = generatedAt.slice(0, 10);
   const rows = [...githubRows, ...linearRows].sort((a, b) =>
-    `${a.location}\0${a.label}\0${a.difference}`.localeCompare(
-      `${b.location}\0${b.label}\0${b.difference}`
+    firstSeenKey(a.location, a.label, a.difference).localeCompare(
+      firstSeenKey(b.location, b.label, b.difference)
     )
   );
   const withDates = rows.map((row) => ({
     ...row,
-    firstSeen: firstSeen.get(`${row.location}\0${row.label}\0${row.difference}`) ?? today,
+    firstSeen: firstSeen.get(firstSeenKey(row.location, row.label, row.difference)) ?? today,
   }));
+  const persisted = buildFirstSeenBlock(withDates, maxFirstSeenBytes);
   const lines = [
     '## Summary',
     '',
@@ -335,17 +403,21 @@ export function renderReport({
     uncountedRows === 0
       ? '- Rows without issue counts: none'
       : `- Rows without issue counts: ${uncountedRows} (count cap ${MAX_COUNTED_ROWS}; see the JSON artifact)`,
+    `- First-seen dates persisted: ${persisted.kept} of ${withDates.length} rows`,
     skippedRepos.length === 0
       ? '- Skipped repositories: none'
       : `- Skipped repositories (archived/fork, out of scope per FR-016): ${skippedRepos.join(', ')}`
   );
+  if (persisted.json !== null) {
+    lines.push('', '<!-- drift-first-seen', persisted.json, '-->');
+  }
   return lines.join('\n');
 }
 
 function sortRows(rows) {
   return [...rows].sort((a, b) =>
-    `${a.location}\0${a.label}\0${a.difference}`.localeCompare(
-      `${b.location}\0${b.label}\0${b.difference}`
+    firstSeenKey(a.location, a.label, a.difference).localeCompare(
+      firstSeenKey(b.location, b.label, b.difference)
     )
   );
 }

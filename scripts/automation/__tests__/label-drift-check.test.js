@@ -14,6 +14,7 @@ import {
   DRIFT_ISSUE_TITLE,
   DRIFT_ISSUE_LABELS,
   MAX_COUNTED_ROWS,
+  MAX_FIRST_SEEN_BYTES,
   normaliseColor,
   escapeCell,
   splitCells,
@@ -22,6 +23,9 @@ import {
   countGithubItems,
   enrichGithubRows,
   parseFirstSeen,
+  parseFirstSeenBlock,
+  parseFirstSeenTables,
+  buildFirstSeenBlock,
   renderReport,
   upsertDriftIssue,
 } from '../label-drift-check.js';
@@ -266,6 +270,60 @@ describe('label-drift-check', () => {
     expect(rows.find((r) => r.label === 'b').items).toBe('');
     expect(rows.find((r) => r.label === 'gone').items).toBe('');
     expect(await countGithubItems(client, 'o/r', 'a')).toBe(3);
+  });
+
+  it('persists first-seen dates for rows omitted from the tables', () => {
+    const rows = Array.from({ length: 5 }, (_, i) => ({
+      location: 'o/r',
+      label: `label-${i}`,
+      difference: 'unapproved',
+      items: i,
+    }));
+    const seen = new Map([[`o/r\0label-4\0unapproved`, '2026-09-01']]);
+    const body = renderReport({
+      generatedAt: '2026-10-02T00:00:00.000Z',
+      canonicalCommit: 'abc123',
+      githubRows: rows,
+      linearRows: [],
+      allowed: [],
+      skippedRepos: [],
+      org: 'lightspeedwp',
+      firstSeen: seen,
+      maxTableRows: 2,
+    });
+    // label-4 is past the table cap, but its date survives via the block.
+    expect(body).not.toContain('| o/r | label-4 | unapproved |');
+    expect(parseFirstSeen(body).get('o/r\0label-4\0unapproved')).toBe('2026-09-01');
+    expect(parseFirstSeenTables(body).get('o/r\0label-4\0unapproved')).toBeUndefined();
+  });
+
+  it('caps the persisted map within budget and degrades gracefully', () => {
+    const rows = Array.from({ length: 10 }, (_, i) => ({
+      location: 'o/r',
+      label: `label-${i}`,
+      difference: 'unapproved',
+      firstSeen: '2026-09-01',
+      items: 0,
+    }));
+    const tiny = buildFirstSeenBlock(rows, 100);
+    expect(tiny.json).not.toBeNull();
+    expect(tiny.kept).toBeGreaterThan(0);
+    expect(tiny.kept).toBeLessThan(rows.length);
+    expect(MAX_FIRST_SEEN_BYTES).toBeGreaterThan(1000);
+    // Nothing persists when even one entry exceeds the budget.
+    expect(buildFirstSeenBlock(rows, 10).json).toBeNull();
+  });
+
+  it('falls back to tables on a missing or malformed block', () => {
+    const tableBody = [
+      '| Location | Label | Difference | First seen | Items |',
+      '| --- | --- | --- | --- | --- |',
+      '| o/r | stray | unapproved | 2026-09-01 | 4 |',
+    ].join('\n');
+    expect(parseFirstSeenBlock(tableBody)).toBeNull();
+    expect(parseFirstSeenBlock('<!-- drift-first-seen\n{invalid\n-->')).toBeNull();
+    expect(parseFirstSeenBlock('<!-- drift-first-seen\n[1,2]\n-->')).toBeNull();
+    expect(parseFirstSeen(tableBody).get('o/r\0stray\0unapproved')).toBe('2026-09-01');
   });
 
   it('creates the issue once, then updates it in place', async () => {
