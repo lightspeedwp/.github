@@ -293,6 +293,23 @@ function generateMetadataBadges(frontMatter) {
 }
 
 /**
+ * Percent-encode a badge URL path segment.
+ *
+ * shields.io labels legitimately contain spaces and colons ("Badges:
+ * Documentation Update"). Interpolated raw, the URL ends at the first space, so
+ * shields.io receives no label and renders a malformed badge. Markdown
+ * reference links cannot rescue this either: a bare space inside a `<...>`
+ * destination still terminates it, so the value must be encoded at generation
+ * time rather than at render time.
+ *
+ * @param {string} segment Raw label or status text.
+ * @returns {string} Segment safe to interpolate into a shields.io path.
+ */
+function encodeBadgeSegment(segment) {
+  return encodeURIComponent(segment).replace(/%3A/gi, ':');
+}
+
+/**
  * Resolve a badge reference from schema
  */
 function resolveBadge(badgeRef, badgeDefs, frontMatter) {
@@ -314,12 +331,13 @@ function resolveBadge(badgeRef, badgeDefs, frontMatter) {
   if (badgeRef.startsWith('workflow.')) {
     const label = current.label || badgeRef;
     const successText = current.success_text || 'OK';
-    return `![${label}](https://img.shields.io/badge/${label}-${successText}-success.svg)`;
+    // The alt text stays readable; only the URL is encoded.
+    return `![${label}](https://img.shields.io/badge/${encodeBadgeSegment(label)}-${encodeBadgeSegment(successText)}-success.svg)`;
   }
 
   if (badgeRef.startsWith('meta.license') && frontMatter && frontMatter.license) {
     const license = frontMatter.license.toUpperCase();
-    return `![License](https://img.shields.io/badge/license-${license}-blue.svg)`;
+    return `![License](https://img.shields.io/badge/license-${encodeBadgeSegment(license)}-blue.svg)`;
   }
 
   return null;
