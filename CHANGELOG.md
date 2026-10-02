@@ -90,6 +90,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Bare Markdownlint Checks Without Rewriting** — A plain check now reports violations without modifying files; auto-fix still applies with explicit `--fix`. (#3756)
 - **Twelve Skill Documentation Defects Corrected** — Readiness bands, Chat app developer-mode paths, the design.md lint rule list, a triage label, chatbot-safe criteria, go/no-go gates and starter-pattern headers. (#3702)
 - **Project Memory Status Vocabulary Aligned** — The memory manager's core rule offered `Unknown`, a status its own reference does not define. (#3702)
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
