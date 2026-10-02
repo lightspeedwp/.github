@@ -2,7 +2,8 @@
 #
 # Constitution Principle II: LOCKED files change only after an approved change
 # request. This check fails a pull request that changes a locked file unless
-# its body links a change-request issue that is approved, either recorded as
+# its body links a change-request issue (title tagged [LABEL-UPDATE-REQUEST],
+# [ISSUE-TYPE-UPDATE-REQUEST] or [TEMPLATE-UPDATE-REQUEST]) that is approved, either recorded as
 # `approved` in the spec 008 change-request register or carrying an
 # "Approved…" comment by @ashleyshaw (spec 008, task T080).
 #
@@ -78,10 +79,21 @@ jobs:
             }
 
             const commentsByIssue = {};
+            const titlesByIssue = {};
             const issues = guard.referencedIssues(pr.body || '').slice(0, 20);
             if (changedFiles.some(guard.isLocked)) {
               for (const issue of issues) {
                 try {
+                  const { data } = await github.rest.issues.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue,
+                  });
+                  // Only change-request issues count; skip PRs and other issues.
+                  if (data.pull_request || !guard.isChangeRequestTitle(data.title)) {
+                    continue;
+                  }
+                  titlesByIssue[issue] = data.title;
                   commentsByIssue[issue] = await github.paginate(github.rest.issues.listComments, {
                     owner: context.repo.owner,
                     repo: context.repo.repo,
@@ -94,7 +106,13 @@ jobs:
               }
             }
 
-            const result = guard.evaluate({ changedFiles, body: pr.body || '', register, commentsByIssue });
+            const result = guard.evaluate({
+              changedFiles,
+              body: pr.body || '',
+              register,
+              commentsByIssue,
+              titlesByIssue,
+            });
             await core.summary.addHeading('Locked Files Guard', 3).addRaw(result.message).write();
             if (result.ok) {
               core.info(result.message);

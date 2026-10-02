@@ -7,6 +7,7 @@ const {
   approvedInRegister,
   evaluate,
   isApprovalComment,
+  isChangeRequestTitle,
   isLocked,
   referencedIssues,
 } = require('../check-locked-file-approval.cjs');
@@ -16,6 +17,13 @@ const register = {
     { issue_number: 3556, status: 'approved' },
     { issue_number: 3557, status: 'pending' },
   ],
+};
+
+const titlesByIssue = {
+  3556: '[ISSUE-TYPE-UPDATE-REQUEST] Replace Question with Decision',
+  3557: '[TEMPLATE-UPDATE-REQUEST] Decision issue template',
+  4000: 'task: label-consolidation - Six PR templates [TEMPLATE-UPDATE-REQUEST]',
+  449: 'epic: label-governance - Stabilise canonical labels',
 };
 
 describe('check-locked-file-approval', () => {
@@ -75,6 +83,7 @@ describe('check-locked-file-approval', () => {
       changedFiles: ['.github/labels.yml', 'docs/LABEL_STRATEGY.md'],
       body: 'Relates to #3557',
       register,
+      titlesByIssue,
     });
     expect(result.ok).toBe(false);
     expect(result.locked).toEqual(['.github/labels.yml']);
@@ -86,6 +95,7 @@ describe('check-locked-file-approval', () => {
       changedFiles: ['.github/issue-types.yml'],
       body: 'Closes #3556',
       register,
+      titlesByIssue,
     });
     expect(result.ok).toBe(true);
     expect(result.approvedBy).toEqual({ 3556: 'change-request register' });
@@ -96,6 +106,7 @@ describe('check-locked-file-approval', () => {
       changedFiles: ['.github/PULL_REQUEST_TEMPLATE/pr_docs.md'],
       body: 'Closes #4000',
       register,
+      titlesByIssue,
       commentsByIssue: { 4000: [{ user: { login: APPROVER }, body: 'Approved, ship it' }] },
     });
     expect(result.ok).toBe(true);
@@ -107,7 +118,40 @@ describe('check-locked-file-approval', () => {
       changedFiles: ['.github/branch-labels.yml'],
       body: 'Closes #4000',
       register,
+      titlesByIssue,
       commentsByIssue: { 4000: [{ user: { login: 'teammate' }, body: 'Approved' }] },
+    });
+    expect(result.ok).toBe(false);
+  });
+
+  test.each([
+    ['[LABEL-UPDATE-REQUEST] Import five labels', true],
+    ['[ISSUE-TYPE-UPDATE-REQUEST] Decision type', true],
+    ['task: six PR templates [TEMPLATE-UPDATE-REQUEST]', true],
+    ['epic: label-governance - Stabilise canonical labels', false],
+    ['LABEL-UPDATE-REQUEST without brackets', false],
+    [undefined, false],
+  ])('isChangeRequestTitle(%p) is %p', (title, expected) => {
+    expect(isChangeRequestTitle(title)).toBe(expected);
+  });
+
+  test('does not accept the approver’s comment on an issue that is not a change request', () => {
+    const result = evaluate({
+      changedFiles: ['.github/labels.yml'],
+      body: 'Part of #449',
+      register,
+      titlesByIssue,
+      commentsByIssue: { 449: [{ user: { login: APPROVER }, body: 'Approved' }] },
+    });
+    expect(result.ok).toBe(false);
+    expect(result.message).toMatch(/without one of those tags/);
+  });
+
+  test('does not accept a register approval when the issue title is unknown', () => {
+    const result = evaluate({
+      changedFiles: ['.github/issue-types.yml'],
+      body: 'Closes #3556',
+      register,
     });
     expect(result.ok).toBe(false);
   });

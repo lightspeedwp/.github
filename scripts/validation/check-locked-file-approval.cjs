@@ -6,7 +6,9 @@
  * A pull request that changes a LOCKED file may merge only after its change
  * request is approved. The PR body must link the change-request issue, and
  * that issue must either be recorded as `approved` in the spec 008
- * change-request register or carry an approval comment by the approver.
+ * change-request register or carry an approval comment by the approver. Only
+ * issues whose title carries a change-request tag count, so an approval given
+ * on any other issue (an epic, for example) cannot unlock a locked file.
  *
  * The workflow `.github/workflows/locked-files-guard.yml` runs this module
  * from the base branch, and reads the register from the base branch too, so
@@ -30,6 +32,9 @@ const LOCKED_PATTERNS = [
 
 /** The GitHub login whose approval counts (constitution: Approval Authority). */
 const APPROVER = 'ashleyshaw';
+
+/** Title tags that mark a change-request issue (constitution Principle II). */
+const CHANGE_REQUEST_TAG = /\[(?:LABEL|ISSUE-TYPE|TEMPLATE)-UPDATE-REQUEST\]/;
 
 /** Path of the spec 008 change-request register. */
 const REGISTER_PATH = '.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json';
@@ -63,6 +68,15 @@ function referencedIssues(body, repo = 'lightspeedwp/.github') {
     numbers.push(Number(match[1]));
   }
   return [...new Set(numbers)];
+}
+
+/**
+ * True when an issue title marks a change request.
+ * @param {string} title Issue title.
+ * @returns {boolean}
+ */
+function isChangeRequestTitle(title) {
+  return CHANGE_REQUEST_TAG.test(String(title || ''));
 }
 
 /**
@@ -101,9 +115,11 @@ function isApprovalComment(comment) {
  * @param {string} input.body Pull request body.
  * @param {object|null} input.register Change-request register from the base branch.
  * @param {Record<number, Array<object>>} [input.commentsByIssue] Comments on each referenced issue.
+ * @param {Record<number, string>} [input.titlesByIssue] Title of each referenced issue; an issue
+ *   with no known title is not treated as a change request.
  * @returns {{locked: string[], issues: number[], approvedBy: Record<number, string>, ok: boolean, message: string}}
  */
-function evaluate({ changedFiles, body, register, commentsByIssue = {} }) {
+function evaluate({ changedFiles, body, register, commentsByIssue = {}, titlesByIssue = {} }) {
   const locked = changedFiles.filter(isLocked);
   const issues = referencedIssues(body);
   if (locked.length === 0) {
@@ -113,6 +129,9 @@ function evaluate({ changedFiles, body, register, commentsByIssue = {} }) {
   const approved = approvedInRegister(register);
   const approvedBy = {};
   for (const issue of issues) {
+    if (!isChangeRequestTitle(titlesByIssue[issue])) {
+      continue;
+    }
     if (approved.has(issue)) {
       approvedBy[issue] = 'change-request register';
     } else if ((commentsByIssue[issue] || []).some(isApprovalComment)) {
@@ -128,17 +147,20 @@ function evaluate({ changedFiles, body, register, commentsByIssue = {} }) {
         .join(', ')}.`
     : `Locked files changed (${list}), but no linked change request is approved. ` +
       `Link the [LABEL-UPDATE-REQUEST], [ISSUE-TYPE-UPDATE-REQUEST] or [TEMPLATE-UPDATE-REQUEST] issue ` +
-      `in the PR body, and get it approved by @${APPROVER} (constitution Principle II).`;
+      `in the PR body, and get it approved by @${APPROVER} (constitution Principle II). ` +
+      `Approvals on issues without one of those tags in the title do not count.`;
   return { locked, issues, approvedBy, ok, message };
 }
 
 module.exports = {
   APPROVER,
+  CHANGE_REQUEST_TAG,
   LOCKED_PATTERNS,
   REGISTER_PATH,
   approvedInRegister,
   evaluate,
   isApprovalComment,
+  isChangeRequestTitle,
   isLocked,
   referencedIssues,
 };
