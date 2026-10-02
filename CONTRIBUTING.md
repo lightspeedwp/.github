@@ -47,6 +47,8 @@ Both are needed. Setting only `SEMGREP_SETTINGS_FILE` still leaves `.semgrep/sem
 
 ---
 
+### Quick start flowchart
+
 ```mermaid
 flowchart TD
   accTitle: 🚀 Quick Start (TL;DR)
