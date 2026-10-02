@@ -68,19 +68,22 @@
     "hooks:check": "node scripts/check-git-hooks.mjs",
     "pretest": "node scripts/check-git-hooks.mjs",
     "check": "npm run lint:all && npm run test",
-    "lint:baseline": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern --format stylish > .github/reports/linting/eslint-baseline.txt || true",
-    "lint:baseline:json": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline.json || true",
-    "lint:baseline:post-wave-1": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline-post-wave-1.json || true",
+    "lint:baseline": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx,cjs,mjs}\" --no-error-on-unmatched-pattern --format stylish > .github/reports/linting/eslint-baseline.txt || true",
+    "lint:baseline:json": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx,cjs,mjs}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline.json || true",
+    "lint:baseline:post-wave-1": "mkdir -p .github/reports/linting && eslint \"**/*.{js,jsx,ts,tsx,cjs,mjs}\" --no-error-on-unmatched-pattern -f json -o .github/reports/linting/eslint-baseline-post-wave-1.json || true",
     "lint:pkg-json": "npmPkgJsonLint --configFile .npmpackagejsonlint.config.cjs .",
     "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.config.cjs",
     "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.cjs",
     "lint:json": "node scripts/validation/validate-json.js --validate-only --strict --read-only",
     "lint": "npm run lint:js && npm run lint:yaml && npm run lint:pkg-json",
     "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json",
-    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --fix",
+    "lint:js:ci": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --quiet",
+    "lint:baseline:write": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --suppress-all",
+    "lint:baseline:prune": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --prune-suppressions",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
-    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
+    "format:js": "prettier '**/*.{js,jsx,ts,tsx,cjs,mjs}' --write && eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --fix --format",
     "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
     "format:json": "prettier '**/*.json' --write '!package-lock.json' '!**/node_modules/**'",
     "format:json:schemas": "node scripts/validation/validate-json.js --glob '.schemas/**/*.json' --format-only",
@@ -207,7 +210,7 @@
     "minimatch": "^10.2.6"
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
+    "*.{js,jsx,ts,tsx,cjs,mjs}": [
       "eslint --fix",
       "prettier --write"
     ],

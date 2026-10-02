@@ -1,0 +1,237 @@
+{
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/bindVariablesToComponent.js": {
+    "no-undef": {
+      "count": 5
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/cleanupOrphans.js": {
+    "no-undef": {
+      "count": 11
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/createComponentWithVariants.js": {
+    "no-undef": {
+      "count": 3
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/createDocumentationPage.js": {
+    "no-undef": {
+      "count": 12
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/createSemanticTokens.js": {
+    "no-undef": {
+      "count": 1
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/createVariableCollection.js": {
+    "no-undef": {
+      "count": 1
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/inspectFileStructure.js": {
+    "no-undef": {
+      "count": 10
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/rehydrateState.js": {
+    "no-undef": {
+      "count": 8
+    }
+  },
+  "agents/ai-readiness-agent/skills/figma/figma-generate-library/scripts/validateCreation.js": {
+    "no-undef": {
+      "count": 1
+    }
+  },
+  "agents/changelog-agent/changelog-validator.js": {
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "agents/changelog-agent/includes/auditReportBuilder.cjs": {
+    "no-useless-assignment": {
+      "count": 1
+    }
+  },
+  "agents/changelog-agent/includes/utils.cjs": {
+    "preserve-caught-error": {
+      "count": 2
+    }
+  },
+  "agents/release-agent/includes/gitOps.cjs": {
+    "preserve-caught-error": {
+      "count": 2
+    }
+  },
+  "agents/release-agent/includes/githubOps.cjs": {
+    "preserve-caught-error": {
+      "count": 2
+    }
+  },
+  "agents/wordpress-release-utilities-agent/includes/pluginHeader.cjs": {
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "agents/wordpress-release-utilities-agent/includes/readmeTxt.cjs": {
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "agents/wordpress-release-utilities-agent/includes/themeCss.cjs": {
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/bindVariablesToComponent.js": {
+    "no-undef": {
+      "count": 5
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/cleanupOrphans.js": {
+    "no-undef": {
+      "count": 11
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/createComponentWithVariants.js": {
+    "no-undef": {
+      "count": 3
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/createDocumentationPage.js": {
+    "no-undef": {
+      "count": 12
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/createSemanticTokens.js": {
+    "no-undef": {
+      "count": 1
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/createVariableCollection.js": {
+    "no-undef": {
+      "count": 1
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/inspectFileStructure.js": {
+    "no-undef": {
+      "count": 10
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/rehydrateState.js": {
+    "no-undef": {
+      "count": 8
+    }
+  },
+  "plugins/figma/figma-generate-library/scripts/validateCreation.js": {
+    "no-undef": {
+      "count": 1
+    }
+  },
+  "scripts/bump-file-version.cjs": {
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "scripts/create-release-pr.cjs": {
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "scripts/validation/changelog-rules.cjs": {
+    "no-useless-escape": {
+      "count": 4
+    }
+  },
+  "scripts/validation/lint-md-changed.cjs": {
+    "no-control-regex": {
+      "count": 4
+    }
+  },
+  "scripts/validation/validate-pr-template-structure.cjs": {
+    "no-useless-escape": {
+      "count": 2
+    }
+  },
+  "scripts/workflows/metrics/notify-metrics-alert.cjs": {
+    "no-useless-assignment": {
+      "count": 1
+    }
+  },
+  "scripts/workflows/projects/__tests__/archive-projects.test.cjs": {
+    "no-useless-assignment": {
+      "count": 1
+    }
+  },
+  "scripts/workflows/release/build-notes-preview.cjs": {
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "scripts/workflows/release/run-release-with-gates.cjs": {
+    "no-undef": {
+      "count": 1
+    }
+  },
+  "skills/design-md-agent/wordpress-theme-validation/scripts/inventory_theme_surfaces.mjs": {
+    "no-useless-assignment": {
+      "count": 1
+    }
+  },
+  "skills/document-skills/pptx/scripts/html2pptx.js": {
+    "no-undef": {
+      "count": 3
+    },
+    "no-useless-escape": {
+      "count": 2
+    },
+    "preserve-caught-error": {
+      "count": 1
+    }
+  },
+  "skills/pr-dashboard/scripts/pr-dashboard-cli.mjs": {
+    "no-empty": {
+      "count": 4
+    },
+    "no-useless-assignment": {
+      "count": 1
+    },
+    "preserve-caught-error": {
+      "count": 2
+    }
+  },
+  "skills/webmcpify/templates/webmcp-jsx.d.ts": {
+    "@typescript-eslint/no-unused-vars": {
+      "count": 5
+    }
+  },
+  "skills/webmcpify/templates/webmcp.d.ts": {
+    "no-undef": {
+      "count": 5
+    }
+  },
+  "skills/webmcpify/templates/webmcp.spec.ts": {
+    "@typescript-eslint/no-explicit-any": {
+      "count": 10
+    },
+    "no-undef": {
+      "count": 6
+    }
+  },
+  "skills/webmcpify/templates/webmcpify.js": {
+    "no-undef": {
+      "count": 3
+    }
+  },
+  "skills/webmcpify/templates/webmcpify.ts": {
+    "no-undef": {
+      "count": 14
+    }
+  },
+  "skills/wordpress-theme-validation/scripts/inventory_theme_surfaces.mjs": {
+    "no-useless-assignment": {
+      "count": 1
+    }
+  }
+}
