@@ -489,7 +489,7 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 
 **Audit is COMPLETE when**:
 
-✅ All 106 tasks in phases 1-8 are completed  
+✅ All 110 tasks in phases 1-9 are completed  
 ✅ Phase 2 (Foundational) complete - BLOCKS all story work (done)  
 ✅ User Story 1 (P1) complete - Reconciliation report with all inconsistencies identified  
 ✅ User Story 2 (P2) complete - Duplicates analysis and consolidation strategy  
@@ -571,10 +571,10 @@ The active labelling agent removes labels outside `labels.yml` today, so this ru
 
 ---
 
-**Total Tasks**: 106 | **Phases**: 8 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
+**Total Tasks**: 110 | **Phases**: 9 | **User Stories**: 4 (P1, P2, P3, P1) | **Parallel Opportunities**: High (within phases, across stories)
 
 **MVP Completion**: Phases 1-3 (Setup + Foundational + US1) ≈ 50% of tasks
-**Full Completion**: All 8 phases ≈ 100% of tasks (Phase 8, User Story 4, is 66 of the 106)
+**Full Completion**: All 9 phases ≈ 100% of tasks (Phase 8, User Story 4, is 66 of the 110; Phase 9, Convergence, is 4)
 
 **Next Step**: Run first task in Phase 1 (T001 - Create output directory). Report progress checkpoint after Phase 2 completion (all data extracted and verified).
 

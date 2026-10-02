@@ -42,12 +42,12 @@ describe('Label consolidation post-merge task plan', () => {
     );
     const phase8Count = [...phase8.matchAll(/^- \[[ xX]\] T\d{3}[a-z]?\b/gm)].length;
 
-    expect(taskRows).toHaveLength(106);
+    expect(taskRows).toHaveLength(110);
     expect(new Set(taskRows.map(({ id }) => id)).size).toBe(taskRows.length);
     expect(taskRows.filter(({ done }) => done)).toHaveLength(55);
     expect(phase8Count).toBe(66);
     expect(tasks).toContain(`**Total Tasks**: ${taskRows.length}`);
-    expect(tasks).toContain(`All ${taskRows.length} tasks in phases 1-8`);
+    expect(tasks).toContain(`All ${taskRows.length} tasks in phases 1-9`);
     expect(tasks).toContain(`Phase 8, User Story 4, is ${phase8Count} of the ${taskRows.length}`);
   });
 
