@@ -42,7 +42,7 @@ describe('StructureChecker', () => {
       fs.mkdirSync(path.join(testAgentPath, 'tests'), { recursive: true });
       fs.mkdirSync(path.join(testAgentPath, 'config'), { recursive: true });
       fs.writeFileSync(
-        path.join(testAgentPath, 'AGENT.md'),
+        path.join(testAgentPath, 'AGENTS.md'),
         '# Conformant Agent\n\n' +
           'Description: a fixture agent used to verify StructureChecker reports zero issues for a fully complete agent folder.\n\n' +
           'Capabilities: exercises every required file and directory.\n\n' +
@@ -80,6 +80,82 @@ describe('StructureChecker', () => {
 
       // Cleanup
       fs.rmSync(testAgentPath, { recursive: true });
+    });
+
+    describe('agent instructions file (#3464)', () => {
+      const agentPath = path.join(testFixturesDir, 'instructions-agent');
+
+      /**
+       * Builds a complete agent folder whose instructions file is `instructionsFile`, or
+       * has none when it is null.
+       * @param {string | null} instructionsFile - AGENTS.md, AGENT.md or null
+       * @returns {object} The checker result
+       */
+      function check(instructionsFile) {
+        fs.mkdirSync(path.join(agentPath, 'skills'), { recursive: true });
+        fs.mkdirSync(path.join(agentPath, 'tests'), { recursive: true });
+        fs.mkdirSync(path.join(agentPath, 'config'), { recursive: true });
+        if (instructionsFile) {
+          fs.writeFileSync(path.join(agentPath, instructionsFile), '# Agent\n');
+        }
+        fs.writeFileSync(
+          path.join(agentPath, 'CHANGELOG.md'),
+          '# Changelog\n\n## [1.0.0]\n\n### Added\n\n- Initial release of the instructions-agent test fixture used by structure-validation.test.js'
+        );
+        fs.writeFileSync(
+          path.join(agentPath, 'package.json'),
+          JSON.stringify({
+            name: '@lightspeedwp/instructions-agent',
+            version: '1.0.0',
+            description: 'Fixture',
+            type: 'module',
+            main: 'index.js',
+            license: ORG_LICENSE,
+            scripts: { test: 'jest', lint: 'eslint' },
+            engines: { node: '>=18.0.0' },
+          })
+        );
+        fs.writeFileSync(path.join(agentPath, 'index.js'), 'export default {};');
+        fs.writeFileSync(path.join(agentPath, 'README.md'), '# README');
+        fs.writeFileSync(path.join(agentPath, 'config', 'default.json'), '{}');
+        fs.writeFileSync(path.join(agentPath, 'config', '.env.example'), '# env');
+        return new StructureChecker({ rootDir: ORG_ROOT }).checkAgent(agentPath);
+      }
+
+      afterEach(() => {
+        fs.rmSync(agentPath, { recursive: true, force: true });
+      });
+
+      it('accepts AGENTS.md without a warning, whatever it contains', () => {
+        const result = check('AGENTS.md');
+
+        expect(result.conformant).toBe(true);
+        expect(result.present).toContain('AGENTS.md');
+        expect(result.issues.filter((issue) => /^AGENTS?\.md$/.test(issue.component))).toEqual([]);
+      });
+
+      it('accepts the legacy AGENT.md but warns that it is retired', () => {
+        const result = check('AGENT.md');
+
+        expect(result.conformant).toBe(true);
+        expect(result.missing).toEqual([]);
+        expect(result.issues).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              component: 'AGENT.md',
+              severity: 'warning',
+              message: expect.stringContaining('AGENTS.md'),
+            }),
+          ])
+        );
+      });
+
+      it('reports AGENTS.md as the missing component when neither file exists', () => {
+        const result = check(null);
+
+        expect(result.conformant).toBe(false);
+        expect(result.missing.map((m) => m.component)).toEqual(['AGENTS.md']);
+      });
     });
 
     it('should identify non-conformant agent with missing components', () => {

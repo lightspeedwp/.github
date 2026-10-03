@@ -79,8 +79,8 @@ function generateRemediationRecommendations(auditReport) {
           reference: `See .github/docs/AGENT_FOLDER_STRUCTURE.md for template and requirements`,
         };
 
-        if (missing.component === 'AGENT.md') {
-          step.template = '.github/templates/agent-structure-template/AGENT.md';
+        if (missing.component === 'AGENTS.md') {
+          step.template = '.github/templates/agent-structure-template/AGENTS.md';
         } else if (missing.component === 'CHANGELOG.md') {
           step.template = '.github/templates/agent-structure-template/CHANGELOG.md';
           step.reference = `.github/docs/CHANGELOG_FORMAT.md`;

@@ -17,7 +17,32 @@ class SkillsRegistryValidator {
           return `${location} ${error.message}`;
         });
 
-    return { valid: Boolean(valid), errors };
+    // The data model requires a unique skill identifier. A schema cannot say
+    // that, so repeated ids are rejected here: an id that names several skills
+    // makes the registry ambiguous.
+    errors.push(...this.duplicateIdErrors(document));
+
+    return { valid: Boolean(valid) && errors.length === 0, errors };
+  }
+
+  /**
+   * Errors for skill ids that appear more than once in a registry document.
+   * @param {{ skills?: { id?: string, location?: string }[] }} document
+   * @returns {string[]}
+   */
+  duplicateIdErrors(document) {
+    if (!document || !Array.isArray(document.skills)) return [];
+
+    const locations = new Map();
+    for (const skill of document.skills) {
+      if (!skill || typeof skill.id !== 'string') continue;
+      if (!locations.has(skill.id)) locations.set(skill.id, []);
+      locations.get(skill.id).push(skill.location ?? 'unknown');
+    }
+
+    return [...locations.entries()]
+      .filter(([, where]) => where.length > 1)
+      .map(([id, where]) => `/skills duplicate skill id "${id}" (${where.join(', ')})`);
   }
 
   validateRegistries(registry, categoryRegistries) {

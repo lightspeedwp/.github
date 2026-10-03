@@ -14,18 +14,21 @@ script, workflow or other script invokes it, so nothing here blocks a merge. See
 
 ## Folder Structure Template
 
-Every agent MUST conform to this folder structure:
+An org-wide agent is defined by one root `agents/{agent-name}.agent.md` file whose frontmatter
+carries `name` and `description` (plus optional `tools` and `model`); Copilot and Claude Code both
+read that format. The agent's folder holds its working instructions, tests, skills and
+configuration, laid out like this ([#3464](https://github.com/lightspeedwp/.github/issues/3464)
+adopted the open `AGENTS.md` format in place of the bespoke `AGENT.md`):
 
 ```
 agents/{agent-name}/
-├── AGENT.md                 # (1) Agent definition and metadata
+├── AGENTS.md                # (1) Working instructions (legacy name AGENT.md still accepted)
 ├── CHANGELOG.md             # (2) Version history and changes
 ├── package.json             # (3) Dependencies and scripts
 ├── README.md                # (4) Documentation and usage
 ├── skills/                  # (5) Agent-specific skills
 │   └── {skill-name}/
-├── tests/                   # (6) Unit and integration tests
-│   └── {test-name}.test.js
+├── tests/                   # (6) Unit and integration tests│   └── {test-name}.test.js
 └── config/                  # (7) Configuration files
     ├── default.json
     ├── .env.example
@@ -36,26 +39,20 @@ agents/{agent-name}/
 
 ## Component Requirements
 
-### 1. AGENT.md (Agent Definition)
+### 1. AGENTS.md (Working Instructions)
 
-**Purpose**: Primary metadata and description of the agent
+**Purpose**: What an AI coding agent or contributor needs to work in this agent's folder, in the
+open [AGENTS.md](https://agents.md/) format. The nearest `AGENTS.md` to a file applies. It is not
+the agent's definition; that is the root `agents/{agent-name}.agent.md`.
 
-**Required sections**:
+**Content**: free-form Markdown. Typical content is an overview, setup and test commands,
+conventions, and what must not be touched. The format sets no required sections.
 
-- Type (Agent)
-- Version (semver)
-- Status (Active/Deprecated/Experimental)
-- Description (brief summary)
-- Capabilities (bulleted list)
-- Skills (dependencies)
-- Configuration reference
-- Usage examples (as action and/or module)
-- Testing instructions
-- Support/contact info
+**Legacy**: `AGENT.md` is the retired name. `StructureChecker` still accepts it, with a warning, so
+an agent folder can be migrated by renaming the file. The old `AGENT.md` section recommendations
+(Description, Capabilities, Skills) are still checked, as warnings, for that legacy name only.
 
-**Size**: 50-200 lines typically
-
-**Template**: See [agent-structure-template/AGENT.md](../templates/agent-structure-template/AGENT.md)
+**Template**: See [agent-structure-template/AGENTS.md](../templates/agent-structure-template/AGENTS.md)
 
 ---
 
@@ -131,20 +128,21 @@ agents/{agent-name}/
 ```
 skills/
 ├── skill-one/
-│   ├── index.js
-│   ├── package.json
-│   ├── README.md
-│   └── tests/
+│   ├── SKILL.md          # required entry point
+│   ├── scripts/          # optional
+│   ├── references/       # optional
+│   └── assets/           # optional
 ├── skill-two/
-│   ├── index.js
-│   └── ...
+│   └── SKILL.md
 ```
 
-**Requirements**:
+**Requirements** (the [Agent Skills specification](https://agentskills.io/specification), adopted by
+[#3464](https://github.com/lightspeedwp/.github/issues/3464)):
 
-- Each skill is a subdirectory with its own `package.json`
-- Skills are agent-private unless moved to root `skills/` folder
-- Each skill has at least `index.js` and `package.json`
+- Each skill is a subdirectory whose name equals the skill's `name`
+- `SKILL.md` is the required entry point, with `name` and `description` frontmatter
+- `scripts/`, `references/` and `assets/` are optional; a skill needs no `index.js` or `package.json`
+- Skills are agent-private unless moved to the root `skills/` folder
 - No circular dependencies between skills
 
 **Can be empty** if agent uses only root-level shared skills
@@ -219,8 +217,8 @@ not use `StructureChecker`.
 
 `StructureChecker` reports an `error` for these:
 
-1. ✅ The 7 required components exist with the correct type: `AGENT.md`, `CHANGELOG.md`,
-   `package.json` and `README.md` as files, and `skills/`, `tests/` and `config/` as
+1. ✅ The 7 required components exist with the correct type: `AGENTS.md` (or the legacy
+   `AGENT.md`, which warns), `CHANGELOG.md`, `package.json` and `README.md` as files, and `skills/`, `tests/` and `config/` as
    directories. A directory is accepted whether or not it is empty.
 2. ✅ `CHANGELOG.md` is readable (an unreadable file is an error).
 3. ✅ `package.json` is present, parses, and its required fields are set
@@ -243,7 +241,7 @@ Reported as a `warning`, so they do not fail the run:
 **Not implemented.** Nothing in the validator checks any of the following, so
 they are conventions rather than validated rules:
 
-- `AGENT.md` Markdown validity or required sections.
+- `AGENTS.md` Markdown validity (the format sets no required sections).
 - `README.md` table of contents or usage examples.
 - That `tests/` contains at least one test file, or that the file is named
   `{agent-name}.test.js`.
@@ -277,7 +275,7 @@ does not prove the agent meets the conventions above.
 
 **Why 7 components?**
 
-- **AGENT.md**: Single source of truth for agent metadata
+- **AGENTS.md**: Working instructions for tools and contributors (the agent itself is defined by the root `agents/{agent-name}.agent.md`)
 - **CHANGELOG.md**: Track version history (required for CI/release automation)
 - **package.json**: Dependency management and npm scripts
 - **README.md**: User-facing documentation (discoverable)
@@ -288,7 +286,7 @@ does not prove the agent meets the conventions above.
 This structure balances:
 
 - ✅ Consistency across 50+ agents
-- ✅ Discoverability (README, AGENT.md in standard locations)
+- ✅ Discoverability (README, AGENTS.md in standard locations)
 - ✅ Automation (registry generation, CI validation)
 - ✅ Maintainability (clear expectations)
 - ✅ Flexibility (config, skill isolation)

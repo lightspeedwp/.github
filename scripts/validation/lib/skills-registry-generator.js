@@ -6,6 +6,11 @@
 
 import fs from 'fs';
 import path from 'path';
+import {
+  collectSkillDirectories,
+  findSkillDefinition,
+  hasSkillDefinition,
+} from './skill-directories.js';
 
 class SkillsRegistryGenerator {
   constructor(options = {}) {
@@ -171,76 +176,22 @@ class SkillsRegistryGenerator {
    * Select the entrypoint or metadata file that defines a directory-based skill.
    */
   findSkillDefinition(skillDirectory) {
-    const entries = fs.readdirSync(skillDirectory, { withFileTypes: true });
-    const files = entries.filter((entry) => entry.isFile() && !entry.name.startsWith('.'));
-    const preferredNames = ['SKILL.md', 'metadata.yml', 'metadata.yaml', 'index.md'];
-
-    for (const preferredName of preferredNames) {
-      const match = files.find((entry) => entry.name === preferredName);
-      if (match) return path.join(skillDirectory, match.name);
-    }
-
-    return files.length > 0 ? path.join(skillDirectory, files[0].name) : null;
+    return findSkillDefinition(skillDirectory);
   }
 
   /**
    * Whether a directory is itself a skill (i.e. carries a skill definition).
    */
   hasSkillDefinition(skillDirectory) {
-    return this.findSkillDefinition(skillDirectory) !== null;
+    return hasSkillDefinition(skillDirectory);
   }
 
   /**
-   * List the skill directories nested one level inside a grouping directory,
-   * such as `skills/plugin-provided/<skill>/`.
-   */
-  findSkillDefinitionDirectories(groupDirectory) {
-    return this.collectSkillDirectories(groupDirectory, []).map((entry) => ({
-      directory: entry.directory,
-    }));
-  }
-
-  /**
-   * Recursively collect skill directories beneath a grouping directory.
-   *
-   * Grouping depth varies across agents (some nest by provider beneath a
-   * category), so the walk continues until directories that carry a skill
-   * definition are found. The outermost grouping segment becomes the category
-   * and the discovered directory's own name becomes the skill name, matching
-   * the Agent Skills requirement that `name` equal the parent directory.
-   * Deeper segments are treated as provider groupings, not categories.
+   * Recursively collect skill directories beneath a grouping directory (see
+   * `skill-directories.js`, shared with the Phase 5 catalog).
    */
   collectSkillDirectories(directory, groupSegments, depth = 0) {
-    if (depth > 5) return [];
-
-    if (this.hasSkillDefinition(directory)) {
-      const category = groupSegments[0] || 'uncategorised';
-      return [{ directory, category, name: path.basename(directory) }];
-    }
-
-    let entries;
-    try {
-      entries = fs.readdirSync(directory, { withFileTypes: true });
-    } catch {
-      return [];
-    }
-
-    const collected = [];
-    for (const entry of entries) {
-      if (!entry.isDirectory() || entry.name.startsWith('.')) continue;
-      const childPath = path.join(directory, entry.name);
-
-      // A directory that is itself a skill is discovered here rather than
-      // deeper, so seed the segments with this grouping directory's own name.
-      // Without this the category would be the skill name itself.
-      const childSegments = this.hasSkillDefinition(childPath)
-        ? [path.basename(directory), entry.name]
-        : [...groupSegments, entry.name];
-
-      collected.push(...this.collectSkillDirectories(childPath, childSegments, depth + 1));
-    }
-
-    return collected;
+    return collectSkillDirectories(directory, groupSegments, depth);
   }
 
   /**
@@ -249,7 +200,10 @@ class SkillsRegistryGenerator {
   scanAllSkills() {
     const skills = [];
 
-    // Scan root skills/
+    // Scan root skills/. An entry is a bare skill directory
+    // (skills/<skill>/SKILL.md) or a grouping directory holding skills, so the
+    // directory-aware collector is used and the skill name is the directory's
+    // name, never the entry file's.
     if (fs.existsSync(this.skillsDir)) {
       const entries = fs.readdirSync(this.skillsDir, { withFileTypes: true });
 
@@ -258,15 +212,20 @@ class SkillsRegistryGenerator {
         // generateCategoryRegistries below) - scanning it as a skill category
         // would re-ingest the previous run's generated registry files.
         if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'by-category') {
-          const categoryPath = path.join(this.skillsDir, entry.name);
-          const files = fs.readdirSync(categoryPath);
-
-          for (const file of files) {
-            if (fs.statSync(path.join(categoryPath, file)).isFile()) {
-              const skillPath = path.join(categoryPath, file);
-              const metadata = this.extractSkillMetadata(skillPath, entry.name);
-              if (metadata) skills.push(metadata);
-            }
+          for (const found of this.collectSkillDirectories(
+            path.join(this.skillsDir, entry.name),
+            []
+          )) {
+            const definitionPath = this.findSkillDefinition(found.directory);
+            if (!definitionPath) continue;
+            const metadata = this.extractSkillMetadata(
+              definitionPath,
+              found.category,
+              found.name,
+              'root',
+              found.directory
+            );
+            if (metadata) skills.push(metadata);
           }
         }
       }

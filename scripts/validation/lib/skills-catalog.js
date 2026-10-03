@@ -7,6 +7,7 @@
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { collectSkillDirectories, findSkillDefinition } from './skill-directories.js';
 
 class SkillsCatalog {
   constructor(options = {}) {
@@ -29,10 +30,15 @@ class SkillsCatalog {
   }
 
   /**
-   * Scan a single skill file
+   * Scan a single skill file.
+   * @param {string} skillPath - The skill's file
+   * @param {string} category - Catalogue category
+   * @param {string | null} [logicalName] - The skill's name when it is not the
+   *   file's own, which is the case for a directory-based skill whose entry
+   *   file is `SKILL.md` and whose name is the directory
    */
-  scanSkill(skillPath, category) {
-    const skillName = path.basename(skillPath, path.extname(skillPath));
+  scanSkill(skillPath, category, logicalName = null) {
+    const skillName = logicalName || path.basename(skillPath, path.extname(skillPath));
     const ext = path.extname(skillPath);
 
     const skill = {
@@ -146,19 +152,15 @@ class SkillsCatalog {
           const skill = this.scanSkill(skillPath, `agent:${path.basename(agentDir)}`);
           agentSkills.push(skill);
         } else if (skillEntry.isDirectory() && !skillEntry.name.startsWith('.')) {
-          // Skill subdirectories (agents/{agent}/skills/{skill}/): catalog
-          // the directory's defined source or metadata file.
-          const subFiles = fs.readdirSync(skillPath);
-          const entry =
-            ['SKILL.md', 'metadata.yml', 'metadata.yaml', 'index.md'].find((name) =>
-              subFiles.includes(name)
-            ) || subFiles.find((name) => fs.statSync(path.join(skillPath, name)).isFile());
-          if (entry) {
-            const skill = this.scanSkill(
-              path.join(skillPath, entry),
-              `agent:${path.basename(agentDir)}`
+          // Skill subdirectories (agents/{agent}/skills/{skill}/), possibly
+          // nested by grouping or provider: catalog each skill directory's
+          // definition file under the directory's own name.
+          for (const found of collectSkillDirectories(skillPath, [])) {
+            const definition = findSkillDefinition(found.directory);
+            if (!definition) continue;
+            agentSkills.push(
+              this.scanSkill(definition, `agent:${path.basename(agentDir)}`, found.name)
             );
-            agentSkills.push(skill);
           }
         }
       }
@@ -185,16 +187,13 @@ class SkillsCatalog {
       // directory (see phase-6-skills-registry.js) - scanning it here would
       // catalog Phase 6's generated registry files as if they were skills.
       if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'by-category') {
-        const categoryPath = path.join(this.skillsDir, entry.name);
-        const skillFiles = fs.readdirSync(categoryPath);
-
-        for (const skillFile of skillFiles) {
-          const skillPath = path.join(categoryPath, skillFile);
-
-          if (fs.statSync(skillPath).isFile()) {
-            const skill = this.scanSkill(skillPath, entry.name);
-            rootSkills.push(skill);
-          }
+        // `skills/<skill>/SKILL.md` is the repository's layout: the skill's
+        // name is its directory, not the entry file. A grouping directory
+        // holding skills is descended until skill directories are found.
+        for (const found of collectSkillDirectories(path.join(this.skillsDir, entry.name), [])) {
+          const definition = findSkillDefinition(found.directory);
+          if (!definition) continue;
+          rootSkills.push(this.scanSkill(definition, found.category, found.name));
         }
       }
     }

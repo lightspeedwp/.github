@@ -127,6 +127,7 @@
     "audit:structure": "node scripts/validation/audit-agents.js structure",
     "audit:dedup": "node scripts/validation/audit-agents.js dedup",
     "audit:registry": "node scripts/validation/audit-agents.js registry",
+    "audit:skills-registry": "node scripts/validation/phase-6-skills-registry.js",
     "audit:compliance": "node scripts/validation/audit-agents.js compliance",
     "audit:all": "npm run audit:agents",
     "analyze:performance": "node scripts/analyze-workflow-performance.js",

@@ -15,7 +15,15 @@ import { NON_AGENT_DIRS } from './package-conventions.js';
  * Required components for agent structure (7-item template)
  */
 const REQUIRED_COMPONENTS = {
-  'AGENT.md': { type: 'file', description: 'Agent definition' },
+  // Issue #3464 adopts the open AGENTS.md format for an agent's working
+  // instructions and retires the bespoke AGENT.md. The legacy name is still
+  // accepted, with a warning, until each agent folder has been migrated. The
+  // org-wide Copilot definition is a separate root `agents/<name>.agent.md`.
+  'AGENTS.md': {
+    type: 'file',
+    description: 'Agent working instructions',
+    legacyNames: ['AGENT.md'],
+  },
   'CHANGELOG.md': { type: 'file', description: 'Version history' },
   'package.json': { type: 'file', description: 'Dependencies and scripts' },
   'README.md': { type: 'file', description: 'Documentation' },
@@ -47,7 +55,12 @@ class StructureChecker {
 
     // Check each required component
     for (const [component, info] of Object.entries(REQUIRED_COMPONENTS)) {
-      const componentPath = path.join(agentPath, component);
+      let componentPath = path.join(agentPath, component);
+      let legacyName = null;
+      if (!fs.existsSync(componentPath) && info.legacyNames) {
+        legacyName = info.legacyNames.find((name) => fs.existsSync(path.join(agentPath, name)));
+        if (legacyName) componentPath = path.join(agentPath, legacyName);
+      }
       const pathExists = fs.existsSync(componentPath);
       const exists =
         pathExists &&
@@ -74,8 +87,15 @@ class StructureChecker {
         } else if (component === 'CHANGELOG.md') {
           const validation = this.validateChangelog(componentPath);
           issues.push(...validation.issues);
-        } else if (component === 'AGENT.md') {
-          const validation = this.validateAgentMd(componentPath);
+        } else if (component === 'AGENTS.md') {
+          if (legacyName) {
+            issues.push({
+              component: legacyName,
+              severity: 'warning',
+              message: `${legacyName} is the legacy name; #3464 adopts AGENTS.md. Rename it when this agent is migrated`,
+            });
+          }
+          const validation = this.validateAgentMd(componentPath, legacyName !== null);
           issues.push(...validation.issues);
         } else if (component === 'config') {
           const validation = this.validateConfigDir(componentPath);
@@ -160,35 +180,43 @@ class StructureChecker {
   }
 
   /**
-   * Validate AGENT.md format
+   * Validate an agent's instructions file.
+   *
+   * AGENTS.md is free-form, so only the legacy AGENT.md is checked for the
+   * sections its old template recommended.
+   * @param {string} agentMdPath - Path of AGENTS.md, or of the legacy AGENT.md
+   * @param {boolean} [legacy] - Whether the file is the legacy AGENT.md
    */
-  validateAgentMd(agentMdPath) {
+  validateAgentMd(agentMdPath, legacy = false) {
     const issues = [];
+    const name = path.basename(agentMdPath);
 
     try {
       const content = fs.readFileSync(agentMdPath, 'utf-8');
 
-      if (content.length < 200) {
-        issues.push({
-          component: 'AGENT.md',
-          severity: 'warning',
-          message: 'AGENT.md appears incomplete (<200 chars)',
-        });
-      }
-
-      const requiredSections = ['Description', 'Capabilities', 'Skills'];
-      for (const section of requiredSections) {
-        if (!content.includes(section)) {
+      if (legacy) {
+        if (content.length < 200) {
           issues.push({
-            component: 'AGENT.md',
+            component: name,
             severity: 'warning',
-            message: `Missing recommended section: ${section}`,
+            message: `${name} appears incomplete (<200 chars)`,
           });
+        }
+
+        const requiredSections = ['Description', 'Capabilities', 'Skills'];
+        for (const section of requiredSections) {
+          if (!content.includes(section)) {
+            issues.push({
+              component: name,
+              severity: 'warning',
+              message: `Missing recommended section: ${section}`,
+            });
+          }
         }
       }
     } catch (error) {
       issues.push({
-        component: 'AGENT.md',
+        component: name,
         severity: 'error',
         message: `Cannot read: ${error.message}`,
       });

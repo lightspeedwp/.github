@@ -78,6 +78,23 @@ describe('SkillsRegistryValidator', () => {
     expect(result.categories['test-category'].valid).toBe(true);
   });
 
+  it('rejects a registry in which one skill id names several skills', () => {
+    const validator = new SkillsRegistryValidator(schemaPath);
+    const duplicated = {
+      ...registry,
+      summary: { ...registry.summary, total: 2, byCategory: { 'test-category': 2 } },
+      skills: [skill, { ...skill, location: 'other-agent' }],
+    };
+
+    const result = validator.validateRegistries(duplicated, {});
+
+    expect(result.consolidated.valid).toBe(false);
+    expect(result.consolidated.errors).toEqual(
+      expect.arrayContaining([expect.stringContaining('duplicate skill id "test-skill"')])
+    );
+    expect(result.consolidated.errors.join(' ')).toContain('test-agent, other-agent');
+  });
+
   it('rejects skill ids that are not schema-legal', () => {
     const validator = new SkillsRegistryValidator(schemaPath);
     const invalidRegistry = {
