@@ -53,8 +53,8 @@ All three files are JSON Lines in `evidence/` (one JSON object per line, UTF-8, 
 ### `consolidation-log.jsonl` (GitHub, Stages 3 and 4)
 
 ```jsonl
-{"run_by":"ashleyshaw","at":"2026-10-01T00:00:01Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"intended"}
-{"run_by":"ashleyshaw","at":"2026-10-01T00:00:02Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"done"}
+{"run_by":"ashleyshaw","at":"2026-10-01T00:00:01Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":1234,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"intended"}
+{"run_by":"ashleyshaw","at":"2026-10-01T00:00:02Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":1234,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"done"}
 ```
 
 `action` is one of `rename`, `create`, `update`, `relabel`, `convert` (an issue converted to a Discussion) or `delete`; a `relabel` or `convert` record carries the item as `{ "kind": ..., "number": ... }` inside `before` and `after`, as in the data model, with no separate top-level `item` field: a `relabel` shows the same item in both, and a `convert` shows the source issue in `before.item` (for example `{ "kind": "issue", "number": 12 }`) and the resulting Discussion in `after.item` (`{ "kind": "discussion", "number": 3 }`). Each run also posts one summary comment on the gate issue, with counts per action and repository.

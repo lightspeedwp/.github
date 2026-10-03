@@ -241,7 +241,9 @@ describe('Run-safety documentation and log examples', () => {
     expect(entry.repository).toBe(dryRun.repository);
     expect(entry.before).toEqual({ name, color, description });
     expect(entry.after).toBeNull();
+    // A GitHub issue number is a positive integer, so the example must not use 0.
     expect(Number.isInteger(entry.gate_issue)).toBe(true);
+    expect(entry.gate_issue).toBeGreaterThan(0);
   });
 
   test('the Linear example identifies both sides of its mapping by ID and scope', () => {
@@ -415,8 +417,15 @@ describe('Run-safety documentation and log examples', () => {
   test('keeps the plan current with merged PRs, the lock complete, and settings out of the run logs', () => {
     const plan = read('plan.md');
     expect(section(model, '### 16. Run Lock')).toMatch(/\| `host` \| string \|/);
-    expect(task('T062b').text).toMatch(/`epoch` and `host`\)/);
-    expect(read('research.md')).toMatch(/an `epoch` and its `host`/);
+    expect(task('T062b').text).toMatch(
+      /`epoch`, `host` and `resumed_from`, which is null on a first start/
+    );
+    expect(read('research.md')).toMatch(
+      /an `epoch`, its `host` and, after a resume, `resumed_from`/
+    );
+    expect(task('T062c').text).toMatch(
+      /recording `resumed_from` \(the previous `epoch` and the takeover time\)/
+    );
     expect(read('research.md')).toMatch(/All three logs are JSON Lines/);
     expect(task('T071').text).not.toMatch(/linear-changes\.jsonl/);
     expect(task('T071').text).toMatch(/are not written to the run logs/);
