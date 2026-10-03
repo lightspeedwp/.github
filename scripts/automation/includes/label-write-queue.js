@@ -19,6 +19,7 @@ import { githubApiRequest } from './github-api-optimized.js';
 const DEFAULT_MIN_INTERVAL_MS = 1000;
 const DEFAULT_MAX_PAUSES = 3;
 const DEFAULT_PAUSE_MS = 60000;
+const WRITE_METHODS = new Set(['POST', 'PATCH', 'PUT', 'DELETE']);
 
 /**
  * A write was refused because of a rate or complexity limit.
@@ -202,12 +203,13 @@ export function githubWrite(
   options = {},
   request = githubApiRequest
 ) {
-  if (method === 'GET' || method === 'HEAD') {
-    throw new Error('githubWrite is for mutating requests only');
+  const verb = String(method).toUpperCase();
+  if (!WRITE_METHODS.has(verb)) {
+    throw new Error('githubWrite is for mutating requests only (POST, PATCH, PUT or DELETE)');
   }
   return queue.run(async () => {
     try {
-      return await request(method, path, body, { ...options, useCache: false });
+      return await request(verb, path, body, { ...options, useCache: false });
     } catch (error) {
       if (isGithubRateLimit(error)) {
         const retryAfterMs = error.headers ? rateLimitDelayMs(error.headers) : null;

@@ -29,9 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Label Write Queue** — Label consolidation writes now go through one queue that spaces them one second apart and pauses on GitHub or Linear rate limits, so a long run can stop and resume safely. (#3704)
-- **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
-- **Governance audit report ids are unique and self-consistent** — Fixed duplicate violation ids and recommendation references that no longer resolved, plus Spec 006 count and enforcement wording. (#3367)
-- **Governance audit reports now render in a stable order** — Fixed report output changing with the order findings arrived, so two runs of the same audit are comparable. (#3367)
 - **Weekly Label Drift Check** — A scheduled workflow compares every org repository and Linear label against labels.yml and updates one drift report issue; read-only, never writes labels. (#3754)
 - **Badge Links Stop Breaking On Spaces** — The generator percent-encodes labels, so a multi-word badge resolves instead of ending at the first space. A check reports the 76,594 broken ones, with a fix mode. (#3702)
 - **Badge Check Handles Titled and Nested Examples** — A badge carrying a quoted title is no longer reported or rewritten, and a badge inside a nested code fence is left alone. (#3702)

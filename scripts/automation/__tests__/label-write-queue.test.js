@@ -158,11 +158,26 @@ describe('label-write-queue', () => {
   });
 
   describe('githubWrite', () => {
-    test('refuses read requests', () => {
-      const queue = createWriteQueue();
-      expect(() => githubWrite(queue, 'GET', '/repos/o/r/labels')).toThrow(
-        'mutating requests only'
-      );
+    test.each(['GET', 'get', 'HEAD', 'OPTIONS', 'TRACE', 'FETCH', ''])(
+      'refuses %p, which is not a write verb',
+      (method) => {
+        const queue = createWriteQueue();
+        expect(() => githubWrite(queue, method, '/repos/o/r/labels')).toThrow(
+          'mutating requests only'
+        );
+      }
+    );
+
+    test('normalises a lower-case write verb', async () => {
+      const queue = createWriteQueue({ sleep: async () => {} });
+      const request = jest.fn().mockResolvedValue(null);
+
+      await githubWrite(queue, 'delete', '/repos/o/r/labels/old', null, { token: 'test' }, request);
+
+      expect(request).toHaveBeenCalledWith('DELETE', '/repos/o/r/labels/old', null, {
+        token: 'test',
+        useCache: false,
+      });
     });
 
     test('sends the write uncached through the queue', async () => {
