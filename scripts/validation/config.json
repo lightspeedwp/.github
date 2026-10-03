@@ -2,7 +2,7 @@
   "agentPaths": ["agents"],
   "skillPaths": ["agents/*/skills", "skills"],
   "workflowPaths": [".github/workflows"],
-  "reportOutputDir": "agents/reports",
+  "reportOutputDir": ".github/reports/agents",
   "specReportOutputDir": ".github/specs/014-agents-restructure-consolidate/reports",
   "deduplication": {
     "algorithm": "sha256-cosine-similarity",
