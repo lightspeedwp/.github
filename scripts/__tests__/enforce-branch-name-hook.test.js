@@ -2253,6 +2253,42 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(0);
   });
 
+  // The prefix of a ref name is checked after escapes are decoded, and a query string
+  // does not change the route.
+  test.each([
+    ['an escaped refs', String.raw`refs/heads/main`],
+    ['an escaped slash', String.raw`refs/heads/main`],
+  ])('refuses an updateRefs name with %s', (_label, name) => {
+    fx.branch('feat/good-name');
+    const document = `mutation { updateRefs(input: {repositoryId: "R_1", refUpdates: [{name: "${name}", afterOid: "a1"}]}) { clientMutationId } }`;
+    expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
+  });
+
+  test.each([
+    ['an escaped refs', String.raw`refs/heads/main`],
+    ['an escaped slash', String.raw`refs/heads/main`],
+  ])('refuses a createRef name with %s', (_label, name) => {
+    fx.branch('feat/good-name');
+    const document = `mutation { createRef(input: {repositoryId: "R_1", name: "${name}", oid: "a1"}) { clientMutationId } }`;
+    expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
+  });
+
+  test('a query string on the GraphQL route does not hide a protected write', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "main"}, message: {headline: "x"}}) { commit { oid } } }';
+    expect(runBash(fx, `gh api 'graphql?x=1' -f query='${document}'`).status).toBe(2);
+  });
+
+  test('a query string on the REST refs route does not hide a protected write', () => {
+    expect(
+      runBash(
+        fx,
+        "gh api -X POST 'repos/lightspeedwp/.github/git/refs?x=1' -f ref=refs/heads/main -f sha=abc"
+      ).status
+    ).toBe(2);
+  });
+
   // `gh pr create` option values are never options themselves.
   test('does not read a flag-shaped title as a repository option', () => {
     const command = (base) =>

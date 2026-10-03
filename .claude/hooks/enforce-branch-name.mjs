@@ -968,11 +968,15 @@ const API_VALUE_FLAGS = new Set([
   '--preview',
 ]);
 
-/** The endpoint argument of a `gh api` call. */
+/**
+ * The endpoint argument of a `gh api` call, without a query string or fragment:
+ * `graphql?x=1` and `repos/o/r/git/refs?x=1` are the same routes as without the
+ * suffix, so every route check must see the bare path.
+ */
 function apiEndpoint(args) {
   for (let i = 1; i < args.length; i += 1) {
     if (API_VALUE_FLAGS.has(args[i])) i += 1;
-    else if (!args[i].startsWith('-')) return args[i];
+    else if (!args[i].startsWith('-')) return args[i].replace(/[?#].*$/s, '');
   }
   return '';
 }
@@ -1893,10 +1897,11 @@ function graphqlBranchNames(query, variables = {}) {
   for (const match of outside(/\bbranchName\b\s*:\s*(?:"""([\s\S]*?)"""|"((?:[^"\\]|\\.)*)")/g)) {
     scoped(literal(match), null);
   }
-  for (const match of outside(
-    /\bname\b\s*:\s*(?:"""\s*(refs\/heads\/[\s\S]*?)"""|"(refs\/heads\/(?:[^"\\]|\\.)*)")/g
-  )) {
-    scoped(literal(match), null);
+  // The `refs/heads/` prefix is checked on the decoded value, because
+  // `"refs/heads/main"` and `"refs/heads/main"` both resolve to it.
+  for (const match of outside(/\bname\b\s*:\s*(?:"""([\s\S]*?)"""|"((?:[^"\\]|\\.)*)")/g)) {
+    const value = literal(match).trim();
+    if (value.startsWith('refs/heads/')) scoped(value, null);
   }
   // A name bound to a variable is read from the value gh would send with it, so
   // `name: $n` with `-f n=refs/heads/main` is judged on `refs/heads/main` rather
