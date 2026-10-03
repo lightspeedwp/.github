@@ -65,3 +65,9 @@ node_modules/
 # Prevent local Claude Code settings from being committed
 .claude/settings*.json
 .claude/.settings*.json
+
+# Local code graphs (graft, graphify): regenerable per checkout with `graft build`
+# and `graphify .`, never committed. Wired per repository, not here -- see the
+# graft and graphify sections of a project's own AGENTS.md.
+/graft/
+/graphify-out/
