@@ -450,6 +450,14 @@ describe('Run-safety documentation and log examples', () => {
     );
     expect(task('T084').text).toMatch(/`covers` list/);
     expect(task('T081').text).toMatch(/#3732 has merged/);
+    // FR-009 must not present the unmerged guard as enforcing anything yet.
+    expect(spec).toMatch(
+      /it is pending implementation: T080's guard is in open PR #3734, T080a must make it a required check on `develop` and `main`, and T084 must add the `covers` validation/
+    );
+    expect(spec).toMatch(
+      /readers must not rely on it\. Once active, a PR that changes one fails until/
+    );
+    expect(spec).not.toMatch(/A required check enforces this for every locked file/);
     expect(task('T041').text).toMatch(/does not run before that/);
     expect(read('plan.md')).toMatch(/#3557 is pending until T040n's dated sign-off/);
     expect(read('plan.md')).not.toMatch(/approved via #3530, #3556 and #3557/);
@@ -497,6 +505,9 @@ describe('Run-safety documentation and log examples', () => {
     expect(lock).toMatch(/abandoned \(`--abandon-run <run_id>`\) only after @ashleyshaw confirms/);
     expect(model).toMatch(/held → stale \(process died\) → held with epoch \+ 1/);
     expect(task('T062b').text).toMatch(/`--resume <run_id>`.*`--abandon-run <run_id>`/);
+    expect(task('T062b').text).toMatch(
+      /delete `run-lock\.json` when the run finishes successfully \(an interrupted run keeps the file/
+    );
     expect(task('T062b').text).toMatch(
       /refuse any append when the lock's `epoch` is not the run's own/
     );
