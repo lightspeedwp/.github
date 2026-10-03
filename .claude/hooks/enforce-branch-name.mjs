@@ -1014,6 +1014,12 @@ function fieldArgs(args) {
       i += 1;
       continue;
     }
+    // The value of any other value-taking flag is that flag's, never a field:
+    // `-t '-fn=refs/heads/ok'` is a template, which gh does not send as a field.
+    if (VALUE_FLAGS.has(arg)) {
+      i += 1;
+      continue;
+    }
     let matched = false;
     for (const flag of FIELD_FLAGS) {
       if (arg.startsWith(`${flag}=`)) {
@@ -1124,6 +1130,10 @@ function inputArg(args) {
     } else if (args[i].startsWith('--input=')) {
       seen = true;
       found = args[i].slice('--input='.length);
+    } else if (VALUE_FLAGS.has(args[i])) {
+      // The value belongs to its own flag: `--template '--input=ok.json'` is a
+      // template, not an input file.
+      i += 1;
     }
   }
   return seen ? found : null;
@@ -1752,6 +1762,8 @@ function graphqlQuery(args, cwd) {
       i += 1;
     } else if (args[i].startsWith('--query=')) {
       inline = args[i].slice('--query='.length);
+    } else if (VALUE_FLAGS.has(args[i])) {
+      i += 1;
     }
   }
   if (inline !== null) return inline;
@@ -1799,6 +1811,8 @@ function graphqlQueryUnreadable(args, cwd) {
     } else if (args[i].startsWith('--query=')) {
       inlineSeen = true;
       inlineUnreadable = false;
+    } else if (VALUE_FLAGS.has(args[i])) {
+      i += 1;
     }
   }
   if (inlineSeen) return inlineUnreadable;
@@ -1889,8 +1903,18 @@ function graphqlBranchNames(query, variables = {}) {
   // refused a read-only query and reported a check name as a protected branch. The
   // variable spelling of a document must not be treated more strictly than the
   // literal spelling of the same document.
-  if (outside(new RegExp(WRITES_A_BRANCH.source, 'g')).length) {
-    for (const match of outside(/\b(?:branchName|name)\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+  // Variables are resolved only inside the argument list of a branch-writing
+  // mutation. `createLabel(input: $i)` or `createCheckRun(name: $n)` beside a
+  // branch write carries a label or check name, not a branch.
+  const writeRanges = branchWriteFields(views).map((field) => [
+    field.offset,
+    field.offset + field.text.length,
+  ]);
+  const inWrite = (match) =>
+    writeRanges.some(([start, end]) => match.index >= start && match.index < end);
+  const outsideWrites = (pattern) => outside(pattern).filter(inWrite);
+  if (writeRanges.length) {
+    for (const match of outsideWrites(/\b(?:branchName|name)\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
       scoped(variables[match[1]], branchOwner(match.index));
     }
     // `createCommitOnBranch` takes its target as a nested input, so the branch can
@@ -1902,7 +1926,7 @@ function graphqlBranchNames(query, variables = {}) {
     // every `branch: $b` would also refuse a compliant commit, while `branchName: $b`
     // and `name: $n` are both resolved. A variable is not treated more strictly for
     // being spelled this way.
-    for (const match of outside(/\bbranch\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+    for (const match of outsideWrites(/\bbranch\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
       // Keyed by the full field name, as graphqlVariables stores it. Flattening it to
       // `branchName` would collide with a real variable of that name, and the verdict
       // would depend on the order the flags were given.
@@ -1914,7 +1938,7 @@ function graphqlBranchNames(query, variables = {}) {
     // #3691, gap 1). The leaves the body map or the field flags stored under
     // `b[branch][branchName]`, `b[branchName]` or `b[name]` are judged instead;
     // when none resolves, the caller refuses the write as unreadable.
-    for (const match of outside(/\binput\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+    for (const match of outsideWrites(/\binput\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
       const stem = match[1];
       const owner = stemOwner(stem);
       for (const key of [`${stem}[branch][branchName]`, `${stem}[branchName]`, `${stem}[name]`]) {
@@ -2133,7 +2157,7 @@ function graphqlBranchProblems(query, variables = {}) {
     /\brepositoryNameWithOwner\s*:\s*"([^"/\s]+)\//gi
   ).map((match) => match[1].toLowerCase());
   const refMutation =
-    matchesOutsideStrings(views, /\b(?:createRef|updateRef|deleteRef)\b/g).length > 0;
+    matchesOutsideStrings(views, /\b(?:createRef|updateRefs?|deleteRef)\b/g).length > 0;
   if (!refMutation && owners.length && owners.every((owner) => owner !== OWNER)) return [];
   const problems = [];
   // Keyed by owner scope as well as name: a foreign `main` and a local `main` are
@@ -2219,6 +2243,23 @@ function graphqlBranchProblems(query, variables = {}) {
   // beside a compliant `createRef`. `updateRef` and `deleteRef` are covered above.
   const unresolvedField = branchWriteFields(views).some(({ field, text }) => {
     if (field === 'updateRef' || field === 'deleteRef') return false;
+    if (field === 'updateRefs') {
+      // `updateRefs` writes several refs, so one resolved target proves nothing
+      // about the others. Every `name:` in the field must be a literal or a
+      // variable the guard can read, and the list or the whole input bound to
+      // a variable (`refUpdates: $u`, `input: $i`) cannot be resolved at all:
+      // an array-valued variable has no readable leaf.
+      const fieldViews = graphqlViews(text);
+      const wholeVariable = matchesOutsideStrings(
+        fieldViews,
+        /\b(?:refUpdates|input)\s*:\s*\$[A-Za-z_]/g
+      );
+      const unreadableName = matchesOutsideStrings(
+        fieldViews,
+        /\bname\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g
+      ).some((match) => typeof variables[match[1]] !== 'string' || !variables[match[1]]);
+      return wholeVariable.length > 0 || unreadableName;
+    }
     if (graphqlBranchNames(text, variables).length > 0) return false;
     if (field === 'createRef') return true;
     return (

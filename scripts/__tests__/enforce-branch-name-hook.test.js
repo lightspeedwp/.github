@@ -2056,6 +2056,116 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
   });
 
+  // The value of another option is never an option: a template, header or jq filter
+  // that looks like `--input=`, `--query=` or `-f` is that option's value, and gh
+  // sends the real flag.
+  describe('option values that look like flags', () => {
+    const protectedCommit =
+      'mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: "main"}, message: {headline: "x"}}) { commit { oid } } }';
+
+    test('a --template value naming --input does not replace the real body (GraphQL)', () => {
+      fx.branch('feat/good-name');
+      const decoy = path.join(fx.repo, 'ok.json');
+      const real = path.join(fx.repo, 'main.json');
+      fs.writeFileSync(decoy, JSON.stringify({ query: 'query { viewer { login } }' }));
+      fs.writeFileSync(real, JSON.stringify({ query: protectedCommit }));
+      expect(
+        runBash(fx, `gh api graphql --input ${real} --template '--input=${decoy}'`).status
+      ).toBe(2);
+    });
+
+    test('a --template value naming --input does not replace the real body (REST)', () => {
+      fx.write('main-body.json', JSON.stringify({ ref: 'refs/heads/main', sha: 'abc' }));
+      fx.write('ok-body.json', JSON.stringify({ ref: 'refs/heads/feat/ok-name', sha: 'abc' }));
+      const run = runBash(
+        fx,
+        "gh api -X POST repos/lightspeedwp/.github/git/refs --input main-body.json --template '--input=ok-body.json'"
+      );
+      expect(run.status).toBe(2);
+    });
+
+    test.each([
+      ['readable', `-f query='${protectedCommit}'`],
+      ['stdin-backed', '-F query=@-'],
+    ])('a --template value naming --query does not replace the %s document', (_label, field) => {
+      fx.branch('feat/good-name');
+      expect(
+        runBash(fx, `gh api graphql ${field} --template '--query=query { viewer { login } }'`)
+          .status
+      ).toBe(2);
+    });
+
+    test('a --template value naming -f does not replace a variable', () => {
+      fx.branch('feat/good-name');
+      const document =
+        'mutation ($n: String!) { createRef(input: {repositoryId: "R_1", name: $n, oid: "a1b2"}) { clientMutationId } }';
+      expect(
+        runBash(
+          fx,
+          `gh api graphql -f query='${document}' -f n=refs/heads/main -t '-fn=refs/heads/feat/ok-name'`
+        ).status
+      ).toBe(2);
+    });
+
+    test('a --template value naming -fquery= does not replace the document', () => {
+      fx.branch('feat/good-name');
+      expect(
+        runBash(
+          fx,
+          `gh api graphql -f query='${protectedCommit}' -t '-fquery=query { viewer { login } }'`
+        ).status
+      ).toBe(2);
+    });
+  });
+
+  // updateRefs writes several refs, so it is judged per target, and a foreign
+  // owner never exempts it.
+  describe('updateRefs', () => {
+    const foreignCommit =
+      'a: createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "other-org/other-repo", branchName: "x"}, message: {headline: "x"}}) { commit { oid } }';
+
+    test('a foreign commit does not exempt an updateRefs of main', () => {
+      fx.branch('feat/good-name');
+      const document = `mutation { ${foreignCommit} u: updateRefs(input: {repositoryId: "R_1", refUpdates: [{name: "refs/heads/main", afterOid: "a1"}]}) { clientMutationId } }`;
+      expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
+    });
+
+    test('a compliant literal does not vouch for an unreadable variable target', () => {
+      fx.branch('feat/good-name');
+      const document =
+        'mutation ($n: String!) { updateRefs(input: {repositoryId: "R_1", refUpdates: [{name: "refs/heads/feat/ok-name", afterOid: "a1"}, {name: $n, afterOid: "b2"}]}) { clientMutationId } }';
+      expect(runBash(fx, `gh api graphql -f query='${document}' -F n=@-`).status).toBe(2);
+    });
+
+    test('a list bound to a variable in an --input body is refused', () => {
+      fx.branch('feat/good-name');
+      const file = path.join(fx.repo, 'updates.json');
+      fs.writeFileSync(
+        file,
+        JSON.stringify({
+          query:
+            'mutation ($u: [RefUpdate!]!) { updateRefs(input: {repositoryId: "R_1", refUpdates: $u}) { clientMutationId } }',
+          variables: { u: [{ name: 'refs/heads/main', afterOid: 'a1' }] },
+        })
+      );
+      expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
+    });
+  });
+
+  // Whole-input resolution is limited to branch-writing arguments: a label or check
+  // name beside a branch write is not a branch.
+  test('allows a label named main beside a compliant createRef', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($i: CreateLabelInput!) { r: createRef(input: {repositoryId: "R_1", name: "refs/heads/feat/ok-name", oid: "a1b2"}) { clientMutationId } l: createLabel(input: $i) { clientMutationId } }';
+    expect(
+      runBash(
+        fx,
+        `gh api graphql -f query='${document}' -F i[repositoryId]=R_1 -F i[name]=main -F i[color]=ffffff`
+      ).status
+    ).toBe(0);
+  });
+
   // `gh pr create` option values are never options themselves.
   test('does not read a flag-shaped title as a repository option', () => {
     const command = (base) =>
