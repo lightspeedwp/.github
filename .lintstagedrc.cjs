@@ -10,7 +10,7 @@
  * script, and .github/workflows/meta.yml's `lint-and-links` job.
  */
 const EXCLUDED_PATTERNS = [
-  /^projects\/active\//,
+  /\/projects\/active\//,
   /\/plugin-provided\//,
   /\/platform-managed\//,
   /\/directory-installed\//,
@@ -24,19 +24,16 @@ function isExcluded(filename) {
 }
 
 function quoteAll(filenames) {
-  return filenames.map((f) => `"${f}"`).join(" ");
+  return filenames.map((f) => `"${f}"`).join(' ');
 }
 
 module.exports = {
-  "*.{js,jsx,ts,tsx}": (filenames) => {
+  '*.{js,jsx,ts,tsx,cjs,mjs}': (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
     if (!included.length) return [];
-    return [
-      `eslint --fix ${quoteAll(included)}`,
-      `prettier --write ${quoteAll(included)}`,
-    ];
+    return [`eslint --fix ${quoteAll(included)}`, `prettier --write ${quoteAll(included)}`];
   },
-  "*.{md,mdx}": (filenames) => {
+  '*.{md,mdx}': (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
     // Uses scripts/validation/lint-md-staged.cjs rather than a raw
     // `markdownlint-cli2 --fix` call: the repo carries a backlog of
@@ -48,6 +45,6 @@ module.exports = {
       ? [`node scripts/validation/lint-md-staged.cjs ${quoteAll(included)}`]
       : [];
   },
-  "*.json": ["prettier --write"],
-  "*.{yml,yaml}": ["prettier --write"],
+  '*.json': ['prettier --write'],
+  '*.{yml,yaml}': ['prettier --write'],
 };

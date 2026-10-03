@@ -97,6 +97,12 @@ const CLAUDE_CODE_SKILL_SET = Object.freeze([...SPEC_FIELDS, ...CLAUDE_CODE_SKIL
  * `stability`, `maintainer` and `license` are the optional set in
  * `definitions.optionalFrontmatterFields`. That schema is the documented local
  * design, so it is honoured rather than replaced by upstream.
+ *
+ * `permissions` (a list), `status` and `author` are also allowed. The canonical
+ * `.schemas/frontmatter.schema.json` defines all three at the top level of an
+ * agent, and `.github/scripts/generate-agent-index.js` reads `status` and
+ * `author` from there, so moving them under `metadata` would hide them from
+ * existing consumers.
  */
 const SUBAGENT_FIELDS = Object.freeze([
   'name',
@@ -130,6 +136,9 @@ const SUBAGENT_FIELDS = Object.freeze([
   'maintainer',
   'license',
   'metadata',
+  'permissions',
+  'status',
+  'author',
 ]);
 
 /**
