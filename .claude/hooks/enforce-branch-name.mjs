@@ -911,15 +911,23 @@ const VALUE_FLAGS = new Set([
 ]);
 
 /**
+ * The value-taking flags of `gh pr create`. They differ from the shared set in one
+ * flag: `-f` takes a value in `gh api` but is the valueless `--fill` in
+ * `gh pr create`, so treating it as a value flag would swallow the `--base` or
+ * `--head` after it and hide the target from the guard.
+ */
+const PR_CREATE_VALUE_FLAGS = new Set([...VALUE_FLAGS].filter((flag) => flag !== '-f'));
+
+/**
  * Value of `--flag value`, `--flag=value` or `-f value`, taking the last occurrence as gh does.
  * The value of any other value-taking flag is skipped, so only real flag
  * occurrences can override an earlier one.
  */
-function flagValue(args, names) {
+function flagValue(args, names, valueFlags = VALUE_FLAGS) {
   let found;
   let seen = false;
   for (let i = 0; i < args.length; i += 1) {
-    if (VALUE_FLAGS.has(args[i]) && !names.includes(args[i])) {
+    if (valueFlags.has(args[i]) && !names.includes(args[i])) {
       i += 1;
       continue;
     }
@@ -1848,9 +1856,8 @@ function graphqlQueryUnreadable(args, cwd) {
  */
 function graphqlBranchNames(query, variables = {}) {
   // Each entry carries the repository that scopes it, or null when the
-  // document does not scope it: literals are judged by the document-wide owner
-  // check in the caller, while a variable-bound name is scoped by the
-  // `repositoryNameWithOwner` in its enclosing branch input or bound to the
+  // document does not scope it: a literal or a variable-bound name is scoped by
+  // the `repositoryNameWithOwner` in its enclosing branch input, or bound to the
   // same stem for `branch: $b` and `input: $b`. A foreign repository takes that
   // name out of scope, exactly like a literal repositoryNameWithOwner in another
   // organisation; an unscopable name is judged, so an unrelated foreign variable
@@ -2365,7 +2372,9 @@ function graphqlBranchProblems(query, variables = {}) {
 }
 
 function checkGh(args, cwd, branch) {
-  const repoFlag = flagValue(args, ['--repo', '-R']);
+  // `gh pr create` and `gh api` disagree on `-f`, so each reads its own flag set.
+  const valueFlags = args[0] === 'pr' ? PR_CREATE_VALUE_FLAGS : VALUE_FLAGS;
+  const repoFlag = flagValue(args, ['--repo', '-R'], valueFlags);
   // The repository is resolved the same way the pull-request check resolves it,
   // so a clone whose origin names no repository still finds the one that does. A
   // `gh pr create` with an empty owner was judged against a repository that does
@@ -2376,8 +2385,8 @@ function checkGh(args, cwd, branch) {
   const root = projectDir(cwd);
 
   if (args[0] === 'pr' && args[1] === 'create') {
-    const head = flagValue(args, ['--head', '-H']) || branch;
-    const base = flagValue(args, ['--base', '-B']);
+    const head = flagValue(args, ['--head', '-H'], valueFlags) || branch;
+    const base = flagValue(args, ['--base', '-B'], valueFlags);
     return prProblems({ owner, repo, head, base });
   }
   if (args[0] !== 'api') return [];

@@ -144,9 +144,15 @@ a whole input object passed as one variable (`createCommitOnBranch(input: $b)`),
 branch and repository leaves are read from the fields or body map that supply it. A
 branch-writing mutation that resolves to no readable branch is refused, which covers
 `updateRef` and `deleteRef` — they identify their ref by node id and name no branch at
-all. A variable-bound name scoped to a foreign repository is out of scope, like a
-literal repositoryNameWithOwner in another organisation, and that scope travels with
-the name rather than the document.
+all. A name scoped to a foreign repository, whether a literal or bound to a variable,
+is out of scope, like a literal repositoryNameWithOwner in another organisation. That
+scope travels with the name, taken from the `branch` input it sits in, and never from
+the document: a foreign owner written in one mutation exempts only that name, and every
+branch-writing mutation must resolve its own target, so a foreign literal cannot vouch
+for another mutation in the same document. A commit whose `branch` input names a
+foreign repository is out of scope however its branch is given; any other commit or
+`createRef` that resolves no readable branch, such as one whose branch is a node id, is
+refused.
 
 The limit of that check is stated rather than implied. One write is outside what the
 check reaches at all, which is a different thing from a limit of what it can read.
@@ -154,7 +160,3 @@ check reaches at all, which is a different thing from a limit of what it can rea
 - `mergeBranch` is not handled at all. It writes to the branch named in its `base`, and
   that field is not one of the keys the branch-name reader looks at, so a merge into a
   protected branch is neither refused nor reported. It is tracked in #3691.
-- The foreign-repository skip is per name for variable-bound writes but per document
-  for literals: a document with no ref mutation and only foreign literal owners is
-  skipped as a whole, so a literal foreign repository vouches for the whole document.
-  Decomposing the document per mutation is deferred.

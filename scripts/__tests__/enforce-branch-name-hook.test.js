@@ -2323,6 +2323,19 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     ).toBe(2);
   });
 
+  // `-f` is `--fill` in `gh pr create`, which takes no value, so it must not swallow the
+  // option after it.
+  test.each([
+    ['-f before --base', 'gh pr create -R lightspeedwp/.github -f --base main --head feat/a-b'],
+    ['-f before --head', 'gh pr create -R lightspeedwp/.github --base main -f --head feat/a-b'],
+    [
+      '--fill before --base',
+      'gh pr create -R lightspeedwp/.github --fill --base main --head feat/a-b',
+    ],
+  ])('still sees the base and head with %s', (_label, command) => {
+    expect(runBash(fx, command).status).toBe(2);
+  });
+
   // `gh pr create` option values are never options themselves.
   test('does not read a flag-shaped title as a repository option', () => {
     const command = (base) =>

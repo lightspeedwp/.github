@@ -255,11 +255,11 @@ settings, not branch-protection fields.
   judged by the same rules — including a whole input object passed as one variable, whose branch and repository leaves
   are resolved — and a document the guard cannot read is refused. A repeated flag is judged on its last occurrence, as
   `gh` sends the last one. A name bound to a GraphQL variable is resolved from
-  the value sent with it. Two things it does not do are
+  the value sent with it. A foreign repository exempts only the name it scopes, for literals and variables alike, and
+  every branch-writing mutation must resolve its own target. One thing it does not do is
   recorded in the [hooks contract](../.github/specs/018-claude-cloud-environment/contracts/hooks.md): `mergeBranch`
   writes to the branch in its `base`, which is not a key the guard reads, so a merge into a protected branch is neither
-  refused nor reported; and the foreign-repository skip is per document for literals, so decomposing the document per
-  mutation remains deferred (variable-bound writes are scoped per name instead).
+  refused nor reported.
 - The guard reads shell syntax. It does not follow aliases, and it cannot know a name the shell builds at run time.
   A command substitution is read, so a command hidden inside `$(...)` or backticks is checked, and a wrapper such as
   `timeout` or `env` is stepped through to the command behind it.
