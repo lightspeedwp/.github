@@ -95,6 +95,13 @@ describe('label drift check wiring', () => {
         expect(String(value)).not.toMatch(/write/);
       }
     }
+    // Both mints use the org-wide project-automation App, never BOT_PR_APP
+    // (selected repositories, no Issues permission).
+    for (const step of mintSteps) {
+      expect(step.with['app-id']).toBe('${{ vars.LS_APP_ID }}');
+      expect(step.with['private-key']).toBe('${{ secrets.LS_APP_PRIVATE_KEY }}');
+      expect(JSON.stringify(step.with)).not.toMatch(/BOT_PR_APP/);
+    }
     // Write token: confined to the report repository, issues write only.
     expect(byId['app-token-write']).toBeDefined();
     expect(String(byId['app-token-write'].with.repositories)).toContain('.github');
