@@ -2204,6 +2204,55 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
   });
 
+  // GraphQL has two string forms, and a variable may be a whole list entry or
+  // have a name that exists on every plain object.
+  test.each([
+    [
+      'a block-string branchName',
+      'mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "lightspeedwp/.github", branchName: """main"""}, message: {headline: "x"}}) { commit { oid } } }',
+    ],
+    [
+      'a block-string updateRefs name',
+      'mutation { updateRefs(input: {repositoryId: "R_1", refUpdates: [{name: """refs/heads/main""", afterOid: "a1"}]}) { clientMutationId } }',
+    ],
+  ])('refuses a protected write named with %s', (_label, document) => {
+    fx.branch('feat/good-name');
+    expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
+  });
+
+  test.each([
+    ['a standalone entry variable', '[$u]'],
+    [
+      'an entry variable beside a compliant literal',
+      '[{name: "refs/heads/feat/ok-name", afterOid: "a1"}, $u]',
+    ],
+  ])('refuses updateRefs with %s', (_label, list) => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'entries.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query: `mutation ($u: RefUpdate!) { updateRefs(input: {repositoryId: "R_1", refUpdates: ${list}}) { clientMutationId } }`,
+        variables: { u: { name: 'refs/heads/main', afterOid: 'a1' } },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
+  });
+
+  test('reads a body variable named like an inherited object key', () => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'inherited.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($constructor: String!) { createRef(input: {repositoryId: "R_1", name: $constructor, oid: "a1"}) { clientMutationId } }',
+        variables: { constructor: 'refs/heads/feat/ok-name' },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(0);
+  });
+
   // `gh pr create` option values are never options themselves.
   test('does not read a flag-shaped title as a repository option', () => {
     const command = (base) =>

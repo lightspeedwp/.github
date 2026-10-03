@@ -1887,11 +1887,16 @@ function graphqlBranchNames(query, variables = {}) {
     ].find((match) => !views.inString(innerStart + match.index));
     return repository ? graphqlOwner(repository[1]) : null;
   };
-  for (const match of outside(/\bbranchName\b\s*:\s*"([^"]*)"/g)) {
-    scoped(match[1], null);
+  // A literal is either a plain string or a block string (`"""main"""`); both name
+  // the branch, and escapes in a plain string are decoded.
+  const literal = (match) => graphqlLiteral(match[1] ?? match[2]);
+  for (const match of outside(/\bbranchName\b\s*:\s*(?:"""([\s\S]*?)"""|"((?:[^"\\]|\\.)*)")/g)) {
+    scoped(literal(match), null);
   }
-  for (const match of outside(/\bname\b\s*:\s*"(refs\/heads\/[^"]*)"/g)) {
-    scoped(match[1], null);
+  for (const match of outside(
+    /\bname\b\s*:\s*(?:"""\s*(refs\/heads\/[\s\S]*?)"""|"(refs\/heads\/(?:[^"\\]|\\.)*)")/g
+  )) {
+    scoped(literal(match), null);
   }
   // A name bound to a variable is read from the value gh would send with it, so
   // `name: $n` with `-f n=refs/heads/main` is judged on `refs/heads/main` rather
@@ -1970,6 +1975,51 @@ function graphqlOwner(raw) {
   }
   const owner = decoded.split('/')[0].trim().toLowerCase();
   return decoded.includes('/') && owner ? owner : null;
+}
+
+/**
+ * A GraphQL string literal's value, with escapes decoded. A literal that cannot be
+ * decoded is returned as written, which then fails the branch-name check.
+ * @param {string} raw - The literal's contents
+ * @returns {string}
+ */
+function graphqlLiteral(raw) {
+  if (!raw.includes('\\')) return raw;
+  try {
+    return JSON.parse(
+      `"${raw.replace(/\\u\{([0-9a-fA-F]+)\}/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))}"`
+    );
+  } catch {
+    return raw;
+  }
+}
+
+/**
+ * Whether a `refUpdates: [...]` list carries a variable as an entry of its own
+ * (`refUpdates: [$u]`, or `[{name: "refs/heads/ok"}, $u]`). An entry variable holds
+ * a whole update object, which has no readable leaf, so the target cannot be
+ * resolved. A variable inside an entry (`{name: $n}`) is not this case.
+ * @param {{ clean: string, inString: (index: number) => boolean }} views
+ * @returns {boolean}
+ */
+function hasListEntryVariable(views) {
+  const opener = /\brefUpdates\s*:\s*\[/g;
+  for (const match of matchesOutsideStrings(views, opener)) {
+    let brackets = 0;
+    let braces = 0;
+    for (let i = match.index + match[0].length - 1; i < views.clean.length; i += 1) {
+      if (views.inString(i)) continue;
+      const char = views.clean[i];
+      if (char === '[') brackets += 1;
+      else if (char === ']') {
+        brackets -= 1;
+        if (brackets === 0) break;
+      } else if (char === '{') braces += 1;
+      else if (char === '}') braces -= 1;
+      else if (char === '$' && brackets === 1 && braces === 0) return true;
+    }
+  }
+  return false;
 }
 
 /** The mutations that write a branch, by ref id or by committing to a named one. */
@@ -2095,7 +2145,7 @@ function graphqlVariables(args, cwd) {
   if (inputBody && typeof inputBody === 'object') {
     return graphqlBodyVariables(inputBody);
   }
-  const variables = {};
+  const variables = Object.create(null);
   for (const [flag, argument] of fieldArgs(args)) {
     const index = argument.indexOf('=');
     if (index < 1) continue;
@@ -2125,7 +2175,7 @@ function graphqlVariables(args, cwd) {
  * caller passes that file's body (issue #3691, gap 5).
  */
 function graphqlBodyVariables(inputBody) {
-  const variables = {};
+  const variables = Object.create(null);
   if (!inputBody.variables || typeof inputBody.variables !== 'object') return variables;
   const store = (key, value) => {
     if (typeof value === 'string' && value && !(key in variables)) variables[key] = value;
@@ -2290,7 +2340,7 @@ function graphqlBranchProblems(query, variables = {}) {
         fieldViews,
         /\bname\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g
       ).some((match) => typeof variables[match[1]] !== 'string' || !variables[match[1]]);
-      return wholeVariable.length > 0 || unreadableName;
+      return wholeVariable.length > 0 || unreadableName || hasListEntryVariable(fieldViews);
     }
     if (graphqlBranchNames(text, variables).length > 0) return false;
     if (field === 'createRef') return true;
