@@ -1895,7 +1895,10 @@ function graphqlBranchNames(query, variables = {}) {
   // the branch, and escapes in a plain string are decoded.
   const literal = (match) => graphqlLiteral(match[1] ?? match[2]);
   for (const match of outside(/\bbranchName\b\s*:\s*(?:"""([\s\S]*?)"""|"((?:[^"\\]|\\.)*)")/g)) {
-    scoped(literal(match), null);
+    // A literal branch name is scoped by the repository of the `branch: {...}`
+    // input it sits in, like a variable-bound one, so a foreign literal exempts
+    // only itself.
+    scoped(literal(match), branchOwner(match.index));
   }
   // The `refs/heads/` prefix is checked on the decoded value, because
   // `"refs/heads/main"` and `"refs/heads/main"` both resolve to it.
@@ -2026,9 +2029,6 @@ function hasListEntryVariable(views) {
   }
   return false;
 }
-
-/** The mutations that write a branch, by ref id or by committing to a named one. */
-const WRITES_A_BRANCH = /\b(?:createRef|updateRefs?|deleteRef|createCommitOnBranch)\b/;
 
 /**
  * A GraphQL document read the way GraphQL reads it: comments (`#` to the end of
@@ -2230,22 +2230,14 @@ function graphqlBranchProblems(query, variables = {}) {
   // contract already prefers: a check that cannot be scoped to this repository has
   // to fail closed.
   //
-  // A ref mutation is never covered by a repository named elsewhere in the same
-  // document, so only a document with no ref mutation at all is skipped on the
-  // strength of a foreign owner. Otherwise one foreign field would vouch for the
-  // ref mutation beside it.
+  // The exemption is per field and per name, never per document: a foreign owner
+  // written in one mutation must not let another mutation in the same document
+  // through, whether that one names its branch in a variable, binds a whole input to
+  // a variable, or names no branch at all. Each entry carries its own owner scope
+  // and each field is checked for a resolved target below.
   // Comments and string contents are not input fields, so an owner written in
   // either never scopes or vouches for anything.
   const views = graphqlViews(query);
-  // An owner that cannot be decoded counts as this organisation, so it never
-  // makes the document look foreign.
-  const owners = matchesOutsideStrings(
-    views,
-    /\brepositoryNameWithOwner\s*:\s*"((?:[^"\\]|\\.)*)"/gi
-  ).map((match) => graphqlOwner(match[1]) ?? OWNER);
-  const refMutation =
-    matchesOutsideStrings(views, /\b(?:createRef|updateRefs?|deleteRef)\b/g).length > 0;
-  if (!refMutation && owners.length && owners.every((owner) => owner !== OWNER)) return [];
   const problems = [];
   // Keyed by owner scope as well as name: a foreign `main` and a local `main` are
   // different writes, and the foreign one must not hide the local one.
@@ -2348,13 +2340,21 @@ function graphqlBranchProblems(query, variables = {}) {
       return wholeVariable.length > 0 || unreadableName || hasListEntryVariable(fieldViews);
     }
     if (graphqlBranchNames(text, variables).length > 0) return false;
-    if (field === 'createRef') return true;
-    return (
-      matchesOutsideStrings(
-        graphqlViews(text),
-        /\b(?:branchName|name|branch|input)\s*:\s*\$[A-Za-z_]/g
-      ).length > 0
-    );
+    // A commit whose own `branch` input names a foreign repository is outside
+    // this guard's scope, however its branch is given.
+    const fieldViews = graphqlViews(text);
+    const foreign = matchesOutsideStrings(
+      fieldViews,
+      /\brepositoryNameWithOwner\s*:\s*"((?:[^"\\]|\\.)*)"/gi
+    ).some((match) => {
+      const owner = graphqlOwner(match[1]);
+      return owner !== null && owner !== OWNER;
+    });
+    if (field === 'createCommitOnBranch' && foreign) return false;
+    // Every remaining field must name its branch. One that resolves none, such as a
+    // commit whose `branch` is given by node id (`branch: {id: ...}`), cannot be
+    // checked and is refused.
+    return true;
   });
   if (nodeIdRefWrite || unresolvedField) {
     problems.push(

@@ -2273,6 +2273,40 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
   });
 
+  // A foreign literal exempts only itself, and a branch given by node id cannot be read.
+  describe('foreign literals and node ids', () => {
+    const foreign =
+      'a: createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "other-org/x", branchName: "x"}, message: {headline: "h"}}) { commit { oid } }';
+    const wholeInput = `mutation ($b: CreateCommitOnBranchInput!) { ${foreign} b: createCommitOnBranch(input: $b) { commit { oid } } }`;
+
+    test.each([
+      [
+        'a local main supplied by field flags',
+        '-F b[branch][repositoryNameWithOwner]=lightspeedwp/.github -F b[branch][branchName]=main -F b[message][headline]=h',
+      ],
+      ['no fields at all for the variable', ''],
+    ])('a foreign literal does not let a whole-input commit through (%s)', (_label, fields) => {
+      fx.branch('feat/good-name');
+      expect(runBash(fx, `gh api graphql -f query='${wholeInput}' ${fields}`).status).toBe(2);
+    });
+
+    test.each([
+      ['a literal node id', 'branch: {id: "REF_main"}'],
+      ['a variable node id', 'branch: {id: $r}'],
+    ])('refuses a commit whose branch is given by %s', (_label, branch) => {
+      fx.branch('feat/good-name');
+      const document = `mutation ($r: ID!) { createCommitOnBranch(input: {${branch}, message: {headline: "h"}}) { commit { oid } } }`;
+      expect(runBash(fx, `gh api graphql -f query='${document}' -f r=REF_main`).status).toBe(2);
+    });
+
+    test('still allows a commit whose own branch input names a foreign repository by node id', () => {
+      fx.branch('feat/good-name');
+      const document =
+        'mutation { createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "other-org/x", id: "REF_x"}, message: {headline: "h"}}) { commit { oid } } }';
+      expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(0);
+    });
+  });
+
   test('a query string on the GraphQL route does not hide a protected write', () => {
     fx.branch('feat/good-name');
     const document =
