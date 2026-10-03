@@ -527,6 +527,16 @@ describe('GitHub MCP tools (T011)', () => {
     expect(run.status).toBe(0);
   });
 
+  // With --input, field flags are URL parameters, so an unreadable one changes nothing.
+  test('allows a readable feature-branch body beside an unreadable field flag', () => {
+    fx.write('body.json', JSON.stringify({ ref: 'refs/heads/feat/ok-name', sha: 'abc' }));
+    const run = runBash(
+      fx,
+      'gh api -X POST repos/lightspeedwp/.github/git/refs --input body.json -F ref=@-'
+    );
+    expect(run.status).toBe(0);
+  });
+
   test.each([
     ['protected body branch beside feature field', 'main', 'refs/heads/feat/ok-name', 2],
     ['feature body branch beside protected field', 'feat/ok-name', 'refs/heads/main', 0],
@@ -1968,6 +1978,90 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
       runBash(fx, `gh api graphql -f query='${document}' -F b[branch][branchName]=@absent.graphql`)
         .status
     ).toBe(2);
+  });
+
+  // A GraphQL comment is not an input field, and neither is text inside a string.
+  test('refuses a protected write whose owner is only named in a comment', () => {
+    fx.branch('feat/good-name');
+    const document = [
+      'mutation ($n: String!) { createCommitOnBranch(input: {branch: {',
+      '# repositoryNameWithOwner: "other-org/other-repo"',
+      'repositoryNameWithOwner: "lightspeedwp/.github", branchName: $n},',
+      'message: {headline: "x"}}) { commit { oid } } }',
+    ].join('\n');
+    expect(runBash(fx, `gh api graphql -f query='${document}' -f n=main`).status).toBe(2);
+  });
+
+  test('refuses a protected write whose owner is only named inside a string', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation { createCommitOnBranch(input: {branch: {branchName: "main"}, message: {headline: """repositoryNameWithOwner: "other-org/other-repo" """}}) { commit { oid } } }';
+    expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
+  });
+
+  // gh sends the last occurrence of a repeated variable. A last value the guard
+  // cannot read leaves the variable unresolved; it is never judged on the earlier value.
+  test('refuses a createRef whose repeated variable ends unreadable', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($n: String!) { createRef(input: {repositoryId: "R_1", name: $n, oid: "a1b2"}) { clientMutationId } }';
+    expect(
+      runBash(fx, `gh api graphql -f query='${document}' -f n=refs/heads/feat/ok-name -F n=@-`)
+        .status
+    ).toBe(2);
+  });
+
+  // A foreign write to `main` must not hide a local write to `main`, whatever the order.
+  test.each([
+    ['foreign first', 'a', 'b'],
+    ['local first', 'b', 'a'],
+  ])('refuses a local main write beside a foreign one (%s)', (_label, first, second) => {
+    fx.branch('feat/good-name');
+    const owner = { a: 'other-org/other-repo', b: 'lightspeedwp/.github' };
+    const document =
+      'mutation ($a: CreateCommitOnBranchInput!, $b: CreateCommitOnBranchInput!) { ' +
+      `x: createCommitOnBranch(input: $${first}) { commit { oid } } ` +
+      `y: createCommitOnBranch(input: $${second}) { commit { oid } } }`;
+    const fields = (name) =>
+      `-F ${name}[branch][repositoryNameWithOwner]=${owner[name]} ` +
+      `-F ${name}[branch][branchName]=main -F ${name}[message][headline]=x`;
+    expect(
+      runBash(fx, `gh api graphql -f query='${document}' ${fields('a')} ${fields('b')}`).status
+    ).toBe(2);
+  });
+
+  test('still allows a foreign-only main write', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($a: CreateCommitOnBranchInput!) { x: createCommitOnBranch(input: $a) { commit { oid } } }';
+    const command =
+      `gh api graphql -f query='${document}' ` +
+      '-F a[branch][repositoryNameWithOwner]=other-org/other-repo ' +
+      '-F a[branch][branchName]=main -F a[message][headline]=x';
+    expect(runBash(fx, command).status).toBe(0);
+  });
+
+  // An unresolved whole input is not vouched for by another mutation's resolved name.
+  test('refuses an unresolved updateRefs input beside a compliant createRef', () => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'paired.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($i: UpdateRefsInput!) { u: updateRefs(input: $i) { clientMutationId } c: createRef(input: {repositoryId: "R_1", name: "refs/heads/feat/ok-name", oid: "a1"}) { clientMutationId } }',
+        variables: { i: { refUpdates: [{ name: 'refs/heads/main', afterOid: 'a1' }] } },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
+  });
+
+  // `gh pr create` option values are never options themselves.
+  test('does not read a flag-shaped title as a repository option', () => {
+    const command = (base) =>
+      `gh pr create -R lightspeedwp/.github --head feat/a-b --base ${base} --title '-Rother/other' --body x`;
+    expect(runBash(fx, command('main')).status).toBe(2);
+    expect(runBash(fx, command('develop')).status).toBe(0);
   });
 
   // `name` is a field on many operations that are nothing to do with a branch, and
