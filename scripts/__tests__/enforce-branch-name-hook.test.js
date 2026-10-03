@@ -2166,6 +2166,44 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     ).toBe(0);
   });
 
+  // GraphQL reads the document, not its spelling: string escapes are decoded, commas
+  // outside strings are whitespace, and only a valid name is a variable.
+  test('decodes an escaped owner, so a local main write is not treated as foreign', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($n: String!) { a: createCommitOnBranch(input: {branch: {repositoryNameWithOwner: "\\u006cightspeedwp/.github", branchName: $n}, message: {headline: "x"}}) { commit { oid } } b: createRef(input: {repositoryId: "R_1", name: "refs/heads/feat/ok-name", oid: "a1"}) { clientMutationId } }';
+    expect(runBash(fx, `gh api graphql -f query='${document}' -f n=main`).status).toBe(2);
+  });
+
+  test('reads a comma between a field name and its arguments as whitespace', () => {
+    fx.branch('feat/good-name');
+    const document =
+      'mutation ($n: String!) { createRef,(input: {repositoryId: "R_1", name: $n, oid: "a1"}) { clientMutationId } }';
+    expect(runBash(fx, `gh api graphql -f query='${document}' -f n=refs/heads/main`).status).toBe(
+      2
+    );
+  });
+
+  test('ignores a body variable key that is not a GraphQL name, whatever its position', () => {
+    fx.branch('feat/good-name');
+    const file = path.join(fx.repo, 'decoy.json');
+    fs.writeFileSync(
+      file,
+      JSON.stringify({
+        query:
+          'mutation ($b: CreateCommitOnBranchInput!) { createCommitOnBranch(input: $b) { commit { oid } } }',
+        variables: {
+          'b[branch][branchName]': 'feat/ok-name',
+          b: {
+            branch: { repositoryNameWithOwner: 'lightspeedwp/.github', branchName: 'main' },
+            message: { headline: 'x' },
+          },
+        },
+      })
+    );
+    expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(2);
+  });
+
   // `gh pr create` option values are never options themselves.
   test('does not read a flag-shaped title as a repository option', () => {
     const command = (base) =>

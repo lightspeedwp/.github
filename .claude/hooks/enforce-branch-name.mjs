@@ -1883,9 +1883,9 @@ function graphqlBranchNames(query, variables = {}) {
     const repository = [
       ...views.clean
         .slice(innerStart, branch.index + branch[0].length - 1)
-        .matchAll(/\brepositoryNameWithOwner\s*:\s*"([^"/\s]+)\//gi),
-    ].find((match) => !views.inString(innerStart + match.index))?.[1];
-    return repository ? repository.toLowerCase() : null;
+        .matchAll(/\brepositoryNameWithOwner\s*:\s*"((?:[^"\\]|\\.)*)"/gi),
+    ].find((match) => !views.inString(innerStart + match.index));
+    return repository ? graphqlOwner(repository[1]) : null;
   };
   for (const match of outside(/\bbranchName\b\s*:\s*"([^"]*)"/g)) {
     scoped(match[1], null);
@@ -1949,6 +1949,29 @@ function graphqlBranchNames(query, variables = {}) {
   return found.filter((entry) => entry.value);
 }
 
+/**
+ * The owner a `repositoryNameWithOwner` string literal names, with GraphQL string
+ * escapes decoded (`"lightspeedwp/.github"` is `lightspeedwp`).
+ * @param {string} raw - The literal's contents, as written in the document
+ * @returns {string | null} The lower-cased owner, or null when the literal uses an
+ *   encoding that cannot be decoded or names no owner. A null owner is unscoped,
+ *   so the write is judged rather than treated as foreign.
+ */
+function graphqlOwner(raw) {
+  let decoded = raw;
+  if (raw.includes('\\')) {
+    try {
+      decoded = JSON.parse(
+        `"${raw.replace(/\\u\{([0-9a-fA-F]+)\}/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))}"`
+      );
+    } catch {
+      return null;
+    }
+  }
+  const owner = decoded.split('/')[0].trim().toLowerCase();
+  return decoded.includes('/') && owner ? owner : null;
+}
+
 /** The mutations that write a branch, by ref id or by committing to a named one. */
 const WRITES_A_BRANCH = /\b(?:createRef|updateRefs?|deleteRef|createCommitOnBranch)\b/;
 
@@ -1996,7 +2019,9 @@ function graphqlViews(query) {
       clean += query.slice(i, Math.min(end + 1, query.length));
       i = Math.min(end + 1, query.length);
     } else {
-      clean += char;
+      // Commas outside strings are insignificant in GraphQL, so
+      // `createRef,(input: ...)` is the same document as `createRef (input: ...)`.
+      clean += char === ',' ? ' ' : char;
       i += 1;
     }
   }
@@ -2106,6 +2131,11 @@ function graphqlBodyVariables(inputBody) {
     if (typeof value === 'string' && value && !(key in variables)) variables[key] = value;
   };
   for (const [varName, varValue] of Object.entries(inputBody.variables)) {
+    // Only a valid GraphQL name is a variable. A key such as
+    // `b[branch][branchName]` is ignored by the server, but flattening would
+    // store it under the key a real `b` object is flattened to, and a decoy
+    // placed first would hide the real target.
+    if (!/^[_A-Za-z][_0-9A-Za-z]*$/.test(varName)) continue;
     if (typeof varValue === 'string') {
       store(varName, varValue);
       continue;
@@ -2152,10 +2182,12 @@ function graphqlBranchProblems(query, variables = {}) {
   // Comments and string contents are not input fields, so an owner written in
   // either never scopes or vouches for anything.
   const views = graphqlViews(query);
+  // An owner that cannot be decoded counts as this organisation, so it never
+  // makes the document look foreign.
   const owners = matchesOutsideStrings(
     views,
-    /\brepositoryNameWithOwner\s*:\s*"([^"/\s]+)\//gi
-  ).map((match) => match[1].toLowerCase());
+    /\brepositoryNameWithOwner\s*:\s*"((?:[^"\\]|\\.)*)"/gi
+  ).map((match) => graphqlOwner(match[1]) ?? OWNER);
   const refMutation =
     matchesOutsideStrings(views, /\b(?:createRef|updateRefs?|deleteRef)\b/g).length > 0;
   if (!refMutation && owners.length && owners.every((owner) => owner !== OWNER)) return [];
