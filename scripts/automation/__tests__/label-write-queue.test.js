@@ -152,6 +152,29 @@ describe('label-write-queue', () => {
       expect(rateLimitDelayMs(headers({ 'x-ratelimit-reset': '10' }), 50000)).toBe(0);
     });
 
+    test('reads an HTTP-date Retry-After as the time until that date', () => {
+      const now = Date.parse('Sat, 03 Oct 2026 12:00:00 GMT');
+      expect(
+        rateLimitDelayMs(headers({ 'retry-after': 'Sat, 03 Oct 2026 12:05:00 GMT' }), now)
+      ).toBe(300000);
+    });
+
+    test('an HTTP-date Retry-After in the past waits no time and beats the reset header', () => {
+      const now = Date.parse('Sat, 03 Oct 2026 12:00:00 GMT');
+      expect(
+        rateLimitDelayMs(
+          headers({ 'retry-after': 'Sat, 03 Oct 2026 11:59:00 GMT', 'x-ratelimit-reset': '9999999999' }),
+          now
+        )
+      ).toBe(0);
+    });
+
+    test('falls through to the reset header when Retry-After is neither seconds nor a date', () => {
+      expect(
+        rateLimitDelayMs(headers({ 'retry-after': 'soon', 'x-ratelimit-reset': '100' }), 40000)
+      ).toBe(60000);
+    });
+
     test('returns null without rate-limit headers', () => {
       expect(rateLimitDelayMs(headers({}), 0)).toBeNull();
     });

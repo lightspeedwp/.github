@@ -54,7 +54,7 @@ export class RunPausedError extends Error {
 
 /**
  * Works out how long to wait from GitHub rate-limit headers.
- * `Retry-After` is in seconds; `x-ratelimit-reset` is a Unix time in seconds.
+ * `Retry-After` is in seconds or an HTTP date; `x-ratelimit-reset` is a Unix time in seconds.
  * @param {{ get: (name: string) => string | null }} headers - Response headers
  * @param {number} [nowMs] - Current time in milliseconds
  * @returns {number | null} Milliseconds to wait, or null when no header applies
@@ -65,6 +65,11 @@ export function rateLimitDelayMs(headers, nowMs = Date.now()) {
     const seconds = Number(retryAfter);
     if (Number.isFinite(seconds)) {
       return Math.max(seconds * 1000, 0);
+    }
+    // `Retry-After` may also be an HTTP date (RFC 9110).
+    const date = Date.parse(retryAfter);
+    if (Number.isFinite(date)) {
+      return Math.max(date - nowMs, 0);
     }
   }
   const reset = headers.get('x-ratelimit-reset');
