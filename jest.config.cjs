@@ -4,8 +4,8 @@
 // automatically, if it is named jest.config.js|ts|mjs|mts|cjs|cts|json"
 // (https://jestjs.io/docs/configuration, read 2026-10-01). Without it, a bare
 // `npx jest` finds no configuration at all and falls back to Jest's built-in
-// defaults, which run 76 test files this repository deliberately excludes,
-// including 31 under `.jest-skip/` and suites under `scripts/release`,
+// defaults, which run test files this repository deliberately excludes,
+// including those under `.jest-skip/` and suites under `scripts/release`,
 // `scripts/automation` and `scripts/workflows` that have their own runners.
 //
 // `.jest.config.cjs` holds the intended configuration and stays the single
