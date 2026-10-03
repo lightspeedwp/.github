@@ -39,7 +39,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 ### Rules
 
 1. `pages_read` × 100 must be at least `label_count`; a dry run that read one page for a repository with more than 100 labels is invalid.
-2. Every `to_delete` entry with `open_items` has a `migrate_to` that exists in `labels.yml`, or is listed for a decision in the gate comment.
+2. Every `to_delete` entry with `open_items` has a `migrate_to` that exists in `labels.yml`, or is listed for a decision in the gate comment. For a `migrate:*` label, `migrate_to` is the approved label its name points to: FR-012 keeps `migrate:*` out of the import mapping, not out of this per-repository target.
 3. The snapshot keeps name, colour, description and each item's kind (`issue`, `pull_request` or `discussion`) and number, because issues and PRs share one number sequence while Discussions are numbered separately, so any deleted label can be recreated and reapplied to the right items (research R8).
 4. Deletion runs only when `approval.status` is `approved`, `approved_by` is `ashleyshaw`, and `gate_comment_url` points to a comment reading `Approved: <repo> dry run <generated_at>` whose repository and timestamp match this file. Repositories without approval are skipped. If `labels.yml` on `develop` differs from `approved_set_commit`, the dry run is stale and must be regenerated.
 5. `destructive_cleanup.enabled` in `label-governance-policy.yml` stays `false`. Deletion requires the run-time flags `--apply --confirm-gate <gate issue number>`, and the tool refuses any repository whose `approval.status` is not `approved`.
@@ -57,7 +57,7 @@ Both files are JSON Lines in `evidence/` (one JSON object per line, UTF-8, every
 {"run_by":"ashleyshaw","at":"2026-10-01T00:00:02Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T0000-0001","state":"done"}
 ```
 
-`action` is one of `rename`, `create`, `update`, `relabel` or `delete`; a `relabel` record carries the item number (the issue or PR number) inside `before` and `after`, as in the data model, with no separate top-level `item` field. Each run also posts one summary comment on the gate issue, with counts per action and repository.
+`action` is one of `rename`, `create`, `update`, `relabel`, `convert` (an issue converted to a Discussion) or `delete`; a `relabel` record carries the item number (the issue or PR number) inside `before` and `after`, as in the data model, with no separate top-level `item` field. Each run also posts one summary comment on the gate issue, with counts per action and repository.
 
 ### `linear-writes.jsonl` (Linear, Stage 5)
 

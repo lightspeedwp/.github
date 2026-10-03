@@ -53,7 +53,7 @@ describe('Label consolidation post-merge task plan', () => {
 
     expect(taskRows).toHaveLength(116);
     expect(new Set(taskRows.map(({ id }) => id)).size).toBe(taskRows.length);
-    expect(taskRows.filter(({ done }) => done)).toHaveLength(63);
+    expect(taskRows.filter(({ done }) => done)).toHaveLength(62);
     expect(phase8Count).toBe(66);
     expect(tasks).toContain(`**Total Tasks**: ${taskRows.length}`);
     expect(tasks).toContain(`All ${taskRows.length} tasks in phases 1-10`);
@@ -306,6 +306,30 @@ describe('Run-safety documentation and log examples', () => {
     expect(spec).toMatch(/covers the changes the PR makes to them/);
     expect(read('plan.md')).toMatch(/T040n's dated sign-off on #3556 and #3557/);
     expect(read('quickstart.md')).toMatch(/# Expected: `\[\]` \(an empty JSON array\)/);
+  });
+
+  test('keeps status claims true: T075 follows #3734, Stage 0a is not called fully approved, migrate_to is explained', () => {
+    const spec = read('spec.md');
+    const t075 = task('T075');
+    // T075 may be checked only once its text no longer says the PR is open.
+    expect(t075.done).toBe(!/still open/.test(t075.text));
+    expect(t075.text).toMatch(/#3734/);
+    expect(task('T041').text).toMatch(/does not run before that/);
+    expect(read('plan.md')).toMatch(/#3557 is pending until T040n's dated sign-off/);
+    expect(read('plan.md')).not.toMatch(/approved via #3530, #3556 and #3557/);
+    expect(spec).toMatch(/#3557 is pending until the dated sign-off in T040n/);
+    expect(spec).toMatch(/does not bar the per-repository `migrate_to` target/);
+    expect(rules).toMatch(/`migrate_to` is the approved label its name points to/);
+    expect(contract).toMatch(/`convert` \(an issue converted to a Discussion\)/);
+    expect(section(model, '### 14. Consolidation Log Entry')).toMatch(
+      /`convert` \(an issue converted/
+    );
+    expect(task('T063').text).toMatch(
+      /Record every conversion and fallback relabel through `label-consolidate.js record`/
+    );
+    expect(task('T062b').text).toMatch(/`record` subcommand/);
+    expect(dependencies('T063')).toEqual(['T059', 'T062b']);
+    expect(read('plan.md')).toMatch(/recorded through `label-consolidate.js record`/);
   });
 
   test('scopes the completion marker to a stage so Stage 3 never hides a repository from Stage 4', () => {

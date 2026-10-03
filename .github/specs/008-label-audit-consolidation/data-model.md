@@ -465,7 +465,7 @@ One record per destructive change in Stages 3 and 4, appended to `evidence/conso
 | `run_by` | string | GitHub login of the person running the tool |
 | `at` | timestamp | UTC, ISO 8601 |
 | `repository` | string | `lightspeedwp/{repo}` |
-| `action` | enum | `rename`, `create`, `update`, `relabel`, `delete` |
+| `action` | enum | `rename`, `create`, `update`, `relabel`, `convert` (an issue converted to a Discussion), `delete` |
 | `label` | string | The label acted on |
 | `before` / `after` | object or null | Name, colour, description (and item number for `relabel`); `after` is null for `delete` |
 | `gate_issue` | integer | The gate issue the run was confirmed against |
