@@ -56,7 +56,7 @@ branch_labels:
 
   hotfix:
     default_labels:
-      - type:bug
+      - type:release
       - priority:critical
     area_keywords:
       - api
@@ -66,7 +66,7 @@ branch_labels:
 
   revert:
     default_labels:
-      - type:chore
+      - type:bug
     area_keywords: []
 
   # Release
@@ -119,7 +119,7 @@ branch_labels:
   # Performance
   perf:
     default_labels:
-      - type:performance
+      - type:feature
     area_keywords:
       - performance
       - optimization
@@ -136,7 +136,7 @@ branch_labels:
 
   build:
     default_labels:
-      - type:build
+      - type:ci
     area_keywords:
       - build
       - webpack
@@ -197,7 +197,7 @@ branch_labels:
   # Operations
   ops:
     default_labels:
-      - type:automation
+      - type:ci
     area_keywords:
       - deployment
       - infrastructure
@@ -207,7 +207,7 @@ branch_labels:
   # Audit & Compliance
   audit:
     default_labels:
-      - type:review
+      - type:audit
     area_keywords:
       - audit
       - review
@@ -225,11 +225,107 @@ branch_labels:
   # Research
   research:
     default_labels:
-      - type:research
+      - type:feature
     area_keywords:
       - research
       - investigation
       - benchmark
+
+  # API & Schema
+  api:
+    default_labels:
+      - type:feature
+    area_keywords:
+      - api
+      - endpoint
+
+  schema:
+    default_labels:
+      - type:refactor
+    area_keywords:
+      - schema
+      - database
+
+  # Documentation Variants & Content
+  doc:
+    default_labels:
+      - type:docs
+    area_keywords:
+      - documentation
+      - guide
+      - readme
+
+  content:
+    default_labels:
+      - type:docs
+    area_keywords:
+      - content
+      - documentation
+
+  seo:
+    default_labels:
+      - type:feature
+    area_keywords:
+      - seo
+
+  # Configuration & Maintenance
+  config:
+    default_labels:
+      - type:chore
+    area_keywords: []
+
+  migrate:
+    default_labels:
+      - type:refactor
+    area_keywords:
+      - migration
+      - database
+
+  # Testing Variants
+  qa:
+    default_labels:
+      - type:test
+    area_keywords:
+      - testing
+      - coverage
+      - e2e
+
+  uat:
+    default_labels:
+      - type:test
+    area_keywords:
+      - testing
+      - e2e
+
+  # AI Operations & Automation
+  aiops:
+    default_labels:
+      - type:aiops
+    area_keywords:
+      - ai
+      - automation
+
+  automation:
+    default_labels:
+      - type:aiops
+    area_keywords:
+      - automation
+      - workflow
+
+  # Telemetry & Observability
+  telemetry:
+    default_labels:
+      - type:ci
+    area_keywords:
+      - telemetry
+      - monitoring
+      - metrics
+
+  # Epics
+  epic:
+    default_labels:
+      - type:epic
+    area_keywords: []
 
 # Area Label Keywords Reference
 #
