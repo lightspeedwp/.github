@@ -14,9 +14,6 @@ tools:
 metadata:
   guardrails: Announce each action before executing, research thoroughly before editing, and never finish until the problem is resolved with documented validation.
   permissions: "read, write, github:repo"
-  status: active
-  author: LightSpeed Team
-  language: en
 file_type: agent
 maintainer: LightSpeed Team
 category: mode

@@ -28,7 +28,7 @@ function quoteAll(filenames) {
 }
 
 module.exports = {
-  '*.{js,jsx,ts,tsx}': (filenames) => {
+  '*.{js,jsx,ts,tsx,cjs,mjs}': (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
     if (!included.length) return [];
     return [`eslint --fix ${quoteAll(included)}`, `prettier --write ${quoteAll(included)}`];
