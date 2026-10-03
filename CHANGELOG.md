@@ -79,6 +79,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
 - **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
+### Added
+
+- **Workflow Consolidation Phase 1-2** — Completed baseline metrics, rollback procedure, 4 composite actions and test harness; 14 of 78 tasks done. (#3359)
+- **Workflow Consolidation Phase 2, minimum viable product** — Completed 5-workflow consolidation implementation, 72 of 78 tasks done. (#3359)
+- **Workflow Consolidation Phase 3** — Implemented labeling-unified.yml consolidating 11 archived labeling workflows into one workflow with 9 jobs. (#3359)
+
 ### Fixed
 
 - **Bare Jest Uses the Intended Config** — The broken root Jest config is gone and a root `jest.config.cjs` now forwards to `.jest.config.cjs`, so bare `npx jest` no longer runs 76 suites this repository excludes. (#3711)

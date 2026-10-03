@@ -10,6 +10,10 @@ setup() {
   git init -q -b develop "$WORK_DIR"
   git -C "$WORK_DIR" config user.email "test@example.com"
   git -C "$WORK_DIR" config user.name "Test"
+  # Disable background maintenance: on loaded CI runners a forked gc can
+  # still hold pack files when teardown runs, failing the rm -rf.
+  git -C "$WORK_DIR" config gc.auto 0
+  git -C "$WORK_DIR" config maintenance.auto false
   git -C "$WORK_DIR" commit -q --allow-empty -m base
   git init -q --bare "$REMOTE_DIR/remote.git"
   git -C "$WORK_DIR" remote add origin "$REMOTE_DIR/remote.git"
@@ -17,7 +21,8 @@ setup() {
 }
 
 teardown() {
-  rm -rf "$REMOTE_DIR" "$WORK_DIR"
+  # Retry once: a slow background git process may briefly hold files.
+  rm -rf "$REMOTE_DIR" "$WORK_DIR" || (sleep 5; rm -rf "$REMOTE_DIR" "$WORK_DIR")
 }
 
 # Simulate an external writer landing on the remote behind our back.
@@ -29,6 +34,8 @@ external_commit() {
   git clone -q -b develop "$REMOTE_DIR/remote.git" "$clone"
   git -C "$clone" config user.email "bot@example.com"
   git -C "$clone" config user.name "Bot"
+  git -C "$clone" config gc.auto 0
+  git -C "$clone" config maintenance.auto false
   echo "$content" > "$clone/$file"
   git -C "$clone" add "$file"
   git -C "$clone" commit -qm "external: $file"

@@ -10,7 +10,6 @@
 
 BASELINE='
 .github/scripts/__tests__/run-all-tests.sh
-.github/scripts/measure-actions-minutes.sh
 scripts/automation/test-project-docs-update.sh
 scripts/check-mermaid-diagrams.sh
 scripts/report-changelog-action.sh
