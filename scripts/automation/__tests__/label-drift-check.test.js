@@ -8,7 +8,8 @@
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { execFileSync } from 'child_process';
+import { fileURLToPath, pathToFileURL } from 'url';
 import { describe, it, expect } from '@jest/globals';
 import {
   DRIFT_ISSUE_TITLE,
@@ -39,6 +40,27 @@ const canonical = new Map([
 ]);
 
 describe('label-drift-check', () => {
+  it('loads the real approved label set from labels.yml under plain Node', () => {
+    // Jest's module interop hides import-shape bugs (js-yaml 5 has no default
+    // export), so exercise the loader the way the workflow runs it.
+    const labelsPath = path.join(__dirname, '../../../.github/labels.yml');
+    const scriptPath = path.join(__dirname, '../label-drift-check.js');
+    const out = execFileSync(
+      process.execPath,
+      [
+        '--input-type=module',
+        '-e',
+        `import { loadCanonicalLabels } from ${JSON.stringify(pathToFileURL(scriptPath).href)};
+         const m = await loadCanonicalLabels(${JSON.stringify(labelsPath)});
+         console.log(JSON.stringify({ size: m.size, audit: m.has('type:audit') }));`,
+      ],
+      { encoding: 'utf8' }
+    );
+    const result = JSON.parse(out.trim().split('\n').pop());
+    expect(result.size).toBeGreaterThan(50);
+    expect(result.audit).toBe(true);
+  });
+
   it('never calls a label-mutating GitHub endpoint', () => {
     for (const call of [
       'createLabel',
