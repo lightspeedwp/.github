@@ -33,12 +33,10 @@ jobs:
     concurrency:
       group: label-drift-check
       cancel-in-progress: false
-    # Secrets below live in this environment, not the repository: a branch
-    # dispatched by workflow_dispatch runs its own workflow definition, so
-    # repository-level secrets would be reachable from unreviewed branch
-    # code. The environment must restrict deployments to `develop` (repo
-    # Settings → Environments; manual step alongside T071a) for the
-    # protection to hold — without that rule this binding is inert.
+    # The environment restricts deployments to `develop`, so a
+    # workflow_dispatch from another branch cannot run this job. It holds no
+    # secrets: the credentials are repository level, so this is branch gating
+    # only, not secret isolation (see APP-CREDENTIAL-VARIANCE).
     environment: label-drift-check
     steps:
       - name: Check out repository
@@ -61,15 +59,20 @@ jobs:
         run: npm ci
 
       - name: Mint read App token
-        # FR-018 requires the organisation-wide GitHub App (manual step
-        # T071a; repo secrets BOT_PR_APP_CLIENT_ID and BOT_PR_APP_PRIVATE_KEY
-        # with the App installed across lightspeedwp). Read-only and
-        # organisation-wide: inventory, search and report lookup only.
+        # Uses the project-automation App (vars.LS_APP_ID, secret
+        # LS_APP_PRIVATE_KEY), which is already installed on every
+        # lightspeedwp repository with Issues and Metadata access. The
+        # BOT_PR_APP App is not used here: its installation is limited to
+        # selected repositories and has no Issues permission, so this mint
+        # failed with "permissions requested are not granted" (T071a).
+        # The token is downscoped below, so FR-018's narrow set holds per
+        # token. Read-only and organisation-wide: inventory, search and
+        # report lookup only.
         id: app-token-read
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
-          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          app-id: ${{ vars.LS_APP_ID }}
+          private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
           owner: lightspeedwp
           permission-issues: read
           permission-metadata: read
@@ -81,8 +84,8 @@ jobs:
         id: app-token-write
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         with:
-          client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
-          private-key: ${{ secrets.BOT_PR_APP_PRIVATE_KEY }}
+          app-id: ${{ vars.LS_APP_ID }}
+          private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
           owner: lightspeedwp
           repositories: .github
           permission-issues: write
