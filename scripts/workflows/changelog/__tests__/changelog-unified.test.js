@@ -6,7 +6,7 @@ const YAML = require('yaml');
 
 const repositoryRoot = path.resolve(__dirname, '../../../..');
 const workflowPath = path.join(repositoryRoot, '.github/workflows/changelog-unified.yml');
-const workflowLintPath = path.join(repositoryRoot, '.github/workflows/workflow-lint.yml');
+const actionlintScriptPath = path.join(repositoryRoot, 'scripts/validation/lint-actionlint.sh');
 const workflowSource = fs.readFileSync(workflowPath, 'utf8');
 const workflow = YAML.parse(workflowSource);
 const temporaryDirectories = [];
@@ -270,14 +270,14 @@ describe('changelog unified workflow contract', () => {
   });
 
   test('keeps only the unified changelog workflow in the active actionlint list', () => {
-    const lintWorkflow = YAML.parse(fs.readFileSync(workflowLintPath, 'utf8'));
-    const actionlint = lintWorkflow.jobs.actionlint.steps.find(
-      (step) => step.name === 'Run actionlint on active workflows'
-    );
+    // The active list lives in the shared script that both the workflow and
+    // lint:actionlint run, so the assertions read it there rather than from a
+    // second copy in the workflow.
+    const actionlint = fs.readFileSync(actionlintScriptPath, 'utf8');
 
-    expect(actionlint.run).toContain('.github/workflows/changelog-unified.yml');
-    expect(actionlint.run).not.toContain('.github/workflows/changelog-management.yml');
-    expect(actionlint.run).not.toContain('.github/workflows/changelog-validation.yml');
+    expect(actionlint).toContain('.github/workflows/changelog-unified.yml');
+    expect(actionlint).not.toContain('.github/workflows/changelog-management.yml');
+    expect(actionlint).not.toContain('.github/workflows/changelog-validation.yml');
     expect(fs.existsSync(workflowPath)).toBe(true);
     expect(
       fs.existsSync(path.join(repositoryRoot, '.github/workflows/changelog-management.yml'))
@@ -612,7 +612,8 @@ describe('quality feedback inline script', () => {
     expect(github.rest.issues.createComment).not.toHaveBeenCalled();
   });
 
-  test('does not overwrite a human comment that happens to use the report heading', async () => {    const github = githubWithComments([
+  test('does not overwrite a human comment that happens to use the report heading', async () => {
+    const github = githubWithComments([
       {
         id: 100,
         body: '## 📋 Changelog Quality Validation\nHuman-authored note',
@@ -693,7 +694,8 @@ describe('merged changelog sync inline script', () => {
     expect(outputValue(result.core, 'has_changelog')).toBe(false);
   });
 
-  test('guards every mutation step behind the extracted-entry output', () => {    for (const stepName of [
+  test('guards every mutation step behind the extracted-entry output', () => {
+    for (const stepName of [
       'Validate extracted entries',
       'Merge changelog entries',
       'Validate final changelog schema',
