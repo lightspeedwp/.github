@@ -11,7 +11,7 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
   "repository": "lightspeedwp/example-repo",
   "generated_at": "2026-09-24T00:00:00Z",
   "approved_set_commit": "<develop commit of labels.yml>",
-  "executed_at": null,
+  "executed_at": { "3": null, "4": null },
   "label_count": 212,
   "pages_read": 3,
   "approved_set_count": 191,
@@ -43,12 +43,12 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 3. The snapshot keeps name, colour, description and item numbers, so any deleted label can be recreated and reapplied (research R8).
 4. Deletion runs only when `approval.status` is `approved`, `approved_by` is `ashleyshaw`, and `gate_comment_url` points to a comment reading `Approved: <repo> dry run <generated_at>` whose repository and timestamp match this file. Repositories without approval are skipped. If `labels.yml` on `develop` differs from `approved_set_commit`, the dry run is stale and must be regenerated.
 5. `destructive_cleanup.enabled` in `label-governance-policy.yml` stays `false`. Deletion requires the run-time flags `--apply --confirm-gate <gate issue number>`, and the tool refuses any repository whose `approval.status` is not `approved`.
-6. Before deleting, the tool re-reads the repository's labels and the items carrying each `to_delete` label. The expected state is this file plus the changes that this run's own `done` records already show for the repository (partial progress before a stop, while `executed_at` is unset). If either differs from that expected state, it skips the repository, records the reason on the gate issue, and needs a new dry run and approval (FR-023 point 4).
-7. When the repository's run finishes, the tool sets `executed_at`. A re-run skips any repository with `executed_at` set, and makes no API write for one whose current state already matches the approved set (FR-023 points 1 and 2).
+6. Before deleting, the tool re-reads the repository's labels and the items carrying each `to_delete` label. The expected state is this file plus the changes that this run's own `done` records already show for the repository (partial progress before a stop, while `executed_at` for Stage 4 is unset). If either differs from that expected state, it skips the repository, records the reason on the gate issue, and needs a new dry run and approval (FR-023 point 4).
+7. When the repository's run finishes, the tool sets `executed_at` for the stage it ran (`executed_at.3` after Stage 3 renames, creates and relabels; `executed_at.4` after Stage 4 deletion). A re-run skips any repository with `executed_at` set for the stage it is running, so a Stage 3 finish never hides a repository from Stage 4, and makes no API write for one whose current state already matches the approved set (FR-023 points 1 and 2). Generating or regenerating the deletion dry run (T065) leaves `executed_at.3` as the record of Stage 3 and requires `executed_at.4` to be null.
 
 ## Run logs (FR-023)
 
-Both files are append-only JSON arrays in `evidence/`. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds. Each `op_id` starts with the `run_id` of the run that wrote it, and only the run holding `evidence/run-lock.json` may append (FR-023 point 11). Each example below shows one change as its ordered `intended` and `done` pair.
+Both files are append-only JSON arrays in `evidence/`. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds. Each `op_id` starts with the `run_id` of the run that wrote it, and only the run holding `evidence/run-lock.json` under its current `epoch` may append (FR-023 point 11). Each example below shows one change as its ordered `intended` and `done` pair.
 
 ### `consolidation-log.json` (GitHub, Stages 3 and 4)
 

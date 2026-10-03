@@ -467,7 +467,8 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 2. Confirm every deleted label has a snapshot entry with name, colour, description and item numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
 3. Re-run the deletion for one finished repository and confirm it makes no API write and adds no record to `evidence/consolidation-log.json` (FR-023).
 4. Confirm `evidence/consolidation-log.json` has a `done` record for every change made in the run and no `intended` record without a matching `done` record, and that the gate issue has the run's summary comment (FR-023 point 10).
-5. While a run holds `evidence/run-lock.json`, start a second run and confirm it refuses to start and writes nothing. Stop the first run, resume it, and confirm it reconciles only `intended` records whose `op_id` starts with its own `run_id`, then removes the lock (FR-023 point 11).
+5. While a run holds `evidence/run-lock.json`, start a second run and confirm it refuses to start and writes nothing. Kill the first run mid-write, start a plain run and confirm it still refuses and names the stopped `run_id`, then run `--resume <run_id>` and confirm it keeps that `run_id`, raises `epoch` by one, reconciles only `intended` records whose `op_id` starts with that `run_id`, and then removes the lock; confirm `--resume` fails while the first process is still alive (FR-023 point 11).
+6. Finish Stage 3 for a repository, generate its deletion dry run, and confirm Stage 4 still processes it: `executed_at` for Stage 3 is set and `executed_at` for Stage 4 is null (FR-023 point 1).
 
 ### Test 13: Linear Clean-up
 

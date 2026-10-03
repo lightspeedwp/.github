@@ -472,7 +472,7 @@ One record per destructive change in Stages 3 and 4, appended to `evidence/conso
 | `op_id` | string | Starts with the `run_id` of the run that wrote it (for example `run-20261005T0900-0001`); unique per change; the `intended` and `done` records of one change share it |
 | `state` | enum | `intended` (written before the API call) or `done` (written after it succeeds) |
 
-**Rules**: append-only; every change has an `intended` record before its API call and a `done` record after it succeeds; on resume, an `intended` record with no `done` record is checked against the live state and then completed or retried; a re-run that makes no write adds no record. Only the run holding the run lock (entity 16) may append, and a resumed run reconciles only `intended` records whose `op_id` starts with its own `run_id` (FR-023 point 11).
+**Rules**: append-only; every change has an `intended` record before its API call and a `done` record after it succeeds; on resume, an `intended` record with no `done` record is checked against the live state and then completed or retried; a re-run that makes no write adds no record. Only the run holding the run lock (entity 16) under its current `epoch` may append, and a resumed run reconciles only `intended` records whose `op_id` starts with its own `run_id` (FR-023 point 11).
 
 ### 15. Linear Write Log Entry
 
@@ -499,14 +499,16 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 | `run_by` | string | GitHub login of the person running the tool |
 | `started_at` | timestamp | UTC, ISO 8601 |
 | `stage` | enum | `3`, `4` or `5` |
+| `epoch` | integer | Starts at 1 and is raised by one each time a stopped run is resumed; a holder whose `epoch` differs from this value must not append to any log (fencing token) |
+| `resumed_from` | object or null | Null for a first start; after `--resume`, the previous `epoch` and the time of the takeover |
 
-**Rules**: created with an exclusive create (it fails if the file exists) when a run starts, in the one checkout used for consolidation runs, and deleted when it finishes; a run refuses to start while the file exists; a lock left by a stopped run is cleared only after @ashleyshaw confirms on the gate issue.
+**Rules**: created with an exclusive create (it fails if the file exists) when a run starts, in the one checkout used for consolidation runs, held under an operating-system advisory lock (`flock`) while the run writes, and deleted when it finishes; a run refuses to start while the file exists, and its message names the `run_id`; the operating system releases the advisory lock when a run's process dies, so a file whose advisory lock is free belongs to a stopped run; `--resume <run_id>` takes the advisory lock, keeps the `run_id`, raises `epoch` by one and reconciles that `run_id`'s unmatched `intended` records before any other write, and it fails while the original process still holds the advisory lock; a lock that will not be resumed is abandoned (`--abandon-run <run_id>`) only after @ashleyshaw confirms on the gate issue, and the unmatched records of the abandoned `run_id` are then reconciled by hand.
 
 ### Consolidation State Transitions
 
 ```text
 Approval Gate Label: applied (decision pending) → removed (dated decision recorded)
-Run Lock: absent → held (run starts) → absent (run finishes, or a stale lock is cleared after @ashleyshaw confirms)
+Run Lock: absent → held (run starts) → absent (run finishes); held → stale (process died) → held with epoch + 1 (resumed with `--resume`) or absent (abandoned after @ashleyshaw confirms)
 Label Mapping:     proposed → approved (Change Request merged) → applied-github → applied-linear → verified (drift report clean)
 Repository Dry Run: generated → approved → executed → verified
                               ↘ skipped (no approval: nothing deleted)

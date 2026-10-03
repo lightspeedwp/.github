@@ -244,6 +244,48 @@ describe('Run-safety documentation and log examples', () => {
     expect(model).toMatch(/approved → stale .*→ regenerated → approved again/);
   });
 
+  test('scopes the completion marker to a stage so Stage 3 never hides a repository from Stage 4', () => {
+    const resume = rules.split('\n').find((line) => line.startsWith('7. '));
+    expect(resume).toMatch(/`executed_at\.3`.*`executed_at\.4`/);
+    expect(resume).toMatch(
+      /set for the stage it is running.*never hides a repository from Stage 4/
+    );
+    expect(resume).toMatch(/\(T065\).*`executed_at\.4` to be null/);
+    expect(read('contracts/dry-run-and-drift-report-schema.md')).toMatch(
+      /"executed_at": \{ "3": null, "4": null \}/
+    );
+    expect(task('T062b').text).toMatch(/`executed_at` set for the stage being run/);
+    expect(task('T062c').text).toMatch(/finished for Stage 3 is still processed by Stage 4/);
+    expect(task('T064').text).toMatch(/`executed_at` for Stage 3 set per repository/);
+    expect(task('T065').text).toMatch(/requires the Stage 4 `executed_at` to be null/);
+    expect(task('T067').text).toMatch(/sets the Stage 4 `executed_at`/);
+    expect(read('quickstart.md')).toMatch(/Stage 4 still processes it/);
+  });
+
+  test('makes a crashed run resumable with an advisory lock and a fencing epoch', () => {
+    const lock = section(model, '### 16. Run Lock');
+    expect(lock).toMatch(/\| `epoch` \| integer \|/);
+    expect(lock).toMatch(/operating-system advisory lock \(`flock`\)/);
+    expect(lock).toMatch(
+      /`--resume <run_id>` takes the advisory lock, keeps the `run_id`, raises `epoch` by one/
+    );
+    expect(lock).toMatch(/fails while the original process still holds the advisory lock/);
+    expect(lock).toMatch(/abandoned \(`--abandon-run <run_id>`\) only after @ashleyshaw confirms/);
+    expect(model).toMatch(/held → stale \(process died\) → held with epoch \+ 1/);
+    expect(task('T062b').text).toMatch(/`--resume <run_id>`.*`--abandon-run <run_id>`/);
+    expect(task('T062b').text).toMatch(
+      /refuse any append when the lock's `epoch` is not the run's own/
+    );
+    expect(task('T062c').text).toMatch(
+      /killed mid-write.*`--resume <run_id>`.*adopting the same `run_id`/
+    );
+    expect(task('T062c').text).toMatch(/holder with a stale `epoch` cannot append/);
+    expect(read('spec.md')).toMatch(/`--resume <run_id>`.*raises the `epoch` by one/);
+    expect(read('quickstart.md')).toMatch(
+      /`--resume` fails while the first process is still alive/
+    );
+  });
+
   test('requires completed repositories and matching state to produce no writes or log records', () => {
     const resume = rules.split('\n').find((line) => line.startsWith('7. '));
     expect(resume).toMatch(/finishes.*sets `executed_at`/);

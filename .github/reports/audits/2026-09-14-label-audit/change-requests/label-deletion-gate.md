@@ -23,7 +23,7 @@ This issue is the approval gate for deleting labels in `lightspeedwp` repositori
    The repository and timestamp must match the dry-run file. A repository without this comment is skipped, and nothing is deleted from it.
 3. **Stale dry runs.** An approval no longer counts if the dry run changes or `labels.yml` on `develop` no longer matches the file's `approved_set_commit`. Just before deleting, the tool also re-reads the repository. If its labels, or the items carrying a listed label, differ from the dry run, it skips the repository, says why here, and needs a new dry run and approval.
 4. **Run.** The run migrates open issues, PRs and Discussions to their target labels, and migrates closed items where the label has a mapping target. It then deletes the listed labels. Every change is appended to `evidence/consolidation-log.json`, and each run posts one summary comment here.
-5. **Resume.** A finished repository records `executed_at` and is skipped on a re-run. A stopped or rate-limited run resumes with the repositories that have no `executed_at`.
+5. **Resume.** A repository finished for a stage records `executed_at` for that stage and is skipped when that stage is re-run. A stopped or rate-limited run resumes with the repositories that have no `executed_at` for its stage. A run that was killed is resumed with `--resume <run_id>`, never by deleting its lock.
 6. **Rollback.** Only when @ashleyshaw asks for it here. A deleted label is recreated from its dry-run snapshot (name, colour, description) and reapplied to the recorded items.
 
 ## Before the first dry run
