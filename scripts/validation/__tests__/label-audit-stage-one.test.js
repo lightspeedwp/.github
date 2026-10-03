@@ -284,6 +284,6 @@ describe('Stage 1 deletion gate draft (T049)', () => {
     expect(request).toContain('refuses any repository whose dry-run approval is not `approved`');
     expect(request).toContain('`approved_set_commit`');
     expect(request).toContain('`executed_at`');
-    expect(request).toContain('`evidence/consolidation-log.json`');
+    expect(request).toContain('`evidence/consolidation-log.jsonl`');
   });
 });

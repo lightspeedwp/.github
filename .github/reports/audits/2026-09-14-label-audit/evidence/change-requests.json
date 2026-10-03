@@ -79,7 +79,8 @@
       "approved_by": "ashleyshaw",
       "approved_at": "2026-09-24",
       "blocks": "merge of audit/label-consolidation into develop",
-      "approval_comment": "https://github.com/lightspeedwp/.github/issues/3530#issuecomment-5809051163"
+      "approval_comment": "https://github.com/lightspeedwp/.github/issues/3530#issuecomment-5809051163",
+      "blocks_status": "satisfied: #3362 merged 2026-09-25"
     },
     {
       "kind": "ISSUE-TYPE-UPDATE-REQUEST",
@@ -96,7 +97,7 @@
       "approved_by": null,
       "approved_at": null,
       "approval_comment": null,
-      "blocks": "merge of #3534",
+      "blocks": "full sign-off (#3534 has merged)",
       "approved_in_principle": {
         "scope": "Decision replaces Question; use of type:decision",
         "by": "ashleyshaw",
@@ -109,7 +110,8 @@
           "manual organisation issue-type steps (T040c)",
           "companion request #3557"
         ]
-      }
+      },
+      "implemented_in_status": "merged 2026-09-25, before full sign-off was recorded on this request"
     },
     {
       "kind": "TEMPLATE-UPDATE-REQUEST",
@@ -126,7 +128,7 @@
       "approved_by": null,
       "approved_at": null,
       "approval_comment": null,
-      "blocks": "merge of #3534",
+      "blocks": "full sign-off (#3534 has merged)",
       "next_step_request": {
         "by": "ashleyshaw",
         "at": "2026-09-25",
@@ -135,6 +137,17 @@
           "confirm the default area (template and contract now both area:governance)",
           "verify the issue chooser Discussions link",
           "coordinate approval with #3556"
+        ]
+      },
+      "implemented_in_status": "merged 2026-09-25, before full sign-off was recorded on this request",
+      "next_step_request_2": {
+        "by": "ashleyshaw",
+        "at": "2026-09-25",
+        "comment": "https://github.com/lightspeedwp/.github/issues/3557#issuecomment-5827416612",
+        "asks": [
+          "reconcile the contract's never-delete rule with T055 (resolved: contract updated to say T055 removes type:question, shipped in #3362)",
+          "reconcile the contract's reference to three change requests (resolved: contract names #3556 and #3557, plus #3530)",
+          "verify the live Discussions chooser after merge"
         ]
       }
     }

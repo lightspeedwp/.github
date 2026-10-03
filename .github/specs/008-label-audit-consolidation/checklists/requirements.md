@@ -78,7 +78,7 @@
    - Duplicate labels (consolidation candidates)
    - Archived workflow analysis (automation gaps)
 5. **Evidence-based findings**: All recommendations include file/line references
-6. **Gated changes**: Read-only audit phase; consolidation deletions need a per-repository dry run approved by @ashley
+6. **Gated changes**: Read-only audit phase; consolidation deletions need a per-repository dry run approved by @ashleyshaw
 
 ### Clarification Notes
 
