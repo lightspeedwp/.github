@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Label Write Queue** — Added a queue that spaces label writes one second apart and pauses on GitHub or Linear rate limits. Nothing calls it yet; later consolidation stages will. (#3704)
 - **Weekly Label Drift Check** — A scheduled workflow compares every org repository and Linear label against labels.yml and updates one drift report issue; read-only, never writes labels. (#3754)
 - **Badge Links Stop Breaking On Spaces** — The generator percent-encodes labels, so a multi-word badge resolves instead of ending at the first space. A check reports the 76,594 broken ones, with a fix mode. (#3702)
 - **Badge Check Handles Titled and Nested Examples** — A badge carrying a quoted title is no longer reported or rewritten, and a badge inside a nested code fence is left alone. (#3702)
