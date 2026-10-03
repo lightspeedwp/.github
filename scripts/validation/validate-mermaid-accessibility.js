@@ -31,14 +31,71 @@ const getMarkdownFiles = () =>
     dot: true,
   }).sort();
 
+// Diagram types that cannot carry accTitle/accDescr. Kept in step with
+// NO_ACC_TYPES in scripts/fix-mermaid-diagrams.cjs, which verified each of them
+// against a full mermaid 12.0.0 parse: a mindmap reads the statements as extra
+// root nodes, and sankey-beta and block-beta reject them outright. Those
+// diagrams need a Markdown text alternative above the fence instead.
+const TEXT_ALTERNATIVE_TYPES = ['mindmap', 'sankey-beta', 'block-beta'];
+
+// The nearest non-blank line above an opening fence, when it can serve as a
+// text alternative: prose, not a heading, another fence, a horizontal rule, or
+// anything inside an HTML comment. Mirrors what a screen reader reaches first,
+// so requiring it is meaningful.
+function textAlternativeAbove(lines, openIndex) {
+  let insideComment = false;
+
+  for (let i = openIndex - 1; i >= 0; i -= 1) {
+    const line = lines[i].replace(/^\s*(>\s?)*/, '').trim();
+
+    if (line === '') {
+      continue;
+    }
+
+    // Walking upwards, so a `-->` means the line above opens a comment and the
+    // whole block is invisible. `--` on its own is a setext underline.
+    if (line.endsWith('-->') || line === '--') {
+      insideComment = true;
+      continue;
+    }
+
+    if (line.startsWith('<!--')) {
+      return null;
+    }
+
+    if (insideComment) {
+      insideComment = !line.endsWith('-->');
+      continue;
+    }
+
+    // A thematic break (`---`, `- - -`, `***`, `___`) or a setext heading
+    // underline (`===`) is markup, not a description, in every spacing
+    // CommonMark allows.
+    const isRule = /^([-*_=])(?:[ \t]*\1)+[ \t]*$/u.test(line);
+
+    if (/^#{1,6}\s/u.test(line) || /^(```|~~~)/u.test(line) || isRule) {
+      return null;
+    }
+
+    return line;
+  }
+
+  return null;
+}
+
 function extractMermaidDiagrams(content) {
   const diagrams = [];
+  const lines = content.split(/\r?\n/);
   const regex = /```mermaid\r?\n([\s\S]*?)```/g;
   let match;
 
   while ((match = regex.exec(content)) !== null) {
-    const diagramContent = match[1].trim();
-    diagrams.push(diagramContent);
+    const openIndex = content.slice(0, match.index).split(/\r?\n/).length - 1;
+
+    diagrams.push({
+      content: match[1].trim(),
+      textAlternative: textAlternativeAbove(lines, openIndex),
+    });
   }
 
   return diagrams;
@@ -80,16 +137,19 @@ function getDiagramType(content) {
       return 'stateDiagram';
     }
 
-    const match = trimmed.match(/^(\w+)/);
+    // Hyphens are part of the type keyword: block-beta, sankey-beta and
+    // stateDiagram-v2 all lose meaning if the match stops at the first one.
+    const match = trimmed.match(/^([\w-]+)/);
     return match ? match[1] : 'unknown';
   }
 
   return 'unknown';
 }
 
-function validateAccessibility(content) {
+function validateAccessibility(content, textAlternative = null) {
   const issues = [];
   const lines = content.split('\n');
+  const type = getDiagramType(content);
 
   // Check for YAML front-matter header (--- blocks) — NOT supported by GitHub's renderer.
   // The first non-blank, non-comment line of a Mermaid block must be the diagram type,
@@ -112,6 +172,21 @@ function validateAccessibility(content) {
       'accTitle/accDescr must appear after the diagram type declaration, not before it. ' +
         'Move the diagram type (e.g. `flowchart TD`) to the first line.'
     );
+    return issues;
+  }
+
+  // Types that reject accTitle/accDescr are satisfied by a text alternative
+  // above the fence instead. Placed after the front-matter and ordering checks
+  // so those still apply, and before the presence checks so a block-beta or
+  // mindmap is never asked for something the parser will not take.
+  if (TEXT_ALTERNATIVE_TYPES.includes(type)) {
+    if (!textAlternative) {
+      issues.push(
+        `Missing text alternative above the \`${type}\` fence — the diagram type cannot carry ` +
+          '`accTitle`/`accDescr`, so describe it in a Markdown line directly above the fence'
+      );
+    }
+
     return issues;
   }
 
@@ -215,11 +290,12 @@ async function main() {
     console.log(`📄 ${file}: Checking ${diagrams.length} diagram(s)`);
 
     for (let i = 0; i < diagrams.length; i++) {
-      const diagramContent = diagrams[i];
+      const diagramContent = diagrams[i].content;
       const type = getDiagramType(diagramContent);
+      const usesTextAlternative = TEXT_ALTERNATIVE_TYPES.includes(type);
       report.totalDiagrams++;
 
-      const issues = validateAccessibility(diagramContent);
+      const issues = validateAccessibility(diagramContent, diagrams[i].textAlternative);
 
       const hasAccTitle =
         /accTitle\s*[:=]|accTitle\s*{/.test(diagramContent) ||
@@ -230,8 +306,13 @@ async function main() {
 
       if (issues.length === 0) {
         report.accessibleDiagrams++;
-        console.log(`   ✅ Diagram ${i + 1} [${type}]: Accessible (accTitle & accDescr present)`);
-        csvRows.push(`${file},${i + 1},${type},Yes,Yes,"—",✅ Accessible`);
+        const satisfiedBy = usesTextAlternative
+          ? `text alternative above the fence`
+          : 'accTitle & accDescr present';
+        console.log(`   ✅ Diagram ${i + 1} [${type}]: Accessible (${satisfiedBy})`);
+        csvRows.push(
+          `${file},${i + 1},${type},${usesTextAlternative ? 'n/a' : 'Yes'},${usesTextAlternative ? 'n/a' : 'Yes'},"—",✅ Accessible`
+        );
       } else {
         report.inaccessibleDiagrams++;
         const issueMsg = issues.join('; ');
@@ -270,7 +351,12 @@ async function main() {
     }
   }
 
-  const reportPath = path.join(ROOT, '.github/reports/mermaid-accessibility-report.md');
+  // MERMAID_ACCESSIBILITY_REPORT_DIR redirects both artefacts (tests write to a
+  // temp dir). Mirrors MERMAID_SYNTAX_REPORT in validate-mermaid-syntax.js, so
+  // running the validator cannot dirty the working tree.
+  const reportDir =
+    process.env.MERMAID_ACCESSIBILITY_REPORT_DIR || path.join(ROOT, '.github/reports');
+  const reportPath = path.join(reportDir, 'mermaid-accessibility-report.md');
   const existingReport = fs.existsSync(reportPath) ? fs.readFileSync(reportPath, 'utf-8') : '';
   const fallbackGeneratedAt = new Date().toISOString();
   const fallbackDate = fallbackGeneratedAt.split('T')[0];
@@ -365,17 +451,18 @@ ${
 **Related Issues**: #667, #668, #669, #670
 `;
 
+  fs.mkdirSync(reportDir, { recursive: true });
   fs.writeFileSync(reportPath, reportContent);
-  console.log('\n✅ Accessibility report saved to .github/reports/mermaid-accessibility-report.md');
+  console.log(
+    `\n✅ Accessibility report saved to ${path.relative(ROOT, reportPath) || reportPath}`
+  );
 
   // Create/update comprehensive audit spreadsheet
+  const spreadsheetPath = path.join(reportDir, 'mermaid-diagram-accessibility-spreadsheet.csv');
   const spreadsheetContent = csvRows.join('\n');
-  fs.writeFileSync(
-    path.join(ROOT, '.github/reports/mermaid-diagram-accessibility-spreadsheet.csv'),
-    spreadsheetContent
-  );
+  fs.writeFileSync(spreadsheetPath, spreadsheetContent);
   console.log(
-    '✅ Accessibility spreadsheet saved to .github/reports/mermaid-diagram-accessibility-spreadsheet.csv'
+    `✅ Accessibility spreadsheet saved to ${path.relative(ROOT, spreadsheetPath) || spreadsheetPath}`
   );
 
   process.exit(report.inaccessibleDiagrams > 0 ? 1 : 0);

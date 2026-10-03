@@ -160,6 +160,8 @@ Test at the following viewports:
 
 ### 3.1 Issue Prioritization
 
+Issues are grouped into three priority bands: P1 covers layout problems that break the page, P2 covers visual problems that make it hard to use, and P3 covers minor inconsistencies.
+
 ```mermaid
 block-beta
     columns 1
