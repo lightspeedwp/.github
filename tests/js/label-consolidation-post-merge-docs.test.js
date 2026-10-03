@@ -51,10 +51,10 @@ describe('Label consolidation post-merge task plan', () => {
     );
     const phase8Count = [...phase8.matchAll(/^- \[[ xX]\] T\d{3}[a-z]?\b/gm)].length;
 
-    expect(taskRows).toHaveLength(116);
+    expect(taskRows).toHaveLength(118);
     expect(new Set(taskRows.map(({ id }) => id)).size).toBe(taskRows.length);
-    expect(taskRows.filter(({ done }) => done)).toHaveLength(62);
-    expect(phase8Count).toBe(66);
+    expect(taskRows.filter(({ done }) => done)).toHaveLength(61);
+    expect(phase8Count).toBe(67);
     expect(tasks).toContain(`**Total Tasks**: ${taskRows.length}`);
     expect(tasks).toContain(`All ${taskRows.length} tasks in phases 1-10`);
     expect(tasks).toContain(`Phase 8, User Story 4, is ${phase8Count} of the ${taskRows.length}`);
@@ -100,7 +100,10 @@ describe('Label consolidation post-merge task plan', () => {
     ['T067a', ['T067']],
     ['T069a', ['T042', 'T062a', 'T062b']],
     ['T069', ['T067', 'T064c', 'T069a']],
-    ['T070', ['T067', 'T069a']],
+    ['T070', ['T067', 'T069', 'T069a']],
+    ['T071', ['T059']],
+    ['T084', ['T080']],
+    ['T083', ['T069', 'T070', 'T071']],
     ['T071', ['T059']],
   ])('preserves the execution prerequisites for %s', (id, required) => {
     expect(dependencies(id)).toEqual(required);
@@ -315,7 +318,9 @@ describe('Run-safety documentation and log examples', () => {
     expect(spec).toMatch(
       /does not count\. The mapping's `notes` cite the file, the line and that operative use/
     );
-    expect(spec).toMatch(/covers the changes the PR makes to them/);
+    expect(spec).toMatch(
+      /names every locked file the PR changes \(its `covers` list, added by T084/
+    );
     expect(read('plan.md')).toMatch(/T040n's dated sign-off on #3556 and #3557/);
     expect(read('quickstart.md')).toMatch(/# Expected: `\[\]` \(an empty JSON array\)/);
   });
@@ -356,6 +361,26 @@ describe('Run-safety documentation and log examples', () => {
       /`evidence\/linear-changes\.jsonl` has a `done` record for every retired, moved or restyled label/
     );
     expect(contract).toMatch(/the three run logs/);
+  });
+
+  test('orders Stage 5 work serially and bounds the sync gap with its own task', () => {
+    expect(task('T070').text).not.toMatch(/^\[P\]/);
+    expect(task('T069').text).not.toMatch(/^\[P\]/);
+    expect(task('T070').text).toMatch(
+      /runs after T069, because retiring a label before its issues are relabelled/
+    );
+    expect(tasks).toMatch(/T069 then T070 in sequence after T069a/);
+    expect(tasks).not.toMatch(/T069 and T070 in parallel/);
+    expect(task('T071').text).toMatch(/T083 turns it back on when Stage 5 ends/);
+    expect(task('T071').text).not.toMatch(/record both times/);
+    expect(task('T071').text).toMatch(
+      /every team's sync-off state has been read back and verified/
+    );
+    expect(task('T083').text).toMatch(/After T069 and T070 finish \(Stage 5 ends\)/);
+    expect(read('quickstart.md')).toMatch(
+      /turned the GitHub issue sync off for has it back on \(T083\)/
+    );
+    expect(tasks).toMatch(/\*\*Total Tasks\*\*: 118/);
   });
 
   test('keeps the plan current with merged PRs, the lock complete, and settings out of the run logs', () => {
@@ -417,6 +442,14 @@ describe('Run-safety documentation and log examples', () => {
     // T075 may be checked only once its text no longer says the PR is open.
     expect(t075.done).toBe(!/still open/.test(t075.text));
     expect(t075.text).toMatch(/#3734/);
+    // T080 follows the same rule: it stays open while #3734 is open and says what it does not check.
+    const t080 = task('T080');
+    expect(t080.done).toBe(!/still open/.test(t080.text));
+    expect(t080.text).toMatch(
+      /does not compare which locked files that request covers, which T084 adds/
+    );
+    expect(task('T084').text).toMatch(/`covers` list/);
+    expect(task('T081').text).toMatch(/#3732 has merged/);
     expect(task('T041').text).toMatch(/does not run before that/);
     expect(read('plan.md')).toMatch(/#3557 is pending until T040n's dated sign-off/);
     expect(read('plan.md')).not.toMatch(/approved via #3530, #3556 and #3557/);

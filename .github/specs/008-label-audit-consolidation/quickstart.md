@@ -477,6 +477,7 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 - `spec:*` label descriptions no longer mention OpenSpec.
 - `evidence/linear-writes.jsonl` has a `done` record for every relabelled Linear issue, each naming labels by ID and scope, and no unmatched `intended` record (FR-023 points 5 and 7).
 - `evidence/linear-changes.jsonl` has a `done` record for every retired, moved or restyled label, each holding the label's full before-state, and no unmatched `intended` record (FR-023 points 5 and 11).
+- Every team that T071 turned the GitHub issue sync off for has it back on (T083), and the gate issue records both times (FR-017).
 
 ### Test 14: Drift Check (FR-017, SC-009)
 
