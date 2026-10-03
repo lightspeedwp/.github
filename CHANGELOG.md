@@ -79,6 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Bare Jest Uses the Intended Config** — The broken root Jest config is gone and a root `jest.config.cjs` now forwards to `.jest.config.cjs`, so bare `npx jest` no longer runs 76 suites this repository excludes. (#3711)
+
 - **Label Drift Check Signs In To Linear** — The weekly check now sends the Linear key the way Linear expects, so its request is no longer refused as a bad authorisation header. (#3760)
 - **Label Drift Check Reads Its Label List** — The weekly check no longer stops at its first step when loading the approved label list, and a test now runs that step the way the workflow does. (#3760)
 - **Label Drift Check Can Sign In** — The weekly check now uses the project automation App, which is installed on every repository, because the earlier App could not read issues and every run stopped at sign-in. (#3760)
