@@ -12,10 +12,10 @@ status:needs-review:
 type:feature:
   - head-branch:
       - ^feat/.*
+      - ^perf/.*
 type:bug:
   - head-branch:
       - ^fix/.*
-      - ^hotfix/.*
 type:docs:
   - head-branch:
       - ^docs?/.*
@@ -25,21 +25,16 @@ type:chore:
 type:task:
   - head-branch:
       - ^task/.*
-type:build:
-  - head-branch:
-      - ^build/.*
 type:ci:
   - head-branch:
       - ^ci/.*
+      - ^build/.*
 type:refactor:
   - head-branch:
       - ^refactor/.*
 type:test:
   - head-branch:
       - ^test/.*
-type:performance:
-  - head-branch:
-      - ^perf/.*
 type:design:
   - head-branch:
       - ^design/.*
@@ -48,24 +43,24 @@ type:a11y:
       - ^a11y/.*
 # PR type:* labels are owned by the router (.github/branch-labels.yml):
 # labeler manages area:*/lang:* from files and keeps branch rules that
-# agree with the router. audit/ branches resolve to type:review via the
-# router, so no audit rule lives here (#3545).
+# agree with the router (#3545, #3731).
+type:audit:
+  - head-branch:
+      - ^audit/.*
 type:security:
   - head-branch:
       - ^security/.*
-type:automation:
-  - head-branch:
-      - ^automation/.*
 type:aiops:
   - head-branch:
       - ^aiops/.*
+      - ^automation/.*
 type:epic:
   - head-branch:
       - ^epic/.*
 type:release:
   - head-branch:
       - ^release/.*
-      # hotfix/ intentionally absent: the router owns it as type:bug (#3545).
+      - ^hotfix/.*
 priority:critical:
   - head-branch:
       - ^hotfix/.*
