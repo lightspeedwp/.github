@@ -467,9 +467,9 @@ One record per destructive change in Stages 3 and 4, appended to `evidence/conso
 | `repository` | string | `lightspeedwp/{repo}` |
 | `action` | enum | `rename`, `create`, `update`, `relabel`, `convert` (an issue converted to a Discussion), `delete` |
 | `label` | string | The label acted on |
-| `before` / `after` | object or null | Name, colour, description (and item number for `relabel`); `after` is null for `delete` |
+| `before` / `after` | object or null | Name, colour, description; for `relabel` and `convert` also `item`, an object `{ kind, number }` with `kind` one of `issue`, `pull_request` or `discussion` (a `relabel` has the same item in both; a `convert` has the source issue in `before.item` and the resulting Discussion in `after.item`, because Discussions are numbered separately); `after` is null for `delete` |
 | `gate_issue` | integer | The gate issue the run was confirmed against |
-| `op_id` | string | Starts with the `run_id` of the run that wrote it (for example `run-20261005T0900-0001`); unique per change; the `intended` and `done` records of one change share it |
+| `op_id` | string | Starts with the `run_id` of the run that wrote it (for example `run-20261005T090000-3f9a1c7e-0001`: the `run_id` plus a per-run sequence number); unique per change; the `intended` and `done` records of one change share it |
 | `state` | enum | `intended` (written before the API call) or `done` (written after it succeeds) |
 
 **Rules**: append-only; every change has an `intended` record before its API call and a `done` record after it succeeds; on resume, an `intended` record with no `done` record is checked against the live state and then completed or retried; a re-run that makes no write adds no record. Only the run holding the run lock (entity 16) under its current `epoch` may append, and a resumed run reconciles only `intended` records whose `op_id` starts with its own `run_id` (FR-023 point 11).
@@ -480,6 +480,7 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 
 | Field | Type | Rule |
 | --- | --- | --- |
+| `run_by` | string | GitHub login of the person running Stage 5 (kept here because `run-lock.json` is deleted when the run finishes) |
 | `issue` | string | Linear issue identifier (for example `GIT-2340`) |
 | `old_label` / `new_label` | object | Label ID, name and scope (`workspace` or team key); either may be null for a pure add or removal |
 | `at` | timestamp | UTC, ISO 8601 |
@@ -487,7 +488,7 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 | `op_id` | string | Starts with the `run_id` of the run that wrote it; shared by the `intended` and `done` records of one write |
 | `state` | enum | `intended` (before the call) or `done` (after it succeeds) |
 
-**Rules**: append-only; written as `intended` before the call and `done` after it, with unmatched `intended` records reconciled on resume; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label. Label-level Linear changes (T070) use the same `intended` and `done` pairing in `linear-changes.jsonl`, with the label's ID, scope, team and full before-state.
+**Rules**: append-only; written as `intended` before the call and `done` after it, with unmatched `intended` records reconciled on resume; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label. Label-level Linear changes (T070) are logged in `linear-changes.jsonl` (entity 17).
 
 ### 16. Run Lock
 
@@ -495,7 +496,7 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 
 | Field | Type | Rule |
 | --- | --- | --- |
-| `run_id` | string | Unique per run; prefixes every `op_id` the run writes |
+| `run_id` | string | Unique per run: `run-`, the UTC start time to the second (`YYYYMMDDTHHMMSS`), `-` and eight random hex digits, so two runs started in the same minute or second never share one; prefixes every `op_id` the run writes |
 | `run_by` | string | GitHub login of the person running the tool |
 | `started_at` | timestamp | UTC, ISO 8601 |
 | `stage` | enum | `3`, `4` or `5` |
@@ -503,6 +504,22 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 | `resumed_from` | object or null | Null for a first start; after `--resume`, the previous `epoch` and the time of the takeover |
 
 **Rules**: created with an exclusive create (it fails if the file exists) when a run starts, in the one checkout used for consolidation runs, held under an operating-system advisory lock (`flock`) while the run writes, and deleted when it finishes; a run refuses to start while the file exists, and its message names the `run_id`; the operating system releases the advisory lock when a run's process dies, so a file whose advisory lock is free belongs to a stopped run; `--resume <run_id>` takes the advisory lock, keeps the `run_id`, raises `epoch` by one and reconciles that `run_id`'s unmatched `intended` records before any other write, and it fails while the original process still holds the advisory lock; a lock that will not be resumed is abandoned (`--abandon-run <run_id>`) only after @ashleyshaw confirms on the gate issue, and the unmatched records of the abandoned `run_id` are then reconciled by hand.
+
+### 17. Linear Label Change Log Entry
+
+One record per label-level Linear change in Stage 5 (retire, move to team scope, restyle), appended to `evidence/linear-changes.jsonl` (FR-023 points 5 and 11). Contract: `contracts/dry-run-and-drift-report-schema.md`.
+
+| Field | Type | Rule |
+| --- | --- | --- |
+| `run_by` | string | GitHub login of the person running Stage 5 |
+| `at` | timestamp | UTC, ISO 8601 |
+| `action` | enum | `retire` (archive the label in Linear, where it can be restored), `move_to_team` or `restyle` (colour or description) |
+| `label` | object | Label ID, name and scope (`workspace` or team key) of the label acted on |
+| `before` / `after` | object or null | Name, colour, description, parent and scope or team; `before` holds everything needed to restore the label, and `after` is null for `retire` |
+| `op_id` | string | Starts with the `run_id` of the run that wrote it; shared by the `intended` and `done` records of one change |
+| `state` | enum | `intended` (before the call) or `done` (after it succeeds) |
+
+**Rules**: append-only; written as `intended` before the call and `done` after it, with unmatched `intended` records reconciled on resume; labels are identified by ID and scope, never by name alone; rolling back restores the label from `before`. Only the run holding the run lock (entity 16) under its current `epoch` may append.
 
 ### Consolidation State Transitions
 

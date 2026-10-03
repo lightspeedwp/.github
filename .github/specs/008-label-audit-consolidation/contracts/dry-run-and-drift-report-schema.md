@@ -1,6 +1,6 @@
 # Dry-Run and Drift Report Schema
 
-Defines the per-repository deletion dry run that @ashleyshaw approves before anything is deleted (spec FR-016), the two run logs (spec FR-023), and the weekly drift report issue (spec FR-017).
+Defines the per-repository deletion dry run that @ashleyshaw approves before anything is deleted (spec FR-016), the three run logs (spec FR-023), and the weekly drift report issue (spec FR-017).
 
 ## Per-repository dry run
 
@@ -48,23 +48,32 @@ Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate 
 
 ## Run logs (FR-023)
 
-Both files are JSON Lines in `evidence/` (one JSON object per line, UTF-8, every line ending in a newline), so adding a record appends one line and never rewrites an earlier record or a closing delimiter, and a crash can leave at most one partial last line, which readers ignore. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds, each flushed to disk (`fsync`) before the next step happens, so the API call always follows the flush of its `intended` record and a partial or missing `intended` line means the call was never made. Each `op_id` starts with the `run_id` of the run that wrote it, and only the run holding `evidence/run-lock.json` under its current `epoch` may append (FR-023 point 11). Each example below shows one change as its ordered `intended` and `done` pair, one record per line.
+All three files are JSON Lines in `evidence/` (one JSON object per line, UTF-8, every line ending in a newline), so adding a record appends one line and never rewrites an earlier record or a closing delimiter, and a crash can leave at most one partial last line, which readers ignore. Each change is written twice with the same `op_id`: an `intended` record before the API call and a `done` record after it succeeds, each flushed to disk (`fsync`) before the next step happens, so the API call always follows the flush of its `intended` record and a partial or missing `intended` line means the call was never made. Each `op_id` starts with the `run_id` of the run that wrote it, and only the run holding `evidence/run-lock.json` under its current `epoch` may append (FR-023 point 11). Each example below shows one change as its ordered `intended` and `done` pair, one record per line.
 
 ### `consolidation-log.jsonl` (GitHub, Stages 3 and 4)
 
 ```jsonl
-{"run_by":"ashleyshaw","at":"2026-10-01T00:00:00Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T0000-0001","state":"intended"}
-{"run_by":"ashleyshaw","at":"2026-10-01T00:00:02Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T0000-0001","state":"done"}
+{"run_by":"ashleyshaw","at":"2026-10-01T00:00:00Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"intended"}
+{"run_by":"ashleyshaw","at":"2026-10-01T00:00:02Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"done"}
 ```
 
-`action` is one of `rename`, `create`, `update`, `relabel`, `convert` (an issue converted to a Discussion) or `delete`; a `relabel` record carries the item number (the issue or PR number) inside `before` and `after`, as in the data model, with no separate top-level `item` field. Each run also posts one summary comment on the gate issue, with counts per action and repository.
+`action` is one of `rename`, `create`, `update`, `relabel`, `convert` (an issue converted to a Discussion) or `delete`; a `relabel` or `convert` record carries the item as `{ "kind": ..., "number": ... }` inside `before` and `after`, as in the data model, with no separate top-level `item` field: a `relabel` shows the same item in both, and a `convert` shows the source issue in `before.item` (for example `{ "kind": "issue", "number": 12 }`) and the resulting Discussion in `after.item` (`{ "kind": "discussion", "number": 3 }`). Each run also posts one summary comment on the gate issue, with counts per action and repository.
 
 ### `linear-writes.jsonl` (Linear, Stage 5)
 
 ```jsonl
-{"issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-01T00:00:00Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261001T0000-0002","state":"intended"}
-{"issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-01T00:00:01Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261001T0000-0002","state":"done"}
+{"run_by":"ashleyshaw","issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-01T00:00:00Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261008T090000-b47e02d1-0001","state":"intended"}
+{"run_by":"ashleyshaw","issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-01T00:00:01Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261008T090000-b47e02d1-0001","state":"done"}
 ```
+
+### `linear-changes.jsonl` (Linear labels, Stage 5)
+
+```jsonl
+{"run_by":"ashleyshaw","at":"2026-10-08T09:00:00Z","action":"retire","label":{"id":"<label id>","name":"area:legacy","scope":"workspace"},"before":{"name":"area:legacy","color":"ededed","description":"","parent":null,"scope":"workspace"},"after":null,"op_id":"run-20261008T090000-b47e02d1-0002","state":"intended"}
+{"run_by":"ashleyshaw","at":"2026-10-08T09:00:01Z","action":"retire","label":{"id":"<label id>","name":"area:legacy","scope":"workspace"},"before":{"name":"area:legacy","color":"ededed","description":"","parent":null,"scope":"workspace"},"after":null,"op_id":"run-20261008T090000-b47e02d1-0002","state":"done"}
+```
+
+`action` is one of `retire` (archive the label in Linear, where it can be restored), `move_to_team` or `restyle`; `before` holds everything needed to restore the label, so rolling back reads this log.
 
 ### Log rules
 

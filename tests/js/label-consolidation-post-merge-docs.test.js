@@ -185,6 +185,11 @@ describe('Run-safety documentation and log examples', () => {
       '### `linear-writes.jsonl` (Linear, Stage 5)',
       '### 15. Linear Write Log Entry',
     ],
+    [
+      'linear-changes.jsonl',
+      '### `linear-changes.jsonl` (Linear labels, Stage 5)',
+      '### 17. Linear Label Change Log Entry',
+    ],
   ])(
     '%s example contains exactly the fields declared in its data model',
     (file, heading, modelHeading) => {
@@ -207,7 +212,7 @@ describe('Run-safety documentation and log examples', () => {
       const [intended, done] = entries;
       expect([intended.state, done.state]).toEqual(['intended', 'done']);
       expect(done.op_id).toBe(intended.op_id);
-      expect(intended.op_id).toMatch(/^run-\d{8}T\d{4}-\d{4}$/);
+      expect(intended.op_id).toMatch(/^run-\d{8}T\d{6}-[0-9a-f]{8}-\d{4}$/);
       expect(Date.parse(done.at)).toBeGreaterThan(Date.parse(intended.at));
       expect(research).toContain(`evidence/${file}`);
     }
@@ -306,6 +311,70 @@ describe('Run-safety documentation and log examples', () => {
     expect(spec).toMatch(/covers the changes the PR makes to them/);
     expect(read('plan.md')).toMatch(/T040n's dated sign-off on #3556 and #3557/);
     expect(read('quickstart.md')).toMatch(/# Expected: `\[\]` \(an empty JSON array\)/);
+  });
+
+  test('identifies items, runs and actors unambiguously in every log', () => {
+    const spec = read('spec.md');
+    const logModel = section(model, '### 14. Consolidation Log Entry');
+    expect(logModel).toMatch(/`item`, an object `\{ kind, number \}`/);
+    expect(logModel).toMatch(
+      /source issue in `before\.item` and the resulting Discussion in `after\.item`/
+    );
+    expect(logs).toMatch(/`before\.item` \(for example `\{ "kind": "issue", "number": 12 \}`\)/);
+    expect(logs).toMatch(/`after\.item` \(`\{ "kind": "discussion", "number": 3 \}`\)/);
+    expect(task('T063').text).toMatch(
+      /source issue in `before\.item` and the resulting Discussion in `after\.item`/
+    );
+    expect(section(model, '### 16. Run Lock')).toMatch(
+      /eight random hex digits, so two runs started in the same minute or second never share one/
+    );
+    expect(task('T062b').text).toMatch(
+      /eight random hex digits, so two runs started in the same minute never share one/
+    );
+    expect(task('T062c').text).toMatch(
+      /two fresh runs started within the same second get different `run_id`s/
+    );
+    expect(spec).toMatch(
+      /the UTC start time to the second plus eight random hex digits, unique per run/
+    );
+    expect(section(model, '### 15. Linear Write Log Entry')).toMatch(/\| `run_by` \|/);
+    expect(task('T069a').text).toMatch(/\(`run_by`, `issue`, `old_label`/);
+    expect(section(model, '### 17. Linear Label Change Log Entry')).toMatch(
+      /`retire`.*`move_to_team`.*`restyle`/
+    );
+    expect(task('T070').text).toMatch(/Linear Label Change Log Entry fields from `data-model\.md`/);
+    expect(spec).toMatch(/every label-level Linear change \(retire, move to team scope, restyle\)/);
+    expect(read('plan.md')).toMatch(/linear-changes\.jsonl {6}# US4: every Linear label change/);
+    expect(read('quickstart.md')).toMatch(
+      /`evidence\/linear-changes\.jsonl` has a `done` record for every retired, moved or restyled label/
+    );
+    expect(contract).toMatch(/the three run logs/);
+  });
+
+  test('completes the approver-handle migration T078 claims', () => {
+    expect(task('T078').done).toBe(true);
+    const gate = fs.readFileSync(
+      path.resolve(
+        specRoot,
+        '../../reports/audits/2026-09-14-label-audit/change-requests/label-deletion-gate.md'
+      ),
+      'utf8'
+    );
+    const walk = (dir) =>
+      fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
+        const full = path.join(dir, entry.name);
+        return entry.isDirectory() ? walk(full) : entry.name.endsWith('.md') ? [full] : [];
+      });
+    // tasks.md is excluded on purpose: T050 keeps `@ashley` for T079 and T078 quotes it.
+    const files = walk(specRoot).filter((file) => path.basename(file) !== 'tasks.md');
+    for (const [name, text] of [
+      ['label-deletion-gate.md', gate],
+      ...files.map((f) => [path.relative(specRoot, f), fs.readFileSync(f, 'utf8')]),
+    ]) {
+      const stray = [...text.matchAll(/@ashley(?!shaw)\b/g)];
+      expect({ name, stray: stray.length }).toEqual({ name, stray: 0 });
+    }
+    expect(task('T078').text).toMatch(/last handle in the gate draft/);
   });
 
   test('keeps status claims true: T075 follows #3734, Stage 0a is not called fully approved, migrate_to is explained', () => {
