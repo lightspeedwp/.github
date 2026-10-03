@@ -230,8 +230,8 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 
 ### R1. Renaming labels without losing issue associations
 
-- **Decision**: Rename labels in place (GitHub REST `PATCH /repos/{owner}/{repo}/labels/{name}` with `new_name`, or `gh label edit --name`). Where the target label already exists in a repository, relabel every issue and PR from source to target, then delete the source.
-- **Rationale**: An in-place rename keeps the label on every issue and PR; delete-and-recreate strips it (FR-012).
+- **Decision**: Rename labels in place (GitHub REST `PATCH /repos/{owner}/{repo}/labels/{name}` with `new_name`, or `gh label edit --name`). Where the target label already exists in a repository, relabel every issue, PR and Discussion from source to target, verify, then delete the source.
+- **Rationale**: An in-place rename keeps the label on every issue, PR and Discussion; delete-and-recreate strips it (FR-012).
 - **Alternatives considered**: `gh label clone --force` (creates and updates only; never renames or deletes, so it is used only for the create/update step).
 
 ### R2. Complete label inventory across the organisation
