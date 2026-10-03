@@ -79,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Label Drift Check Signs In To Linear** — The weekly check now sends the Linear key the way Linear expects, so its request is no longer refused as a bad authorisation header. (#3760)
 - **Label Drift Check Reads Its Label List** — The weekly check no longer stops at its first step when loading the approved label list, and a test now runs that step the way the workflow does. (#3760)
 - **Label Drift Check Can Sign In** — The weekly check now uses the project automation App, which is installed on every repository, because the earlier App could not read issues and every run stopped at sign-in. (#3760)
 - **Bare Markdownlint Checks Without Rewriting** — A plain check now reports violations without modifying files; auto-fix still applies with explicit `--fix`. (#3756)
