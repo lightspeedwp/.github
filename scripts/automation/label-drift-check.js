@@ -24,6 +24,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import * as yaml from 'js-yaml';
 import { buildInventory, incompleteRepositories } from './label-inventory.js';
 import { buildLinearInventory } from './linear-label-inventory.js';
 
@@ -55,7 +56,6 @@ const DEFAULT_OUTPUT = path.join(
  * @returns {Promise<Map<string, {color: string, description: string}>>}
  */
 export async function loadCanonicalLabels(labelsPath) {
-  const { default: yaml } = await import('js-yaml');
   const entries = yaml.load(fs.readFileSync(labelsPath, 'utf8'));
   const map = new Map();
   for (const entry of entries) {
