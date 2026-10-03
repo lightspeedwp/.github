@@ -105,6 +105,21 @@ describe('label-write-queue', () => {
       expect(calls).toBe(3);
     });
 
+    test('once paused, later queued writes never start', async () => {
+      const clock = fakeClock();
+      const queue = createWriteQueue({ now: clock.now, sleep: clock.sleep, maxPauses: 0 });
+      const later = jest.fn().mockResolvedValue('later');
+
+      const first = queue.run(async () => {
+        throw new RateLimitError('rate limit', 5000);
+      });
+      const second = queue.run(later);
+
+      await expect(first).rejects.toBeInstanceOf(RunPausedError);
+      await expect(second).rejects.toBeInstanceOf(RunPausedError);
+      expect(later).not.toHaveBeenCalled();
+    });
+
     test('does not retry other errors, and keeps running later writes', async () => {
       const clock = fakeClock();
       const queue = createWriteQueue({ now: clock.now, sleep: clock.sleep });
@@ -198,6 +213,37 @@ describe('label-write-queue', () => {
       await githubWrite(queue, 'DELETE', '/repos/o/r/labels/old', null, { token: 'test' }, request);
 
       expect(clock.sleeps).toContain(120000);
+    });
+
+    test.each([
+      ['a 429 with an unrelated message', 429, 'Too Many Requests', {}],
+      ['a 403 with no quota left', 403, 'Forbidden', { 'x-ratelimit-remaining': '0' }],
+      ['a 403 with Retry-After', 403, 'Forbidden', { 'retry-after': '5' }],
+    ])('pauses on %s', async (_name, status, message, headerValues) => {
+      const clock = fakeClock();
+      const queue = createWriteQueue({ now: clock.now, sleep: clock.sleep });
+      const limited = new Error(`GitHub API error: ${status} ${message}`);
+      limited.status = status;
+      limited.headers = headers(headerValues);
+      const request = jest.fn().mockRejectedValueOnce(limited).mockResolvedValueOnce(null);
+
+      await expect(
+        githubWrite(queue, 'DELETE', '/repos/o/r/labels/old', null, { token: 'test' }, request)
+      ).resolves.toBeNull();
+      expect(queue.stats().pauses).toBe(1);
+    });
+
+    test('does not pause on a 403 permission error with quota left', async () => {
+      const queue = createWriteQueue({ sleep: async () => {} });
+      const denied = new Error('GitHub API error: 403 Resource not accessible by integration');
+      denied.status = 403;
+      denied.headers = headers({ 'x-ratelimit-remaining': '4999' });
+      const request = jest.fn().mockRejectedValue(denied);
+
+      await expect(
+        githubWrite(queue, 'DELETE', '/repos/o/r/labels/old', null, { token: 'test' }, request)
+      ).rejects.toThrow('403');
+      expect(request).toHaveBeenCalledTimes(1);
     });
 
     test('passes other GitHub errors straight through', async () => {

@@ -173,6 +173,7 @@ export async function githubApiRequest(
         const error = new Error(errorMessage);
         // Keep the headers so callers can honour Retry-After on the final failure.
         error.headers = response.headers;
+        error.status = response.status;
         throw error;
       }
 

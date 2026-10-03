@@ -106,6 +106,7 @@ export function createWriteQueue(options = {}) {
   let lastStartedAt = null;
   let writes = 0;
   let pauses = 0;
+  let pausedError = null;
 
   /**
    * Runs one write, waiting for the gap and pausing on rate limits.
@@ -113,6 +114,10 @@ export function createWriteQueue(options = {}) {
    * @returns {Promise<any>} The write's result
    */
   async function execute(write) {
+    // A paused run stays paused: later queued writes must not start.
+    if (pausedError) {
+      throw pausedError;
+    }
     for (let attempt = 0; ; attempt++) {
       if (lastStartedAt !== null) {
         const wait = lastStartedAt + minIntervalMs - now();
@@ -130,10 +135,11 @@ export function createWriteQueue(options = {}) {
           throw error;
         }
         if (attempt >= maxPauses) {
-          throw new RunPausedError(
+          pausedError = new RunPausedError(
             `Write still rate-limited after ${maxPauses} pauses; stop and resume later`,
             error
           );
+          throw pausedError;
         }
         pauses++;
         await sleep(Math.max(error.retryAfterMs, minIntervalMs));
@@ -152,6 +158,28 @@ export function createWriteQueue(options = {}) {
       return { writes, pauses };
     },
   };
+}
+
+/**
+ * Tells whether a GitHub API error is a rate limit. A 429 always is; a 403 is
+ * one when no quota remains (`x-ratelimit-remaining: 0`), when GitHub sends
+ * `Retry-After` (secondary limit), or when the message says so.
+ * @param {Error & { status?: number, headers?: { get: (name: string) => string | null } }} error
+ * @returns {boolean}
+ */
+function isGithubRateLimit(error) {
+  const status = error.status ?? Number(/GitHub API error: (\d{3})\b/.exec(error.message)?.[1]);
+  if (status === 429) {
+    return true;
+  }
+  if (status !== 403) {
+    return false;
+  }
+  return (
+    error.headers?.get('x-ratelimit-remaining') === '0' ||
+    Boolean(error.headers?.get('retry-after')) ||
+    /rate limit/i.test(error.message)
+  );
 }
 
 /**
@@ -181,10 +209,7 @@ export function githubWrite(
     try {
       return await request(method, path, body, { ...options, useCache: false });
     } catch (error) {
-      if (
-        /GitHub API error: (403|429)\b/.test(error.message) &&
-        /rate limit/i.test(error.message)
-      ) {
+      if (isGithubRateLimit(error)) {
         const retryAfterMs = error.headers ? rateLimitDelayMs(error.headers) : null;
         throw new RateLimitError(error.message, retryAfterMs ?? DEFAULT_PAUSE_MS);
       }
