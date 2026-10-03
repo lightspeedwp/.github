@@ -257,7 +257,7 @@ Prerequisites: Repository with renamed agents, scripts with broken imports
 Steps:
 
 1. Run audit script: `npm run audit:agents -- --broken-references`
-2. Review audit report: `agents/reports/broken-references-audit.json`
+2. Review audit report: `.github/reports/agents/broken-references-audit.json`
 3. Validate report identifies all broken imports
 4. Remediate sample reference; re-run audit to confirm fix
 
@@ -270,7 +270,7 @@ Prerequisites: Multiple agents with duplicate skill implementations
 Steps:
 
 1. Run deduplication audit: `npm run audit:agents -- --dedup-skills`
-2. Review deduplication report: `agents/reports/skill-deduplication.json`
+2. Review deduplication report: `.github/reports/agents/skill-deduplication.json`
 3. Identify duplicate skills with similarity scores
 4. Create consolidation plan: move duplicates to root, update references
 5. Validate all references updated; no duplicates remain
@@ -286,7 +286,7 @@ Steps:
 1. Generate agent registry: `npm run registry:generate -- agents`
 2. Generate skills registry: `npm run registry:generate -- skills`
 3. Validate registries: `npm run registry:validate`
-4. Review compliance report: `agents/reports/compliance-validation.json`
+4. Review compliance report: `.github/reports/agents/compliance-validation.json`
 5. Address violations; re-run validation
 
 Expected: Registries generated successfully; compliance validation passes
