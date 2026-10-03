@@ -188,3 +188,70 @@ describe('Label audit evidence', () => {
     );
   });
 });
+
+describe('Post-merge change-request evidence', () => {
+  const { requests } = evidence('change-requests');
+  const request = (number) => {
+    const matches = requests.filter(({ issue_number }) => issue_number === number);
+    expect(matches).toHaveLength(1);
+    return matches[0];
+  };
+
+  test('records the satisfied constitution gate without losing its approval provenance', () => {
+    expect(request(3530)).toMatchObject({
+      status: 'approved',
+      approved_by: 'ashleyshaw',
+      approved_at: '2026-09-24',
+      approval_comment: expect.stringMatching(/\/issues\/3530#issuecomment-\d+$/),
+      blocks_status: 'satisfied: #3362 merged 2026-09-25',
+    });
+  });
+
+  test.each([
+    [3556, 'approved-in-principle'],
+    [3557, 'pending'],
+  ])('does not treat the merged implementation as full approval of #%i', (number, status) => {
+    const entry = request(number);
+    expect(entry).toMatchObject({
+      implemented_in: 'https://github.com/lightspeedwp/.github/pull/3534',
+      implemented_in_status: expect.stringMatching(/merged .*before full sign-off/),
+    });
+    if (entry.status === 'approved') {
+      // T040n: the documented transition once the dated sign-off is recorded.
+      expect(entry).toMatchObject({
+        approved_by: 'ashleyshaw',
+        approved_at: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+        approval_comment: expect.stringMatching(new RegExp(`/issues/${number}#issuecomment-\\d+$`)),
+      });
+    } else {
+      expect(entry).toMatchObject({
+        status,
+        approved_by: null,
+        approved_at: null,
+        approval_comment: null,
+        blocks: 'full sign-off (#3534 has merged)',
+      });
+    }
+  });
+
+  test('retains both template follow-ups and distinguishes resolved contract work from live verification', () => {
+    const { next_step_request: first, next_step_request_2: second } = request(3557);
+
+    for (const followUp of [first, second]) {
+      expect(followUp).toMatchObject({
+        by: 'ashleyshaw',
+        at: '2026-09-25',
+        comment: expect.stringMatching(/\/issues\/3557#issuecomment-\d+$/),
+      });
+      expect(followUp.asks).toHaveLength(3);
+    }
+    expect(second.comment).not.toBe(first.comment);
+    expect(second.asks.filter((ask) => ask.includes('(resolved:'))).toEqual([
+      expect.stringMatching(/T055.*type:question.*#3362/),
+      expect.stringMatching(/#3556.*#3557.*#3530/),
+    ]);
+    expect(second.asks.filter((ask) => !ask.includes('(resolved:'))).toEqual([
+      'verify the live Discussions chooser after merge',
+    ]);
+  });
+});

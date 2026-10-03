@@ -175,14 +175,14 @@
 - **Impact**: Breaks governance enforcement and compliance tracking
 - **Action**: Update .github/label-governance-policy.yml lines [X] to reference canonical names
 - **Effort**: Minimal (simple find-replace)
-- **Owner**: @ashley
+- **Owner**: @ashleyshaw
 
 **Recommendation 1.2**: Clarify deprecated labels in governance policy
 - **Issue**: Policy protects labels (type:maintenance, type:story, type:support, etc.) not in canonical file
 - **Impact**: Prevents cleanup of actually-orphaned labels; causes confusion
 - **Action**: Either add to canonical OR document as intentionally deprecated
 - **Effort**: Low (decision + documentation)
-- **Owner**: @ashley + team consensus
+- **Owner**: @ashleyshaw + team consensus
 
 ### Priority 2: Operational Improvements
 
