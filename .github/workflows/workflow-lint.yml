@@ -75,6 +75,8 @@ jobs:
             .github/workflows/changelog-unified.yml \
             .github/workflows/documentation.yml \
             .github/workflows/labeling-unified.yml \
+            .github/workflows/lint.yml \
+            .github/workflows/locked-files-guard.yml \
             .github/workflows/orchestrate-phase-progression.yml \
             .github/workflows/phase-progression.yml \
             .github/workflows/pr-template-routing.yml \

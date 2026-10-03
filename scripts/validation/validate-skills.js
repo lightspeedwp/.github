@@ -46,7 +46,14 @@ const BASELINE_PATH = path.join(root, 'scripts', 'validation', 'skills-baseline.
 const args = process.argv.slice(2);
 
 /** Directories never walked. */
-const SKIP_DIRECTORIES = new Set(['.git', 'node_modules', 'coverage', 'tmp']);
+const SKIP_DIRECTORIES = new Set([
+  '.git',
+  'node_modules',
+  'coverage',
+  'tmp',
+  'graft',
+  'graphify-out',
+]);
 
 /**
  * Test fixtures are deliberately non-conformant: a fixture exists to make a rule
@@ -162,7 +169,8 @@ function validateDocument(absolutePath, relativePath) {
     ['closed-field-set', spec.validateFieldSet(frontmatter, fileClass)],
     [
       'required-fields',
-      spec.requiredFieldsFor(fileClass)
+      spec
+        .requiredFieldsFor(fileClass)
         .filter((field) => frontmatter[field] === undefined)
         .map(
           (field) =>
@@ -394,22 +402,21 @@ const FINDING_SUBJECTS = Object.freeze({
   // "metadata.enhancements is a list; metadata values must be strings."
   // One finding per invalid key, so two of them in one file no longer collapse
   // into a single baseline entry that hides the other.
-  'metadata': (message) =>
+  metadata: (message) =>
     /^metadata\.(.+) is (?:a list|undefined|object|number|boolean|function|symbol|bigint);/.exec(
       message
     )?.[1],
   // "frontmatter is missing the required field `title`."
   'required-fields': (message) => /required field `([^`]+)`/.exec(message)?.[1],
   // "frontmatter has fields that <class> does not permit: status, visibility."
-  'closed-field-set': (message) =>
-    /^`([^`]+)` is not a field/.exec(message)?.[1],
+  'closed-field-set': (message) => /^`([^`]+)` is not a field/.exec(message)?.[1],
   // "`allowed-tools` must be a list for a claude-code-skill but is a string."
   'optional-field-shape': (message) => /`([^`]+)` must be/.exec(message)?.[1],
   // validateName returns one message per rule it breaks, so a file with two name
   // problems collapsed into one baseline entry. Keyed by the *kind* of problem,
   // never by the name: a key built from the value would change the moment the
   // name was corrected, which is exactly when the entry must stay put.
-  'name': (message) => {
+  name: (message) => {
     // Order matters: the length message also contains the word "characters", so
     // it is matched before the invalid-character rule. Every message validateName
     // can return gets its own subject, so none of them shares a key.

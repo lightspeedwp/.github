@@ -58,22 +58,24 @@ Our linting strategy follows these core principles:
 
 ### Core Linting Tools
 
-| Tool               | Purpose                       | Configuration                   | Auto-fix |
-| ------------------ | ----------------------------- | ------------------------------- | -------- |
-| **ESLint**         | JavaScript/TypeScript linting | `eslint.config.js`              | ✅       |
-| **Stylelint**      | CSS/SCSS linting              | `stylelint.config.js`           | ✅       |
-| **Prettier**       | Code formatting               | `prettier.config.js`            | ✅       |
-| **markdownlint**   | Markdown linting              | `.markdownlint.json`            | ✅       |
-| **Spectral**       | YAML/JSON linting             | `.spectral.yaml`                | ❌       |
-| **npmPkgJsonLint** | package.json validation       | `npmpackagejsonlint.config.cjs` | ❌       |
+| Tool               | Purpose                       | Configuration                    | Auto-fix |
+| ------------------ | ----------------------------- | -------------------------------- | -------- |
+| **Oxlint**         | Fast JS/TS linting (feedback) | `.oxlintrc.json`                 | ❌       |
+| **ESLint**         | JS/TS quality gate            | `eslint.config.cjs`              | ✅       |
+| **TypeScript**     | Type checking                 | `tsconfig.json`                  | ❌       |
+| **Prettier**       | Code formatting (standalone)  | `.prettierrc`                    | ✅       |
+| **markdownlint**   | Markdown linting              | `.markdownlint.jsonc`            | ✅       |
+| **Spectral**       | YAML/JSON linting             | `.spectral.config.cjs`           | ❌       |
+| **npmPkgJsonLint** | package.json validation       | `.npmpackagejsonlint.config.cjs` | ❌       |
+| **actionlint**     | GitHub Actions validation     | (CI: `workflow-lint.yml`)        | ❌       |
 
 ### Tool Selection Rationale
 
 #### ESLint for JavaScript/TypeScript
 
-- **Modern flat config** (`eslint.config.js`) for ESLint 9+
+- **Modern flat config** (`eslint.config.cjs`) for ESLint 10
 - **TypeScript support** with `typescript-eslint`
-- **Prettier integration** to avoid formatting conflicts
+- **eslint-config-prettier** disables formatting rules so Prettier runs separately
 - **Environment-based configuration** via `.env` variables
 
 #### Stylelint for CSS/SCSS
@@ -85,45 +87,37 @@ Our linting strategy follows these core principles:
 #### Prettier for Code Formatting
 
 - **Consistent formatting** across all supported file types
-- **Integration** with ESLint and Stylelint to avoid conflicts
-- **Configurable** via environment variables
+- **Runs standalone** (not as an ESLint rule) to avoid conflicts
+- **Single source of truth** in `.prettierrc`
 
 ## Configuration Files
 
 ### Modern ESLint Configuration (Flat Config)
 
 ```javascript
-// eslint.config.js
-import "dotenv/config";
-import js from "@eslint/js";
-import ts from "typescript-eslint";
-import prettier from "eslint-plugin-prettier";
+// eslint.config.cjs
+require("dotenv").config();
+const js = require("@eslint/js");
+const tsPlugin = require("@typescript-eslint/eslint-plugin");
+const tsParser = require("@typescript-eslint/parser");
+const prettierConfig = require("eslint-config-prettier");
 
-const ignoreFolders = process.env.ESLINT_IGNORE
-  ? process.env.ESLINT_IGNORE.split(",")
-  : [
-      "node_modules/**",
-      "build/**",
-      "dist/**",
-      "coverage/**",
-      "playwright-report/**",
-      "test-results/**",
-      "vendor/**",
-      ".next/**",
-      "logs/**",
-    ];
+// ... ignoreFolders definition ...
 
-export default [
+module.exports = [
+  { ignores: ignoreFolders },
   js.configs.recommended,
-  ...ts.configs.recommended,
   {
-    files: ["**/*.{js,jsx,ts,tsx,cjs,mjs}"],
-    ignores: ignoreFolders,
-    plugins: { prettier },
-    rules: {
-      "prettier/prettier": "warn",
-    },
+    files: ["**/*.ts", "**/*.tsx"],
+    languageOptions: { parser: tsParser /* ... */ },
+    plugins: { "@typescript-eslint": tsPlugin },
+    rules: { ...tsPlugin.configs.recommended.rules },
   },
+  // ... other file-type blocks ...
+  // Disable ESLint formatting rules; Prettier runs as a standalone formatter
+  // (see the format:* scripts). eslint-config-prettier turns the formatting
+  // rules off so the two tools do not fight over the same code.
+  prettierConfig,
 ];
 ```
 
@@ -200,14 +194,16 @@ PRETTIER_PRINT_WIDTH=80
 ```json
 {
   "scripts": {
-    "lint": "npm run lint:js && npm run lint:css && npm run lint:yaml && npm run lint:pkg-json",
-    "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md",
-    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
-    "lint:css": "stylelint '**/*.{css,scss}' --fix",
-    "lint:md": "markdownlint '**/*.md' --fix",
-    "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.yaml",
-    "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.yaml",
-    "lint:pkg-json": "npmPkgJsonLint --configFile npmpackagejsonlint.config.cjs ."
+    "lint": "run-p --continue-on-error lint:js lint:yaml lint:pkg-json",
+    "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json && npm run typecheck",
+    "lint:fast": "oxlint",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --cache --cache-location .eslintcache",
+    "lint:js:fix": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --fix",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "lint:actionlint": "actionlint .github/workflows/*.yml",
+    "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.config.cjs",
+    "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.cjs",
+    "lint:pkg-json": "npmPkgJsonLint --configFile .npmpackagejsonlint.config.cjs ."
   }
 }
 ```
@@ -217,10 +213,12 @@ PRETTIER_PRINT_WIDTH=80
 ```json
 {
   "scripts": {
-    "format": "npm run format:js && npm run format:css",
-    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && prettier '**/*.json' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
-    "format:css": "prettier '**/*.{css,scss}' --write && stylelint '**/*.{css,scss}' --fix",
-    "format:md": "prettier '**/*.md' --write"
+    "format": "npm run format:js && npm run format:json && npm run format:md",
+    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write",
+    "format:js:fix": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --fix",
+    "format:json": "prettier '**/*.json' --write '!package-lock.json' '!**/node_modules/**'",
+    "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
+    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx}'"
   }
 }
 ```
@@ -293,19 +291,27 @@ The `.vscode/settings.json` file provides:
 
 Linting is automated through Git hooks managed by [Husky](./config/workflow-husky.md) and [lint-staged](./config/workflow-lint-staged.md):
 
-```json
-{
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+```javascript
+// .husky/pre-commit
+npx lint-staged
+```
+
+```javascript
+// .lintstagedrc.cjs — takes precedence over any package.json "lint-staged" field.
+// Staged-file exclusions and the changed-line Markdown behaviour are preserved.
+module.exports = {
+  "*.{js,jsx,ts,tsx}": (filenames) => {
+    const included = filenames.filter((f) => !isExcluded(f));
+    return included.length ? [`eslint --fix ${q(included)}`, `prettier --write ${q(included)}`] : [];
   },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": ["eslint --fix", "prettier --write"],
-    "*.{css,scss}": ["stylelint --fix", "prettier --write"],
-    "*.md": ["markdownlint --fix", "prettier --write"]
-  }
-}
+  "*.{md,mdx}": (filenames) => {
+    const included = filenames.filter((f) => !isExcluded(f));
+    // Changed-line Markdownlint: only fails on violations on lines the commit touches.
+    return included.length ? [`node scripts/validation/lint-md-staged.cjs ${q(included)}`] : [];
+  },
+  "*.json": ["prettier --write"],
+  "*.{yml,yaml}": ["prettier --write"],
+};
 ```
 
 ### CI/CD Integration
@@ -321,7 +327,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version-file: ".nvmrc"
           cache: "npm"
       - run: npm ci
       - run: npm run lint:all
@@ -332,7 +338,7 @@ jobs:
 ### JavaScript/TypeScript
 
 - **ESLint** with TypeScript support
-- **Prettier** integration for formatting
+- **Prettier** for formatting (standalone formatter)
 - **WordPress coding standards** alignment
 - **Auto-fix** for most issues
 

@@ -46,25 +46,68 @@ This document provides guidance for contributing to and maintaining this communi
 
 ## Linting and Code Quality
 
-This repository provides linting tools for JavaScript, CSS, and other code standards, which can be run using Node scripts. These tools help maintain code quality and enforce organization standards.
+This repository provides linting tools for JavaScript, TypeScript, YAML, JSON, and
+Markdown, run through Node scripts. The fast feedback path is Oxlint; the
+authoritative JS/TS quality gate is ESLint; Prettier runs as a standalone
+formatter (not as an ESLint rule).
 
-- Lint JavaScript:
+- Fast lint (Oxlint, non-blocking):
+
+  ```bash
+  npm run lint:fast
+  ```
+
+- Lint JavaScript/TypeScript (ESLint, read-only):
 
   ```bash
   npm run lint:js
   ```
 
-- Lint CSS:
+- Lint JavaScript/TypeScript (ESLint, auto-fix):
 
   ```bash
-  npm run lint:css
+  npm run lint:js:fix
   ```
 
-- Run all linters:
+- Type-check (TypeScript):
+
+  ```bash
+  npm run typecheck
+  ```
+
+- Lint GitHub Actions workflows (actionlint):
+
+  ```bash
+  npm run lint:actionlint
+  ```
+
+- Run all linters (JS + YAML + package JSON, in parallel):
 
   ```bash
   npm run lint
   ```
+
+- Check formatting (Prettier):
+
+  ```bash
+  npm run format:check
+  ```
+
+`npm run lint:js` is read-only. Use `npm run lint:js:fix` to apply ESLint fixes
+and the `format:*` scripts to apply Prettier formatting. ESLint runs with a
+content-based cache (`.eslintcache`, gitignored) for fast repeat runs.
+
+### TypeScript
+
+`npm run typecheck` runs `tsc` against two real `tsconfig.json` files (strict,
+`noEmit`, `skipLibCheck`):
+
+- `tsconfig.json` — the repository's standalone TypeScript: the
+  `packages/metadata-agent/types` definitions and `website/src/scripts`.
+- `website/tsconfig.json` — the Astro website module (`website/src/lib`,
+  `website/src/content.config.ts`). It adds `astro:content` and `marked`
+  module shims (`website/src/env.d.ts`) so the module type-checks without the
+  Astro toolchain installed.
 
 ## Git Hooks & Automation with Husky
 
@@ -86,7 +129,7 @@ The pre-commit hook uses [lint-staged](https://github.com/okonet/lint-staged) to
   - Prettier formatting
 
 - **Markdown files** (`*.{md,mdx}`):
-  - Markdownlint with auto-fix
+  - Changed-line Markdownlint (only violations on lines the commit touches, via `scripts/validation/lint-md-staged.cjs`)
   - Prettier formatting
 
 - **JSON files** (`*.json`):
@@ -183,5 +226,5 @@ This project is licensed under the GNU General Public License v3.0 — see the [
 - [Canonical Label Definitions](.github/labels.yml): Label names, colours, and descriptions.
 - [Automated Label Assignment Rules](.github/labeler.yml): Automation for applying labels based on file changes and branch patterns.
 
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
+*This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP.*
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
