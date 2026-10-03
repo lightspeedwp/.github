@@ -1,6 +1,68 @@
 {
-  "updated_at": "2026-09-25",
+  "updated_at": "2026-10-02",
   "requests": [
+    {
+      "kind": "APP-CREDENTIAL-VARIANCE",
+      "task": "T071a",
+      "requirement": "FR-018",
+      "decided_by": "chris",
+      "decided_at": "2026-10-02",
+      "status": "approved-variance-amended",
+      "amended_at": "2026-10-02",
+      "amendment": "A live dry run of label-drift-check.yml (run 37034943967) failed at the first token mint with 'The permissions requested are not granted to this installation'. The BOT_PR_APP installation (lightspeed-docs-bot) is limited to selected repositories and holds contents, metadata and pull_requests only, with no Issues permission. The drift check now mints its tokens from the already-installed project-automation App (repository variable LS_APP_ID, secret LS_APP_PRIVATE_KEY), which is installed on all lightspeedwp repositories with issues write and metadata read. Tokens are downscoped at mint time to issues read plus metadata read (organisation-wide) and issues write (.github only), so the FR-018 permission set holds per token. No App setting or secret value was changed.",
+      "covers": [
+        "FR-018 App authentication for organisation-wide label changes and the drift check",
+        "T071a GitHub App installation and credential storage"
+      ],
+      "decision": "Original decision (superseded for the drift check by the amendment above): reuse the existing BOT_PR_APP_* App unchanged. No new App is installed and no new secret values are created. The repository-level secrets BOT_PR_APP_CLIENT_ID, BOT_PR_APP_PRIVATE_KEY and LINEAR_API_KEY were confirmed as correct by Chris and remain repository-level.",
+      "reason": "The App is also used by documentation.yml, keep-pr-current.yml and branch-validation-metrics-aggregator.yml, so narrowing it to Issues (read/write) and Metadata (read) would break those workflows.",
+      "app": {
+        "app_name": "lightspeed-project-automation",
+        "app_id": 4367005,
+        "installed_organisation": "lightspeedwp",
+        "repository_selection": "all",
+        "installed_permissions": {
+          "issues": "write",
+          "metadata": "read",
+          "organization_projects": "write",
+          "pull_requests": "write"
+        },
+        "permissions_verified": true,
+        "permissions_verified_at": "2026-10-02",
+        "verified_via": "GitHub REST API: GET /orgs/lightspeedwp/installations",
+        "note": "The App holds more than Issues (read/write) and Metadata (read), so FR-018's narrow set is enforced by the downscoped installation tokens, not by the App's own permissions. BOT_PR_APP is believed to be lightspeed-docs-bot (selected repositories; contents, metadata, pull_requests), inferred from its bot PR authorship and not confirmed by App ID. It has no Issues permission and is not used by the drift check. No credential value is recorded, only names."
+      },
+      "secrets": {
+        "scope": "repository",
+        "names": ["LS_APP_PRIVATE_KEY", "LINEAR_API_KEY"],
+        "variables": ["LS_APP_ID"],
+        "values_recorded": false,
+        "confirmed_by": "chris",
+        "confirmed_at": "2026-10-02"
+      },
+      "environment": {
+        "name": "label-drift-check",
+        "created_at": "2026-10-02",
+        "admin_bypass": false,
+        "deployment_branch_policy": ["develop"],
+        "secrets_stored": [],
+        "protects": "branch gating only",
+        "secret_isolation": false,
+        "note": "The drift-check job binds to this environment, so a workflow_dispatch from a branch other than develop cannot deploy it. Because the environment holds no secrets, it provides no secret isolation: every credential stays reachable at repository level by any workflow that runs in the repository. Moving the three secrets into the environment would be required for isolation and has not been done."
+      },
+      "variance_from": [
+        "FR-018: App limited to only Issues (read/write) and Metadata (read)",
+        "T071a: App permissions narrowed to that set, then recorded"
+      ],
+      "outstanding": [
+        "Re-run label-drift-check.yml with dry_run=true after merge and confirm both token mints succeed (T073)",
+        "Move LINEAR_API_KEY and LS_APP_PRIVATE_KEY into the label-drift-check environment if secret isolation is wanted; other workflows still use LS_APP_PRIVATE_KEY at repository level"
+      ],
+      "recorded_in": [
+        ".github/specs/008-label-audit-consolidation/spec.md (FR-018 and the 2026-10-02 clarifications)",
+        ".github/specs/008-label-audit-consolidation/tasks.md (T071a)"
+      ]
+    },
     {
       "kind": "CONSTITUTION-APPROVAL",
       "task": "T040a",
