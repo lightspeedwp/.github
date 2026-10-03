@@ -54,8 +54,14 @@
         "FR-018: App limited to only Issues (read/write) and Metadata (read)",
         "T071a: App permissions narrowed to that set, then recorded"
       ],
+      "dry_run_verified": {
+        "run": "https://github.com/lightspeedwp/.github/actions/runs/37095484118",
+        "date": "2026-10-03",
+        "result": "success: both App token mints, the drift check and the report upload passed; 36622 differences reported; no issue created (dry run)",
+        "required_fixes": ["#3764 App credentials", "#3767 js-yaml import", "#3769 Linear Authorization header"]
+      },
       "outstanding": [
-        "Re-run label-drift-check.yml with dry_run=true after merge and confirm both token mints succeed (T073)",
+        "Run label-drift-check.yml for real (dry_run=false) to create the Label drift report issue (T073); not done",
         "Move LINEAR_API_KEY and LS_APP_PRIVATE_KEY into the label-drift-check environment if secret isolation is wanted; other workflows still use LS_APP_PRIVATE_KEY at repository level"
       ],
       "recorded_in": [
