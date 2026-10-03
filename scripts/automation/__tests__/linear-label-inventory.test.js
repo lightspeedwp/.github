@@ -74,16 +74,26 @@ describe('linear-label-inventory', () => {
     delete process.env.LINEAR_TOKEN;
   });
 
-  it('sends the key as a Bearer token, matching the official SDK', async () => {
+  it('sends a personal API key as-is, without a Bearer prefix', async () => {
     let authorization;
     const fetchImpl = async (url, { headers }) => {
       authorization = headers.Authorization;
       return mockResponse({ jsonBody: labelPage([], false, null) });
     };
     await fetchAllLabels({ token: TOKEN, fetchImpl });
-    // @linear/sdk builds `Bearer ${accessToken}`; personal keys ride the
-    // same scheme, not verbatim. Pinned here so the scheme cannot drift.
-    expect(authorization).toBe(`Bearer ${TOKEN}`);
+    // Linear documents `Authorization: <API_KEY>` for personal keys and
+    // rejects a Bearer-prefixed one with HTTP 400 (seen in the live drift run).
+    expect(authorization).toBe(TOKEN);
+  });
+
+  it('prefixes only OAuth access tokens with Bearer', async () => {
+    let authorization;
+    const fetchImpl = async (url, { headers }) => {
+      authorization = headers.Authorization;
+      return mockResponse({ jsonBody: labelPage([], false, null) });
+    };
+    await fetchAllLabels({ token: 'lin_oauth_example', fetchImpl });
+    expect(authorization).toBe('Bearer lin_oauth_example');
   });
 
   it('follows pageInfo.hasNextPage, not a top-level flag', async () => {
