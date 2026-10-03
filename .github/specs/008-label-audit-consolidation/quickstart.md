@@ -408,7 +408,7 @@ comm -23 /tmp/targets.txt /tmp/canonical.txt
 # Expected: no output
 ```
 
-**Pass condition**: No missing targets; the `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` issues are approved by @ashley.
+**Pass condition**: No missing targets; the `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` issues are approved by @ashleyshaw.
 
 ### Test 10: Configuration Update (after the config PR merges)
 
@@ -454,7 +454,7 @@ find . -path ./node_modules -prune -o -iname '*openspec*' -print | grep -vE '/re
 For each repository:
 
 1. Confirm `evidence/dry-run/{repo}.json` exists and `pages_read × 100 ≥ label_count`.
-2. Confirm the gate issue has @ashley's approval comment for that repository.
+2. Confirm the gate issue has @ashleyshaw's approval comment for that repository.
 3. After the run, list labels with pagination and compare with `labels.yml`:
 
 ```bash
@@ -464,14 +464,21 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 ```
 
 1. Confirm `destructive_cleanup.enabled` is still `false` in `label-governance-policy.yml`, and that the deletion log shows only repositories with approved dry runs.
-2. Confirm every deleted label has a snapshot entry with name, colour, description and item numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
-3. Re-run the deletion for one finished repository and confirm it makes no API write (FR-023).
+2. Confirm every deleted label has a snapshot entry with name, colour, description and item kinds and numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
+3. Re-run the deletion for one finished repository and confirm it makes no API write and adds no record to `evidence/consolidation-log.jsonl` (FR-023).
+4. Confirm `evidence/consolidation-log.jsonl` has a `done` record for every change made in the run and no `intended` record without a matching `done` record, and that the gate issue has the run's summary comment (FR-023 point 10).
+5. While a run holds `evidence/run-lock.json`, start a second run and confirm it refuses to start and writes nothing. Kill the first run mid-write, start a plain run and confirm it still refuses and names the stopped `run_id`, then run `--resume <run_id>` and confirm it keeps that `run_id`, raises `epoch` by one, reconciles only `intended` records whose `op_id` starts with that `run_id`, and then removes the lock; confirm `--resume` fails while the first process is still alive (FR-023 point 11).
+6. Finish Stage 3 for a repository, generate its deletion dry run, and confirm Stage 4 still processes it: `executed_at` for Stage 3 is set and `executed_at` for Stage 4 is null (FR-023 point 1).
+7. Cut the last line of `evidence/consolidation-log.jsonl` off mid-record, resume, and confirm the log is truncated back to its last newline (the removed bytes are in a `.partial` file), the next record parses, and the interrupted change is reconciled (FR-023 points 5 and 11).
 
 ### Test 13: Linear Clean-up
 
 - Every Linear workspace label is in `labels.yml`, apart from documented team-scoped labels (for example `area:flow` in the Flow team).
 - No Linear issue carries two `type:*` labels.
 - `spec:*` label descriptions no longer mention OpenSpec.
+- `evidence/linear-writes.jsonl` has a `done` record for every relabelled Linear issue, each naming labels by ID and scope, and no unmatched `intended` record (FR-023 points 5 and 7).
+- `evidence/linear-changes.jsonl` has a `done` record for every retired, moved or restyled label, each holding the label's full before-state, and no unmatched `intended` record (FR-023 points 5 and 11).
+- Every team that T071 turned the GitHub issue sync off for has it back on (T083), and the gate issue records both times (FR-017).
 
 ### Test 14: Drift Check (FR-017, SC-009)
 
@@ -485,6 +492,12 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 # Every open spec 008 change request or gate issue waiting for a decision carries the label
 gh issue list --repo lightspeedwp/.github --label meta:needs-approval --state open --json number,title
 # Expected: the open change requests and the gate issue; none whose decision was recorded more than a day ago
+```
+
+```bash
+# After the Stage 2 swap, no waiting change request still uses the interim label (FR-021)
+gh issue list --repo lightspeedwp/.github --label status:blocked --state open --search "UPDATE-REQUEST in:title" --json number,title
+# Expected: `[]` (an empty JSON array)
 ```
 
 Pass when the list matches the open requests and no issue keeps the label after its dated decision.

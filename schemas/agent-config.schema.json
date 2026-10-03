@@ -46,6 +46,11 @@
     "optionalFrontmatterFields": {
       "type": "object",
       "properties": {
+        "metadata": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Extension bag: a flat map of string keys to string values. docs/SKILLS_STANDARDS.md documents the value type as string and scripts/validation/lib/skills-spec.js enforces it, so a nested object is a finding rather than a permitted shape. CLASS_FIELD_SETS in that module is the authority on whether the field is allowed at all."
+        },
         "description": {
           "type": "string",
           "description": "Brief description of document purpose"
