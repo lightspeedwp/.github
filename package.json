@@ -90,6 +90,9 @@
     "validate:json:all": "node scripts/validation/validate-json.js --glob '**/*.json' --validate-only --strict --read-only",
     "validate:structure": "node scripts/validation/validate-structure.js",
     "validate:skills": "node scripts/validation/validate-skills.js",
+    "validate:skill-doc-contracts": "node scripts/validation/validate-skill-doc-contracts.cjs",
+    "validate:badge-urls": "node scripts/validation/validate-badge-urls.cjs",
+    "validate:badge-urls:fix": "node scripts/validation/validate-badge-urls.cjs --fix",
     "validate:agent-hooks": "node scripts/validation/validate-agent-hooks.cjs",
     "validate:plugins": "node scripts/validation/validate-plugins.js",
     "validate:links": "node scripts/validation/validate-links.js",
@@ -111,7 +114,7 @@
     "validate:footers:shape": "node scripts/dedupe-footers.js --check --shape",
     "measure:footers:shape": "node scripts/measure-footer-shape.js",
     "validate:mermaid-contrast": "node scripts/validation/validate-mermaid-colour-contrast.js",
-    "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:linear-guidance && npm run validate:json:all",
+    "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:skill-doc-contracts && npm run validate:badge-urls && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:linear-guidance && npm run validate:json:all",
     "create:agent": "node scripts/create-agent-spec.js",
     "validate:report": "node scripts/generate-validation-report.js",
     "validate:report:json": "node scripts/generate-validation-report.js --format json",
@@ -148,7 +151,9 @@
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check",
     "triage:analyze": "node scripts/triage-issues-needs-triage.js",
-    "triage:apply": "node scripts/apply-triage-improvements.js"
+    "triage:apply": "node scripts/apply-triage-improvements.js",
+    "linear:inventory": "node scripts/automation/linear-label-inventory.js",
+    "labels:drift-check": "node scripts/automation/label-drift-check.js"
   },
   "devDependencies": {
     "@actions/core": "3.0.1",
