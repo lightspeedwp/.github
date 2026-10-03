@@ -46,14 +46,14 @@ const BASELINE_PATH = path.join(root, 'scripts', 'validation', 'skills-baseline.
 const args = process.argv.slice(2);
 
 /** Directories never walked. */
-const SKIP_DIRECTORIES = new Set([
-  '.git',
-  'node_modules',
-  'coverage',
-  'tmp',
-  'graft',
-  'graphify-out',
-]);
+const SKIP_DIRECTORIES = new Set(['.git', 'node_modules', 'coverage', 'tmp']);
+
+/**
+ * Generated output at the repository root (both are gitignored there). Matched on
+ * the path relative to the walk root, not on the name, so a skill directory
+ * merely named `graft` elsewhere is still checked.
+ */
+const GENERATED_ROOT_DIRECTORIES = new Set(['graft', 'graphify-out']);
 
 /**
  * Test fixtures are deliberately non-conformant: a fixture exists to make a rule
@@ -258,7 +258,7 @@ function walk(directory) {
       // skill inside one would be reported twice. Matched on the path relative to
       // the walk root, not on the name, so a skill directory merely *named*
       // "worktrees" is still checked and `.claude/skills` is still descended into.
-      if (relative === '.claude/worktrees') {
+      if (relative === '.claude/worktrees' || GENERATED_ROOT_DIRECTORIES.has(relative)) {
         continue;
       }
       // A SKILL.md holds no nested skills, so its directory is not descended.

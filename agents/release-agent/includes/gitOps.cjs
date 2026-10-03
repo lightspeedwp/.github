@@ -22,7 +22,7 @@ function validateDirectory(directory) {
       throw new Error(`Path is not a directory: ${directory}`);
     }
   } catch (error) {
-    throw new Error(`Invalid directory: ${directory}\n${error.message}`);
+    throw new Error(`Invalid directory: ${directory}\n${error.message}`, { cause: error });
   }
 }
 
@@ -42,7 +42,7 @@ function executeGit(args, workDir = process.cwd()) {
       encoding: 'utf8',
     }).trim();
   } catch (error) {
-    throw new Error(`Git command failed: ${error.message}`);
+    throw new Error(`Git command failed: ${error.message}`, { cause: error });
   }
 }
 

@@ -312,11 +312,8 @@ export function renderMarkdown(markdown: string): string {
     return `<h${token.depth}>${content}</h${token.depth}>\n`;
   };
 
-  return marked.parse(markdown, {
-    renderer,
-    mangle: false,
-    headerIds: false,
-  }) as string;
+  // marked 8 removed the `mangle` and `headerIds` options, so neither is passed.
+  return marked.parse(markdown, { renderer }) as string;
 }
 
 export const COOKBOOK_RECIPES: CookbookRecipe[] = [
