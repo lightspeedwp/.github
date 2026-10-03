@@ -206,5 +206,4 @@ All validation scripts provide robust error handling and log errors to the conso
 - [YAML Documentation](../../docs/YAML.md)
 - [Test Coverage Reports](../../coverage/README.md)
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+Made with ❤️ by the LightSpeed team.
