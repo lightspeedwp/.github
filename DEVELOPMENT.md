@@ -93,6 +93,11 @@ formatter (not as an ESLint rule).
   npm run format:check
   ```
 
+`npm run format:check` is repo-wide and informational: the repository carries a
+large backlog of pre-existing formatting drift (626 files), so it is not
+enforced as a required CI check. Format the files you touch with
+`npm run format:js`, or let lint-staged do it at commit time.
+
 `npm run lint:js` is read-only. Use `npm run lint:js:fix` to apply ESLint fixes
 and the `format:*` scripts to apply Prettier formatting. ESLint runs with a
 content-based cache (`.eslintcache`, gitignored) for fast repeat runs.

@@ -8,18 +8,18 @@
  * @see ./markdownlint.config.cjs for base configuration
  */
 
-const path = require("path");
+const path = require('path');
 
 /**
  * Load base configuration from markdownlint.config.cjs
  */
 let baseConfig = {};
 try {
-  const configPath = path.join(__dirname, ".markdownlint.config.cjs");
+  const configPath = path.join(__dirname, '.markdownlint.config.cjs');
   const configModule = require(configPath);
   baseConfig = configModule || {};
 } catch (error) {
-  console.warn("Could not load markdownlint.config.cjs, using defaults");
+  console.warn('Could not load markdownlint.config.cjs, using defaults');
 }
 
 /**
@@ -57,7 +57,7 @@ module.exports = {
    * Output formatter
    */
   outputFormatters: [
-    ["markdownlint-cli2-formatter-pretty"],
+    ['markdownlint-cli2-formatter-pretty'],
     // Uncomment for JSON output in CI
     // ['markdownlint-cli2-formatter-json', { name: 'markdownlint-results.json' }]
   ],
