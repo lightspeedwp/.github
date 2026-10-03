@@ -363,6 +363,35 @@ describe('Run-safety documentation and log examples', () => {
     expect(contract).toMatch(/the three run logs/);
   });
 
+  test('recovers a torn log tail before appending, and keeps R6 inside FR-017', () => {
+    expect(logs).toMatch(
+      /A writer that resumes first truncates the log back to its last newline, keeping the removed bytes in a `\.partial` file/
+    );
+    expect(logs).toMatch(
+      /a cut-off `done` line leaves its `intended` record unmatched, which the reconciliation in rule 4 then completes/
+    );
+    expect(research).toMatch(
+      /a writer that resumes first truncates the log back to its last newline/
+    );
+    expect(task('T062b').text).toMatch(
+      /truncate a log whose last line was cut off back to its last newline/
+    );
+    expect(task('T062c').text).toMatch(
+      /last line was cut off mid-write is truncated back to its last newline/
+    );
+    expect(read('quickstart.md')).toMatch(
+      /Cut the last line of `evidence\/consolidation-log\.jsonl` off mid-record/
+    );
+    expect(section(model, '### 16. Run Lock')).toMatch(
+      /a resumed run deletes the file when it finishes successfully/
+    );
+    const r6 = section(read('research.md'), '### R6. Stopping labels from being recreated');
+    expect(r6).toMatch(
+      /restrict repository label creation only where GitHub allows it without reducing anyone's existing repository access \(FR-017\)/
+    );
+    expect(r6).not.toMatch(/limit repository label management to maintainers/);
+  });
+
   test('orders Stage 5 work serially and bounds the sync gap with its own task', () => {
     expect(task('T070').text).not.toMatch(/^\[P\]/);
     expect(task('T069').text).not.toMatch(/^\[P\]/);
@@ -506,7 +535,7 @@ describe('Run-safety documentation and log examples', () => {
     expect(model).toMatch(/held → stale \(process died\) → held with epoch \+ 1/);
     expect(task('T062b').text).toMatch(/`--resume <run_id>`.*`--abandon-run <run_id>`/);
     expect(task('T062b').text).toMatch(
-      /delete `run-lock\.json` when the run finishes successfully \(an interrupted run keeps the file/
+      /delete `run-lock\.json` when the run, or a run resumed with `--resume <run_id>`, finishes successfully \(an interrupted run keeps the file so it can be resumed again\)/
     );
     expect(task('T062b').text).toMatch(
       /refuse any append when the lock's `epoch` is not the run's own/

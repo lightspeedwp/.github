@@ -81,7 +81,7 @@ All three files are JSON Lines in `evidence/` (one JSON object per line, UTF-8, 
 2. Rolling back reads these logs: a GitHub deletion is reversed from the dry-run snapshot plus its `delete` records; a Linear merge is reversed by reapplying `old_label` and restoring the retired label.
 3. Mutating requests run one at a time, at least one second apart, and pause on `Retry-After` or `x-ratelimit-reset`; Linear calls stay within Linear's complexity limits. A paused run resumes as in dry-run rule 7.
 4. On resume, every `intended` record without a matching `done` record is checked against the live state before anything else runs: if the change happened, a `done` record is appended; if it did not, the change is retried. A finished run leaves no unmatched `intended` record (research R21).
-5. A reader skips a final line that does not parse as JSON and treats it as the interrupted write: the `intended` line is flushed before the call, so nothing happened for a line that is missing or partial.
+5. A reader skips a final line that does not parse as JSON and treats it as the interrupted write: the `intended` line is flushed before the call, so nothing happened for a line that is missing or partial. A writer that resumes first truncates the log back to its last newline, keeping the removed bytes in a `.partial` file beside it, so the next record cannot join the partial bytes and become unparsable; a cut-off `done` line leaves its `intended` record unmatched, which the reconciliation in rule 4 then completes.
 
 ## Weekly drift report issue
 
