@@ -44,7 +44,7 @@ describe('Label consolidation post-merge task plan', () => {
 
     expect(taskRows).toHaveLength(116);
     expect(new Set(taskRows.map(({ id }) => id)).size).toBe(taskRows.length);
-    expect(taskRows.filter(({ done }) => done)).toHaveLength(58);
+    expect(taskRows.filter(({ done }) => done)).toHaveLength(63);
     expect(phase8Count).toBe(66);
     expect(tasks).toContain(`**Total Tasks**: ${taskRows.length}`);
     expect(tasks).toContain(`All ${taskRows.length} tasks in phases 1-10`);
