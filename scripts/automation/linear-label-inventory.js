@@ -79,7 +79,9 @@ export async function linearGraphQL(query, options = {}) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
+          // Personal API keys go in the header as-is; only OAuth access
+          // tokens use "Bearer" (Linear rejects a Bearer-prefixed API key).
+          Authorization: token.startsWith('lin_oauth_') ? `Bearer ${token}` : token,
         },
         body: JSON.stringify({ query }),
         signal: controller.signal,
