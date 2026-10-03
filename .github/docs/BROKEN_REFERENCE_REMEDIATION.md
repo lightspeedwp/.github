@@ -20,7 +20,7 @@ This document describes the process for identifying, auditing, and fixing all br
 npm run audit:broken-refs
 ```
 
-**Output**: `agents/reports/broken-references-audit.json`
+**Output**: `.github/reports/agents/broken-references-audit.json`
 
 **What it does**:
 
@@ -57,10 +57,10 @@ npm run audit:broken-refs
 
 ```bash
 # View audit results
-cat agents/reports/broken-references-audit.json | jq '.byFile[] | select(.severity=="CRITICAL")'
+cat .github/reports/agents/broken-references-audit.json | jq '.byFile[] | select(.severity=="CRITICAL")'
 
 # Group by severity
-cat agents/reports/broken-references-audit.json | jq 'group_by(.severity) | map({severity: .[0].severity, count: length})'
+cat .github/reports/agents/broken-references-audit.json | jq 'group_by(.severity) | map({severity: .[0].severity, count: length})'
 ```
 
 **Key Questions**:
@@ -77,10 +77,10 @@ cat agents/reports/broken-references-audit.json | jq 'group_by(.severity) | map(
 
 ```bash
 # Dry-run to preview changes
-node scripts/validation/auto-fixer.js --dry-run --input agents/reports/broken-references-audit.json
+node scripts/validation/auto-fixer.js --dry-run --input .github/reports/agents/broken-references-audit.json
 
 # Apply fixes
-node scripts/validation/auto-fixer.js --input agents/reports/broken-references-audit.json
+node scripts/validation/auto-fixer.js --input .github/reports/agents/broken-references-audit.json
 ```
 
 **What it does**:
@@ -149,7 +149,7 @@ act -j test
 
 ```bash
 # Generate final audit report
-npm run audit:broken-refs -- --output agents/reports/broken-references-audit-final.json
+npm run audit:broken-refs -- --output .github/reports/agents/broken-references-audit-final.json
 
 # Generate summary statistics
 node scripts/validation/generate-broken-ref-summary.js

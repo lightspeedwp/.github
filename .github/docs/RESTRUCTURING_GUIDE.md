@@ -300,15 +300,15 @@ npm run validate:compliance
 
 All reports are saved to:
 
-- **Audit Reports**: `agents/reports/`
+- **Audit Reports**: `.github/reports/agents/`
 - **Spec Reports**: `.github/specs/014-agents-restructure-consolidate/reports/`
 
 Example:
 
 ```bash
-cat agents/reports/broken-references-audit.json
-cat agents/reports/structure-audit.json
-cat agents/reports/deduplication-audit.json
+cat .github/reports/agents/broken-references-audit.json
+cat .github/reports/agents/structure-audit.json
+cat .github/reports/agents/deduplication-audit.json
 ```
 
 ---
