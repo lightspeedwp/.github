@@ -25,7 +25,7 @@
 **Purpose**: Project initialization and audit tooling foundation
 
 - [x] T001 Create scripts/validation/ directory structure for audit and validation tools
-- [x] T002 [P] Create agents/reports/ directory for audit and registry output files
+- [x] T002 [P] Create .github/reports/agents/ directory for audit and registry output files
 - [x] T003 [P] Create .github/specs/014-agents-restructure-consolidate/reports/ for consolidation reports
 - [x] T004 [P] Initialize npm workspace for validation scripts (if not already configured)
 - [x] T005 [P] Setup logging and reporting utilities in scripts/validation/lib/reporting.js
@@ -63,7 +63,7 @@
 - [x] T019 [US1] Implement JavaScript import detection in scripts/validation/lib/reference-detector.js (require(), import statements)
 - [x] T020 [P] [US1] Implement shell path detection in scripts/validation/lib/reference-detector.js (hardcoded paths in .sh files)
 - [x] T021 [P] [US1] Implement workflow reference detection in scripts/validation/lib/reference-detector.js (agent invocations in .github/workflows/*.yml)
-- [x] T022 [US1] Generate broken reference audit report and save to agents/reports/broken-references-audit.json
+- [x] T022 [US1] Generate broken reference audit report and save to .github/reports/agents/broken-references-audit.json
 - [x] T023 [P] [US1] Create reference fix recommendations in scripts/validation/lib/fix-suggester.js (suggest correct paths)
 - [x] T024 [US1] Implement auto-fix capability for identified broken references in scripts/validation/lib/auto-fixer.js
 - [x] T025 [P] [US1] Create validation script to verify all fixes executed successfully in scripts/validation/verify-fixes.js
@@ -73,7 +73,7 @@
 - [x] T029 [US1] Verify all dependent scripts execute successfully after fixes applied
 - [x] T030 [P] [US1] Validate CI workflows pass without import/path errors
 - [x] T031 [US1] Create CHANGELOG entries for all agents with broken references that were fixed
-- [x] T032 [P] [US1] Generate final broken reference audit report and save to agents/reports/broken-references-audit-final.json
+- [x] T032 [P] [US1] Generate final broken reference audit report and save to .github/reports/agents/broken-references-audit-final.json
 
 ---
 
@@ -86,9 +86,9 @@
 - [ ] T033 [P] [US2] Create agent folder structure template in .github/templates/agent-structure-template/ with all 7 components
 - [ ] T034 [US2] Document standardized agent folder structure in .github/docs/AGENT_FOLDER_STRUCTURE.md (mandate: AGENT.md, CHANGELOG.md, package.json, README.md, skills/, tests/, config/)
 - [x] T035 [P] [US2] Implement folder structure validation in scripts/validation/lib/structure-checker.js
-- [ ] T036 [US2] Generate structure audit report and save to agents/reports/structure-audit.json
+- [ ] T036 [US2] Generate structure audit report and save to .github/reports/agents/structure-audit.json
 - [x] T037 [P] [US2] Identify agents missing required components (per Decision 1: 7-item template)
-- [ ] T038 [P] [US2] Create remediation recommendations for non-conformant agents in agents/reports/structure-remediation-recommendations.json
+- [ ] T038 [P] [US2] Create remediation recommendations for non-conformant agents in .github/reports/agents/structure-remediation-recommendations.json
 - [ ] T039 [US2] Document agent CHANGELOG.md format requirements in .github/docs/CHANGELOG_FORMAT.md
 - [ ] T040 [P] [US2] Document agent package.json requirements in .github/docs/PACKAGE_JSON_REQUIREMENTS.md
 - [x] T041 [US2] Document agent README.md template in .github/templates/agent-structure-template/README.md
@@ -109,7 +109,7 @@
 - [ ] T047 [P] [US3] Create category subdirectories in skills/ for: validation, audit, reporting, registry, utilities (per Decision 2)
 - [x] T048 [P] [US3] Implement SHA-256 content hashing in scripts/validation/lib/dedup-engine.js
 - [x] T049 [P] [US3] Implement cosine similarity calculation in scripts/validation/lib/dedup-engine.js (85% threshold per Decision 3)
-- [ ] T050 [US3] Generate deduplication audit report and save to agents/reports/deduplication-audit.json
+- [ ] T050 [US3] Generate deduplication audit report and save to .github/reports/agents/deduplication-audit.json
 - [ ] T051 [P] [US3] Identify exact duplicate skills (100% hash match) in deduplication-audit.json
 - [ ] T052 [P] [US3] Identify near-duplicate skills (85%+ similarity) in deduplication-audit.json
 - [ ] T053 [US3] Create consolidation recommendations specifying: which agents use shared skill vs agent-specific variant
@@ -158,7 +158,7 @@
 - [ ] T078 [P] [US5] Detect circular dependencies in agent registries and flag as errors
 - [ ] T079 [P] [US5] Trace skill dependencies across agents and populate used_by field in registry
 - [ ] T080 [US5] Document agent registry format in .github/docs/AGENT_REGISTRY_FORMAT.md
-- [ ] T081 [P] [US5] Generate agent dependency graph visualization in agents/reports/dependency-graph.json
+- [ ] T081 [P] [US5] Generate agent dependency graph visualization in .github/reports/agents/dependency-graph.json
 - [ ] T082 [US5] Generate summary: total agents registered, skills per agent, dependency count
 
 ---
@@ -179,7 +179,7 @@
 - [ ] T090 [US6] Generate master restructuring plan prioritizing agents (P1: already have subfolders; P2: high impact; P3: low priority)
 - [ ] T091 [P] [US6] Create parallel execution plan showing which agents can be restructured concurrently
 - [ ] T092 [P] [US6] Document agent restructuring process in .github/docs/AGENT_RESTRUCTURING_PROCESS.md
-- [ ] T093 [US6] Generate agent priority matrix in agents/reports/agent-priority-matrix.json
+- [ ] T093 [US6] Generate agent priority matrix in .github/reports/agents/agent-priority-matrix.json
 
 ---
 
@@ -207,7 +207,7 @@
 
 - [ ] T103 [P] Create comprehensive RESTRUCTURING_GUIDE.md in .github/docs/ with overview, timeline, phasing
 - [ ] T104 [P] Create FAQ document in .github/docs/RESTRUCTURING_FAQ.md addressing common questions
-- [ ] T105 Create consolidated metrics report in agents/reports/restructuring-metrics-summary.json (coverage %, completion %, timelines)
+- [ ] T105 Create consolidated metrics report in .github/reports/agents/restructuring-metrics-summary.json (coverage %, completion %, timelines)
 - [ ] T106 [P] Validate all generated registries one final time (agents/registry.json, skills/registry.json, per-agent registries)
 - [ ] T107 [P] Validate all audit reports are machine-parseable JSON
 - [ ] T108 Create implementation validation checklist in .github/specs/014-agents-restructure-consolidate/IMPLEMENTATION_VALIDATION.md
