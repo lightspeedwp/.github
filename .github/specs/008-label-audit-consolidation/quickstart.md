@@ -464,9 +464,9 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 ```
 
 1. Confirm `destructive_cleanup.enabled` is still `false` in `label-governance-policy.yml`, and that the deletion log shows only repositories with approved dry runs.
-2. Confirm every deleted label has a snapshot entry with name, colour, description and item numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
-3. Re-run the deletion for one finished repository and confirm it makes no API write and adds no record to `evidence/consolidation-log.json` (FR-023).
-4. Confirm `evidence/consolidation-log.json` has a `done` record for every change made in the run and no `intended` record without a matching `done` record, and that the gate issue has the run's summary comment (FR-023 point 10).
+2. Confirm every deleted label has a snapshot entry with name, colour, description and item kinds and numbers (SC-012), and that every item with a `type:*` label before Stage 3 still has exactly one (SC-011).
+3. Re-run the deletion for one finished repository and confirm it makes no API write and adds no record to `evidence/consolidation-log.jsonl` (FR-023).
+4. Confirm `evidence/consolidation-log.jsonl` has a `done` record for every change made in the run and no `intended` record without a matching `done` record, and that the gate issue has the run's summary comment (FR-023 point 10).
 5. While a run holds `evidence/run-lock.json`, start a second run and confirm it refuses to start and writes nothing. Kill the first run mid-write, start a plain run and confirm it still refuses and names the stopped `run_id`, then run `--resume <run_id>` and confirm it keeps that `run_id`, raises `epoch` by one, reconciles only `intended` records whose `op_id` starts with that `run_id`, and then removes the lock; confirm `--resume` fails while the first process is still alive (FR-023 point 11).
 6. Finish Stage 3 for a repository, generate its deletion dry run, and confirm Stage 4 still processes it: `executed_at` for Stage 3 is set and `executed_at` for Stage 4 is null (FR-023 point 1).
 
@@ -475,7 +475,7 @@ comm -3 /tmp/repo.txt /tmp/canonical.txt
 - Every Linear workspace label is in `labels.yml`, apart from documented team-scoped labels (for example `area:flow` in the Flow team).
 - No Linear issue carries two `type:*` labels.
 - `spec:*` label descriptions no longer mention OpenSpec.
-- `evidence/linear-writes.json` has a `done` record for every relabelled Linear issue, each naming labels by ID and scope, and no unmatched `intended` record (FR-023 points 5 and 7).
+- `evidence/linear-writes.jsonl` has a `done` record for every relabelled Linear issue, each naming labels by ID and scope, and no unmatched `intended` record (FR-023 points 5 and 7).
 
 ### Test 14: Drift Check (FR-017, SC-009)
 
@@ -494,7 +494,7 @@ gh issue list --repo lightspeedwp/.github --label meta:needs-approval --state op
 ```bash
 # After the Stage 2 swap, no waiting change request still uses the interim label (FR-021)
 gh issue list --repo lightspeedwp/.github --label status:blocked --state open --search "UPDATE-REQUEST in:title" --json number,title
-# Expected: no output
+# Expected: `[]` (an empty JSON array)
 ```
 
 Pass when the list matches the open requests and no issue keeps the label after its dated decision.

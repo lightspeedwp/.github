@@ -3,6 +3,15 @@ const path = require('path');
 
 const specRoot = path.resolve(__dirname, '../../.github/specs/008-label-audit-consolidation');
 const read = (file) => fs.readFileSync(path.join(specRoot, file), 'utf8');
+const changeRequests = JSON.parse(
+  fs.readFileSync(
+    path.resolve(
+      specRoot,
+      '../../reports/audits/2026-09-14-label-audit/evidence/change-requests.json'
+    ),
+    'utf8'
+  )
+).requests;
 
 // These are acceptance checks for planning artefacts. The consolidation and
 // Linear write tooling described here has not been implemented by this PR.
@@ -66,9 +75,17 @@ describe('Label consolidation post-merge task plan', () => {
 
   test('keeps manual settings, sign-off and gate setup open after configuration completion', () => {
     expect(task('T052').done).toBe(true);
-    for (const id of ['T040c', 'T040n', 'T046c', 'T055']) {
+    for (const id of ['T040c', 'T046c', 'T055']) {
       expect(task(id).done).toBe(false);
     }
+    // T040n tracks the dated sign-off on #3556 and #3557: it may be checked
+    // only once both are approved in the evidence file, and stays open until.
+    const signedOff = [3556, 3557].every((number) =>
+      changeRequests.some(
+        ({ issue_number, status }) => issue_number === number && status === 'approved'
+      )
+    );
+    expect(task('T040n').done).toBe(signedOff);
     expect(task('T055').text).toMatch(/partly done in #3362/);
     expect(task('T055').text).toMatch(/`gated_by_issue` still waits/);
   });
@@ -100,7 +117,7 @@ describe('Label consolidation post-merge task plan', () => {
   test('links the pre-run type snapshot to both post-deletion integrity checks', () => {
     expect(task('T064').text).toMatch(/pre-run snapshot.*T067a.*SC-011/);
     expect(task('T067a').text).toMatch(/SC-011 and SC-012/);
-    expect(task('T067a').text).toMatch(/T064 pre-run snapshot has exactly one/);
+    expect(task('T067a').text).toMatch(/T063 pre-run snapshot has exactly one/);
     expect(task('T067a').text).toMatch(/every deleted label has a snapshot entry/);
   });
 });
@@ -159,21 +176,21 @@ describe('Run-safety documentation and log examples', () => {
 
   test.each([
     [
-      'consolidation-log.json',
-      '### `consolidation-log.json` (GitHub, Stages 3 and 4)',
+      'consolidation-log.jsonl',
+      '### `consolidation-log.jsonl` (GitHub, Stages 3 and 4)',
       '### 14. Consolidation Log Entry',
     ],
     [
-      'linear-writes.json',
-      '### `linear-writes.json` (Linear, Stage 5)',
+      'linear-writes.jsonl',
+      '### `linear-writes.jsonl` (Linear, Stage 5)',
       '### 15. Linear Write Log Entry',
     ],
   ])(
     '%s example contains exactly the fields declared in its data model',
     (file, heading, modelHeading) => {
-      const example = section(contract, heading).match(/```json\n([\s\S]*?)\n```/);
+      const example = section(contract, heading).match(/```jsonl\n([\s\S]*?)\n```/);
       expect(example).not.toBeNull();
-      const entries = JSON.parse(example[1]);
+      const entries = example[1].split('\n').map((line) => JSON.parse(line));
       const fields = [...section(model, modelHeading).matchAll(/^\| (`[^|]+) \|/gm)].flatMap(
         ([, cell]) => [...cell.matchAll(/`([^`]+)`/g)].map(([, field]) => field)
       );
@@ -197,9 +214,11 @@ describe('Run-safety documentation and log examples', () => {
   );
 
   test('the deletion example preserves the dry-run label snapshot and uses a null after state', () => {
-    const [dryRun, log] = [...contract.matchAll(/```json\n([\s\S]*?)\n```/g)].map(([, json]) =>
-      JSON.parse(json)
-    );
+    const dryRun = JSON.parse(contract.match(/```json\n([\s\S]*?)\n```/)[1]);
+    const log = section(contract, '### `consolidation-log.jsonl` (GitHub, Stages 3 and 4)')
+      .match(/```jsonl\n([\s\S]*?)\n```/)[1]
+      .split('\n')
+      .map((line) => JSON.parse(line));
     const [entry] = log;
     const { name, color, description } = dryRun.to_delete.find(({ name }) => name === entry.label);
 
@@ -211,8 +230,11 @@ describe('Run-safety documentation and log examples', () => {
   });
 
   test('the Linear example identifies both sides of its mapping by ID and scope', () => {
-    const example = section(contract, '### `linear-writes.json` (Linear, Stage 5)');
-    const [entry] = JSON.parse(example.match(/```json\n([\s\S]*?)\n```/)[1]);
+    const example = section(contract, '### `linear-writes.jsonl` (Linear, Stage 5)');
+    const [entry] = example
+      .match(/```jsonl\n([\s\S]*?)\n```/)[1]
+      .split('\n')
+      .map((line) => JSON.parse(line));
     for (const label of [entry.old_label, entry.new_label]) {
       expect(label).toEqual({
         id: expect.any(String),
@@ -242,6 +264,48 @@ describe('Run-safety documentation and log examples', () => {
       /approved_set_commit.*stale.*skip.*new dry run and approval/
     );
     expect(model).toMatch(/approved → stale .*→ regenerated → approved again/);
+  });
+
+  test('records item kind with number, keeps logs as durable JSON Lines, and defers removal to Stage 4', () => {
+    const spec = read('spec.md');
+    expect(spec).toMatch(/the kind and number of every issue, PR and Discussion carrying it/);
+    expect(rules).toMatch(
+      /each item's kind \(`issue`, `pull_request` or `discussion`\) and number/
+    );
+    expect(contract).toMatch(/"open_items": \[\{ "kind": "issue", "number": 95 \}\]/);
+    expect(task('T065').text).toMatch(/kind and number of each open and closed item/);
+    expect(logs).toMatch(/JSON Lines in `evidence\/` \(one JSON object per line/);
+    expect(logs).toMatch(/flushed to disk \(`fsync`\)/);
+    expect(logs).toMatch(/A reader skips a final line that does not parse as JSON/);
+    expect(task('T063').text).toMatch(/\[US4\] First, before changing any label, write a snapshot/);
+    expect(task('T064').text).toMatch(/pre-run snapshot that T063 wrote before any change/);
+    expect(spec).toMatch(/still removes no label that lacks a mapping/);
+    expect(task('T064d').text).toMatch(/keeping unmapped removal off/);
+    expect(spec).toMatch(/every non-archived, non-fork `lightspeedwp` repository's label set/);
+    expect(spec).toMatch(/Archived repositories and forks are out of scope \(FR-016\)/);
+  });
+
+  test('separates the Linear credential, shares one write queue, and recovers every Linear write', () => {
+    const spec = read('spec.md');
+    expect(spec).toMatch(/Linear write operations \(Stage 5\) use a separate credential/);
+    expect(spec).toMatch(/never the read-only `LINEAR_API_KEY`/);
+    expect(task('T062a').text).toMatch(/transport-specific callback.*Linear adapter/);
+    expect(task('T062a').text).toMatch(/pause-and-resume and both adapters/);
+    expect(task('T065a').text).toMatch(/own completed `done` records are applied/);
+    expect(task('T065a').text).toMatch(/resumed-run case/);
+    expect(task('T070').text).toMatch(/Stage 5 run lock from T062b/);
+    expect(task('T070').text).toMatch(
+      /`intended` record before the call and a `done` record after it/
+    );
+    expect(task('T070').text).toMatch(/full before-state/);
+    expect(task('T070').text).toMatch(/a query shows zero left/);
+    expect(spec).toMatch(/live automation reads or applies it/);
+    expect(spec).toMatch(
+      /does not count\. The mapping's `notes` cite the file, the line and that operative use/
+    );
+    expect(spec).toMatch(/covers the changes the PR makes to them/);
+    expect(read('plan.md')).toMatch(/T040n's dated sign-off on #3556 and #3557/);
+    expect(read('quickstart.md')).toMatch(/# Expected: `\[\]` \(an empty JSON array\)/);
   });
 
   test('scopes the completion marker to a stage so Stage 3 never hides a repository from Stage 4', () => {
@@ -297,12 +361,12 @@ describe('Run-safety documentation and log examples', () => {
     expect(task('T062c').text).toMatch(
       /failed API call writes no `done` record and leaves its `intended` record/
     );
-    expect(logs).toMatch(/append-only JSON arrays/);
+    expect(logs).toMatch(/are JSON Lines|JSON Lines in `evidence\/`/);
     expect(logs).toMatch(
       /`intended` record before the API call and a `done` record after it succeeds/
     );
     expect(read('quickstart.md')).toMatch(
-      /no API write and adds no record to `evidence\/consolidation-log.json`/
+      /no API write and adds no record to `evidence\/consolidation-log.jsonl`/
     );
   });
 
@@ -323,10 +387,10 @@ describe('Run-safety documentation and log examples', () => {
   test('quickstart checks both audit logs and the per-run gate summary', () => {
     const quickstart = read('quickstart.md');
     expect(quickstart).toMatch(
-      /consolidation-log\.json` has a `done` record for every change.*no `intended` record without a matching `done` record.*summary comment/
+      /consolidation-log\.jsonl` has a `done` record for every change.*no `intended` record without a matching `done` record.*summary comment/
     );
     expect(quickstart).toMatch(
-      /linear-writes\.json` has a `done` record for every relabelled Linear issue.*ID and scope.*no unmatched `intended` record/
+      /linear-writes\.jsonl` has a `done` record for every relabelled Linear issue.*ID and scope.*no unmatched `intended` record/
     );
   });
 });

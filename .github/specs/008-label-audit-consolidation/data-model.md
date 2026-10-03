@@ -458,7 +458,7 @@ Added to each label record in the four 2026-09-14 snapshot files (`canonical-lab
 
 ### 14. Consolidation Log Entry
 
-One record per destructive change in Stages 3 and 4, appended to `evidence/consolidation-log.json` (FR-023 point 10). Contract: `contracts/dry-run-and-drift-report-schema.md`.
+One record per destructive change in Stages 3 and 4, appended to `evidence/consolidation-log.jsonl` (FR-023 point 10). Contract: `contracts/dry-run-and-drift-report-schema.md`.
 
 | Field | Type | Rule |
 | --- | --- | --- |
@@ -476,7 +476,7 @@ One record per destructive change in Stages 3 and 4, appended to `evidence/conso
 
 ### 15. Linear Write Log Entry
 
-One record per Linear issue write in Stage 5, appended to `evidence/linear-writes.json` (FR-023 point 5).
+One record per Linear issue write in Stage 5, appended to `evidence/linear-writes.jsonl` (FR-023 point 5).
 
 | Field | Type | Rule |
 | --- | --- | --- |
@@ -487,7 +487,7 @@ One record per Linear issue write in Stage 5, appended to `evidence/linear-write
 | `op_id` | string | Starts with the `run_id` of the run that wrote it; shared by the `intended` and `done` records of one write |
 | `state` | enum | `intended` (before the call) or `done` (after it succeeds) |
 
-**Rules**: append-only; written as `intended` before the call and `done` after it, with unmatched `intended` records reconciled on resume; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label.
+**Rules**: append-only; written as `intended` before the call and `done` after it, with unmatched `intended` records reconciled on resume; labels are identified by ID and scope, never by name alone; rolling back a merge reapplies `old_label` from these records and restores the retired label. Label-level Linear changes (T070) use the same `intended` and `done` pairing in `linear-changes.jsonl`, with the label's ID, scope, team and full before-state.
 
 ### 16. Run Lock
 

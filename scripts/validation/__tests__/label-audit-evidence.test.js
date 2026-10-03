@@ -211,15 +211,27 @@ describe('Post-merge change-request evidence', () => {
     [3556, 'approved-in-principle'],
     [3557, 'pending'],
   ])('does not treat the merged implementation as full approval of #%i', (number, status) => {
-    expect(request(number)).toMatchObject({
+    const entry = request(number);
+    expect(entry).toMatchObject({
       implemented_in: 'https://github.com/lightspeedwp/.github/pull/3534',
       implemented_in_status: expect.stringMatching(/merged .*before full sign-off/),
-      status,
-      approved_by: null,
-      approved_at: null,
-      approval_comment: null,
-      blocks: 'full sign-off (#3534 has merged)',
     });
+    if (entry.status === 'approved') {
+      // T040n: the documented transition once the dated sign-off is recorded.
+      expect(entry).toMatchObject({
+        approved_by: 'ashleyshaw',
+        approved_at: expect.stringMatching(/^\d{4}-\d{2}-\d{2}$/),
+        approval_comment: expect.stringMatching(new RegExp(`/issues/${number}#issuecomment-\\d+$`)),
+      });
+    } else {
+      expect(entry).toMatchObject({
+        status,
+        approved_by: null,
+        approved_at: null,
+        approval_comment: null,
+        blocks: 'full sign-off (#3534 has merged)',
+      });
+    }
   });
 
   test('retains both template follow-ups and distinguishes resolved contract work from live verification', () => {
