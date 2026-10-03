@@ -29,14 +29,13 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Branch**: `audit/label-consolidation` (merged as #3362) | **Date**: 2026-09-14, updated 2026-10-02 | **Spec**: [008-label-audit-consolidation/spec.md](spec.md)
+**Branch**: `audit/label-consolidation` (merged as #3362) | **Date**: 2026-09-14, updated 2026-10-03 | **Spec**: [008-label-audit-consolidation/spec.md](spec.md)
 
-**Status (2026-10-02)**: The audit (US1–US3) and Stages 0a, 0b and 0c are on `develop`: #3362, #3534 and #3564 merged on 2026-09-25. Open PRs:
+**Status (2026-10-03)**: The audit (US1–US3) and Stages 0a, 0b and 0c are on `develop`: #3362, #3534 and #3564 merged on 2026-09-25. Since then #3725 (#3730) merged on 2026-10-02 (the T042 Linear export and the Stage 1 drafts T046b, T048, T049) and #3732 (#3731) merged on 2026-10-03 (constitution v1.4.0, which makes `branch-types.yml` the canonical routing map and locks the routing files). Open PRs:
 
 - #3703 (#3728): this plan, the tasks and Phase 9;
 - #3704 (#3729): the T062a write queue;
-- #3725 (#3730): the T042 Linear export and the Stage 1 drafts (T046b, T048, T049);
-- #3732 (#3731): constitution v1.4.0, which makes `branch-types.yml` the canonical routing map and locks the routing files.
+- #3734: the locked-files guard and the inventory token guard (T075).
 
 Stage 0a's manual step (T040c), the org-wide inventory (T041, waiting for @ashleyshaw's short-lived inventory token and #3734) and the Stage 1 approvals are next. One governance gap is open: #3534 merged before #3556 and #3557 were fully signed off (see Constitution Check).
 
@@ -149,9 +148,9 @@ No later stage that changes a locked file (Stage 2 onwards) starts until this is
 
 A second gap is not a constitution violation, but it blocks Stage 1. #3554 (`[LABEL-UPDATE-REQUEST]` for five imports) was closed as completed when #3534 and #3362 merged, through hand-added Development links, although none of its labels is in `labels.yml` yet. It must be reopened before T046a records it.
 
-All other principles stay compliant with constitution v1.3.1.
+All other principles stay compliant with the constitution (checked against v1.3.1; v1.4.0 is now in force, see the re-check below).
 
-**Re-check against constitution v1.4.0 (2026-10-02, #3732, not yet merged)**: ⚠️ Compliant once three task changes are made; no new violation. v1.4.0 makes these rules:
+**Re-check against constitution v1.4.0 (2026-10-02; merged in #3732 on 2026-10-03, so v1.4.0 is the active authority)**: ⚠️ Compliant once three task changes are made; no new violation. v1.4.0 makes these rules:
 
 - `.github/branch-types.yml` is the canonical routing map, and `PULL_REQUEST_TEMPLATE/config.yml` MUST mirror it.
 - Each routed template's `type:*` label is authoritative, and `branch-labels.yml` MUST give each branch type that same single label.
@@ -161,7 +160,7 @@ Consequences for this plan:
 
 1. **T074 and T076 change locked files.** Both go into the T046b `[TEMPLATE-UPDATE-REQUEST]`, which already covers six PR templates, and ship in the Stage 2 configuration PR only after it is approved (Principle II).
 2. **T074's ten corrections follow the template.** `branch-labels.yml` takes each routed template's type label. For example `audit/` becomes `type:audit` and `hotfix/` becomes `type:release`. The 13 branch types with no entry get one.
-3. **T076 runs one way only:** `config.yml` is corrected to match `branch-types.yml`, never the reverse. It waits for #3732 to merge; until then v1.3.1, which names `config.yml`, still applies.
+3. **T076 runs one way only:** `config.yml` is corrected to match `branch-types.yml`, never the reverse. Constitution v1.4.0, merged in #3732 on 2026-10-03, is the active authority for this direction.
 
 The approver is named by login, @ashleyshaw, which is what the deletion gate checks (FR-016).
 
@@ -205,16 +204,16 @@ The approver is named by login, @ashleyshaw, which is what the deletion gate che
 │           ├── label-inventory.csv          # Complete label catalog
 │           ├── duplicates-analysis.md       # Consolidation recommendations
 │           ├── workflow-analysis.md         # Archived workflow assessment
-│           └── evidence/
-│               ├── label-mappings.json      # Source data comparisons
-│               ├── missing-labels.json      # Labels in GitHub but not canonical
-│               ├── mismatches.json          # Name/color inconsistencies
-│               ├── linear-labels.json       # US4: Linear inventory and mapping
-│               ├── linear-writes.jsonl       # US4: every Linear write (FR-023 point 5)
-│               ├── linear-changes.jsonl      # US4: every Linear label change (FR-023 point 5)
-│               ├── native-issue-types.json  # US4: organisation issue types (T040c, T041a)
-│               ├── consolidation-log.jsonl   # US4: every destructive change (FR-023 point 10)
-│               └── dry-run/{repo}.json      # US4: per-repository deletion dry runs
+│           ├── evidence/
+│           │   ├── label-mappings.json      # Source data comparisons
+│           │   ├── missing-labels.json      # Labels in GitHub but not canonical
+│           │   ├── mismatches.json          # Name/color inconsistencies
+│           │   ├── linear-labels.json       # US4: Linear inventory and mapping
+│           │   ├── linear-writes.jsonl       # US4: every Linear write (FR-023 point 5)
+│           │   ├── linear-changes.jsonl      # US4: every Linear label change (FR-023 point 5)
+│           │   ├── native-issue-types.json  # US4: organisation issue types (T040c, T041a)
+│           │   ├── consolidation-log.jsonl   # US4: every destructive change (FR-023 point 10)
+│           │   └── dry-run/{repo}.json      # US4: per-repository deletion dry runs
 │           └── change-requests/             # US4: Stage 1 issue drafts (T046, T046b, T048, T049)
 ```
 

@@ -214,6 +214,13 @@ describe('Run-safety documentation and log examples', () => {
       expect(done.op_id).toBe(intended.op_id);
       expect(intended.op_id).toMatch(/^run-\d{8}T\d{6}-[0-9a-f]{8}-\d{4}$/);
       expect(Date.parse(done.at)).toBeGreaterThan(Date.parse(intended.at));
+      // An operation cannot happen before the run named in its op_id started.
+      const [, y, mo, d, h, mi, s] = intended.op_id.match(
+        /^run-(\d{4})(\d{2})(\d{2})T(\d{2})(\d{2})(\d{2})-/
+      );
+      expect(Date.parse(intended.at)).toBeGreaterThanOrEqual(
+        Date.UTC(+y, +mo - 1, +d, +h, +mi, +s)
+      );
       expect(research).toContain(`evidence/${file}`);
     }
   );
@@ -349,6 +356,33 @@ describe('Run-safety documentation and log examples', () => {
       /`evidence\/linear-changes\.jsonl` has a `done` record for every retired, moved or restyled label/
     );
     expect(contract).toMatch(/the three run logs/);
+  });
+
+  test('keeps the plan current with merged PRs, the lock complete, and settings out of the run logs', () => {
+    const plan = read('plan.md');
+    expect(section(model, '### 16. Run Lock')).toMatch(/\| `host` \| string \|/);
+    expect(task('T062b').text).toMatch(/`epoch` and `host`\)/);
+    expect(read('research.md')).toMatch(/an `epoch` and its `host`/);
+    expect(read('research.md')).toMatch(/All three logs are JSON Lines/);
+    expect(task('T071').text).not.toMatch(/linear-changes\.jsonl/);
+    expect(task('T071').text).toMatch(/are not written to the run logs/);
+    expect(plan).toMatch(/\*\*Status \(2026-10-03\)\*\*/);
+    expect(plan).toMatch(/#3725 \(#3730\) merged on 2026-10-02/);
+    expect(plan).toMatch(/#3732 \(#3731\) merged on 2026-10-03/);
+    expect(plan).not.toMatch(/^- #3725 \(#3730\)/m);
+    expect(plan).not.toMatch(/^- #3732 \(#3731\)/m);
+    expect(plan).not.toMatch(/not yet merged\)\*\*/);
+    expect(plan).not.toMatch(/It waits for #3732 to merge/);
+    expect(plan).toMatch(/v1\.4\.0 is the active authority/);
+    expect(task('T076').text).toMatch(/#3732 has merged/);
+    expect(task('T079').text).toMatch(
+      /After #3703 and #3704 merge \(#3725 and #3732 have merged\)/
+    );
+    const tree = section(plan, '### Audit Output (repository root: `.github/`)');
+    expect(tree).toMatch(/│ {11}├── evidence\//);
+    expect(tree).toMatch(/│ {11}│ {3}└── dry-run\/\{repo\}\.json/);
+    expect(tree).toMatch(/│ {11}└── change-requests\//);
+    expect(tree.match(/^│ {11}└── /gm)).toHaveLength(1);
   });
 
   test('completes the approver-handle migration T078 claims', () => {

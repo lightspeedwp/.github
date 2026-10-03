@@ -53,7 +53,7 @@ All three files are JSON Lines in `evidence/` (one JSON object per line, UTF-8, 
 ### `consolidation-log.jsonl` (GitHub, Stages 3 and 4)
 
 ```jsonl
-{"run_by":"ashleyshaw","at":"2026-10-01T00:00:00Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"intended"}
+{"run_by":"ashleyshaw","at":"2026-10-01T00:00:01Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"intended"}
 {"run_by":"ashleyshaw","at":"2026-10-01T00:00:02Z","repository":"lightspeedwp/example-repo","action":"delete","label":"migrate:priority:normal","before":{"name":"migrate:priority:normal","color":"ededed","description":""},"after":null,"gate_issue":0,"op_id":"run-20261001T000000-3f9a1c7e-0001","state":"done"}
 ```
 
@@ -62,15 +62,15 @@ All three files are JSON Lines in `evidence/` (one JSON object per line, UTF-8, 
 ### `linear-writes.jsonl` (Linear, Stage 5)
 
 ```jsonl
-{"run_by":"ashleyshaw","issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-01T00:00:00Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261008T090000-b47e02d1-0001","state":"intended"}
-{"run_by":"ashleyshaw","issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-01T00:00:01Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261008T090000-b47e02d1-0001","state":"done"}
+{"run_by":"ashleyshaw","issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-08T09:00:00Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261008T090000-b47e02d1-0001","state":"intended"}
+{"run_by":"ashleyshaw","issue":"GIT-0000","old_label":{"id":"<label id>","name":"area:agents","scope":"workspace"},"new_label":{"id":"<label id>","name":"aiops:agents","scope":"workspace"},"at":"2026-10-08T09:00:01Z","mapping":"area:agents -> aiops:agents","op_id":"run-20261008T090000-b47e02d1-0001","state":"done"}
 ```
 
 ### `linear-changes.jsonl` (Linear labels, Stage 5)
 
 ```jsonl
-{"run_by":"ashleyshaw","at":"2026-10-08T09:00:00Z","action":"retire","label":{"id":"<label id>","name":"area:legacy","scope":"workspace"},"before":{"name":"area:legacy","color":"ededed","description":"","parent":null,"scope":"workspace"},"after":null,"op_id":"run-20261008T090000-b47e02d1-0002","state":"intended"}
-{"run_by":"ashleyshaw","at":"2026-10-08T09:00:01Z","action":"retire","label":{"id":"<label id>","name":"area:legacy","scope":"workspace"},"before":{"name":"area:legacy","color":"ededed","description":"","parent":null,"scope":"workspace"},"after":null,"op_id":"run-20261008T090000-b47e02d1-0002","state":"done"}
+{"run_by":"ashleyshaw","at":"2026-10-08T09:01:00Z","action":"retire","label":{"id":"<label id>","name":"area:legacy","scope":"workspace"},"before":{"name":"area:legacy","color":"ededed","description":"","parent":null,"scope":"workspace"},"after":null,"op_id":"run-20261008T090000-b47e02d1-0002","state":"intended"}
+{"run_by":"ashleyshaw","at":"2026-10-08T09:01:01Z","action":"retire","label":{"id":"<label id>","name":"area:legacy","scope":"workspace"},"before":{"name":"area:legacy","color":"ededed","description":"","parent":null,"scope":"workspace"},"after":null,"op_id":"run-20261008T090000-b47e02d1-0002","state":"done"}
 ```
 
 `action` is one of `retire` (archive the label in Linear, where it can be restored), `move_to_team` or `restyle`; `before` holds everything needed to restore the label, so rolling back reads this log.
