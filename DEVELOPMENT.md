@@ -135,7 +135,6 @@ The pre-commit hook uses [lint-staged](https://github.com/okonet/lint-staged) to
 
 - **Markdown files** (`*.{md,mdx}`):
   - Changed-line Markdownlint (only violations on lines the commit touches, via `scripts/validation/lint-md-staged.cjs`)
-  - Prettier formatting
 
 - **JSON files** (`*.json`):
   - Prettier formatting

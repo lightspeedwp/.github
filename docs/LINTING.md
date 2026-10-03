@@ -199,8 +199,8 @@ PRETTIER_PRINT_WIDTH=80
     "lint:fast": "oxlint",
     "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --cache --cache-location .eslintcache",
     "lint:js:fix": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --fix",
-    "typecheck": "tsc --noEmit -p tsconfig.json",
-    "lint:actionlint": "actionlint .github/workflows/*.yml",
+    "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p website/tsconfig.json",
+    "lint:actionlint": "./actionlint -shellcheck=... -ignore ... .github/workflows/*.yml",
     "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.config.cjs",
     "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.cjs",
     "lint:pkg-json": "npmPkgJsonLint --configFile .npmpackagejsonlint.config.cjs ."
