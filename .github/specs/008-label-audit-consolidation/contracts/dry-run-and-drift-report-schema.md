@@ -81,7 +81,7 @@ Both files are append-only JSON arrays in `evidence/`. Each change is written tw
 ]
 ```
 
-`action` is one of `rename`, `create`, `update`, `relabel` or `delete`; a `relabel` record adds `item` (the issue or PR number). Each run also posts one summary comment on the gate issue, with counts per action and repository.
+`action` is one of `rename`, `create`, `update`, `relabel` or `delete`; a `relabel` record carries the item number (the issue or PR number) inside `before` and `after`, as in the data model, with no separate top-level `item` field. Each run also posts one summary comment on the gate issue, with counts per action and repository.
 
 ### `linear-writes.json` (Linear, Stage 5)
 
