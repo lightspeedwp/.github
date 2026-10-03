@@ -694,6 +694,46 @@ describe('review findings on this branch', () => {
     }
   });
 
+  it('allows the schema-defined top-level permissions, status and author on an agent', () => {
+    const agent = (extra) =>
+      [
+        '---',
+        'name: Test Agent',
+        'description: Does a thing.',
+        'title: Test Agent',
+        'file_type: agent',
+        'last_updated: "2026-09-22"',
+        extra,
+        '---',
+        '',
+        'Body.',
+        '',
+      ].join('\n');
+    const statusFor = (extra) => {
+      const tree = makeTree({ 'agents/test.agent.md': agent(extra) });
+      try {
+        const validationDir = path.join(tree, 'scripts', 'validation');
+        fs.mkdirSync(path.join(validationDir, 'lib'), { recursive: true });
+        fs.copyFileSync(SCRIPT, path.join(validationDir, 'validate-skills.js'));
+        fs.copyFileSync(
+          path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+          path.join(validationDir, 'lib', 'skills-spec.js')
+        );
+        fs.writeFileSync(
+          path.join(validationDir, 'skills-baseline.json'),
+          JSON.stringify({ findings: [] })
+        );
+        return run(tree).status;
+      } finally {
+        fs.rmSync(tree, { recursive: true, force: true });
+      }
+    };
+
+    expect(statusFor('permissions:\n  - read\n  - write\nstatus: active\nauthor: Someone')).toBe(0);
+    // The closed set still rejects a field that is in no schema.
+    expect(statusFor('invented-field: x')).not.toBe(0);
+  });
+
   it('skips generated output at the root only, not any directory named graft', () => {
     const bad = '---\nname: Bad Name\ndescription: Does a thing.\n---\n\nDo it.\n';
     const statusFor = (files) => {
