@@ -4,9 +4,7 @@
   "enforcement": "active",
   "conditions": {
     "ref_name": {
-      "include": [
-        "refs/heads/develop"
-      ],
+      "include": ["refs/heads/develop"],
       "exclude": []
     }
   },
@@ -40,6 +38,12 @@
           },
           {
             "context": "actionlint"
+          },
+          {
+            "context": "Lint (JS/YAML/package.json)"
+          },
+          {
+            "context": "Typecheck"
           }
         ]
       }
