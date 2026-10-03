@@ -10,7 +10,7 @@ import path from 'path';
 import StructureChecker from './lib/structure-checker.js';
 
 const ROOT_DIR = process.cwd();
-const REPORTS_DIR = path.join(ROOT_DIR, 'agents', 'reports');
+const REPORTS_DIR = path.join(ROOT_DIR, '.github', 'reports', 'agents');
 
 // Ensure reports directory exists
 if (!fs.existsSync(REPORTS_DIR)) {
@@ -232,9 +232,9 @@ function printReport(auditReport, recommendations, summary) {
   }
 
   console.log(`\n📈 REPORTS GENERATED:`);
-  console.log(`   agents/reports/structure-audit.json`);
-  console.log(`   agents/reports/structure-remediation-recommendations.json`);
-  console.log(`   agents/reports/structure-audit-summary.json`);
+  console.log(`   .github/reports/agents/structure-audit.json`);
+  console.log(`   .github/reports/agents/structure-remediation-recommendations.json`);
+  console.log(`   .github/reports/agents/structure-audit-summary.json`);
 
   console.log('\n' + '='.repeat(70));
 }

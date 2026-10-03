@@ -20,7 +20,7 @@ npm run audit:broken-refs
 ```
 
 **Expected Output**:
-- JSON report in `agents/reports/broken-references-audit.json`
+- JSON report in `.github/reports/agents/broken-references-audit.json`
 - Report lists all broken imports, script paths, workflow references
 - Each issue has: location, severity, suggestion, auto_fixable flag
 
@@ -63,7 +63,7 @@ npm run audit:dedup
 ```
 
 **Expected Output**:
-- JSON report in `agents/reports/deduplication-audit.json`
+- JSON report in `.github/reports/agents/deduplication-audit.json`
 - Lists exact matches (100% hash) and near-duplicates (85%+ similarity)
 - Each duplicate entry includes: skill IDs, similarity score, consolidation recommendation
 
@@ -133,7 +133,7 @@ This runs all validation scenarios sequentially and produces a consolidated repo
 ## Next Steps After Validation
 
 1. If all scenarios pass: Phase 1 implementation is complete; ready for PR
-2. If failures detected: Review `agents/reports/` for detailed findings; apply recommended fixes; re-run validation
+2. If failures detected: Review `.github/reports/agents/` for detailed findings; apply recommended fixes; re-run validation
 3. Phase 2: Begin linting, test creation, and comprehensive documentation phases
 
 ---

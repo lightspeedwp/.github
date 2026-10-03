@@ -261,8 +261,8 @@ does not prove the agent meets the conventions above.
 **For agents that don't conform:**
 
 1. Run structure audit: `npm run audit:structure`
-2. Review report: `agents/reports/structure-audit.json`
-3. Follow remediation recommendations in `agents/reports/structure-remediation-recommendations.json`
+2. Review report: `.github/reports/agents/structure-audit.json`
+3. Follow remediation recommendations in `.github/reports/agents/structure-remediation-recommendations.json`
 4. Create feature branch per agent
 5. Add missing components from templates
 6. Update existing components to match requirements

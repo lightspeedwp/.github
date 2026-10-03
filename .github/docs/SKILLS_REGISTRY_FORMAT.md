@@ -65,7 +65,7 @@ A skill is considered compliant when its frontmatter carries a non-empty name an
 1. **Discover skills by category**: Load `skills/by-category/{category}.json`
 2. **Find all skills**: Load consolidated `skills/registry.json`
 3. **Check compliance**: Filter by `agentskills_compliant === true`
-4. **Find violations**: See agents/reports/compliance-violations-report.json
+4. **Find violations**: See .github/reports/agents/compliance-violations-report.json
 
 ## Updating the Registry
 

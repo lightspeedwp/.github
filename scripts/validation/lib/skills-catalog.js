@@ -8,6 +8,9 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import { collectSkillDirectories, findSkillDefinition } from './skill-directories.js';
+import skillsSpec from './skills-spec.js';
+
+const { SCAFFOLD_DIRECTORIES } = skillsSpec;
 
 class SkillsCatalog {
   constructor(options = {}) {
@@ -186,7 +189,12 @@ class SkillsCatalog {
       // 'by-category' is SkillsRegistryGenerator's own generated output
       // directory (see phase-6-skills-registry.js) - scanning it here would
       // catalog Phase 6's generated registry files as if they were skills.
-      if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'by-category') {
+      if (
+        entry.isDirectory() &&
+        !entry.name.startsWith('.') &&
+        entry.name !== 'by-category' &&
+        !SCAFFOLD_DIRECTORIES.includes(entry.name)
+      ) {
         // `skills/<skill>/SKILL.md` is the repository's layout: the skill's
         // name is its directory, not the entry file. A grouping directory
         // holding skills is descended until skill directories are found.

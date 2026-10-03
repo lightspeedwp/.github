@@ -11,7 +11,7 @@ import SkillsCatalog from './lib/skills-catalog.js';
 import DedupEngine from './lib/dedup-engine.js';
 
 const ROOT_DIR = process.cwd();
-const REPORTS_DIR = path.join(ROOT_DIR, 'agents', 'reports');
+const REPORTS_DIR = path.join(ROOT_DIR, '.github', 'reports', 'agents');
 
 // Ensure reports directory exists
 if (!fs.existsSync(REPORTS_DIR)) {
@@ -277,9 +277,9 @@ function generateSummaryReport(analysis, consolidationPlan) {
     },
     nextSteps: consolidationPlan.nextSteps,
     reports: [
-      'agents/reports/deduplication-audit.json',
-      'agents/reports/skill-consolidation-plan.json',
-      'agents/reports/skill-audit-summary.json',
+      '.github/reports/agents/deduplication-audit.json',
+      '.github/reports/agents/skill-consolidation-plan.json',
+      '.github/reports/agents/skill-audit-summary.json',
     ],
   };
 

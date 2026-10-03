@@ -9,8 +9,9 @@ import path from 'path';
 /**
  * Directories under agents/ that are not agents.
  *
- * The Phase 4 audit writes its own report into agents/reports before the scan
- * runs, so without this the audit counts its own output as a non-conformant
+ * The audits now write to `.github/reports/agents/`, the canonical reports
+ * location. Earlier runs wrote into `agents/reports`, and a checkout can still
+ * carry that directory; without this the scan counts it as a non-conformant
  * agent with every component missing, which corrupts the conformance
  * percentage and adds a phantom entry to the remediation list.
  *

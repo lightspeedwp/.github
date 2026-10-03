@@ -11,6 +11,9 @@ import {
   findSkillDefinition,
   hasSkillDefinition,
 } from './skill-directories.js';
+import skillsSpec from './skills-spec.js';
+
+const { SCAFFOLD_DIRECTORIES, splitFrontmatter } = skillsSpec;
 
 class SkillsRegistryGenerator {
   constructor(options = {}) {
@@ -126,9 +129,57 @@ class SkillsRegistryGenerator {
   }
 
   /**
+   * The `description` a SKILL.md declares in its YAML frontmatter, or null.
+   *
+   * Handles the scalar forms that appear in skills: plain, quoted, and the
+   * folded (`>`) or literal (`|`) block forms with their indented continuation.
+   * This is the text used for skill discovery, so it comes before any
+   * heading or comment.
+   * @param {string} content - The file's text
+   * @returns {string | null}
+   */
+  readFrontmatterDescription(content) {
+    const split = splitFrontmatter(content);
+    if (!split) return null;
+
+    const lines = split.frontmatter.split(/\r?\n/);
+    const start = lines.findIndex((line) => /^description\s*:/.test(line));
+    if (start === -1) return null;
+
+    const inline = lines[start].replace(/^description\s*:\s*/, '').trim();
+    const block = /^[>|][+-]?\d*$/.test(inline);
+    const continuation = [];
+    for (let i = start + 1; i < lines.length; i += 1) {
+      if (lines[i].trim() !== '' && !/^\s/.test(lines[i])) break;
+      continuation.push(lines[i].trim());
+    }
+    while (continuation.length && continuation[continuation.length - 1] === '') continuation.pop();
+
+    let text;
+    if (block) {
+      // The registry holds descriptions on one line, so a literal block is joined too.
+      text = continuation.join(' ').replace(/\s+/g, ' ');
+    } else {
+      text = [inline, ...continuation].filter(Boolean).join(' ');
+    }
+    text = text.trim();
+    if (/^(['"]).*\1$/.test(text)) {
+      const quote = text[0];
+      text = text.slice(1, -1);
+      text = quote === "'" ? text.replace(/''/g, "'") : text.replace(/\\(["\\])/g, '$1');
+    }
+    return text || null;
+  }
+
+  /**
    * Extract description from content
    */
   extractDescription(content) {
+    // The declared frontmatter description is what skill discovery uses; the
+    // JSDoc and comment extraction below is only a fallback for legacy files.
+    const declared = this.readFrontmatterDescription(content);
+    if (declared) return declared;
+
     // Try to extract from JSDoc
     const jsdocMatch = content.match(/\/\*\*[\s\S]*?\*\//);
     if (jsdocMatch) {
@@ -211,7 +262,14 @@ class SkillsRegistryGenerator {
         // 'by-category' is this generator's own output directory (see
         // generateCategoryRegistries below) - scanning it as a skill category
         // would re-ingest the previous run's generated registry files.
-        if (entry.isDirectory() && !entry.name.startsWith('.') && entry.name !== 'by-category') {
+        // A scaffold such as `_template-skill` is a template to copy, not a
+        // distributable skill, so it is not registered.
+        if (
+          entry.isDirectory() &&
+          !entry.name.startsWith('.') &&
+          entry.name !== 'by-category' &&
+          !SCAFFOLD_DIRECTORIES.includes(entry.name)
+        ) {
           for (const found of this.collectSkillDirectories(
             path.join(this.skillsDir, entry.name),
             []

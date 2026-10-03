@@ -99,6 +99,77 @@ describe('directory-based agent skill discovery', () => {
     });
   });
 
+  describe('what counts as a skill', () => {
+    it('records the declared frontmatter description, not the first heading', () => {
+      const skills = new SkillsRegistryGenerator({ rootDir }).scanAllSkills();
+
+      expect(skills.find((skill) => skill.id === 'test-skill').description).toBe(
+        'Exercises directory-based skill discovery.'
+      );
+    });
+
+    it.each([
+      ['a quoted value', 'description: "Quoted: value."', 'Quoted: value.'],
+      ['a folded block', 'description: >\n  First line\n  second line.', 'First line second line.'],
+      [
+        'a literal block, on one line',
+        'description: |\n  Line one\n  Line two',
+        'Line one Line two',
+      ],
+    ])('reads %s', (_label, line, expected) => {
+      const content = `---\nname: x\n${line}\nlicense: MIT\n---\n\n# Heading\n`;
+
+      expect(new SkillsRegistryGenerator({ rootDir }).extractDescription(content)).toBe(expected);
+    });
+
+    it('does not treat an arbitrary Markdown file as a skill definition', () => {
+      const pack = path.join(rootDir, 'skills', 'content-pack');
+      fs.mkdirSync(pack, { recursive: true });
+      fs.writeFileSync(path.join(pack, 'questionnaire.md'), '# Questionnaire\n');
+
+      const registry = new SkillsRegistryGenerator({ rootDir }).scanAllSkills();
+      const catalog = new SkillsCatalog({ rootDir });
+      catalog.scanAllSkills();
+
+      expect(registry.some((skill) => skill.id === 'questionnaire')).toBe(false);
+      expect(registry.some((skill) => skill.id === 'content-pack')).toBe(false);
+      expect(catalog.skills.some((skill) => skill.path.includes('content-pack'))).toBe(false);
+    });
+
+    it('does not register the _template-skill scaffold', () => {
+      const scaffold = path.join(rootDir, 'skills', '_template-skill');
+      fs.mkdirSync(scaffold, { recursive: true });
+      fs.writeFileSync(
+        path.join(scaffold, 'SKILL.md'),
+        '---\nname: template\ndescription: A scaffold.\n---\n'
+      );
+
+      const registry = new SkillsRegistryGenerator({ rootDir }).scanAllSkills();
+      const catalog = new SkillsCatalog({ rootDir });
+      catalog.scanAllSkills();
+
+      expect(registry.some((skill) => skill.id.includes('template'))).toBe(false);
+      expect(catalog.skills.some((skill) => skill.path.includes('_template-skill'))).toBe(false);
+    });
+  });
+
+  it('writes audit output under .github/reports/agents, not into the agents source tree', () => {
+    const repoRoot = process.cwd();
+    for (const script of [
+      'phase-4-structure-audit.js',
+      'phase-5-skills-audit.js',
+      'phase-6-skills-registry.js',
+    ]) {
+      const source = fs.readFileSync(path.join(repoRoot, 'scripts', 'validation', script), 'utf-8');
+      expect(source).toContain("path.join(ROOT_DIR, '.github', 'reports', 'agents')");
+      expect(source).not.toContain('agents/reports');
+    }
+    const config = JSON.parse(
+      fs.readFileSync(path.join(repoRoot, 'scripts', 'validation', 'config.json'), 'utf-8')
+    );
+    expect(config.reportOutputDir).toBe('.github/reports/agents');
+  });
+
   // The repository's root layout is skills/<skill>/SKILL.md, so the entry file's
   // name must never become the skill name.
   describe('root skills', () => {

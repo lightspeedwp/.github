@@ -19,7 +19,8 @@ const MAX_DEPTH = 5;
 /**
  * Select the entrypoint or metadata file that defines a directory-based skill.
  * @param {string} skillDirectory - Directory to inspect
- * @returns {string | null} Path of the definition file, or null when there is none
+ * @returns {string | null} Path of the definition file (`SKILL.md`, `metadata.yml`,
+ *   `metadata.yaml` or `index.md`), or null when there is none
  */
 export function findSkillDefinition(skillDirectory) {
   let entries;
@@ -35,7 +36,11 @@ export function findSkillDefinition(skillDirectory) {
     if (match) return path.join(skillDirectory, match.name);
   }
 
-  return files.length > 0 ? path.join(skillDirectory, files[0].name) : null;
+  // Only a recognised definition filename makes a directory a skill. An
+  // arbitrary Markdown file does not: a content pack such as
+  // `skills/accessibility-auditor/` holds ordinary documents and no SKILL.md,
+  // and must be walked as a grouping directory, not classified as a skill.
+  return null;
 }
 
 /**

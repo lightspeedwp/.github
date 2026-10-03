@@ -11,7 +11,7 @@ import SkillsRegistryGenerator from './lib/skills-registry-generator.js';
 import SkillsRegistryValidator from './lib/skills-registry-validator.js';
 
 const ROOT_DIR = process.cwd();
-const REPORTS_DIR = path.join(ROOT_DIR, 'agents', 'reports');
+const REPORTS_DIR = path.join(ROOT_DIR, '.github', 'reports', 'agents');
 const REGISTRY_DIR = path.join(ROOT_DIR, 'skills');
 const REGISTRY_SCHEMA_PATH = path.join(
   ROOT_DIR,
@@ -224,7 +224,7 @@ A skill is considered compliant when its frontmatter carries a non-empty name an
 1. **Discover skills by category**: Load \`skills/by-category/{category}.json\`
 2. **Find all skills**: Load consolidated \`skills/registry.json\`
 3. **Check compliance**: Filter by \`agentskills_compliant === true\`
-4. **Find violations**: See agents/reports/compliance-violations-report.json
+4. **Find violations**: See .github/reports/agents/compliance-violations-report.json
 
 ## Updating the Registry
 
@@ -288,8 +288,8 @@ function generateSummaryReport(registry, violations, categoryRegistries) {
       },
     },
     reports: [
-      'agents/reports/registry-validation-report.json',
-      'agents/reports/compliance-violations-report.json',
+      '.github/reports/agents/registry-validation-report.json',
+      '.github/reports/agents/compliance-violations-report.json',
     ],
     nextSteps: [
       'Review compliance-violations-report.json for non-compliant skills',
