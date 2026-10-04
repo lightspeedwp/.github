@@ -85,7 +85,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p website/tsconfig.json",
     "typecheck:website": "tsc --noEmit -p website/tsconfig.json",
     "lint:fast": "oxlint",
-    "lint:actionlint": "./actionlint -shellcheck=\"$(command -v shellcheck || true)\" -ignore 'missing input \"app-id\" which is required by action \"actions/create-github-app-token@' -ignore 'input \"client-id\" is not defined in action \"actions/create-github-app-token@' -ignore 'property \"workflow_repository\" is not defined in object type \\{check_run_id' -ignore 'property \"workflow_sha\" is not defined in object type \\{check_run_id' .github/workflows/*.yml",
+    "lint:actionlint": "node scripts/validation/run-actionlint.cjs",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
     "format:js": "prettier '**/*.{js,jsx,ts,tsx,cjs,mjs}' --write",
