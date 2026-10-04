@@ -575,5 +575,4 @@ We welcome contributions! Please:
 
 ---
 
-*Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team*
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Need help? Say hi—work with us.
