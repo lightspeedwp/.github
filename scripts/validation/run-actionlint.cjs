@@ -53,6 +53,23 @@ function runs(command) {
   return !result.error && result.status === 0;
 }
 
+/**
+ * The workflow files actionlint checks: every `.yml` or `.yaml` directly in
+ * `.github/workflows`, relative to the repository root. Subdirectories
+ * (`archived/`, `__tests__/`) hold frozen history and test fixtures and are not
+ * linted. The list is read from the directory rather than curated, so a new
+ * workflow is checked from the day it lands and cannot be omitted silently.
+ * @param {string} [directory] - Workflows directory, for tests
+ * @returns {string[]}
+ */
+function workflowFiles(directory = WORKFLOWS_DIR) {
+  return fs
+    .readdirSync(directory, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && /\.ya?ml$/.test(entry.name))
+    .map((entry) => path.join('.github', 'workflows', entry.name))
+    .sort();
+}
+
 function main() {
   const choice = resolveActionlint({
     onPath: runs('actionlint'),
@@ -68,9 +85,7 @@ function main() {
   const args = [];
   if (runs('shellcheck')) args.push('-shellcheck=shellcheck');
   for (const pattern of IGNORE_PATTERNS) args.push('-ignore', pattern);
-  for (const file of fs.readdirSync(WORKFLOWS_DIR).sort()) {
-    if (file.endsWith('.yml')) args.push(path.join('.github', 'workflows', file));
-  }
+  args.push(...workflowFiles());
 
   return spawnSync(choice.command, args, { cwd: ROOT, stdio: 'inherit' }).status ?? 1;
 }
@@ -79,4 +94,4 @@ if (require.main === module) {
   process.exit(main());
 }
 
-module.exports = { resolveActionlint, IGNORE_PATTERNS };
+module.exports = { resolveActionlint, workflowFiles, IGNORE_PATTERNS };
