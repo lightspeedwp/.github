@@ -288,6 +288,8 @@ references:
 
      ```mermaid
      flowchart TB
+         accTitle: Suggested LightSpeed organisation structure
+         accDescr: Suggested flowchart showing the LightSpeed organisation splitting into Community Health, Documentation, Scripts and Automation, and Testing Framework areas
          A[LightSpeed Org] --> B[Community Health]
          A --> C[Documentation]
          A --> D[Scripts & Automation]
