@@ -35,7 +35,8 @@ This directory contains version-controlled JSON definitions of the GitHub reposi
     - `Route PR template and apply labels`
     - `Validate changelog on PR`
     - `actionlint`
-- **Not enforced:** no merge-queue rule — the repo merges directly and via Mergify, not the GitHub merge queue. No bypass actors.
+- **Not enforced:** no merge-queue rule — the repo merges directly and via Mergify, not the GitHub merge queue.
+- **Bypass:** one actor, the repository owner `eleshar` (User `1577675`), in `pull_request` mode: the owner can merge a pull request past the review requirement, and cannot push to `develop` directly. Any other bypass actor, or a different mode for this one, is reported as drift by `validate-ruleset-drift`. CI's `GITHUB_TOKEN` cannot read bypass actors, so that part of the check only runs with an admin token.
 
 ### 2. `main` Branch Ruleset ([main.ruleset.json](./main.ruleset.json))
 

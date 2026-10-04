@@ -46,7 +46,7 @@ function liveMatching(declaration) {
     rules: declaration.rules.map((rule) =>
       rule.parameters ? { type: rule.type, parameters: rule.parameters } : { type: rule.type }
     ),
-    bypass_actors: [],
+    bypass_actors: declaration.bypass_actors || [],
   };
 }
 
@@ -198,9 +198,20 @@ describe('validate-ruleset-drift', () => {
     });
   });
 
+  it('fails when the declared bypass actor is missing live', async () => {
+    const live = liveMatching(declaredRuleset());
+    live.bypass_actors = [];
+
+    const result = await runAgainst([live]);
+
+    expect(result.output).toContain('DRIFT');
+    expect(result.output).toContain('bypass actors');
+    expect(result.status).toBe(1);
+  });
+
   it('fails when live has a bypass actor the declaration does not', async () => {
     const live = liveMatching(declaredRuleset());
-    live.bypass_actors = [{ actor_id: 1577675, actor_type: 'User', bypass_mode: 'pull_request' }];
+    live.bypass_actors = [{ actor_id: 42, actor_type: 'User', bypass_mode: 'pull_request' }];
 
     const result = await runAgainst([live]);
 
