@@ -135,14 +135,54 @@ async function fetchRulesetById(slug, id) {
 const NOT_YET_APPLIED = new Set(['main-branch-ruleset']);
 
 /**
+ * Rulesets that must have a declaration in `.github/rulesets/`. The comparison is
+ * driven by the declaration files that exist, so deleting one would otherwise leave
+ * its live ruleset unexamined and unversioned with no signal. A missing declaration
+ * for any of these names is drift.
+ */
+const EXPECTED_DECLARATIONS = new Set(['develop-branch-ruleset', 'main-branch-ruleset']);
+
+/**
  * Status-check contexts the declaration requires but that cannot be required live
- * yet, because the workflow that reports them has not reached `develop`: requiring
- * a context nothing reports would block every pull request. While one is absent
- * live it is reported as pending, not drift. Remove it from this list in the change
- * that applies the ruleset, so it is compared like every other context.
+ * yet, each mapped to the workflow file that reports it. Requiring a context nothing
+ * reports would block every pull request, so while that workflow is not on the
+ * `develop` branch a context that is absent live is reported as pending, not drift.
+ *
+ * The state comes from `develop`, not from the live ruleset and not from the
+ * checkout (a stacked pull request carries workflows `develop` does not have), so it
+ * cannot revert to pending after activation: once the workflow is on `develop`, an
+ * absent context is drift, which also forces the ruleset to be applied after the
+ * workflow lands, and a later removal of the check live is drift too. No cleanup of
+ * this list is needed for that; delete the entry whenever convenient.
  * `Lint (JS/YAML/package.json)` and `Typecheck` come from lint.yml (#3775, #3780).
  */
-const NOT_YET_REQUIRED_CONTEXTS = new Set(['Lint (JS/YAML/package.json)', 'Typecheck']);
+const NOT_YET_REQUIRED_CONTEXTS = new Map([
+  ['Lint (JS/YAML/package.json)', '.github/workflows/lint.yml'],
+  ['Typecheck', '.github/workflows/lint.yml'],
+]);
+
+/**
+ * Live rulesets this repository does not manage, so they are not drift when they have
+ * no declaration. Platform-managed: created and maintained by GitHub, not by a file here.
+ */
+const UNMANAGED_LIVE_RULESETS = new Set(['Code Quality Copilot review for default branch']);
+
+/**
+ * Whether a file exists on the `develop` branch of the repository.
+ * @param {string} slug - owner/repo
+ * @param {string} file - Repository-relative path
+ * @returns {Promise<boolean>}
+ */
+async function existsOnDevelop(slug, file) {
+  const response = await fetch(`${apiBase()}/repos/${slug}/contents/${file}?ref=develop`, {
+    headers: apiHeaders(),
+  });
+  if (response.status === 404) return false;
+  if (!response.ok) {
+    throw new Error(`GET contents/${file}@develop failed: ${response.status}`);
+  }
+  return true;
+}
 
 /** The `include` or `exclude` ref patterns of a ruleset, sorted for comparison. */
 function refPatterns(ruleset, key) {
@@ -231,7 +271,7 @@ function parameterDifferences(declaration, live) {
   return differences;
 }
 
-function compare(declaration, live) {
+function compare(declaration, live, absentOnDevelop) {
   const differences = [];
 
   if ((declaration.target || null) !== (live.target || null)) {
@@ -269,7 +309,9 @@ function compare(declaration, live) {
   // A context that is declared but cannot be required yet is pending, not drift,
   // while it is absent live. Once it is applied live it is compared like any other.
   const pendingContexts = allDeclaredContexts.filter(
-    (context) => NOT_YET_REQUIRED_CONTEXTS.has(context) && !actualContexts.includes(context)
+    (context) =>
+      absentOnDevelop.has(NOT_YET_REQUIRED_CONTEXTS.get(context)) &&
+      !actualContexts.includes(context)
   );
   const declaredContexts = allDeclaredContexts.filter(
     (context) => !pendingContexts.includes(context)
@@ -299,11 +341,9 @@ async function main() {
     process.exit(2);
   }
 
+  // No early exit when there are no declarations: that is the state in which every
+  // expected declaration is missing, which is drift, not "nothing to compare".
   const declarations = readDeclarations();
-  if (declarations.length === 0) {
-    console.log('No .ruleset.json declarations found; nothing to compare.');
-    process.exit(0);
-  }
 
   const listed = await fetchRulesetList(slug);
 
@@ -316,7 +356,45 @@ async function main() {
     liveByName.set(full.name, full);
   }
 
+  // Which pending-context workflows are not on `develop` yet.
+  const absentOnDevelop = new Set();
+  for (const workflow of new Set(NOT_YET_REQUIRED_CONTEXTS.values())) {
+    if (!(await existsOnDevelop(slug, workflow))) absentOnDevelop.add(workflow);
+  }
+
   const results = [];
+
+  // A ruleset that must be versioned has lost its declaration: the loop below never
+  // sees it, so its live ruleset would go unexamined.
+  const declaredNames = new Set(declarations.map(({ declaration }) => declaration.name));
+  for (const name of EXPECTED_DECLARATIONS) {
+    if (!declaredNames.has(name)) {
+      results.push({
+        file: '(missing declaration)',
+        name,
+        status: 'drift',
+        differences: [
+          `no declaration in .github/rulesets/ for the expected ruleset "${name}", so ${liveByName.has(name) ? 'its live ruleset is unversioned' : 'nothing describes it'}`,
+        ],
+      });
+    }
+  }
+
+  // A live ruleset with no declaration is unversioned: nothing would notice it change.
+  for (const name of liveByName.keys()) {
+    if (
+      !declaredNames.has(name) &&
+      !EXPECTED_DECLARATIONS.has(name) &&
+      !UNMANAGED_LIVE_RULESETS.has(name)
+    ) {
+      results.push({
+        file: '(no declaration)',
+        name,
+        status: 'drift',
+        differences: [`live ruleset "${name}" has no declaration in .github/rulesets/`],
+      });
+    }
+  }
 
   for (const { file, declaration } of declarations) {
     const live = liveByName.get(declaration.name);
@@ -342,7 +420,7 @@ async function main() {
       continue;
     }
 
-    const { differences, pendingContexts } = compare(declaration, live);
+    const { differences, pendingContexts } = compare(declaration, live, absentOnDevelop);
     results.push({
       file,
       name: declaration.name,

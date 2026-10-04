@@ -35,6 +35,13 @@ function declaredRuleset() {
   return JSON.parse(fs.readFileSync(DECLARATION, 'utf8'));
 }
 
+/** The main-branch declaration: every case in a temporary checkout needs both. */
+function mainDeclaration() {
+  return JSON.parse(
+    fs.readFileSync(path.join(path.dirname(DECLARATION), 'main.ruleset.json'), 'utf8')
+  );
+}
+
 /** A live ruleset built from the declaration, with API-injected extras removed. */
 function liveMatching(declaration) {
   return {
@@ -54,7 +61,7 @@ function liveMatching(declaration) {
  * Start the mock server in a child process, run the drift script against it,
  * and resolve with the script's exit status and output.
  */
-function runAgainst(liveRulesets, { declarations } = {}) {
+function runAgainst(liveRulesets, { declarations, onDevelop = [] } = {}) {
   // With `declarations`, the script runs in a temporary working directory holding
   // exactly those declarations, so a case can declare what the repository does not.
   let workdir = path.join(__dirname, '..', '..', '..');
@@ -75,7 +82,12 @@ function runAgainst(liveRulesets, { declarations } = {}) {
     const server = spawn(process.execPath, [SERVER_SCRIPT], {
       cwd: path.join(__dirname, '..', '..', '..'),
       stdio: ['ignore', 'pipe', 'inherit'],
-      env: { ...process.env, MOCK_RULESETS: JSON.stringify(liveRulesets) },
+      env: {
+        ...process.env,
+        MOCK_RULESETS: JSON.stringify(liveRulesets),
+        // Files on the develop branch, for the pending-context rule.
+        MOCK_FILES_ON_DEVELOP: JSON.stringify(onDevelop),
+      },
     });
 
     let buffer = '';
@@ -158,12 +170,28 @@ describe('validate-ruleset-drift', () => {
     const pending = ['Lint (JS/YAML/package.json)', 'Typecheck'];
 
     it('reports them as pending, not drift, while they are absent live', async () => {
-      const result = await runAgainst([withoutContexts(liveMatching(declaredRuleset()), pending)]);
+      // lint.yml is not on develop, so the workflow that reports them has not landed.
+      const result = await runAgainst([withoutContexts(liveMatching(declaredRuleset()), pending)], {
+        declarations: [declaredRuleset(), mainDeclaration()],
+      });
 
       expect(result.output).not.toContain('DRIFT');
       expect(result.output).toContain('PENDING');
       expect(result.output).toContain('Typecheck');
       expect(result.status).toBe(0);
+    });
+
+    it('is drift once the workflow that reports them is on develop', async () => {
+      // The state comes from develop, so it cannot revert to pending after the workflow
+      // lands: a context absent live is then a deleted or never-applied check.
+      const result = await runAgainst([withoutContexts(liveMatching(declaredRuleset()), pending)], {
+        declarations: [declaredRuleset(), mainDeclaration()],
+        onDevelop: ['.github/workflows/lint.yml'],
+      });
+
+      expect(result.output).toContain('DRIFT');
+      expect(result.output).toContain('Typecheck');
+      expect(result.status).toBe(1);
     });
 
     it('still reports any other missing context as drift beside them', async () => {
@@ -172,7 +200,9 @@ describe('validate-ruleset-drift', () => {
         'Validate changelog on PR',
       ]);
 
-      const result = await runAgainst([live]);
+      const result = await runAgainst([live], {
+        declarations: [declaredRuleset(), mainDeclaration()],
+      });
 
       expect(result.output).toContain('DRIFT');
       expect(result.output).toContain('Validate changelog on PR');
@@ -227,6 +257,53 @@ describe('validate-ruleset-drift', () => {
     expect(result.output).toContain('PENDING');
     expect(result.output).toContain('main-branch-ruleset');
     expect(result.status).toBe(0);
+  });
+
+  describe('declarations that are missing or unmatched', () => {
+    it('fails when the develop declaration file is deleted but its ruleset is live', async () => {
+      const result = await runAgainst([liveMatching(declaredRuleset())], {
+        declarations: [mainDeclaration()],
+      });
+
+      expect(result.output).toContain('DRIFT');
+      expect(result.output).toContain('no declaration in .github/rulesets/');
+      expect(result.output).toContain('develop-branch-ruleset');
+      expect(result.output).toContain('unversioned');
+      expect(result.status).toBe(1);
+    });
+
+    it('fails when there are no declarations at all, rather than reporting nothing to compare', async () => {
+      const result = await runAgainst([liveMatching(declaredRuleset())], { declarations: [] });
+
+      expect(result.output).toContain('DRIFT');
+      expect(result.output).not.toContain('nothing to compare');
+      expect(result.status).toBe(1);
+    });
+
+    it('does not flag a platform-managed live ruleset', async () => {
+      const managed = {
+        ...declaredRuleset(),
+        name: 'Code Quality Copilot review for default branch',
+        id: 4343,
+      };
+
+      const result = await runAgainst([liveMatching(declaredRuleset()), managed], {
+        declarations: [declaredRuleset(), mainDeclaration()],
+      });
+
+      expect(result.output).not.toContain('has no declaration');
+    });
+
+    it('fails when a live ruleset has no declaration', async () => {
+      const stray = { ...declaredRuleset(), name: 'stray-ruleset', id: 4242 };
+
+      const result = await runAgainst([liveMatching(declaredRuleset()), stray]);
+
+      expect(result.output).toContain('DRIFT');
+      expect(result.output).toContain('stray-ruleset');
+      expect(result.output).toContain('has no declaration');
+      expect(result.status).toBe(1);
+    });
   });
 
   it('fails when the deployed develop ruleset has been deleted', async () => {
@@ -297,7 +374,7 @@ describe('validate-ruleset-drift', () => {
       bypass_actors: [{ ...actor, bypass_mode: 'always' }],
     };
 
-    const result = await runAgainst([live], { declarations: [declaration] });
+    const result = await runAgainst([live], { declarations: [declaration, mainDeclaration()] });
 
     expect(result.output).toContain('DRIFT');
     expect(result.output).toContain('bypass actors');
@@ -310,7 +387,7 @@ describe('validate-ruleset-drift', () => {
     const declaration = { ...declaredRuleset(), bypass_actors: [actor] };
     const live = { ...liveMatching(declaration), bypass_actors: [actor] };
 
-    const result = await runAgainst([live], { declarations: [declaration] });
+    const result = await runAgainst([live], { declarations: [declaration, mainDeclaration()] });
 
     expect(result.output).toContain('OK');
     expect(result.status).toBe(0);

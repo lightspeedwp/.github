@@ -35,7 +35,20 @@ function matchesId(url, ruleset) {
   return Boolean(match) && String(ruleset.id) === match[1];
 }
 
+// Files that exist on the `develop` branch (MOCK_FILES_ON_DEVELOP, a JSON array of
+// repository paths). GET /repos/{o}/{r}/contents/{path}?ref=develop answers 200 for
+// these and 404 for anything else, as the real contents API does.
+const filesOnDevelop = JSON.parse(process.env.MOCK_FILES_ON_DEVELOP || '[]');
+
 const server = http.createServer((req, res) => {
+  const contents = /\/contents\/([^?]+)/.exec(req.url);
+  if (contents) {
+    const found = filesOnDevelop.includes(decodeURIComponent(contents[1]));
+    res.writeHead(found ? 200 : 404, { 'Content-Type': 'application/json' });
+    res.end(found ? JSON.stringify({ type: 'file' }) : '{"message":"Not Found"}');
+    return;
+  }
+
   if (!req.url.includes('/rulesets')) {
     res.writeHead(404, { 'Content-Type': 'application/json' });
     res.end('{}');
