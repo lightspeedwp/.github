@@ -395,4 +395,8 @@ module.exports = {
   fixMarkdown,
   findTypeLineIndex,
   rewriteColourDeclaration,
+  // Exported so validate-mermaid-accessibility.js can hold the same list of
+  // types that cannot carry accTitle/accDescr without restating it.
+  ACC_TYPES,
+  NO_ACC_TYPES,
 };
