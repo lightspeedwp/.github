@@ -44,16 +44,17 @@ describe('run-actionlint', () => {
     expect(result.error).toContain('not found on your PATH');
   });
 
-  it('keeps the ignore patterns the CI workflow uses', () => {
+  it('is the only place the suppression patterns live', () => {
     const fs = require('fs');
     const workflow = fs.readFileSync(
       path.join(process.cwd(), '.github', 'workflows', 'workflow-lint.yml'),
       'utf8'
     );
+
+    expect(IGNORE_PATTERNS.length).toBeGreaterThan(0);
     for (const pattern of IGNORE_PATTERNS) {
-      // The workflow writes the regular expression with its own quoting; the
-      // distinctive text before any escape must appear in it.
-      expect(workflow).toContain(pattern.split('\\')[0]);
+      // CI delegates to `npm run lint:actionlint`, so the workflow carries none.
+      expect(workflow).not.toContain(pattern.split('\\')[0]);
     }
   });
 });

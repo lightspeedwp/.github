@@ -3,10 +3,10 @@ const os = require('node:os');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
 const YAML = require('yaml');
+const { workflowFiles } = require('../../../validation/run-actionlint.cjs');
 
 const repositoryRoot = path.resolve(__dirname, '../../../..');
 const workflowPath = path.join(repositoryRoot, '.github/workflows/changelog-unified.yml');
-const workflowLintPath = path.join(repositoryRoot, '.github/workflows/workflow-lint.yml');
 const workflowSource = fs.readFileSync(workflowPath, 'utf8');
 const workflow = YAML.parse(workflowSource);
 const temporaryDirectories = [];
@@ -288,14 +288,13 @@ describe('changelog unified workflow contract', () => {
   });
 
   test('keeps only the unified changelog workflow in the active actionlint list', () => {
-    const lintWorkflow = YAML.parse(fs.readFileSync(workflowLintPath, 'utf8'));
-    const actionlint = lintWorkflow.jobs.actionlint.steps.find(
-      (step) => step.name === 'Run actionlint on active workflows'
-    );
+    // The active list is computed by the shared wrapper that both the workflow and
+    // lint:actionlint run, so the assertions ask it rather than read a second copy.
+    const activeWorkflows = workflowFiles().map((file) => path.basename(file));
 
-    expect(actionlint.run).toContain('.github/workflows/changelog-unified.yml');
-    expect(actionlint.run).not.toContain('.github/workflows/changelog-management.yml');
-    expect(actionlint.run).not.toContain('.github/workflows/changelog-validation.yml');
+    expect(activeWorkflows).toContain('changelog-unified.yml');
+    expect(activeWorkflows).not.toContain('changelog-management.yml');
+    expect(activeWorkflows).not.toContain('changelog-validation.yml');
     expect(fs.existsSync(workflowPath)).toBe(true);
     expect(
       fs.existsSync(path.join(repositoryRoot, '.github/workflows/changelog-management.yml'))
