@@ -18,7 +18,7 @@
   "properties": {
     "version": {
       "type": "string",
-      "pattern": "^1\.0$"
+      "pattern": "^1\\.0$"
     },
     "environment_name": {
       "type": "string",
@@ -111,7 +111,7 @@
     },
     "last_reviewed": {
       "type": "string",
-      "pattern": "^\d{4}-\d{2}-\d{2}$"
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     }
   }
 }

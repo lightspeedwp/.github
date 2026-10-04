@@ -29,7 +29,7 @@ function exec(cmd, options = {}) {
         if (options.allowError) {
             return '';
         }
-        throw new Error(`Command failed: ${cmd}\n${error.message}`);
+        throw new Error(`Command failed: ${cmd}\n${error.message}`, { cause: error });
     }
 }
 
