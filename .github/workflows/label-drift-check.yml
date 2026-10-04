@@ -90,16 +90,39 @@ jobs:
           repositories: .github
           permission-issues: write
 
+      - name: Resolve the private report repository
+        # Optional. The variable PRIVATE_REPORT_REPO (owner/name) names a PRIVATE
+        # repository that receives the detail for private repositories. This
+        # public repository never names a private one, so with the variable unset
+        # that detail is withheld.
+        id: private-report
+        env:
+          PRIVATE_REPORT_REPO: ${{ vars.PRIVATE_REPORT_REPO }}
+        run: |
+          echo "name=${PRIVATE_REPORT_REPO#*/}" >> "$GITHUB_OUTPUT"
+
+      - name: Mint private report App token
+        # Write-scoped to the private report repository only, using the same
+        # installed App as the tokens above, so no extra secret is stored.
+        if: steps.private-report.outputs.name != ''
+        id: app-token-private
+        uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+        with:
+          app-id: ${{ vars.LS_APP_ID }}
+          private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
+          owner: lightspeedwp
+          repositories: ${{ steps.private-report.outputs.name }}
+          permission-issues: write
+
       - name: Run label drift check
         env:
           GITHUB_TOKEN: ${{ steps.app-token-read.outputs.token }}
           GITHUB_WRITE_TOKEN: ${{ steps.app-token-write.outputs.token }}
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
-          # Optional. Private repository detail is written only to this private
-          # repository; without both, it is withheld. Never name a private
-          # repository in this public repository.
+          # Private repository detail is written only to this private repository,
+          # and only after the script confirms it is private.
           PRIVATE_REPORT_REPO: ${{ vars.PRIVATE_REPORT_REPO }}
-          PRIVATE_REPORT_TOKEN: ${{ secrets.PRIVATE_REPORT_TOKEN }}
+          PRIVATE_REPORT_TOKEN: ${{ steps.app-token-private.outputs.token }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           args=""

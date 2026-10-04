@@ -84,7 +84,7 @@ describe('label drift check wiring', () => {
       (step) =>
         typeof step.uses === 'string' && step.uses.startsWith('actions/create-github-app-token@')
     );
-    expect(mintSteps).toHaveLength(2);
+    expect(mintSteps).toHaveLength(3);
     const byId = Object.fromEntries(mintSteps.map((step) => [step.id, step]));
     // Read token: organisation-wide (no repositories key), read-only.
     expect(byId['app-token-read']).toBeDefined();
@@ -106,6 +106,24 @@ describe('label drift check wiring', () => {
     expect(byId['app-token-write']).toBeDefined();
     expect(String(byId['app-token-write'].with.repositories)).toContain('.github');
     expect(String(byId['app-token-write'].with['permission-issues'])).toBe('write');
+    // Private report token: issues write on the private report repository only,
+    // minted only when that repository is configured, and never named in this
+    // public file: the name comes from a variable.
+    const privateMint = byId['app-token-private'];
+    expect(privateMint).toBeDefined();
+    expect(privateMint.if).toBe("steps.private-report.outputs.name != ''");
+    expect(String(privateMint.with.repositories)).toBe('${{ steps.private-report.outputs.name }}');
+    expect(String(privateMint.with['permission-issues'])).toBe('write');
+    expect(Object.keys(privateMint.with).filter((key) => key.startsWith('permission-'))).toEqual([
+      'permission-issues',
+    ]);
+  });
+
+  it('takes the private report repository from a variable and stores no token for it', () => {
+    const raw = workflowText();
+    expect(raw).toContain('vars.PRIVATE_REPORT_REPO');
+    expect(raw).toContain('steps.app-token-private.outputs.token');
+    expect(raw).not.toMatch(/secrets\.PRIVATE_REPORT_TOKEN/);
   });
 
   it('only invokes npm scripts that package.json declares', () => {

@@ -16,8 +16,9 @@
  * the issue, the JSON artifact and the log count private repositories but never
  * name one or list its labels. Their detail goes only to a private repository,
  * when `PRIVATE_REPORT_REPO` (owner/name) and `PRIVATE_REPORT_TOKEN` (issues
- * write on that repository) are set; the repository is confirmed private before
- * anything is written, and without them the detail is withheld.
+ * write on that repository, minted by the workflow from the installed App) are
+ * set; the repository is confirmed private before anything is written, and
+ * without them the detail is withheld.
  *
  * Authentication (FR-018): GitHub via an organisation-wide App installation
  * token passed as `GITHUB_TOKEN` (manual step T071a) for reads, plus a
