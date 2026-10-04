@@ -84,6 +84,7 @@
     "lint:js:ci": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --no-cache",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p website/tsconfig.json",
     "typecheck:website": "tsc --noEmit -p website/tsconfig.json",
+    "typecheck:astro": "npm run check --prefix website",
     "lint:fast": "oxlint",
     "lint:actionlint": "node scripts/validation/run-actionlint.cjs",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",

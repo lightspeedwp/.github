@@ -119,6 +119,15 @@ content-based cache (`.eslintcache`, gitignored) for fast repeat runs.
   module shims (`website/src/env.d.ts`) so the module type-checks without the
   Astro toolchain installed.
 
+`tsc` cannot read `.astro` files, so a type error in a page's markup or inline
+script passes `npm run typecheck`. `npm run typecheck:astro` runs `astro check`
+over the website's `.astro` and `.ts` files. It needs the website's own
+dependencies (`npm ci --prefix website`), which is why it is not part of
+`npm run typecheck`. It currently reports 36 existing findings, mostly untyped
+DOM access in inline scripts, so CI runs it as an informational step that does
+not fail the Typecheck job. Remove `continue-on-error` from the "Astro check"
+step in `.github/workflows/lint.yml` once they are cleared.
+
 ## Git Hooks & Automation with Husky
 
 This repository uses [Husky](https://typicode.github.io/husky/) to automate code quality checks via Git hooks. Husky runs automatically when you commit or push code, ensuring all changes meet quality standards before they're shared.
