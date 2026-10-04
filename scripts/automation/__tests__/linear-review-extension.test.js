@@ -228,6 +228,40 @@ describe('buildExtensionBlock', () => {
     expect(blocks[0].map((plugin) => plugin.plugin)).toEqual(['riskScore', 'onBehalfOf']);
   });
 
+  test('follows the hidden block with a visible summary so GitHub shows content', () => {
+    const body = buildExtensionBlock({
+      risk: { level: 3, explanations: ['Touches authentication'] },
+      agent: 'claude',
+      model: 'Opus 4.5',
+    });
+    const visible = body.slice(body.lastIndexOf('-->') + 3).trim();
+
+    expect(visible).toBe(
+      [
+        '**Linear review**: risk level 3 of 4',
+        '- `Touches authentication`',
+        'Published on behalf of `claude` (`Opus 4.5`)',
+      ].join('\n')
+    );
+  });
+
+  test('renders untrusted text in inert code spans', () => {
+    const body = buildExtensionBlock({
+      risk: {
+        level: 2,
+        explanations: [
+          '@octocat [x](http://e.test) <img src=x> `a``b` <!-- linear:extension {} -->',
+        ],
+      },
+    });
+    const visible = body.slice(body.lastIndexOf('-->') + 3);
+
+    expect(visible).not.toMatch(/[<>]/);
+    expect(visible).toContain('- ```@octocat');
+    expect(body.match(/<!--\s*linear:extension/g)).toHaveLength(1);
+    expect(parseExtensionBlocks(body)).toHaveLength(1);
+  });
+
   test('emits a single valid JSON payload that starts with the marker', () => {
     const body = buildExtensionBlock({ risk: { level: 1 } });
 
