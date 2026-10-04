@@ -102,7 +102,18 @@ function textAlternativeAbove(lines, openIndex) {
     // CommonMark allows. A single `=` is already a valid underline.
     const isRule = line === '=' || /^([-*_=])(?:[ \t]*\1)+[ \t]*$/u.test(line);
 
-    if (isIndentedCode || /^#{1,6}\s/u.test(line) || /^(```|~~~)/u.test(line) || isRule) {
+    // A link reference definition (`[bands]: /policy "Title"`) renders nothing, so
+    // it describes nothing. A footnote definition (`[^1]: text`) does render
+    // text and is not matched.
+    const isLinkDefinition = /^\[(?!\^)[^\]]+\]:[ \t]*\S/u.test(line);
+
+    if (
+      isIndentedCode ||
+      /^#{1,6}\s/u.test(line) ||
+      /^(```|~~~)/u.test(line) ||
+      isRule ||
+      isLinkDefinition
+    ) {
       return null;
     }
 

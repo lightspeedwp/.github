@@ -67,6 +67,8 @@ describe('validate-mermaid-accessibility CLI: text alternative (#3526)', () => {
     ['a lone setext underline', 'Prose above.\n=\n\n'],
     ['indented code', 'Prose above.\n\n    code\n\n'],
     ['tab-indented code', 'Prose above.\n\n\tcode\n\n'],
+    ['a link reference definition', 'Prose above.\n\n[bands]: /priority-policy\n\n'],
+    ['a titled link reference definition', '[bands]: /priority-policy "Priority policy"\n\n'],
   ])('does not accept %s as the text alternative', (_name, above) => {
     const { status, output } = runOn(
       `${above}\`\`\`mermaid\nblock-beta\n    columns 1\n    block:a["A"]\n    end\n\`\`\`\n`
@@ -112,6 +114,14 @@ describe('validate-mermaid-accessibility CLI: text alternative (#3526)', () => {
       expect(report).toContain('add an `accTitle` to identify');
       expect(report).toContain('describe the diagram in a Markdown line directly above the fence');
     });
+  });
+
+  test('still accepts prose that merely starts with a bracketed word', () => {
+    const { status } = runOn(
+      '[Bands] are drawn below.\n\n```mermaid\nblock-beta\n    columns 1\n    block:a["A"]\n    end\n```\n'
+    );
+
+    expect(status).toBe(0);
   });
 
   test('recognises the hyphenated type rather than truncating it', () => {
