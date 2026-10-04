@@ -115,6 +115,10 @@ function runAgainst(liveRulesets, { declarations } = {}) {
 
 describe('validate-ruleset-drift', () => {
   it('reports in sync and exits 0 when the live ruleset matches', async () => {
+    // The mock strips rules and conditions from its list response, as the real API
+    // does, so this also guards that the full ruleset is fetched by id: comparing
+    // against the summary shape would read every live field as empty and report
+    // total drift.
     const result = await runAgainst([liveMatching(declaredRuleset())]);
 
     expect(result.output).toContain('OK');
@@ -128,7 +132,7 @@ describe('validate-ruleset-drift', () => {
     rule.parameters = {
       ...rule.parameters,
       required_status_checks: rule.parameters.required_status_checks.filter(
-        (entry) => entry.context !== 'Typecheck'
+        (entry) => entry.context !== 'Validate changelog on PR'
       ),
     };
 
@@ -136,8 +140,62 @@ describe('validate-ruleset-drift', () => {
 
     expect(result.output).toContain('DRIFT');
     expect(result.output).toContain('required status checks');
-    expect(result.output).toContain('Typecheck');
+    expect(result.output).toContain('Validate changelog on PR');
     expect(result.status).toBe(1);
+  });
+
+  describe('contexts declared but not yet required live', () => {
+    const withoutContexts = (live, contexts) => {
+      const rule = live.rules.find((entry) => entry.type === 'required_status_checks');
+      rule.parameters = {
+        ...rule.parameters,
+        required_status_checks: rule.parameters.required_status_checks.filter(
+          (entry) => !contexts.includes(entry.context)
+        ),
+      };
+      return live;
+    };
+    const pending = ['Lint (JS/YAML/package.json)', 'Typecheck'];
+
+    it('reports them as pending, not drift, while they are absent live', async () => {
+      const result = await runAgainst([withoutContexts(liveMatching(declaredRuleset()), pending)]);
+
+      expect(result.output).not.toContain('DRIFT');
+      expect(result.output).toContain('PENDING');
+      expect(result.output).toContain('Typecheck');
+      expect(result.status).toBe(0);
+    });
+
+    it('still reports any other missing context as drift beside them', async () => {
+      const live = withoutContexts(liveMatching(declaredRuleset()), [
+        ...pending,
+        'Validate changelog on PR',
+      ]);
+
+      const result = await runAgainst([live]);
+
+      expect(result.output).toContain('DRIFT');
+      expect(result.output).toContain('Validate changelog on PR');
+      expect(result.status).toBe(1);
+    });
+
+    it('compares them like any other context once they are required live', async () => {
+      const live = liveMatching(declaredRuleset());
+      const rule = live.rules.find((entry) => entry.type === 'required_status_checks');
+      rule.parameters = {
+        ...rule.parameters,
+        required_status_checks: [
+          ...rule.parameters.required_status_checks,
+          { context: 'An unexpected live check' },
+        ],
+      };
+
+      const result = await runAgainst([live]);
+
+      expect(result.output).toContain('DRIFT');
+      expect(result.output).toContain('An unexpected live check');
+      expect(result.status).toBe(1);
+    });
   });
 
   it('fails when live has a bypass actor the declaration does not', async () => {
@@ -157,18 +215,6 @@ describe('validate-ruleset-drift', () => {
 
     expect(result.output).toContain('PENDING');
     expect(result.output).toContain('main-branch-ruleset');
-    expect(result.status).toBe(0);
-  });
-
-  it('does not report drift when live is only served in summary shape', async () => {
-    // Regression guard: the list endpoint omits rules/conditions, so a validator
-    // comparing against summaries sees every field empty and calls it total
-    // drift. The mock strips those fields from the list response, so an in-sync
-    // declaration must still be reported OK.
-    const result = await runAgainst([liveMatching(declaredRuleset())]);
-
-    expect(result.output).toContain('OK');
-    expect(result.output).not.toContain('DRIFT');
     expect(result.status).toBe(0);
   });
 

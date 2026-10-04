@@ -32,7 +32,10 @@
  *   node scripts/validation/validate-ruleset-drift.cjs --json     # machine
  *
  * Requires a token with read access to repository rulesets (GITHUB_TOKEN in
- * CI). Exits 0 when in sync or when nothing is deployed, 1 on drift.
+ * CI). Exits 0 when every deployed declaration is in sync and the only items
+ * missing live are the intentionally pending ones (NOT_YET_APPLIED rulesets and
+ * NOT_YET_REQUIRED_CONTEXTS checks), 1 on drift, including a declared ruleset that
+ * is missing live and not listed as pending, and 2 when the API cannot be read.
  */
 
 const fs = require('node:fs');
@@ -130,6 +133,16 @@ async function fetchRulesetById(slug, id) {
  * list when its ruleset is applied.
  */
 const NOT_YET_APPLIED = new Set(['main-branch-ruleset']);
+
+/**
+ * Status-check contexts the declaration requires but that cannot be required live
+ * yet, because the workflow that reports them has not reached `develop`: requiring
+ * a context nothing reports would block every pull request. While one is absent
+ * live it is reported as pending, not drift. Remove it from this list in the change
+ * that applies the ruleset, so it is compared like every other context.
+ * `Lint (JS/YAML/package.json)` and `Typecheck` come from lint.yml (#3775, #3780).
+ */
+const NOT_YET_REQUIRED_CONTEXTS = new Set(['Lint (JS/YAML/package.json)', 'Typecheck']);
 
 /** The `include` or `exclude` ref patterns of a ruleset, sorted for comparison. */
 function refPatterns(ruleset, key) {
@@ -251,8 +264,16 @@ function compare(declaration, live) {
     );
   }
 
-  const declaredContexts = requiredContexts(declaration);
+  const allDeclaredContexts = requiredContexts(declaration);
   const actualContexts = liveRequiredContexts(live);
+  // A context that is declared but cannot be required yet is pending, not drift,
+  // while it is absent live. Once it is applied live it is compared like any other.
+  const pendingContexts = allDeclaredContexts.filter(
+    (context) => NOT_YET_REQUIRED_CONTEXTS.has(context) && !actualContexts.includes(context)
+  );
+  const declaredContexts = allDeclaredContexts.filter(
+    (context) => !pendingContexts.includes(context)
+  );
   if (declaredContexts.join('|') !== actualContexts.join('|')) {
     differences.push(
       `required status checks:\n      declared: ${declaredContexts.join(', ') || '(none)'}\n      live:     ${actualContexts.join(', ') || '(none)'}`
@@ -267,7 +288,7 @@ function compare(declaration, live) {
     );
   }
 
-  return differences;
+  return { differences, pendingContexts };
 }
 
 async function main() {
@@ -321,12 +342,13 @@ async function main() {
       continue;
     }
 
-    const differences = compare(declaration, live);
+    const { differences, pendingContexts } = compare(declaration, live);
     results.push({
       file,
       name: declaration.name,
       status: differences.length === 0 ? 'in-sync' : 'drift',
       differences,
+      pendingContexts,
     });
   }
 
@@ -339,12 +361,22 @@ async function main() {
     for (const result of results) {
       if (result.status === 'in-sync') {
         console.log(`  OK        ${result.file} (${result.name}) matches live`);
+        for (const context of result.pendingContexts || []) {
+          console.log(
+            `  PENDING   required check "${context}" is declared but not yet required live`
+          );
+        }
       } else if (result.status === 'not-deployed') {
         console.log(`  PENDING   ${result.file} (${result.name}) — ${result.detail}`);
       } else {
         console.log(`  DRIFT     ${result.file} (${result.name})`);
         for (const difference of result.differences) {
           console.log(`      - ${difference}`);
+        }
+        for (const context of result.pendingContexts || []) {
+          console.log(
+            `      (pending, not drift: "${context}" is declared but not yet required live)`
+          );
         }
       }
     }
