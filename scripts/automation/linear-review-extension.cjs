@@ -417,7 +417,62 @@ function buildExtensionBlock(input = {}) {
   }
 
   const payload = { version: EXTENSION_VERSION, plugins };
-  return `${EXTENSION_MARKER}\n<!-- linear:extension ${serialisePayload(payload)} -->`;
+  return (
+    `${EXTENSION_MARKER}\n<!-- linear:extension ${serialisePayload(payload)} -->` +
+    `\n\n${renderVisibleSummary(plugins)}`
+  );
+}
+
+/**
+ * Render untrusted text as an inline code span.
+ *
+ * Explanations quote pull request filenames, which a contributor chooses, and this
+ * text is now shown on GitHub. A code span keeps it literal: no mentions, links,
+ * images, HTML or Markdown. The fence is one backtick longer than the longest run
+ * inside, so a name containing backticks cannot close the span early.
+ *
+ * Angle brackets are replaced with the look-alike single angle quotation marks.
+ * Markdown rendering is not the only reader: Linear scans the comment's source for
+ * `<!-- linear:extension ... -->`, so a file named like a forged block would
+ * otherwise be parsed as a second one, and a literal `-->` would break the
+ * invariant that the body holds exactly the closers this module wrote. With no
+ * `<` or `>` in the visible text, neither can occur.
+ * @param {string} text - Text to show verbatim.
+ * @returns {string} The code span.
+ */
+function codeSpan(text) {
+  const flat = String(text).replace(/</g, '‹').replace(/>/g, '›').replace(/\s+/g, ' ').trim();
+  const longestRun = Math.max(0, ...(flat.match(/`+/g) || []).map((run) => run.length));
+  const fence = '`'.repeat(longestRun + 1);
+  const pad = flat.startsWith('`') || flat.endsWith('`') ? ' ' : '';
+  return `${fence}${pad}${flat}${pad}${fence}`;
+}
+
+/**
+ * The human-readable part of the comment.
+ *
+ * The `linear:extension` blocks are HTML comments, so on their own GitHub renders
+ * the comment as "No description provided." This gives people reading the pull
+ * request the same facts Linear receives: the risk level, why, and who published
+ * it. It is derived only from the validated payload, so it is deterministic and
+ * the upsert's byte-identical check still avoids needless edits.
+ * @param {Array<object>} plugins - The plugins just serialised into the block.
+ * @returns {string} Markdown to append below the hidden blocks.
+ */
+function renderVisibleSummary(plugins) {
+  const lines = [];
+  for (const plugin of plugins) {
+    if (plugin.plugin === 'riskScore') {
+      lines.push(`**Linear review**: risk level ${plugin.level} of ${MAX_RISK_LEVEL}`);
+      for (const explanation of plugin.explanations || []) {
+        lines.push(`- ${codeSpan(explanation)}`);
+      }
+    } else if (plugin.plugin === 'onBehalfOf') {
+      const model = plugin.model ? ` (${codeSpan(plugin.model)})` : '';
+      lines.push(`Published on behalf of ${codeSpan(plugin.agent)}${model}`);
+    }
+  }
+  return lines.join('\n');
 }
 
 /**
