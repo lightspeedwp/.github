@@ -69,7 +69,7 @@ the report fields for compatibility, with no auto-approved candidates.
 - [x] T014 [US1] Implement categorizeBranch(branch, metadata, openPRs, excludePattern, inactiveDays) function in scripts/lib/branch-categorization.js with 8-gate decision tree
 - [x] T015 [US1] Implement categorizeBranches(branches[], branchMetadata, openPRs, excludePattern, inactiveDays) wrapper in scripts/lib/branch-categorization.js to categorise multiple branches
 - [x] T016 [P] [US1] Write branch-name validation tests in `scripts/lib/__tests__/branch-categorization.test.js` and `scripts/validation/__tests__/validate-branch-name.test.js`
-- [ ] T017 [P] [US1] Write unit tests for 8-gate categorisation in scripts/tests/unit/test-branch-categorization.js (test each gate independently and in sequence) — Partial: existing categorisation tests do not cover every gate.
+- [x] T017 [P] [US1] Write unit tests for 8-gate categorisation in scripts/lib/__tests__/branch-categorization.test.js (test each gate independently and in sequence)
 - [ ] T018 [P] [US1] Write integration test for full categorisation workflow in scripts/tests/integration/test-categorisation-workflow.js
 
 **Checkpoint**: Branch categorisation complete and tested independently
@@ -127,7 +127,7 @@ the report fields for compatibility, with no auto-approved candidates.
 - [x] T033 [US4] Extend exclusion-patterns.js with support for combining default patterns with user patterns in scripts/lib/exclusion-patterns.js
 - [x] T034 [US4] Implement error handling for invalid regex in buildExclusionRegex() in scripts/lib/exclusion-patterns.js (log warning, use defaults)
 - [x] T035 [US4] Integrate exclusion pattern matching into branch categorisation workflow in scripts/lib/branch-categorization.js
-- [ ] T036 [P] [US4] Write unit tests for regex pattern matching in scripts/tests/unit/test-exclusion-patterns.js (test valid/invalid patterns, default patterns, combinations)
+- [x] T036 [P] [US4] Write unit tests for regex pattern matching in scripts/lib/__tests__/branch-audit-helpers.test.js (test valid/invalid patterns, default patterns, combinations)
 - [ ] T037 [US4] Write integration test for exclusion patterns in categorisation workflow in scripts/tests/integration/test-exclusion-integration.js
 
 **Checkpoint**: Exclusion patterns working correctly with error handling
@@ -208,7 +208,7 @@ the report fields for compatibility, with no auto-approved candidates.
 - [ ] T060 [P] Run quickstart.md validation tests: Test 1 (dry-run), Test 2 (invalid names), Test 3 (protected branches), Test 4 (exclusion patterns)
 - [ ] T061 [P] Run quickstart.md validation tests: Test 5 (age-based), Test 6 (report formats), Test 7 (custom options), Test 8 (error handling)
 - [ ] T062 [P] Run quickstart.md validation tests: Test 9 (GitHub integration), Test 10 (library API)
-- [ ] T063 [P] Code cleanup: Remove debug code, ensure consistent formatting, run linter if configured
+- [x] T063 [P] Code cleanup: Remove debug code, ensure consistent formatting, run linter if configured
 - [ ] T064 [P] Performance testing: Verify cleanup-branches.js processes 100+ branches in <10 seconds in scripts/tests/performance/
 - [ ] T065 [P] Memory footprint testing: Verify <50 MB memory usage in scripts/tests/performance/
 - [x] T066 Documentation: Add detailed comments to all library modules in scripts/lib/
