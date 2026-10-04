@@ -57,7 +57,10 @@ jobs:
           ./actionlint --version
 
       - name: Run actionlint on active workflows
-        # Delegates to npm run lint:actionlint. The curated file list and the
-        # suppression list live in scripts/validation/lint-actionlint.sh, so
-        # the required CI gate and the local command cannot drift apart.
+        # Delegates to npm run lint:actionlint, which runs
+        # scripts/validation/run-actionlint.cjs. That script holds the
+        # suppression list and reads the file list from .github/workflows, so
+        # the required CI gate and the local command cannot drift apart and a
+        # new workflow is checked from the day it lands. It uses the
+        # ./actionlint downloaded above on Linux x64 when none is on PATH.
         run: npm run lint:actionlint
