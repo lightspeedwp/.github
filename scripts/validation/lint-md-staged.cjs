@@ -48,7 +48,19 @@ const { spawnSync, execFileSync } = require("child_process");
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
-const { minimatch } = require("minimatch");
+// minimatch v9+ is a named export; v3 and earlier export the function itself.
+// This repository declares ^10.2.6, so destructuring is correct for a tree
+// installed from the lockfile -- and against an older tree it is `undefined`,
+// which made every staged Markdown file die with "TypeError: minimatch is not a
+// function". That reads like a lint failure rather than a stale install, and
+// sends people to their Markdown instead of to node_modules. Observed on
+// 2026-10-04 in a checkout whose node_modules predated #2861.
+//
+// Accept either shape. An older minimatch filters ignore patterns perfectly
+// well, so refusing to lint over it would block a commit for no benefit -- and
+// the stale tree is worth fixing with `npm ci` whether or not this hook says so.
+const minimatchModule = require("minimatch");
+const minimatch = minimatchModule.minimatch || minimatchModule;
 
 const configPath = path.join(__dirname, "../../.markdownlint.config.cjs");
 
