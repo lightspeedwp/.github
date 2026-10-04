@@ -55,13 +55,13 @@ use:
 The following need the **Enterprise** plan and are deliberately not part of this
 integration. Do not plan work that depends on them:
 
-| Feature                             | Why it is out of scope                                                                           | Source                                                            |
-| ----------------------------------- | ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------- |
-| The **workspace owner** role        | Business tops out at Admin, so every instruction below says **workspace Admin**, never **owner** | [members and roles](https://linear.app/docs/members-roles)        |
-| SCIM provisioning                   | Enterprise                                                                                       | [SCIM](https://linear.app/docs/scim)                               |
-| Audit logs                          | Enterprise; only owners can read them                                                            | [audit log](https://linear.app/docs/audit-log)                     |
-| Private-team issue sharing          | Enterprise only. Private teams themselves are available on Business                                | [private teams](https://linear.app/docs/private-teams)            |
-| Owner-only "Workspace restrictions" | Owners configure role restrictions; Enterprise workspaces can limit Admin permissions          | [members and roles](https://linear.app/docs/members-roles)        |
+| Feature                             | Why it is out of scope                                                                           | Source                                                     |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------------------------------- |
+| The **workspace owner** role        | Business tops out at Admin, so every instruction below says **workspace Admin**, never **owner** | [members and roles](https://linear.app/docs/members-roles) |
+| SCIM provisioning                   | Enterprise                                                                                       | [SCIM](https://linear.app/docs/scim)                       |
+| Audit logs                          | Enterprise; only owners can read them                                                            | [audit log](https://linear.app/docs/audit-log)             |
+| Private-team issue sharing          | Enterprise only. Private teams themselves are available on Business                              | [private teams](https://linear.app/docs/private-teams)     |
+| Owner-only "Workspace restrictions" | Owners configure role restrictions; Enterprise workspaces can limit Admin permissions            | [members and roles](https://linear.app/docs/members-roles) |
 
 Each row is a claim about the plan, so each cites the page that establishes it.
 Two features that were previously listed here are **not** Enterprise-only:
@@ -219,6 +219,16 @@ Both plugins below can appear in the **same** block.
 default. Set `"visible": true` to also surface the comment in Linear's activity
 feed. On-behalf-of blocks are visible by default unless `"visible": false` is
 set. Put `visible` on each plugin object, not on the block.
+
+**Visible summary on GitHub.** GitHub shows a comment that holds only HTML
+comments as "No description provided.", so the block is followed by a short
+plain-text summary: the risk level and each explanation, plus the agent and model
+when attributed. File names in the summary are shown in code spans with `<` and `>`
+replaced by single angle quotes, so a hostile file name cannot mention a user,
+link, inject HTML or forge a second `linear:extension` block. Linear's handling of
+a comment that carries visible text next to a block is not verified; it may appear
+in the activity feed. To go back to a hidden-only comment, drop the
+`renderVisibleSummary` line at the end of `buildExtensionBlock`.
 
 ### Emitting an attributed comment
 
