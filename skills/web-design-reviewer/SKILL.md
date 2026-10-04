@@ -60,12 +60,12 @@ If the URL is not provided, ask the user:
 
 When making fixes, gather the following information:
 
-| Item | Example Question |
-|------|------------------|
-| Framework | Are you using React / Vue / Next.js, etc.? |
-| Styling Method | CSS / SCSS / Tailwind / CSS-in-JS, etc. |
+| Item            | Example Question                              |
+| --------------- | --------------------------------------------- |
+| Framework       | Are you using React / Vue / Next.js, etc.?    |
+| Styling Method  | CSS / SCSS / Tailwind / CSS-in-JS, etc.       |
 | Source Location | Where are style files and components located? |
-| Review Scope | Specific pages only or entire site? |
+| Review Scope    | Specific pages only or entire site?           |
 
 ### 1.3 Automatic Project Detection
 
@@ -84,15 +84,15 @@ Detection targets:
 
 ### 1.4 Identifying Styling Method
 
-| Method | Detection | Edit Target |
-|--------|-----------|-------------|
-| Pure CSS | `*.css` files | Global CSS or component CSS |
-| SCSS/Sass | `*.scss`, `*.sass` | SCSS files |
-| CSS Modules | `*.module.css` | Module CSS files |
-| Tailwind CSS | `tailwind.config.*` | className in components |
-| styled-components | `styled.` in code | JS/TS files |
-| Emotion | `@emotion/` imports | JS/TS files |
-| CSS-in-JS (other) | Inline styles | JS/TS files |
+| Method            | Detection           | Edit Target                 |
+| ----------------- | ------------------- | --------------------------- |
+| Pure CSS          | `*.css` files       | Global CSS or component CSS |
+| SCSS/Sass         | `*.scss`, `*.sass`  | SCSS files                  |
+| CSS Modules       | `*.module.css`      | Module CSS files            |
+| Tailwind CSS      | `tailwind.config.*` | className in components     |
+| styled-components | `styled.` in code   | JS/TS files                 |
+| Emotion           | `@emotion/` imports | JS/TS files                 |
+| CSS-in-JS (other) | Inline styles       | JS/TS files                 |
 
 ---
 
@@ -111,54 +111,56 @@ Work through [references/visual-checklist.md](references/visual-checklist.md) du
 
 #### Layout Issues
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Element Overflow | Content overflows from parent element or viewport | High |
-| Element Overlap | Unintended overlapping of elements | High |
-| Alignment Issues | Grid or flex alignment problems | Medium |
-| Inconsistent Spacing | Padding/margin inconsistencies | Medium |
-| Text Clipping | Long text not handled properly | Medium |
+| Issue                | Description                                       | Severity |
+| -------------------- | ------------------------------------------------- | -------- |
+| Element Overflow     | Content overflows from parent element or viewport | High     |
+| Element Overlap      | Unintended overlapping of elements                | High     |
+| Alignment Issues     | Grid or flex alignment problems                   | Medium   |
+| Inconsistent Spacing | Padding/margin inconsistencies                    | Medium   |
+| Text Clipping        | Long text not handled properly                    | Medium   |
 
 #### Responsive Issues
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Non-mobile Friendly | Layout breaks on small screens | High |
-| Breakpoint Issues | Unnatural transitions when screen size changes | Medium |
-| Touch Targets | Buttons too small on mobile | Medium |
+| Issue               | Description                                    | Severity |
+| ------------------- | ---------------------------------------------- | -------- |
+| Non-mobile Friendly | Layout breaks on small screens                 | High     |
+| Breakpoint Issues   | Unnatural transitions when screen size changes | Medium   |
+| Touch Targets       | Buttons too small on mobile                    | Medium   |
 
 #### Accessibility Issues
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Insufficient Contrast | Low contrast ratio between text and background | High |
-| No Focus State | Cannot determine state during keyboard navigation | High |
-| Missing alt Text | No alternative text for images | Medium |
+| Issue                 | Description                                       | Severity |
+| --------------------- | ------------------------------------------------- | -------- |
+| Insufficient Contrast | Low contrast ratio between text and background    | High     |
+| No Focus State        | Cannot determine state during keyboard navigation | High     |
+| Missing alt Text      | No alternative text for images                    | Medium   |
 
 #### Visual Consistency
 
-| Issue | Description | Severity |
-|-------|-------------|----------|
-| Font Inconsistency | Mixed font families | Medium |
-| Color Inconsistency | Non-unified brand colors | Medium |
-| Spacing Inconsistency | Non-uniform spacing between similar elements | Low |
+| Issue                 | Description                                  | Severity |
+| --------------------- | -------------------------------------------- | -------- |
+| Font Inconsistency    | Mixed font families                          | Medium   |
+| Color Inconsistency   | Non-unified brand colors                     | Medium   |
+| Spacing Inconsistency | Non-uniform spacing between similar elements | Low      |
 
 ### 2.3 Viewport Testing (Responsive)
 
 Test at the following viewports:
 
-| Name | Width | Representative Device |
-|------|-------|----------------------|
-| Mobile | 375px | iPhone SE/12 mini |
-| Tablet | 768px | iPad |
-| Desktop | 1280px | Standard PC |
-| Wide | 1920px | Large display |
+| Name    | Width  | Representative Device |
+| ------- | ------ | --------------------- |
+| Mobile  | 375px  | iPhone SE/12 mini     |
+| Tablet  | 768px  | iPad                  |
+| Desktop | 1280px | Standard PC           |
+| Wide    | 1920px | Large display         |
 
 ---
 
 ## Step 3: Issue Fixing Phase
 
 ### 3.1 Issue Prioritization
+
+Issues are grouped into three priority bands: P1 covers layout issues that affect functionality, P2 covers visual issues that degrade the user experience, and P3 covers minor visual inconsistencies.
 
 ```mermaid
 block-beta
@@ -242,14 +244,14 @@ accDescr: Detailed diagram
 
 ## Summary
 
-| Item | Value |
-|------|-------|
-| Target URL | {URL} |
-| Framework | {Detected framework} |
-| Styling | {CSS / Tailwind / etc.} |
-| Tested Viewports | Desktop, Mobile |
-| Issues Detected | {N} |
-| Issues Fixed | {M} |
+| Item             | Value                   |
+| ---------------- | ----------------------- |
+| Target URL       | {URL}                   |
+| Framework        | {Detected framework}    |
+| Styling          | {CSS / Tailwind / etc.} |
+| Tested Viewports | Desktop, Mobile         |
+| Issues Detected  | {N}                     |
+| Issues Fixed     | {M}                     |
 
 ## Detected Issues
 
@@ -263,11 +265,13 @@ accDescr: Detailed diagram
 - **Screenshot**: Before/After
 
 ### [P2] {Issue Title}
+
 ...
 
 ## Unfixed Issues (if any)
 
 ### {Issue Title}
+
 - **Reason**: {Why it was not fixed/could not be fixed}
 - **Recommended Action**: {Recommendations for user}
 
@@ -280,14 +284,14 @@ accDescr: Detailed diagram
 
 ## Required Capabilities
 
-| Capability | Description | Required |
-|------------|-------------|----------|
-| Web Page Navigation | Access URLs, page transitions | ✅ |
-| Screenshot Capture | Page image capture | ✅ |
-| Image Analysis | Visual issue detection | ✅ |
-| DOM Retrieval | Page structure retrieval | Recommended |
-| File Read/Write | Source code reading and editing | Required for fixes |
-| Code Search | Code search within project | Required for fixes |
+| Capability          | Description                     | Required           |
+| ------------------- | ------------------------------- | ------------------ |
+| Web Page Navigation | Access URLs, page transitions   | ✅                 |
+| Screenshot Capture  | Page image capture              | ✅                 |
+| Image Analysis      | Visual issue detection          | ✅                 |
+| DOM Retrieval       | Page structure retrieval        | Recommended        |
+| File Read/Write     | Source code reading and editing | Required for fixes |
+| Code Search         | Code search within project      | Required for fixes |
 
 ---
 
@@ -297,14 +301,14 @@ accDescr: Detailed diagram
 
 [Playwright MCP](https://github.com/microsoft/playwright-mcp) is recommended as the reference implementation for this skill.
 
-| Capability | Playwright MCP Tool | Purpose |
-|------------|---------------------|---------|
-| Navigation | `browser_navigate` | Access URLs |
-| Snapshot | `browser_snapshot` | Retrieve DOM structure |
-| Screenshot | `browser_take_screenshot` | Images for visual inspection |
-| Click | `browser_click` | Interact with interactive elements |
-| Resize | `browser_resize` | Responsive testing |
-| Console | `browser_console_messages` | Detect JS errors |
+| Capability | Playwright MCP Tool        | Purpose                            |
+| ---------- | -------------------------- | ---------------------------------- |
+| Navigation | `browser_navigate`         | Access URLs                        |
+| Snapshot   | `browser_snapshot`         | Retrieve DOM structure             |
+| Screenshot | `browser_take_screenshot`  | Images for visual inspection       |
+| Click      | `browser_click`            | Interact with interactive elements |
+| Resize     | `browser_resize`           | Responsive testing                 |
+| Console    | `browser_console_messages` | Detect JS errors                   |
 
 #### Configuration Example (MCP Server)
 
@@ -321,12 +325,12 @@ accDescr: Detailed diagram
 
 ### Other Compatible Browser Automation Tools
 
-| Tool | Features |
-|------|----------|
-| Selenium | Broad browser support, multi-language support |
-| Puppeteer | Chrome/Chromium focused, Node.js |
-| Cypress | Easy integration with E2E testing |
-| WebDriver BiDi | Standardized next-generation protocol |
+| Tool           | Features                                      |
+| -------------- | --------------------------------------------- |
+| Selenium       | Broad browser support, multi-language support |
+| Puppeteer      | Chrome/Chromium focused, Node.js              |
+| Cypress        | Easy integration with E2E testing             |
+| WebDriver BiDi | Standardized next-generation protocol         |
 
 The same workflow can be implemented with these tools. As long as they provide the necessary capabilities (navigation, screenshot, DOM retrieval), the choice of tool is flexible.
 
@@ -374,4 +378,4 @@ The same workflow can be implemented with these tools. As long as they provide t
 3. Consider using CSS Modules or scoped styles
 4. Consult user to confirm impact scope
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+_Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP_
