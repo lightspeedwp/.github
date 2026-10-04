@@ -40,6 +40,29 @@ const getMarkdownFiles = () =>
 // statements.
 const TEXT_ALTERNATIVE_TYPES = fixer.NO_ACC_TYPES;
 
+// The report's remediation steps, split the same way as the criteria: telling a
+// `mindmap`, `block-beta` or `sankey-beta` to add `accTitle`/`accDescr` would
+// produce the parser-invalid state the validator rejects.
+function remediationSteps(issues) {
+  const steps = [];
+  if (issues.some((issue) => !TEXT_ALTERNATIVE_TYPES.includes(issue.type))) {
+    steps.push(
+      'For diagram types that support them, add an `accTitle` to identify the diagram and an `accDescr` describing its purpose and key relationships'
+    );
+  }
+  if (issues.some((issue) => TEXT_ALTERNATIVE_TYPES.includes(issue.type))) {
+    steps.push(
+      `For ${TEXT_ALTERNATIVE_TYPES.map((t) => `\`${t}\``).join(', ')}, describe the diagram in a Markdown line directly above the fence, and remove any \`accTitle\`/\`accDescr\` statements, which these types reject`
+    );
+  }
+  steps.push(
+    'Test with screen readers to verify readability',
+    'Re-run validation after fixes',
+    'Consult [Mermaid Accessibility Docs](https://mermaid.js.org/syntax/diagram-type-mermaid.html#diagram-types)'
+  );
+  return steps.map((step, index) => `${index + 1}. ${step}`).join('\n');
+}
+
 // The nearest non-blank line above an opening fence, when it can serve as a
 // text alternative: prose, not a heading, another fence, a horizontal rule, or
 // anything inside an HTML comment. Mirrors what a screen reader reaches first,
@@ -435,7 +458,7 @@ Supported attribute formats:
 ${
   report.inaccessibleDiagrams === 0
     ? '✅ All diagrams are fully accessible, through accTitle and accDescr attributes or a text alternative above the fence!'
-    : `⚠️ ${report.inaccessibleDiagrams} diagram(s) missing accessibility attributes:
+    : `⚠️ ${report.inaccessibleDiagrams} diagram(s) failing the accessibility checks:
 
 ${report.issues
   .map(
@@ -452,11 +475,7 @@ ${
   report.inaccessibleDiagrams === 0
     ? '✅ All Mermaid diagrams meet WCAG 2.2 AA accessibility requirements. Proceed to Issue #670 (Fix & Refresh README Files).'
     : `⚠️ Recommended actions:
-1. Add missing \`accTitle\` attributes to identify each diagram
-2. Add comprehensive \`accDescr\` blocks describing diagram purpose and key relationships
-3. Test with screen readers to verify readability
-4. Re-run validation after fixes
-5. Consult [Mermaid Accessibility Docs](https://mermaid.js.org/syntax/diagram-type-mermaid.html#diagram-types)`
+${remediationSteps(report.issues)}`
 }
 
 ---

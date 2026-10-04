@@ -23,7 +23,12 @@ function runOn(markdown) {
       encoding: 'utf8',
       env: { ...process.env, MERMAID_ACCESSIBILITY_REPORT_DIR: directory },
     });
-    return { status: result.status, output: `${result.stdout}${result.stderr}` };
+    const reportFile = path.join(directory, 'mermaid-accessibility-report.md');
+    return {
+      status: result.status,
+      output: `${result.stdout}${result.stderr}`,
+      report: fs.existsSync(reportFile) ? fs.readFileSync(reportFile, 'utf8') : '',
+    };
   } finally {
     fs.rmSync(directory, { force: true, recursive: true });
   }
@@ -82,6 +87,32 @@ describe('validate-mermaid-accessibility CLI: text alternative (#3526)', () => {
       expect(output).toContain(`The \`${type}\` diagram type cannot carry`);
     }
   );
+
+  describe('report remediation steps', () => {
+    const noAlternative = '```mermaid\nblock-beta\n    columns 1\n    block:a["A"]\n    end\n```\n';
+    const noAttributes = 'Bands.\n\n```mermaid\nflowchart TD\n  A --> B\n```\n';
+
+    test('tell a text-alternative type to add prose and not to add the statements', () => {
+      const { report } = runOn(noAlternative);
+
+      expect(report).toContain('describe the diagram in a Markdown line directly above the fence');
+      expect(report).not.toContain('add an `accTitle` to identify');
+    });
+
+    test('tell an attribute type to add accTitle and accDescr', () => {
+      const { report } = runOn(noAttributes);
+
+      expect(report).toContain('add an `accTitle` to identify');
+      expect(report).not.toContain('Markdown line directly above the fence');
+    });
+
+    test('give both steps when both kinds fail', () => {
+      const { report } = runOn(`${noAlternative}\n${noAttributes}`);
+
+      expect(report).toContain('add an `accTitle` to identify');
+      expect(report).toContain('describe the diagram in a Markdown line directly above the fence');
+    });
+  });
 
   test('recognises the hyphenated type rather than truncating it', () => {
     const { status, output } = runOn('Bands.\n\n```mermaid\nsankey-beta\nA,B,1\n```\n');
