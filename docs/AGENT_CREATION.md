@@ -359,10 +359,10 @@ Frontmatter is **machine-validated**. Errors break CI.
 
 ### Mermaid: Frontmatter Scope Map
 
+Required and optional frontmatter fields, grouped by whether an agent specification must declare them.
+
 ```mermaid
 mindmap
-  accTitle: Mermaid: Frontmatter Scope Map
-  accDescr: Mind map showing mermaid: frontmatter scope map
   root((Frontmatter))
     Required
       file_type
