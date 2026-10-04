@@ -3048,6 +3048,14 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
       'git branch -m old new',
       'git branch --delete feat/a-b',
       'git branch feat/x -D',
+      // JSON writes a tab or a newline as an escape, so the launcher sees `\t` and
+      // `\n` where the guard sees the character.
+      'git\tpush origin main',
+      'git\tcommit -m x',
+      'git\tbranch\tclaude/x',
+      'echo hi\ngit push',
+      'echo hi\n\tgit\tpush',
+      'gh\tpr\tcreate --title x',
       // Plain branch creation has no flag for a pattern to find.
       'git branch claude/x',
       'git branch feat/x main',

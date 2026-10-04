@@ -93,6 +93,19 @@ creates_branch() {
 # write, the same as the guard's treatment of malformed input.
 is_write() {
   local call="$1" tool="" pattern
+  # JSON writes a tab, a newline and a carriage return inside a string as an
+  # escape, two characters that [[:space:]] does not match, so `git<TAB>push`
+  # arrives as `git\tpush`. They are turned back into a space before the patterns
+  # run, as the guard sees them after decoding. The \u forms are the same
+  # characters written the long way, together with the vertical tab and form feed.
+  call="${call//\\t/ }"
+  call="${call//\\n/ }"
+  call="${call//\\r/ }"
+  call="${call//\\u0009/ }"
+  call="${call//\\u000a/ }"
+  call="${call//\\u000d/ }"
+  call="${call//\\u000b/ }"
+  call="${call//\\u000c/ }"
   local tool_re='"tool_name"[[:space:]]*:[[:space:]]*"([^"]*)"'
   if [[ $call =~ $tool_re ]]; then
     tool="${BASH_REMATCH[1]}"
