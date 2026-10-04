@@ -1,0 +1,25 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "node_modules/**",
+    "build/**",
+    "dist/**",
+    "website/dist/**",
+    "coverage/**",
+    "test-results/**",
+    "vendor/**",
+    ".next/**",
+    "logs/**",
+    "tmp/**",
+    ".cache/**",
+    ".husky/**",
+    ".vercel/**",
+    ".netlify/**",
+    ".storybook/**",
+    ".astro/**",
+    "docs/mustache-repo-templates/**",
+    "scripts/utility/__tests__/**",
+    "scripts/utility/__fixtures__/**",
+    "**/figma-use/references/**"
+  ]
+}

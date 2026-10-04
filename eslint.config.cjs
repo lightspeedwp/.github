@@ -10,7 +10,7 @@ require("dotenv").config();
 const js = require("@eslint/js");
 const tsPlugin = require("@typescript-eslint/eslint-plugin");
 const tsParser = require("@typescript-eslint/parser");
-const prettier = require("eslint-plugin-prettier");
+const prettierConfig = require("eslint-config-prettier");
 
 /**
  * Generate ignore patterns for ESLint
@@ -45,6 +45,7 @@ const ignoreFolders = process.env.ESLINT_IGNORE
       "scripts/utility/__fixtures__/**", // Test fixtures
       "skills/design-md-agent/figma-use/references/plugin-api-standalone.d.ts", // Imported Figma API typings
       "**/figma-use/references/plugin-api-standalone.d.ts", // Same vendored typings, copied under agents/*
+      "skills/webmcpify/templates/**", // Vendored MCP-SDK templates (types not installed here)
     ];
 
 /**
@@ -114,7 +115,7 @@ const jestGlobals = {
  * Uses the flat config format (ESLint 8.23+, default in 9.0+) with:
  * - JavaScript recommended rules
  * - TypeScript recommended rules
- * - Prettier integration for code formatting
+ * - eslint-config-prettier to disable formatting rules (Prettier runs separately)
  * - Performance-optimized ignore patterns
  *
  * @type {import('eslint').Linter.FlatConfig[]}
@@ -164,12 +165,10 @@ module.exports = [
     },
     plugins: {
       "@typescript-eslint": tsPlugin,
-      prettier,
     },
     // Merge recommended TypeScript rules
     rules: {
       ...tsPlugin.configs.recommended.rules,
-      "prettier/prettier": "warn",
     },
   },
   // CommonJS files (.cjs)
@@ -186,9 +185,7 @@ module.exports = [
         ...jestGlobals,
       },
     },
-    plugins: { prettier },
     rules: {
-      "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
     },
@@ -213,9 +210,7 @@ module.exports = [
         ...jestGlobals,
       },
     },
-    plugins: { prettier },
     rules: {
-      "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
     },
@@ -234,9 +229,7 @@ module.exports = [
         ...jestGlobals,
       },
     },
-    plugins: { prettier },
     rules: {
-      "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
     },
@@ -272,9 +265,7 @@ module.exports = [
         console: "readonly",
       },
     },
-    plugins: { prettier },
     rules: {
-      "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
     },
   },
@@ -293,6 +284,7 @@ module.exports = [
         // Browser globals that skills may use
         document: "readonly",
         window: "readonly",
+        Node: "readonly",
         fetch: "readonly",
         URL: "readonly",
         URLSearchParams: "readonly",
@@ -318,9 +310,7 @@ module.exports = [
         console: "readonly",
       },
     },
-    plugins: { prettier },
     rules: {
-      "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
     },
@@ -330,7 +320,13 @@ module.exports = [
     // `**` before plugin-provided so the `skills/local/plugin-provided/...`
     // layout is matched too; the previous `skills/plugin-provided` glob missed
     // it, leaving `figma` undefined across those scripts.
-    files: ["agents/**/plugin-provided/figma/**/scripts/**/*.js"],
+    // Also cover the figma-generate-library scripts under agents/*/skills/figma
+    // and plugins/figma, which use the same `figma` global.
+    files: [
+      "agents/**/plugin-provided/figma/**/scripts/**/*.js",
+      "agents/**/skills/figma/**/scripts/**/*.js",
+      "plugins/figma/**/scripts/**/*.js",
+    ],
     languageOptions: {
       parserOptions: {
         ecmaVersion: 2024,
@@ -350,11 +346,14 @@ module.exports = [
         Buffer: "readonly",
       },
     },
-    plugins: { prettier },
     rules: {
-      "prettier/prettier": "warn",
       "no-unused-vars": ["warn", { argsIgnorePattern: "^_" }],
       "no-console": "off",
     },
   },
+  // Disable ESLint rules that conflict with Prettier. Prettier runs as a
+  // standalone formatter (see the format:* scripts); it must not also run as an
+  // ESLint rule. eslint-config-prettier turns the formatting rules off so the
+  // two tools do not fight over the same code.
+  prettierConfig,
 ];

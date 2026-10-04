@@ -14,7 +14,8 @@ tmp
 .storybook
 .next
 public
-docs/mustache-repo-templatesnode_modules
+docs/mustache-repo-templates
+node_modules
 build
 dist
 coverage
