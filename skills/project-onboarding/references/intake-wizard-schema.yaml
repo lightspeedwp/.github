@@ -136,36 +136,36 @@ memory_schema:
     status: inferred
     save_policy: confirm_before_save
 
-claim_register:
-  claim:
-    status: missing
-  claim_type:
-    status: missing
-  source:
-    status: inferred
-  questionnaire_source:
-    status: inferred
-  evidence_status:
-    allowed:
-      - confirmed
-      - inferred
-      - defaulted
-      - missing
-      - unsupported
-  risk_level:
-    allowed:
-      - low
-      - medium
-      - high
-  approved_for_use:
-    allowed:
-      - yes
-      - no
-      - needs_review
-  reviewer:
-    status: missing
-  notes:
-    status: inferred
+  claim_register:
+    claim:
+      status: missing
+    claim_type:
+      status: missing
+    source:
+      status: inferred
+    questionnaire_source:
+      status: inferred
+    evidence_status:
+      allowed:
+        - confirmed
+        - inferred
+        - defaulted
+        - missing
+        - unsupported
+    risk_level:
+      allowed:
+        - low
+        - medium
+        - high
+    approved_for_use:
+      allowed:
+        - "yes"
+        - "no"
+        - needs_review
+    reviewer:
+      status: missing
+    notes:
+      status: inferred
 
 claim_register_triggers:
   - regulated_content

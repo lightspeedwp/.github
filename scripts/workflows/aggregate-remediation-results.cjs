@@ -78,7 +78,7 @@ logFiles.forEach((logFile) => {
       results.failed += failMatches.length;
     }
 
-    const skipMatches = content.match(/⏭️  .*: Skipped/g);
+    const skipMatches = content.match(/⏭️ {2}.*: Skipped/g);
     if (skipMatches) {
       results.skipped += skipMatches.length;
     }
