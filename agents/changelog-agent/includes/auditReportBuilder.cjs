@@ -221,7 +221,7 @@ function generateRemediationSummary(failing_entries) {
     if (entry.issues && entry.issues.length > 0) {
       for (const issue of entry.issues) {
         const ruleId = issue.ruleId || issue.rule_id || "unknown";
-        let fixGuidance = "";
+        let fixGuidance;
 
         // Provide rule-specific guidance
         switch (ruleId) {
