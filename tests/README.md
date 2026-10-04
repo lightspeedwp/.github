@@ -129,7 +129,7 @@ Typical commands:
 
 - Run all tests (orchestrated shell + jest): `./run-all-tests.sh`
 - Run Bats only: `bats tests/` (or `bats tests/utility` for a subset)
-- Run Jest unit tests: `npm test` (alias for `npx jest`)
+- Run Jest unit tests: `npm run test:js` (adds `--coverage`; `npm test` also runs the phase-5 shell suites)
 - Run Python doc/schema validations: `pytest tests/pytests`
 - Show coverage summary (after Jest): `npx jest --coverage` or view `coverage/README.md`
 
