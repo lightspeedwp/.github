@@ -95,9 +95,11 @@ Use:
 
 ## Go/no-go rules
 
-- `Go`: no blockers, no unresolved high-risk launch-critical items, forms and analytics tested, redirects/indexing checked.
-- `Conditional Go`: no blockers, but medium/high non-critical items have named owners and dates.
-- `No-Go`: one or more blockers remain, or critical evidence is missing for redirects, forms, accessibility, privacy, indexing or checkout/payment flows.
+`references/go-no-go-rules.md` is the normative definition of these verdicts and is mandatory: the summary here is a reading aid, not a substitute. Read each verdict against its own conditions rather than as one shared list: the nine gates apply to `Go`, the `Conditional Go` conditions apply instead when they are met, and any `No-Go` trigger on its own forces `No-Go` regardless of the others. Every condition that applies to the chosen verdict must be satisfied, and the verdict must name any that is unmet.
+
+- `Go`: no launch blockers remain; critical pages pass QA; redirects are tested or not required; forms and conversion routes work; analytics and tracking are tested; privacy/policy pages are present; accessibility testing found no critical blockers; indexing controls are correct; and a rollback plan exists. All nine gates are required — "no blockers" alone is not sufficient.
+- `Conditional Go`: no blockers remain; high-risk issues are non-critical or explicitly accepted; every issue has a named owner and a target date; and post-launch monitoring is agreed.
+- `No-Go`: any one of these applies — an unresolved redirect blocker; key forms that do not work; checkout or payment failure; staging `noindex` blocking production indexing; missing privacy/policy pages where tracking or data collection happens; a critical accessibility blocker; broken major navigation; untested analytics or conversion tracking where measurement is business-critical; or launch-critical evidence missing for any gate above.
 
 ## Reference loading
 

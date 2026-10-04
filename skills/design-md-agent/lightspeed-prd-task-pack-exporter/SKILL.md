@@ -113,12 +113,18 @@ project-slug-prd-task-pack/
 │   ├── techContext.md
 │   ├── activeContext.md
 │   ├── progress.md
-│   └── tasks/_index.md
+│   ├── tasks/_index.md
+│   ├── tasks/task-[id].md
+│   ├── decisions/decision-log.md
+│   ├── risks/assumptions-and-risks.md
+│   └── handoff/handoff-summary.md
 └── 09-review/
     ├── readiness-review.md
     ├── reviewer-checklist.md
     └── next-actions.md
 ```
+
+The `08-memory-bank/` subtree mirrors the memory-file contract in the project memory manager skill, including `decisions/`, `risks/` and `handoff/`. Keep the two in step: if a memory file is added there, add it here, or a pack built from this default tree silently drops it.
 
 ## Required README sections
 

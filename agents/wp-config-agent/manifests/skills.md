@@ -2,18 +2,18 @@
 
 <!-- BADGES-START -->
 ![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
-![Docs Validation](https://img.shields.io/badge/Docs Validation-OK-success.svg)
+![Docs Validation](https://img.shields.io/badge/Docs%20Validation-OK-success.svg)
 ![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
-![Labeling Governance](https://img.shields.io/badge/Labeling Governance-OK-success.svg)
-![Main Branch Guard](https://img.shields.io/badge/Main Branch Guard-OK-success.svg)
-![Metadata Governance](https://img.shields.io/badge/Metadata Governance-OK-success.svg)
+![Labeling Governance](https://img.shields.io/badge/Labeling%20Governance-OK-success.svg)
+![Main Branch Guard](https://img.shields.io/badge/Main%20Branch%20Guard-OK-success.svg)
+![Metadata Governance](https://img.shields.io/badge/Metadata%20Governance-OK-success.svg)
 ![Release](https://img.shields.io/badge/Release-OK-success.svg)
-![Template Enforcement](https://img.shields.io/badge/Template Enforcement-OK-success.svg)
-![Validate PR Template](https://img.shields.io/badge/Validate PR Template-OK-success.svg)
-![Badges: Documentation Update](https://img.shields.io/badge/Badges: Documentation Update-OK-success.svg)
-![Badges: Health Check](https://img.shields.io/badge/Badges: Health Check-OK-success.svg)
-![Badges: README Status Maintenance](https://img.shields.io/badge/Badges: README Status Maintenance-OK-success.svg)
-![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges: Workflow Inventory Audit-OK-success.svg)
+![Template Enforcement](https://img.shields.io/badge/Template%20Enforcement-OK-success.svg)
+![Validate PR Template](https://img.shields.io/badge/Validate%20PR%20Template-OK-success.svg)
+![Badges: Documentation Update](https://img.shields.io/badge/Badges:%20Documentation%20Update-OK-success.svg)
+![Badges: Health Check](https://img.shields.io/badge/Badges:%20Health%20Check-OK-success.svg)
+![Badges: README Status Maintenance](https://img.shields.io/badge/Badges:%20README%20Status%20Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges:%20Workflow%20Inventory%20Audit-OK-success.svg)
 [![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
 [![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
 [![changelog-management](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-management.yml)
@@ -31,19 +31,19 @@
 | ----- | ----------- | ----------- | ------------------- | ---------------- | ------------- | ----- |
 | documents | platform-managed | /root/.codex/skills/builtins/documents | yes | yes | fully exported | Platform-managed skill with files exposed in the local runtime. 76 file(s) exported to `skills/platform-managed/documents`. |
 | frontend-skill | local | /root/.codex/skills/frontend-skill | yes | yes | fully exported | 2 file(s) exported to `skills/local/frontend-skill`. |
-| github:gh-address-comments | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments | yes | yes | fully exported | 6 file(s) exported to `skills/plugin-provided/github__gh-address-comments`. |
-| github:gh-fix-ci | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci | yes | yes | fully exported | 6 file(s) exported to `skills/plugin-provided/github__gh-fix-ci`. |
-| github:github | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/github | yes | yes | fully exported | 4 file(s) exported to `skills/plugin-provided/github__github`. |
-| github:yeet | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet | yes | yes | fully exported | 5 file(s) exported to `skills/plugin-provided/github__yeet`. |
-| google-drive:google-docs | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs | yes | yes | fully exported | 19 file(s) exported to `skills/plugin-provided/google-drive__google-docs`. |
-| google-drive:google-drive | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive | yes | yes | fully exported | 10 file(s) exported to `skills/plugin-provided/google-drive__google-drive`. |
-| google-drive:google-drive-comments | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive-comments | yes | yes | fully exported | 2 file(s) exported to `skills/plugin-provided/google-drive__google-drive-comments`. |
-| google-drive:google-sheets | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets | yes | yes | fully exported | 11 file(s) exported to `skills/plugin-provided/google-drive__google-sheets`. |
-| google-drive:google-slides | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides | yes | yes | fully exported | 19 file(s) exported to `skills/plugin-provided/google-drive__google-slides`. |
+| github:gh-address-comments | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-address-comments | yes | yes | fully exported | 6 file(s) exported to `skills/plugin-provided/github/gh-address-comments`. |
+| github:gh-fix-ci | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/gh-fix-ci | yes | yes | fully exported | 6 file(s) exported to `skills/plugin-provided/github/gh-fix-ci`. |
+| github:github | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/github | yes | yes | fully exported | 4 file(s) exported to `skills/plugin-provided/github/github`. |
+| github:yeet | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/github/local/skills/yeet | yes | yes | fully exported | 5 file(s) exported to `skills/plugin-provided/github/yeet`. |
+| google-drive:google-docs | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-docs | yes | yes | fully exported | 19 file(s) exported to `skills/plugin-provided/google-drive/google-docs`. |
+| google-drive:google-drive | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive | yes | yes | fully exported | 10 file(s) exported to `skills/plugin-provided/google-drive/google-drive`. |
+| google-drive:google-drive-comments | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-drive-comments | yes | yes | fully exported | 2 file(s) exported to `skills/plugin-provided/google-drive/google-drive-comments`. |
+| google-drive:google-sheets | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-sheets | yes | yes | fully exported | 11 file(s) exported to `skills/plugin-provided/google-drive/google-sheets`. |
+| google-drive:google-slides | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/google-drive/local/skills/google-slides | yes | yes | fully exported | 19 file(s) exported to `skills/plugin-provided/google-drive/google-slides`. |
 | gravity-forms-auditor | agent-attached | /root/.codex/skills/hermes/gravity-forms-auditor | yes | yes | fully exported | 43 file(s) exported to `skills/agent-attached/gravity-forms-auditor`. |
 | gravity-forms-configuration | agent-attached | /root/.codex/skills/hermes/gravity-forms-configuration | yes | yes | fully exported | 157 file(s) exported to `skills/agent-attached/gravity-forms-configuration`. |
 | imagegen | platform-managed | /root/.codex/skills/.system/imagegen | yes | yes | fully exported | Platform-managed skill with files exposed in the local runtime. 12 file(s) exported to `skills/platform-managed/imagegen`. |
-| linear:linear | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear | yes | yes | fully exported | 5 file(s) exported to `skills/plugin-provided/linear__linear`. |
+| linear:linear | plugin-provided | /root/.codex/plugins/cache/openai-marketplace/linear/local/skills/linear | yes | yes | fully exported | 5 file(s) exported to `skills/plugin-provided/linear/linear`. |
 | openai-docs | platform-managed | /root/.codex/skills/.system/openai-docs | yes | yes | fully exported | Platform-managed skill with files exposed in the local runtime. 10 file(s) exported to `skills/platform-managed/openai-docs`. |
 | pdf | platform-managed | /root/.codex/skills/builtins/pdf | yes | yes | fully exported | Platform-managed skill with files exposed in the local runtime. 3 file(s) exported to `skills/platform-managed/pdf`. |
 | plugin-creator | platform-managed | /root/.codex/skills/.system/plugin-creator | yes | yes | fully exported | Platform-managed skill with files exposed in the local runtime. 10 file(s) exported to `skills/platform-managed/plugin-creator`. |
