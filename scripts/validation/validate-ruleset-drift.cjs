@@ -322,15 +322,25 @@ function compare(declaration, live, absentOnDevelop) {
     );
   }
 
-  const declaredBypass = bypassActors(declaration);
-  const liveBypass = bypassActors(live);
-  if (declaredBypass.join('|') !== liveBypass.join('|')) {
-    differences.push(
-      `bypass actors: declared [${declaredBypass.join(', ') || 'none'}] vs live [${liveBypass.join(', ') || 'none'}]`
-    );
+  // The API returns `bypass_actors` only to a token with admin access; any other
+  // token (the workflow's GITHUB_TOKEN) gets a ruleset with the key omitted. An
+  // omitted key is "not visible", not "no actors", so it is not compared: reading it
+  // as an empty list would report drift against every declared actor in CI. An empty
+  // list from an admin token is a real empty list and is compared.
+  const notes = [];
+  if (Array.isArray(live.bypass_actors)) {
+    const declaredBypass = bypassActors(declaration);
+    const liveBypass = bypassActors(live);
+    if (declaredBypass.join('|') !== liveBypass.join('|')) {
+      differences.push(
+        `bypass actors: declared [${declaredBypass.join(', ') || 'none'}] vs live [${liveBypass.join(', ') || 'none'}]`
+      );
+    }
+  } else {
+    notes.push('bypass actors are not visible to this token, so they were not compared');
   }
 
-  return { differences, pendingContexts };
+  return { differences, pendingContexts, notes };
 }
 
 async function main() {
@@ -420,13 +430,14 @@ async function main() {
       continue;
     }
 
-    const { differences, pendingContexts } = compare(declaration, live, absentOnDevelop);
+    const { differences, pendingContexts, notes } = compare(declaration, live, absentOnDevelop);
     results.push({
       file,
       name: declaration.name,
       status: differences.length === 0 ? 'in-sync' : 'drift',
       differences,
       pendingContexts,
+      notes,
     });
   }
 
@@ -443,6 +454,9 @@ async function main() {
           console.log(
             `  PENDING   required check "${context}" is declared but not yet required live`
           );
+        }
+        for (const note of result.notes || []) {
+          console.log(`  NOTE      ${result.name}: ${note}`);
         }
       } else if (result.status === 'not-deployed') {
         console.log(`  PENDING   ${result.file} (${result.name}) — ${result.detail}`);

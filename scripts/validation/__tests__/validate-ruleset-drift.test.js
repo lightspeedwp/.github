@@ -228,6 +228,20 @@ describe('validate-ruleset-drift', () => {
     });
   });
 
+  it('does not compare bypass actors the token cannot see', async () => {
+    // A non-admin token gets the ruleset with `bypass_actors` omitted entirely. That
+    // is "not visible", not "no actors": reading it as an empty list would report
+    // drift against every declared actor in CI.
+    const live = liveMatching(declaredRuleset());
+    delete live.bypass_actors;
+
+    const result = await runAgainst([live]);
+
+    expect(result.output).not.toContain('DRIFT');
+    expect(result.output).toContain('not visible to this token');
+    expect(result.status).toBe(0);
+  });
+
   it('fails when the declared bypass actor is missing live', async () => {
     const live = liveMatching(declaredRuleset());
     live.bypass_actors = [];
