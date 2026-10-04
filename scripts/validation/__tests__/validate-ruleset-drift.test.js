@@ -243,29 +243,6 @@ describe('validate-ruleset-drift', () => {
     expect(result.status).toBe(0);
   });
 
-  describe('trusted runs', () => {
-    // RULESETS_REQUIRE_ACTORS=1 is what the workflow sets for push and schedule runs.
-    const trusted = { env: { RULESETS_REQUIRE_ACTORS: '1' } };
-
-    it('fail when the bypass actors cannot be read, rather than staying green', async () => {
-      const live = liveMatching(declaredRuleset());
-      delete live.bypass_actors;
-
-      const result = await runAgainst([live], trusted);
-
-      expect(result.output).toContain('DRIFT');
-      expect(result.output).toContain('bypass actors could not be read');
-      expect(result.status).toBe(1);
-    });
-
-    it('pass when an admin-scoped token shows the declared actors', async () => {
-      const result = await runAgainst([liveMatching(declaredRuleset())], trusted);
-
-      expect(result.output).not.toContain('DRIFT');
-      expect(result.status).toBe(0);
-    });
-  });
-
   it('ignores a ruleset that comes from the organisation rather than this repository', async () => {
     const inherited = {
       ...declaredRuleset(),

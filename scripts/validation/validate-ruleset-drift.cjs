@@ -32,10 +32,10 @@
  *   node scripts/validation/validate-ruleset-drift.cjs --json     # machine
  *
  * Requires a token with read access to repository rulesets (GITHUB_TOKEN in
- * CI). The API shows bypass actors only to a token with Administration read
- * access. With RULESETS_REQUIRE_ACTORS=1, which the workflow sets for push and
- * schedule runs, actors that cannot be read are drift; otherwise they are noted
- * and not compared. Exits 0 when every deployed declaration is in sync and the only items
+ * CI). GitHub returns bypass actors only to a caller with write access to the
+ * ruleset, which CI deliberately does not hold, so there they are noted and not
+ * compared; run this script with an owner's own token to compare them. Exits 0
+ * when every deployed declaration is in sync and the only items
  * missing live are the intentionally pending ones (NOT_YET_APPLIED rulesets and
  * NOT_YET_REQUIRED_CONTEXTS checks), 1 on drift, including a declared ruleset that
  * is missing live and not listed as pending, and 2 when the API cannot be read.
@@ -342,14 +342,10 @@ function compare(declaration, live, absentOnDevelop) {
         `bypass actors: declared [${declaredBypass.join(', ') || 'none'}] vs live [${liveBypass.join(', ') || 'none'}]`
       );
     }
-  } else if (process.env.RULESETS_REQUIRE_ACTORS === '1') {
-    // A trusted run (push or schedule) must see the actors: staying green when they
-    // cannot be read would let an administrator add or broaden a bypass unnoticed.
-    differences.push(
-      'bypass actors could not be read: this run needs a token with Administration read access (the RULESET_READ_TOKEN secret), so a bypass could be added or broadened unnoticed'
-    );
   } else {
-    notes.push('bypass actors are not visible to this token, so they were not compared');
+    notes.push(
+      'bypass actors are not visible to this token, so they were not compared; an owner checks them by running this script with their own token'
+    );
   }
 
   return { differences, pendingContexts, notes };
