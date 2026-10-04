@@ -65,8 +65,7 @@ function writeVersion(filePath, newVersion) {
     fs.writeFileSync(filePath, content, 'utf8');
   } catch (error) {
     throw new Error(
-      `Failed to update theme version in ${filePath}: ${error.message}`
-    );
+      `Failed to update theme version in ${filePath}: ${error.message}`, { cause: error });
   }
 }
 

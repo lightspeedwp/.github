@@ -73,11 +73,11 @@ class ChangelogValidator {
 
     // Rule 6: URL validation
     const urlRegex =
-      /https?:\/\/github\.com\/[\w\-\.]+\/[\w\-\.]+\/(pull|issues)\/\d+/;
-    const allUrls = entry.match(/\(https?:\/\/[^\)]+\)/g);
+      /https?:\/\/github\.com\/[\w.-]+\/[\w.-]+\/(pull|issues)\/\d+/;
+    const allUrls = entry.match(/\(https?:\/\/[^)]+\)/g);
     if (allUrls) {
       allUrls.forEach((urlWithParens) => {
-        const urlMatch = urlWithParens.match(/https?:\/\/[^\)]+/);
+        const urlMatch = urlWithParens.match(/https?:\/\/[^)]+/);
         if (urlMatch && !urlRegex.test(urlMatch[0])) {
           // Only warn for non-GitHub URLs; GitHub URLs with repos like "lightspeedwp/.github" are valid
           if (!urlMatch[0].includes("github.com")) {

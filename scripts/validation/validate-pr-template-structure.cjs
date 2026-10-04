@@ -65,7 +65,7 @@ function validateTemplateStructure(templateContent) {
   }
 
   // Changelog section should have subsections
-  const changelogSectionRegex = /^##\s+Changelog\s*$[\s\S]*?(?=^##\s|\Z)/m;
+  const changelogSectionRegex = /^##\s+Changelog\s*$[\s\S]*?(?=^##\s|(?![\s\S]))/m;
   const changelogMatch = templateContent.match(changelogSectionRegex);
   if (changelogMatch) {
     const changelogContent = changelogMatch[0];
@@ -81,7 +81,7 @@ function validateTemplateStructure(templateContent) {
   }
 
   // Checklist should have Global DoD items
-  const checklistRegex = /^##\s+Checklist[\s\S]*?(?=^##\s|\Z)/m;
+  const checklistRegex = /^##\s+Checklist[\s\S]*?(?=^##\s|(?![\s\S]))/m;
   const checklistMatch = templateContent.match(checklistRegex);
   if (checklistMatch) {
     const checklistContent = checklistMatch[0];

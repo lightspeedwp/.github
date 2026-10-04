@@ -68,7 +68,7 @@ function parseYamlEntry(content) {
     const yaml = require('js-yaml');
     return yaml.load(content);
   } catch (error) {
-    throw new Error(`Invalid YAML: ${error.message}`);
+    throw new Error(`Invalid YAML: ${error.message}`, { cause: error });
   }
 }
 
@@ -90,8 +90,8 @@ async function validateEntry(options) {
       stopOnError: false,
       context: {
         entryId: entry.id || 'unknown',
-        filename: options.entry || 'stdin'
-      }
+        filename: options.entry || 'stdin',
+      },
     });
 
     if (options.json) {
@@ -107,7 +107,7 @@ async function validateEntry(options) {
     const result = {
       status: 'error',
       message: error.message,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
 
     if (options.json) {
