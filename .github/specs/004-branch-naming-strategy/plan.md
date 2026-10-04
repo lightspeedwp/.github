@@ -114,7 +114,7 @@ lib/
 ├── workflows/
 │   ├── branch-name-validation.yml   # Phase 2: Remote enforcement on every push
 │   └── pr-template-routing.yml      # Phase 3: Auto-route templates and labels on PR creation
-├── branch-types.yml                 # Phase 3: Type → PR template mapping (24 types)
+├── branch-types.yml                 # Phase 3: Type → PR template mapping (38 types)
 ├── branch-labels.yml                # Phase 3: Type → default labels mapping
 ├── PULL_REQUEST_TEMPLATE/           # Existing (NOT modified)
 │   ├── pr_feature.md
@@ -124,7 +124,7 @@ lib/
 └── labels.yml                       # Existing canonical labels (NOT modified)
 
 docs/
-└── BRANCHING_STRATEGY.md            # Phase 4: Developer guide for 24 types and pattern
+└── BRANCHING_STRATEGY.md            # Phase 4: Developer guide for 38 types and pattern
 
 package.json                         # Scripts: validate:branch-name, prepare (hook setup)
 .gitignore                           # Patterns for /lib, tests

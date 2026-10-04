@@ -77,7 +77,7 @@ Any branch starting with these prefixes is **invalid** regardless of the rest of
 ### Length Constraints
 
 - **Full branch name**: ≤255 characters (Git standard limit)
-- **Type**: Exactly one of 24 values (1-9 characters each)
+- **Type**: Exactly one of 38 values (1-9 characters each)
 - **Scope**: 1-50 characters recommended (1+ required)
 - **Title**: 1-50 characters recommended (1+ required)
 - **Total scope + title**: ≤100 characters recommended
@@ -105,7 +105,7 @@ Both scope and title must:
 ```
 ❌ Invalid type '{type}'. Not recognized.
 
-Allowed types (24):
+Allowed types (25):
   feat fix hotfix release refactor chore task docs test perf
   ci build deps security design a11y ux i18n ops proto ds
   audit codex revert research
@@ -222,27 +222,27 @@ When a PR is created from a valid branch, GitHub Actions automatically applies t
 
 **Fallback**: If no template file exists for a type, use `.github/pull_request_template.md` (generic template)
 
-### Template Files (19 templates for 24 types)
+### Template Files (17 templates for 38 types)
 
-- `pr_feature.md` — feat, task, proto
-- `pr_bugfix.md` — fix, revert
-- `pr_hotfix.md` — hotfix
-- `pr_release.md` — release
-- `pr_refactor.md` — refactor
-- `pr_chore.md` — chore, deps
-- `pr_docs.md` — docs
-- `pr_test.md` — test
-- `pr_perf.md` — perf
-- `pr_ci.md` — ci, build
-- `pr_security.md` — security
-- `pr_design.md` — design, ds
+Mirrors `.github/branch-types.yml`, the single source of truth for type → template mapping.
+
 - `pr_a11y.md` — a11y
-- `pr_ux.md` — ux
-- `pr_i18n.md` — i18n
-- `pr_ops.md` — ops
+- `pr_aiops.md` — aiops, automation, codex
 - `pr_audit.md` — audit
-- `pr_codex.md` — codex
-- `pr_research.md` — research
+- `pr_bug.md` — fix, revert
+- `pr_chore.md` — chore, config
+- `pr_ci.md` — build, ci, ops, telemetry
+- `pr_dep_update.md` — deps
+- `pr_design.md` — design, ds, ux
+- `pr_docs.md` — content, doc, docs, i18n
+- `pr_epic.md` — epic
+- `pr_feature.md` — api, feat, perf, proto, research, seo
+- `pr_hotfix.md` — hotfix
+- `pr_refactor.md` — migrate, refactor, schema
+- `pr_release.md` — release
+- `pr_security.md` — security
+- `pr_task.md` — task
+- `pr_test.md` — qa, test, uat
 
 ---
 
