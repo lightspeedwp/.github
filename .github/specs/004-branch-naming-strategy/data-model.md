@@ -118,7 +118,7 @@ allow this alternative.
 
 ## Entity: BranchType
 
-Configuration entity defining each of the 24 authorized branch types and their routing rules.
+Configuration entity defining each of the 38 authorized branch types and their routing rules.
 
 ### Fields
 
@@ -135,7 +135,7 @@ Configuration entity defining each of the 24 authorized branch types and their r
 
 ### Complete Type Definitions
 
-All 24 types are listed in [contracts/branch-naming.contract.md](./contracts/branch-naming.contract.md) with full routing rules.
+The original 25 types are listed in [contracts/branch-naming.contract.md](./contracts/branch-naming.contract.md) with full routing rules. The other 13 are routed in `.github/branch-types.yml`.
 
 ### Key Invariants
 

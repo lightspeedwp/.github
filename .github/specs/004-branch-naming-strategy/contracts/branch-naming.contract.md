@@ -1,6 +1,6 @@
 # Branch Naming Contract
 
-**Purpose**: Authoritative specification of the 24 branch types, their routing rules, and validation contract
+**Purpose**: Authoritative specification of the 38 branch types, their routing rules, and validation contract
 
 **Effective Date**: 2026-09-13
 
@@ -8,7 +8,9 @@
 
 ---
 
-## Type Definitions (24 Authorized Types)
+## Type Definitions (38 Authorized Types)
+
+The table below lists the original 25 types. The other 13 (`doc`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `aiops`, `automation`, `epic`) are authorized by the validator and routed in `.github/branch-types.yml`.
 
 | Type | Purpose | Example | PR Template | Default Labels | Area Detection |
 |------|---------|---------|-------------|-----------------|-----------------|
@@ -47,13 +49,15 @@
 All branch names MUST match this regular expression:
 
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|audit|codex|revert|research)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
+^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
 ```
+
+**Release exception**: a semantic-version release branch also matches, without a scope and title: `^release/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$`, so `release/v1.2.3` and `release/1.2.3-rc1` are valid. Dots are not allowed inside a suffix, so `release/v1.2.3-beta.1` is rejected.
 
 **Breakdown**:
 
 - `^` — Start of string
-- `(feat|fix|...|research)` — One of the 24 authorized types
+- `(feat|fix|...|epic)` — One of the 38 authorized types
 - `/` — Literal slash separator
 - `[a-z0-9]+(-[a-z0-9]+)*` — Scope: lowercase alphanumeric + hyphens, no consecutive hyphens
 - `-` — Literal hyphen separator between scope and title
@@ -287,7 +291,7 @@ Area labels are auto-detected from branch scope using keyword mapping:
 Before a developer pushes a branch, the local hook validates:
 
 1. Branch name matches pattern
-2. Type is one of 24 authorized values
+2. Type is one of 38 authorized values
 3. Prefix is not forbidden
 4. Scope and title are properly formatted
 
@@ -356,7 +360,7 @@ Changes to this contract require:
 
 **No changes permitted to**:
 
-- The 24 authorized type values (frozen)
+- The 38 authorized type values (frozen)
 - Forbidden prefix list (frozen)
 - Pattern validation regex (frozen)
 

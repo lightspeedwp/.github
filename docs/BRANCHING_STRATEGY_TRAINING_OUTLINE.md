@@ -260,7 +260,7 @@ Before training:
 - [ ] FAQ open for reference questions
 - [ ] Examples from recent PRs
 - [ ] Live validation command tested
-- [ ] Understand 24 types well enough to explain
+- [ ] Understand 38 types well enough to explain
 
 After training:
 

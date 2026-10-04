@@ -119,7 +119,7 @@ The branch naming pattern is: `{type}/{scope}-{title}`
 **Component 1: Type** (lowercase, no spaces or underscores)
 
 - Indicates the **kind of work** being done
-- Choose from the 38 allowed types (see Section 3.1–3.3)
+- Choose from the 38 allowed types (see Section 9.5)
 - Separate from scope with a single forward slash `/`
 - Example: `feat`, `fix`, `docs`, `refactor`
 
