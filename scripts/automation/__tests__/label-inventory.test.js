@@ -9,7 +9,11 @@ import {
   collectPages,
   buildInventory,
   incompleteRepositories,
+  incompleteRepositoryLabels,
+  isUnderTrackedGithubDirectory,
   privateRepositoryGap,
+  publicRepositoryName,
+  redactInventory,
   resolveToken,
 } from '../label-inventory.js';
 
@@ -144,6 +148,106 @@ describe('label-inventory', () => {
           reported_private_repository_count: 0,
         })
       ).toBeNull();
+    });
+  });
+
+  // This repository is public, so the tracked evidence must not name a private
+  // repository or list its labels (decision of 2026-10-04), while completeness is
+  // still judged on every repository.
+  describe('redacting private repositories', () => {
+    const inventory = {
+      generated_at: '2026-10-04T00:00:00.000Z',
+      organisation: 'lightspeedwp',
+      repository_count: 3,
+      private_repository_count: 2,
+      reported_private_repository_count: 2,
+      label_total: 12,
+      repositories: [
+        {
+          repository: 'lightspeedwp/public-tool',
+          archived: false,
+          fork: false,
+          private: false,
+          label_count: 2,
+          pages_read: 1,
+          labels: [{ name: 'type:bug', color: 'AAAAAA', description: 'x' }],
+        },
+        {
+          repository: 'lightspeedwp/acme-client-site',
+          archived: false,
+          fork: false,
+          private: true,
+          label_count: 7,
+          pages_read: 1,
+          labels: [{ name: 'acme-launch', color: 'BBBBBB', description: 'secret' }],
+        },
+        {
+          repository: 'lightspeedwp/other-client-site',
+          archived: true,
+          fork: false,
+          private: true,
+          label_count: 3,
+          pages_read: 1,
+          labels: [],
+        },
+      ],
+    };
+
+    it('names no private repository and lists none of its labels', () => {
+      const text = JSON.stringify(redactInventory(inventory));
+      for (const leaked of ['acme-client-site', 'other-client-site', 'acme-launch', 'secret']) {
+        expect(text).not.toContain(leaked);
+      }
+    });
+
+    it('keeps public repositories whole and private ones as counts under placeholders', () => {
+      const redacted = redactInventory(inventory);
+      expect(redacted.repositories[0]).toEqual(inventory.repositories[0]);
+      expect(redacted.repositories[1]).toEqual({
+        repository: 'lightspeedwp/private-repository-001',
+        archived: false,
+        fork: false,
+        private: true,
+        label_count: 7,
+        pages_read: 1,
+      });
+      expect(redacted.repositories[2].repository).toBe('lightspeedwp/private-repository-002');
+      expect(redacted.redacted).toBe(true);
+      expect(redacted.private_repository_count).toBe(2);
+      expect(redacted.label_total).toBe(12);
+    });
+
+    it('leaves the full inventory untouched', () => {
+      redactInventory(inventory);
+      expect(inventory.repositories[1].repository).toBe('lightspeedwp/acme-client-site');
+      expect(inventory.repositories[1].labels).toHaveLength(1);
+    });
+
+    it('still passes the completeness checks, because they ran on the full inventory', () => {
+      const redacted = redactInventory(inventory);
+      expect(incompleteRepositories(redacted)).toEqual([]);
+      expect(privateRepositoryGap(redacted)).toBeNull();
+    });
+
+    it('says a private repository in a message, not its name', () => {
+      expect(publicRepositoryName(inventory.repositories[0])).toBe('lightspeedwp/public-tool');
+      expect(publicRepositoryName(inventory.repositories[1])).toBe('a private repository');
+      const broken = {
+        ...inventory,
+        repositories: inventory.repositories.map((repo) => ({ ...repo, pages_read: 0 })),
+      };
+      const labels = incompleteRepositoryLabels(broken);
+      expect(labels).toContain('lightspeedwp/public-tool');
+      expect(labels.join(' ')).not.toContain('client-site');
+    });
+
+    it('refuses a full-output path inside the tracked .github directory', () => {
+      const cwd = '/repo';
+      expect(isUnderTrackedGithubDirectory('.github/reports/full.json', cwd)).toBe(true);
+      expect(isUnderTrackedGithubDirectory('.github', cwd)).toBe(true);
+      expect(isUnderTrackedGithubDirectory('.private-evidence/full.json', cwd)).toBe(false);
+      expect(isUnderTrackedGithubDirectory('/tmp/full.json', cwd)).toBe(false);
+      expect(isUnderTrackedGithubDirectory('.githubx/full.json', cwd)).toBe(false);
     });
   });
 });

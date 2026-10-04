@@ -4,7 +4,7 @@ Defines the per-repository deletion dry run that @ashleyshaw approves before any
 
 ## Per-repository dry run
 
-Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate issue that replaces #95.
+Saved as `evidence/dry-run/{repo}.json` and summarised in a comment on the gate issue that replaces #95. For a private repository the file stays under `.private-evidence/dry-run/` and is neither committed nor summarised in the public gate issue (decision of 2026-10-04).
 
 ```json
 {

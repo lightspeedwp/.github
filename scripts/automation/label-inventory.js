@@ -15,8 +15,14 @@
  * public repositories in other organisation repos, so the script refuses to
  * run inside GitHub Actions and fails when private repositories are missing.
  *
+ * Private repositories (decision of 2026-10-04): they are inventoried, so the
+ * clean-up covers them, but this repository is public, so the file committed to
+ * it never names one. `--output` (the tracked evidence file) is always the
+ * redacted inventory; `--full-output` writes the complete one and must be
+ * outside `.github/`, for example under `.private-evidence/` (ignored by git).
+ *
  * Usage:
- *   LABEL_INVENTORY_TOKEN=... node scripts/automation/label-inventory.js [--org lightspeedwp] [--output path]
+ *   LABEL_INVENTORY_TOKEN=... node scripts/automation/label-inventory.js [--org lightspeedwp] [--output path] [--full-output path]
  */
 
 import fs from 'fs';
@@ -172,11 +178,79 @@ export function resolveToken(env) {
   return { token };
 }
 
+/**
+ * Withhold what identifies a private repository, keeping what completeness
+ * needs. This repository is public, so the tracked evidence must not name a
+ * private repository or list its labels (decision of 2026-10-04): a private
+ * entry keeps its counts and flags under a numbered placeholder, and its
+ * label list is dropped. Public repositories are unchanged. Completeness is
+ * judged on the full inventory before this runs.
+ * @param {object} inventory Result of buildInventory.
+ * @returns {object} A copy that is safe to commit to a public repository.
+ */
+export function redactInventory(inventory) {
+  let number = 0;
+  const repositories = inventory.repositories.map((repo) => {
+    if (!repo.private) return repo;
+    number += 1;
+    return {
+      repository: `${inventory.organisation}/private-repository-${String(number).padStart(3, '0')}`,
+      archived: repo.archived,
+      fork: repo.fork,
+      private: true,
+      label_count: repo.label_count,
+      pages_read: repo.pages_read,
+    };
+  });
+  return {
+    ...inventory,
+    redacted: true,
+    redaction_note:
+      'Private repository names and labels are withheld from this public repository; the counts are kept so completeness can be checked.',
+    repositories,
+  };
+}
+
+/**
+ * A repository's name for a message or a public report: its own name when it
+ * is public, and a generic phrase when it is private.
+ * @param {object} repo An inventory entry.
+ * @returns {string}
+ */
+export function publicRepositoryName(repo) {
+  return repo.private ? 'a private repository' : repo.repository;
+}
+
+/**
+ * The repositories that fail the pagination rule, named only where public.
+ * @param {object} inventory Result of buildInventory.
+ * @returns {string[]}
+ */
+export function incompleteRepositoryLabels(inventory) {
+  const failing = new Set(incompleteRepositories(inventory));
+  return inventory.repositories
+    .filter((repo) => failing.has(repo.repository))
+    .map((repo) => publicRepositoryName(repo));
+}
+
+/**
+ * Whether a path is inside the tracked `.github` directory of this repository,
+ * where nothing that names a private repository may be written.
+ * @param {string} target Output path.
+ * @param {string} [cwd] Working directory.
+ * @returns {boolean}
+ */
+export function isUnderTrackedGithubDirectory(target, cwd = process.cwd()) {
+  const relative = path.relative(path.resolve(cwd, '.github'), path.resolve(cwd, target));
+  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+}
+
 function parseArgs(argv) {
-  const args = { org: 'lightspeedwp', output: DEFAULT_OUTPUT };
+  const args = { org: 'lightspeedwp', output: DEFAULT_OUTPUT, fullOutput: null };
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === '--org') args.org = argv[(i += 1)];
     else if (argv[i] === '--output') args.output = argv[(i += 1)];
+    else if (argv[i] === '--full-output') args.fullOutput = argv[(i += 1)];
   }
   return args;
 }
@@ -189,10 +263,20 @@ async function main() {
   }
   const { Octokit } = await import('octokit');
   const client = new Octokit({ auth: token });
-  const { org, output } = parseArgs(process.argv.slice(2));
+  const { org, output, fullOutput } = parseArgs(process.argv.slice(2));
+
+  // The full inventory may name private repositories, so it is only ever written
+  // outside the tracked `.github` directory (this repository is public). Checked
+  // before any API call.
+  if (fullOutput && isUnderTrackedGithubDirectory(fullOutput)) {
+    console.error(
+      '❌ --full-output must be outside .github/, because the full inventory names private repositories and this repository is public'
+    );
+    process.exit(1);
+  }
 
   const inventory = await buildInventory(client, org);
-  const incomplete = incompleteRepositories(inventory);
+  const incomplete = incompleteRepositoryLabels(inventory);
   if (incomplete.length > 0) {
     console.error(`❌ Incomplete pagination for: ${incomplete.join(', ')}`);
     process.exit(1);
@@ -203,10 +287,15 @@ async function main() {
     process.exit(1);
   }
 
+  if (fullOutput) {
+    fs.mkdirSync(path.dirname(fullOutput), { recursive: true });
+    fs.writeFileSync(fullOutput, `${JSON.stringify(inventory, null, 2)}\n`);
+  }
+  const publicInventory = redactInventory(inventory);
   fs.mkdirSync(path.dirname(output), { recursive: true });
-  fs.writeFileSync(output, `${JSON.stringify(inventory, null, 2)}\n`);
+  fs.writeFileSync(output, `${JSON.stringify(publicInventory, null, 2)}\n`);
   console.log(
-    `✅ ${inventory.repository_count} repositories, ${inventory.label_total} labels → ${output}`
+    `✅ ${inventory.repository_count} repositories (${inventory.private_repository_count} private, names withheld), ${inventory.label_total} labels → ${output}${fullOutput ? ` (full inventory: ${fullOutput})` : ''}`
   );
 }
 

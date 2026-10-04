@@ -95,6 +95,11 @@ jobs:
           GITHUB_TOKEN: ${{ steps.app-token-read.outputs.token }}
           GITHUB_WRITE_TOKEN: ${{ steps.app-token-write.outputs.token }}
           LINEAR_API_KEY: ${{ secrets.LINEAR_API_KEY }}
+          # Optional. Private repository detail is written only to this private
+          # repository; without both, it is withheld. Never name a private
+          # repository in this public repository.
+          PRIVATE_REPORT_REPO: ${{ vars.PRIVATE_REPORT_REPO }}
+          PRIVATE_REPORT_TOKEN: ${{ secrets.PRIVATE_REPORT_TOKEN }}
           DRY_RUN: ${{ inputs.dry_run }}
         run: |
           args=""
