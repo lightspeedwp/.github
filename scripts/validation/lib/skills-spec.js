@@ -239,6 +239,12 @@ const PERMISSION_VALUES = Object.freeze([
   'github:actions',
 ]);
 
+/**
+ * The values an agent's `status` may take. Mirrors the enum under `status` in
+ * `.schemas/frontmatter.schema.json` (`commonFields`); a test compares the two.
+ */
+const STATUS_VALUES = Object.freeze(['active', 'deprecated', 'draft', 'experimental']);
+
 function validateOptionalFieldShapes(frontmatter, fileClass) {
   const findings = [];
   // `title`, `last_updated` and `description` sit in this list although they are
@@ -254,6 +260,8 @@ function validateOptionalFieldShapes(frontmatter, fileClass) {
     'title',
     'last_updated',
     'description',
+    'author',
+    'status',
   ];
 
   for (const field of stringFields) {
@@ -290,6 +298,21 @@ function validateOptionalFieldShapes(frontmatter, fileClass) {
     }
   }
 
+  // `status` is a string from a fixed set in `.schemas/frontmatter.schema.json`. The
+  // string-type check above reports a non-string; a string outside the set is
+  // reported here, with `status` as the subject so the baseline keys it per field.
+  const status = frontmatter.status;
+  if (
+    fileClass === 'subagent-definition' &&
+    typeof status === 'string' &&
+    !STATUS_VALUES.includes(status)
+  ) {
+    findings.push(
+      `\`status\` must be one of ${STATUS_VALUES.join(', ')} but is ${JSON.stringify(status)}. ` +
+        `Fix: use one of ${STATUS_VALUES.join(', ')}.`
+    );
+  }
+
   // `permissions` is a list of scope strings in `.schemas/frontmatter.schema.json`,
   // so a scalar (`permissions: read`) or an unknown scope is a finding. Allowing the
   // field in the closed set without checking its shape would let a document that
@@ -305,8 +328,10 @@ function validateOptionalFieldShapes(frontmatter, fileClass) {
       for (const entry of permissions) {
         if (typeof entry !== 'string' || !PERMISSION_VALUES.includes(entry)) {
           findings.push(
-            `\`permissions\` entry ${JSON.stringify(entry)} is not a permitted scope. ` +
-              `Fix: use one of ${PERMISSION_VALUES.join(', ')}.`
+            // "must be" is what the baseline's subject extractor looks for, so the
+            // finding is keyed by the field and not shared with another field's shape error.
+            `\`permissions\` must be a list of permitted scope strings, but entry ${JSON.stringify(entry)} ` +
+              `is not a permitted scope. Fix: use one of ${PERMISSION_VALUES.join(', ')}.`
           );
         }
       }
@@ -948,6 +973,7 @@ module.exports = {
   MAX_COMPATIBILITY_LENGTH,
   validateOptionalFieldShapes,
   PERMISSION_VALUES,
+  STATUS_VALUES,
   requiredFieldsFor,
   MAX_DESCRIPTION_LENGTH,
   MAX_NAME_LENGTH,

@@ -197,8 +197,8 @@ PRETTIER_PRINT_WIDTH=80
     "lint": "run-p --continue-on-error lint:js lint:yaml lint:pkg-json",
     "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json && npm run typecheck",
     "lint:fast": "oxlint",
-    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --cache --cache-location .eslintcache",
-    "lint:js:fix": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --fix",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --cache --cache-strategy content --cache-location .eslintcache",
+    "lint:js:fix": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --fix",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p website/tsconfig.json",
     "lint:actionlint": "node scripts/validation/run-actionlint.cjs",
     "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.config.cjs",
@@ -214,11 +214,11 @@ PRETTIER_PRINT_WIDTH=80
 {
   "scripts": {
     "format": "npm run format:js && npm run format:json && npm run format:md",
-    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write",
-    "format:js:fix": "eslint '**/*.{js,jsx,ts,tsx}' --no-error-on-unmatched-pattern --fix",
+    "format:js": "prettier '**/*.{js,jsx,ts,tsx,cjs,mjs}' --write",
+    "format:js:fix": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --fix",
     "format:json": "prettier '**/*.json' --write '!package-lock.json' '!**/node_modules/**'",
     "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
-    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx}'"
+    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,cjs,mjs}'"
   }
 }
 ```
@@ -300,7 +300,7 @@ npx lint-staged
 // .lintstagedrc.cjs — takes precedence over any package.json "lint-staged" field.
 // Staged-file exclusions and the changed-line Markdown behaviour are preserved.
 module.exports = {
-  "*.{js,jsx,ts,tsx}": (filenames) => {
+  "*.{js,jsx,ts,tsx,cjs,mjs}": (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
     return included.length ? [`eslint --fix ${q(included)}`, `prettier --write ${q(included)}`] : [];
   },

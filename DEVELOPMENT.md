@@ -98,8 +98,10 @@ formatter (not as an ESLint rule).
 
 `npm run format:check` is repo-wide and informational: the repository carries a
 large backlog of pre-existing formatting drift (626 files), so it is not
-enforced as a required CI check. Format the files you touch with
-`npm run format:js`, or let lint-staged do it at commit time.
+enforced as a required CI check. Format only the files you touch, with
+`npx prettier --write path/to/file.js`, or let lint-staged do it at commit time.
+`npm run format:js` rewrites every JS and TS file in the repository, so use it
+only for an intentional repository-wide formatting change.
 
 `npm run lint:js` is read-only. Use `npm run lint:js:fix` to apply ESLint fixes
 and the `format:*` scripts to apply Prettier formatting. ESLint runs with a
