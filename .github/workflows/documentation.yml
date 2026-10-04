@@ -36,6 +36,16 @@ on:
       - '.github/instructions/**'
       - 'docs/**'
       - 'scripts/**'
+      # The skill-spec job below reads SKILL.md, agent definitions and AGENTS.md
+      # files, so a change to any of them, or to the validator, must reach it.
+      - 'skills/**'
+      - 'agents/**'
+      - 'plugins/**'
+      - '.claude/**'
+      - '**/*.agent.md'
+      - '**/AGENTS.md'
+      - 'package.json'
+      - 'package-lock.json'
 
   push:
     branches:
@@ -47,6 +57,14 @@ on:
       - '.github/instructions/**'
       - 'docs/**'
       - 'scripts/**'
+      - 'skills/**'
+      - 'agents/**'
+      - 'plugins/**'
+      - '.claude/**'
+      - '**/*.agent.md'
+      - '**/AGENTS.md'
+      - 'package.json'
+      - 'package-lock.json'
 
 permissions:
   contents: read
@@ -491,6 +509,53 @@ jobs:
             );
           '
 
+  skill-spec:
+    name: Skill and Agent Spec Validation
+    # Validates the skill and agent rules for every pull request and push that can
+    # affect a SKILL.md, an agent definition or an AGENTS.md file. `develop` currently
+    # requires no status checks at all, so this is advisory: it reports when the
+    # workflow triggers and is skipped when the trigger-level `paths` filter does not
+    # match. A filtered-out run never reports, which would leave the check pending.
+    # If it is ever made a required check, it has to move to a workflow with
+    # no `paths` filter.
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'pull_request' || github.event_name == 'push'
+    permissions:
+      # Read-only. The job runs `npm ci` and then a script from the checkout, so
+      # on a pull request both are contributor-controlled and the job token must
+      # not stay reachable from them. Matches every other job in this workflow.
+      contents: read
+    concurrency:
+      group: skill-spec-${{ github.event.pull_request.number || github.ref }}
+      cancel-in-progress: true
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
+
+      - name: Per-class conformance report
+        # Prints the counts per file class so progress is measurable, and exits 0.
+        run: node scripts/validation/validate-skills.js --report
+
+      - name: Validate skills and agent definitions
+        # Fails on any finding absent from scripts/validation/skills-baseline.json,
+        # so the baseline cannot hide a regression. Each error names the file, the
+        # rule, the class it was checked against and the specification URL.
+        run: npm run validate:skills
+
   skill-doc-contracts:
     name: Skill Documentation Contracts
     runs-on: ubuntu-latest
@@ -536,7 +601,15 @@ jobs:
             exit 1
           fi
 
+      - name: Check badge URLs for unencoded spaces
+        run: |
+          if ! npm run --silent validate:badge-urls; then
+            echo "::error title=Badge URL encoding::A shields.io badge URL ends at an unencoded space, so GitHub renders a broken autolink instead of an image. Run 'npm run validate:badge-urls:fix' to repair, then re-run this job. See issue #3702."
+            exit 1
+          fi
+
   maintain:
+
     name: Documentation Maintenance
     runs-on: ubuntu-latest
     timeout-minutes: 15

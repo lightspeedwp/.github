@@ -114,7 +114,7 @@
     "validate:footers:shape": "node scripts/dedupe-footers.js --check --shape",
     "measure:footers:shape": "node scripts/measure-footer-shape.js",
     "validate:mermaid-contrast": "node scripts/validation/validate-mermaid-colour-contrast.js",
-    "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:skill-doc-contracts && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:linear-guidance && npm run validate:json:all",
+    "validate:all": "npm run validate:structure && npm run validate:skills && npm run validate:skill-doc-contracts && npm run validate:badge-urls && npm run validate:plugins && npm run validate:links && npm run validate:frontmatter && npm run validate:agents && npm run validate:workflows && npm run validate:changelog && npm run validate:linear-guidance && npm run validate:json:all",
     "create:agent": "node scripts/create-agent-spec.js",
     "validate:report": "node scripts/generate-validation-report.js",
     "validate:report:json": "node scripts/generate-validation-report.js --format json",
@@ -127,6 +127,7 @@
     "audit:structure": "node scripts/validation/audit-agents.js structure",
     "audit:dedup": "node scripts/validation/audit-agents.js dedup",
     "audit:registry": "node scripts/validation/audit-agents.js registry",
+    "audit:skills-registry": "node scripts/validation/phase-6-skills-registry.js",
     "audit:compliance": "node scripts/validation/audit-agents.js compliance",
     "audit:all": "npm run audit:agents",
     "analyze:performance": "node scripts/analyze-workflow-performance.js",
@@ -151,7 +152,9 @@
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check",
     "triage:analyze": "node scripts/triage-issues-needs-triage.js",
-    "triage:apply": "node scripts/apply-triage-improvements.js"
+    "triage:apply": "node scripts/apply-triage-improvements.js",
+    "linear:inventory": "node scripts/automation/linear-label-inventory.js",
+    "labels:drift-check": "node scripts/automation/label-drift-check.js"
   },
   "devDependencies": {
     "@actions/core": "3.0.1",
@@ -204,6 +207,7 @@
     "octokit": "5.0.5",
     "prettier": "^3.9.8",
     "puppeteer": "^25.11.0",
+    "semver": "^7.8.5",
     "typescript": "^5.0.0",
     "typescript-eslint": "8.70.0",
     "yaml": "2.9.1",
