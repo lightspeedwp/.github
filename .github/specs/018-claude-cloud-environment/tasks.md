@@ -23,7 +23,8 @@ spawn the hook with JSON on stdin.
 - The spec amendment (T001) went in `docs/claude-cloud-environment-spec` (lightspeedwp/.github#3525).
 
 A task is ticked only once its change is on `develop` or in the PR that delivers this spec's reconciliation
-(#3726). Work delivered on #3358 is noted against its task and ticked when #3358 merges. This keeps the baseline
+(#3726). This reconciliation preserves every existing tick, T033 included. New work delivered on #3358 is noted
+against its task and ticked when #3358 merges; T033's status is revisited once T053 lands (see T060). This keeps the baseline
 for `/speckit-converge` and `/speckit-implement` accurate (refreshed 2026-10-02).
 
 ## Format: `[ID] [P?] [Story] Description`
