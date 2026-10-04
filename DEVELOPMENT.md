@@ -75,7 +75,10 @@ formatter (not as an ESLint rule).
   npm run typecheck
   ```
 
-- Lint GitHub Actions workflows (actionlint):
+- Lint GitHub Actions workflows (actionlint). This needs `actionlint` on your PATH
+  (`brew install actionlint`, `scoop install actionlint`, or a release from
+  <https://github.com/rhysd/actionlint/releases>). On x86-64 Linux the checked-in
+  binary is used when none is installed:
 
   ```bash
   npm run lint:actionlint

@@ -86,7 +86,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.json && npm run typecheck:website",
     "typecheck:website": "tsc --noEmit -p website/tsconfig.json",
     "lint:fast": "oxlint",
-    "lint:actionlint": "bash scripts/validation/lint-actionlint.sh",
+    "lint:actionlint": "node scripts/validation/run-actionlint.cjs",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
     "format:js": "prettier '**/*.{js,jsx,ts,tsx,cjs,mjs}' --write",
