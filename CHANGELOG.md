@@ -94,6 +94,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Markdown Commit Check Works After A Stale Install** — Fixed the staged-Markdown commit check crashing on a working copy installed before a tooling upgrade. It now accepts the older version and lints as normal. (#3785)
+
 - **Bare Jest Uses the Intended Config** — The broken root Jest config is gone and a root `jest.config.cjs` now forwards to `.jest.config.cjs`, so bare `npx jest` no longer runs 76 suites this repository excludes. (#3711)
 
 - **Label Drift Check Signs In To Linear** — The weekly check now sends the Linear key the way Linear expects, so its request is no longer refused as a bad authorisation header. (#3760)
