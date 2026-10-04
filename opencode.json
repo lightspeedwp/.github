@@ -1,20 +1,16 @@
 {
   "$schema": "https://opencode.ai/config.json",
+  "lsp": true,
+  "formatter": true,
   "mcp": {
     "graft": {
       "type": "local",
-      "command": [
-        "graft",
-        "mcp"
-      ],
+      "command": ["graft", "mcp"],
       "enabled": true
     },
     "graphify": {
       "type": "local",
-      "command": [
-        "graphify-mcp",
-        "graphify-out/graph.json"
-      ],
+      "command": ["graphify-mcp", "graphify-out/graph.json"],
       "enabled": true,
       "timeout": 60000
     }
