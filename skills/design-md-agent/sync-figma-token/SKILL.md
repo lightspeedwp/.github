@@ -33,7 +33,7 @@ If source format is non-standard, explicitly state assumptions in dry-run output
 
 ## Required policies before writes
 
-- `direction`: `code_to_figma` (default), `figma_to_code`, `bidirectional`
+- `direction`: `code_to_figma` only. This is the sole supported value because this skill writes to Figma and nothing else; there is no code-write path here. Do not accept `figma_to_code` or `bidirectional`: an earlier version of this file advertised both, which let a caller select a direction whose apply step wrote to the wrong side, or no side at all. Route the reverse direction to `figma-themejson-palette`, `figma-themejson-typography`, `figma-themejson-spacing`, `figma-themejson-radius` or `figma-themejson-shadow`, which write code from Figma variables, or use `lightspeed-figma-wordpress-parity-auditor` for a read-only comparison.
 - `deletePolicy`: default `archive_only` (NOT delete)
 - `conflictPolicy`: `prefer_code`, `prefer_figma`, `manual_review`
 - `namingPolicy`: token key normalization strategy
@@ -119,7 +119,7 @@ When conflicting data is found (type/mode/alias ambiguity):
 
 - If `conflictPolicy=manual_review`, list conflicts and STOP.
 - If `conflictPolicy=prefer_code`, update Figma to source values/types.
-- If `conflictPolicy=prefer_figma`, keep Figma and emit drift as informational.
+- If `conflictPolicy=prefer_figma`, keep Figma, emit drift as informational, and record the drift as unresolved. Because `direction` is `code_to_figma` only, this policy never writes code: a Figma value that wins is reported for a human to reconcile in the token source, not applied here.
 
 ## Apply order
 

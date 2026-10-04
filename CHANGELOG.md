@@ -3,7 +3,7 @@ title: 'Changelog'
 description: 'All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning'
 file_type: 'documentation'
 created_date: '2025-09-20'
-last_updated: '2026-09-27'
+last_updated: '2026-10-02'
 consolidation_phase: 'Phase 1 (merged sections)'
 owners:
   - LightSpeed Team
@@ -28,11 +28,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Skill and Agent Validation Across the Repository** — The skills check now covers every skill, subagent and agents file, each judged by the rules for its own kind, and reports counts by kind. (#3707)
-
-- **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
-- **Governance audit report ids are unique and self-consistent** — Fixed duplicate violation ids and recommendation references that no longer resolved, plus Spec 006 count and enforcement wording. (#3367)
-- **Governance audit reports now render in a stable order** — Fixed report output changing with the order findings arrived, so two runs of the same audit are comparable. (#3367)
+- **Specs and Skills Validation Tooling** — Added validation tooling and docs for agent folders, skills registries, and manifest files. Registries now validate against the 014 contract. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
+- **Label Write Queue** — Added a queue that spaces label writes one second apart and pauses on GitHub or Linear rate limits. Nothing calls it yet; later consolidation stages will. (#3704)
+- **Weekly Label Drift Check** — A scheduled workflow compares every org repository and Linear label against labels.yml and updates one drift report issue; read-only, never writes labels. (#3754)
+- **Badge Links Stop Breaking On Spaces** — The generator percent-encodes labels, so a multi-word badge resolves instead of ending at the first space. A check reports the 76,594 broken ones, with a fix mode. (#3702)
+- **Badge Check Handles Titled and Nested Examples** — A badge carrying a quoted title is no longer reported or rewritten, and a badge inside a nested code fence is left alone. (#3702)
+- **Skill Documentation Contracts Enforced in CI** — A new check fails a pull request when a skill entry point offers a status label its own reference files do not define, and closes the contract against the bundled references. (#3702)
 - **Footer Shape Signal** — `npm run validate:footers:shape` reports files holding two or more footer-shaped blocks the wording-based deduper cannot see. Advisory only: never edits a file, never fails a build. (#3682)
 - **CI and Changelog Agent Specs** — Added the CI failure remediation spec (017) and changelog agent quality spec (016), and updated the agent consolidation spec (014) tasks. (#3500)
 - **Code Graphs for OpenCode** — OpenCode can use locally built graft and graphify code graphs to locate code before searching files. The graphs are not committed. (#3569)
@@ -42,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Shared Review and Phase Workflows** — Other repositories can now reuse the review-feedback check (warnings only by default) and the automatic phase-label workflow, which now really applies labels. (#3480)
 - **Shared Claude Code Cloud Environment** — One cloud setup for the whole team. The branch guard now refuses covered shell commands that would break the branching strategy, including commands hidden in a nested shell. (#3524)
 - **Claude Guard Merge Queue Coverage** — The branch guard's contract tests now run for merge-queue batches as well as pull requests, so the check can be required without blocking every queued merge. (#3524)
+- **Branch-Guard Gaps Closed** — Fixed six request shapes the branch guard mishandled: five let protected-branch writes through and one wrongly refused a compliant `--input` variables map. (#3745)
 - **Cloud Environment Specification** — Documented the shared Claude Code cloud setup and the branch-name rules Claude sessions must follow, with automated checks that keep the spec consistent. (#3525)
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
@@ -54,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **CommonJS Files Are Now Linted** — The lint scope covers CommonJS and `.mjs` files, so 36 previously invisible errors are reported. (#3713)
 - **Lint Baseline That Must Shrink** — The 189 existing errors are recorded per file and rule; fixing any makes the build fail until the baseline is pruned. (#3713)
 - **Pre-Commit Lints CommonJS Files** — Staged `.cjs` and `.mjs` files are now linted and formatted on commit, matching the scripts. (#3713)
+- **Label Drift Check Dry Run Recorded** — The label audit evidence now records the passing dry run of the weekly drift check and marks the App setup task complete. (#3760)
 - **Task-Issue Creation Gated** — Bulk issue creation is now opt-in per spec with stale-path checks, and the skill file is free of bot footer spam. ([#3540](https://github.com/lightspeedwp/.github/issues/3540))
 - **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
 - **Footer Policy Actually Enforced** — Reference, example, and template files no longer get a footer added, matching the exemptions the documentation has always described. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
@@ -84,11 +87,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Per-Field Skill Findings** — Unknown fields and bad metadata keys report per field, so partial fixes record alone. The table now states directory-based classification. ([PR #3717](https://github.com/lightspeedwp/.github/pull/3717))
-- **Footer Matching No Longer Eats Instructions** — A generic opener such as "Update when …" is only a footer when emphasised, matching the shared policy, so real prose is no longer reported as an empty body. (#3717)
-- **Skill Frontmatter Types Are Checked** — A type-preserving schema catches `description: true` and `license: 42`. Required fields are shape-checked, impossible dates rejected, and spaced metadata keys no longer share a baseline entry. (#3717)
+- **Bare Jest Uses the Intended Config** — The broken root Jest config is gone and a root `jest.config.cjs` now forwards to `.jest.config.cjs`, so bare `npx jest` no longer runs 76 suites this repository excludes. (#3711)
 
-- **Empty Skill Detection Covers Every Footer** — The validator strips the whole trailing footer block and knows every phrase in the shared footer policy and `footers.yml`, so a heading plus any footer fails the gate. A test guards it. (#3707, #3717)
+- **Label Drift Check Signs In To Linear** — The weekly check now sends the Linear key the way Linear expects, so its request is no longer refused as a bad authorisation header. (#3760)
+- **Label Drift Check Reads Its Label List** — The weekly check no longer stops at its first step when loading the approved label list, and a test now runs that step the way the workflow does. (#3760)
+- **Label Drift Check Can Sign In** — The weekly check now uses the project automation App, which is installed on every repository, because the earlier App could not read issues and every run stopped at sign-in. (#3760)
+- **Bare Markdownlint Checks Without Rewriting** — A plain check now reports violations without modifying files; auto-fix still applies with explicit `--fix`. (#3756)
+- **Twelve Skill Documentation Defects Corrected** — Readiness bands, Chat app developer-mode paths, the design.md lint rule list, a triage label, chatbot-safe criteria, go/no-go gates and starter-pattern headers. (#3702)
+- **Project Memory Status Vocabulary Aligned** — The memory manager's core rule offered `Unknown`, a status its own reference does not define. (#3702)
 - **No Red Check on Stale Pull Requests** — A workflow merges develop into open branches and reports a conflict as a comment, replacing the Mergify rule that reported a failing check. ([#3574](https://github.com/lightspeedwp/.github/issues/3574))
 - **Docs Bot Skips Workflows Directory** — Regeneration skips `.github/workflows/`, so its pushes stop failing for want of App token `workflows` permission. (#3687)
 - **Footer Shape Figures Corrected** — Workflow comment: 899 flagged files, 255 holding fewer than two distinct known footer phrases. The runtime notice calls 28.4% a share of flagged files, not a false-positive rate. (#3682, #3604)
@@ -151,6 +157,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Test README Cross-Reference** — Added the broken-reference remediation guide to the test documentation index. ([PR #3440](https://github.com/lightspeedwp/.github/pull/3440))
 - **Branch Validator `config` Type** — Added the documented `config` type to the authorised validator list. (#3304)
 
+- **Specs Directory Structure Compliance** — Feature specifications now resolve to the configuration-driven `.github/specs/` location instead of root-level `specs/`. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
 - **Test Runner Working Directory Fixed** — Fixed shared worker state leaking the filesystem root into later test files. ([Issue #3340](https://github.com/lightspeedwp/.github/issues/3340))
 
 - **Dependabot Scope Fix** — Restored /website npm scanning and area:dependencies labels in dependabot.yml, dropped by a main->develop sync; needed for Mergify auto-merge. ([PR #3315](https://github.com/lightspeedwp/.github/pull/3315))
@@ -171,6 +178,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Validation Audit Specification Added** — Added the quality audit specification with duplicate detection. (#3348)
 
+- **Specs Directory Scripts & Docs** — Speckit scripts now take the specs directory from configuration, with backward-compatible defaults. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
+- **Specs Directory Phase 7 Tasks** — Appended convergence validation tasks tracking deferred Phase 6 verification work for the specs directory. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
 - **Governance Files Audit** — Consolidated duplicate label guidance, strengthened branch naming, and added specification-first workflow guidance with supporting audit artefacts. ([PR #3305](https://github.com/lightspeedwp/.github/pull/3305))
 - **Review Config Optimisation Completed** — Formalised the review configuration work with validation and audit guides. (#3304)
 

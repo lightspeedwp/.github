@@ -251,15 +251,14 @@ describe('label governance contracts (#3545)', () => {
         ? labeler[routerType]
         : [labeler[routerType]];
       const patterns = rules.filter(Boolean).flatMap((rule) => rule['head-branch'] || []);
-      const releaseRules = Array.isArray(labeler['type:release'])
-        ? labeler['type:release']
-        : [labeler['type:release']];
-      const releasePatterns = releaseRules
-        .filter(Boolean)
-        .flatMap((rule) => rule['head-branch'] || []);
+      const bugRules = Array.isArray(labeler['type:bug'])
+        ? labeler['type:bug']
+        : [labeler['type:bug']];
+      const bugPatterns = bugRules.filter(Boolean).flatMap((rule) => rule['head-branch'] || []);
 
+      expect(routerType).toBe('type:release');
       expect(patterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(true);
-      expect(releasePatterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(
+      expect(bugPatterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(
         false
       );
     });
