@@ -83,7 +83,7 @@ function apiHeaders() {
   return headers;
 }
 
-async function fetchLiveRulesets(slug) {
+async function fetchRulesetList(slug) {
   const response = await fetch(`${apiBase()}/repos/${slug}/rulesets?per_page=100`, {
     headers: apiHeaders(),
   });
@@ -92,6 +92,30 @@ async function fetchLiveRulesets(slug) {
     const detail = await response.text();
     throw new Error(
       `GET /repos/${slug}/rulesets failed: ${response.status} ${detail.slice(0, 200)}`
+    );
+  }
+
+  return response.json();
+}
+
+/**
+ * Fetch one ruleset in full.
+ *
+ * The list endpoint returns each ruleset without its `rules` or `conditions`;
+ * those are only populated by the per-ruleset endpoint. Comparing against the
+ * list shape reads every live field as empty (target ref null, rules [], no
+ * required checks) and reports total drift, so the full definition has to be
+ * fetched by id before anything is compared.
+ */
+async function fetchRulesetById(slug, id) {
+  const response = await fetch(`${apiBase()}/repos/${slug}/rulesets/${id}`, {
+    headers: apiHeaders(),
+  });
+
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(
+      `GET /repos/${slug}/rulesets/${id} failed: ${response.status} ${detail.slice(0, 200)}`
     );
   }
 
@@ -188,8 +212,16 @@ async function main() {
     process.exit(0);
   }
 
-  const liveRulesets = await fetchLiveRulesets(slug);
-  const liveByName = new Map(liveRulesets.map((ruleset) => [ruleset.name, ruleset]));
+  const listed = await fetchRulesetList(slug);
+
+  // The list endpoint omits rules/conditions, so hydrate each ruleset by id
+  // before comparing anything.
+  const liveByName = new Map();
+  for (const summary of listed) {
+    if (!summary?.id) continue;
+    const full = await fetchRulesetById(slug, summary.id);
+    liveByName.set(full.name, full);
+  }
 
   const results = [];
 

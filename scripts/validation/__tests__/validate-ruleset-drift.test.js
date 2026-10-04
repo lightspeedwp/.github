@@ -142,6 +142,18 @@ describe('validate-ruleset-drift', () => {
     expect(result.status).toBe(0);
   });
 
+  it('does not report drift when live is only served in summary shape', async () => {
+    // Regression guard: the list endpoint omits rules/conditions, so a validator
+    // comparing against summaries sees every field empty and calls it total
+    // drift. The mock strips those fields from the list response, so an in-sync
+    // declaration must still be reported OK.
+    const result = await runAgainst([liveMatching(declaredRuleset())]);
+
+    expect(result.output).toContain('OK');
+    expect(result.output).not.toContain('DRIFT');
+    expect(result.status).toBe(0);
+  });
+
   it('fails when the required_status_checks rule is missing live', async () => {
     const live = liveMatching(declaredRuleset());
     live.rules = live.rules.filter((rule) => rule.type !== 'required_status_checks');

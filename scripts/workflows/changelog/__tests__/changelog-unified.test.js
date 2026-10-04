@@ -6,7 +6,6 @@ const YAML = require('yaml');
 
 const repositoryRoot = path.resolve(__dirname, '../../../..');
 const workflowPath = path.join(repositoryRoot, '.github/workflows/changelog-unified.yml');
-const actionlintScriptPath = path.join(repositoryRoot, 'scripts/validation/lint-actionlint.sh');
 const workflowSource = fs.readFileSync(workflowPath, 'utf8');
 const workflow = YAML.parse(workflowSource);
 const temporaryDirectories = [];
@@ -270,14 +269,11 @@ describe('changelog unified workflow contract', () => {
   });
 
   test('keeps only the unified changelog workflow in the active actionlint list', () => {
-    // The active list lives in the shared script that both the workflow and
-    // lint:actionlint run, so the assertions read it there rather than from a
-    // second copy in the workflow.
-    const actionlint = fs.readFileSync(actionlintScriptPath, 'utf8');
-
-    expect(actionlint).toContain('.github/workflows/changelog-unified.yml');
-    expect(actionlint).not.toContain('.github/workflows/changelog-management.yml');
-    expect(actionlint).not.toContain('.github/workflows/changelog-validation.yml');
+    // lint:actionlint runs scripts/validation/run-actionlint.cjs, which reads
+    // the active workflow list from .github/workflows rather than carrying its
+    // own copy. So the list is asserted where it actually lives: on disk. Only
+    // the unified changelog workflow may exist, and it must be a real file so
+    // actionlint has something to read.
     expect(fs.existsSync(workflowPath)).toBe(true);
     expect(
       fs.existsSync(path.join(repositoryRoot, '.github/workflows/changelog-management.yml'))
