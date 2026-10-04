@@ -188,6 +188,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **GitHub Checks API for Changelog Validation** — Changelog violations now publish as a check run with per-entry annotations, each anchored to its own line and coloured by severity. ([PR #3376](https://github.com/lightspeedwp/.github/pull/3376))
+- **Changelog Check Run Skips Forks** — Check-run publication now requires a same-repository pull request, so a fork PR touching a changelog no longer fails on a read-only token. ([PR #3376](https://github.com/lightspeedwp/.github/pull/3376))
 - **Plugin Advisories and Register** — Added current scaffold tracking, safe asset versioning, a rate-limited newsletter example and project-controlled gateway approval. ([#1396](https://github.com/lightspeedwp/.github/issues/1396))
 - **GitHub Label Audit** — Audited all 169 canonical labels: `type:decision` had no issue type and 12 protected labels were missing from the label list, so they were removed from it. Added evidence and the label consolidation plan. (#3362)
 - Completed governance files audit identifying 7 findings: 1 critical duplicate, 5 major issues. Audit report ready for review; Phase 2 refactoring pending. (#3368)

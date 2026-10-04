@@ -223,9 +223,13 @@ describe('changelog unified workflow contract', () => {
     expect(workflow.permissions).toEqual({
       contents: 'read',
     });
+    // The quality job writes the PR comment, and now also creates a check run
+    // with per-entry annotations, which the Checks API requires `checks: write`
+    // for. Nothing else is granted.
     expect(workflow.jobs.quality.permissions).toEqual({
       contents: 'read',
       'pull-requests': 'write',
+      checks: 'write',
     });
     expect(workflow.jobs.sync.permissions).toEqual({
       contents: 'write',
@@ -249,6 +253,20 @@ describe('changelog unified workflow contract', () => {
     expect(findStep('quality', 'Set status check (new failures only)').if).toBe(
       "steps.changed-files.outputs.any_changed == 'true'"
     );
+  });
+
+  test('publishes the check run only for same-repository pull requests', () => {
+    const ifExpr = findStep('quality', 'Report validation as a check run').if;
+
+    // The job needs `checks: write`, which GitHub downgrades to read-only on a
+    // fork pull request, and head.sha then names a commit in the fork rather
+    // than this repository. Without this guard the step fails closed for a
+    // reason unrelated to the changelog.
+    expect(ifExpr).toContain('github.event.pull_request.head.repo.full_name == github.repository');
+
+    // The pre-existing guards must survive the addition.
+    expect(ifExpr).toContain('always()');
+    expect(ifExpr).toContain("steps.changed-files.outputs.any_changed == 'true'");
   });
 
   test('passes pull request values through environment variables in executable steps', () => {
