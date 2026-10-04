@@ -18,7 +18,7 @@ const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
 class FixVerifier {
   constructor(options = {}) {
     this.rootDir = options.rootDir || process.cwd();
-    this.reportPath = options.reportPath || 'agents/reports/broken-references-audit.json';
+    this.reportPath = options.reportPath || '.github/reports/agents/broken-references-audit.json';
     this.detector = new ReferenceDetector();
     this.scanner = new FileScanner({ rootDir: this.rootDir });
     this.results = {

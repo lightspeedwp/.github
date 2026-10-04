@@ -61,7 +61,7 @@
 | `discussion:*` | 7 | GitHub Discussions category labels |
 | `spec:*` (was `openspec:*`) | 9 | Spec status labels |
 
-**Curation Status**: Manually curated by @ashley, locked configuration, change requests via GitHub issues with specific tags.
+**Curation Status**: Manually curated by @ashleyshaw, locked configuration, change requests via GitHub issues with specific tags.
 
 ### 2. Issue Types Definition (`issue-types.yml`)
 
@@ -230,8 +230,8 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 
 ### R1. Renaming labels without losing issue associations
 
-- **Decision**: Rename labels in place (GitHub REST `PATCH /repos/{owner}/{repo}/labels/{name}` with `new_name`, or `gh label edit --name`). Where the target label already exists in a repository, relabel every issue and PR from source to target, then delete the source.
-- **Rationale**: An in-place rename keeps the label on every issue and PR; delete-and-recreate strips it (FR-012).
+- **Decision**: Rename labels in place (GitHub REST `PATCH /repos/{owner}/{repo}/labels/{name}` with `new_name`, or `gh label edit --name`). Where the target label already exists in a repository, relabel every issue, PR and Discussion from source to target, verify, then delete the source.
+- **Rationale**: An in-place rename keeps the label on every issue, PR and Discussion; delete-and-recreate strips it (FR-012).
 - **Alternatives considered**: `gh label clone --force` (creates and updates only; never renames or deletes, so it is used only for the create/update step).
 
 ### R2. Complete label inventory across the organisation
@@ -260,9 +260,10 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 
 ### R6. Stopping labels from being recreated
 
-- **Decision**: (a) Restrict label creation from Linear's GitHub integration; (b) limit repository label management to maintainers; (c) require automation that creates labels (for example the labeler and remediation scripts) to create only labels present in `labels.yml`; (d) weekly drift check (FR-017).
-- **Verify**: Which Linear integration settings control label creation, and which GitHub repository role can create labels. **Fallback**: rely on (c) and (d), which are fully under this repository's control.
+- **Decision**: (a) Turn off Linear's GitHub issue sync for the synced teams from the start of Stage 3 until Stage 5 ends (spec clarification 2026-10-02); (b) restrict repository label creation only where GitHub allows it without reducing anyone's existing repository access (FR-017); (c) require automation that creates labels (for example the labeler and remediation scripts) to create only labels present in `labels.yml`; (d) weekly drift check (FR-017).
+- **Verify**: Where in Linear the sync is turned off per team, and which GitHub repository role can create labels. **If the sync cannot be turned off, or its off state cannot be verified**: Stages 3–5 do not start. Controls (c) and (d) limit this repository's automation and report drift, but neither stops Linear's integration recreating labels mid-run, so they are not a fallback for (a).
 - **Rationale**: Issue #95 itself carries `migrate:*` labels created by automation, so permissions alone are not enough.
+- **Alternatives considered**: Restricting label creation in Linear to admins (unconfirmed whether it stops the integration); drift check only (labels can be recreated mid-run, as `status:done` was on 2026-09-24).
 
 ### R7. Weekly drift check
 
@@ -296,7 +297,7 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 
 ### R13. Credentials for organisation-wide changes (FR-018)
 
-- **Decision**: An organisation-wide GitHub App with only Issues (read/write) and Metadata (read), using short-lived installation tokens; a read-only Linear API key (`LINEAR_API_KEY`) for the drift check. Deletion runs and Linear writes run from @ashley's session, not CI.
+- **Decision**: An organisation-wide GitHub App with only Issues (read/write) and Metadata (read), using short-lived installation tokens; a read-only Linear API key (`LINEAR_API_KEY`) for the drift check. Deletion runs and Linear writes run from @ashleyshaw's session, not CI.
 - **Rationale**: The default workflow token can only reach `lightspeedwp/.github`. An App limits scope and lifetime; keeping destructive and write operations out of CI means a leaked CI secret cannot delete labels or change Linear.
 - **Alternatives considered**: A fine-grained personal access token (long-lived and tied to one person); running everything locally with no CI (loses the automated weekly drift check).
 
@@ -342,6 +343,38 @@ Added 2026-09-24 after the clarification sessions. Items marked **Verify** depen
 - **Finding**: `spec:001` (about 170 references) marks which spec an issue belongs to, in `.github/projects/active/prd-combined-agent/ISSUE_LABELING_PLAN.md`, `bulk-label-issues.sh` and `tests/bash/bulk-label-issues.bats`.
 - **Decision**: Spec-number labels move to `spec-id:NNN` in the configuration PR, so `spec:*` holds only the spec-status labels and one-per-family checks stay correct. This matches the existing `task:<ID>` labels.
 - **Alternatives considered**: Keep `spec:NNN` beside the status labels; retire spec-number labels and link specs in the issue body.
+
+### R21. Run safety for Stages 3 to 5 (FR-023, SC-011, SC-012)
+
+- **Finding**: FR-023 sets eleven rules for stopping, repeating and undoing consolidation runs. `label-consolidate.js` (T062) and the Linear clean-up (T069, T070) do not exist yet, so the rules are design input, not a change to existing code. GitHub's REST API asks for mutating requests to be made one at a time, at least one second apart, with `Retry-After` and `x-ratelimit-reset` honoured; Linear limits requests by query complexity.
+- **Decision**:
+  - The dry-run file is the run's state. A repository finished for a stage sets that stage's `executed_at` timestamp (Stage 3 or Stage 4), and a re-run of the same stage skips it, so a Stage 3 finish never hides a repository from Stage 4 deletion (Copilot review of #3703). A checkpoint only decides whether to skip a step and does not make the step atomic, so every action also stays idempotent, as in the next bullet ([checkpoint pipeline pattern](https://architecture.nextpoint.com/patterns/checkpoint-pipeline); [resumable processing](https://docs.nvidia.com/nemo/curator/latest/reference/infra/resumable-processing)).
+  - Every action compares the current state with the approved set first and writes nothing when they match. This gives idempotence and the no-op re-run check in Test 12.
+  - Before deleting, the tool re-reads the repository's labels and the items carrying each listed label, and skips the repository if anything differs from the approved dry run.
+  - Three append-only logs record what changed: `evidence/consolidation-log.jsonl` for GitHub (one record per change), `evidence/linear-writes.jsonl` for Linear issue writes (one record per issue write) and `evidence/linear-changes.jsonl` for Linear label-level changes (retire, move, restyle). Each record names who ran it. Rollback reads from them.
+  - Each change is logged twice. An `intended` record, holding the before-state, is written before the API call; a `done` record with the same `op_id` is written after the call succeeds. On resume, any `intended` record without a `done` record is checked against the live state: if the change happened, its `done` record is added; if not, the change is retried. An interrupted write therefore never loses the old label needed for rollback (CodeRabbit review of #3703, 2026-10-02). All three logs are JSON Lines and each record is flushed to disk before the next step, as in write-ahead logging, where the intent is durable before the side effect and recovery replays idempotent records ([crash-consistent applications](https://www.cs.utexas.edu/~witchel/378AC/lectures/037_crash_consistent_applications-slides.pdf)); a reader skips an unparsable last line, which is the interrupted write, and a writer that resumes first truncates the log back to its last newline, keeping the removed bytes in a `.partial` file, so the next record cannot join them (write-ahead-log recovery likewise discards a torn tail).
+  - Only one run writes at a time. A run takes `evidence/run-lock.json` (its `run_id`, `run_by`, `started_at`, `stage`, an `epoch`, its `host` and, after a resume, `resumed_from`) when it starts, holds an operating-system advisory lock (`flock`) on it while it runs, and releases it when it finishes; a second run refuses to start while the lock exists. Every run is made from @ashleyshaw's session in the one checkout of this repository used for consolidation (FR-018 already keeps them out of CI), and the lock file is created with an exclusive create, so of two runs that start together only one succeeds and the other stops. Each `op_id` starts with the `run_id`, so a resumed run reconciles only its own `intended` records and cannot overwrite another run's recovery state. A `run_id` is the UTC start time to the second plus eight random hex digits, a time-ordered, collision-resistant form like UUIDv7 ([RFC 9562](https://www.rfc-editor.org/rfc/rfc9562)), so two runs started in the same minute never share one. A crashed run is resumed, not cleared. The operating system releases an advisory lock when its process dies, so a lock file whose advisory lock is free is provably stale without checking process IDs, which can be reused ([stale lock detection and PID reuse](https://doc.qt.io/qtforpython-6.8/PySide6/QtCore/QLockFile.html)). `--resume <run_id>` takes the advisory lock, keeps the same `run_id` so the crashed run's unmatched `intended` records stay owned by it, raises the `epoch` by one and reconciles those records first. The `epoch` works as a fencing token, so a holder whose `epoch` is not the lock's current `epoch` must not append to any log, which covers a paused process that wakes after a takeover ([fencing tokens and leases](https://system-design.space/en/chapter/distributed-locks-leases-fencing/)). GitHub's API cannot validate a token, so the check is made by the tool before every append. A lock that will not be resumed is abandoned (`--abandon-run <run_id>`) only after @ashleyshaw confirms on the gate issue (CodeRabbit security review of #3703, hardening proposal; Copilot review of #3703).
+  - Stage 3 expands and migrates; only Stage 4 contracts. Unmapped and retiring labels stay on items until a repository's approved deletion, which migrates them and saves the snapshot first, so nothing is removed before its replacement exists ([parallel change, or expand and contract](https://www.martinfowler.com/bliki/ParallelChange.html)).
+  - Linear writes use a separate personal API key created for the run, with the narrowest scope that works (Write, and Admin only if Linear refuses a workspace-label change), restricted to the synced teams where Linear allows it and revoked after Stage 5; the read-only drift-check key is never used for writes ([Linear API keys](https://linear.app/docs/api-and-webhooks)).
+  - Items are recorded by kind and number, because issues and PRs share one number sequence and Discussions have their own.
+  - One shared request helper serialises mutating calls with a one-second gap and pauses on rate-limit headers. A paused run resumes like a stopped one.
+  - Linear labels are matched by ID and scope. Labels that differ only by case or spacing are separate sources and are never merged automatically.
+- **Rationale**: The dry-run file already holds per-repository approval, so making it the resume point needs no extra state. Append-only logs give one rollback source and one audit trail, which the gate-issue summary comment points to.
+- **Alternatives considered**: A separate run-state file (duplicates the dry run); rolling back from GitHub's audit log (not available for every repository, and it does not cover Linear); running repositories in parallel (risks secondary rate limits); logging only after success (leaves a gap where a change happened but nothing records the old state).
+
+### R22. OpenSpec paths outside the three rename rules (FR-013)
+
+- **Finding**: 33 of the 149 live OpenSpec paths match none of FR-013's three rules, for example `openspec-labels-automation/`, two `openspec-strict/` folders, seven `.openspec.yml`, `.openspec.yaml` or `openspec.json` files, `PHASE2_OPENSPEC.md` and `openspec-labels.test.js`.
+- **Decision** (2026-10-02 clarification): replace `openspec` with `spec` and `OPENSPEC` with `SPEC`; `speckit-` is used only inside the renamed skill and `speckit-changes/`. The config files are renamed, not deleted.
+- **Rationale**: `spec` matches the `spec:*` label prefix. The T048 draft and `label-audit-stage-one.test.js` already follow this rule, so neither changes.
+- **Alternatives considered**: `speckit` everywhere (names the tool, not the artefacts); leaving the paths unchanged (fails FR-013's zero-match check); deleting the config files (nothing reads them, but deletion is outside this rename's scope).
+
+### R23. Which file defines PR routing (constitution v1.4.0)
+
+- **Finding**: `scripts/pr-template-router.js` takes the template from `.github/branch-types.yml` and the labels from `.github/branch-labels.yml`. It never applies a template's frontmatter `labels`. Constitution v1.3.1 named `PULL_REQUEST_TEMPLATE/config.yml` as canonical, but that file disagrees with the router for 18 prefixes. In `branch-labels.yml`, 13 branch types have no `type:*` label, and 10 differ from their template.
+- **Decision** (constitution v1.4.0, #3732): `branch-types.yml` is canonical and `config.yml` mirrors it. The template's type label is authoritative, so `branch-labels.yml` gives each branch type exactly that label. All three files are locked under `[TEMPLATE-UPDATE-REQUEST]`.
+- **Rationale**: This matches what already runs, so no live routing changes, and it gives every PR exactly one `type:*` label (SC-011).
+- **Alternatives considered**: making `config.yml` canonical (would change live routing for 18 prefixes, and #3725 would move from `pr_audit.md` to `pr_feature.md`); making the branch label win (template frontmatter would become dead data).
 
 ### R10. Decision issue template
 
