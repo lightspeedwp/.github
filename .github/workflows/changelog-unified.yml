@@ -177,6 +177,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      checks: write
     steps:
       - name: Checkout code
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -400,6 +401,68 @@ jobs:
           echo "✅ Changelog validation passed (no new failures)"
         # No continue-on-error: a positive NEW_FAILED must fail the job
         # and enforce the changelog gate.
+
+      # Publishes the same report as a GitHub Check Run with per-entry
+      # annotations, which is what spec 003 FR-2 asks for: "Output format:
+      # GitHub PR check (red/yellow badge) with detailed violation list per
+      # entry" (.github/specs/003-changelog-quality-audit/spec.md).
+      #
+      # It runs after the status check so the required context is already
+      # decided, and it reads the report the validate step already wrote rather
+      # than re-running the validator.
+      # always(), because the status check step above exits non-zero when this
+      # change introduces failures. Without it the job stops there and the
+      # annotations are never published — which is exactly the case they exist
+      # for. The file changed guard still skips the run entirely when no
+      # changelog file was touched.
+      #
+      # The same-repository guard skips forks. This job needs `checks: write`,
+      # which GitHub downgrades to read-only on a fork pull request, and
+      # github.event.pull_request.head.sha then names a commit in the fork
+      # rather than this repository — a check run cannot be created against
+      # it. Because this step deliberately fails closed (no
+      # continue-on-error), an unguarded fork PR that touched a changelog file
+      # would fail the job for a reason that has nothing to do with the
+      # changelog. Forks keep the full validation, comment and status-check
+      # behaviour above; only the check-run publication is skipped.
+      - name: Report validation as a check run
+        if: >-
+          always()
+          && steps.changed-files.outputs.any_changed == 'true'
+          && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          NEW_FAILED: ${{ steps.validate.outputs.new_failed }}
+        run: |
+          cd .github/validation/changelog
+
+          # Fail closed, the same way the validate step above does. If the
+          # report is absent or has no summary, publishing a check run would
+          # report "neutral" for a validation that never actually ran.
+          if ! jq -e '.summary | type == "object"' validation-report.json >/dev/null 2>&1; then
+            echo "::error::Validation report is missing or has no summary; not publishing a check run."
+            exit 1
+          fi
+
+          # The check run's conclusion is keyed on failures this pull request
+          # introduces, matching the gate above and the rule recorded at the
+          # validate step: pre-existing Unreleased debt never blocks.
+          jq --argjson n "${NEW_FAILED:-0}" '.summary.new_failed = $n' \
+            validation-report.json > validation-report.annotated.json
+
+          node bin/report-check-run.js \
+            --report-path validation-report.annotated.json \
+            --github-token "$GH_TOKEN" \
+            --owner "$REPO_OWNER" \
+            --repo "$REPO_NAME" \
+            --sha "$HEAD_SHA" \
+            --pr-number "$PR_NUMBER"
+        # No continue-on-error, for the same reason as the status check step:
+        # a reporter that cannot publish must not report success.
 
   sync:
     name: Auto-sync merged entries
