@@ -6,7 +6,7 @@
 
 **Status**: Draft
 
-**Input**: User description: "Standardised Claude Code cloud environment for the lightspeedwp/.github repository, so every team member's cloud session starts from the same configuration and follows the organisation branching strategy (docs/BRANCHING_STRATEGY.md: {type}/{scope}-{title}, based on develop, forbidden claude/ copilot/ openai/ prefixes). Problem: cloud sessions start on a platform-generated claude/_branch and the platform prompt tells Claude to push there, so Claude consistently ignores CLAUDE.md and creates wrong branch names in new chats. Scope: (1) a shared cloud environment definition — setup script (bash, runs as root, cached ~7 days, <5 min, must exit 0) and .env environment variables, kept in the repo as source of truth; (2) a SessionStart hook that moves off claude/_ branches, syncs with develop, installs deps and injects the branching rules into Claude's context; (3) a PreToolUse guard that blocks commits, pushes, branch creation and PRs on invalid, placeholder or protected branches, reusing lib/validate-branch-name.js; (4) team documentation covering Owner setup (org-shared environment, org default environment, optional remote.defaultEnvironmentId) and verification. A draft implementation already exists on branch config/claude-cloud-environment (PR lightspeedwp/.github#3524); the spec should capture requirements and acceptance criteria for it."
+**Input**: User description: "Standardised Claude Code cloud environment for the lightspeedwp/.github repository, so every team member's cloud session starts from the same configuration and follows the organisation branching strategy (docs/BRANCHING_STRATEGY.md: {type}/{scope}-{title}, based on develop, forbidden claude/ copilot/ openai/ prefixes). Problem: cloud sessions start on a platform-generated `claude/*` branch and the platform prompt tells Claude to push there, so Claude consistently ignores CLAUDE.md and creates wrong branch names in new chats. Scope: (1) a shared cloud environment definition — setup script (bash, runs as root, cached ~7 days, <5 min, must exit 0) and .env environment variables, kept in the repo as source of truth; (2) a SessionStart hook that moves off `claude/*` branches, syncs with develop, installs deps and injects the branching rules into Claude's context; (3) a PreToolUse guard that blocks commits, pushes, branch creation and PRs on invalid, placeholder or protected branches, reusing lib/validate-branch-name.js; (4) team documentation covering Owner setup (org-shared environment, org default environment, optional remote.defaultEnvironmentId) and verification. A draft implementation already exists on branch config/claude-cloud-environment (PR lightspeedwp/.github#3524); the spec should capture requirements and acceptance criteria for it."
 
 ## Context
 
@@ -70,7 +70,7 @@ The reviewer settled `checklists/security.md` item by item. These are the decisi
 - Q: How should spec 018 treat semantic-version hotfix names like `hotfix/v1.2.3`, which the validator rejects? → A: Keep the validator as it is. Only `release/vX.Y.Z` has a version-number form; hotfixes use `hotfix/{scope}-{title}` (for example `hotfix/auth-token-expiry`), which the validator already accepts, so FR-009's `main` rule works for both release and hotfix PRs today.
 - Q: While automatic deletion stays switched off, how should empty `claude/*` branches that end up in DISCUSS get removed? → A: A maintainer reviewing DISCUSS may promote an empty, merged `claude/*` branch with no open PR to DELETE, and it is removed through spec 009's normal draft-PR approval. Nothing is deleted automatically, and a branch with its own commits is never promoted this way (FR-020, FR-021, SC-002).
 
-## User Scenarios & Testing _(mandatory)_
+## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Agent never publishes a non-compliant branch (Priority: P1)
 
@@ -174,7 +174,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Malformed input to the guard**: The session must never break. Allow and move on.
 - **Known guard gaps (lightspeedwp/.github#3691)**: Seven write paths currently get past FR-007 and FR-008: a `createCommitOnBranch` input passed as one variable; a check made per GraphQL document rather than per mutation field; `gh api /graphql` with a leading slash; a value supplied only in an `--input` body's `variables` map (refused, so a wrongful refusal rather than a bypass); repeated `--input` or `-X` flags read first-wins where `gh` is last-wins; REST `POST git/refs` creating `main`; and GraphQL `mergeBranch` writing to its `base`. They are defects against FR-007 and FR-008, not accepted limits. The two that write straight to `main` are the priority fixes.
 
-## Requirements _(mandatory)_
+## Requirements *(mandatory)*
 
 ### Functional Requirements
 
@@ -261,7 +261,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Branching rules**: The pattern, authorised types, forbidden prefixes, protected branches, the documentation exception and the PR base rule. Naming rules are defined once by the existing validator and the branching strategy document.
 - **Enforcement switch**: An environment-level setting, `LS_ENFORCE_BRANCH_NAMES`, that toggles between blocking (the default) and warning.
 
-## Success Criteria _(mandatory)_
+## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
