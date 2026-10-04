@@ -27,6 +27,46 @@ Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified **7 i
 
 ---
 
+## Re-verification against `develop` (2026-10-04)
+
+The findings below were recorded on 2026-09-17/18 and cite line numbers in `AGENTS.md` and
+`CLAUDE.md` as they stood then. `develop` has moved since. Each finding was re-checked against
+`origin/develop` on 2026-10-04. The original text is left untouched as the historical record; this
+section records the current state.
+
+| Finding | Recorded claim | State on `develop` (2026-10-04) | Verdict |
+| --- | --- | --- | --- |
+| DUP-001 | Duplicate "Label Creation Governance" in AGENTS.md at lines 209–252 and 285–338 | AGENTS.md contains exactly one such section, at line 227, already titled `## Label Creation Governance (CRITICAL) — Consolidated`. AGENTS.md is 429 lines. | **Resolved.** No duplicate exists. |
+| ORG-001 | Script organisation rules in the wrong file, AGENTS.md lines 52–102 | `## Repository Scripts Organisation (CRITICAL)` starts at line 52 and runs to line 104 (the next `##` heading is `## Branch Naming Governance` at line 105). | **Holds**, with the cited range 2 lines short. Whether the guidance belongs in another file stays a Q5 decision for @ashley. |
+| DUPL-002 | Branch naming guidance duplicated across CLAUDE.md and AGENTS.md; CLAUDE.md 97 lines; AGENTS.md to become a summary with a link | AGENTS.md line 155 already names CLAUDE.md the authority ("primary source, 38 types, full consequences, examples") and line 157 defers the detail to `instructions/branch-naming.instructions.md`. That is the resolution this finding asked for. CLAUDE.md's section spans lines 14–113, which is 100 lines rather than 97. | **Resolved.** |
+| REF-001 | `.github/prompts/prompts.md` marked "legacy pending migration" | The file exists on `develop`. `AGENTS.md` line 308 still describes it as "Legacy prompt index pending skills/cookbook migration". The legacy marker lives in `AGENTS.md`, not in the referenced file. | **Holds.** |
+| VER-001 | Seven verification tasks, including "consolidated portable instruction files in `instructions/` (exactly 5 files)" | `.github/instructions/branch-naming.instructions.md` is still absent (the portable `instructions/branch-naming.instructions.md` exists). `docs/BRANCHING_STRATEGY.md` and `docs/PR_CREATION_PROCESS.md` exist. All five consolidated instruction files exist: `languages`, `documentation-formats`, `quality-assurance`, `automation`, `community-standards`. `instructions/` holds 48 entries in total, so "exactly 5 files" is true only of the consolidated set, not of the directory. `.github/projects/active/` exists. The agentic workflow directory is `.github/agentic-workflows/` (has files); `.github/workflows/agentic/` does not exist. | **Partly holds.** The absent repository-local instructions file is the open item. |
+
+### Baseline metrics have drifted
+
+The baseline above was measured in September 2026. On `develop` as of 2026-10-04 the same files
+measure:
+
+| File | Recorded baseline | Current on `develop` |
+| --- | --- | --- |
+| `CLAUDE.md` | 267 lines | 340 lines |
+| `AGENTS.md` | 352 lines | 429 lines |
+| Combined | 619 lines | 769 lines |
+
+The recorded target of 394–426 lines for `AGENTS.md` is now below its current 429 lines, so the
+"15–25% combined reduction" behind SC-006 cannot be met against the current baseline without a
+fresh measurement. Re-baselining belongs to Phase 2 and is left to @ashley.
+
+### Overlap with `AUDIT_FINDINGS.md`
+
+`develop` already carries `.github/specs/012-audit-governance-structure/AUDIT_FINDINGS.md` (181
+lines), which reports DUP-001, ORG-001, REF-001 and the branch-naming duplication. This report is
+a longer treatment of the same ground and adds REF-002, MISSING-INST-001, WORKFLOW-001, PRIN-001 and
+CONST-001. Two audit documents now describe overlapping findings. Consolidating them is a
+Phase 2 decision for @ashley, so neither file was removed or rewritten here.
+
+---
+
 ## Finding Catalog (Severity-Ordered)
 
 ### 🔴 CRITICAL FINDINGS
