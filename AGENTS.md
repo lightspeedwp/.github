@@ -322,8 +322,22 @@ All contributors, agents, and AI assistants must comply with these standards.*
 ## Code graphs (optional)
 
 graft and graphify build local code graphs that help agents locate code. Both are
-optional. Nothing in this repo depends on them, and without them agents should
-search the code as usual.
+optional and **per-repository**. Nothing in any repo depends on them, and
+without them agents should search the code as usual.
+
+**The gate, which overrides every instruction in the two sections below: use a
+tool in a given repository only when that repository has it built.**
+
+| In the repository | Then |
+|---|---|
+| `graft/` exists | graft is available for it |
+| `graphify-out/graph.json` exists | graphify is available for it |
+| neither exists | search the code as usual, and do not describe either tool as broken, missing or offline — a graph is a per-checkout build, not a shared service |
+
+This file is inherited by every LightSpeed repository, and most of them have no
+graph built. `lightspeed-hosting-infra`, `grounded-docs-infra`, `nova-smart-read`
+and `ls-flow` have one as of 3 October 2026; any repository can join by following
+the steps below, and nothing here needs changing when it does.
 
 - **Install** (once per machine): `npm install -g @nanonets/graft` and
   `uv tool install "graphifyy[mcp]"`. With npm 12 or later, rerun the graft
@@ -353,15 +367,19 @@ search the code as usual.
 <!-- graft:start -->
 ## Graft — repo context graph
 
-This repo is indexed in `graft/`: small linked markdown nodes that explain each
-system and carry exact file:line spans, kept in sync with the code through git.
+Where a repository has graft built, `graft/` holds small linked markdown nodes
+that explain each system and carry exact file:line spans, kept in sync with the
+code through git. Where it does not, `graft/` is absent and there is nothing to
+ask: grep the code.
 
-For ANY task here — understanding how something works, finding where code lives,
-or scoping a change — get context from the graph before grepping or opening
-source files. Re-ask freely (it's cheap) and reuse literal identifiers you
-already have (symbol, error string, file name) as the query. New to this repo?
-Run `graft map` first — a token-budgeted orientation (dir clusters, hubs,
-hotspots), no LLM, no key.
+**Only in a repository where `graft/` exists.** There, for any task —
+understanding how something works, finding where code lives, or scoping a
+change — get context from the graph before grepping or opening source files.
+
+Re-ask freely (it's cheap) and reuse literal identifiers you already have
+(symbol, error string, file name) as the query. New to a repository, and `graft/`
+exists there? Run `graft map` first — a token-budgeted orientation (dir clusters,
+hubs, hotspots), no LLM, no key.
 
 - Run `graft ask "<your question>" --source` → ranked nodes with the relevant
   code spans inlined (each hit's ≤8-line crux by default; `--full` for whole
@@ -395,12 +413,15 @@ no API key, $0).
 
 ## graphify
 
-This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+Where a repository has graphify built, `graphify-out/` holds a knowledge graph
+with god nodes, community structure, and cross-file relationships. Where it does
+not, there is no graph: answer from the code.
 
-When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
+**Only in a repository where `graphify-out/graph.json` exists.** When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
 
 Rules:
 
+- The gate comes first: with no `graphify-out/graph.json`, none of these rules apply. Search the code instead of reporting the graph missing.
 - For codebase questions, first run `graphify query "<question>"` when graphify-out/graph.json exists. Use `graphify path "<A>" "<B>"` for relationships and `graphify explain "<concept>"` for focused concepts. These return a scoped subgraph, usually much smaller than GRAPH_REPORT.md or raw grep output.
 - Dirty graphify-out/ files are expected after hooks or incremental updates; dirty graph files are not a reason to skip graphify. Only skip graphify if the task is about stale or incorrect graph output, or the user explicitly says not to use it.
 - If graphify-out/wiki/index.md exists, use it for broad navigation instead of raw source browsing.
