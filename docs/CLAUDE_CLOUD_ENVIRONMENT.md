@@ -241,8 +241,8 @@ settings, not branch-protection fields.
   variable it expands to, and a command written in another language entirely — `python -c`, `node -e` — is still
   out of scope, because the guard reads shell syntax and not those. For branch names specifically, CI branch
   validation remains the final gate for anything a command could construct at run time. That covers the naming
-  convention only: it does not enforce the protected-branch policy for every transport, as the REST `git/refs`
-  gap in the bullet below shows.
+  convention only; the protected-branch policy for direct `git` and `gh` writes is enforced by the guard itself,
+  with the `mergeBranch` exception recorded in the bullet below.
 - The guard parses shell commands with heuristics. It catches the usual forms — plain commands, pipelines, background
   and list operators, `if`/`while`/`for`/`case` arms, parenthesised groups, redirects, here-documents and nested
   interpreters — and a `cd` in the same command list moves the directory the following git commands are judged
@@ -250,19 +250,16 @@ settings, not branch-protection fields.
   exception: `(cd other-repo && git commit)` cannot change the parent's directory, so that command is judged against
   the branch the session is actually on, which is the stricter reading rather than a gap.
 - The guard reads `gh api graphql` as well as the REST API, because GraphQL reaches the same branch writes. The
-  document is read from `--query`, from a field and from an `--input` body, the branch names in it are judged by the
-  same rules, and a document the guard cannot read is refused. A name bound to a GraphQL variable is resolved from
-  the value sent with it, since `gh` sends every field other than `query` as a variable. Seven things it does not do are
-  recorded in the [hooks contract](../.github/specs/018-claude-cloud-environment/contracts/hooks.md). Five are limits
-  of how the document can be read: a whole input object passed as one variable
-  (`createCommitOnBranch(input: $b)`) names no branch in the document, so the branch it commits to is not read; the
-  check is per document rather than per mutation field; the endpoint is matched as `graphql` exactly, so
-  `gh api /graphql` is not checked; a variable value supplied only in an `--input` body's `variables` map is not a
-  field, so it is refused rather than read; and `gh api` is last-wins for a repeated `--input` or `-X` where the guard
-  reads the first. Two are writes the check does not reach at all. `mergeBranch` writes to the branch in its `base`,
-  which is not a key the guard reads, so a merge into a protected branch is neither refused nor reported. And
-  `POST repos/{owner}/{repo}/git/refs` judges the name with the naming rules, which exempt `main`, rather than with
-  the protected-branch check, so the REST path can still create a protected branch.
+  document is read from `--query`, from a field and from an `--input` body (the body wins when `--input` is present,
+  because `gh` then puts field flags in the URL query string where GraphQL ignores them), the branch names in it are
+  judged by the same rules — including a whole input object passed as one variable, whose branch and repository leaves
+  are resolved — and a document the guard cannot read is refused. A repeated flag is judged on its last occurrence, as
+  `gh` sends the last one. A name bound to a GraphQL variable is resolved from
+  the value sent with it. A foreign repository exempts only the name it scopes, for literals and variables alike, and
+  every branch-writing mutation must resolve its own target. One thing it does not do is
+  recorded in the [hooks contract](../.github/specs/018-claude-cloud-environment/contracts/hooks.md): `mergeBranch`
+  writes to the branch in its `base`, which is not a key the guard reads, so a merge into a protected branch is neither
+  refused nor reported.
 - The guard reads shell syntax. It does not follow aliases, and it cannot know a name the shell builds at run time.
   A command substitution is read, so a command hidden inside `$(...)` or backticks is checked, and a wrapper such as
   `timeout` or `env` is stepped through to the command behind it.
