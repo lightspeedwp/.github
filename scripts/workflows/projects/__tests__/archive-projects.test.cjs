@@ -242,13 +242,12 @@ describe('archive-projects', () => {
 
   describe('success tracking', () => {
     it('should count successful archival operations', () => {
-      let successCount = 0;
       const projects = [
         { name: 'p1', path: '/p1', archivedAt: '2026-09-03' },
         { name: 'p2', path: '/p2', archivedAt: '2026-09-03' },
       ];
 
-      successCount = 2;
+      const successCount = 2;
 
       expect(successCount).toBe(projects.length);
     });
