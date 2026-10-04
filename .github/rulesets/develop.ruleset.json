@@ -4,9 +4,7 @@
   "enforcement": "active",
   "conditions": {
     "ref_name": {
-      "include": [
-        "refs/heads/develop"
-      ],
+      "include": ["refs/heads/develop"],
       "exclude": []
     }
   },
@@ -40,10 +38,22 @@
           },
           {
             "context": "actionlint"
+          },
+          {
+            "context": "Lint (JS/YAML/package.json)"
+          },
+          {
+            "context": "Typecheck"
           }
         ]
       }
     }
   ],
-  "bypass_actors": []
+  "bypass_actors": [
+    {
+      "actor_id": 1577675,
+      "actor_type": "User",
+      "bypass_mode": "pull_request"
+    }
+  ]
 }
