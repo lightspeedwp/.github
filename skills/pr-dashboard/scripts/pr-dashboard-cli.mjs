@@ -39,7 +39,7 @@ async function ghApi(args) {
     const { stdout } = await execFileP("gh", ["api", ...args]);
     return JSON.parse(stdout);
   } catch (err) {
-    if (err?.code === "ENOENT") throw new Error("`gh` CLI not found. Install GitHub CLI and authenticate (gh auth login).");
+    if (err?.code === "ENOENT") throw new Error("`gh` CLI not found. Install GitHub CLI and authenticate (gh auth login).", { cause: err });
     let errorMessage = err?.message || String(err);
     if (err?.stdout) {
       try {
@@ -48,7 +48,7 @@ async function ghApi(args) {
       } catch (e) { /* fall through */ }
     }
     if (err?.stderr?.trim()) errorMessage = err.stderr.trim();
-    throw new Error(`gh api failed: ${errorMessage}`);
+    throw new Error(`gh api failed: ${errorMessage}`, { cause: err });
   }
 }
 
@@ -189,7 +189,7 @@ function buildMarkdown(prs, label) {
 async function renderHtml(md, label = "PR Dashboard", prs = []) {
   const extDir = path.dirname(fileURLToPath(import.meta.url));
   const templatePath = path.join(extDir, "../assets/dashboard.html");
-  let template = "";
+  let template;
   try { template = fs.readFileSync(templatePath, "utf8"); }
   catch (e) {
     template = `<html><head><title>PR Dashboard — ${escapeHtml(label)}</title></head><body><pre>${escapeHtml(JSON.stringify(md))}</pre></body></html>`;
@@ -235,8 +235,8 @@ async function renderHtml(md, label = "PR Dashboard", prs = []) {
   replaced = replaced.replace(/const __md = [\s\S]*?;/, `const __md = ${JSON.stringify(md)};`);
   replaced = replaced.replace(/<span class="visible-count" id="vc">[^<]*<\/span>/, `<span class="visible-count" id="vc">${prs.length} PR${prs.length !== 1 ? "s" : ""}</span>`);
 
-  try { replaced = replaced.replace(/<title>[^<]*<\/title>/, `<title>PR Dashboard — ${escapeHtml(label)}</title>`); } catch (e) {}
-  try { replaced = replaced.replace(/<h1[^>]*>[^<]*<\/h1>/, `<h1>🔀 PR Dashboard — ${escapeHtml(label)}</h1>`); } catch (e) {}
+  try { replaced = replaced.replace(/<title>[^<]*<\/title>/, `<title>PR Dashboard — ${escapeHtml(label)}</title>`); } catch { /* best effort: leave this part of the template unchanged */ }
+  try { replaced = replaced.replace(/<h1[^>]*>[^<]*<\/h1>/, `<h1>🔀 PR Dashboard — ${escapeHtml(label)}</h1>`); } catch { /* best effort: leave this part of the template unchanged */ }
 
   try {
     const nowStr = new Date().toLocaleString();
@@ -259,12 +259,12 @@ async function renderHtml(md, label = "PR Dashboard", prs = []) {
     replaceStat("stat merged", counts.merged);
     replaceStat("stat closed", counts.closed);
     replaceStat("stat draft",  counts.draft);
-  } catch (e) {}
+  } catch { /* best effort: leave this part of the template unchanged */ }
 
   try {
     const safe = String(label).replace(/[^a-z0-9]/gi, "_");
     replaced = replaced.replace(/const filename = '[^']*';/, `const filename = 'pr-dashboard-${safe}.md';`);
-  } catch (e) {}
+  } catch { /* best effort: leave this part of the template unchanged */ }
 
   const outPath = path.join(os.tmpdir(), "pr-dashboard.html");
   fs.writeFileSync(outPath, replaced, "utf8");
