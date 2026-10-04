@@ -18,7 +18,7 @@ function readFile(filePath) {
     const content = fs.readFileSync(filePath, 'utf8');
     return content;
   } catch (error) {
-    throw new Error(`Failed to read file ${filePath}: ${error.message}`);
+    throw new Error(`Failed to read file ${filePath}: ${error.message}`, { cause: error });
   }
 }
 
@@ -35,7 +35,7 @@ function writeFile(filePath, content) {
     }
     fs.writeFileSync(filePath, content, 'utf8');
   } catch (error) {
-    throw new Error(`Failed to write file ${filePath}: ${error.message}`);
+    throw new Error(`Failed to write file ${filePath}: ${error.message}`, { cause: error });
   }
 }
 

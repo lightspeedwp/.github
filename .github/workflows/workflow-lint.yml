@@ -35,8 +35,13 @@ jobs:
         with:
           # Read-only job: nothing pushes, so do not persist credentials.
           persist-credentials: false
-          # Only workflow files and local actions are linted.
-          sparse-checkout: .github
+          # Workflow files and local actions, plus the shared actionlint
+          # script: the step below runs `npm run lint:actionlint`, which lives
+          # in scripts/validation. Cone mode always includes root files, so
+          # package.json resolves even though it is not listed here.
+          sparse-checkout: |
+            .github
+            scripts/validation
 
       - name: Download actionlint
         env:
@@ -52,36 +57,10 @@ jobs:
           ./actionlint --version
 
       - name: Run actionlint on active workflows
-        # shellcheck (preinstalled on ubuntu runners) runs at its default
-        # severity: active workflows are clean at every level (#3478), so
-        # style and info findings gate this check too.
-        run: |
-          # Explicit file list, not repo-wide. Archived workflows are
-          # frozen history and stay unlinted. Every active workflow must be
-          # listed here.
-          # job.workflow_repository / job.workflow_sha are documented job
-          # context properties for reusable workflows
-          # (https://docs.github.com/en/actions/reference/workflows-and-actions/contexts)
-          # that actionlint 1.7.12 does not know yet.
-          ./actionlint -shellcheck="$(command -v shellcheck || true)" \
-            -ignore 'missing input "app-id" which is required by action "actions/create-github-app-token@' \
-            -ignore 'input "client-id" is not defined in action "actions/create-github-app-token@' \
-            -ignore 'property "workflow_repository" is not defined in object type \{check_run_id' \
-            -ignore 'property "workflow_sha" is not defined in object type \{check_run_id' \
-            .github/workflows/ai-feedback.yml \
-            .github/workflows/ai-feedback-validation.yml \
-            .github/workflows/branch-name-validation.yml \
-            .github/workflows/branch-validation-metrics-aggregator.yml \
-            .github/workflows/changelog-unified.yml \
-            .github/workflows/documentation.yml \
-            .github/workflows/labeling-unified.yml \
-            .github/workflows/orchestrate-phase-progression.yml \
-            .github/workflows/phase-progression.yml \
-            .github/workflows/pr-template-routing.yml \
-            .github/workflows/qodo-pr-agent-report.yml \
-            .github/workflows/qodo-pr-agent-reusable.yml \
-            .github/workflows/qodo-pr-agent-trigger.yml \
-            .github/workflows/qodo-pr-agent.yml \
-            .github/workflows/tests.yml \
-            .github/workflows/validate-specifications.yml \
-            .github/workflows/workflow-lint.yml
+        # Delegates to npm run lint:actionlint, which runs
+        # scripts/validation/run-actionlint.cjs. That script holds the
+        # suppression list and reads the file list from .github/workflows, so
+        # the required CI gate and the local command cannot drift apart and a
+        # new workflow is checked from the day it lands. It uses the
+        # ./actionlint downloaded above on Linux x64 when none is on PATH.
+        run: npm run lint:actionlint

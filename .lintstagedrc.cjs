@@ -10,7 +10,7 @@
  * script, and .github/workflows/meta.yml's `lint-and-links` job.
  */
 const EXCLUDED_PATTERNS = [
-  /^projects\/active\//,
+  /\/projects\/active\//,
   /\/plugin-provided\//,
   /\/platform-managed\//,
   /\/directory-installed\//,
@@ -20,23 +20,24 @@ const EXCLUDED_PATTERNS = [
 ];
 
 function isExcluded(filename) {
-  return EXCLUDED_PATTERNS.some((pattern) => pattern.test(filename));
+  // lint-staged hands over native absolute paths, so on Windows they carry
+  // backslashes (`C:\repo\.github\projects\active\...`). The patterns are written
+  // with forward slashes, so normalise before matching.
+  const normalised = filename.replace(/\\/g, '/');
+  return EXCLUDED_PATTERNS.some((pattern) => pattern.test(normalised));
 }
 
 function quoteAll(filenames) {
-  return filenames.map((f) => `"${f}"`).join(" ");
+  return filenames.map((f) => `"${f}"`).join(' ');
 }
 
 module.exports = {
-  "*.{js,jsx,ts,tsx}": (filenames) => {
+  '*.{js,jsx,ts,tsx,cjs,mjs}': (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
     if (!included.length) return [];
-    return [
-      `eslint --fix ${quoteAll(included)}`,
-      `prettier --write ${quoteAll(included)}`,
-    ];
+    return [`eslint --fix ${quoteAll(included)}`, `prettier --write ${quoteAll(included)}`];
   },
-  "*.{md,mdx}": (filenames) => {
+  '*.{md,mdx}': (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
     // Uses scripts/validation/lint-md-staged.cjs rather than a raw
     // `markdownlint-cli2 --fix` call: the repo carries a backlog of
@@ -48,6 +49,6 @@ module.exports = {
       ? [`node scripts/validation/lint-md-staged.cjs ${quoteAll(included)}`]
       : [];
   },
-  "*.json": ["prettier --write"],
-  "*.{yml,yaml}": ["prettier --write"],
+  '*.json': ['prettier --write'],
+  '*.{yml,yaml}': ['prettier --write'],
 };

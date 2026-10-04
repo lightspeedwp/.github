@@ -95,7 +95,7 @@ function formatHealthScore(score) {
     return 'N/A';
   }
   const percentage = score.toFixed(0);
-  let status = '';
+  let status;
   if (score >= THRESHOLDS.HEALTHY) {
     status = '✅ Healthy';
   } else if (score >= THRESHOLDS.WARNING) {

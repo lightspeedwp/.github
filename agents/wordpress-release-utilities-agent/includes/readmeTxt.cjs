@@ -63,8 +63,7 @@ function writeVersion(filePath, newVersion) {
     fs.writeFileSync(filePath, content, 'utf8');
   } catch (error) {
     throw new Error(
-      `Failed to update readme version in ${filePath}: ${error.message}`
-    );
+      `Failed to update readme version in ${filePath}: ${error.message}`, { cause: error });
   }
 }
 

@@ -44,8 +44,8 @@
     }
   ],
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": ">=24.0.0",
+    "npm": ">=10.0.0"
   },
   "type": "module",
   "main": "index.js",
@@ -75,12 +75,23 @@
     "lint:yaml": "spectral lint '**/*.{yml,yaml}' --ruleset .spectral.config.cjs",
     "lint:workflows": "spectral lint '.github/workflows/*.{yml,yaml}' --ruleset .spectral-workflows.cjs",
     "lint:json": "node scripts/validation/validate-json.js --validate-only --strict --read-only",
-    "lint": "npm run lint:js && npm run lint:yaml && npm run lint:pkg-json",
-    "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json",
-    "lint:js": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+    "labels:drift-check": "node scripts/automation/label-drift-check.js",
+    "linear:inventory": "node scripts/automation/linear-label-inventory.js",
+    "lint": "run-p --continue-on-error lint:js lint:yaml lint:pkg-json",
+    "lint:ci": "run-p --continue-on-error lint:js:ci lint:yaml lint:pkg-json",
+    "lint:all": "npm run lint && npm run lint:workflows && npm run lint:md && npm run lint:json && npm run typecheck",
+    "lint:js": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --cache --cache-strategy content --cache-location .eslintcache",
+    "lint:js:fix": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --fix",
+    "lint:js:ci": "eslint '**/*.{js,jsx,ts,tsx,cjs,mjs}' --no-error-on-unmatched-pattern --no-cache",
+    "typecheck": "tsc --noEmit -p tsconfig.json && npm run typecheck:website",
+    "typecheck:website": "tsc --noEmit -p website/tsconfig.json",
+    "typecheck:astro": "npm run check --prefix website",
+    "lint:fast": "oxlint",
+    "lint:actionlint": "node scripts/validation/run-actionlint.cjs",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
-    "format:js": "prettier '**/*.{js,jsx,ts,tsx}' --write && eslint '**/*.{js,jsx,ts,tsx}' --fix --format",
+    "format:js": "prettier '**/*.{js,jsx,ts,tsx,cjs,mjs}' --write",
+    "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,cjs,mjs}'",
     "format:md": "prettier '**/*.md' --write && markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
     "format:json": "prettier '**/*.json' --write '!package-lock.json' '!**/node_modules/**'",
     "format:json:schemas": "node scripts/validation/validate-json.js --glob '.schemas/**/*.json' --format-only",
@@ -101,6 +112,7 @@
     "validate:issue-fields": "node scripts/validation/validate-issue-fields.cjs",
     "validate:linear-guidance": "node scripts/validation/validate-linear-guidance.cjs",
     "validate:retired-doc-links": "node scripts/validation/validate-retired-doc-links.cjs",
+    "validate:ruleset-drift": "node scripts/validation/validate-ruleset-drift.cjs",
     "validate:workflow-npm-scripts": "node scripts/validation/validate-workflow-npm-scripts.cjs",
     "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
     "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter.js",
@@ -152,9 +164,7 @@
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check",
     "triage:analyze": "node scripts/triage-issues-needs-triage.js",
-    "triage:apply": "node scripts/apply-triage-improvements.js",
-    "linear:inventory": "node scripts/automation/linear-label-inventory.js",
-    "labels:drift-check": "node scripts/automation/label-drift-check.js"
+    "triage:apply": "node scripts/apply-triage-improvements.js"
   },
   "devDependencies": {
     "@actions/core": "3.0.1",
@@ -187,7 +197,6 @@
     "dotenv": "^18.0.1",
     "eslint": "^10.11.0",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.0.0",
     "glob": "13.0.6",
     "globals": "^17.12.0",
     "gray-matter": "^4.0.3",
@@ -201,10 +210,12 @@
     "markdownlint-cli2-formatter-pretty": "^0.0.6",
     "mermaid": "^12.0.0",
     "micromatch": "^4.0.7",
+    "minimatch": "^10.2.6",
     "node-fetch": "^3.3.2",
     "npm-package-json-lint": "^11.0.0",
     "npm-run-all": "^4.1.5",
     "octokit": "5.0.5",
+    "oxlint": "1.86.0",
     "prettier": "^3.9.8",
     "puppeteer": "^25.11.0",
     "semver": "^7.8.5",
@@ -212,22 +223,7 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "8.70.0",
     "yaml": "2.9.1",
-    "minimatch": "^10.2.6"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{md,mdx}": [
-      "markdownlint-cli2 --fix"
-    ],
-    "*.json": [
-      "prettier --write"
-    ],
-    "*.{yml,yaml}": [
-      "prettier --write"
-    ]
+    "zod": "3.25.76"
   },
   "overrides": {
     "fast-json-patch": "3.1.1",
