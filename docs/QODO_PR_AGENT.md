@@ -37,7 +37,7 @@ On a **non-draft** PR opened by a person, when it is opened, reopened or marked 
 | **Summary**: PR type, summary and walkthrough (`describe`) | One persistent **comment**. The PR body and title are never changed, so the routed PR template stays intact. |
 | **Improvement suggestions** (`improve`) | One persistent comment. Nothing is committed. |
 
-Qodo PR-Agent does **not** run on every push, on draft PRs, or on PRs from `dependabot[bot]` or `lightspeed-docs-bot[bot]`. It never posts an automatic review verdict, because that belongs to CodeRabbit.
+Qodo PR-Agent does **not** run on every push, on draft PRs, or on PRs from `dependabot[bot]` or `lightspeed-docs-bot[bot]`. It never posts an automatic review verdict, because that belongs to human reviewers; CodeRabbit supplies findings, not a verdict.
 
 ## Commands
 
@@ -174,7 +174,7 @@ The pilot is two workflows. The split is the security boundary, so it is worth b
 
 | Workflow | Trigger | Which copy of the definition runs | What it can reach |
 | --- | --- | --- | --- |
-| `qodo-pr-agent-trigger.yml` | `pull_request` (`opened`, `reopened`, `ready_for_review`) and `issue_comment` (`created`) | The **pull request's** ref, because that is how GitHub evaluates `pull_request`. | **Nothing.** No secret, no write scope, no environment. It classifies the event and publishes a request hint. |
+| `qodo-pr-agent-trigger.yml` | `pull_request` (`opened`, `reopened`, `ready_for_review`) and `issue_comment` (`created`) | `pull_request` runs the definition at the **pull request's** merge ref. `issue_comment` runs the **default branch** definition. | **Nothing.** No secret, no write scope, no environment. It classifies the event and publishes a request hint. |
 | `qodo-pr-agent.yml` | `workflow_run` on the trigger's completion, and `workflow_dispatch` | The **default branch** copy, always. A pull request author cannot change the code that runs. | The model key, through the `qodo-pr-agent` environment, and `pull-requests: write` / `issues: write` on `GITHUB_TOKEN`. |
 
 Both facts were verified on a scratch pull request rather than assumed:
@@ -219,7 +219,7 @@ What has changed is that a branch can no longer reach the key *before review*. B
 - A repository Actions **event policy** with an actor rule, so contributing code and executing privileged workflows are separable. This also gives the 2 November 2026 `pull_request_target` default somewhere to be evaluated deliberately rather than inherited.
 - A **GitHub App installation token** with narrowly scoped permissions in place of `GITHUB_TOKEN`, which bounds the blast radius of a stolen token. It does not address this finding and is a follow-up.
 
-The key itself is worth bounding regardless: a per-repository key with a spend cap and a rotation schedule limits what a leak costs and how long it is good for. The US$20 monthly cap is an open prerequisite tracked on [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535).
+The key itself is worth bounding regardless: a per-repository key with a spend cap and a rotation schedule limits what a leak costs and how long it is good for. The US$20 monthly cap is set on the key in the Anthropic console and was confirmed by a maintainer on 2026-10-02, as recorded on [lightspeedwp/.github#3535](https://github.com/lightspeedwp/.github/issues/3535). The repository cannot verify it, so re-confirm it whenever the key is rotated (see [Credential and spend](#credential-and-spend)).
 
 #### Validate the credential boundary
 

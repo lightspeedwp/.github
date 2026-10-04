@@ -29,7 +29,7 @@ One upstream command. There is a fixed set of nine.
 | update_changelog | on-demand, comment only |
 | add_docs | on-demand |
 | help | on-demand |
-| generate_labels | unavailable: refused as a command, and no non-publishing output path at v0.46.0 |
+| generate_labels | disabled (unavailable at v0.46.0: refused as a command, and no non-publishing output path, see [research R7](./research.md#r7-keeping-governance-intact-labels-descriptions-changelog)) |
 | similar_issue | disabled (deferred, see [research R8](./research.md#r8-similar-issues-integration-is-not-viable-in-the-pilot)) |
 
 ## Responsibility matrix
@@ -39,7 +39,7 @@ This maps each **review concern** to exactly one owner. It lives in [`contracts/
 | Field | Type | Rules |
 | --- | --- | --- |
 | `concern` | string | Unique |
-| `owner` | enum | `CodeRabbit`, `Qodo PR-Agent`, or `<internal agent path>` |
+| `owner` | string | Non-empty, written as the matrix writes it, so every row can be represented: `CodeRabbit`, `Human reviewers`, `Qodo PR-Agent (<tool>)`, a workflow file such as `labeling-unified.yml`, `changelog-unified.yml` or `branch-name-validation.yml`, or an internal agent path such as `agents/labeling-agent/` |
 | `mode` | enum | One of the values the responsibility matrix declares: `automatic`, `on-demand`, `manual`, `deferred` or `process`. `deferred` means a concern the pilot does not implement yet and carries a reason in that matrix (for example `similar_issue`, research R8). |
 | `notes` | string | Optional |
 
@@ -81,7 +81,7 @@ One pairing of a Qodo PR-Agent tool with an existing LightSpeed agent or skill.
 | --- | --- | --- |
 | `tool` | Qodo PR-Agent tool id | — |
 | `asset` | path | An existing `AGENT.md` or `SKILL.md` |
-| `invocation` | enum | `skill` (through `skills/qodo-pr-agent`), `pr-comment` (reads a posted comment), or `gate-input` |
+| `invocation` | enum | `skill` (through `skills/qodo-pr-agent`), `pr-comment` (reads a posted comment), or `gate-input`. A `deferred` integration point has no invocation and carries `deferred` here |
 | `on_output` | string | What the asset does with the result |
 | `fallback` | string | Required. Behaviour when the result has `status: skipped` or `error` (FR-014) |
 | `status` | enum | `in-scope` or `deferred` (with a reason) |

@@ -47,7 +47,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
   - Never blocks merge (SC-003).
   - Spend is capped at the provider and reported (SC-008).
   - The config is read from the default branch.
-- **Scale/Scope**: One repository, with roughly 10–40 PRs a month on this control plane. Seven allow-listed commands, eight in-scope integration points and one deferred one.
+- **Scale/Scope**: One repository, with roughly 10–40 PRs a month on this control plane. Seven allow-listed commands, eight in-scope integration points and two deferred ones (`generate_labels` and `similar_issue`).
 
 ## Constitution Check
 
@@ -79,7 +79,7 @@ Run records, a pilot report and a variable-based kill-switch cover operations. F
 ├── plan.md                         # This file
 ├── research.md                     # Phase 0: R1–R12 decisions
 ├── data-model.md                   # Phase 1: entities
-├── quickstart.md                   # Phase 1: validation guide (Q-01…Q-13)
+├── quickstart.md                   # Phase 1: validation guide (Q-01…Q-12 and Q-14; Q-13 removed)
 ├── contracts/
 │   ├── responsibility-matrix.md    # Concern → owner, and integration points
 │   ├── pr-agent-config.md          # Required .pr_agent.toml keys
@@ -144,7 +144,7 @@ CHANGELOG.md                                     # EDIT: Added entry
 
 ## Delivery phases (input to `/speckit-tasks`)
 
-1. **P1 — Pilot and matrix** (US1, US2): `.pr_agent.toml`, both workflows, the config and workflow contract tests, the `docs/QODO_PR_AGENT.md` core sections, the CHANGELOG entry, and prerequisites P-1…P-4. Validated by Q-01…Q-12.
+1. **P1 — Pilot and matrix** (US1, US2): `.pr_agent.toml`, both workflows, the config and workflow contract tests, the `docs/QODO_PR_AGENT.md` core sections, the CHANGELOG entry, and prerequisites P-1…P-4. Validated by Q-01…Q-12 and Q-14 (Q-13 was removed).
 2. **P2 — Integrations** (US3): the shared skill, its registry entry, the integration sections in all in-scope assets, the integrations contract test, and the integration checks.
 3. **P3 — Portability and operations** (US4, US5): the opt-in guide and override rules, the report script and run-record artefacts, the kill-switch docs, the walkthrough (SC-006), and the 14-day pilot report.
 

@@ -97,7 +97,11 @@ jobs:
     name: Confirm the caller honoured the security contract
     runs-on: ubuntu-latest
     timeout-minutes: 3
-    permissions: {}
+    # `confirm` calls pulls.get and issues.getComment, which a token with no
+    # permissions cannot read in a private repository. Read access to pull
+    # requests covers both, and nothing here writes.
+    permissions:
+      pull-requests: read
     outputs:
       # The confirm step is authoritative when it ran; otherwise the verify
       # step's verdict stands, so a skip is always attributed to a real reason.

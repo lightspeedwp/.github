@@ -59,7 +59,7 @@ Use a throw-away branch such as `test/qodo-pr-agent-smoke`, with a small real ch
 
 ## Integration checks (US3)
 
-For each in-scope row of the [responsibility matrix](./contracts/responsibility-matrix.md#integration-points-us3):
+For each in-scope row of the [responsibility matrix](./contracts/responsibility-matrix.md#integration-points-us3). Deferred rows (`generate_labels`, `similar_issue`) are excluded, because they have no Qodo PR-Agent output to reflect:
 
 1. Run the named agent or skill against the Q-01 PR with the key set. Its output must reflect the Qodo PR-Agent input.
 2. Run it again with the key unset. It must complete and state `Qodo PR-Agent input skipped: no-credential`.

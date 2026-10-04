@@ -95,7 +95,7 @@ if [ "$MOCK_NO_OUTPUT_CHANNEL" = 'true' ]; then
   exit 0
 fi
 if [ -n "$markdown" ]; then
-  printf '%s\\n' 'Suggestion: clipped output' > "$markdown"
+  printf '%s\\n' "\${MOCK_MARKDOWN:-Suggestion: clipped output}" > "$markdown"
   if [ -n "$json" ]; then
     if [ "$MOCK_JSON" = 'invalid' ]; then
       printf '%s\\n' '{invalid' > "$json"
@@ -239,6 +239,17 @@ fi
     });
     expect(JSON.parse(result.stdout)).toMatchObject({ status: 'skipped', reason: 'no-credential' });
     expect(fs.existsSync(capture)).toBe(false);
+  });
+
+  it.each([
+    ['carries the literal ...(truncated) marker', 'Reviewed the first files ...(truncated)', true],
+    ['is a complete review', 'Reviewed every changed file', false],
+  ])('sets truncated from the output: %s', (_name, markdown, truncated) => {
+    const result = run(['ask', '--diff-file', diff, '--question', 'Why?'], {
+      ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+      MOCK_MARKDOWN: markdown,
+    });
+    expect(JSON.parse(result.stdout)).toMatchObject({ status: 'ok', truncated });
   });
 
   it('normalises a diff result and passes safe, non-publishing settings', () => {

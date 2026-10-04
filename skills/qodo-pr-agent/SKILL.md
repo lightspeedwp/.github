@@ -60,7 +60,7 @@ The script writes `<out>/result.json` and prints the same JSON to stdout:
 | `tool` | string | The tool that was requested |
 | `markdown` | string or null | The tool's Markdown output when `status` is `ok` |
 | `data` | object or null | Structured output, when the tool provides it (diff mode) |
-| `truncated` | boolean | Best-effort: `true` when the output mentions clipped or omitted content. `false` does not prove the whole diff was reviewed. |
+| `truncated` | boolean | Best-effort: `true` when the output mentions clipped or omitted content or carries the `...(truncated)` marker. `false` does not prove the whole diff was reviewed. |
 
 Exit codes: `0` for `ok` **and** `skipped`, `2` for `error`, `64` for a usage error.
 

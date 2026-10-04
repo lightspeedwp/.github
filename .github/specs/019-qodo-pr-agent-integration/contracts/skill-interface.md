@@ -54,7 +54,7 @@ The script writes `<out>/result.json` and prints the same JSON to stdout:
 }
 ```
 
-`truncated` is a best-effort heuristic: it is `true` when the Markdown mentions clipped or omitted content (`clipped`, `omitted` or `other modified files`), which is how upstream reports a large patch it did not fully review. A `false` value does not prove the whole diff was reviewed.
+`truncated` is a best-effort heuristic: it is `true` when the Markdown mentions clipped or omitted content (`clipped`, `omitted` or `other modified files`) or carries the literal `...(truncated)` marker that quickstart Q-12 requires, which is how upstream reports a large patch it did not fully review. A `false` value does not prove the whole diff was reviewed.
 
 Exit codes: `0` for `ok` **and** `skipped`, and `2` for `error`. A skipped result is never a failure (FR-014).
 

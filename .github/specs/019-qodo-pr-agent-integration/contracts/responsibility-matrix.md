@@ -32,7 +32,7 @@ Each concern has exactly one owner. "Automatic" means it runs without a command.
 | improve | `skills/gh-address-comments`, `agents/address-comments.agent.md` | pr-comment | Treat suggestions as comments to triage (address, or reply with a reason) | Nothing to triage | in-scope |
 | describe | `agents/pr-agent/` (internal) | skill (diff mode) | Use the summary as a source for the diff-derived body section | Existing body generation | in-scope |
 | review / improve | `agents/pr-agent/` self-review gate | gate-input | Count the findings as "AI-review findings" | Gate records "no Qodo PR-Agent input" | in-scope |
-| generate_labels | `agents/labeling-agent/`, `skills/label-governance` | unavailable | Keep only names present in `.github/labels.yml`; log the dropped ones | Existing labelling | in-scope |
+| generate_labels | `agents/labeling-agent/`, `skills/label-governance` | deferred | — | Existing labelling (`labeling-unified.yml`) | **deferred** (R7: no non-publishing output path at v0.46.0) |
 | update_changelog | `agents/changelog-agent/`, `skills/changelog-generator` | pr-comment | Validate (≤250 chars, user-facing, linked); reject naming the failing rule | Existing changelog flow | in-scope |
 | add_docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | pr-comment | Review the suggestions before any adoption | None needed | in-scope |
 | ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | skill (diff mode; PR mode returns `no-output`) | Answer targeted questions | Proceed without an answer | in-scope |

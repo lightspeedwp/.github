@@ -296,7 +296,9 @@ describe('Qodo PR-Agent reusable workflow', () => {
 
   it('uses least-privilege permissions', () => {
     expect(doc.permissions).toStrictEqual({ contents: 'read' });
-    expect(doc.jobs.preflight.permissions).toStrictEqual({});
+    // confirm calls pulls.get and issues.getComment; a token with no permissions
+    // cannot read them in a private repository. Read only, nothing writes.
+    expect(doc.jobs.preflight.permissions).toStrictEqual({ 'pull-requests': 'read' });
     // Three minutes, because the confirm step makes two API calls after the
     // env-driven one. Two was enough for a single script.
     expect(doc.jobs.preflight['timeout-minutes']).toBe(3);

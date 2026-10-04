@@ -231,7 +231,7 @@ exit_code=$?
 set -e
 
 truncated=false
-if grep -qiE 'clipped|omitted|other modified files' "$md_out" 2>/dev/null; then truncated=true; fi
+if grep -qiE 'clipped|omitted|other modified files|\.\.\.\(truncated\)' "$md_out" 2>/dev/null; then truncated=true; fi
 
 if [ "$exit_code" -ne 0 ]; then
   if grep -qiE '429|rate.?limit' "$log_file" "$out_dir/stdout.txt" 2>/dev/null; then
