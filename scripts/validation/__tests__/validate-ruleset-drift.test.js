@@ -61,7 +61,7 @@ function liveMatching(declaration) {
  * Start the mock server in a child process, run the drift script against it,
  * and resolve with the script's exit status and output.
  */
-function runAgainst(liveRulesets, { declarations, onDevelop = [] } = {}) {
+function runAgainst(liveRulesets, { declarations, onDevelop = [], env = {} } = {}) {
   // With `declarations`, the script runs in a temporary working directory holding
   // exactly those declarations, so a case can declare what the repository does not.
   let workdir = path.join(__dirname, '..', '..', '..');
@@ -113,6 +113,7 @@ function runAgainst(liveRulesets, { declarations, onDevelop = [] } = {}) {
           GITHUB_REPOSITORY: 'lightspeedwp/.github',
           RULESETS_API_BASE: `http://127.0.0.1:${port}`,
           GITHUB_TOKEN: '',
+          ...env,
         },
       });
 
@@ -239,6 +240,47 @@ describe('validate-ruleset-drift', () => {
 
     expect(result.output).not.toContain('DRIFT');
     expect(result.output).toContain('not visible to this token');
+    expect(result.status).toBe(0);
+  });
+
+  describe('trusted runs', () => {
+    // RULESETS_REQUIRE_ACTORS=1 is what the workflow sets for push and schedule runs.
+    const trusted = { env: { RULESETS_REQUIRE_ACTORS: '1' } };
+
+    it('fail when the bypass actors cannot be read, rather than staying green', async () => {
+      const live = liveMatching(declaredRuleset());
+      delete live.bypass_actors;
+
+      const result = await runAgainst([live], trusted);
+
+      expect(result.output).toContain('DRIFT');
+      expect(result.output).toContain('bypass actors could not be read');
+      expect(result.status).toBe(1);
+    });
+
+    it('pass when an admin-scoped token shows the declared actors', async () => {
+      const result = await runAgainst([liveMatching(declaredRuleset())], trusted);
+
+      expect(result.output).not.toContain('DRIFT');
+      expect(result.status).toBe(0);
+    });
+  });
+
+  it('ignores a ruleset that comes from the organisation rather than this repository', async () => {
+    const inherited = {
+      ...declaredRuleset(),
+      name: 'org-wide-policy',
+      id: 5151,
+      source_type: 'Organization',
+      source: 'lightspeedwp',
+    };
+
+    const result = await runAgainst([liveMatching(declaredRuleset()), inherited], {
+      declarations: [declaredRuleset(), mainDeclaration()],
+    });
+
+    expect(result.output).not.toContain('org-wide-policy');
+    expect(result.output).not.toContain('DRIFT');
     expect(result.status).toBe(0);
   });
 

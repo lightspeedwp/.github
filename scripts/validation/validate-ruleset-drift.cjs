@@ -32,7 +32,10 @@
  *   node scripts/validation/validate-ruleset-drift.cjs --json     # machine
  *
  * Requires a token with read access to repository rulesets (GITHUB_TOKEN in
- * CI). Exits 0 when every deployed declaration is in sync and the only items
+ * CI). The API shows bypass actors only to a token with Administration read
+ * access. With RULESETS_REQUIRE_ACTORS=1, which the workflow sets for push and
+ * schedule runs, actors that cannot be read are drift; otherwise they are noted
+ * and not compared. Exits 0 when every deployed declaration is in sync and the only items
  * missing live are the intentionally pending ones (NOT_YET_APPLIED rulesets and
  * NOT_YET_REQUIRED_CONTEXTS checks), 1 on drift, including a declared ruleset that
  * is missing live and not listed as pending, and 2 when the API cannot be read.
@@ -88,9 +91,12 @@ function apiHeaders() {
 }
 
 async function fetchRulesetList(slug) {
-  const response = await fetch(`${apiBase()}/repos/${slug}/rulesets?per_page=100`, {
-    headers: apiHeaders(),
-  });
+  const response = await fetch(
+    `${apiBase()}/repos/${slug}/rulesets?per_page=100&includes_parents=false`,
+    {
+      headers: apiHeaders(),
+    }
+  );
 
   if (!response.ok) {
     const detail = await response.text();
@@ -336,6 +342,12 @@ function compare(declaration, live, absentOnDevelop) {
         `bypass actors: declared [${declaredBypass.join(', ') || 'none'}] vs live [${liveBypass.join(', ') || 'none'}]`
       );
     }
+  } else if (process.env.RULESETS_REQUIRE_ACTORS === '1') {
+    // A trusted run (push or schedule) must see the actors: staying green when they
+    // cannot be read would let an administrator add or broaden a bypass unnoticed.
+    differences.push(
+      'bypass actors could not be read: this run needs a token with Administration read access (the RULESET_READ_TOKEN secret), so a bypass could be added or broadened unnoticed'
+    );
   } else {
     notes.push('bypass actors are not visible to this token, so they were not compared');
   }
@@ -362,6 +374,10 @@ async function main() {
   const liveByName = new Map();
   for (const summary of listed) {
     if (!summary?.id) continue;
+    // `includes_parents=false` already asks for repository rulesets only; this also
+    // drops any organisation or enterprise ruleset that is returned anyway, since this
+    // repository cannot declare one and it would read as undeclared drift.
+    if (summary.source_type && summary.source_type !== 'Repository') continue;
     const full = await fetchRulesetById(slug, summary.id);
     liveByName.set(full.name, full);
   }

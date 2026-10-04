@@ -57,7 +57,16 @@ jobs:
       - name: Check for ruleset drift
         # Read-only: a repository GITHUB_TOKEN can read rulesets but cannot
         # create or update them, which is the point of this job.
+        #
+        # The API shows bypass actors only to a token with Administration read
+        # access, which the workflow GITHUB_TOKEN never has. Trusted runs (push to
+        # develop, schedule) therefore use the RULESET_READ_TOKEN secret and fail
+        # when the actors cannot be read, so a bypass cannot be added or broadened
+        # unnoticed. Pull request runs keep the restricted token and skip that part
+        # of the comparison, because a pull request must not receive an
+        # administration-scoped credential.
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.event_name != 'pull_request' && secrets.RULESET_READ_TOKEN || secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
+          RULESETS_REQUIRE_ACTORS: ${{ github.event_name != 'pull_request' && '1' || '' }}
         run: node scripts/validation/validate-ruleset-drift.cjs
