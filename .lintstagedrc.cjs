@@ -20,7 +20,11 @@ const EXCLUDED_PATTERNS = [
 ];
 
 function isExcluded(filename) {
-  return EXCLUDED_PATTERNS.some((pattern) => pattern.test(filename));
+  // lint-staged hands over native absolute paths, so on Windows they carry
+  // backslashes (`C:\repo\.github\projects\active\...`). The patterns are written
+  // with forward slashes, so normalise before matching.
+  const normalised = filename.replace(/\\/g, '/');
+  return EXCLUDED_PATTERNS.some((pattern) => pattern.test(normalised));
 }
 
 function quoteAll(filenames) {

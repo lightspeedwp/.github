@@ -83,3 +83,14 @@ jobs:
 
       - name: Typecheck
         run: npm run typecheck
+
+      # Astro component checking: `tsc` cannot read .astro files, so a type error in a
+      # page's markup or inline script passes the step above. The website has 36
+      # existing findings, so this reports them without failing the job; make it
+      # blocking by deleting `continue-on-error` once they are cleared.
+      - name: Install website dependencies
+        run: npm ci --prefix website --ignore-scripts --prefer-offline --no-audit --no-fund
+
+      - name: Astro check (informational)
+        continue-on-error: true
+        run: npm run typecheck:astro

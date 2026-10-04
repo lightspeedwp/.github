@@ -159,8 +159,8 @@ memory_schema:
         - high
     approved_for_use:
       allowed:
-        - yes
-        - no
+        - "yes"
+        - "no"
         - needs_review
     reviewer:
       status: missing
