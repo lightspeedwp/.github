@@ -56,7 +56,7 @@ Use these statuses:
 - `Consolidate` - several old URLs map to one stronger new destination.
 - `Replace` - old page maps to a related but not identical new page.
 - `Retain` - URL should stay live unchanged.
-- `Remove - No Redirect` - only for deliberately retired low-value content with no useful equivalent.
+- `Remove - No Redirect` - only for deliberately retired low-value content with no useful equivalent, and only where a content or SEO owner has recorded the decision to retire it. Record who decided, when, and on what grounds; the redirect status model permits a 404 or 410 only for an agreed removal. Without that recorded decision the item is `Needs Decision`, not a removal.
 - `Needs Decision` - destination or business intent is unclear.
 - `Blocked` - redirect cannot be implemented until another issue is resolved.
 

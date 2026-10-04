@@ -29,7 +29,15 @@
 [![reporting-metrics](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/reporting-metrics.yml)
 <!-- BADGES-END -->
 
-**Branch**: `audit/label-consolidation` | **Date**: 2026-09-14 | **Spec**: [008-label-audit-consolidation/spec.md](spec.md)
+**Branch**: `audit/label-consolidation` (merged as #3362) | **Date**: 2026-09-14, updated 2026-10-03 | **Spec**: [008-label-audit-consolidation/spec.md](spec.md)
+
+**Status (2026-10-03)**: The audit (US1–US3) and Stages 0a, 0b and 0c are on `develop`: #3362, #3534 and #3564 merged on 2026-09-25. Since then #3725 (#3730) merged on 2026-10-02 (the T042 Linear export and the Stage 1 drafts T046b, T048, T049) and #3732 (#3731) merged on 2026-10-03 (constitution v1.4.0, which makes `branch-types.yml` the canonical routing map and locks the routing files). Open PRs:
+
+- #3703 (#3728): this plan, the tasks and Phase 9;
+- #3704 (#3729): the T062a write queue;
+- #3734: the locked-files guard and the inventory token guard (T075).
+
+Stage 0a's manual step (T040c), the org-wide inventory (T041, waiting for @ashleyshaw's short-lived inventory token and #3734) and the Stage 1 approvals are next. One governance gap is open: #3534 merged before #3556 and #3557 were fully signed off (see Constitution Check).
 
 **Input**: Feature specification from `.github/specs/008-label-audit-consolidation/spec.md`
 
@@ -42,8 +50,8 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 **Key Constraints**:
 
 - Type family: exactly 25 labels, each mapped to one issue type. The audit (2026-09-14) found 26 (25 mapped + unmapped `type:decision`); Stage 0a (T040b, #3534) applied the FR-014 swap, so `type:decision` is mapped and `type:question` is retired. No other type-family change is permitted
-- Audit phase (US1-US3) is read-only; consolidation (US4) changes configuration only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` approval. FR-009 exempts two earlier changes: the Stage 0a issue-type change (approved via #3530, #3556 and #3557) and the never-delete list clean-up
-- Before #3362 merges, the spec artefacts, analysis reports and label docs on `audit/label-consolidation` use the target names `aiops:*`, `type:aiops` and `spec:*` (Stage 0c); the 2026-09-14 snapshot files keep the recorded names with a `target_name` added, and `renamed-label-references.json` keeps the old names. The rename in `labels.yml`, `pr_aiops.md` and the automation waits for Stage 2 (FR-011)
+- Audit phase (US1-US3) is read-only; consolidation (US4) changes configuration only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` approval. FR-009 exempts two earlier changes: the Stage 0a issue-type change (#3530 is approved; the implementation merged in #3534 before full approval, so #3556 is approved only in principle and #3557 is pending until T040n's dated sign-off) and the never-delete list clean-up
+- Since Stage 0c (shipped in #3362), the spec artefacts, analysis reports and label docs use the target names `aiops:*`, `type:aiops` and `spec:*` (Stage 0c); the 2026-09-14 snapshot files keep the recorded names with a `target_name` added, and `renamed-label-references.json` keeps the old names. The rename in `labels.yml`, `pr_aiops.md` and the automation waits for Stage 2 (FR-011)
 - Until Stage 3, labelling automation removes no label for being outside `labels.yml` (FR-022); AI assets live in `aiops:*`, with `area:ai` as the one umbrella area label (FR-012)
 - All findings must be evidence-based with file/line references
 
@@ -68,7 +76,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 - Shell scripting for workflow analysis
 - JSON/YAML comparison and reconciliation
 - Linear API (label listing, issue label updates, rename, retire/restore)
-- Credentials (FR-018): org-wide GitHub App with Issues read/write and Metadata read (short-lived tokens); read-only `LINEAR_API_KEY` secret for the drift check; deletion and Linear writes run from @ashley's session
+- Credentials (FR-018): org-wide GitHub App with Issues read/write and Metadata read (short-lived tokens); read-only `LINEAR_API_KEY` secret for the drift check; deletion and Linear writes run from @ashleyshaw's session; the inventory script will read a dedicated token variable and refuse the repository-scoped Actions token once T075 merges (#3734, still open); today it reads `GITHUB_TOKEN`
 - GitHub Actions scheduled workflow (weekly drift check)
 
 **Data Sources**:
@@ -115,7 +123,7 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 
 1. **Organisation-Wide Governance Authority**: This audit serves the `.github` repository's role as authoritative source for label governance across all LightSpeed repositories. ✅
 
-2. **Curated Assets with Locked Governance**: The audit phase is read-only. Consolidation changes `labels.yml`, `issue-types.yml` and `06-question.md` only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` are approved by @ashley, with impact analysis from the label mapping. ✅
+2. **Curated Assets with Locked Governance**: The audit phase is read-only. Consolidation changes `labels.yml`, `issue-types.yml` and `06-question.md` only after `[LABEL-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` are approved by @ashleyshaw, with impact analysis from the label mapping. ✅
 
 3. **Clear Asset Boundaries**: Audit clearly differentiates between canonical configuration (`.github/`) and documentation (top-level `docs/`). ✅
 
@@ -131,7 +139,30 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 
 9. **Automated Validation & Metrics-Driven Governance**: The weekly drift check (FR-017) replaces one-off manual audits for label consistency. ✅
 
-**No violations identified.** Audit and consolidation are within scope and compliant with constitution v1.3.1.
+**Post-merge re-check (2026-10-01)**: ⚠️ **One Principle II violation, already merged.** #3534 changed locked files (`issue-types.yml`, `labels.yml`, `06-decision.md`, `06-question.md`, `ISSUE_TEMPLATE/config.yml`) and merged on 2026-09-25, while #3556 was approved only in principle and #3557 was pending. The 2026-09-24 re-check below required both approvals first. Remediation, in order of preference:
+
+1. Reopen #3557 and any other request issue closed by the #3534 merge, and keep those issues open until dated sign-off is recorded. @ashleyshaw then records a dated sign-off on #3556 and #3557 covering what #3534 shipped, and `evidence/change-requests.json` records it.
+2. If either request is rejected, a revert PR restores the rejected part, and the spec, contracts and tasks are updated to match.
+
+No later stage that changes a locked file (Stage 2 onwards) starts until this is resolved. To stop a repeat, any PR that changes a locked file is opened as a draft and leaves the merge queue until its change requests show `approved` in `change-requests.json`.
+
+A second gap is not a constitution violation, but it blocks Stage 1. #3554 (`[LABEL-UPDATE-REQUEST]` for five imports) was closed as completed when #3534 and #3362 merged, through hand-added Development links, although none of its labels is in `labels.yml` yet. It must be reopened before T046a records it.
+
+All other principles stay compliant with the constitution (checked against v1.3.1; v1.4.0 is now in force, see the re-check below).
+
+**Re-check against constitution v1.4.0 (2026-10-02; merged in #3732 on 2026-10-03, so v1.4.0 is the active authority)**: ⚠️ Compliant once three task changes are made; no new violation. v1.4.0 makes these rules:
+
+- `.github/branch-types.yml` is the canonical routing map, and `PULL_REQUEST_TEMPLATE/config.yml` MUST mirror it.
+- Each routed template's `type:*` label is authoritative, and `branch-labels.yml` MUST give each branch type that same single label.
+- `branch-types.yml`, `branch-labels.yml` and `config.yml` are LOCKED under `[TEMPLATE-UPDATE-REQUEST]`.
+
+Consequences for this plan:
+
+1. **T074 and T076 change locked files.** Both go into the T046b `[TEMPLATE-UPDATE-REQUEST]`, which already covers six PR templates, and ship in the Stage 2 configuration PR only after it is approved (Principle II).
+2. **T074's ten corrections follow the template.** `branch-labels.yml` takes each routed template's type label. For example `audit/` becomes `type:audit` and `hotfix/` becomes `type:release`. The 13 branch types with no entry get one.
+3. **T076 runs one way only:** `config.yml` is corrected to match `branch-types.yml`, never the reverse. Constitution v1.4.0, merged in #3732 on 2026-10-03, is the active authority for this direction.
+
+The approver is named by login, @ashleyshaw, which is what the deletion gate checks (FR-016).
 
 **Post-design re-check (2026-09-25, after the FR-011 rename clarifications)**: ✅ Compliant. Stage 0c changes only unlocked files on the audit branch. The rename in the locked `labels.yml` and `pr_aiops.md` waits for a new `[LABEL-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Principle II), and its ordering after the Stage 0b guard keeps automation from stripping labels (Principle VIII).
 
@@ -173,12 +204,17 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 │           ├── label-inventory.csv          # Complete label catalog
 │           ├── duplicates-analysis.md       # Consolidation recommendations
 │           ├── workflow-analysis.md         # Archived workflow assessment
-│           └── evidence/
-│               ├── label-mappings.json      # Source data comparisons
-│               ├── missing-labels.json      # Labels in GitHub but not canonical
-│               ├── mismatches.json          # Name/color inconsistencies
-│               ├── linear-labels.json       # US4: Linear inventory and mapping
-│               └── dry-run/{repo}.json      # US4: per-repository deletion dry runs
+│           ├── evidence/
+│           │   ├── label-mappings.json      # Source data comparisons
+│           │   ├── missing-labels.json      # Labels in GitHub but not canonical
+│           │   ├── mismatches.json          # Name/color inconsistencies
+│           │   ├── linear-labels.json       # US4: Linear inventory and mapping
+│           │   ├── linear-writes.jsonl       # US4: every Linear write (FR-023 point 5)
+│           │   ├── linear-changes.jsonl      # US4: every Linear label change (FR-023 point 5)
+│           │   ├── native-issue-types.json  # US4: organisation issue types (T040c, T041a)
+│           │   ├── consolidation-log.jsonl   # US4: every destructive change (FR-023 point 10)
+│           │   └── dry-run/{repo}.json      # US4: per-repository deletion dry runs
+│           └── change-requests/             # US4: Stage 1 issue drafts (T046, T046b, T048, T049)
 ```
 
 **Structure Decision**:
@@ -186,11 +222,13 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 - **Documentation**: All specification, planning, and design artifacts reside in `.github/specs/008-label-audit-consolidation/` (per SpecKit convention)
 - **Audit Output**: Final audit reports and findings stored in `.github/reports/audits/2026-09-14-label-audit/` (per repository governance for audit artifacts)
 - **No source code development in the audit phase**: deliverables are reconciliation reports and recommendations
-- **Consolidation changes (US4)**: `.github/labels.yml`, `.github/issue-types.yml`, `.github/ISSUE_TEMPLATE/06-decision.md` (replacing `06-question.md`), `.github/issue-fields.yml`, `.github/label-governance-policy.yml`, `.github/labeler.yml`, `.github/branch-labels.yml`, automation scripts that reference renamed labels, six docs files, a new scheduled drift-check workflow in `.github/workflows/`, and the OpenSpec → Spec Kit rename across live files
+- **Consolidation changes (US4)**: `.github/labels.yml`, `.github/issue-types.yml`, `.github/ISSUE_TEMPLATE/06-decision.md` (replacing `06-question.md`), `.github/issue-fields.yml`, `.github/label-governance-policy.yml`, `.github/labeler.yml`, `.github/branch-labels.yml`, `.github/PULL_REQUEST_TEMPLATE/config.yml`, six locked PR templates, automation scripts that reference renamed labels (and the inventory token guard, T075), six docs files, a new scheduled drift-check workflow in `.github/workflows/`, and the OpenSpec → Spec Kit rename across live files
 
 ## Complexity Tracking
 
-**No Constitution Check violations.**
+| Violation | Why it happened | Resolution |
+| --- | --- | --- |
+| Principle II: #3534 merged locked-file changes before #3556 and #3557 were fully approved | It merged within a minute of a maintainer's approval (2026-09-25 07:41 UTC); no required check covers the change-request approvals | Dated sign-off on #3556 and #3557, or a revert of the rejected part (see Constitution Check). Later locked-file PRs stay in draft until their requests are approved, and the T080 Locked Files Guard (#3734) fails any that are not, once T080a makes it a required check |
 
 - Audit phase: read-only access to all configuration files; output is documentation plus structured data
 - Consolidation phase: locked files change only through approved change requests (Principle II)
@@ -198,20 +236,33 @@ User Story 4 then consolidates labels across GitHub and Linear: prefix renames (
 
 ## Consolidation Execution Plan (User Story 4)
 
-Each stage starts only when the previous stage's exit check passes. Validation steps are in `quickstart.md` (Tests 9 to 17).
+Each stage starts only when the previous stage's exit check passes. Validation steps are in `quickstart.md` (Tests 9 to 17). Stages 3 to 5 follow the run-safety rules in FR-023 (research R21): they can be stopped and resumed, re-runs make no write, mutating calls are rate-limited, and every change is logged.
+
+**Progress (2026-10-02)**:
+
+| Stage | Status |
+| --- | --- |
+| 0a | Configuration done (#3534, merged 2026-09-25); full sign-off on #3556 and #3557 still to record; manual settings-page update (T040c) to do |
+| 0b | Done (#3564, merged 2026-09-25); still in place after #3549 merged later that day (32 agent tests pass) |
+| 0c | Done (in #3362) |
+| 0 | T042 (Linear export, 294 labels) done in #3725. T041 and T041a run from @ashleyshaw's session with a fine-grained, read-only token (all `lightspeedwp` repositories, Issues and Metadata read, expiring in 7 days or less) in `LABEL_INVENTORY_TOKEN`, after T075 (#3734); the T071a App is for writes and the drift check only (FR-018). T082 confirms the `migrate:*` clean-up in Linear before T043 |
+| 1 | Drafts done in #3725 (T046b template request for six templates, T048 OpenSpec migration, T049 deletion gate); waits on T040n, T046c (reopen #3554), T043 and T046, then T050 opens them |
+| 3 prep | T062a write queue done in #3704 (not yet merged) |
+| 2–6 | Not started |
+| Phase 9 (convergence) | T074–T077 added 2026-10-02: routing labels (T074), inventory token guard (T075), `config.yml` reconciliation (T076), stage-one test upkeep (T077) |
 
 | Stage | What happens | Gate / exit check | Requirements |
 | --- | --- | --- | --- |
-| 0a. Issue types and colours (immediate) | PR updating `issue-types.yml` (25 entries with descriptions, Decision replaces Question) and `type:*` label colours in `labels.yml` from `contracts/issue-types-org-settings.md`, together with the Decision template and `issue-fields.yml`; then a manual update of the organisation's issue types page in the order given in the contract | #3556 and #3557 approved before #3534 merges; configuration validation and `npm test` pass; settings page matches the contract (Test 10b) | FR-009, FR-014, FR-019, FR-020 |
-| 0b. Labelling agent guard (immediate) | Separate fix PR (`fix/` branch): the agent stops removing labels for being outside `labels.yml`, honours `DRY_RUN`, and applies only `type:*` labels that exist in `labels.yml` | Test 16 passes; the agent's own tests pass | FR-017, FR-022 |
-| 0c. Label names on the audit branch (before #3362 merges) | On `audit/label-consolidation`: replace `ai-ops`/`type:ai-ops` label names with `aiops`/`type:aiops` and `openspec:` with `spec:` in the spec 008 artefacts, the audit's analysis reports and recommendation files, `docs/LABEL_INVENTORY.md` and `docs/LABELING_FAQ.md`; add `target_name` to the four snapshot files (`canonical-labels.json`, `label-families.json`, `label-inventory.json`, `label-inventory.csv`) and a note in `evidence/README.md`; leave `renamed-label-references.json` unchanged. No locked file, script, workflow or test changes | Test 17 passes; the evidence test still passes | FR-011 |
-| 0. Evidence | Paginated label inventory for every repository; `evidence/linear-labels.json` with issue counts and proposed mappings (`contracts/label-mapping-schema.md`) | Mapping validation rules pass (Test 9) | FR-006, FR-012 |
-| 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table, referencing #3554 for its five imports), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a `[LABEL-UPDATE-REQUEST]` for the 16 FR-011 prefix renames and the `spec:NNN` → `spec-id:NNN` move, a `[TEMPLATE-UPDATE-REQUEST]` for `pr_aiops.md` (`type:ai-ops` → `type:aiops`), a migration issue for OpenSpec paths, and a new gate issue replacing #95; each waiting request carries `meta:needs-approval` once the label exists | @ashley approves all requests | FR-009, FR-013, FR-014, FR-016, FR-021 |
-| 2. Configuration PR | One PR: `labels.yml` (renames, imports including the five #3554 labels with the FR-012 colour rule, the `area:*` → `aiops:*` AI merges), `label-governance-policy.yml` (new gate issue, `enabled: false`), `labeler.yml`, `branch-labels.yml`, scripts, workflows (including `orchestrate-phase-progression.yml`), validators (`validate-labeling-configs.cjs` prefix list) and tests referencing `ai-ops:` or `openspec:` labels, `pr_aiops.md`, the `spec:NNN` → `spec-id:NNN` move (`prd-combined-agent` plan, `bulk-label-issues.sh` and its test), the six docs files, and the FR-021 policy in `docs/LABEL_STRATEGY.md`. The `type:question` removal, `issue-types.yml`, `06-decision.md` and `issue-fields.yml` belong to Stage 0a; the never-delete list clean-up (T055) is already on the spec branch | Merges only after #3564 (Stage 0b), and its label renames are applied in GitHub (Stage 3) in the same session, so no item loses an `ai-ops:*` or `openspec:*` label. CI green; Test 10 and Test 15 pass | FR-011, FR-012, FR-014, FR-021 |
+| 0a. Issue types and colours (configuration done in #3534; T040c to do) | PR updating `issue-types.yml` (25 entries with descriptions, Decision replaces Question) and `type:*` label colours in `labels.yml` from `contracts/issue-types-org-settings.md`, together with the Decision template and `issue-fields.yml`; then a manual update of the organisation's issue types page in the order given in the contract | for #3534, which merged on 2026-09-25 before approval, T040n's dated sign-off on #3556 and #3557 (or a revert of any rejected part); for every later locked-file PR, approval before merge (FR-009); configuration validation and `npm test` pass; settings page matches the contract (Test 10b) | FR-009, FR-014, FR-019, FR-020 |
+| 0b. Labelling agent guard (done in #3564) | Separate fix PR (`fix/` branch): the agent stops removing labels for being outside `labels.yml`, honours `DRY_RUN`, and applies only `type:*` labels that exist in `labels.yml` | Test 16 passes; the agent's own tests pass | FR-017, FR-022 |
+| 0c. Label names on the audit branch (done in #3362) | On `audit/label-consolidation`: replace `ai-ops`/`type:ai-ops` label names with `aiops`/`type:aiops` and `openspec:` with `spec:` in the spec 008 artefacts, the audit's analysis reports and recommendation files, `docs/LABEL_INVENTORY.md` and `docs/LABELING_FAQ.md`; add `target_name` to the four snapshot files (`canonical-labels.json`, `label-families.json`, `label-inventory.json`, `label-inventory.csv`) and a note in `evidence/README.md`; leave `renamed-label-references.json` unchanged. No locked file, script, workflow or test changes | Test 17 passes; the evidence test still passes | FR-011 |
+| 0. Evidence | Paginated label inventory for every repository (after the T075 token guard); `evidence/linear-labels.json` with issue counts and proposed mappings (`contracts/label-mapping-schema.md`) | Mapping validation rules pass (Test 9); the inventory lists private repositories | FR-006, FR-010, FR-012, FR-018 |
+| 1. Approve | Raise `[LABEL-UPDATE-REQUEST]` (mapping table, referencing #3554 for its five imports), `[ISSUE-TYPE-UPDATE-REQUEST]` and `[TEMPLATE-UPDATE-REQUEST]` (Question → Decision), a `[LABEL-UPDATE-REQUEST]` for the 16 FR-011 prefix renames and the `spec:NNN` → `spec-id:NNN` move, a `[TEMPLATE-UPDATE-REQUEST]` for the six PR templates (`type:ai-ops` → `type:aiops`, `type:documentation` → `type:docs`, `meta:needs-review` removed) that also covers the routing files `branch-labels.yml` (T074) and `PULL_REQUEST_TEMPLATE/config.yml` (T076), locked since constitution v1.4.0, a migration issue for OpenSpec paths, and a new gate issue replacing #95; each waiting request carries `meta:needs-approval` once the label exists | @ashleyshaw approves all requests | FR-009, FR-011, FR-013, FR-014, FR-016, FR-021 |
+| 2. Configuration PR | One PR: `labels.yml` (renames, imports including the five #3554 labels with the FR-012 colour rule, the `area:*` → `aiops:*` AI merges), `label-governance-policy.yml` (new gate issue, `enabled: false`), `labeler.yml`, `branch-labels.yml` (one canonical `type:*` label per branch type, matching its routed template: T074), `PULL_REQUEST_TEMPLATE/config.yml` (mirrors `branch-types.yml`: T076), scripts, workflows (including `orchestrate-phase-progression.yml`), validators (`validate-labeling-configs.cjs` prefix list) and tests referencing `ai-ops:` or `openspec:` labels, `pr_aiops.md`, the `spec:NNN` → `spec-id:NNN` move (`prd-combined-agent` plan, `bulk-label-issues.sh` and its test), the six docs files, and the FR-021 policy in `docs/LABEL_STRATEGY.md`. The `type:question` removal, `issue-types.yml`, `06-decision.md` and `issue-fields.yml` belong to Stage 0a; the never-delete list clean-up shipped in #3362 (T055 stays open only for `gated_by_issue`, which waits for the new gate issue) | Merges only after #3564 (Stage 0b), and its label renames are applied in GitHub (Stage 3) in the same session, so no item loses an `ai-ops:*` or `openspec:*` label. CI green; Test 10 and Test 15 pass | FR-011, FR-012, FR-014, FR-021 |
 | 2b. Spec Kit rename PR | Separate PR for the OpenSpec → Spec Kit rename in live files and paths, with links updated | Test 11 passes | FR-013 |
-| 3. GitHub changes | First restrict label creation in Linear's GitHub integration (T071, FR-017), so the sync cannot add labels during Stages 3–4. Then, per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones. Organisation native issue types were already changed by hand in Stage 0a (T040c); this stage only verifies them (T064a/T064b). From this stage the labelling agent uses the approved mapping as its alias list (FR-022) | No issue left without exactly one `type:*` label; native issue types match `issue-types.yml`; every open `type:question` issue converted (T063) | FR-011, FR-012, FR-014, FR-015, FR-019, FR-022 |
-| 4. GitHub deletion | Starts only when every item in `checklists/destructive-changes.md` is reviewed (T064c). Per repository: generate dry run and snapshot; @ashley approves on the gate issue; run the deletion with `--apply --confirm-gate <gate issue>` (refused for unapproved repositories); `destructive_cleanup.enabled` stays `false` in the repository | Test 12 passes for every approved repository; unapproved repositories untouched | FR-016 |
-| 5. Linear clean-up | Relabel issues for merges and re-prefixes, retire zero-use and merged labels, team-scope project labels, update colours and descriptions (including `spec:*`) | Test 13 passes | FR-012, FR-015, FR-017 |
+| 3. GitHub changes | First turn off the GitHub issue sync in Linear for every synced team (T071, FR-017) and record the time on the gate issue, so the sync cannot add labels during Stages 3–5; it is turned back on when Stage 5 ends. Then, per repository: rename in place; create/update from `labels.yml`; relabel where the target already exists; convert open `type:question` issues to Discussions and relabel closed ones. Those conversions and fallback relabels are done by hand, so each is recorded through `label-consolidate.js record` (T062b) as an `intended` record before and a `done` record after, under the same run lock, and reconciled on resume like any other change. Organisation native issue types were already changed by hand in Stage 0a (T040c); this stage only verifies them (T064a/T064b). From this stage the labelling agent uses the approved mapping as its alias list (FR-022). Every change is logged to `evidence/consolidation-log.jsonl` as an `intended` record before the call and a `done` record after it; a stopped run resumes from the repositories without `executed_at` for its stage and first reconciles any `intended` record that has no `done` record | No issue left without exactly one `type:*` label; native issue types match `issue-types.yml`; every open `type:question` issue converted (T063) | FR-011, FR-012, FR-014, FR-015, FR-019, FR-022, FR-023 |
+| 4. GitHub deletion | Starts only when every item in `checklists/destructive-changes.md` is reviewed (T064c). Per repository: generate dry run and snapshot; @ashleyshaw approves on the gate issue; run the deletion with `--apply --confirm-gate <gate issue>` (refused for unapproved repositories), which first re-reads the repository and skips it if anything differs from the approved dry run; `destructive_cleanup.enabled` stays `false` in the repository | Test 12 passes for every approved repository; unapproved repositories untouched; SC-011 and SC-012 hold | FR-016, FR-023 |
+| 5. Linear clean-up | Relabel issues for merges and re-prefixes, retire zero-use and merged labels, team-scope project labels, update colours and descriptions (including `spec:*`). Labels are matched by ID and scope, and every issue write is logged to `evidence/linear-writes.jsonl` and every label change to `evidence/linear-changes.jsonl` (`intended` before the call, `done` after it) | Test 13 passes | FR-012, FR-015, FR-017, FR-023 |
 | 6. Drift check | Enable the weekly scheduled workflow; run it once manually | "No drift" report (Test 14) | FR-017, SC-009 |
 
 **Why this order**: The Linear GitHub integration copies GitHub labels into Linear (`status:done` was recreated in Linear on 2026-09-24). Finishing GitHub first stops Linear clean-up being undone. See research R3.
