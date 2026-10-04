@@ -9,7 +9,7 @@
         "lightspeed-frontmatter-audit",
         "lightspeed-label-governance",
         "lightspeed-pr-review",
-        "lightspeed-qodo-pr-agent"
+        "qodo-pr-agent"
       ]
     },
     {

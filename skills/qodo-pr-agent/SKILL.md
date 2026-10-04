@@ -1,9 +1,9 @@
 ---
-name: "lightspeed-qodo-pr-agent"
+name: "qodo-pr-agent"
 description: "Use this skill when an agent needs Qodo PR-Agent output (review, improve, describe, ask) for a PR or diff without publishing to GitHub. Returns a normalised ok/skipped/error result so callers can fall back cleanly."
 ---
 
-# lightspeed-qodo-pr-agent
+# qodo-pr-agent
 
 ## Purpose
 

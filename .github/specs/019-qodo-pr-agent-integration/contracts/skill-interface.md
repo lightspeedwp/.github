@@ -6,7 +6,7 @@
 
 ```text
 skills/qodo-pr-agent/
-├── SKILL.md            # name: lightspeed-qodo-pr-agent; purpose, input/output, errors, examples
+├── SKILL.md            # name: qodo-pr-agent; purpose, input/output, errors, examples
 ├── metadata.yml        # version, owners, platforms (matches skills/pr-review/metadata.yml)
 └── scripts/
     └── run-qodo-pr-agent.sh

@@ -106,7 +106,7 @@ skills/qodo-pr-agent/                            # NEW: shared skill (contract: 
 └── scripts/
     ├── run-qodo-pr-agent.sh
     └── pr_mode_adapter.py                       # PR mode: returns the stored result without publishing (research R9)
-skills/SKILL_REGISTRY.json                       # EDIT: register lightspeed-qodo-pr-agent in the core group
+skills/SKILL_REGISTRY.json                       # EDIT: register qodo-pr-agent in the core group
 
 # EDIT: add a "## Qodo PR-Agent integration" section (invocation, on-output, fallback)
 skills/pr-review/SKILL.md

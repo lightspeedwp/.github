@@ -67,7 +67,7 @@ describe('Qodo PR-Agent shared skill', () => {
   const skill = read(`${SKILL_DIR}/SKILL.md`);
 
   it('has the contracted frontmatter', () => {
-    expect(skill).toMatch(/^---\nname: "lightspeed-qodo-pr-agent"\n/);
+    expect(skill).toMatch(/^---\nname: "qodo-pr-agent"\n/);
     expect(skill).toMatch(/^description: ".+"$/m);
   });
 
@@ -99,7 +99,7 @@ describe('Qodo PR-Agent shared skill', () => {
   it('is registered in the core skill group', () => {
     const registry = JSON.parse(read('skills/SKILL_REGISTRY.json'));
     const core = registry.groups.find((group) => group.id === 'core');
-    expect(core.skills).toContain('lightspeed-qodo-pr-agent');
+    expect(core.skills).toContain('qodo-pr-agent');
   });
 });
 
