@@ -113,6 +113,7 @@
     "validate:issue-fields": "node scripts/validation/validate-issue-fields.cjs",
     "validate:linear-guidance": "node scripts/validation/validate-linear-guidance.cjs",
     "validate:retired-doc-links": "node scripts/validation/validate-retired-doc-links.cjs",
+    "validate:ruleset-drift": "node scripts/validation/validate-ruleset-drift.cjs",
     "validate:workflow-npm-scripts": "node scripts/validation/validate-workflow-npm-scripts.cjs",
     "validate:frontmatter": "node scripts/validation/validate-frontmatter.js",
     "validate:frontmatter:changed": "node scripts/validation/validate-frontmatter.js",
