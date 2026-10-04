@@ -1,0 +1,63 @@
+name: Ruleset Drift
+
+# Fails when a deployed branch ruleset no longer matches its version-controlled
+# declaration in .github/rulesets/.
+#
+# The declarations are applied by hand (see .github/rulesets/README.md), so
+# nothing else noticed when a required status check quietly stopped being
+# enforced. A check that is no longer required is invisible in the JSON and only
+# shows up as a PR merging that it should not have.
+#
+# This detects drift; it never applies, creates or mutates a ruleset. Pushing
+# ruleset changes needs a token with ruleset-write, and letting a pull request
+# rewrite branch protection is a privilege escalation. Detection and application
+# stay separate, deliberate steps.
+
+on:
+  pull_request:
+    paths:
+      - '.github/rulesets/**'
+      - 'scripts/validation/validate-ruleset-drift.cjs'
+      - '.github/workflows/ruleset-drift.yml'
+  push:
+    branches:
+      - develop
+    paths:
+      - '.github/rulesets/**'
+      - 'scripts/validation/validate-ruleset-drift.cjs'
+      - '.github/workflows/ruleset-drift.yml'
+  # Catch drift that does not come from a ruleset change, e.g. someone editing
+  # a ruleset in the GitHub UI without updating the declaration.
+  schedule:
+    - cron: '17 6 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ruleset-drift-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  drift:
+    name: Ruleset declaration matches live
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      - name: Check for ruleset drift
+        # Read-only: a repository GITHUB_TOKEN can read rulesets but cannot
+        # create or update them, which is the point of this job.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node scripts/validation/validate-ruleset-drift.cjs
