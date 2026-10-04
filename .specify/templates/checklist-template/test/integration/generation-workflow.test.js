@@ -228,7 +228,7 @@ describe('Full Checklist Generation Workflow', () => {
       const checklist = { ...withCustom, items: sequenced };
       const forAuthor = renderAudienceChecklist(checklist, 'author');
 
-      expect(forAuthor.items.length).toBe(3);
+      expect(forAuthor.items.length).toBe(4);
       expect(forAuthor.audience).toBe('author');
       expect(forAuthor.guidance).toBeDefined();
     });

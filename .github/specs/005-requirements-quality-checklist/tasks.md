@@ -141,7 +141,7 @@
 
 - [x] T036 [P] [US3] Unit test for audience context detection at `.specify/templates/checklist-template/test/unit/test-audience-detection.js` (identify intended audience from workflow context)
 - [x] T037 [P] [US3] Unit test for guidance rendering at `.specify/templates/checklist-template/test/unit/test-guidance-rendering.js` (audience-specific instructions render correctly)
-- [x] T038 [US3] Integration test for multi-audience support at `.specify/templates/checklist-template/test/integration/test-multi-audience.js`
+- [x] T038 [US3] Integration test for multi-audience support at `.specify/templates/checklist-template/test/integration/multi-audience.test.js`
 
 ### Implementation for User Story 3
 
@@ -167,7 +167,7 @@
 - [x] T045 [P] [US4] Unit test for checklist generator at `.specify/templates/checklist-template/test/unit/test-generator.js` (template → checklist conversion preserves all items)
 - [x] T046 [P] [US4] Unit test for custom item merging at `.specify/templates/checklist-template/test/unit/test-custom-merge.js` (base items + domain items combine without duplicates)
 - [x] T047 [P] [US4] Unit test for ID sequencing at `.specify/templates/checklist-template/test/unit/test-id-sequencing.js` (CHK001, CHK002... sequential IDs)
-- [x] T048 [US4] Integration test for full generation workflow at `.specify/templates/checklist-template/test/integration/test-generation-workflow.js`
+- [x] T048 [US4] Integration test for full generation workflow at `.specify/templates/checklist-template/test/integration/generation-workflow.test.js`
 
 ### Implementation for User Story 4
 
