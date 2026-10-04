@@ -157,7 +157,7 @@ scripts/
 tests/js/
 └── claude-cloud-environment-docs.test.js  # spec/plan/tasks/contract consistency checks
 
-# Delivered with spec 009 / #3358 (FR-020 deferral, T053):
+# Included in spec 009 / #3358; pending merge (FR-020 deferral, T053):
 scripts/lib/branch-categorization.js       # no auto-approval rule while deferred: claude/* → DISCUSS
 scripts/lib/__tests__/branch-categorization.test.js   # deferral cases (any tip age → DISCUSS)
 scripts/validation/__tests__/cleanup-branches-cli.test.js   # CLI with git, gh and fs mocked; no claude/* auto-approval
