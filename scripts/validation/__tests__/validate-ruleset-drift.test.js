@@ -157,6 +157,18 @@ describe('validate-ruleset-drift', () => {
     expect(result.status).toBe(1);
   });
 
+  it('still discloses uncompared bypass actors when other drift is reported', async () => {
+    const live = liveMatching(declaredRuleset());
+    delete live.bypass_actors;
+    live.enforcement = 'disabled';
+
+    const result = await runAgainst([live]);
+
+    expect(result.output).toContain('DRIFT');
+    expect(result.output).toContain('bypass actors are not visible to this token');
+    expect(result.status).toBe(1);
+  });
+
   describe('contexts declared but not yet required live', () => {
     const withoutContexts = (live, contexts) => {
       const rule = live.rules.find((entry) => entry.type === 'required_status_checks');

@@ -482,6 +482,9 @@ async function main() {
             `      (pending, not drift: "${context}" is declared but not yet required live)`
           );
         }
+        for (const note of result.notes || []) {
+          console.log(`  NOTE      ${result.name}: ${note}`);
+        }
       }
     }
     console.log('');
