@@ -36,12 +36,14 @@
     "node": ">=18.0.0"
   },
   "dependencies": {
+    "@actions/core": "^1.11.1",
+    "@actions/github": "^6.0.1",
     "yargs": "^17.7.2"
   },
   "devDependencies": {
+    "c8": "^8.0.1",
     "eslint": "^8.48.0",
-    "prettier": "^3.0.3",
-    "c8": "^8.0.1"
+    "prettier": "^3.0.3"
   },
   "repository": {
     "type": "git",

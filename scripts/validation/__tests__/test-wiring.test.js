@@ -41,6 +41,17 @@ const STANDALONE = [
     script: 'test:phase-5',
     via: '.github/scripts/__tests__/run-all-tests.sh',
   },
+  {
+    // Runs under the changelog package's own node:test runner rather than
+    // Jest, so it is owned by that package's suite.
+    file: '.github/validation/changelog/test/unit/check-run-annotations.test.js',
+    script: 'test:changelog-validation',
+  },
+  {
+    // Same runner as the unit suite above.
+    file: '.github/validation/changelog/test/integration/check-run-annotations.test.js',
+    script: 'test:changelog-validation',
+  },
 ];
 
 const STANDALONE_FILES = STANDALONE.map(({ file }) => file);
