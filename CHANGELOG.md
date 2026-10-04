@@ -109,6 +109,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Pilot Receiver Inlines Its Privileged Run** — The pilot receiver holds no reference to the reusable workflow, so a pull request has no local reference to repoint and there is no caller to pin to a commit hash. (#3532)
 - **Pilot Off Until Switched On** — The pilot now runs only after its enable setting is switched on, so it cannot spend before its limit is confirmed, and a command on a closed pull request is skipped. (#3532)
 - **Pilot Run Origin** — Run records now name the pull request or comment event that started a run and when it arrived, and manual runs are left out of the 10-minute response rate. (#3532)
+- **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
 - **Markdown Commit Check Works After A Stale Install** — Fixed the staged-Markdown commit check crashing on a working copy installed before a tooling upgrade. It now accepts the older version and lints as normal. (#3785)
 
 - **Bare Jest Uses the Intended Config** — The broken root Jest config is gone and a root `jest.config.cjs` now forwards to `.jest.config.cjs`, so bare `npx jest` no longer runs 76 suites this repository excludes. (#3711)
