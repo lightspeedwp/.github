@@ -378,8 +378,8 @@ describe('repository walk', () => {
       fs.writeFileSync(
         path.join(baselineDirectory, 'skills-baseline.json'),
         // The key carries the offending field, so a second problem with a different
-    // field in the same file is not covered by this entry.
-    JSON.stringify({ findings: ['skills/example-skill/SKILL.md#closed-field-set#version'] })
+        // field in the same file is not covered by this entry.
+        JSON.stringify({ findings: ['skills/example-skill/SKILL.md#closed-field-set#version'] })
       );
       const baselined = run(tree);
       expect(baselined.status).toBe(0);
@@ -477,14 +477,20 @@ describe('review findings on this branch', () => {
 
   it.each(CANONICAL_FOOTERS)('treats a heading plus this footer as an empty body: %s', (footer) => {
     const body = `# Heading only\n\n${footer}\n`;
-    const result = check('skills/example-skill/SKILL.md', `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`);
+    const result = check(
+      'skills/example-skill/SKILL.md',
+      `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`
+    );
     expect(result.status).toBe(1);
     expect(result.output).toContain('[body]');
   });
 
   it('still accepts a body whose only content is real instructions above a footer', () => {
     const body = `Follow these steps.\n\n${CANONICAL_FOOTERS[0]}\n`;
-    const result = check('skills/example-skill/SKILL.md', `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`);
+    const result = check(
+      'skills/example-skill/SKILL.md',
+      `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`
+    );
     expect(result.status).toBe(0);
   });
 
@@ -492,7 +498,10 @@ describe('review findings on this branch', () => {
     // stripFooter scans backwards, so a phrase named inside the instructions is
     // still content rather than a footer to discard.
     const body = `If a change says "Docs signed by" then review it.\n\n${CANONICAL_FOOTERS[4]}\n`;
-    const result = check('skills/example-skill/SKILL.md', `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`);
+    const result = check(
+      'skills/example-skill/SKILL.md',
+      `---\nname: example-skill\ndescription: Does a thing.\n---\n${body}`
+    );
     expect(result.status).toBe(0);
   });
 
@@ -507,7 +516,10 @@ describe('review findings on this branch', () => {
       const dir = path.join(tree, 'scripts', 'validation');
       fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
       fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
-      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(dir, 'lib', 'skills-spec.js')
+      );
 
       // Drop `title` only. One finding, and the baseline covers it.
       fs.writeFileSync(
@@ -546,7 +558,10 @@ describe('review findings on this branch', () => {
       const dir = path.join(tree, 'scripts', 'validation');
       fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
       fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
-      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(dir, 'lib', 'skills-spec.js')
+      );
 
       const both = run(tree);
       expect(both.status).toBe(1);
@@ -598,7 +613,10 @@ describe('review findings on this branch', () => {
       const dir = path.join(tree, 'scripts', 'validation');
       fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
       fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
-      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(dir, 'lib', 'skills-spec.js')
+      );
 
       const both = run(tree);
       expect(both.status).toBe(1);
@@ -659,7 +677,10 @@ describe('review findings on this branch', () => {
       const badDir = path.join(tree, 'scripts', 'validation');
       fs.mkdirSync(path.join(badDir, 'lib'), { recursive: true });
       fs.copyFileSync(SCRIPT, path.join(badDir, 'validate-skills.js'));
-      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(badDir, 'lib', 'skills-spec.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(badDir, 'lib', 'skills-spec.js')
+      );
       // Baseline the one skill that must be reported.
       fs.writeFileSync(
         path.join(badDir, 'skills-baseline.json'),
@@ -673,19 +694,88 @@ describe('review findings on this branch', () => {
     }
   });
 
+  it('allows the schema-defined top-level permissions, status and author on an agent', () => {
+    const agent = (extra) =>
+      [
+        '---',
+        'name: Test Agent',
+        'description: Does a thing.',
+        'title: Test Agent',
+        'file_type: agent',
+        'last_updated: "2026-09-22"',
+        extra,
+        '---',
+        '',
+        'Body.',
+        '',
+      ].join('\n');
+    const statusFor = (extra) => {
+      const tree = makeTree({ 'agents/test.agent.md': agent(extra) });
+      try {
+        const validationDir = path.join(tree, 'scripts', 'validation');
+        fs.mkdirSync(path.join(validationDir, 'lib'), { recursive: true });
+        fs.copyFileSync(SCRIPT, path.join(validationDir, 'validate-skills.js'));
+        fs.copyFileSync(
+          path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+          path.join(validationDir, 'lib', 'skills-spec.js')
+        );
+        fs.writeFileSync(
+          path.join(validationDir, 'skills-baseline.json'),
+          JSON.stringify({ findings: [] })
+        );
+        return run(tree).status;
+      } finally {
+        fs.rmSync(tree, { recursive: true, force: true });
+      }
+    };
+
+    expect(statusFor('permissions:\n  - read\n  - write\nstatus: active\nauthor: Someone')).toBe(0);
+    // The closed set still rejects a field that is in no schema.
+    expect(statusFor('invented-field: x')).not.toBe(0);
+  });
+
+  it('skips generated output at the root only, not any directory named graft', () => {
+    const bad = '---\nname: Bad Name\ndescription: Does a thing.\n---\n\nDo it.\n';
+    const statusFor = (files) => {
+      const tree = makeTree(files);
+      try {
+        const validationDir = path.join(tree, 'scripts', 'validation');
+        fs.mkdirSync(path.join(validationDir, 'lib'), { recursive: true });
+        fs.copyFileSync(SCRIPT, path.join(validationDir, 'validate-skills.js'));
+        fs.copyFileSync(
+          path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+          path.join(validationDir, 'lib', 'skills-spec.js')
+        );
+        fs.writeFileSync(
+          path.join(validationDir, 'skills-baseline.json'),
+          JSON.stringify({ findings: [] })
+        );
+        return run(tree).status;
+      } finally {
+        fs.rmSync(tree, { recursive: true, force: true });
+      }
+    };
+
+    expect(statusFor({ 'graft/evil/SKILL.md': bad })).toBe(0);
+    expect(statusFor({ 'graphify-out/evil/SKILL.md': bad })).toBe(0);
+    expect(statusFor({ 'docs/graft/evil/SKILL.md': bad })).not.toBe(0);
+  });
+
   it('keeps an over-long name distinct from one with invalid characters', () => {
     // The length message also contains the word "characters", so a classifier that
     // tested for that word first would fold both problems into one key.
     const long = 'Bad'.repeat(22); // 66 characters, with an uppercase B
     const tree = makeTree({
-      [`skills/${long}/SKILL.md`]:
-        `---\nname: ${long}\ndescription: Does a thing.\n---\n\nDo it.\n`,
+      [`skills/${long}/SKILL.md`]: `---\nname: ${long}\ndescription: Does a thing.\n---\n\nDo it.\n`,
     });
     try {
       const dir = path.join(tree, 'scripts', 'validation');
       fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
       fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
-      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(dir, 'lib', 'skills-spec.js')
+      );
 
       const both = run(tree);
       expect(both.status).toBe(1);
@@ -718,10 +808,12 @@ describe('review findings on this branch', () => {
         })
       );
       const all = run(tree);
-      expect({ status: all.status, output: (all.stdout + all.stderr).slice(0, 200) }).toStrictEqual({
-        status: 0,
-        output: expect.stringContaining('match the checked-in baseline'),
-      });
+      expect({ status: all.status, output: (all.stdout + all.stderr).slice(0, 200) }).toStrictEqual(
+        {
+          status: 0,
+          output: expect.stringContaining('match the checked-in baseline'),
+        }
+      );
     } finally {
       fs.rmSync(tree, { recursive: true, force: true });
     }
@@ -736,7 +828,10 @@ describe('review findings on this branch', () => {
       const dir = path.join(tree, 'scripts', 'validation');
       fs.mkdirSync(path.join(dir, 'lib'), { recursive: true });
       fs.copyFileSync(SCRIPT, path.join(dir, 'validate-skills.js'));
-      fs.copyFileSync(path.join(__dirname, '..', 'lib', 'skills-spec.js'), path.join(dir, 'lib', 'skills-spec.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(dir, 'lib', 'skills-spec.js')
+      );
 
       fs.writeFileSync(
         path.join(dir, 'skills-baseline.json'),
@@ -816,11 +911,14 @@ describe('review findings on this branch', () => {
     expect(result.status).toBe(0);
 
     const schema = JSON.parse(
-      fs.readFileSync(path.join(__dirname, '..', '..', '..', 'schemas', 'agent-config.schema.json'), 'utf8')
+      fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', 'schemas', 'agent-config.schema.json'),
+        'utf8'
+      )
     );
-    expect(
-      Object.keys(schema.definitions.optionalFrontmatterFields.properties)
-    ).toContain('metadata');
+    expect(Object.keys(schema.definitions.optionalFrontmatterFields.properties)).toContain(
+      'metadata'
+    );
   });
 
   it('rejects references on an AGENTS.md and says where the field belongs', () => {
@@ -1027,6 +1125,140 @@ describe('skills-spec: compatibility length', () => {
 
   it('rejects 501 characters', () => {
     expect(spec.validateCompatibility('a'.repeat(501))[0]).toContain('maximum is 500');
+  });
+});
+
+describe('skills-spec: permissions shape', () => {
+  const shapes = (permissions) =>
+    spec.validateOptionalFieldShapes({ permissions }, 'subagent-definition');
+
+  it('accepts a list of permitted scopes', () => {
+    expect(shapes(['read', 'write', 'github:repo'])).toEqual([]);
+  });
+
+  it('rejects a scalar, as the schema requires an array', () => {
+    const findings = shapes('read');
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('`permissions` must be a list but is string');
+  });
+
+  it('rejects a scope that is not in the schema enum, and a non-string entry', () => {
+    expect(shapes(['read', 'project-planning'])[0]).toContain('"project-planning"');
+    expect(shapes([3])[0]).toContain('not a permitted scope');
+  });
+
+  it('says nothing when the field is absent', () => {
+    expect(spec.validateOptionalFieldShapes({}, 'subagent-definition')).toEqual([]);
+  });
+
+  it('lists exactly the scopes of the canonical frontmatter schema', () => {
+    const schema = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', '.schemas/frontmatter.schema.json'),
+        'utf8'
+      )
+    );
+    const found = [];
+    const walk = (node) => {
+      if (node && typeof node === 'object') {
+        if (node.permissions && node.permissions.items && node.permissions.items.enum) {
+          found.push(node.permissions.items.enum);
+        }
+        Object.values(node).forEach(walk);
+      }
+    };
+    walk(schema);
+
+    expect(found.length).toBeGreaterThan(0);
+    for (const values of found) {
+      expect([...spec.PERMISSION_VALUES].sort()).toEqual([...values].sort());
+    }
+  });
+});
+
+describe('skills-spec: status and author shape', () => {
+  const shapes = (fields) => spec.validateOptionalFieldShapes(fields, 'subagent-definition');
+
+  it('accepts a string author and a schema status', () => {
+    expect(shapes({ author: 'LightSpeed Team', status: 'active' })).toEqual([]);
+    for (const status of ['active', 'deprecated', 'draft', 'experimental']) {
+      expect(shapes({ status })).toEqual([]);
+    }
+  });
+
+  it('rejects list-valued author and status', () => {
+    expect(shapes({ author: ['a'] })[0]).toContain('`author` must be a string');
+    expect(shapes({ status: [] })[0]).toContain('`status` must be a string');
+  });
+
+  it('rejects a string status that is not in the schema enum', () => {
+    const findings = shapes({ status: 'Active' });
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain(
+      '`status` must be one of active, deprecated, draft, experimental'
+    );
+  });
+
+  it('lists exactly the statuses of the canonical frontmatter schema', () => {
+    const schema = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', '.schemas/frontmatter.schema.json'),
+        'utf8'
+      )
+    );
+
+    expect([...spec.STATUS_VALUES].sort()).toEqual(
+      [...schema.definitions.commonFields.properties.status.enum].sort()
+    );
+  });
+});
+
+describe('baseline keys for permissions findings', () => {
+  const agent = (extra) =>
+    [
+      '---',
+      'name: Test Agent',
+      'description: Does a thing.',
+      'title: Test Agent',
+      'file_type: agent',
+      'last_updated: "2026-09-22"',
+      extra,
+      '---',
+      '',
+      'Body.',
+      '',
+    ].join('\n');
+  const statusFor = (extra, baselined) => {
+    const tree = makeTree({ 'agents/test.agent.md': agent(extra) });
+    try {
+      const validationDir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(validationDir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(validationDir, 'validate-skills.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(validationDir, 'lib', 'skills-spec.js')
+      );
+      fs.writeFileSync(
+        path.join(validationDir, 'skills-baseline.json'),
+        JSON.stringify({ findings: baselined })
+      );
+      return run(tree).status;
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  };
+
+  it('is keyed by the field, so another field baselined in the same file does not hide it', () => {
+    const file = 'agents/test.agent.md#optional-field-shape';
+
+    // Baselined for its own field: tolerated.
+    expect(statusFor('permissions: [billing]', [`${file}#permissions`])).toBe(0);
+    // Baselined only for a different field's shape error: the permissions finding is new.
+    expect(statusFor('permissions: [billing]', [`${file}#author`])).not.toBe(0);
+    // A new shape error on another field is likewise not hidden by the permissions entry.
+    expect(statusFor('permissions: [read]\nauthor: [a]', [`${file}#permissions`])).not.toBe(0);
   });
 });
 
