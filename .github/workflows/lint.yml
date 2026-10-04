@@ -9,6 +9,13 @@ on:
   push:
     branches:
       - develop
+  # These jobs back required status checks and the rulesets carry a merge-queue
+  # rule. A check that only runs on pull_request is never reported for a queued
+  # batch, so the requirement would sit unsatisfied and block the queue.
+  merge_group:
+    branches:
+      - develop
+      - main
 
 permissions:
   contents: read
@@ -22,10 +29,17 @@ jobs:
     name: Lint (JS/YAML/package.json)
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      # validate:workflow-npm-scripts diffs this range; without it the base
+      # ref cannot be resolved from a shallow checkout and the guard would
+      # silently report nothing to check. fetch-depth: 0 supplies the history.
+      BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
+      HEAD_SHA: ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Node.js
@@ -38,7 +52,15 @@ jobs:
         run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
 
       - name: Lint JS, YAML and package.json
-        run: npm run lint
+        # lint:ci is the uncached variant: a fresh checkout has no warm
+        # .eslintcache, so caching here only costs write time.
+        run: npm run lint:ci
+
+      # Catches the failure mode this repository has hit repeatedly: a changed
+      # workflow step invoking an npm script package.json does not declare,
+      # which then fails every run with "Missing script" until noticed.
+      - name: Validate workflow npm script references
+        run: npm run validate:workflow-npm-scripts
 
   typecheck:
     name: Typecheck
