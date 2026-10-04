@@ -12,19 +12,20 @@
  *
  * Scope, deliberately narrow:
  *
- * - Only rulesets that are actually deployed are compared. A declaration that
- *   has never been applied is not drift, it is pending. main.ruleset.json is
- *   documented as "not yet applied (needs explicit go-ahead)", so it is
- *   skipped rather than reported as a failure.
+ * - A declaration with no live ruleset is drift, unless its name is listed in
+ *   NOT_YET_APPLIED. main.ruleset.json is documented as "not yet applied (needs
+ *   explicit go-ahead)", so it is reported as pending; any other missing
+ *   ruleset, such as a deleted develop ruleset, fails the check.
  * - Drift only. This never applies, creates or mutates a ruleset. Pushing
  *   ruleset changes needs a token with ruleset-write, and letting a pull
  *   request rewrite branch protection is a privilege escalation. Detection and
  *   application stay separate steps.
- * - Comparison is on the fields that change enforcement: target ref,
- *   enforcement, bypass actors, the rule types present, and the required
- *   status-check contexts. Fields the API fills with defaults are normalised
- *   rather than compared literally, so an omitted optional key does not read
- *   as drift.
+ * - Comparison is on the fields that change enforcement: the target, the full
+ *   ref include and exclude lists, enforcement, bypass actors with their
+ *   bypass mode, the rule types present, every declared rule parameter
+ *   (approval count, code-owner review, thread resolution, strict status
+ *   checks), and the required status-check contexts. Only declared keys are
+ *   compared, so a default the API adds does not read as drift.
  *
  * Usage:
  *   node scripts/validation/validate-ruleset-drift.cjs            # report
@@ -122,11 +123,48 @@ async function fetchRulesetById(slug, id) {
   return response.json();
 }
 
-/** Ruleset name from the target ref, e.g. refs/heads/develop -> develop. */
-function targetRefName(declaration) {
-  const include = declaration?.conditions?.ref_name?.include;
-  if (!Array.isArray(include) || include.length === 0) return null;
-  return include[0].replace(/^refs\/heads\//, '');
+/**
+ * Declarations that are intentionally not applied yet. A missing live ruleset
+ * for anything else is drift: if the protection on `develop` were deleted, the
+ * check has to fail rather than report it as pending. Remove a name from this
+ * list when its ruleset is applied.
+ */
+const NOT_YET_APPLIED = new Set(['main-branch-ruleset']);
+
+/** The `include` or `exclude` ref patterns of a ruleset, sorted for comparison. */
+function refPatterns(ruleset, key) {
+  const patterns = ruleset?.conditions?.ref_name?.[key];
+  return Array.isArray(patterns) ? [...patterns].sort() : [];
+}
+
+/**
+ * Differences between what a declaration asks for and what is live. Only the
+ * declared keys are compared, so a default the API adds (an `integration_id`, an
+ * allowed-merge-methods list) is not drift, but any declared value that changed
+ * is, however deep it sits. Arrays must match in length and element by element.
+ * @param {unknown} declared - The declared value
+ * @param {unknown} live - The live value
+ * @param {string} where - Dotted path, for the report
+ * @returns {string[]}
+ */
+function subsetDifferences(declared, live, where) {
+  if (Array.isArray(declared)) {
+    if (!Array.isArray(live) || live.length !== declared.length) {
+      return [`${where}: declared ${JSON.stringify(declared)} vs live ${JSON.stringify(live)}`];
+    }
+    return declared.flatMap((item, index) =>
+      subsetDifferences(item, live[index], `${where}[${index}]`)
+    );
+  }
+  if (declared !== null && typeof declared === 'object') {
+    if (live === null || typeof live !== 'object') {
+      return [`${where}: declared ${JSON.stringify(declared)} vs live ${JSON.stringify(live)}`];
+    }
+    return Object.keys(declared).flatMap((key) =>
+      subsetDifferences(declared[key], live[key], `${where}.${key}`)
+    );
+  }
+  return declared === live ? [] : [`${where}: declared ${declared} vs live ${live}`];
 }
 
 function ruleTypes(declaration) {
@@ -149,21 +187,55 @@ function liveRequiredContexts(live) {
   return (rule.parameters?.required_status_checks || []).map((entry) => entry.context).sort();
 }
 
-/** Bypass actor identity, normalised to a comparable "type:id" string. */
+/**
+ * Bypass actor identity, normalised to a comparable "type:id:mode" string. The
+ * mode is part of the identity: the same actor moving from pull-request-only
+ * bypass to `always` or `exempt` is a different level of protection.
+ */
 function bypassActors(ruleset) {
   return (ruleset.bypass_actors || [])
-    .map((actor) => `${actor.actor_type}:${actor.actor_id ?? actor.actor_login ?? ''}`)
+    .map(
+      (actor) =>
+        `${actor.actor_type}:${actor.actor_id ?? actor.actor_login ?? ''}:${actor.bypass_mode ?? ''}`
+    )
     .sort();
+}
+
+/** Parameter differences for every declared rule, apart from the status-check list. */
+function parameterDifferences(declaration, live) {
+  const differences = [];
+  for (const rule of declaration.rules || []) {
+    const liveRule = (live.rules || []).find((entry) => entry.type === rule.type);
+    // A rule missing live is already reported through the rule types.
+    if (!liveRule || !rule.parameters) continue;
+
+    // The status-check list is reported by context, in its own line, below.
+    const { required_status_checks: _contexts, ...declaredParameters } = rule.parameters;
+    differences.push(
+      ...subsetDifferences(declaredParameters, liveRule.parameters || {}, `${rule.type}`)
+    );
+  }
+  return differences;
 }
 
 function compare(declaration, live) {
   const differences = [];
 
-  const declaredRef = targetRefName(declaration);
-  const liveRef = targetRefName(live);
-  if (declaredRef !== liveRef) {
-    differences.push(`target ref: declared "${declaredRef}" vs live "${liveRef}"`);
+  if ((declaration.target || null) !== (live.target || null)) {
+    differences.push(`target: declared "${declaration.target}" vs live "${live.target}"`);
   }
+
+  for (const key of ['include', 'exclude']) {
+    const declaredRefs = refPatterns(declaration, key);
+    const liveRefs = refPatterns(live, key);
+    if (declaredRefs.join('|') !== liveRefs.join('|')) {
+      differences.push(
+        `ref ${key}: declared [${declaredRefs.join(', ') || 'none'}] vs live [${liveRefs.join(', ') || 'none'}]`
+      );
+    }
+  }
+
+  differences.push(...parameterDifferences(declaration, live));
 
   if ((declaration.enforcement || null) !== (live.enforcement || null)) {
     differences.push(
@@ -229,12 +301,23 @@ async function main() {
     const live = liveByName.get(declaration.name);
 
     if (!live) {
-      results.push({
-        file,
-        name: declaration.name,
-        status: 'not-deployed',
-        detail: 'No live ruleset with this name; treated as pending, not drift.',
-      });
+      if (NOT_YET_APPLIED.has(declaration.name)) {
+        results.push({
+          file,
+          name: declaration.name,
+          status: 'not-deployed',
+          detail: 'No live ruleset with this name; declared as not yet applied, not drift.',
+        });
+      } else {
+        results.push({
+          file,
+          name: declaration.name,
+          status: 'drift',
+          differences: [
+            'no live ruleset with this name: it was never applied or it has been deleted, and it is not listed as not yet applied',
+          ],
+        });
+      }
       continue;
     }
 

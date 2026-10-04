@@ -23,6 +23,7 @@
  */
 
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const { spawn, spawnSync } = require('node:child_process');
 
@@ -40,10 +41,10 @@ function liveMatching(declaration) {
     ...declaration,
     id: 999,
     node_id: 'RRS_live',
+    // The live API returns each rule's parameters, so they are kept: the check
+    // compares every declared parameter, not only the status-check list.
     rules: declaration.rules.map((rule) =>
-      rule.type === 'required_status_checks'
-        ? { type: rule.type, parameters: rule.parameters }
-        : { type: rule.type }
+      rule.parameters ? { type: rule.type, parameters: rule.parameters } : { type: rule.type }
     ),
     bypass_actors: [],
   };
@@ -53,7 +54,23 @@ function liveMatching(declaration) {
  * Start the mock server in a child process, run the drift script against it,
  * and resolve with the script's exit status and output.
  */
-function runAgainst(liveRulesets) {
+function runAgainst(liveRulesets, { declarations } = {}) {
+  // With `declarations`, the script runs in a temporary working directory holding
+  // exactly those declarations, so a case can declare what the repository does not.
+  let workdir = path.join(__dirname, '..', '..', '..');
+  let temporary = null;
+  if (declarations) {
+    temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'ruleset-drift-'));
+    fs.mkdirSync(path.join(temporary, '.github', 'rulesets'), { recursive: true });
+    declarations.forEach((declaration, index) => {
+      fs.writeFileSync(
+        path.join(temporary, '.github', 'rulesets', `case-${index}.ruleset.json`),
+        JSON.stringify(declaration)
+      );
+    });
+    workdir = temporary;
+  }
+
   return new Promise((resolve, reject) => {
     const server = spawn(process.execPath, [SERVER_SCRIPT], {
       cwd: path.join(__dirname, '..', '..', '..'),
@@ -77,7 +94,7 @@ function runAgainst(liveRulesets) {
       server.stdout.removeAllListeners('data');
 
       const result = spawnSync(process.execPath, [SCRIPT], {
-        cwd: path.join(__dirname, '..', '..', '..'),
+        cwd: workdir,
         encoding: 'utf8',
         env: {
           ...process.env,
@@ -88,6 +105,7 @@ function runAgainst(liveRulesets) {
       });
 
       server.kill();
+      if (temporary) fs.rmSync(temporary, { recursive: true, force: true });
       resolve({ status: result.status, output: result.stdout + result.stderr });
     });
 
@@ -151,6 +169,93 @@ describe('validate-ruleset-drift', () => {
 
     expect(result.output).toContain('OK');
     expect(result.output).not.toContain('DRIFT');
+    expect(result.status).toBe(0);
+  });
+
+  it('fails when the deployed develop ruleset has been deleted', async () => {
+    // Only main is served. Main is documented as not yet applied, but develop is
+    // not, so its absence is the most severe drift rather than a pending item.
+    const main = JSON.parse(
+      fs.readFileSync(path.join(path.dirname(DECLARATION), 'main.ruleset.json'), 'utf8')
+    );
+    const result = await runAgainst([{ ...main, id: 1000 }]);
+
+    expect(result.output).toContain('DRIFT');
+    expect(result.output).toContain('develop-branch-ruleset');
+    expect(result.output).toContain('no live ruleset with this name');
+    expect(result.status).toBe(1);
+  });
+
+  it.each([
+    ['the approval count drops', 'pull_request', { required_approving_review_count: 0 }],
+    ['code owner review is disabled', 'pull_request', { require_code_owner_review: false }],
+    ['thread resolution is disabled', 'pull_request', { required_review_thread_resolution: false }],
+    [
+      'the strict status-check policy is disabled',
+      'required_status_checks',
+      { strict_required_status_checks_policy: false },
+    ],
+  ])('fails when %s live but the rule types are unchanged', async (_label, type, change) => {
+    const live = liveMatching(declaredRuleset());
+    const rule = live.rules.find((entry) => entry.type === type);
+    rule.parameters = { ...rule.parameters, ...change };
+
+    const result = await runAgainst([live]);
+
+    expect(result.output).toContain('DRIFT');
+    expect(result.output).toContain(Object.keys(change)[0]);
+    expect(result.status).toBe(1);
+  });
+
+  it('does not read an API-added default parameter as drift', async () => {
+    const live = liveMatching(declaredRuleset());
+    const rule = live.rules.find((entry) => entry.type === 'pull_request');
+    rule.parameters = { ...rule.parameters, allowed_merge_methods: ['merge', 'squash'] };
+
+    const result = await runAgainst([live]);
+
+    expect(result.output).not.toContain('DRIFT');
+    expect(result.status).toBe(0);
+  });
+
+  it.each([
+    ['an exclusion of the target branch', { exclude: ['refs/heads/develop'] }],
+    ['an extra included ref', { include: ['refs/heads/develop', 'refs/heads/other'] }],
+  ])('fails on %s', async (_label, change) => {
+    const live = liveMatching(declaredRuleset());
+    live.conditions = { ref_name: { ...live.conditions.ref_name, ...change } };
+
+    const result = await runAgainst([live]);
+
+    expect(result.output).toContain('DRIFT');
+    expect(result.output).toContain(`ref ${Object.keys(change)[0]}`);
+    expect(result.status).toBe(1);
+  });
+
+  it('fails when the same actor bypasses in a different mode', async () => {
+    const actor = { actor_id: 1577675, actor_type: 'User', bypass_mode: 'pull_request' };
+    const declaration = { ...declaredRuleset(), bypass_actors: [actor] };
+    const live = {
+      ...liveMatching(declaration),
+      bypass_actors: [{ ...actor, bypass_mode: 'always' }],
+    };
+
+    const result = await runAgainst([live], { declarations: [declaration] });
+
+    expect(result.output).toContain('DRIFT');
+    expect(result.output).toContain('bypass actors');
+    expect(result.output).toContain('always');
+    expect(result.status).toBe(1);
+  });
+
+  it('is in sync when the same actor keeps the same bypass mode', async () => {
+    const actor = { actor_id: 1577675, actor_type: 'User', bypass_mode: 'pull_request' };
+    const declaration = { ...declaredRuleset(), bypass_actors: [actor] };
+    const live = { ...liveMatching(declaration), bypass_actors: [actor] };
+
+    const result = await runAgainst([live], { declarations: [declaration] });
+
+    expect(result.output).toContain('OK');
     expect(result.status).toBe(0);
   });
 
