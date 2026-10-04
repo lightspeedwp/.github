@@ -54,7 +54,7 @@ function parseCookbookMarkdown(markdown: string): { body: string; toc: Array<{ d
   };
 
   return {
-    body: marked.parse(body, { renderer, mangle: false, headerIds: false }) as string,
+    body: marked.parse(body, { renderer }) as string,
     toc: headings,
   };
 }
