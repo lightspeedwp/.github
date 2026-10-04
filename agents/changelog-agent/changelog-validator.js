@@ -213,4 +213,6 @@ if (require.main === module) {
   main();
 }
 
-module.exports = { validateEntry, auditRelease, exportReleaseNotes };
+// parseYamlEntry is exported for unit testing: validateEntry catches every
+// error and exits, so the `cause` chaining cannot be asserted through it.
+module.exports = { validateEntry, auditRelease, exportReleaseNotes, parseYamlEntry };
