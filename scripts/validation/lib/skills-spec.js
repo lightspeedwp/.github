@@ -218,6 +218,27 @@ function requiredFieldsFor(fileClass) {
  * @param {string} fileClass One of the `CLASS_FIELD_SETS` keys.
  * @returns {string[]} Diagnostics.
  */
+/**
+ * The scopes an agent's `permissions` list may name. Mirrors the enum under
+ * `permissions` in `.schemas/frontmatter.schema.json`; `__tests__/validate-skills.test.js`
+ * compares the two, because this module is copied on its own into test trees and
+ * cannot read the schema at load time.
+ */
+const PERMISSION_VALUES = Object.freeze([
+  'read',
+  'write',
+  'execute',
+  'shell',
+  'filesystem',
+  'network',
+  'github:repo',
+  'github:issues',
+  'github:pulls',
+  'github:workflows',
+  'github:checks',
+  'github:actions',
+]);
+
 function validateOptionalFieldShapes(frontmatter, fileClass) {
   const findings = [];
   // `title`, `last_updated` and `description` sit in this list although they are
@@ -266,6 +287,29 @@ function validateOptionalFieldShapes(frontmatter, fileClass) {
         `\`allowed-tools\` must be a list or a space-separated string for a ${fileClass} but is ` +
           `${typeof tools}. Fix: give it a YAML list of tool names.`
       );
+    }
+  }
+
+  // `permissions` is a list of scope strings in `.schemas/frontmatter.schema.json`,
+  // so a scalar (`permissions: read`) or an unknown scope is a finding. Allowing the
+  // field in the closed set without checking its shape would let a document that
+  // breaks that schema pass.
+  const permissions = frontmatter.permissions;
+  if (permissions !== undefined) {
+    if (!Array.isArray(permissions)) {
+      findings.push(
+        `\`permissions\` must be a list but is ${typeof permissions}. ` +
+          'Fix: give it a YAML list such as [read, write].'
+      );
+    } else {
+      for (const entry of permissions) {
+        if (typeof entry !== 'string' || !PERMISSION_VALUES.includes(entry)) {
+          findings.push(
+            `\`permissions\` entry ${JSON.stringify(entry)} is not a permitted scope. ` +
+              `Fix: use one of ${PERMISSION_VALUES.join(', ')}.`
+          );
+        }
+      }
     }
   }
 
@@ -903,6 +947,7 @@ module.exports = {
   CLASS_URLS,
   MAX_COMPATIBILITY_LENGTH,
   validateOptionalFieldShapes,
+  PERMISSION_VALUES,
   requiredFieldsFor,
   MAX_DESCRIPTION_LENGTH,
   MAX_NAME_LENGTH,

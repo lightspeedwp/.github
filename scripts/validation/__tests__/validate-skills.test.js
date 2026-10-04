@@ -1128,6 +1128,55 @@ describe('skills-spec: compatibility length', () => {
   });
 });
 
+describe('skills-spec: permissions shape', () => {
+  const shapes = (permissions) =>
+    spec.validateOptionalFieldShapes({ permissions }, 'subagent-definition');
+
+  it('accepts a list of permitted scopes', () => {
+    expect(shapes(['read', 'write', 'github:repo'])).toEqual([]);
+  });
+
+  it('rejects a scalar, as the schema requires an array', () => {
+    const findings = shapes('read');
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('`permissions` must be a list but is string');
+  });
+
+  it('rejects a scope that is not in the schema enum, and a non-string entry', () => {
+    expect(shapes(['read', 'project-planning'])[0]).toContain('"project-planning"');
+    expect(shapes([3])[0]).toContain('not a permitted scope');
+  });
+
+  it('says nothing when the field is absent', () => {
+    expect(spec.validateOptionalFieldShapes({}, 'subagent-definition')).toEqual([]);
+  });
+
+  it('lists exactly the scopes of the canonical frontmatter schema', () => {
+    const schema = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', '.schemas/frontmatter.schema.json'),
+        'utf8'
+      )
+    );
+    const found = [];
+    const walk = (node) => {
+      if (node && typeof node === 'object') {
+        if (node.permissions && node.permissions.items && node.permissions.items.enum) {
+          found.push(node.permissions.items.enum);
+        }
+        Object.values(node).forEach(walk);
+      }
+    };
+    walk(schema);
+
+    expect(found.length).toBeGreaterThan(0);
+    for (const values of found) {
+      expect([...spec.PERMISSION_VALUES].sort()).toEqual([...values].sort());
+    }
+  });
+});
+
 describe('skills-spec: metadata values must be strings', () => {
   it('accepts string values', () => {
     expect(spec.validateMetadataValues({ metadata: { version: '1.0', author: 'team' } })).toEqual(
