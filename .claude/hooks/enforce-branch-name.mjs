@@ -865,21 +865,94 @@ function protectedBranchProblem(target) {
   return nameProblem(target) || (PROTECTED.has(target) ? `'${target}' is protected` : null);
 }
 
-/** Value of `--flag value`, `--flag=value` or `-f value`. */
-function flagValue(args, names) {
+// Flags of `gh pr create` and `gh api` that take a separate value. A value
+// belongs to its flag and is never itself a flag, so `--title '-Rother/other'`
+// must not be read as a repository option.
+const VALUE_FLAGS = new Set([
+  '--title',
+  '-t',
+  '--body',
+  '-b',
+  '--body-file',
+  '-F',
+  '--head',
+  '-H',
+  '--base',
+  '-B',
+  '--repo',
+  '-R',
+  '--assignee',
+  '-a',
+  '--label',
+  '-l',
+  '--milestone',
+  '-m',
+  '--project',
+  '-p',
+  '--reviewer',
+  '-r',
+  '--template',
+  '-T',
+  '--recover',
+  '--method',
+  '-X',
+  '-f',
+  '--field',
+  '--raw-field',
+  '--header',
+  '--input',
+  '-q',
+  '--jq',
+  '--template',
+  '--hostname',
+  '--cache',
+  '--preview',
+  '--query',
+]);
+
+/**
+ * The value-taking flags of `gh pr create`. They differ from the shared set in one
+ * flag: `-f` takes a value in `gh api` but is the valueless `--fill` in
+ * `gh pr create`, so treating it as a value flag would swallow the `--base` or
+ * `--head` after it and hide the target from the guard.
+ */
+const PR_CREATE_VALUE_FLAGS = new Set([...VALUE_FLAGS].filter((flag) => flag !== '-f'));
+
+/**
+ * Value of `--flag value`, `--flag=value` or `-f value`, taking the last occurrence as gh does.
+ * The value of any other value-taking flag is skipped, so only real flag
+ * occurrences can override an earlier one.
+ */
+function flagValue(args, names, valueFlags = VALUE_FLAGS) {
+  let found;
+  let seen = false;
   for (let i = 0; i < args.length; i += 1) {
+    if (valueFlags.has(args[i]) && !names.includes(args[i])) {
+      i += 1;
+      continue;
+    }
     for (const name of names) {
-      if (args[i] === name) return args[i + 1];
-      if (name.startsWith('--') && args[i].startsWith(`${name}=`))
-        return args[i].slice(name.length + 1);
-      // A short flag also accepts its value attached, so `-XPUT` names the same
-      // method as `-X PUT`. Missing it made such a call look like a read.
-      if (!name.startsWith('--') && args[i].startsWith(name) && args[i].length > name.length) {
-        return args[i].slice(name.length);
+      if (args[i] === name) {
+        found = args[i + 1];
+        seen = true;
+        i += 1;
+        break;
+      } else if (name.startsWith('--') && args[i].startsWith(`${name}=`)) {
+        found = args[i].slice(name.length + 1);
+        seen = true;
+      } else if (
+        // A short flag also accepts its value attached, so `-XPUT` names the same
+        // method as `-X PUT`. Missing it made such a call look like a read.
+        !name.startsWith('--') &&
+        args[i].startsWith(name) &&
+        args[i].length > name.length
+      ) {
+        found = args[i].slice(name.length);
+        seen = true;
       }
     }
   }
-  return undefined;
+  return seen ? found : undefined;
 }
 
 // `gh api` flags that take a value, so the value isn't mistaken for the endpoint.
@@ -903,11 +976,15 @@ const API_VALUE_FLAGS = new Set([
   '--preview',
 ]);
 
-/** The endpoint argument of a `gh api` call. */
+/**
+ * The endpoint argument of a `gh api` call, without a query string or fragment:
+ * `graphql?x=1` and `repos/o/r/git/refs?x=1` are the same routes as without the
+ * suffix, so every route check must see the bare path.
+ */
 function apiEndpoint(args) {
   for (let i = 1; i < args.length; i += 1) {
     if (API_VALUE_FLAGS.has(args[i])) i += 1;
-    else if (!args[i].startsWith('-')) return args[i];
+    else if (!args[i].startsWith('-')) return args[i].replace(/[?#].*$/s, '');
   }
   return '';
 }
@@ -949,6 +1026,12 @@ function fieldArgs(args) {
       i += 1;
       continue;
     }
+    // The value of any other value-taking flag is that flag's, never a field:
+    // `-t '-fn=refs/heads/ok'` is a template, which gh does not send as a field.
+    if (VALUE_FLAGS.has(arg)) {
+      i += 1;
+      continue;
+    }
     let matched = false;
     for (const flag of FIELD_FLAGS) {
       if (arg.startsWith(`${flag}=`)) {
@@ -984,17 +1067,20 @@ const SHORT_FIELD_FLAGS = new Set(['-f', '-F']);
 
 function apiFields(args, cwd) {
   const fields = {};
+  const input = inputArg(args);
+  if (input !== null) {
+    const body = readBody(input, cwd);
+    if (body && typeof body === 'object' && !Array.isArray(body)) {
+      for (const [key, value] of Object.entries(body)) {
+        if (typeof value === 'string') fields[key] = value;
+      }
+    }
+    return fields;
+  }
   for (const [flag, argument] of fieldArgs(args)) {
     const [key, ...rest] = argument.split('=');
     const value = resolveFieldValue(rest.join('='), cwd, flag);
     if (value !== null) fields[key] = value;
-  }
-  // A write sent as `--input body.json` carries its branch there, not in -f.
-  const body = readBody(inputArg(args), cwd);
-  if (body && typeof body === 'object' && !Array.isArray(body)) {
-    for (const [key, value] of Object.entries(body)) {
-      if (typeof value === 'string' && !(key in fields)) fields[key] = value;
-    }
   }
   return fields;
 }
@@ -1027,26 +1113,42 @@ function readInline(file, cwd) {
  * branch names cannot be read is refused, never judged on an empty value.
  */
 function unreadableApiFields(args, cwd) {
+  const file = inputArg(args);
+  if (file) {
+    // With `--input`, gh sends the body and turns field flags into URL
+    // parameters, so a flag the guard cannot read (`-F ref=@-`) changes nothing
+    // about the target. Only the body can be unreadable. `--input -` reads the
+    // caller's stdin, which the guard has already consumed for its own payload
+    // and cannot recover.
+    return file === '-' || readBody(file, cwd) === null ? ['the request body'] : [];
+  }
   const unreadable = [];
   for (const [flag, argument] of fieldArgs(args)) {
     const [key, ...rest] = argument.split('=');
     if (resolveFieldValue(rest.join('='), cwd, flag) === null) unreadable.push(key);
   }
-  const file = inputArg(args);
-  // `--input -` reads the caller's stdin, which the guard has already
-  // consumed for its own payload and cannot recover.
-  if (file && (file === '-' || readBody(file, cwd) === null)) {
-    unreadable.push('the request body');
-  }
   return unreadable;
 }
 
-/** The `--input` argument, for both `--input file` and `--input=file`. */
+/** The `--input` argument, for both `--input file` and `--input=file`, taking the last occurrence as gh does. */
 function inputArg(args) {
-  const at = args.indexOf('--input');
-  if (at >= 0) return args[at + 1];
-  const attached = args.find((arg) => arg.startsWith('--input='));
-  return attached ? attached.slice('--input='.length) : null;
+  let found = null;
+  let seen = false;
+  for (let i = 0; i < args.length; i += 1) {
+    if (args[i] === '--input') {
+      seen = true;
+      found = args[i + 1];
+      i += 1;
+    } else if (args[i].startsWith('--input=')) {
+      seen = true;
+      found = args[i].slice('--input='.length);
+    } else if (VALUE_FLAGS.has(args[i])) {
+      // The value belongs to its own flag: `--template '--input=ok.json'` is a
+      // template, not an input file.
+      i += 1;
+    }
+  }
+  return seen ? found : null;
 }
 
 /** Parse a JSON request body from a file, or null if absent or invalid. */
@@ -1645,23 +1747,46 @@ function checkGitHub(tool, input, cwd) {
  * (`-f`, `-F`, `--field`, `--raw-field`) or as the `query` key of an `--input`
  * body, so all three are read. The fields go through the same helpers the REST
  * path uses, which is what makes `-F query=@file` resolve `@file` against the
- * command's own working directory the way gh does.
+ * command's own working directory the way gh does. When `--input` supplies the
+ * body, gh puts field flags in the URL query string, where the GraphQL endpoint
+ * ignores them, so only the body's query is used. A body without a query is
+ * refused rather than checked against a document gh does not send.
  */
 function graphqlQuery(args, cwd) {
-  const option = args.find((arg) => arg === '--query' || arg.startsWith('--query='));
-  if (option) {
-    const at = args.indexOf(option);
-    const value = option === '--query' ? args[at + 1] : option.slice('--query='.length);
-    if (typeof value === 'string') return value;
+  // gh sends the last occurrence of a repeated flag, so every tier below keeps
+  // the last readable document rather than the first (issue #3691, gap 5).
+  const lastInput = inputArg(args);
+  if (lastInput) {
+    // The body is the document gh sends; flags ride in the URL query string,
+    // where the GraphQL endpoint ignores them. A body without a query string
+    // therefore supplies no document at all, and the caller refuses the call
+    // as unreadable rather than judging a flag document gh never sends.
+    const inputBody = readBody(lastInput, cwd);
+    return inputBody && typeof inputBody === 'object' && typeof inputBody.query === 'string'
+      ? inputBody.query
+      : '';
   }
+  // Tier priority without `--input`: --query, then -f query.
+  let inline = null;
+  for (let i = 0; i < args.length; i += 1) {
+    if (args[i] === '--query') {
+      if (typeof args[i + 1] === 'string') inline = args[i + 1];
+      i += 1;
+    } else if (args[i].startsWith('--query=')) {
+      inline = args[i].slice('--query='.length);
+    } else if (VALUE_FLAGS.has(args[i])) {
+      i += 1;
+    }
+  }
+  if (inline !== null) return inline;
+  let fieldQuery = null;
   for (const [flag, argument] of fieldArgs(args)) {
     const [key, ...rest] = argument.split('=');
     if (key !== 'query') continue;
     const value = resolveFieldValue(rest.join('='), cwd, flag);
-    if (value !== null) return value;
+    if (value !== null) fieldQuery = value;
   }
-  const body = readBody(inputArg(args), cwd);
-  if (body && typeof body === 'object' && typeof body.query === 'string') return body.query;
+  if (fieldQuery !== null) return fieldQuery;
   return '';
 }
 
@@ -1675,15 +1800,44 @@ function graphqlQuery(args, cwd) {
  * path reaches the same conclusion through `unreadableApiFields`.
  */
 function graphqlQueryUnreadable(args, cwd) {
-  if (args.includes('--query') && typeof args[args.indexOf('--query') + 1] !== 'string') {
-    return true;
+  // The body is what gh sends when `--input` is present; the flags ride in the
+  // URL query string, where the GraphQL endpoint ignores them. An unreadable
+  // body — or a body with no query string in it — means the document was never
+  // seen, whatever the flags say, and the call is refused. Without `--input`,
+  // last occurrence wins within each tier, mirroring graphqlQuery (issue
+  // #3691, gap 5).
+  const lastInput = inputArg(args);
+  if (lastInput) {
+    const inputBody = readBody(lastInput, cwd);
+    return (
+      inputBody === null || typeof inputBody !== 'object' || typeof inputBody.query !== 'string'
+    );
   }
+  let inlineSeen = false;
+  let inlineUnreadable = false;
+  for (let i = 0; i < args.length; i += 1) {
+    if (args[i] === '--query') {
+      inlineSeen = true;
+      inlineUnreadable = typeof args[i + 1] !== 'string';
+      i += 1;
+    } else if (args[i].startsWith('--query=')) {
+      inlineSeen = true;
+      inlineUnreadable = false;
+    } else if (VALUE_FLAGS.has(args[i])) {
+      i += 1;
+    }
+  }
+  if (inlineSeen) return inlineUnreadable;
+  let fieldSeen = false;
+  let fieldUnreadable = false;
   for (const [flag, argument] of fieldArgs(args)) {
     const [key, ...rest] = argument.split('=');
     if (key !== 'query') continue;
-    if (resolveFieldValue(rest.join('='), cwd, flag) === null) return true;
+    fieldSeen = true;
+    fieldUnreadable = resolveFieldValue(rest.join('='), cwd, flag) === null;
   }
-  return inputArg(args) ? readBody(inputArg(args), cwd) === null : false;
+  if (fieldSeen) return fieldUnreadable;
+  return false;
 }
 
 /**
@@ -1701,12 +1855,63 @@ function graphqlQueryUnreadable(args, cwd) {
  * without naming one, which is what covers them.
  */
 function graphqlBranchNames(query, variables = {}) {
+  // Each entry carries the repository that scopes it, or null when the
+  // document does not scope it: a literal or a variable-bound name is scoped by
+  // the `repositoryNameWithOwner` in its enclosing branch input, or bound to the
+  // same stem for `branch: $b` and `input: $b`. A foreign repository takes that
+  // name out of scope, exactly like a literal repositoryNameWithOwner in another
+  // organisation; an unscopable name is judged, so an unrelated foreign variable
+  // cannot vouch for it.
   const found = [];
-  for (const match of query.matchAll(/\bbranchName\b\s*:\s*"([^"]*)"/g)) {
-    found.push(match[1].trim());
+  const scoped = (value, owner) => {
+    if (typeof value === 'string' && value.trim()) found.push({ value: value.trim(), owner });
+  };
+  // The `owner/repo` owner bound to a variable stem, or null when the stem
+  // names none or names it malformed. Malformed stays unscopable (judged)
+  // rather than out of scope.
+  const stemOwner = (stem) => {
+    for (const key of [
+      `${stem}[branch][repositoryNameWithOwner]`,
+      `${stem}[repositoryNameWithOwner]`,
+    ]) {
+      const repo = variables[key];
+      if (typeof repo !== 'string' || !repo.includes('/')) continue;
+      const owner = repo.split('/')[0].toLowerCase();
+      if (owner) return owner;
+    }
+    return null;
+  };
+  // Comments and string contents are not input fields: text such as
+  // `# repositoryNameWithOwner: "other-org/x"` must not scope a write.
+  const views = graphqlViews(query);
+  const outside = (pattern) => matchesOutsideStrings(views, pattern);
+  const branchOwner = (offset) => {
+    const branch = outside(/\bbranch\s*:\s*\{([^{}]*)\}/g).find(
+      (match) => offset > match.index && offset < match.index + match[0].length
+    );
+    if (!branch) return null;
+    const innerStart = branch.index + branch[0].indexOf('{') + 1;
+    const repository = [
+      ...views.clean
+        .slice(innerStart, branch.index + branch[0].length - 1)
+        .matchAll(/\brepositoryNameWithOwner\s*:\s*"((?:[^"\\]|\\.)*)"/gi),
+    ].find((match) => !views.inString(innerStart + match.index));
+    return repository ? graphqlOwner(repository[1]) : null;
+  };
+  // A literal is either a plain string or a block string (`"""main"""`); both name
+  // the branch, and escapes in a plain string are decoded.
+  const literal = (match) => graphqlLiteral(match[1] ?? match[2]);
+  for (const match of outside(/\bbranchName\b\s*:\s*(?:"""([\s\S]*?)"""|"((?:[^"\\]|\\.)*)")/g)) {
+    // A literal branch name is scoped by the repository of the `branch: {...}`
+    // input it sits in, like a variable-bound one, so a foreign literal exempts
+    // only itself.
+    scoped(literal(match), branchOwner(match.index));
   }
-  for (const match of query.matchAll(/\bname\b\s*:\s*"(refs\/heads\/[^"]*)"/g)) {
-    found.push(match[1].trim());
+  // The `refs/heads/` prefix is checked on the decoded value, because
+  // `"refs/heads/main"` and `"refs/heads/main"` both resolve to it.
+  for (const match of outside(/\bname\b\s*:\s*(?:"""([\s\S]*?)"""|"((?:[^"\\]|\\.)*)")/g)) {
+    const value = literal(match).trim();
+    if (value.startsWith('refs/heads/')) scoped(value, null);
   }
   // A name bound to a variable is read from the value gh would send with it, so
   // `name: $n` with `-f n=refs/heads/main` is judged on `refs/heads/main` rather
@@ -1718,10 +1923,19 @@ function graphqlBranchNames(query, variables = {}) {
   // refused a read-only query and reported a check name as a protected branch. The
   // variable spelling of a document must not be treated more strictly than the
   // literal spelling of the same document.
-  if (WRITES_A_BRANCH.test(query)) {
-    for (const match of query.matchAll(/\b(?:branchName|name)\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
-      const value = variables[match[1]];
-      if (typeof value === 'string' && value) found.push(value.trim());
+  // Variables are resolved only inside the argument list of a branch-writing
+  // mutation. `createLabel(input: $i)` or `createCheckRun(name: $n)` beside a
+  // branch write carries a label or check name, not a branch.
+  const writeRanges = branchWriteFields(views).map((field) => [
+    field.offset,
+    field.offset + field.text.length,
+  ]);
+  const inWrite = (match) =>
+    writeRanges.some(([start, end]) => match.index >= start && match.index < end);
+  const outsideWrites = (pattern) => outside(pattern).filter(inWrite);
+  if (writeRanges.length) {
+    for (const match of outsideWrites(/\b(?:branchName|name)\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+      scoped(variables[match[1]], branchOwner(match.index));
     }
     // `createCommitOnBranch` takes its target as a nested input, so the branch can
     // arrive as `branch: $b` rather than as `branchName:`. gh sends a nested GraphQL
@@ -1732,30 +1946,218 @@ function graphqlBranchNames(query, variables = {}) {
     // every `branch: $b` would also refuse a compliant commit, while `branchName: $b`
     // and `name: $n` are both resolved. A variable is not treated more strictly for
     // being spelled this way.
-    for (const match of query.matchAll(/\bbranch\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+    for (const match of outsideWrites(/\bbranch\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
       // Keyed by the full field name, as graphqlVariables stores it. Flattening it to
       // `branchName` would collide with a real variable of that name, and the verdict
       // would depend on the order the flags were given.
-      const value = variables[`${match[1]}[branchName]`];
-      if (typeof value === 'string' && value) found.push(value.trim());
+      scoped(variables[`${match[1]}[branchName]`], stemOwner(match[1]));
+    }
+    // A whole input object bound to one variable names no `branchName` or `name`
+    // key in the document itself: `createCommitOnBranch(input: $b)`. Without this
+    // the document is allowed precisely because its target was hidden (issue
+    // #3691, gap 1). The leaves the body map or the field flags stored under
+    // `b[branch][branchName]`, `b[branchName]` or `b[name]` are judged instead;
+    // when none resolves, the caller refuses the write as unreadable.
+    for (const match of outsideWrites(/\binput\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g)) {
+      const stem = match[1];
+      const owner = stemOwner(stem);
+      for (const key of [`${stem}[branch][branchName]`, `${stem}[branchName]`, `${stem}[name]`]) {
+        scoped(variables[key], owner);
+      }
     }
   }
-  return found.filter(Boolean);
+  return found.filter((entry) => entry.value);
 }
 
-/** The mutations that write a branch, by ref id or by committing to a named one. */
-const WRITES_A_BRANCH = /\b(?:createRef|updateRefs?|deleteRef|createCommitOnBranch)\b/;
+/**
+ * The owner a `repositoryNameWithOwner` string literal names, with GraphQL string
+ * escapes decoded (`"lightspeedwp/.github"` is `lightspeedwp`).
+ * @param {string} raw - The literal's contents, as written in the document
+ * @returns {string | null} The lower-cased owner, or null when the literal uses an
+ *   encoding that cannot be decoded or names no owner. A null owner is unscoped,
+ *   so the write is judged rather than treated as foreign.
+ */
+function graphqlOwner(raw) {
+  let decoded = raw;
+  if (raw.includes('\\')) {
+    try {
+      decoded = JSON.parse(
+        `"${raw.replace(/\\u\{([0-9a-fA-F]+)\}/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))}"`
+      );
+    } catch {
+      return null;
+    }
+  }
+  const owner = decoded.split('/')[0].trim().toLowerCase();
+  return decoded.includes('/') && owner ? owner : null;
+}
+
+/**
+ * A GraphQL string literal's value, with escapes decoded. A literal that cannot be
+ * decoded is returned as written, which then fails the branch-name check.
+ * @param {string} raw - The literal's contents
+ * @returns {string}
+ */
+function graphqlLiteral(raw) {
+  if (!raw.includes('\\')) return raw;
+  try {
+    return JSON.parse(
+      `"${raw.replace(/\\u\{([0-9a-fA-F]+)\}/g, (_, hex) => String.fromCodePoint(parseInt(hex, 16)))}"`
+    );
+  } catch {
+    return raw;
+  }
+}
+
+/**
+ * Whether a `refUpdates: [...]` list carries a variable as an entry of its own
+ * (`refUpdates: [$u]`, or `[{name: "refs/heads/ok"}, $u]`). An entry variable holds
+ * a whole update object, which has no readable leaf, so the target cannot be
+ * resolved. A variable inside an entry (`{name: $n}`) is not this case.
+ * @param {{ clean: string, inString: (index: number) => boolean }} views
+ * @returns {boolean}
+ */
+function hasListEntryVariable(views) {
+  const opener = /\brefUpdates\s*:\s*\[/g;
+  for (const match of matchesOutsideStrings(views, opener)) {
+    let brackets = 0;
+    let braces = 0;
+    for (let i = match.index + match[0].length - 1; i < views.clean.length; i += 1) {
+      if (views.inString(i)) continue;
+      const char = views.clean[i];
+      if (char === '[') brackets += 1;
+      else if (char === ']') {
+        brackets -= 1;
+        if (brackets === 0) break;
+      } else if (char === '{') braces += 1;
+      else if (char === '}') braces -= 1;
+      else if (char === '$' && brackets === 1 && braces === 0) return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * A GraphQL document read the way GraphQL reads it: comments (`#` to the end of
+ * the line, outside a string) are removed and string literals are located.
+ *
+ * Matching the document with plain regular expressions let a comment or a string
+ * carry text that looked like an input field, such as
+ * `# repositoryNameWithOwner: "other-org/other-repo"` placed before the real one,
+ * which then supplied the repository that scoped a protected branch write.
+ *
+ * @param {string} query - The document
+ * @returns {{ clean: string, inString: (index: number) => boolean }} The document
+ *   with comments blanked (same length, so offsets are unchanged), and a test for
+ *   whether an offset falls inside a string literal
+ */
+function graphqlViews(query) {
+  const ranges = [];
+  let clean = '';
+  let i = 0;
+  while (i < query.length) {
+    const char = query[i];
+    if (char === '#') {
+      while (i < query.length && query[i] !== '\n' && query[i] !== '\r') {
+        clean += ' ';
+        i += 1;
+      }
+    } else if (query.startsWith('"""', i)) {
+      let end = i + 3;
+      while (end < query.length && !query.startsWith('"""', end)) {
+        end += query.startsWith('\\"""', end) ? 4 : 1;
+      }
+      end = Math.min(end + 3, query.length);
+      ranges.push([i + 3, Math.max(end - 3, i + 3)]);
+      clean += query.slice(i, end);
+      i = end;
+    } else if (char === '"') {
+      let end = i + 1;
+      while (end < query.length && query[end] !== '"' && query[end] !== '\n') {
+        end += query[end] === '\\' ? 2 : 1;
+      }
+      end = Math.min(end, query.length);
+      ranges.push([i + 1, end]);
+      clean += query.slice(i, Math.min(end + 1, query.length));
+      i = Math.min(end + 1, query.length);
+    } else {
+      // Commas outside strings are insignificant in GraphQL, so
+      // `createRef,(input: ...)` is the same document as `createRef (input: ...)`.
+      clean += char === ',' ? ' ' : char;
+      i += 1;
+    }
+  }
+  return {
+    clean,
+    inString: (index) => ranges.some(([start, end]) => index >= start && index < end),
+  };
+}
+
+/**
+ * Matches of a global pattern in a GraphQL document that start outside any
+ * string literal, so text inside a string never counts as an input field.
+ * @param {{ clean: string, inString: (index: number) => boolean }} views
+ * @param {RegExp} pattern - A global pattern
+ * @returns {RegExpMatchArray[]}
+ */
+function matchesOutsideStrings(views, pattern) {
+  return [...views.clean.matchAll(pattern)].filter((match) => !views.inString(match.index));
+}
+
+/**
+ * The argument list of each mutation field that writes a branch, in document order.
+ * A mutation is judged on its own arguments, so one that resolves to a branch
+ * cannot vouch for another that does not.
+ * @param {{ clean: string, inString: (index: number) => boolean }} views
+ * @returns {{ field: string, text: string }[]}
+ */
+function branchWriteFields(views) {
+  const fields = [];
+  const opener = /\b(createCommitOnBranch|createRef|updateRefs|updateRef|deleteRef)\s*\(/g;
+  for (const match of matchesOutsideStrings(views, opener)) {
+    const start = match.index + match[0].length - 1;
+    let depth = 0;
+    let end = views.clean.length;
+    for (let i = start; i < views.clean.length; i += 1) {
+      if (views.inString(i)) continue;
+      const char = views.clean[i];
+      if (char === '(') depth += 1;
+      else if (char === ')') {
+        depth -= 1;
+        if (depth === 0) {
+          end = i + 1;
+          break;
+        }
+      }
+    }
+    fields.push({
+      field: match[1],
+      text: views.clean.slice(match.index, end),
+      offset: match.index,
+    });
+  }
+  return fields;
+}
 
 /**
  * The GraphQL variables a call carries, keyed by the name the document refers to.
  *
- * Every field other than `query` and `operationName` is sent as a variable, so
- * `-f n=refs/heads/main` supplies `$n`. Nested GraphQL input fields arrive as
- * `b[branchName]=main`, which supplies the variable `b`; only the leaf is used
- * here, since a branch name is what a leaf carries.
+ * Without `--input`, every field other than `query` and `operationName` is sent
+ * as a variable, so `-f n=refs/heads/main` supplies `$n`. Nested GraphQL input
+ * fields arrive as `b[branchName]=main`, which supplies the variable `b`; only
+ * the leaf is used here, since a branch name is what a leaf carries.
+ *
+ * When `--input` supplies the body, gh puts field flags in the URL query
+ * string, where the GraphQL endpoint ignores them: the body's `variables` map
+ * is then the only source of variables, and the flags are not consulted at all.
  */
 function graphqlVariables(args, cwd) {
-  const variables = {};
+  const lastInput = inputArg(args);
+  const inputBody = lastInput ? readBody(lastInput, cwd) : null;
+  if (inputBody && typeof inputBody === 'object') {
+    return graphqlBodyVariables(inputBody);
+  }
+  const variables = Object.create(null);
   for (const [flag, argument] of fieldArgs(args)) {
     const index = argument.indexOf('=');
     if (index < 1) continue;
@@ -1763,11 +2165,53 @@ function graphqlVariables(args, cwd) {
     const raw = argument.slice(index + 1);
     if (key === 'query' || key === 'operationName') continue;
     const value = resolveFieldValue(raw, cwd, flag);
-    if (value === null) continue;
     // A nested field keeps its full key. Flattening `b[branchName]` onto
-    // `branchName` collided with a genuine top-level variable of that name, and the
-    // first one seen won, so the verdict depended on the order the flags were given.
-    if (!(key in variables)) variables[key] = value;
+    // `branchName` collided with a genuine top-level variable of that name, and
+    // the verdict would depend on the order the flags were given. A repeated
+    // key keeps the last value, as gh sends the last occurrence, and that holds
+    // for an unreadable last value too (`-f n=ok -F n=@-`): it is stored as null,
+    // so the variable is unresolved and refused rather than judged on the
+    // earlier, benign value gh never sends.
+    variables[key] = value;
+  }
+  return variables;
+}
+
+/**
+ * Variables from an `--input` body's `variables` map, keyed the way gh's field
+ * syntax would key them (issue #3691, gap 4). A string leaf keeps its name; a
+ * nested input object contributes its `branchName`, `name` and
+ * `repositoryNameWithOwner` leaves under `var[leaf]` and `var[branch][leaf]`
+ * keys, which is how graphqlBranchNames looks a `branch: $b` or `input: $b`
+ * spelling up. gh sends the last file when `--input` is repeated, and the
+ * caller passes that file's body (issue #3691, gap 5).
+ */
+function graphqlBodyVariables(inputBody) {
+  const variables = Object.create(null);
+  if (!inputBody.variables || typeof inputBody.variables !== 'object') return variables;
+  const store = (key, value) => {
+    if (typeof value === 'string' && value && !(key in variables)) variables[key] = value;
+  };
+  for (const [varName, varValue] of Object.entries(inputBody.variables)) {
+    // Only a valid GraphQL name is a variable. A key such as
+    // `b[branch][branchName]` is ignored by the server, but flattening would
+    // store it under the key a real `b` object is flattened to, and a decoy
+    // placed first would hide the real target.
+    if (!/^[_A-Za-z][_0-9A-Za-z]*$/.test(varName)) continue;
+    if (typeof varValue === 'string') {
+      store(varName, varValue);
+      continue;
+    }
+    if (!varValue || typeof varValue !== 'object' || Array.isArray(varValue)) continue;
+    for (const leaf of ['branchName', 'name', 'repositoryNameWithOwner']) {
+      store(`${varName}[${leaf}]`, varValue[leaf]);
+    }
+    const container = varValue.branch;
+    if (container && typeof container === 'object' && !Array.isArray(container)) {
+      for (const leaf of ['branchName', 'name', 'repositoryNameWithOwner']) {
+        store(`${varName}[branch][${leaf}]`, container[leaf]);
+      }
+    }
   }
   return variables;
 }
@@ -1793,22 +2237,29 @@ function graphqlBranchProblems(query, variables = {}) {
   // contract already prefers: a check that cannot be scoped to this repository has
   // to fail closed.
   //
-  // A ref mutation is never covered by a repository named elsewhere in the same
-  // document, so only a document with no ref mutation at all is skipped on the
-  // strength of a foreign owner. Otherwise one foreign field would vouch for the
-  // ref mutation beside it.
-  const owners = [...query.matchAll(/\brepositoryNameWithOwner\s*:\s*"([^"/\s]+)\//gi)].map(
-    (match) => match[1].toLowerCase()
-  );
-  const refMutation = /\b(?:createRef|updateRef|deleteRef)\b/.test(query);
-  if (!refMutation && owners.length && owners.every((owner) => owner !== OWNER)) return [];
+  // The exemption is per field and per name, never per document: a foreign owner
+  // written in one mutation must not let another mutation in the same document
+  // through, whether that one names its branch in a variable, binds a whole input to
+  // a variable, or names no branch at all. Each entry carries its own owner scope
+  // and each field is checked for a resolved target below.
+  // Comments and string contents are not input fields, so an owner written in
+  // either never scopes or vouches for anything.
+  const views = graphqlViews(query);
   const problems = [];
-  const seen = new Set();
-  for (const value of graphqlBranchNames(query, variables)) {
+  // Keyed by owner scope as well as name: a foreign `main` and a local `main` are
+  // different writes, and the foreign one must not hide the local one.
+  const judged = new Set();
+  for (const entry of graphqlBranchNames(query, variables)) {
     // createRef is given a qualified ref name, so the branch part is what is judged.
-    const name = value.replace(/^refs\/heads\//, '').replace(/\.git$/, '');
-    if (!name || seen.has(name)) continue;
-    seen.add(name);
+    const name = entry.value.replace(/^refs\/heads\//, '').replace(/\.git$/, '');
+    const key = `${entry.owner ?? ''}|${name}`;
+    if (!name || judged.has(key)) continue;
+    judged.add(key);
+    // A variable-bound name scoped to a foreign repository is outside this
+    // guard's scope, like a literal repositoryNameWithOwner in another
+    // organisation. The scope travels with the name (not the document), so an
+    // unrelated foreign variable cannot vouch for a write it does not scope.
+    if (entry.owner && entry.owner !== OWNER) continue;
     if (PROTECTED.has(name)) {
       problems.push(`Write blocked: '${name}' is protected.`);
       continue;
@@ -1852,10 +2303,9 @@ function graphqlBranchProblems(query, variables = {}) {
   //     an input, or omitted, the document yields no name, and a document with no
   //     name at all is refused.
   //
-  // Judged per document rather than per mutation, so a compliant name in one field
-  // cannot stand in for the ref mutation in the next.
-  const nodeIdRefWrite = /\b(?:updateRef|deleteRef)\b/.test(query);
-  const namedRefWrite = /\bcreateRef\b/.test(query) && !seen.size;
+  // Each mutation field is judged on its own arguments, so a compliant name in one
+  // field cannot stand in for the ref mutation in the next.
+  const nodeIdRefWrite = matchesOutsideStrings(views, /\b(?:updateRef|deleteRef)\b/g).length > 0;
   // A branch-writing mutation that resolves to no branch is refused. That includes a
   // `createCommitOnBranch` whose `branchName` is bound to a variable the guard cannot
   // read, which would otherwise be allowed precisely because its name was hidden.
@@ -1868,12 +2318,52 @@ function graphqlBranchProblems(query, variables = {}) {
   // cannot judge, so it is refused. `branch` is included because the nested input
   // form reaches here with nothing resolved: a `branch: $b` whose value was not
   // supplied as a field leaves `seen` empty, and the variable form of a nested
-  // input is exactly the shape that supplies no literal name.
-  const unreadableBranchWrite =
-    WRITES_A_BRANCH.test(query) &&
-    !seen.size &&
-    /\b(?:branchName|name|branch)\s*:\s*\$[A-Za-z_]/.test(query);
-  if (nodeIdRefWrite || namedRefWrite || unreadableBranchWrite) {
+  // input is exactly the shape that supplies no literal name. `input` is included
+  // because a whole input object bound to one variable (`input: $b`) likewise
+  // supplies no literal name; without it the write was allowed unseen (issue
+  // #3691, gap 1).
+  //
+  // Resolution is tracked per mutation field, never per document: a field whose
+  // target resolved (to any scope) says nothing about another field's whole input
+  // bound to a variable the guard could not read, such as an `updateRefs(input: $i)`
+  // beside a compliant `createRef`. `updateRef` and `deleteRef` are covered above.
+  const unresolvedField = branchWriteFields(views).some(({ field, text }) => {
+    if (field === 'updateRef' || field === 'deleteRef') return false;
+    if (field === 'updateRefs') {
+      // `updateRefs` writes several refs, so one resolved target proves nothing
+      // about the others. Every `name:` in the field must be a literal or a
+      // variable the guard can read, and the list or the whole input bound to
+      // a variable (`refUpdates: $u`, `input: $i`) cannot be resolved at all:
+      // an array-valued variable has no readable leaf.
+      const fieldViews = graphqlViews(text);
+      const wholeVariable = matchesOutsideStrings(
+        fieldViews,
+        /\b(?:refUpdates|input)\s*:\s*\$[A-Za-z_]/g
+      );
+      const unreadableName = matchesOutsideStrings(
+        fieldViews,
+        /\bname\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g
+      ).some((match) => typeof variables[match[1]] !== 'string' || !variables[match[1]]);
+      return wholeVariable.length > 0 || unreadableName || hasListEntryVariable(fieldViews);
+    }
+    if (graphqlBranchNames(text, variables).length > 0) return false;
+    // A commit whose own `branch` input names a foreign repository is outside
+    // this guard's scope, however its branch is given.
+    const fieldViews = graphqlViews(text);
+    const foreign = matchesOutsideStrings(
+      fieldViews,
+      /\brepositoryNameWithOwner\s*:\s*"((?:[^"\\]|\\.)*)"/gi
+    ).some((match) => {
+      const owner = graphqlOwner(match[1]);
+      return owner !== null && owner !== OWNER;
+    });
+    if (field === 'createCommitOnBranch' && foreign) return false;
+    // Every remaining field must name its branch. One that resolves none, such as a
+    // commit whose `branch` is given by node id (`branch: {id: ...}`), cannot be
+    // checked and is refused.
+    return true;
+  });
+  if (nodeIdRefWrite || unresolvedField) {
     problems.push(
       'Write blocked: a ref mutation names no branch the guard can read, so the target cannot be checked.'
     );
@@ -1882,7 +2372,9 @@ function graphqlBranchProblems(query, variables = {}) {
 }
 
 function checkGh(args, cwd, branch) {
-  const repoFlag = flagValue(args, ['--repo', '-R']);
+  // `gh pr create` and `gh api` disagree on `-f`, so each reads its own flag set.
+  const valueFlags = args[0] === 'pr' ? PR_CREATE_VALUE_FLAGS : VALUE_FLAGS;
+  const repoFlag = flagValue(args, ['--repo', '-R'], valueFlags);
   // The repository is resolved the same way the pull-request check resolves it,
   // so a clone whose origin names no repository still finds the one that does. A
   // `gh pr create` with an empty owner was judged against a repository that does
@@ -1893,8 +2385,8 @@ function checkGh(args, cwd, branch) {
   const root = projectDir(cwd);
 
   if (args[0] === 'pr' && args[1] === 'create') {
-    const head = flagValue(args, ['--head', '-H']) || branch;
-    const base = flagValue(args, ['--base', '-B']);
+    const head = flagValue(args, ['--head', '-H'], valueFlags) || branch;
+    const base = flagValue(args, ['--base', '-B'], valueFlags);
     return prProblems({ owner, repo, head, base });
   }
   if (args[0] !== 'api') return [];
@@ -1922,7 +2414,11 @@ function checkGh(args, cwd, branch) {
   // branch names the mutation mentions are checked instead, which covers the same
   // ground as the REST branches below: a forbidden name is refused, and a mutation
   // that names no branch is not this guard's business.
-  if (/^graphql$/.test(apiEndpoint(args))) {
+  // `gh api /graphql` carries a leading slash, which the endpoint matcher must
+  // tolerate the same way the REST path below strips one (issue #3691, gap 3):
+  // gh sends the same request with or without the slash.
+  const apiEp = apiEndpoint(args).replace(/^\//, '');
+  if (/^graphql$/.test(apiEp)) {
     if (graphqlQueryUnreadable(args, cwd)) {
       return [
         'Write blocked: could not read the GraphQL document, so the target branch cannot be checked.',
@@ -1980,7 +2476,14 @@ function checkGh(args, cwd, branch) {
   if (/^git\/refs\/?$/.test(resource) && /^(POST|PUT|PATCH)$/.test(method)) {
     const refusal = refuseUnreadable(['ref'], !fields.ref ? 'ref' : null);
     if (refusal) return refusal;
-    const problem = nameProblem((fields.ref || '').replace(/^refs\/heads\//, ''));
+    const target = (fields.ref || '').replace(/^refs\/heads\//, '');
+    // The shared validator accepts `main` and the base branch as valid names, so
+    // the protected set is what stops creating them here (issue #3691, gap 6),
+    // matching the GraphQL createRef/createCommitOnBranch path.
+    if (PROTECTED.has(target)) {
+      return [`Branch creation blocked: '${target}' is protected.`];
+    }
+    const problem = nameProblem(target);
     return problem ? [`Branch creation blocked: ${problem}.`] : [];
   }
   const ref = resource.match(/^git\/refs\/heads\/(.+)$/);
