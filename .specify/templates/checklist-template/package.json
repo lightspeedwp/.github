@@ -1,0 +1,13 @@
+{
+  "name": "@lightspeedwp/checklist-template",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Requirements quality checklist framework: dimension content, generator library and CLI",
+  "type": "commonjs",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": ".specify/templates/checklist-template"
+  }
+}
