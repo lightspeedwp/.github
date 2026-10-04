@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-10-04T14:31:54Z",
+  "branch_name": "audit/governance-files-refactor",
+  "valid": true,
+  "errors": "",
+  "actor": "lightspeed-docs-bot[bot]",
+  "event": "push",
+  "ref": "refs/heads/audit/governance-files-refactor",
+  "sha": "ce6cfa3edf936ae24445c6dede269b0b52a63bbd"
+}
