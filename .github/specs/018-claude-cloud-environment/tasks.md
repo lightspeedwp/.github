@@ -239,7 +239,7 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 
 - [x] T038 [P] Run `npm run lint:md` on changed Markdown and `npx prettier --check` on changed JS and JSON files, and fix any findings.
 - [x] T039 Run `/speckit-analyze` for 018 and resolve any CRITICAL or HIGH findings before #3726 is approved. Done 2026-10-02: no CRITICAL findings, and the HIGH findings I1 (T049), I2 (quickstart §5, T035) and I3 (plan) are resolved in #3726.
-- [ ] T040 Update the #3726 PR description with the final behaviour list and test evidence once its review comments are resolved, and confirm #3727 is linked to close on merge.
+- [x] T040 Update the #3726 PR description with the final behaviour list and test evidence once its review comments are resolved, and confirm #3727 is linked to close on merge.
 
 ---
 
