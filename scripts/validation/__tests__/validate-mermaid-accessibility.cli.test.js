@@ -58,6 +58,19 @@ describe('validate-mermaid-accessibility CLI: text alternative (#3526)', () => {
     expect(output).toContain('Missing text alternative');
   });
 
+  test.each([
+    ['a lone setext underline', 'Prose above.\n=\n\n'],
+    ['indented code', 'Prose above.\n\n    code\n\n'],
+    ['tab-indented code', 'Prose above.\n\n\tcode\n\n'],
+  ])('does not accept %s as the text alternative', (_name, above) => {
+    const { status, output } = runOn(
+      `${above}\`\`\`mermaid\nblock-beta\n    columns 1\n    block:a["A"]\n    end\n\`\`\`\n`
+    );
+
+    expect(status).toBe(1);
+    expect(output).toContain('Missing text alternative');
+  });
+
   test('recognises the hyphenated type rather than truncating it', () => {
     const { status, output } = runOn('Bands.\n\n```mermaid\nsankey-beta\nA,B,1\n```\n');
 

@@ -46,7 +46,11 @@ function textAlternativeAbove(lines, openIndex) {
   let insideComment = false;
 
   for (let i = openIndex - 1; i >= 0; i -= 1) {
-    const line = lines[i].replace(/^\s*(>\s?)*/, '').trim();
+    const rawLine = lines[i];
+    const line = rawLine.replace(/^\s*(>\s?)*/, '').trim();
+    // Indentation is stripped above, so judge indented code on the raw line: four
+    // spaces or a tab make a code block, never prose.
+    const isIndentedCode = /^(?: {4,}|\t)/u.test(rawLine);
 
     if (line === '') {
       continue;
@@ -69,11 +73,11 @@ function textAlternativeAbove(lines, openIndex) {
     }
 
     // A thematic break (`---`, `- - -`, `***`, `___`) or a setext heading
-    // underline (`===`) is markup, not a description, in every spacing
-    // CommonMark allows.
-    const isRule = /^([-*_=])(?:[ \t]*\1)+[ \t]*$/u.test(line);
+    // underline (`=`, `===`) is markup, not a description, in every spacing
+    // CommonMark allows. A single `=` is already a valid underline.
+    const isRule = line === '=' || /^([-*_=])(?:[ \t]*\1)+[ \t]*$/u.test(line);
 
-    if (/^#{1,6}\s/u.test(line) || /^(```|~~~)/u.test(line) || isRule) {
+    if (isIndentedCode || /^#{1,6}\s/u.test(line) || /^(```|~~~)/u.test(line) || isRule) {
       return null;
     }
 
