@@ -157,6 +157,7 @@ describe('context text (T014)', () => {
       '.claude/settings.json',
       '.claude/settings.local.json',
       '~/.claude/settings.json',
+      '/etc/claude-code/managed-settings.json',
     ]) {
       expect(context).toContain(file);
     }

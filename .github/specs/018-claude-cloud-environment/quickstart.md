@@ -114,8 +114,8 @@ Expected while the FR-020 deferral holds:
 - Every `claude/*` branch without an open PR or matching exclusion appears under DISCUSS for its forbidden prefix.
 - Nothing is deleted, and `--dryRun=false` exits with 1.
 
-A maintainer can promote an empty, merged `claude/*` branch with no open PR to DELETE, and it is removed through
-spec 009's draft-PR approval (R16).
+After T063 adds this route to spec 009, a maintainer can promote an empty, merged `claude/*` branch with no open PR
+to DELETE through spec 009's draft-PR approval (R16).
 
 Once the deferral is lifted, only branches that are platform placeholders with no commits of their own and no
 open PR, observable for at least a day by the branch-age signal, are auto-approved. Run the spec 009 cleanup

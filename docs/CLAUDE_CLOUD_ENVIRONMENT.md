@@ -98,6 +98,10 @@ If the guard can't evaluate a call because of its own fault, for example its val
   `Branch guard unavailable: <error>. Open an issue on lightspeedwp/.github`. Everything else, including switching to
   an existing branch, is allowed with a warning.
 - With enforcement off, the fault is a warning and the action goes ahead.
+- The same split applies when the guard can't start at all, because Node isn't on `PATH` or the guard script is
+  missing. The launcher (`.claude/hooks/run-guard.sh`) classifies the call itself, without Node. With enforcement on it
+  refuses the writes above with `Branch guard unavailable: <reason>` and allows every other call, so a session without
+  Node can still run `ls` and read the tree to find out why.
 
 **Emergency procedure**: if the guard blocks legitimate work, an Owner sets `LS_ENFORCE_BRANCH_NAMES=0` in the
 environment and starts a new session (running sessions keep their setting). Open an issue, fix the guard in a PR,
@@ -232,8 +236,8 @@ settings, not branch-protection fields.
   auto-deletion until a branch-age signal, such as a first-observed timestamp, exists, because the age of a branch's
   last commit says nothing about how long the branch itself has existed. Until then, spec 009's cleanup (the
   report-only CLI from lightspeedwp/.github#3358; `develop` keeps the older script until it merges) sends every `claude/*` branch without an open PR or matching exclusion to DISCUSS for its forbidden prefix. A
-  maintainer reviewing DISCUSS may promote an empty, merged one with no open PR to DELETE, and it is then removed
-  only through spec 009's draft-PR approval. A `claude/*` branch with commits of its own is never promoted this way.
+  maintainer reviewing DISCUSS can promote an empty, merged one with no open PR to DELETE once spec 009 records that
+  route (task T063, after #3358 merges), and it is then removed only through spec 009's draft-PR approval. A `claude/*` branch with commits of its own is never promoted this way.
 
 ## Limitations
 
@@ -267,12 +271,13 @@ settings, not branch-protection fields.
 - The guard reads shell syntax. It does not follow aliases, and it cannot know a name the shell builds at run time.
   A command substitution is read, so a command hidden inside `$(...)` or backticks is checked, and a wrapper such as
   `timeout` or `env` is stepped through to the command behind it.
-- If Node is missing, the launcher refuses the call rather than letting it through, because a hook that cannot
-  start is treated as non-blocking. Start the session with `LS_ENFORCE_BRANCH_NAMES=0` to turn that into a warning.
-  The switch is honoured by the launcher whenever the guard cannot run at all, which is
-  a missing interpreter and a missing guard file; in both cases a session that would otherwise
-  be blocked from every Bash, Edit and Write call can be recovered deliberately. The setup
-  script installs Node.
+- If Node is missing, the launcher can't run the guard, and a hook that cannot start is treated as non-blocking, so
+  the launcher decides the call itself. With enforcement on it refuses git commits, pushes, branch operations and the
+  GitHub tools with `Branch guard unavailable`, and allows everything else with a warning. It judges a call by the
+  same patterns the guard uses on its own fault path, which is coarser than the guard: it does not read nested shells
+  or guard-file writes. Start the session with `LS_ENFORCE_BRANCH_NAMES=0` to turn the refusals into warnings. The
+  switch is honoured by the launcher whenever the guard cannot run at all, which is a missing interpreter and a
+  missing guard file, so a session can be recovered deliberately. The setup script installs Node.
 - Pushing a renamed branch relies on the platform's push protection allowing the session's current branch. If the
   platform changes this, pushes are rejected (not redirected), and the checks above catch it.
 - `release/vX.Y.Z` names are accepted by the validator, so a release branch into `main` opens normally. The guard's

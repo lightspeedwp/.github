@@ -5,30 +5,26 @@
 # guard as `node enforce-branch-name.mjs` fails open on any machine where node is
 # not on PATH: the hook never runs, no exit code is produced, and the matched
 # command proceeds unchecked. That is the opposite of what enforcement is for, so
-# the interpreter is resolved here and its absence is reported as a refusal.
+# the interpreter is resolved here and its absence is handled as a guard fault
+# (FR-012a, research R15).
 #
 # Exit codes are the guard's own: 0 allows, 2 refuses. This launcher adds only
-# the case where the guard cannot run at all, and it refuses there too, so the
-# only way a guarded command proceeds is a running guard that allowed it.
+# the case where the guard cannot run at all. With enforcement on it then refuses
+# git commit, push and branch operations and the GitHub tools, with "Branch guard
+# unavailable", and allows every other call with a visible warning. Refusing every
+# call, as this launcher used to, blocked a session without Node from running even
+# `ls` to diagnose the problem.
 
 set -uo pipefail
 
 GUARD="${CLAUDE_PROJECT_DIR:-.}/.claude/hooks/enforce-branch-name.mjs"
 
-# The escape hatch has to work here, not just be named in the message. The hook
-# matches Bash, Edit and Write, so a launcher that refused unconditionally would
-# refuse every call in the session, including `ls`, and a deliberate opt-out could
-# not be reached at all. FR-013 makes a fault a warning when enforcement is off,
-# so the same holds here: a missing interpreter degrades to a warning.
 # The messages here are fixed strings, so the only character needing an escape is
 # the double quote, and the backslash escapes below are done with shell parameter
 # expansion rather than sed: sed is not guaranteed to be on PATH either, and this
 # function has to work in exactly the degraded environment it exists for.
 # $1 message, $2 exit code. The JSON goes to stdout so the session surfaces it as
 # a system message, and the plain text to stderr so it is visible in a transcript.
-# The escapes are done with shell parameter expansion rather than sed, which is
-# not guaranteed to be on PATH either and this has to work in exactly the degraded
-# environment it exists for.
 report() {
   local escaped="${1//\\/\\\\}"
   escaped="${escaped//\"/\\\"}"
@@ -37,30 +33,77 @@ report() {
   exit "$2"
 }
 
-# The switch is read here only where it cannot be honoured by the guard itself,
-# that is when the guard cannot run at all. Short-circuiting on it unconditionally
+# Which calls are writes, judged without the guard. These are the guard's own
+# fault-path patterns (GIT_WRITE in enforce-branch-name.mjs, research R11),
+# restated for a shell with no interpreter. They are written with explicit
+# character classes instead of \b and \s, which not every regex library accepts,
+# and they are matched against the raw hook JSON, so a quoted argument arrives as
+# \" and a newline as \n; neither is a pipe, a semicolon or an ampersand, so the
+# `[^|;&]*` spans behave as they do on the decoded command. The test suite runs
+# both classifiers over the same commands and fails when they disagree.
+#   N  a character that cannot continue a word
+#   P  anything within one command, that is, up to a pipe, semicolon or ampersand
+N='[^[:alnum:]_]'
+P='[^|;&]*'
+S='[[:space:]]'
+GIT="(^|${N})git(${N}${P})?${N}"
+WRITE_PATTERNS=(
+  "${GIT}(commit|push)(${N}|\$)"
+  "${GIT}branch(${N}${P})?${S}(-[mMdDf]|--move|--delete|--force)(${N}|\$)"
+  "${GIT}checkout(${N}${P})?${S}-[bB](${N}|\$)"
+  "${GIT}switch(${N}${P})?${S}(-[cC]|--create|--force-create)(${N}|\$)"
+  "(^|${N})gh${S}+pr${S}+create(${N}|\$)"
+  "(^|${N})gh${S}+api(${N}${P})?${S}(-X[A-Za-z]+|-X(${N}|\$)|--method|-f[A-Za-z]|-f(${N}|\$)|-F[A-Za-z]|-F(${N}|\$)|--field|--raw-field|--input)"
+)
+
+# Whether the hook call on stdin is a write. $1 is the raw hook JSON. Every GitHub
+# MCP tool counts, as it does in the guard; an unreadable or empty call is not a
+# write, the same as the guard's treatment of malformed input.
+is_write() {
+  local call="$1" tool="" pattern
+  local tool_re='"tool_name"[[:space:]]*:[[:space:]]*"([^"]*)"'
+  if [[ $call =~ $tool_re ]]; then
+    tool="${BASH_REMATCH[1]}"
+  fi
+  case "$tool" in
+    mcp__github__*) return 0 ;;
+    Bash) ;;
+    *) return 1 ;;
+  esac
+  for pattern in "${WRITE_PATTERNS[@]}"; do
+    if [[ $call =~ $pattern ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+# The guard cannot run. $1 is the reason. The switch is read here only where it
+# cannot be honoured by the guard itself: short-circuiting on it unconditionally
 # would stop the guard from ever starting with enforcement off, which is the one
-# case where it still has something to say: it reports that a check was skipped
-# and lets the action proceed (contracts/hooks.md, FR-013). Only the missing
-# interpreter needs the decision made here, and without it the opt-out would be
-# unreachable: the hook matches Bash, Edit and Write, so an unconditional refusal
-# would block every call in the session, `ls` included.
-if ! command -v node >/dev/null 2>&1; then
+# case where it still has something to say (contracts/hooks.md, FR-013). With
+# enforcement off the call proceeds with a warning, whatever it is, because a
+# missing guard file is exactly when a developer needs to put the file back and
+# the hook matches Edit and Write.
+guard_unavailable() {
   if [ "${LS_ENFORCE_BRANCH_NAMES:-1}" = "0" ]; then
     report "Branch guard (warning only): enforcement is off, so no check ran." 0
   fi
-  report "Branch guard blocked: node is not on PATH, so $GUARD cannot run. Install Node (see .claude/cloud/setup.sh), or start the session with LS_ENFORCE_BRANCH_NAMES=0 to work without the guard deliberately." 2
+  # The call is read only here. On the normal path stdin belongs to the guard.
+  local call=""
+  IFS= read -r -d '' call || true
+  if is_write "$call"; then
+    report "Branch guard unavailable: $1" 2
+  fi
+  report "Branch guard unavailable: $1" 0
+}
+
+if ! command -v node >/dev/null 2>&1; then
+  guard_unavailable "node is not on PATH, so $GUARD cannot run. Install Node (see .claude/cloud/setup.sh), or start the session with LS_ENFORCE_BRANCH_NAMES=0 to work without the guard deliberately."
 fi
 
-# The switch applies here for the same reason it applies to the missing
-# interpreter, and it matters more: a missing guard file is exactly the case where
-# a developer needs to put the file back, and the hook matches Edit and Write. An
-# unconditional refusal would block the edit that repairs it.
 if [ ! -f "$GUARD" ]; then
-  if [ "${LS_ENFORCE_BRANCH_NAMES:-1}" = "0" ]; then
-    report "Branch guard (warning only): enforcement is off, so no check ran." 0
-  fi
-  report "Branch guard blocked: $GUARD is missing, so no check ran." 2
+  guard_unavailable "$GUARD is missing, so no check ran."
 fi
 
 exec node "$GUARD"
