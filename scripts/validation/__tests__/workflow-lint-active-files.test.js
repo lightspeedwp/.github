@@ -26,7 +26,7 @@ describe('actionlint workflow list', () => {
   it('is every top-level workflow file and nothing else', () => {
     const onDisk = fs
       .readdirSync(workflowsDir, { withFileTypes: true })
-      .filter((entry) => entry.isFile() && entry.name.endsWith('.yml'))
+      .filter((entry) => entry.isFile() && /\.ya?ml$/.test(entry.name))
       .map((entry) => `.github/workflows/${entry.name}`)
       .sort();
 
@@ -55,9 +55,15 @@ describe('actionlint workflow list', () => {
       fs.writeFileSync(path.join(dir, 'archived', 'old.yml'), '');
       fs.writeFileSync(path.join(dir, 'b.yml'), '');
       fs.writeFileSync(path.join(dir, 'a.yml'), '');
+      // GitHub Actions treats a top-level .yaml file as a workflow too.
+      fs.writeFileSync(path.join(dir, 'c.yaml'), '');
       fs.writeFileSync(path.join(dir, 'README.md'), '');
 
-      expect(workflowFiles(dir).map((file) => path.basename(file))).toEqual(['a.yml', 'b.yml']);
+      expect(workflowFiles(dir).map((file) => path.basename(file))).toEqual([
+        'a.yml',
+        'b.yml',
+        'c.yaml',
+      ]);
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }

@@ -9,6 +9,13 @@ on:
   push:
     branches:
       - develop
+  # These jobs back required status checks and the rulesets carry a merge-queue
+  # rule. A check that only runs on pull_request is never reported for a queued
+  # batch, so the requirement would sit unsatisfied and block the queue.
+  merge_group:
+    branches:
+      - develop
+      - main
 
 permissions:
   contents: read

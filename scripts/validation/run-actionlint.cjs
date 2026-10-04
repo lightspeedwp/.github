@@ -54,7 +54,7 @@ function runs(command) {
 }
 
 /**
- * The workflow files actionlint checks: every `.yml` directly in
+ * The workflow files actionlint checks: every `.yml` or `.yaml` directly in
  * `.github/workflows`, relative to the repository root. Subdirectories
  * (`archived/`, `__tests__/`) hold frozen history and test fixtures and are not
  * linted. The list is read from the directory rather than curated, so a new
@@ -65,7 +65,7 @@ function runs(command) {
 function workflowFiles(directory = WORKFLOWS_DIR) {
   return fs
     .readdirSync(directory, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.endsWith('.yml'))
+    .filter((entry) => entry.isFile() && /\.ya?ml$/.test(entry.name))
     .map((entry) => path.join('.github', 'workflows', entry.name))
     .sort();
 }
