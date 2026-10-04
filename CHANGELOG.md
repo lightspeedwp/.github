@@ -84,6 +84,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
 - **Markdown Commit Check Works After A Stale Install** — Fixed the staged-Markdown commit check crashing on a working copy installed before a tooling upgrade. It now accepts the older version and lints as normal. (#3785)
 
 - **Bare Jest Uses the Intended Config** — The broken root Jest config is gone and a root `jest.config.cjs` now forwards to `.jest.config.cjs`, so bare `npx jest` no longer runs 76 suites this repository excludes. (#3711)
