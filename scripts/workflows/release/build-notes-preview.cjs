@@ -16,7 +16,7 @@ function execGit(command, allowError = false) {
     if (allowError) {
       return "";
     }
-    throw new Error(`Git command failed: ${command}\n${error.message}`);
+    throw new Error(`Git command failed: ${command}\n${error.message}`, { cause: error });
   }
 }
 
