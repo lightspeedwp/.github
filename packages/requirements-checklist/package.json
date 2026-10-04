@@ -21,7 +21,12 @@
     "validation"
   ],
   "author": "LightSpeed",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "packages/requirements-checklist"
+  },
   "dependencies": {
     "yaml": "^2.3.4",
     "marked": "^11.1.1"
