@@ -98,8 +98,10 @@ formatter (not as an ESLint rule).
 
 `npm run format:check` is repo-wide and informational: the repository carries a
 large backlog of pre-existing formatting drift (626 files), so it is not
-enforced as a required CI check. Format the files you touch with
-`npm run format:js`, or let lint-staged do it at commit time.
+enforced as a required CI check. Format only the files you touch, with
+`npx prettier --write path/to/file.js`, or let lint-staged do it at commit time.
+`npm run format:js` rewrites every JS and TS file in the repository, so use it
+only for an intentional repository-wide formatting change.
 
 `npm run lint:js` is read-only. Use `npm run lint:js:fix` to apply ESLint fixes
 and the `format:*` scripts to apply Prettier formatting. ESLint runs with a
@@ -116,6 +118,15 @@ content-based cache (`.eslintcache`, gitignored) for fast repeat runs.
   `website/src/content.config.ts`). It adds `astro:content` and `marked`
   module shims (`website/src/env.d.ts`) so the module type-checks without the
   Astro toolchain installed.
+
+`tsc` cannot read `.astro` files, so a type error in a page's markup or inline
+script passes `npm run typecheck`. `npm run typecheck:astro` runs `astro check`
+over the website's `.astro` and `.ts` files. It needs the website's own
+dependencies (`npm ci --prefix website`), which is why it is not part of
+`npm run typecheck`. It currently reports 36 existing findings, mostly untyped
+DOM access in inline scripts, so CI runs it as an informational step that does
+not fail the Typecheck job. Remove `continue-on-error` from the "Astro check"
+step in `.github/workflows/lint.yml` once they are cleared.
 
 ## Git Hooks & Automation with Husky
 

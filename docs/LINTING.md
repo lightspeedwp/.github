@@ -302,7 +302,7 @@ npx lint-staged
 // .lintstagedrc.cjs — takes precedence over any package.json "lint-staged" field.
 // Staged-file exclusions and the changed-line Markdown behaviour are preserved.
 module.exports = {
-  "*.{js,jsx,ts,tsx}": (filenames) => {
+  "*.{js,jsx,ts,tsx,cjs,mjs}": (filenames) => {
     const included = filenames.filter((f) => !isExcluded(f));
     return included.length ? [`eslint --fix ${q(included)}`, `prettier --write ${q(included)}`] : [];
   },

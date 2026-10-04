@@ -1128,6 +1128,140 @@ describe('skills-spec: compatibility length', () => {
   });
 });
 
+describe('skills-spec: permissions shape', () => {
+  const shapes = (permissions) =>
+    spec.validateOptionalFieldShapes({ permissions }, 'subagent-definition');
+
+  it('accepts a list of permitted scopes', () => {
+    expect(shapes(['read', 'write', 'github:repo'])).toEqual([]);
+  });
+
+  it('rejects a scalar, as the schema requires an array', () => {
+    const findings = shapes('read');
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain('`permissions` must be a list but is string');
+  });
+
+  it('rejects a scope that is not in the schema enum, and a non-string entry', () => {
+    expect(shapes(['read', 'project-planning'])[0]).toContain('"project-planning"');
+    expect(shapes([3])[0]).toContain('not a permitted scope');
+  });
+
+  it('says nothing when the field is absent', () => {
+    expect(spec.validateOptionalFieldShapes({}, 'subagent-definition')).toEqual([]);
+  });
+
+  it('lists exactly the scopes of the canonical frontmatter schema', () => {
+    const schema = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', '.schemas/frontmatter.schema.json'),
+        'utf8'
+      )
+    );
+    const found = [];
+    const walk = (node) => {
+      if (node && typeof node === 'object') {
+        if (node.permissions && node.permissions.items && node.permissions.items.enum) {
+          found.push(node.permissions.items.enum);
+        }
+        Object.values(node).forEach(walk);
+      }
+    };
+    walk(schema);
+
+    expect(found.length).toBeGreaterThan(0);
+    for (const values of found) {
+      expect([...spec.PERMISSION_VALUES].sort()).toEqual([...values].sort());
+    }
+  });
+});
+
+describe('skills-spec: status and author shape', () => {
+  const shapes = (fields) => spec.validateOptionalFieldShapes(fields, 'subagent-definition');
+
+  it('accepts a string author and a schema status', () => {
+    expect(shapes({ author: 'LightSpeed Team', status: 'active' })).toEqual([]);
+    for (const status of ['active', 'deprecated', 'draft', 'experimental']) {
+      expect(shapes({ status })).toEqual([]);
+    }
+  });
+
+  it('rejects list-valued author and status', () => {
+    expect(shapes({ author: ['a'] })[0]).toContain('`author` must be a string');
+    expect(shapes({ status: [] })[0]).toContain('`status` must be a string');
+  });
+
+  it('rejects a string status that is not in the schema enum', () => {
+    const findings = shapes({ status: 'Active' });
+
+    expect(findings).toHaveLength(1);
+    expect(findings[0]).toContain(
+      '`status` must be one of active, deprecated, draft, experimental'
+    );
+  });
+
+  it('lists exactly the statuses of the canonical frontmatter schema', () => {
+    const schema = JSON.parse(
+      fs.readFileSync(
+        path.join(__dirname, '..', '..', '..', '.schemas/frontmatter.schema.json'),
+        'utf8'
+      )
+    );
+
+    expect([...spec.STATUS_VALUES].sort()).toEqual(
+      [...schema.definitions.commonFields.properties.status.enum].sort()
+    );
+  });
+});
+
+describe('baseline keys for permissions findings', () => {
+  const agent = (extra) =>
+    [
+      '---',
+      'name: Test Agent',
+      'description: Does a thing.',
+      'title: Test Agent',
+      'file_type: agent',
+      'last_updated: "2026-09-22"',
+      extra,
+      '---',
+      '',
+      'Body.',
+      '',
+    ].join('\n');
+  const statusFor = (extra, baselined) => {
+    const tree = makeTree({ 'agents/test.agent.md': agent(extra) });
+    try {
+      const validationDir = path.join(tree, 'scripts', 'validation');
+      fs.mkdirSync(path.join(validationDir, 'lib'), { recursive: true });
+      fs.copyFileSync(SCRIPT, path.join(validationDir, 'validate-skills.js'));
+      fs.copyFileSync(
+        path.join(__dirname, '..', 'lib', 'skills-spec.js'),
+        path.join(validationDir, 'lib', 'skills-spec.js')
+      );
+      fs.writeFileSync(
+        path.join(validationDir, 'skills-baseline.json'),
+        JSON.stringify({ findings: baselined })
+      );
+      return run(tree).status;
+    } finally {
+      fs.rmSync(tree, { recursive: true, force: true });
+    }
+  };
+
+  it('is keyed by the field, so another field baselined in the same file does not hide it', () => {
+    const file = 'agents/test.agent.md#optional-field-shape';
+
+    // Baselined for its own field: tolerated.
+    expect(statusFor('permissions: [billing]', [`${file}#permissions`])).toBe(0);
+    // Baselined only for a different field's shape error: the permissions finding is new.
+    expect(statusFor('permissions: [billing]', [`${file}#author`])).not.toBe(0);
+    // A new shape error on another field is likewise not hidden by the permissions entry.
+    expect(statusFor('permissions: [read]\nauthor: [a]', [`${file}#permissions`])).not.toBe(0);
+  });
+});
+
 describe('skills-spec: metadata values must be strings', () => {
   it('accepts string values', () => {
     expect(spec.validateMetadataValues({ metadata: { version: '1.0', author: 'team' } })).toEqual(
