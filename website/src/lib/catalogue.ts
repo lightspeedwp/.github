@@ -1528,7 +1528,7 @@ export const ITEMS: CatalogueItem[] = [
     {
       type: "guardrail",
       tags: ["eslint", "javascript"],
-      path: ".eslint.config.cjs",
+      path: "eslint.config.cjs",
     },
   ),
   item(

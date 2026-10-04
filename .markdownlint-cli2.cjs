@@ -49,13 +49,8 @@ module.exports = {
   ignores: baseConfig.ignorePaths || [],
 
   /**
-   * No `fix` key on purpose. A bare `markdownlint-cli2` invocation must be
-   * read-only: defaulting `fix: true` here once rewrote whole files on plain
-   * checks (including via `npm run lint:md`), leaking unrelated hunks into
-   * commits. And the CLI `--fix` flag is overridden by an explicit config
-   * value, so `fix: false` would silently neuter the flows that intend to
-   * fix. Omitting the key gives both: bare runs check only, explicit
-   * `--fix` (`lint:md:fix`, the lint-staged hook) still fixes.
+   * No `fix` key: an explicit config value overrides the CLI --fix flag.
+   * Omitting it keeps bare runs read-only and lets --fix work.
    */
 
   /**

@@ -34,7 +34,7 @@ function walk(dir, results = []) {
 }
 
 function summarizeFile(file) {
-  let text = '';
+  let text;
   try {
     text = fs.readFileSync(file, 'utf8');
   } catch {

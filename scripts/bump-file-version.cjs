@@ -69,7 +69,7 @@ function extractFrontmatter(content) {
       raw: match[1]
     };
   } catch (error) {
-    throw new Error(`Failed to parse YAML frontmatter: ${error.message}`);
+    throw new Error(`Failed to parse YAML frontmatter: ${error.message}`, { cause: error });
   }
 }
 
