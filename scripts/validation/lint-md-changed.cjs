@@ -62,13 +62,13 @@ function matchesPattern(filePath, pattern) {
 
   // Replace placeholders with regex patterns
   // **/ matches any path including nested dirs, or nothing (making it optional)
-  regex = regex.replace(/\x00/g, "(?:.*/)?");
+  regex = regex.replaceAll("\x00", "(?:.*/)?");
   // ** matches any characters including /
-  regex = regex.replace(/\x01/g, ".*");
+  regex = regex.replaceAll("\x01", ".*");
   // * matches anything except /
-  regex = regex.replace(/\x02/g, "[^/]*");
+  regex = regex.replaceAll("\x02", "[^/]*");
   // ? matches any single character except /
-  regex = regex.replace(/\x03/g, "[^/]");
+  regex = regex.replaceAll("\x03", "[^/]");
 
   return new RegExp(`^${regex}$`).test(filePath);
 }

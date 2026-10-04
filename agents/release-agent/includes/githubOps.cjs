@@ -18,7 +18,7 @@ function executeGhSafe(args) {
       encoding: 'utf8',
     }).trim();
   } catch (error) {
-    throw new Error(`GitHub CLI command failed: ${args.join(' ')}\n${error.message}`);
+    throw new Error(`GitHub CLI command failed: ${args.join(' ')}\n${error.message}`, { cause: error });
   }
 }
 
@@ -34,7 +34,7 @@ function executeGh(command) {
       encoding: 'utf8',
     }).trim();
   } catch (error) {
-    throw new Error(`GitHub CLI command failed: ${command}\n${error.message}`);
+    throw new Error(`GitHub CLI command failed: ${command}\n${error.message}`, { cause: error });
   }
 }
 
