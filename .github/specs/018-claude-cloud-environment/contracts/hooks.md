@@ -157,9 +157,12 @@ foreign repository is out of scope however its branch is given; any other commit
 `createRef` that resolves no readable branch, such as one whose branch is a node id, is
 refused.
 
-The limit of that check is stated rather than implied. One write is outside what the
-check reaches at all, which is a different thing from a limit of what it can read.
-
-- `mergeBranch` is not handled at all. It writes to the branch named in its `base`, and
-  that field is not one of the keys the branch-name reader looks at, so a merge into a
-  protected branch is neither refused nor reported. It is tracked in #3691.
+`mergeBranch` writes to the branch named in its `base`, so the guard reads `base` (not
+`head`, the source being merged in) as a branch write. It is read in the three
+spellings the other writes have: a literal, a variable (`base: $b`), and a whole input
+object bound to one variable (`input: $i`, including from an `--input` body's
+`variables` map). The name is judged like any other, so a merge into `main` or the base
+branch is refused, and a `mergeBranch` whose `base` cannot be read is refused as
+unreadable. The mutation takes its repository by node id, so the name is unscoped and
+judged. This closed #3691 gap 7. Gap 6 (REST `git/refs`) and gaps 1 to 5 were closed in pull
+request #3745.

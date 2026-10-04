@@ -2646,13 +2646,38 @@ const GIT_WRITE = [
   /\bgh\s+api\b[^|;&]*\s(-X[A-Za-z]+|-X\b|--method|-f[A-Za-z]|-f\b|-F[A-Za-z]|-F\b|--field|--raw-field|--input)/,
 ];
 
+/**
+ * Whether a command creates a branch with plain `git branch <name>`, which none of
+ * the GIT_WRITE patterns match: they look for a flag, and this form has none. A
+ * `git branch` carrying a query flag (`--list`, `-a`, `--contains` and the rest of
+ * BRANCH_QUERY_FLAGS) is a read, and a bare `git branch` lists, so only an
+ * argument that is not a flag, with no query flag beside it, counts.
+ * @param {string} command
+ * @returns {boolean}
+ */
+function createsBranchPlainly(command) {
+  // One `git` invocation at a time, up to the next pipe, semicolon or ampersand,
+  // read as whitespace-separated words: the first word `branch` is the
+  // subcommand, and what follows it is its arguments. The launcher run-guard.sh
+  // does the same in shell, and a test keeps the two in step.
+  for (const match of command.matchAll(/(?:^|[^A-Za-z0-9_])git[^|;&]*/g)) {
+    const words = match[0].split(/\s+/).filter(Boolean);
+    const at = words.indexOf('branch');
+    if (at === -1) continue;
+    const args = words.slice(at + 1);
+    if (args.some((word) => BRANCH_QUERY_FLAGS.has(word.split('=')[0]))) continue;
+    if (args.some((word) => !word.startsWith('-'))) return true;
+  }
+  return false;
+}
+
 /** Whether a call is a git or GitHub write, judged without the validator. */
 function isWrite(input) {
   const tool = input.tool_name || '';
   if (tool.startsWith('mcp__github__')) return true;
   if (tool !== 'Bash') return false;
   const command = String((input.tool_input || {}).command || '');
-  return GIT_WRITE.some((pattern) => pattern.test(command));
+  return GIT_WRITE.some((pattern) => pattern.test(command)) || createsBranchPlainly(command);
 }
 
 /**

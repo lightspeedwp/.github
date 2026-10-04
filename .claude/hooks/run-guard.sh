@@ -56,6 +56,38 @@ WRITE_PATTERNS=(
   "(^|${N})gh${S}+api(${N}${P})?${S}(-X[A-Za-z]+|-X(${N}|\$)|--method|-f[A-Za-z]|-f(${N}|\$)|-F[A-Za-z]|-F(${N}|\$)|--field|--raw-field|--input)"
 )
 
+# Plain `git branch <name>` creates a branch with no flag for a pattern to find, so
+# it is judged on its arguments: a query flag makes it a read (the guard's own
+# BRANCH_QUERY_FLAGS), a bare `git branch` lists, and any other word is a name.
+# Mirrors createsBranchPlainly in enforce-branch-name.mjs.
+QUERY_FLAGS=' -l --list -a --all -r --remotes --show-current -v -vv --verbose --contains --no-contains --merged --no-merged --points-at --sort --format -u --set-upstream-to --unset-upstream --edit-description --column --no-column '
+creates_branch() {
+  local call="$1" seg tok flag seen positional query
+  local re='(^|[^[:alnum:]_])git[^|;&]*'
+  while [[ $call =~ $re ]]; do
+    seg="${BASH_REMATCH[0]}"
+    call="${call#*"$seg"}"
+    seen=0
+    positional=0
+    query=0
+    set -f
+    for tok in $seg; do
+      if [ "$seen" = 0 ]; then
+        if [ "$tok" = branch ]; then seen=1; fi
+        continue
+      fi
+      flag="${tok%%=*}"
+      case "$QUERY_FLAGS" in *" $flag "*) query=1 ;; esac
+      case "$tok" in -*) ;; *) positional=1 ;; esac
+    done
+    set +f
+    if [ "$seen" = 1 ] && [ "$query" = 0 ] && [ "$positional" = 1 ]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
 # Whether the hook call on stdin is a write. $1 is the raw hook JSON. Every GitHub
 # MCP tool counts, as it does in the guard; an unreadable or empty call is not a
 # write, the same as the guard's treatment of malformed input.
@@ -75,7 +107,7 @@ is_write() {
       return 0
     fi
   done
-  return 1
+  creates_branch "$call"
 }
 
 # The guard cannot run. $1 is the reason. The switch is read here only where it
