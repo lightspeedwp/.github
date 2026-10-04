@@ -10,7 +10,7 @@ The `.github` repository is the **authoritative source** for LightSpeed's GitHub
 
 ### II. Curated Assets with Locked Governance
 
-LOCKED files (`.github/labels.yml`, `.github/issue-types.yml`, templates, issue/PR routing) are final and require explicit approval (@ashley) for changes. Change requests MUST be submitted as issues with specific tags (`[LABEL-UPDATE-REQUEST]`, `[TEMPLATE-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]`) and justified with impact analysis on dependent systems.
+LOCKED files (`.github/labels.yml`, `.github/issue-types.yml`, templates, issue/PR routing) are final and require explicit approval (@ashleyshaw) for changes. Change requests MUST be submitted as issues with specific tags (`[LABEL-UPDATE-REQUEST]`, `[TEMPLATE-UPDATE-REQUEST]`, `[ISSUE-TYPE-UPDATE-REQUEST]`) and justified with impact analysis on dependent systems.
 
 **Rationale**: Labels, templates, and issue types drive PR routing, GitHub Actions workflows, and AI agent decision trees. Uncontrolled changes cascade as failures across all consuming repositories. Manual curation prevents silent breakage.
 
@@ -71,7 +71,7 @@ All project specifications MUST be validated against 8 quality dimensions before
 
 ### VIII. Branch Strategy Compliance & Automated Enforcement (Non-Negotiable)
 
-All branches MUST follow pattern `{type}/{scope}-{title}` with one of 38 authorized types (feat, fix, hotfix, release, refactor, chore, task, docs, test, perf, ci, build, deps, security, design, a11y, ux, i18n, ops, proto, ds, api, schema, telemetry, content, seo, config, migrate, qa, uat, audit, codex, revert, research, automation, epic, aiops, a11y, build). FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute and non-negotiable. PR template routing MUST be automatic by branch prefix according to the canonical routing map in `.github/PULL_REQUEST_TEMPLATE/config.yml`. Auto-labeling MUST apply consistent, prefixed labels from canonical label set. CI validation gates MUST block non-compliant branches before merge. Compliance tracking MUST show ≥95% adherence across all active branches.
+All branches MUST follow pattern `{type}/{scope}-{title}` with one of 38 authorised types (feat, task, proto, fix, hotfix, revert, release, refactor, chore, docs, i18n, test, perf, ci, build, deps, security, design, ds, a11y, ux, ops, audit, codex, research, api, schema, doc, content, seo, config, migrate, qa, uat, aiops, automation, telemetry, epic). FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are absolute and non-negotiable. PR template routing MUST be automatic by branch prefix according to the canonical routing map in `.github/branch-types.yml`. Auto-labeling MUST apply consistent, prefixed labels from canonical label set. CI validation gates MUST block non-compliant branches before merge. Compliance tracking MUST show ≥95% adherence across all active branches.
 
 **Rationale**: Branch naming is the foundation for PR template routing, GitHub Actions workflows, labeling, and metrics. Standardized naming enables automation, prevents template misrouting, and provides traceability. Enforcement prevents manual workarounds and ensures 100% consistency.
 
@@ -95,8 +95,11 @@ All governance decisions MUST be supported by continuous metrics: specification 
 | `.github/issue-types.yml` | 25 issue types | Issue: `[ISSUE-TYPE-UPDATE-REQUEST]` + approval |
 | `.github/ISSUE_TEMPLATE/*.md` | 26 issue templates | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
 | `.github/PULL_REQUEST_TEMPLATE/*.md` | 19 PR templates | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
+| `.github/branch-types.yml` | Canonical branch type → PR template routing | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
+| `.github/branch-labels.yml` | Default labels applied per branch type | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
+| `.github/PULL_REQUEST_TEMPLATE/config.yml` | PR routing reference (mirrors `branch-types.yml`) | Issue: `[TEMPLATE-UPDATE-REQUEST]` + approval |
 
-**Approval Authority**: @ashley (organisation owner). All changes require impact analysis covering:
+**Approval Authority**: @ashleyshaw (organisation owner). All changes require impact analysis covering:
 
 - Dependent systems affected (workflows, agents, downstream repos)
 - Breaking changes identified
@@ -149,49 +152,54 @@ GitHub issue creation is routed by issue type. Each canonical issue type in `.gi
 
 ### Branch Type to PR Template Routing
 
-Pull request templates are automatically routed by branch prefix according to the canonical mapping in `.github/PULL_REQUEST_TEMPLATE/config.yml`. The map below defines the binding between branch type and PR template. No manual template selection is permitted; the GitHub Action `pr-template-resolver.yml` enforces routing.
+Pull request templates are automatically routed by branch prefix according to the canonical mapping in `.github/branch-types.yml`, which `scripts/pr-template-router.js` reads when the `pr-template-routing.yml` workflow runs. The map below defines the binding between branch type, PR template and type label. `.github/PULL_REQUEST_TEMPLATE/config.yml` MUST list the same routes; where it differs, `branch-types.yml` is authoritative and `config.yml` MUST be corrected. No manual template selection is permitted.
+
+**Type label precedence**: Each routed PR template's frontmatter `type:*` label is authoritative for its branch types. `.github/branch-labels.yml` MUST give each branch type exactly one `type:*` label, and it MUST be the same canonical label as its routed template, so every PR receives exactly one type label. Where they disagree, `branch-labels.yml` MUST be corrected to match the template.
 
 #### Allowed Branch Types (38 Types)
 
-| Branch Type | PR Template | Linked Principle | Notes |
-|-------------|-------------|-----------------|-------|
-| `feat/` | pr_feature.md | VIII | New feature or user-facing capability |
-| `fix/` | pr_bug.md | VIII | Bug fix or defect resolution |
-| `hotfix/` | pr_hotfix.md | VIII | Urgent production fix; requires fast-track review |
-| `refactor/` | pr_refactor.md | VIII | Code structure, maintainability |
-| `chore/` | pr_chore.md | VIII | Maintenance, build tooling, no user impact |
-| `docs/` | pr_docs.md | VIII | Documentation, guides, comments |
-| `task/` | pr_task.md | VIII | Scoped unit of work (often issue-bound) |
-| `test/` | pr_chore.md | VIII | Test infrastructure, coverage improvements |
-| `perf/` | pr_feature.md | VIII | Performance optimisation; user-facing benefit |
-| `ci/` | pr_ci.md | VIII | GitHub Actions, CI/CD pipelines |
-| `build/` | pr_ci.md | VIII | Build system, compilation, bundling |
-| `automation/` | pr_ci.md | VIII | Workflow automation, task scheduling |
-| `deps/` | pr_dep_update.md | VIII | Dependency updates, version bumps |
-| `security/` | pr_bug.md | VIII | Vulnerability fix; treated as urgent bug |
-| `design/` | pr_feature.md | VIII | Design system, UI, visual assets |
-| `a11y/` | pr_feature.md | VIII | Accessibility (WCAG 2.2 AA compliance) |
-| `ux/` | pr_feature.md | VIII | User experience improvements |
-| `i18n/` | pr_feature.md | VIII | Internationalization, translation, locales |
-| `ops/` | pr_chore.md | VIII | Operations, deployment, infrastructure |
-| `proto/` | pr_feature.md | VIII | Prototype, experimental, proof-of-concept |
-| `ds/` | pr_feature.md | VIII | Design system component library |
-| `api/` | pr_feature.md | VIII | API changes, endpoint versioning |
-| `schema/` | pr_feature.md | VIII | Data schema, model changes |
-| `telemetry/` | pr_feature.md | VIII | Analytics, monitoring, event tracking |
-| `content/` | pr_docs.md | VIII | Content changes, blog, copy |
-| `seo/` | pr_docs.md | VIII | SEO optimisation, meta tags |
-| `config/` | pr_chore.md | VIII | Configuration files, environment setup |
-| `migrate/` | pr_chore.md | VIII | Data/schema migration scripts |
-| `qa/` | pr_chore.md | VIII | QA processes, test automation |
-| `uat/` | pr_chore.md | VIII | User acceptance testing, staging validation |
-| `audit/` | pr_feature.md | VIII | Audit, compliance review, code review |
-| `codex/` | pr_docs.md | VIII | Code generation, AI-assisted development |
-| `revert/` | pr_chore.md | VIII | Revert previous commit/PR |
-| `research/` | pr_feature.md | VIII | Research, investigation, exploration |
-| `release/` | pr_release.md | VIII | Release branch, version tag, changelog |
-| `epic/` | pr_epic.md | VIII | Epic-level work spanning multiple features |
-| `aiops/` | pr_aiops.md | VIII | AI-assisted operations, agent automation |
+| Branch Type | PR Template | Type Label | Linked Principle | Notes |
+|-------------|-------------|------------|-----------------|-------|
+| `feat/` | pr_feature.md | `type:feature` | VIII | New feature or user-facing capability |
+| `task/` | pr_task.md | `type:task` | VIII | Scoped unit of work (often issue-bound) |
+| `proto/` | pr_feature.md | `type:feature` | VIII | Prototype, experimental, proof-of-concept |
+| `fix/` | pr_bug.md | `type:bug` | VIII | Bug fix or defect resolution |
+| `hotfix/` | pr_hotfix.md | `type:release` | VIII | Urgent production fix; requires fast-track review |
+| `revert/` | pr_bug.md | `type:bug` | VIII | Revert previous commit/PR |
+| `release/` | pr_release.md | `type:release` | VIII | Release branch, version tag, changelog |
+| `refactor/` | pr_refactor.md | `type:refactor` | VIII | Code structure, maintainability |
+| `chore/` | pr_chore.md | `type:chore` | VIII | Maintenance, build tooling, no user impact |
+| `docs/` | pr_docs.md | `type:docs` ¹ | VIII | Documentation, guides, comments |
+| `i18n/` | pr_docs.md | `type:docs` ¹ | VIII | Internationalization, translation, locales |
+| `test/` | pr_test.md | `type:test` | VIII | Test infrastructure, coverage improvements |
+| `perf/` | pr_feature.md | `type:feature` | VIII | Performance optimisation; user-facing benefit |
+| `ci/` | pr_ci.md | `type:ci` | VIII | GitHub Actions, CI/CD pipelines |
+| `build/` | pr_ci.md | `type:ci` | VIII | Build system, compilation, bundling |
+| `deps/` | pr_dep_update.md | `type:dependency` | VIII | Dependency updates, version bumps |
+| `security/` | pr_security.md | `type:security` | VIII | Vulnerability fix; treated as urgent bug |
+| `design/` | pr_design.md | `type:design` | VIII | Design system, UI, visual assets |
+| `ds/` | pr_design.md | `type:design` | VIII | Design system component library |
+| `a11y/` | pr_a11y.md | `type:a11y` | VIII | Accessibility (WCAG 2.2 AA compliance) |
+| `ux/` | pr_design.md | `type:design` | VIII | User experience improvements |
+| `ops/` | pr_ci.md | `type:ci` | VIII | Operations, deployment, infrastructure |
+| `audit/` | pr_audit.md | `type:audit` | VIII | Audit, compliance review, code review |
+| `codex/` | pr_aiops.md | `type:aiops` ¹ | VIII | Code generation, AI-assisted development |
+| `research/` | pr_feature.md | `type:feature` | VIII | Research, investigation, exploration |
+| `api/` | pr_feature.md | `type:feature` | VIII | API changes, endpoint versioning |
+| `schema/` | pr_refactor.md | `type:refactor` | VIII | Data schema, model changes |
+| `doc/` | pr_docs.md | `type:docs` ¹ | VIII | Single documentation change |
+| `content/` | pr_docs.md | `type:docs` ¹ | VIII | Content changes, blog, copy |
+| `seo/` | pr_feature.md | `type:feature` | VIII | SEO optimisation, meta tags |
+| `config/` | pr_chore.md | `type:chore` | VIII | Configuration files, environment setup |
+| `migrate/` | pr_refactor.md | `type:refactor` | VIII | Data/schema migration scripts |
+| `qa/` | pr_test.md | `type:test` | VIII | QA processes, test automation |
+| `uat/` | pr_test.md | `type:test` | VIII | User acceptance testing, staging validation |
+| `aiops/` | pr_aiops.md | `type:aiops` ¹ | VIII | AI-assisted operations, agent automation |
+| `automation/` | pr_aiops.md | `type:aiops` ¹ | VIII | Workflow automation, task scheduling |
+| `telemetry/` | pr_ci.md | `type:ci` | VIII | Analytics, monitoring, event tracking |
+| `epic/` | pr_epic.md | `type:epic` | VIII | Epic-level work spanning multiple features |
+
+¹ The template's frontmatter still applies the non-canonical `type:documentation` (`pr_docs.md`) or `type:ai-ops` (`pr_aiops.md`); the canonical label shown here replaces it once the pending `[TEMPLATE-UPDATE-REQUEST]` (spec 008, T046b) is approved.
 
 #### FORBIDDEN Branch Prefixes (Non-Negotiable)
 
@@ -253,10 +261,10 @@ All significant features follow the SpecKit workflow:
 ### Code Review & Quality Gates
 
 - **Branch naming validation**: Pre-commit hook enforces `{type}/{scope}-{title}` pattern against 38 authorized types; FORBIDDEN prefixes (`claude/`, `copilot/`, `openai/`) are rejected immediately
-- **PR template routing**: Automatic template selection by branch prefix according to canonical mapping in `.github/PULL_REQUEST_TEMPLATE/config.yml` (see Branch Type to PR Template Routing section); fallback routing via linked issue for invalid prefixes
+- **PR template routing**: Automatic template selection by branch prefix according to the canonical mapping in `.github/branch-types.yml` (see Branch Type to PR Template Routing section); the type label comes from the routed template, and `branch-labels.yml` MUST match it; fallback routing via linked issue for invalid prefixes is not yet implemented
 - **Issue type routing**: Automatic template selection by issue type; all issues MUST use canonical type from `.github/issue-types.yml` (see Issue Type to Template Mapping section)
 - **CodeRabbit review**: Central configuration applies organisation-wide; repo-specific overrides allowed
-- **Label consistency**: Only prefixed labels from `.github/labels.yml` allowed; labels MUST match branch type and issue type
+- **Label consistency**: Only prefixed labels from `.github/labels.yml` allowed; each PR carries exactly one `type:*` label, taken from its routed template, and labels MUST match branch type and issue type
 - **Changelog required**: Keep a Changelog format for user-facing changes
 
 ## Governance & Amendment
@@ -267,7 +275,7 @@ All significant features follow the SpecKit workflow:
 2. Identification of principles affected
 3. Impact analysis on downstream repos
 4. Compliance validation plan
-5. Documented approval (issue + @ashley sign-off)
+5. Documented approval (issue + @ashleyshaw sign-off)
 
 **Version Bumping**:
 
@@ -315,9 +323,9 @@ Three foundational specification projects anchor LightSpeed's governance framewo
 3. **Quality validation**: Updated specification MUST pass requirements quality checklist (all 8 dimensions) before approval
 
 4. **Approval gates**:
-   - **Changelog Audit changes** → Changelog maintainers + @ashley
-   - **Branch Strategy changes** → GitHub admins + team leads + @ashley
-   - **Quality Checklist changes** → Specification authors + @ashley
+   - **Changelog Audit changes** → Changelog maintainers + @ashleyshaw
+   - **Branch Strategy changes** → GitHub admins + team leads + @ashleyshaw
+   - **Quality Checklist changes** → Specification authors + @ashleyshaw
 
 5. **Rollout plan**: All specification changes MUST include:
    - Backward compatibility assessment (old practices coexist or migrate?)
@@ -345,4 +353,4 @@ Each specification project includes a `checklists/` directory with:
 
 ---
 
-**Version**: 1.3.1 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-09-24
+**Version**: 1.4.0 | **Ratified**: 2026-09-11 | **Last Amended**: 2026-10-02

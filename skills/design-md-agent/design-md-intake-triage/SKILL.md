@@ -59,7 +59,7 @@ Prefer at least one design-evidence source and one implementation or reference s
 Proceed as:
 
 - **sufficient** when the agent has enough evidence to derive token structure and project rationale with limited inference
-- **partial** when only one major source exists but it still supports a clearly labeled provisional draft
+- **partial but usable** when only one major source exists but it still supports a clearly labeled provisional draft
 - **insufficient** when the available evidence is too thin to create a reliable DESIGN.md package
 
 #### create-from-partial-project
