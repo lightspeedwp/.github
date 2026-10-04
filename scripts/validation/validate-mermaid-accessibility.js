@@ -9,6 +9,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { globSync } from 'glob';
+import fixer from '../fix-mermaid-diagrams.cjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, '../../');
@@ -31,12 +32,13 @@ const getMarkdownFiles = () =>
     dot: true,
   }).sort();
 
-// Diagram types that cannot carry accTitle/accDescr. Kept in step with
-// NO_ACC_TYPES in scripts/fix-mermaid-diagrams.cjs, which verified each of them
-// against a full mermaid 12.0.0 parse: a mindmap reads the statements as extra
-// root nodes, and sankey-beta and block-beta reject them outright. Those
-// diagrams need a Markdown text alternative above the fence instead.
-const TEXT_ALTERNATIVE_TYPES = ['mindmap', 'sankey-beta', 'block-beta'];
+// Diagram types that cannot carry accTitle/accDescr, imported from the fixer so
+// the two scripts cannot disagree. Each was verified against a full mermaid
+// 12.0.0 parse: a mindmap reads the statements as extra root nodes, and
+// sankey-beta and block-beta reject them outright. Those diagrams need a
+// Markdown text alternative above the fence instead, and must not carry the
+// statements.
+const TEXT_ALTERNATIVE_TYPES = fixer.NO_ACC_TYPES;
 
 // The nearest non-blank line above an opening fence, when it can serve as a
 // text alternative: prose, not a heading, another fence, a horizontal rule, or
@@ -184,6 +186,15 @@ function validateAccessibility(content, textAlternative = null) {
   // so those still apply, and before the presence checks so a block-beta or
   // mindmap is never asked for something the parser will not take.
   if (TEXT_ALTERNATIVE_TYPES.includes(type)) {
+    // The statements are not just unnecessary here: the parser rejects the
+    // diagram, so a text alternative cannot make it accessible.
+    if (/^\s*acc(Title|Descr)\b/m.test(content)) {
+      issues.push(
+        `The \`${type}\` diagram type cannot carry \`accTitle\`/\`accDescr\`: Mermaid rejects it ` +
+          'and the diagram does not render. Remove them and keep the Markdown text alternative above the fence'
+      );
+    }
+
     if (!textAlternative) {
       issues.push(
         `Missing text alternative above the \`${type}\` fence — the diagram type cannot carry ` +
@@ -411,11 +422,11 @@ ${targetFiles.map((f) => `- ${f}`).join('\n')}
 
 ## Compliance Criteria
 
-All diagrams must include:
-- ✅ **accTitle attribute** — Brief accessible title for screen readers
-- ✅ **accDescr attribute** — Detailed accessible description of diagram content
+Every diagram must have an accessible alternative, in one of two ways:
+- ✅ **accTitle and accDescr attributes** — a brief title and a detailed description for screen readers
+- ✅ **A Markdown text alternative directly above the fence** — required for the types that cannot carry those statements (${TEXT_ALTERNATIVE_TYPES.map((t) => `\`${t}\``).join(', ')}), which must not include them
 
-Supported formats:
+Supported attribute formats:
 - Single-line: \`accTitle Title text\` or \`accDescr: "Description text"\`
 - Block format: \`accDescr { ... }\`
 
@@ -423,7 +434,7 @@ Supported formats:
 
 ${
   report.inaccessibleDiagrams === 0
-    ? '✅ All diagrams are fully accessible with proper accTitle and accDescr attributes!'
+    ? '✅ All diagrams are fully accessible, through accTitle and accDescr attributes or a text alternative above the fence!'
     : `⚠️ ${report.inaccessibleDiagrams} diagram(s) missing accessibility attributes:
 
 ${report.issues

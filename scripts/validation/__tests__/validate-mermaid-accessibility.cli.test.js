@@ -71,6 +71,18 @@ describe('validate-mermaid-accessibility CLI: text alternative (#3526)', () => {
     expect(output).toContain('Missing text alternative');
   });
 
+  test.each(['mindmap', 'block-beta', 'sankey-beta'])(
+    'rejects accTitle and accDescr on a %s even with a text alternative above',
+    (type) => {
+      const { status, output } = runOn(
+        `Bands.\n\n\`\`\`mermaid\n${type}\n    accTitle: A title\n    accDescr: A description\n    root((A))\n\`\`\`\n`
+      );
+
+      expect(status).toBe(1);
+      expect(output).toContain(`The \`${type}\` diagram type cannot carry`);
+    }
+  );
+
   test('recognises the hyphenated type rather than truncating it', () => {
     const { status, output } = runOn('Bands.\n\n```mermaid\nsankey-beta\nA,B,1\n```\n');
 

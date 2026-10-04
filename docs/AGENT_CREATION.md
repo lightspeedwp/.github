@@ -363,8 +363,6 @@ Required and optional frontmatter fields, grouped by whether an agent specificat
 
 ```mermaid
 mindmap
-  accTitle: Mermaid: Frontmatter Scope Map
-  accDescr: Mind map showing mermaid: frontmatter scope map
   root((Frontmatter))
     Required
       file_type

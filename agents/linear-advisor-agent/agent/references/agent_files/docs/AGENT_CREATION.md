@@ -367,9 +367,6 @@ Required and optional frontmatter fields, grouped by whether an agent specificat
 
 ```mermaid
 mindmap
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-accTitle: Frontmatter scope map
-accDescr: Mindmap of the required and optional frontmatter fields for an agent specification.
   root((Frontmatter))
     Required
       file_type
