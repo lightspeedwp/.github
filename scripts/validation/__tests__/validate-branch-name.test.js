@@ -31,9 +31,10 @@ describe('validate-branch-name', () => {
   describe('CLI output', () => {
     test('should describe BRANCH_PATTERN as non-release in --show-pattern output', () => {
       const { spawnSync } = require('child_process');
+      const path = require('path');
       const result = spawnSync(
         process.execPath,
-        ['scripts/validation/validate-branch-name.cjs', '--show-pattern'],
+        [path.resolve(__dirname, '../validate-branch-name.cjs'), '--show-pattern'],
         {
           encoding: 'utf8',
         }
