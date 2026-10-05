@@ -24,6 +24,7 @@ import {
 } from '../includes/consolidation-run.js';
 import {
   PrivateEvidenceError,
+  assertSafeRepositoryName,
   consolidationLogPathFor,
   dryRunPathFor,
   gateFor,
@@ -295,6 +296,20 @@ describe('private repositories', () => {
     expect(() =>
       gateFor(privateRepo, { ...gates, privateRepository: 'lightspeedwp/.github' })
     ).toThrow(/must not be/);
+  });
+
+  test.each(['..', '.', '../escape', 'a/b', '', 'name with space', 'x y'])(
+    'refuses a repository name that could leave the evidence directory (%j)',
+    (name) => {
+      expect(() => assertSafeRepositoryName(name)).toThrow(PrivateEvidenceError);
+      expect(() => dryRunPathFor({ name, private: false }, '/checkout')).toThrow(
+        PrivateEvidenceError
+      );
+    }
+  );
+
+  test.each(['.github', 'my-repo_2.0', 'A'])('accepts the ordinary repository name %s', (name) => {
+    expect(() => assertSafeRepositoryName(name)).not.toThrow();
   });
 
   test('repositories split by visibility', () => {

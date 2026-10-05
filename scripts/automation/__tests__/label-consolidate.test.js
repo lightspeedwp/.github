@@ -862,6 +862,32 @@ describe('steps done by hand (the record subcommand)', () => {
     expect(log[0].before.item).toEqual({ kind: 'issue', number: 12 });
   });
 
+  test('a manual record cannot override the repository, run or gate fields', () => {
+    const root = makeRoot();
+    const gh = new FakeGithub();
+    const run = startRun({ dir: evidenceDir(root), runBy: 'ashleyshaw', stage: '3' });
+    const ctx = makeCtx({ gh, root, apply: true, run });
+    recordManualStep(ctx, PUBLIC_REPO, {
+      action: 'convert',
+      label: 'type:question',
+      state: 'intended',
+      repository: PRIVATE_REPO.full_name,
+      run_by: 'someone-else',
+      gate_issue: 999,
+      op_id: 'forged',
+      extra: 'ignored',
+    });
+    const [entry] = readLog(publicLog(root));
+    expect(entry).toMatchObject({
+      repository: PUBLIC_REPO.full_name,
+      run_by: 'ashleyshaw',
+      gate_issue: GATE_PUBLIC,
+    });
+    expect(entry.op_id.startsWith(run.runId)).toBe(true);
+    expect(entry.extra).toBeUndefined();
+    expect(JSON.stringify(entry)).not.toContain('client-x');
+  });
+
   test('rejects another run id, an unknown action and a holder with a stale epoch', async () => {
     const root = makeRoot();
     const gh = new FakeGithub();

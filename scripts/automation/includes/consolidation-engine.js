@@ -759,11 +759,13 @@ export function recordManualStep(ctx, repo, record, opId) {
     run_by: ctx.run.runBy,
     at: ctx.now().toISOString(),
     repository: scope.fullName,
-    before: null,
-    after: null,
-    ...record,
+    action: record.action,
+    label: record.label,
+    before: record.before ?? null,
+    after: record.after ?? null,
     gate_issue: scope.gate.issue,
     op_id: id,
+    state: record.state,
   });
   return id;
 }

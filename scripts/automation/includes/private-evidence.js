@@ -47,6 +47,26 @@ export function isPrivateRepository(repo) {
 }
 
 /**
+ * Refuses a repository name that could leave the evidence directory when used
+ * in a file name. GitHub names are letters, digits, dots, hyphens and
+ * underscores, and never `.` or `..`.
+ * @param {string} name - Repository name
+ * @throws {PrivateEvidenceError} When the name is not safe to use in a path
+ */
+export function assertSafeRepositoryName(name) {
+  if (
+    typeof name !== 'string' ||
+    !/^[A-Za-z0-9._-]+$/.test(name) ||
+    name === '.' ||
+    name === '..'
+  ) {
+    throw new PrivateEvidenceError(
+      `Repository name ${JSON.stringify(name)} is not safe to use in a file path.`
+    );
+  }
+}
+
+/**
  * Chooses the evidence directory for a repository.
  * @param {object} repo - Repository from the API
  * @param {string} [root] - Checkout root
@@ -67,6 +87,7 @@ export function evidenceDirFor(repo, root = process.cwd()) {
  * @returns {{ file: string, isPrivate: boolean }} Absolute path and visibility
  */
 export function dryRunPathFor(repo, root = process.cwd()) {
+  assertSafeRepositoryName(repo.name);
   const { dir, isPrivate } = evidenceDirFor(repo, root);
   return { isPrivate, file: path.join(dir, 'dry-run', `${repo.name}.json`) };
 }
@@ -195,6 +216,7 @@ export default {
   isPrivateRepository,
   evidenceDirFor,
   dryRunPathFor,
+  assertSafeRepositoryName,
   consolidationLogPathFor,
   assertPrivateDirIgnored,
   splitByVisibility,
