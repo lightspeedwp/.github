@@ -95,71 +95,118 @@ Reports are written to `{reportDir}/branch-cleanup-{timestamp}.{format}` where:
 
 ### Markdown Report Structure
 
+The writer is `writeMarkdownReport()` in `scripts/cleanup-branches.js`. Sections for deleted, KEEP, DISCUSS and error branches appear only when they have entries.
+
 ```markdown
 # Branch Cleanup Report
 
-**Generated**: 2026-09-16T14:30:45Z  
-**Branches Evaluated**: 127  
-**Result**: ✅ Dry-run (no deletions executed)
+**Date:** 2026-09-16T14:30:45.000Z
+**Mode:** Dry run (no deletions)
+**Threshold:** 30 days inactive
 
 ## Summary
 
-| Category | Count | Action             |
-| -------- | ----- | ------------------ |
-| KEEP     | 85    | Preserved          |
-| DELETE   | 32    | Ready for deletion |
-| DISCUSS  | 10    | Requires review    |
+| Metric                                                 | Value  |
+| ------------------------------------------------------ | ------ |
+| Branches considered for deletion                       | 32     |
+| Auto-approved deletions (empty agent-session branches) | 0      |
+| Branches deleted                                       | 32     |
+| Branches preserved                                     | 95     |
+| Errors                                                 | 0      |
+| Deletion success rate                                  | 100.0% |
+| Preserved:Deleted ratio                                | 2.97:1 |
+| Total commits removed (estimate)                       | 118    |
+| Estimated storage freed                                | 4.1 MB |
 
-## Details
+## Metrics
 
-### KEEP Branches (85)
+### Branches deleted by type
 
-- `main` — Protected branch
-- `develop` — Protected branch
-- `feat/user-auth` — Active PR #1234
+- **bugfix**: 12
+- **feat**: 20
 
-### DELETE Branches (32)
+### Authors affected (notification list)
 
-- `feat/old-experiment` — Merged 45 days ago
-- `bugfix/typo-fix` — Merged 60 days ago
+- author@example.com
 
-### DISCUSS Branches (10)
+## Deleted Branches
 
-- `claude/experiment` — Invalid branch name (forbidden prefix)
-- `ref-incomplete-work` — Unmerged but 35 days old
+### `feat/old-experiment`
+
+- **Author:** author@example.com
+- **Last commit:** 2026-07-30T09:12:00+00:00
+- **Age:** 45 days
+- **Hash:** `abc1234`
+- **Type:** feat
+- **Commits removed (estimate):** 3
+- **Storage freed (estimate):** 120 KB
+- **Reason:** Merged and inactive
+- **Local deleted:** No
+
+## KEEP Branches
+
+- `feat/user-auth` — Open PR exists
+
+## DISCUSS Branches
+
+- `claude/experiment` — Invalid branch name: forbidden prefix
+- `ref-incomplete-work` — Unmerged and stale
 ```
+
+In a dry run, "Branches deleted" counts the branches the report lists as deletion candidates; nothing is deleted. The CLI writes no `| KEEP |` row: KEEP and DISCUSS branches are listed under their own headings, not in the summary table.
 
 ### JSON Report Structure
 
+The writer is `writeJsonReport()` in `scripts/cleanup-branches.js`.
+
 ```json
 {
-  "timestamp": "2026-09-16T14:30:45Z",
-  "generator": "cleanup-branches.js v1.0.0",
+  "timestamp": "2026-09-16T14:30:45.000Z",
   "dryRun": true,
-  "stats": {
-    "totalBranches": 127,
-    "keepCount": 85,
-    "deleteCount": 32,
-    "discussCount": 10
+  "inactiveDays": 30,
+  "summary": {
+    "candidates": 32,
+    "autoApprovedDelete": 0,
+    "deleted": 32,
+    "preserved": 95,
+    "errors": 0,
+    "deletionSuccessRate": "100.0%",
+    "preservedDeletedRatio": "2.97:1",
+    "totalCommitsRemoved": 118,
+    "estimatedStorageFreedBytes": 4300000,
+    "estimatedStorageFreedHuman": "4.1 MB"
   },
-  "branches": [
+  "metrics": {
+    "deletedByType": { "bugfix": 12, "feat": 20 },
+    "authorsAffected": ["author@example.com"]
+  },
+  "deleted": [
     {
-      "name": "main",
-      "category": "KEEP",
-      "reason": "protected_branch",
-      "type": "main",
-      "author": "unknown",
-      "ageInDays": 0,
-      "lastCommitDate": "2026-09-16T14:30:00Z",
-      "mergeStatus": {
-        "merged": true,
-        "state": "merged",
-        "mergedToBranches": ["main"]
-      }
+      "branch": "feat/old-experiment",
+      "author": "author@example.com",
+      "lastCommitDate": "2026-07-30T09:12:00+00:00",
+      "age": 45,
+      "hash": "abc1234",
+      "type": "feat",
+      "commitCount": 3,
+      "estimatedStorageBytes": 122880,
+      "reason": "Merged and inactive",
+      "autoApproved": false
     }
-  ]
+  ],
+  "preserved": [
+    { "branch": "feat/user-auth", "category": "KEEP", "reason": "Open PR exists" },
+    {
+      "branch": "claude/experiment",
+      "category": "DISCUSS",
+      "reason": "Invalid branch name: forbidden prefix"
+    }
+  ],
+  "errors": []
 }
 ```
+
+Consumers read `.summary` for totals, `.deleted` for deletion candidates and `.preserved` for KEEP and DISCUSS branches (each carries its `category`). There are no `stats`, `branches` or `generator` fields.
 
 ## Validation Test Cases
 

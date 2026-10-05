@@ -130,7 +130,16 @@ export function categorizeBranch(
     };
   }
 
-  // Gate 5: Merged status
+  // Gate 5: Merged status. A failed Git query leaves the status unknown, which
+  // is not the same as unmerged: it goes to a human instead of being reported as
+  // an unmerged branch.
+  if (extracted.mergeStatus.state === 'unknown') {
+    return {
+      category: 'DISCUSS',
+      reason: REASON_CODES.DISCUSS.unclear_status,
+      metadata: extracted,
+    };
+  }
   const merged = extracted.mergeStatus.merged || false;
 
   // If not merged and stale → DISCUSS

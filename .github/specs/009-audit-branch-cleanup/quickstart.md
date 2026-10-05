@@ -259,19 +259,21 @@ node scripts/cleanup-branches.js --reportFormat=markdown --verbose
 
 # Verify Markdown structure
 cat .github/reports/branch-cleanup-*.md | head -20
-# Expected: Header, Summary table, KEEP/DELETE/DISCUSS sections
+# Expected: Header, Summary metrics table, then Metrics, Deleted Branches,
+# KEEP Branches and DISCUSS Branches sections (each only when it has entries)
 
 # Check for required sections
 grep "^# Branch Cleanup Report" .github/reports/branch-cleanup-*.md
-grep "| KEEP |" .github/reports/branch-cleanup-*.md
-grep "| DELETE |" .github/reports/branch-cleanup-*.md
+grep "^## Summary" .github/reports/branch-cleanup-*.md
+grep "^## KEEP Branches" .github/reports/branch-cleanup-*.md
+grep "^## DISCUSS Branches" .github/reports/branch-cleanup-*.md
 ```
 
 **Validation**:
 
 - ✅ Markdown report has required header
-- ✅ Summary table present with counts
-- ✅ Category sections present with branch listings
+- ✅ Summary metrics table present with counts
+- ✅ KEEP and DISCUSS sections list their branches (the summary table has no per-category rows)
 
 ### JSON Report
 
@@ -282,25 +284,26 @@ cd /tmp/branch-cleanup-test
 node scripts/cleanup-branches.js --reportFormat=json --verbose
 
 # Verify JSON structure using jq
-jq '.stats' .github/reports/branch-cleanup-*.json
-# Expected output:
-# {
-#   "totalBranches": X,
-#   "keepCount": Y,
-#   "deleteCount": Z,
-#   "discussCount": W
-# }
+jq '.summary' .github/reports/branch-cleanup-*.json
+# Expected output: candidates, autoApprovedDelete, deleted, preserved, errors,
+# deletionSuccessRate, preservedDeletedRatio, totalCommitsRemoved,
+# estimatedStorageFreedBytes, estimatedStorageFreedHuman
 
-# Verify branch entries
-jq '.branches[0]' .github/reports/branch-cleanup-*.json
-# Expected: name, category, reason, author, ageInDays, mergeStatus, etc.
+# Verify the preserved (KEEP and DISCUSS) entries
+jq '.preserved[0]' .github/reports/branch-cleanup-*.json
+# Expected: branch, category, reason
+
+# Verify the deletion candidates
+jq '.deleted[0]' .github/reports/branch-cleanup-*.json
+# Expected: branch, reason, autoApproved, lastCommitDate, author, hash, age, type,
+# commitCount, estimatedStorageBytes
 ```
 
 **Validation**:
 
 - ✅ JSON report valid structure
-- ✅ Stats object populated correctly
-- ✅ Branch entries include required fields
+- ✅ Summary object populated correctly
+- ✅ Deleted and preserved entries include the fields above
 
 ---
 

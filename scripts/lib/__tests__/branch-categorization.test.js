@@ -182,6 +182,18 @@ describe('branch classification boundaries and precedence', () => {
     });
   });
 
+  it.each([0, 29.999, 30, 400])(
+    'sends a branch with an unknown merge status to DISCUSS at age %s',
+    (age) => {
+      const result = categorizeBranch(branch, {
+        ...metadataFor(age, false),
+        mergeStatus: { merged: false, state: 'unknown' },
+      });
+      expect(result.category).toBe('DISCUSS');
+      expect(result.reason).toContain('Unclear merge/age status');
+    }
+  );
+
   it('honours a custom threshold, including zero days', () => {
     expect(categorizeBranch(branch, metadataFor(7, true), new Set(), null, 7).category).toBe(
       'DELETE'

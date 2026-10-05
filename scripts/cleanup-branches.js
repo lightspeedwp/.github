@@ -28,7 +28,7 @@ import fs from 'fs';
 import path from 'path';
 import { categorizeBranch } from './lib/branch-categorization.js';
 import { REASON_CODES } from './lib/constants.js';
-import { getBaseRef, getUniqueCommitCount } from './lib/git-merge-utils.js';
+import { getBaseRef, getMergeStatus, getUniqueCommitCount } from './lib/git-merge-utils.js';
 import { getOpenPRs } from './lib/github-pr-utils.js';
 
 // ---------------------------------------------------------------------------
@@ -273,25 +273,6 @@ function getRemoteBranches() {
  */
 function getLocalBranches() {
   return runLines(['for-each-ref', 'refs/heads', '--format=%(refname:short)']);
-}
-
-/**
- * Check whether origin/develop or origin/main contains an origin branch.
- * A failed Git query for either base is treated as not merged for that base.
- *
- * @param {string} branch - Branch name without origin/.
- * @returns {boolean} Whether either base contains the branch.
- */
-function isMerged(branch) {
-  const branchRef = `origin/${branch}`;
-
-  const developMerged = runLines(['branch', '-r', '--merged', 'origin/develop']);
-  if (developMerged.includes(branchRef)) return true;
-
-  const mainMerged = runLines(['branch', '-r', '--merged', 'origin/main']);
-  if (mainMerged.includes(branchRef)) return true;
-
-  return false;
 }
 
 function getLastCommitDate(branch) {
@@ -653,16 +634,12 @@ async function main() {
     for (const branch of remoteBranches) {
       const lastCommitDate = getLastCommitDate(branch);
       const author = getLastCommitAuthor(branch);
-      const merged = isMerged(branch);
       let classification = categorizeBranch(
         branch,
         {
           author,
           lastCommitDate,
-          mergeStatus: {
-            merged,
-            state: merged ? 'merged' : 'unmerged',
-          },
+          mergeStatus: getMergeStatus(branch),
         },
         openPRBranches,
         excludeRe,
@@ -793,7 +770,6 @@ export {
   getRunExitCode,
   getRemoteBranches,
   getLocalBranches,
-  isMerged,
   writeMarkdownReport,
   writeJsonReport,
 };
