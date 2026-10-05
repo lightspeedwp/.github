@@ -387,4 +387,4 @@ To contribute new metrics or improvements:
 
 ---
 
-Made with ❤️ by the LightSpeed team.
+Need help? Say hi—work with us.
