@@ -79,3 +79,6 @@ node_modules/
 .claude/.settings*.json
 /graft/
 /graphify-out/
+
+# Private-repository evidence for the label consolidation (spec 008); never committed
+/.private-evidence/
