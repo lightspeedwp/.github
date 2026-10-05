@@ -90,6 +90,53 @@ describe('check-locked-file-approval', () => {
     expect(result.message).toMatch(/no linked change request is approved/);
   });
 
+  describe('references inside code are not links', () => {
+    const fence = '````';
+    test.each([
+      ['a four-backtick fence', `Intro\n${fence}\nCloses #3556\n${fence}\n`],
+      ['a three-backtick fence', 'Intro\n```\nCloses #3556\n```\n'],
+      ['a tilde fence', 'Intro\n~~~\nCloses #3556\n~~~\n'],
+      ['a fence with an info string', 'Intro\n```md\nCloses #3556\n```\n'],
+      ['an indented fence', 'Intro\n   ```\nCloses #3556\n   ```\n'],
+      ['a fence that is never closed', 'Intro\n```\nCloses #3556\n'],
+      [
+        'a short fence line inside a longer fence',
+        `${fence}\n\`\`\`\nCloses #3556\n\`\`\`\n${fence}\n`,
+      ],
+      ['a fence with Windows line endings', 'Intro\r\n```\r\nCloses #3556\r\n```\r\n'],
+      ['a double-backtick span', 'Intro ``Closes #3556`` more'],
+      ['a single-backtick span', 'Intro `Closes #3556` more'],
+      [
+        'a full issue URL in a fence',
+        'Intro\n```\nhttps://github.com/lightspeedwp/.github/issues/3556\n```\n',
+      ],
+    ])('ignores a reference in %s, and evaluate does not accept it', (_name, body) => {
+      expect(referencedIssues(body)).toEqual([]);
+      const result = evaluate({
+        changedFiles: ['.github/labels.yml'],
+        body,
+        register,
+        titlesByIssue,
+      });
+      expect(result.ok).toBe(false);
+      expect(result.approvedBy).toEqual({});
+    });
+
+    test('still reads a reference outside the code, after a fence closes', () => {
+      const body = `${fence}\nCloses #1111\n${fence}\n\nCloses #3556\n`;
+      expect(referencedIssues(body)).toEqual([3556]);
+      expect(
+        evaluate({ changedFiles: ['.github/issue-types.yml'], body, register, titlesByIssue }).ok
+      ).toBe(true);
+    });
+
+    test('a shorter closing fence does not end a longer one', () => {
+      expect(referencedIssues(`${fence}\n\`\`\`\nCloses #3556\n${fence}\nCloses #4000\n`)).toEqual([
+        4000,
+      ]);
+    });
+  });
+
   test('names a failed issue lookup in the failure, still failing closed', () => {
     const result = evaluate({
       changedFiles: ['.github/labels.yml'],

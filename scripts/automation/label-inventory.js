@@ -19,7 +19,8 @@
  * clean-up covers them, but this repository is public, so the file committed to
  * it never names one. `--output` (the tracked evidence file) is always the
  * redacted inventory; `--full-output` writes the complete one and must be
- * outside `.github/`, for example under `.private-evidence/` (ignored by git).
+ * under `.private-evidence/` (ignored by git) or outside this repository, never
+ * anywhere else inside it.
  *
  * Usage:
  *   LABEL_INVENTORY_TOKEN=... node scripts/automation/label-inventory.js [--org lightspeedwp] [--output path] [--full-output path]
@@ -234,15 +235,39 @@ export function incompleteRepositoryLabels(inventory) {
 }
 
 /**
- * Whether a path is inside the tracked `.github` directory of this repository,
- * where nothing that names a private repository may be written.
- * @param {string} target Output path.
- * @param {string} [cwd] Working directory.
- * @returns {boolean}
+ * Resolves a path through symbolic links as far as it exists, so a link that
+ * points into the repository cannot be used to slip past the check below.
+ * @param {string} target Absolute path, which need not exist yet.
+ * @returns {string} The real path, with any missing tail appended.
  */
-export function isUnderTrackedGithubDirectory(target, cwd = process.cwd()) {
-  const relative = path.relative(path.resolve(cwd, '.github'), path.resolve(cwd, target));
-  return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative));
+function resolveReal(target) {
+  let current = target;
+  const missing = [];
+  while (!fs.existsSync(current)) {
+    const parent = path.dirname(current);
+    if (parent === current) break;
+    missing.unshift(path.basename(current));
+    current = parent;
+  }
+  return path.join(fs.realpathSync(current), ...missing);
+}
+
+/**
+ * Tells whether a path would put the file inside this public repository, other
+ * than under the git-ignored `.private-evidence/` directory. The complete
+ * inventory names private repositories, so it may be written only there or
+ * outside the repository.
+ * @param {string} target Output path.
+ * @param {string} [cwd] Repository root.
+ * @returns {boolean} True when the path is inside the repository and not private evidence.
+ */
+export function isInsidePublicRepository(target, cwd = process.cwd()) {
+  const root = resolveReal(path.resolve(cwd));
+  const resolved = resolveReal(path.resolve(cwd, target));
+  const relative = path.relative(root, resolved);
+  if (relative === '') return true;
+  if (relative.startsWith('..') || path.isAbsolute(relative)) return false;
+  return relative.split(path.sep)[0] !== '.private-evidence';
 }
 
 function parseArgs(argv) {
@@ -268,9 +293,9 @@ async function main() {
   // The full inventory may name private repositories, so it is only ever written
   // outside the tracked `.github` directory (this repository is public). Checked
   // before any API call.
-  if (fullOutput && isUnderTrackedGithubDirectory(fullOutput)) {
+  if (fullOutput && isInsidePublicRepository(fullOutput)) {
     console.error(
-      '❌ --full-output must be outside .github/, because the full inventory names private repositories and this repository is public'
+      '❌ --full-output must be under .private-evidence/ or outside this repository, because the full inventory names private repositories and this repository is public'
     );
     process.exit(1);
   }

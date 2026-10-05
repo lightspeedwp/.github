@@ -48,16 +48,47 @@ function isLocked(file) {
 }
 
 /**
+ * Removes code from a Markdown body: fenced blocks (three or more backticks or
+ * tildes, closed by a fence of the same character and at least the same length,
+ * or running to the end if never closed, as GitHub renders them) and inline code
+ * spans of any backtick length. A reference inside code is not rendered as a
+ * link, so it must not count as one.
+ * @param {string} body Markdown text.
+ * @returns {string} Text with code replaced by blanks.
+ */
+function stripCode(body) {
+  const kept = [];
+  let fence = null;
+  for (const line of body.split(/\r?\n/)) {
+    if (fence) {
+      const close = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line);
+      if (close && close[1][0] === fence.char && close[1].length >= fence.length) {
+        fence = null;
+      }
+      kept.push('');
+      continue;
+    }
+    const open = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
+    // A backtick fence's info string cannot contain a backtick; that is inline code.
+    if (open && !(open[1][0] === '`' && open[2].includes('`'))) {
+      fence = { char: open[1][0], length: open[1].length };
+      kept.push('');
+      continue;
+    }
+    kept.push(line);
+  }
+  return kept.join('\n').replace(/(`+)([\s\S]*?[^`])\1(?!`)/g, ' ');
+}
+
+/**
  * Issue numbers referenced in a pull request body (`#123` or an issue URL in
- * this repository). Code spans and HTML comments are ignored.
+ * this repository). Fenced code, code spans and HTML comments are ignored.
  * @param {string} body Pull request body.
  * @param {string} [repo] `owner/name`, to match full issue URLs.
  * @returns {number[]} Unique issue numbers, in order of appearance.
  */
 function referencedIssues(body, repo = 'lightspeedwp/.github') {
-  const text = String(body || '')
-    .replace(/<!--[\s\S]*?-->/g, ' ')
-    .replace(/`[^`]*`/g, ' ');
+  const text = stripCode(String(body || '')).replace(/<!--[\s\S]*?-->/g, ' ');
   // Bare references and issue URLs are collected with their positions, so the
   // result follows the order they appear in the body.
   const found = [];

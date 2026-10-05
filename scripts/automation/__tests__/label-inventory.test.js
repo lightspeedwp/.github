@@ -3,6 +3,9 @@
  * @module scripts/automation/__tests__/label-inventory.test.js
  */
 
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 import { describe, it, expect } from '@jest/globals';
 import {
   PER_PAGE,
@@ -10,7 +13,7 @@ import {
   buildInventory,
   incompleteRepositories,
   incompleteRepositoryLabels,
-  isUnderTrackedGithubDirectory,
+  isInsidePublicRepository,
   privateRepositoryGap,
   publicRepositoryName,
   redactInventory,
@@ -241,13 +244,46 @@ describe('label-inventory', () => {
       expect(labels.join(' ')).not.toContain('client-site');
     });
 
-    it('refuses a full-output path inside the tracked .github directory', () => {
+    it('refuses a full-output path anywhere inside the public repository except .private-evidence', () => {
       const cwd = '/repo';
-      expect(isUnderTrackedGithubDirectory('.github/reports/full.json', cwd)).toBe(true);
-      expect(isUnderTrackedGithubDirectory('.github', cwd)).toBe(true);
-      expect(isUnderTrackedGithubDirectory('.private-evidence/full.json', cwd)).toBe(false);
-      expect(isUnderTrackedGithubDirectory('/tmp/full.json', cwd)).toBe(false);
-      expect(isUnderTrackedGithubDirectory('.githubx/full.json', cwd)).toBe(false);
+      for (const refused of [
+        '.github/reports/full.json',
+        '.github',
+        'full.json',
+        'docs/full.json',
+        'scripts/automation/full.json',
+        '.githubx/full.json',
+        '.private-evidencex/full.json',
+        '.',
+        'docs/../full.json',
+      ]) {
+        expect(isInsidePublicRepository(refused, cwd)).toBe(true);
+      }
+      for (const allowed of [
+        '.private-evidence/full.json',
+        '.private-evidence/nested/full.json',
+        '/tmp/full.json',
+        '../outside/full.json',
+      ]) {
+        expect(isInsidePublicRepository(allowed, cwd)).toBe(false);
+      }
+    });
+
+    it('is not fooled by a path that climbs out of .private-evidence or a symlink into the repository', () => {
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-root-'));
+      const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-outside-'));
+      try {
+        fs.mkdirSync(path.join(root, '.private-evidence'));
+        fs.mkdirSync(path.join(root, 'docs'));
+        expect(isInsidePublicRepository('.private-evidence/../docs/full.json', root)).toBe(true);
+        fs.symlinkSync(path.join(root, 'docs'), path.join(outside, 'link'));
+        expect(isInsidePublicRepository(path.join(outside, 'link', 'full.json'), root)).toBe(true);
+        fs.symlinkSync(outside, path.join(root, '.private-evidence', 'out'));
+        expect(isInsidePublicRepository('.private-evidence/out/full.json', root)).toBe(false);
+      } finally {
+        fs.rmSync(root, { recursive: true, force: true });
+        fs.rmSync(outside, { recursive: true, force: true });
+      }
     });
   });
 });
