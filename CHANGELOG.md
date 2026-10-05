@@ -52,6 +52,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Cloud Spec Decisions Recorded** — Spec 018 now records seven clarified rules, including that empty `claude/*` branches are not auto-deleted yet, and the guard tests also cover the setup script's Node install. (#3726)
+- **Branch Guard Fault Handling** — When the branch guard cannot start, only git and GitHub writes are blocked and other commands still run. Merges into protected branches are refused, and develop is protected on this repository only. (#3726)
+- **Local Scans No Longer Dirty the Repository** — Semgrep's settings and log files are ignored, so a security scan leaves no untracked files to commit by accident. (#3713)
+- **Jest Config Lint Error Fixed** — A redundant escape in the transform ignore pattern is gone and the file is formatted, clearing the only lint error it carried. (#3713)
+- **Local Security Scans Stay Out of the Checkout** — Guidance for keeping Semgrep's settings and log files out of the working tree. (#3713)
 - **Label Drift Check Dry Run Recorded** — The label audit evidence now records the passing dry run of the weekly drift check and marks the App setup task complete. (#3760)
 - **Task-Issue Creation Gated** — Bulk issue creation is now opt-in per spec with stale-path checks, and the skill file is free of bot footer spam. ([#3540](https://github.com/lightspeedwp/.github/issues/3540))
 - **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
