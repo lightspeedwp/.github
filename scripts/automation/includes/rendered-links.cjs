@@ -53,21 +53,53 @@ async function renderedIssueLinks(github, body, repo) {
 }
 
 /**
- * Keeps only the references GitHub renders as links, preserving the order of
- * the candidates. A reference found by a pattern but not rendered as a link
- * (for example one in a code sample) is dropped. This can only narrow a list.
- * @param {{ rest: { markdown: { render: Function } } }} github Octokit client.
- * @param {string} body Pull request body.
- * @param {number[]} candidates Issue numbers a pattern found in the body.
- * @param {string} repo `owner/name`.
- * @returns {Promise<number[]>} The candidates GitHub renders as links.
+ * Issues a pull request body links to with a closing or relation keyword
+ * (Resolves, Closes, Fixes, Related, Related to), read from the HTML GitHub
+ * rendered. The keyword has to sit directly in front of the rendered link, so
+ * it is the occurrence GitHub linked that counts, not just the number: a
+ * keyword reference in a code sample renders as plain code text with no link
+ * after the keyword, and a separate plain link to the same issue elsewhere in
+ * the body cannot vouch for it.
+ * @param {string} html Output of the GitHub Markdown render API (gfm mode).
+ * @param {string} repo `owner/name`; links into other repositories are ignored.
+ * @returns {number[]} Unique numbers, in order of appearance.
  */
-async function onlyRenderedLinks(github, body, candidates, repo) {
-  if (candidates.length === 0) {
-    return [];
+function keywordIssuesFromRenderedHtml(html, repo) {
+  const escaped = repo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const keywordLink = new RegExp(
+    `\\b(?:Resolves|Closes|Fixes|Related(?:\\s+to)?)\\s+<a\\b[^>]*?\\bhref="https://github\\.com/${escaped}/(?:issues|pull)/(\\d+)(?:[/?#][^"]*)?"`,
+    'gi'
+  );
+  const numbers = [];
+  for (const match of String(html || '').matchAll(keywordLink)) {
+    numbers.push(Number(match[1]));
   }
-  const rendered = new Set(await renderedIssueLinks(github, body, repo));
-  return candidates.filter((number) => rendered.has(number));
+  return [...new Set(numbers)];
 }
 
-module.exports = { issuesFromRenderedHtml, renderedIssueLinks, onlyRenderedLinks };
+/**
+ * Renders a body with GitHub and returns the issues it links to with a keyword.
+ * A failure throws, so a caller that writes to issues can skip the write.
+ * @param {{ rest: { markdown: { render: Function } } }} github Octokit client (github-script).
+ * @param {string} body Pull request body.
+ * @param {string} repo `owner/name`, used as the rendering context.
+ * @returns {Promise<number[]>} Unique numbers, in order of appearance.
+ */
+async function renderedKeywordIssues(github, body, repo) {
+  if (!String(body || '').trim()) {
+    return [];
+  }
+  const { data } = await github.rest.markdown.render({
+    text: String(body),
+    mode: 'gfm',
+    context: repo,
+  });
+  return keywordIssuesFromRenderedHtml(data, repo);
+}
+
+module.exports = {
+  issuesFromRenderedHtml,
+  keywordIssuesFromRenderedHtml,
+  renderedIssueLinks,
+  renderedKeywordIssues,
+};

@@ -79,10 +79,13 @@ function makeGithub(overrides = {}) {
       if (overrides.render) {
         return overrides.render({ text, context });
       }
-      const links = [...String(text).matchAll(/#(\d+)/g)]
-        .map((m) => `<a href="https://github.com/${context}/issues/${m[1]}">#${m[1]}</a>`)
-        .join(' ');
-      return { data: `<p>${links}</p>` };
+      // Keep the surrounding words, as GitHub does: "Closes #7" renders as
+      // "Closes <a ...>#7</a>", and the phase code needs the keyword in front.
+      const html = String(text).replace(
+        /#(\d+)/g,
+        (_m, number) => `<a href="https://github.com/${context}/issues/${number}">#${number}</a>`
+      );
+      return { data: `<p>${html}</p>` };
     }),
   };
 
@@ -386,7 +389,7 @@ describe('orchestrate-phase-progression.yml', () => {
       issues: { 7: issue(7), 9: issue(9) },
       // The body has "Closes #9" in a code sample and a real "Closes #7".
       render: async ({ context }) => ({
-        data: `<p><a href="https://github.com/${context}/issues/7">#7</a></p><pre><code>Closes #9</code></pre>`,
+        data: `<p>Closes <a href="https://github.com/${context}/issues/7">#7</a></p><pre><code>Closes #9</code></pre>`,
       }),
     });
     const core = makeCore();
