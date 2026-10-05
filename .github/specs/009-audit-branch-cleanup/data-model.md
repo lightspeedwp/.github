@@ -102,22 +102,33 @@ Complete report of categorised branches.
 
 ### Fields
 
-| Field       | Type           | Required | Description                     |
-| ----------- | -------------- | -------- | ------------------------------- |
-| `timestamp` | ISO8601 string | Yes      | Report generation time          |
-| `generator` | string         | Yes      | "cleanup-branches.js v1.0.0"    |
-| `stats`     | object         | Yes      | Counts per category (see below) |
-| `branches`  | ReportEntry[]  | Yes      | Array of categorised branches   |
-| `summary`   | string         | No       | Human-readable summary          |
+The fields match what `writeJsonReport()` in `scripts/cleanup-branches.js` writes and the JSON example in `contracts/cli-interface.md`. There are no `generator`, `stats` or `branches` fields.
 
-### Stats Object
+| Field          | Type           | Required | Description                                                                   |
+| -------------- | -------------- | -------- | ----------------------------------------------------------------------------- |
+| `timestamp`    | ISO8601 string | Yes      | Report generation time                                                        |
+| `dryRun`       | boolean        | Yes      | Whether the run was a dry run                                                 |
+| `inactiveDays` | number         | Yes      | Inactivity threshold used for the run                                         |
+| `summary`      | object         | Yes      | Counts and rates (see below)                                                  |
+| `metrics`      | object         | Yes      | `deletedByType` (counts by branch type) and `authorsAffected` (author list)   |
+| `deleted`      | object[]       | Yes      | Deletion candidates: branch, reason, author, hash, age, type and size figures |
+| `preserved`    | object[]       | Yes      | KEEP and DISCUSS branches, each with `branch`, `category` and `reason`        |
+| `errors`       | object[]       | Yes      | Branches that could not be processed, with the error                          |
 
-| Field           | Type   | Description              |
-| --------------- | ------ | ------------------------ |
-| `totalBranches` | number | Total branches evaluated |
-| `keepCount`     | number | Branches marked KEEP     |
-| `deleteCount`   | number | Branches marked DELETE   |
-| `discussCount`  | number | Branches marked DISCUSS  |
+### Summary Object
+
+| Field                        | Type   | Description                             |
+| ---------------------------- | ------ | --------------------------------------- |
+| `candidates`                 | number | Branches considered for deletion        |
+| `autoApprovedDelete`         | number | Candidates approved without review      |
+| `deleted`                    | number | Entries in `deleted`                    |
+| `preserved`                  | number | Entries in `preserved`                  |
+| `errors`                     | number | Entries in `errors`                     |
+| `deletionSuccessRate`        | string | Percentage of successful deletions      |
+| `preservedDeletedRatio`      | string | Preserved to deleted ratio              |
+| `totalCommitsRemoved`        | number | Estimated commits removed               |
+| `estimatedStorageFreedBytes` | number | Estimated storage freed, in bytes       |
+| `estimatedStorageFreedHuman` | string | Estimated storage freed, human-readable |
 
 ---
 

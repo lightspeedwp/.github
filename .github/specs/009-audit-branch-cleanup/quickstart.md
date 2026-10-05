@@ -172,16 +172,16 @@ cd /tmp/branch-cleanup-test
 node scripts/cleanup-branches.js --verbose
 
 # Verify report shows main/develop as KEEP
-cat .github/reports/branch-cleanup-*.md | grep -A2 "^| main"
-cat .github/reports/branch-cleanup-*.md | grep -A2 "^| develop"
+grep -F -- '- `main` — Protected branch' .github/reports/branch-cleanup-*.md
+grep -F -- '- `develop` — Protected branch' .github/reports/branch-cleanup-*.md
 
-# Expected reason: "protected_branch"
+# Expected reason text: "Protected branch (main, develop, production, staging, master)"
 ```
 
 **Validation**:
 
-- ✅ main branch marked KEEP (protected_branch)
-- ✅ develop branch marked KEEP (protected_branch)
+- ✅ main branch marked KEEP (Protected branch)
+- ✅ develop branch marked KEEP (Protected branch)
 - ✅ No attempt to delete either
 
 ---
@@ -199,7 +199,7 @@ node scripts/cleanup-branches.js --verbose
 # release/v1.0.0 should be KEEP (matches exclusion pattern)
 cat .github/reports/branch-cleanup-*.md | grep "release/v1.0.0"
 
-# Expected reason: "excluded_pattern"
+# Expected reason text: "Matches exclusion pattern (release/*, hotfix/*)"
 ```
 
 **Validation**:
@@ -234,7 +234,7 @@ node scripts/cleanup-branches.js --inactiveDays=30 --verbose
 
 # Expected: feat/old-feature marked DELETE (merged + stale)
 cat .github/reports/branch-cleanup-*.md | grep "feat/old-feature"
-# Expected reason: "merged_stale"
+# Expected reason text: "Merged and inactive beyond threshold"
 ```
 
 **Validation**:
