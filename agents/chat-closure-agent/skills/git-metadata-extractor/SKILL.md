@@ -2,7 +2,8 @@
 title: "Git Metadata Extractor"
 description: "Extract git metadata (commits, branch, issues) for handoff context"
 name: git-metadata-extractor
-version: 1.0.1
+metadata:
+  version: "1.0.1"
 created_date: 2026-08-12T00:00:00.000Z
 last_updated: '2026-08-21'
 authors:

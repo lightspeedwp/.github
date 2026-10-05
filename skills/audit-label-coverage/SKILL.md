@@ -2,7 +2,8 @@
 type: skill
 title: audit-label-coverage
 description: Audit and report on GitHub issue/PR label coverage with actionable recommendations
-version: "1.0"
+metadata:
+  version: "1.0"
 status: beta
 author: LightSpeed Automation Team
 tags:

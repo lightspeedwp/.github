@@ -2,7 +2,8 @@
 title: "Project Linker"
 description: "Find active projects and issues for a repository"
 name: project-linker
-version: 1.0.1
+metadata:
+  version: "1.0.1"
 created_date: 2026-08-12T00:00:00.000Z
 last_updated: '2026-08-21'
 authors:
