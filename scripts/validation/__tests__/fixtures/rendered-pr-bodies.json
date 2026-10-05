@@ -1,0 +1,86 @@
+{
+  "renderedAt": "2026-10-05",
+  "repository": "lightspeedwp/.github",
+  "bodies": {
+    "plain": {
+      "body": "Closes #3556 and Relates to #449",
+      "html": "<p dir=\"auto\">Closes <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"5568380947\" data-permission-text=\"Title is private\" data-url=\"https://github.com/lightspeedwp/.github/issues/3556\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/3556/hovercard\" href=\"https://github.com/lightspeedwp/.github/issues/3556\">#3556</a> and Relates to <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4535584116\" data-permission-text=\"Title is private\" data-url=\"https://github.com/lightspeedwp/.github/issues/449\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/449/hovercard\" href=\"https://github.com/lightspeedwp/.github/issues/449\">#449</a></p>"
+    },
+    "fullUrl": {
+      "body": "See https://github.com/lightspeedwp/.github/issues/3556 for the request",
+      "html": "<p dir=\"auto\">See <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"5568380947\" data-permission-text=\"Title is private\" data-url=\"https://github.com/lightspeedwp/.github/issues/3556\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/3556/hovercard\" href=\"https://github.com/lightspeedwp/.github/issues/3556\">#3556</a> for the request</p>"
+    },
+    "markdownLink": {
+      "body": "[request](https://github.com/lightspeedwp/.github/issues/3556)",
+      "html": "<p dir=\"auto\"><a href=\"https://github.com/lightspeedwp/.github/issues/3556\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/3556/hovercard\">request</a></p>"
+    },
+    "pullRequestRef": {
+      "body": "Stacked on #3734",
+      "html": "<p dir=\"auto\">Stacked on <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"5671631310\" data-permission-text=\"Title is private\" data-url=\"https://github.com/lightspeedwp/.github/issues/3734\" data-hovercard-type=\"pull_request\" data-hovercard-url=\"/lightspeedwp/.github/pull/3734/hovercard\" href=\"https://github.com/lightspeedwp/.github/pull/3734\">#3734</a></p>"
+    },
+    "fenceFour": {
+      "body": "Intro\n````\nCloses #3556\n````\n\nCloses #449\n",
+      "html": "<p dir=\"auto\">Intro</p>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>\n<p dir=\"auto\">Closes <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"4535584116\" data-permission-text=\"Title is private\" data-url=\"https://github.com/lightspeedwp/.github/issues/449\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/449/hovercard\" href=\"https://github.com/lightspeedwp/.github/issues/449\">#449</a></p>"
+    },
+    "fenceThree": {
+      "body": "Intro\n```\nCloses #3556\n```\n",
+      "html": "<p dir=\"auto\">Intro</p>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>"
+    },
+    "fenceTilde": {
+      "body": "Intro\n~~~\nCloses #3556\n~~~\n",
+      "html": "<p dir=\"auto\">Intro</p>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>"
+    },
+    "fenceUnclosed": {
+      "body": "Intro\n```\nCloses #3556\n",
+      "html": "<p dir=\"auto\">Intro</p>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>"
+    },
+    "indented": {
+      "body": "Intro\n\n    Closes #3556\n",
+      "html": "<p dir=\"auto\">Intro</p>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>"
+    },
+    "indentedTab": {
+      "body": "Intro\n\n\tCloses #3556\n",
+      "html": "<p dir=\"auto\">Intro</p>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>"
+    },
+    "indentedAfterHeading": {
+      "body": "# Notes\n    Closes #3556\n",
+      "html": "<h1 dir=\"auto\">Notes</h1>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>"
+    },
+    "indentedInList": {
+      "body": "- item\n\n      Closes #3556\n",
+      "html": "<ul dir=\"auto\">\n<li>\n<p dir=\"auto\">item</p>\n<pre class=\"notranslate\"><code class=\"notranslate\">Closes #3556\n</code></pre>\n</li>\n</ul>"
+    },
+    "paragraphContinuation": {
+      "body": "Intro text\n    Closes #3556\n",
+      "html": "<p dir=\"auto\">Intro text<br>\nCloses <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"5568380947\" data-permission-text=\"Title is private\" data-url=\"https://github.com/lightspeedwp/.github/issues/3556\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/3556/hovercard\" href=\"https://github.com/lightspeedwp/.github/issues/3556\">#3556</a></p>"
+    },
+    "nestedList": {
+      "body": "- parent\n    - Closes #3556\n",
+      "html": "<ul dir=\"auto\">\n<li>parent\n<ul dir=\"auto\">\n<li>Closes <a class=\"issue-link js-issue-link\" data-error-text=\"Failed to load title\" data-id=\"5568380947\" data-permission-text=\"Title is private\" data-url=\"https://github.com/lightspeedwp/.github/issues/3556\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/3556/hovercard\" href=\"https://github.com/lightspeedwp/.github/issues/3556\">#3556</a></li>\n</ul>\n</li>\n</ul>"
+    },
+    "inlineSingle": {
+      "body": "x `Closes #3556` y",
+      "html": "<p dir=\"auto\">x <code class=\"notranslate\">Closes #3556</code> y</p>"
+    },
+    "inlineDouble": {
+      "body": "x ``Closes #3556`` y",
+      "html": "<p dir=\"auto\">x <code class=\"notranslate\">Closes #3556</code> y</p>"
+    },
+    "htmlComment": {
+      "body": "<!-- Closes #3556 -->\nDone",
+      "html": "\n<p dir=\"auto\">Done</p>"
+    },
+    "htmlAnchor": {
+      "body": "<a href=\"https://github.com/lightspeedwp/.github/issues/3556\">request</a>",
+      "html": "<p dir=\"auto\"><a href=\"https://github.com/lightspeedwp/.github/issues/3556\" data-hovercard-type=\"issue\" data-hovercard-url=\"/lightspeedwp/.github/issues/3556/hovercard\">request</a></p>"
+    },
+    "otherRepository": {
+      "body": "other/repo#12 and https://github.com/other/repo/issues/9",
+      "html": "<p dir=\"auto\">other/repo#12 and <a href=\"https://github.com/other/repo/issues/9\">https://github.com/other/repo/issues/9</a></p>"
+    },
+    "noReferences": {
+      "body": "Just a description with no links",
+      "html": "<p dir=\"auto\">Just a description with no links</p>"
+    }
+  }
+}
