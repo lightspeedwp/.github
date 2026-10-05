@@ -84,8 +84,6 @@
     "agents/changelog-agent/changelog.agent.md#closed-field-set#language",
     "agents/changelog-agent/changelog.agent.md#closed-field-set#visibility",
     "agents/changelog-agent/changelog.agent.md#required-fields#title",
-    "agents/changelog-agent/skills/validate-changelog/SKILL.md#body",
-    "agents/changelog-agent/skills/validate-changelog/SKILL.md#name#directory-match",
     "agents/chat-closure-agent/chat-closure.agent.md#closed-field-set#implementation",
     "agents/chat-closure-agent/chat-closure.agent.md#closed-field-set#language",
     "agents/chat-closure-agent/chat-closure.agent.md#closed-field-set#visibility",
