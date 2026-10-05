@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * PreToolUse hook: enforce the LightSpeed branching strategy (spec 016).
+ * PreToolUse hook: enforce the LightSpeed branching strategy (spec 018).
  *
  * Refuses (exit 2, reason on stderr for Claude) when Claude would:
  *   - create or rename a branch to an invalid or placeholder name (git, the
@@ -312,12 +312,28 @@ function checkOpenPr(branch, { cwd, remote = 'origin', repo = null, timeout = CH
   }
 }
 
+/** Whether `repo` is the repository whose base-branch rules this guard enforces. */
+function isThisRepo(repo) {
+  // An unnamed repository cannot be shown to be another one, so it is judged by
+  // this repository's stricter rules rather than waved through.
+  const name = String(repo || '').toLowerCase();
+  return name === '' || name === THIS_REPO;
+}
+
+/**
+ * Whether `name` is protected in `repo`. `main` is protected on every LightSpeed
+ * repository (FR-009); the base branch only on this one (T049).
+ */
+function isProtectedIn(repo, name) {
+  return name === 'main' || (PROTECTED.has(name) && isThisRepo(repo));
+}
+
 /**
  * Reason a commit, push or file write to `branch` is refused, or null.
  * `paths()` lists the affected files (called only for the base branch);
  * `legacy()` runs the open-PR check (called only for a non-compliant branch).
  */
-function writeProblem(branch, { paths, root, legacy }) {
+function writeProblem(branch, { paths, root, legacy, repo = THIS_REPO }) {
   // An empty branch means the guard could not work out where the write lands, on
   // a detached HEAD or in a repository it could not read. Treating that as valid
   // skipped validation entirely, so it is refused instead of passed through.
@@ -330,6 +346,11 @@ function writeProblem(branch, { paths, root, legacy }) {
   if (branch === 'main')
     return `'main' is protected and has no exception; work on a feature branch and open a PR`;
   if (branch === BASE_BRANCH) {
+    // The base branch and its documentation exception are this repository's own
+    // rules. On another LightSpeed repository only `main` is protected (FR-009), so
+    // a write to the branch of the same name is an ordinary one and the exception
+    // is neither needed nor judged (T049).
+    if (!isThisRepo(repo)) return null;
     const outside = undocumentedFiles(paths(), typeof root === 'function' ? root() : root);
     if (!outside) return null;
     return `'${branch}' is protected; only changes under ${DOC_PREFIXES.join(' or ')} may go there directly. Needs a feature branch: ${outside.join(', ')}`;
@@ -1709,7 +1730,7 @@ function checkBash(command, cwd, depth = 0) {
 function fileWriteProblem({ owner, repo, branch, paths, root }) {
   if ((owner || '').toLowerCase() !== OWNER) return null;
   const legacy = () => hasOpenPr(branch, { repo: `${owner}/${repo}` });
-  return writeProblem(branch, { paths: () => paths, root, legacy });
+  return writeProblem(branch, { paths: () => paths, root, legacy, repo });
 }
 
 /** Problems found in a GitHub MCP tool call. */
@@ -1966,6 +1987,34 @@ function graphqlBranchNames(query, variables = {}) {
       }
     }
   }
+  // `mergeBranch` writes to the branch named by `base`, and takes the repository by
+  // node id, so the name is unscoped and judged (issue #3691, gap 7). `head` is the
+  // source being merged in, not a branch that changes, so it is not read. The three
+  // spellings are the ones the other branch writes have: a literal, a variable, and
+  // a whole input object bound to one variable.
+  for (const field of branchWriteFields(views).filter(
+    ({ field: name }) => name === 'mergeBranch'
+  )) {
+    const fieldViews = graphqlViews(field.text);
+    for (const match of matchesOutsideStrings(
+      fieldViews,
+      /\bbase\s*:\s*(?:"""([\s\S]*?)"""|"((?:[^"\\]|\\.)*)")/g
+    )) {
+      scoped(literal(match), null);
+    }
+    for (const match of matchesOutsideStrings(
+      fieldViews,
+      /\bbase\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g
+    )) {
+      scoped(variables[match[1]], null);
+    }
+    for (const match of matchesOutsideStrings(
+      fieldViews,
+      /\binput\s*:\s*\$([A-Za-z_][A-Za-z0-9_]*)/g
+    )) {
+      scoped(variables[`${match[1]}[base]`], null);
+    }
+  }
   return found.filter((entry) => entry.value);
 }
 
@@ -2113,7 +2162,8 @@ function matchesOutsideStrings(views, pattern) {
  */
 function branchWriteFields(views) {
   const fields = [];
-  const opener = /\b(createCommitOnBranch|createRef|updateRefs|updateRef|deleteRef)\s*\(/g;
+  const opener =
+    /\b(createCommitOnBranch|createRef|updateRefs|updateRef|deleteRef|mergeBranch)\s*\(/g;
   for (const match of matchesOutsideStrings(views, opener)) {
     const start = match.index + match[0].length - 1;
     let depth = 0;
@@ -2203,7 +2253,7 @@ function graphqlBodyVariables(inputBody) {
       continue;
     }
     if (!varValue || typeof varValue !== 'object' || Array.isArray(varValue)) continue;
-    for (const leaf of ['branchName', 'name', 'repositoryNameWithOwner']) {
+    for (const leaf of ['branchName', 'name', 'base', 'repositoryNameWithOwner']) {
       store(`${varName}[${leaf}]`, varValue[leaf]);
     }
     const container = varValue.branch;
@@ -2480,7 +2530,7 @@ function checkGh(args, cwd, branch) {
     // The shared validator accepts `main` and the base branch as valid names, so
     // the protected set is what stops creating them here (issue #3691, gap 6),
     // matching the GraphQL createRef/createCommitOnBranch path.
-    if (PROTECTED.has(target)) {
+    if (isProtectedIn(apiRepo, target)) {
       return [`Branch creation blocked: '${target}' is protected.`];
     }
     const problem = nameProblem(target);
@@ -2492,7 +2542,7 @@ function checkGh(args, cwd, branch) {
   // is the REST form of the remote deletion the push path already refuses, and
   // leaving it out made the documented protection depend on which command was
   // used.
-  if (ref && method === 'DELETE' && PROTECTED.has(ref[1].replace(/^refs\/heads\//, ''))) {
+  if (ref && method === 'DELETE' && isProtectedIn(apiRepo, ref[1].replace(/^refs\/heads\//, ''))) {
     return [`Remote branch deletion blocked: '${ref[1]}' is protected.`];
   }
   if (ref && method !== 'DELETE') {
@@ -2596,13 +2646,38 @@ const GIT_WRITE = [
   /\bgh\s+api\b[^|;&]*\s(-X[A-Za-z]+|-X\b|--method|-f[A-Za-z]|-f\b|-F[A-Za-z]|-F\b|--field|--raw-field|--input)/,
 ];
 
+/**
+ * Whether a command creates a branch with plain `git branch <name>`, which none of
+ * the GIT_WRITE patterns match: they look for a flag, and this form has none. A
+ * `git branch` carrying a query flag (`--list`, `-a`, `--contains` and the rest of
+ * BRANCH_QUERY_FLAGS) is a read, and a bare `git branch` lists, so only an
+ * argument that is not a flag, with no query flag beside it, counts.
+ * @param {string} command
+ * @returns {boolean}
+ */
+function createsBranchPlainly(command) {
+  // One `git` invocation at a time, up to the next pipe, semicolon or ampersand,
+  // read as whitespace-separated words: the first word `branch` is the
+  // subcommand, and what follows it is its arguments. The launcher run-guard.sh
+  // does the same in shell, and a test keeps the two in step.
+  for (const match of command.matchAll(/(?:^|[^A-Za-z0-9_])git[^|;&]*/g)) {
+    const words = match[0].split(/\s+/).filter(Boolean);
+    const at = words.indexOf('branch');
+    if (at === -1) continue;
+    const args = words.slice(at + 1);
+    if (args.some((word) => BRANCH_QUERY_FLAGS.has(word.split('=')[0]))) continue;
+    if (args.some((word) => !word.startsWith('-'))) return true;
+  }
+  return false;
+}
+
 /** Whether a call is a git or GitHub write, judged without the validator. */
 function isWrite(input) {
   const tool = input.tool_name || '';
   if (tool.startsWith('mcp__github__')) return true;
   if (tool !== 'Bash') return false;
   const command = String((input.tool_input || {}).command || '');
-  return GIT_WRITE.some((pattern) => pattern.test(command));
+  return GIT_WRITE.some((pattern) => pattern.test(command)) || createsBranchPlainly(command);
 }
 
 /**

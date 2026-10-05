@@ -145,7 +145,8 @@ pushes. Never create a new branch with such a name.
 A PreToolUse hook blocks git commit/push and GitHub branch/PR tools on invalid
 branch names, so renaming first saves a round trip. While enforcement is on, the
 guard's own files can't be edited: .claude/hooks/**, .claude/settings.json,
-.claude/settings.local.json and ~/.claude/settings.json.
+.claude/settings.local.json, ~/.claude/settings.json and
+/etc/claude-code/managed-settings.json.
 EOF
 
 # Emit the context object without jq. jq is not guaranteed on every machine
