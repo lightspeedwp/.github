@@ -15,9 +15,10 @@ This document describes how Mergify is configured and used for automated pull re
 > [!WARNING]
 > **Partially historical.** The authoritative configuration is `.github/mergify.yml`.
 > The "Overview", "Current Status" and "Auto-Merge Rules" sections below reflect the
-> current file. Sections describing imgbot, meta-agent, and the merge queue document
-> configuration that was **removed in #3476** and are kept only for history. The queue
-> is no longer configured; the develop ruleset plus a human code-owner approval is the
+> current file. Sections describing imgbot, meta-agent, and the queue rules document
+> configuration that was **removed in #3476** and are kept only for history. A minimal
+> in-place merge queue is enabled for Dependabot auto-merge (see "Merge queue" under
+> "Current Status"); the develop ruleset plus a human code-owner approval is still the
 > merge gate.
 
 ## Table of Contents
@@ -47,6 +48,12 @@ Mergify is a GitHub App that automates pull request merging based on configurabl
 - **Known Issues**: none known. The queue, imgbot and meta-agent rules were removed in #3476
   because they gated on an "All Checks Passed" check no workflow produces. Human PRs still
   require a human code-owner approval; Mergify never bypasses that.
+- **Merge queue**: Dependabot auto-merge queues pull requests, and the develop ruleset requires
+  branches to be up to date. The configuration therefore sets `merge_queue.max_parallel_checks: 1`
+  and a `default` queue rule with `batch_size: 1`, which makes Mergify test each pull request in
+  place instead of on a draft batch. Without it the "Mergify Merge Queue" check fails with
+  "Configuration not compatible with a branch protection setting". Do not add `merge_conditions`
+  or raise either value.
 
 > **Note:** Mergify cannot auto-merge a human PR even when configured to. The `develop`
 > ruleset requires a code-owner approval, and Mergify's auto-merge only fires once branch
