@@ -13,6 +13,7 @@ import {
   buildInventory,
   incompleteRepositories,
   incompleteRepositoryLabels,
+  findRepositoryRoot,
   isInsidePublicRepository,
   privateRepositoryGap,
   publicRepositoryName,
@@ -266,6 +267,51 @@ describe('label-inventory', () => {
         '../outside/full.json',
       ]) {
         expect(isInsidePublicRepository(allowed, cwd)).toBe(false);
+      }
+    });
+
+    it('judges a path against the repository root, not the directory the script runs from', () => {
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-sub-'));
+      try {
+        fs.mkdirSync(path.join(root, 'scripts'));
+        fs.mkdirSync(path.join(root, 'docs'));
+        fs.mkdirSync(path.join(root, '.private-evidence'));
+        const cwd = path.join(root, 'scripts');
+        // From scripts/, ../docs/full.json starts with .. but is still inside the repository.
+        expect(isInsidePublicRepository('../docs/full.json', root, cwd)).toBe(true);
+        expect(isInsidePublicRepository('full.json', root, cwd)).toBe(true);
+        expect(isInsidePublicRepository('../.private-evidence/full.json', root, cwd)).toBe(false);
+        // The old behaviour took the working directory as the root and accepted the first one.
+        expect(isInsidePublicRepository('../docs/full.json', cwd)).toBe(false);
+        expect(isInsidePublicRepository('../../outside/full.json', root, cwd)).toBe(false);
+      } finally {
+        fs.rmSync(root, { recursive: true, force: true });
+      }
+    });
+
+    it('finds the repository root from the script location, whatever the working directory', () => {
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-root-'));
+      try {
+        const scriptDir = path.join(root, 'scripts', 'automation');
+        fs.mkdirSync(scriptDir, { recursive: true });
+        const script = path.join(scriptDir, 'label-inventory.js');
+        fs.writeFileSync(script, '');
+        const real = fs.realpathSync(root);
+        // Git reports the top level.
+        const git = () => ({ status: 0, stdout: `${real}\n` });
+        expect(findRepositoryRoot(script, git)).toBe(real);
+        // Without git, it is two directories above scripts/automation/.
+        const noGit = () => ({ status: 128, stdout: '' });
+        expect(findRepositoryRoot(script, noGit)).toBe(real);
+        // It is asked from the script's directory, not the caller's.
+        const seen = [];
+        findRepositoryRoot(script, (command, args, options) => {
+          seen.push(options.cwd);
+          return git();
+        });
+        expect(seen).toEqual([fs.realpathSync(scriptDir)]);
+      } finally {
+        fs.rmSync(root, { recursive: true, force: true });
       }
     });
 

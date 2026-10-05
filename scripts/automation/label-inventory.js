@@ -26,6 +26,7 @@
  *   LABEL_INVENTORY_TOKEN=... node scripts/automation/label-inventory.js [--org lightspeedwp] [--output path] [--full-output path]
  */
 
+import { spawnSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 
@@ -257,17 +258,35 @@ function resolveReal(target) {
  * than under the git-ignored `.private-evidence/` directory. The complete
  * inventory names private repositories, so it may be written only there or
  * outside the repository.
- * @param {string} target Output path.
- * @param {string} [cwd] Repository root.
+ * @param {string} target Output path; a relative path is taken from `cwd`.
+ * @param {string} [root] Repository root. It is not the working directory: a
+ *   script run from a subdirectory must still be judged against the repository.
+ * @param {string} [cwd] Directory a relative `target` is resolved from.
  * @returns {boolean} True when the path is inside the repository and not private evidence.
  */
-export function isInsidePublicRepository(target, cwd = process.cwd()) {
-  const root = resolveReal(path.resolve(cwd));
+export function isInsidePublicRepository(target, root = process.cwd(), cwd = root) {
+  const realRoot = resolveReal(path.resolve(root));
   const resolved = resolveReal(path.resolve(cwd, target));
-  const relative = path.relative(root, resolved);
+  const relative = path.relative(realRoot, resolved);
   if (relative === '') return true;
   if (relative.startsWith('..') || path.isAbsolute(relative)) return false;
   return relative.split(path.sep)[0] !== '.private-evidence';
+}
+
+/**
+ * Finds the repository root from where this script lives, not from the working
+ * directory, so running it from a subdirectory cannot change which directory the
+ * output guard protects. Uses `git rev-parse --show-toplevel` and falls back to
+ * two directories above `scripts/automation/`.
+ * @param {string} [scriptPath] Path of this script.
+ * @param {typeof spawnSync} [run] Process runner, for tests.
+ * @returns {string} Absolute repository root.
+ */
+export function findRepositoryRoot(scriptPath = process.argv[1], run = spawnSync) {
+  const scriptDir = path.dirname(fs.realpathSync(scriptPath));
+  const result = run('git', ['rev-parse', '--show-toplevel'], { cwd: scriptDir, encoding: 'utf8' });
+  const top = result.status === 0 ? String(result.stdout).trim() : '';
+  return top ? fs.realpathSync(top) : path.resolve(scriptDir, '..', '..');
 }
 
 function parseArgs(argv) {
@@ -288,12 +307,20 @@ async function main() {
   }
   const { Octokit } = await import('octokit');
   const client = new Octokit({ auth: token });
-  const { org, output, fullOutput } = parseArgs(process.argv.slice(2));
+  const parsed = parseArgs(process.argv.slice(2));
+  const { org, fullOutput } = parsed;
+  const output =
+    parsed.output === DEFAULT_OUTPUT
+      ? path.join(findRepositoryRoot(), DEFAULT_OUTPUT)
+      : parsed.output;
 
   // The full inventory may name private repositories, so it is only ever written
-  // outside the tracked `.github` directory (this repository is public). Checked
-  // before any API call.
-  if (fullOutput && isInsidePublicRepository(fullOutput)) {
+  // under .private-evidence/ or outside this public repository, never anywhere
+  // else inside it. The repository is found from the script's location, so the
+  // check holds whichever directory the script is run from. Checked before any
+  // API call.
+  const root = findRepositoryRoot();
+  if (fullOutput && isInsidePublicRepository(fullOutput, root, process.cwd())) {
     console.error(
       '❌ --full-output must be under .private-evidence/ or outside this repository, because the full inventory names private repositories and this repository is public'
     );
