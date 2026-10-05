@@ -11,7 +11,7 @@ status: active
 
 # Agent Index
 
-Complete searchable index of all 78 agent specifications in the LightSpeed `.github` control plane.
+Complete searchable index of all 84 agent specifications in the LightSpeed `.github` control plane.
 
 **Generated**: 2026-10-05
 
@@ -19,9 +19,9 @@ Complete searchable index of all 78 agent specifications in the LightSpeed `.git
 
 | Metric | Count |
 | --- | --- |
-| Total Agents | 78 |
-| Active Agents | 78 |
-| Draft Agents | 0 |
+| Total Agents | 84 |
+| Active Agents | 83 |
+| Draft Agents | 1 |
 | Deprecated Agents | 0 |
 
 ## Agents by Category
@@ -124,7 +124,10 @@ Automation and workflow agents
 | --- | --- | --- | --- |
 | [Chat Closure Agent](../agents/chat-closure-agent/chat-closure.agent.md) | ✅ Active | v1.0.1 | `automation`, `session-closure`, `handoff`, `memory`, `git`, `workspace-management`, `portable` |
 | [Issues](../agents/issue-agent/issues.agent.md) | ✅ Active | v2.1 | `issue-management`, `triage`, `automation`, `type-assignment`, `refinement` |
+| [Labeling](../agents/labeling-agent/labeling.agent.md) | ✅ Active | v2.0 | `lightspeed`, `labeling`, `automation`, `canonical-labels`, `agents`, `github` |
 | [Meta](../agents/meta-agent/meta.agent.md) | ✅ Active | v1.1 | `meta`, `frontmatter`, `badges`, `footers`, `automation`, `documentation` |
+| [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) | ✅ Active | v1.0 | `lightspeed`, `project-management`, `automation`, `github`, `labels` |
+| [Reviewer](../agents/reviewer-agent/reviewer.agent.md) | ✅ Active | v1.0 | `pr-review`, `automation`, `ci`, `quality-gate`, `pull-requests` |
 
 
 ### 📦 Discovery
@@ -165,6 +168,7 @@ analytics
 | --- | --- | --- | --- |
 | [Harvest Analytical Agent](../agents/archived/harvest-analytical-agent/harvest-analytical.agent.md) | ✅ Active | v1.0.1 | `analytics`, `harvest`, `time-tracking`, `profitability`, `budgeting`, `billing`, `productivity-metrics` |
 | [Harvest Analytical Agent](../agents/harvest-analytical-agent/harvest-analytical.agent.md) | ✅ Active | v1.0.1 | `analytics`, `harvest`, `time-tracking`, `profitability`, `budgeting`, `billing`, `productivity-metrics` |
+| [Metrics](../agents/metrics-agent/metrics.agent.md) | ✅ Active | v1.0 | `lightspeed`, `metrics`, `agents`, `analytics`, `reporting` |
 
 
 ### 📦 Project-management
@@ -237,7 +241,9 @@ Development tools and utilities
 
 | Agent | Status | Version | Tags |
 | --- | --- | --- | --- |
+| [Reporting](../agents/reporting-agent/reporting.agent.md) | ✅ Active | v1.1 | `reporting`, `documentation`, `automation`, `interactive` |
 | [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) | ✅ Active | v1.0 | — |
+| [Template](../agents/_template-agent/template.agent.md) | 📝 Draft | v1.1 | `agent`, `spec`, `template`, `copilot` |
 
 
 ### 📦 Quality-assurance
@@ -326,6 +332,7 @@ support
 | [Harvest Analytical Agent](../agents/archived/harvest-analytical-agent/harvest-analytical.agent.md) | 📦 analytics | ✅ active | v1.0.1 | 2026-08-25 |
 | [Harvest Analytical Agent](../agents/harvest-analytical-agent/harvest-analytical.agent.md) | 📦 analytics | ✅ active | v1.0.1 | 2026-08-25 |
 | [Issues](../agents/issue-agent/issues.agent.md) | ⚡ automation | ✅ active | v2.1 | 2026-08-27 |
+| [Labeling](../agents/labeling-agent/labeling.agent.md) | ⚡ automation | ✅ active | v2.0 | 2026-09-22 |
 | [Linear Advisor Agent](../agents/linear-advisor-agent/linear-advisor.agent.md) | 📦 project-management | ✅ active | v1.0.1 | 2026-08-25 |
 | [LinkedIn Post Writer](../agents/linkedin-post-writer.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Linting](../agents/linting-agent/linting.agent.md) | 📦 code-quality | ✅ active | v0.1.0 | 2026-08-29 |
@@ -333,6 +340,7 @@ support
 | [Meta](../agents/meta-agent/meta.agent.md) | ⚡ automation | ✅ active | v1.1 | 2026-08-29 |
 | [Meta Agentic Project Scaffold](../agents/meta-agent/meta-agentic-project-scaffold.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Metadata Agent](../agents/metadata-agent/metadata.agent.md) | 📋 governance | ✅ active | v2.0.0 | 2026-08-19 |
+| [Metrics](../agents/metrics-agent/metrics.agent.md) | 📦 analytics | ✅ active | v1.0 | 2026-09-22 |
 | [metrics-reporting-orchestrator](../plugins/lightspeed-metrics-and-reporting/agents/metrics-reporting-orchestrator.agent.md) | 📦 unknown | ✅ active | v0.1.1 | 2026-08-21 |
 | [Modernization Agent](../agents/modernization.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [PageSpeed Agent](../agents/pagespeed-agent/pagespeed.agent.md) | 📦 performance | ✅ active | v1.0.1 | 2026-08-25 |
@@ -344,6 +352,7 @@ support
 | [playwright-testing](../plugins/lightspeed-playwright-testing/agents/playwright-testing.agent.md) | 📦 unknown | ✅ active | 2.0.1 | 2026-08-21 |
 | [PRD Agent](../agents/prd-agent/prd.agent.md) | 📋 planning | ✅ active | v2.0.1 | 2026-08-21 |
 | [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md) | 📦 product-management | ✅ active | v2.0.1 | 2026-08-21 |
+| [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) | ⚡ automation | ✅ active | v1.0 | 2026-09-22 |
 | [project-spec-orchestrator](../plugins/lightspeed-wordpress-planning/agents/project-spec-orchestrator.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md) | 📦 development | ✅ active | v2.0 | 2026-08-29 |
 | [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md) | 📦 proposals | ✅ active | v1.0.1 | 2026-08-25 |
@@ -354,7 +363,9 @@ support
 | [Release Manager](../agents/release-agent/release.agent.md) | 📦 release-management | ✅ active | v2.2 | 2026-08-29 |
 | [release-ops-orchestrator](../plugins/lightspeed-release-ops/agents/release-ops-orchestrator.agent.md) | 📦 unknown | ✅ active | v0.1.1 | 2026-08-21 |
 | [Repo Architect Agent](../agents/repo-architect.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
+| [Reporting](../agents/reporting-agent/reporting.agent.md) | 🛠️ tooling | ✅ active | v1.1 | 2026-09-22 |
 | [reviewer](../plugins/lightspeed-github-ops/agents/reviewer.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
+| [Reviewer](../agents/reviewer-agent/reviewer.agent.md) | ⚡ automation | ✅ active | v1.0 | 2026-09-22 |
 | [SE: DevOps/CI](../agents/se-gitops-ci-specialist.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Specification](../agents/specification.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Task Planner Instructions](../agents/task-planner.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
@@ -365,6 +376,7 @@ support
 | [TDD Refactor Phase - Improve Quality & Security](../agents/tdd-refactor.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Technical Content Evaluator](../agents/document-reviewer-agent/document-reviewer.agent.md) | 🎯 mode | ✅ active | v1.0 | 2026-08-29 |
 | [Technical Debt Remediation Plan](../agents/tech-debt-remediation-plan.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
+| [Template](../agents/_template-agent/template.agent.md) | 🛠️ tooling | 📝 draft | v1.1 | 2026-09-22 |
 | [Testing](../agents/testing-agent/testing.agent.md) | 📦 quality-assurance | ✅ active | v0.1.0 | 2026-08-29 |
 | [Thinking Beast Mode](../agents/Thinking-Beast-Mode.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Thinking Mode](../agents/mode-thinking.agent.md) | 🎯 mode | ✅ active | v2.0 | 2026-09-22 |
@@ -421,7 +433,7 @@ support
 - [WordPress Release Utilities](../agents/wordpress-release-utilities-agent/wordpress.agent.md) → [`agents/wordpress-release-utilities-agent/`](../agents/wordpress-release-utilities-agent/)
 - [Zendesk Support Agent](../agents/zendesk-support-agent/zendesk-support.agent.md) → [`agents/zendesk-support-agent/`](../agents/zendesk-support-agent/)
 
-**Specification-Only** (44)
+**Specification-Only** (50)
 
 - [ADR Generator](../agents/ai-readiness-agent/adr-generator.agent.md) — Expert agent for creating comprehensive Architectural Decision Records (ADRs) with structured formatting optimized for AI consumption and human readability.
 - [Agent Governance Reviewer](../agents/agent-governance-reviewer.agent.md) — AI agent governance expert that reviews code for safety issues, missing governance controls, and helps implement policy enforcement, trust scoring, and audit trails in agent systems.
@@ -436,9 +448,11 @@ support
 - [GitHub Actions Expert](../agents/github-actions-expert.agent.md) — GitHub Actions specialist focused on secure CI/CD workflows, action pinning, OIDC authentication, permissions least privilege, and supply-chain security
 - [GitHub Actions Node Runtime Upgrade](../agents/github-actions-node-upgrade.agent.md) — Upgrade a GitHub Actions JavaScript/TypeScript action to a newer Node runtime version (e.g., node20 to node24) with major version bump, CI updates, and full validation
 - [Issues](../agents/issue-agent/issues.agent.md) — Comprehensive agent for issue management: type assignment, triage, refinement, and enrichment with acceptance criteria and technical details. Integrated with agentic workflow orchestration and openspec status tracking.
+- [Labeling](../agents/labeling-agent/labeling.agent.md) — Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/labels.yml.
 - [LinkedIn Post Writer](../agents/linkedin-post-writer.agent.md) — Draft and format compelling LinkedIn posts with Unicode bold/italic styling, visual separators, and engagement-optimized structure. Transforms raw content, technical material, images, or ideas into copy-paste-ready LinkedIn posts.
 - [Markdown Accessibility Assistant](../agents/markdown-accessibility-assistant.agent.md) — Improves the accessibility of markdown files using five GitHub best practices
 - [Meta Agentic Project Scaffold](../agents/meta-agent/meta-agentic-project-scaffold.agent.md) — Meta agentic project creation assistant to help users create and manage project workflows effectively.
+- [Metrics](../agents/metrics-agent/metrics.agent.md) — Automates collection, aggregation, and reporting of repository health metrics including issue/PR activity, response times, and project health indicators. Generates actionable insights and trend analysis.
 - [metrics-reporting-orchestrator](../plugins/lightspeed-metrics-and-reporting/agents/metrics-reporting-orchestrator.agent.md) — Coordinates repository metrics collection, aggregation, and report publication workflows.
 - [Modernization Agent](../agents/modernization.agent.md) — Human-in-the-loop modernization assistant for analyzing, documenting, and planning complete project modernization with architectural recommendations.
 - [PHP MCP Expert](../agents/php-mcp-expert.agent.md) — Expert assistant for PHP MCP server development using the official PHP SDK with attribute-based discovery
@@ -446,6 +460,7 @@ support
 - [Planning mode instructions](../agents/planner.agent.md) — Generate an implementation plan for new features or refactoring existing code.
 - [Playwright Tester Mode](../agents/playwright-tester.agent.md) — Testing mode for Playwright tests
 - [playwright-testing](../plugins/lightspeed-playwright-testing/agents/playwright-testing.agent.md) — Packaged Playwright Testing Agent for the lightspeed-playwright-testing plugin. Canonical multi-provider spec lives in agents/playwright-testing-agent/.
+- [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) — Syncs GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names, automating project management and triage workflows.
 - [project-spec-orchestrator](../plugins/lightspeed-wordpress-planning/agents/project-spec-orchestrator.agent.md) — Orchestrates PRD-to-plan workflows for WordPress delivery with explicit acceptance criteria and implementation sequencing.
 - [QA](../agents/qa-subagent.agent.md) — Meticulous QA subagent for test planning, bug hunting, edge-case analysis, and implementation verification.
 - [qa-orchestrator](../plugins/lightspeed-quality-assurance/agents/qa-orchestrator.agent.md) — Coordinates validation plans, quality gates, and regression checks across delivery phases.
@@ -453,7 +468,9 @@ support
 - [Refine Requirement or Issue](../agents/meta-agent/refine-issue.agent.md) — Refine the requirement or issue with Acceptance Criteria, Technical Considerations, Edge Cases, and NFRs
 - [release-ops-orchestrator](../plugins/lightspeed-release-ops/agents/release-ops-orchestrator.agent.md) — Coordinates release readiness validation, changelog checks, and deployment handoff tasks.
 - [Repo Architect Agent](../agents/repo-architect.agent.md) — Bootstraps and validates agentic project structures for GitHub Copilot (VS Code) and OpenCode CLI workflows. Run after `opencode /init` or VS Code Copilot initialization to scaffold proper folder hierarchies, instructions, agents, skills, and prompts.
+- [Reporting](../agents/reporting-agent/reporting.agent.md) — Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation.
 - [reviewer](../plugins/lightspeed-github-ops/agents/reviewer.agent.md) — Packaged governance reviewer agent for plugin pilot.
+- [Reviewer](../agents/reviewer-agent/reviewer.agent.md) — Automated PR review agent that posts review summaries, CI status checks, and actionable recommendations for pull requests.
 - [SE: DevOps/CI](../agents/se-gitops-ci-specialist.agent.md) — DevOps specialist for CI/CD pipelines, deployment debugging, and GitOps workflows focused on making deployments boring and reliable
 - [Specification](../agents/specification.agent.md) — Generate or update specification documents for new or existing functionality.
 - [Task Planner Instructions](../agents/task-planner.agent.md) — Task planner for creating actionable implementation plans - Brought to you by microsoft/edge-ai
@@ -463,6 +480,7 @@ support
 - [TDD Refactor Phase - Improve Quality & Security](../agents/tdd-refactor.agent.md) — Improve code quality, apply security best practices, and enhance design whilst maintaining green tests and GitHub issue compliance.
 - [Technical Content Evaluator](../agents/document-reviewer-agent/document-reviewer.agent.md) — Elite technical content editor and curriculum architect for evaluating technical training materials, documentation, and educational content. Reviews for technical accuracy, pedagogical excellence, content flow, code validation, and ensures A-grade quality standards.
 - [Technical Debt Remediation Plan](../agents/tech-debt-remediation-plan.agent.md) — Generate technical debt remediation plans for code, tests, and documentation.
+- [Template](../agents/_template-agent/template.agent.md) — Standard specification for defining a LightSpeed Copilot Agent: role, behaviours, tooling, schemas, and safety constraints.
 - [Thinking Beast Mode](../agents/Thinking-Beast-Mode.agent.md) — A transcendent coding agent with quantum cognitive architecture, adversarial intelligence, and unrestricted creative freedom.
 - [Thinking Mode](../agents/mode-thinking.agent.md) — Autonomous problem-solving agent with deep research, iterative implementation, and rigorous validation for complex coding tasks.
 - [Universal PR Comment Addresser](../agents/address-comments.agent.md) — Address PR comments
@@ -474,8 +492,14 @@ support
 
 - [Design Partner Agent](../agents/design-partner-agent/design-partner.agent.md)
 
+### `agent`
+
+- [Template](../agents/_template-agent/template.agent.md)
+
 ### `agents`
 
+- [Labeling](../agents/labeling-agent/labeling.agent.md)
+- [Metrics](../agents/metrics-agent/metrics.agent.md)
 - [Release Manager](../agents/release-agent/release.agent.md)
 
 ### `ai-assessment`
@@ -496,6 +520,7 @@ support
 
 - [Harvest Analytical Agent](../agents/archived/harvest-analytical-agent/harvest-analytical.agent.md)
 - [Harvest Analytical Agent](../agents/harvest-analytical-agent/harvest-analytical.agent.md)
+- [Metrics](../agents/metrics-agent/metrics.agent.md)
 
 ### `architecture`
 
@@ -506,9 +531,13 @@ support
 
 - [Chat Closure Agent](../agents/chat-closure-agent/chat-closure.agent.md)
 - [Issues](../agents/issue-agent/issues.agent.md)
+- [Labeling](../agents/labeling-agent/labeling.agent.md)
 - [Linting](../agents/linting-agent/linting.agent.md)
 - [Meta](../agents/meta-agent/meta.agent.md)
 - [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md)
+- [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
+- [Reporting](../agents/reporting-agent/reporting.agent.md)
+- [Reviewer](../agents/reviewer-agent/reviewer.agent.md)
 - [Testing](../agents/testing-agent/testing.agent.md)
 
 ### `badges`
@@ -539,6 +568,10 @@ support
 
 - [PageSpeed Agent](../agents/pagespeed-agent/pagespeed.agent.md)
 
+### `canonical-labels`
+
+- [Labeling](../agents/labeling-agent/labeling.agent.md)
+
 ### `capability-assessment`
 
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md)
@@ -551,6 +584,10 @@ support
 ### `changelog`
 
 - [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+
+### `ci`
+
+- [Reviewer](../agents/reviewer-agent/reviewer.agent.md)
 
 ### `client-communication`
 
@@ -588,6 +625,10 @@ support
 
 - [Website Content Strategist](../agents/content-strategy-agent/website-content-strategist.agent.md)
 - [Website Content Strategist](../agents/website-content-strategist-agent/website-content-strategist.agent.md)
+
+### `copilot`
+
+- [Template](../agents/_template-agent/template.agent.md)
 
 ### `core-web-vitals`
 
@@ -629,6 +670,7 @@ support
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md)
 - [Meta](../agents/meta-agent/meta.agent.md)
+- [Reporting](../agents/reporting-agent/reporting.agent.md)
 
 ### `ecommerce`
 
@@ -684,6 +726,8 @@ support
 
 ### `github`
 
+- [Labeling](../agents/labeling-agent/labeling.agent.md)
+- [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
 - [Release Manager](../agents/release-agent/release.agent.md)
 
 ### `github-sync`
@@ -720,6 +764,10 @@ support
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md)
 - [AI Readiness Estimator](../agents/ai-readiness-estimator-agent/ai-readiness-estimator.agent.md)
 
+### `interactive`
+
+- [Reporting](../agents/reporting-agent/reporting.agent.md)
+
 ### `issue-management`
 
 - [Issues](../agents/issue-agent/issues.agent.md)
@@ -749,8 +797,19 @@ support
 
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md)
 
+### `labeling`
+
+- [Labeling](../agents/labeling-agent/labeling.agent.md)
+
+### `labels`
+
+- [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
+
 ### `lightspeed`
 
+- [Labeling](../agents/labeling-agent/labeling.agent.md)
+- [Metrics](../agents/metrics-agent/metrics.agent.md)
+- [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
 - [Release Manager](../agents/release-agent/release.agent.md)
 
 ### `linear`
@@ -776,6 +835,10 @@ support
 ### `metadata-management`
 
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md)
+
+### `metrics`
+
+- [Metrics](../agents/metrics-agent/metrics.agent.md)
 
 ### `multi-provider`
 
@@ -845,6 +908,10 @@ support
 - [Chat Closure Agent](../agents/chat-closure-agent/chat-closure.agent.md)
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md)
 
+### `pr-review`
+
+- [Reviewer](../agents/reviewer-agent/reviewer.agent.md)
+
 ### `prd`
 
 - [PRD Agent](../agents/prd-agent/prd.agent.md)
@@ -878,6 +945,7 @@ support
 ### `project-management`
 
 - [Linear Advisor Agent](../agents/linear-advisor-agent/linear-advisor.agent.md)
+- [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
 
 ### `project-planning`
 
@@ -897,6 +965,10 @@ support
 
 - [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md)
 
+### `pull-requests`
+
+- [Reviewer](../agents/reviewer-agent/reviewer.agent.md)
+
 ### `pytest`
 
 - [Testing](../agents/testing-agent/testing.agent.md)
@@ -905,6 +977,10 @@ support
 
 - [Linting](../agents/linting-agent/linting.agent.md)
 - [Testing](../agents/testing-agent/testing.agent.md)
+
+### `quality-gate`
+
+- [Reviewer](../agents/reviewer-agent/reviewer.agent.md)
 
 ### `quotes`
 
@@ -930,6 +1006,11 @@ support
 ### `release-prep`
 
 - [Release Manager](../agents/release-agent/release.agent.md)
+
+### `reporting`
+
+- [Metrics](../agents/metrics-agent/metrics.agent.md)
+- [Reporting](../agents/reporting-agent/reporting.agent.md)
 
 ### `resource-planning`
 
@@ -973,6 +1054,10 @@ support
 
 - [Linting](../agents/linting-agent/linting.agent.md)
 
+### `spec`
+
+- [Template](../agents/_template-agent/template.agent.md)
+
 ### `specifications`
 
 - [PRD Agent](../agents/prd-agent/prd.agent.md)
@@ -1001,6 +1086,10 @@ support
 
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md)
 - [AI Readiness Estimator](../agents/ai-readiness-estimator-agent/ai-readiness-estimator.agent.md)
+
+### `template`
+
+- [Template](../agents/_template-agent/template.agent.md)
 
 ### `templates`
 
@@ -1121,7 +1210,7 @@ support
 - [WooCommerce Config Agent](../agents/woo-config-agent/woo-config.agent.md) — Specialized configuration assistant for WooCommerce stores providing setup optimization, payment integration, and e-commerce best practices.
 - [WordPress Config Agent](../agents/wp-config-agent/wp-config.agent.md) — Specialized configuration assistant for WordPress sites providing setup guidance, plugin management, performance optimization, and security hardening.
 
-### LightSpeed Team (23)
+### LightSpeed Team (26)
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md) — Generate architectural decision records with configuration-driven templates and validation.
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md) — Comprehensive AI capability assessment and readiness evaluation tool that evaluates organizational readiness for AI implementation through infrastructure, data quality, team skills, and adoption roadmap analysis.
@@ -1138,7 +1227,10 @@ support
 - [PageSpeed Agent](../agents/pagespeed-agent/pagespeed.agent.md) — Web performance optimization tool for load-time analysis, resource optimization, and caching strategies.
 - [Planner](../agents/task-planner-agent/task-planner.agent.md) — Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work.
 - [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md) — Proposal and quote generation tool for scope definition, client communication, and billing management.
+- [Reporting](../agents/reporting-agent/reporting.agent.md) — Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation.
+- [Reviewer](../agents/reviewer-agent/reviewer.agent.md) — Automated PR review agent that posts review summaries, CI status checks, and actionable recommendations for pull requests.
 - [Technical Content Evaluator](../agents/document-reviewer-agent/document-reviewer.agent.md) — Elite technical content editor and curriculum architect for evaluating technical training materials, documentation, and educational content. Reviews for technical accuracy, pedagogical excellence, content flow, code validation, and ensures A-grade quality standards.
+- [Template](../agents/_template-agent/template.agent.md) — Standard specification for defining a LightSpeed Copilot Agent: role, behaviours, tooling, schemas, and safety constraints.
 - [Thinking Mode](../agents/mode-thinking.agent.md) — Autonomous problem-solving agent with deep research, iterative implementation, and rigorous validation for complex coding tasks.
 - [Website Content Strategist](../agents/content-strategy-agent/website-content-strategist.agent.md) — Content strategy and planning tool for audits, SEO optimization, and content calendar generation.
 - [Website Content Strategist](../agents/website-content-strategist-agent/website-content-strategist.agent.md) — Content strategy and planning tool for audits, SEO optimization, and content calendar generation.
@@ -1147,14 +1239,20 @@ support
 - [WordPress Release Utilities](../agents/wordpress-release-utilities-agent/wordpress.agent.md) — Manages version updates across WordPress plugins, themes, and readme files for multi-repo release automation.
 - [Zendesk Support Agent](../agents/zendesk-support-agent/zendesk-support.agent.md) — Customer support agent for ticket management, customer communication, and knowledge base integration.
 
-### LightSpeed (6)
+### LightSpeed (8)
 
 - [Linting](../agents/linting-agent/linting.agent.md) — Enforces code quality and linting standards across all supported languages and file types. Validates JavaScript/TypeScript, CSS/SCSS, HTML, JSON, Markdown, YAML, PHP, Python, and Shell scripts against canonical standards.
 - [Meta](../agents/meta-agent/meta.agent.md) — Agent for applying documentation metadata in Markdown files: front matter validation/enrichment, badges, and category-specific footers.
+- [Metrics](../agents/metrics-agent/metrics.agent.md) — Automates collection, aggregation, and reporting of repository health metrics including issue/PR activity, response times, and project health indicators. Generates actionable insights and trend analysis.
+- [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) — Syncs GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names, automating project management and triage workflows.
 - [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md) — Expert prompt engineering and validation system for creating, analyzing, and improving high-quality prompts. Combines systematic analysis framework with comprehensive research, validation, and iteration capabilities.
 - [Release Manager](../agents/release-agent/release.agent.md) — Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes.
 - [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) — Agent for conducting in-depth research on specified tasks, gathering relevant information, and providing comprehensive insights to inform decision-making and planning.
 - [Testing](../agents/testing-agent/testing.agent.md) — Comprehensive test execution agent for running unit tests, integration tests, and generating coverage reports across all supported testing frameworks.
+
+### LightSpeedWP (1)
+
+- [Labeling](../agents/labeling-agent/labeling.agent.md) — Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/labels.yml.
 
 ### Unknown (42)
 
@@ -1210,5 +1308,5 @@ support
 - [Agent Specification Audit - Phase 3 Results](../.github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 
-**Generated**: 2026-10-05T13:13:10.999Z
-**Total Agents**: 78
+**Generated**: 2026-10-05T13:56:07.370Z
+**Total Agents**: 84
