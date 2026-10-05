@@ -1,5 +1,6 @@
 ---
 type: skill
+name: audit-label-coverage
 title: audit-label-coverage
 description: Audit and report on GitHub issue/PR label coverage with actionable recommendations
 metadata:
