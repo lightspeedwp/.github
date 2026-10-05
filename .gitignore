@@ -80,5 +80,7 @@ node_modules/
 /graft/
 /graphify-out/
 
+# Local evidence that names private repositories; never commit (spec 008, 2026-10-04)
+/.private-evidence/
 # Semgrep CLI writes local state (anonymous_user_id) here; it is machine-specific
 .semgrep/
