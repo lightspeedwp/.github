@@ -16,9 +16,16 @@
 /.github/workflows/ @ashleyshaw @lightspeedwp/lightspeed
 
 # Labels and Issue Types (critical for automation)
-/.github/labels.yml @ashleyshaw @lightspeedwp/lightspeed
-/.github/issue-types.yml @ashleyshaw @lightspeedwp/lightspeed
 /.github/labeler.yml @ashleyshaw @lightspeedwp/lightspeed
+
+# LOCKED files (constitution Principle II, v1.4.0): only @ashleyshaw approves.
+# Changes also need an approved change request (Locked Files Guard, spec 008 T080).
+/.github/labels.yml @ashleyshaw
+/.github/issue-types.yml @ashleyshaw
+/.github/ISSUE_TEMPLATE/*.md @ashleyshaw
+/.github/PULL_REQUEST_TEMPLATE/ @ashleyshaw
+/.github/branch-types.yml @ashleyshaw
+/.github/branch-labels.yml @ashleyshaw
 
 # AI and Copilot Instructions
 /.github/custom-instructions.md @ashleyshaw @lightspeedwp/lightspeed
@@ -41,3 +48,9 @@
 
 # Schemas (JSON validation)
 /.schemas/ @ashleyshaw @lightspeedwp/lightspeed
+
+# Locked-file approval controls: only @ashleyshaw approves.
+/.github/workflows/locked-files-guard.yml @ashleyshaw
+/scripts/validation/check-locked-file-approval.cjs @ashleyshaw
+/.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json @ashleyshaw
+/CODEOWNERS @ashleyshaw
