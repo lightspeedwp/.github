@@ -1,5 +1,6 @@
 ---
 name: Project Meta Sync
+title: Project Meta Sync Agent
 description: Syncs GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names, automating project management and triage workflows.
 target: github-copilot
 handoffs:
@@ -8,7 +9,7 @@ handoffs:
     prompt: Now apply the field updates to the GitHub Project board based on the analysis above.
     send: false
 version: v1.0
-last_updated: "2026-09-22"'
+last_updated: "2026-09-22"
 author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent

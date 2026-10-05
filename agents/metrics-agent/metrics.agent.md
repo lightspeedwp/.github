@@ -1,5 +1,6 @@
 ---
 name: Metrics
+title: Metrics Agent
 description: Automates collection, aggregation, and reporting of repository health metrics including issue/PR activity, response times, and project health indicators. Generates actionable insights and trend analysis.
 target: github-copilot
 handoffs:
@@ -8,7 +9,7 @@ handoffs:
     prompt: Generate a comprehensive metrics report based on the collected data.
     send: false
 version: v1.0
-last_updated: "2026-09-22"'
+last_updated: "2026-09-22"
 author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent
