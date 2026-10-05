@@ -71,10 +71,25 @@ function makeGithub(overrides = {}) {
     }),
   };
 
+  // GitHub's Markdown API. By default every "#N" in the text becomes a link, as
+  // for a body with no code in it; a test can supply its own rendering, or make
+  // the call fail, to model what GitHub does with code samples and outages.
+  const markdown = {
+    render: jest.fn(async ({ text, context }) => {
+      if (overrides.render) {
+        return overrides.render({ text, context });
+      }
+      const links = [...String(text).matchAll(/#(\d+)/g)]
+        .map((m) => `<a href="https://github.com/${context}/issues/${m[1]}">#${m[1]}</a>`)
+        .join(' ');
+      return { data: `<p>${links}</p>` };
+    }),
+  };
+
   return {
     calls,
     github: {
-      rest: { issues, repos },
+      rest: { issues, repos, markdown },
       paginate: jest.fn(async (method, params) => method(params)),
     },
   };
@@ -357,6 +372,61 @@ describe('orchestrate-phase-progression.yml', () => {
     expect(calls.addLabels).toEqual([
       { ...repo, issue_number: 7, labels: ['openspec:specification-in-progress'] },
     ]);
+  });
+
+  test('a keyword reference GitHub does not render as a link moves no issue', async () => {
+    const issue = (number) => ({
+      number,
+      title: 't',
+      body: '',
+      labels: [{ name: 'openspec:specification-pending' }],
+    });
+    const { github, calls } = makeGithub({
+      repoLabels: ['openspec:specification-pending', 'openspec:specification-in-progress'],
+      issues: { 7: issue(7), 9: issue(9) },
+      // The body has "Closes #9" in a code sample and a real "Closes #7".
+      render: async ({ context }) => ({
+        data: `<p><a href="https://github.com/${context}/issues/7">#7</a></p><pre><code>Closes #9</code></pre>`,
+      }),
+    });
+    const core = makeCore();
+
+    await runScript(prStep, {
+      github,
+      context: prContext({ body: 'Closes #7\n\n```\nCloses #9\n```\n' }),
+      core,
+      env: { DRY_RUN: 'false' },
+    });
+
+    expect(calls.addLabels).toEqual([
+      { ...repo, issue_number: 7, labels: ['openspec:specification-in-progress'] },
+    ]);
+    expect(github.rest.issues.get).toHaveBeenCalledTimes(1);
+  });
+
+  test('changes nothing when the body cannot be rendered', async () => {
+    const { github, calls } = makeGithub({
+      repoLabels: ['openspec:specification-pending', 'openspec:specification-in-progress'],
+      issues: {
+        7: { number: 7, title: 't', body: '', labels: [{ name: 'openspec:specification-pending' }] },
+      },
+      render: async () => {
+        throw httpError(502);
+      },
+    });
+    const core = makeCore();
+
+    await runScript(prStep, {
+      github,
+      context: prContext({ body: 'Closes #7' }),
+      core,
+      env: { DRY_RUN: 'false' },
+    });
+
+    expect(calls.addLabels).toEqual([]);
+    expect(calls.removeLabel).toEqual([]);
+    expect(github.rest.issues.get).not.toHaveBeenCalled();
+    expect(core.warning).toHaveBeenCalledWith(expect.stringContaining('no phase was changed'));
   });
 
   test('PR merged completes an in-progress phase', async () => {

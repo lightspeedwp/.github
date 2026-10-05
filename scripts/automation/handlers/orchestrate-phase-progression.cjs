@@ -10,6 +10,7 @@
 const phaseStateMachine = require("../includes/phase-state-machine.cjs");
 const labelValidator = require("../includes/label-validator.cjs");
 const auditLogger = require("../includes/audit-logger.cjs");
+const renderedLinks = require("../includes/rendered-links.cjs");
 
 
 /**
@@ -165,6 +166,27 @@ function extractLinkedIssues(prBody) {
 }
 
 /**
+ * Issues a pull request body links to with a keyword, keeping only the ones
+ * GitHub renders as links. extractLinkedIssues reads text, so it also matches a
+ * keyword reference inside a code sample, which is not a link and must not move
+ * an issue to another phase. GitHub's own Markdown renderer decides what is a
+ * link; this only narrows the list, so a render failure throws and the caller
+ * makes no change.
+ * @param {object} github Octokit client (github-script).
+ * @param {string} prBody - Pull request body text
+ * @param {string} repo - `owner/name`
+ * @returns {Promise<number[]>} Linked issue numbers
+ */
+async function extractRenderedLinkedIssues(github, prBody, repo) {
+  return renderedLinks.onlyRenderedLinks(
+    github,
+    prBody,
+    extractLinkedIssues(prBody),
+    repo,
+  );
+}
+
+/**
  * Check if a commit message references an issue
  * @param {string} commitMessage - Commit message text
  * @returns {array} Array of issue numbers referenced
@@ -308,6 +330,7 @@ module.exports = {
   orchestratePhaseProgression,
   batchOrchestrate,
   extractLinkedIssues,
+  extractRenderedLinkedIssues,
   extractReferencedIssues,
   detectProgressionTrigger,
   getProgressionTimeline,
