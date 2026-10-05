@@ -37,8 +37,6 @@ describe('validate-changelog SKILL.md (Agent Skills specification)', () => {
   });
 
   test('no duplicate helper shadows the agent-root helper', () => {
-    expect(
-      fs.existsSync(path.join(SKILL_DIR, 'validate-changelog.js')),
-    ).toBe(false);
+    expect(fs.existsSync(path.join(SKILL_DIR, 'validate-changelog.js'))).toBe(false);
   });
 });
