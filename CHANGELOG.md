@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Label Consolidation Tool** — Plans label renames and creations across repositories, with deletions gated by per-repository approval. It defaults to dry-run mode and keeps private-repository evidence private. ([PR #3823](https://github.com/lightspeedwp/.github/pull/3823))
+- **Label Consolidation Tool** — Plans label renames and creations across repositories, with deletions gated by approval per repository. Dry run by default; private evidence stays private. ([PR #3823](https://github.com/lightspeedwp/.github/pull/3823))
 - **Specs and Skills Validation Tooling** — Added validation tooling and docs for agent folders, skills registries, and manifest files. Registries now validate against the 014 contract. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
 - **Label Write Queue** — Added a queue that spaces label writes one second apart and pauses on GitHub or Linear rate limits. Nothing calls it yet; later consolidation stages will. (#3704)
 - **Weekly Label Drift Check** — A scheduled workflow compares every org repository and Linear label against labels.yml and updates one drift report issue; read-only, never writes labels. (#3754)
