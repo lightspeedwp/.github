@@ -112,6 +112,7 @@ jobs:
 
             const commentsByIssue = {};
             const titlesByIssue = {};
+            const lookupFailures = [];
             // Fetch every referenced issue: guard.evaluate processes all of
             // them, and truncating here would fail a valid approval linked
             // after other references. Fetching happens only when locked files
@@ -138,6 +139,7 @@ jobs:
                   });
                 } catch (error) {
                   core.warning(`Could not read comments on #${issue}: ${error.message}`);
+                  lookupFailures.push({ issue, message: error.message });
                 }
               }
             }
@@ -148,6 +150,7 @@ jobs:
               register,
               commentsByIssue,
               titlesByIssue,
+              lookupFailures,
             });
             await core.summary.addHeading('Locked Files Guard', 3).addRaw(result.message).write();
             if (result.ok) {

@@ -90,6 +90,43 @@ describe('check-locked-file-approval', () => {
     expect(result.message).toMatch(/no linked change request is approved/);
   });
 
+  test('names a failed issue lookup in the failure, still failing closed', () => {
+    const result = evaluate({
+      changedFiles: ['.github/labels.yml'],
+      body: 'Closes #4000',
+      register,
+      // #4000 could not be read, so it has no title and cannot count as approved.
+      titlesByIssue: {},
+      lookupFailures: [{ issue: 4000, message: 'HTTP 502' }],
+    });
+    expect(result.ok).toBe(false);
+    expect(result.message).toMatch(/no linked change request is approved/);
+    expect(result.message).toMatch(/Could not read #4000 \(HTTP 502\)/);
+    expect(result.message).toMatch(/re-run the check/);
+  });
+
+  test('does not mention lookup failures when the request is approved anyway', () => {
+    const result = evaluate({
+      changedFiles: ['.github/issue-types.yml'],
+      body: 'Closes #3556 and #4000',
+      register,
+      titlesByIssue,
+      lookupFailures: [{ issue: 4000, message: 'HTTP 502' }],
+    });
+    expect(result.ok).toBe(true);
+    expect(result.message).not.toMatch(/Could not read/);
+  });
+
+  test('says nothing extra for an ordinary rejection with no lookup failure', () => {
+    const result = evaluate({
+      changedFiles: ['.github/labels.yml'],
+      body: 'Relates to #3557',
+      register,
+      titlesByIssue,
+    });
+    expect(result.message).not.toMatch(/Could not read/);
+  });
+
   test('passes a locked-file change linked to a request approved in the register', () => {
     const result = evaluate({
       changedFiles: ['.github/issue-types.yml'],

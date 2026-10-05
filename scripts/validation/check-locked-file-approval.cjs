@@ -122,7 +122,14 @@ function isApprovalComment(comment) {
  *   with no known title is not treated as a change request.
  * @returns {{locked: string[], issues: number[], approvedBy: Record<number, string>, ok: boolean, message: string}}
  */
-function evaluate({ changedFiles, body, register, commentsByIssue = {}, titlesByIssue = {} }) {
+function evaluate({
+  changedFiles,
+  body,
+  register,
+  commentsByIssue = {},
+  titlesByIssue = {},
+  lookupFailures = [],
+}) {
   const locked = changedFiles.filter(isLocked);
   const issues = referencedIssues(body);
   if (locked.length === 0) {
@@ -152,7 +159,18 @@ function evaluate({ changedFiles, body, register, commentsByIssue = {}, titlesBy
       `Link the [LABEL-UPDATE-REQUEST], [ISSUE-TYPE-UPDATE-REQUEST] or [TEMPLATE-UPDATE-REQUEST] issue ` +
       `in the PR body, and get it approved by @${APPROVER} (constitution Principle II). ` +
       `Approvals on issues without one of those tags in the title do not count.`;
-  return { locked, issues, approvedBy, ok, message };
+  // A failed lookup leaves that issue without a title, so it cannot be approved
+  // and the check still fails closed. Name it, so the author can tell a
+  // transient API error from a missing approval and re-run the check.
+  const retry =
+    !ok && lookupFailures.length > 0
+      ? ` Could not read ${lookupFailures
+          .map(({ issue, message: reason }) => `#${issue} (${reason})`)
+          .join(
+            ', '
+          )}; this may be a transient GitHub API error, so re-run the check before changing the approval.`
+      : '';
+  return { locked, issues, approvedBy, ok, message: message + retry };
 }
 
 module.exports = {

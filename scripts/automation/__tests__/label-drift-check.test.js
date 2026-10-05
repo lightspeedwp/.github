@@ -594,6 +594,13 @@ describe('label-drift-check', () => {
       await expect(resolvePrivateSink({ PRIVATE_REPORT_REPO: 'bad' })).rejects.toThrow(
         /owner\/repository/
       );
+      // Extra segments would be dropped silently, and the privacy check would run
+      // against a different repository than the one configured.
+      for (const value of ['org/repo/extra', 'org/repo/', '/repo', 'org/']) {
+        await expect(resolvePrivateSink({ PRIVATE_REPORT_REPO: value })).rejects.toThrow(
+          /owner\/repository/
+        );
+      }
       await expect(resolvePrivateSink({ PRIVATE_REPORT_REPO: 'o/r' })).rejects.toThrow(
         /PRIVATE_REPORT_TOKEN/
       );

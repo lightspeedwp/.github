@@ -682,8 +682,11 @@ export function maskCommands(inventory, env = process.env) {
 export async function resolvePrivateSink(env, makeClient = null) {
   const target = env.PRIVATE_REPORT_REPO;
   if (!target) return null;
-  const [owner, repo] = target.split('/');
-  if (!owner || !repo) {
+  const parts = target.split('/');
+  const [owner, repo] = parts;
+  // Exactly two segments: extra ones would be dropped silently, and the privacy
+  // check would then run against a different repository than the one configured.
+  if (parts.length !== 2 || !owner || !repo) {
     throw new Error('PRIVATE_REPORT_REPO must be owner/repository');
   }
   const token = env.PRIVATE_REPORT_TOKEN;
