@@ -1,10 +1,10 @@
 ---
 name: "Changelog Agent"
+title: "Changelog Agent"
 description: "Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting."
 file_type: "agent"
 category: "release-management"
 status: "active"
-visibility: "public"
 tags:
   - changelog
   - keep-a-changelog
@@ -18,7 +18,6 @@ last_updated: "2026-08-25"
 author: "Ash Shaw"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
-language: "en"
 implementation: "agents/changelog-agent/"
 permissions:
   - read

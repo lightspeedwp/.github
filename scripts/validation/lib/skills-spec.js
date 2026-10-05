@@ -103,6 +103,12 @@ const CLAUDE_CODE_SKILL_SET = Object.freeze([...SPEC_FIELDS, ...CLAUDE_CODE_SKIL
  * agent, and `.github/scripts/generate-agent-index.js` reads `status` and
  * `author` from there, so moving them under `metadata` would hide them from
  * existing consumers.
+ *
+ * `implementation` (a repo-root-relative directory path) is likewise allowed
+ * although no upstream client defines it: 34 agent specs carry it and four
+ * repo scripts read it (the agent-index generator's Discovery section,
+ * agent-spec validators, the implementation-reference adder). Rejecting it
+ * would flag a live convention with real consumers, so it stays in the set.
  */
 const SUBAGENT_FIELDS = Object.freeze([
   'name',
@@ -139,6 +145,7 @@ const SUBAGENT_FIELDS = Object.freeze([
   'permissions',
   'status',
   'author',
+  'implementation',
 ]);
 
 /**
