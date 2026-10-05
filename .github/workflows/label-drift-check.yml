@@ -99,7 +99,24 @@ jobs:
         env:
           PRIVATE_REPORT_REPO: ${{ vars.PRIVATE_REPORT_REPO }}
         run: |
-          echo "name=${PRIVATE_REPORT_REPO#*/}" >> "$GITHUB_OUTPUT"
+          if [ -z "$PRIVATE_REPORT_REPO" ]; then
+            exit 0
+          fi
+          # The App is installed on lightspeedwp only, so a repository under any
+          # other owner could never be reached; stop here with a clear message
+          # instead of failing later at the mint step or the first write.
+          if ! [[ "$PRIVATE_REPORT_REPO" =~ ^([A-Za-z0-9-]+)/([A-Za-z0-9._-]+)$ ]]; then
+            echo "::error::PRIVATE_REPORT_REPO must be owner/repository"
+            exit 1
+          fi
+          if [ "${BASH_REMATCH[1]}" != "lightspeedwp" ]; then
+            echo "::error::PRIVATE_REPORT_REPO must be a lightspeedwp repository"
+            exit 1
+          fi
+          {
+            echo "owner=${BASH_REMATCH[1]}"
+            echo "name=${BASH_REMATCH[2]}"
+          } >> "$GITHUB_OUTPUT"
 
       - name: Mint private report App token
         # Write-scoped to the private report repository only, using the same
@@ -110,7 +127,7 @@ jobs:
         with:
           app-id: ${{ vars.LS_APP_ID }}
           private-key: ${{ secrets.LS_APP_PRIVATE_KEY }}
-          owner: lightspeedwp
+          owner: ${{ steps.private-report.outputs.owner }}
           repositories: ${{ steps.private-report.outputs.name }}
           permission-issues: write
 

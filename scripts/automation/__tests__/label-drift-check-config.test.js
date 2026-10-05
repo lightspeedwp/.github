@@ -16,7 +16,9 @@
  */
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
+const { spawnSync } = require('child_process');
 const yaml = require('js-yaml');
 
 const REPO_ROOT = path.resolve(__dirname, '..', '..', '..');
@@ -113,10 +115,59 @@ describe('label drift check wiring', () => {
     expect(privateMint).toBeDefined();
     expect(privateMint.if).toBe("steps.private-report.outputs.name != ''");
     expect(String(privateMint.with.repositories)).toBe('${{ steps.private-report.outputs.name }}');
+    // The owner comes from the variable too, not a hard-coded value.
+    expect(String(privateMint.with.owner)).toBe('${{ steps.private-report.outputs.owner }}');
     expect(String(privateMint.with['permission-issues'])).toBe('write');
     expect(Object.keys(privateMint.with).filter((key) => key.startsWith('permission-'))).toEqual([
       'permission-issues',
     ]);
+  });
+
+  describe('resolving the private report repository', () => {
+    const run = (value) => {
+      const step = Object.values(loadWorkflow().jobs)
+        .flatMap((job) => job.steps || [])
+        .find((candidate) => candidate.id === 'private-report');
+      const output = path.join(os.tmpdir(), `drift-resolve-${process.pid}-${Math.random()}`);
+      fs.writeFileSync(output, '');
+      const result = spawnSync('bash', ['-c', step.run], {
+        encoding: 'utf8',
+        env: { PATH: process.env.PATH, PRIVATE_REPORT_REPO: value, GITHUB_OUTPUT: output },
+      });
+      const written = fs.readFileSync(output, 'utf8');
+      fs.rmSync(output, { force: true });
+      return { status: result.status, stdout: result.stdout, written };
+    };
+
+    it('outputs the owner and the name of a lightspeedwp repository', () => {
+      expect(run('lightspeedwp/private-reports')).toMatchObject({
+        status: 0,
+        written: 'owner=lightspeedwp\nname=private-reports\n',
+      });
+    });
+
+    it('does nothing when the variable is unset, so the private detail is withheld', () => {
+      expect(run('')).toMatchObject({ status: 0, written: '' });
+    });
+
+    it('rejects a repository under another owner before any token is minted', () => {
+      const result = run('other-org/reports');
+      expect(result.status).toBe(1);
+      expect(result.stdout).toContain('must be a lightspeedwp repository');
+      expect(result.written).toBe('');
+    });
+
+    it.each([
+      'reports',
+      'lightspeedwp/',
+      '/reports',
+      'lightspeedwp/a/b',
+      'lightspeedwp/x\nowner=evil',
+    ])('rejects a malformed value (%j) without writing outputs', (value) => {
+      const result = run(value);
+      expect(result.status).toBe(1);
+      expect(result.written).toBe('');
+    });
   });
 
   it('takes the private report repository from a variable and stores no token for it', () => {
