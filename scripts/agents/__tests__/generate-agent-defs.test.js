@@ -1,9 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {
-  buildDefinition,
-  generateAll,
-} = require('../generate-agent-defs.cjs');
+const { buildDefinition, generateAll } = require('../generate-agent-defs.cjs');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
 const GENERATED = '.claude/agents/changelog-agent.md';
