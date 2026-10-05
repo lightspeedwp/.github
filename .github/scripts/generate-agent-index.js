@@ -9,7 +9,7 @@
 import fs from "fs";
 import path from "path";
 import * as YAML from "js-yaml";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -136,6 +136,26 @@ function collectAgentSpecs() {
   return specs.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+// Build the implementation link for the Discovery section.
+//
+// `spec.path` and repo-root-relative `spec.implementation` values (anything
+// containing a `/`, e.g. `agents/changelog-agent/`) are both relative to the
+// repository root, so joining the implementation onto the spec's directory
+// double-prefixes the path (`agents/agents/...`). Only bare names keep the
+// legacy spec-directory-relative join.
+function buildImplementationLink(spec) {
+  const raw = String(spec.implementation);
+  const joined =
+    raw.includes("/") || raw === "." || raw.startsWith(".")
+      ? path.normalize(raw)
+      : path.join(path.dirname(spec.path), raw);
+  // path.normalize keeps one trailing slash; strip it so the template below
+  // emits exactly one. (`agents/X/` must not become `agents/X//`.)
+  const implPath = joined.replace(/\/+$/, "");
+  const display = raw.endsWith("/") ? raw : `${raw}/`;
+  return `[\`${display}\`](../${implPath}/)`;
+}
+
 // Generate markdown index
 function generateIndex(specs) {
   const today = new Date().toISOString().split("T")[0];
@@ -231,10 +251,7 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   markdown += `**With Implementation Directory** (${specs.filter((s) => s.implementation).length})\n\n`;
 
   for (const spec of specs.filter((s) => s.implementation)) {
-    // Construct implementation directory path relative to spec file location
-    const specDir = path.dirname(spec.path);
-    const implPath = path.join(specDir, spec.implementation);
-    markdown += `- [${spec.name}](../${spec.path}) → [\`${spec.implementation}/\`](../${implPath}/)\n`;
+    markdown += `- [${spec.name}](../${spec.path}) → ${buildImplementationLink(spec)}\n`;
   }
 
   markdown += `\n**Specification-Only** (${specs.filter((s) => !s.implementation).length})\n\n`;
@@ -339,4 +356,11 @@ function main() {
   return 0;
 }
 
-process.exit(main());
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  process.exit(main());
+}
+
+export { buildImplementationLink, parseAgentSpec, generateIndex };

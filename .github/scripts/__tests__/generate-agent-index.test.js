@@ -308,6 +308,32 @@ if (specs.length > 0) {
   );
 }
 
+// Test 16: Implementation link does not double-prefix repo-root paths
+testCase("Implementation link keeps repo-root-relative paths intact");
+const { buildImplementationLink } = await import(
+  "../generate-agent-index.js"
+);
+const movedSpec = {
+  name: "Changelog Agent",
+  path: "agents/changelog-agent/changelog.agent.md",
+  implementation: "agents/changelog-agent/",
+};
+assertEqual(
+  buildImplementationLink(movedSpec),
+  "[`agents/changelog-agent/`](../agents/changelog-agent/)",
+  "Must not produce agents/agents/...",
+);
+const bareSpec = {
+  name: "Testing Agent",
+  path: "agents/testing-agent/testing.agent.md",
+  implementation: "testing-agent",
+};
+assertEqual(
+  buildImplementationLink(bareSpec),
+  "[`testing-agent/`](../agents/testing-agent/testing-agent/)",
+  "Bare names keep legacy spec-directory-relative behaviour",
+);
+
 // Summary
 console.log("");
 console.log("════════════════════════════════════════════════════════════");
