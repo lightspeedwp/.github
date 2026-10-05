@@ -1,0 +1,177 @@
+# Locked Files Guard
+#
+# Constitution Principle II: LOCKED files change only after an approved change
+# request. This check fails a pull request that changes a locked file unless
+# its body links a change-request issue (title tagged [LABEL-UPDATE-REQUEST],
+# [ISSUE-TYPE-UPDATE-REQUEST] or [TEMPLATE-UPDATE-REQUEST]) that is approved, either recorded as
+# `approved` in the spec 008 change-request register or carrying an
+# "Approved…" comment by @ashleyshaw (spec 008, task T080).
+#
+# The guard script and the register are read from the DEFAULT branch, so a pull
+# request cannot approve itself by editing them. Make this check required in
+# the branch protection rules for `develop` and `main`.
+#
+# The trigger is `pull_request_target`, so GitHub loads this workflow from the
+# default branch rather than from the pull request's merge commit; a pull
+# request that changes both a locked file and this workflow therefore cannot
+# swap the guard step. That is safe only because the job never checks out or
+# runs pull request code: it checks out only the guard and register from the
+# default branch and reads the changed files through the API. Keep it that way, and keep this workflow on `develop`
+# before requiring the check. It does not run on the pull request that first
+# adds it, and it does not replace Code Owner review.
+#
+# From 2 November 2026 GitHub blocks `pull_request_target` by default in public
+# repositories that have no Actions event policy
+# (https://github.blog/changelog/2026-09-17-workflow-execution-protections-in-github-actions-generally-available/).
+# This repository has none, so an Actions event policy must allow this event for
+# this workflow before then (spec 008 task T080a); the policy is a repository
+# setting, not a file, so it is not created here.
+
+name: Locked Files Guard
+
+on:
+  pull_request_target:
+    branches: [develop, main]
+    types: [opened, synchronize, reopened, edited, ready_for_review]
+
+concurrency:
+  group: locked-files-guard-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: Locked files need an approved change request
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    # pull-requests: read for the PR files API; issues: read for approval comments.
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: read
+    steps:
+      # The guard and register come from the default branch, the same place this
+      # workflow definition was loaded from, so a pull request to `main` is
+      # checked by the guard on `develop` even before `main` has a copy of it.
+      - name: Check out the default branch (guard and register only)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/validation/check-locked-file-approval.cjs
+            .github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json
+          sparse-checkout-cone-mode: false
+
+      - name: Check locked files
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const guardPath = path.join(process.env.GITHUB_WORKSPACE, 'scripts/validation/check-locked-file-approval.cjs');
+            // This workflow is only ever loaded from the default branch, which
+            // carries the guard in the same change, so a missing guard means
+            // it was removed. Fail closed rather than let every pull request pass.
+            if (!fs.existsSync(guardPath)) {
+              core.setFailed('The locked-file guard script is missing from the default branch; refusing to pass without checking.');
+              return;
+            }
+            const guard = require(guardPath);
+
+            const pr = context.payload.pull_request;
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100,
+            });
+            // The files API caps results at 3,000 entries: a locked file
+            // beyond the cap would otherwise pass silently, so refuse an
+            // incomplete file list instead of evaluating it.
+            if (typeof pr.changed_files === 'number' && pr.changed_files > files.length) {
+              core.setFailed(
+                `Locked Files Guard cannot verify: the pull request touches ${pr.changed_files} files ` +
+                  `but the API returned ${files.length}; refusing to pass an incomplete file list.`
+              );
+              return;
+            }
+            // A rename moves a locked file too, so check both paths.
+            const changedFiles = files.flatMap((file) =>
+              file.previous_filename ? [file.filename, file.previous_filename] : [file.filename]
+            );
+
+            let register = null;
+            const registerPath = path.join(process.env.GITHUB_WORKSPACE, guard.REGISTER_PATH);
+            if (fs.existsSync(registerPath)) {
+              register = JSON.parse(fs.readFileSync(registerPath, 'utf8'));
+            }
+
+            const commentsByIssue = {};
+            const titlesByIssue = {};
+            const lookupFailures = [];
+            // Which issues the body links to is decided by GitHub itself: the
+            // body is rendered with the Markdown API, so anything GitHub does not
+            // render as a link (fenced or indented code, code spans, comments,
+            // other repositories) cannot count. Nothing here parses Markdown. A
+            // render failure fails closed. Fetch every linked issue: guard.evaluate
+            // processes all of them, and truncating here would fail a valid
+            // approval linked after other references. This happens only when
+            // locked files changed; the job timeout bounds pathological bodies,
+            // failing closed.
+            let issues = [];
+            if (changedFiles.some(guard.isLocked)) {
+              try {
+                issues = await guard.linkedIssues(
+                  github,
+                  pr.body || '',
+                  `${context.repo.owner}/${context.repo.repo}`
+                );
+              } catch (error) {
+                core.setFailed(
+                  `Locked Files Guard could not render the pull request body to find its linked issues (${error.message}); re-run the check. Refusing to pass without it.`
+                );
+                return;
+              }
+              for (const issue of issues) {
+                try {
+                  const { data } = await github.rest.issues.get({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue,
+                  });
+                  // Only change-request issues count; skip PRs and other issues.
+                  if (data.pull_request || !guard.isChangeRequestTitle(data.title)) {
+                    continue;
+                  }
+                  titlesByIssue[issue] = data.title;
+                  commentsByIssue[issue] = await github.paginate(github.rest.issues.listComments, {
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: issue,
+                    per_page: 100,
+                  });
+                } catch (error) {
+                  core.warning(`Could not read comments on #${issue}: ${error.message}`);
+                  lookupFailures.push({ issue, message: error.message });
+                }
+              }
+            }
+
+            const result = guard.evaluate({
+              changedFiles,
+              issues,
+              register,
+              commentsByIssue,
+              titlesByIssue,
+              lookupFailures,
+            });
+            await core.summary.addHeading('Locked Files Guard', 3).addRaw(result.message).write();
+            if (result.ok) {
+              core.info(result.message);
+            } else {
+              core.setFailed(result.message);
+            }

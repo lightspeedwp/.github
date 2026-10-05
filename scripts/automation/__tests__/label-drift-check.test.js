@@ -22,6 +22,7 @@ import {
   diffGithubRepo,
   diffLinearLabels,
   countGithubItems,
+  enrichAllGithubRows,
   enrichGithubRows,
   parseFirstSeen,
   parseFirstSeenBlock,
@@ -29,6 +30,13 @@ import {
   buildFirstSeenBlock,
   renderReport,
   upsertDriftIssue,
+  PRIVATE_DRIFT_ISSUE_TITLE,
+  summarisePrivate,
+  renderPrivateSummary,
+  renderPrivateReport,
+  maskCommands,
+  assertPrivateRepository,
+  resolvePrivateSink,
 } from '../label-drift-check.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -294,6 +302,95 @@ describe('label-drift-check', () => {
     expect(await countGithubItems(client, 'o/r', 'a')).toBe(3);
   });
 
+  describe('one search budget for the public and private passes', () => {
+    const makeClient = () => {
+      const queries = [];
+      return {
+        queries,
+        rest: {
+          search: {
+            issuesAndPullRequests: async ({ q }) => {
+              queries.push(q);
+              return { data: { total_count: 1 } };
+            },
+          },
+        },
+      };
+    };
+    const rowsFor = (repo, count) =>
+      Array.from({ length: count }, (_, i) => ({
+        location: repo,
+        label: `label-${i}`,
+        difference: 'unapproved',
+      }));
+
+    it('gives the private pass only what the public pass left unused', async () => {
+      const client = makeClient();
+      const publicRows = rowsFor('o/public', 3);
+      const privateRows = rowsFor('o/private', 5);
+      const result = await enrichAllGithubRows(client, publicRows, privateRows, {
+        includePrivate: true,
+        maxRows: 5,
+        paceMs: 0,
+      });
+      expect(result).toEqual({ counted: 3, uncounted: 0, privateCounted: 2 });
+      expect(client.queries).toHaveLength(5);
+      expect(privateRows.filter((row) => row.items === 1)).toHaveLength(2);
+      expect(privateRows.filter((row) => row.items === '')).toHaveLength(3);
+    });
+
+    it('never exceeds the shared cap across both passes', async () => {
+      const client = makeClient();
+      await enrichAllGithubRows(client, rowsFor('o/public', 4), rowsFor('o/private', 4), {
+        includePrivate: true,
+        maxRows: 6,
+        paceMs: 0,
+      });
+      expect(client.queries).toHaveLength(6);
+    });
+
+    it('makes no private search when the public pass used the whole budget', async () => {
+      const client = makeClient();
+      const privateRows = rowsFor('o/private', 3);
+      const result = await enrichAllGithubRows(client, rowsFor('o/public', 4), privateRows, {
+        includePrivate: true,
+        maxRows: 4,
+        paceMs: 0,
+      });
+      expect(result.privateCounted).toBe(0);
+      expect(client.queries.some((q) => q.includes('o/private'))).toBe(false);
+      expect(privateRows.every((row) => row.items === '')).toBe(true);
+    });
+
+    it('skips the private pass entirely when it is not included, as in a dry run', async () => {
+      const client = makeClient();
+      const privateRows = rowsFor('o/private', 3);
+      const result = await enrichAllGithubRows(client, rowsFor('o/public', 2), privateRows, {
+        includePrivate: false,
+        maxRows: 10,
+        paceMs: 0,
+      });
+      expect(result).toEqual({ counted: 2, uncounted: 0, privateCounted: 0 });
+      expect(client.queries.every((q) => q.includes('o/public'))).toBe(true);
+      expect(privateRows.every((row) => row.items === undefined)).toBe(true);
+    });
+
+    it('does not spend budget on missing rows', async () => {
+      const client = makeClient();
+      const publicRows = [
+        ...rowsFor('o/public', 1),
+        { location: 'o/public', label: 'gone', difference: 'missing' },
+      ];
+      const result = await enrichAllGithubRows(client, publicRows, rowsFor('o/private', 2), {
+        includePrivate: true,
+        maxRows: 2,
+        paceMs: 0,
+      });
+      expect(result.counted).toBe(1);
+      expect(result.privateCounted).toBe(1);
+    });
+  });
+
   it('persists first-seen dates for rows omitted from the tables', () => {
     const rows = Array.from({ length: 5 }, (_, i) => ({
       location: 'o/r',
@@ -398,5 +495,138 @@ describe('label-drift-check', () => {
       'update',
       { owner: 'o', repo: 'r', issue_number: 7, body: 'body two' },
     ]);
+  });
+
+  // This repository is public, so a private repository is counted and never
+  // named, in the issue, the artifact or the log (decision of 2026-10-04).
+  describe('private repositories', () => {
+    const privateRepos = [
+      { repository: 'lightspeedwp/acme-client-site', private: true, labels: [] },
+      { repository: 'lightspeedwp/other-client-site', private: true, labels: [] },
+    ];
+    const privateRows = [
+      { location: 'lightspeedwp/acme-client-site', label: 'acme-launch', difference: 'unapproved' },
+      {
+        location: 'lightspeedwp/acme-client-site',
+        label: 'type:bug',
+        difference: 'colour mismatch',
+      },
+      { location: 'lightspeedwp/other-client-site', label: 'area:core', difference: 'missing' },
+    ];
+
+    it('counts private drift without naming a repository or a label', () => {
+      const summary = summarisePrivate(privateRepos, privateRows);
+      expect(summary).toEqual({
+        checked: 2,
+        withDifferences: 2,
+        differences: 3,
+        byKind: { unapproved: 1, 'colour mismatch': 1, missing: 1 },
+      });
+      const text = renderPrivateSummary(summary);
+      for (const leaked of ['acme', 'other-client', 'acme-launch', 'area:core']) {
+        expect(text).not.toContain(leaked);
+      }
+      expect(text).toContain('2 private repositories were checked');
+      expect(text).toContain('3 difference(s)');
+    });
+
+    it('says so plainly when no private repository has drift', () => {
+      expect(renderPrivateSummary(summarisePrivate(privateRepos, []))).toContain(
+        'None of them has drift.'
+      );
+    });
+
+    it('puts the summary in the public report and counts it in the total', () => {
+      const body = renderReport({
+        generatedAt: '2026-10-04T00:00:00.000Z',
+        canonicalCommit: 'abc123',
+        githubRows: [],
+        linearRows: [],
+        allowed: [],
+        skippedRepos: [],
+        org: 'lightspeedwp',
+        firstSeen: new Map(),
+        privateSummary: summarisePrivate(privateRepos, privateRows),
+      });
+      expect(body).toContain('## Private repositories');
+      expect(body).toContain('3 difference(s) across GitHub and Linear.');
+      expect(body).toContain('Private repository differences (names withheld): 3');
+      for (const leaked of ['acme-client-site', 'other-client-site', 'acme-launch']) {
+        expect(body).not.toContain(leaked);
+      }
+    });
+
+    it('writes the detail only into the private report', () => {
+      const body = renderPrivateReport({
+        generatedAt: '2026-10-04T00:00:00.000Z',
+        canonicalCommit: 'abc123',
+        rows: privateRows,
+        org: 'lightspeedwp',
+      });
+      expect(body).toContain('lightspeedwp/acme-client-site');
+      expect(body).toContain('3 difference(s)');
+    });
+
+    it('registers every private name as a log mask inside GitHub Actions only', () => {
+      const inventory = {
+        repositories: [{ repository: 'lightspeedwp/public-tool', private: false }, ...privateRepos],
+      };
+      expect(maskCommands(inventory, { GITHUB_ACTIONS: 'true' })).toEqual([
+        '::add-mask::lightspeedwp/acme-client-site',
+        '::add-mask::acme-client-site',
+        '::add-mask::lightspeedwp/other-client-site',
+        '::add-mask::other-client-site',
+      ]);
+      expect(maskCommands(inventory, {})).toEqual([]);
+    });
+
+    it('refuses to write the private report to a repository that is not private', async () => {
+      const publicClient = { rest: { repos: { get: async () => ({ data: { private: false } }) } } };
+      await expect(assertPrivateRepository(publicClient, 'o', 'r')).rejects.toThrow(
+        /not a private repository/
+      );
+      const privateClient = { rest: { repos: { get: async () => ({ data: { private: true } }) } } };
+      await expect(assertPrivateRepository(privateClient, 'o', 'r')).resolves.toBeUndefined();
+    });
+
+    it('has no private sink unless one is configured, and needs its token and a valid name', async () => {
+      await expect(resolvePrivateSink({})).resolves.toBeNull();
+      await expect(resolvePrivateSink({ PRIVATE_REPORT_REPO: 'bad' })).rejects.toThrow(
+        /owner\/repository/
+      );
+      // Extra segments would be dropped silently, and the privacy check would run
+      // against a different repository than the one configured.
+      for (const value of ['org/repo/extra', 'org/repo/', '/repo', 'org/']) {
+        await expect(resolvePrivateSink({ PRIVATE_REPORT_REPO: value })).rejects.toThrow(
+          /owner\/repository/
+        );
+      }
+      await expect(resolvePrivateSink({ PRIVATE_REPORT_REPO: 'o/r' })).rejects.toThrow(
+        /PRIVATE_REPORT_TOKEN/
+      );
+      const client = { rest: { repos: { get: async () => ({ data: { private: true } }) } } };
+      const sink = await resolvePrivateSink(
+        { PRIVATE_REPORT_REPO: 'o/r', PRIVATE_REPORT_TOKEN: 't' },
+        () => client
+      );
+      expect(sink).toEqual({ client, owner: 'o', repo: 'r' });
+    });
+
+    it('upserts the private report under its own title', async () => {
+      const creates = [];
+      const client = {
+        rest: {
+          search: { issuesAndPullRequests: async () => ({ data: { items: [] } }) },
+          issues: {
+            create: async (params) => {
+              creates.push(params);
+              return { data: { number: 1 } };
+            },
+          },
+        },
+      };
+      await upsertDriftIssue(client, client, 'o', 'r', 'b', PRIVATE_DRIFT_ISSUE_TITLE);
+      expect(creates[0].title).toBe('Label drift report (private repositories)');
+    });
   });
 });
