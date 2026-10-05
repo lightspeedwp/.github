@@ -399,7 +399,7 @@ Modify this file to customize validation for your repository.
 ### Project Structure
 
 ```
-agents/changelog/
+agents/changelog-agent/
 ├── changelog-validator.js              # CLI entry point
 ├── includes/
 │   ├── changelogValidator.cjs          # Core validation engine
