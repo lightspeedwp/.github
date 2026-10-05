@@ -122,6 +122,51 @@ describe('check-locked-file-approval', () => {
       expect(result.approvedBy).toEqual({});
     });
 
+    describe('indented code blocks', () => {
+      test.each([
+        ['at the start of the body', '    Closes #3556\n'],
+        ['after a blank line', 'Intro\n\n    Closes #3556\n'],
+        ['with a tab', 'Intro\n\n\tCloses #3556\n'],
+        ['after a heading', '# Notes\n    Closes #3556\n'],
+        ['after a thematic break', 'Intro\n\n---\n    Closes #3556\n'],
+        ['after a closed fence', '```\nx\n```\n    Closes #3556\n'],
+        ['spanning several lines', 'Intro\n\n    one\n    Closes #3556\n    three\n'],
+        ['with a blank line inside the block', 'Intro\n\n    one\n\n    Closes #3556\n'],
+        ['with Windows line endings', 'Intro\r\n\r\n    Closes #3556\r\n'],
+        ['inside a list item, indented past its content', '- item\n\n      Closes #3556\n'],
+        [
+          'as a full issue URL',
+          'Intro\n\n    https://github.com/lightspeedwp/.github/issues/3556\n',
+        ],
+      ])(
+        'ignores a reference in an indented block %s, and evaluate does not accept it',
+        (_name, body) => {
+          expect(referencedIssues(body)).toEqual([]);
+          const result = evaluate({
+            changedFiles: ['.github/labels.yml'],
+            body,
+            register,
+            titlesByIssue,
+          });
+          expect(result.ok).toBe(false);
+          expect(result.approvedBy).toEqual({});
+        }
+      );
+
+      test.each([
+        ['an indented line that continues a paragraph', 'Intro text\n    Closes #3556\n'],
+        ['a nested list item', '- parent\n    - Closes #3556\n'],
+        ['a list item continuation', '- parent\n  Closes #3556\n'],
+        ['an indented line under three spaces', 'Intro\n\n   Closes #3556\n'],
+      ])('still reads a reference in %s, which renders as text', (_name, body) => {
+        expect(referencedIssues(body)).toEqual([3556]);
+      });
+
+      test('a reference after the indented block ends is still read', () => {
+        expect(referencedIssues('Intro\n\n    Closes #1111\n\nCloses #3556\n')).toEqual([3556]);
+      });
+    });
+
     test('still reads a reference outside the code, after a fence closes', () => {
       const body = `${fence}\nCloses #1111\n${fence}\n\nCloses #3556\n`;
       expect(referencedIssues(body)).toEqual([3556]);

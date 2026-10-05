@@ -48,24 +48,66 @@ function isLocked(file) {
 }
 
 /**
- * Removes code from a Markdown body: fenced blocks (three or more backticks or
- * tildes, closed by a fence of the same character and at least the same length,
- * or running to the end if never closed, as GitHub renders them) and inline code
- * spans of any backtick length. A reference inside code is not rendered as a
- * link, so it must not count as one.
+ * Width of a line's leading whitespace, counting a tab as four columns.
+ * @param {string} line One line of Markdown.
+ * @returns {number} Columns of indentation.
+ */
+function indentOf(line) {
+  let width = 0;
+  for (const char of line) {
+    if (char === ' ') width += 1;
+    else if (char === '\t') width += 4 - (width % 4);
+    else break;
+  }
+  return width;
+}
+
+/**
+ * Removes code from a Markdown body, because a reference inside code is not
+ * rendered as a link and so must not count as one:
+ * - fenced blocks (three or more backticks or tildes, closed by a fence of the
+ *   same character and at least the same length, or running to the end if never
+ *   closed, as GitHub renders them);
+ * - indented code blocks (GitHub Flavored Markdown: four columns past the
+ *   current list item's content, and not continuing a paragraph, so a line
+ *   after a blank line, a heading, a rule, a fence or an HTML line counts);
+ * - inline code spans of any backtick length.
+ *
+ * Where the rules are ambiguous it errs towards treating text as code. That
+ * can only hide a reference, which fails the check closed, never add one.
  * @param {string} body Markdown text.
  * @returns {string} Text with code replaced by blanks.
  */
 function stripCode(body) {
   const kept = [];
   let fence = null;
+  // What the previous line was: a paragraph line can be continued by an indented
+  // line, so only then is an indented line text rather than code.
+  let previous = 'blank';
+  // Column where the latest list item's content starts, 0 outside a list.
+  let listOffset = 0;
   for (const line of body.split(/\r?\n/)) {
     if (fence) {
       const close = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line);
       if (close && close[1][0] === fence.char && close[1].length >= fence.length) {
         fence = null;
+        previous = 'other';
       }
       kept.push('');
+      continue;
+    }
+    if (line.trim() === '') {
+      kept.push(line);
+      previous = 'blank';
+      continue;
+    }
+    const indent = indentOf(line);
+    if (indent < listOffset) {
+      listOffset = 0;
+    }
+    if (indent >= listOffset + 4 && previous !== 'paragraph') {
+      kept.push('');
+      previous = 'other';
       continue;
     }
     const open = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
@@ -73,16 +115,27 @@ function stripCode(body) {
     if (open && !(open[1][0] === '`' && open[2].includes('`'))) {
       fence = { char: open[1][0], length: open[1].length };
       kept.push('');
+      previous = 'other';
       continue;
     }
     kept.push(line);
+    const item = /^(\s*)([-*+]|\d{1,9}[.)])( {1,4})\S/.exec(line);
+    if (item) {
+      listOffset = indentOf(item[1]) + item[2].length + item[3].length;
+    }
+    const blockOnly =
+      /^ {0,3}#{1,6}(\s|$)/.test(line) ||
+      /^ {0,3}([-*_])( *\1){2,} *$/.test(line) ||
+      /^ {0,3}(=+|-+)[ \t]*$/.test(line) ||
+      /^ {0,3}</.test(line);
+    previous = blockOnly ? 'other' : 'paragraph';
   }
   return kept.join('\n').replace(/(`+)([\s\S]*?[^`])\1(?!`)/g, ' ');
 }
 
 /**
  * Issue numbers referenced in a pull request body (`#123` or an issue URL in
- * this repository). Fenced code, code spans and HTML comments are ignored.
+ * this repository). Fenced and indented code, code spans and HTML comments are ignored.
  * @param {string} body Pull request body.
  * @param {string} [repo] `owner/name`, to match full issue URLs.
  * @returns {number[]} Unique issue numbers, in order of appearance.
