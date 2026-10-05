@@ -713,3 +713,5 @@
 - name: openspec:implementation-complete
   color: 6F42C1
   description: 'Openspec implementation complete - component no longer active'
+
+# smoke test of the locked files guard; this branch is never merged
