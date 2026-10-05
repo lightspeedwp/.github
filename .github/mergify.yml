@@ -53,13 +53,18 @@
 # develop — and failed. No additional condition can close that window, because
 # the only available signal is the one that is briefly unavailable.
 #
-# The merge queue was considered and rejected: Mergify documents
-# `strict_required_status_checks_policy` as incompatible with its queue
-# (https://docs.mergify.com/merge-queue/github-rulesets — "Preferred: disable
-# the Require branches to be up to date before merging setting"), and the only
-# queue designs that avoid the clash rely on batch or in-place pull requests.
-# Adopting one would mean weakening a ruleset setting, which is the opposite of
-# what this change is for.
+# The merge queue was considered and rejected for the `update` rule above:
+# Mergify documents `strict_required_status_checks_policy` as incompatible with
+# its default batch queue (https://docs.mergify.com/merge-queue/github-rulesets).
+# `auto_merge_conditions` below does use that queue, though, and on a draft
+# batch it failed every Dependabot pull request with the "Mergify Merge Queue"
+# check run `action_required`: "Configuration not compatible with a branch
+# protection setting". The documented fix that leaves the ruleset untouched is
+# in-place checks, which test a pull request on its own branch instead of a
+# draft batch. Mergify enables them only when `max_parallel_checks` is 1, every
+# queue rule has `batch_size` 1, and the queue CI is single-step (no
+# `merge_conditions` that differ from `queue_conditions`). The `merge_queue` and
+# `queue_rules` blocks below set exactly that, so no ruleset setting is weakened.
 #
 # `merge=union` on CHANGELOG.md (#3581) remains in place and remains the right
 # fix for the changelog specifically: it stops two pull requests each adding an
@@ -68,6 +73,18 @@
 # `FEEDBACK_RESPONSE.md` is rewritten whole by each pull request that carries
 # AI feedback and union-merging two such documents would produce a meaningless
 # hybrid rather than a resolved file.
+
+# In-place checks, so the queue is compatible with the develop ruleset's
+# "Require branches to be up to date before merging". Do not add
+# `merge_conditions` here, raise `batch_size`, or raise `max_parallel_checks`:
+# any of them switches in-place checks off and brings the configuration error
+# back.
+merge_queue:
+  max_parallel_checks: 1
+
+queue_rules:
+  - name: default
+    batch_size: 1
 
 merge_protections_settings:
   reporting_method: check-runs
