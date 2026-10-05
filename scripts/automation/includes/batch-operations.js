@@ -49,13 +49,10 @@ export class BatchOperations {
           results.push({
             task,
             result,
-            status: "success",
+            status: 'success',
           });
 
-          if (
-            this.verbose &&
-            (completed + 1) % Math.max(1, Math.floor(total / 10)) === 0
-          ) {
+          if (this.verbose && (completed + 1) % Math.max(1, Math.floor(total / 10)) === 0) {
             console.log(`  Progress: ${completed + 1}/${total}`);
           }
 
@@ -64,7 +61,7 @@ export class BatchOperations {
           errors.push({
             task,
             error: error.message || error,
-            status: "error",
+            status: 'error',
           });
           completed++;
 
@@ -101,10 +98,7 @@ export class BatchOperations {
       return Promise.race([
         processor(task, index),
         new Promise((_, reject) =>
-          setTimeout(
-            () => reject(new Error(`Task timeout after ${timeoutMs}ms`)),
-            timeoutMs,
-          ),
+          setTimeout(() => reject(new Error(`Task timeout after ${timeoutMs}ms`)), timeoutMs)
         ),
       ]);
     };
@@ -178,9 +172,7 @@ export class BatchOperations {
         console.log(`Processing batch ${i + 1}/${batches.length}`);
       }
 
-      const batchResults = await Promise.all(
-        batches[i].map((task) => processor(task)),
-      );
+      const batchResults = await Promise.all(batches[i].map((task) => processor(task)));
 
       results.push(...batchResults);
     }

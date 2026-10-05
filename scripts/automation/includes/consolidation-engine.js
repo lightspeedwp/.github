@@ -138,13 +138,18 @@ function repoScope(ctx, repo) {
   const fullName = repo.full_name ?? `${ctx.org}/${repo.name}`;
   const { file: dryRunFile, isPrivate } = dryRunPathFor(repo, ctx.root);
   const { file: logFile } = consolidationLogPathFor(repo, ctx.root);
-  const client = isPrivate && ctx.privateClient ? ctx.privateClient : ctx.client;
+  // The private report token is scoped to the private report repository only,
+  // so it is used for the gate (comments and approval reads) and never for the
+  // source repository's labels and items.
+  const client = ctx.client;
+  const gateClient = isPrivate && ctx.privateClient ? ctx.privateClient : ctx.client;
   return {
     fullName,
     dryRunFile,
     logFile,
     isPrivate,
     client,
+    gateClient,
     // Resolved on first use: a dry run needs no gate, but every write, approval
     // check and comment does, and a private repository must have a private one.
     get gate() {
@@ -207,6 +212,7 @@ export async function generateDryRun(ctx, repo) {
     labelCount: live.labels.length,
     pagesRead: live.pages,
     approvedSetCount: ctx.approved.size,
+    mappingCount: ctx.mappingIndex.size,
     stage3,
     stage4,
     previous,
@@ -239,7 +245,7 @@ export function formatSummary(record) {
     `Generated: ${record.generated_at}`,
     `Approved set commit: ${record.approved_set_commit}`,
     '',
-    `- Labels read: ${record.label_count} (${record.pages_read} pages)`,
+    `- Labels read: ${record.label_count} (${record.pages_read} pages); mapping entries loaded: ${record.mapping_count ?? 0}`,
     `- To create: ${record.to_create.length}; to update: ${record.to_update.length}; to rename: ${record.to_rename.length}; to relabel: ${record.to_relabel.length}`,
     `- To delete: ${deletable} (${open} open items and ${closed} closed items carry them)`,
   ];
@@ -270,7 +276,11 @@ export async function postSummary(ctx, repo) {
   if (!record) {
     throw new ConsolidationError(`${scope.fullName} has no dry run to summarise.`);
   }
-  await scope.client.postComment(scope.gate.repository, scope.gate.issue, formatSummary(record));
+  await scope.gateClient.postComment(
+    scope.gate.repository,
+    scope.gate.issue,
+    formatSummary(record)
+  );
   return { repository: scope.gate.repository, issue: scope.gate.issue };
 }
 
@@ -288,7 +298,7 @@ export async function recordApproval(ctx, repo, commentUrl) {
   if (!record) {
     return { ok: false, reason: 'there is no dry run to approve' };
   }
-  const comment = await scope.client.getCommentByUrl(commentUrl);
+  const comment = await scope.gateClient.getCommentByUrl(commentUrl);
   const candidate = {
     ...record,
     approval: {
@@ -418,6 +428,14 @@ async function isApplied(ctx, scope, record) {
     const hasTarget = carrying.some((i) => i.kind === item.kind && i.number === item.number);
     if (!hasTarget) {
       return false;
+    }
+    // The target is added first and the concept label second, so a stop between
+    // the two leaves the target alone; that is not yet applied.
+    if (record.after.concept_label) {
+      const concept = await itemsCarrying(client, fullName, record.after.concept_label);
+      if (!concept.some((i) => i.kind === item.kind && i.number === item.number)) {
+        return false;
+      }
     }
     if (ctx.run.stage !== '4') {
       return true;
@@ -619,7 +637,7 @@ export async function applyStage4(ctx, repo) {
     };
   }
   const verdict = await verifyApproval(record, repo, scope.gate, (url) =>
-    scope.client.getCommentByUrl(url)
+    scope.gateClient.getCommentByUrl(url)
   );
   if (!verdict.ok) {
     return { status: 'skipped', changes: 0, reason: `not approved: ${verdict.reason}` };
@@ -629,6 +647,27 @@ export async function applyStage4(ctx, repo) {
       status: 'skipped',
       changes: 0,
       reason: `open items on ${record.needs_decision.join(', ')} have no migrate_to; decide on the gate and regenerate`,
+    };
+  }
+
+  // The approval covers the repository and timestamp, not the file's contents,
+  // and a deletion removes the label from every item for good. So the list is
+  // checked again here, before any write: an approved label must never be in it,
+  // and the contract's other rules must still hold.
+  const protectedNames = record.to_delete
+    .map((entry) => entry.name)
+    .filter((name) => ctx.approved.has(name.toLowerCase()));
+  if (protectedNames.length > 0) {
+    throw new ConsolidationError(
+      `${scope.isPrivate ? "A private repository's" : `${scope.fullName}'s`} dry run lists approved labels for deletion (${protectedNames.join(', ')}); regenerate the dry run and get a new approval.`
+    );
+  }
+  const problems = validateDryRun(record, ctx.approved);
+  if (problems.length > 0) {
+    return {
+      status: 'skipped',
+      changes: 0,
+      reason: `the dry run is no longer valid: ${problems.join('; ')}`,
     };
   }
 
@@ -648,7 +687,7 @@ export async function applyStage4(ctx, repo) {
     }
     writeJsonFile(scope.dryRunFile, record);
     if (ctx.apply) {
-      await scope.client.postComment(
+      await scope.gateClient.postComment(
         scope.gate.repository,
         scope.gate.issue,
         `Stale dry run, ${scope.isPrivate ? 'a private repository' : record.repository}: ${verdictStale.reasons.join('; ')}. Skipped; a new dry run and approval are needed.`

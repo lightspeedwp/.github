@@ -9,16 +9,16 @@
  *   const response = await client.get('/repos/owner/repo/issues');
  */
 
-import fetch from "node-fetch";
-import { URLSearchParams } from "url";
+import fetch from 'node-fetch';
+import { URLSearchParams } from 'url';
 
 export class NativeFetchClient {
   constructor(options = {}) {
     this.token = options.token;
-    this.baseURL = options.baseURL || "https://api.github.com";
+    this.baseURL = options.baseURL || 'https://api.github.com';
     this.defaultHeaders = {
-      Accept: "application/vnd.github.v3+json",
-      "User-Agent": "lightspeed-automation",
+      Accept: 'application/vnd.github.v3+json',
+      'User-Agent': 'lightspeed-automation',
       ...(this.token && { Authorization: `token ${this.token}` }),
       ...options.headers,
     };
@@ -34,9 +34,7 @@ export class NativeFetchClient {
    * Build full URL with query parameters
    */
   buildURL(endpoint, query = {}) {
-    let url = endpoint.startsWith("http")
-      ? endpoint
-      : `${this.baseURL}${endpoint}`;
+    let url = endpoint.startsWith('http') ? endpoint : `${this.baseURL}${endpoint}`;
     const params = new URLSearchParams(query);
     if (params.toString()) {
       url += `?${params.toString()}`;
@@ -49,9 +47,9 @@ export class NativeFetchClient {
    */
   parseRateLimitHeaders(headers) {
     return {
-      limit: parseInt(headers.get("x-ratelimit-limit") || "60"),
-      remaining: parseInt(headers.get("x-ratelimit-remaining") || "60"),
-      reset: parseInt(headers.get("x-ratelimit-reset") || "0"),
+      limit: parseInt(headers.get('x-ratelimit-limit') || '60'),
+      remaining: parseInt(headers.get('x-ratelimit-remaining') || '60'),
+      reset: parseInt(headers.get('x-ratelimit-reset') || '0'),
     };
   }
 
@@ -67,8 +65,7 @@ export class NativeFetchClient {
    */
   calculateBackoff(attempt) {
     const delay =
-      this.retryConfig.initialDelay *
-      Math.pow(this.retryConfig.backoffMultiplier, attempt - 1);
+      this.retryConfig.initialDelay * Math.pow(this.retryConfig.backoffMultiplier, attempt - 1);
     return Math.min(delay, this.retryConfig.maxDelay);
   }
 
@@ -76,7 +73,7 @@ export class NativeFetchClient {
    * Make HTTP request with retry logic
    */
   async request(endpoint, options = {}) {
-    const method = options.method || "GET";
+    const method = options.method || 'GET';
     const headers = { ...this.defaultHeaders, ...options.headers };
     const url = this.buildURL(endpoint, options.query);
 
@@ -150,7 +147,7 @@ export class NativeFetchClient {
     return {
       ok: false,
       status: 0,
-      error: lastError?.message || "Max retries exceeded",
+      error: lastError?.message || 'Max retries exceeded',
     };
   }
 
@@ -158,28 +155,28 @@ export class NativeFetchClient {
    * GET request
    */
   async get(endpoint, options = {}) {
-    return this.request(endpoint, { ...options, method: "GET" });
+    return this.request(endpoint, { ...options, method: 'GET' });
   }
 
   /**
    * POST request
    */
   async post(endpoint, body, options = {}) {
-    return this.request(endpoint, { ...options, method: "POST", body });
+    return this.request(endpoint, { ...options, method: 'POST', body });
   }
 
   /**
    * PATCH request
    */
   async patch(endpoint, body, options = {}) {
-    return this.request(endpoint, { ...options, method: "PATCH", body });
+    return this.request(endpoint, { ...options, method: 'PATCH', body });
   }
 
   /**
    * DELETE request
    */
   async delete(endpoint, options = {}) {
-    return this.request(endpoint, { ...options, method: "DELETE" });
+    return this.request(endpoint, { ...options, method: 'DELETE' });
   }
 
   /**

@@ -122,6 +122,22 @@ function readApprovedSet(root) {
 }
 
 /**
+ * Reads the label mapping. A missing file stops the run: planning without it
+ * would leave every mapped label with no target, and a label whose items are
+ * all closed would then be deleted without moving them.
+ * @param {string} file - Path of the mapping file
+ * @returns {{ mappings: object[] }} Parsed mapping
+ */
+export function loadMapping(file) {
+  if (!fs.existsSync(file)) {
+    throw new ConsolidationError(
+      `Label mapping ${file} does not exist; refusing to plan without mappings. Check --mapping, or check out evidence/linear-labels.json.`
+    );
+  }
+  return JSON.parse(fs.readFileSync(file, 'utf8'));
+}
+
+/**
  * Picks the repositories in scope: non-archived and not forks (FR-016).
  * @param {object[]} all - Repositories from the API
  * @param {string | undefined} only - Comma-separated names to keep
@@ -226,9 +242,7 @@ export async function main(argv, env = process.env, deps = {}) {
     root,
     values.mapping ?? path.join(PUBLIC_EVIDENCE_DIR, 'linear-labels.json')
   );
-  const mapping = fs.existsSync(mappingFile)
-    ? JSON.parse(fs.readFileSync(mappingFile, 'utf8'))
-    : { mappings: [] };
+  const mapping = loadMapping(mappingFile);
   const { repos, excluded } = chooseRepos(await client.listRepos(values.org), values.repo);
   const runBy = await client.getViewerLogin();
 

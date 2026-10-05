@@ -249,6 +249,7 @@ export function planStage4(approved, mappingIndex, repoLabels, itemsFor) {
  * @param {number} input.labelCount - Labels read
  * @param {number} input.pagesRead - Pages read
  * @param {number} input.approvedSetCount - Labels in the approved set
+ * @param {number} [input.mappingCount] - GitHub mapping entries loaded, so an approver can see the mapping was read
  * @param {object} [input.stage3] - From `planStage3`
  * @param {object} [input.stage4] - From `planStage4`
  * @param {object | null} [input.previous] - Earlier record, for `executed_at`
@@ -261,6 +262,7 @@ export function buildDryRunRecord({
   labelCount,
   pagesRead,
   approvedSetCount,
+  mappingCount = 0,
   stage3 = { to_rename: [], to_create: [], to_update: [], to_relabel: [] },
   stage4 = { to_delete: [], needs_decision: [] },
   previous = null,
@@ -276,6 +278,7 @@ export function buildDryRunRecord({
     label_count: labelCount,
     pages_read: pagesRead,
     approved_set_count: approvedSetCount,
+    mapping_count: mappingCount,
     to_delete: stage4.to_delete,
     needs_decision: stage4.needs_decision,
     to_create: stage3.to_create,

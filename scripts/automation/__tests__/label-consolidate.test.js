@@ -14,6 +14,7 @@ import {
   ConsolidationError,
   applyStage3,
   applyStage4,
+  formatSummary,
   generateDryRun,
   postSummary,
   readJsonFile,
@@ -24,7 +25,7 @@ import {
 import { buildApprovedSet, buildMappingIndex } from '../includes/consolidation-plan.js';
 import { PrivateEvidenceError } from '../includes/private-evidence.js';
 import { readLog, resumeRun, startRun, StaleEpochError } from '../includes/consolidation-run.js';
-import { main } from '../label-consolidate.js';
+import { loadMapping, main } from '../label-consolidate.js';
 
 const roots = [];
 const EVIDENCE = '.github/reports/audits/2026-09-14-label-audit/evidence';
@@ -524,6 +525,53 @@ describe('Stage 3', () => {
     );
   });
 
+  test('a stop between the target label and the concept label is retried on resume, not marked done', async () => {
+    const root = makeRoot();
+    const gh = new FakeGithub();
+    gh.addRepo(PUBLIC_REPO.full_name, {
+      labels: [
+        { name: 'type:maintenance' },
+        { name: 'type:chore', color: 'aaaaaa', description: 'Chore' },
+        { name: 'area:maintenance', color: 'bbbbbb', description: 'Maintenance' },
+      ],
+      items: [{ kind: 'issue', number: 1, labels: ['type:maintenance'] }],
+    });
+    const approved = buildApprovedSet([
+      { name: 'type:chore', color: 'aaaaaa', description: 'Chore' },
+      { name: 'area:maintenance', color: 'bbbbbb', description: 'Maintenance' },
+    ]);
+    const mappingIndex = buildMappingIndex({
+      mappings: [
+        {
+          source: 'type:maintenance',
+          systems: ['github'],
+          action: 're-prefix',
+          target: 'type:chore',
+          concept_label: 'area:maintenance',
+        },
+      ],
+    });
+    const configure = (ctx) => Object.assign(ctx, { approved, mappingIndex });
+    await generateDryRun(configure(makeCtx({ gh, root })), PUBLIC_REPO);
+    const run = startRun({ dir: evidenceDir(root), runBy: 'ashleyshaw', stage: '3', host: 'box' });
+    gh.failOnce('addLabel', { match: (a) => a.label === 'area:maintenance' });
+    await expect(
+      applyStage3(configure(makeCtx({ gh, root, apply: true, run })), PUBLIC_REPO)
+    ).rejects.toThrow(/injected failure/);
+    const item = () => gh.repos.get(PUBLIC_REPO.full_name).items[0].labels;
+    expect(item()).toEqual(['type:maintenance', 'type:chore']);
+    const resumed = resumeRun({
+      dir: evidenceDir(root),
+      runId: run.runId,
+      host: 'box',
+      isAlive: () => false,
+    });
+    await runStage(configure(makeCtx({ gh, root, apply: true, run: resumed })), [PUBLIC_REPO], '3');
+    expect(item()).toEqual(['type:maintenance', 'type:chore', 'area:maintenance']);
+    const log = readLog(publicLog(root));
+    expect(log.filter((r) => r.action === 'relabel' && r.state === 'done')).toHaveLength(1);
+  });
+
   test('a repository with no dry-run file is skipped, not guessed at', async () => {
     const root = makeRoot();
     const gh = new FakeGithub();
@@ -673,6 +721,40 @@ describe('Stage 4', () => {
     const deletes = gh.writes.filter((w) => w.op === 'deleteLabel' && w.name === 'priority:medium');
     expect(deletes).toHaveLength(1);
     expect(gh.repos.get(PUBLIC_REPO.full_name).labels.some((l) => l.name === 'legacy')).toBe(false);
+  });
+
+  test('a dry run edited after approval to list an approved label is refused before any write', async () => {
+    const { root, gh, ctx } = await approvedRepo();
+    const file = path.join(evidenceDir(root), 'dry-run', 'open-repo.json');
+    const record = readJsonFile(file);
+    record.to_delete.push({
+      name: 'priority:normal',
+      color: 'fbca04',
+      description: 'Normal priority',
+      open_items: [],
+      closed_items: [],
+      migrate_to: null,
+    });
+    fs.writeFileSync(file, JSON.stringify(record));
+    await expect(applyStage4(ctx, PUBLIC_REPO)).rejects.toThrow(
+      /approved labels for deletion \(priority:normal\)/
+    );
+    expect(gh.labelWrites()).toEqual([]);
+    expect(
+      gh.repos.get(PUBLIC_REPO.full_name).labels.some((l) => l.name === 'priority:normal')
+    ).toBe(true);
+  });
+
+  test('a dry run whose contract rules no longer hold is skipped, not applied', async () => {
+    const { root, gh, ctx } = await approvedRepo();
+    const file = path.join(evidenceDir(root), 'dry-run', 'open-repo.json');
+    const record = readJsonFile(file);
+    record.pages_read = 0;
+    fs.writeFileSync(file, JSON.stringify(record));
+    const result = await applyStage4(ctx, PUBLIC_REPO);
+    expect(result).toMatchObject({ status: 'skipped' });
+    expect(result.reason).toMatch(/no longer valid.*cannot cover label_count/);
+    expect(gh.labelWrites()).toEqual([]);
   });
 
   test('a label with open items and no target blocks the repository until a decision', async () => {
@@ -828,12 +910,67 @@ describe('private repositories', () => {
     expect(gh.comments.get(`lightspeedwp/.github#${GATE_PUBLIC}`)).toBeUndefined();
   });
 
+  test('the private report client handles the gate only; labels and items use the main client', async () => {
+    const root = makeRoot();
+    const gh = new FakeGithub();
+    const gate = new FakeGithub();
+    seedRepo(gh, PRIVATE_REPO.full_name);
+    gh.repos.get(PRIVATE_REPO.full_name).items = gh.repos
+      .get(PRIVATE_REPO.full_name)
+      .items.filter((i) => i.number !== 4);
+    const dry = makeCtx({ gh, root, privateClient: gate });
+    const { record } = await generateDryRun(dry, PRIVATE_REPO);
+    await postSummary(dry, PRIVATE_REPO);
+    expect(gate.comments.get(`${PRIVATE_REPORTS}#${GATE_PRIVATE}`)).toHaveLength(1);
+    expect(gh.comments.size).toBe(0);
+    // The approval lives where the private report token can read it.
+    const url = gate.addComment(
+      PRIVATE_REPORTS,
+      GATE_PRIVATE,
+      'ashleyshaw',
+      `Approved: ${record.repository} dry run ${record.generated_at}`
+    );
+    expect((await recordApproval(dry, PRIVATE_REPO, url)).ok).toBe(true);
+    const run = startRun({ dir: evidenceDir(root), runBy: 'ashleyshaw', stage: '4', host: 'box' });
+    const result = await applyStage4(
+      makeCtx({ gh, root, apply: true, run, privateClient: gate }),
+      PRIVATE_REPO
+    );
+    expect(result.status).toBe('finished');
+    expect(gate.labelWrites()).toEqual([]);
+    expect(gh.labelWrites().length).toBeGreaterThan(0);
+  });
+
   test('console outcomes do not name a private repository', async () => {
     const root = makeRoot();
     const gh = new FakeGithub();
     seedRepo(gh, PRIVATE_REPO.full_name);
     const outcomes = await runStage(makeCtx({ gh, root }), [PRIVATE_REPO], '4');
     expect(JSON.stringify(outcomes)).not.toContain('client-x');
+  });
+});
+
+describe('the label mapping', () => {
+  test('the dry-run summary shows how many mapping entries were loaded', async () => {
+    const root = makeRoot();
+    const gh = new FakeGithub();
+    seedRepo(gh, PUBLIC_REPO.full_name);
+    const { record } = await generateDryRun(makeCtx({ gh, root }), PUBLIC_REPO);
+    expect(record.mapping_count).toBe(2);
+    expect(formatSummary(record)).toContain('mapping entries loaded: 2');
+  });
+
+  test('a missing mapping file stops the run instead of planning without mappings', () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'mapping-'));
+    roots.push(dir);
+    expect(() => loadMapping(path.join(dir, 'missing.json'))).toThrow(
+      /refusing to plan without mappings/
+    );
+    fs.writeFileSync(
+      path.join(dir, 'mapping.json'),
+      JSON.stringify({ mappings: [{ source: 'a' }] })
+    );
+    expect(loadMapping(path.join(dir, 'mapping.json'))).toEqual({ mappings: [{ source: 'a' }] });
   });
 });
 

@@ -246,6 +246,30 @@ export function startRun({
 }
 
 /**
+ * Path of the claim file for an epoch.
+ * @param {string} lockPath - Path of `run-lock.json`
+ * @param {number} epoch - The epoch being claimed
+ * @returns {string} Claim file path
+ */
+function epochClaimPath(lockPath, epoch) {
+  return `${lockPath}.epoch-${epoch}`;
+}
+
+/**
+ * Removes the claim files beside a lock once the run is over.
+ * @param {string} lockPath - Path of `run-lock.json`
+ */
+function removeEpochClaims(lockPath) {
+  const dir = path.dirname(lockPath);
+  const prefix = `${path.basename(lockPath)}.epoch-`;
+  for (const name of fs.readdirSync(dir)) {
+    if (name.startsWith(prefix)) {
+      fs.rmSync(path.join(dir, name), { force: true });
+    }
+  }
+}
+
+/**
  * Takes over a stopped run: same run id, epoch raised by one.
  * @param {object} options
  * @param {string} options.dir - Directory that holds `run-lock.json`
@@ -295,10 +319,37 @@ export function resumeRun({
     pid,
     resumed_from: { epoch: lock.epoch, at: now().toISOString() },
   };
+  // Claim the new epoch with an exclusive create. Reading the lock, probing the
+  // pid and replacing the lock are not one atomic step, so two resumers could
+  // both see epoch N, both write N+1, and both pass the holder check. Only one
+  // of them can create the claim file for epoch N+1.
+  const claimPath = epochClaimPath(lockPath, next.epoch);
+  try {
+    fs.writeFileSync(
+      claimPath,
+      `${JSON.stringify({ run_id: runId, epoch: next.epoch, pid, host })}\n`,
+      { flag: 'wx' }
+    );
+  } catch (error) {
+    if (error.code === 'EEXIST') {
+      throw new RunLockError(
+        `Another process already claimed epoch ${next.epoch} of ${runId}; it is resuming this run.`,
+        runId,
+        { cause: error }
+      );
+    }
+    throw error;
+  }
   // Replace atomically so a crash cannot leave a half-written lock.
   const temporary = `${lockPath}.${pid}.tmp`;
-  fs.writeFileSync(temporary, `${JSON.stringify(next, null, 2)}\n`);
-  fs.renameSync(temporary, lockPath);
+  try {
+    fs.writeFileSync(temporary, `${JSON.stringify(next, null, 2)}\n`);
+    fs.renameSync(temporary, lockPath);
+  } catch (error) {
+    fs.rmSync(claimPath, { force: true });
+    fs.rmSync(temporary, { force: true });
+    throw error;
+  }
   return makeHandle(lockPath, next);
 }
 
@@ -334,6 +385,7 @@ export function abandonRun({ dir, runId }) {
     throw new RunLockError(`There is no lock for ${runId} to abandon.`, lock?.run_id ?? null);
   }
   fs.unlinkSync(lockPath);
+  removeEpochClaims(lockPath);
   return lock;
 }
 
@@ -407,6 +459,7 @@ function makeHandle(lockPath, lock) {
       assertHolder();
       finished = true;
       fs.unlinkSync(lockPath);
+      removeEpochClaims(lockPath);
     },
   };
 }

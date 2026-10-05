@@ -139,6 +139,38 @@ describe('the run lock', () => {
     expect(readLock(path.join(dir, 'run-lock.json'))).toMatchObject({ epoch: 2, pid: 5555 });
   });
 
+  test('two resumers cannot both take the next epoch: the second is refused', () => {
+    const dir = temporaryDirectory();
+    const first = startRun({ dir, runBy: 'a', stage: '3', host: 'box' });
+    const winner = resumeRun({
+      dir,
+      runId: first.runId,
+      host: 'box',
+      pid: 111,
+      isAlive: () => false,
+    });
+    // The loser read the lock before the winner replaced it, so it also sees epoch 1.
+    const original = fs.readFileSync(path.join(dir, 'run-lock.json'), 'utf8');
+    fs.writeFileSync(path.join(dir, 'run-lock.json'), original.replace('"epoch": 2', '"epoch": 1'));
+    expect(() =>
+      resumeRun({ dir, runId: first.runId, host: 'box', pid: 222, isAlive: () => false })
+    ).toThrow(/already claimed epoch 2/);
+    expect(winner.epoch).toBe(2);
+  });
+
+  test('claim files are removed when the run finishes or is abandoned', () => {
+    const dir = temporaryDirectory();
+    const first = startRun({ dir, runBy: 'a', stage: '3', host: 'box' });
+    const resumed = resumeRun({ dir, runId: first.runId, host: 'box', isAlive: () => false });
+    expect(fs.readdirSync(dir).some((n) => n.includes('.epoch-'))).toBe(true);
+    resumed.finish();
+    expect(fs.readdirSync(dir)).toEqual([]);
+    const second = startRun({ dir, runBy: 'a', stage: '3', host: 'box' });
+    resumeRun({ dir, runId: second.runId, host: 'box', isAlive: () => false });
+    abandonRun({ dir, runId: second.runId });
+    expect(fs.readdirSync(dir)).toEqual([]);
+  });
+
   test('--resume needs the matching run id and the same host', () => {
     const dir = temporaryDirectory();
     const first = startRun({ dir, runBy: 'a', stage: '3', host: 'box' });
