@@ -52,6 +52,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
 - **Footer Duplicates Caught Before Merge** — A new check blocks compounded or misplaced footer blocks, and a tool clears those already committed when run with `--fix`. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Branch Cleanup Reports** — `npm run audit:branches` sorts remote branches into keep, delete or discuss and writes Markdown or JSON reports. It never deletes branches itself; deletions go through an approved draft PR. (#3358)
 
 ### Changed
 
@@ -114,6 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Pilot Receiver Inlines Its Privileged Run** — The pilot receiver holds no reference to the reusable workflow, so a pull request has no local reference to repoint and there is no caller to pin to a commit hash. (#3532)
 - **Pilot Off Until Switched On** — The pilot now runs only after its enable setting is switched on, so it cannot spend before its limit is confirmed, and a command on a closed pull request is skipped. (#3532)
 - **Pilot Run Origin** — Run records now name the pull request or comment event that started a run and when it arrived, and manual runs are left out of the 10-minute response rate. (#3532)
+- **Changelog Validator Clears Undici and Busboy Alerts** — Its `@actions` parents move to core 2 and github 8, so the tree resolves undici 6.29.0 with no `@fastify/busboy` copy left. (#3806)
 - **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
 - **Markdown Commit Check Works After A Stale Install** — Fixed the staged-Markdown commit check crashing on a working copy installed before a tooling upgrade. It now accepts the older version and lints as normal. (#3785)
 
