@@ -101,7 +101,7 @@ for the new session if another environment was selected, then ask Claude to:
 For a local session, confirm `gh --version` and `gh auth status` succeed using the developer's own login before
 checking the legacy PR exception.
 
-## 5. Branch cleanup (FR-020 to FR-022, after lightspeedwp/.github#3358 merges)
+## 5. Branch cleanup (FR-020 to FR-022)
 
 ```bash
 node scripts/cleanup-branches.js --reportFormat=json --reportDir=/tmp/cleanup
