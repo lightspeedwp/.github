@@ -737,8 +737,19 @@ async function main() {
   const privateSink = await resolvePrivateSink(process.env);
 
   // Enrich GitHub rows with issue/PR counts, paced for the search rate limit.
-  const { uncounted: uncountedRows } = await enrichGithubRows(client, githubRows);
-  if (privateSink) await enrichGithubRows(client, privateRows);
+  // One search budget covers both passes: each paced search takes about 2.2
+  // seconds, so a second full budget could overrun the job timeout and lose
+  // both reports. A dry run never writes the private report, so it skips the
+  // private pass entirely.
+  const { counted: countedRows, uncounted: uncountedRows } = await enrichGithubRows(
+    client,
+    githubRows
+  );
+  if (privateSink && !dryRun) {
+    await enrichGithubRows(client, privateRows, {
+      maxRows: Math.max(MAX_COUNTED_ROWS - countedRows, 0),
+    });
+  }
 
   let firstSeen = new Map();
   if (!dryRun) {

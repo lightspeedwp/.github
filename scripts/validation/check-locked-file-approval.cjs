@@ -58,16 +58,19 @@ function referencedIssues(body, repo = 'lightspeedwp/.github') {
   const text = String(body || '')
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/`[^`]*`/g, ' ');
-  const numbers = [];
+  // Bare references and issue URLs are collected with their positions, so the
+  // result follows the order they appear in the body.
+  const found = [];
   for (const match of text.matchAll(/(?:^|[^\w&/])#(\d+)\b/g)) {
-    numbers.push(Number(match[1]));
+    found.push({ at: match.index + match[0].lastIndexOf('#'), number: Number(match[1]) });
   }
   const escaped = repo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const url = new RegExp(`https://github\\.com/${escaped}/issues/(\\d+)\\b`, 'g');
   for (const match of text.matchAll(url)) {
-    numbers.push(Number(match[1]));
+    found.push({ at: match.index, number: Number(match[1]) });
   }
-  return [...new Set(numbers)];
+  found.sort((a, b) => a.at - b.at);
+  return [...new Set(found.map((entry) => entry.number))];
 }
 
 /**

@@ -56,7 +56,7 @@ describe('check-locked-file-approval', () => {
       'Not this: `#999`, <!-- #998 -->, https://github.com/other/repo/issues/997, a&#35;1',
       'Part of #449 and #3729 again',
     ].join('\n');
-    expect(referencedIssues(body)).toEqual([3729, 449, 3556]);
+    expect(referencedIssues(body)).toEqual([3729, 3556, 449]);
   });
 
   test('reads approved requests from the register and tolerates a missing one', () => {
