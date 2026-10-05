@@ -113,7 +113,7 @@ install_linters() {
     printf '%s' "$left"
   }
 
-  # gh is needed by the branch guard's legacy PR check (spec 016 FR-006). One
+  # gh is needed by the branch guard's legacy PR check (spec 018 FR-006). One
   # apt run for both, so the two installs never fight over the apt lock.
   log "Installing shellcheck and gh"
   { timeout "$(remaining)" apt-get update -qq &&

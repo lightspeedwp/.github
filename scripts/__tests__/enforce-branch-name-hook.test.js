@@ -2,7 +2,7 @@
  * @jest-environment node
  *
  * Contract tests for the PreToolUse branch guard,
- * .claude/hooks/enforce-branch-name.mjs (spec 016, contracts/hooks.md).
+ * .claude/hooks/enforce-branch-name.mjs (spec 018, contracts/hooks.md).
  *
  * Each case spawns the real hook with a tool-call payload inside a temporary
  * repository. Exit 2 means refused, exit 0 means allowed.
@@ -470,6 +470,75 @@ describe('GitHub MCP tools (T011)', () => {
       mcp('create_or_update_file', { branch: 'feat/good-name', path: 'src/a.js', content: 'a' })
     );
     expect(run.status).toBe(0);
+  });
+
+  // FR-009 protects `main` on every LightSpeed repository, but the base branch and
+  // its documentation exception are this repository's own rules (T049). On
+  // another repository the names are still checked and `main` is still refused.
+  describe('on another LightSpeed repository (T049)', () => {
+    const other = (name, input) => mcp(name, { repo: 'other', ...input });
+    const files = [{ path: 'src/a.js', content: 'a' }];
+
+    test.each([
+      ['main', 2],
+      ['develop', 0],
+      ['claude/x', 2],
+      ['feat/good-name', 0],
+    ])('push_files to %s -> exit %i', (branch, expected) => {
+      expect(runGuard(fx, other('push_files', { branch, files })).status).toBe(expected);
+    });
+
+    test('the base branch on this repository is still protected from a non-docs write', () => {
+      expect(runGuard(fx, mcp('push_files', { branch: 'develop', files })).status).toBe(2);
+    });
+
+    test('a write that names no repository is judged by this repository rules', () => {
+      const input = { branch: 'develop', files };
+      const run = runGuard(fx, {
+        tool_name: 'mcp__github__push_files',
+        tool_input: { owner: 'lightspeedwp', ...input },
+      });
+      expect(run.status).toBe(2);
+    });
+
+    test('a PR from a compliant branch into main is not blocked (FR-009 scope)', () => {
+      expect(
+        runGuard(fx, other('create_pull_request', { head: 'feat/a-b', base: 'main' })).status
+      ).toBe(0);
+    });
+
+    test('a PR from a non-compliant head is still blocked', () => {
+      expect(
+        runGuard(fx, other('create_pull_request', { head: 'claude/x-y', base: 'develop' })).status
+      ).toBe(2);
+    });
+
+    test.each([
+      ['main', 2],
+      ['develop', 0],
+    ])('gh api -X DELETE of the %s ref -> exit %i', (branch, expected) => {
+      expect(
+        runBash(fx, `gh api -X DELETE repos/lightspeedwp/other/git/refs/heads/${branch}`).status
+      ).toBe(expected);
+    });
+
+    test.each([
+      ['main', 2],
+      ['develop', 2],
+    ])('gh api -X DELETE of the %s ref on this repository -> exit %i', (branch, expected) => {
+      expect(
+        runBash(fx, `gh api -X DELETE repos/lightspeedwp/.github/git/refs/heads/${branch}`).status
+      ).toBe(expected);
+    });
+
+    test('gh api creating main is refused on another repository', () => {
+      expect(
+        runBash(
+          fx,
+          'gh api -X POST repos/lightspeedwp/other/git/refs -f ref=refs/heads/main -f sha=abc'
+        ).status
+      ).toBe(2);
+    });
   });
 
   test('allows push_files to develop when every path is under docs/', () => {
@@ -1854,6 +1923,70 @@ describe('cd resolution, the REST PR check and the fault path (CodeRabbit #3524)
     expect(runBash(fx, command).status).toBe(expected);
   });
 
+  // `mergeBranch` writes to the branch named by `base`, which was never read, so a
+  // merge into a protected branch passed (issue #3691, gap 7). Each spelling a
+  // branch write has is judged: a literal, a variable, and a whole input object.
+  describe('mergeBranch writes to its base (issue #3691, gap 7)', () => {
+    const merge = (base) =>
+      `mutation { mergeBranch(input: {base: "${base}", head: "feat/ok-name", repositoryId: "R"}) { clientMutationId } }`;
+
+    test.each([
+      ['main', 2],
+      ['develop', 2],
+      ['feat/ok-name', 0],
+    ])('judges a literal base of %s', (base, expected) => {
+      fx.branch('feat/good-name');
+      expect(runBash(fx, `gh api graphql -f query='${merge(base)}'`).status).toBe(expected);
+    });
+
+    test('ignores a protected name given only as the head being merged in', () => {
+      fx.branch('feat/good-name');
+      const document =
+        'mutation { mergeBranch(input: {base: "feat/ok-name", head: "main", repositoryId: "R"}) { clientMutationId } }';
+      expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(0);
+    });
+
+    test.each([
+      ['main', 2],
+      ['feat/ok-name', 0],
+    ])('judges a base bound to a variable naming %s', (base, expected) => {
+      fx.branch('feat/good-name');
+      const document =
+        'mutation ($b: String!) { mergeBranch(input: {base: $b, head: "feat/ok-name", repositoryId: "R"}) { clientMutationId } }';
+      expect(runBash(fx, `gh api graphql -f query='${document}' -f b=${base}`).status).toBe(
+        expected
+      );
+    });
+
+    test.each([
+      ['main', 2],
+      ['feat/ok-name', 0],
+    ])('judges a whole input object naming %s in an --input body', (base, expected) => {
+      fx.branch('feat/good-name');
+      const file = path.join(fx.repo, 'merge-input.json');
+      fs.writeFileSync(
+        file,
+        JSON.stringify({
+          query: 'mutation ($i: MergeBranchInput!) { mergeBranch(input: $i) { clientMutationId } }',
+          variables: { i: { base, head: 'feat/ok-name', repositoryId: 'R' } },
+        })
+      );
+      expect(runBash(fx, `gh api graphql --input ${file}`).status).toBe(expected);
+    });
+
+    test('refuses a merge whose base cannot be read at all', () => {
+      fx.branch('feat/good-name');
+      const document =
+        'mutation ($i: MergeBranchInput!) { mergeBranch(input: $i) { clientMutationId } }';
+      expect(runBash(fx, `gh api graphql -f query='${document}'`).status).toBe(2);
+    });
+
+    test('refuses a merge into main on the fault path too', () => {
+      fx.branch('feat/good-name');
+      expect(runBash(fx, `gh api graphql -f query='${merge('main')}'`, FAULT).status).toBe(2);
+    });
+  });
+
   test('refuses a createCommitOnBranch whose input variable names no branch at all', () => {
     fx.branch('feat/good-name');
     const document =
@@ -2775,10 +2908,15 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
     return dir;
   };
 
-  const launch = (env) => {
-    const run = spawnSync('bash', [LAUNCHER], { input: '{}', encoding: 'utf8', env });
+  const launch = (env, input = '{}') => {
+    const run = spawnSync('bash', [LAUNCHER], { input, encoding: 'utf8', env });
     return { status: run.status, stdout: run.stdout, stderr: run.stderr };
   };
+
+  /** The hook JSON for one Bash call. */
+  const bashCall = (command) => JSON.stringify({ tool_name: 'Bash', tool_input: { command } });
+  const WRITE = bashCall('git push origin HEAD:main');
+  const READ = bashCall('ls');
 
   test('is what settings.json invokes, not a bare node call', () => {
     const commands = preToolUse.map((hook) => hook.command);
@@ -2789,12 +2927,45 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
     );
   });
 
-  test('refuses with exit 2 when node is not on PATH', () => {
+  // FR-012a, research R15: a guard that cannot start refuses the writes and lets
+  // everything else through with a warning, so a session without node can still
+  // run `ls` to find out why.
+  test('refuses a git write with exit 2 when node is not on PATH', () => {
     const dir = pathWithoutNode();
     try {
-      const run = launch({ PATH: dir, CLAUDE_PROJECT_DIR: PROJECT });
+      const run = launch({ PATH: dir, CLAUDE_PROJECT_DIR: PROJECT }, WRITE);
       expect(run.status).toBe(2);
-      expect(run.stderr).toMatch(/node is not on PATH/);
+      expect(run.stderr).toMatch(/^Branch guard unavailable: node is not on PATH/);
+      expect(JSON.parse(run.stdout.trim()).systemMessage).toMatch(/^Branch guard unavailable:/);
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('allows any other call with a warning when node is not on PATH', () => {
+    const dir = pathWithoutNode();
+    try {
+      for (const input of [READ, '{}', JSON.stringify({ tool_name: 'Read', tool_input: {} })]) {
+        const run = launch({ PATH: dir, CLAUDE_PROJECT_DIR: PROJECT }, input);
+        expect(run.status).toBe(0);
+        expect(run.stderr).toMatch(/^Branch guard unavailable: node is not on PATH/);
+        expect(JSON.parse(run.stdout.trim()).systemMessage).toMatch(
+          /^Branch guard unavailable: node is not on PATH/
+        );
+      }
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  test('refuses a GitHub MCP tool call when node is not on PATH', () => {
+    const dir = pathWithoutNode();
+    try {
+      const run = launch(
+        { PATH: dir, CLAUDE_PROJECT_DIR: PROJECT },
+        JSON.stringify({ tool_name: 'mcp__github__push_files', tool_input: {} })
+      );
+      expect(run.status).toBe(2);
     } finally {
       fs.rmSync(dir, { recursive: true, force: true });
     }
@@ -2830,13 +3001,142 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
   // The message reaches the session as JSON on stdout, so a broken message there
   // would be worse than none at all.
   test('emits a parseable JSON system message when it refuses', () => {
-    const run = launch({
-      ...process.env,
-      CLAUDE_PROJECT_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'guard-proj-')),
-    });
+    const run = launch(
+      {
+        ...process.env,
+        CLAUDE_PROJECT_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'guard-proj-')),
+      },
+      WRITE
+    );
     expect(run.status).toBe(2);
     const parsed = JSON.parse(run.stdout.trim());
-    expect(parsed.systemMessage).toMatch(/is missing/);
+    expect(parsed.systemMessage).toMatch(/^Branch guard unavailable: .*is missing/);
+  });
+
+  // The other half of the guard-missing case: only the writes are refused, so the
+  // developer can still read the tree and put the file back.
+  test('allows a read, and an edit, with a warning when the guard file is missing', () => {
+    const env = {
+      ...process.env,
+      CLAUDE_PROJECT_DIR: fs.mkdtempSync(path.join(os.tmpdir(), 'guard-proj-')),
+    };
+    for (const input of [
+      READ,
+      JSON.stringify({ tool_name: 'Edit', tool_input: { file_path: 'x.md' } }),
+    ]) {
+      const run = launch(env, input);
+      expect(run.status).toBe(0);
+      expect(JSON.parse(run.stdout.trim()).systemMessage).toMatch(
+        /^Branch guard unavailable: .*is missing/
+      );
+    }
+  });
+
+  // The launcher restates the guard's fault-path patterns for a shell with no
+  // node, so the two can drift. Both classifiers run over the same commands, and a
+  // disagreement fails here rather than in a session without node. The guard side
+  // is its own fault path, forced with LS_GUARD_FORCE_FAULT.
+  describe('classifies calls the way the guard does on a fault', () => {
+    const writes = [
+      'git commit -m x',
+      'git -C repo commit -m x',
+      'git push origin HEAD:feat/a-b',
+      'git push',
+      'cd repo && git push',
+      'git add . && git commit -m "x"',
+      'git branch -D feat/a-b',
+      'git branch -m old new',
+      'git branch --delete feat/a-b',
+      'git branch feat/x -D',
+      // JSON writes a tab or a newline as an escape, so the launcher sees `\t` and
+      // `\n` where the guard sees the character.
+      'git\tpush origin main',
+      'git\tcommit -m x',
+      'git\tbranch\tclaude/x',
+      'echo hi\ngit push',
+      'echo hi\n\tgit\tpush',
+      'gh\tpr\tcreate --title x',
+      // Plain branch creation has no flag for a pattern to find.
+      'git branch claude/x',
+      'git branch feat/x main',
+      'git branch -c old new',
+      'git -C repo branch claude/x',
+      'cd repo && git branch claude/x',
+      'git checkout -b feat/new',
+      'git checkout main -B feat/new',
+      'git switch -c feat/new',
+      'git switch --create feat/new',
+      'gh pr create --title x',
+      'gh api -X POST repos/o/r/pulls',
+      'gh api repos/o/r/pulls -f title=x',
+      'gh api -XDELETE repos/lightspeedwp/.github/git/refs/heads/main',
+      'gh api graphql -F query=@q.graphql',
+      'gh api repos/o/r/contents/a.md --input body.json',
+      'echo hi; git push',
+      // Over-matching on purpose, in both classifiers: the pattern reads "git",
+      // then anything within the command, then "commit". A fault is no time to be
+      // clever about quoting.
+      'echo "git is a tool, commit later"',
+    ];
+    const reads = [
+      'ls',
+      'git status',
+      'git log --oneline',
+      'git diff',
+      'git branch',
+      'git branch --list',
+      'git branch --list "feat/*"',
+      'git branch -a',
+      'git branch -vv',
+      'git branch --show-current',
+      'git branch --contains abc123',
+      'git branch --merged main',
+      'git log --branch=x',
+      'git checkout feat/existing',
+      'git switch feat/existing',
+      'gh pr view 1',
+      'gh api repos/o/r/pulls',
+      'gitx commit',
+      'npm test',
+    ];
+    const withoutNode = () => {
+      const dir = pathWithoutNode();
+      return { dir, env: { PATH: dir, CLAUDE_PROJECT_DIR: PROJECT } };
+    };
+
+    test.each([...writes.map((c) => [c, 2]), ...reads.map((c) => [c, 0])])(
+      '%s -> exit %i',
+      (command, expected) => {
+        const { dir, env } = withoutNode();
+        try {
+          const launcher = launch(env, bashCall(command)).status;
+          const guard = spawnSync('node', [GUARD], {
+            input: bashCall(command),
+            encoding: 'utf8',
+            env: { ...process.env, ...FAULT, CLAUDE_PROJECT_DIR: PROJECT },
+          }).status;
+          expect({ command, launcher }).toStrictEqual({ command, launcher: expected });
+          expect({ command, guard }).toStrictEqual({ command, guard: expected });
+        } finally {
+          fs.rmSync(dir, { recursive: true, force: true });
+        }
+      }
+    );
+
+    // Only the command is judged: another field that mentions a write is not one.
+    test.each([
+      ['a description that mentions a push', { command: 'ls', description: 'git push origin main' }, 0],
+      ['a description before the command', { description: 'ls', command: 'git push origin main' }, 2],
+      ['a quoted push inside a read', { command: 'echo "git push"' }, 2],
+    ])('%s -> exit %i', (_name, toolInput, expected) => {
+      const { dir, env } = withoutNode();
+      try {
+        const input = JSON.stringify({ tool_name: 'Bash', tool_input: toolInput });
+        expect(launch(env, input).status).toBe(expected);
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
+    });
   });
 
   // A missing guard file is exactly the case where a developer needs to put the
