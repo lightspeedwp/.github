@@ -197,8 +197,8 @@ These follow the user-story priorities in the spec:
      must say the DISCUSS behaviour arrives with it (T065).
    - The cleanup (FR-020 to FR-022) ships with spec 009 in #3358, in its deferred form: no auto-approval (removed
      in `f4fcec75`, with CLI tests covering it), and a maintainer may promote empty branches from DISCUSS to the
-     draft-PR route (documented in spec 009 by T063 after #3358 merges). Automatic deletion follows once a
-     branch-age signal exists.
+     draft-PR route (documented in spec 009 by T063 after #3358 merges). Automatic deletion follows only once both
+     a branch-age signal and a branch-origin check exist; the age signal alone does not enable it.
 
 ## Complexity Tracking
 

@@ -68,8 +68,11 @@ jobs:
             echo "Could not list changed files against $BASE_SHA." >&2
             exit 1
           fi
+          # The same applies to printf feeding grep: -q would exit at its first
+          # match and a large list would make printf take SIGPIPE. grep reads the
+          # whole list instead, and its output is discarded.
           if printf '%s\n' "$changed" |
-            grep -qE '^(\.claude/|scripts/__tests__/(enforce-branch-name-hook|session-start-hook|setup-node-install)\.test\.js$|scripts/__tests__/helpers/|tests/js/claude-cloud-environment-docs\.test\.js$|\.github/specs/(CATALOG\.md|018-claude-cloud-environment/)|docs/CLAUDE_CLOUD_ENVIRONMENT\.md$|lib/validate-branch-name\.js$|\.github/workflows/claude-guard-tests\.yml$|package\.json$|package-lock\.json$|^\.nvmrc$|^\.jest\.config\.cjs$)'; then
+            grep -E '^(\.claude/|scripts/__tests__/(enforce-branch-name-hook|session-start-hook|setup-node-install)\.test\.js$|scripts/__tests__/helpers/|tests/js/claude-cloud-environment-docs\.test\.js$|\.github/specs/(CATALOG\.md|018-claude-cloud-environment/)|docs/CLAUDE_CLOUD_ENVIRONMENT\.md$|lib/validate-branch-name\.js$|\.github/workflows/claude-guard-tests\.yml$|package\.json$|package-lock\.json$|^\.nvmrc$|^\.jest\.config\.cjs$)' > /dev/null; then
             echo "run=true" >> "$GITHUB_OUTPUT"
           else
             echo "run=false" >> "$GITHUB_OUTPUT"

@@ -39,7 +39,7 @@ const docs = readDocument('docs/CLAUDE_CLOUD_ENVIRONMENT.md');
 // document outside the filter would otherwise pass CI having tested nothing.
 describe('the guard workflow change filter', () => {
   const workflow = readDocument('.github/workflows/claude-guard-tests.yml');
-  const pattern = new RegExp(workflow.match(/grep -qE '([^']+)'/)[1]);
+  const pattern = new RegExp(workflow.match(/grep -E '([^']+)' > \/dev\/null/)[1]);
 
   test.each([
     ['.github/specs/CATALOG.md', catalogue],
@@ -522,7 +522,7 @@ describe('Claude cloud environment specification contracts', () => {
       // draft-PR approval. Claiming every candidate gets a draft PR would
       // contradict the documented rule order in data-model.md.
       expect(contractRow(cleanup, 'Configuration')).toMatch(
-        /follows 009's categorisation, which is not always draft-PR approval.*routed to DISCUSS.*maintainer may promote an empty, merged one.*draft-PR approval.*never promoted/
+        /follows 009's categorisation, which is not always draft-PR approval.*routed to DISCUSS.*maintainer may promote an empty, merged one with no open PR to DELETE; promotion is never automatic.*draft-PR approval.*never promoted/
       );
       expect(model).toMatch(/Invalid name .*claude\/\*.* → DISCUSS/);
       // The same promise must not survive in FR-020 or research.md.
