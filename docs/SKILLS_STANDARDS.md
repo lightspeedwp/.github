@@ -176,6 +176,17 @@ skill-name/
 └── assets/           # optional: templates and data files
 ```
 
+### Plugin packaging layer (not part of the skill model)
+
+Skills shipped inside a `plugins/*` pack may carry two extra files alongside
+`SKILL.md`: a `metadata.yml` declaring per-platform adapters, and
+`agents/*.yaml` files with the per-platform display and policy metadata.
+These are repo packaging consumed by repo tooling (skill discovery prefers
+`SKILL.md` first, then `metadata.yml`), and they have no meaning to Claude
+Code, Copilot, or Codex, whose plugin models recognise only `SKILL.md`,
+agent `.md` files, hooks, and MCP servers. Keep all skill behaviour in
+`SKILL.md`; keep only platform routing in `metadata.yml` and `agents/*.yaml`.
+
 Three rules catch most mistakes:
 
 1. `name` must equal the directory name, lower case, digits and single hyphens.
