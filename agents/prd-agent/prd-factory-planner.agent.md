@@ -19,7 +19,7 @@ author: "Ash Shaw"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
 language: "en"
-implementation: "agents/prd-factory-planner-agent/"
+implementation: "agents/prd-agent/"
 permissions:
   - read
   - write

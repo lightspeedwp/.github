@@ -13,7 +13,7 @@ tags:
 - performance
 status: active
 created_date: '2026-08-29'
-implementation: .github/agents/client-website-discovery-assistant-agent/
+implementation: "agents/client-website-discovery-assistant-agent/"
 ---
 
 # AGENT

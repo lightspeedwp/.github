@@ -18,7 +18,7 @@ author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
 language: "en"
-implementation: "agents/wordpress/"
+implementation: "agents/wordpress-release-utilities-agent/"
 permissions:
   - read
   - write

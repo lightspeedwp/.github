@@ -334,6 +334,30 @@ assertEqual(
   "Bare names keep legacy spec-directory-relative behaviour",
 );
 
+// Test 17: every relative link in the generated index resolves
+testCase("Generated index contains no broken relative links");
+{
+  const indexPath = path.join("docs", "AGENT-INDEX.md");
+  const indexDir = path.dirname(indexPath);
+  const text = fs.readFileSync(indexPath, "utf8");
+  const linkPattern = /\[([^\]]*)\]\(([^)"\s]+)\)/g;
+  const broken = [];
+  let m;
+  while ((m = linkPattern.exec(text)) !== null) {
+    const url = m[2];
+    if (/^(https?:|mailto:|#|$)/.test(url)) continue;
+    const target = path.normalize(path.join(indexDir, url));
+    if (!fs.existsSync(target)) broken.push(url);
+  }
+  assertEqual(
+    broken.length,
+    0,
+    broken.length > 0
+      ? `broken index links: ${broken.slice(0, 10).join(", ")}`
+      : "all index links resolve",
+  );
+}
+
 // Summary
 console.log("");
 console.log("════════════════════════════════════════════════════════════");

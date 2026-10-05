@@ -16,7 +16,7 @@ last_updated: '2026-08-29'
 author: LightSpeed
 metadata:
   guardrails: Gather verifiable references, do not act until research is complete, and document every source and assumption before handing off.
-implementation: task-researcher-agent
+implementation: "agents/task-researcher-agent/"
 file_type: agent
 maintainer: LightSpeed Team
 language: en
