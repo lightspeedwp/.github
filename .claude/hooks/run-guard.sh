@@ -115,6 +115,15 @@ is_write() {
     Bash) ;;
     *) return 1 ;;
   esac
+  # Only the command is judged, not the whole call: a description or any other
+  # field that mentions a write is not one. A quote inside the command is escaped
+  # in the JSON, so the first unescaped quote ends the value.
+  local cmd_re='"command"[[:space:]]*:[[:space:]]*"(([^"\\]|\\.)*)"'
+  if [[ $call =~ $cmd_re ]]; then
+    call="${BASH_REMATCH[1]}"
+  else
+    return 1
+  fi
   for pattern in "${WRITE_PATTERNS[@]}"; do
     if [[ $call =~ $pattern ]]; then
       return 0

@@ -3122,6 +3122,21 @@ describe('the guard launcher (CodeRabbit #3524)', () => {
         }
       }
     );
+
+    // Only the command is judged: another field that mentions a write is not one.
+    test.each([
+      ['a description that mentions a push', { command: 'ls', description: 'git push origin main' }, 0],
+      ['a description before the command', { description: 'ls', command: 'git push origin main' }, 2],
+      ['a quoted push inside a read', { command: 'echo "git push"' }, 2],
+    ])('%s -> exit %i', (_name, toolInput, expected) => {
+      const { dir, env } = withoutNode();
+      try {
+        const input = JSON.stringify({ tool_name: 'Bash', tool_input: toolInput });
+        expect(launch(env, input).status).toBe(expected);
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
+    });
   });
 
   // A missing guard file is exactly the case where a developer needs to put the
