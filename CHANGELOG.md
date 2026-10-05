@@ -56,6 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Branch Cleanup Specs Closed Out** — The cloud environment and branch cleanup specs now show the merged audit and how a maintainer reviews `claude/*` branches before deletion. ([PR #3813](https://github.com/lightspeedwp/.github/pull/3813))
 - **Cloud Spec Decisions Recorded** — Spec 018 now records seven clarified rules, including that empty `claude/*` branches are not auto-deleted yet, and the guard tests also cover the setup script's Node install. (#3726)
 - **Branch Guard Fault Handling** — When the branch guard cannot start, only git and GitHub writes are blocked and other commands still run. Merges into protected branches are refused, and develop is protected on this repository only. (#3726)
 - **Local Scans No Longer Dirty the Repository** — Semgrep's settings and log files are ignored, so a security scan leaves no untracked files to commit by accident. (#3713)
