@@ -29,6 +29,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Label Consolidation Tool** — Plans label renames and creations across repositories, with deletions gated by approval per repository. Dry run by default; private evidence stays private. ([PR #3823](https://github.com/lightspeedwp/.github/pull/3823))
+- **Locked Files Guard** — Pull requests that change locked labels, issue types, templates or routing files now fail a check until a linked change request is approved by @ashleyshaw. (#3734)
+- **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
+- **Governance audit report ids are unique and self-consistent** — Fixed duplicate violation ids and recommendation references that no longer resolved, plus Spec 006 count and enforcement wording. (#3367)
+- **Governance audit reports now render in a stable order** — Fixed report output changing with the order findings arrived, so two runs of the same audit are comparable. (#3367)
 - **Specs and Skills Validation Tooling** — Added validation tooling and docs for agent folders, skills registries, and manifest files. Registries now validate against the 014 contract. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
 - **Label Write Queue** — Added a queue that spaces label writes one second apart and pauses on GitHub or Linear rate limits. Nothing calls it yet; later consolidation stages will. (#3704)
 - **Weekly Label Drift Check** — A scheduled workflow compares every org repository and Linear label against labels.yml and updates one drift report issue; read-only, never writes labels. (#3754)
@@ -53,6 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
+- **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))
 - **Branch Cleanup Specs Closed Out** — The cloud environment and branch cleanup specs now show the merged audit and how a maintainer reviews `claude/*` branches before deletion. ([PR #3813](https://github.com/lightspeedwp/.github/pull/3813))
 - **Cloud Spec Decisions Recorded** — Spec 018 now records seven clarified rules, including that empty `claude/*` branches are not auto-deleted yet, and the guard tests also cover the setup script's Node install. (#3726)

@@ -80,5 +80,5 @@ node_modules/
 /graft/
 /graphify-out/
 
-# Private-repository evidence for the label consolidation (spec 008); never committed
+# Local evidence that names private repositories; never commit (spec 008, 2026-10-04)
 /.private-evidence/

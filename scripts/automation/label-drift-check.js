@@ -12,6 +12,14 @@
  * reads, issue search, and create/update of the one report issue. It never
  * creates, edits or deletes labels (FR-017 rule 2, FR-018).
  *
+ * Private repositories (decision of 2026-10-04): this repository is public, so
+ * the issue, the JSON artifact and the log count private repositories but never
+ * name one or list its labels. Their detail goes only to a private repository,
+ * when `PRIVATE_REPORT_REPO` (owner/name) and `PRIVATE_REPORT_TOKEN` (issues
+ * write on that repository, minted by the workflow from the installed App) are
+ * set; the repository is confirmed private before anything is written, and
+ * without them the detail is withheld.
+ *
  * Authentication (FR-018): GitHub via an organisation-wide App installation
  * token passed as `GITHUB_TOKEN` (manual step T071a) for reads, plus a
  * report-scoped token as `GITHUB_WRITE_TOKEN` (issues write on the report
@@ -25,10 +33,11 @@
 import fs from 'fs';
 import path from 'path';
 import * as yaml from 'js-yaml';
-import { buildInventory, incompleteRepositories } from './label-inventory.js';
+import { buildInventory, incompleteRepositoryLabels } from './label-inventory.js';
 import { buildLinearInventory } from './linear-label-inventory.js';
 
 export const DRIFT_ISSUE_TITLE = 'Label drift report';
+export const PRIVATE_DRIFT_ISSUE_TITLE = 'Label drift report (private repositories)';
 export const DRIFT_ISSUE_LABELS = ['type:audit', 'area:labels', 'status:needs-triage'];
 
 // Team-scoped Linear labels documented in spec 008 FR-012 as project labels
@@ -324,6 +333,7 @@ export function renderReport({
   uncountedRows = 0,
   maxTableRows = MAX_TABLE_ROWS,
   maxFirstSeenBytes = MAX_FIRST_SEEN_BYTES,
+  privateSummary = null,
 }) {
   const today = generatedAt.slice(0, 10);
   const rows = [...githubRows, ...linearRows].sort((a, b) =>
@@ -339,9 +349,9 @@ export function renderReport({
   const lines = [
     '## Summary',
     '',
-    withDates.length === 0
+    withDates.length + (privateSummary?.differences ?? 0) === 0
       ? 'No drift.'
-      : `${withDates.length} difference(s) across GitHub and Linear.`,
+      : `${withDates.length + (privateSummary?.differences ?? 0)} difference(s) across GitHub and Linear.`,
     '',
     '## GitHub repositories',
     '',
@@ -359,6 +369,11 @@ export function renderReport({
     lines.push(
       `| … | _Showing ${maxTableRows} of ${githubOnly.length}; see the run artifact for all rows._ | | | |`
     );
+  }
+  if (privateSummary) {
+    // This repository is public. A private repository is counted, never named,
+    // and its labels are not listed (decision of 2026-10-04).
+    lines.push('', '## Private repositories', '', renderPrivateSummary(privateSummary));
   }
   lines.push(
     '',
@@ -398,6 +413,9 @@ export function renderReport({
     `- Organisation: ${org}`,
     `- Approved set: .github/labels.yml at ${canonicalCommit}`,
     `- GitHub differences: ${githubRows.length}`,
+    ...(privateSummary
+      ? [`- Private repository differences (names withheld): ${privateSummary.differences}`]
+      : []),
     `- Linear differences: ${linearRows.length}`,
     `- Allowed team-scoped exceptions: ${allowed.length}`,
     uncountedRows === 0
@@ -411,6 +429,82 @@ export function renderReport({
   if (persisted.json !== null) {
     lines.push('', '<!-- drift-first-seen', persisted.json, '-->');
   }
+  return lines.join('\n');
+}
+
+/**
+ * Counts for the private repositories, safe for a public report: no name and no
+ * label appears in it.
+ * @param {Array<object>} privateRepos Private inventory entries.
+ * @param {Array<object>} privateRows Drift rows for those repositories.
+ * @returns {{checked: number, withDifferences: number, differences: number, byKind: Record<string, number>}}
+ */
+export function summarisePrivate(privateRepos, privateRows) {
+  const byKind = {};
+  for (const row of privateRows) byKind[row.difference] = (byKind[row.difference] ?? 0) + 1;
+  return {
+    checked: privateRepos.length,
+    withDifferences: new Set(privateRows.map((row) => row.location)).size,
+    differences: privateRows.length,
+    byKind,
+  };
+}
+
+/**
+ * The paragraph for the public report.
+ * @param {ReturnType<typeof summarisePrivate>} summary
+ * @returns {string}
+ */
+export function renderPrivateSummary(summary) {
+  const kinds = Object.entries(summary.byKind)
+    .sort(([a], [b]) => a.localeCompare(b))
+    .map(([kind, count]) => `${count} ${kind}`)
+    .join(', ');
+  return [
+    `${summary.checked} private repositories were checked. Their names and labels are withheld from this public repository.`,
+    summary.differences === 0
+      ? 'None of them has drift.'
+      : `${summary.withDifferences} of them have drift: ${summary.differences} difference(s) (${kinds}). The detail is in the private report, when one is configured.`,
+  ].join('\n\n');
+}
+
+/**
+ * The report for a private repository, which names the repositories and so must
+ * only ever be written to a private repository.
+ * @param {object} options
+ * @returns {string}
+ */
+export function renderPrivateReport({ generatedAt, canonicalCommit, rows, org, maxRows = 400 }) {
+  const sorted = sortRows(rows);
+  const lines = [
+    '## Summary',
+    '',
+    sorted.length === 0
+      ? 'No drift in private repositories.'
+      : `${sorted.length} difference(s) across ${org}'s private repositories.`,
+    '',
+    '## Private repositories',
+    '',
+    '| Location | Label | Difference | Items |',
+    '| --- | --- | --- | --- |',
+  ];
+  if (sorted.length === 0) lines.push('| — | — | — | — |');
+  for (const row of sorted.slice(0, maxRows)) {
+    lines.push(
+      `| ${escapeCell(row.location)} | ${escapeCell(row.label)} | ${row.difference} | ${row.items ?? ''} |`
+    );
+  }
+  if (sorted.length > maxRows) {
+    lines.push(`| … | _Showing ${maxRows} of ${sorted.length}._ | | |`);
+  }
+  lines.push(
+    '',
+    '## Run details',
+    '',
+    `- Generated at: ${generatedAt}`,
+    `- Organisation: ${org}`,
+    `- Approved set: .github/labels.yml at ${canonicalCommit}`
+  );
   return lines.join('\n');
 }
 
@@ -437,12 +531,29 @@ const SEARCH_PACING_MS = 2200;
  * Find the open drift report issue by exact title.
  * @returns {Promise<object|null>} Issue or null.
  */
-export async function findDriftIssue(client, owner, repo) {
+export async function findDriftIssue(client, owner, repo, title = DRIFT_ISSUE_TITLE) {
   const { data } = await client.rest.search.issuesAndPullRequests({
-    q: `repo:${owner}/${repo} "${DRIFT_ISSUE_TITLE}" in:title type:issue state:open`,
+    q: `repo:${owner}/${repo} "${title}" in:title type:issue state:open`,
     per_page: 10,
   });
-  return data.items.find((item) => item.title === DRIFT_ISSUE_TITLE) ?? null;
+  return data.items.find((item) => item.title === title) ?? null;
+}
+
+/**
+ * Refuse to name private repositories anywhere that is not private. The private
+ * report is only written to a repository this call has confirmed is private.
+ * @param {object} client Octokit-style client with read access to the repository.
+ * @param {string} owner Repository owner.
+ * @param {string} repo Repository name.
+ * @returns {Promise<void>}
+ */
+export async function assertPrivateRepository(client, owner, repo) {
+  const { data } = await client.rest.repos.get({ owner, repo });
+  if (data.private !== true) {
+    throw new Error(
+      'PRIVATE_REPORT_REPO is not a private repository, so the private report is not written: it names private repositories'
+    );
+  }
 }
 
 /**
@@ -451,13 +562,20 @@ export async function findDriftIssue(client, owner, repo) {
  * Lookup runs on the read client; the create/update runs on the
  * report-scoped write client, so a read-only run cannot write at all.
  */
-export async function upsertDriftIssue(readClient, writeClient, owner, repo, body) {
-  const existing = await findDriftIssue(readClient, owner, repo);
+export async function upsertDriftIssue(
+  readClient,
+  writeClient,
+  owner,
+  repo,
+  body,
+  title = DRIFT_ISSUE_TITLE
+) {
+  const existing = await findDriftIssue(readClient, owner, repo, title);
   if (!existing) {
     const { data } = await writeClient.rest.issues.create({
       owner,
       repo,
-      title: DRIFT_ISSUE_TITLE,
+      title,
       body,
       labels: DRIFT_ISSUE_LABELS,
     });
@@ -470,6 +588,38 @@ export async function upsertDriftIssue(readClient, writeClient, owner, repo, bod
     body,
   });
   return { issue: data, created: false };
+}
+
+/**
+ * Counts items for both row sets under one search budget.
+ *
+ * Each paced search takes about 2.2 seconds, so two full budgets could overrun
+ * the job timeout and lose both reports. The private pass gets only what the
+ * public pass left unused, and it is skipped unless `includePrivate` is set
+ * (a dry run never writes the private report, so it does not need the counts).
+ *
+ * @param {object} client - GitHub client
+ * @param {object[]} publicRows - Public drift rows, enriched in place
+ * @param {object[]} privateRows - Private drift rows, enriched in place
+ * @param {object} [options] - `includePrivate`, `maxRows` (shared cap), `paceMs`
+ * @returns {Promise<{ counted: number, uncounted: number, privateCounted: number }>} Public counts and private rows counted
+ */
+export async function enrichAllGithubRows(client, publicRows, privateRows, options = {}) {
+  const maxRows = options.maxRows ?? MAX_COUNTED_ROWS;
+  const paceMs = options.paceMs;
+  const publicPass = await enrichGithubRows(client, publicRows, { maxRows, paceMs });
+  if (!options.includePrivate) {
+    return { counted: publicPass.counted, uncounted: publicPass.uncounted, privateCounted: 0 };
+  }
+  const privatePass = await enrichGithubRows(client, privateRows, {
+    maxRows: Math.max(maxRows - publicPass.counted, 0),
+    paceMs,
+  });
+  return {
+    counted: publicPass.counted,
+    uncounted: publicPass.uncounted,
+    privateCounted: privatePass.counted,
+  };
 }
 
 /**
@@ -500,6 +650,56 @@ export async function enrichGithubRows(client, rows, options = {}) {
     }
   }
   return { counted, uncounted };
+}
+
+/**
+ * Actions workflow commands that mask every private repository name in the log.
+ * `add-mask` only covers the log, so it is a backstop and not the control: the
+ * control is that no name is ever written to the issue, the artifact or the log.
+ * @param {object} inventory Result of buildInventory.
+ * @param {Record<string, string|undefined>} [env] Environment.
+ * @returns {string[]} Lines to print, empty outside GitHub Actions.
+ */
+export function maskCommands(inventory, env = process.env) {
+  if (env.GITHUB_ACTIONS !== 'true') return [];
+  const lines = [];
+  for (const repo of inventory.repositories) {
+    if (!repo.private) continue;
+    lines.push(`::add-mask::${repo.repository}`);
+    const bare = repo.repository.split('/').pop();
+    if (bare) lines.push(`::add-mask::${bare}`);
+  }
+  return lines;
+}
+
+/**
+ * The private report target, when one is configured.
+ * @param {Record<string, string|undefined>} env Environment.
+ * @param {(options: object) => object} [makeClient] Builds an Octokit-style client.
+ * @returns {Promise<{client: object, owner: string, repo: string}|null>} Null when
+ *   PRIVATE_REPORT_REPO is not set.
+ */
+export async function resolvePrivateSink(env, makeClient = null) {
+  const target = env.PRIVATE_REPORT_REPO;
+  if (!target) return null;
+  const parts = target.split('/');
+  const [owner, repo] = parts;
+  // Exactly two segments: extra ones would be dropped silently, and the privacy
+  // check would then run against a different repository than the one configured.
+  if (parts.length !== 2 || !owner || !repo) {
+    throw new Error('PRIVATE_REPORT_REPO must be owner/repository');
+  }
+  const token = env.PRIVATE_REPORT_TOKEN;
+  if (!token) {
+    throw new Error(
+      'PRIVATE_REPORT_TOKEN is required when PRIVATE_REPORT_REPO is set (issues write on that private repository only)'
+    );
+  }
+  const client = makeClient
+    ? makeClient({ auth: token })
+    : new (await import('octokit')).Octokit({ auth: token });
+  await assertPrivateRepository(client, owner, repo);
+  return { client, owner, repo };
 }
 
 function parseArgs(argv) {
@@ -540,48 +740,69 @@ async function main() {
 
   const canonical = await loadCanonicalLabels(path.join(process.cwd(), '.github', 'labels.yml'));
   const inventory = await buildInventory(client, org);
-  const incomplete = incompleteRepositories(inventory);
+  // Defence in depth for the Actions log: the names below are never printed, but
+  // registering them as masks means an accidental print is replaced by asterisks.
+  for (const line of maskCommands(inventory)) console.log(line);
+  const incomplete = incompleteRepositoryLabels(inventory);
   if (incomplete.length > 0) {
     throw new Error(`Incomplete GitHub pagination for: ${incomplete.join(', ')}`);
   }
-  const skippedRepos = inventory.repositories
-    .filter((r) => r.archived || r.fork)
+  // This repository is public, so a private repository is never named in the
+  // issue, the artifact or the log (decision of 2026-10-04). It is still checked.
+  const publicSkipped = inventory.repositories
+    .filter((r) => !r.private && (r.archived || r.fork))
     .map((r) => r.repository);
   const activeRepos = inventory.repositories.filter((r) => !r.archived && !r.fork);
+  const activePublic = activeRepos.filter((r) => !r.private);
+  const activePrivate = activeRepos.filter((r) => r.private);
 
   const linear = await buildLinearInventory();
   const githubRows = [];
-  for (const repoEntry of activeRepos) {
+  for (const repoEntry of activePublic) {
     githubRows.push(...diffGithubRepo(repoEntry, canonical));
+  }
+  const privateRows = [];
+  for (const repoEntry of activePrivate) {
+    privateRows.push(...diffGithubRepo(repoEntry, canonical));
   }
   const { rows: linearRows, allowed } = diffLinearLabels(linear.labels, canonical);
 
+  // Where the private detail goes, if anywhere: a private repository, confirmed
+  // private before anything is written to it.
+  const privateSink = await resolvePrivateSink(process.env);
+
   // Enrich GitHub rows with issue/PR counts, paced for the search rate limit.
-  const { uncounted: uncountedRows } = await enrichGithubRows(client, githubRows);
+  const { uncounted: uncountedRows } = await enrichAllGithubRows(client, githubRows, privateRows, {
+    includePrivate: Boolean(privateSink) && !dryRun,
+  });
 
   let firstSeen = new Map();
   if (!dryRun) {
     const existing = await findDriftIssue(client, owner, repoName);
     if (existing) firstSeen = parseFirstSeen(existing.body);
   }
+  const privateSummary = summarisePrivate(activePrivate, privateRows);
+  const canonicalCommit = process.env.GITHUB_SHA ?? 'local run';
   const body = renderReport({
     generatedAt,
-    canonicalCommit: process.env.GITHUB_SHA ?? 'local run',
+    canonicalCommit,
     githubRows: sortRows(githubRows),
     linearRows: sortRows(linearRows),
     allowed,
-    skippedRepos,
+    skippedRepos: publicSkipped,
     org,
     firstSeen,
     uncountedRows,
+    privateSummary,
   });
 
   const report = {
     generated_at: generatedAt,
     organisation: org,
     canonical_labels: canonical.size,
-    github_repositories: activeRepos.length,
-    skipped_repositories: skippedRepos,
+    github_repositories: activePublic.length,
+    private_repositories: privateSummary,
+    skipped_repositories: publicSkipped,
     linear_labels: linear.labels.length,
     differences: sortRows([...githubRows, ...linearRows]),
     allowed_exceptions: allowed.map((label) => ({
@@ -602,6 +823,29 @@ async function main() {
   console.log(
     `✅ ${report.differences.length} difference(s), ${allowed.length} allowed exception(s) → ${created ? 'created' : 'updated'} issue #${issue.number}`
   );
+  if (privateSink) {
+    const privateBody = renderPrivateReport({
+      generatedAt,
+      canonicalCommit,
+      rows: privateRows,
+      org,
+    });
+    const written = await upsertDriftIssue(
+      privateSink.client,
+      privateSink.client,
+      privateSink.owner,
+      privateSink.repo,
+      privateBody,
+      PRIVATE_DRIFT_ISSUE_TITLE
+    );
+    console.log(
+      `✅ private repositories: ${privateSummary.differences} difference(s) → ${written.created ? 'created' : 'updated'} the private report (names withheld here)`
+    );
+  } else if (privateSummary.differences > 0) {
+    console.log(
+      `ℹ️ ${privateSummary.differences} private repository difference(s) found; the detail is withheld because PRIVATE_REPORT_REPO is not set`
+    );
+  }
 }
 
 if (process.argv[1] && path.basename(process.argv[1]) === 'label-drift-check.js') {
