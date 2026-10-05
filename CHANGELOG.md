@@ -58,8 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
-- **Local Scans No Longer Dirty the Repository** — Semgrep's settings and log files are ignored, so a security scan leaves no untracked files to commit by accident. (#3713)
-- **Jest Config Lint Error Fixed** — A redundant escape in the transform ignore pattern is gone and the file is formatted, clearing the only lint error it carried. (#3713)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))
 - **Branch Cleanup Specs Closed Out** — The cloud environment and branch cleanup specs now show the merged audit and how a maintainer reviews `claude/*` branches before deletion. ([PR #3813](https://github.com/lightspeedwp/.github/pull/3813))
 - **Cloud Spec Decisions Recorded** — Spec 018 now records seven clarified rules, including that empty `claude/*` branches are not auto-deleted yet, and the guard tests also cover the setup script's Node install. (#3726)
