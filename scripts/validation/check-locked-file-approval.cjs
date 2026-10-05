@@ -48,113 +48,47 @@ function isLocked(file) {
 }
 
 /**
- * Width of a line's leading whitespace, counting a tab as four columns.
- * @param {string} line One line of Markdown.
- * @returns {number} Columns of indentation.
+ * Issue and pull request numbers a rendered pull request body links to in this
+ * repository. The input is the HTML GitHub's own Markdown renderer produced for
+ * the body, so exactly what GitHub does not render as a link (fenced and
+ * indented code, code spans, HTML comments, references to other repositories,
+ * references to issues that do not exist) is not found here. Nothing in this
+ * module parses Markdown.
+ * @param {string} html Output of the GitHub Markdown render API (gfm mode).
+ * @param {string} [repo] `owner/name`, to ignore links into other repositories.
+ * @returns {number[]} Unique numbers, in order of appearance.
  */
-function indentOf(line) {
-  let width = 0;
-  for (const char of line) {
-    if (char === ' ') width += 1;
-    else if (char === '\t') width += 4 - (width % 4);
-    else break;
-  }
-  return width;
-}
-
-/**
- * Removes code from a Markdown body, because a reference inside code is not
- * rendered as a link and so must not count as one:
- * - fenced blocks (three or more backticks or tildes, closed by a fence of the
- *   same character and at least the same length, or running to the end if never
- *   closed, as GitHub renders them);
- * - indented code blocks (GitHub Flavored Markdown: four columns past the
- *   current list item's content, and not continuing a paragraph, so a line
- *   after a blank line, a heading, a rule, a fence or an HTML line counts);
- * - inline code spans of any backtick length.
- *
- * Where the rules are ambiguous it errs towards treating text as code. That
- * can only hide a reference, which fails the check closed, never add one.
- * @param {string} body Markdown text.
- * @returns {string} Text with code replaced by blanks.
- */
-function stripCode(body) {
-  const kept = [];
-  let fence = null;
-  // What the previous line was: a paragraph line can be continued by an indented
-  // line, so only then is an indented line text rather than code.
-  let previous = 'blank';
-  // Column where the latest list item's content starts, 0 outside a list.
-  let listOffset = 0;
-  for (const line of body.split(/\r?\n/)) {
-    if (fence) {
-      const close = /^ {0,3}(`{3,}|~{3,})[ \t]*$/.exec(line);
-      if (close && close[1][0] === fence.char && close[1].length >= fence.length) {
-        fence = null;
-        previous = 'other';
-      }
-      kept.push('');
-      continue;
-    }
-    if (line.trim() === '') {
-      kept.push(line);
-      previous = 'blank';
-      continue;
-    }
-    const indent = indentOf(line);
-    if (indent < listOffset) {
-      listOffset = 0;
-    }
-    if (indent >= listOffset + 4 && previous !== 'paragraph') {
-      kept.push('');
-      previous = 'other';
-      continue;
-    }
-    const open = /^ {0,3}(`{3,}|~{3,})(.*)$/.exec(line);
-    // A backtick fence's info string cannot contain a backtick; that is inline code.
-    if (open && !(open[1][0] === '`' && open[2].includes('`'))) {
-      fence = { char: open[1][0], length: open[1].length };
-      kept.push('');
-      previous = 'other';
-      continue;
-    }
-    kept.push(line);
-    const item = /^(\s*)([-*+]|\d{1,9}[.)])( {1,4})\S/.exec(line);
-    if (item) {
-      listOffset = indentOf(item[1]) + item[2].length + item[3].length;
-    }
-    const blockOnly =
-      /^ {0,3}#{1,6}(\s|$)/.test(line) ||
-      /^ {0,3}([-*_])( *\1){2,} *$/.test(line) ||
-      /^ {0,3}(=+|-+)[ \t]*$/.test(line) ||
-      /^ {0,3}</.test(line);
-    previous = blockOnly ? 'other' : 'paragraph';
-  }
-  return kept.join('\n').replace(/(`+)([\s\S]*?[^`])\1(?!`)/g, ' ');
-}
-
-/**
- * Issue numbers referenced in a pull request body (`#123` or an issue URL in
- * this repository). Fenced and indented code, code spans and HTML comments are ignored.
- * @param {string} body Pull request body.
- * @param {string} [repo] `owner/name`, to match full issue URLs.
- * @returns {number[]} Unique issue numbers, in order of appearance.
- */
-function referencedIssues(body, repo = 'lightspeedwp/.github') {
-  const text = stripCode(String(body || '')).replace(/<!--[\s\S]*?-->/g, ' ');
-  // Bare references and issue URLs are collected with their positions, so the
-  // result follows the order they appear in the body.
-  const found = [];
-  for (const match of text.matchAll(/(?:^|[^\w&/])#(\d+)\b/g)) {
-    found.push({ at: match.index + match[0].lastIndexOf('#'), number: Number(match[1]) });
-  }
+function issuesFromRenderedHtml(html, repo = 'lightspeedwp/.github') {
   const escaped = repo.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const url = new RegExp(`https://github\\.com/${escaped}/issues/(\\d+)\\b`, 'g');
-  for (const match of text.matchAll(url)) {
-    found.push({ at: match.index, number: Number(match[1]) });
+  const link = new RegExp(
+    `<a\\b[^>]*?\\bhref="https://github\\.com/${escaped}/(?:issues|pull)/(\\d+)(?:[/?#][^"]*)?"`,
+    'gi'
+  );
+  const numbers = [];
+  for (const match of String(html || '').matchAll(link)) {
+    numbers.push(Number(match[1]));
   }
-  found.sort((a, b) => a.at - b.at);
-  return [...new Set(found.map((entry) => entry.number))];
+  return [...new Set(numbers)];
+}
+
+/**
+ * Asks GitHub which issues a pull request body links to, by rendering it.
+ * A render failure throws, so the caller fails closed instead of guessing.
+ * @param {{ rest: { markdown: { render: Function } } }} github Octokit client (github-script).
+ * @param {string} body Pull request body.
+ * @param {string} [repo] `owner/name`, used as the rendering context.
+ * @returns {Promise<number[]>} Unique issue numbers, in order of appearance.
+ */
+async function linkedIssues(github, body, repo = 'lightspeedwp/.github') {
+  if (!String(body || '').trim()) {
+    return [];
+  }
+  const { data } = await github.rest.markdown.render({
+    text: String(body),
+    mode: 'gfm',
+    context: repo,
+  });
+  return issuesFromRenderedHtml(data, repo);
 }
 
 /**
@@ -199,7 +133,7 @@ function isApprovalComment(comment) {
  * Decide whether a pull request may merge.
  * @param {object} input
  * @param {string[]} input.changedFiles Paths the pull request changes.
- * @param {string} input.body Pull request body.
+ * @param {number[]} input.issues Issues the pull request body links to, from `linkedIssues`.
  * @param {object|null} input.register Change-request register from the base branch.
  * @param {Record<number, Array<object>>} [input.commentsByIssue] Comments on each referenced issue.
  * @param {Record<number, string>} [input.titlesByIssue] Title of each referenced issue; an issue
@@ -208,14 +142,13 @@ function isApprovalComment(comment) {
  */
 function evaluate({
   changedFiles,
-  body,
+  issues = [],
   register,
   commentsByIssue = {},
   titlesByIssue = {},
   lookupFailures = [],
 }) {
   const locked = changedFiles.filter(isLocked);
-  const issues = referencedIssues(body);
   if (locked.length === 0) {
     return { locked, issues, approvedBy: {}, ok: true, message: 'No locked file changed.' };
   }
@@ -267,5 +200,6 @@ module.exports = {
   isApprovalComment,
   isChangeRequestTitle,
   isLocked,
-  referencedIssues,
+  issuesFromRenderedHtml,
+  linkedIssues,
 };

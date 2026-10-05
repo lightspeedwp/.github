@@ -113,12 +113,29 @@ jobs:
             const commentsByIssue = {};
             const titlesByIssue = {};
             const lookupFailures = [];
-            // Fetch every referenced issue: guard.evaluate processes all of
-            // them, and truncating here would fail a valid approval linked
-            // after other references. Fetching happens only when locked files
-            // changed; the job timeout bounds pathological bodies, failing closed.
-            const issues = guard.referencedIssues(pr.body || '');
+            // Which issues the body links to is decided by GitHub itself: the
+            // body is rendered with the Markdown API, so anything GitHub does not
+            // render as a link (fenced or indented code, code spans, comments,
+            // other repositories) cannot count. Nothing here parses Markdown. A
+            // render failure fails closed. Fetch every linked issue: guard.evaluate
+            // processes all of them, and truncating here would fail a valid
+            // approval linked after other references. This happens only when
+            // locked files changed; the job timeout bounds pathological bodies,
+            // failing closed.
+            let issues = [];
             if (changedFiles.some(guard.isLocked)) {
+              try {
+                issues = await guard.linkedIssues(
+                  github,
+                  pr.body || '',
+                  `${context.repo.owner}/${context.repo.repo}`
+                );
+              } catch (error) {
+                core.setFailed(
+                  `Locked Files Guard could not render the pull request body to find its linked issues (${error.message}); re-run the check. Refusing to pass without it.`
+                );
+                return;
+              }
               for (const issue of issues) {
                 try {
                   const { data } = await github.rest.issues.get({
@@ -146,7 +163,7 @@ jobs:
 
             const result = guard.evaluate({
               changedFiles,
-              body: pr.body || '',
+              issues,
               register,
               commentsByIssue,
               titlesByIssue,
