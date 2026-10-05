@@ -426,6 +426,12 @@ The Changelog Agent is split into two tiers:
 
 All three pieces (spec, portable agent, workflow) reference each other to ensure consistency and traceability.
 
+### Definition file roles
+
+- `AGENT.md` — the agent definition file required by the repo's agent-folder convention.
+- `changelog.agent.md` — the portable, reusable spec (validated as a subagent definition).
+- The two files carry the same functional content by design; `changelog.agent.md` is the file every live reference points at.
+
 ## Testing
 
 ### Run All Tests
