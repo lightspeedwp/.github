@@ -22,6 +22,7 @@ import {
   diffGithubRepo,
   diffLinearLabels,
   countGithubItems,
+  enrichAllGithubRows,
   enrichGithubRows,
   parseFirstSeen,
   parseFirstSeenBlock,
@@ -299,6 +300,95 @@ describe('label-drift-check', () => {
     expect(rows.find((r) => r.label === 'b').items).toBe('');
     expect(rows.find((r) => r.label === 'gone').items).toBe('');
     expect(await countGithubItems(client, 'o/r', 'a')).toBe(3);
+  });
+
+  describe('one search budget for the public and private passes', () => {
+    const makeClient = () => {
+      const queries = [];
+      return {
+        queries,
+        rest: {
+          search: {
+            issuesAndPullRequests: async ({ q }) => {
+              queries.push(q);
+              return { data: { total_count: 1 } };
+            },
+          },
+        },
+      };
+    };
+    const rowsFor = (repo, count) =>
+      Array.from({ length: count }, (_, i) => ({
+        location: repo,
+        label: `label-${i}`,
+        difference: 'unapproved',
+      }));
+
+    it('gives the private pass only what the public pass left unused', async () => {
+      const client = makeClient();
+      const publicRows = rowsFor('o/public', 3);
+      const privateRows = rowsFor('o/private', 5);
+      const result = await enrichAllGithubRows(client, publicRows, privateRows, {
+        includePrivate: true,
+        maxRows: 5,
+        paceMs: 0,
+      });
+      expect(result).toEqual({ counted: 3, uncounted: 0, privateCounted: 2 });
+      expect(client.queries).toHaveLength(5);
+      expect(privateRows.filter((row) => row.items === 1)).toHaveLength(2);
+      expect(privateRows.filter((row) => row.items === '')).toHaveLength(3);
+    });
+
+    it('never exceeds the shared cap across both passes', async () => {
+      const client = makeClient();
+      await enrichAllGithubRows(client, rowsFor('o/public', 4), rowsFor('o/private', 4), {
+        includePrivate: true,
+        maxRows: 6,
+        paceMs: 0,
+      });
+      expect(client.queries).toHaveLength(6);
+    });
+
+    it('makes no private search when the public pass used the whole budget', async () => {
+      const client = makeClient();
+      const privateRows = rowsFor('o/private', 3);
+      const result = await enrichAllGithubRows(client, rowsFor('o/public', 4), privateRows, {
+        includePrivate: true,
+        maxRows: 4,
+        paceMs: 0,
+      });
+      expect(result.privateCounted).toBe(0);
+      expect(client.queries.some((q) => q.includes('o/private'))).toBe(false);
+      expect(privateRows.every((row) => row.items === '')).toBe(true);
+    });
+
+    it('skips the private pass entirely when it is not included, as in a dry run', async () => {
+      const client = makeClient();
+      const privateRows = rowsFor('o/private', 3);
+      const result = await enrichAllGithubRows(client, rowsFor('o/public', 2), privateRows, {
+        includePrivate: false,
+        maxRows: 10,
+        paceMs: 0,
+      });
+      expect(result).toEqual({ counted: 2, uncounted: 0, privateCounted: 0 });
+      expect(client.queries.every((q) => q.includes('o/public'))).toBe(true);
+      expect(privateRows.every((row) => row.items === undefined)).toBe(true);
+    });
+
+    it('does not spend budget on missing rows', async () => {
+      const client = makeClient();
+      const publicRows = [
+        ...rowsFor('o/public', 1),
+        { location: 'o/public', label: 'gone', difference: 'missing' },
+      ];
+      const result = await enrichAllGithubRows(client, publicRows, rowsFor('o/private', 2), {
+        includePrivate: true,
+        maxRows: 2,
+        paceMs: 0,
+      });
+      expect(result.counted).toBe(1);
+      expect(result.privateCounted).toBe(1);
+    });
   });
 
   it('persists first-seen dates for rows omitted from the tables', () => {

@@ -591,6 +591,38 @@ export async function upsertDriftIssue(
 }
 
 /**
+ * Counts items for both row sets under one search budget.
+ *
+ * Each paced search takes about 2.2 seconds, so two full budgets could overrun
+ * the job timeout and lose both reports. The private pass gets only what the
+ * public pass left unused, and it is skipped unless `includePrivate` is set
+ * (a dry run never writes the private report, so it does not need the counts).
+ *
+ * @param {object} client - GitHub client
+ * @param {object[]} publicRows - Public drift rows, enriched in place
+ * @param {object[]} privateRows - Private drift rows, enriched in place
+ * @param {object} [options] - `includePrivate`, `maxRows` (shared cap), `paceMs`
+ * @returns {Promise<{ counted: number, uncounted: number, privateCounted: number }>} Public counts and private rows counted
+ */
+export async function enrichAllGithubRows(client, publicRows, privateRows, options = {}) {
+  const maxRows = options.maxRows ?? MAX_COUNTED_ROWS;
+  const paceMs = options.paceMs;
+  const publicPass = await enrichGithubRows(client, publicRows, { maxRows, paceMs });
+  if (!options.includePrivate) {
+    return { counted: publicPass.counted, uncounted: publicPass.uncounted, privateCounted: 0 };
+  }
+  const privatePass = await enrichGithubRows(client, privateRows, {
+    maxRows: Math.max(maxRows - publicPass.counted, 0),
+    paceMs,
+  });
+  return {
+    counted: publicPass.counted,
+    uncounted: publicPass.uncounted,
+    privateCounted: privatePass.counted,
+  };
+}
+
+/**
  * Enrich GitHub drift rows with issue/PR counts, paced for the search rate
  * limit. `missing` rows carry no items; rows past MAX_COUNTED_ROWS keep an
  * empty Items cell so a huge pre-consolidation drift set cannot outlast the
@@ -737,19 +769,9 @@ async function main() {
   const privateSink = await resolvePrivateSink(process.env);
 
   // Enrich GitHub rows with issue/PR counts, paced for the search rate limit.
-  // One search budget covers both passes: each paced search takes about 2.2
-  // seconds, so a second full budget could overrun the job timeout and lose
-  // both reports. A dry run never writes the private report, so it skips the
-  // private pass entirely.
-  const { counted: countedRows, uncounted: uncountedRows } = await enrichGithubRows(
-    client,
-    githubRows
-  );
-  if (privateSink && !dryRun) {
-    await enrichGithubRows(client, privateRows, {
-      maxRows: Math.max(MAX_COUNTED_ROWS - countedRows, 0),
-    });
-  }
+  const { uncounted: uncountedRows } = await enrichAllGithubRows(client, githubRows, privateRows, {
+    includePrivate: Boolean(privateSink) && !dryRun,
+  });
 
   let firstSeen = new Map();
   if (!dryRun) {
