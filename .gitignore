@@ -79,3 +79,6 @@ node_modules/
 .claude/.settings*.json
 /graft/
 /graphify-out/
+
+# Local evidence that names private repositories; never commit (spec 008, 2026-10-04)
+/.private-evidence/

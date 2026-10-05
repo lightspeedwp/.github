@@ -3,12 +3,22 @@
  * @module scripts/automation/__tests__/label-inventory.test.js
  */
 
+import fs from 'fs';
+import os from 'os';
+import path from 'path';
 import { describe, it, expect } from '@jest/globals';
 import {
   PER_PAGE,
   collectPages,
   buildInventory,
   incompleteRepositories,
+  incompleteRepositoryLabels,
+  findRepositoryRoot,
+  isInsidePublicRepository,
+  privateRepositoryGap,
+  publicRepositoryName,
+  redactInventory,
+  resolveToken,
 } from '../label-inventory.js';
 
 const labelsOf = (n, prefix = 'l') =>
@@ -75,5 +85,251 @@ describe('label-inventory', () => {
       ],
     };
     expect(incompleteRepositories(inv)).toEqual(['o/full', 'o/short']);
+  });
+
+  describe('token and private repository guards (T075)', () => {
+    it('reads the token from LABEL_INVENTORY_TOKEN, not GITHUB_TOKEN', () => {
+      expect(resolveToken({ LABEL_INVENTORY_TOKEN: 'org-token' })).toEqual({ token: 'org-token' });
+      expect(resolveToken({ GITHUB_TOKEN: 'repo-token' }).error).toMatch(
+        /LABEL_INVENTORY_TOKEN is required/
+      );
+    });
+
+    it('refuses to run inside GitHub Actions even when a token is set', () => {
+      const result = resolveToken({ GITHUB_ACTIONS: 'true', LABEL_INVENTORY_TOKEN: 'org-token' });
+      expect(result.token).toBeUndefined();
+      expect(result.error).toMatch(/refusing to run inside GitHub Actions/);
+    });
+
+    it('records private repositories and the organisation-reported count', async () => {
+      const client = pagedClient([{ name: 'pub' }, { name: 'priv', private: true }], {
+        pub: 1,
+        priv: 2,
+      });
+      client.rest.orgs = { get: async () => ({ data: { total_private_repos: 1 } }) };
+      const inv = await buildInventory(client, 'lightspeedwp');
+      expect(inv.private_repository_count).toBe(1);
+      expect(inv.reported_private_repository_count).toBe(1);
+      expect(inv.repositories.find((r) => r.repository === 'lightspeedwp/priv').private).toBe(true);
+      expect(privateRepositoryGap(inv)).toBeNull();
+    });
+
+    it('fails when the token cannot see every private repository', async () => {
+      const client = pagedClient([{ name: 'pub' }], { pub: 1 });
+      client.rest.orgs = { get: async () => ({ data: { total_private_repos: 3 } }) };
+      const inv = await buildInventory(client, 'lightspeedwp');
+      expect(privateRepositoryGap(inv)).toMatch(
+        /listed 0 private repositories but lightspeedwp reports 3/
+      );
+    });
+
+    it('fails when the organisation count is not readable', async () => {
+      const inv = await buildInventory(pagedClient([{ name: 'a' }], { a: 1 }), 'lightspeedwp');
+      expect(inv.reported_private_repository_count).toBeNull();
+      expect(privateRepositoryGap(inv)).toMatch(
+        /total_private_repos.*organisation-owner token is required/
+      );
+    });
+
+    it.each([null, undefined])(
+      'requires organisation-owner permission when the reported count is %s',
+      (reported) => {
+        expect(
+          privateRepositoryGap({
+            organisation: 'lightspeedwp',
+            private_repository_count: 0,
+            reported_private_repository_count: reported,
+          })
+        ).toMatch(/total_private_repos.*organisation-owner token is required/);
+      }
+    );
+
+    it('accepts an organisation that reports zero private repositories', () => {
+      expect(
+        privateRepositoryGap({
+          organisation: 'lightspeedwp',
+          private_repository_count: 0,
+          reported_private_repository_count: 0,
+        })
+      ).toBeNull();
+    });
+  });
+
+  // This repository is public, so the tracked evidence must not name a private
+  // repository or list its labels (decision of 2026-10-04), while completeness is
+  // still judged on every repository.
+  describe('redacting private repositories', () => {
+    const inventory = {
+      generated_at: '2026-10-04T00:00:00.000Z',
+      organisation: 'lightspeedwp',
+      repository_count: 3,
+      private_repository_count: 2,
+      reported_private_repository_count: 2,
+      label_total: 12,
+      repositories: [
+        {
+          repository: 'lightspeedwp/public-tool',
+          archived: false,
+          fork: false,
+          private: false,
+          label_count: 2,
+          pages_read: 1,
+          labels: [{ name: 'type:bug', color: 'AAAAAA', description: 'x' }],
+        },
+        {
+          repository: 'lightspeedwp/acme-client-site',
+          archived: false,
+          fork: false,
+          private: true,
+          label_count: 7,
+          pages_read: 1,
+          labels: [{ name: 'acme-launch', color: 'BBBBBB', description: 'secret' }],
+        },
+        {
+          repository: 'lightspeedwp/other-client-site',
+          archived: true,
+          fork: false,
+          private: true,
+          label_count: 3,
+          pages_read: 1,
+          labels: [],
+        },
+      ],
+    };
+
+    it('names no private repository and lists none of its labels', () => {
+      const text = JSON.stringify(redactInventory(inventory));
+      for (const leaked of ['acme-client-site', 'other-client-site', 'acme-launch', 'secret']) {
+        expect(text).not.toContain(leaked);
+      }
+    });
+
+    it('keeps public repositories whole and private ones as counts under placeholders', () => {
+      const redacted = redactInventory(inventory);
+      expect(redacted.repositories[0]).toEqual(inventory.repositories[0]);
+      expect(redacted.repositories[1]).toEqual({
+        repository: 'lightspeedwp/private-repository-001',
+        archived: false,
+        fork: false,
+        private: true,
+        label_count: 7,
+        pages_read: 1,
+      });
+      expect(redacted.repositories[2].repository).toBe('lightspeedwp/private-repository-002');
+      expect(redacted.redacted).toBe(true);
+      expect(redacted.private_repository_count).toBe(2);
+      expect(redacted.label_total).toBe(12);
+    });
+
+    it('leaves the full inventory untouched', () => {
+      redactInventory(inventory);
+      expect(inventory.repositories[1].repository).toBe('lightspeedwp/acme-client-site');
+      expect(inventory.repositories[1].labels).toHaveLength(1);
+    });
+
+    it('still passes the completeness checks, because they ran on the full inventory', () => {
+      const redacted = redactInventory(inventory);
+      expect(incompleteRepositories(redacted)).toEqual([]);
+      expect(privateRepositoryGap(redacted)).toBeNull();
+    });
+
+    it('says a private repository in a message, not its name', () => {
+      expect(publicRepositoryName(inventory.repositories[0])).toBe('lightspeedwp/public-tool');
+      expect(publicRepositoryName(inventory.repositories[1])).toBe('a private repository');
+      const broken = {
+        ...inventory,
+        repositories: inventory.repositories.map((repo) => ({ ...repo, pages_read: 0 })),
+      };
+      const labels = incompleteRepositoryLabels(broken);
+      expect(labels).toContain('lightspeedwp/public-tool');
+      expect(labels.join(' ')).not.toContain('client-site');
+    });
+
+    it('refuses a full-output path anywhere inside the public repository except .private-evidence', () => {
+      const cwd = '/repo';
+      for (const refused of [
+        '.github/reports/full.json',
+        '.github',
+        'full.json',
+        'docs/full.json',
+        'scripts/automation/full.json',
+        '.githubx/full.json',
+        '.private-evidencex/full.json',
+        '.',
+        'docs/../full.json',
+      ]) {
+        expect(isInsidePublicRepository(refused, cwd)).toBe(true);
+      }
+      for (const allowed of [
+        '.private-evidence/full.json',
+        '.private-evidence/nested/full.json',
+        '/tmp/full.json',
+        '../outside/full.json',
+      ]) {
+        expect(isInsidePublicRepository(allowed, cwd)).toBe(false);
+      }
+    });
+
+    it('judges a path against the repository root, not the directory the script runs from', () => {
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-sub-'));
+      try {
+        fs.mkdirSync(path.join(root, 'scripts'));
+        fs.mkdirSync(path.join(root, 'docs'));
+        fs.mkdirSync(path.join(root, '.private-evidence'));
+        const cwd = path.join(root, 'scripts');
+        // From scripts/, ../docs/full.json starts with .. but is still inside the repository.
+        expect(isInsidePublicRepository('../docs/full.json', root, cwd)).toBe(true);
+        expect(isInsidePublicRepository('full.json', root, cwd)).toBe(true);
+        expect(isInsidePublicRepository('../.private-evidence/full.json', root, cwd)).toBe(false);
+        // The old behaviour took the working directory as the root and accepted the first one.
+        expect(isInsidePublicRepository('../docs/full.json', cwd)).toBe(false);
+        expect(isInsidePublicRepository('../../outside/full.json', root, cwd)).toBe(false);
+      } finally {
+        fs.rmSync(root, { recursive: true, force: true });
+      }
+    });
+
+    it('finds the repository root from the script location, whatever the working directory', () => {
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-root-'));
+      try {
+        const scriptDir = path.join(root, 'scripts', 'automation');
+        fs.mkdirSync(scriptDir, { recursive: true });
+        const script = path.join(scriptDir, 'label-inventory.js');
+        fs.writeFileSync(script, '');
+        const real = fs.realpathSync(root);
+        // Git reports the top level.
+        const git = () => ({ status: 0, stdout: `${real}\n` });
+        expect(findRepositoryRoot(script, git)).toBe(real);
+        // Without git, it is two directories above scripts/automation/.
+        const noGit = () => ({ status: 128, stdout: '' });
+        expect(findRepositoryRoot(script, noGit)).toBe(real);
+        // It is asked from the script's directory, not the caller's.
+        const seen = [];
+        findRepositoryRoot(script, (command, args, options) => {
+          seen.push(options.cwd);
+          return git();
+        });
+        expect(seen).toEqual([fs.realpathSync(scriptDir)]);
+      } finally {
+        fs.rmSync(root, { recursive: true, force: true });
+      }
+    });
+
+    it('is not fooled by a path that climbs out of .private-evidence or a symlink into the repository', () => {
+      const root = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-root-'));
+      const outside = fs.mkdtempSync(path.join(os.tmpdir(), 'inventory-outside-'));
+      try {
+        fs.mkdirSync(path.join(root, '.private-evidence'));
+        fs.mkdirSync(path.join(root, 'docs'));
+        expect(isInsidePublicRepository('.private-evidence/../docs/full.json', root)).toBe(true);
+        fs.symlinkSync(path.join(root, 'docs'), path.join(outside, 'link'));
+        expect(isInsidePublicRepository(path.join(outside, 'link', 'full.json'), root)).toBe(true);
+        fs.symlinkSync(outside, path.join(root, '.private-evidence', 'out'));
+        expect(isInsidePublicRepository('.private-evidence/out/full.json', root)).toBe(false);
+      } finally {
+        fs.rmSync(root, { recursive: true, force: true });
+        fs.rmSync(outside, { recursive: true, force: true });
+      }
+    });
   });
 });
