@@ -1,5 +1,5 @@
 /**
- * Shared harness for the Claude Code hook contract tests (spec 016).
+ * Shared harness for the Claude Code hook contract tests (spec 018).
  *
  * The hooks are tested as black boxes: each test spawns the real hook with a
  * JSON payload on stdin inside a throwaway git repository, and inspects the

@@ -48,9 +48,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Test Check on Every Pull Request** — Non-documentation pull requests run the full suite and fail only on new failures; eligible documentation-only pull requests report success without installing dependencies or running Jest. (#3479)
 - **Workflow Reachability Guards** — A test now fails if a composite action has no caller, a local `uses:` does not resolve, or a workflow-shaped file sits outside `.github/workflows/`. (#3570)
 - **Footer Duplicates Caught Before Merge** — A new check blocks compounded or misplaced footer blocks, and a tool clears those already committed when run with `--fix`. ([#3451](https://github.com/lightspeedwp/.github/issues/3451))
+- **Branch Cleanup Reports** — `npm run audit:branches` sorts remote branches into keep, delete or discuss and writes Markdown or JSON reports. It never deletes branches itself; deletions go through an approved draft PR. (#3358)
 
 ### Changed
 
+- **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))
+- **Branch Cleanup Specs Closed Out** — The cloud environment and branch cleanup specs now show the merged audit and how a maintainer reviews `claude/*` branches before deletion. ([PR #3813](https://github.com/lightspeedwp/.github/pull/3813))
+- **Cloud Spec Decisions Recorded** — Spec 018 now records seven clarified rules, including that empty `claude/*` branches are not auto-deleted yet, and the guard tests also cover the setup script's Node install. (#3726)
+- **Branch Guard Fault Handling** — When the branch guard cannot start, only git and GitHub writes are blocked and other commands still run. Merges into protected branches are refused, and develop is protected on this repository only. (#3726)
+- **Local Scans No Longer Dirty the Repository** — Semgrep's settings and log files are ignored, so a security scan leaves no untracked files to commit by accident. (#3713)
+- **Jest Config Lint Error Fixed** — A redundant escape in the transform ignore pattern is gone and the file is formatted, clearing the only lint error it carried. (#3713)
+- **Local Security Scans Stay Out of the Checkout** — Guidance for keeping Semgrep's settings and log files out of the working tree. (#3713)
 - **Label Drift Check Dry Run Recorded** — The label audit evidence now records the passing dry run of the weekly drift check and marks the App setup task complete. (#3760)
 - **Task-Issue Creation Gated** — Bulk issue creation is now opt-in per spec with stale-path checks, and the skill file is free of bot footer spam. ([#3540](https://github.com/lightspeedwp/.github/issues/3540))
 - **Consistent Footer Phrasing** — Configured footer phrases are now chosen the same way for every caller, while each keeps its own built-in fallback text. (#3546, #3544)
@@ -70,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Issue Types Aligned** — Issue types and type labels follow the colour strategy and have descriptions. Decision replaces Question: questions go to Discussions, and Decision issues use the `decision:` title prefix. (#3534)
 - **Faster Code Reviews** — Limited automated reviews to one per pull request rather than one per update. (#3517)
 
-- **PR Agent Consolidation & Portability** — Merged `agents/pr-creation-agent/` into `agents/pr-agent/` and restructured all six skills into the [Agent Skills specification](https://agentskills.io/specification) shape (`SKILL.md` + `scripts/` + `scripts/__tests__/` per skill), completing User Story 1 of spec 015. ([PR #3400](https://github.com/lightspeedwp/.github/pull/3400), [PR #3401](https://github.com/lightspeedwp/.github/pull/3401), [PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
+- **PR Agent Consolidation & Portability** — Merged the PR creation agent into the PR agent and moved all six skills to the [Agent Skills specification](https://agentskills.io/specification) layout. (#3400, #3401, #3403)
 - **Faster, Safer Workflows** — Workflows run faster, stop the metrics loop and pin every action to a fixed commit. Dependabot, Mergify and CodeRabbit now skip dead or generated paths. (#3474, #3476)
 - **Stricter Workflow Linting** — Workflow scripts now pass shell linting at every level, and the plugin and theme examples are valid and pinned to fixed commits. (#3478)
 
@@ -89,6 +97,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Changelog Validator Clears Undici and Busboy Alerts** — Its `@actions` parents move to core 2 and github 8, so the tree resolves undici 6.29.0 with no `@fastify/busboy` copy left. (#3806)
 - **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
 - **Markdown Commit Check Works After A Stale Install** — Fixed the staged-Markdown commit check crashing on a working copy installed before a tooling upgrade. It now accepts the older version and lints as normal. (#3785)
 
@@ -128,8 +137,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Issue Labelling Floods** — Relabelling issues in bulk no longer queues hundreds of labelling runs or puts back labels that were just removed. ([#3531](https://github.com/lightspeedwp/.github/issues/3531))
 - **Code Owner Reviews** — Every code owners rule now also lists the `@lightspeedwp/lightspeed` team, so pull requests opened by the sole named owner can still be approved. ([#3465](https://github.com/lightspeedwp/.github/issues/3465))
 - **Main Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. Not applied yet — needs explicit go-ahead for main. (#3458)
-- **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate with identical scope.
-- **Bot PR Template Bodies** — Fixed-branch bot PRs (docs regen, maintenance, metrics) now ship full pr_chore sections so the template gate passes on automation-authored PRs.
+- **Required Checks Always Report** — Workflow-lint and changelog gate no longer use trigger path filters, so their required status checks report on every PR instead of hanging at Expected; docs-only diffs are exempted in-gate. (#3463)
+- **Bot PR Template Bodies** — Fixed-branch bot PRs (docs regen, maintenance, metrics) now ship full pr_chore sections so the template gate passes on automation-authored PRs. (#3450)
 - **Develop Ruleset Live Contexts** — Required checks now reference checks that actually run; dropped the unused merge-queue rule. (#3450)
 - **Tests No Longer Write Into the Repository** — Moved three suites' output to temporary folders, and a test run now fails if it changes any repository file. (#3498)
 - **Footer Dedup Asterisk Match** — Footer dedup patterns now match asterisk-wrapped footers as well as underscore-wrapped ones, keeping ensureFooter() idempotent. (#3443)
@@ -139,14 +148,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Reference Detection Test Isolation Fixed** — Isolated the rename-scenario test from leaked fixture state; remaining match defect tracked separately. (#3452)
 - **Broken Reference Checks** — Fixed path matching, default and named import detection, and injected test indexes, so all reference detection tests pass. (#3460)
 - **Bot Commits via Pull Requests** — Metrics, documentation and maintenance bots now open fixed-branch pull requests instead of pushing to develop; metrics run daily. ([PR #3410](https://github.com/lightspeedwp/.github/pull/3410))
-- **Metrics PR Runs CI via App Token** — The metrics aggregator mints a GitHub App token for its fixed-branch PR and drops `[skip ci]`, so required checks report and the merge queue can take it.
-- **Bot PR Hygiene Pass** — Docs bot PR bodies now carry all required template sections, the docs bot is exempt from the changelog requirement like Dependabot, and both token steps use the modern client-id input.
-- **Compounded Footers Cleanup** — Collapsed 25 duplicated footer blocks in tests/README.md to the single canonical footer (legacy of the pre-fix emphasis-marker mismatch).
-- **gh-fix-ci Repo Access Gate** — Wired the `viewerPermission` read-access check into `inspect_pr_checks.py` so the skill aborts fail-closed for users without read access; added `--skip-access-check` for offline use. (#3406)
+- **Metrics PR Runs CI via App Token** — The metrics aggregator mints a GitHub App token for its fixed-branch PR and drops `[skip ci]`, so required checks report and the merge queue can take it. (#3441)
+- **Bot PR Hygiene Pass** — Docs bot PR bodies now carry all required template sections, the docs bot is exempt from the changelog requirement like Dependabot, and both token steps use the modern client-id input. (#3445)
+- **Compounded Footers Cleanup** — Collapsed 25 duplicated footer blocks in the tests index to the single canonical footer. (#3447)
+- **gh-fix-ci Repo Access Gate** — The skill now checks the `viewerPermission` read access and aborts for users without it, with a `--skip-access-check` option for offline use. (#3406)
 - **Labeling Unified Workflow** — Restored 11 archived labeling workflows as one labeling-unified.yml; fixed validator for labeler v5 arrays and two canonical label names. ([PR #3404](https://github.com/lightspeedwp/.github/pull/3404))
 - **Changelog Unified Workflow** — Merged the two changelog validators into one changelog-unified.yml; fixed script-injection findings via env passthrough. ([PR #3405](https://github.com/lightspeedwp/.github/pull/3405))
-- **README-Regen Noise Fixed** — The documentation workflow no longer opens or updates the README-regeneration PR when a run produces no content changes; metrics-only runs are detected and skipped. ([PR #3429](https://github.com/lightspeedwp/.github/pull/3429))
-- **PR Agent Branch-Validation Prefix Lists** — `validate-branch-name`'s forbidden-prefix list (`claude/bot/automated` → `claude/copilot/openai`) and allowed-type list (added `task`, `doc`, `aiops`, `automation`, `epic`) now match `docs/BRANCHING_STRATEGY.md` exactly, with new test coverage for both. ([PR #3403](https://github.com/lightspeedwp/.github/pull/3403), [LS-4214](https://linear.app/lightspeedwp/issue/LS-4214/aiops-pr-agent-consolidate-and-make-portable-for-github-control-plane))
+- **Docs Regeneration Noise Fixed** — The documentation workflow no longer opens a regeneration PR when a run changes no content. ([PR #3429](https://github.com/lightspeedwp/.github/pull/3429))
+- **PR Agent Branch-Validation Prefix Lists** — The forbidden-prefix and allowed-type lists now match the branching strategy guide, with new tests. ([PR #3403](https://github.com/lightspeedwp/.github/pull/3403))
 - **Test Suite Remediation** — Fixed stale test paths, missing config keys, contract drift and unimplemented provider functions. (#3384)
 - **Metrics Push Race Fixed** — Made the metrics commit push resilient with rebase and retries. (#3385)
 - **Bot Push Races Fixed** — Extended rebase-and-retry push protection to docs and changelog bot commits. (#3386)
@@ -159,7 +168,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Branch Validation Metrics Aggregator Modernisation** — Moved the aggregator to Node 24 actions with run-scoped artifact downloads and a fixed metrics commit condition. ([PR #3377](https://github.com/lightspeedwp/.github/pull/3377))
 - **PR Template Check Uses Live Body** — The template verification now fetches the current PR body via the API instead of the stale event snapshot, and body edits retrigger the check. ([PR #3431](https://github.com/lightspeedwp/.github/pull/3431))
 - **Bot Branch Validation Exemption** — The runtime branch validator now exempts dependabot/renovate branches, mirroring the canonical validator. ([PR #3432](https://github.com/lightspeedwp/.github/pull/3432))
-- **Test README Cross-Reference** — Added the broken-reference remediation guide to the test documentation index. ([PR #3440](https://github.com/lightspeedwp/.github/pull/3440))
+- **Test Index Cross-Reference** — Added the broken-reference remediation guide to the test documentation index. ([PR #3440](https://github.com/lightspeedwp/.github/pull/3440))
 - **Branch Validator `config` Type** — Added the documented `config` type to the authorised validator list. (#3304)
 
 - **Specs Directory Structure Compliance** — Feature specifications now resolve to the configuration-driven `.github/specs/` location instead of root-level `specs/`. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
@@ -194,6 +203,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **GitHub Checks API for Changelog Validation** — Changelog violations now publish as a check run with per-entry annotations, each anchored to its own line and coloured by severity. ([PR #3376](https://github.com/lightspeedwp/.github/pull/3376))
+- **Changelog Check Run Skips Forks** — Check-run publication now requires a same-repository pull request, so a fork PR touching a changelog no longer fails on a read-only token. ([PR #3376](https://github.com/lightspeedwp/.github/pull/3376))
 - **Plugin Advisories and Register** — Added current scaffold tracking, safe asset versioning, a rate-limited newsletter example and project-controlled gateway approval. ([#1396](https://github.com/lightspeedwp/.github/issues/1396))
 - **GitHub Label Audit** — Audited all 169 canonical labels: `type:decision` had no issue type and 12 protected labels were missing from the label list, so they were removed from it. Added evidence and the label consolidation plan. (#3362)
 - **SpecKit Folder Organization Refactoring & Quality Audit** — Added Spec 013 with `.github/specs/` audit, catalog, eight-dimension quality review, and maintenance procedures. ([PR #3348](https://github.com/lightspeedwp/.github/pull/3348))

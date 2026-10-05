@@ -69,6 +69,7 @@ class RuleEngine {
 
     return {
       entry_id: entry.id,
+      line_number: entry.line_number ?? null,
       violations,
       results,
       passed: violations.length === 0,

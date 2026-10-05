@@ -142,6 +142,8 @@
     "audit:skills-registry": "node scripts/validation/phase-6-skills-registry.js",
     "audit:compliance": "node scripts/validation/audit-agents.js compliance",
     "audit:all": "npm run audit:agents",
+    "audit:branches": "node scripts/cleanup-branches.js",
+    "audit:branches:json": "node scripts/cleanup-branches.js --reportFormat=json",
     "analyze:performance": "node scripts/analyze-workflow-performance.js",
     "health:check": "node scripts/health-check.js",
     "health:report": "node scripts/health-check.js --output .github/reports/health-report.json",
@@ -160,7 +162,8 @@
     "test:prd-agent": "node agents/prd-agent/tests/test-runner.js --provider claude --suite all --json",
     "test:phase-5": "bash .github/scripts/__tests__/run-all-tests.sh",
     "test:integration": "echo 'Integration tests placeholder' && exit 0",
-    "test": "npm run test:js && npm run test:phase-5",
+    "test:changelog-validation": "NODE_OPTIONS='--experimental-vm-modules' node --test .github/validation/changelog/test/unit/check-run-annotations.test.js .github/validation/changelog/test/integration/check-run-annotations.test.js",
+    "test": "npm run test:js && npm run test:phase-5 && npm run test:changelog-validation",
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "contributors:check": "all-contributors check",
@@ -181,7 +184,7 @@
     "@eslint/js": "^10.0.1",
     "@github/markdownlint-github": "^0.8.4",
     "@jest/pattern": "30.5.0",
-    "@mermaid-js/mermaid-cli": "11.17.0",
+    "@mermaid-js/mermaid-cli": "12.0.0",
     "@stoplight/spectral-cli": "^6.16.3",
     "@stoplight/spectral-core": "^1.23.1",
     "@stoplight/spectral-functions": "^1.10.2",
@@ -223,7 +226,7 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "8.70.0",
     "yaml": "2.9.1",
-    "zod": "3.25.76"
+    "zod": "4.6.5"
   },
   "overrides": {
     "fast-json-patch": "3.1.1",
