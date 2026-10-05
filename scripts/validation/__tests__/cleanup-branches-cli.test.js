@@ -98,6 +98,22 @@ describe('branch audit CLI with isolated Git, GitHub and filesystem operations',
     return JSON.parse(fs.writeFileSync.mock.calls[0][1]);
   }
 
+  it('fails with exit code 1 and writes no report when the remote branch listing fails', () => {
+    const inventory = execFileSync.getMockImplementation();
+    execFileSync.mockImplementation((command, args, options) => {
+      if (args[0] === 'for-each-ref' && args[1] === 'refs/remotes/origin') {
+        throw Object.assign(new Error('git failed'), { stderr: 'fatal: bad ref store' });
+      }
+      return inventory(command, args, options);
+    });
+    runCli(['--reportFormat=json', '--verbose']);
+    expect(exit).toHaveBeenCalledWith(1);
+    expect(exit).not.toHaveBeenCalledWith(0);
+    expect(fs.writeFileSync).not.toHaveBeenCalled();
+    const logged = console.error.mock.calls.flat().map(String).join('\n');
+    expect(logged).toContain('Repository access failed');
+  });
+
   it('defaults to preview mode, inventories local branches and never deletes refs', () => {
     runCli(['--reportFormat=json', '--deleteLocal']);
     const report = jsonReport();

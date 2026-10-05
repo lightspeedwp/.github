@@ -256,14 +256,36 @@ function buildPreserveAuthorRegex() {
 
 /**
  * Return the names of origin's remote-tracking branches, without "origin/".
- * Failed Git commands yield an empty list.
+ * A failed Git query throws, so the run stops with a repository access error
+ * instead of reporting an empty inventory.
  *
  * @returns {string[]} Remote branch names.
+ * @throws {Error} When Git cannot list the remote-tracking branches.
  */
 function getRemoteBranches() {
-  return runLines(['for-each-ref', 'refs/remotes/origin', '--format=%(refname:short)']).map((b) =>
-    b.replace(/^origin\//, '')
-  );
+  // Unlike run(), a failure here must not look like an empty repository: a
+  // report claiming zero branches would hide that the inventory was never read.
+  let output;
+  try {
+    output = execFileSync(
+      'git',
+      ['for-each-ref', 'refs/remotes/origin', '--format=%(refname:short)'],
+      {
+        encoding: 'utf8',
+        stdio: ['pipe', 'pipe', 'pipe'],
+      }
+    );
+  } catch (err) {
+    const detail = String(err.stderr || err.message || '').trim();
+    throw new Error(`Repository access failed: could not list remote branches. ${detail}`.trim(), {
+      cause: err,
+    });
+  }
+  return output
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean)
+    .map((b) => b.replace(/^origin\//, ''));
 }
 
 /**

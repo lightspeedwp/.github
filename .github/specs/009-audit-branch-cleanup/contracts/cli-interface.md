@@ -26,11 +26,11 @@ node scripts/cleanup-branches.js [options]
 
 ## Exit Codes
 
-| Code | Meaning         | Conditions                                                        |
-| ---- | --------------- | ----------------------------------------------------------------- |
-| 0    | Success         | Categorisation complete and report generated                      |
-| 1    | Fatal error     | Invalid arguments, direct live mode, or repository access failure |
-| 2    | Partial failure | Some branches processed, some errors (see report for details)     |
+| Code | Meaning         | Conditions                                                                                |
+| ---- | --------------- | ----------------------------------------------------------------------------------------- |
+| 0    | Success         | Categorisation complete and report generated                                              |
+| 1    | Fatal error     | Direct live mode, or repository access failure (including a failed remote branch listing) |
+| 2    | Partial failure | Some branches processed, some errors (see report for details)                             |
 
 ## Standard Output
 
@@ -83,7 +83,7 @@ Additional debug output:
 ```
 ❌ Error: Invalid --inactiveDays value; defaulting to 30.
    Provided: "invalid"
-   Exit code: 1
+   The run continues with the default value.
 ```
 
 ## Report Generation
