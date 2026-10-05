@@ -142,6 +142,8 @@
     "audit:skills-registry": "node scripts/validation/phase-6-skills-registry.js",
     "audit:compliance": "node scripts/validation/audit-agents.js compliance",
     "audit:all": "npm run audit:agents",
+    "audit:branches": "node scripts/cleanup-branches.js",
+    "audit:branches:json": "node scripts/cleanup-branches.js --reportFormat=json",
     "analyze:performance": "node scripts/analyze-workflow-performance.js",
     "health:check": "node scripts/health-check.js",
     "health:report": "node scripts/health-check.js --output .github/reports/health-report.json",
@@ -223,7 +225,7 @@
     "typescript": "^5.0.0",
     "typescript-eslint": "8.70.0",
     "yaml": "2.9.1",
-    "zod": "3.25.76"
+    "zod": "4.6.5"
   },
   "overrides": {
     "fast-json-patch": "3.1.1",

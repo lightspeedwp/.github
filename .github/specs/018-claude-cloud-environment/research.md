@@ -93,8 +93,9 @@ implementation in lightspeedwp/.github#3524.
   - **Scheduled workflow (deferred)**: 009's workflow gains a deletion step **once the branch-age signal exists**.
     While the deferral holds the step has nothing to do: it reads the JSON report, finds no `autoApproved` entry,
     and deletes nothing. Everything else follows 009's categorisation as before: its DELETE candidates go to the
-    draft PR, while an invalid `claude/*` name or one carrying its own commits goes to DISCUSS, and this spec
-    defines no route from DISCUSS to that approval. When the step is enabled it re-checks each auto-approved
+    draft PR, while an invalid `claude/*` name or one carrying its own commits goes to DISCUSS. A maintainer
+    may promote an empty, merged one with no open PR from DISCUSS to DELETE, and it then goes through that
+    approval (R16). When the step is enabled it re-checks each auto-approved
     branch against the tip it is about to act on (still a platform placeholder, still no commits of its own,
     still no open PR -- not merge status, which is no longer a condition), records that tip OID, and deletes
     with `git push origin --delete <branch> --force-with-lease=<branch>:<oid>` so a push landing between the
@@ -181,8 +182,8 @@ implementation in lightspeedwp/.github#3524.
   the guard's hands.
 - **Test hook**: tests force a fault with `LS_GUARD_FORCE_FAULT=1`, honoured only when `NODE_ENV=test`. It can
   only make the load fail; it can never load a different validator.
-- **Known limit**: If `node` itself is missing, the hook can't run at all, and Claude Code carries on. The setup
-  script installs Node, and the quickstart checks for it.
+- **Known limit (replaced on 2026-10-01, see R15)**: If `node` itself is missing, the guard can't run at all. The
+  launcher now applies the same split itself, rather than letting the call through or refusing everything.
 
 ## R12. Guard self-protection (FR-013a)
 
@@ -247,3 +248,38 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
   `cat <<'EOF' > file`, so the here-document case is the most likely in practice.
 - **Alternatives considered**: Restricting the reset to renamed placeholder branches only; rejected because
   FR-002 syncs any clean branch with no commits of its own, and that reset only fast-forwards.
+
+## R15. Guard that can't start (FR-012a, 2026-10-01)
+
+- **Decision**: `.claude/hooks/run-guard.sh` handles a missing `node` or a missing guard script as a guard fault.
+  With enforcement on, it refuses git commit, push and branch operations, and the GitHub branch, file and PR
+  tools, with "Branch guard unavailable". It allows every other call with a visible warning. With enforcement off,
+  it warns and allows everything (FR-013). The launcher can't load the validator, so it classifies the call with
+  the same fixed patterns as R11.
+- **Rationale**: The current launcher refuses every call, so a session without Node can't even run `ls` to
+  diagnose the problem. Failing open would let unchecked writes through. Splitting the calls keeps writes blocked
+  and the session usable.
+- **Alternatives considered**: Fail open (the original known limit), rejected because it is the case enforcement
+  exists for. Refuse everything (the shipped behaviour), rejected because it blocks recovery.
+
+## R16. Removing empty `claude/*` branches while auto-deletion is deferred (FR-020, FR-021, 2026-10-02)
+
+- **Decision**: No new automation. A maintainer reviewing the DISCUSS list may promote an empty, merged
+  `claude/*` branch with no open PR to DELETE. It is then removed only through spec 009's draft-PR approval. A
+  branch carrying its own commits is never promoted this way.
+- **Rationale**: This reuses an approval route that already exists and keeps a person in the loop. It is safe
+  under FR-020 because nothing is judged by tip-commit age, and it clears the backlog without waiting for
+  branch-age storage.
+- **Alternatives considered**: Leave the branches in DISCUSS until the signal exists, rejected because they pile up
+  with no removal path. Build the first-observed timestamp now, rejected as out of scope until its storage and
+  retention are decided.
+
+## R17. Semantic-version hotfix names (FR-009, FR-010, 2026-10-02)
+
+- **Decision**: Keep the validator as the authority. `release/vX.Y.Z` is the only version-number form it accepts.
+  Hotfixes use `hotfix/{scope}-{title}`, and `hotfix/vX.Y.Z` is refused by both the guard and CI.
+- **Rationale**: `docs/BRANCHING_STRATEGY.md` already names hotfixes by slug (`hotfix/<slug>`), so only the spec's
+  old assumption disagreed. Changing the validator would affect CI in every repository that uses it.
+- **Alternatives considered**: Accept `hotfix/vX.Y.Z` in the validator, either as a dependency outside this spec or
+  inside it. Both were rejected as unnecessary, because FR-009's `main` rule already works with slug-named
+  hotfixes.
