@@ -14,12 +14,18 @@ spawn the hook with JSON on stdin.
 
 **Where the work lands**:
 
-- US1 and US2 go in `config/claude-cloud-environment` (lightspeedwp/.github#3524).
+- US1 and US2 shipped in `config/claude-cloud-environment` (lightspeedwp/.github#3524, merged 2026-09-30).
+- Spec reconciliation and the convergence work that doesn't touch the guard's files go in
+  `docs/claude-cloud-spec-reconcile` (lightspeedwp/.github#3726, closes lightspeedwp/.github#3727).
+- Guard follow-ups (T045, T049, T052, T054, T055 and the guard halves of T056 and T058) go in a separate guard PR,
+  made by a person or in a session an Owner starts with `LS_ENFORCE_BRANCH_NAMES=0`.
 - The US3 cleanup work goes in spec 009 / `task/branch-cleanup-refactor` (lightspeedwp/.github#3358).
-- The spec amendment (T001) goes in `docs/claude-cloud-environment-spec` (lightspeedwp/.github#3525).
+- The spec amendment (T001) went in `docs/claude-cloud-environment-spec` (lightspeedwp/.github#3525).
 
-Tasks already delivered in #3524 or #3358 are ticked, so `/speckit-converge` and `/speckit-implement` start from
-the real baseline.
+A task is ticked only once its change is on `develop` or in the PR that delivers this spec's reconciliation
+(#3726). This reconciliation preserves every existing tick, T033 included. New work delivered on #3358 is noted
+against its task and ticked when #3358 merges; T033's status is revisited once T053 lands (see T060). This keeps the baseline
+for `/speckit-converge` and `/speckit-implement` accurate (refreshed 2026-10-02).
 
 ## Format: `[ID] [P?] [Story] Description`
 
@@ -132,6 +138,7 @@ it's refused (quickstart §1, §4).
   - that guard files can't be edited while enforcement is on
 
   Replace "Never commit directly to main or develop" with the exception wording (contracts/hooks.md, SessionStart output).
+
 - [x] T018 [US1] Implement naming, placeholder and protected-branch refusals for `git branch -m`, `checkout -b`, `switch -c`, `commit` and `push` in `.claude/hooks/enforce-branch-name.mjs` (done in #3524)
 - [x] T019 [US1] Implement the GitHub MCP checks (`create_branch`, `push_files`, `create_or_update_file`, `delete_file`, `create_pull_request` including the `main` base rule) in `.claude/hooks/enforce-branch-name.mjs` (done in #3524)
 - [x] T020 [US1] Implement the documentation exception in `.claude/hooks/enforce-branch-name.mjs`:
@@ -143,7 +150,7 @@ it's refused (quickstart §1, §4).
   - normalise each path to repository-relative form (resolve `.`, `..` and, for existing files, symlinks) and compare case-sensitively; a path that leaves the allowed folders is not covered (FR-005)
   - an empty or unknown set fails closed, and the refusal lists the offending files (research R4)
   - judge commits during a rebase, merge, cherry-pick or revert by the branch being worked on; refuse a commit on a detached HEAD with none in progress; judge refspec pushes by their target; allow force-pushes to a compliant, unprotected branch (FR-005, FR-006)
-- [ ] T021 [US1] Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST, because cloud sessions can't use GraphQL), each with a 5-second timeout. Allow only when both confirm an open PR whose head is in this repository; any error, non-zero exit, empty result or timeout means refuse (FR-006, research R9).
+- [x] T021 [US1] Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST, because cloud sessions can't use GraphQL), each with a 5-second timeout. Allow only when both confirm an open PR whose head is in this repository; any error, non-zero exit, empty result or timeout means refuse (FR-006, research R9).
 - [x] T022 [US1] Implement guard self-protection in `.claude/hooks/enforce-branch-name.mjs`:
   - for `Edit`/`Write`/`MultiEdit`/`NotebookEdit`: resolve `file_path`/`notebook_path` against the project directory, using `realpath` when the file exists
   - for Bash: detect write verbs (`sed -i`, `perl -i`, `mv`, `rm`, `cp` to the destination, `tee`, `truncate`, `chmod`, `ln`, `>`/`>>`, `git checkout … --`, `git restore`, `git rm`, `git mv`, `git apply`) that name a protected path
@@ -156,11 +163,11 @@ it's refused (quickstart §1, §4).
   - when enforcement is off, downgrade the fault refusal to a visible `systemMessage` warning and allow the write with exit 0 (FR-013)
   - keep malformed-stdin handling silent (FR-012a, research R11)
 - [x] T044 [US1] Police the `gh` command-line tool in `.claude/hooks/enforce-branch-name.mjs`: apply the `create_pull_request` rules to Bash `gh pr create` (head from `--head` or the current branch, base from `--base`, repository from `--repo` or `origin`), and the MCP file-write rules to `gh api` calls that create or update refs, file contents or PRs. Owners other than `lightspeedwp` are ignored (FR-008, FR-009, scenario 14).
-- [ ] T045 [US1] Update the protected-files list in the `.claude/hooks/session-start.sh` context text and `scripts/__tests__/session-start-hook.test.js` to add `/etc/claude-code/managed-settings.json` (FR-013a).
+- [x] T045 [US1] Update the protected-files list in the `.claude/hooks/session-start.sh` context text and `scripts/__tests__/session-start-hook.test.js` to add `/etc/claude-code/managed-settings.json` (FR-013a).
 - [x] T046 [US1] Make every enforcing refusal start with "Branch guard:", so the SC-007 transcript search for "Branch guard" finds refusals as well as warnings, and suggest a name only when the validator's suggestion itself passes the validator (FR-011, SC-007). Add both to the refusal-message test.
-- [ ] T050 [P] [US1] Add an SC-005 case to `scripts/__tests__/session-start-hook.test.js`: run `session-start.sh` as a cloud `startup` with dependencies already current (installed tree newer than the lockfile, `npm` stubbed, local `origin`) and assert it exits 0 within 30 seconds of wall-clock time and doesn't call `npm install` (SC-005).
-- [ ] T049 [US1] Limit the guard's protected-branch rules, documentation exception and `main` base rule in `.claude/hooks/enforce-branch-name.mjs` to `lightspeedwp/.github`. On other `lightspeedwp` repositories (MCP tools, `gh pr create`, `gh api`), check only names: branch creation, the target branch of file writes, and PR heads. Add cases to `scripts/__tests__/enforce-branch-name-hook.test.js`: `push_files` to `main` on `lightspeedwp/other` → exit 0; to `claude/x` on `lightspeedwp/other` → exit 2; a PR from `feat/a-b` into `main` on `lightspeedwp/other` → exit 0 (FR-009 scope).
-- [ ] T051 [US1] Fix the shell-parsing and session-start gaps from the CodeRabbit review of #3524 (research R14) in `.claude/hooks/enforce-branch-name.mjs`, `.claude/hooks/session-start.sh`, `.github/workflows/claude-guard-tests.yml` and `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, with tests: `cat <<'EOF' > .claude/settings.json` → exit 2; `git push origin feat/good-name main` and `git push --tags origin main` → exit 2; `git push --tags` → exit 0; `--all`, `--branches` and `--mirror` → exit 2; a clean `main` is never hard-reset; `package.json` newer than the installed tree runs `npm install`; the CI filter also matches `package.json`, `package-lock.json`, `.nvmrc` and `.jest.config.cjs`.
+- [x] T050 [P] [US1] Add an SC-005 case to `scripts/__tests__/session-start-hook.test.js`: run `session-start.sh` as a cloud `startup` with dependencies already current (installed tree newer than the lockfile, `npm` stubbed, local `origin`) and assert it exits 0 within 30 seconds of wall-clock time and doesn't call `npm install` (SC-005).
+- [x] T049 [US1] Limit the guard's protected-branch rules, documentation exception and `main` base rule in `.claude/hooks/enforce-branch-name.mjs` to `lightspeedwp/.github`. On other `lightspeedwp` repositories (MCP tools, `gh pr create`, `gh api`), check names (branch creation, the target branch of file writes, and PR heads) and refuse direct writes to `main`, which FR-009 protects on every LightSpeed repository (2026-10-01). Add cases to `scripts/__tests__/enforce-branch-name-hook.test.js`: `push_files` to `main` on `lightspeedwp/other` → exit 2; `push_files` to `develop` on `lightspeedwp/other` → exit 0 (base-branch protection applies only to this repository); to `claude/x` on `lightspeedwp/other` → exit 2; a PR from `feat/a-b` into `main` on `lightspeedwp/other` → exit 0 (FR-009 scope).
+- [x] T051 [US1] Fix the shell-parsing and session-start gaps from the CodeRabbit review of #3524 (research R14) in `.claude/hooks/enforce-branch-name.mjs`, `.claude/hooks/session-start.sh`, `.github/workflows/claude-guard-tests.yml` and `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, with tests: `cat <<'EOF' > .claude/settings.json` → exit 2; `git push origin feat/good-name main` and `git push --tags origin main` → exit 2; `git push --tags` → exit 0; `--all`, `--branches` and `--mirror` → exit 2; a clean `main` is never hard-reset; `package.json` newer than the installed tree runs `npm install`; the CI filter also matches `package.json`, `package-lock.json`, `.nvmrc` and `.jest.config.cjs`.
 - [x] T024 [US1] Add `/.claude/ @ashleyshaw @lightspeedwp/lightspeed` to `CODEOWNERS` under the "AI and Copilot Instructions" block (FR-013a).
 - [x] T025 [US1] Run `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js` (including the T041 speed test), `shellcheck .claude/hooks/session-start.sh` and `npx eslint .claude/hooks/enforce-branch-name.mjs`. Fix everything until it's green.
 
@@ -214,8 +221,9 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - measurement (branch metrics plus the monthly review of 10 sessions, SC-007)
   - cleanup through spec 009's auto-approval
 - [x] T033 [P] [US3] Spec 009 auto-approval rule, config, report fields and shared validator in `scripts/lib/branch-categorization.js`, `scripts/lib/constants.js` and `scripts/cleanup-branches.js` (spec 009 T070–T072 and T074, done in #3358)
+  - Note (T060, 2026-10-02): #3358 hasn't merged, so none of this is on `develop` yet. Under FR-020 the `claude/*` auto-approval rule stays switched off until a branch-age signal exists. Revisit this task's status once T053 lands.
 - [ ] T034 [US3] Spec 009 T073, the daily auto-delete step in `.github/workflows/branch-audit.yml`, after spec 009 T046 creates the workflow (delivered in #3358 or its follow-up). Depends on #3358 merging.
-- [ ] T035 [US3] Run quickstart §5 against `develop` once #3358 merges, and confirm the auto-approved list only contains merged `claude/*` branches with no open PR that are at least a day old.
+- [ ] T035 [US3] Run quickstart §5 against `develop` once #3358 merges. While the FR-020 deferral holds, confirm the auto-approved list is empty (`[]`) and every `claude/*` branch without an open PR or matching exclusion is DISCUSS for its forbidden prefix. Repeat the original check (only platform placeholders with no commits of their own and no open PR, observable for at least a day) only after the deferral is lifted.
 - [x] T036 [US3] Add the CHANGELOG entry for the environment and guard (done in #3524).
 - [x] T037 [US3] Update the CHANGELOG entry in `CHANGELOG.md` under Unreleased/Added for the new guard behaviours. It must be 250 characters or less, linked to #3524, and pass `node scripts/validation/validate-changelog.cjs CHANGELOG.md`.
 - [ ] T042 [US3] Owner action: turn on "Require review from Code Owners" in branch protection (or the ruleset) for both `develop` and `main`, so the `/.claude/` CODEOWNERS entry from T024 blocks unreviewed changes to the guard (FR-013a, US3 scenario 3).
@@ -230,8 +238,8 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 ## Phase 6: Polish & Cross-Cutting Concerns
 
 - [x] T038 [P] Run `npm run lint:md` on changed Markdown and `npx prettier --check` on changed JS and JSON files, and fix any findings.
-- [ ] T039 Run `/speckit-analyze` for 018 and resolve any CRITICAL or HIGH findings before marking #3524 ready for review.
-- [ ] T040 Update the #3524 PR description with the final behaviour list and test evidence, then mark it ready for review.
+- [x] T039 Run `/speckit-analyze` for 018 and resolve any CRITICAL or HIGH findings before #3726 is approved. Done 2026-10-02: no CRITICAL findings, and the HIGH findings I1 (T049), I2 (quickstart §5, T035) and I3 (plan) are resolved in #3726.
+- [x] T040 Update the #3726 PR description with the final behaviour list and test evidence once its review comments are resolved, and confirm #3727 is linked to close on merge.
 
 ---
 
@@ -252,7 +260,11 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 - **US3 (Phase 5)**:
   - T032 needs the US1 behaviour to be settled.
   - T042 is an Owner action that needs T024 merged. T043 needs T042.
-  - T034 and T035 depend on lightspeedwp/.github#3358 merging.
+  - T034, T035 and T063 depend on lightspeedwp/.github#3358 merging. T034 also waits for the FR-020 deferral to
+    be lifted.
+  - T061, T062 and T064 are documentation only (done in #3726).
+  - T065 depends on merge order. If #3726 merges before #3358, qualify the cleanup note. If #3358 merges first,
+    tick T065 with no change.
 - **Polish (Phase 6)**: After the stories you intend to ship.
 
 ### User Story Dependencies
@@ -286,6 +298,41 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 
 ### Incremental delivery
 
-1. US1 → #3524 ready for review.
+1. US1 → shipped in #3524. The remaining guard follow-ups (T045, T049, T052, T054, T055) go in one guard PR made
+   with enforcement off.
 2. US2 → Owner creates the environment (T028), then verification (T030).
-3. US3 → docs update (T032) in #3524, Code Owners setting (T042, T043) after T024 merges, cleanup (T034 and T035) after #3358.
+3. US3 → docs (T032) shipped in #3524. The deferral and promotion notes (T056, T061, T062), the guard-can't-start
+   contract rows (T064) and the merge-order qualifier (T065) go in #3726. The Code
+   Owners settings (T042, T043, T048) are Owner actions. Cleanup (T035, T063) runs after #3358; T034 waits for
+   the deferral to be lifted.
+
+## Phase 7: Convergence
+
+- [x] T052 Change `.claude/hooks/run-guard.sh` so that, with enforcement on, a guard that cannot start (Node not on `PATH`, or the guard script missing) refuses only git commit, push and branch operations and the GitHub branch, file and PR tools with "Branch guard unavailable", and allows every other call with a visible warning; add contract tests in `scripts/__tests__/enforce-branch-name-hook.test.js` for both cases per FR-012a (contradicts)
+- [ ] T053 (Delivered on #3358 in `f4fcec75`, with CLI tests corrected in `c69a3c52`; tick when #3358 merges.) Before lightspeedwp/.github#3358 merges, switch off spec 009's `claude/*` auto-approval on that branch (no branch marked `autoApproved`, and `age_days` never used as the 24-hour gate) and align spec 009 T070 and its spec text with the deferral per FR-020 (contradicts)
+- [x] T054 Refuse REST `POST repos/…/git/refs` that creates `main` or the configured base branch, and GraphQL `mergeBranch` whose `base` is `main` or the base branch, in `.claude/hooks/enforce-branch-name.mjs`, with refusal and compliant-allow tests, and record the fix against gaps 6 and 7 in lightspeedwp/.github#3691 per FR-008 and FR-009 (missing)
+  - Note (2026-10-04): gap 6 (REST `git/refs` creation) was delivered in #3745, and gap 7 (`mergeBranch` writing to `base`) in #3726, with refusal, compliant-allow, variable, input-object and fault-path tests.
+- [x] T055 Close or individually track the remaining lightspeedwp/.github#3691 gaps 1–5 (input-object variable, per-document check, `/graphql` leading slash, `--input` variables map, first-wins flag reading) in `.claude/hooks/enforce-branch-name.mjs` with tests per FR-007 and FR-008 (missing)
+  - Note (2026-10-04): gaps 1 to 5 were all delivered in #3745, each with tests (gap 1 whole-input variable, gap 2 per-document check, gap 3 leading-slash `/graphql`, gap 4 `--input` variables map, gap 5 last-flag-wins). #3691 is closed.
+- [x] T056 Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` so the cleanup note says auto-deletion of empty `claude/*` branches is deferred under FR-020, and the Node-missing note matches the T052 behaviour, per FR-019 (partial)
+- [x] T057 Add `scripts/__tests__/setup-node-install.test.js` to the path filter and test list in `.github/workflows/claude-guard-tests.yml` per FR-023 (missing)
+- [x] T058 Replace the stale "spec 016" references with "spec 018" in `.claude/hooks/enforce-branch-name.mjs`, `.claude/cloud/setup.sh`, `.github/workflows/claude-guard-tests.yml`, `scripts/__tests__/helpers/claude-hook-harness.js`, `scripts/__tests__/enforce-branch-name-hook.test.js` and `scripts/__tests__/session-start-hook.test.js` per plan: spec identity (partial)
+
+## Phase 8: Convergence
+
+- [x] T059 Add `scripts/__tests__/setup-node-install.test.js` to the quickstart §1 test command in `.github/specs/018-claude-cloud-environment/quickstart.md`, so a local run covers the same suites as Claude Guard Tests per FR-023 (partial)
+- [ ] T060 Record against T033 that spec 009's `claude/*` auto-approval isn't on `develop` and stays switched off under FR-020 until a branch-age signal exists, and update T033's status once T053 lands per FR-020 (contradicts)
+
+## Phase 9: Regenerated tasks (2026-10-02 clarifications and plan refresh)
+
+- [x] T061 [P] [US3] Update the cleanup note in `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (the "Empty `claude/*` branches" bullet under "Maintain it"). It should say that while FR-020 defers auto-deletion, spec 009's scheduled cleanup sends every `claude/*` branch to DISCUSS for its forbidden prefix. A maintainer may promote an empty, merged one with no open PR to DELETE, and it is then removed only through spec 009's draft-PR approval; one carrying its own commits is never promoted. Per FR-019, FR-021 and research R16.
+- [x] T062 [P] [US3] Add to the "Branch types come from `lib/validate-branch-name.js`" bullet in `docs/CLAUDE_CLOUD_ENVIRONMENT.md`: hotfixes use `hotfix/{scope}-{title}`, and `hotfix/vX.Y.Z` is refused by both the guard and CI. Only `release/vX.Y.Z` has a version-number form. Per FR-009, FR-010 and research R17.
+- [ ] T063 [US3] After #3358 merges, record the DISCUSS-to-DELETE promotion route for empty `claude/*` branches in spec 009's manual review guidance (`.github/specs/009-audit-branch-cleanup/quickstart.md`, and spec 009 FR-012's manual review process). Promotion needs an empty, merged branch with no open PR, and deletion still goes through the draft-PR approval. Per FR-021 and research R16.
+
+## Phase 10: Convergence
+
+- [x] T064 Add rows for a guard that can't start (Node not on `PATH`, or the guard script missing) to the PreToolUse outcome table in `.github/specs/018-claude-cloud-environment/contracts/hooks.md`, and matching cases to the quickstart §1 table in `.github/specs/018-claude-cloud-environment/quickstart.md`. With enforcement on, a git write or GitHub branch, file or PR tool exits 2 with "Branch guard unavailable", and any other call exits 0 with a warning. With `LS_ENFORCE_BRANCH_NAMES=0`, both exit 0 with a warning. Per FR-012a and research R15 (partial)
+
+## Phase 11: Convergence
+
+- [x] T065 Qualify the cleanup note in `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (the "Empty `claude/*` branches" bullet under "Maintain it"). Until lightspeedwp/.github#3358 merges, `develop` still has the old `scripts/cleanup-branches.js`, which doesn't categorise `claude/*` branches as DISCUSS. So the bullet should say the DISCUSS and promotion behaviour applies once spec 009's report-only CLI lands, or this qualifier should be dropped if #3358 merges first. Per FR-019 and FR-020 (partial)
