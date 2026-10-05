@@ -176,41 +176,47 @@ export function validateBranchName(branch: string): {
 
 ## Sub-Module: Git Merge Detection
 
-### Function: `detectMergeStatus(branch, bases = ['develop', 'main'])`
+Exported from `scripts/lib/git-merge-utils.js`.
 
-Detect if branch is merged to any base branch.
+### Function: `getMergeStatus(branch)`
+
+Report which of `origin/develop` and `origin/main` contain an origin branch.
 
 ```javascript
-export function detectMergeStatus(branch: string, bases?: string[]): {
+export function getMergeStatus(branch: string): {
+  state: "unmerged" | "develop" | "main" | "both" | "unknown",
   merged: boolean,
-  state: "merged" | "unmerged" | "unknown",
-  mergedToBranches?: string[]
+  mergedToDevelop: boolean | null,
+  mergedToMain: boolean | null
 }
 ```
 
-**Implementation**: `git merge-base --is-ancestor {branch} {base}` for each base  
-**Fallback**: If git fails, return `state: "unknown"` (conservative: assumes unmerged)
+**Implementation**: `isMergedToDevelop(branch)` and `isMergedToMain(branch)` each list the remote branches already merged into that base and check for `origin/{branch}`; a failed query returns `null`, and a base that does not exist in the clone answers false.
+**Verdict**: `merged` is true when either base answers true, even if the other query failed, because a proven merge is stronger than a failed query. `state` is `unknown` only when no base proved a merge and at least one query failed.
+**Fallback**: A failed query is never reported as unmerged. The categoriser sends an `unknown` state to DISCUSS with the unclear-status reason.
+
+Related exports: `isMergedToDevelop(branch)`, `isMergedToMain(branch)`, `getBaseRef()`, `getMergeBase(baseRef, branchRef)` and `getUniqueCommitCount(branch, baseRef)`.
 
 ---
 
 ## Sub-Module: GitHub PR Detection
 
-### Function: `detectOpenPRs(owner, repo, branch?)`
+Exported from `scripts/lib/github-pr-utils.js`.
 
-Query GitHub for open PRs on a branch.
+### Function: `getOpenPRs()`
+
+Query GitHub for the head branch names of open PRs in the current repository.
 
 ```javascript
-export function detectOpenPRs(
-  owner: string,
-  repo: string,
-  branch?: string
-): Promise<Set<string> | null>
+export function getOpenPRs(): Set<string> | null
 ```
 
-**Implementation**: `gh pr list --repo {owner}/{repo} --json headRefName`  
-**Return**: Set of branch names with open PRs; an empty Set means a confirmed response with no open PRs
-**Fallback**: On CLI, authentication, rate-limit, or API error, return `null` to represent unavailable verification
-**Error Handling**: Log a warning. Callers must fail closed by marking possible deletion candidates KEEP/DISCUSS or halting deletion; `hasOpenPR()` throws when verification is unavailable.
+**Implementation**: A synchronous call to `gh pr list --state open --limit 250 --json headRefName`, run against the repository of the current working directory. It takes no arguments.
+**Return**: A Set of branch names with open PRs; an empty Set means a confirmed response with no open PRs.
+**Fallback**: A missing CLI, an authentication or rate-limit failure, any other CLI error, or a list that reaches the 250-PR limit returns `null` to represent unavailable verification.
+**Error Handling**: Logs a warning. Callers must fail closed by marking possible deletion candidates KEEP/DISCUSS or halting deletion; `hasOpenPR(branch, openPRs)` throws when verification is unavailable.
+
+Related exports: `isGhAvailable()`, `hasOpenPR(branch, openPRs)` and `getOpenPRDetails()`.
 
 ---
 
@@ -246,31 +252,33 @@ export function matchesExclusionPattern(branch: string, pattern: RegExp): boolea
 
 ## Sub-Module: Report Formatting
 
-### Function: `formatMarkdownReport(categorised, options)`
+Exported from `scripts/lib/report-formatter.js`. The CLI's own Markdown and JSON reports are written by `writeMarkdownReport()` and `writeJsonReport()` in `scripts/cleanup-branches.js` (see `cli-interface.md`).
 
-Generate Markdown report.
+### Function: `formatAuditReportMarkdown(auditReport)`
 
-```javascript
-export function formatMarkdownReport(
-  categorised: { KEEP, DELETE, DISCUSS },
-  options?: { timestamp?, title?, verbose? }
-): string
-```
-
-**Output**: Complete Markdown document with summary table, category sections, and branch details
-
-### Function: `formatJSONReport(categorised, options)`
-
-Generate JSON report.
+Format the audit report header.
 
 ```javascript
-export function formatJSONReport(
-  categorised: { KEEP, DELETE, DISCUSS },
-  options?: { timestamp?, generator? }
-): string
+export function formatAuditReportMarkdown(auditReport: {
+  timestamp, dryRun, inactiveDays
+}): string
 ```
 
-**Output**: Stringified JSON with stats, timestamp, and flattened branch entries
+**Output**: A Markdown header with the date, run mode and inactivity threshold. It is not a complete branch audit.
+**Throws**: `RangeError` when the timestamp is not a valid date.
+
+### Function: `formatAuditReportJSON(auditReport)`
+
+Serialize an audit report as indented JSON.
+
+```javascript
+export function formatAuditReportJSON(auditReport: object): string | undefined
+```
+
+**Output**: `JSON.stringify(auditReport, null, 2)`. It adds no fields of its own.
+**Throws**: `TypeError` when serialization meets a cycle or BigInt.
+
+Related exports: `formatDeletionCandidatesJSON(candidates, summary, timestamp, repository)` and `formatDISCUSSSection(discussBranches)`.
 
 ---
 
