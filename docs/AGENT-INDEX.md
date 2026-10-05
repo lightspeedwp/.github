@@ -79,7 +79,7 @@ release-management
 
 | Agent | Status | Version | Tags |
 | --- | --- | --- | --- |
-| [Changelog Agent](../agents/changelog.agent.md) | ✅ Active | v1.0.0 | `changelog`, `keep-a-changelog`, `validation`, `formatting`, `portable`, `release-management` |
+| [Changelog Agent](../agents/changelog-agent/changelog.agent.md) | ✅ Active | v1.0.0 | `changelog`, `keep-a-changelog`, `validation`, `formatting`, `portable`, `release-management` |
 | [Release Manager](../agents/release.agent.md) | ✅ Active | v2.2 | `lightspeed`, `release`, `agents`, `github`, `semantic-versioning`, `release-prep`, `health-scan` |
 | [Release Manager](../.github/agents/release.agent.md) | ✅ Active | v2.6 | `lightspeed`, `release`, `agents`, `github`, `semantic-versioning`, `release-prep`, `health-scan`, `safety-gates` |
 | [WordPress Release Utilities](../agents/wordpress.agent.md) | ✅ Active | v1.0 | `wordpress`, `release-management`, `versioning`, `plugin-management`, `theme-management` |
@@ -90,7 +90,7 @@ changelog-management
 
 | Agent | Status | Version | Tags |
 | --- | --- | --- | --- |
-| [Changelog Manager](../.github/agents/changelog.agent.md) | ✅ Active | v1.0 | `changelog`, `automation`, `github`, `release-management`, `keep-a-changelog`, `semantic-versioning`, `validation`, `active` |
+| [Changelog Manager](../agents/changelog-agent/changelog.agent.md) | ✅ Active | v1.0 | `changelog`, `automation`, `github`, `release-management`, `keep-a-changelog`, `semantic-versioning`, `validation`, `active` |
 
 ### ⚡ Automation
 
@@ -276,8 +276,8 @@ support
 | [ADR Generator](../.github/agents/adr.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [AGENT](../agents/client-website-discovery-assistant.agent.md) | 📋 governance | ✅ active | 1.0.0 |  |
 | [AI Readiness Estimator](../agents/ai-readiness-estimator.agent.md) | 📦 assessment | ✅ active | v1.0 | 2026-08-29 |
-| [Changelog Agent](../agents/changelog.agent.md) | 📦 release-management | ✅ active | v1.0.0 | 2026-08-25 |
-| [Changelog Manager](../.github/agents/changelog.agent.md) | 📦 changelog-management | ✅ active | v1.0 | 2026-08-27 |
+| [Changelog Agent](../agents/changelog-agent/changelog.agent.md) | 📦 release-management | ✅ active | v1.0.0 | 2026-08-25 |
+| [Changelog Manager](../agents/changelog-agent/changelog.agent.md) | 📦 changelog-management | ✅ active | v1.0 | 2026-08-27 |
 | [Chat Closure Agent](../agents/chat-closure.agent.md) | ⚡ automation | ✅ active | v1.0.1 | 2026-08-21 |
 | [Client Website Discovery Assistant](../agents/client-website-discovery.agent.md) | 📦 discovery | ✅ active | v1.0.1 | 2026-08-25 |
 | [Demonstrate Understanding](../agents/mode-demonstrate-understanding.agent.md) | 🎯 mode | ✅ active | v1.0 | 2026-08-29 |
@@ -349,7 +349,7 @@ support
 - [ADR Generator](../agents/adr.agent.md) → [`agents/adr-generator//`](../agents/agents/adr-generator//)
 - [AGENT](../agents/client-website-discovery-assistant.agent.md) → [`.github/agents/client-website-discovery-assistant-agent//`](../agents/.github/agents/client-website-discovery-assistant-agent//)
 - [AI Readiness Estimator](../agents/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent//`](../agents/agents/ai-readiness-estimator-agent//)
-- [Changelog Agent](../agents/changelog.agent.md) → [`agents/changelog//`](../agents/agents/changelog//)
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md) → [`agents/changelog-agent/`](../agents/changelog-agent/)
 - [Chat Closure Agent](../agents/chat-closure.agent.md) → [`agents/chat-closure-agent//`](../agents/agents/chat-closure-agent//)
 - [Client Website Discovery Assistant](../agents/client-website-discovery.agent.md) → [`agents/client-website-discovery-assistant-agent//`](../agents/agents/client-website-discovery-assistant-agent//)
 - [Design Partner Agent](../agents/design-partner.agent.md) → [`agents/design-partner-agent//`](../agents/agents/design-partner-agent//)
@@ -379,7 +379,7 @@ support
 **Specification-Only** (38)
 
 - [ADR Generator](../.github/agents/adr.agent.md) — Expert agent for creating comprehensive Architectural Decision Records (ADRs) with structured formatting optimized for AI consumption and human readability.
-- [Changelog Manager](../.github/agents/changelog.agent.md) — Comprehensive changelog management - validates entry format and compliance, manages Keep a Changelog 1.1.0 structure, enforces semantic versioning integration, generates release notes, and ensures audit trails for all user-facing changes.
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md) — Comprehensive changelog management - validates entry format and compliance, manages Keep a Changelog 1.1.0 structure, enforces semantic versioning integration, generates release notes, and ensures audit trails for all user-facing changes.
 - [Demonstrate Understanding](../agents/mode-demonstrate-understanding.agent.md) — Validate user understanding of code, design patterns, and implementation details through guided questioning.
 - [Demonstrate Understanding](../.github/agents/mode-demonstrate-understanding.agent.md) — Validate user understanding of code, design patterns, and implementation details through guided questioning.
 - [Issues](../agents/issues.agent.md) — Comprehensive agent for issue management: type assignment, triage, refinement, and enrichment with acceptance criteria and technical details. Integrated with agentic workflow orchestration and openspec status tracking.
@@ -426,7 +426,7 @@ support
 
 ### `active`
 
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 
 ### `agent`
 
@@ -473,7 +473,7 @@ support
 
 ### `automation`
 
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 - [Chat Closure Agent](../agents/chat-closure.agent.md)
 - [Issues](../agents/issues.agent.md)
 - [Issues Manager](../.github/agents/issues.agent.md)
@@ -537,8 +537,8 @@ support
 
 ### `changelog`
 
-- [Changelog Agent](../agents/changelog.agent.md)
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 
 ### `ci`
 
@@ -681,7 +681,7 @@ support
 
 ### `formatting`
 
-- [Changelog Agent](../agents/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
 
 ### `frontmatter`
 
@@ -694,7 +694,7 @@ support
 
 ### `github`
 
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 - [Labeling](../agents/labeling.agent.md)
 - [Labeling Agent](../.github/agents/labeling.agent.md)
 - [PR Creation Agent](../agents/pr-creation.agent.md)
@@ -763,8 +763,8 @@ support
 
 ### `keep-a-changelog`
 
-- [Changelog Agent](../agents/changelog.agent.md)
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 
 ### `keyword-research`
 
@@ -914,7 +914,7 @@ support
 
 ### `portable`
 
-- [Changelog Agent](../agents/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
 - [Chat Closure Agent](../agents/chat-closure.agent.md)
 - [Metadata Agent](../agents/metadata.agent.md)
 - [PR Creation Agent](../agents/pr-creation.agent.md)
@@ -1024,8 +1024,8 @@ support
 
 ### `release-management`
 
-- [Changelog Agent](../agents/changelog.agent.md)
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 - [WordPress Release Utilities](../agents/wordpress.agent.md)
 
 ### `release-ops`
@@ -1078,7 +1078,7 @@ support
 
 ### `semantic-versioning`
 
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 - [Release Manager](../agents/release.agent.md)
 - [Release Manager](../.github/agents/release.agent.md)
 
@@ -1218,8 +1218,8 @@ support
 ### `validation`
 
 - [ADR Generator](../agents/adr.agent.md)
-- [Changelog Agent](../agents/changelog.agent.md)
-- [Changelog Manager](../.github/agents/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md)
 - [Metadata Agent](../agents/metadata.agent.md)
 - [Prompt Engineer](../agents/prompt-engineer.agent.md)
 - [Prompt Engineer](../.github/agents/prompt-engineer.agent.md)
@@ -1268,7 +1268,7 @@ support
 
 ### Ash Shaw (7)
 
-- [Changelog Agent](../agents/changelog.agent.md) — Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting.
+- [Changelog Agent](../agents/changelog-agent/changelog.agent.md) — Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting.
 - [Chat Closure Agent](../agents/chat-closure.agent.md) — Automate session handoff workflows with automatic memory updates, continuation prompts, and safe workspace cleanup.
 - [PRD Agent](../agents/prd.agent.md) — Create and manage comprehensive product requirement documents, technical specifications, user stories, and planning artifacts for product development.
 - [PRD Factory & Planner Agent](../agents/prd-factory-planner.agent.md) — Automated PRD generation and project planning assistant that transforms product concepts into comprehensive Product Requirements Documents, structured roadmaps, and detailed implementation timelines.
@@ -1280,7 +1280,7 @@ support
 
 - [ADR Generator](../agents/adr.agent.md) — Generate architectural decision records with configuration-driven templates and validation.
 - [AI Readiness Estimator](../agents/ai-readiness-estimator.agent.md) — Comprehensive AI capability assessment and readiness evaluation tool that evaluates organizational readiness for AI implementation through infrastructure, data quality, team skills, and adoption roadmap analysis.
-- [Changelog Manager](../.github/agents/changelog.agent.md) — Comprehensive changelog management - validates entry format and compliance, manages Keep a Changelog 1.1.0 structure, enforces semantic versioning integration, generates release notes, and ensures audit trails for all user-facing changes.
+- [Changelog Manager](../agents/changelog-agent/changelog.agent.md) — Comprehensive changelog management - validates entry format and compliance, manages Keep a Changelog 1.1.0 structure, enforces semantic versioning integration, generates release notes, and ensures audit trails for all user-facing changes.
 - [Client Website Discovery Assistant](../agents/client-website-discovery.agent.md) — Comprehensive website assessment and analysis for competitive discovery, feature gap analysis, UX evaluation, and performance analysis.
 - [Demonstrate Understanding](../agents/mode-demonstrate-understanding.agent.md) — Validate user understanding of code, design patterns, and implementation details through guided questioning.
 - [Design Partner Agent](../agents/design-partner.agent.md) — AI-powered design collaboration tool for UI/UX review, design systems management, and accessibility assessment.

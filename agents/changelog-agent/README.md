@@ -70,7 +70,7 @@ npm run validate:metrics trend -- --days 30
 ## Architecture
 
 ```
-agents/changelog/
+agents/changelog-agent/
 ├── changelog.agent.js          # Main orchestrator (ESM)
 ├── package.json
 ├── README.md
@@ -407,7 +407,7 @@ Parse and manipulate Keep a Changelog format.
 
 ### Specification & Control Plane
 
-- **Spec Agent:** [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md) — Full agent specification with architecture and integration details
+- **Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](./changelog.agent.md) — Full agent specification with architecture and integration details
 - **Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for PR validation and release processing
 - **Release Agent:** [`.github/agentic-workflows/release.agent.js`](../../.github/agentic-workflows/release.agent.js) — Release automation with changelog integration
 
@@ -421,8 +421,8 @@ Parse and manipulate Keep a Changelog format.
 
 The Changelog Agent is split into two tiers:
 
-1. **Portable Agent (this folder)** — `agents/changelog/changelog.agent.js` — ESM implementation with complete functionality
-2. **Spec Agent** — `.github/agents/changelog.agent.md` — Specification and integration guide
+1. **Portable Agent (this folder)** — `agents/changelog-agent/changelog.agent.js` — ESM implementation with complete functionality
+2. **Spec Agent** — `agents/changelog-agent/changelog.agent.md` — Specification and integration guide
 
 All three pieces (spec, portable agent, workflow) reference each other to ensure consistency and traceability.
 
@@ -560,7 +560,7 @@ entry: {
 
 ## See Also
 
-- **Changelog Spec Agent** — [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md)
+- **Changelog Spec Agent** — [`agents/changelog-agent/changelog.agent.md`](./changelog.agent.md)
 - **Release Agent README** — `agents/release/README.md`
 - **Release Process Guide** — `docs/RELEASE_PROCESS.md`
 - **Keep a Changelog Standard** — <https://keepachangelog.com/en/1.1.0/>

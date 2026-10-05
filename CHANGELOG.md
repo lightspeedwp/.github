@@ -302,6 +302,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Footer Guard Blames Only New Duplicates** — The CI guard now compares each touched file against its base version, so a change is not blocked for duplicate footers it inherited. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
 - **Docs Workflow Stops Rewriting the Whole Repo** — The meta agent ignored the file list the workflow passed it, rewriting 9,424 files per push. ([#3602](https://github.com/lightspeedwp/.github/issues/3602))
 - **Footer Duplicates No Longer Return** — Running the generator twice no longer appends a second copy of a bare configured footer. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
+- **Stale Changelog-Agent Links Repointed** — The agent index, agent docs and automation docs, plus the changelog safety script, again point at `agents/changelog-agent/` after the move left them aimed at removed paths. (#3814)
 
 ### Security
 
