@@ -19,6 +19,13 @@
 # files through the API. Keep it that way, and keep this workflow on `develop`
 # before requiring the check. It does not run on the pull request that first
 # adds it, and it does not replace Code Owner review.
+#
+# From 2 November 2026 GitHub blocks `pull_request_target` by default in public
+# repositories that have no Actions event policy
+# (https://github.blog/changelog/2026-09-17-workflow-execution-protections-in-github-actions-generally-available/).
+# This repository has none, so an Actions event policy must allow this event for
+# this workflow before then (spec 008 task T080a); the policy is a repository
+# setting, not a file, so it is not created here.
 
 name: Locked Files Guard
 
