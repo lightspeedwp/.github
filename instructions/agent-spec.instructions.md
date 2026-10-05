@@ -34,7 +34,7 @@ Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo
 
 ### Frontmatter and Metadata
 
-- Use the template frontmatter fields (`title`, `description`, `version`, `last_updated`, `owners`, `tags`, `status`, `apply_to`, `file_type`, `tools`, `examples`, optional `metadata`). Do not add a `references` property; the schema no longer recognises it—link to related docs inline or in footers.
+- Use only frontmatter fields the validators accept. Three layers apply, in this order: (1) `.schemas/agent-config.schema.json` requires `file_type`, `title` and `last_updated`; (2) `scripts/validation/lib/skills-spec.js` (`SUBAGENT_FIELDS`) enforces a closed set for `*.agent.md` files — anything outside it, including `apply_to`, `examples`, `language`, `implementation` and `visibility`, is a finding; (3) `agents/_template-agent/template.agent.md` shows the recommended shape. The template illustrates `apply_to`, `examples` and `language`, but those three fields are not in the enforced closed set, so drop them from real agent files. Do not add a `references` property; the schema no longer recognises it—link to related docs inline or in footers.
 - Declare permissions through the optional `permissions` array; follow the approved vocabulary in `docs/FRONTMATTER_SCHEMA.md` (e.g., `read`, `write`, `shell`, `github:*`) so automation tooling always validates these scopes.
 - Keep `apply_to` targeting `agents/*.agent.md` for portable specs; update `last_updated` whenever the spec meaningfully changes.
 - Add `metadata.guardrails` for non-negotiable safety notes; reference relevant instructions and `SECURITY.md`.
