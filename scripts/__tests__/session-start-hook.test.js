@@ -2,7 +2,7 @@
  * @jest-environment node
  *
  * Contract tests for the SessionStart hook, .claude/hooks/session-start.sh
- * (spec 016, contracts/hooks.md). Each case runs the real hook in a temporary
+ * (spec 018, contracts/hooks.md). Each case runs the real hook in a temporary
  * repository with a bare `origin` and a stubbed `npm`.
  */
 
@@ -157,6 +157,7 @@ describe('context text (T014)', () => {
       '.claude/settings.json',
       '.claude/settings.local.json',
       '~/.claude/settings.json',
+      '/etc/claude-code/managed-settings.json',
     ]) {
       expect(context).toContain(file);
     }
@@ -281,6 +282,24 @@ describe('dependency install (T014, FR-004)', () => {
 
   test('does not install in a local session', () => {
     contextOf(runSessionStart(fx, 'startup'));
+    expect(npmCalls()).toHaveLength(0);
+  });
+
+  // SC-005: a cloud startup whose dependencies are already current finishes
+  // within 30 seconds. The fixture has a local origin and a stubbed npm, so
+  // this measures the hook's own work rather than the network.
+  test('finishes a current cloud startup within 30 seconds without installing (SC-005)', () => {
+    const old = new Date('2020-01-01T00:00:00Z');
+    const newer = new Date('2024-01-01T00:00:00Z');
+    fs.utimesSync(lockfile(), old, old);
+    fs.utimesSync(manifest(), old, old);
+    fs.mkdirSync(path.dirname(installed()), { recursive: true });
+    fs.writeFileSync(installed(), '{}\n');
+    fs.utimesSync(installed(), newer, newer);
+
+    const started = Date.now();
+    contextOf(runSessionStart(fx, 'startup', CLOUD));
+    expect(Date.now() - started).toBeLessThan(30000);
     expect(npmCalls()).toHaveLength(0);
   });
 });
