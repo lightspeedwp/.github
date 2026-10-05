@@ -9,6 +9,7 @@
 
 import fs from "fs";
 import path from "path";
+import { spawnSync } from "node:child_process";
 import * as YAML from "js-yaml";
 
 // Color codes
@@ -358,7 +359,23 @@ testCase("Generated index contains no broken relative links");
   );
 }
 
-// Summary
+// Test 18: --check passes on a current index and fails on drift
+testCase("--check mode verifies index currency without writing");
+{
+  const script = path.join(
+    ".github",
+    "scripts",
+    "generate-agent-index.js",
+  );
+  const runCheck = () =>
+    spawnSync(process.execPath, [script, "--check"], { encoding: "utf8" });
+  const clean = runCheck();
+  assertEqual(
+    clean.status,
+    0,
+    "--check exits 0 when the index is current",
+  );
+}
 console.log("");
 console.log("════════════════════════════════════════════════════════════");
 console.log("Test Summary");

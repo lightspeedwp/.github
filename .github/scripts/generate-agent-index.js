@@ -314,14 +314,43 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   return markdown;
 }
 
+// Lines that legitimately change on every run (timestamps). The --check mode
+// and the idempotency test ignore exactly these lines; everything else must
+// be byte-identical between runs.
+const STAMP_PATTERNS = [
+  /^(created_date|last_updated):/,
+  /^\*\*Generated\*\*:/,
+  /^Complete searchable index/,
+];
+
+function stripStamps(markdown) {
+  return markdown
+    .split("\n")
+    .filter((line) => !STAMP_PATTERNS.some((re) => re.test(line)))
+    .join("\n");
+}
+
 // Main execution
 function main() {
+  const check = process.argv.includes("--check");
   console.log("Generating agent index...");
 
   const specs = collectAgentSpecs();
   console.log(`Found ${specs.length} agent specifications`);
 
   const markdown = generateIndex(specs);
+
+  if (check) {
+    const current = fs.existsSync(OUTPUT_FILE)
+      ? fs.readFileSync(OUTPUT_FILE, "utf8")
+      : null;
+    if (current === null || stripStamps(current) !== stripStamps(markdown)) {
+      console.error("agent index drifted from generated output");
+      process.exit(1);
+    }
+    console.log("✅ Agent index is current (ignoring date stamps).");
+    return 0;
+  }
 
   // Ensure directory exists
   const outputDir = path.dirname(OUTPUT_FILE);
