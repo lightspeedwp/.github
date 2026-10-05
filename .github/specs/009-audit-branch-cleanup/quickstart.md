@@ -431,6 +431,22 @@ node test-lib-api.js
 
 ---
 
+## Manual Review: Promoting a DISCUSS Branch
+
+**Goal**: Review `claude/*` branches the audit sends to DISCUSS (spec 018 FR-021)
+
+The CLI marks no `claude/*` branch for automatic deletion. Every one without an open PR or matching exclusion is DISCUSS, because its name has a forbidden prefix.
+
+A maintainer may promote a DISCUSS branch to DELETE only when all of these hold:
+
+- The branch is empty: it has no commits of its own.
+- The branch is merged into `develop` or `main`.
+- It has no open PR.
+
+Promotion is never automatic. The promoted branch is still removed only through the draft-PR approval described in the contract: it is listed in the deletion PR, a human approves and merges that PR, and nothing is deleted before then. A `claude/*` branch with commits of its own is never promoted, whatever its age.
+
+---
+
 ## Cleanup
 
 ```bash
