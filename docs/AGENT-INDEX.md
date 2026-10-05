@@ -387,8 +387,8 @@ support
 **With Implementation Directory** (34)
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md) → [`agents/adr-generator/`](../agents/adr-generator/)
-- [AGENT](../agents/client-website-discovery-assistant-agent/client-website-discovery-assistant.agent.md) → [`.github/agents/client-website-discovery-assistant-agent/`](../.github/agents/client-website-discovery-assistant-agent/)
-- [AGENT](../agents/discovery-agent/client-website-discovery-assistant.agent.md) → [`.github/agents/client-website-discovery-assistant-agent/`](../.github/agents/client-website-discovery-assistant-agent/)
+- [AGENT](../agents/client-website-discovery-assistant-agent/client-website-discovery-assistant.agent.md) → [`agents/client-website-discovery-assistant-agent/`](../agents/client-website-discovery-assistant-agent/)
+- [AGENT](../agents/discovery-agent/client-website-discovery-assistant.agent.md) → [`agents/client-website-discovery-assistant-agent/`](../agents/client-website-discovery-assistant-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-estimator-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
 - [Changelog Agent](../agents/changelog-agent/changelog.agent.md) → [`agents/changelog-agent/`](../agents/changelog-agent/)
@@ -399,18 +399,18 @@ support
 - [Harvest Analytical Agent](../agents/archived/harvest-analytical-agent/harvest-analytical.agent.md) → [`agents/harvest-analytical-agent/`](../agents/harvest-analytical-agent/)
 - [Harvest Analytical Agent](../agents/harvest-analytical-agent/harvest-analytical.agent.md) → [`agents/harvest-analytical-agent/`](../agents/harvest-analytical-agent/)
 - [Linear Advisor Agent](../agents/linear-advisor-agent/linear-advisor.agent.md) → [`agents/linear-advisor-agent/`](../agents/linear-advisor-agent/)
-- [Linting](../agents/linting-agent/linting.agent.md) → [`linting-agent/`](../agents/linting-agent/linting-agent/)
-- [Meta](../agents/meta-agent/meta.agent.md) → [`meta-agent/`](../agents/meta-agent/meta-agent/)
+- [Linting](../agents/linting-agent/linting.agent.md) → [`agents/linting-agent/`](../agents/linting-agent/)
+- [Meta](../agents/meta-agent/meta.agent.md) → [`agents/meta-agent/`](../agents/meta-agent/)
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md) → [`agents/metadata-agent/`](../agents/metadata-agent/)
 - [PageSpeed Agent](../agents/pagespeed-agent/pagespeed.agent.md) → [`agents/pagespeed-agent/`](../agents/pagespeed-agent/)
-- [Planner](../agents/task-planner-agent/task-planner.agent.md) → [`task-planner-agent/`](../agents/task-planner-agent/task-planner-agent/)
+- [Planner](../agents/task-planner-agent/task-planner.agent.md) → [`agents/task-planner-agent/`](../agents/task-planner-agent/)
 - [PRD Agent](../agents/prd-agent/prd.agent.md) → [`agents/prd-agent/`](../agents/prd-agent/)
-- [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md) → [`agents/prd-factory-planner-agent/`](../agents/prd-factory-planner-agent/)
-- [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md) → [`prompt-engineer/`](../agents/prompt-engineer-agent/prompt-engineer/)
+- [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md) → [`agents/prd-agent/`](../agents/prd-agent/)
+- [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md) → [`agents/prompt-engineer-agent/`](../agents/prompt-engineer-agent/)
 - [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md) → [`agents/proposal-desk-agent/`](../agents/proposal-desk-agent/)
-- [Release Manager](../agents/release-agent/release.agent.md) → [`release/`](../agents/release-agent/release/)
-- [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) → [`task-researcher-agent/`](../agents/task-researcher-agent/task-researcher-agent/)
-- [Testing](../agents/testing-agent/testing.agent.md) → [`testing-agent/`](../agents/testing-agent/testing-agent/)
+- [Release Manager](../agents/release-agent/release.agent.md) → [`agents/release-agent/`](../agents/release-agent/)
+- [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) → [`agents/task-researcher-agent/`](../agents/task-researcher-agent/)
+- [Testing](../agents/testing-agent/testing.agent.md) → [`agents/testing-agent/`](../agents/testing-agent/)
 - [Tour Operator Config Agent](../agents/tour-operator-config-agent/tour-operator-config.agent.md) → [`agents/tour-operator-config-agent/`](../agents/tour-operator-config-agent/)
 - [Website Content Strategist](../agents/content-strategy-agent/website-content-strategist.agent.md) → [`agents/website-content-strategist-agent/`](../agents/website-content-strategist-agent/)
 - [Website Content Strategist](../agents/website-content-strategist-agent/website-content-strategist.agent.md) → [`agents/website-content-strategist-agent/`](../agents/website-content-strategist-agent/)
@@ -418,7 +418,7 @@ support
 - [Website Scope Estimator](../agents/website-scope-estimator-agent/website-scope-estimator.agent.md) → [`agents/website-scope-estimator-agent/`](../agents/website-scope-estimator-agent/)
 - [WooCommerce Config Agent](../agents/woo-config-agent/woo-config.agent.md) → [`agents/woo-config-agent/`](../agents/woo-config-agent/)
 - [WordPress Config Agent](../agents/wp-config-agent/wp-config.agent.md) → [`agents/wp-config-agent/`](../agents/wp-config-agent/)
-- [WordPress Release Utilities](../agents/wordpress-release-utilities-agent/wordpress.agent.md) → [`agents/wordpress/`](../agents/wordpress/)
+- [WordPress Release Utilities](../agents/wordpress-release-utilities-agent/wordpress.agent.md) → [`agents/wordpress-release-utilities-agent/`](../agents/wordpress-release-utilities-agent/)
 - [Zendesk Support Agent](../agents/zendesk-support-agent/zendesk-support.agent.md) → [`agents/zendesk-support-agent/`](../agents/zendesk-support-agent/)
 
 **Specification-Only** (44)
@@ -1210,5 +1210,5 @@ support
 - [Agent Specification Audit - Phase 3 Results](../.github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 
-**Generated**: 2026-10-05T12:30:05.725Z
+**Generated**: 2026-10-05T13:13:10.999Z
 **Total Agents**: 78
