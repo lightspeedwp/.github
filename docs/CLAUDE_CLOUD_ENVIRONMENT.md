@@ -233,11 +233,12 @@ settings, not branch-protection fields.
   files while enforcement is on, so guard changes come from a person, or from a session an Owner started with
   `LS_ENFORCE_BRANCH_NAMES=0`.
 - Empty `claude/*` branches left on GitHub by the platform are not deleted automatically yet. Spec 018 FR-020 defers
-  auto-deletion until a branch-age signal, such as a first-observed timestamp, exists, because the age of a branch's
-  last commit says nothing about how long the branch itself has existed. Until then, spec 009's cleanup (the
-  report-only CLI from lightspeedwp/.github#3358; `develop` keeps the older script until it merges) sends every `claude/*` branch without an open PR or matching exclusion to DISCUSS for its forbidden prefix. A
-  maintainer reviewing DISCUSS can promote an empty, merged one with no open PR to DELETE once spec 009 records that
-  route (task T063, after #3358 merges), and it is then removed only through spec 009's draft-PR approval. A `claude/*` branch with commits of its own is never promoted this way.
+  auto-deletion until both a branch-age signal, such as a first-observed timestamp, and a branch-origin check that
+  confirms the branch is a platform placeholder exist, because the age of a branch's last commit says nothing about
+  how long the branch itself has existed. Until then, spec 009's cleanup (the
+  report-only CLI from lightspeedwp/.github#3358) sends every `claude/*` branch without an open PR or matching exclusion to DISCUSS for its forbidden prefix. A
+  maintainer reviewing DISCUSS can promote an empty, merged one with no open PR to DELETE (spec 009's manual review
+  guidance records the route), and it is then removed only through spec 009's draft-PR approval. A `claude/*` branch with commits of its own is never promoted this way.
 
 ## Limitations
 
