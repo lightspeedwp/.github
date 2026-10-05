@@ -12,7 +12,7 @@
 ## 1. Guard: automated scenarios (FR-005 to FR-012)
 
 ```bash
-npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js
+npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js scripts/__tests__/setup-node-install.test.js tests/js/claude-cloud-environment-docs.test.js
 ```
 
 Expected: every case passes, including these:
@@ -38,6 +38,9 @@ Expected: every case passes, including these:
 | Validator import failing (simulated), then `git commit` | exit 2, "guard unavailable" |
 | Validator import failing (simulated), then `git commit` with `LS_ENFORCE_BRANCH_NAMES=0` in the hook environment | exit 0 plus warning; write proceeds |
 | Validator import failing (simulated), then `ls` | exit 0 plus warning |
+| Node not on `PATH`, then `git commit` (after T052) | exit 2, "Branch guard unavailable" |
+| Node not on `PATH`, then `ls` (after T052) | exit 0 plus warning |
+| Node not on `PATH` with `LS_ENFORCE_BRANCH_NAMES=0`, then `git commit` | exit 0 plus warning |
 
 ## 2. SessionStart hook (FR-001 to FR-004)
 
@@ -105,11 +108,15 @@ node scripts/cleanup-branches.js --reportFormat=json --reportDir=/tmp/cleanup
 jq '[.deleted[] | select(.autoApproved) | .branch]' /tmp/cleanup/*.json
 ```
 
-Expected:
+Expected while the FR-020 deferral holds:
 
-- Only `claude/*` branches that are merged, have no open PR and are at least a day old are auto-approved.
-- `claude/*` branches with their own commits appear under DISCUSS.
+- The `jq` query returns `[]`: no branch is auto-approved, whatever the age of its tip commit.
+- Every `claude/*` branch without an open PR or matching exclusion appears under DISCUSS for its forbidden prefix.
 - Nothing is deleted, and `--dryRun=false` exits with 1.
 
-Then run the spec 009 cleanup workflow manually in report-only mode, and check that its summary lists the same
-auto-approved branches.
+After T063 adds this route to spec 009, a maintainer can promote an empty, merged `claude/*` branch with no open PR
+to DELETE through spec 009's draft-PR approval (R16).
+
+Once the deferral is lifted, only branches that are platform placeholders with no commits of their own and no
+open PR, observable for at least a day by the branch-age signal, are auto-approved. Run the spec 009 cleanup
+workflow manually in report-only mode, and check that its summary lists the same auto-approved branches.
