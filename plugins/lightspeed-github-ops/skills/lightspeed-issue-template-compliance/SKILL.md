@@ -1,7 +1,8 @@
 ---
 name: lightspeed-issue-template-compliance
 description: verify issue content against required template sections and governance checks.
-version: 0.1.1
+metadata:
+  version: "0.1.1"
 ---
 
 # LightSpeed Issue Template Compliance

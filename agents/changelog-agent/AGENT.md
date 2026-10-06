@@ -19,7 +19,7 @@ author: "Ash Shaw"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
 language: "en"
-implementation: "agents/changelog/"
+implementation: "agents/changelog-agent/"
 permissions:
   - read
   - write
@@ -69,9 +69,9 @@ Provide enterprise-grade, portable changelog management using Keep a Changelog 1
 
 ## Implementation Reference
 
-- **Folder:** `agents/changelog/`
-- **Entry Point:** [README.md](changelog/README.md)
-- **Related:** [package.json](changelog/package.json)
+- **Folder:** `agents/changelog-agent/`
+- **Entry Point:** [README.md](README.md)
+- **Related:** [package.json](package.json)
 
 ---
 

@@ -222,7 +222,7 @@ Some entries may have PR links but missing issue links. Follow this workflow:
 
   ```bash
   # Automated (planned for Phase 5):
-  node agents/changelog/changelog.agent.js processChangelog ./CHANGELOG.md VERSION DATE
+  node agents/changelog-agent/changelog.agent.js processChangelog ./CHANGELOG.md VERSION DATE
   ```
 
 - [ ] **6.3** Verify release notes:
@@ -293,7 +293,7 @@ node scripts/changelog-pre-release-validator.js --changelog CHANGELOG.md --forma
 ## Appendix B: Related Resources
 
 - **[Phase 5 Changelog Quality Audit Spec](../.github/specs/003-changelog-quality-audit/spec.md)** — Full specification with 7-week implementation roadmap
-- **[Changelog Agent README](../agents/changelog/README.md)** — API reference and validation rules
+- **[Changelog Agent README](../agents/changelog-agent/README.md)** — API reference and validation rules
 - **[Keep a Changelog Standard](https://keepachangelog.com/en/1.1.0/)** — Format specification
 - **[GitHub PR Template](.github/PULL_REQUEST_TEMPLATE/)** — Template structure for PR links
 

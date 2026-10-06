@@ -110,7 +110,7 @@ Use the **Changelog Agent** to validate the changelog entry.
   - [ ] No duplicate entries
   - [ ] Version links are valid (if releasing)
 
-**Reference:** [agents/changelog/README.md](../agents/changelog/README.md)
+**Reference:** [agents/changelog-agent/README.md](../agents/changelog-agent/README.md)
 
 ---
 
@@ -527,7 +527,7 @@ From `.github/labels.yml` — ALL labels must use family:value format:
 ### Agents
 
 - **Changelog Agent** — Validate Keep a Changelog 1.1.0 entries
-  - Location: `agents/changelog/README.md`
+  - Location: `agents/changelog-agent/README.md`
   - Usage: `validateEntry()`, `addEntry()`, `validateChangelog()`
   - **TODO:** Integrate into PR validation workflow
 - **PR Agent** — Coordinate PR creation, labeling, and merge

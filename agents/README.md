@@ -64,7 +64,7 @@ Agents with both specification files and complete implementations (28 total).
 - **[Website Content Strategist](./website-content-strategist-agent/)** – [`website-content-strategist.agent.md`](./website-content-strategist.agent.md)
   - Content strategy planning, audits, and SEO optimization
 
-- **[Changelog](./changelog/)** – [`changelog.agent.md`](./changelog.agent.md)
+- **[Changelog](./changelog-agent/)** – [`changelog.agent.md`](./changelog-agent/changelog.agent.md)
   - Automated changelog generation from commit history
 
 ### Project Management & Planning

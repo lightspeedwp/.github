@@ -10,9 +10,9 @@
  * Version: 1.0 MVP (Phase 5A)
  *
  * Related Files & Integration:
- * - Changelog Spec Agent: .github/agents/changelog.agent.md
- * - Changelog Portable Agent: agents/changelog/README.md
- * - Changelog Portable Agent: agents/changelog/changelog.agent.js
+ * - Changelog Spec Agent: agents/changelog-agent/changelog.agent.md
+ * - Changelog Portable Agent: agents/changelog-agent/README.md
+ * - Changelog Portable Agent: agents/changelog-agent/changelog.agent.js
  * - Changelog Schema: schemas/changelog.schema.json
  * - Changelog Workflow: .github/workflows/changelog-management.yml
  * - Changelog Documentation: docs/CHANGELOG_AUTOMATION.md
