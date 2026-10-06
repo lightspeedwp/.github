@@ -21,14 +21,14 @@ export function extractPRs(text) {
  * Validate a PR number
  */
 export function validatePR(prNumber) {
-  if (!prNumber || typeof prNumber !== "number") {
-    return { valid: false, reason: "Invalid PR number" };
+  if (!prNumber || typeof prNumber !== 'number') {
+    return { valid: false, reason: 'Invalid PR number' };
   }
   if (prNumber < 1) {
-    return { valid: false, reason: "PR number must be positive" };
+    return { valid: false, reason: 'PR number must be positive' };
   }
   if (prNumber > 999999) {
-    return { valid: false, reason: "PR number exceeds maximum" };
+    return { valid: false, reason: 'PR number exceeds maximum' };
   }
   return { valid: true };
 }
@@ -40,7 +40,7 @@ export function determineLabelAction(hasValidPR) {
   return {
     shouldAdd: hasValidPR,
     shouldRemove: !hasValidPR,
-    label: "meta:has-pr",
+    label: 'meta:has-pr',
   };
 }
 
@@ -52,8 +52,8 @@ export function buildSyncConfig(options = {}) {
     dryRun: options.dryRun || false,
     verbose: options.verbose || false,
     issueNumber: options.issueNumber || null,
-    format: options.format || "json",
-    output: options.output || ".github/reports",
+    format: options.format || 'json',
+    output: options.output || '.github/reports',
   };
 }
 
@@ -64,7 +64,7 @@ export function processIssue(issue, _config) {
   const changes = {
     issueNumber: issue.number,
     currentLabels: issue.labels || [],
-    prNumbers: extractPRs(issue.body || ""),
+    prNumbers: extractPRs(issue.body || ''),
     validPRs: [],
     invalidPRs: [],
     labelsToAdd: [],
@@ -83,17 +83,11 @@ export function processIssue(issue, _config) {
   const hasValidPR = changes.validPRs.length > 0;
   const action = determineLabelAction(hasValidPR);
 
-  if (
-    action.shouldAdd &&
-    !changes.currentLabels.some((l) => l.name === action.label)
-  ) {
+  if (action.shouldAdd && !changes.currentLabels.some((l) => l.name === action.label)) {
     changes.labelsToAdd.push(action.label);
   }
 
-  if (
-    action.shouldRemove &&
-    changes.currentLabels.some((l) => l.name === action.label)
-  ) {
+  if (action.shouldRemove && changes.currentLabels.some((l) => l.name === action.label)) {
     changes.labelsToRemove.push(action.label);
   }
 
@@ -110,16 +104,9 @@ export function generateReport(processedIssues, config) {
     issues: processedIssues,
     summary: {
       totalIssues: processedIssues.length,
-      issuesWithPRs: processedIssues.filter((i) => i.validPRs.length > 0)
-        .length,
-      labelsAdded: processedIssues.reduce(
-        (sum, i) => sum + i.labelsToAdd.length,
-        0,
-      ),
-      labelsRemoved: processedIssues.reduce(
-        (sum, i) => sum + i.labelsToRemove.length,
-        0,
-      ),
+      issuesWithPRs: processedIssues.filter((i) => i.validPRs.length > 0).length,
+      labelsAdded: processedIssues.reduce((sum, i) => sum + i.labelsToAdd.length, 0),
+      labelsRemoved: processedIssues.reduce((sum, i) => sum + i.labelsToRemove.length, 0),
       errors: processedIssues.reduce((sum, i) => sum + i.invalidPRs.length, 0),
     },
   };
