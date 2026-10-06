@@ -103,6 +103,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Label Churn Stopped** — The labeler no longer removes the default priority and review labels the labeling agent adds. ([PR #3840](https://github.com/lightspeedwp/.github/pull/3840))
+- **One Type on Docs Bot PRs** — The README regeneration and docs maintenance pull requests no longer get a second, non-canonical `type:documentation` label. ([PR #3839](https://github.com/lightspeedwp/.github/pull/3839))
 - **Phase Progression Follows Real Links** — A closing keyword in a code sample no longer moves an issue to another phase; only issues GitHub renders as links in the pull request body do. ([#3824](https://github.com/lightspeedwp/.github/issues/3824))
 - **Changelog Validator Clears Undici and Busboy Alerts** — Its `@actions` parents move to core 2 and github 8, so the tree resolves undici 6.29.0 with no `@fastify/busboy` copy left. (#3806)
 - **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
