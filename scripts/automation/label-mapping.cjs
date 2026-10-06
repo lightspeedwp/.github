@@ -136,6 +136,14 @@ const REPREFIX = {
 /** FR-012 project-specific labels, moved to a Linear team rather than imported. */
 const TEAM_SCOPE = ['area:xero', 'area:flow', 'area:jobs', 'area:monorepo'];
 
+/**
+ * Change requests that cover the imports (constitution Principle II; schema rule 10).
+ * #3834 is the request that carries the whole mapping, #3757 asks for `area:labels`
+ * and #3554 for the five imports below.
+ */
+const IMPORT_CHANGE_REQUEST = 3834;
+const OWN_CHANGE_REQUESTS = { 'area:labels': 3757 };
+
 /** The five imports of #3554, with the colours and descriptions set in FR-012. */
 const ISSUE_3554 = {
   'area:builds': {
@@ -602,7 +610,8 @@ function buildMappings({
       description:
         ownDescription ||
         `Imported from Linear (${issueCount} issues); description to be written at approval.`,
-      notes: `Proposed: applied to ${issueCount} Linear issue${issueCount === 1 ? '' : 's'}. Colour is the ${colourSource}; description is ${ownDescription ? "Linear's own" : 'a placeholder'}. Check both at approval.`,
+      change_request: OWN_CHANGE_REQUESTS[name] || IMPORT_CHANGE_REQUEST,
+      notes: `Proposed: applied to ${issueCount} Linear issue${issueCount === 1 ? '' : 's'}. Colour is the ${colourSource}; description is ${ownDescription ? "Linear's own" : 'a placeholder'}. Check both at approval. Change request #${OWN_CHANGE_REQUESTS[name] || IMPORT_CHANGE_REQUEST}.`,
     });
   }
 
@@ -690,6 +699,11 @@ function validateMappings(mappings, proposedNames, yml, openspecInFiles = []) {
   for (const m of mappings) {
     if (m.target && /^spec:\d+$/.test(m.target))
       problems.push(`rule 9: ${m.source} targets the spec number ${m.target}`);
+  }
+  // 10. Every import cites the change request that approves it (constitution Principle II).
+  for (const m of mappings.filter((x) => x.action === 'import')) {
+    if (!Number.isInteger(m.change_request))
+      problems.push(`rule 10: import ${m.source} cites no change request`);
   }
   // Each source appears once.
   const seen = new Set();
