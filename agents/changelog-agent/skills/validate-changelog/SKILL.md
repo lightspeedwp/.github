@@ -21,11 +21,12 @@ Follow the steps in order. Stop and fix failures before moving on.
 
 ### 1. Check the single entry first (two-gate validation)
 
-From the repository root, validate the entry text with the changelog agent's
-own validator:
+From the repository root, validate the entry (a YAML file) with the changelog
+agent's own validator. `--entry` takes a file path; to pass the YAML on stdin
+instead, use `--input -`:
 
 ```bash
-node agents/changelog-agent/changelog-validator.js --entry "Your entry text" --json
+node agents/changelog-agent/changelog-validator.js --entry ./path/to/entry.yml --json
 ```
 
 This runs the two gates in

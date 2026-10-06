@@ -5,7 +5,7 @@ description: Interactive agent for creating, organising, and maintaining reports
 file_type: agent
 version: v1.1
 created_date: '2025-11-26'
-last_updated: "2026-09-22"
+last_updated: "2026-10-06"
 author: LightSpeed Team
 mode: conversation
 model: claude-sonnet

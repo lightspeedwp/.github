@@ -2,7 +2,7 @@
 name: audit-label-coverage
 description: Audit and report on GitHub issue/PR label coverage with actionable recommendations
 metadata:
-  version: "1.0"
+  version: "1.0.0"
   type: "skill"
   title: "audit-label-coverage"
   status: "beta"

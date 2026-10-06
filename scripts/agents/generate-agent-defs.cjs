@@ -43,7 +43,7 @@ function parseFrontmatter(content) {
 function renderDefinition({ name, description, canonical }) {
   return `---
 name: ${name}
-description: ${description}
+description: ${JSON.stringify(description)}
 ---
 
 # ${name} (generated thin definition)

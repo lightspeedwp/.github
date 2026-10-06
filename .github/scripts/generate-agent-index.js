@@ -145,10 +145,14 @@ function collectAgentSpecs() {
 // legacy spec-directory-relative join.
 function buildImplementationLink(spec) {
   const raw = String(spec.implementation);
+  // The result is a link target, not a filesystem path, so use POSIX
+  // operations and forward slashes on every platform (`spec.path` comes from
+  // `path.relative`, which emits backslashes on Windows).
+  const specDir = path.posix.dirname(spec.path.split(path.sep).join("/"));
   const joined =
     raw.includes("/") || raw === "." || raw.startsWith(".")
-      ? path.normalize(raw)
-      : path.join(path.dirname(spec.path), raw);
+      ? path.posix.normalize(raw)
+      : path.posix.join(specDir, raw);
   // path.normalize keeps one trailing slash; strip it so the template below
   // emits exactly one. (`agents/X/` must not become `agents/X//`.)
   const implPath = joined.replace(/\/+$/, "");

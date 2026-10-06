@@ -63,9 +63,9 @@ Automate Product Requirements Document generation and project planning by transf
 
 ## Implementation Reference
 
-- **Folder:** `agents/prd-factory-planner-agent/`
-- **Entry Point:** [AGENT.md](prd-factory-planner-agent/AGENT.md)
-- **Related:** [README.md](prd-factory-planner-agent/README.md)
+- **Folder:** `agents/prd-agent/`
+- **Entry Point:** [AGENT.md](./AGENT.md)
+- **Related:** [README.md](./README.md)
 
 ---
 

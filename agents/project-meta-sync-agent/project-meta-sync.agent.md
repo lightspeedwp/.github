@@ -9,7 +9,7 @@ handoffs:
     prompt: Now apply the field updates to the GitHub Project board based on the analysis above.
     send: false
 version: v1.0
-last_updated: "2026-09-22"
+last_updated: "2026-10-06"
 author: LightSpeed
 maintainer: Ash Shaw
 file_type: agent

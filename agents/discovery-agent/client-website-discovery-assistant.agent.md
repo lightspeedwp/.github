@@ -13,7 +13,7 @@ tags:
 - performance
 status: active
 created_date: '2026-08-29'
-implementation: "agents/client-website-discovery-assistant-agent/"
+implementation: "agents/discovery-agent/"
 ---
 
 # AGENT
@@ -22,16 +22,16 @@ Comprehensive website assessment and analysis for competitive discovery and UX e
 
 ## Implementation Reference
 
-This agent's implementation is located in [`.github/agents/client-website-discovery-assistant-agent/`](client-website-discovery-assistant-agent/).
+This agent's implementation is located in [`agents/discovery-agent/`](./).
 
 ### Entry Points
 
-- **Agent Definition:** [AGENT.md](client-website-discovery-assistant-agent/AGENT.md)
-- **README:** [README.md](client-website-discovery-assistant-agent/README.md)
+- **Agent Definition:** [AGENT.md](./AGENT.md)
+- **README:** [README.md](./README.md)
 
 ### Quick Links
 
-- View [full implementation folder](client-website-discovery-assistant-agent/)
+- View [full implementation folder](./)
 
 _Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
 [Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

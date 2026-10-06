@@ -5,7 +5,7 @@ description: Automated PR review agent that posts review summaries, CI status ch
 file_type: agent
 version: v1.0
 created_date: '2025-12-10'
-last_updated: "2026-09-22"
+last_updated: "2026-10-06"
 author: LightSpeed Team
 maintainer: Ash Shaw
 category: automation

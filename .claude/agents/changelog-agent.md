@@ -1,6 +1,6 @@
 ---
 name: changelog-agent
-description: Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting.
+description: "Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting."
 ---
 
 # changelog-agent (generated thin definition)

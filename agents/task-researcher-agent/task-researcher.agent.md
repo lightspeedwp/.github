@@ -12,7 +12,7 @@ handoffs:
     prompt: Provide the researched information to the Task Planner for further action.
     send: false
 version: v1.0
-last_updated: '2026-08-29'
+last_updated: "2026-10-06"
 author: LightSpeed
 metadata:
   guardrails: Gather verifiable references, do not act until research is complete, and document every source and assumption before handing off.

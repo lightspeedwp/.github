@@ -2,8 +2,8 @@
 file_type: documentation
 title: Agent Index
 description: Searchable index of all agent specifications
-created_date: 2026-10-05
-last_updated: 2026-10-05
+created_date: 2026-10-06
+last_updated: 2026-10-06
 author: Agent Index Generator
 language: en
 status: active
@@ -13,7 +13,7 @@ status: active
 
 Complete searchable index of all 84 agent specifications in the LightSpeed `.github` control plane.
 
-**Generated**: 2026-10-05
+**Generated**: 2026-10-06
 
 ## Quick Stats
 
@@ -332,7 +332,7 @@ support
 | [Harvest Analytical Agent](../agents/archived/harvest-analytical-agent/harvest-analytical.agent.md) | 📦 analytics | ✅ active | v1.0.1 | 2026-08-25 |
 | [Harvest Analytical Agent](../agents/harvest-analytical-agent/harvest-analytical.agent.md) | 📦 analytics | ✅ active | v1.0.1 | 2026-08-25 |
 | [Issues](../agents/issue-agent/issues.agent.md) | ⚡ automation | ✅ active | v2.1 | 2026-08-27 |
-| [Labeling](../agents/labeling-agent/labeling.agent.md) | ⚡ automation | ✅ active | v2.0 | 2026-09-22 |
+| [Labeling](../agents/labeling-agent/labeling.agent.md) | ⚡ automation | ✅ active | v2.0 | 2026-10-06 |
 | [Linear Advisor Agent](../agents/linear-advisor-agent/linear-advisor.agent.md) | 📦 project-management | ✅ active | v1.0.1 | 2026-08-25 |
 | [LinkedIn Post Writer](../agents/linkedin-post-writer.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Linting](../agents/linting-agent/linting.agent.md) | 📦 code-quality | ✅ active | v0.1.0 | 2026-08-29 |
@@ -340,7 +340,7 @@ support
 | [Meta](../agents/meta-agent/meta.agent.md) | ⚡ automation | ✅ active | v1.1 | 2026-08-29 |
 | [Meta Agentic Project Scaffold](../agents/meta-agent/meta-agentic-project-scaffold.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Metadata Agent](../agents/metadata-agent/metadata.agent.md) | 📋 governance | ✅ active | v2.0.0 | 2026-08-19 |
-| [Metrics](../agents/metrics-agent/metrics.agent.md) | 📦 analytics | ✅ active | v1.0 | 2026-09-22 |
+| [Metrics](../agents/metrics-agent/metrics.agent.md) | 📦 analytics | ✅ active | v1.0 | 2026-10-06 |
 | [metrics-reporting-orchestrator](../plugins/lightspeed-metrics-and-reporting/agents/metrics-reporting-orchestrator.agent.md) | 📦 unknown | ✅ active | v0.1.1 | 2026-08-21 |
 | [Modernization Agent](../agents/modernization.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [PageSpeed Agent](../agents/pagespeed-agent/pagespeed.agent.md) | 📦 performance | ✅ active | v1.0.1 | 2026-08-25 |
@@ -352,7 +352,7 @@ support
 | [playwright-testing](../plugins/lightspeed-playwright-testing/agents/playwright-testing.agent.md) | 📦 unknown | ✅ active | 2.0.1 | 2026-08-21 |
 | [PRD Agent](../agents/prd-agent/prd.agent.md) | 📋 planning | ✅ active | v2.0.1 | 2026-08-21 |
 | [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md) | 📦 product-management | ✅ active | v2.0.1 | 2026-08-21 |
-| [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) | ⚡ automation | ✅ active | v1.0 | 2026-09-22 |
+| [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) | ⚡ automation | ✅ active | v1.0 | 2026-10-06 |
 | [project-spec-orchestrator](../plugins/lightspeed-wordpress-planning/agents/project-spec-orchestrator.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md) | 📦 development | ✅ active | v2.0 | 2026-08-29 |
 | [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md) | 📦 proposals | ✅ active | v1.0.1 | 2026-08-25 |
@@ -363,20 +363,20 @@ support
 | [Release Manager](../agents/release-agent/release.agent.md) | 📦 release-management | ✅ active | v2.2 | 2026-08-29 |
 | [release-ops-orchestrator](../plugins/lightspeed-release-ops/agents/release-ops-orchestrator.agent.md) | 📦 unknown | ✅ active | v0.1.1 | 2026-08-21 |
 | [Repo Architect Agent](../agents/repo-architect.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
-| [Reporting](../agents/reporting-agent/reporting.agent.md) | 🛠️ tooling | ✅ active | v1.1 | 2026-09-22 |
+| [Reporting](../agents/reporting-agent/reporting.agent.md) | 🛠️ tooling | ✅ active | v1.1 | 2026-10-06 |
 | [reviewer](../plugins/lightspeed-github-ops/agents/reviewer.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
-| [Reviewer](../agents/reviewer-agent/reviewer.agent.md) | ⚡ automation | ✅ active | v1.0 | 2026-09-22 |
+| [Reviewer](../agents/reviewer-agent/reviewer.agent.md) | ⚡ automation | ✅ active | v1.0 | 2026-10-06 |
 | [SE: DevOps/CI](../agents/se-gitops-ci-specialist.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Specification](../agents/specification.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Task Planner Instructions](../agents/task-planner.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
-| [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) | 🛠️ tooling | ✅ active | v1.0 | 2026-08-29 |
+| [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) | 🛠️ tooling | ✅ active | v1.0 | 2026-10-06 |
 | [Task Researcher Instructions](../agents/task-researcher.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [TDD Green Phase - Make Tests Pass Quickly](../agents/tdd-green.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [TDD Red Phase - Write Failing Tests First](../agents/tdd-red.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [TDD Refactor Phase - Improve Quality & Security](../agents/tdd-refactor.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Technical Content Evaluator](../agents/document-reviewer-agent/document-reviewer.agent.md) | 🎯 mode | ✅ active | v1.0 | 2026-08-29 |
 | [Technical Debt Remediation Plan](../agents/tech-debt-remediation-plan.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
-| [Template](../agents/_template-agent/template.agent.md) | 🛠️ tooling | 📝 draft | v1.1 | 2026-09-22 |
+| [Template](../agents/_template-agent/template.agent.md) | 🛠️ tooling | 📝 draft | v1.1 | 2026-10-06 |
 | [Testing](../agents/testing-agent/testing.agent.md) | 📦 quality-assurance | ✅ active | v0.1.0 | 2026-08-29 |
 | [Thinking Beast Mode](../agents/Thinking-Beast-Mode.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Thinking Mode](../agents/mode-thinking.agent.md) | 🎯 mode | ✅ active | v2.0 | 2026-09-22 |
@@ -400,7 +400,7 @@ support
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md) → [`agents/adr-generator/`](../agents/adr-generator/)
 - [AGENT](../agents/client-website-discovery-assistant-agent/client-website-discovery-assistant.agent.md) → [`agents/client-website-discovery-assistant-agent/`](../agents/client-website-discovery-assistant-agent/)
-- [AGENT](../agents/discovery-agent/client-website-discovery-assistant.agent.md) → [`agents/client-website-discovery-assistant-agent/`](../agents/client-website-discovery-assistant-agent/)
+- [AGENT](../agents/discovery-agent/client-website-discovery-assistant.agent.md) → [`agents/discovery-agent/`](../agents/discovery-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-estimator-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
 - [Changelog Agent](../agents/changelog-agent/changelog.agent.md) → [`agents/changelog-agent/`](../agents/changelog-agent/)
@@ -1308,5 +1308,5 @@ support
 - [Agent Specification Audit - Phase 3 Results](../.github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 
-**Generated**: 2026-10-05T13:56:07.370Z
+**Generated**: 2026-10-06T05:26:06.993Z
 **Total Agents**: 84
