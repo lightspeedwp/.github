@@ -355,7 +355,7 @@ Every one of them now has a row (296 new rows for 446 names, the rest were alrea
 
 25 labels carry known items and have no target that the spec or the label documents define, so the tool lists them under `needs_decision` per repository, as FR-016 requires, until a target is chosen: `area:monorepo`, `agent-audit`, `migrate:openspec:status/implementation`, `migrate:openspec:status/planning`, `migrate:openspec:status/production`, `migrate:openspec:status/testing`, `migrate:type:compatibility`, `ag-p14`, `ag-phase`, `area:accessibility`, `bug-fix`, `code-quality`, `component:ci`, `component:workflows`, `error-handling`, `logging`, `meta:refactor`, `migrate:type:enhancement`, `observability`, `phase-1-critical`, `phase-2-medium`, `phase-3-polish`, `phase:1`, `reliability`, `reviewer`. The item counts are a lower bound, because the drift report caps counted rows.
 
-A later drift run (2026-10-06) read only 85 of 283 repositories yet reported success, so the 2026-10-04 run is the inventory of record.
+The 2026-10-06 drift run reports the 85 active public repositories only and summarises the private ones, so it is not comparable; the 2026-10-04 run, which included the private repositories, is the inventory of record.
 
 ## Impact
 
