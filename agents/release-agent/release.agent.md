@@ -73,7 +73,7 @@ permissions:
   - shell
 metadata:
   guardrails: Never publish incomplete or broken releases. Abort and notify if any validation fails. Always lint and test before release. Support dry-run mode. Log all actions for audit trails. Default to read-only analysis unless user explicitly requests changes.
-implementation: release
+implementation: "agents/release-agent/"
 language: en
 created_date: '2026-08-29'
 ---

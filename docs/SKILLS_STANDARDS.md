@@ -176,6 +176,26 @@ skill-name/
 └── assets/           # optional: templates and data files
 ```
 
+### Plugin packaging layer (not part of the skill model)
+
+Skills shipped inside a `plugins/*` pack may carry two extra files alongside
+`SKILL.md`: a `metadata.yml` declaring per-platform adapters, and
+`agents/*.yaml` files with the per-platform display and policy metadata.
+`metadata.yml` and the `agents/claude.yaml`, `agents/codex.yaml`,
+`agents/copilot.yaml` and `agents/gemini.yaml` adapters are repo-specific
+packaging consumed by repo tooling (skill discovery prefers `SKILL.md` first,
+then `metadata.yml`); Claude Code, Copilot and Codex do not read them directly.
+The exception is `agents/openai.yaml` inside a skill folder: OpenAI's skills
+documentation says Codex reads it for display metadata, invocation policy and
+tool dependencies, so treat it as a host file and not as repo packaging. The
+hosts' plugin models read other files too, such as `SKILL.md`, agent `.md`
+files, hooks, MCP servers and plugin manifests like `plugin.json`, so this list
+is not each host's complete plugin model. Keep all skill behaviour in
+`SKILL.md`. Keep only platform routing in `metadata.yml` and the
+repository-specific `agents/claude.yaml`, `agents/codex.yaml`,
+`agents/copilot.yaml` and `agents/gemini.yaml` files; this rule does not apply
+to the host-consumed `agents/openai.yaml`.
+
 Three rules catch most mistakes:
 
 1. `name` must equal the directory name, lower case, digits and single hyphens.

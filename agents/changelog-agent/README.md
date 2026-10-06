@@ -70,7 +70,7 @@ npm run validate:metrics trend -- --days 30
 ## Architecture
 
 ```
-agents/changelog/
+agents/changelog-agent/
 ├── changelog.agent.js          # Main orchestrator (ESM)
 ├── package.json
 ├── README.md
@@ -407,7 +407,7 @@ Parse and manipulate Keep a Changelog format.
 
 ### Specification & Control Plane
 
-- **Spec Agent:** [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md) — Full agent specification with architecture and integration details
+- **Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](./changelog.agent.md) — Full agent specification with architecture and integration details
 - **Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for PR validation and release processing
 - **Release Agent:** [`.github/agentic-workflows/release.agent.js`](../../.github/agentic-workflows/release.agent.js) — Release automation with changelog integration
 
@@ -421,10 +421,27 @@ Parse and manipulate Keep a Changelog format.
 
 The Changelog Agent is split into two tiers:
 
-1. **Portable Agent (this folder)** — `agents/changelog/changelog.agent.js` — ESM implementation with complete functionality
-2. **Spec Agent** — `.github/agents/changelog.agent.md` — Specification and integration guide
+1. **Portable Agent (this folder)** — `agents/changelog-agent/changelog.agent.js` — ESM implementation with complete functionality
+2. **Spec Agent** — `agents/changelog-agent/changelog.agent.md` — Specification and integration guide
 
 All three pieces (spec, portable agent, workflow) reference each other to ensure consistency and traceability.
+
+### Definition file roles
+
+- `AGENT.md` — the agent definition file required by the repo's agent-folder convention.
+- `changelog.agent.md` — the portable, reusable spec (validated as a subagent definition).
+- The two files carry the same functional content by design; `changelog.agent.md` is the file every live reference points at.
+
+### Claude Code discovery
+
+Claude Code discovers project subagents under `.claude/agents/`. The thin
+definition `.claude/agents/changelog-agent.md` is generated from
+`changelog.agent.md` — do not edit it by hand. Regenerate with
+`node scripts/agents/generate-agent-defs.cjs`; the drift test
+(`scripts/agents/__tests__/generate-agent-defs.test.js`) fails if the
+checked-in file disagrees with the canonical spec. The Copilot location
+(`.github/agents/`) is intentionally not generated: that tree was removed to
+consolidate duplication.
 
 ## Testing
 
@@ -560,7 +577,7 @@ entry: {
 
 ## See Also
 
-- **Changelog Spec Agent** — [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md)
+- **Changelog Spec Agent** — [`agents/changelog-agent/changelog.agent.md`](./changelog.agent.md)
 - **Release Agent README** — `agents/release/README.md`
 - **Release Process Guide** — `docs/RELEASE_PROCESS.md`
 - **Keep a Changelog Standard** — <https://keepachangelog.com/en/1.1.0/>

@@ -32,7 +32,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/lightspeedwp/.github.git",
-    "directory": "agents/changelog"
+    "directory": "agents/changelog-agent"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {

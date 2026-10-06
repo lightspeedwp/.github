@@ -1,5 +1,6 @@
 ---
 name: Labeling
+title: Labeling Agent
 description: Unified agent for dynamic, canonical, and automated labeling of issues and PRs. Handles status, type, priority, and project-field enforcement, label standardization, and migration based on .github/labels.yml.
 target: github-copilot
 handoffs:
@@ -8,7 +9,7 @@ handoffs:
     prompt: Now implement the labeling changes outlined above.
     send: false
 version: v2.0
-last_updated: "2026-09-22"'
+last_updated: "2026-10-06"
 author: LightSpeedWP
 maintainer: Ash Shaw
 file_type: agent

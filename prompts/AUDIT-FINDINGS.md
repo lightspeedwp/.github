@@ -53,7 +53,7 @@ The original PR finalization workflow (v1.0, 10 steps) was **functional but miss
 - ✅ Validate PR links in entries
 - ✅ Check correct changelog section (Added, Fixed, Security, etc)
 
-**Agent:** `agents/changelog/README.md`
+**Agent:** `agents/changelog-agent/README.md`
 
 **References:**
 
@@ -332,7 +332,7 @@ const recommendations = await skill.getRecommendations(prNumber);
 **Current State:**
 
 - Changelog Agent built and tested (19 tests, 100% coverage)
-- Specification exists: `.github/agents/changelog.agent.md`
+- Specification exists: `agents/changelog-agent/changelog.agent.md`
 - Not yet integrated into PR validation workflow
 
 **Recommendations:**
@@ -434,7 +434,7 @@ const recommendations = await skill.getRecommendations(prNumber);
 
 ### Agents
 
-- Changelog Agent: `agents/changelog/README.md`
+- Changelog Agent: `agents/changelog-agent/README.md`
 - PR Agent: `agents/pr-creation-agent/` (rename to pr-agent)
 - Issue Agent: `scripts/automation/issue-agent/` (move to agents/issue-agent)
 
