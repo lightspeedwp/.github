@@ -191,7 +191,10 @@ tool dependencies, so treat it as a host file and not as repo packaging. The
 hosts' plugin models read other files too, such as `SKILL.md`, agent `.md`
 files, hooks, MCP servers and plugin manifests like `plugin.json`, so this list
 is not each host's complete plugin model. Keep all skill behaviour in
-`SKILL.md`; keep only platform routing in `metadata.yml` and `agents/*.yaml`.
+`SKILL.md`. Keep only platform routing in `metadata.yml` and the
+repository-specific `agents/claude.yaml`, `agents/codex.yaml`,
+`agents/copilot.yaml` and `agents/gemini.yaml` files; this rule does not apply
+to the host-consumed `agents/openai.yaml`.
 
 Three rules catch most mistakes:
 
