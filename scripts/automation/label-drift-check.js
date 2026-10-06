@@ -33,7 +33,7 @@
 import fs from 'fs';
 import path from 'path';
 import * as yaml from 'js-yaml';
-import { buildInventory, incompleteRepositoryLabels } from './label-inventory.js';
+import { buildInventory, incompleteRepositoryLabels, redactInventory } from './label-inventory.js';
 import { buildLinearInventory } from './linear-label-inventory.js';
 
 export const DRIFT_ISSUE_TITLE = 'Label drift report';
@@ -58,6 +58,32 @@ const DEFAULT_OUTPUT = path.join(
   'evidence',
   'linear-drift-report.json'
 );
+
+/** The redacted inventory (spec 008 T041): the file the evidence folder already names for it. */
+export const DEFAULT_INVENTORY_OUTPUT = path.join(
+  '.github',
+  'reports',
+  'audits',
+  '2026-09-14-label-audit',
+  'evidence',
+  'github-api-labels.json'
+);
+
+/**
+ * Writes the inventory this run already read, with private repositories reduced
+ * to numbered counts. Only the redacted form is ever written: this repository is
+ * public, so a private repository's name and labels must not reach a file or an
+ * artifact (decision of 2026-10-04). Completeness was checked before this runs.
+ * @param {object} inventory Result of buildInventory.
+ * @param {string} outputPath Where to write the redacted inventory.
+ * @returns {object} The redacted inventory that was written.
+ */
+export function writeRedactedInventory(inventory, outputPath) {
+  const redacted = redactInventory(inventory);
+  fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+  fs.writeFileSync(outputPath, `${JSON.stringify(redacted, null, 2)}\n`);
+  return redacted;
+}
 
 /**
  * Load the approved label set from labels.yml.
@@ -707,12 +733,14 @@ function parseArgs(argv) {
     org: 'lightspeedwp',
     repo: 'lightspeedwp/.github',
     output: DEFAULT_OUTPUT,
+    inventoryOutput: DEFAULT_INVENTORY_OUTPUT,
     dryRun: false,
   };
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === '--org') args.org = argv[(i += 1)];
     else if (argv[i] === '--repo') args.repo = argv[(i += 1)];
     else if (argv[i] === '--output') args.output = argv[(i += 1)];
+    else if (argv[i] === '--inventory-output') args.inventoryOutput = argv[(i += 1)];
     else if (argv[i] === '--dry-run') args.dryRun = true;
   }
   return args;
@@ -734,7 +762,7 @@ async function main() {
   const { Octokit } = await import('octokit');
   const client = new Octokit({ auth: token });
   const writeClient = new Octokit({ auth: writeToken });
-  const { org, repo, output, dryRun } = parseArgs(process.argv.slice(2));
+  const { org, repo, output, inventoryOutput, dryRun } = parseArgs(process.argv.slice(2));
   const [owner, repoName] = repo.split('/');
   const generatedAt = new Date().toISOString();
 
@@ -747,6 +775,7 @@ async function main() {
   if (incomplete.length > 0) {
     throw new Error(`Incomplete GitHub pagination for: ${incomplete.join(', ')}`);
   }
+  writeRedactedInventory(inventory, inventoryOutput);
   // This repository is public, so a private repository is never named in the
   // issue, the artifact or the log (decision of 2026-10-04). It is still checked.
   const publicSkipped = inventory.repositories
