@@ -243,6 +243,9 @@ fi
 
   it.each([
     ['carries the literal ...(truncated) marker', 'Reviewed the first files ...(truncated)', true],
+    ['carries an uppercase clipped marker', 'CLIPPED to fit the context', true],
+    ['reports omitted content', 'Some changes were omitted', true],
+    ['mentions other modified files', 'See other modified files for context', true],
     ['is a complete review', 'Reviewed every changed file', false],
   ])('sets truncated from the output: %s', (_name, markdown, truncated) => {
     const result = run(['ask', '--diff-file', diff, '--question', 'Why?'], {
@@ -380,6 +383,59 @@ fi
     expect(result.status).toBe(2);
     expect(JSON.parse(result.stdout)).toMatchObject({ status: 'error', reason, tool: 'review' });
   });
+
+  it.each([
+    [{ MOCK_SILENT: 'true', MOCK_NO_OUTPUT_CHANNEL: 'true' }, 0, 'skipped', 'no-output'],
+    [{ MOCK_FAILURE: 'error' }, 2, 'error', 'upstream-error'],
+    [{ MOCK_FAILURE: 'rate' }, 2, 'error', 'rate-limited'],
+    [{ MOCK_PYTHON_UNSUPPORTED: 'true' }, 0, 'skipped', 'no-runtime'],
+  ])(
+    'does not reuse stale output after an unsuccessful invocation: %j',
+    (env, code, status, reason) => {
+      fs.mkdirSync(output);
+      for (const file of ['out.md', 'out.json', 'stdout.txt', 'result.json']) {
+        fs.writeFileSync(path.join(output, file), 'stale result from a previous run');
+      }
+      const result = run(['review', '--diff-file', diff], {
+        ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+        ...env,
+      });
+      expect(result.status).toBe(code);
+      const emitted = JSON.parse(result.stdout);
+      expect(emitted).toStrictEqual({
+        status,
+        reason,
+        tool: 'review',
+        markdown: null,
+        data: null,
+        truncated: false,
+      });
+      expect(JSON.parse(fs.readFileSync(path.join(output, 'result.json'), 'utf8'))).toStrictEqual(
+        emitted
+      );
+      expect(fs.existsSync(path.join(output, 'out.md'))).toBe(false);
+      expect(fs.existsSync(path.join(output, 'out.json'))).toBe(false);
+      expect(result.stdout).not.toContain('stale result');
+    }
+  );
+
+  it.each(['false', 'true'])(
+    'honours an explicit model override with Docker available=%s',
+    (docker) => {
+      const model = 'anthropic/test-model';
+      const result = run(['review', '--diff-file', diff], {
+        ANTHROPIC_API_KEY_QODO_PR_AGENT: 'test-only-key',
+        PR_AGENT_MODEL: model,
+        MOCK_DOCKER: docker,
+      });
+      expect(result.status).toBe(0);
+      expect(JSON.parse(result.stdout).status).toBe('ok');
+      const args = fs.readFileSync(capture, 'utf8').trimEnd().split('\n');
+      expect(args.filter((arg) => arg.startsWith('--config.model='))).toStrictEqual([
+        `--config.model=${model}`,
+      ]);
+    }
+  );
 
   it.each(['generate_labels', 'update_changelog', 'add_docs', 'not-a-tool'])(
     'skips unsupported diff tool %s before invoking a runtime',

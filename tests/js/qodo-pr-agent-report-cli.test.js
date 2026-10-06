@@ -10,15 +10,19 @@ import zlib from 'node:zlib';
 
 const reportScript = path.resolve(__dirname, '../../scripts/metrics/qodo-pr-agent-report.cjs');
 
-function zipRecord(record) {
+function zipContent(content) {
   const name = 'qodo-pr-agent-run.json';
-  const data = zlib.deflateRawSync(Buffer.from(JSON.stringify(record)));
+  const data = zlib.deflateRawSync(Buffer.from(content));
   const header = Buffer.alloc(30);
   header.writeUInt32LE(0x04034b50, 0);
   header.writeUInt16LE(8, 8);
   header.writeUInt32LE(data.length, 18);
   header.writeUInt16LE(Buffer.byteLength(name), 26);
   return Buffer.concat([header, Buffer.from(name), data]);
+}
+
+function zipRecord(record) {
+  return zipContent(JSON.stringify(record));
 }
 
 describe('qodo-pr-agent-report CLI', () => {
@@ -214,10 +218,10 @@ globalThis.fetch = async (url, options) => {
     };
 
     /** Run the CLI against an exact URL-to-response fixture; unmatched requests fail. */
-    function runWithResponses(responses, args = []) {
+    function runWithResponses(responses, args = [], env = {}) {
       const fixture = path.join(directory, 'responses.json');
       fs.writeFileSync(fixture, JSON.stringify(responses));
-      return run(['--since', '2026-10-01', ...args], { MOCK_RESPONSES: fixture });
+      return run(['--since', '2026-10-01', ...args], { ...env, MOCK_RESPONSES: fixture });
     }
 
     it('fails loudly when GitHub caps the run list at 1,000 results', () => {
@@ -392,6 +396,66 @@ globalThis.fetch = async (url, options) => {
       expect(result.stdout).toContain('**0** of 0 records');
       expect(JSON.parse(fs.readFileSync(requestLog, 'utf8'))).toHaveLength(1);
     });
+
+    it('skips an empty run record and still collects the following run', () => {
+      const nextArchive = 'https://example.invalid/archive/next';
+      const result = runWithResponses({
+        [runsUrl(1)]: { json: { workflow_runs: [{ id: 7 }, { id: 8 }] } },
+        [artefactsUrl(7)]: { json: { artifacts: [selected] } },
+        [archiveUrl]: { archive: zipContent('').toString('base64') },
+        [artefactsUrl(8)]: {
+          json: { artifacts: [{ ...selected, archive_download_url: nextArchive }] },
+        },
+        [nextArchive]: {
+          archive: zipRecord({ tool: 'review', outcome: 'success', duration_seconds: 9 }).toString(
+            'base64'
+          ),
+        },
+      });
+      expect(result.status).toBe(0);
+      expect(result.stdout).toContain('**1** of 1 records');
+      expect(result.stdout).toContain('Median run duration: **9 s**');
+    });
+
+    it.each(['invalid JSON', 'corrupt compression', 'download failure'])(
+      'does not publish already collected records after a later %s',
+      (failure) => {
+        const out = path.join(directory, 'reports');
+        const summary = path.join(directory, 'summary.md');
+        fs.writeFileSync(summary, 'Existing summary\n');
+        const nextArchive = 'https://example.invalid/archive/broken';
+        const archive = zipContent('{invalid json');
+        if (failure === 'corrupt compression') {
+          archive.fill(0xff, 30 + Buffer.byteLength('qodo-pr-agent-run.json'));
+        }
+        const result = runWithResponses(
+          {
+            [runsUrl(1)]: { json: { workflow_runs: [{ id: 7 }, { id: 8 }] } },
+            [artefactsUrl(7)]: { json: { artifacts: [selected] } },
+            [archiveUrl]: {
+              archive: zipRecord({ tool: 'review', outcome: 'success' }).toString('base64'),
+            },
+            [artefactsUrl(8)]: {
+              json: { artifacts: [{ ...selected, archive_download_url: nextArchive }] },
+            },
+            [nextArchive]:
+              failure === 'download failure'
+                ? { status: 503 }
+                : { archive: archive.toString('base64') },
+          },
+          ['--out', out],
+          { GITHUB_STEP_SUMMARY: summary }
+        );
+        expect(result.status).toBe(1);
+        expect(result.stderr.trim()).not.toBe('');
+        expect(result.stdout).toBe('');
+        expect(fs.existsSync(out)).toBe(false);
+        expect(fs.readFileSync(summary, 'utf8')).toBe('Existing summary\n');
+        expect(JSON.parse(fs.readFileSync(requestLog, 'utf8')).map(({ url }) => url)).toStrictEqual(
+          [runsUrl(1), artefactsUrl(7), archiveUrl, artefactsUrl(8), nextArchive]
+        );
+      }
+    );
 
     it('skips an archive that contains no run record', () => {
       const result = runWithResponses({

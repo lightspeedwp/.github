@@ -2174,6 +2174,24 @@ describe('Qodo PR-Agent receiver preflight, executed', () => {
     expect(outputs.reason).toBe('unreadable-request');
   });
 
+  it.each(['null', '[]', '{}', '{"pr":0}', '{"pr":-1}', '{"pr":"invalid"}'])(
+    'refuses a valid JSON hint without a usable PR number before calling GitHub: %s',
+    async (hint) => {
+      const { outputs, refused, api } = await runReceiverPreflight({ hint });
+      expect(refused).toBe(true);
+      expect(outputs).toMatchObject({
+        enabled: 'false',
+        reason: 'unreadable-request',
+        tool: 'none',
+        pr: '',
+        command: '',
+        args: '',
+      });
+      expect(api.pulls).toHaveLength(0);
+      expect(api.getComment).toHaveLength(0);
+    }
+  );
+
   it('refuses when no hint was published', async () => {
     const { outputs, refused } = await runReceiverPreflight({ hint: null });
     expect(refused).toBe(true);
