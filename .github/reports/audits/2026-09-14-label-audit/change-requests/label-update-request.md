@@ -309,7 +309,8 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 
 - Linear merges labels natively and rescopes them between workspace and team ([Issue labels](https://linear.app/docs/labels)), so each `merge` row is a supported operation.
 - Deleting a label removes it from every issue and cannot be undone; archiving keeps it on past issues and blocks new use. This matches the spec: Linear labels are retired (archived), never deleted.
-- Only one label from a label group can sit on an issue. The type family ends at 25 labels with one per issue, so it must stay a label group for Linear to enforce that.
+- Only one label from a label group can sit on an issue. A live read-only check on 2026-10-06 found no label groups in the workspace, so the type labels are flat and Linear does not enforce one type per issue. The "exactly one `type:*` per issue" rule must be enforced and verified by the consolidation tool (T064, T069), not assumed from Linear.
+- The same check confirmed that `type: feature`, `type:build-ci` and `type:code-refactor` are team-scoped (GIT team, 1, 1 and 3 issues in the export) and `type:documentation` is workspace-scoped. Team and workspace labels can both be merged. Counts are from the Stage 1 export and have since moved, so Stage 5 re-reads live counts before it writes.
 - The GitHub issue sync is bidirectional and includes labels ([GitHub Issues Sync](https://linear.app/changelog/2023-12-14-github-issues-sync)). That is why the spec turns the sync off from Stage 3 to Stage 5 (T071, T083).
 - Issue label management can be limited to team owners ([Teams](https://linear.app/docs/teams)), which is how T071 restricts label creation.
 
