@@ -491,7 +491,7 @@ Run `gh auth login` to authenticate with GitHub CLI.
 ## Related Files
 
 - [PHASE_5_IMPLEMENTATION_PLAN.md](../../.github/projects/active/release-process-redesign-2026-08-05/PHASE_5_IMPLEMENTATION_PLAN.md) — Phase 5 specification
-- [agents/changelog/README.md](../changelog/README.md) — Changelog agent (Phase 5)
+- [agents/changelog-agent/README.md](../changelog-agent/README.md) — Changelog agent (Phase 5)
 
 ---
 

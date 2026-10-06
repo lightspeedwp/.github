@@ -1,10 +1,11 @@
 ---
 name: Reporting
+title: Reporting Agent
 description: Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation.
 file_type: agent
 version: v1.1
 created_date: '2025-11-26'
-last_updated: "2026-09-22"'
+last_updated: "2026-10-06"
 author: LightSpeed Team
 mode: conversation
 model: claude-sonnet
