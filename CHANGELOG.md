@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Requirements Checklist Engine** — The checklist engine now registers all eight dimension evaluators and judges each template item from its dimension, so results depend on the specification instead of passing every item. (#3371)
+- **Drift Check Inventory** — The weekly label drift check now also writes the redacted label inventory, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Label Import Requests** — Every imported label now names the request that approves it, and the request is open as an issue. ([#3834](https://github.com/lightspeedwp/.github/issues/3834))
 - **Label Mapping** — Adds the label mapping and a draft change request for approval. Nothing is applied yet. ([PR #3831](https://github.com/lightspeedwp/.github/pull/3831))
 - **Label Consolidation Tool** — Plans label renames and creations across repositories, with deletions gated by approval per repository. Dry run by default; private evidence stays private. ([PR #3823](https://github.com/lightspeedwp/.github/pull/3823))
@@ -101,6 +102,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Label Churn Stopped** — The labeler no longer removes the default priority and review labels the labeling agent adds. ([PR #3840](https://github.com/lightspeedwp/.github/pull/3840))
 - **Phase Progression Follows Real Links** — A closing keyword in a code sample no longer moves an issue to another phase; only issues GitHub renders as links in the pull request body do. ([#3824](https://github.com/lightspeedwp/.github/issues/3824))
 - **Changelog Validator Clears Undici and Busboy Alerts** — Its `@actions` parents move to core 2 and github 8, so the tree resolves undici 6.29.0 with no `@fastify/busboy` copy left. (#3806)
 - **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
