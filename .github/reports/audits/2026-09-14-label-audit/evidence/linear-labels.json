@@ -3546,7 +3546,9 @@
       "notes": "Used in files but not defined in labels.yml. Proposed rename to spec:planning: specification not started yet; closest status is planning.",
       "change_request": null,
       "source": "openspec:specification-pending",
-      "systems": [],
+      "systems": [
+        "github"
+      ],
       "action": "rename",
       "target": "spec:planning",
       "issue_count": 0,
@@ -3594,7 +3596,9 @@
       "notes": "Spec numbers move to spec-id:NNN so spec:* holds only status labels.",
       "change_request": null,
       "source": "spec:001",
-      "systems": [],
+      "systems": [
+        "github"
+      ],
       "action": "rename",
       "target": "spec-id:001",
       "issue_count": 0,
@@ -3607,6 +3611,7 @@
       "change_request": null,
       "source": "area:ci-cd",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3630,7 +3635,9 @@
       "notes": "",
       "change_request": null,
       "source": "type:ai-ops",
-      "systems": [],
+      "systems": [
+        "github"
+      ],
       "action": "merge",
       "target": "type:aiops",
       "issue_count": 0,
@@ -3642,6 +3649,7 @@
       "change_request": null,
       "source": "area:docs",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3654,7 +3662,9 @@
       "notes": "",
       "change_request": null,
       "source": "area:ops",
-      "systems": [],
+      "systems": [
+        "github"
+      ],
       "action": "merge",
       "target": "area:operations",
       "issue_count": 0,
@@ -3666,6 +3676,7 @@
       "change_request": null,
       "source": "scope:website",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3679,6 +3690,7 @@
       "change_request": null,
       "source": "scope: website",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3692,6 +3704,7 @@
       "change_request": null,
       "source": "status:planned",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3705,6 +3718,7 @@
       "change_request": null,
       "source": "status:planning",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3718,6 +3732,7 @@
       "change_request": null,
       "source": "priority:medium",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3744,7 +3759,9 @@
       "notes": "",
       "change_request": null,
       "source": "status:resolved",
-      "systems": [],
+      "systems": [
+        "github"
+      ],
       "action": "merge",
       "target": "status:done",
       "issue_count": 0,
@@ -3770,6 +3787,7 @@
       "change_request": null,
       "source": "area:quality",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3796,6 +3814,7 @@
       "change_request": null,
       "source": "status:ready-for-development",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3809,6 +3828,7 @@
       "change_request": null,
       "source": "status:in-review",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3835,6 +3855,7 @@
       "change_request": null,
       "source": "comp:workflows",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3848,6 +3869,7 @@
       "change_request": null,
       "source": "area:platform",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3861,6 +3883,7 @@
       "change_request": null,
       "source": "area:process",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3874,6 +3897,7 @@
       "change_request": null,
       "source": "area:standards",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3887,6 +3911,7 @@
       "change_request": null,
       "source": "area:pr-automation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3900,6 +3925,7 @@
       "change_request": null,
       "source": "area:issue-management",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3926,6 +3952,7 @@
       "change_request": null,
       "source": "scope:audit",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3939,6 +3966,7 @@
       "change_request": null,
       "source": "scope:project-management",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -3952,6 +3980,7 @@
       "change_request": null,
       "source": "meta:documentation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -4018,6 +4047,7 @@
       "change_request": null,
       "source": "type: feature",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -4031,6 +4061,7 @@
       "change_request": null,
       "source": "type:build-ci",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -4044,6 +4075,7 @@
       "change_request": null,
       "source": "type:code-refactor",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -4057,6 +4089,7 @@
       "change_request": null,
       "source": "type:documentation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "merge",
@@ -4065,11 +4098,51 @@
       "requirement": "FR-014"
     },
     {
+      "concept_label": "discussion:support",
+      "notes": "",
+      "change_request": null,
+      "source": "type:help",
+      "systems": [
+        "github"
+      ],
+      "action": "re-prefix",
+      "target": "type:task",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "discussion:support",
+      "notes": "",
+      "change_request": null,
+      "source": "type:support",
+      "systems": [
+        "github"
+      ],
+      "action": "re-prefix",
+      "target": "type:task",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "type:investigation",
+      "systems": [
+        "github"
+      ],
+      "action": "re-prefix",
+      "target": "type:research",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
       "concept_label": "area:maintenance",
       "notes": "",
       "change_request": null,
       "source": "type:maintenance",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "re-prefix",
@@ -4078,11 +4151,64 @@
       "requirement": "FR-015"
     },
     {
+      "concept_label": "area:qa",
+      "notes": "",
+      "change_request": null,
+      "source": "type:qa",
+      "systems": [
+        "github"
+      ],
+      "action": "re-prefix",
+      "target": "type:test",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "area:frontend",
+      "notes": "",
+      "change_request": null,
+      "source": "type:ui",
+      "systems": [
+        "github"
+      ],
+      "action": "re-prefix",
+      "target": "type:design",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "discussion:feedback",
+      "notes": "",
+      "change_request": null,
+      "source": "type:ux-feedback",
+      "systems": [
+        "github"
+      ],
+      "action": "re-prefix",
+      "target": "type:design",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "area:integration",
+      "notes": "",
+      "change_request": null,
+      "source": "type:integration",
+      "systems": [
+        "github"
+      ],
+      "action": "re-prefix",
+      "target": "type:feature",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
       "concept_label": null,
       "notes": "Retired; open questions become Discussions (discussion:support) and closed ones are relabelled type:task + discussion:support before deletion. type:decision already holds its slot (Stage 0a).",
       "change_request": null,
       "source": "type:question",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "swap",
@@ -4135,6 +4261,7 @@
       "change_request": null,
       "source": "area:monorepo",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "team-scope",
@@ -4148,6 +4275,7 @@
       "change_request": 3554,
       "source": "area:builds",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4163,6 +4291,7 @@
       "change_request": 3554,
       "source": "area:monitoring",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4193,6 +4322,7 @@
       "change_request": 3554,
       "source": "area:workflows",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4208,6 +4338,7 @@
       "change_request": 3554,
       "source": "meta:needs-approval",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4253,6 +4384,7 @@
       "change_request": null,
       "source": "agent-audit",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -4318,6 +4450,7 @@
       "change_request": null,
       "source": "aiops:instructions",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4406,6 +4539,7 @@
       "change_request": null,
       "source": "area:changelog",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4421,6 +4555,7 @@
       "change_request": null,
       "source": "area:communication",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4496,6 +4631,7 @@
       "change_request": null,
       "source": "area:labels",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4511,6 +4647,7 @@
       "change_request": null,
       "source": "area:linting",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -4567,6 +4704,7 @@
       "change_request": null,
       "source": "area:projects",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4597,6 +4735,7 @@
       "change_request": null,
       "source": "area:specification",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4612,6 +4751,7 @@
       "change_request": null,
       "source": "area:templates",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4627,6 +4767,7 @@
       "change_request": null,
       "source": "area:website",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4642,6 +4783,7 @@
       "change_request": null,
       "source": "bug",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4687,6 +4829,7 @@
       "change_request": null,
       "source": "comp:readme-mermaid",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4702,6 +4845,7 @@
       "change_request": null,
       "source": "documentation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -4715,6 +4859,7 @@
       "change_request": null,
       "source": "epic",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4745,6 +4890,7 @@
       "change_request": null,
       "source": "important",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -4773,6 +4919,7 @@
       "change_request": null,
       "source": "meta:aiops",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4788,6 +4935,7 @@
       "change_request": null,
       "source": "meta:analysis",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -4801,6 +4949,7 @@
       "change_request": null,
       "source": "meta:audit",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4816,6 +4965,7 @@
       "change_request": null,
       "source": "meta:dependabot-security",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4831,6 +4981,7 @@
       "change_request": null,
       "source": "meta:enhancement",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4846,6 +4997,7 @@
       "change_request": null,
       "source": "meta:incident-report",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4861,6 +5013,7 @@
       "change_request": null,
       "source": "meta:infrastructure-blocker",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4876,6 +5029,7 @@
       "change_request": null,
       "source": "meta:needs-audit",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4891,6 +5045,7 @@
       "change_request": null,
       "source": "meta:needs-triage",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4906,6 +5061,7 @@
       "change_request": null,
       "source": "meta:refactor-rules",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4921,6 +5077,7 @@
       "change_request": null,
       "source": "meta:release-plan",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4936,6 +5093,7 @@
       "change_request": null,
       "source": "meta:tech-debt",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4951,6 +5109,7 @@
       "change_request": null,
       "source": "meta:tracking",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -4966,6 +5125,7 @@
       "change_request": null,
       "source": "migrate:area:automation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -4979,6 +5139,7 @@
       "change_request": null,
       "source": "migrate:area:ci",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -4992,6 +5153,7 @@
       "change_request": null,
       "source": "migrate:area:documentation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5005,6 +5167,7 @@
       "change_request": null,
       "source": "migrate:area:scripts",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5018,6 +5181,7 @@
       "change_request": null,
       "source": "migrate:openspec:status/implementation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5031,6 +5195,7 @@
       "change_request": null,
       "source": "migrate:openspec:status/planning",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5044,6 +5209,7 @@
       "change_request": null,
       "source": "migrate:openspec:status/production",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5057,6 +5223,7 @@
       "change_request": null,
       "source": "migrate:openspec:status/testing",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5070,6 +5237,7 @@
       "change_request": null,
       "source": "migrate:priority:critical",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5083,6 +5251,7 @@
       "change_request": null,
       "source": "migrate:priority:important",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5096,6 +5265,7 @@
       "change_request": null,
       "source": "migrate:priority:minor",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5109,6 +5279,7 @@
       "change_request": null,
       "source": "migrate:priority:normal",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5122,6 +5293,7 @@
       "change_request": null,
       "source": "migrate:status:needs-more-info",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5135,6 +5307,7 @@
       "change_request": null,
       "source": "migrate:status:needs-triage",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5148,6 +5321,7 @@
       "change_request": null,
       "source": "migrate:status:ready",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5161,6 +5335,7 @@
       "change_request": null,
       "source": "migrate:type:a11y",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5174,6 +5349,7 @@
       "change_request": null,
       "source": "migrate:type:ai-ops",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5187,6 +5363,7 @@
       "change_request": null,
       "source": "migrate:type:audit",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5200,6 +5377,7 @@
       "change_request": null,
       "source": "migrate:type:automation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5213,6 +5391,7 @@
       "change_request": null,
       "source": "migrate:type:bug",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5226,6 +5405,7 @@
       "change_request": null,
       "source": "migrate:type:compatibility",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5239,6 +5419,7 @@
       "change_request": null,
       "source": "migrate:type:documentation",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5252,6 +5433,7 @@
       "change_request": null,
       "source": "migrate:type:epic",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5265,6 +5447,7 @@
       "change_request": null,
       "source": "migrate:type:feature",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5278,6 +5461,7 @@
       "change_request": null,
       "source": "migrate:type:improve",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5291,6 +5475,7 @@
       "change_request": null,
       "source": "migrate:type:maintenance",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5304,6 +5489,7 @@
       "change_request": null,
       "source": "migrate:type:refactor",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5317,6 +5503,7 @@
       "change_request": null,
       "source": "migrate:type:security",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5330,6 +5517,7 @@
       "change_request": null,
       "source": "migrate:type:task",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5343,6 +5531,7 @@
       "change_request": null,
       "source": "migrate:type:test",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5356,6 +5545,7 @@
       "change_request": null,
       "source": "migrate:type:ux-feedback",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5369,6 +5559,7 @@
       "change_request": null,
       "source": "scope:restructuring",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "retire",
@@ -5382,6 +5573,7 @@
       "change_request": null,
       "source": "security",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -5514,6 +5706,7 @@
       "change_request": null,
       "source": "status:needs-analysis",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -5529,6 +5722,7 @@
       "change_request": null,
       "source": "status:needs-cleanup",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",
@@ -5544,6 +5738,7 @@
       "change_request": null,
       "source": "status:needs-template-fix",
       "systems": [
+        "github",
         "linear"
       ],
       "action": "import",

@@ -4,7 +4,7 @@
 
 ## Chore Summary
 
-Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 168 source labels and ends with 45 distinct targets. The type family ends at exactly 25.
+Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 175 source labels and ends with 49 distinct targets. The type family ends at exactly 25.
 
 Nothing changes until @ashleyshaw records a dated decision on this issue. Each repository's deletion has its own later gate (the deletion gate issue, T049).
 
@@ -88,11 +88,18 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type:code-refactor` | `type:refactor` | 3 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Code Refactor type to Refactor. Needed so the type family ends at exactly 25. |
 | `type:documentation` | `type:docs` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate of type:docs. Needed so the type family ends at exactly 25. |
 
-### re-prefix (1)
+### re-prefix (8)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
+| `type:help` | `type:task` | 0 | FR-015 |  |
+| `type:support` | `type:task` | 0 | FR-015 |  |
+| `type:investigation` | `type:research` | 0 | FR-015 |  |
 | `type:maintenance` | `type:chore` | 10 | FR-015 |  |
+| `type:qa` | `type:test` | 0 | FR-015 |  |
+| `type:ui` | `type:design` | 0 | FR-015 |  |
+| `type:ux-feedback` | `type:design` | 0 | FR-015 |  |
+| `type:integration` | `type:feature` | 0 | FR-015 |  |
 
 ### swap (1)
 
@@ -292,9 +299,13 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `status:needs-cleanup` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. |
 | `status:needs-template-fix` | retire | 207 | FR-012 | Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. |
 
-## Spec sources that do not exist
+## Where the FR-015 labels live
 
-FR-015 names eight Linear-only type labels. Only `type:maintenance` exists in `labels.yml` or the Stage 1 Linear export, so it is the only re-prefix row. These have nothing to re-prefix and are left out: `type:help`, `type:support`, `type:investigation`, `type:qa`, `type:ui`, `type:ux-feedback`, `type:integration`. Stage 5 re-reads Linear before it writes and handles any that have appeared since.
+FR-015 calls its eight type labels "Linear-only". Checked on 2026-10-06, all eight exist as live GitHub labels in `lightspeedwp/.github` (`evidence/github-live-labels.json`). In Linear only `type:maintenance` exists. Six complete team listings, the workspace listing and the Stage 1 export show none of the other seven. The GitHub team listing was cut off at 250, so that is not absolute. They are not imported into Linear (FR-015 and the 25-label type family), so each row is a GitHub re-prefix. The spec wording should say "GitHub" and not "Linear-only". 
+
+## Coverage still to close
+
+The mapping covers `labels.yml` and the Linear export. The live `.github` repository has 549 labels and 290 of them are in neither (for example 82 `task:T0xx` labels, 43 `migrate:*` labels, `openspec:domain/*`, `type:story`). The consolidation tool refuses to run on a label with open items and no target, so each needs a rule before Stage 3. An org-wide read-only inventory is the next step.
 
 ## Impact
 

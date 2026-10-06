@@ -215,7 +215,14 @@ function familyColour(yml, family) {
  * @param {string[]} input.specNumberLabels `spec:NNN` names found in files.
  * @returns {{ mappings: object[], proposedNames: Set<string> }} Mapping and the proposed label set.
  */
-function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [] }) {
+function buildMappings({
+  yml,
+  linear,
+  openspecInFiles = [],
+  specNumberLabels = [],
+  githubLive = [],
+}) {
+  const liveOnGithub = new Set(githubLive);
   const inYml = new Map(yml.map((label) => [label.name, label]));
   const linearByName = new Map();
   for (const label of linear) {
@@ -225,7 +232,7 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
   const issuesOn = (name) =>
     (linearByName.get(name) || []).reduce((n, l) => n + (l.issue_count || 0), 0);
   const where = (name) => [
-    ...(inYml.has(name) ? ['github'] : []),
+    ...(inYml.has(name) || liveOnGithub.has(name) ? ['github'] : []),
     ...(linearByName.has(name) ? ['linear'] : []),
   ];
   const mappings = [];
@@ -267,7 +274,10 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
   for (const name of openspecInFiles) {
     if (inYml.has(name) || handled.has(name)) continue;
     const decision = GAP_MAP[name];
-    const target = decision ? decision.target : null;
+    // Fail closed: a gap name with no explicit decision must not become a retirement by default.
+    if (!decision)
+      throw new Error(`${name} has no GAP_MAP decision; add a rename or a retire with a reason`);
+    const target = decision.target;
     if (target && !specTargets.has(target))
       throw new Error(`${name} maps to ${target}, which is not one of the nine spec labels`);
     add({
@@ -278,7 +288,7 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
       issue_count: issuesOn(name),
       requirement: 'FR-011',
       gap: true,
-      notes: `Used in files but not defined in labels.yml. Proposed ${target ? `rename to ${target}` : 'retirement'}: ${decision ? decision.why : 'no rule covers this name; the approver decides'}.`,
+      notes: `Used in files but not defined in labels.yml. Proposed ${target ? `rename to ${target}` : 'retirement'}: ${decision.why}.`,
     });
     handled.add(name);
   }
@@ -329,10 +339,11 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
   }
 
   // FR-015 re-prefixes.
-  // A source that exists in neither system has nothing to re-prefix; it is
+  // A source that exists in no system (labels.yml, Linear or live GitHub labels)
+  // has nothing to re-prefix; it is
   // recorded in `absentSources` so the gap is visible rather than silent.
   for (const [source, { target, concept }] of Object.entries(REPREFIX)) {
-    if (!inYml.has(source) && !linearByName.has(source)) {
+    if (!inYml.has(source) && !linearByName.has(source) && !liveOnGithub.has(source)) {
       absentSources.push({ source, requirement: 'FR-015' });
       continue;
     }
@@ -572,7 +583,12 @@ if (require.main === module) {
   const openspecInFiles = [...names].sort();
   // Spec-number labels used by .github/projects/active/prd-combined-agent (FR-011).
   const specNumberLabels = ['spec:001'];
+  const livePath = path.join(root, EVIDENCE, 'github-live-labels.json');
+  const githubLive = fs.existsSync(livePath)
+    ? JSON.parse(fs.readFileSync(livePath, 'utf8')).labels.map((l) => l.name)
+    : [];
   const { mappings, proposedNames, absentSources } = buildMappings({
+    githubLive,
     yml,
     linear: linearFile.sources.labels,
     openspecInFiles,

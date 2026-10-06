@@ -17,12 +17,17 @@ const openspecInFiles = [
   ...new Set([...refs.matchAll(/openspec:[a-z][a-z0-9-]*/gi)].map((m) => m[0])),
 ].sort();
 
+const githubLive = JSON.parse(
+  fs.readFileSync(path.join(audit, 'evidence/github-live-labels.json'), 'utf8')
+).labels.map((l) => l.name);
+
 const build = () =>
   buildMappings({
     yml,
     linear: linearFile.sources.labels,
     openspecInFiles,
     specNumberLabels: ['spec:001'],
+    githubLive,
   });
 
 describe('label mapping', () => {
@@ -65,14 +70,38 @@ describe('label mapping', () => {
     }
   });
 
-  it('adds no re-prefix row for a source that exists in neither system, and reports it', () => {
+  it('keeps all eight FR-015 re-prefix rows, because each exists as a live GitHub label', () => {
     const { mappings, absentSources } = build();
-    const present = mappings.filter((m) => m.action === 're-prefix').map((m) => m.source);
-    expect(present).toEqual(['type:maintenance']);
-    expect(absentSources.map((a) => a.source)).toHaveLength(7);
-    for (const { source } of absentSources) {
-      expect(mappings.some((m) => m.source === source)).toBe(false);
-    }
+    const rows = mappings.filter((m) => m.action === 're-prefix');
+    expect(rows).toHaveLength(8);
+    expect(absentSources).toEqual([]);
+    for (const row of rows) expect(row.systems).toContain('github');
+  });
+
+  it('skips and reports a re-prefix source that exists in no system', () => {
+    const { mappings, absentSources } = buildMappings({
+      yml,
+      linear: linearFile.sources.labels,
+      openspecInFiles,
+      specNumberLabels: ['spec:001'],
+      githubLive: [],
+    });
+    const skipped = absentSources.map((a) => a.source);
+    expect(skipped).toHaveLength(7);
+    expect(skipped).not.toContain('type:maintenance');
+    for (const source of skipped) expect(mappings.some((m) => m.source === source)).toBe(false);
+  });
+
+  it('rejects a gap name that has no explicit decision instead of retiring it', () => {
+    expect(() =>
+      buildMappings({
+        yml,
+        linear: linearFile.sources.labels,
+        openspecInFiles: [...openspecInFiles, 'openspec:brand-new'],
+        specNumberLabels: [],
+        githubLive,
+      })
+    ).toThrow(/openspec:brand-new has no GAP_MAP decision/);
   });
 
   it('reports a problem when a type merge is removed', () => {
