@@ -36,15 +36,15 @@ const path = require('path');
 /**
  * A shields.io image whose destination contains an unencoded space.
  *
- * Scoped deliberately to the bare form `![alt](https://... Docs Validation-...)`,
- * which is the only shape present in the repository (76,594 occurrences across
- * 7,657 files at the time of writing). A second, rarer malformation wraps the
- * destination in angle brackets and places the `>` mid-URL, as in
+ * This pattern is the bare form `![alt](https://... Docs Validation-...)`, the
+ * shape that made up the 76,594 occurrences across 7,657 files counted when this
+ * check was written. The second malformation wraps the destination in angle
+ * brackets and places the `>` mid-URL, as in
  * `![alt](<https://img.shields.io/badge/Badges>: Documentation Update-OK-success.svg)`.
- * That one is not matched here: the closing `>` sits inside the destination, so
- * it needs a different pattern, and no file in the repository currently uses it.
- * Adding it blind would mean guessing at a shape with no evidence to test
- * against.
+ * It has its own pattern, `ANGLE_BADGE`, because the closing `>` sits inside the
+ * destination. It was left out at first for lack of an example; the README
+ * regeneration pull request #3803 produced ten real ones in
+ * `.github/agentic-workflows/README.md`, so it is matched now.
  *
  * Markdown permits an optional quoted title after the destination, as in
  * `![X](https://example.com/a.svg "Build status")`. A title is not part of the
@@ -60,7 +60,52 @@ const path = require('path');
  */
 const BROKEN_BADGE = /!\[([^\]]*)\]\(([^)]*)\)/gu;
 
+/**
+ * An image whose destination opens with `<https://img.shields.io/...` and whose
+ * `>` closes before the label ends. Group 1 is the alt text, group 2 the URL up to
+ * the `>`, group 3 everything after it inside the parentheses. A group 3 that is
+ * only a quoted title is valid CommonMark (`![x](<url> "title")`) and not a defect.
+ */
+const ANGLE_BADGE = /!\[([^\]]*)\]\(<(https:\/\/img\.shields\.io\/[^>\s]*)>([^)]*)\)/gu;
+
 const SHIELDS_HOST = 'https://img.shields.io/';
+
+/**
+ * Split what follows the closing `>` into the leftover label text and an
+ * optional trailing quoted title.
+ *
+ * @param {string} tail Text between the `>` and the closing parenthesis.
+ * @returns {{body: string, title: string}} `body` is empty for a valid titled image.
+ */
+function splitAngleTail(tail) {
+  const titled = tail.match(/^(.*?)\s+("[^"]*"|'[^']*')\s*$/u);
+  return titled ? { body: titled[1], title: titled[2] } : { body: tail, title: '' };
+}
+
+/**
+ * Whether an angle-bracket image has label text stranded after its `>`.
+ *
+ * @param {string} tail Text between the `>` and the closing parenthesis.
+ * @returns {boolean}
+ */
+function isBrokenAngleTail(tail) {
+  return splitAngleTail(tail).body.trim() !== '';
+}
+
+/**
+ * Rebuild one angle-bracket badge as a single encoded URL.
+ *
+ * The text after the `>` continues the label, so it is joined back on: with a
+ * `%20` when it starts with whitespace (`<.../Docs> Validation-...`), directly
+ * when it starts with a character such as a colon (`<.../Badges>: Documentation
+ * Update-...`). Every whitespace run becomes `%20`. The alt text is untouched.
+ */
+function repairAngleBadge(altText, head, tail) {
+  const { body, title } = splitAngleTail(tail);
+  const joiner = /^\s/u.test(body) ? '%20' : '';
+  const encoded = body.trim().replace(/\s+/gu, '%20');
+  return `![${altText}](${head}${joiner}${encoded}${title ? ` ${title}` : ''})`;
+}
 
 /**
  * Split the inside of an image into its destination and optional title.
@@ -167,6 +212,12 @@ function lineHasBrokenBadge(line) {
       return true;
     }
   }
+  ANGLE_BADGE.lastIndex = 0;
+  while ((match = ANGLE_BADGE.exec(line)) !== null) {
+    if (isBrokenAngleTail(match[3])) {
+      return true;
+    }
+  }
   return false;
 }
 
@@ -215,7 +266,10 @@ function repairContent(content) {
       if (fence.consume(line)) {
         return line;
       }
-      return line.replace(BROKEN_BADGE, (match, altText, inner) => {
+      const angleRepaired = line.replace(ANGLE_BADGE, (match, altText, head, tail) =>
+        isBrokenAngleTail(tail) ? repairAngleBadge(altText, head, tail) : match
+      );
+      return angleRepaired.replace(BROKEN_BADGE, (match, altText, inner) => {
         const parsed = splitDestination(inner);
         return parsed && isBrokenBadgeDestination(parsed.destination)
           ? repairBadge(match, altText, inner)
@@ -305,14 +359,16 @@ function main() {
   }
 
   console.error(
-    `[validate-badge-urls] ${total} badge URL(s) end at an unencoded space, so shields.io renders no label:\n${summary}\n` +
+    `[validate-badge-urls] ${total} badge URL(s) end at an unencoded space or close early inside angle brackets, so shields.io renders no label:\n${summary}\n` +
       'Run `npm run validate:badge-urls:fix` to repair them.'
   );
   process.exit(1);
 }
 
 module.exports = {
+  ANGLE_BADGE,
   BROKEN_BADGE,
+  isBrokenAngleTail,
   createFenceTracker,
   findBrokenBadges,
   isBrokenBadgeDestination,

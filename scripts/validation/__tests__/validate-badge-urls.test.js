@@ -180,6 +180,73 @@ describe('validate-badge-urls', () => {
     });
   });
 
+  describe('angle-bracket form', () => {
+    // As emitted by the README regeneration of #3803: the `>` closes the link
+    // before the label ends, leaving "Validation-OK-success.svg" as stray text.
+    const ANGLE =
+      '![Docs Validation](<https://img.shields.io/badge/Docs> Validation-OK-success.svg)';
+    const ANGLE_COLON =
+      '![Badges: Health Check](<https://img.shields.io/badge/Badges>: Health Check-OK-success.svg)';
+    const ANGLE_MULTI =
+      '![Main Branch Guard](<https://img.shields.io/badge/Main> Branch Guard-OK-success.svg)';
+
+    it('reports a badge whose `>` closes before the label ends', () => {
+      for (const line of [ANGLE, ANGLE_COLON, ANGLE_MULTI]) {
+        expect(findBrokenBadges(line)).toHaveLength(1);
+      }
+    });
+
+    it('repairs the label with a joining %20', () => {
+      expect(repairContent(ANGLE)).toBe(
+        '![Docs Validation](https://img.shields.io/badge/Docs%20Validation-OK-success.svg)'
+      );
+      expect(repairContent(ANGLE_MULTI)).toBe(
+        '![Main Branch Guard](https://img.shields.io/badge/Main%20Branch%20Guard-OK-success.svg)'
+      );
+    });
+
+    it('joins a colon label without inserting a stray %20 before the colon', () => {
+      expect(repairContent(ANGLE_COLON)).toBe(
+        '![Badges: Health Check](https://img.shields.io/badge/Badges:%20Health%20Check-OK-success.svg)'
+      );
+    });
+
+    it('does not report a well-formed angle-bracket destination', () => {
+      const ok = '![Checks](<https://img.shields.io/badge/Checks-OK-success.svg>)';
+      expect(findBrokenBadges(ok)).toHaveLength(0);
+      expect(repairContent(ok)).toBe(ok);
+    });
+
+    it('does not report a valid angle-bracket destination that carries a title', () => {
+      const titled = '![X](<https://img.shields.io/badge/X-OK-green.svg> "Build status")';
+      expect(findBrokenBadges(titled)).toHaveLength(0);
+      expect(repairContent(titled)).toBe(titled);
+    });
+
+    it('keeps a title while repairing a broken angle-bracket badge', () => {
+      const broken = '![D](<https://img.shields.io/badge/Docs> Validation-OK-success.svg "Tip")';
+      expect(repairContent(broken)).toBe(
+        '![D](https://img.shields.io/badge/Docs%20Validation-OK-success.svg "Tip")'
+      );
+    });
+
+    it('ignores the form inside a fenced block', () => {
+      expect(findBrokenBadges(['```md', ANGLE, '```'].join('\n'))).toHaveLength(0);
+    });
+
+    it('repairs a mix of both forms on separate lines and clears every finding', () => {
+      const content = [BROKE_SPACES, ANGLE, ANGLE_COLON].join('\n');
+      expect(findBrokenBadges(content)).toHaveLength(3);
+      const repaired = repairContent(content);
+      expect(findBrokenBadges(repaired)).toHaveLength(0);
+      expect(repairContent(repaired)).toBe(repaired);
+    });
+
+    it('does not reset a shared regex position between lines', () => {
+      expect(findBrokenBadges([ANGLE, ANGLE, ANGLE].join('\n'))).toHaveLength(3);
+    });
+  });
+
   describe('BROKEN_BADGE', () => {
     it('matches the bare-space form', () => {
       BROKEN_BADGE.lastIndex = 0;
