@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Drift Check Inventory** — The weekly label drift check now also writes the redacted label inventory, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Label Import Requests** — Every imported label now names the request that approves it, and the request is open as an issue. ([#3834](https://github.com/lightspeedwp/.github/issues/3834))
 - **Label Mapping** — Adds the label mapping and a draft change request for approval. Nothing is applied yet. ([PR #3831](https://github.com/lightspeedwp/.github/pull/3831))
 - **Label Consolidation Tool** — Plans label renames and creations across repositories, with deletions gated by approval per repository. Dry run by default; private evidence stays private. ([PR #3823](https://github.com/lightspeedwp/.github/pull/3823))

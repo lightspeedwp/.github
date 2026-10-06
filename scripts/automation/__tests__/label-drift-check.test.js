@@ -37,6 +37,8 @@ import {
   maskCommands,
   assertPrivateRepository,
   resolvePrivateSink,
+  writeRedactedInventory,
+  DEFAULT_INVENTORY_OUTPUT,
 } from '../label-drift-check.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -628,5 +630,75 @@ describe('label-drift-check', () => {
       await upsertDriftIssue(client, client, 'o', 'r', 'b', PRIVATE_DRIFT_ISSUE_TITLE);
       expect(creates[0].title).toBe('Label drift report (private repositories)');
     });
+  });
+});
+
+describe('writeRedactedInventory (T041)', () => {
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  const inventory = {
+    generated_at: '2026-10-06T00:00:00.000Z',
+    organisation: 'lightspeedwp',
+    repository_count: 2,
+    private_repository_count: 1,
+    reported_private_repository_count: 1,
+    label_total: 3,
+    repositories: [
+      {
+        repository: 'lightspeedwp/public-repo',
+        archived: false,
+        fork: false,
+        private: false,
+        label_count: 1,
+        pages_read: 2,
+        labels: [{ name: 'type:bug', color: 'D73A4A', description: 'Bug' }],
+      },
+      {
+        repository: 'lightspeedwp/secret-client-site',
+        archived: false,
+        fork: false,
+        private: true,
+        label_count: 2,
+        pages_read: 2,
+        labels: [
+          { name: 'client-secret-label', color: 'FFFFFF', description: '' },
+          { name: 'type:bug', color: 'D73A4A', description: 'Bug' },
+        ],
+      },
+    ],
+  };
+
+  it('writes the public repository with its labels and keeps private counts only', () => {
+    const dir = fs.mkdtempSync(path.join(here, 'inv-'));
+    try {
+      const out = path.join(dir, 'nested', 'github-api-labels.json');
+      writeRedactedInventory(inventory, out);
+      const text = fs.readFileSync(out, 'utf8');
+      const saved = JSON.parse(text);
+      expect(saved.redacted).toBe(true);
+      expect(saved.repositories[0].labels).toHaveLength(1);
+      expect(saved.repositories[1]).toMatchObject({
+        repository: 'lightspeedwp/private-repository-001',
+        private: true,
+        label_count: 2,
+        pages_read: 2,
+      });
+      expect(saved.repositories[1].labels).toBeUndefined();
+      expect(text).not.toContain('secret-client-site');
+      expect(text).not.toContain('client-secret-label');
+    } finally {
+      fs.rmSync(dir, { recursive: true, force: true });
+    }
+  });
+
+  it('writes to the evidence file the spec names, and the workflow uploads it', () => {
+    expect(DEFAULT_INVENTORY_OUTPUT.split(path.sep).join('/')).toBe(
+      '.github/reports/audits/2026-09-14-label-audit/evidence/github-api-labels.json'
+    );
+    const workflow = fs.readFileSync(
+      path.join(here, '../../../.github/workflows/label-drift-check.yml'),
+      'utf8'
+    );
+    expect(workflow).toContain('evidence/github-api-labels.json');
+    expect(workflow).toContain('evidence/linear-drift-report.json');
   });
 });
