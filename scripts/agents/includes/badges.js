@@ -117,11 +117,19 @@ function generateMetadataBadges(frontMatter) {
  * be encoded at generation time: a bare space inside a `<...>` link destination
  * still terminates it. Same rule as `encodeBadgeSegment` in branding.agent.js.
  *
+ * shields.io also reads a single `-` as the separator between label, message and
+ * colour, and `_` as a space, so a literal hyphen is written `--` and a literal
+ * underscore `__` (a licence such as `CC-BY-4.0` would otherwise split into
+ * three fields). `encodeURIComponent` leaves both characters unchanged.
+ *
  * @param {string} segment Raw label or status text.
  * @returns {string} Segment safe to interpolate into a shields.io path.
  */
 function encodeBadgeSegment(segment) {
-  return encodeURIComponent(segment).replace(/%3A/gi, ":");
+  return encodeURIComponent(segment)
+    .replace(/-/g, "--")
+    .replace(/_/g, "__")
+    .replace(/%3A/gi, ":");
 }
 
 /**

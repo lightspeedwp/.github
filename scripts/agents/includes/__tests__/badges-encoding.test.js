@@ -24,6 +24,37 @@ describe('encodeBadgeSegment', () => {
   it('leaves a plain word unchanged', () => {
     expect(encodeBadgeSegment('Checks')).toBe('Checks');
   });
+
+  // shields.io reads a single "-" as the label/message/colour separator and "_" as
+  // a space, so literal ones are doubled.
+  it('doubles a literal hyphen', () => {
+    expect(encodeBadgeSegment('pre-release')).toBe('pre--release');
+    expect(encodeBadgeSegment('CC-BY-4.0')).toBe('CC--BY--4.0');
+  });
+
+  it('doubles a literal underscore', () => {
+    expect(encodeBadgeSegment('snake_case')).toBe('snake__case');
+  });
+
+  it('handles spaces, hyphens, underscores and colons together', () => {
+    expect(encodeBadgeSegment('Build: pre-release_1 ok')).toBe('Build:%20pre--release__1%20ok');
+  });
+});
+
+describe('both badge generators encode the same way', () => {
+  const branding = require('../../branding.agent.js');
+  const samples = [
+    'Docs Validation',
+    'Badges: Health Check',
+    'pre-release',
+    'CC-BY-4.0',
+    'snake_case',
+    'Checks',
+  ];
+
+  it.each(samples)('agrees on %s', (sample) => {
+    expect(branding.encodeBadgeSegment(sample)).toBe(encodeBadgeSegment(sample));
+  });
 });
 
 describe('resolveBadge', () => {
@@ -48,6 +79,12 @@ describe('resolveBadge', () => {
   it('encodes a licence value', () => {
     expect(resolveBadge('meta.license', defs, { license: 'cc by 4.0' })).toBe(
       '![License](https://img.shields.io/badge/license-CC%20BY%204.0-blue.svg)'
+    );
+  });
+
+  it('keeps a hyphenated licence in one field', () => {
+    expect(resolveBadge('meta.license', defs, { license: 'cc-by-4.0' })).toBe(
+      '![License](https://img.shields.io/badge/license-CC--BY--4.0-blue.svg)'
     );
   });
 
