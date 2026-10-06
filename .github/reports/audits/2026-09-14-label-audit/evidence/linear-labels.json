@@ -4350,8 +4350,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 1 Linear issue. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "CI/CD",
       "systems": [
         "linear"
@@ -4365,8 +4365,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "Hosting",
       "systems": [
         "linear"
@@ -4446,8 +4446,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "aiops:instructions",
       "systems": [
         "github",
@@ -4475,8 +4475,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 4 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 4 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "aiops:tools",
       "systems": [
         "linear"
@@ -4490,8 +4490,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:api",
       "systems": [
         "linear"
@@ -4505,8 +4505,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:auth",
       "systems": [
         "linear"
@@ -4520,8 +4520,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 24 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 24 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:backend",
       "systems": [
         "linear"
@@ -4535,8 +4535,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:changelog",
       "systems": [
         "github",
@@ -4551,8 +4551,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:communication",
       "systems": [
         "github",
@@ -4567,8 +4567,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:db",
       "systems": [
         "linear"
@@ -4582,8 +4582,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:extension",
       "systems": [
         "linear"
@@ -4597,8 +4597,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 22 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 22 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:frontend",
       "systems": [
         "linear"
@@ -4612,8 +4612,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:hosting",
       "systems": [
         "linear"
@@ -4627,8 +4627,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 56 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 56 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3757.",
+      "change_request": 3757,
       "source": "area:labels",
       "systems": [
         "github",
@@ -4657,8 +4657,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:mcp",
       "systems": [
         "linear"
@@ -4672,8 +4672,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:migration",
       "systems": [
         "linear"
@@ -4700,8 +4700,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:projects",
       "systems": [
         "github",
@@ -4716,8 +4716,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:reports",
       "systems": [
         "linear"
@@ -4731,8 +4731,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 40 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 40 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:specification",
       "systems": [
         "github",
@@ -4747,8 +4747,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 11 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 11 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:templates",
       "systems": [
         "github",
@@ -4763,8 +4763,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 106 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 106 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "area:website",
       "systems": [
         "github",
@@ -4779,8 +4779,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "bug",
       "systems": [
         "github",
@@ -4795,8 +4795,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "ci-runner-audit-2026-07-20",
       "systems": [
         "linear"
@@ -4810,8 +4810,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "comp:query-loop",
       "systems": [
         "linear"
@@ -4825,8 +4825,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "comp:readme-mermaid",
       "systems": [
         "github",
@@ -4855,8 +4855,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "epic",
       "systems": [
         "github",
@@ -4871,8 +4871,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "harvest-parity",
       "systems": [
         "linear"
@@ -4900,8 +4900,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 8 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 8 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "master-ci-red",
       "systems": [
         "linear"
@@ -4915,8 +4915,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:aiops",
       "systems": [
         "github",
@@ -4945,8 +4945,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 42 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 42 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:audit",
       "systems": [
         "github",
@@ -4961,8 +4961,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:dependabot-security",
       "systems": [
         "github",
@@ -4977,8 +4977,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:enhancement",
       "systems": [
         "github",
@@ -4993,8 +4993,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:incident-report",
       "systems": [
         "github",
@@ -5009,8 +5009,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:infrastructure-blocker",
       "systems": [
         "github",
@@ -5025,8 +5025,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is a placeholder. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:needs-audit",
       "systems": [
         "github",
@@ -5041,8 +5041,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:needs-triage",
       "systems": [
         "github",
@@ -5057,8 +5057,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:refactor-rules",
       "systems": [
         "github",
@@ -5073,8 +5073,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:release-plan",
       "systems": [
         "github",
@@ -5089,8 +5089,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:tech-debt",
       "systems": [
         "github",
@@ -5105,8 +5105,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "meta:tracking",
       "systems": [
         "github",
@@ -5569,8 +5569,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 11 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 11 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "security",
       "systems": [
         "github",
@@ -5702,8 +5702,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "status:needs-analysis",
       "systems": [
         "github",
@@ -5718,8 +5718,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "status:needs-cleanup",
       "systems": [
         "github",
@@ -5734,8 +5734,8 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
-      "change_request": null,
+      "notes": "Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834.",
+      "change_request": 3834,
       "source": "status:needs-template-fix",
       "systems": [
         "github",

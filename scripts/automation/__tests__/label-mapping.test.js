@@ -116,6 +116,24 @@ describe('label mapping', () => {
     ).toThrow(/openspec:brand-new has no GAP_MAP decision/);
   });
 
+  it('gives every import a change request, and area:labels cites #3757', () => {
+    const imports = build().mappings.filter((m) => m.action === 'import');
+    expect(imports).toHaveLength(49);
+    for (const entry of imports) expect(Number.isInteger(entry.change_request)).toBe(true);
+    expect(imports.find((m) => m.source === 'area:labels').change_request).toBe(3757);
+    expect(imports.find((m) => m.source === 'area:builds').change_request).toBe(3554);
+  });
+
+  it('reports an import that cites no change request', () => {
+    const { mappings, proposedNames } = build();
+    const broken = mappings.map((m) =>
+      m.source === 'area:labels' ? { ...m, change_request: null } : m
+    );
+    expect(validateMappings(broken, proposedNames, yml, openspecInFiles).join(' ')).toMatch(
+      /rule 10: import area:labels/
+    );
+  });
+
   it('writes the evidence file only when validation found no problems', () => {
     expect(shouldWrite([])).toBe(true);
     expect(shouldWrite(['rule 5: the type family has 29 labels, not 25'])).toBe(false);
