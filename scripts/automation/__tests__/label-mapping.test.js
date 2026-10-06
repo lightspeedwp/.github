@@ -65,6 +65,16 @@ describe('label mapping', () => {
     }
   });
 
+  it('adds no re-prefix row for a source that exists in neither system, and reports it', () => {
+    const { mappings, absentSources } = build();
+    const present = mappings.filter((m) => m.action === 're-prefix').map((m) => m.source);
+    expect(present).toEqual(['type:maintenance']);
+    expect(absentSources.map((a) => a.source)).toHaveLength(7);
+    for (const { source } of absentSources) {
+      expect(mappings.some((m) => m.source === source)).toBe(false);
+    }
+  });
+
   it('reports a problem when a type merge is removed', () => {
     const { mappings, proposedNames } = build();
     const without = mappings.filter((m) => m.source !== 'type:build-ci');

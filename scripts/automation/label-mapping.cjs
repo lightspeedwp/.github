@@ -311,6 +311,8 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
     handled.add(source);
   }
 
+  const absentSources = [];
+
   // Proposed merges for Linear-only type labels the spec does not list.
   for (const [source, { target, why }] of Object.entries(PROPOSED_TYPE_MERGES)) {
     if (handled.has(source) || !linearByName.has(source)) continue;
@@ -327,7 +329,13 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
   }
 
   // FR-015 re-prefixes.
+  // A source that exists in neither system has nothing to re-prefix; it is
+  // recorded in `absentSources` so the gap is visible rather than silent.
   for (const [source, { target, concept }] of Object.entries(REPREFIX)) {
+    if (!inYml.has(source) && !linearByName.has(source)) {
+      absentSources.push({ source, requirement: 'FR-015' });
+      continue;
+    }
     add({
       source,
       systems: where(source),
@@ -462,7 +470,7 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
     }
   }
 
-  return { mappings, proposedNames: proposed, inYml, linearByName };
+  return { mappings, proposedNames: proposed, inYml, linearByName, absentSources };
 }
 
 /**
@@ -564,7 +572,7 @@ if (require.main === module) {
   const openspecInFiles = [...names].sort();
   // Spec-number labels used by .github/projects/active/prd-combined-agent (FR-011).
   const specNumberLabels = ['spec:001'];
-  const { mappings, proposedNames } = buildMappings({
+  const { mappings, proposedNames, absentSources } = buildMappings({
     yml,
     linear: linearFile.sources.labels,
     openspecInFiles,
@@ -577,7 +585,13 @@ if (require.main === module) {
   });
   console.log(
     JSON.stringify(
-      { entries: mappings.length, byAction: counts, proposedLabels: proposedNames.size, problems },
+      {
+        entries: mappings.length,
+        byAction: counts,
+        proposedLabels: proposedNames.size,
+        absentSources: absentSources.map((a) => a.source),
+        problems,
+      },
       null,
       2
     )

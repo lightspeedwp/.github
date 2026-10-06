@@ -4065,39 +4065,6 @@
       "requirement": "FR-014"
     },
     {
-      "concept_label": "discussion:support",
-      "notes": "",
-      "change_request": null,
-      "source": "type:help",
-      "systems": [],
-      "action": "re-prefix",
-      "target": "type:task",
-      "issue_count": 0,
-      "requirement": "FR-015"
-    },
-    {
-      "concept_label": "discussion:support",
-      "notes": "",
-      "change_request": null,
-      "source": "type:support",
-      "systems": [],
-      "action": "re-prefix",
-      "target": "type:task",
-      "issue_count": 0,
-      "requirement": "FR-015"
-    },
-    {
-      "concept_label": null,
-      "notes": "",
-      "change_request": null,
-      "source": "type:investigation",
-      "systems": [],
-      "action": "re-prefix",
-      "target": "type:research",
-      "issue_count": 0,
-      "requirement": "FR-015"
-    },
-    {
       "concept_label": "area:maintenance",
       "notes": "",
       "change_request": null,
@@ -4108,50 +4075,6 @@
       "action": "re-prefix",
       "target": "type:chore",
       "issue_count": 10,
-      "requirement": "FR-015"
-    },
-    {
-      "concept_label": "area:qa",
-      "notes": "",
-      "change_request": null,
-      "source": "type:qa",
-      "systems": [],
-      "action": "re-prefix",
-      "target": "type:test",
-      "issue_count": 0,
-      "requirement": "FR-015"
-    },
-    {
-      "concept_label": "area:frontend",
-      "notes": "",
-      "change_request": null,
-      "source": "type:ui",
-      "systems": [],
-      "action": "re-prefix",
-      "target": "type:design",
-      "issue_count": 0,
-      "requirement": "FR-015"
-    },
-    {
-      "concept_label": "discussion:feedback",
-      "notes": "",
-      "change_request": null,
-      "source": "type:ux-feedback",
-      "systems": [],
-      "action": "re-prefix",
-      "target": "type:design",
-      "issue_count": 0,
-      "requirement": "FR-015"
-    },
-    {
-      "concept_label": "area:integration",
-      "notes": "",
-      "change_request": null,
-      "source": "type:integration",
-      "systems": [],
-      "action": "re-prefix",
-      "target": "type:feature",
-      "issue_count": 0,
       "requirement": "FR-015"
     },
     {

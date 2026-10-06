@@ -4,7 +4,7 @@
 
 ## Chore Summary
 
-Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 175 source labels and ends with 49 distinct targets. The type family ends at exactly 25.
+Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 168 source labels and ends with 45 distinct targets. The type family ends at exactly 25.
 
 Nothing changes until @ashleyshaw records a dated decision on this issue. Each repository's deletion has its own later gate (the deletion gate issue, T049).
 
@@ -88,18 +88,11 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type:code-refactor` | `type:refactor` | 3 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Code Refactor type to Refactor. Needed so the type family ends at exactly 25. |
 | `type:documentation` | `type:docs` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate of type:docs. Needed so the type family ends at exactly 25. |
 
-### re-prefix (8)
+### re-prefix (1)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
-| `type:help` | `type:task` | 0 | FR-015 |  |
-| `type:support` | `type:task` | 0 | FR-015 |  |
-| `type:investigation` | `type:research` | 0 | FR-015 |  |
 | `type:maintenance` | `type:chore` | 10 | FR-015 |  |
-| `type:qa` | `type:test` | 0 | FR-015 |  |
-| `type:ui` | `type:design` | 0 | FR-015 |  |
-| `type:ux-feedback` | `type:design` | 0 | FR-015 |  |
-| `type:integration` | `type:feature` | 0 | FR-015 |  |
 
 ### swap (1)
 
@@ -298,6 +291,10 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `status:needs-analysis` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. |
 | `status:needs-cleanup` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. |
 | `status:needs-template-fix` | retire | 207 | FR-012 | Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. |
+
+## Spec sources that do not exist
+
+FR-015 names eight Linear-only type labels. Only `type:maintenance` exists in `labels.yml` or the Stage 1 Linear export, so it is the only re-prefix row. These have nothing to re-prefix and are left out: `type:help`, `type:support`, `type:investigation`, `type:qa`, `type:ui`, `type:ux-feedback`, `type:integration`. Stage 5 re-reads Linear before it writes and handles any that have appeared since.
 
 ## Impact
 
