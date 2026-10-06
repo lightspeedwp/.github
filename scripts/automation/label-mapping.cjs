@@ -700,7 +700,18 @@ function validateMappings(mappings, proposedNames, yml, openspecInFiles = []) {
   return problems;
 }
 
+/**
+ * Tells whether the mapping may be saved: never when validation found problems,
+ * so a failed run cannot leave evidence that breaks the schema.
+ * @param {string[]} problems Validation problems.
+ * @returns {boolean} True when there are none.
+ */
+function shouldWrite(problems) {
+  return problems.length === 0;
+}
+
 module.exports = {
+  shouldWrite,
   MERGES,
   REPREFIX,
   TEAM_SCOPE,
@@ -766,7 +777,9 @@ if (require.main === module) {
       2
     )
   );
-  if (process.argv.includes('--write')) {
+  if (process.argv.includes('--write') && !shouldWrite(problems)) {
+    console.error(`Not written: ${problems.length} validation problem(s) (see above).`);
+  } else if (process.argv.includes('--write')) {
     linearFile.mappings = mappings;
     fs.writeFileSync(
       path.join(root, EVIDENCE, 'linear-labels.json'),

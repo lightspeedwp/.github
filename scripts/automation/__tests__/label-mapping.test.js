@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
-const { buildMappings, validateMappings } = require('../label-mapping.cjs');
+const { buildMappings, validateMappings, shouldWrite } = require('../label-mapping.cjs');
 
 const root = path.resolve(__dirname, '../../..');
 const audit = path.join(root, '.github/reports/audits/2026-09-14-label-audit');
@@ -114,6 +114,11 @@ describe('label mapping', () => {
         githubLive,
       })
     ).toThrow(/openspec:brand-new has no GAP_MAP decision/);
+  });
+
+  it('writes the evidence file only when validation found no problems', () => {
+    expect(shouldWrite([])).toBe(true);
+    expect(shouldWrite(['rule 5: the type family has 29 labels, not 25'])).toBe(false);
   });
 
   it('reports a problem when a type merge is removed', () => {
