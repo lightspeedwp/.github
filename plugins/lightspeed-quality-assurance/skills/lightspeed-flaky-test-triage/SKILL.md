@@ -1,7 +1,8 @@
 ---
 name: lightspeed-flaky-test-triage
 description: identify flaky test patterns and prioritise stabilisation actions.
-version: 0.1.1
+metadata:
+  version: "0.1.1"
 ---
 
 # LightSpeed Flaky Test Triage

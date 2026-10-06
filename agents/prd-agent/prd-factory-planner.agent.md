@@ -19,7 +19,7 @@ author: "Ash Shaw"
 maintainer: "Ash Shaw"
 owners: ["lightspeedwp/maintainers"]
 language: "en"
-implementation: "agents/prd-factory-planner-agent/"
+implementation: "agents/prd-agent/"
 permissions:
   - read
   - write
@@ -63,9 +63,9 @@ Automate Product Requirements Document generation and project planning by transf
 
 ## Implementation Reference
 
-- **Folder:** `agents/prd-factory-planner-agent/`
-- **Entry Point:** [AGENT.md](prd-factory-planner-agent/AGENT.md)
-- **Related:** [README.md](prd-factory-planner-agent/README.md)
+- **Folder:** `agents/prd-agent/`
+- **Entry Point:** [AGENT.md](./AGENT.md)
+- **Related:** [README.md](./README.md)
 
 ---
 

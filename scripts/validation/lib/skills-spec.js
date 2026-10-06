@@ -103,6 +103,21 @@ const CLAUDE_CODE_SKILL_SET = Object.freeze([...SPEC_FIELDS, ...CLAUDE_CODE_SKIL
  * agent, and `.github/scripts/generate-agent-index.js` reads `status` and
  * `author` from there, so moving them under `metadata` would hide them from
  * existing consumers.
+ *
+ * `implementation` (a repo-root-relative directory path) is likewise allowed
+ * although no upstream client defines it: 34 agent specs carry it and four
+ * repo scripts read it (the agent-index generator's Discovery section,
+ * agent-spec validators, the implementation-reference adder). Rejecting it
+ * would flag a live convention with real consumers, so it stays in the set.
+ *
+ * The same holds for the rest of the repo's agent-frontmatter dialect:
+ * `language` (38 specs; the index generator defaults it, the template ships
+ * it), `visibility` (35 specs), and the Copilot-profile fields `target`,
+ * `handoffs` and `mode` (11/9/1 specs; `handoffs` is read as structured data
+ * by the handoff-cycle audit and the agent handoff validator, `target`
+ * selects the Copilot environment). None of these is an upstream Skill or
+ * subagent field, but each is either pervasive or consumed, so the closed set
+ * documents the dialect instead of flagging it.
  */
 const SUBAGENT_FIELDS = Object.freeze([
   'name',
@@ -139,6 +154,12 @@ const SUBAGENT_FIELDS = Object.freeze([
   'permissions',
   'status',
   'author',
+  'implementation',
+  'language',
+  'visibility',
+  'target',
+  'handoffs',
+  'mode',
 ]);
 
 /**
