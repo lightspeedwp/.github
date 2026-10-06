@@ -390,7 +390,7 @@ npm run release -- --scope=patch
 ### With Phase 5 (Portable Agents)
 
 - 🔄 Can call agents/release/ (optional, for future)
-- 🔄 Shares changelog utilities with agents/changelog/
+- 🔄 Shares changelog utilities with agents/changelog-agent/
 - 🔄 Agentic orchestrates, portable agents execute (future)
 
 ### With Phase 6 (WordPress Support)
@@ -480,8 +480,8 @@ gh agentic release --scope=patch
 
 This release agent integrates with the LightSpeed changelog ecosystem:
 
-- **Changelog Spec Agent:** [`.github/agents/changelog.agent.md`](../../.github/agents/changelog.agent.md) — Primary GitHub-native specification for changelog management
-- **Changelog Portable Agent:** [`agents/changelog/README.md`](../../agents/changelog/README.md) — Multi-file implementation with Keep a Changelog 1.1.0 support
+- **Changelog Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](../../agents/changelog-agent/changelog.agent.md) — Primary agent specification for changelog management
+- **Changelog Portable Agent:** [`agents/changelog-agent/README.md`](../../agents/changelog-agent/README.md) — Multi-file implementation with Keep a Changelog 1.1.0 support
 - **Changelog Schema:** [`schemas/changelog.schema.json`](../../schemas/changelog.schema.json) — JSON schema validation for Keep a Changelog 1.1.0 compliance
 - **Changelog Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
 - **Changelog Documentation:** [`docs/CHANGELOG_AUTOMATION.md`](../../docs/CHANGELOG_AUTOMATION.md) — Complete guide to changelog automation and contributor workflow

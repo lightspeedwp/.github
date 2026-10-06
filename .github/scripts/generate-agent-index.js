@@ -9,7 +9,8 @@
 import fs from "fs";
 import path from "path";
 import * as YAML from "js-yaml";
-import { fileURLToPath } from "url";
+import { fileURLToPath, pathToFileURL } from "url";
+import { isRootRelativeImplementation } from "./implementation-path.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -136,6 +137,31 @@ function collectAgentSpecs() {
   return specs.sort((a, b) => a.name.localeCompare(b.name));
 }
 
+// Build the implementation link for the Discovery section.
+//
+// `spec.path` and repo-root-relative `spec.implementation` values (anything
+// containing a `/`, e.g. `agents/changelog-agent/`) are both relative to the
+// repository root, so joining the implementation onto the spec's directory
+// double-prefixes the path (`agents/agents/...`). Only bare names keep the
+// legacy spec-directory-relative join.
+function buildImplementationLink(spec) {
+  const raw = String(spec.implementation);
+  // The result is a link target, not a filesystem path, so use POSIX
+  // operations and forward slashes on every platform (`spec.path` comes from
+  // `path.relative`, which emits backslashes on Windows).
+  // The root-relative rule is shared with the validator (implementation-path.js).
+  // A bare name keeps this generator's legacy meaning: relative to the spec's folder.
+  const specDir = path.posix.dirname(spec.path.split(path.sep).join("/"));
+  const joined = isRootRelativeImplementation(raw)
+    ? path.posix.normalize(raw)
+    : path.posix.join(specDir, raw);
+  // path.normalize keeps one trailing slash; strip it so the template below
+  // emits exactly one. (`agents/X/` must not become `agents/X//`.)
+  const implPath = joined.replace(/\/+$/, "");
+  const display = raw.endsWith("/") ? raw : `${raw}/`;
+  return `[\`${display}\`](../${implPath}/)`;
+}
+
 // Generate markdown index
 function generateIndex(specs) {
   const today = new Date().toISOString().split("T")[0];
@@ -231,10 +257,7 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   markdown += `**With Implementation Directory** (${specs.filter((s) => s.implementation).length})\n\n`;
 
   for (const spec of specs.filter((s) => s.implementation)) {
-    // Construct implementation directory path relative to spec file location
-    const specDir = path.dirname(spec.path);
-    const implPath = path.join(specDir, spec.implementation);
-    markdown += `- [${spec.name}](../${spec.path}) → [\`${spec.implementation}/\`](../${implPath}/)\n`;
+    markdown += `- [${spec.name}](../${spec.path}) → ${buildImplementationLink(spec)}\n`;
   }
 
   markdown += `\n**Specification-Only** (${specs.filter((s) => !s.implementation).length})\n\n`;
@@ -297,14 +320,43 @@ Complete searchable index of all ${specs.length} agent specifications in the Lig
   return markdown;
 }
 
+// Lines that legitimately change on every run (timestamps). The --check mode
+// and the idempotency test ignore exactly these lines; everything else must
+// be byte-identical between runs.
+const STAMP_PATTERNS = [
+  /^(created_date|last_updated):/,
+  /^\*\*Generated\*\*:/,
+  /^Complete searchable index/,
+];
+
+function stripStamps(markdown) {
+  return markdown
+    .split("\n")
+    .filter((line) => !STAMP_PATTERNS.some((re) => re.test(line)))
+    .join("\n");
+}
+
 // Main execution
 function main() {
+  const check = process.argv.includes("--check");
   console.log("Generating agent index...");
 
   const specs = collectAgentSpecs();
   console.log(`Found ${specs.length} agent specifications`);
 
   const markdown = generateIndex(specs);
+
+  if (check) {
+    const current = fs.existsSync(OUTPUT_FILE)
+      ? fs.readFileSync(OUTPUT_FILE, "utf8")
+      : null;
+    if (current === null || stripStamps(current) !== stripStamps(markdown)) {
+      console.error("agent index drifted from generated output");
+      process.exit(1);
+    }
+    console.log("✅ Agent index is current (ignoring date stamps).");
+    return 0;
+  }
 
   // Ensure directory exists
   const outputDir = path.dirname(OUTPUT_FILE);
@@ -339,4 +391,11 @@ function main() {
   return 0;
 }
 
-process.exit(main());
+if (
+  process.argv[1] &&
+  import.meta.url === pathToFileURL(process.argv[1]).href
+) {
+  process.exit(main());
+}
+
+export { buildImplementationLink, parseAgentSpec, generateIndex };

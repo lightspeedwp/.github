@@ -60,7 +60,7 @@ permissions:
   - github:repo
 metadata:
   guardrails: Think first, code later. Default to read-only analysis. Never skip research validation. Generate plans before implementation. Always clarify requirements before planning.
-implementation: task-planner-agent
+implementation: "agents/task-planner-agent/"
 language: en
 ---
 

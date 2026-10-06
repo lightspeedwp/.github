@@ -64,7 +64,7 @@ permissions:
   - github:repo
 metadata:
   guardrails: Never overwrite content outside designated blocks. Always create backups before modifications. Validate configuration schema before applying. Respect file-specific opt-out markers.
-implementation: meta-agent
+implementation: "agents/meta-agent/"
 created_date: '2026-08-29'
 ---
 
