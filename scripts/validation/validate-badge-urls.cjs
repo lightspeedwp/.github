@@ -52,11 +52,15 @@ const path = require('path');
  * `--fix` would percent-encode the title into the path and corrupt a valid
  * badge.
  *
- * A title may itself contain parentheses (`"Build (main)"`; CommonMark allows
- * it), so the text inside the image's parentheses is matched as plain characters
- * or whole quoted strings, never as "anything up to the first `)`". Stopping at
- * the first `)` split such a title in two, reported a valid badge and let `--fix`
- * rewrite part of the title into the URL.
+ * A title may itself contain parentheses (`"Build (main)"`), and CommonMark also
+ * allows a title written in parentheses (`(Build)`). So the text inside the image's
+ * parentheses is a destination followed by an optional title, never "anything up to
+ * the first `)`": stopping there split such a title in two, reported a valid badge
+ * and let `--fix` rewrite part of the title into the URL.
+ *
+ * A quote counts as a title only when whitespace comes before it and it closes the
+ * image. Everywhere else a quote is an ordinary character, so a label such as
+ * `Don't Stop` keeps its apostrophe and is still found and repaired.
  *
  * Group 1 is the alt text, group 2 is everything inside the parentheses. The
  * destination and the optional title are separated explicitly by
@@ -64,16 +68,39 @@ const path = require('path');
  * must not be reported — an already-encoded URL and a quoted title — are easier
  * to get right as steps than as nested groups.
  */
-const BROKEN_BADGE = /!\[([^\]]*)\]\(((?:[^)"']|"[^"]*"|'[^']*')*)\)/gu;
+
+/**
+ * A quoted or parenthesised image title, as CommonMark writes it. A backslash escapes the next
+ * character, so `"Say \"hi\""` and `(Build \) ok)` are one title each, not a title cut short.
+ */
+const TITLE = String.raw`(?:"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*'|\((?:[^()\\]|\\.)*\))`;
+
+/**
+ * Everything between an image's parentheses after the opening `<url>` or from its start:
+ * characters up to the closing `)`, where a space that begins the final title is not part of
+ * the run, then that optional title.
+ */
+const INNER = String.raw`(?:[^)\s]|\s(?!${TITLE}\s*\)))*(?:\s${TITLE}\s*)?`;
+
+const BROKEN_BADGE = new RegExp(String.raw`!\[([^\]]*)\]\((${INNER})\)`, 'gu');
 
 /**
  * An image whose destination opens with `<https://img.shields.io/...` and whose
  * `>` closes before the label ends. Group 1 is the alt text, group 2 the URL up to
  * the `>`, group 3 everything after it inside the parentheses. A group 3 that is
- * only a quoted title is valid CommonMark (`![x](<url> "title")`) and not a defect.
+ * only a title is valid CommonMark (`![x](<url> "title")`) and not a defect.
  */
-const ANGLE_BADGE =
-  /!\[([^\]]*)\]\(<(https:\/\/img\.shields\.io\/[^>\s]*)>((?:[^)"']|"[^"]*"|'[^']*')*)\)/gu;
+const ANGLE_BADGE = new RegExp(
+  String.raw`!\[([^\]]*)\]\(<(https:\/\/img\.shields\.io\/[^>\s]*)>(${INNER})\)`,
+  'gu'
+);
+
+/**
+ * A title at the very end of a string, preceded by whitespace. It starts at exactly one
+ * whitespace character, not `\s+`: a run of spaces would otherwise be rescanned from every
+ * position, which is quadratic. Callers trim the text before the match.
+ */
+const TRAILING_TITLE = new RegExp(String.raw`\s(${TITLE})\s*$`, 'u');
 
 const SHIELDS_HOST = 'https://img.shields.io/';
 
@@ -85,8 +112,10 @@ const SHIELDS_HOST = 'https://img.shields.io/';
  * @returns {{body: string, title: string}} `body` is empty for a valid titled image.
  */
 function splitAngleTail(tail) {
-  const titled = tail.match(/^(.*?)\s+("[^"]*"|'[^']*')\s*$/u);
-  return titled ? { body: titled[1], title: titled[2] } : { body: tail, title: '' };
+  const titled = TRAILING_TITLE.exec(tail);
+  return titled
+    ? { body: tail.slice(0, titled.index), title: titled[1] }
+    : { body: tail, title: '' };
 }
 
 /**
@@ -133,9 +162,9 @@ function splitDestination(inner) {
   // Anchor on the shields host rather than on non-space characters: the
   // destination of a *broken* badge contains spaces by definition, so a
   // `\S+` prefix would never match it and the title would be swallowed.
-  const quoted = text.match(/^(https:\/\/img\.shields\.io\/.*?)\s+("[^"]*")$/u);
-  if (quoted) {
-    return { destination: quoted[1], title: quoted[2] };
+  const titled = TRAILING_TITLE.exec(text);
+  if (titled && text.startsWith(SHIELDS_HOST)) {
+    return { destination: text.slice(0, titled.index).trimEnd(), title: titled[1] };
   }
   return { destination: text, title: '' };
 }

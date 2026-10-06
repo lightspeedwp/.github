@@ -206,6 +206,114 @@ describe('validate-badge-urls', () => {
     });
   });
 
+  describe('parenthesised titles and apostrophes', () => {
+    // CommonMark also allows a title in parentheses. A quote is a title only after
+    // whitespace; elsewhere it is an ordinary character, so `Don't Stop` stays a label.
+    const parenBare = '![X](https://img.shields.io/badge/X-OK-green.svg (Build))';
+    const parenAngle = '![X](<https://img.shields.io/badge/X-OK-green.svg> (Build))';
+
+    it('does not report a valid badge with a parenthesised title', () => {
+      for (const line of [parenBare, parenAngle]) {
+        expect(findBrokenBadges(line)).toHaveLength(0);
+        expect(repairContent(line)).toBe(line);
+      }
+    });
+
+    it('repairs a broken angle-bracket badge and keeps a parenthesised title', () => {
+      const broken = '![X](<https://img.shields.io/badge/Docs> Validation-OK-success.svg (Tip))';
+      expect(repairContent(broken)).toBe(
+        '![X](https://img.shields.io/badge/Docs%20Validation-OK-success.svg (Tip))'
+      );
+    });
+
+    it('still finds and repairs a broken badge whose label has an apostrophe', () => {
+      const broken = "![Don't](https://img.shields.io/badge/Don't Stop-OK-success.svg)";
+      expect(findBrokenBadges(broken)).toHaveLength(1);
+      expect(repairContent(broken)).toBe(
+        "![Don't](https://img.shields.io/badge/Don't%20Stop-OK-success.svg)"
+      );
+    });
+
+    it('keeps the apostrophe and a quoted title when both are present', () => {
+      const broken = '![X](https://img.shields.io/badge/Don\'t Stop-OK-success.svg "Tip")';
+      expect(repairContent(broken)).toBe(
+        '![X](https://img.shields.io/badge/Don\'t%20Stop-OK-success.svg "Tip")'
+      );
+    });
+
+    it('leaves an already-encoded badge with an apostrophe alone', () => {
+      const ok = "![Don't](https://img.shields.io/badge/Don't%20Stop-OK-success.svg)";
+      expect(findBrokenBadges(ok)).toHaveLength(0);
+      expect(repairContent(ok)).toBe(ok);
+    });
+
+    it('does not encode spaces that sit before a title into the URL', () => {
+      const broken = '![X](https://img.shields.io/badge/Docs Validation-OK-success.svg   "Tip")';
+      expect(repairContent(broken)).toBe(
+        '![X](https://img.shields.io/badge/Docs%20Validation-OK-success.svg "Tip")'
+      );
+    });
+  });
+
+  describe('escaped delimiters in titles', () => {
+    // A backslash escapes the next character in a CommonMark title, so an escaped closing
+    // delimiter does not end it.
+    const quoted = String.raw`![X](https://img.shields.io/badge/X-OK-green.svg "Say \"hi\"")`;
+    const quotedAngle = String.raw`![X](<https://img.shields.io/badge/X-OK-green.svg> "Say \"hi\"")`;
+    const paren = String.raw`![X](https://img.shields.io/badge/X-OK-green.svg (Build \) ok))`;
+    const parenAngle = String.raw`![X](<https://img.shields.io/badge/X-OK-green.svg> (Build \) ok))`;
+    const single = String.raw`![X](https://img.shields.io/badge/X-OK-green.svg 'It\'s fine')`;
+
+    it('does not report or change a valid badge whose title has an escaped delimiter', () => {
+      for (const line of [quoted, quotedAngle, paren, parenAngle, single]) {
+        expect(findBrokenBadges(line)).toHaveLength(0);
+        expect(repairContent(line)).toBe(line);
+      }
+    });
+
+    it('repairs a broken bare badge and keeps an escaped-quote title intact', () => {
+      const broken = String.raw`![X](https://img.shields.io/badge/Docs Validation-OK-success.svg "Say \"hi\"")`;
+      expect(repairContent(broken)).toBe(
+        String.raw`![X](https://img.shields.io/badge/Docs%20Validation-OK-success.svg "Say \"hi\"")`
+      );
+    });
+
+    it('repairs a broken angle-bracket badge and keeps an escaped-parenthesis title intact', () => {
+      const broken = String.raw`![X](<https://img.shields.io/badge/Docs> Validation-OK-success.svg (Tip \) x))`;
+      expect(repairContent(broken)).toBe(
+        String.raw`![X](https://img.shields.io/badge/Docs%20Validation-OK-success.svg (Tip \) x))`
+      );
+    });
+
+    it('stays fast on a title made of backslashes', () => {
+      const line = `![x](https://img.shields.io/badge/X "${'\\\\ '.repeat(20000)}`;
+      const started = Date.now();
+      findBrokenBadges(line);
+      repairContent(line);
+      expect(Date.now() - started).toBeLessThan(1000);
+    });
+  });
+
+  describe('pathological input', () => {
+    // A long run of spaces with no closing parenthesis made an earlier version of the
+    // title pattern backtrack quadratically (about 30 seconds for 200,000 characters).
+    const run = ' '.repeat(100000);
+    const inputs = {
+      'an unclosed bare image': `![x](https://img.shields.io/badge/X${run}y`,
+      'an unclosed angle-bracket image': `![x](<https://img.shields.io/badge/X>${run}y`,
+      'a closed image with a long space run': `![x](https://img.shields.io/badge/X${run}y)`,
+      'many quote openers': `![x](https://img.shields.io/badge/X ${'" '.repeat(20000)}`,
+      'many parenthesis openers': `![x](https://img.shields.io/badge/X ${'( '.repeat(20000)}`,
+    };
+
+    it.each(Object.entries(inputs))('handles %s quickly', (_name, line) => {
+      const started = Date.now();
+      findBrokenBadges(line);
+      repairContent(line);
+      expect(Date.now() - started).toBeLessThan(1000);
+    });
+  });
+
   describe('nested fences', () => {
     // A four-backtick example may contain a three-backtick block. Toggling on
     // every fence-like line ends the block early and rewrites badge examples
