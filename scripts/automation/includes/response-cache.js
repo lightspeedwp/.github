@@ -22,7 +22,7 @@ export class ResponseCache {
    * Generate cache key from parameters
    */
   static generateKey(...parts) {
-    return parts.filter(Boolean).join(":");
+    return parts.filter(Boolean).join(':');
   }
 
   /**
@@ -87,7 +87,7 @@ export class ResponseCache {
       hits: this.hits,
       misses: this.misses,
       total,
-      hitRate: total > 0 ? ((this.hits / total) * 100).toFixed(2) + "%" : "0%",
+      hitRate: total > 0 ? ((this.hits / total) * 100).toFixed(2) + '%' : '0%',
       size: this.data.size,
     };
   }

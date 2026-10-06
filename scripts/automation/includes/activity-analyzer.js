@@ -36,9 +36,7 @@ export class ActivityAnalyzer {
     }
 
     // Return most recent
-    return dates.length > 0
-      ? new Date(Math.max(...dates.map((d) => d.getTime())))
-      : new Date(0);
+    return dates.length > 0 ? new Date(Math.max(...dates.map((d) => d.getTime()))) : new Date(0);
   }
 
   /**
@@ -77,7 +75,7 @@ export class ActivityAnalyzer {
    * @param {number} thresholdDays - Days threshold for "recent" (default 7)
    * @returns {boolean} True if has recent activity of type
    */
-  hasRecentChange(issue, type = "update", thresholdDays = 7) {
+  hasRecentChange(issue, type = 'update', thresholdDays = 7) {
     if (!issue) {
       return false;
     }
@@ -85,14 +83,14 @@ export class ActivityAnalyzer {
     const daysSinceActivity = this.getDaysSinceActivity(issue);
 
     switch (type) {
-      case "update":
-      case "comment":
+      case 'update':
+      case 'comment':
         // Check updated_at (covers both)
         return daysSinceActivity < thresholdDays;
 
-      case "label":
-      case "assignment":
-      case "status":
+      case 'label':
+      case 'assignment':
+      case 'status':
         // For these, updated_at still applies
         return daysSinceActivity < thresholdDays;
 
@@ -128,15 +126,15 @@ export class ActivityAnalyzer {
     const daysSince = this.getDaysSinceActivity(issue);
 
     if (daysSince < 7) {
-      return "active";
+      return 'active';
     }
     if (daysSince < 30) {
-      return "stale";
+      return 'stale';
     }
     if (daysSince < 90) {
-      return "dormant";
+      return 'dormant';
     }
-    return "forgotten";
+    return 'forgotten';
   }
 
   /**
@@ -153,10 +151,10 @@ export class ActivityAnalyzer {
 
     // Exclusion rules
     const exclusions = [
-      "type:epic", // Long-running initiatives
-      "status:in-progress", // Actively being worked
-      "priority:critical", // Security/urgent items
-      "status:blocked", // Waiting on dependency
+      'type:epic', // Long-running initiatives
+      'status:in-progress', // Actively being worked
+      'priority:critical', // Security/urgent items
+      'status:blocked', // Waiting on dependency
     ];
 
     for (const exclusion of exclusions) {
@@ -232,8 +230,7 @@ export class ActivityAnalyzer {
       analysis[category]++;
     });
 
-    analysis.avgDaysSinceActivity =
-      issues.length > 0 ? Math.round(totalDays / issues.length) : 0;
+    analysis.avgDaysSinceActivity = issues.length > 0 ? Math.round(totalDays / issues.length) : 0;
 
     return analysis;
   }
