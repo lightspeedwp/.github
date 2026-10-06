@@ -337,8 +337,8 @@ jobs:
             ## Changelog
 
             N/A - automated formatting normalization, exempt from changelog (bot author).
+          # No type label: the chore/ branch prefix gives type:chore, and an item keeps one type.
           labels: |
-            type:documentation
             area:documentation
 
       - name: Upload regeneration artifacts
@@ -791,8 +791,8 @@ jobs:
             ## Changelog
 
             N/A - automated maintenance updates, exempt from changelog (bot author).
+          # No type label: the chore/ branch prefix gives type:chore, and an item keeps one type.
           labels: |
-            type:documentation
             area:documentation
 
       - name: Upload maintenance report
