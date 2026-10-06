@@ -1,7 +1,8 @@
 ---
 name: lightspeed-review-latency-report
 description: generate pull request review-latency reporting with trend interpretation and action cues.
-version: 0.1.1
+metadata:
+  version: "0.1.1"
 ---
 
 # LightSpeed Review Latency Report

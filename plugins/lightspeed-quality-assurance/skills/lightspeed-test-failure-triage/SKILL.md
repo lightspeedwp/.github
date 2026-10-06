@@ -1,7 +1,8 @@
 ---
 name: lightspeed-test-failure-triage
 description: classify and prioritise test failures for remediation planning and rerun strategy.
-version: 0.1.1
+metadata:
+  version: "0.1.1"
 ---
 
 # LightSpeed Test Failure Triage

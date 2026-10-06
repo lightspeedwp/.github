@@ -18,7 +18,7 @@ Supporting data for `007-audit-report.md`, `duplicates-analysis.md` and `workflo
 | `documentation-references.json`               | T010                 | The 18 label documentation files audited                                                                      |
 | `duplicate-candidates.json`                   | T021                 | 23 candidate duplicate pairs with confidence                                                                  |
 | `duplicate-consolidation-analysis.json`       | T022                 | Decision matrix: document, automation and policy counts; usage counts pending T041/T042                       |
-| `github-api-labels.json`                      | T009 / T041          | Live GitHub label inventory; empty placeholder until T041 runs                                                |
+| `github-api-labels.json`                      | T009 / T041          | Live GitHub label inventory of 2026-10-06 (343 repositories, 28,297 labels); private ones are counts only     |
 | `governance-gaps.json`                        | T014                 | The 12 never-delete labels missing from `labels.yml`, with line numbers and equivalents (Finding 2)           |
 | `governance-policy.json`                      | T008                 | The 57-label never-delete list at the snapshot                                                                |
 | `governance-vs-canonical.json`                | T013                 | Never-delete list compared with `labels.yml`                                                                  |

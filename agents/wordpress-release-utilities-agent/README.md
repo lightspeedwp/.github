@@ -14,7 +14,7 @@ last_updated: "2026-08-19"
 
 ## Overview
 
-The WordPress Release Utilities Agent provides modular utilities for versioning WordPress plugins and themes. It works in conjunction with the [Release Agent](../release/) and [Changelog Agent](../changelog/) to enable seamless version management across all repository types.
+The WordPress Release Utilities Agent provides modular utilities for versioning WordPress plugins and themes. It works in conjunction with the [Release Agent](../release-agent/) and [Changelog Agent](../changelog-agent/) to enable seamless version management across all repository types.
 
 **Key Features:**
 
@@ -432,8 +432,8 @@ try {
 
 ## Related Agents
 
-- [Release Agent](../release/) — Multi-repo release orchestration
-- [Changelog Agent](../changelog/) — Automatic changelog generation
+- [Release Agent](../release-agent/) — Multi-repo release orchestration
+- [Changelog Agent](../changelog-agent/) — Automatic changelog generation
 - [Linting Agent](../../.github/scripts/linting/) — Code quality validation
 
 ## License

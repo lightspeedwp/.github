@@ -29,6 +29,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - **Requirements Checklist Engine** — The checklist engine now registers all eight dimension evaluators and judges each template item from its dimension, so results depend on the specification instead of passing every item. (#3371)
+- **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Drift Check Inventory** — The weekly label drift check now also writes the redacted label inventory, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Label Import Requests** — Every imported label now names the request that approves it, and the request is open as an issue. ([#3834](https://github.com/lightspeedwp/.github/issues/3834))
 - **Label Mapping** — Adds the label mapping and a draft change request for approval. Nothing is applied yet. ([PR #3831](https://github.com/lightspeedwp/.github/pull/3831))
@@ -103,6 +104,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Label Churn Stopped** — The labeler no longer removes the default priority and review labels the labeling agent adds. ([PR #3840](https://github.com/lightspeedwp/.github/pull/3840))
+- **One Type on Docs Bot Pull Requests** — The automated documentation regeneration and maintenance pull requests no longer get a second, non-canonical `type:documentation` label. ([PR #3839](https://github.com/lightspeedwp/.github/pull/3839))
+- **Security Updates Unblocked** — The lockfile moves `smol-toml` to 1.9.0, and a new override moves `katex` to 0.19, which `mermaid` and its tools do not yet allow. ([PR #3850](https://github.com/lightspeedwp/.github/pull/3850))
 - **Phase Progression Follows Real Links** — A closing keyword in a code sample no longer moves an issue to another phase; only issues GitHub renders as links in the pull request body do. ([#3824](https://github.com/lightspeedwp/.github/issues/3824))
 - **Changelog Validator Clears Undici and Busboy Alerts** — Its `@actions` parents move to core 2 and github 8, so the tree resolves undici 6.29.0 with no `@fastify/busboy` copy left. (#3806)
 - **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
@@ -316,6 +319,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Footer Guard Blames Only New Duplicates** — The CI guard now compares each touched file against its base version, so a change is not blocked for duplicate footers it inherited. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
 - **Docs Workflow Stops Rewriting the Whole Repo** — The meta agent ignored the file list the workflow passed it, rewriting 9,424 files per push. ([#3602](https://github.com/lightspeedwp/.github/issues/3602))
 - **Footer Duplicates No Longer Return** — Running the generator twice no longer appends a second copy of a bare configured footer. ([#3601](https://github.com/lightspeedwp/.github/pull/3601))
+- **Changelog-Agent Skills and Index Aligned** — Stale links repointed; `validate-changelog` finished as a real skill; skill versions moved into `metadata`; Claude definitions generated; the agent index regenerates clean. (#3814)
 
 ### Security
 

@@ -124,6 +124,45 @@ describe('label mapping', () => {
     expect(imports.find((m) => m.source === 'area:builds').change_request).toBe(3554);
   });
 
+  it('merges the five GitHub-only labels that have a decided precedent, and retires the rest of #3832', () => {
+    const rows = new Map(build().mappings.map((m) => [m.source, m]));
+    const merged = {
+      'component:workflows': 'area:workflows',
+      'component:ci': 'area:ci',
+      'meta:refactor': 'type:refactor',
+      observability: 'area:observability',
+      'area:accessibility': 'area:a11y',
+    };
+    for (const [source, target] of Object.entries(merged)) {
+      expect(rows.get(source)).toMatchObject({ action: 'merge', target, change_request: 3834 });
+    }
+    const retired = [
+      'agent-audit',
+      'migrate:type:enhancement',
+      'migrate:type:compatibility',
+      'migrate:openspec:status/planning',
+      'migrate:openspec:status/implementation',
+      'migrate:openspec:status/production',
+      'migrate:openspec:status/testing',
+      'phase-1-critical',
+      'phase-2-medium',
+      'phase-3-polish',
+      'phase:1',
+      'ag-p14',
+      'ag-phase',
+      'bug-fix',
+      'code-quality',
+      'error-handling',
+      'logging',
+      'reliability',
+      'reviewer',
+    ];
+    for (const source of retired) {
+      expect(rows.get(source)).toMatchObject({ action: 'retire', target: null });
+    }
+    expect(rows.get('area:monorepo')).toMatchObject({ action: 'team-scope' });
+  });
+
   it('reports an import that cites no change request', () => {
     const { mappings, proposedNames } = build();
     const broken = mappings.map((m) =>
