@@ -3,12 +3,12 @@
 # Each label maps to a LIST of match objects. File matchers use the v5+ shape
 # `changed-files: [ { any-glob-to-any-file: [...] } ]`; the v4 mapping form is
 # rejected by actions/labeler v7.
-status:needs-review:
-  - head-branch:
-      - ^feat/.*
-      - ^fix/.*
-      - ^docs?/.*
-      - ^(chore|task|build|refactor|test|perf|ci|release|hotfix|design|a11y|qa|content|seo|config|migrate|uat|proto|ds|api|schema|telemetry|audit|security|automation|aiops|epic)/.*
+# The default status:needs-review (PRs) and priority:normal (everything) are
+# owned by the labeling agent (scripts/agents/includes/status-enforcer.js), so
+# they are NOT declared here. With sync-labels: true the labeler removes any
+# label it declares when the branch no longer matches, and the agent then
+# re-adds it: on a branch such as aiops/, task/, audit/ or dependabot/ that
+# was a remove and re-add on every pull request event.
 type:feature:
   - head-branch:
       - ^feat/.*
@@ -68,19 +68,6 @@ priority:critical:
 priority:important:
   - head-branch:
       - ^a11y/.*
-priority:normal:
-  - head-branch:
-      - ^feat/.*
-      - ^fix/.*
-      - ^docs?/.*
-      - ^chore/.*
-      - ^refactor/.*
-      - ^test/.*
-      - ^perf/.*
-      - ^design/.*
-      - ^audit/.*
-      - ^ci/.*
-      - ^build/.*
 area:block-editor:
   - changed-files:
       - any-glob-to-any-file:
@@ -101,6 +88,11 @@ area:ci:
           - .github/workflows/**
           - .github/actions/**
           - ci/**/*
+          # The branch validation metrics PR carries area:ci from its workflow
+          # (branch-validation-metrics-aggregator.yml); matching its files here
+          # stops the labeler removing it again on every update.
+          - .github/reports/branch-validation/**
+          - metrics-artifacts/**
 area:documentation:
   - changed-files:
       - any-glob-to-any-file:
