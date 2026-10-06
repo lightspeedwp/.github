@@ -258,9 +258,7 @@ describe('label governance contracts (#3545)', () => {
 
       expect(routerType).toBe('type:release');
       expect(patterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(true);
-      expect(bugPatterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(
-        false
-      );
+      expect(bugPatterns.some((pattern) => new RegExp(pattern).test('hotfix/example'))).toBe(false);
     });
   });
 
@@ -1043,6 +1041,45 @@ describe('label governance contracts (#3545)', () => {
         'utf8'
       );
       expect(workflow).toMatch(/map\(select\(startswith\("type:"\) or startswith\("priority:"\)\)/);
+    });
+
+    test('labeler does not declare the defaults the router and agent add (no remove and re-add churn)', () => {
+      // The workflow runs the labeler with sync-labels: true, which removes a declared
+      // label whenever its rule stops matching. The agent and router only add these two
+      // defaults, so declaring them made every non-matching branch (aiops/, task/,
+      // audit/, dependabot/) lose and regain them on each pull request event.
+      const declared = Object.keys(repoYaml('.github/labeler.yml'));
+      expect(declared).not.toContain('priority:normal');
+      expect(declared).not.toContain('status:needs-review');
+      const workflow = fs.readFileSync(
+        path.join(REPO_ROOT, '.github/workflows/labeling-unified.yml'),
+        'utf8'
+      );
+      expect(workflow).toMatch(/sync-labels:\s*true/);
+    });
+
+    test('the metrics pull request keeps area:ci under the labeler', () => {
+      // branch-validation-metrics-aggregator.yml applies area:ci; the labeler must agree.
+      const aggregator = fs.readFileSync(
+        path.join(REPO_ROOT, '.github/workflows/branch-validation-metrics-aggregator.yml'),
+        'utf8'
+      );
+      expect(aggregator).toMatch(/labels: \|[\s\S]*?area:ci/);
+      expect(
+        labelerUtils.determineLabelsFromRules(
+          {
+            payload: {
+              pull_request: { head: { ref: 'chore/branch-validation-metrics' }, number: 1 },
+            },
+            ref: 'refs/heads/develop',
+          },
+          repoYaml('.github/labeler.yml'),
+          [
+            '.github/reports/branch-validation/metrics-summary.json',
+            'metrics-artifacts/20261006-100006-37446785349.json',
+          ]
+        )
+      ).toContain('area:ci');
     });
   });
   describe('template-frontmatter contract', () => {
