@@ -1,0 +1,2752 @@
+{
+  "generated_at": "2026-10-06",
+  "repository": "lightspeedwp/.github",
+  "method": "gh api repos/lightspeedwp/.github/labels --paginate; read-only",
+  "count": 549,
+  "labels": [
+    {
+      "name": "a11y",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "accessibility",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ag-p01",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ag-p02",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ag-p04",
+      "color": "e4e669",
+      "description": "Phase 04: Footer"
+    },
+    {
+      "name": "ag-p05",
+      "color": "e4e669",
+      "description": "Phase 05: Homepage"
+    },
+    {
+      "name": "ag-p06",
+      "color": "e4e669",
+      "description": "Phase 06: Wapuu"
+    },
+    {
+      "name": "ag-p07",
+      "color": "e4e669",
+      "description": "Phase 07: Catalogue list pages"
+    },
+    {
+      "name": "ag-p09",
+      "color": "e4e669",
+      "description": "Awesome GitHub phase 09"
+    },
+    {
+      "name": "ag-p10",
+      "color": "e4e669",
+      "description": "Phase 10: Cookbook"
+    },
+    {
+      "name": "ag-p14",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ag-phase",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "agent-audit",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ai-ops:agents",
+      "color": "0052CC",
+      "description": ""
+    },
+    {
+      "name": "ai-ops:chat-modes",
+      "color": "0969DA",
+      "description": "Prompt sets / chat modes"
+    },
+    {
+      "name": "ai-ops:datasets",
+      "color": "C5DEF5",
+      "description": "Training/evaluation datasets"
+    },
+    {
+      "name": "ai-ops:evaluations",
+      "color": "C5DEF5",
+      "description": "Evaluation results"
+    },
+    {
+      "name": "ai-ops:prompts",
+      "color": "0969DA",
+      "description": "Reusable prompts"
+    },
+    {
+      "name": "ai-ops:tools",
+      "color": "C5DEF5",
+      "description": "Tool/plugin manifests"
+    },
+    {
+      "name": "aiops:instructions",
+      "color": "0969DA",
+      "description": "AI instruction docs"
+    },
+    {
+      "name": "area:a11y",
+      "color": "4D1A93",
+      "description": ""
+    },
+    {
+      "name": "area:accessibility",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:agents",
+      "color": "0F448A",
+      "description": ""
+    },
+    {
+      "name": "area:ai",
+      "color": "0F448A",
+      "description": ""
+    },
+    {
+      "name": "area:aiops",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:analytics",
+      "color": "C2E0C6",
+      "description": ""
+    },
+    {
+      "name": "area:assets",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "area:automation",
+      "color": "0F448A",
+      "description": ""
+    },
+    {
+      "name": "area:awesome-github",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:block-editor",
+      "color": "C5DEF5",
+      "description": "Block editor"
+    },
+    {
+      "name": "area:builds",
+      "color": "BFD4F2",
+      "description": ""
+    },
+    {
+      "name": "area:changelog",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:ci",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:ci-cd",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:ci-config",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:communication",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:compatibility",
+      "color": "007580",
+      "description": "Compatibility and cross-environment concerns"
+    },
+    {
+      "name": "area:content",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "area:core",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "area:dependencies",
+      "color": "F9D0C4",
+      "description": ""
+    },
+    {
+      "name": "area:deployment",
+      "color": "006B75",
+      "description": ""
+    },
+    {
+      "name": "area:design-system",
+      "color": "C5DEF5",
+      "description": "Design system and tokens"
+    },
+    {
+      "name": "area:docs",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:documentation",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "area:forms",
+      "color": "C5DEF5",
+      "description": "Forms and form flows"
+    },
+    {
+      "name": "area:governance",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:i18n",
+      "color": "C5DEF5",
+      "description": "Internationalisation"
+    },
+    {
+      "name": "area:infrastructure",
+      "color": "006B75",
+      "description": ""
+    },
+    {
+      "name": "area:instructions",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:integration",
+      "color": "D93F0B",
+      "description": ""
+    },
+    {
+      "name": "area:issue-management",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:jest",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:labels",
+      "color": "ededed",
+      "description": "Label governance and routing"
+    },
+    {
+      "name": "area:linting",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:maintenance",
+      "color": "4E575F",
+      "description": ""
+    },
+    {
+      "name": "area:monitoring",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:monorepo",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:navigation",
+      "color": "C5DEF5",
+      "description": "Navigation & menus"
+    },
+    {
+      "name": "area:npm",
+      "color": "DC6A9B",
+      "description": ""
+    },
+    {
+      "name": "area:operations",
+      "color": "C5DEF5",
+      "description": "Operations & infra (task-level)"
+    },
+    {
+      "name": "area:ops",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:pagespeed",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:performance",
+      "color": "7E6007",
+      "description": ""
+    },
+    {
+      "name": "area:platform",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:plugins",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "area:pr-automation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:process",
+      "color": "aaaaaa",
+      "description": ""
+    },
+    {
+      "name": "area:projects",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:prompts",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:qa",
+      "color": "C5DEF5",
+      "description": "QA & testing (task-level)"
+    },
+    {
+      "name": "area:quality",
+      "color": "D4C5F9",
+      "description": "Quality validation and QA controls"
+    },
+    {
+      "name": "area:release",
+      "color": "1D7232",
+      "description": ""
+    },
+    {
+      "name": "area:scripts",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "area:search",
+      "color": "C5DEF5",
+      "description": "Search and filtering"
+    },
+    {
+      "name": "area:security",
+      "color": "810E18",
+      "description": ""
+    },
+    {
+      "name": "area:seo",
+      "color": "C2E0C6",
+      "description": "Technical SEO (meta, schema, sitemaps)"
+    },
+    {
+      "name": "area:specification",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:standards",
+      "color": "aaaaaa",
+      "description": ""
+    },
+    {
+      "name": "area:templates",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:testing",
+      "color": "4D1A93",
+      "description": ""
+    },
+    {
+      "name": "area:tests",
+      "color": "D4C5F9",
+      "description": ""
+    },
+    {
+      "name": "area:theme",
+      "color": "C5DEF5",
+      "description": "Theme & styles"
+    },
+    {
+      "name": "area:website",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:woocommerce",
+      "color": "D4C5F9",
+      "description": "WooCommerce"
+    },
+    {
+      "name": "area:workflow-control",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area:workflows",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area/changelog",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area/ci-cd",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area/security",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area/testing",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "area/workflows",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "assets",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "automation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "awesome-github",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "bug",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "bug-fix",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ci",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "cleanup",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "code-quality",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "coderabbit",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "comp:block-bindings",
+      "color": "C5DEF5",
+      "description": "Block bindings"
+    },
+    {
+      "name": "comp:block-editor",
+      "color": "C5DEF5",
+      "description": "Block/site editor work"
+    },
+    {
+      "name": "comp:block-inserter",
+      "color": "C5DEF5",
+      "description": "Inserter UI/behaviour"
+    },
+    {
+      "name": "comp:block-json",
+      "color": "C5DEF5",
+      "description": "Block metadata (block.json)"
+    },
+    {
+      "name": "comp:block-locking",
+      "color": "C5DEF5",
+      "description": "Block locking"
+    },
+    {
+      "name": "comp:block-patterns",
+      "color": "C5DEF5",
+      "description": "Patterns library/registration"
+    },
+    {
+      "name": "comp:block-styles",
+      "color": "C5DEF5",
+      "description": "Block styles registered via JSON"
+    },
+    {
+      "name": "comp:block-supports",
+      "color": "C5DEF5",
+      "description": "Block supports"
+    },
+    {
+      "name": "comp:block-templates",
+      "color": "C5DEF5",
+      "description": "Block templates / template editor"
+    },
+    {
+      "name": "comp:block-variations",
+      "color": "C5DEF5",
+      "description": "Block variations"
+    },
+    {
+      "name": "comp:color-palette",
+      "color": "C5DEF5",
+      "description": "Palette tokens and usage"
+    },
+    {
+      "name": "comp:post-settings",
+      "color": "C5DEF5",
+      "description": "Post editor settings panel"
+    },
+    {
+      "name": "comp:readme-mermaid",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "comp:section-styles",
+      "color": "C5DEF5",
+      "description": "Section/background styles"
+    },
+    {
+      "name": "comp:settings",
+      "color": "C5DEF5",
+      "description": "Global/settings UX"
+    },
+    {
+      "name": "comp:spacing",
+      "color": "C5DEF5",
+      "description": "Spacing tokens and layout gaps"
+    },
+    {
+      "name": "comp:style-variations",
+      "color": "C5DEF5",
+      "description": "JSON style variations"
+    },
+    {
+      "name": "comp:template-parts",
+      "color": "C5DEF5",
+      "description": "Template parts (header/footer/loops)"
+    },
+    {
+      "name": "comp:theme-json",
+      "color": "C5DEF5",
+      "description": "Tokens, presets, settings (theme.json)"
+    },
+    {
+      "name": "comp:typography",
+      "color": "C5DEF5",
+      "description": "Type scale and typography tokens"
+    },
+    {
+      "name": "comp:workflows",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "comp:wp-admin",
+      "color": "C5DEF5",
+      "description": "WP Admin screens"
+    },
+    {
+      "name": "compat:gutenberg",
+      "color": "007580",
+      "description": "Gutenberg package compatibility"
+    },
+    {
+      "name": "compat:multisite",
+      "color": "9FE1E3",
+      "description": "Multisite/network considerations"
+    },
+    {
+      "name": "compat:php",
+      "color": "007580",
+      "description": "PHP version compatibility"
+    },
+    {
+      "name": "compat:rtl",
+      "color": "007580",
+      "description": "RTL languages support"
+    },
+    {
+      "name": "compat:woocommerce",
+      "color": "007580",
+      "description": "WooCommerce versions"
+    },
+    {
+      "name": "compat:wordpress",
+      "color": "007580",
+      "description": "WordPress core/Gutenberg compatibility"
+    },
+    {
+      "name": "completed",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "component:ci",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "component:workflows",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "content",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "contrib:discussion",
+      "color": "C2E0C6",
+      "description": "Contributor/community discussion"
+    },
+    {
+      "name": "contrib:good-first-issue",
+      "color": "D4C5F9",
+      "description": "Good for new contributors"
+    },
+    {
+      "name": "contrib:help-wanted",
+      "color": "C2E0C6",
+      "description": "Help wanted"
+    },
+    {
+      "name": "cpt:pages",
+      "color": "C5DEF5",
+      "description": "WordPress Pages"
+    },
+    {
+      "name": "cpt:posts",
+      "color": "C5DEF5",
+      "description": "WordPress Posts"
+    },
+    {
+      "name": "critical",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "critical-path",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "dependencies",
+      "color": "0366d6",
+      "description": "Pull requests that update a dependency file"
+    },
+    {
+      "name": "dequeued",
+      "color": "653dd7",
+      "description": ""
+    },
+    {
+      "name": "design",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "discussion:announcement",
+      "color": "FBCA04",
+      "description": "Official announcements"
+    },
+    {
+      "name": "discussion:community",
+      "color": "6f42c1",
+      "description": "Community/general"
+    },
+    {
+      "name": "discussion:feedback",
+      "color": "1d76db",
+      "description": "Feedback/suggestions"
+    },
+    {
+      "name": "discussion:partnership",
+      "color": "bfd4f2",
+      "description": "Partnership/collaboration"
+    },
+    {
+      "name": "discussion:showcase",
+      "color": "0E8A16",
+      "description": "Show & Tell"
+    },
+    {
+      "name": "discussion:sponsorship",
+      "color": "f9d0c4",
+      "description": "Sponsorship/funding"
+    },
+    {
+      "name": "discussion:support",
+      "color": "d73a4a",
+      "description": "Support/troubleshooting"
+    },
+    {
+      "name": "documentation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "enhancement",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "env:live",
+      "color": "0E8A16",
+      "description": "Live/production"
+    },
+    {
+      "name": "env:prototype",
+      "color": "E1E4E8",
+      "description": "Prototype/sandbox"
+    },
+    {
+      "name": "env:staging",
+      "color": "BFD4F2",
+      "description": "Staging/UAT"
+    },
+    {
+      "name": "epic",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "error-handling",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "feat/awesome-github",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "feature",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "github_actions",
+      "color": "000000",
+      "description": "Pull requests that update GitHub Actions code"
+    },
+    {
+      "name": "github-templates",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "glossary",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "governance",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "important",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "infrastructure",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "issue/2354",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "javascript",
+      "color": "168700",
+      "description": "Pull requests that update javascript code"
+    },
+    {
+      "name": "lang:css",
+      "color": "C5DEF5",
+      "description": "Stylesheets (CSS/Sass/etc.)"
+    },
+    {
+      "name": "lang:html",
+      "color": "C5DEF5",
+      "description": "Markup (HTML)"
+    },
+    {
+      "name": "lang:javascript",
+      "color": "C5DEF5",
+      "description": "JavaScript"
+    },
+    {
+      "name": "lang:js",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "lang:json",
+      "color": "C5DEF5",
+      "description": "JSON config/content"
+    },
+    {
+      "name": "lang:md",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "lang:php",
+      "color": "C5DEF5",
+      "description": "PHP"
+    },
+    {
+      "name": "lang:yaml",
+      "color": "C5DEF5",
+      "description": "YAML config"
+    },
+    {
+      "name": "logging",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "low-priority",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "maintenance",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:ai-governance-audit",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:aiops",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:analysis",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:audit",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:dependabot-security",
+      "color": "B60205",
+      "description": "Dependabot update appears security-related and eligible for guarded automation"
+    },
+    {
+      "name": "meta:documentation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:duplicate",
+      "color": "E1E4E8",
+      "description": "Duplicate"
+    },
+    {
+      "name": "meta:enhancement",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:has-pr",
+      "color": "E1E4E8",
+      "description": ""
+    },
+    {
+      "name": "meta:incident-report",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:infrastructure-blocker",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:needs-approval",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:needs-audit",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:needs-changelog",
+      "color": "E1E4E8",
+      "description": ""
+    },
+    {
+      "name": "meta:needs-review",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:needs-triage",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:no-changelog",
+      "color": "E1E4E8",
+      "description": ""
+    },
+    {
+      "name": "meta:no-issue-activity",
+      "color": "E1E4E8",
+      "description": "No recent issue activity"
+    },
+    {
+      "name": "meta:no-pr-activity",
+      "color": "E1E4E8",
+      "description": "No recent PR activity"
+    },
+    {
+      "name": "meta:phase-1",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:phase-2",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:phase-3",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:phase-4",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:phase-5",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:refactor",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:refactor-rules",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:release-plan",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:skip-changelog",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:spec-006",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:stale",
+      "color": "9198A1",
+      "description": "Marked as stale for review"
+    },
+    {
+      "name": "meta:tech-debt",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:test-suite-refactor",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "meta:tracking",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "migrate:ai-ops:agents",
+      "color": "0969DA",
+      "description": "AI agent definitions"
+    },
+    {
+      "name": "migrate:area:a11y",
+      "color": "8957E5",
+      "description": "Accessibility-focused work"
+    },
+    {
+      "name": "migrate:area:ai",
+      "color": "C5DEF5",
+      "description": "AI and automation systems"
+    },
+    {
+      "name": "migrate:area:analytics",
+      "color": "C2E0C6",
+      "description": "Analytics & tracking"
+    },
+    {
+      "name": "migrate:area:assets",
+      "color": "C5DEF5",
+      "description": "Assets (images, fonts, static files)"
+    },
+    {
+      "name": "migrate:area:automation",
+      "color": "bfd4f2",
+      "description": "Automation workflows and agents"
+    },
+    {
+      "name": "migrate:area:ci",
+      "color": "C5DEF5",
+      "description": "Build and CI pipelines"
+    },
+    {
+      "name": "migrate:area:content",
+      "color": "C5DEF5",
+      "description": "Content and copy"
+    },
+    {
+      "name": "migrate:area:core",
+      "color": "C5DEF5",
+      "description": "Core / shared infrastructure"
+    },
+    {
+      "name": "migrate:area:dependencies",
+      "color": "007580",
+      "description": "Composer/npm dependency work"
+    },
+    {
+      "name": "migrate:area:deployment",
+      "color": "007580",
+      "description": "Deploy/release operations"
+    },
+    {
+      "name": "migrate:area:documentation",
+      "color": "C5DEF5",
+      "description": "Docs & guides"
+    },
+    {
+      "name": "migrate:area:infrastructure",
+      "color": "007580",
+      "description": "Infrastructure / hosting / platform"
+    },
+    {
+      "name": "migrate:area:integration",
+      "color": "007580",
+      "description": "3rd-party integrations / ecosystem"
+    },
+    {
+      "name": "migrate:area:maintenance",
+      "color": "57606A",
+      "description": "Maintenance and routine upkeep"
+    },
+    {
+      "name": "migrate:area:performance",
+      "color": "D29922",
+      "description": "Performance-focused work"
+    },
+    {
+      "name": "migrate:area:plugins",
+      "color": "C5DEF5",
+      "description": "Plugin configuration / logic"
+    },
+    {
+      "name": "migrate:area:release",
+      "color": "1A7F37",
+      "description": "Release process and readiness"
+    },
+    {
+      "name": "migrate:area:scripts",
+      "color": "C5DEF5",
+      "description": "Scripts & tooling"
+    },
+    {
+      "name": "migrate:area:security",
+      "color": "CF222E",
+      "description": "Security-focused work"
+    },
+    {
+      "name": "migrate:area:testing",
+      "color": "D4C5F9",
+      "description": "Testing and QA"
+    },
+    {
+      "name": "migrate:area:tests",
+      "color": "D4C5F9",
+      "description": "Test suites & harnesses"
+    },
+    {
+      "name": "migrate:lang:js",
+      "color": "C5DEF5",
+      "description": "JavaScript/TypeScript"
+    },
+    {
+      "name": "migrate:lang:md",
+      "color": "C5DEF5",
+      "description": "Markdown content/docs"
+    },
+    {
+      "name": "migrate:meta:has-pr",
+      "color": "E1E4E8",
+      "description": "Issue has an open linked PR"
+    },
+    {
+      "name": "migrate:meta:needs-changelog",
+      "color": "E1E4E8",
+      "description": "Requires a changelog entry before merge"
+    },
+    {
+      "name": "migrate:meta:no-changelog",
+      "color": "E1E4E8",
+      "description": "No changelog needed"
+    },
+    {
+      "name": "migrate:openspec:status/implementation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "migrate:openspec:status/planning",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "migrate:openspec:status/production",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "migrate:openspec:status/testing",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "migrate:priority:critical",
+      "color": "B60205",
+      "description": "Production/launch-blocking"
+    },
+    {
+      "name": "migrate:priority:important",
+      "color": "D93F0B",
+      "description": "Must-do high priority"
+    },
+    {
+      "name": "migrate:priority:minor",
+      "color": "C2E0C6",
+      "description": "Low priority / nice to have"
+    },
+    {
+      "name": "migrate:priority:normal",
+      "color": "0052CC",
+      "description": "Default priority"
+    },
+    {
+      "name": "migrate:release:patch",
+      "color": "3FB950",
+      "description": "Patch release"
+    },
+    {
+      "name": "migrate:status:done",
+      "color": "0E8A16",
+      "description": "Completed"
+    },
+    {
+      "name": "migrate:status:in-progress",
+      "color": "1D76DB",
+      "description": "Work in progress"
+    },
+    {
+      "name": "migrate:status:needs-dev",
+      "color": "C5DEF5",
+      "description": "Awaiting engineering implementation"
+    },
+    {
+      "name": "migrate:status:needs-more-info",
+      "color": "BFD4F2",
+      "description": "Missing details to proceed"
+    },
+    {
+      "name": "migrate:status:needs-planning",
+      "color": "BFD4F2",
+      "description": "Awaiting planning / scoping"
+    },
+    {
+      "name": "migrate:status:needs-review",
+      "color": "BFD4F2",
+      "description": "Awaiting code review"
+    },
+    {
+      "name": "migrate:status:needs-triage",
+      "color": "BFD4F2",
+      "description": "Needs triage"
+    },
+    {
+      "name": "migrate:status:ready",
+      "color": "0E8A16",
+      "description": "Groomed and ready to start"
+    },
+    {
+      "name": "migrate:type:a11y",
+      "color": "DB61A2",
+      "description": "Accessibility"
+    },
+    {
+      "name": "migrate:type:ai-ops",
+      "color": "4393F8",
+      "description": "AI Ops"
+    },
+    {
+      "name": "migrate:type:audit",
+      "color": "9198A1",
+      "description": "Audit"
+    },
+    {
+      "name": "migrate:type:automation",
+      "color": "4393F8",
+      "description": "Automation"
+    },
+    {
+      "name": "migrate:type:bug",
+      "color": "9F3734",
+      "description": "Bug or defect"
+    },
+    {
+      "name": "migrate:type:build",
+      "color": "4393F8",
+      "description": "Build & CI"
+    },
+    {
+      "name": "migrate:type:chore",
+      "color": "9198A1",
+      "description": "Chore / small hygiene change"
+    },
+    {
+      "name": "migrate:type:ci",
+      "color": "4393F8",
+      "description": "CI/CD pipeline work"
+    },
+    {
+      "name": "migrate:type:compatibility",
+      "color": "8D4821",
+      "description": "Compatibility"
+    },
+    {
+      "name": "migrate:type:dependency",
+      "color": "8D4821",
+      "description": "Dependency management and updates"
+    },
+    {
+      "name": "migrate:type:design",
+      "color": "AB7DF8",
+      "description": "Design work"
+    },
+    {
+      "name": "migrate:type:documentation",
+      "color": "D4C5F9",
+      "description": "Documentation"
+    },
+    {
+      "name": "migrate:type:enhancement",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "migrate:type:epic",
+      "color": "3FB950",
+      "description": "Large multi-scope initiative"
+    },
+    {
+      "name": "migrate:type:feature",
+      "color": "3FB950",
+      "description": "Feature or enhancement"
+    },
+    {
+      "name": "migrate:type:improve",
+      "color": "9198A1",
+      "description": "Improvement to existing behaviour/UX"
+    },
+    {
+      "name": "migrate:type:investigation",
+      "color": "9198A1",
+      "description": "Investigation and root-cause analysis"
+    },
+    {
+      "name": "migrate:type:maintenance",
+      "color": "9198A1",
+      "description": "Maintenance"
+    },
+    {
+      "name": "migrate:type:performance",
+      "color": "D29922",
+      "description": "Performance improvement"
+    },
+    {
+      "name": "migrate:type:refactor",
+      "color": "9198A1",
+      "description": "Refactor or internal change"
+    },
+    {
+      "name": "migrate:type:release",
+      "color": "3FB950",
+      "description": "Release"
+    },
+    {
+      "name": "migrate:type:research",
+      "color": "9198A1",
+      "description": "Research / investigation"
+    },
+    {
+      "name": "migrate:type:review",
+      "color": "4393F8",
+      "description": "Code or design review task"
+    },
+    {
+      "name": "migrate:type:security",
+      "color": "9F3734",
+      "description": "Security issue"
+    },
+    {
+      "name": "migrate:type:task",
+      "color": "4393F8",
+      "description": "Task or to-do"
+    },
+    {
+      "name": "migrate:type:test",
+      "color": "D29922",
+      "description": "Testing/coverage"
+    },
+    {
+      "name": "migrate:type:ui",
+      "color": "AB7DF8",
+      "description": "UI implementation and consistency"
+    },
+    {
+      "name": "migrate:type:ux-feedback",
+      "color": "5319E7",
+      "description": "User experience feedback"
+    },
+    {
+      "name": "migration",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "needs review",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "node-upgrade",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "notebooklm",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "observability",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "onboarding",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:domain/agent-design",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:domain/automation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:domain/ci-cd",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:domain/documentation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:domain/governance",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:domain/testing",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:domain/workflow",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:implementation-complete",
+      "color": "1A7F37",
+      "description": "Implementation complete and tested"
+    },
+    {
+      "name": "openspec:implementation-in-progress",
+      "color": "F2D06D",
+      "description": "Implementation in progress"
+    },
+    {
+      "name": "openspec:implementation-pending",
+      "color": "C5DEF5",
+      "description": "Implementation pending (spec complete)"
+    },
+    {
+      "name": "openspec:phase/deployment",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:phase/implementation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:phase/planning",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:priority/high",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:priority/low",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:priority/medium",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:specification-complete",
+      "color": "1A7F37",
+      "description": "OpenSpec specification complete"
+    },
+    {
+      "name": "openspec:specification-in-progress",
+      "color": "F2D06D",
+      "description": "OpenSpec specification being written"
+    },
+    {
+      "name": "openspec:specification-pending",
+      "color": "C5DEF5",
+      "description": "OpenSpec specification needed"
+    },
+    {
+      "name": "openspec:status/blocked",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "openspec:status/implementation",
+      "color": "0052CC",
+      "description": ""
+    },
+    {
+      "name": "openspec:status/planning",
+      "color": "FF6600",
+      "description": ""
+    },
+    {
+      "name": "openspec:status/production",
+      "color": "28A745",
+      "description": ""
+    },
+    {
+      "name": "openspec:status/testing",
+      "color": "9B00CC",
+      "description": ""
+    },
+    {
+      "name": "package.json",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "path-resolution",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "performance",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "phase-1",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "phase-1-critical",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "phase-2",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "phase-2-medium",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "phase-3-polish",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "phase:1",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "phase:3",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "php",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "planner",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "planning",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "priority:critical",
+      "color": "B60205",
+      "description": ""
+    },
+    {
+      "name": "priority:high",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "priority:important",
+      "color": "D93F0B",
+      "description": ""
+    },
+    {
+      "name": "priority:low",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "priority:medium",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "priority:minor",
+      "color": "C2E0C6",
+      "description": ""
+    },
+    {
+      "name": "priority:normal",
+      "color": "0052CC",
+      "description": ""
+    },
+    {
+      "name": "priority/high",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "priority/normal",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "queued",
+      "color": "56a535",
+      "description": ""
+    },
+    {
+      "name": "quickstart",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "refactor",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "release",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "release:hotfix",
+      "color": "d29922",
+      "description": "Urgent hotfix outside normal cadence"
+    },
+    {
+      "name": "release:major",
+      "color": "F85149",
+      "description": "Major release"
+    },
+    {
+      "name": "release:minor",
+      "color": "58A6FF",
+      "description": "Minor release"
+    },
+    {
+      "name": "release:patch",
+      "color": "3FB950",
+      "description": ""
+    },
+    {
+      "name": "reliability",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "reviewer",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "scope: website",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "scope:audit",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "scope:major-release",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "scope:project-management",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "scope:restructuring",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "scope:website",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "security",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "security:command-injection",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "spec:001",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "standards",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status: completed",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:blocked",
+      "color": "E99695",
+      "description": "Blocked by dependency"
+    },
+    {
+      "name": "status:complete",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:completed",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:done",
+      "color": "0E8A16",
+      "description": ""
+    },
+    {
+      "name": "status:duplicate",
+      "color": "E99695",
+      "description": "Duplicate of another issue"
+    },
+    {
+      "name": "status:in-discussion",
+      "color": "BFD4F2",
+      "description": "Needs alignment/decision"
+    },
+    {
+      "name": "status:in-progress",
+      "color": "1D76DB",
+      "description": ""
+    },
+    {
+      "name": "status:in-review",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:needs-analysis",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:needs-audit",
+      "color": "7E6007",
+      "description": "Needs audit or validation pass"
+    },
+    {
+      "name": "status:needs-cleanup",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:needs-design",
+      "color": "C5DEF5",
+      "description": "Awaiting design input"
+    },
+    {
+      "name": "status:needs-design-review",
+      "color": "D4C5F9",
+      "description": "Awaiting design review"
+    },
+    {
+      "name": "status:needs-dev",
+      "color": "C5DEF5",
+      "description": ""
+    },
+    {
+      "name": "status:needs-documentation",
+      "color": "BFD4F2",
+      "description": "Needs documentation update"
+    },
+    {
+      "name": "status:needs-figma-update",
+      "color": "C5DEF5",
+      "description": "Existing Figma design needs updating"
+    },
+    {
+      "name": "status:needs-more-info",
+      "color": "BFD4F2",
+      "description": ""
+    },
+    {
+      "name": "status:needs-planning",
+      "color": "BFD4F2",
+      "description": ""
+    },
+    {
+      "name": "status:needs-pr-template",
+      "color": "89E211",
+      "description": ""
+    },
+    {
+      "name": "status:needs-qa",
+      "color": "FBCA04",
+      "description": "Quality assurance required"
+    },
+    {
+      "name": "status:needs-review",
+      "color": "BFD4F2",
+      "description": ""
+    },
+    {
+      "name": "status:needs-template-fix",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:needs-testing",
+      "color": "FEF2C0",
+      "description": "Testing needed (manual/automated)"
+    },
+    {
+      "name": "status:needs-triage",
+      "color": "BFD4F2",
+      "description": ""
+    },
+    {
+      "name": "status:needs-update",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:on-hold",
+      "color": "F9D0C4",
+      "description": "Work on hold"
+    },
+    {
+      "name": "status:planned",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:planning",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:ready",
+      "color": "0E8A16",
+      "description": ""
+    },
+    {
+      "name": "status:ready-for-development",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:ready-for-merge",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:ready-for-review",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:ready-to-merge",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:ready-to-start",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:resolved",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status:wontfix",
+      "color": "E1E4E8",
+      "description": "Not planned to address"
+    },
+    {
+      "name": "status/in-progress",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "status/needs-discussion",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "talk-preparation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T001",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T002",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T003",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T004",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T005",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T006",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T007",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T008",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T009",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T010",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T011",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T012",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T013",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T014",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T015",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T016",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T017",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T018",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T019",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T020",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T021",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T022",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T023",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T024",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T025",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T026",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T027",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T028",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T029",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T030",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T031",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T032",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T033",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T034",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T035",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T036",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T037",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T038",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T039",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T040",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T041",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T042",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T043",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T044",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T045",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T046",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T047",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T048",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T049",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T050",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T051",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T052",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T053",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T054",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T055",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T056",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T057",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T058",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T059",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T060",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T061",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T062",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T063",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T064",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T065",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T066",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T067",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T068",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T069",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T070",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T071",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T072",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T073",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T074",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T075",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T076",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T077",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T078",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T079",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T080",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T081",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "task:T082",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "templates",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "test",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "test-coverage",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "testing",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type: feature",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:a11y",
+      "color": "DB61A2",
+      "description": ""
+    },
+    {
+      "name": "type:ai-ops",
+      "color": "4393F8",
+      "description": ""
+    },
+    {
+      "name": "type:aiops",
+      "color": "4393F8",
+      "description": ""
+    },
+    {
+      "name": "type:audit",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:automation",
+      "color": "4393F8",
+      "description": ""
+    },
+    {
+      "name": "type:bug",
+      "color": "9F3734",
+      "description": ""
+    },
+    {
+      "name": "type:build",
+      "color": "4393F8",
+      "description": ""
+    },
+    {
+      "name": "type:build-ci",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:chore",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:ci",
+      "color": "4393F8",
+      "description": ""
+    },
+    {
+      "name": "type:code-refactor",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:compat",
+      "color": "8D4821",
+      "description": ""
+    },
+    {
+      "name": "type:content-modelling",
+      "color": "AB7DF8",
+      "description": "Content Modelling"
+    },
+    {
+      "name": "type:decision",
+      "color": "BFD4F2",
+      "description": "Decision record"
+    },
+    {
+      "name": "type:dependency",
+      "color": "8D4821",
+      "description": ""
+    },
+    {
+      "name": "type:design",
+      "color": "AB7DF8",
+      "description": ""
+    },
+    {
+      "name": "type:docs",
+      "color": "f2994a",
+      "description": ""
+    },
+    {
+      "name": "type:documentation",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:enhance",
+      "color": "3FB950",
+      "description": ""
+    },
+    {
+      "name": "type:epic",
+      "color": "AB7DF8",
+      "description": ""
+    },
+    {
+      "name": "type:feat",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:feature",
+      "color": "3FB950",
+      "description": ""
+    },
+    {
+      "name": "type:fix",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:help",
+      "color": "0E8A16",
+      "description": "Help request"
+    },
+    {
+      "name": "type:improve",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:improvement",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:integration",
+      "color": "8D4821",
+      "description": "Integration"
+    },
+    {
+      "name": "type:investigation",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:maintenance",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:migration",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:performance",
+      "color": "D29922",
+      "description": ""
+    },
+    {
+      "name": "type:qa",
+      "color": "D29922",
+      "description": "Quality assurance"
+    },
+    {
+      "name": "type:question",
+      "color": "5319e7",
+      "description": "Question or request for clarification"
+    },
+    {
+      "name": "type:refactor",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:release",
+      "color": "3FB950",
+      "description": ""
+    },
+    {
+      "name": "type:research",
+      "color": "9198A1",
+      "description": ""
+    },
+    {
+      "name": "type:review",
+      "color": "4393F8",
+      "description": ""
+    },
+    {
+      "name": "type:security",
+      "color": "9F3734",
+      "description": ""
+    },
+    {
+      "name": "type:story",
+      "color": "4393F8",
+      "description": "User story"
+    },
+    {
+      "name": "type:support",
+      "color": "0e8a16",
+      "description": "Support request"
+    },
+    {
+      "name": "type:task",
+      "color": "4393F8",
+      "description": ""
+    },
+    {
+      "name": "type:test",
+      "color": "D29922",
+      "description": ""
+    },
+    {
+      "name": "type:testing-coverage",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type:ui",
+      "color": "3FB950",
+      "description": ""
+    },
+    {
+      "name": "type:ux-feedback",
+      "color": "AB7DF8",
+      "description": ""
+    },
+    {
+      "name": "type:workflow",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type/documentation",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type/feature",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "type/refactor",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ui",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "ux",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "v0.5.0",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "wave:3b",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "wave:3c",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "wave:4c",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "wave:4d",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "wave:4e",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "wave:4f",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "wceu-2026",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "workflows",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "🔴 Large blast radius",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "🕐 10-20 Minutes",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "🕐 20-40 Minutes",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "🕐 40+ Minutes",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "🕐 Less than 10 minutes",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "🟠 Medium blast radius",
+      "color": "ededed",
+      "description": ""
+    },
+    {
+      "name": "🟡 Small blast radius",
+      "color": "ededed"
+    }
+  ]
+}
