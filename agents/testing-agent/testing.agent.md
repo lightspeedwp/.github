@@ -69,7 +69,7 @@ permissions:
   - shell
 metadata:
   guardrails: Never skip tests. Always run complete test suites before merge. Log all test results. Provide clear failure diagnostics. Ensure minimum coverage thresholds are met.
-implementation: testing-agent
+implementation: "agents/testing-agent/"
 created_date: '2026-08-29'
 ---
 

@@ -62,7 +62,7 @@ permissions:
   - github:repo
 metadata:
   guardrails: Treat every user input as a prompt to be analyzed and improved. Always provide systematic reasoning before outputting improved prompts. Validate all improvements through testing. Never skip the analysis phase.
-implementation: prompt-engineer
+implementation: "agents/prompt-engineer-agent/"
 language: en
 created_date: '2026-08-29'
 ---

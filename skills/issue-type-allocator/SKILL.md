@@ -1,10 +1,12 @@
 ---
-title: Issue Type Allocator
+name: issue-type-allocator
 description: Skill for selecting and allocating correct issue types across lightspeedwp projects
-version: 1.0.0
-last_updated: 2026-09-03
-keywords: [issue-types, issue-allocation, GitHub, automation, release-agent, issues-agent, pr-agent]
-author: Claude (AI)
+metadata:
+  version: "1.0.0"
+  title: "Issue Type Allocator"
+  last_updated: "2026-09-03"
+  author: "Claude (AI)"
+  keywords: "issue-types, issue-allocation, GitHub, automation, release-agent, issues-agent, pr-agent"
 ---
 
 # Issue Type Allocator Skill
