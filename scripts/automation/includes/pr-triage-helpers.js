@@ -9,18 +9,18 @@
  */
 export function parseConfig(args) {
   const config = {
-    dryRun: args.includes("--dry-run"),
-    verbose: args.includes("--verbose"),
-    format: "json",
-    output: ".github/reports",
+    dryRun: args.includes('--dry-run'),
+    verbose: args.includes('--verbose'),
+    format: 'json',
+    output: '.github/reports',
   };
 
-  const formatIdx = args.indexOf("--format");
+  const formatIdx = args.indexOf('--format');
   if (formatIdx !== -1 && formatIdx + 1 < args.length) {
     config.format = args[formatIdx + 1];
   }
 
-  const outputIdx = args.indexOf("--output");
+  const outputIdx = args.indexOf('--output');
   if (outputIdx !== -1 && outputIdx + 1 < args.length) {
     config.output = args[outputIdx + 1];
   }
@@ -46,9 +46,9 @@ export function extractIssuesFromBody(body) {
  */
 export function determineTriage(labels) {
   return {
-    needsReview: labels.some((l) => l.name === "status:needs-review"),
-    needsChangelog: labels.some((l) => l.name === "meta:needs-changelog"),
-    isBot: labels.some((l) => l.name === "type:bot"),
+    needsReview: labels.some((l) => l.name === 'status:needs-review'),
+    needsChangelog: labels.some((l) => l.name === 'meta:needs-changelog'),
+    isBot: labels.some((l) => l.name === 'type:bot'),
   };
 }
 
@@ -62,8 +62,8 @@ export function buildMetadata(pr, triageStatus) {
     author: pr.user?.login,
     needsReview: triageStatus.needsReview,
     needsChangelog: triageStatus.needsChangelog,
-    linkedIssues: extractIssuesFromBody(pr.body || ""),
-    suggestedMilestone: triageStatus.needsReview ? "In Review" : "Backlog",
+    linkedIssues: extractIssuesFromBody(pr.body || ''),
+    suggestedMilestone: triageStatus.needsReview ? 'In Review' : 'Backlog',
   };
 }
 

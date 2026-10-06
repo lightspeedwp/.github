@@ -4,10 +4,10 @@
  * @module scripts/automation/includes/label-management.js
  */
 
-import { Octokit } from "octokit";
+import { Octokit } from 'octokit';
 
-const DEFAULT_OWNER = "lightspeedwp";
-const DEFAULT_REPO = ".github";
+const DEFAULT_OWNER = 'lightspeedwp';
+const DEFAULT_REPO = '.github';
 const DEFAULT_RATE_LIMIT_MS = 100; // ms between API calls
 
 /**
@@ -22,7 +22,7 @@ export class LabelManager {
     this.verbose = options.verbose || false;
 
     if (!this.token) {
-      throw new Error("GitHub token required (GITHUB_TOKEN env var)");
+      throw new Error('GitHub token required (GITHUB_TOKEN env var)');
     }
 
     this.octokit = new Octokit({
@@ -39,9 +39,7 @@ export class LabelManager {
   async rateLimit() {
     const elapsed = Date.now() - this.lastRequestTime;
     if (elapsed < this.rateLimitMs) {
-      await new Promise((resolve) =>
-        setTimeout(resolve, this.rateLimitMs - elapsed),
-      );
+      await new Promise((resolve) => setTimeout(resolve, this.rateLimitMs - elapsed));
     }
     this.lastRequestTime = Date.now();
   }
@@ -69,9 +67,7 @@ export class LabelManager {
       return true;
     } catch (error) {
       if (this.verbose) {
-        console.error(
-          `Failed to add label to issue #${issueNumber}: ${error.message}`,
-        );
+        console.error(`Failed to add label to issue #${issueNumber}: ${error.message}`);
       }
       throw error;
     }
@@ -104,9 +100,7 @@ export class LabelManager {
         return false;
       }
       if (this.verbose) {
-        console.error(
-          `Failed to remove label from issue #${issueNumber}: ${error.message}`,
-        );
+        console.error(`Failed to remove label from issue #${issueNumber}: ${error.message}`);
       }
       throw error;
     }
@@ -130,9 +124,7 @@ export class LabelManager {
       return response.data.some((l) => l.name === label);
     } catch (error) {
       if (this.verbose) {
-        console.error(
-          `Failed to check label on issue #${issueNumber}: ${error.message}`,
-        );
+        console.error(`Failed to check label on issue #${issueNumber}: ${error.message}`);
       }
       throw error;
     }
@@ -155,9 +147,7 @@ export class LabelManager {
       return response.data.map((l) => l.name);
     } catch (error) {
       if (this.verbose) {
-        console.error(
-          `Failed to get labels for issue #${issueNumber}: ${error.message}`,
-        );
+        console.error(`Failed to get labels for issue #${issueNumber}: ${error.message}`);
       }
       throw error;
     }
@@ -201,7 +191,7 @@ export class LabelManager {
    * @returns {Promise<object[]>} Array of issues
    */
   async fetchIssuesWithLabel(label, options = {}) {
-    const { state = "open", limit = 100 } = options;
+    const { state = 'open', limit = 100 } = options;
     const issues = [];
     let page = 1;
 
@@ -209,9 +199,7 @@ export class LabelManager {
       while (issues.length < limit) {
         await this.rateLimit();
         if (this.verbose) {
-          console.log(
-            `Fetching issues with label "${label}" (page ${page}, limit ${limit})`,
-          );
+          console.log(`Fetching issues with label "${label}" (page ${page}, limit ${limit})`);
         }
 
         const response = await this.octokit.rest.issues.listForRepo({
@@ -240,9 +228,7 @@ export class LabelManager {
       return issues.slice(0, limit);
     } catch (error) {
       if (this.verbose) {
-        console.error(
-          `Failed to fetch issues with label "${label}": ${error.message}`,
-        );
+        console.error(`Failed to fetch issues with label "${label}": ${error.message}`);
       }
       throw error;
     }
@@ -254,7 +240,7 @@ export class LabelManager {
    * @returns {Promise<object[]>} Array of issues
    */
   async fetchAllIssues(options = {}) {
-    const { state = "open", limit = 1000 } = options;
+    const { state = 'open', limit = 1000 } = options;
     const issues = [];
     let page = 1;
 
@@ -262,9 +248,7 @@ export class LabelManager {
       while (issues.length < limit) {
         await this.rateLimit();
         if (this.verbose) {
-          console.log(
-            `Fetching all issues (page ${page}, total ${issues.length})`,
-          );
+          console.log(`Fetching all issues (page ${page}, total ${issues.length})`);
         }
 
         const response = await this.octokit.rest.issues.listForRepo({
