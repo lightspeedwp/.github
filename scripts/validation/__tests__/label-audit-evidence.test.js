@@ -175,11 +175,27 @@ describe('Label audit evidence', () => {
     }
   });
 
-  test('report totals reflect the audited evidence, not the unavailable GitHub API', () => {
-    const report = read(`${audit}/007-audit-report.md`);
+  test('the live inventory is complete, redacted and consistent (T041)', () => {
     const api = evidence('github-api-labels');
 
-    expect(api.count).toBe(api.labels.length);
+    expect(api.redacted).toBe(true);
+    expect(api.repository_count).toBe(api.repositories.length);
+    expect(api.label_total).toBe(api.repositories.reduce((n, r) => n + r.label_count, 0));
+    for (const repo of api.repositories) {
+      // Pagination rule from the dry-run contract: pages_read x 100 covers label_count,
+      // and an exact multiple of 100 needs one extra (empty) page.
+      expect(repo.pages_read * 100).toBeGreaterThanOrEqual(repo.label_count);
+      expect(repo.pages_read).toBeGreaterThan(Math.floor(repo.label_count / 100));
+      if (repo.private) {
+        expect(repo.repository).toMatch(/\/private-repository-\d{3}$/);
+        expect(repo.labels).toBeUndefined();
+      }
+    }
+    expect(api.private_repository_count).toBe(api.repositories.filter((r) => r.private).length);
+  });
+
+  test('report totals reflect the audited evidence', () => {
+    const report = read(`${audit}/007-audit-report.md`);
     expect(report).toContain(`| **Total Labels Audited** | ${canonical.count} |`);
     expect(report).toContain(`| **Type Labels (Issue-Types Mapped)** | ${issueTypes.count} |`);
     expect(report).toContain(`| **Governance Policy Labels** | ${policy.count} |`);

@@ -240,6 +240,34 @@ const RETIRE_REASONS = [
 ];
 
 /**
+ * Targets for GitHub-only labels (issue #3832). Each follows a row the mapping already
+ * decided for the same word or family, named in `why`. A label with no such precedent
+ * stays a retire row, so nothing is guessed from similar names.
+ */
+const GITHUB_ONLY_DECISIONS = {
+  'component:workflows': {
+    target: 'area:workflows',
+    why: 'same family and word as comp:workflows, which FR-012 merges into area:workflows',
+  },
+  'component:ci': {
+    target: 'area:ci',
+    why: 'same family as comp:workflows (merged into area:*); area:ci is "Build and CI pipelines"',
+  },
+  'meta:refactor': {
+    target: 'type:refactor',
+    why: 'same word as refactor and type/refactor, which already resolve to type:refactor',
+  },
+  observability: {
+    target: 'area:observability',
+    why: 'same word as area:observability, requested in #3554 for logs, metrics and traces',
+  },
+  'area:accessibility': {
+    target: 'area:a11y',
+    why: 'area:a11y is described as "Accessibility (WCAG compliance)"; same family',
+  },
+};
+
+/**
  * Turns a name into the form the approved labels use: lower case, "/" as ":" and
  * no space after the colon. Only separators and case change, never the words.
  * @param {string} name - Label name
@@ -351,6 +379,17 @@ function githubOnlyRows({ labels, proposed, mappings, bare }) {
         target: fromBare.target,
         concept_label: fromBare.concept,
         notes: `Earlier bare-label mapping (#2523) names ${bareTarget}, which resolves to ${fromBare.target} (${count}).`,
+      });
+    } else if (GITHUB_ONLY_DECISIONS[name] && resolve(GITHUB_ONLY_DECISIONS[name].target)) {
+      const { target, why } = GITHUB_ONLY_DECISIONS[name];
+      const pointed = resolve(target);
+      rows.push({
+        ...base,
+        action: 'merge',
+        target: pointed.target,
+        concept_label: pointed.concept,
+        notes: `Proposed merge: ${why} (${count}). Change request #3834.`,
+        change_request: IMPORT_CHANGE_REQUEST,
       });
     } else {
       const reason = RETIRE_REASONS.find(([pattern]) => pattern.test(name))[1];

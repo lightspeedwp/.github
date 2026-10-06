@@ -4,7 +4,7 @@
 
 ## Chore Summary
 
-Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 471 source labels and ends with 64 distinct targets. The type family ends at exactly 25.
+Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 471 source labels and ends with 66 distinct targets. The type family ends at exactly 25.
 
 Nothing changes until @ashleyshaw records a dated decision on this issue. Each repository's deletion has its own later gate (the deletion gate issue, T049).
 
@@ -56,7 +56,7 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type/feature` | `type:feature` | 0 | FR-016 | Same name as type:feature apart from case or separator (1 public repository, 0 counted items (lower bound)). |
 | `type/refactor` | `type:refactor` | 0 | FR-016 | Same name as type:refactor apart from case or separator (1 public repository, 0 counted items (lower bound)). |
 
-### merge (71)
+### merge (76)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
@@ -99,9 +99,12 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `a11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
 | `A11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
 | `accessibility` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
+| `area:accessibility` | `area:a11y` | 1 | FR-016 | Proposed merge: area:a11y is described as "Accessibility (WCAG compliance)"; same family (1 public repository, 1 counted item (lower bound)). Change request #3834. |
 | `area/ci-cd` | `area:ci` | 0 | FR-016 | Same name as area:ci-cd apart from case or separator, which resolves to area:ci (1 public repository, 0 counted items (lower bound)). |
 | `Chore` | `type:chore` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:chore, which resolves to type:chore (1 public repository, 0 counted items (lower bound)). |
 | `ci` | `area:ci` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:ci, which resolves to area:ci (1 public repository, 0 counted items (lower bound)). |
+| `component:ci` | `area:ci` | 4 | FR-016 | Proposed merge: same family as comp:workflows (merged into area:*); area:ci is "Build and CI pipelines" (1 public repository, 4 counted items (lower bound)). Change request #3834. |
+| `component:workflows` | `area:workflows` | 2 | FR-016 | Proposed merge: same family and word as comp:workflows, which FR-012 merges into area:workflows (1 public repository, 2 counted items (lower bound)). Change request #3834. |
 | `content` | `area:content` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:content, which resolves to area:content (1 public repository, 0 counted items (lower bound)). |
 | `critical` | `priority:critical` | 0 | FR-016 | Earlier bare-label mapping (#2523) names priority:critical, which resolves to priority:critical (1 public repository, 0 counted items (lower bound)). |
 | `dependencies` | `area:dependencies` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:dependencies, which resolves to area:dependencies (38 public repositories, 0 counted items (lower bound)). |
@@ -114,11 +117,13 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `Improvement` | `type:improve` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:improve, which resolves to type:improve (1 public repository, 0 counted items (lower bound)). |
 | `infrastructure` | `area:infrastructure` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:infrastructure, which resolves to area:infrastructure (1 public repository, 0 counted items (lower bound)). |
 | `invalid` | `status:wontfix` | 0 | FR-016 | Earlier bare-label mapping (#2523) names status:wontfix, which resolves to status:wontfix (2 public repositories, 0 counted items (lower bound)). |
+| `meta:refactor` | `type:refactor` | 1 | FR-016 | Proposed merge: same word as refactor and type/refactor, which already resolve to type:refactor (1 public repository, 1 counted item (lower bound)). Change request #3834. |
 | `migrate:ai-ops:agents` | `aiops:agents` | 2 | FR-016 | migrate:* label; its name points to ai-ops:agents, which resolves to aiops:agents (1 public repository, 2 counted items (lower bound)). |
 | `migrate:area:tests` | `area:testing` | 27 | FR-016 | migrate:* label; its name points to area:tests, which resolves to area:testing (1 public repository, 27 counted items (lower bound)). |
 | `migrate:type:investigation` | `type:research` | 0 | FR-016 | migrate:* label; its name points to type:investigation, which resolves to type:research (1 public repository, 0 counted items (lower bound)). |
 | `migrate:type:ui` | `type:design` | 0 | FR-016 | migrate:* label; its name points to type:ui, which resolves to type:design (1 public repository, 0 counted items (lower bound)). |
 | `needs-triage` | `status:needs-triage` | 0 | FR-016 | Earlier bare-label mapping (#2523) names status:needs-triage, which resolves to status:needs-triage (1 public repository, 0 counted items (lower bound)). |
+| `observability` | `area:observability` | 1 | FR-016 | Proposed merge: same word as area:observability, requested in #3554 for logs, metrics and traces (1 public repository, 1 counted item (lower bound)). Change request #3834. |
 | `performance` | `type:performance` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:performance, which resolves to type:performance (1 public repository, 0 counted items (lower bound)). |
 | `Performance` | `type:performance` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:performance, which resolves to type:performance (1 public repository, 0 counted items (lower bound)). |
 | `refactor` | `type:refactor` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:refactor, which resolves to type:refactor (2 public repositories, 0 counted items (lower bound)). |
@@ -351,9 +356,9 @@ FR-015 calls its eight type labels "Linear-only". Checked on 2026-10-06, all eig
 
 Source: the weekly label drift check run of 2026-10-04 (283 repositories read, 59 skipped as archived or forks), kept in `evidence/github-label-coverage.json`. It lists 446 labels that exist in public repositories but not in `labels.yml`, and counts 57 more that exist only in private repositories and are not named here.
 
-Every one of them now has a row (296 new rows for 446 names, the rest were already approved or mapped): 252 retire, 35 merge, 9 rename. A name that differs only in case or separator is renamed, the earlier bare-label mapping (#2523) is followed through the current renames, and every other label is retired with a stated reason. Run against the real tool, all 374 labels outside the approved set in `lightspeedwp/.github` have a row.
+Every one of them now has a row (296 new rows for 446 names, the rest were already approved or mapped): 247 retire, 40 merge, 9 rename. A name that differs only in case or separator is renamed, the earlier bare-label mapping (#2523) is followed through the current renames, and every other label is retired with a stated reason. Run against the real tool, all 374 labels outside the approved set in `lightspeedwp/.github` have a row.
 
-25 labels carry known items and have no target that the spec or the label documents define, so the tool lists them under `needs_decision` per repository, as FR-016 requires, until a target is chosen: `area:monorepo`, `agent-audit`, `migrate:openspec:status/implementation`, `migrate:openspec:status/planning`, `migrate:openspec:status/production`, `migrate:openspec:status/testing`, `migrate:type:compatibility`, `ag-p14`, `ag-phase`, `area:accessibility`, `bug-fix`, `code-quality`, `component:ci`, `component:workflows`, `error-handling`, `logging`, `meta:refactor`, `migrate:type:enhancement`, `observability`, `phase-1-critical`, `phase-2-medium`, `phase-3-polish`, `phase:1`, `reliability`, `reviewer`. The item counts are a lower bound, because the drift report caps counted rows.
+20 labels carry known items and have no target that the spec or the label documents define, so the tool lists them under `needs_decision` per repository, as FR-016 requires, until a target is chosen: `area:monorepo`, `agent-audit`, `migrate:openspec:status/implementation`, `migrate:openspec:status/planning`, `migrate:openspec:status/production`, `migrate:openspec:status/testing`, `migrate:type:compatibility`, `ag-p14`, `ag-phase`, `bug-fix`, `code-quality`, `error-handling`, `logging`, `migrate:type:enhancement`, `phase-1-critical`, `phase-2-medium`, `phase-3-polish`, `phase:1`, `reliability`, `reviewer`. The item counts are a lower bound, because the drift report caps counted rows.
 
 The 2026-10-06 drift run reports the 85 active public repositories only and summarises the private ones, so it is not comparable; the 2026-10-04 run, which included the private repositories, is the inventory of record.
 
