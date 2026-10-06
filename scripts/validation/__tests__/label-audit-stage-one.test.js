@@ -19,12 +19,20 @@ describe('Stage 1 Linear label export (T042)', () => {
   } = JSON.parse(read(`${audit}/evidence/linear-labels.json`));
   const { labels, linear_teams: teams } = sources;
 
-  test('records a dated, read-only export with mappings deferred to T043', () => {
+  test('records a dated, read-only export with the T043 mapping filled in', () => {
     expect(new Date(generatedAt).toISOString()).toBe(generatedAt);
     expect(sources.method).toMatch(/list_issue_labels.*includeArchived.*includeGroups/);
     expect(sources.method).toMatch(/list_issues filtered by label ID with includeArchived/);
     expect(sources.method).toContain('read-only');
-    expect(mappings).toEqual([]);
+    expect(mappings.length).toBeGreaterThan(0);
+    // Every entry names its source and action; only these actions carry no target.
+    const noTarget = ['retire', 'import', 'swap', 'team-scope'];
+    for (const entry of mappings) {
+      expect(entry.source).toBeTruthy();
+      expect(entry.action).toBeTruthy();
+      if (!noTarget.includes(entry.action)) expect(entry.target).toBeTruthy();
+    }
+    expect(new Set(mappings.map(({ source }) => source)).size).toBe(mappings.length);
     const canonical = JSON.parse(read(`${audit}/evidence/canonical-labels.json`));
     expect(sources.labels_yml_count).toBe(canonical.count);
   });
