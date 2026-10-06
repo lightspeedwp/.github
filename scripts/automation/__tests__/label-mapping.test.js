@@ -118,7 +118,8 @@ describe('label mapping', () => {
 
   it('gives every import a change request, and area:labels cites #3757', () => {
     const imports = build().mappings.filter((m) => m.action === 'import');
-    expect(imports).toHaveLength(49);
+    // 49 before the 8 unprefixed names (3 merged, 5 open decisions) left the import list.
+    expect(imports).toHaveLength(41);
     for (const entry of imports) expect(Number.isInteger(entry.change_request)).toBe(true);
     expect(imports.find((m) => m.source === 'area:labels').change_request).toBe(3757);
     expect(imports.find((m) => m.source === 'area:builds').change_request).toBe(3554);
@@ -172,6 +173,65 @@ describe('label mapping', () => {
       change_request: 3757,
     });
     expect(row.notes).toContain('#3757');
+  });
+
+  it('imports only prefixed labels, because labels.yml cannot carry any other (rule 11)', () => {
+    const imports = build().mappings.filter((m) => m.action === 'import');
+    expect(imports.length).toBeGreaterThan(0);
+    for (const entry of imports) expect(entry.source).toMatch(/^[^:\s]+:\S/);
+  });
+
+  it('merges bug, epic and security by the earlier bare-label mapping (#2523)', () => {
+    const rows = new Map(build().mappings.map((m) => [m.source, m]));
+    for (const [source, target] of [
+      ['bug', 'type:bug'],
+      ['epic', 'type:epic'],
+      ['security', 'type:security'],
+    ]) {
+      expect(rows.get(source)).toMatchObject({ action: 'merge', target });
+      expect(rows.get(source).systems).toContain('linear');
+    }
+  });
+
+  it('records the five unprefixed Linear-only labels as open decisions, not as imports', () => {
+    const rows = new Map(build().mappings.map((m) => [m.source, m]));
+    const open = [
+      'Hosting',
+      'CI/CD',
+      'master-ci-red',
+      'ci-runner-audit-2026-07-20',
+      'harvest-parity',
+    ];
+    for (const source of open) {
+      expect(rows.get(source)).toMatchObject({ action: 'retire', target: null, gap: true });
+      expect(rows.get(source).notes).toMatch(/not decided/);
+    }
+    // A suggestion is only a hint to the approver.
+    expect(rows.get('Hosting').notes).toContain('area:hosting');
+    expect(rows.get('CI/CD').notes).toContain('area:ci');
+    expect(rows.get('harvest-parity').notes).toContain('no approved label matches');
+  });
+
+  it('reports an unprefixed import (rule 11)', () => {
+    const { mappings, proposedNames } = build();
+    const broken = [
+      ...mappings,
+      {
+        source: 'hosting-only',
+        systems: ['linear'],
+        action: 'import',
+        target: null,
+        issue_count: 3,
+        requirement: 'FR-012',
+        color: 'EDEDED',
+        description: 'x',
+        change_request: 3834,
+        notes: 'Proposed.',
+      },
+    ];
+    expect(validateMappings(broken, proposedNames, yml, openspecInFiles)).toContain(
+      'rule 11: import hosting-only is not a prefixed label'
+    );
   });
 
   it('reports an import that cites no change request', () => {

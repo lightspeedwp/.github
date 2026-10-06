@@ -155,6 +155,15 @@ const OWN_REQUEST_VALUES = {
   'area:labels': { color: 'EDEDED', description: 'Label governance and routing' },
 };
 
+/**
+ * Closest approved label for an unprefixed Linear-only label, named only to help the
+ * decision. No rule or document defines these, so none is applied.
+ */
+const UNPREFIXED_SUGGESTIONS = {
+  Hosting: 'area:hosting',
+  'CI/CD': 'area:ci',
+};
+
 /** The five imports of #3554, with the colours and descriptions set in FR-012. */
 const ISSUE_3554 = {
   'area:builds': {
@@ -639,6 +648,36 @@ function buildMappings({
       });
       continue;
     }
+    // labels.yml allows only prefixed labels (validate-labeling-configs), so an unprefixed
+    // Linear label cannot be imported as it is. The earlier bare-label mapping (#2523) names a
+    // type label for some of them; the rest are open decisions, recorded as a gap.
+    if (!/^[^:\s]+:\S/.test(name)) {
+      const bareTarget = bare[name.toLowerCase()];
+      if (bareTarget && inYml.has(bareTarget)) {
+        add({
+          source: name,
+          systems: where(name),
+          action: 'merge',
+          target: bareTarget,
+          issue_count: issueCount,
+          requirement: 'FR-012',
+          notes: `Earlier bare-label mapping (#2523) names ${bareTarget}; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
+        });
+      } else {
+        const suggestion = UNPREFIXED_SUGGESTIONS[name];
+        add({
+          source: name,
+          systems: where(name),
+          action: 'retire',
+          target: null,
+          issue_count: issueCount,
+          requirement: 'FR-012',
+          gap: true,
+          notes: `Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; ${suggestion ? `the closest label is ${suggestion}` : 'no approved label matches it'} (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
+        });
+      }
+      continue;
+    }
     const ownRequest = OWN_REQUEST_VALUES[name];
     if (ownRequest) {
       const request = OWN_CHANGE_REQUESTS[name];
@@ -771,6 +810,11 @@ function validateMappings(mappings, proposedNames, yml, openspecInFiles = []) {
   for (const m of mappings.filter((x) => x.action === 'import')) {
     if (!Number.isInteger(m.change_request))
       problems.push(`rule 10: import ${m.source} cites no change request`);
+  }
+  // 11. Every import is a prefixed label: validate-labeling-configs rejects any other name in labels.yml.
+  for (const m of mappings.filter((x) => x.action === 'import')) {
+    if (!/^[^:\s]+:\S/.test(m.source))
+      problems.push(`rule 11: import ${m.source} is not a prefixed label`);
   }
   // Each source appears once.
   const seen = new Set();
