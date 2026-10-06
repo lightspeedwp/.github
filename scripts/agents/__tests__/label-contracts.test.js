@@ -1082,6 +1082,26 @@ describe('label governance contracts (#3545)', () => {
       ).toContain('area:ci');
     });
   });
+
+  describe('workflow-created pull request labels', () => {
+    test('documentation.yml sets no type label, so the branch prefix decides the single type', () => {
+      const workflow = fs.readFileSync(
+        path.join(REPO_ROOT, '.github/workflows/documentation.yml'),
+        'utf8'
+      );
+      const blocks = [...workflow.matchAll(/^\s+labels: \|\n((?:\s+[\w:-]+\n)+)/gm)];
+      expect(blocks).toHaveLength(2);
+      for (const [, block] of blocks) {
+        const labels = block
+          .split('\n')
+          .map((line) => line.trim())
+          .filter(Boolean);
+        expect(labels).toContain('area:documentation');
+        expect(labels.filter((label) => label.startsWith('type:'))).toEqual([]);
+      }
+    });
+  });
+
   describe('template-frontmatter contract', () => {
     function runGuardrail() {
       return spawnSync(

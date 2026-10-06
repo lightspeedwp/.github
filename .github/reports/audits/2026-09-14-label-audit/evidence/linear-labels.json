@@ -6036,16 +6036,16 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
-      "change_request": null,
+      "notes": "Proposed merge: area:a11y is described as \"Accessibility (WCAG compliance)\"; same family (1 public repository, 1 counted item (lower bound)). Change request #3834.",
+      "change_request": 3834,
       "source": "area:accessibility",
       "systems": [
         "github"
       ],
       "issue_count": 1,
       "requirement": "FR-016",
-      "action": "retire",
-      "target": null
+      "action": "merge",
+      "target": "area:a11y"
     },
     {
       "concept_label": null,
@@ -6387,29 +6387,29 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 4 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
-      "change_request": null,
+      "notes": "Proposed merge: same family as comp:workflows (merged into area:*); area:ci is \"Build and CI pipelines\" (1 public repository, 4 counted items (lower bound)). Change request #3834.",
+      "change_request": 3834,
       "source": "component:ci",
       "systems": [
         "github"
       ],
       "issue_count": 4,
       "requirement": "FR-016",
-      "action": "retire",
-      "target": null
+      "action": "merge",
+      "target": "area:ci"
     },
     {
       "concept_label": null,
-      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 2 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
-      "change_request": null,
+      "notes": "Proposed merge: same family and word as comp:workflows, which FR-012 merges into area:workflows (1 public repository, 2 counted items (lower bound)). Change request #3834.",
+      "change_request": 3834,
       "source": "component:workflows",
       "systems": [
         "github"
       ],
       "issue_count": 2,
       "requirement": "FR-016",
-      "action": "retire",
-      "target": null
+      "action": "merge",
+      "target": "area:workflows"
     },
     {
       "concept_label": null,
@@ -7024,16 +7024,16 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
-      "change_request": null,
+      "notes": "Proposed merge: same word as refactor and type/refactor, which already resolve to type:refactor (1 public repository, 1 counted item (lower bound)). Change request #3834.",
+      "change_request": 3834,
       "source": "meta:refactor",
       "systems": [
         "github"
       ],
       "issue_count": 1,
       "requirement": "FR-016",
-      "action": "retire",
-      "target": null
+      "action": "merge",
+      "target": "type:refactor"
     },
     {
       "concept_label": null,
@@ -7232,16 +7232,16 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
-      "change_request": null,
+      "notes": "Proposed merge: same word as area:observability, requested in #3554 for logs, metrics and traces (1 public repository, 1 counted item (lower bound)). Change request #3834.",
+      "change_request": 3834,
       "source": "observability",
       "systems": [
         "github"
       ],
       "issue_count": 1,
       "requirement": "FR-016",
-      "action": "retire",
-      "target": null
+      "action": "merge",
+      "target": "area:observability"
     },
     {
       "concept_label": null,
