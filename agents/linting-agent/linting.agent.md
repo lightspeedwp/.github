@@ -69,7 +69,7 @@ permissions:
   - shell
 metadata:
   guardrails: Reference canonical config files only (.eslintrc.json, stylelint.json, etc). Never bypass failing linting checks. Log all linting actions and results. Provide clear, actionable error messages.
-implementation: linting-agent
+implementation: "agents/linting-agent/"
 created_date: '2026-08-29'
 ---
 

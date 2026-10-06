@@ -77,6 +77,24 @@ function extractFrontmatter(content) {
 }
 
 /**
+ * Return the frontmatter object that owns the version.
+ * Skill files keep it under `metadata.version`; every other file keeps it at the top level.
+ * @param {object} frontmatter - Parsed frontmatter
+ * @returns {object} `metadata` when it has a `version` key, otherwise the frontmatter itself
+ */
+function getVersionContainer(frontmatter) {
+  const { metadata } = frontmatter;
+  if (
+    metadata &&
+    typeof metadata === "object" &&
+    Object.prototype.hasOwnProperty.call(metadata, "version")
+  ) {
+    return metadata;
+  }
+  return frontmatter;
+}
+
+/**
  * Update frontmatter version and write back to file
  * @param {string} filePath - Path to the file
  * @param {string} newVersion - New version string
@@ -90,7 +108,7 @@ function updateFileVersion(filePath, newVersion) {
   }
 
   // Update version
-  frontmatter.version = newVersion;
+  getVersionContainer(frontmatter).version = newVersion;
 
   // Update last_updated to today's date
   frontmatter.last_updated = new Date().toISOString().split("T")[0];
@@ -132,7 +150,7 @@ function bumpFileVersion(filePath, bumpType, repoVersion) {
   }
 
   // Get current version or default to repo minor + .0
-  const currentVersion = frontmatter.version || `${repoMinor}.0`;
+  const currentVersion = getVersionContainer(frontmatter).version || `${repoMinor}.0`;
   const currentVer = parseVersion(currentVersion);
 
   // Calculate new version
@@ -296,6 +314,7 @@ module.exports = {
   parseVersion,
   formatVersion,
   extractFrontmatter,
+  getVersionContainer,
   updateFileVersion,
   loadRepoVersion,
 };

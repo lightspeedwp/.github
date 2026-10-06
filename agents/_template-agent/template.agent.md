@@ -2,7 +2,7 @@
 title: 'Template: Agent Specification'
 description: 'Standard specification for defining a LightSpeed Copilot Agent: role, behaviours, tooling, schemas, and safety constraints.'
 version: v1.1
-last_updated: "2026-09-22"'
+last_updated: "2026-10-06"
 owners:
   - LightSpeedWP Engineering
 tags:
@@ -11,15 +11,13 @@ tags:
   - template
   - copilot
 status: draft
-apply_to:
-  - agents/*.agent.md
 file_type: template
 tools:
   - Copilot Agents
-examples:
-  - agents/adr.agent.md
 metadata:
   guardrails: Agents must never perform destructive or irreversible actions without explicit confirmation.
+  apply_to: "agents/*.agent.md"
+  examples: "agents/adr.agent.md"
 author: LightSpeed Team
 maintainer: LightSpeed Team
 language: en

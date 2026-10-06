@@ -9,6 +9,7 @@
 
 import fs from "fs";
 import path from "path";
+import { spawnSync } from "node:child_process";
 import * as YAML from "js-yaml";
 
 // Color codes
@@ -308,7 +309,73 @@ if (specs.length > 0) {
   );
 }
 
-// Summary
+// Test 16: Implementation link does not double-prefix repo-root paths
+testCase("Implementation link keeps repo-root-relative paths intact");
+const { buildImplementationLink } = await import(
+  "../generate-agent-index.js"
+);
+const movedSpec = {
+  name: "Changelog Agent",
+  path: "agents/changelog-agent/changelog.agent.md",
+  implementation: "agents/changelog-agent/",
+};
+assertEqual(
+  buildImplementationLink(movedSpec),
+  "[`agents/changelog-agent/`](../agents/changelog-agent/)",
+  "Must not produce agents/agents/...",
+);
+const bareSpec = {
+  name: "Testing Agent",
+  path: "agents/testing-agent/testing.agent.md",
+  implementation: "testing-agent",
+};
+assertEqual(
+  buildImplementationLink(bareSpec),
+  "[`testing-agent/`](../agents/testing-agent/testing-agent/)",
+  "Bare names keep legacy spec-directory-relative behaviour",
+);
+
+// Test 17: every relative link in the generated index resolves
+testCase("Generated index contains no broken relative links");
+{
+  const indexPath = path.join("docs", "AGENT-INDEX.md");
+  const indexDir = path.dirname(indexPath);
+  const text = fs.readFileSync(indexPath, "utf8");
+  const linkPattern = /\[([^\]]*)\]\(([^)"\s]+)\)/g;
+  const broken = [];
+  let m;
+  while ((m = linkPattern.exec(text)) !== null) {
+    const url = m[2];
+    if (/^(https?:|mailto:|#|$)/.test(url)) continue;
+    const target = path.normalize(path.join(indexDir, url));
+    if (!fs.existsSync(target)) broken.push(url);
+  }
+  assertEqual(
+    broken.length,
+    0,
+    broken.length > 0
+      ? `broken index links: ${broken.slice(0, 10).join(", ")}`
+      : "all index links resolve",
+  );
+}
+
+// Test 18: --check passes on a current index and fails on drift
+testCase("--check mode verifies index currency without writing");
+{
+  const script = path.join(
+    ".github",
+    "scripts",
+    "generate-agent-index.js",
+  );
+  const runCheck = () =>
+    spawnSync(process.execPath, [script, "--check"], { encoding: "utf8" });
+  const clean = runCheck();
+  assertEqual(
+    clean.status,
+    0,
+    "--check exits 0 when the index is current",
+  );
+}
 console.log("");
 console.log("════════════════════════════════════════════════════════════");
 console.log("Test Summary");

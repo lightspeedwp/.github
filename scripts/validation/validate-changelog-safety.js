@@ -10,8 +10,8 @@ const path = require('path');
 
 const CHANGELOG_FILE = path.join(process.cwd(), 'CHANGELOG.md');
 const SCHEMA_FILE = path.join(process.cwd(), 'schemas/changelog.schema.json');
-const SPEC_AGENT = path.join(process.cwd(), '.github/agents/changelog.agent.md');
-const CHANGELOG_AGENT = path.join(process.cwd(), 'agents/changelog/changelog.agent.js');
+const SPEC_AGENT = path.join(process.cwd(), 'agents/changelog-agent/changelog.agent.md');
+const CHANGELOG_AGENT = path.join(process.cwd(), 'agents/changelog-agent/changelog.agent.js');
 const DOCUMENTATION = path.join(process.cwd(), 'docs/CHANGELOG_AUTOMATION.md');
 
 const RULES = {
@@ -238,11 +238,11 @@ class ChangelogSafetyAudit {
     const files = [
       {
         path: SPEC_AGENT,
-        name: 'Spec Agent (.github/agents/changelog.agent.md)',
+        name: 'Spec Agent (agents/changelog-agent/changelog.agent.md)',
       },
       {
         path: CHANGELOG_AGENT,
-        name: 'Portable Agent (agents/changelog/changelog.agent.js)',
+        name: 'Portable Agent (agents/changelog-agent/changelog.agent.js)',
       },
       { path: SCHEMA_FILE, name: 'Schema (schemas/changelog.schema.json)' },
       {

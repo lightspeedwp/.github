@@ -18,7 +18,7 @@ author: "LightSpeed Team"
 maintainer: "LightSpeed Team"
 owners: ["lightspeedwp/maintainers"]
 language: "en"
-implementation: "agents/wordpress/"
+implementation: "agents/wordpress-release-utilities-agent/"
 permissions:
   - read
   - write
@@ -63,9 +63,9 @@ Provide modular utilities for versioning WordPress plugins and themes, enabling 
 
 ## Implementation Reference
 
-- **Folder:** `agents/wordpress/`
-- **Entry Point:** [README.md](wordpress/README.md)
-- **Related:** [package.json](wordpress/package.json)
+- **Folder:** `agents/wordpress-release-utilities-agent/`
+- **Entry Point:** [README.md](./README.md)
+- **Related:** [package.json](./package.json)
 
 ---
 

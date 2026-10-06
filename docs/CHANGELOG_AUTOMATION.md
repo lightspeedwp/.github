@@ -61,7 +61,7 @@ The changelog automation system:
 **Update (2026-07-30):** The changelog automation workflows were refactored in Phase 4 to use helper scripts instead of multiline shell logic. The changelog-management.yml workflow now uses:
 
 - `report-changelog-action.sh` — Safely report changelog merge action status
-- `agents/changelog/changelog.agent.js` — Changelog validation and management
+- `agents/changelog-agent/changelog.agent.js` — Changelog validation and management
 
 These helper scripts follow GitHub Actions best practices by avoiding direct shell control-flow in `run:` blocks. Functionality remains unchanged; only the internal implementation has been refactored. See [WORKFLOW-REFACTORING-GUIDE.md](./WORKFLOW-REFACTORING-GUIDE.md) for details.
 
@@ -916,8 +916,8 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 ### Specification & Control Plane
 
-- **Spec Agent:** [`.github/agents/changelog.agent.md`](../.github/agents/changelog.agent.md) — Full agent specification with architecture and integration details
-- **Portable Agent:** [`agents/changelog/README.md`](../agents/changelog/README.md) — Implementation guide with usage examples
+- **Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](../agents/changelog-agent/changelog.agent.md) — Full agent specification with architecture and integration details
+- **Portable Agent:** [`agents/changelog-agent/README.md`](../agents/changelog-agent/README.md) — Implementation guide with usage examples
 - **Workflow:** [`.github/workflows/changelog-management.yml`](../.github/workflows/changelog-management.yml) — GitHub Actions workflow for validation
 - **Release Agent:** [`.github/agentic-workflows/release.agent.js`](../.github/agentic-workflows/release.agent.js) — Release automation with changelog integration
 
@@ -936,8 +936,8 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 The changelog system integrates with LightSpeed's automation framework:
 
-- **Spec Agent:** [`.github/agents/changelog.agent.md`](.github/agents/changelog.agent.md) — Primary GitHub-native agent specification for changelog management
-- **Portable Agent:** [`agents/changelog/`](../agents/changelog/) — Portable multi-file agent implementation for cross-project reuse
+- **Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](../agents/changelog-agent/changelog.agent.md) — Primary agent specification for changelog management
+- **Portable Agent:** [`agents/changelog-agent/`](../agents/changelog-agent/) — Portable multi-file agent implementation for cross-project reuse
 - **Schema:** [`schemas/changelog.schema.json`](../schemas/changelog.schema.json) — JSON schema for Keep a Changelog 1.1.0 validation
 - **Workflow:** [`.github/workflows/changelog-management.yml`](.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
 - **Release Agent:** `.github/agentic-workflows/release.agent.md` — Integrates changelog validation as GATE 1 of release orchestration

@@ -11,11 +11,13 @@ import fs from "fs";
 import path from "path";
 import url from "url";
 import * as YAML from "js-yaml";
+import { resolveImplementationDir } from "./implementation-path.js";
 
 const __dirname = path.dirname(url.fileURLToPath(import.meta.url));
 
 // Configuration
-const AGENTS_DIR = path.join(__dirname, "../../agents");
+const REPO_ROOT = path.join(__dirname, "../..");
+const AGENTS_DIR = path.join(REPO_ROOT, "agents");
 const SPEC_EXTENSION = ".agent.md";
 
 // Results collection
@@ -210,7 +212,10 @@ function validate() {
 
       // Check implementation reference
       if (frontmatter.implementation) {
-        const implPath = path.join(AGENTS_DIR, frontmatter.implementation);
+        const implPath = resolveImplementationDir(
+          frontmatter.implementation,
+          REPO_ROOT,
+        );
         if (directoryExists(implPath)) {
           agentRecord.implementationPath = frontmatter.implementation;
           agentRecord.implementationExists = true;
