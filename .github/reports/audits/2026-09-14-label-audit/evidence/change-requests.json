@@ -210,6 +210,21 @@
       "approved_at": null,
       "approval_comment": null,
       "blocks": "Stage 2 configuration PR (T059)"
+    },
+    {
+      "kind": "LABEL-UPDATE-REQUEST",
+      "task": "T046",
+      "issue_number": 3834,
+      "url": "https://github.com/lightspeedwp/.github/issues/3834",
+      "covers": [
+        "the full spec 008 label mapping in evidence/linear-labels.json",
+        "every import that has no request of its own"
+      ],
+      "status": "pending",
+      "approved_by": null,
+      "approved_at": null,
+      "approval_comment": null,
+      "blocks": "Stage 2 configuration PR (T059)"
     }
   ]
 }
