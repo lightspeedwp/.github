@@ -5,6 +5,11 @@ const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
 const { buildMappings, validateMappings, shouldWrite } = require('../label-mapping.cjs');
+const {
+  LABEL_PREFIXES,
+  STAGE_2_PREFIXES,
+  hasLabelPrefix,
+} = require('../../validation/lib/label-families.cjs');
 
 const root = path.resolve(__dirname, '../../..');
 const audit = path.join(root, '.github/reports/audits/2026-09-14-label-audit');
@@ -175,10 +180,51 @@ describe('label mapping', () => {
     expect(row.notes).toContain('#3757');
   });
 
-  it('imports only prefixed labels, because labels.yml cannot carry any other (rule 11)', () => {
+  it('imports only labels in a canonical family, because labels.yml cannot carry any other (rule 11)', () => {
     const imports = build().mappings.filter((m) => m.action === 'import');
     expect(imports.length).toBeGreaterThan(0);
-    for (const entry of imports) expect(entry.source).toMatch(/^[^:\s]+:\S/);
+    for (const entry of imports) {
+      expect(hasLabelPrefix(entry.source, [...LABEL_PREFIXES, ...STAGE_2_PREFIXES])).toBe(true);
+    }
+  });
+
+  it('does not import a prefixed label from a family the validator would reject', () => {
+    // `other:` looks prefixed, but validate-labeling-configs rejects it, so importing it would
+    // fail the configuration PR just as an unprefixed name does.
+    const extra = {
+      id: 'test-other-example',
+      name: 'other:example',
+      scope: 'workspace',
+      group: null,
+      is_group: false,
+      color: '#ededed',
+      description: 'A label in no canonical family',
+      retired_at: null,
+      issue_count: 3,
+    };
+    const { mappings } = buildMappings({
+      yml,
+      linear: [...linearFile.sources.labels, extra],
+      openspecInFiles,
+      specNumberLabels: ['spec:001'],
+      githubLive,
+      githubOnly,
+      bare,
+    });
+    const row = mappings.find((m) => m.source === 'other:example');
+    expect(row).toMatchObject({ action: 'retire', target: null, gap: true });
+    expect(row.notes).toMatch(/does not use a canonical label family/);
+    expect(mappings.some((m) => m.action === 'import' && m.source === 'other:example')).toBe(false);
+  });
+
+  it('uses the same family list as the label-config validator', () => {
+    const validator = fs.readFileSync(
+      path.join(root, 'scripts/validation/validate-labeling-configs.cjs'),
+      'utf8'
+    );
+    expect(validator).toContain("require('./lib/label-families.cjs')");
+    // No second copy of the list may creep back into the validator.
+    expect(validator).not.toMatch(/'ai-ops:'/);
   });
 
   it('merges bug, epic and security by the earlier bare-label mapping (#2523)', () => {
@@ -212,12 +258,12 @@ describe('label mapping', () => {
     expect(rows.get('harvest-parity').notes).toContain('no approved label matches');
   });
 
-  it('reports an unprefixed import (rule 11)', () => {
+  it('reports an import outside the canonical families (rule 11)', () => {
     const { mappings, proposedNames } = build();
     const broken = [
       ...mappings,
       {
-        source: 'hosting-only',
+        source: 'other:example',
         systems: ['linear'],
         action: 'import',
         target: null,
@@ -230,8 +276,13 @@ describe('label mapping', () => {
       },
     ];
     expect(validateMappings(broken, proposedNames, yml, openspecInFiles)).toContain(
-      'rule 11: import hosting-only is not a prefixed label'
+      'rule 11: import other:example does not use a canonical label family'
     );
+    // An unprefixed name is rejected by the same rule.
+    const unprefixed = [{ ...broken[broken.length - 1], source: 'hosting-only' }];
+    expect(
+      validateMappings([...mappings, ...unprefixed], proposedNames, yml, openspecInFiles)
+    ).toContain('rule 11: import hosting-only does not use a canonical label family');
   });
 
   it('reports an import that cites no change request', () => {

@@ -25,8 +25,20 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const {
+  LABEL_PREFIXES,
+  STAGE_2_PREFIXES,
+  hasLabelPrefix,
+} = require('../validation/lib/label-families.cjs');
 
 const EVIDENCE = '.github/reports/audits/2026-09-14-label-audit/evidence';
+
+/**
+ * Families an import may use: the ones `labels.yml` carries today plus the ones the Stage 2
+ * change introduces (FR-011). One list shared with `validate-labeling-configs.cjs`, so the
+ * mapping cannot import a label that validator would then reject.
+ */
+const IMPORT_PREFIXES = [...LABEL_PREFIXES, ...STAGE_2_PREFIXES];
 
 /** FR-012 approved merges, source -> target. */
 const MERGES = {
@@ -648,10 +660,10 @@ function buildMappings({
       });
       continue;
     }
-    // labels.yml allows only prefixed labels (validate-labeling-configs), so an unprefixed
-    // Linear label cannot be imported as it is. The earlier bare-label mapping (#2523) names a
-    // type label for some of them; the rest are open decisions, recorded as a gap.
-    if (!/^[^:\s]+:\S/.test(name)) {
+    // labels.yml allows only the canonical families (validate-labeling-configs), so a Linear
+    // label outside them cannot be imported as it is. The earlier bare-label mapping (#2523)
+    // names a type label for some of them; the rest are open decisions, recorded as a gap.
+    if (!hasLabelPrefix(name, IMPORT_PREFIXES)) {
       const bareTarget = bare[name.toLowerCase()];
       if (bareTarget && inYml.has(bareTarget)) {
         add({
@@ -661,7 +673,7 @@ function buildMappings({
           target: bareTarget,
           issue_count: issueCount,
           requirement: 'FR-012',
-          notes: `Earlier bare-label mapping (#2523) names ${bareTarget}; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
+          notes: `Earlier bare-label mapping (#2523) names ${bareTarget}; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
         });
       } else {
         const suggestion = UNPREFIXED_SUGGESTIONS[name];
@@ -673,7 +685,7 @@ function buildMappings({
           issue_count: issueCount,
           requirement: 'FR-012',
           gap: true,
-          notes: `Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; ${suggestion ? `the closest label is ${suggestion}` : 'no approved label matches it'} (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
+          notes: `Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; ${suggestion ? `the closest label is ${suggestion}` : 'no approved label matches it'} (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
         });
       }
       continue;
@@ -811,10 +823,10 @@ function validateMappings(mappings, proposedNames, yml, openspecInFiles = []) {
     if (!Number.isInteger(m.change_request))
       problems.push(`rule 10: import ${m.source} cites no change request`);
   }
-  // 11. Every import is a prefixed label: validate-labeling-configs rejects any other name in labels.yml.
+  // 11. Every import uses a canonical label family: validate-labeling-configs rejects any other name in labels.yml.
   for (const m of mappings.filter((x) => x.action === 'import')) {
-    if (!/^[^:\s]+:\S/.test(m.source))
-      problems.push(`rule 11: import ${m.source} is not a prefixed label`);
+    if (!hasLabelPrefix(m.source, IMPORT_PREFIXES))
+      problems.push(`rule 11: import ${m.source} does not use a canonical label family`);
   }
   // Each source appears once.
   const seen = new Set();

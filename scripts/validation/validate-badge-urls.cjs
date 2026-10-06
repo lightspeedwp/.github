@@ -52,13 +52,19 @@ const path = require('path');
  * `--fix` would percent-encode the title into the path and corrupt a valid
  * badge.
  *
+ * A title may itself contain parentheses (`"Build (main)"`; CommonMark allows
+ * it), so the text inside the image's parentheses is matched as plain characters
+ * or whole quoted strings, never as "anything up to the first `)`". Stopping at
+ * the first `)` split such a title in two, reported a valid badge and let `--fix`
+ * rewrite part of the title into the URL.
+ *
  * Group 1 is the alt text, group 2 is everything inside the parentheses. The
  * destination and the optional title are separated explicitly by
  * `splitDestination` rather than by one more regex, because the two cases that
  * must not be reported — an already-encoded URL and a quoted title — are easier
  * to get right as steps than as nested groups.
  */
-const BROKEN_BADGE = /!\[([^\]]*)\]\(([^)]*)\)/gu;
+const BROKEN_BADGE = /!\[([^\]]*)\]\(((?:[^)"']|"[^"]*"|'[^']*')*)\)/gu;
 
 /**
  * An image whose destination opens with `<https://img.shields.io/...` and whose
@@ -66,7 +72,8 @@ const BROKEN_BADGE = /!\[([^\]]*)\]\(([^)]*)\)/gu;
  * the `>`, group 3 everything after it inside the parentheses. A group 3 that is
  * only a quoted title is valid CommonMark (`![x](<url> "title")`) and not a defect.
  */
-const ANGLE_BADGE = /!\[([^\]]*)\]\(<(https:\/\/img\.shields\.io\/[^>\s]*)>([^)]*)\)/gu;
+const ANGLE_BADGE =
+  /!\[([^\]]*)\]\(<(https:\/\/img\.shields\.io\/[^>\s]*)>((?:[^)"']|"[^"]*"|'[^']*')*)\)/gu;
 
 const SHIELDS_HOST = 'https://img.shields.io/';
 

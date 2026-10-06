@@ -165,6 +165,47 @@ describe('validate-badge-urls', () => {
     });
   });
 
+  describe('titles that contain parentheses', () => {
+    // CommonMark allows `(` and `)` inside a quoted title. Matching up to the first
+    // `)` split the title, so a valid badge was reported and `--fix` rewrote part of
+    // the title into the URL.
+    const bareTitle = '![X](https://img.shields.io/badge/X-OK-green.svg "Build (main)")';
+    const angleTitle = '![X](<https://img.shields.io/badge/X-OK-green.svg> "Build (main)")';
+
+    it('does not report a valid bare badge whose title has parentheses', () => {
+      expect(findBrokenBadges(bareTitle)).toHaveLength(0);
+      expect(repairContent(bareTitle)).toBe(bareTitle);
+    });
+
+    it('does not report a valid angle-bracket badge whose title has parentheses', () => {
+      expect(findBrokenBadges(angleTitle)).toHaveLength(0);
+      expect(repairContent(angleTitle)).toBe(angleTitle);
+    });
+
+    it('repairs a broken bare badge and keeps a title with parentheses intact', () => {
+      const broken = '![X](https://img.shields.io/badge/Docs Validation-OK-success.svg "Tip (x)")';
+      expect(repairContent(broken)).toBe(
+        '![X](https://img.shields.io/badge/Docs%20Validation-OK-success.svg "Tip (x)")'
+      );
+    });
+
+    it('repairs a broken angle-bracket badge and keeps a title with parentheses intact', () => {
+      const broken =
+        '![X](<https://img.shields.io/badge/Docs> Validation-OK-success.svg "Tip (x)")';
+      expect(repairContent(broken)).toBe(
+        '![X](https://img.shields.io/badge/Docs%20Validation-OK-success.svg "Tip (x)")'
+      );
+    });
+
+    it('still reports and repairs the next badge on the same line', () => {
+      const line = `${angleTitle} ${BROKE_SPACES}`;
+      expect(findBrokenBadges(line)).toHaveLength(1);
+      expect(repairContent(line)).toBe(
+        `${angleTitle} ![Docs Validation](https://img.shields.io/badge/Docs%20Validation-OK-success.svg)`
+      );
+    });
+  });
+
   describe('nested fences', () => {
     // A four-backtick example may contain a three-backtick block. Toggling on
     // every fence-like line ends the block early and rewrites badge examples

@@ -4350,7 +4350,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue).",
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue).",
       "change_request": null,
       "source": "CI/CD",
       "systems": [
@@ -4364,7 +4364,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues).",
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues).",
       "change_request": null,
       "source": "Hosting",
       "systems": [
@@ -4777,7 +4777,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Earlier bare-label mapping (#2523) names type:bug; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (2 Linear issues).",
+      "notes": "Earlier bare-label mapping (#2523) names type:bug; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues).",
       "change_request": null,
       "source": "bug",
       "systems": [
@@ -4791,7 +4791,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues).",
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues).",
       "change_request": null,
       "source": "ci-runner-audit-2026-07-20",
       "systems": [
@@ -4850,7 +4850,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Earlier bare-label mapping (#2523) names type:epic; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (2 Linear issues).",
+      "notes": "Earlier bare-label mapping (#2523) names type:epic; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues).",
       "change_request": null,
       "source": "epic",
       "systems": [
@@ -4864,7 +4864,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues).",
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues).",
       "change_request": null,
       "source": "harvest-parity",
       "systems": [
@@ -4892,7 +4892,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues).",
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues).",
       "change_request": null,
       "source": "master-ci-red",
       "systems": [
@@ -5560,7 +5560,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Earlier bare-label mapping (#2523) names type:security; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (11 Linear issues).",
+      "notes": "Earlier bare-label mapping (#2523) names type:security; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (11 Linear issues).",
       "change_request": null,
       "source": "security",
       "systems": [

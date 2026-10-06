@@ -96,9 +96,9 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type:build-ci` | `type:ci` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Build & CI type to CI. Needed so the type family ends at exactly 25. |
 | `type:code-refactor` | `type:refactor` | 3 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Code Refactor type to Refactor. Needed so the type family ends at exactly 25. |
 | `type:documentation` | `type:docs` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate of type:docs. Needed so the type family ends at exactly 25. |
-| `bug` | `type:bug` | 2 | FR-012 | Earlier bare-label mapping (#2523) names type:bug; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (2 Linear issues). |
-| `epic` | `type:epic` | 2 | FR-012 | Earlier bare-label mapping (#2523) names type:epic; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (2 Linear issues). |
-| `security` | `type:security` | 11 | FR-012 | Earlier bare-label mapping (#2523) names type:security; labels.yml allows only prefixed labels, so this Linear label is merged, not imported (11 Linear issues). |
+| `bug` | `type:bug` | 2 | FR-012 | Earlier bare-label mapping (#2523) names type:bug; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues). |
+| `epic` | `type:epic` | 2 | FR-012 | Earlier bare-label mapping (#2523) names type:epic; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues). |
+| `security` | `type:security` | 11 | FR-012 | Earlier bare-label mapping (#2523) names type:security; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (11 Linear issues). |
 | `a11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
 | `A11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
 | `accessibility` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
@@ -224,8 +224,8 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `openspec:status` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: a namespace prefix used in examples (openspec:status/production), not a label. |
 | `openspec:tracking` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: no spec status label matches tracking. |
 | `openspec:unknown` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: a placeholder value, not a label. |
-| `CI/CD` | retire | 1 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue). |
-| `Hosting` | retire | 13 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues). |
+| `CI/CD` | retire | 1 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue). |
+| `Hosting` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues). |
 | `agent-audit` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `aiops:agents` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `aiops:chat-modes` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
@@ -234,11 +234,11 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `aiops:prompts` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `area:linting` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `area:onboarding` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
-| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues). |
+| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues). |
 | `documentation` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
-| `harvest-parity` | retire | 2 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues). |
+| `harvest-parity` | retire | 2 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues). |
 | `important` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
-| `master-ci-red` | retire | 8 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues). |
+| `master-ci-red` | retire | 8 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues). |
 | `meta:analysis` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `migrate:area:automation` | retire | 162 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:area:ci` | retire | 109 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
@@ -295,11 +295,11 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `openspec:tracking` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: no spec status label matches tracking. |
 | `openspec:unknown` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: a placeholder value, not a label. |
 | `spec:001` | `spec-id:001` | 0 | FR-011 | Spec numbers move to spec-id:NNN so spec:* holds only status labels. |
-| `CI/CD` | retire | 1 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue). |
-| `Hosting` | retire | 13 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues). |
-| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues). |
-| `harvest-parity` | retire | 2 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues). |
-| `master-ci-red` | retire | 8 | FR-012 | Open decision: this Linear label is not a prefixed label, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues). |
+| `CI/CD` | retire | 1 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue). |
+| `Hosting` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues). |
+| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues). |
+| `harvest-parity` | retire | 2 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues). |
+| `master-ci-red` | retire | 8 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues). |
 
 ## Proposed beyond the spec
 
