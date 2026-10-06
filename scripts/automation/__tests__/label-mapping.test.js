@@ -49,6 +49,22 @@ describe('label mapping', () => {
     }
   });
 
+  it('names the real colour and description source in each import note', () => {
+    const imports = build().mappings.filter(
+      (m) => m.action === 'import' && /^Proposed/.test(m.notes)
+    );
+    expect(imports.length).toBeGreaterThan(0);
+    for (const entry of imports) {
+      expect(entry.notes).toMatch(
+        /Colour is the (family default|Linear label's own|fallback EDEDED);/
+      );
+      const placeholder = /description to be written at approval/.test(entry.description);
+      expect(entry.notes).toContain(
+        placeholder ? 'description is a placeholder' : "description is Linear's own"
+      );
+    }
+  });
+
   it('reports a problem when a type merge is removed', () => {
     const { mappings, proposedNames } = build();
     const without = mappings.filter((m) => m.source !== 'type:build-ci');

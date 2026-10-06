@@ -419,8 +419,15 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
       continue;
     }
     const family = familyOf(name);
-    const colour =
-      FAMILY_STRATEGY_COLOUR[family] || familyColour(yml, family) || hex(label.color) || 'EDEDED';
+    const familyDefault = FAMILY_STRATEGY_COLOUR[family] || familyColour(yml, family);
+    const ownColour = hex(label.color);
+    const colour = familyDefault || ownColour || 'EDEDED';
+    const colourSource = familyDefault
+      ? 'family default'
+      : ownColour
+        ? "Linear label's own"
+        : 'fallback EDEDED';
+    const ownDescription = String(label.description || '').trim();
     add({
       source: name,
       systems: where(name),
@@ -430,9 +437,9 @@ function buildMappings({ yml, linear, openspecInFiles = [], specNumberLabels = [
       requirement: 'FR-012',
       color: colour,
       description:
-        String(label.description || '').trim() ||
+        ownDescription ||
         `Imported from Linear (${issueCount} issues); description to be written at approval.`,
-      notes: `Proposed: applied to ${issueCount} Linear issue${issueCount === 1 ? '' : 's'}. Colour is the ${familyColour(yml, family) || FAMILY_STRATEGY_COLOUR[family] ? 'family default' : "Linear label's own"}; description is Linear's own. Check both at approval.`,
+      notes: `Proposed: applied to ${issueCount} Linear issue${issueCount === 1 ? '' : 's'}. Colour is the ${colourSource}; description is ${ownDescription ? "Linear's own" : 'a placeholder'}. Check both at approval.`,
     });
   }
 
