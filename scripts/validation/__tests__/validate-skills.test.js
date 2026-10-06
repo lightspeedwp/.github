@@ -124,6 +124,29 @@ describe('per-class field sets', () => {
     expect(result.output).toContain('[closed-field-set]');
   });
 
+  it('accepts the repo-dialect agent fields (language, visibility, target, handoffs, mode)', () => {
+    // These are not upstream fields, but each is pervasive across agent specs
+    // or read by repo tooling (see SUBAGENT_FIELDS in lib/skills-spec.js), so
+    // the closed set documents the dialect instead of flagging it.
+    const result = check(
+      'agents/example.agent.md',
+      '---\nname: example\ndescription: Reviews things\nfile_type: agent\ntitle: Example Agent\nlast_updated: 2026-10-01\nlanguage: en\nvisibility: public\ntarget: github-copilot\nmode: conversation\n---\n\nDo it.\n'
+    );
+    expect(result.status).toBe(0);
+  });
+
+  it('accepts implementation on a subagent definition (repo convention with consumers)', () => {
+    // `implementation` is not an upstream field, but 34 agent specs carry it
+    // and repo tooling reads it (index generator Discovery section, agent-spec
+    // validators). Rejecting it would flag a live convention, so it stays in
+    // the closed set — see SUBAGENT_FIELDS in lib/skills-spec.js.
+    const result = check(
+      'agents/example.agent.md',
+      '---\nname: example\ndescription: Reviews things\nfile_type: agent\ntitle: Example Agent\nlast_updated: 2026-10-01\nimplementation: agents/example/\n---\n\nDo it.\n'
+    );
+    expect(result.status).toBe(0);
+  });
+
   it('does not apply the skill character rules to a subagent name', () => {
     // Upstream imposes no character set on a subagent identifier. The
     // frontmatter is complete so the assertion is about character rules alone.

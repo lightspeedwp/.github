@@ -1,7 +1,8 @@
 ---
 name: lightspeed-pr-template-compliance
 description: verify pull request content against required template sections and governance checks.
-version: 0.1.1
+metadata:
+  version: "0.1.1"
 ---
 
 # LightSpeed PR Template Compliance
