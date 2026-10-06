@@ -37,6 +37,9 @@ const SC001_ELIGIBLE_OUTCOMES = new Set(['success', 'failure', 'skipped:no-crede
  * @throws {Error} If the value is not a finite, non-negative number.
  */
 function parseAmount(value, flag) {
+  if (value?.trim() === '') {
+    throw new Error(`${flag} must be a non-negative number`);
+  }
   const parsed = Number(value);
   if (!Number.isFinite(parsed) || parsed < 0) {
     throw new Error(`${flag} must be a non-negative number`);

@@ -170,10 +170,16 @@ globalThis.fetch = async (url, options) => {
   });
 
   it.each([
+    ['--tokens-per-run', '', 'empty'],
+    ['--tokens-per-run', ' \t\n', 'whitespace-only'],
     ['--tokens-per-run', 'abc', 'not a number'],
     ['--tokens-per-run', '-1', 'negative'],
+    ['--tokens-per-run', 'Infinity', 'non-finite'],
+    ['--price-per-mtok', '', 'empty'],
+    ['--price-per-mtok', ' \t\n', 'whitespace-only'],
     ['--price-per-mtok', 'free', 'not a number'],
     ['--price-per-mtok', '-0.5', 'negative'],
+    ['--price-per-mtok', 'Infinity', 'non-finite'],
   ])('rejects %s = %s (%s) rather than reporting a broken figure', (flag, value) => {
     // Number() yields NaN for non-numeric input and ?? keeps it, so an
     // unchecked value reached the report as "≈ $NaN" for the spend estimate
