@@ -67,7 +67,7 @@ Valid entry:
 - **Stale Changelog-Agent Links Repointed** — The agent index, agent docs and automation docs, plus the changelog safety script, again point at `agents/changelog-agent/` after the move left them aimed at removed paths. (#3814)
 ```
 
-Invalid entry (over 250 characters, describes implementation, no reference):
+Invalid entry (describes implementation, no PR or issue reference):
 
 ```markdown
 - Refactored the internal validation helper to use a different module loading strategy with additional error handling branches and logging statements throughout the file for debugging purposes.

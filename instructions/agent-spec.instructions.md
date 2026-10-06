@@ -36,7 +36,7 @@ Use this guide when drafting or updating `.agent.md` files in `agents/`, or repo
 
 - Use only frontmatter fields the validators accept. Three layers apply, in this order: (1) `.schemas/agent-config.schema.json` requires `file_type`, `title` and `last_updated`; (2) `scripts/validation/lib/skills-spec.js` (`SUBAGENT_FIELDS`) enforces a closed set for `*.agent.md` files — anything outside it, including `apply_to` and `examples`, is a finding (`implementation`, `language` and `visibility` are in the set and allowed); (3) `agents/_template-agent/template.agent.md` shows the recommended shape. The template illustrates `apply_to` and `examples`, but those two fields are not in the enforced closed set, so drop them from real agent files. Do not add a `references` property; the schema no longer recognises it—link to related docs inline or in footers.
 - Declare permissions through the optional `permissions` array; follow the approved vocabulary in `docs/FRONTMATTER_SCHEMA.md` (e.g., `read`, `write`, `shell`, `github:*`) so automation tooling always validates these scopes.
-- Keep `apply_to` targeting `agents/*.agent.md` for portable specs; update `last_updated` whenever the spec meaningfully changes.
+- Do not add `apply_to` to a `*.agent.md` spec: it is outside the enforced field set (see Frontmatter and Metadata above). Update `last_updated` whenever the spec meaningfully changes.
 - Add `metadata.guardrails` for non-negotiable safety notes; reference relevant instructions and `SECURITY.md`.
 
 ### Permissions vocabulary
@@ -114,7 +114,6 @@ last_updated: "2025-12-11"
 owners: ["Release Engineering"]
 tags: ["agent", "release", "copilot"]
 status: "active"
-apply_to: ["agents/*.agent.md"]
 file_type: "agent-spec"
 tools: ["GitHub API", "Release workflows"]
 metadata:

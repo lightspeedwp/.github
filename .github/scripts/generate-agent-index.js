@@ -10,6 +10,7 @@ import fs from "fs";
 import path from "path";
 import * as YAML from "js-yaml";
 import { fileURLToPath, pathToFileURL } from "url";
+import { isRootRelativeImplementation } from "./implementation-path.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -148,11 +149,12 @@ function buildImplementationLink(spec) {
   // The result is a link target, not a filesystem path, so use POSIX
   // operations and forward slashes on every platform (`spec.path` comes from
   // `path.relative`, which emits backslashes on Windows).
+  // The root-relative rule is shared with the validator (implementation-path.js).
+  // A bare name keeps this generator's legacy meaning: relative to the spec's folder.
   const specDir = path.posix.dirname(spec.path.split(path.sep).join("/"));
-  const joined =
-    raw.includes("/") || raw === "." || raw.startsWith(".")
-      ? path.posix.normalize(raw)
-      : path.posix.join(specDir, raw);
+  const joined = isRootRelativeImplementation(raw)
+    ? path.posix.normalize(raw)
+    : path.posix.join(specDir, raw);
   // path.normalize keeps one trailing slash; strip it so the template below
   // emits exactly one. (`agents/X/` must not become `agents/X//`.)
   const implPath = joined.replace(/\/+$/, "");

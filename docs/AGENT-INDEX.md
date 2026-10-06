@@ -399,7 +399,7 @@ support
 **With Implementation Directory** (34)
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md) → [`agents/adr-generator/`](../agents/adr-generator/)
-- [AGENT](../agents/client-website-discovery-assistant-agent/client-website-discovery-assistant.agent.md) → [`agents/client-website-discovery-assistant-agent/`](../agents/client-website-discovery-assistant-agent/)
+- [AGENT](../agents/client-website-discovery-assistant-agent/client-website-discovery-assistant.agent.md) → [`agents/discovery-agent/`](../agents/discovery-agent/)
 - [AGENT](../agents/discovery-agent/client-website-discovery-assistant.agent.md) → [`agents/discovery-agent/`](../agents/discovery-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-estimator-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
@@ -1308,5 +1308,5 @@ support
 - [Agent Specification Audit - Phase 3 Results](../.github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 
-**Generated**: 2026-10-06T05:26:06.993Z
+**Generated**: 2026-10-06T09:55:27.372Z
 **Total Agents**: 84

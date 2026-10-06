@@ -13,7 +13,7 @@ tags:
 - performance
 status: active
 created_date: '2026-08-29'
-implementation: "agents/client-website-discovery-assistant-agent/"
+implementation: "agents/discovery-agent/"
 ---
 
 # AGENT
@@ -22,7 +22,7 @@ Comprehensive website assessment and analysis for competitive discovery and UX e
 
 ## Implementation Reference
 
-This specification lives in [`agents/client-website-discovery-assistant-agent/`](./), the folder named by `implementation` above. The runnable agent definition and README are in [`agents/discovery-agent/`](../discovery-agent/).
+This agent's implementation is located in [`agents/discovery-agent/`](../discovery-agent/), the folder named by `implementation` above. This specification file itself lives in [`agents/client-website-discovery-assistant-agent/`](./).
 
 ### Entry Points
 
