@@ -58,6 +58,8 @@ describe('saved coverage evidence', () => {
     expect(coverage.private_only_label_count).toBeGreaterThanOrEqual(0);
     expect(text).not.toMatch(/lightspeedwp\//);
     expect(coverage.count).toBe(coverage.labels.length);
+    // The repository aggregate is inclusive; the note must say so.
+    expect(coverage.note).toMatch(/all qualifying repositories, including private ones/);
   });
 });
 

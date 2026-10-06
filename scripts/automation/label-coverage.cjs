@@ -6,8 +6,11 @@
  *
  * Only names found in at least one PUBLIC repository are kept. A name found only
  * in private repositories is counted but never named, because this repository is
- * public (spec 008 FR-018, label-mapping schema). Counts come from public
- * repositories only.
+ * public (spec 008 FR-018, label-mapping schema). The per-label repository and
+ * item counts use public repositories only. The one aggregate,
+ * `repositories_with_unapproved_labels`, counts every qualifying repository,
+ * private ones included; the privacy decision allows aggregate counts but never
+ * private repository names or their labels.
  *
  * Usage: node scripts/automation/label-coverage.cjs <report.json> <private-repos.txt> [--write]
  * `private-repos.txt` holds one repository name per line (for example from
@@ -72,7 +75,7 @@ if (require.main === module) {
   const result = {
     generated_at: String(report.generated_at).slice(0, 10),
     source: 'label drift report artifact (weekly drift check); read-only',
-    note: 'Unapproved labels (not in labels.yml) found in public lightspeedwp repositories. Names found only in private repositories are counted, not named. known_items sums the item counts in the report, which caps counted rows, so it is a lower bound.',
+    note: 'Label names and per-label repository and item counts are from public lightspeedwp repositories (labels not in labels.yml). repositories_with_unapproved_labels counts all qualifying repositories, including private ones. Names found only in private repositories are counted, not named. known_items sums the item counts in the report, which caps counted rows, so it is a lower bound.',
     repositories_with_unapproved_labels: repositoriesRead,
     private_only_label_count: privateOnlyCount,
     count: names.length,
