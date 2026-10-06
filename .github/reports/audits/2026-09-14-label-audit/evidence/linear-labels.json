@@ -3284,5 +3284,2351 @@
       }
     ]
   },
-  "mappings": []
+  "mappings": [
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "ai-ops:instructions",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "aiops:instructions",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "ai-ops:chat-modes",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "aiops:chat-modes",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "ai-ops:agents",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "aiops:agents",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "ai-ops:prompts",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "aiops:prompts",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "ai-ops:datasets",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "aiops:datasets",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "ai-ops:evaluations",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "aiops:evaluations",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "ai-ops:tools",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "aiops:tools",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:discovery",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:discovery",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:planning",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:planning",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:specification-in-progress",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:specification-in-progress",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:specification-complete",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:specification-complete",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:implementation-pending",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:implementation-pending",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:implementation-in-progress",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:implementation-in-progress",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:status-testing",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:status-testing",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:status-production",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:status-production",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "openspec:implementation-complete",
+      "systems": [
+        "github"
+      ],
+      "action": "rename",
+      "target": "spec:implementation-complete",
+      "issue_count": 0,
+      "requirement": "FR-011"
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed retirement: a namespace prefix used in examples (openspec:domain/governance), not a label.",
+      "change_request": null,
+      "source": "openspec:domain",
+      "systems": [],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed rename to spec:implementation-in-progress: generic implementation stage.",
+      "change_request": null,
+      "source": "openspec:implementation",
+      "systems": [],
+      "action": "rename",
+      "target": "spec:implementation-in-progress",
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed retirement: a namespace prefix used in examples (openspec:priority/medium), not a label.",
+      "change_request": null,
+      "source": "openspec:priority",
+      "systems": [],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed rename to spec:specification-in-progress: generic specification stage.",
+      "change_request": null,
+      "source": "openspec:specification",
+      "systems": [],
+      "action": "rename",
+      "target": "spec:specification-in-progress",
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed rename to spec:planning: specification not started yet; closest status is planning.",
+      "change_request": null,
+      "source": "openspec:specification-pending",
+      "systems": [],
+      "action": "rename",
+      "target": "spec:planning",
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed retirement: a namespace prefix used in examples (openspec:status/production), not a label.",
+      "change_request": null,
+      "source": "openspec:status",
+      "systems": [],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed retirement: no spec status label matches tracking.",
+      "change_request": null,
+      "source": "openspec:tracking",
+      "systems": [],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Used in files but not defined in labels.yml. Proposed retirement: a placeholder value, not a label.",
+      "change_request": null,
+      "source": "openspec:unknown",
+      "systems": [],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "Spec numbers move to spec-id:NNN so spec:* holds only status labels.",
+      "change_request": null,
+      "source": "spec:001",
+      "systems": [],
+      "action": "rename",
+      "target": "spec-id:001",
+      "issue_count": 0,
+      "requirement": "FR-011",
+      "gap": true
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:ci-cd",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:ci",
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "type:content-model",
+      "systems": [],
+      "action": "merge",
+      "target": "type:content-modelling",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "type:ai-ops",
+      "systems": [],
+      "action": "merge",
+      "target": "type:aiops",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:docs",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:documentation",
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:ops",
+      "systems": [],
+      "action": "merge",
+      "target": "area:operations",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "scope:website",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:website",
+      "issue_count": 7,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "scope: website",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:website",
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "status:planned",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "status:needs-planning",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "status:planning",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "status:needs-planning",
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "priority:medium",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "priority:normal",
+      "issue_count": 81,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "status:completed",
+      "systems": [
+        "github",
+        "linear"
+      ],
+      "action": "merge",
+      "target": "status:done",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "status:resolved",
+      "systems": [],
+      "action": "merge",
+      "target": "status:done",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:tests",
+      "systems": [
+        "github",
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:testing",
+      "issue_count": 52,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:quality",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:qa",
+      "issue_count": 9,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "status:no-issue-activity",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "meta:no-issue-activity",
+      "issue_count": 3,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "status:ready-for-development",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "status:ready",
+      "issue_count": 14,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "status:in-review",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "status:needs-review",
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "lang:scss",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "lang:css",
+      "issue_count": 36,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "comp:workflows",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:workflows",
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:platform",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:infrastructure",
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:process",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:governance",
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:standards",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:governance",
+      "issue_count": 6,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:pr-automation",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:automation",
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:issue-management",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:automation",
+      "issue_count": 4,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:design",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:design-system",
+      "issue_count": 4,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "scope:audit",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "meta:audit",
+      "issue_count": 3,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "scope:project-management",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:projects",
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "meta:documentation",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "area:documentation",
+      "issue_count": 4,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "meta:ai-ops",
+      "systems": [],
+      "action": "merge",
+      "target": "area:ai",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:agents",
+      "systems": [
+        "github",
+        "linear"
+      ],
+      "action": "merge",
+      "target": "aiops:agents",
+      "issue_count": 113,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:instructions",
+      "systems": [
+        "github",
+        "linear"
+      ],
+      "action": "merge",
+      "target": "aiops:instructions",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "area:prompts",
+      "systems": [
+        "github",
+        "linear"
+      ],
+      "action": "merge",
+      "target": "aiops:prompts",
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed (not listed in FR-012): spacing variant of type:feature; spacing variants are separate sources (FR-023 point 8). Needed so the type family ends at exactly 25.",
+      "change_request": null,
+      "source": "type: feature",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "type:feature",
+      "issue_count": 1,
+      "requirement": "FR-014"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Build & CI type to CI. Needed so the type family ends at exactly 25.",
+      "change_request": null,
+      "source": "type:build-ci",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "type:ci",
+      "issue_count": 1,
+      "requirement": "FR-014"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Code Refactor type to Refactor. Needed so the type family ends at exactly 25.",
+      "change_request": null,
+      "source": "type:code-refactor",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "type:refactor",
+      "issue_count": 3,
+      "requirement": "FR-014"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed (not listed in FR-012): Linear-only duplicate of type:docs. Needed so the type family ends at exactly 25.",
+      "change_request": null,
+      "source": "type:documentation",
+      "systems": [
+        "linear"
+      ],
+      "action": "merge",
+      "target": "type:docs",
+      "issue_count": 1,
+      "requirement": "FR-014"
+    },
+    {
+      "concept_label": "discussion:support",
+      "notes": "",
+      "change_request": null,
+      "source": "type:help",
+      "systems": [],
+      "action": "re-prefix",
+      "target": "type:task",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "discussion:support",
+      "notes": "",
+      "change_request": null,
+      "source": "type:support",
+      "systems": [],
+      "action": "re-prefix",
+      "target": "type:task",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": null,
+      "notes": "",
+      "change_request": null,
+      "source": "type:investigation",
+      "systems": [],
+      "action": "re-prefix",
+      "target": "type:research",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "area:maintenance",
+      "notes": "",
+      "change_request": null,
+      "source": "type:maintenance",
+      "systems": [
+        "linear"
+      ],
+      "action": "re-prefix",
+      "target": "type:chore",
+      "issue_count": 10,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "area:qa",
+      "notes": "",
+      "change_request": null,
+      "source": "type:qa",
+      "systems": [],
+      "action": "re-prefix",
+      "target": "type:test",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "area:frontend",
+      "notes": "",
+      "change_request": null,
+      "source": "type:ui",
+      "systems": [],
+      "action": "re-prefix",
+      "target": "type:design",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "discussion:feedback",
+      "notes": "",
+      "change_request": null,
+      "source": "type:ux-feedback",
+      "systems": [],
+      "action": "re-prefix",
+      "target": "type:design",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": "area:integration",
+      "notes": "",
+      "change_request": null,
+      "source": "type:integration",
+      "systems": [],
+      "action": "re-prefix",
+      "target": "type:feature",
+      "issue_count": 0,
+      "requirement": "FR-015"
+    },
+    {
+      "concept_label": null,
+      "notes": "Retired; open questions become Discussions (discussion:support) and closed ones are relabelled type:task + discussion:support before deletion. type:decision already holds its slot (Stage 0a).",
+      "change_request": null,
+      "source": "type:question",
+      "systems": [
+        "linear"
+      ],
+      "action": "swap",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-014"
+    },
+    {
+      "concept_label": null,
+      "notes": "Project-specific; moved to a Linear team, not imported.",
+      "change_request": null,
+      "source": "area:xero",
+      "systems": [
+        "linear"
+      ],
+      "action": "team-scope",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Project-specific; moved to a Linear team, not imported.",
+      "change_request": null,
+      "source": "area:flow",
+      "systems": [
+        "linear"
+      ],
+      "action": "team-scope",
+      "target": null,
+      "issue_count": 11,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Project-specific; moved to a Linear team, not imported.",
+      "change_request": null,
+      "source": "area:jobs",
+      "systems": [
+        "linear"
+      ],
+      "action": "team-scope",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Project-specific; moved to a Linear team, not imported.",
+      "change_request": null,
+      "source": "area:monorepo",
+      "systems": [
+        "linear"
+      ],
+      "action": "team-scope",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Requested in #3554.",
+      "change_request": 3554,
+      "source": "area:builds",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 424,
+      "requirement": "FR-012",
+      "color": "BFD4F2",
+      "description": "Build configuration, tooling, packaging, and artefact generation; use `area:ci` for CI pipeline execution and checks."
+    },
+    {
+      "concept_label": null,
+      "notes": "Requested in #3554.",
+      "change_request": 3554,
+      "source": "area:monitoring",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 8,
+      "requirement": "FR-012",
+      "color": "006B75",
+      "description": "Operational checks, health monitoring, alerts, and failure detection; use `area:observability` for diagnostic telemetry and dashboards."
+    },
+    {
+      "concept_label": null,
+      "notes": "Requested in #3554.",
+      "change_request": 3554,
+      "source": "area:observability",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 3,
+      "requirement": "FR-012",
+      "color": "006B75",
+      "description": "Logs, metrics, traces, and dashboards used to understand and diagnose system behaviour; use `area:monitoring` for checks and alerts."
+    },
+    {
+      "concept_label": null,
+      "notes": "Requested in #3554.",
+      "change_request": 3554,
+      "source": "area:workflows",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 12,
+      "requirement": "FR-012",
+      "color": "0F448A",
+      "description": "Cross-cutting automated or operational workflow design and orchestration; use `area:automation` for scripts and automation implementation."
+    },
+    {
+      "concept_label": null,
+      "notes": "Requested in #3554.",
+      "change_request": 3554,
+      "source": "meta:needs-approval",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 3,
+      "requirement": "FR-012, FR-021",
+      "color": "57606A",
+      "description": "Explicit decision or sign-off required before the specified work proceeds; remove once the decision and approver are recorded."
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "CI/CD",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012",
+      "color": "10B981",
+      "description": "Continuous integration and deployment infrastructure"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "Hosting",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 13,
+      "requirement": "FR-012",
+      "color": "F59E0B",
+      "description": "Hosting environment, servers, and infrastructure"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "agent-audit",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "aiops:agents",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "aiops:chat-modes",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "aiops:datasets",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "aiops:evaluations",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "aiops:instructions",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "0052CC",
+      "description": "AI instruction docs"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "aiops:prompts",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 4 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "aiops:tools",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 4,
+      "requirement": "FR-012",
+      "color": "BFD4F2",
+      "description": "Tool/plugin manifests"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:api",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 3,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Application programming interface work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:auth",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 6,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Authentication and authorisation work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 24 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:backend",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 24,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Backend application work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:changelog",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 7,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Changelog management"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:communication",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 4,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Communication and notifications"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:db",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Database work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:extension",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 5,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Extension development and maintenance"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 22 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:frontend",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 22,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Frontend application work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:hosting",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 6,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Hosting configuration and operations"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 56 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:labels",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 56,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Label taxonomy and governance"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "area:linting",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:mcp",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Model Context Protocol integrations"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:migration",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 7,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Data, content, or system migration work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "area:onboarding",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:projects",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Project planning and management"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:reports",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 5,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Creating, presenting, or maintaining reports"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 40 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:specification",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 40,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Technical specifications and requirements"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 11 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:templates",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 11,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Reusable project and content templates"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 106 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "area:website",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 106,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Website implementation and maintenance work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "bug",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "EDEDED",
+      "description": "Imported from Linear (2 issues); description to be written at approval."
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "ci-runner-audit-2026-07-20",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 13,
+      "requirement": "FR-012",
+      "color": "B60205",
+      "description": "Self-hosted CI runner security audit, 2026-07-20"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "comp:query-loop",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Query Loop block"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "comp:readme-mermaid",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 3,
+      "requirement": "FR-012",
+      "color": "C5DEF5",
+      "description": "Mermaid diagrams in README files"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "documentation",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "epic",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "3FB950",
+      "description": "Large multi-scope initiative"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "harvest-parity",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "0E8A16",
+      "description": "Closing a gap against Harvest before the subscription ends"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "important",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 8 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "master-ci-red",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 8,
+      "requirement": "FR-012",
+      "color": "EDEDED",
+      "description": "Imported from Linear (8 issues); description to be written at approval."
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:aiops",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Imported from Linear (1 issues); description to be written at approval."
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "meta:analysis",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 42 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:audit",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 42,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Housekeeping metadata for audit work and findings"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:dependabot-security",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Dependabot update appears security-related and eligible for guarded automation"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:enhancement",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 4,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Housekeeping metadata for proposed enhancements"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:incident-report",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Incident report tracking"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:infrastructure-blocker",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 3,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Infrastructure dependency is blocking progress"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:needs-audit",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Imported from Linear (2 issues); description to be written at approval."
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:needs-triage",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Imported from Linear (1 issues); description to be written at approval."
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:refactor-rules",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Rules for refactoring work"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:release-plan",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Release planning and coordination"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:tech-debt",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Technical debt tracking"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "meta:tracking",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 3,
+      "requirement": "FR-012",
+      "color": "57606A",
+      "description": "Work requiring ongoing tracking and follow-up"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:area:automation",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 162,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:area:ci",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 109,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:area:documentation",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 65,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:area:scripts",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 5,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:openspec:status/implementation",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:openspec:status/planning",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 4,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:openspec:status/production",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:openspec:status/testing",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:priority:critical",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 49,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:priority:important",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 112,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:priority:minor",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:priority:normal",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 288,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:status:needs-more-info",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 311,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:status:needs-triage",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 29,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:status:ready",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 58,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported.",
+      "change_request": null,
+      "source": "migrate:type:a11y",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:ai-ops",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:audit",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 51,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:automation",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 39,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:bug",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 102,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:compatibility",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:documentation",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:epic",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 1,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:feature",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 84,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:improve",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 2,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:maintenance",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 11,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:refactor",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 19,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:security",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 5,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:task",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 287,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "change_request": null,
+      "source": "migrate:type:test",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 30,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* labels are never imported.",
+      "change_request": null,
+      "source": "migrate:type:ux-feedback",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "scope:restructuring",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 11 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "security",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 11,
+      "requirement": "FR-012",
+      "color": "EDEDED",
+      "description": "Imported from Linear (11 issues); description to be written at approval."
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:discovery",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:implementation-complete",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:implementation-in-progress",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:implementation-pending",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:planning",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:specification-complete",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:specification-in-progress",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:status-production",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Linear-only with zero issues; retire, not import.",
+      "change_request": null,
+      "source": "spec:status-testing",
+      "systems": [
+        "linear"
+      ],
+      "action": "retire",
+      "target": null,
+      "issue_count": 0,
+      "requirement": "FR-012"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "status:needs-analysis",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 3,
+      "requirement": "FR-012",
+      "color": "BFD4F2",
+      "description": "Analysis required before proceeding"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "status:needs-cleanup",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 5,
+      "requirement": "FR-012",
+      "color": "BFD4F2",
+      "description": "Requires cleanup before proceeding"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval.",
+      "change_request": null,
+      "source": "status:needs-template-fix",
+      "systems": [
+        "linear"
+      ],
+      "action": "import",
+      "target": null,
+      "issue_count": 207,
+      "requirement": "FR-012",
+      "color": "BFD4F2",
+      "description": "Issue template requires correction"
+    }
+  ]
 }

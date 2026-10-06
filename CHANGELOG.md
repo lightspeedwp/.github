@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Label Mapping and Change Request** — Spec 008 label mapping (175 entries, checked against the schema rules) and a draft `[LABEL-UPDATE-REQUEST]` for @ashleyshaw's approval. Nothing is applied.
 - **Label Consolidation Tool** — Plans label renames and creations across repositories, with deletions gated by approval per repository. Dry run by default; private evidence stays private. ([PR #3823](https://github.com/lightspeedwp/.github/pull/3823))
 - **Locked Files Guard** — Pull requests that change locked labels, issue types, templates or routing files now fail a check until a linked change request is approved by @ashleyshaw. (#3734)
 - **Governance Audit Phase 0-2 Infrastructure** — Added audit rule loader, violation tracker and report generator scripts with governance rules, plus Spec 006 design docs. (#3367)
