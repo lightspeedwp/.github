@@ -305,6 +305,14 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 - Retired labels are deleted only after the per-repository dry-run approval on the deletion gate issue.
 - Linear: label creation is restricted afterwards (T071), so the imports are the last new labels.
 
+## Platform checks (Linear documentation, read 2026-10-06)
+
+- Linear merges labels natively and rescopes them between workspace and team ([Issue labels](https://linear.app/docs/labels)), so each `merge` row is a supported operation.
+- Deleting a label removes it from every issue and cannot be undone; archiving keeps it on past issues and blocks new use. This matches the spec: Linear labels are retired (archived), never deleted.
+- Only one label from a label group can sit on an issue. The type family ends at 25 labels with one per issue, so it must stay a label group for Linear to enforce that.
+- The GitHub issue sync is bidirectional and includes labels ([GitHub Issues Sync](https://linear.app/changelog/2023-12-14-github-issues-sync)). That is why the spec turns the sync off from Stage 3 to Stage 5 (T071, T083).
+- Issue label management can be limited to team owners ([Teams](https://linear.app/docs/teams)), which is how T071 restricts label creation.
+
 ## Approval
 
 Reply on this issue with a comment starting `Approved` and the date. Edits to individual rows can be listed in the same comment.
