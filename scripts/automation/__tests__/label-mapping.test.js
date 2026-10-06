@@ -163,6 +163,17 @@ describe('label mapping', () => {
     expect(rows.get('area:monorepo')).toMatchObject({ action: 'team-scope' });
   });
 
+  it('takes area:labels colour and description from its own request, #3757 (FR-012, R16)', () => {
+    const row = build().mappings.find((m) => m.source === 'area:labels');
+    expect(row).toMatchObject({
+      action: 'import',
+      color: 'EDEDED',
+      description: 'Label governance and routing',
+      change_request: 3757,
+    });
+    expect(row.notes).toContain('#3757');
+  });
+
   it('reports an import that cites no change request', () => {
     const { mappings, proposedNames } = build();
     const broken = mappings.map((m) =>

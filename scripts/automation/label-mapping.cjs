@@ -144,6 +144,17 @@ const TEAM_SCOPE = ['area:xero', 'area:flow', 'area:jobs', 'area:monorepo'];
 const IMPORT_CHANGE_REQUEST = 3834;
 const OWN_CHANGE_REQUESTS = { 'area:labels': 3757 };
 
+/**
+ * Colour and description of an import that has its own request. FR-012 (research R16):
+ * where `docs/LABEL_COLOR_STRATEGY.md` has no rule for the family, the colour in the
+ * approved request stands, so these win over the family default and over Linear's
+ * own description. The Linear label is then updated to match `labels.yml`.
+ * #3757 asks for `area:labels` with the values the label already has on GitHub.
+ */
+const OWN_REQUEST_VALUES = {
+  'area:labels': { color: 'EDEDED', description: 'Label governance and routing' },
+};
+
 /** The five imports of #3554, with the colours and descriptions set in FR-012. */
 const ISSUE_3554 = {
   'area:builds': {
@@ -625,6 +636,23 @@ function buildMappings({
         issue_count: 0,
         requirement: 'FR-012',
         notes: 'Linear-only with zero issues; retire, not import.',
+      });
+      continue;
+    }
+    const ownRequest = OWN_REQUEST_VALUES[name];
+    if (ownRequest) {
+      const request = OWN_CHANGE_REQUESTS[name];
+      add({
+        source: name,
+        systems: where(name),
+        action: 'import',
+        target: null,
+        issue_count: issueCount,
+        requirement: 'FR-012',
+        color: ownRequest.color,
+        description: ownRequest.description,
+        change_request: request,
+        notes: `Requested in #${request}: colour and description as in the request, because the colour strategy has no rule for this label (FR-012, R16). Applied to ${issueCount} Linear issue${issueCount === 1 ? '' : 's'}; the Linear label is updated to match.`,
       });
       continue;
     }

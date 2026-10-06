@@ -4627,7 +4627,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 56 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3757.",
+      "notes": "Requested in #3757: colour and description as in the request, because the colour strategy has no rule for this label (FR-012, R16). Applied to 56 Linear issues; the Linear label is updated to match.",
       "change_request": 3757,
       "source": "area:labels",
       "systems": [
@@ -4638,8 +4638,8 @@
       "target": null,
       "issue_count": 56,
       "requirement": "FR-012",
-      "color": "C5DEF5",
-      "description": "Label taxonomy and governance"
+      "color": "EDEDED",
+      "description": "Label governance and routing"
     },
     {
       "concept_label": null,
