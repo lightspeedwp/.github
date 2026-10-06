@@ -14,7 +14,7 @@
 const CACHE_TTL = 300000; // 5 minutes
 const MAX_RETRIES = 3;
 const RETRY_DELAYS = [1000, 2000, 4000]; // Exponential backoff: 1s, 2s, 4s
-const GITHUB_API_BASE = "https://api.github.com";
+const GITHUB_API_BASE = 'https://api.github.com';
 
 // Simple in-memory cache
 const responseCache = new Map();
@@ -77,12 +77,7 @@ function cleanExpiredCache() {
  * @param {object} options - Options including headers, token, etc.
  * @returns {Promise<object>} Parsed JSON response
  */
-export async function githubApiRequest(
-  method,
-  path,
-  body = null,
-  options = {},
-) {
+export async function githubApiRequest(method, path, body = null, options = {}) {
   const {
     token = process.env.GITHUB_TOKEN,
     headers = {},
@@ -91,11 +86,11 @@ export async function githubApiRequest(
   } = options;
 
   if (!token) {
-    throw new Error("GITHUB_TOKEN environment variable not set");
+    throw new Error('GITHUB_TOKEN environment variable not set');
   }
 
   // Check cache for GET requests
-  if (useCache && method === "GET") {
+  if (useCache && method === 'GET') {
     const cached = responseCache.get(cacheKey);
     if (cached && Date.now() < cached.expiresAt) {
       return cached.data;
@@ -107,13 +102,13 @@ export async function githubApiRequest(
     method,
     headers: {
       Authorization: `token ${token}`,
-      Accept: "application/vnd.github.v3+json",
-      "Content-Type": "application/json",
+      Accept: 'application/vnd.github.v3+json',
+      'Content-Type': 'application/json',
       ...headers,
     },
   };
 
-  if (body && method !== "GET" && method !== "HEAD") {
+  if (body && method !== 'GET' && method !== 'HEAD') {
     fetchOptions.body = JSON.stringify(body);
   }
 
@@ -125,24 +120,21 @@ export async function githubApiRequest(
       // Handle rate limiting (429 or 403 with no remaining calls)
       const isRateLimited =
         response.status === 429 ||
-        (response.status === 403 &&
-          response.headers.get("x-ratelimit-remaining") === "0");
+        (response.status === 403 && response.headers.get('x-ratelimit-remaining') === '0');
 
       if (isRateLimited) {
         if (attempt < MAX_RETRIES - 1) {
           const retryAfter = parseInt(
-            response.headers.get("retry-after") ||
-              response.headers.get("x-ratelimit-reset") ||
-              "60",
-            10,
+            response.headers.get('retry-after') ||
+              response.headers.get('x-ratelimit-reset') ||
+              '60',
+            10
           );
           const delayMs =
-            response.headers.get("retry-after") || response.status === 429
+            response.headers.get('retry-after') || response.status === 429
               ? retryAfter * 1000
               : (retryAfter - Math.floor(Date.now() / 1000)) * 1000;
-          await new Promise((resolve) =>
-            setTimeout(resolve, Math.max(delayMs, 1000)),
-          );
+          await new Promise((resolve) => setTimeout(resolve, Math.max(delayMs, 1000)));
           continue;
         }
       }
@@ -159,15 +151,9 @@ export async function githubApiRequest(
           // Keep the basic error message
         }
 
-        if (
-          attempt < MAX_RETRIES - 1 &&
-          response.status >= 500 &&
-          !isRateLimited
-        ) {
+        if (attempt < MAX_RETRIES - 1 && response.status >= 500 && !isRateLimited) {
           // Retry on server errors
-          await new Promise((resolve) =>
-            setTimeout(resolve, RETRY_DELAYS[attempt]),
-          );
+          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAYS[attempt]));
           continue;
         }
         const error = new Error(errorMessage);
@@ -180,8 +166,8 @@ export async function githubApiRequest(
       // Handle 204 No Content (no response body)
       let data = null;
       if (response.status !== 204) {
-        const contentType = response.headers.get("content-type");
-        if (contentType && contentType.includes("application/json")) {
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
           data = await response.json();
         } else if (response.status !== 204) {
           const text = await response.text();
@@ -190,7 +176,7 @@ export async function githubApiRequest(
       }
 
       // Cache successful GET responses
-      if (useCache && method === "GET") {
+      if (useCache && method === 'GET') {
         responseCache.set(cacheKey, {
           data,
           expiresAt: Date.now() + CACHE_TTL,
@@ -201,14 +187,12 @@ export async function githubApiRequest(
     } catch (error) {
       lastError = error;
       if (attempt < MAX_RETRIES - 1) {
-        await new Promise((resolve) =>
-          setTimeout(resolve, RETRY_DELAYS[attempt]),
-        );
+        await new Promise((resolve) => setTimeout(resolve, RETRY_DELAYS[attempt]));
       }
     }
   }
 
-  throw lastError || new Error("GitHub API request failed");
+  throw lastError || new Error('GitHub API request failed');
 }
 
 /**
@@ -219,12 +203,7 @@ export async function githubApiRequest(
  * @param {object} options - Request options
  * @returns {Promise<object[]>} Array of issue objects
  */
-export async function batchFetchIssues(
-  owner,
-  repo,
-  issueNumbers,
-  options = {},
-) {
+export async function batchFetchIssues(owner, repo, issueNumbers, options = {}) {
   const issues = [];
 
   // Fetch in parallel with concurrency limit (default 3)
@@ -232,12 +211,7 @@ export async function batchFetchIssues(
   for (let i = 0; i < issueNumbers.length; i += concurrency) {
     const batch = issueNumbers.slice(i, i + concurrency);
     const promises = batch.map((num) =>
-      githubApiRequest(
-        "GET",
-        `/repos/${owner}/${repo}/issues/${num}`,
-        null,
-        options,
-      ),
+      githubApiRequest('GET', `/repos/${owner}/${repo}/issues/${num}`, null, options)
     );
     const results = await Promise.all(promises);
     issues.push(...results);
@@ -258,8 +232,8 @@ export async function fetchPaginated(path, options = {}) {
   let page = 1;
 
   for (;;) {
-    const url = `${path}${path.includes("?") ? "&" : "?"}per_page=${perPage}&page=${page}`;
-    const data = await githubApiRequest("GET", url, null, options);
+    const url = `${path}${path.includes('?') ? '&' : '?'}per_page=${perPage}&page=${page}`;
+    const data = await githubApiRequest('GET', url, null, options);
 
     if (!Array.isArray(data)) {
       return data;
@@ -293,8 +267,8 @@ export async function parallelFetchPaginated(path, options = {}) {
   const totalEstimate = options.totalEstimate || 10000; // Estimate for initial batch size - high to avoid truncation
 
   // Fetch first page to get total count (if available)
-  const url = `${path}${path.includes("?") ? "&" : "?"}per_page=${perPage}&page=1`;
-  const firstPage = await githubApiRequest("GET", url, null, options);
+  const url = `${path}${path.includes('?') ? '&' : '?'}per_page=${perPage}&page=1`;
+  const firstPage = await githubApiRequest('GET', url, null, options);
 
   if (!Array.isArray(firstPage)) {
     return firstPage;
@@ -306,23 +280,15 @@ export async function parallelFetchPaginated(path, options = {}) {
   const estimatedPages = Math.ceil(totalEstimate / perPage);
 
   // Fetch remaining pages in parallel batches
-  for (
-    let pageStart = 2;
-    pageStart <= estimatedPages;
-    pageStart += concurrency
-  ) {
+  for (let pageStart = 2; pageStart <= estimatedPages; pageStart += concurrency) {
     const pageRange = [];
-    for (
-      let p = pageStart;
-      p < pageStart + concurrency && p <= estimatedPages;
-      p++
-    ) {
+    for (let p = pageStart; p < pageStart + concurrency && p <= estimatedPages; p++) {
       pageRange.push(p);
     }
 
     const promises = pageRange.map((page) => {
-      const pageUrl = `${path}${path.includes("?") ? "&" : "?"}per_page=${perPage}&page=${page}`;
-      return githubApiRequest("GET", pageUrl, null, {
+      const pageUrl = `${path}${path.includes('?') ? '&' : '?'}per_page=${perPage}&page=${page}`;
+      return githubApiRequest('GET', pageUrl, null, {
         ...options,
         useCache: false,
       });
@@ -357,18 +323,12 @@ export async function parallelFetchPaginated(path, options = {}) {
  * @param {object} options - Request options
  * @returns {Promise<object>} Updated issue object
  */
-export async function updateIssueLabels(
-  owner,
-  repo,
-  issueNumber,
-  labels,
-  options = {},
-) {
+export async function updateIssueLabels(owner, repo, issueNumber, labels, options = {}) {
   return githubApiRequest(
-    "PATCH",
+    'PATCH',
     `/repos/${owner}/${repo}/issues/${issueNumber}`,
     { labels },
-    { ...options, useCache: false },
+    { ...options, useCache: false }
   );
 }
 
@@ -386,13 +346,13 @@ export async function updateIssueMilestone(
   repo,
   issueNumber,
   milestoneNumber,
-  options = {},
+  options = {}
 ) {
   return githubApiRequest(
-    "PATCH",
+    'PATCH',
     `/repos/${owner}/${repo}/issues/${issueNumber}`,
     { milestone: milestoneNumber },
-    { ...options, useCache: false },
+    { ...options, useCache: false }
   );
 }
 

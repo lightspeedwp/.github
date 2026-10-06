@@ -4,8 +4,8 @@
  * @module scripts/automation/includes/report-generator.js
  */
 
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 /**
  * ReportGenerator provides multi-format report generation
@@ -32,35 +32,33 @@ export class ReportGenerator {
    */
   generateCSV(records) {
     if (!Array.isArray(records) || records.length === 0) {
-      return "";
+      return '';
     }
 
     // Extract all unique keys from all records
     const keys = new Set();
     records.forEach((record) => {
-      this.extractKeys(record, "", keys);
+      this.extractKeys(record, '', keys);
     });
 
     const headers = Array.from(keys).sort();
-    const rows = [headers.join(",")];
+    const rows = [headers.join(',')];
 
     // Add data rows
     records.forEach((record) => {
       const values = headers.map((key) => {
         const value = this.getNestedValue(record, key);
-        const stringValue = String(value === undefined ? "" : value);
+        const stringValue = String(value === undefined ? '' : value);
         // Escape quotes and wrap in quotes if needed
         const escaped = stringValue.replace(/"/g, '""');
         const needsQuotes =
-          escaped.includes(",") ||
-          escaped.includes("\n") ||
-          escaped.includes('"');
+          escaped.includes(',') || escaped.includes('\n') || escaped.includes('"');
         return needsQuotes ? `"${escaped}"` : escaped;
       });
-      rows.push(values.join(","));
+      rows.push(values.join(','));
     });
 
-    return rows.join("\n");
+    return rows.join('\n');
   }
 
   /**
@@ -70,7 +68,7 @@ export class ReportGenerator {
    * @returns {string} Markdown string
    */
   generateMarkdown(data) {
-    let markdown = "";
+    let markdown = '';
 
     if (data.title) {
       markdown += `# ${data.title}\n\n`;
@@ -87,30 +85,30 @@ export class ReportGenerator {
 
     // Add summary section
     if (data.summary) {
-      markdown += "## Summary\n\n";
+      markdown += '## Summary\n\n';
       markdown += this.objectToMarkdownTable(data.summary);
-      markdown += "\n\n";
+      markdown += '\n\n';
     }
 
     // Add findings/results section
     if (data.findings) {
-      markdown += "## Findings\n\n";
+      markdown += '## Findings\n\n';
       markdown += this.arrayToMarkdownList(data.findings);
-      markdown += "\n\n";
+      markdown += '\n\n';
     }
 
     // Add issues/recommendations
     if (data.recommendations) {
-      markdown += "## Recommendations\n\n";
+      markdown += '## Recommendations\n\n';
       markdown += this.arrayToMarkdownList(data.recommendations);
-      markdown += "\n\n";
+      markdown += '\n\n';
     }
 
     // Add details section
     if (data.details) {
-      markdown += "## Details\n\n";
+      markdown += '## Details\n\n';
       markdown += this.objectToMarkdownTable(data.details);
-      markdown += "\n\n";
+      markdown += '\n\n';
     }
 
     return markdown;
@@ -126,17 +124,15 @@ export class ReportGenerator {
     let content;
 
     switch (format.toLowerCase()) {
-      case "json":
+      case 'json':
         content = this.generateJSON(data);
         break;
-      case "csv":
+      case 'csv':
         // For CSV, data should be an array of records
-        content = Array.isArray(data)
-          ? this.generateCSV(data)
-          : this.generateCSV([data]);
+        content = Array.isArray(data) ? this.generateCSV(data) : this.generateCSV([data]);
         break;
-      case "markdown":
-      case "md":
+      case 'markdown':
+      case 'md':
         content = this.generateMarkdown(data);
         break;
       default:
@@ -148,7 +144,7 @@ export class ReportGenerator {
       fs.mkdirSync(dir, { recursive: true });
     }
 
-    fs.writeFileSync(outputPath, content, "utf-8");
+    fs.writeFileSync(outputPath, content, 'utf-8');
 
     if (this.verbose) {
       console.log(`Report exported to: ${outputPath}`);
@@ -162,7 +158,7 @@ export class ReportGenerator {
    * @private
    */
   extractKeys(obj, prefix, keys) {
-    if (obj === null || typeof obj !== "object") {
+    if (obj === null || typeof obj !== 'object') {
       return;
     }
 
@@ -186,12 +182,12 @@ export class ReportGenerator {
    * @private
    */
   getNestedValue(obj, path) {
-    return path.split(".").reduce((current, part) => {
+    return path.split('.').reduce((current, part) => {
       if (current === undefined || current === null) {
         return undefined;
       }
-      if (part.includes("[")) {
-        const [key, index] = part.split("[");
+      if (part.includes('[')) {
+        const [key, index] = part.split('[');
         const idx = parseInt(index.slice(0, -1), 10);
         return current[key]?.[idx];
       }
@@ -204,14 +200,14 @@ export class ReportGenerator {
    * @private
    */
   objectToMarkdownTable(obj) {
-    const rows = ["| Key | Value |", "|-----|-------|"];
+    const rows = ['| Key | Value |', '|-----|-------|'];
 
     Object.entries(obj).forEach(([key, value]) => {
       const valueStr = this.valueToString(value);
       rows.push(`| ${key} | ${valueStr} |`);
     });
 
-    return rows.join("\n");
+    return rows.join('\n');
   }
 
   /**
@@ -228,7 +224,7 @@ export class ReportGenerator {
         const str = this.valueToString(item);
         return `- ${str}`;
       })
-      .join("\n");
+      .join('\n');
   }
 
   /**
@@ -237,9 +233,9 @@ export class ReportGenerator {
    */
   valueToString(value) {
     if (value === undefined || value === null) {
-      return "(empty)";
+      return '(empty)';
     }
-    if (typeof value === "object") {
+    if (typeof value === 'object') {
       return JSON.stringify(value);
     }
     return String(value);
