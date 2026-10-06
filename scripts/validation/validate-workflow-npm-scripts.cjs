@@ -24,7 +24,8 @@ const yaml = require("js-yaml");
 const { changedFiles } = require("./lib/changed-files.cjs");
 
 const ROOT = process.cwd();
-const NPM_RUN_RE = /\bnpm\s+run\s+([\w:.-]+)/g;
+// Option flags such as `--silent` or `--workspace=x` may sit between `run` and the script name.
+const NPM_RUN_RE = /\bnpm\s+run\s+(?:--?[\w-]+(?:=\S+)?\s+)*([\w:][\w:.-]*)/g;
 
 function isRepoRootWorkingDir(dir) {
   if (!dir) return true;
@@ -69,35 +70,41 @@ function checkWorkflow(filePath, scripts, missing) {
   }
 }
 
-const changed = changedFiles((f) => /^\.github\/workflows\/.*\.ya?ml$/.test(f));
+function main() {
+  const changed = changedFiles((f) => /^\.github\/workflows\/.*\.ya?ml$/.test(f));
 
-if (changed === null) {
-  const message = "Could not resolve a base commit to diff against.";
-  if (process.env.CI) {
-    console.error(`${message} Set BASE_SHA and HEAD_SHA, or check out with fetch-depth: 0.`);
+  if (changed === null) {
+    const message = "Could not resolve a base commit to diff against.";
+    if (process.env.CI) {
+      console.error(`${message} Set BASE_SHA and HEAD_SHA, or check out with fetch-depth: 0.`);
+      process.exit(1);
+    }
+    console.log(`${message} Skipping — nothing to check without a diff.`);
+    process.exit(0);
+  }
+
+  if (changed.length === 0) {
+    console.log("No workflow files changed — nothing to check.");
+    process.exit(0);
+  }
+
+  const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
+  const scripts = pkg.scripts || {};
+
+  const missing = [];
+  for (const file of changed) {
+    if (fs.existsSync(file)) checkWorkflow(file, scripts, missing);
+  }
+
+  if (missing.length > 0) {
+    console.error(`Found ${missing.length} npm script reference(s) with no matching package.json script:`);
+    for (const m of missing) console.error(`  - ${m}`);
     process.exit(1);
   }
-  console.log(`${message} Skipping — nothing to check without a diff.`);
-  process.exit(0);
+
+  console.log(`Checked ${changed.length} changed workflow file(s) — all referenced npm scripts exist.`);
 }
 
-if (changed.length === 0) {
-  console.log("No workflow files changed — nothing to check.");
-  process.exit(0);
-}
+if (require.main === module) main();
 
-const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"));
-const scripts = pkg.scripts || {};
-
-const missing = [];
-for (const file of changed) {
-  if (fs.existsSync(file)) checkWorkflow(file, scripts, missing);
-}
-
-if (missing.length > 0) {
-  console.error(`Found ${missing.length} npm script reference(s) with no matching package.json script:`);
-  for (const m of missing) console.error(`  - ${m}`);
-  process.exit(1);
-}
-
-console.log(`Checked ${changed.length} changed workflow file(s) — all referenced npm scripts exist.`);
+module.exports = { scanRunText };

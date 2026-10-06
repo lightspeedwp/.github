@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Drift Check Inventory** — The weekly label drift check now also writes the redacted label inventory, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Label Import Requests** — Every imported label now names the request that approves it, and the request is open as an issue. ([#3834](https://github.com/lightspeedwp/.github/issues/3834))
 - **Label Mapping** — Adds the label mapping and a draft change request for approval. Nothing is applied yet. ([PR #3831](https://github.com/lightspeedwp/.github/pull/3831))
@@ -128,6 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Pilot Off Until Switched On** — The pilot now runs only after its enable setting is switched on, so it cannot spend before its limit is confirmed, and a command on a closed pull request is skipped. (#3532)
 - **Pilot Run Origin** — Run records now name the pull request or comment event that started a run and when it arrived, and manual runs are left out of the 10-minute response rate. (#3532)
 - **Label Churn Stopped** — The labeler no longer removes the default priority and review labels the labeling agent adds. ([PR #3840](https://github.com/lightspeedwp/.github/pull/3840))
+- **One Type on Docs Bot Pull Requests** — The automated documentation regeneration and maintenance pull requests no longer get a second, non-canonical `type:documentation` label. ([PR #3839](https://github.com/lightspeedwp/.github/pull/3839))
 - **Phase Progression Follows Real Links** — A closing keyword in a code sample no longer moves an issue to another phase; only issues GitHub renders as links in the pull request body do. ([#3824](https://github.com/lightspeedwp/.github/issues/3824))
 - **Changelog Validator Clears Undici and Busboy Alerts** — Its `@actions` parents move to core 2 and github 8, so the tree resolves undici 6.29.0 with no `@fastify/busboy` copy left. (#3806)
 - **Skill Instructions Match Their References** — Twelve skill files no longer offer status labels, options or gates that their own reference files do not define, so agents follow instructions that exist. (#3716)
