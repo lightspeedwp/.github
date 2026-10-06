@@ -137,7 +137,7 @@ jobs:
         with:
           script: |
             const {
-              extractLinkedIssues,
+              extractRenderedLinkedIssues,
               orchestratePhaseProgression,
             } = require('./scripts/automation/handlers/orchestrate-phase-progression.cjs');
             const {
@@ -147,14 +147,22 @@ jobs:
 
             const pr = context.payload.pull_request;
             const trigger = context.payload.action === 'closed' ? 'PR merged' : 'PR opened';
-            const linkedIssues = extractLinkedIssues(pr.body || '');
+            const { owner, repo } = context.repo;
+            // GitHub decides what counts as a link: a keyword reference in a code
+            // sample is not one. If the body cannot be rendered, change nothing.
+            let linkedIssues;
+            try {
+              linkedIssues = await extractRenderedLinkedIssues(github, pr.body || '', `${owner}/${repo}`);
+            } catch (error) {
+              core.warning(`Could not render the PR body to read its linked issues (${error.message}); no phase was changed.`);
+              return;
+            }
 
             if (linkedIssues.length === 0) {
               core.info('No linked issues in the PR body.');
               return;
             }
 
-            const { owner, repo } = context.repo;
             const repoLabels = await listRepoLabels(github, owner, repo);
             const dryRun = process.env.DRY_RUN === 'true';
 
