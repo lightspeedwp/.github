@@ -5345,7 +5345,7 @@
     },
     {
       "concept_label": null,
-      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). For the GitHub dry run it migrates to type:aiops, the label its name points to after renames (FR-016).",
       "change_request": null,
       "source": "migrate:type:ai-ops",
       "systems": [
@@ -5353,7 +5353,7 @@
         "linear"
       ],
       "action": "retire",
-      "target": null,
+      "target": "type:aiops",
       "issue_count": 2,
       "requirement": "FR-012"
     },
@@ -5415,7 +5415,7 @@
     },
     {
       "concept_label": null,
-      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). For the GitHub dry run it migrates to type:docs, the label its name points to after renames (FR-016).",
       "change_request": null,
       "source": "migrate:type:documentation",
       "systems": [
@@ -5423,7 +5423,7 @@
         "linear"
       ],
       "action": "retire",
-      "target": null,
+      "target": "type:docs",
       "issue_count": 1,
       "requirement": "FR-012"
     },
@@ -5470,8 +5470,8 @@
       "requirement": "FR-012"
     },
     {
-      "concept_label": null,
-      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run).",
+      "concept_label": "area:maintenance",
+      "notes": "migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). For the GitHub dry run it migrates to type:chore, the label its name points to after renames (FR-016).",
       "change_request": null,
       "source": "migrate:type:maintenance",
       "systems": [
@@ -5479,7 +5479,7 @@
         "linear"
       ],
       "action": "retire",
-      "target": null,
+      "target": "type:chore",
       "issue_count": 11,
       "requirement": "FR-012"
     },
@@ -5540,8 +5540,8 @@
       "requirement": "FR-012"
     },
     {
-      "concept_label": null,
-      "notes": "migrate:* labels are never imported.",
+      "concept_label": "discussion:feedback",
+      "notes": "migrate:* labels are never imported. For the GitHub dry run it migrates to type:design, the label its name points to after renames (FR-016).",
       "change_request": null,
       "source": "migrate:type:ux-feedback",
       "systems": [
@@ -5549,7 +5549,7 @@
         "linear"
       ],
       "action": "retire",
-      "target": null,
+      "target": "type:design",
       "issue_count": 0,
       "requirement": "FR-012"
     },
@@ -5747,6 +5747,3854 @@
       "requirement": "FR-012",
       "color": "BFD4F2",
       "description": "Issue template requires correction"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "[Component] Block Patterns",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "[Type] Task",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "🔴 Large blast radius",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "🕐 10-20 Minutes",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "🕐 20-40 Minutes",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "🕐 40+ Minutes",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "🕐 Less than 10 minutes",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "🟠 Medium blast radius",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "🟡 Small blast radius",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "a11y",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:a11y"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "A11y",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:a11y"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "accessibility",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:a11y"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p01",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p02",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p04",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p05",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p06",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p07",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p09",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p10",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-p14",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: automation or agent marker with no canonical equivalent (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "ag-phase",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "area:accessibility",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "area:aiops",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "area:awesome-github",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "area:ci-config",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "area:npm",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "area:workflow-control",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as area:changelog apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "area/changelog",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "area:changelog"
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as area:ci-cd apart from case or separator, which resolves to area:ci (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "area/ci-cd",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "area:ci"
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as area:security apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "area/security",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "area:security"
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as area:testing apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "area/testing",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "area:testing"
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as area:workflows apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "area/workflows",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "area:workflows"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "assets",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "audit",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "Audit",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (2 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "automation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "awesome-github",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "blocks",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "bug-fix",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "Build & CI",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:chore, which resolves to type:chore (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "Chore",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:chore"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names area:ci, which resolves to area:ci (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "ci",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "area:ci"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "cleanup",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "code quality",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "code-quality",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "coderabbit",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (49 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "comp:help-tabs",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "completed",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 4 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "component:ci",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 4,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 2 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "component:workflows",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 2,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "Config",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "configuration",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names area:content, which resolves to area:content (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "content",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "area:content"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (36 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "copm:block-bindings",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names priority:critical, which resolves to priority:critical (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "critical",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "priority:critical"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "critical-path",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names area:dependencies, which resolves to area:dependencies (38 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "dependencies",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "area:dependencies"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "dequeued",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:design, which resolves to type:design (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "design",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:design"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "Design System",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:documentation, which resolves to type:docs (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "Documentation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:docs"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names status:duplicate, which resolves to status:duplicate (2 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "duplicate",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "status:duplicate"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:improve, which resolves to type:improve (7 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "enhancement",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:improve"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "environment",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "error-handling",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "feat/awesome-github",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:feature, which resolves to type:feature (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "feature",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:feature"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "Figma",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "font-library",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "full-site-editor",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (35 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "github_actions",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "github-templates",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "github-workflow",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "glossary",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (2 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "good first issue",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "governance",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names contrib:help-wanted, which resolves to contrib:help-wanted (2 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "help wanted",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "contrib:help-wanted"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "hygiene",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:improve, which resolves to type:improve (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "Improvement",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:improve"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names area:infrastructure, which resolves to area:infrastructure (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "infrastructure",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "area:infrastructure"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names status:wontfix, which resolves to status:wontfix (2 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "invalid",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "status:wontfix"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "issue/2354",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (16 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "javascript",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "lang:bash",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (4 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "lang:javascript",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (2 public repositories, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "logging",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "low-priority",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (2 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "maintenance",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:ai-governance-audit",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:duplicate",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:needs-review",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:phase-1",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:phase-2",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:phase-3",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:phase-4",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:phase-5",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:refactor",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:skip-changelog",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:spec-006",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "meta:test-suite-refactor",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* label; its name points to ai-ops:agents, which resolves to aiops:agents (1 public repository, 2 counted items (lower bound)).",
+      "change_request": null,
+      "source": "migrate:ai-ops:agents",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 2,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "aiops:agents"
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* label; its name points to area:tests, which resolves to area:testing (1 public repository, 27 counted items (lower bound)).",
+      "change_request": null,
+      "source": "migrate:area:tests",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 27,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "area:testing"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: migrate:* source with no approved target (FR-012) (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "migrate:type:enhancement",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "migrate:* label; its name points to type:investigation, which resolves to type:research (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "migrate:type:investigation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:research"
+    },
+    {
+      "concept_label": "area:frontend",
+      "notes": "migrate:* label; its name points to type:ui, which resolves to type:design (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "migrate:type:ui",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:design"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "migration",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (2 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "needs review",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names status:needs-triage, which resolves to status:needs-triage (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "needs-triage",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "status:needs-triage"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (4 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "no-issue-activity",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (9 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "no-pr-activity",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "node-upgrade",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "notebooklm",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "observability",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "onboarding",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:domain/agent-design",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:domain/automation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:domain/ci-cd",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:domain/documentation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:domain/governance",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:domain/testing",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:domain/workflow",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:phase/deployment",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:phase/implementation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:phase/planning",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:priority/high",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:priority/low",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:priority/medium",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:status/blocked",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:status/implementation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:status/planning",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:status/production",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: OpenSpec sub-namespace; the spec:* status labels replace it (FR-011) (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "openspec:status/testing",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "package.json",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "path-resolution",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:performance, which resolves to type:performance (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "performance",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:performance"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:performance, which resolves to type:performance (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "Performance",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:performance"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "phase-1",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 2 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "phase-1-critical",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 2,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "phase-2",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "phase-2-medium",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "phase-3-polish",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (2 public repositories, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "phase:1",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: project phase label; phases are tracked in milestones and projects (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "phase:3",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (27 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "php",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "planner",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "planning",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "playwright",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "pre-commit",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as priority:high apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "priority/high",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "priority:high"
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as priority:normal apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "priority/normal",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "priority:normal"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "project",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (2 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "question",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "queued",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "quickstart",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:refactor, which resolves to type:refactor (2 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "refactor",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:refactor"
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:release, which resolves to type:release (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "release",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:release"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "reliability",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 1 counted item (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "reviewer",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 1,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "scope:major-release",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "scripts",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "security:command-injection",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "size: large",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "size: medium",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: effort or size marker with no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "size: small",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (2 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "standards",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as status:completed apart from case or separator, which resolves to status:done (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "status: completed",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "status:done"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:complete",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:needs-pr-template",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (36 public repositories, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:needs-technical-feedback",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:needs-update",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:ready-for-merge",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:ready-for-review",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:ready-to-merge",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status:ready-to-start",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as status:in-progress apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "status/in-progress",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "status:in-progress"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: status label outside the approved status set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "status/needs-discussion",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "suppress-for-current-commit",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "talk-preparation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:task, which resolves to type:task (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "Task",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:task"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T001",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T002",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T003",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T004",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T005",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T006",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T007",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T008",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T009",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T010",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T011",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T012",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T013",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T014",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T015",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T016",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T017",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T018",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T019",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T020",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T021",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T022",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T023",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T024",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T025",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T026",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T027",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T028",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T029",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T030",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T031",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T032",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T033",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T034",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T035",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T036",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T037",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T038",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T039",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T040",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T041",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T042",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T043",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T044",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T045",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T046",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T047",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T048",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T049",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T050",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T051",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T052",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T053",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T054",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T055",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T056",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T057",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T058",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T059",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T060",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T061",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T062",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T063",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T064",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T065",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T066",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T067",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T068",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T069",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T070",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T071",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T072",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T073",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T074",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T075",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T076",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T077",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T078",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T079",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T080",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T081",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off task label from a spec task list; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "task:T082",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "tech-debt",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "templates",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names type:test, which resolves to type:test (3 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "test",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:test"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "Test Coverage",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "test-coverage",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names area:tests, which resolves to area:testing (2 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "testing",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "area:testing"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "tests",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:enhance",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:feat",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:fix",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:improvement",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:migration",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:story",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:testing-coverage",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "type:workflow",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as type:documentation apart from case or separator, which resolves to type:docs (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "type/documentation",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:docs"
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as type:feature apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "type/feature",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "type:feature"
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as type:refactor apart from case or separator (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "type/refactor",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "rename",
+      "target": "type:refactor"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "typography",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": "area:frontend",
+      "notes": "Earlier bare-label mapping (#2523) names type:ui, which resolves to type:design (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "ui",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:design"
+    },
+    {
+      "concept_label": "discussion:feedback",
+      "notes": "Earlier bare-label mapping (#2523) names type:ux-feedback, which resolves to type:design (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "ux",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:design"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "v0.5.0",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off rollout wave label; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wave:3b",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off rollout wave label; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wave:3c",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off rollout wave label; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wave:4c",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off rollout wave label; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wave:4d",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off rollout wave label; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wave:4e",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: one-off rollout wave label; no canonical equivalent (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wave:4f",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wceu-2026",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Earlier bare-label mapping (#2523) names status:wontfix, which resolves to status:wontfix (2 public repositories, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "wontfix",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "status:wontfix"
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "workflow-verification",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "workflows",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Proposed retirement: no counterpart in the proposed label set (1 public repository, 0 counted items (lower bound)). Items found at run time are listed under needs_decision until a target is chosen.",
+      "change_request": null,
+      "source": "wpvc",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "retire",
+      "target": null
     }
   ]
 }

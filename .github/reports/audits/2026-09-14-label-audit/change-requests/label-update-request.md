@@ -4,7 +4,7 @@
 
 ## Chore Summary
 
-Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 175 source labels and ends with 49 distinct targets. The type family ends at exactly 25.
+Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 471 source labels and ends with 64 distinct targets. The type family ends at exactly 25.
 
 Nothing changes until @ashleyshaw records a dated decision on this issue. Each repository's deletion has its own later gate (the deletion gate issue, T049).
 
@@ -22,7 +22,7 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 
 ## Mapping by action
 
-### rename (20)
+### rename (29)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
@@ -46,8 +46,17 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `openspec:specification` | `spec:specification-in-progress` | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed rename to spec:specification-in-progress: generic specification stage. |
 | `openspec:specification-pending` | `spec:planning` | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed rename to spec:planning: specification not started yet; closest status is planning. |
 | `spec:001` | `spec-id:001` | 0 | FR-011 | Spec numbers move to spec-id:NNN so spec:* holds only status labels. |
+| `area/changelog` | `area:changelog` | 0 | FR-016 | Same name as area:changelog apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `area/security` | `area:security` | 0 | FR-016 | Same name as area:security apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `area/testing` | `area:testing` | 0 | FR-016 | Same name as area:testing apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `area/workflows` | `area:workflows` | 0 | FR-016 | Same name as area:workflows apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `priority/high` | `priority:high` | 0 | FR-016 | Same name as priority:high apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `priority/normal` | `priority:normal` | 0 | FR-016 | Same name as priority:normal apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `status/in-progress` | `status:in-progress` | 0 | FR-016 | Same name as status:in-progress apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `type/feature` | `type:feature` | 0 | FR-016 | Same name as type:feature apart from case or separator (1 public repository, 0 counted items (lower bound)). |
+| `type/refactor` | `type:refactor` | 0 | FR-016 | Same name as type:refactor apart from case or separator (1 public repository, 0 counted items (lower bound)). |
 
-### merge (36)
+### merge (71)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
@@ -87,6 +96,41 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type:build-ci` | `type:ci` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Build & CI type to CI. Needed so the type family ends at exactly 25. |
 | `type:code-refactor` | `type:refactor` | 3 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Code Refactor type to Refactor. Needed so the type family ends at exactly 25. |
 | `type:documentation` | `type:docs` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate of type:docs. Needed so the type family ends at exactly 25. |
+| `a11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
+| `A11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
+| `accessibility` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
+| `area/ci-cd` | `area:ci` | 0 | FR-016 | Same name as area:ci-cd apart from case or separator, which resolves to area:ci (1 public repository, 0 counted items (lower bound)). |
+| `Chore` | `type:chore` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:chore, which resolves to type:chore (1 public repository, 0 counted items (lower bound)). |
+| `ci` | `area:ci` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:ci, which resolves to area:ci (1 public repository, 0 counted items (lower bound)). |
+| `content` | `area:content` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:content, which resolves to area:content (1 public repository, 0 counted items (lower bound)). |
+| `critical` | `priority:critical` | 0 | FR-016 | Earlier bare-label mapping (#2523) names priority:critical, which resolves to priority:critical (1 public repository, 0 counted items (lower bound)). |
+| `dependencies` | `area:dependencies` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:dependencies, which resolves to area:dependencies (38 public repositories, 0 counted items (lower bound)). |
+| `design` | `type:design` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:design, which resolves to type:design (1 public repository, 0 counted items (lower bound)). |
+| `Documentation` | `type:docs` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:documentation, which resolves to type:docs (1 public repository, 0 counted items (lower bound)). |
+| `duplicate` | `status:duplicate` | 0 | FR-016 | Earlier bare-label mapping (#2523) names status:duplicate, which resolves to status:duplicate (2 public repositories, 0 counted items (lower bound)). |
+| `enhancement` | `type:improve` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:improve, which resolves to type:improve (7 public repositories, 0 counted items (lower bound)). |
+| `feature` | `type:feature` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:feature, which resolves to type:feature (1 public repository, 0 counted items (lower bound)). |
+| `help wanted` | `contrib:help-wanted` | 0 | FR-016 | Earlier bare-label mapping (#2523) names contrib:help-wanted, which resolves to contrib:help-wanted (2 public repositories, 0 counted items (lower bound)). |
+| `Improvement` | `type:improve` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:improve, which resolves to type:improve (1 public repository, 0 counted items (lower bound)). |
+| `infrastructure` | `area:infrastructure` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:infrastructure, which resolves to area:infrastructure (1 public repository, 0 counted items (lower bound)). |
+| `invalid` | `status:wontfix` | 0 | FR-016 | Earlier bare-label mapping (#2523) names status:wontfix, which resolves to status:wontfix (2 public repositories, 0 counted items (lower bound)). |
+| `migrate:ai-ops:agents` | `aiops:agents` | 2 | FR-016 | migrate:* label; its name points to ai-ops:agents, which resolves to aiops:agents (1 public repository, 2 counted items (lower bound)). |
+| `migrate:area:tests` | `area:testing` | 27 | FR-016 | migrate:* label; its name points to area:tests, which resolves to area:testing (1 public repository, 27 counted items (lower bound)). |
+| `migrate:type:investigation` | `type:research` | 0 | FR-016 | migrate:* label; its name points to type:investigation, which resolves to type:research (1 public repository, 0 counted items (lower bound)). |
+| `migrate:type:ui` | `type:design` | 0 | FR-016 | migrate:* label; its name points to type:ui, which resolves to type:design (1 public repository, 0 counted items (lower bound)). |
+| `needs-triage` | `status:needs-triage` | 0 | FR-016 | Earlier bare-label mapping (#2523) names status:needs-triage, which resolves to status:needs-triage (1 public repository, 0 counted items (lower bound)). |
+| `performance` | `type:performance` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:performance, which resolves to type:performance (1 public repository, 0 counted items (lower bound)). |
+| `Performance` | `type:performance` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:performance, which resolves to type:performance (1 public repository, 0 counted items (lower bound)). |
+| `refactor` | `type:refactor` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:refactor, which resolves to type:refactor (2 public repositories, 0 counted items (lower bound)). |
+| `release` | `type:release` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:release, which resolves to type:release (1 public repository, 0 counted items (lower bound)). |
+| `status: completed` | `status:done` | 0 | FR-016 | Same name as status:completed apart from case or separator, which resolves to status:done (1 public repository, 0 counted items (lower bound)). |
+| `Task` | `type:task` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:task, which resolves to type:task (1 public repository, 0 counted items (lower bound)). |
+| `test` | `type:test` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:test, which resolves to type:test (3 public repositories, 0 counted items (lower bound)). |
+| `testing` | `area:testing` | 0 | FR-016 | Earlier bare-label mapping (#2523) names area:tests, which resolves to area:testing (2 public repositories, 0 counted items (lower bound)). |
+| `type/documentation` | `type:docs` | 0 | FR-016 | Same name as type:documentation apart from case or separator, which resolves to type:docs (1 public repository, 0 counted items (lower bound)). |
+| `ui` | `type:design` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:ui, which resolves to type:design (1 public repository, 0 counted items (lower bound)). |
+| `ux` | `type:design` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:ux-feedback, which resolves to type:design (1 public repository, 0 counted items (lower bound)). |
+| `wontfix` | `status:wontfix` | 0 | FR-016 | Earlier bare-label mapping (#2523) names status:wontfix, which resolves to status:wontfix (2 public repositories, 0 counted items (lower bound)). |
 
 ### re-prefix (8)
 
@@ -206,21 +250,21 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `migrate:status:needs-triage` | retire | 29 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:status:ready` | retire | 58 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:a11y` | retire | 0 | FR-012 | migrate:* labels are never imported. |
-| `migrate:type:ai-ops` | retire | 2 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
+| `migrate:type:ai-ops` | `type:aiops` | 2 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). For the GitHub dry run it migrates to type:aiops, the label its name points to after renames (FR-016). |
 | `migrate:type:audit` | retire | 51 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:automation` | retire | 39 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:bug` | retire | 102 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:compatibility` | retire | 1 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
-| `migrate:type:documentation` | retire | 1 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
+| `migrate:type:documentation` | `type:docs` | 1 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). For the GitHub dry run it migrates to type:docs, the label its name points to after renames (FR-016). |
 | `migrate:type:epic` | retire | 1 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:feature` | retire | 84 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:improve` | retire | 2 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
-| `migrate:type:maintenance` | retire | 11 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
+| `migrate:type:maintenance` | `type:chore` | 11 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). For the GitHub dry run it migrates to type:chore, the label its name points to after renames (FR-016). |
 | `migrate:type:refactor` | retire | 19 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:security` | retire | 5 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:task` | retire | 287 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:type:test` | retire | 30 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
-| `migrate:type:ux-feedback` | retire | 0 | FR-012 | migrate:* labels are never imported. |
+| `migrate:type:ux-feedback` | `type:design` | 0 | FR-012 | migrate:* labels are never imported. For the GitHub dry run it migrates to type:design, the label its name points to after renames (FR-016). |
 | `scope:restructuring` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `spec:discovery` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `spec:implementation-complete` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
@@ -303,9 +347,15 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 
 FR-015 calls its eight type labels "Linear-only". Checked on 2026-10-06, all eight exist as live GitHub labels in `lightspeedwp/.github` (`evidence/github-live-labels.json`). In Linear only `type:maintenance` exists. Six complete team listings, the workspace listing and the Stage 1 export show none of the other seven. The GitHub team listing was cut off at 250, so that is not absolute. They are not imported into Linear (FR-015 and the 25-label type family), so each row is a GitHub re-prefix. The spec wording should say "GitHub" and not "Linear-only". 
 
-## Coverage still to close
+## Label coverage across the organisation
 
-The mapping covers `labels.yml` and the Linear export. The live `.github` repository has 549 labels and 290 of them are in neither (for example 82 `task:T0xx` labels, 43 `migrate:*` labels, `openspec:domain/*`, `type:story`). The consolidation tool refuses to run on a label with open items and no target, so each needs a rule before Stage 3. An org-wide read-only inventory is the next step.
+Source: the weekly label drift check run of 2026-10-04 (283 repositories read, 59 skipped as archived or forks), kept in `evidence/github-label-coverage.json`. It lists 446 labels that exist in public repositories but not in `labels.yml`, and counts 57 more that exist only in private repositories and are not named here.
+
+Every one of them now has a row (296 new rows for 446 names, the rest were already approved or mapped): 252 retire, 35 merge, 9 rename. A name that differs only in case or separator is renamed, the earlier bare-label mapping (#2523) is followed through the current renames, and every other label is retired with a stated reason. Run against the real tool, all 374 labels outside the approved set in `lightspeedwp/.github` have a row.
+
+25 labels carry known items and have no target that the spec or the label documents define, so the tool lists them under `needs_decision` per repository, as FR-016 requires, until a target is chosen: `area:monorepo`, `agent-audit`, `migrate:openspec:status/implementation`, `migrate:openspec:status/planning`, `migrate:openspec:status/production`, `migrate:openspec:status/testing`, `migrate:type:compatibility`, `ag-p14`, `ag-phase`, `area:accessibility`, `bug-fix`, `code-quality`, `component:ci`, `component:workflows`, `error-handling`, `logging`, `meta:refactor`, `migrate:type:enhancement`, `observability`, `phase-1-critical`, `phase-2-medium`, `phase-3-polish`, `phase:1`, `reliability`, `reviewer`. The item counts are a lower bound, because the drift report caps counted rows.
+
+A later drift run (2026-10-06) read only 85 of 283 repositories yet reported success, so the 2026-10-04 run is the inventory of record.
 
 ## Impact
 

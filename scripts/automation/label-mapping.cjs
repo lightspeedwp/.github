@@ -215,12 +215,156 @@ function familyColour(yml, family) {
  * @param {string[]} input.specNumberLabels `spec:NNN` names found in files.
  * @returns {{ mappings: object[], proposedNames: Set<string> }} Mapping and the proposed label set.
  */
+/**
+ * Reasons given for retiring a label that has no counterpart in the proposed set.
+ * Each pattern is tried in order; the last entry is the default.
+ */
+const RETIRE_REASONS = [
+  [/^task:T\d+$/, 'one-off task label from a spec task list; no canonical equivalent'],
+  [/^wave:/, 'one-off rollout wave label; no canonical equivalent'],
+  [/^openspec:/, 'OpenSpec sub-namespace; the spec:* status labels replace it (FR-011)'],
+  [/^migrate:/, 'migrate:* source with no approved target (FR-012)'],
+  [/^(phase|meta:phase)[-:]/, 'project phase label; phases are tracked in milestones and projects'],
+  [/^size:|blast radius$|minutes$/i, 'effort or size marker with no canonical equivalent'],
+  [/^status[:/ ]/, 'status label outside the approved status set'],
+  [/^(automerge|wave|ag-)/, 'automation or agent marker with no canonical equivalent'],
+  [/./, 'no counterpart in the proposed label set'],
+];
+
+/**
+ * Turns a name into the form the approved labels use: lower case, "/" as ":" and
+ * no space after the colon. Only separators and case change, never the words.
+ * @param {string} name - Label name
+ * @returns {string} Normalised name
+ */
+function normaliseName(name) {
+  return name
+    .toLowerCase()
+    .replace(/\s*\/\s*/g, ':')
+    .replace(/:\s+/g, ':')
+    .trim();
+}
+
+/**
+ * Builds rows for labels that exist in repositories but in neither `labels.yml`
+ * nor the saved mapping (FR-016: every such label is deleted after its items
+ * move). A row is a rename when the name only differs in case or separator, a
+ * merge when the earlier bare-label mapping names a target, and a retire
+ * otherwise. Items found at run time on a retired label still go to
+ * `needs_decision` in the dry run, so no label is deleted with open items and
+ * no target.
+ * @param {object} input
+ * @param {Array<{ name: string, repositories?: number, known_items?: number }>} input.labels - Unapproved public label names
+ * @param {Set<string>} input.proposed - Proposed labels.yml names
+ * @param {object[]} input.mappings - Rows already built
+ * @param {Record<string, string>} input.bare - Earlier bare-label mapping (lower-case name to target)
+ * @returns {object[]} New rows
+ */
+function githubOnlyRows({ labels, proposed, mappings, bare }) {
+  const proposedByLower = new Map([...proposed].map((n) => [n.toLowerCase(), n]));
+  const bySource = new Map(mappings.map((m) => [m.source, m]));
+  const known = new Set(mappings.map((m) => m.source));
+  // Follows rename, merge and re-prefix rows to the label that survives.
+  const resolve = (name) => {
+    let current = name;
+    let concept = null;
+    for (let hop = 0; hop < 4; hop += 1) {
+      const exact = proposedByLower.get(current.toLowerCase());
+      if (exact) return { target: exact, concept };
+      const row = bySource.get(current);
+      if (!row || !row.target) return null;
+      concept = row.concept_label || concept;
+      current = row.target;
+    }
+    return null;
+  };
+  // A migrate:X row retired in Linear (FR-012) still needs a GitHub migrate_to when X was
+  // renamed or merged: the tool only follows a name that is itself approved. Setting the
+  // target is inert for Linear, whose stages act on merge and re-prefix rows only.
+  for (const row of mappings) {
+    if (!row.source.startsWith('migrate:') || row.action !== 'retire' || row.target) continue;
+    if (!row.systems.includes('github')) continue;
+    const inner = row.source.slice('migrate:'.length);
+    if (proposedByLower.has(inner.toLowerCase())) continue;
+    const pointed = resolve(inner) || resolve(normaliseName(inner));
+    if (!pointed) continue;
+    row.target = pointed.target;
+    row.concept_label = pointed.concept || row.concept_label;
+    row.notes =
+      `${row.notes} For the GitHub dry run it migrates to ${pointed.target}, the label its name points to after renames (FR-016).`.trim();
+  }
+  const rows = [];
+  for (const { name, repositories = 0, known_items: items = 0 } of labels) {
+    if (known.has(name) || proposedByLower.has(name.toLowerCase())) continue;
+    if (name.startsWith('migrate:') && proposedByLower.has(name.slice(8).toLowerCase())) continue;
+    const count = `${repositories} public repositor${repositories === 1 ? 'y' : 'ies'}, ${items} counted item${items === 1 ? '' : 's'} (lower bound)`;
+    const base = {
+      source: name,
+      systems: ['github'],
+      issue_count: items,
+      requirement: 'FR-016',
+    };
+    if (name.startsWith('migrate:')) {
+      // A migrate:X label's target is the label its name points to (FR-012),
+      // followed through any rename or merge that label has.
+      const inner = name.slice('migrate:'.length);
+      const pointed = resolve(inner) || resolve(normaliseName(inner));
+      if (pointed) {
+        rows.push({
+          ...base,
+          action: 'merge',
+          target: pointed.target,
+          concept_label: pointed.concept,
+          notes: `migrate:* label; its name points to ${inner}, which resolves to ${pointed.target} (${count}).`,
+        });
+        continue;
+      }
+    }
+    const variant = normaliseName(name);
+    // Only a name that differs in case or separator is treated as a variant.
+    const viaVariant = variant !== name ? resolve(variant) : null;
+    const bareTarget = bare[name.toLowerCase()];
+    const fromBare = !viaVariant && bareTarget ? resolve(bareTarget) : null;
+    if (viaVariant) {
+      const sameName = viaVariant.target.toLowerCase() === variant;
+      rows.push({
+        ...base,
+        action: sameName ? 'rename' : 'merge',
+        target: viaVariant.target,
+        concept_label: viaVariant.concept,
+        notes: sameName
+          ? `Same name as ${viaVariant.target} apart from case or separator (${count}).`
+          : `Same name as ${variant} apart from case or separator, which resolves to ${viaVariant.target} (${count}).`,
+      });
+    } else if (fromBare) {
+      rows.push({
+        ...base,
+        action: 'merge',
+        target: fromBare.target,
+        concept_label: fromBare.concept,
+        notes: `Earlier bare-label mapping (#2523) names ${bareTarget}, which resolves to ${fromBare.target} (${count}).`,
+      });
+    } else {
+      const reason = RETIRE_REASONS.find(([pattern]) => pattern.test(name))[1];
+      rows.push({
+        ...base,
+        action: 'retire',
+        target: null,
+        notes: `Proposed retirement: ${reason} (${count}). Items found at run time are listed under needs_decision until a target is chosen.`,
+      });
+    }
+  }
+  return rows;
+}
+
 function buildMappings({
   yml,
   linear,
   openspecInFiles = [],
   specNumberLabels = [],
   githubLive = [],
+  githubOnly = [],
+  bare = {},
 }) {
   const liveOnGithub = new Set(githubLive);
   const inYml = new Map(yml.map((label) => [label.name, label]));
@@ -481,6 +625,8 @@ function buildMappings({
     }
   }
 
+  for (const row of githubOnlyRows({ labels: githubOnly, proposed, mappings, bare })) add(row);
+
   return { mappings, proposedNames: proposed, inYml, linearByName, absentSources };
 }
 
@@ -587,8 +733,16 @@ if (require.main === module) {
   const githubLive = fs.existsSync(livePath)
     ? JSON.parse(fs.readFileSync(livePath, 'utf8')).labels.map((l) => l.name)
     : [];
+  const coveragePath = path.join(root, EVIDENCE, 'github-label-coverage.json');
+  const githubOnly = fs.existsSync(coveragePath)
+    ? JSON.parse(fs.readFileSync(coveragePath, 'utf8')).labels
+    : [];
+  const barePath = path.join(root, '.github/reports/label-remediation/bare-label-mapping.json');
+  const bare = fs.existsSync(barePath) ? JSON.parse(fs.readFileSync(barePath, 'utf8')) : {};
   const { mappings, proposedNames, absentSources } = buildMappings({
     githubLive,
+    githubOnly,
+    bare,
     yml,
     linear: linearFile.sources.labels,
     openspecInFiles,

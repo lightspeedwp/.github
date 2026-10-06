@@ -21,6 +21,16 @@ const githubLive = JSON.parse(
   fs.readFileSync(path.join(audit, 'evidence/github-live-labels.json'), 'utf8')
 ).labels.map((l) => l.name);
 
+const githubOnly = JSON.parse(
+  fs.readFileSync(path.join(audit, 'evidence/github-label-coverage.json'), 'utf8')
+).labels;
+const bare = JSON.parse(
+  fs.readFileSync(
+    path.join(root, '.github/reports/label-remediation/bare-label-mapping.json'),
+    'utf8'
+  )
+);
+
 const build = () =>
   buildMappings({
     yml,
@@ -28,6 +38,8 @@ const build = () =>
     openspecInFiles,
     specNumberLabels: ['spec:001'],
     githubLive,
+    githubOnly,
+    bare,
   });
 
 describe('label mapping', () => {

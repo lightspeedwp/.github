@@ -1,0 +1,2240 @@
+{
+  "generated_at": "2026-10-04",
+  "source": "label drift report artifact (weekly drift check); read-only",
+  "note": "Unapproved labels (not in labels.yml) found in public lightspeedwp repositories. Names found only in private repositories are counted, not named. known_items sums the item counts in the report, which caps counted rows, so it is a lower bound.",
+  "repositories_with_unapproved_labels": 283,
+  "private_only_label_count": 57,
+  "count": 446,
+  "labels": [
+    {
+      "name": "[Component] Block Patterns",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "[Type] Task",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "🔴 Large blast radius",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "🕐 10-20 Minutes",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "🕐 20-40 Minutes",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "🕐 40+ Minutes",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "🕐 Less than 10 minutes",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "🟠 Medium blast radius",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "🟡 Small blast radius",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "a11y",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "A11y",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "accessibility",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p01",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p02",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p04",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p05",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p06",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p07",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p09",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p10",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ag-p14",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "ag-phase",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "agent-audit",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "aiops:instructions",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "area:accessibility",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "area:aiops",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:awesome-github",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:builds",
+      "repositories": 4,
+      "known_items": 173
+    },
+    {
+      "name": "area:changelog",
+      "repositories": 1,
+      "known_items": 5
+    },
+    {
+      "name": "area:ci-cd",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "area:ci-config",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:communication",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "area:design",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:docs",
+      "repositories": 1,
+      "known_items": 8
+    },
+    {
+      "name": "area:issue-management",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "area:labels",
+      "repositories": 2,
+      "known_items": 29
+    },
+    {
+      "name": "area:linting",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:monitoring",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "area:monorepo",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "area:npm",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:ops",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:platform",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "area:pr-automation",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "area:process",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "area:projects",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "area:quality",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "area:specification",
+      "repositories": 1,
+      "known_items": 20
+    },
+    {
+      "name": "area:standards",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "area:templates",
+      "repositories": 1,
+      "known_items": 3
+    },
+    {
+      "name": "area:website",
+      "repositories": 2,
+      "known_items": 3
+    },
+    {
+      "name": "area:workflow-control",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area:workflows",
+      "repositories": 1,
+      "known_items": 6
+    },
+    {
+      "name": "area/changelog",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area/ci-cd",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area/security",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area/testing",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "area/workflows",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "assets",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "audit",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "Audit",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "automation",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "awesome-github",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "blocks",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "bug",
+      "repositories": 6,
+      "known_items": 2
+    },
+    {
+      "name": "bug-fix",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "Build & CI",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "Chore",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ci",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "cleanup",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "code quality",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "code-quality",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "coderabbit",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "comp:help-tabs",
+      "repositories": 49,
+      "known_items": 0
+    },
+    {
+      "name": "comp:query-loop",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "comp:readme-mermaid",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "comp:workflows",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "completed",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "component:ci",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "component:workflows",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "Config",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "configuration",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "content",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "copm:block-bindings",
+      "repositories": 36,
+      "known_items": 0
+    },
+    {
+      "name": "critical",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "critical-path",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "dependencies",
+      "repositories": 38,
+      "known_items": 0
+    },
+    {
+      "name": "dequeued",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "design",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "Design System",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "documentation",
+      "repositories": 4,
+      "known_items": 0
+    },
+    {
+      "name": "Documentation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "duplicate",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "enhancement",
+      "repositories": 7,
+      "known_items": 0
+    },
+    {
+      "name": "environment",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "epic",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "error-handling",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "feat/awesome-github",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "feature",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "Figma",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "font-library",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "full-site-editor",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "github_actions",
+      "repositories": 35,
+      "known_items": 0
+    },
+    {
+      "name": "github-templates",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "github-workflow",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "glossary",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "good first issue",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "governance",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "help wanted",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "Hosting",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "hygiene",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "important",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "Improvement",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "infrastructure",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "invalid",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "issue/2354",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "javascript",
+      "repositories": 16,
+      "known_items": 0
+    },
+    {
+      "name": "lang:bash",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "lang:javascript",
+      "repositories": 4,
+      "known_items": 0
+    },
+    {
+      "name": "logging",
+      "repositories": 2,
+      "known_items": 1
+    },
+    {
+      "name": "low-priority",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "maintenance",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "meta",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:ai-governance-audit",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:aiops",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:analysis",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:audit",
+      "repositories": 1,
+      "known_items": 16
+    },
+    {
+      "name": "meta:dependabot-security",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:documentation",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "meta:duplicate",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:enhancement",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "meta:incident-report",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:infrastructure-blocker",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:needs-approval",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "meta:needs-audit",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "meta:needs-review",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:needs-triage",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:phase-1",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:phase-2",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:phase-3",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:phase-4",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:phase-5",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:refactor",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:refactor-rules",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:release-plan",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:skip-changelog",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:spec-006",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:tech-debt",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "meta:test-suite-refactor",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "meta:tracking",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:ai-ops:agents",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "migrate:area:a11y",
+      "repositories": 1,
+      "known_items": 6
+    },
+    {
+      "name": "migrate:area:ai",
+      "repositories": 1,
+      "known_items": 37
+    },
+    {
+      "name": "migrate:area:analytics",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "migrate:area:assets",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:area:automation",
+      "repositories": 2,
+      "known_items": 219
+    },
+    {
+      "name": "migrate:area:ci",
+      "repositories": 2,
+      "known_items": 120
+    },
+    {
+      "name": "migrate:area:content",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:area:core",
+      "repositories": 1,
+      "known_items": 24
+    },
+    {
+      "name": "migrate:area:dependencies",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:area:deployment",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "migrate:area:documentation",
+      "repositories": 1,
+      "known_items": 88
+    },
+    {
+      "name": "migrate:area:infrastructure",
+      "repositories": 1,
+      "known_items": 32
+    },
+    {
+      "name": "migrate:area:integration",
+      "repositories": 2,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:area:maintenance",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:area:performance",
+      "repositories": 1,
+      "known_items": 8
+    },
+    {
+      "name": "migrate:area:plugins",
+      "repositories": 3,
+      "known_items": 4
+    },
+    {
+      "name": "migrate:area:release",
+      "repositories": 1,
+      "known_items": 31
+    },
+    {
+      "name": "migrate:area:scripts",
+      "repositories": 1,
+      "known_items": 21
+    },
+    {
+      "name": "migrate:area:security",
+      "repositories": 1,
+      "known_items": 3
+    },
+    {
+      "name": "migrate:area:testing",
+      "repositories": 1,
+      "known_items": 40
+    },
+    {
+      "name": "migrate:area:tests",
+      "repositories": 1,
+      "known_items": 27
+    },
+    {
+      "name": "migrate:comp:settings",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "migrate:lang:js",
+      "repositories": 1,
+      "known_items": 9
+    },
+    {
+      "name": "migrate:lang:md",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:lang:php",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "migrate:meta:has-pr",
+      "repositories": 1,
+      "known_items": 11
+    },
+    {
+      "name": "migrate:meta:needs-changelog",
+      "repositories": 1,
+      "known_items": 10
+    },
+    {
+      "name": "migrate:meta:no-changelog",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "migrate:openspec:status/implementation",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "migrate:openspec:status/planning",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "migrate:openspec:status/production",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:openspec:status/testing",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:priority:critical",
+      "repositories": 1,
+      "known_items": 53
+    },
+    {
+      "name": "migrate:priority:important",
+      "repositories": 3,
+      "known_items": 130
+    },
+    {
+      "name": "migrate:priority:minor",
+      "repositories": 1,
+      "known_items": 5
+    },
+    {
+      "name": "migrate:priority:normal",
+      "repositories": 3,
+      "known_items": 360
+    },
+    {
+      "name": "migrate:release:patch",
+      "repositories": 2,
+      "known_items": 2
+    },
+    {
+      "name": "migrate:status:done",
+      "repositories": 1,
+      "known_items": 25
+    },
+    {
+      "name": "migrate:status:in-discussion",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "migrate:status:in-progress",
+      "repositories": 1,
+      "known_items": 13
+    },
+    {
+      "name": "migrate:status:needs-dev",
+      "repositories": 2,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:status:needs-more-info",
+      "repositories": 1,
+      "known_items": 312
+    },
+    {
+      "name": "migrate:status:needs-planning",
+      "repositories": 1,
+      "known_items": 9
+    },
+    {
+      "name": "migrate:status:needs-review",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "migrate:status:needs-triage",
+      "repositories": 3,
+      "known_items": 57
+    },
+    {
+      "name": "migrate:status:ready",
+      "repositories": 1,
+      "known_items": 73
+    },
+    {
+      "name": "migrate:type:a11y",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:type:ai-ops",
+      "repositories": 1,
+      "known_items": 3
+    },
+    {
+      "name": "migrate:type:audit",
+      "repositories": 1,
+      "known_items": 67
+    },
+    {
+      "name": "migrate:type:automation",
+      "repositories": 1,
+      "known_items": 43
+    },
+    {
+      "name": "migrate:type:bug",
+      "repositories": 1,
+      "known_items": 107
+    },
+    {
+      "name": "migrate:type:build",
+      "repositories": 1,
+      "known_items": 11
+    },
+    {
+      "name": "migrate:type:chore",
+      "repositories": 1,
+      "known_items": 18
+    },
+    {
+      "name": "migrate:type:ci",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "migrate:type:compatibility",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:type:dependency",
+      "repositories": 1,
+      "known_items": 5
+    },
+    {
+      "name": "migrate:type:design",
+      "repositories": 1,
+      "known_items": 8
+    },
+    {
+      "name": "migrate:type:documentation",
+      "repositories": 1,
+      "known_items": 14
+    },
+    {
+      "name": "migrate:type:enhancement",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:type:epic",
+      "repositories": 1,
+      "known_items": 33
+    },
+    {
+      "name": "migrate:type:feature",
+      "repositories": 1,
+      "known_items": 89
+    },
+    {
+      "name": "migrate:type:improve",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "migrate:type:investigation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "migrate:type:maintenance",
+      "repositories": 1,
+      "known_items": 15
+    },
+    {
+      "name": "migrate:type:performance",
+      "repositories": 1,
+      "known_items": 6
+    },
+    {
+      "name": "migrate:type:refactor",
+      "repositories": 2,
+      "known_items": 22
+    },
+    {
+      "name": "migrate:type:release",
+      "repositories": 1,
+      "known_items": 15
+    },
+    {
+      "name": "migrate:type:research",
+      "repositories": 1,
+      "known_items": 5
+    },
+    {
+      "name": "migrate:type:review",
+      "repositories": 1,
+      "known_items": 4
+    },
+    {
+      "name": "migrate:type:security",
+      "repositories": 1,
+      "known_items": 6
+    },
+    {
+      "name": "migrate:type:task",
+      "repositories": 1,
+      "known_items": 347
+    },
+    {
+      "name": "migrate:type:test",
+      "repositories": 1,
+      "known_items": 34
+    },
+    {
+      "name": "migrate:type:ui",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "migrate:type:ux-feedback",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "migration",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "needs review",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "needs-triage",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "no-issue-activity",
+      "repositories": 4,
+      "known_items": 0
+    },
+    {
+      "name": "no-pr-activity",
+      "repositories": 9,
+      "known_items": 0
+    },
+    {
+      "name": "node-upgrade",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "notebooklm",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "observability",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "onboarding",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:domain/agent-design",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:domain/automation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:domain/ci-cd",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:domain/documentation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:domain/governance",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:domain/testing",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:domain/workflow",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:phase/deployment",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:phase/implementation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:phase/planning",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:priority/high",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:priority/low",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:priority/medium",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:specification-pending",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:status/blocked",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:status/implementation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:status/planning",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:status/production",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "openspec:status/testing",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "package.json",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "path-resolution",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "performance",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "Performance",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "phase-1",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "phase-1-critical",
+      "repositories": 1,
+      "known_items": 2
+    },
+    {
+      "name": "phase-2",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "phase-2-medium",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "phase-3-polish",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "phase:1",
+      "repositories": 2,
+      "known_items": 1
+    },
+    {
+      "name": "phase:3",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "php",
+      "repositories": 27,
+      "known_items": 0
+    },
+    {
+      "name": "planner",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "planning",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "playwright",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "pre-commit",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "priority:medium",
+      "repositories": 1,
+      "known_items": 44
+    },
+    {
+      "name": "priority/high",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "priority/normal",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "project",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "question",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "queued",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "quickstart",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "refactor",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "release",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "reliability",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "reviewer",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "scope: website",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "scope:audit",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "scope:major-release",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "scope:project-management",
+      "repositories": 1,
+      "known_items": 1
+    },
+    {
+      "name": "scope:restructuring",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "scope:website",
+      "repositories": 1,
+      "known_items": 3
+    },
+    {
+      "name": "scripts",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "security",
+      "repositories": 3,
+      "known_items": 1
+    },
+    {
+      "name": "Security",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "security:command-injection",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "size: large",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "size: medium",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "size: small",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "spec:001",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "standards",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "status: completed",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:complete",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:in-review",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:needs-analysis",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:needs-cleanup",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:needs-pr-template",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:needs-technical-feedback",
+      "repositories": 36,
+      "known_items": 0
+    },
+    {
+      "name": "status:needs-template-fix",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:needs-update",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:no-issue-activity",
+      "repositories": 4,
+      "known_items": 0
+    },
+    {
+      "name": "status:planned",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:planning",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:ready-for-development",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:ready-for-merge",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:ready-for-review",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:ready-to-merge",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:ready-to-start",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status:resolved",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status/in-progress",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "status/needs-discussion",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "suppress-for-current-commit",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "talk-preparation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "Task",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T001",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T002",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T003",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T004",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T005",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T006",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T007",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T008",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T009",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T010",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T011",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T012",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T013",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T014",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T015",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T016",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T017",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T018",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T019",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T020",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T021",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T022",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T023",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T024",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T025",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T026",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T027",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T028",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T029",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T030",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T031",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T032",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T033",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T034",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T035",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T036",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T037",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T038",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T039",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T040",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T041",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T042",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T043",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T044",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T045",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T046",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T047",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T048",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T049",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T050",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T051",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T052",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T053",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T054",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T055",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T056",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T057",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T058",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T059",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T060",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T061",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T062",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T063",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T064",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T065",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T066",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T067",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T068",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T069",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T070",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T071",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T072",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T073",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T074",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T075",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T076",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T077",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T078",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T079",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T080",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T081",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "task:T082",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "tech-debt",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "templates",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "test",
+      "repositories": 3,
+      "known_items": 0
+    },
+    {
+      "name": "Test Coverage",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "test-coverage",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "testing",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "tests",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type: feature",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:ai-ops",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "type:build-ci",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:code-refactor",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:documentation",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "type:enhance",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:feat",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:fix",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:help",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:improvement",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:integration",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:investigation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:maintenance",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:migration",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:qa",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:question",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "type:story",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:support",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "type:testing-coverage",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:ui",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:ux-feedback",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type:workflow",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type/documentation",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type/feature",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "type/refactor",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "typography",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ui",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "ux",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "v0.5.0",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wave:3b",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wave:3c",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wave:4c",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wave:4d",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wave:4e",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wave:4f",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wceu-2026",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wontfix",
+      "repositories": 2,
+      "known_items": 0
+    },
+    {
+      "name": "workflow-verification",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "workflows",
+      "repositories": 1,
+      "known_items": 0
+    },
+    {
+      "name": "wpvc",
+      "repositories": 1,
+      "known_items": 0
+    }
+  ]
+}
