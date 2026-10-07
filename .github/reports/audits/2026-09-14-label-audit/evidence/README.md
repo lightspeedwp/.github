@@ -1,5 +1,41 @@
 # Label Audit Evidence
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](https://img.shields.io/badge/Docs%20Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](https://img.shields.io/badge/Labeling%20Governance-OK-success.svg)
+![Main Branch Guard](https://img.shields.io/badge/Main%20Branch%20Guard-OK-success.svg)
+![Metadata Governance](https://img.shields.io/badge/Metadata%20Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](https://img.shields.io/badge/Template%20Enforcement-OK-success.svg)
+![Validate PR Template](https://img.shields.io/badge/Validate%20PR%20Template-OK-success.svg)
+![Badges: Documentation Update](https://img.shields.io/badge/Badges:%20Documentation%20Update-OK-success.svg)
+![Badges: Health Check](https://img.shields.io/badge/Badges:%20Health%20Check-OK-success.svg)
+![Badges: README Status Maintenance](https://img.shields.io/badge/Badges:%20README%20Status%20Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges:%20Workflow%20Inventory%20Audit-OK-success.svg)
+[![ai-feedback-validation](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback-validation.yml)
+[![ai-feedback](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-unified](https://github.com/lightspeedwp/.github/actions/workflows/changelog-unified.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-unified.yml)
+[![claude-guard-tests](https://github.com/lightspeedwp/.github/actions/workflows/claude-guard-tests.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/claude-guard-tests.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![keep-pr-current](https://github.com/lightspeedwp/.github/actions/workflows/keep-pr-current.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/keep-pr-current.yml)
+[![label-drift-check](https://github.com/lightspeedwp/.github/actions/workflows/label-drift-check.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/label-drift-check.yml)
+[![labeling-unified](https://github.com/lightspeedwp/.github/actions/workflows/labeling-unified.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling-unified.yml)
+[![linear-review-platform](https://github.com/lightspeedwp/.github/actions/workflows/linear-review-platform.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linear-review-platform.yml)
+[![lint](https://github.com/lightspeedwp/.github/actions/workflows/lint.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/lint.yml)
+[![locked-files-guard](https://github.com/lightspeedwp/.github/actions/workflows/locked-files-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/locked-files-guard.yml)
+[![orchestrate-phase-progression](https://github.com/lightspeedwp/.github/actions/workflows/orchestrate-phase-progression.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/orchestrate-phase-progression.yml)
+[![phase-progression](https://github.com/lightspeedwp/.github/actions/workflows/phase-progression.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/phase-progression.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![ruleset-drift](https://github.com/lightspeedwp/.github/actions/workflows/ruleset-drift.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/ruleset-drift.yml)
+[![tests](https://github.com/lightspeedwp/.github/actions/workflows/tests.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/tests.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+[![workflow-lint](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml)
+<!-- BADGES-END -->
+
 Supporting data for `007-audit-report.md`, `duplicates-analysis.md` and `workflow-analysis.md` (spec 008, task T033). Label data is the 2026-09-14 snapshot; the tests in `scripts/validation/__tests__/label-audit-evidence.test.js` check that these files agree with each other and with the report.
 
 **Label names (spec 008 FR-011)**: the snapshot files (`canonical-labels.json`, `label-families.json`, `../label-inventory.json`, `../label-inventory.csv`) keep the names recorded on 2026-09-14 and add each label's `target_name` (`target_names` in `label-families.json`; the `Target_Label` column in the CSV): `ai-ops:*` becomes `aiops:*` and `openspec:*` becomes `spec:*`. `renamed-label-references.json` keeps the old names because it lists the references still to change, and files that count or quote what other files contain keep the names found there.
@@ -43,3 +79,5 @@ Supporting data for `007-audit-report.md`, `duplicates-analysis.md` and `workflo
 | `workflow-validate-issue-labels.json`         | T026                 | Per-workflow analysis of `validate-issue-labels.yml`: triggers, jobs, scripts, labels, failure points         |
 
 Still to come: `linear-labels.json` (T042, T043) and `dry-run/{repo}.json` (T062, T065).
+
+Made with ❤️ by the LightSpeed team.
