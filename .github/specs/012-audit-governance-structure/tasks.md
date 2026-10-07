@@ -48,9 +48,9 @@ This two-phase approach allows stakeholder review and critique of findings befor
 - [X] T002 [P] Create backup copies of current CLAUDE.md and AGENTS.md in `.github/reports/governance-audit-2026-09-14/originals/`
 - [X] T003 [P] Initialize audit log file at `.github/reports/governance-audit-2026-09-14/audit-log.md` with timestamp and scope
 - [X] T004 [P] Create working directory for consolidated content at `.github/reports/governance-audit-2026-09-14/working/`
-- [X] T005 Verify all research.md findings are documented and accessible at `specs/012-audit-governance-structure/research.md`
-- [X] T006 Verify all data-model.md entities are accessible at `specs/012-audit-governance-structure/data-model.md`
-- [X] T007 Verify validation checklist from quickstart.md at `specs/012-audit-governance-structure/quickstart.md`
+- [X] T005 Verify all research.md findings are documented and accessible at `.github/specs/012-audit-governance-structure/research.md`
+- [X] T006 Verify all data-model.md entities are accessible at `.github/specs/012-audit-governance-structure/data-model.md`
+- [X] T007 Verify validation checklist from quickstart.md at `.github/specs/012-audit-governance-structure/quickstart.md`
 
 **Checkpoint**: Baseline established, audit environment ready, original files backed up
 
@@ -395,7 +395,7 @@ This gate ensures all structural changes are reviewed and approved before implem
 - [ ] T182 @ashley reviews audit findings and consolidation approach
 - [ ] T183 @ashley verifies all constitution principles respected
 - [ ] T184 @ashley approves changes and signs off
-- [ ] T185 Update spec status to "Complete" in specs/012-audit-governance-structure/spec.md
+- [ ] T185 Update spec status to "Complete" in .github/specs/012-audit-governance-structure/spec.md
 
 ### Integration Tasks
 
