@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Requirements Checklist Engine** — The checklist engine now registers all eight dimension evaluators and judges each template item from its dimension, so results depend on the specification instead of passing every item. (#3371)
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Drift Check Inventory** — The weekly label drift check now also writes the redacted label inventory, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Label Import Requests** — Every imported label now names the request that approves it, and the request is open as an issue. ([#3834](https://github.com/lightspeedwp/.github/issues/3834))
@@ -214,6 +215,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Requirements Quality Checklist** — Assessment checklists for 8 quality dimensions with 35+ automated checks and 4 audience templates; tests tracked in T089–T095. ([PR #3371](https://github.com/lightspeedwp/.github/pull/3371))
 - **GitHub Checks API for Changelog Validation** — Changelog violations now publish as a check run with per-entry annotations, each anchored to its own line and coloured by severity. ([PR #3376](https://github.com/lightspeedwp/.github/pull/3376))
 - **Changelog Check Run Skips Forks** — Check-run publication now requires a same-repository pull request, so a fork PR touching a changelog no longer fails on a read-only token. ([PR #3376](https://github.com/lightspeedwp/.github/pull/3376))
 - **Plugin Advisories and Register** — Added current scaffold tracking, safe asset versioning, a rate-limited newsletter example and project-controlled gateway approval. ([#1396](https://github.com/lightspeedwp/.github/issues/1396))

@@ -1,0 +1,136 @@
+name: stakeholder-gate
+audience: Product managers & stakeholders
+time_estimate_minutes: 15
+description: High-level requirements quality review for product and business stakeholders
+
+items:
+  - id: STAKE-001
+    dimension: Completeness
+    question: Are user needs clearly articulated?
+    description: Specification should explain who the users are and what problems are being solved
+    audience: [stakeholder]
+    pass_criteria: User personas or segments identified; their needs/pain points clearly stated
+    suggestion: Add user stories or persona section explaining who benefits and how
+    reference_examples:
+      - 'Power users need to export data because current process takes 4 hours manually'
+
+  - id: STAKE-002
+    dimension: Completeness
+    question: Is business value clear?
+    description: How does this feature drive business metrics or solve strategic goals?
+    audience: [stakeholder]
+    pass_criteria: Business impact, ROI, or strategic alignment documented
+    suggestion: Add business case explaining revenue, cost savings, or strategic value
+    reference_examples:
+      - 'Reduces customer support tickets by 30%'
+      - 'Enables new $2M customer segment'
+
+  - id: STAKE-003
+    dimension: Completeness
+    question: Are success criteria customer-focused?
+    description: Criteria should measure customer value, not just technical completion
+    audience: [stakeholder]
+    pass_criteria: Success metrics tied to customer outcomes or business KPIs
+    suggestion: Translate technical criteria to customer/business metrics
+    reference_examples:
+      - '"90% of power users use export feature within 30 days (not just ''feature deployed'')"'
+
+  - id: STAKE-004
+    dimension: Clarity
+    question: Are trade-offs and constraints transparent?
+    description: Are there cost, timeline, or scope trade-offs that stakeholders should know?
+    audience: [stakeholder]
+    pass_criteria: Key constraints, trade-offs, and alternatives documented
+    suggestion: Explain why certain approaches were chosen; what was not chosen and why
+    reference_examples:
+      - 'Limited to CSV export (not PDF) to meet 4-week timeline'
+      - 'Starting with top 1M users; full dataset export post-launch'
+
+  - id: STAKE-005
+    dimension: Clarity
+    question: Is the competitive or market context clear?
+    description: Why does this matter now? How does it compare to alternatives?
+    audience: [stakeholder]
+    pass_criteria: Market opportunity, competitive positioning, or timing rationale documented
+    suggestion: Add market context section explaining strategic importance
+    reference_examples:
+      - 'Competitors offer export; our lack of it is churn driver'
+      - 'Market demand: 40% of sales pipeline requests this'
+
+  - id: STAKE-006
+    dimension: Completeness
+    question: Is the target audience for this feature defined?
+    description: Who are we building this for? Is it all users or a segment?
+    audience: [stakeholder]
+    pass_criteria: Primary and secondary audiences clearly identified; rollout strategy defined
+    suggestion: Add audience segment and rollout section
+    reference_examples:
+      - 'Primary: Power users (top 20% by usage)'
+      - 'Secondary: Bulk data consumers'
+      - 'Rollout: Closed beta with 100 power users, then GA'
+
+  - id: STAKE-007
+    dimension: Measurability
+    question: Are success metrics business-focused?
+    description: Are we tracking what matters to stakeholders (adoption, revenue, retention)?
+    audience: [stakeholder]
+    pass_criteria: KPIs for adoption, engagement, revenue impact, or churn reduction defined
+    suggestion: Define metrics stakeholders care about (not just technical metrics)
+    reference_examples:
+      - 'Adoption: 70% of segment uses feature in 30 days'
+      - 'Retention: Reduces churn by 5% in power user segment'
+
+  - id: STAKE-008
+    dimension: Scenario Coverage
+    question: Are key user paths documented?
+    description: Can stakeholders understand how users will actually use this?
+    audience: [stakeholder]
+    pass_criteria: Happy path and 1+ critical alternative flows documented in plain language
+    suggestion: Add user journey in business language (not technical)
+    reference_examples:
+      - 'User logs in → navigates to export → selects date range → clicks Export → receives CSV email'
+
+  - id: STAKE-009
+    dimension: Dependencies
+    question: Are dependencies on other projects documented?
+    description: Does this depend on work from other teams? What's the integration risk?
+    audience: [stakeholder]
+    pass_criteria: Cross-team dependencies and integration risks identified
+    suggestion: List dependent projects and any timing/coordination requirements
+    reference_examples:
+      - 'Depends on Platform team infrastructure upgrade (scheduled Q4)'
+      - 'Requires Sales Engineering to update customer contracts'
+
+  - id: STAKE-010
+    dimension: Completeness
+    question: Are risks and mitigation strategies identified?
+    description: What could go wrong? How are we mitigating?
+    audience: [stakeholder]
+    pass_criteria: Key risks documented with mitigation or fallback plans
+    suggestion: Add risk register with likelihood, impact, and mitigation
+    reference_examples:
+      - 'Risk: High export volume impacts API performance → Mitigation: Rate limiting + queue-based processing'
+      - 'Risk: Customer data compliance issues → Mitigation: Legal review before launch'
+
+  - id: STAKE-011
+    dimension: Clarity
+    question: Is the timeline and release plan clear?
+    description: When will this ship? What's the phasing?
+    audience: [stakeholder]
+    pass_criteria: Release timeline, phasing, and go/no-go criteria documented
+    suggestion: Add timeline and go/no-go criteria for stakeholder approval
+    reference_examples:
+      - 'MVP (Q4 2026): CSV export for last 12 months'
+      - 'V2 (Q1 2027): PDF export, scheduled exports'
+
+  - id: STAKE-012
+    dimension: Dependencies
+    question: Are resource and team commitments clear?
+    description: What team will build this? What's the effort estimate?
+    audience: [stakeholder]
+    pass_criteria: Owning team, effort estimate, and resource requirements documented
+    suggestion: Document team ownership, effort estimate, and resource needs
+    reference_examples:
+      - 'Owned by Data team'
+      - 'Effort: 3 engineers, 4 weeks'
+      - 'Requires: Data engineer, Backend engineer, QA engineer'

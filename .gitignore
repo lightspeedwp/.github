@@ -77,8 +77,9 @@ node_modules/
 # Prevent local Claude Code settings from being committed
 .claude/settings*.json
 .claude/.settings*.json
+# Local graph and changelog-validator working directories
 /graft/
 /graphify-out/
-
 # Local evidence that names private repositories; never commit (spec 008, 2026-10-04)
 /.private-evidence/
+.github/validation/changelog/data/
