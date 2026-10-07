@@ -302,11 +302,17 @@ function generateMetadataBadges(frontMatter) {
  * destination still terminates it, so the value must be encoded at generation
  * time rather than at render time.
  *
+ * shields.io also reads a single `-` as the separator between label, message and
+ * colour, and `_` as a space, so a literal hyphen is written `--` and a literal
+ * underscore `__` (a licence such as `CC-BY-4.0` would otherwise split into
+ * three fields). `encodeURIComponent` leaves both characters unchanged. Keep this
+ * in step with `encodeBadgeSegment` in includes/badges.js.
+ *
  * @param {string} segment Raw label or status text.
  * @returns {string} Segment safe to interpolate into a shields.io path.
  */
 function encodeBadgeSegment(segment) {
-  return encodeURIComponent(segment).replace(/%3A/gi, ':');
+  return encodeURIComponent(segment).replace(/-/g, '--').replace(/_/g, '__').replace(/%3A/gi, ':');
 }
 
 /**
@@ -419,4 +425,5 @@ export {
   updateReadmeBadges,
   updateBadgesInReadme,
   loadBadgeSchema,
+  encodeBadgeSegment,
 };
