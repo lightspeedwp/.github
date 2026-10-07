@@ -162,4 +162,4 @@ When adding new utility modules:
 - [Testing Best Practices](../../../../docs/TESTING.md)
 - [Labelling Agent Documentation](../../../../docs/LABELING.md)
 
-*Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
+Need help? Say hi—work with us.
