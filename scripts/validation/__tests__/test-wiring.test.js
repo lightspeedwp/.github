@@ -89,6 +89,7 @@ const DISCOVERY_OVERRIDES = [
   'JEST_TEST_MATCH_4',
   'JEST_TEST_MATCH_5',
   'JEST_TEST_MATCH_6',
+  'JEST_TEST_MATCH_7',
 ];
 
 function defaultDiscoveryEnv() {
