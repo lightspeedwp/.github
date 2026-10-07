@@ -80,6 +80,8 @@ Defines `evidence/linear-labels.json` and the mapping table attached to the `[LA
 7. No mapping merges `area:observability` into `area:monitoring` (both are imported), and `area:agents`, `area:instructions` and `area:prompts` map to their `aiops:*` labels.
 8. Every non-canonical `openspec:` name found in files has an entry with `gap: true`, mapped to one of the 9 `spec:*` labels or retired (FR-011).
 9. No `spec:*` target is a spec number; spec numbers use `spec-id:NNN`.
+10. Every `import` cites, in `change_request`, the issue number of the request that approves it (constitution Principle II).
+11. Every `import` uses a canonical label family, because `validate-labeling-configs.cjs` rejects any other name in `labels.yml`. The families are the ones in `scripts/validation/lib/label-families.cjs`, which that validator and the mapping both read: the families `labels.yml` carries today plus `aiops:`, `spec:` and `spec-id:`, which the Stage 2 change introduces (FR-011). A Linear label outside them, such as an unprefixed name or `other:example`, is handled in this order: with no issues it is retired as FR-012 says for any unused Linear-only label (no gap entry); otherwise it is merged where the earlier bare-label mapping (#2523) names a target; otherwise it is recorded as a `gap: true` retire entry for a decision.
 
 *Have questions? Ping us on GitHub! 🐙 Made with 💚 by LightSpeedWP*
 [Contact](https://lightspeedwp.agency/contact)

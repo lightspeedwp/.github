@@ -4350,33 +4350,31 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 1 Linear issue. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue).",
+      "change_request": null,
       "source": "CI/CD",
       "systems": [
         "linear"
       ],
-      "action": "import",
+      "action": "retire",
       "target": null,
       "issue_count": 1,
       "requirement": "FR-012",
-      "color": "10B981",
-      "description": "Continuous integration and deployment infrastructure"
+      "gap": true
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues).",
+      "change_request": null,
       "source": "Hosting",
       "systems": [
         "linear"
       ],
-      "action": "import",
+      "action": "retire",
       "target": null,
       "issue_count": 13,
       "requirement": "FR-012",
-      "color": "F59E0B",
-      "description": "Hosting environment, servers, and infrastructure"
+      "gap": true
     },
     {
       "concept_label": null,
@@ -4627,7 +4625,7 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 56 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3757.",
+      "notes": "Requested in #3757: colour and description as in the request, because the colour strategy has no rule for this label (FR-012, R16). Applied to 56 Linear issues; the Linear label is updated to match.",
       "change_request": 3757,
       "source": "area:labels",
       "systems": [
@@ -4638,8 +4636,8 @@
       "target": null,
       "issue_count": 56,
       "requirement": "FR-012",
-      "color": "C5DEF5",
-      "description": "Label taxonomy and governance"
+      "color": "EDEDED",
+      "description": "Label governance and routing"
     },
     {
       "concept_label": null,
@@ -4779,34 +4777,31 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Earlier bare-label mapping (#2523) names type:bug; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues).",
+      "change_request": null,
       "source": "bug",
       "systems": [
         "github",
         "linear"
       ],
-      "action": "import",
-      "target": null,
+      "action": "merge",
+      "target": "type:bug",
       "issue_count": 2,
-      "requirement": "FR-012",
-      "color": "EDEDED",
-      "description": "Imported from Linear (2 issues); description to be written at approval."
+      "requirement": "FR-012"
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues).",
+      "change_request": null,
       "source": "ci-runner-audit-2026-07-20",
       "systems": [
         "linear"
       ],
-      "action": "import",
+      "action": "retire",
       "target": null,
       "issue_count": 13,
       "requirement": "FR-012",
-      "color": "B60205",
-      "description": "Self-hosted CI runner security audit, 2026-07-20"
+      "gap": true
     },
     {
       "concept_label": null,
@@ -4855,34 +4850,31 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Earlier bare-label mapping (#2523) names type:epic; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues).",
+      "change_request": null,
       "source": "epic",
       "systems": [
         "github",
         "linear"
       ],
-      "action": "import",
-      "target": null,
+      "action": "merge",
+      "target": "type:epic",
       "issue_count": 2,
-      "requirement": "FR-012",
-      "color": "3FB950",
-      "description": "Large multi-scope initiative"
+      "requirement": "FR-012"
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues).",
+      "change_request": null,
       "source": "harvest-parity",
       "systems": [
         "linear"
       ],
-      "action": "import",
+      "action": "retire",
       "target": null,
       "issue_count": 2,
       "requirement": "FR-012",
-      "color": "0E8A16",
-      "description": "Closing a gap against Harvest before the subscription ends"
+      "gap": true
     },
     {
       "concept_label": null,
@@ -4900,18 +4892,17 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 8 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues).",
+      "change_request": null,
       "source": "master-ci-red",
       "systems": [
         "linear"
       ],
-      "action": "import",
+      "action": "retire",
       "target": null,
       "issue_count": 8,
       "requirement": "FR-012",
-      "color": "EDEDED",
-      "description": "Imported from Linear (8 issues); description to be written at approval."
+      "gap": true
     },
     {
       "concept_label": null,
@@ -5569,19 +5560,17 @@
     },
     {
       "concept_label": null,
-      "notes": "Proposed: applied to 11 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834.",
-      "change_request": 3834,
+      "notes": "Earlier bare-label mapping (#2523) names type:security; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (11 Linear issues).",
+      "change_request": null,
       "source": "security",
       "systems": [
         "github",
         "linear"
       ],
-      "action": "import",
-      "target": null,
+      "action": "merge",
+      "target": "type:security",
       "issue_count": 11,
-      "requirement": "FR-012",
-      "color": "EDEDED",
-      "description": "Imported from Linear (11 issues); description to be written at approval."
+      "requirement": "FR-012"
     },
     {
       "concept_label": null,
@@ -7853,6 +7842,19 @@
       "requirement": "FR-016",
       "action": "retire",
       "target": null
+    },
+    {
+      "concept_label": null,
+      "notes": "Same name as security apart from case or separator, which resolves to type:security (1 public repository, 0 counted items (lower bound)).",
+      "change_request": null,
+      "source": "Security",
+      "systems": [
+        "github"
+      ],
+      "issue_count": 0,
+      "requirement": "FR-016",
+      "action": "merge",
+      "target": "type:security"
     },
     {
       "concept_label": null,
