@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const yaml = require('js-yaml');
+const { LABEL_PREFIXES, hasLabelPrefix } = require('./lib/label-families.cjs');
 
 function fail(message) {
   console.error(`[validate-labeling-configs] ${message}`);
@@ -26,23 +27,7 @@ function collectLabelNames(labels) {
 }
 
 function assertLabelConfig(labels) {
-  const allowedPrefixes = [
-    'status:',
-    'priority:',
-    'type:',
-    'area:',
-    'comp:',
-    'lang:',
-    'env:',
-    'compat:',
-    'cpt:',
-    'ai-ops:',
-    'contrib:',
-    'discussion:',
-    'release:',
-    'meta:',
-    'openspec:',
-  ];
+  const allowedPrefixes = LABEL_PREFIXES;
 
   if (!Array.isArray(labels)) {
     fail('.github/labels.yml must be an array');
@@ -52,8 +37,7 @@ function assertLabelConfig(labels) {
     if (!item || typeof item !== 'object' || typeof item.name !== 'string') {
       fail(`Invalid labels.yml entry at index ${index}`);
     }
-    const hasAllowedPrefix = allowedPrefixes.some((prefix) => item.name.startsWith(prefix));
-    if (!hasAllowedPrefix) {
+    if (!hasLabelPrefix(item.name, allowedPrefixes)) {
       fail(
         `Label '${item.name}' must use a canonical family prefix (${allowedPrefixes.join(', ')})`
       );
