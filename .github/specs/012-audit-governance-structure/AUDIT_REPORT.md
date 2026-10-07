@@ -9,7 +9,7 @@
 
 ## Executive Summary
 
-Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified **7 independent findings** across 4 severity levels, with **1 critical violation** of Constitution Principle III (Clear Asset Boundaries, No Duplication) and **5 additional major structural issues**.
+Comprehensive audit of CLAUDE.md and AGENTS.md governance files identified **8 independent findings** across 4 severity levels (1 critical, 5 major, 1 medium and 1 low), with **1 critical violation** of Constitution Principle III (Clear Asset Boundaries, No Duplication) and **5 additional major structural issues**. These counts and the critical-violation claim are as recorded on 2026-09-17/18; the [re-verification against `develop`](#re-verification-against-develop-2026-10-04) below records the current state of each finding (for example, DUP-001 is already resolved).
 
 **Baseline Metrics**:
 
@@ -459,23 +459,23 @@ Plus backup originals in `originals/`:
 
 Once @ashley approves the findings and proposed remediation approaches:
 
-**Phase 2: Refactoring & Implementation** (Tasks T120–T196)
+**Phase 2: Refactoring & Implementation** (Tasks T120–T153)
 
 1. Apply all findings to CLAUDE.md and AGENTS.md
-2. Consolidate DUP-001 duplicate section
+2. ~~Consolidate DUP-001 duplicate section~~ — already consolidated on `develop` (`AGENTS.md` has one `Label Creation Governance` section, at line 227; see the re-verification above), so no work remains
 3. Move ORG-001 script organization guidance to CLAUDE.md
 4. Add WORKFLOW-001 specification-first workflow documentation
 5. Fix REF-002 broken script reference
 6. Strengthen PRIN-001 branch naming emphasis
 7. Add CONST-001 constitutional framing
 
-**Phase 3: Validation** (Tasks T154–T158)
+**Phase 3: Validation** (Tasks T154–T177)
 
 1. Verify SC-001 through SC-009 success criteria
 2. Run validation scenarios from quickstart.md
 3. Compare before/after metrics
 
-**Phase 4: Merge**
+**Phase 4: Merge** (Tasks T178–T196)
 
 1. Create draft PR to develop branch
 2. Request @ashley final review
@@ -487,7 +487,7 @@ Once @ashley approves the findings and proposed remediation approaches:
 
 This report is submitted for @ashley review. Please confirm:
 
-- [ ] All 7 findings are accurate and complete
+- [ ] All 8 findings are accurate and complete
 - [ ] Proposed remediation approaches are acceptable
 - [ ] Constitutional alignment analysis is correct
 - [ ] Ready to proceed with Phase 2 refactoring based on approved findings
