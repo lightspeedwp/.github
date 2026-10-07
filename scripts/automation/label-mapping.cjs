@@ -25,8 +25,20 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const {
+  LABEL_PREFIXES,
+  STAGE_2_PREFIXES,
+  hasLabelPrefix,
+} = require('../validation/lib/label-families.cjs');
 
 const EVIDENCE = '.github/reports/audits/2026-09-14-label-audit/evidence';
+
+/**
+ * Families an import may use: the ones `labels.yml` carries today plus the ones the Stage 2
+ * change introduces (FR-011). One list shared with `validate-labeling-configs.cjs`, so the
+ * mapping cannot import a label that validator would then reject.
+ */
+const IMPORT_PREFIXES = [...LABEL_PREFIXES, ...STAGE_2_PREFIXES];
 
 /** FR-012 approved merges, source -> target. */
 const MERGES = {
@@ -143,6 +155,26 @@ const TEAM_SCOPE = ['area:xero', 'area:flow', 'area:jobs', 'area:monorepo'];
  */
 const IMPORT_CHANGE_REQUEST = 3834;
 const OWN_CHANGE_REQUESTS = { 'area:labels': 3757 };
+
+/**
+ * Colour and description of an import that has its own request. FR-012 (research R16):
+ * where `docs/LABEL_COLOR_STRATEGY.md` has no rule for the family, the colour in the
+ * approved request stands, so these win over the family default and over Linear's
+ * own description. The Linear label is then updated to match `labels.yml`.
+ * #3757 asks for `area:labels` with the values the label already has on GitHub.
+ */
+const OWN_REQUEST_VALUES = {
+  'area:labels': { color: 'EDEDED', description: 'Label governance and routing' },
+};
+
+/**
+ * Closest approved label for an unprefixed Linear-only label, named only to help the
+ * decision. No rule or document defines these, so none is applied.
+ */
+const UNPREFIXED_SUGGESTIONS = {
+  Hosting: 'area:hosting',
+  'CI/CD': 'area:ci',
+};
 
 /** The five imports of #3554, with the colours and descriptions set in FR-012. */
 const ISSUE_3554 = {
@@ -628,6 +660,53 @@ function buildMappings({
       });
       continue;
     }
+    // labels.yml allows only the canonical families (validate-labeling-configs), so a Linear
+    // label outside them cannot be imported as it is. The earlier bare-label mapping (#2523)
+    // names a type label for some of them; the rest are open decisions, recorded as a gap.
+    if (!hasLabelPrefix(name, IMPORT_PREFIXES)) {
+      const bareTarget = bare[name.toLowerCase()];
+      if (bareTarget && inYml.has(bareTarget)) {
+        add({
+          source: name,
+          systems: where(name),
+          action: 'merge',
+          target: bareTarget,
+          issue_count: issueCount,
+          requirement: 'FR-012',
+          notes: `Earlier bare-label mapping (#2523) names ${bareTarget}; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
+        });
+      } else {
+        const suggestion = UNPREFIXED_SUGGESTIONS[name];
+        add({
+          source: name,
+          systems: where(name),
+          action: 'retire',
+          target: null,
+          issue_count: issueCount,
+          requirement: 'FR-012',
+          gap: true,
+          notes: `Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; ${suggestion ? `the closest label is ${suggestion}` : 'no approved label matches it'} (${issueCount} Linear issue${issueCount === 1 ? '' : 's'}).`,
+        });
+      }
+      continue;
+    }
+    const ownRequest = OWN_REQUEST_VALUES[name];
+    if (ownRequest) {
+      const request = OWN_CHANGE_REQUESTS[name];
+      add({
+        source: name,
+        systems: where(name),
+        action: 'import',
+        target: null,
+        issue_count: issueCount,
+        requirement: 'FR-012',
+        color: ownRequest.color,
+        description: ownRequest.description,
+        change_request: request,
+        notes: `Requested in #${request}: colour and description as in the request, because the colour strategy has no rule for this label (FR-012, R16). Applied to ${issueCount} Linear issue${issueCount === 1 ? '' : 's'}; the Linear label is updated to match.`,
+      });
+      continue;
+    }
     const family = familyOf(name);
     const familyDefault = FAMILY_STRATEGY_COLOUR[family] || familyColour(yml, family);
     const ownColour = hex(label.color);
@@ -743,6 +822,11 @@ function validateMappings(mappings, proposedNames, yml, openspecInFiles = []) {
   for (const m of mappings.filter((x) => x.action === 'import')) {
     if (!Number.isInteger(m.change_request))
       problems.push(`rule 10: import ${m.source} cites no change request`);
+  }
+  // 11. Every import uses a canonical label family: validate-labeling-configs rejects any other name in labels.yml.
+  for (const m of mappings.filter((x) => x.action === 'import')) {
+    if (!hasLabelPrefix(m.source, IMPORT_PREFIXES))
+      problems.push(`rule 11: import ${m.source} does not use a canonical label family`);
   }
   // Each source appears once.
   const seen = new Set();
