@@ -4,14 +4,14 @@
 
 ## Chore Summary
 
-Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 471 source labels and ends with 66 distinct targets. The type family ends at exactly 25.
+Approve the mapping that Stage 2 (the `.github/labels.yml` configuration PR, T059) and later stages apply. It covers 472 source labels and ends with 69 distinct targets. The type family ends at exactly 25.
 
 Nothing changes until @ashleyshaw records a dated decision on this issue. Each repository's deletion has its own later gate (the deletion gate issue, T049).
 
 ## Decisions needed
 
 1. **Spec-listed rules (no judgement).** The FR-011 prefix renames, the 32 FR-012 merges, the FR-015 re-prefixes and the team-scope labels follow the spec as written.
-2. **Proposed by this mapping (spec is silent).** The 48 merges and 9 gap entries below are judgement calls. Approve, or replace the target in a comment.
+2. **Proposed by this mapping (spec is silent).** The 39 merges and 14 gap entries below are judgement calls. Approve, or replace the target in a comment.
 
 ## Linked Stories/Tasks
 
@@ -56,7 +56,7 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type/feature` | `type:feature` | 0 | FR-016 | Same name as type:feature apart from case or separator (1 public repository, 0 counted items (lower bound)). |
 | `type/refactor` | `type:refactor` | 0 | FR-016 | Same name as type:refactor apart from case or separator (1 public repository, 0 counted items (lower bound)). |
 
-### merge (76)
+### merge (80)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
@@ -96,6 +96,9 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type:build-ci` | `type:ci` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Build & CI type to CI. Needed so the type family ends at exactly 25. |
 | `type:code-refactor` | `type:refactor` | 3 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Code Refactor type to Refactor. Needed so the type family ends at exactly 25. |
 | `type:documentation` | `type:docs` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate of type:docs. Needed so the type family ends at exactly 25. |
+| `bug` | `type:bug` | 2 | FR-012 | Earlier bare-label mapping (#2523) names type:bug; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues). |
+| `epic` | `type:epic` | 2 | FR-012 | Earlier bare-label mapping (#2523) names type:epic; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (2 Linear issues). |
+| `security` | `type:security` | 11 | FR-012 | Earlier bare-label mapping (#2523) names type:security; labels.yml allows only the canonical label families, so this Linear label is merged, not imported (11 Linear issues). |
 | `a11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
 | `A11y` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
 | `accessibility` | `type:a11y` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:a11y, which resolves to type:a11y (1 public repository, 0 counted items (lower bound)). |
@@ -128,6 +131,7 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `Performance` | `type:performance` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:performance, which resolves to type:performance (1 public repository, 0 counted items (lower bound)). |
 | `refactor` | `type:refactor` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:refactor, which resolves to type:refactor (2 public repositories, 0 counted items (lower bound)). |
 | `release` | `type:release` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:release, which resolves to type:release (1 public repository, 0 counted items (lower bound)). |
+| `Security` | `type:security` | 0 | FR-016 | Same name as security apart from case or separator, which resolves to type:security (1 public repository, 0 counted items (lower bound)). |
 | `status: completed` | `status:done` | 0 | FR-016 | Same name as status:completed apart from case or separator, which resolves to status:done (1 public repository, 0 counted items (lower bound)). |
 | `Task` | `type:task` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:task, which resolves to type:task (1 public repository, 0 counted items (lower bound)). |
 | `test` | `type:test` | 0 | FR-016 | Earlier bare-label mapping (#2523) names type:test, which resolves to type:test (3 public repositories, 0 counted items (lower bound)). |
@@ -165,61 +169,53 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `area:jobs` | retire | 2 | FR-012 | Project-specific; moved to a Linear team, not imported. |
 | `area:monorepo` | retire | 1 | FR-012 | Project-specific; moved to a Linear team, not imported. |
 
-### import (49)
+### import (41)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
-| `area:builds` | retire | 424 | FR-012 | Requested in #3554. |
-| `area:monitoring` | retire | 8 | FR-012 | Requested in #3554. |
-| `area:observability` | retire | 3 | FR-012 | Requested in #3554. |
-| `area:workflows` | retire | 12 | FR-012 | Requested in #3554. |
-| `meta:needs-approval` | retire | 3 | FR-012, FR-021 | Requested in #3554. |
-| `CI/CD` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `Hosting` | retire | 13 | FR-012 | Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `aiops:instructions` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `aiops:tools` | retire | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:api` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:auth` | retire | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:backend` | retire | 24 | FR-012 | Proposed: applied to 24 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:changelog` | retire | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:communication` | retire | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:db` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:extension` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:frontend` | retire | 22 | FR-012 | Proposed: applied to 22 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:hosting` | retire | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:labels` | retire | 56 | FR-012 | Proposed: applied to 56 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3757. |
-| `area:mcp` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:migration` | retire | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:projects` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:reports` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:specification` | retire | 40 | FR-012 | Proposed: applied to 40 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:templates` | retire | 11 | FR-012 | Proposed: applied to 11 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:website` | retire | 106 | FR-012 | Proposed: applied to 106 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `bug` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834. |
-| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `comp:query-loop` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `comp:readme-mermaid` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `epic` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `harvest-parity` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `master-ci-red` | retire | 8 | FR-012 | Proposed: applied to 8 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:aiops` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:audit` | retire | 42 | FR-012 | Proposed: applied to 42 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:dependabot-security` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:enhancement` | retire | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:incident-report` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:infrastructure-blocker` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:needs-audit` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:needs-triage` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:refactor-rules` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:release-plan` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:tech-debt` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:tracking` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `security` | retire | 11 | FR-012 | Proposed: applied to 11 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834. |
-| `status:needs-analysis` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `status:needs-cleanup` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `status:needs-template-fix` | retire | 207 | FR-012 | Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
+| `area:builds` | new label | 424 | FR-012 | Requested in #3554. Colour `BFD4F2`; description "Build configuration, tooling, packaging, and artefact generation; use `area:ci` for CI pipeline execution and checks.". |
+| `area:monitoring` | new label | 8 | FR-012 | Requested in #3554. Colour `006B75`; description "Operational checks, health monitoring, alerts, and failure detection; use `area:observability` for diagnostic telemetry and dashboards.". |
+| `area:observability` | new label | 3 | FR-012 | Requested in #3554. Colour `006B75`; description "Logs, metrics, traces, and dashboards used to understand and diagnose system behaviour; use `area:monitoring` for checks and alerts.". |
+| `area:workflows` | new label | 12 | FR-012 | Requested in #3554. Colour `0F448A`; description "Cross-cutting automated or operational workflow design and orchestration; use `area:automation` for scripts and automation implementation.". |
+| `meta:needs-approval` | new label | 3 | FR-012, FR-021 | Requested in #3554. Colour `57606A`; description "Explicit decision or sign-off required before the specified work proceeds; remove once the decision and approver are recorded.". |
+| `aiops:instructions` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. Colour `0052CC`; description "AI instruction docs". |
+| `aiops:tools` | new label | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Tool/plugin manifests". |
+| `area:api` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Application programming interface work". |
+| `area:auth` | new label | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Authentication and authorisation work". |
+| `area:backend` | new label | 24 | FR-012 | Proposed: applied to 24 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Backend application work". |
+| `area:changelog` | new label | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Changelog management". |
+| `area:communication` | new label | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Communication and notifications". |
+| `area:db` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Database work". |
+| `area:extension` | new label | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Extension development and maintenance". |
+| `area:frontend` | new label | 22 | FR-012 | Proposed: applied to 22 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Frontend application work". |
+| `area:hosting` | new label | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Hosting configuration and operations". |
+| `area:labels` | new label | 56 | FR-012 | Requested in #3757: colour and description as in the request, because the colour strategy has no rule for this label (FR-012, R16). Applied to 56 Linear issues; the Linear label is updated to match. Colour `EDEDED`; description "Label governance and routing". |
+| `area:mcp` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Model Context Protocol integrations". |
+| `area:migration` | new label | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Data, content, or system migration work". |
+| `area:projects` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Project planning and management". |
+| `area:reports` | new label | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Creating, presenting, or maintaining reports". |
+| `area:specification` | new label | 40 | FR-012 | Proposed: applied to 40 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Technical specifications and requirements". |
+| `area:templates` | new label | 11 | FR-012 | Proposed: applied to 11 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Reusable project and content templates". |
+| `area:website` | new label | 106 | FR-012 | Proposed: applied to 106 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Website implementation and maintenance work". |
+| `comp:query-loop` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Query Loop block". |
+| `comp:readme-mermaid` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Mermaid diagrams in README files". |
+| `meta:aiops` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. Colour `57606A`; description "Imported from Linear (1 issues); description to be written at approval.". |
+| `meta:audit` | new label | 42 | FR-012 | Proposed: applied to 42 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Housekeeping metadata for audit work and findings". |
+| `meta:dependabot-security` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Dependabot update appears security-related and eligible for guarded automation". |
+| `meta:enhancement` | new label | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Housekeeping metadata for proposed enhancements". |
+| `meta:incident-report` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Incident report tracking". |
+| `meta:infrastructure-blocker` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Infrastructure dependency is blocking progress". |
+| `meta:needs-audit` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. Colour `57606A`; description "Imported from Linear (2 issues); description to be written at approval.". |
+| `meta:needs-triage` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. Colour `57606A`; description "Imported from Linear (1 issues); description to be written at approval.". |
+| `meta:refactor-rules` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Rules for refactoring work". |
+| `meta:release-plan` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Release planning and coordination". |
+| `meta:tech-debt` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Technical debt tracking". |
+| `meta:tracking` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Work requiring ongoing tracking and follow-up". |
+| `status:needs-analysis` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Analysis required before proceeding". |
+| `status:needs-cleanup` | new label | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Requires cleanup before proceeding". |
+| `status:needs-template-fix` | new label | 207 | FR-012 | Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Issue template requires correction". |
 
-### retire (57)
+### retire (62)
 
 | Source | Target | Items | Rule | Notes |
 | --- | --- | ---: | --- | --- |
@@ -228,6 +224,8 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `openspec:status` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: a namespace prefix used in examples (openspec:status/production), not a label. |
 | `openspec:tracking` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: no spec status label matches tracking. |
 | `openspec:unknown` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: a placeholder value, not a label. |
+| `CI/CD` | retire | 1 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue). |
+| `Hosting` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues). |
 | `agent-audit` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `aiops:agents` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `aiops:chat-modes` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
@@ -236,8 +234,11 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `aiops:prompts` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `area:linting` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `area:onboarding` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
+| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues). |
 | `documentation` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
+| `harvest-parity` | retire | 2 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues). |
 | `important` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
+| `master-ci-red` | retire | 8 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues). |
 | `meta:analysis` | retire | 0 | FR-012 | Linear-only with zero issues; retire, not import. |
 | `migrate:area:automation` | retire | 162 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
 | `migrate:area:ci` | retire | 109 | FR-012 | migrate:* labels are never imported; retired in Linear (kept as a per-repository migrate_to source in the FR-016 dry run). |
@@ -294,6 +295,11 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `openspec:tracking` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: no spec status label matches tracking. |
 | `openspec:unknown` | retire | 0 | FR-011 | Used in files but not defined in labels.yml. Proposed retirement: a placeholder value, not a label. |
 | `spec:001` | `spec-id:001` | 0 | FR-011 | Spec numbers move to spec-id:NNN so spec:* holds only status labels. |
+| `CI/CD` | retire | 1 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:ci (1 Linear issue). |
+| `Hosting` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; the closest label is area:hosting (13 Linear issues). |
+| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (13 Linear issues). |
+| `harvest-parity` | retire | 2 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (2 Linear issues). |
+| `master-ci-red` | retire | 8 | FR-012 | Open decision: this Linear label does not use a canonical label family, and labels.yml cannot carry it as it is. Retirement is proposed, not decided; no approved label matches it (8 Linear issues). |
 
 ## Proposed beyond the spec
 
@@ -303,50 +309,41 @@ Nothing changes until @ashleyshaw records a dated decision on this issue. Each r
 | `type:build-ci` | `type:ci` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Build & CI type to CI. Needed so the type family ends at exactly 25. |
 | `type:code-refactor` | `type:refactor` | 3 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate; FR-019 renames the Code Refactor type to Refactor. Needed so the type family ends at exactly 25. |
 | `type:documentation` | `type:docs` | 1 | FR-014 | Proposed (not listed in FR-012): Linear-only duplicate of type:docs. Needed so the type family ends at exactly 25. |
-| `CI/CD` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `Hosting` | retire | 13 | FR-012 | Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `aiops:instructions` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `aiops:tools` | retire | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:api` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:auth` | retire | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:backend` | retire | 24 | FR-012 | Proposed: applied to 24 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:changelog` | retire | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:communication` | retire | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:db` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:extension` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:frontend` | retire | 22 | FR-012 | Proposed: applied to 22 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:hosting` | retire | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:labels` | retire | 56 | FR-012 | Proposed: applied to 56 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3757. |
-| `area:mcp` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:migration` | retire | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:projects` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:reports` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:specification` | retire | 40 | FR-012 | Proposed: applied to 40 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:templates` | retire | 11 | FR-012 | Proposed: applied to 11 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `area:website` | retire | 106 | FR-012 | Proposed: applied to 106 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `bug` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834. |
-| `ci-runner-audit-2026-07-20` | retire | 13 | FR-012 | Proposed: applied to 13 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `comp:query-loop` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `comp:readme-mermaid` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `epic` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `harvest-parity` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. |
-| `master-ci-red` | retire | 8 | FR-012 | Proposed: applied to 8 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:aiops` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:audit` | retire | 42 | FR-012 | Proposed: applied to 42 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:dependabot-security` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:enhancement` | retire | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:incident-report` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:infrastructure-blocker` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:needs-audit` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:needs-triage` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. |
-| `meta:refactor-rules` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:release-plan` | retire | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:tech-debt` | retire | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `meta:tracking` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `security` | retire | 11 | FR-012 | Proposed: applied to 11 Linear issues. Colour is the Linear label's own; description is a placeholder. Check both at approval. Change request #3834. |
-| `status:needs-analysis` | retire | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `status:needs-cleanup` | retire | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
-| `status:needs-template-fix` | retire | 207 | FR-012 | Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. |
+| `aiops:instructions` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. Colour `0052CC`; description "AI instruction docs". |
+| `aiops:tools` | new label | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the Linear label's own; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Tool/plugin manifests". |
+| `area:api` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Application programming interface work". |
+| `area:auth` | new label | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Authentication and authorisation work". |
+| `area:backend` | new label | 24 | FR-012 | Proposed: applied to 24 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Backend application work". |
+| `area:changelog` | new label | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Changelog management". |
+| `area:communication` | new label | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Communication and notifications". |
+| `area:db` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Database work". |
+| `area:extension` | new label | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Extension development and maintenance". |
+| `area:frontend` | new label | 22 | FR-012 | Proposed: applied to 22 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Frontend application work". |
+| `area:hosting` | new label | 6 | FR-012 | Proposed: applied to 6 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Hosting configuration and operations". |
+| `area:mcp` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Model Context Protocol integrations". |
+| `area:migration` | new label | 7 | FR-012 | Proposed: applied to 7 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Data, content, or system migration work". |
+| `area:projects` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Project planning and management". |
+| `area:reports` | new label | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Creating, presenting, or maintaining reports". |
+| `area:specification` | new label | 40 | FR-012 | Proposed: applied to 40 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Technical specifications and requirements". |
+| `area:templates` | new label | 11 | FR-012 | Proposed: applied to 11 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Reusable project and content templates". |
+| `area:website` | new label | 106 | FR-012 | Proposed: applied to 106 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Website implementation and maintenance work". |
+| `comp:query-loop` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Query Loop block". |
+| `comp:readme-mermaid` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `C5DEF5`; description "Mermaid diagrams in README files". |
+| `meta:aiops` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. Colour `57606A`; description "Imported from Linear (1 issues); description to be written at approval.". |
+| `meta:audit` | new label | 42 | FR-012 | Proposed: applied to 42 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Housekeeping metadata for audit work and findings". |
+| `meta:dependabot-security` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Dependabot update appears security-related and eligible for guarded automation". |
+| `meta:enhancement` | new label | 4 | FR-012 | Proposed: applied to 4 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Housekeeping metadata for proposed enhancements". |
+| `meta:incident-report` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Incident report tracking". |
+| `meta:infrastructure-blocker` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Infrastructure dependency is blocking progress". |
+| `meta:needs-audit` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. Colour `57606A`; description "Imported from Linear (2 issues); description to be written at approval.". |
+| `meta:needs-triage` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is a placeholder. Check both at approval. Change request #3834. Colour `57606A`; description "Imported from Linear (1 issues); description to be written at approval.". |
+| `meta:refactor-rules` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Rules for refactoring work". |
+| `meta:release-plan` | new label | 2 | FR-012 | Proposed: applied to 2 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Release planning and coordination". |
+| `meta:tech-debt` | new label | 1 | FR-012 | Proposed: applied to 1 Linear issue. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Technical debt tracking". |
+| `meta:tracking` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `57606A`; description "Work requiring ongoing tracking and follow-up". |
+| `status:needs-analysis` | new label | 3 | FR-012 | Proposed: applied to 3 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Analysis required before proceeding". |
+| `status:needs-cleanup` | new label | 5 | FR-012 | Proposed: applied to 5 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Requires cleanup before proceeding". |
+| `status:needs-template-fix` | new label | 207 | FR-012 | Proposed: applied to 207 Linear issues. Colour is the family default; description is Linear's own. Check both at approval. Change request #3834. Colour `BFD4F2`; description "Issue template requires correction". |
 
 ## Where the FR-015 labels live
 
@@ -356,7 +353,7 @@ FR-015 calls its eight type labels "Linear-only". Checked on 2026-10-06, all eig
 
 Source: the weekly label drift check run of 2026-10-04 (283 repositories read, 59 skipped as archived or forks), kept in `evidence/github-label-coverage.json`. It lists 446 labels that exist in public repositories but not in `labels.yml`, and counts 57 more that exist only in private repositories and are not named here.
 
-Every one of them now has a row (296 new rows for 446 names, the rest were already approved or mapped): 247 retire, 40 merge, 9 rename. A name that differs only in case or separator is renamed, the earlier bare-label mapping (#2523) is followed through the current renames, and every other label is retired with a stated reason. Run against the real tool, all 374 labels outside the approved set in `lightspeedwp/.github` have a row.
+Every one of them now has a row (297 new rows for 446 names, the rest were already approved or mapped): 247 retire, 41 merge, 9 rename. A name that differs only in case or separator is renamed, the earlier bare-label mapping (#2523) is followed through the current renames, and every other label is retired with a stated reason. Run against the real tool, all 374 labels outside the approved set in `lightspeedwp/.github` have a row.
 
 20 labels carry known items and have no target that the spec or the label documents define, so the tool lists them under `needs_decision` per repository, as FR-016 requires, until a target is chosen: `area:monorepo`, `agent-audit`, `migrate:openspec:status/implementation`, `migrate:openspec:status/planning`, `migrate:openspec:status/production`, `migrate:openspec:status/testing`, `migrate:type:compatibility`, `ag-p14`, `ag-phase`, `bug-fix`, `code-quality`, `error-handling`, `logging`, `migrate:type:enhancement`, `phase-1-critical`, `phase-2-medium`, `phase-3-polish`, `phase:1`, `reliability`, `reviewer`. The item counts are a lower bound, because the drift report caps counted rows.
 
@@ -370,10 +367,11 @@ The 2026-10-06 drift run reports the 85 active public repositories only and summ
 
 ## Platform checks (Linear documentation, read 2026-10-06)
 
-- Linear merges labels natively and rescopes them between workspace and team ([Issue labels](https://linear.app/docs/labels)), so each `merge` row is a supported operation.
+- Linear lets duplicate labels be merged into one and rescopes labels between workspace and team ([Issue labels](https://linear.app/docs/labels)). The page does not say whether a merge works across a team label and a workspace label, so a `merge` row between the two is not confirmed as a native operation; see the team-scoped labels below.
 - Deleting a label removes it from every issue and cannot be undone; archiving keeps it on past issues and blocks new use. This matches the spec: Linear labels are retired (archived), never deleted.
 - Only one label from a label group can sit on an issue. A live read-only check on 2026-10-06 found no label groups in the workspace, so the type labels are flat and Linear does not enforce one type per issue. The "exactly one `type:*` per issue" rule must be enforced and verified by the consolidation tool (T064, T069), not assumed from Linear.
-- The same check confirmed that `type: feature`, `type:build-ci` and `type:code-refactor` are team-scoped (GIT team, 1, 1 and 3 issues in the export) and `type:documentation` is workspace-scoped. Team and workspace labels can both be merged. Counts are from the Stage 1 export and have since moved, so Stage 5 re-reads live counts before it writes.
+- The same check confirmed that `type: feature`, `type:build-ci` and `type:code-refactor` are team-scoped (GIT team, 1, 1 and 3 issues in the export) and `type:documentation` is workspace-scoped. Counts are from the Stage 1 export and have since moved, so Stage 5 re-reads live counts before it writes.
+- Some labels in a `merge` row are team-scoped, so the merge target and source can sit in different scopes. `security` (merged into `type:security`, 11 issues) is three team labels, in the GIT, INF and LS teams (0, 4 and 7 issues in the export). Stage 5 relabels issue by issue by label ID and scope (T069a), which does not depend on a native merge across scopes. A native merge is used only if a test on a throwaway pair of labels shows it works. Converting the team labels to a workspace label is not used, because it would keep an unprefixed `security` label.
 - The GitHub issue sync is bidirectional and includes labels ([GitHub Issues Sync](https://linear.app/changelog/2023-12-14-github-issues-sync)). That is why the spec turns the sync off from Stage 3 to Stage 5 (T071, T083).
 - Issue label management can be limited to team owners ([Teams](https://linear.app/docs/teams)), which is how T071 restricts label creation.
 
