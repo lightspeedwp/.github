@@ -125,18 +125,19 @@ feat/auth-token-refresh
 
 ## Release Branch Naming
 
-Release branches are special and use semantic versioning:
+Release branches are special and use semantic versioning. Both the dotted and the hyphenated forms are valid:
 
 ```
-release/v2-1-0              (Major-Minor-Patch format)
-release/v2-1-0-rc1          (Release candidate)
+release/v2.1.0              (Major.Minor.Patch, the semantic-version form)
+release/2.1.0-rc1           (Release candidate, `v` is optional)
+release/v2-1-0              (Hyphenated form, read as scope and title)
 release/v2-1-0-alpha        (Alpha release)
 ```
 
-**Important:** Use hyphens, not dots, in version numbers:
+**Important:** Dots are allowed only in the `X.Y.Z` core, never inside a suffix:
 
-- ✅ `release/v2-1-0`
-- ❌ `release/v2.1.0` (dots not allowed)
+- ✅ `release/v2.1.0-rc1`
+- ❌ `release/v2.1.0-beta.1` (dots not allowed inside a suffix)
 
 ## Hotfix Branch Naming
 

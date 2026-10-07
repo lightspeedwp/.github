@@ -202,6 +202,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Agent Linting Upgraded to Version 10** — Moved agent linting to the flat config format on Node 24. (#3326)
 
 - **Validation Audit Specification Added** — Added the quality audit specification with duplicate detection. (#3348)
+- **Branch Naming Strategy Constitution Alignment** — Aligned all branch naming artifacts to 38 authorised types. ([PR #3353](https://github.com/lightspeedwp/.github/pull/3353))
 
 - **Specs Directory Scripts & Docs** — Speckit scripts now take the specs directory from configuration, with backward-compatible defaults. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))
 - **Specs Directory Phase 7 Tasks** — Appended convergence validation tasks tracking deferred Phase 6 verification work for the specs directory. ([PR #3434](https://github.com/lightspeedwp/.github/pull/3434))

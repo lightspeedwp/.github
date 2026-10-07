@@ -15,9 +15,9 @@ Represents a Git branch with validation and routing metadata.
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `full_name` | String | ✅ | Complete Git branch name (e.g., `feat/user-auth-improvements`) |
-| `type` | Enum (24 values) | ✅ | Branch type (e.g., `feat`, `fix`, `security`) |
-| `scope` | String | ✅ | Feature domain (e.g., `user-auth`, `api-response`); lowercase alphanumeric + hyphens |
-| `title` | String | ✅ | Specific change within domain (e.g., `improvements`, `routing-bug`); lowercase alphanumeric + hyphens |
+| `type` | Enum (38 values) | ✅ | Branch type (e.g., `feat`, `fix`, `security`) |
+| `scope` | String \| null | ✅ | Feature domain (e.g., `user-auth`, `api-response`); lowercase alphanumeric + hyphens. `null` only for the `release/` semantic-version form |
+| `title` | String \| null | ✅ | Specific change within domain (e.g., `improvements`, `routing-bug`); lowercase alphanumeric + hyphens. `null` only for the `release/` semantic-version form |
 | `is_valid` | Boolean | Computed | True if matches pattern and not forbidden prefix |
 | `validation_errors` | String[] | Computed | List of validation failures: `invalid_type`, `forbidden_prefix`, `malformed_scope`, `malformed_title`, `empty_scope`, `empty_title` |
 | `suggested_name` | String | Computed | Suggested correction for invalid branch (e.g., `Did you mean: feat/user-auth-improvements?`) |
@@ -35,8 +35,14 @@ Represents a Git branch with validation and routing metadata.
 
 **Pattern Match** (Required):
 
+The regex below covers the `type/scope-title` form. `release/` also accepts a
+semantic-version form such as `release/v1.2.3` or `release/v1.2.3-rc1`, where `scope`
+and `title` are null, as the field table above records; every other type requires
+both. The validator accepts both forms, so a client validating a branch name must
+allow this alternative.
+
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|audit|codex|revert|research)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
+^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|revert|research|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
 ```
 
 **Forbidden Prefixes** (Reject):
@@ -48,7 +54,7 @@ Represents a Git branch with validation and routing metadata.
 **Length Constraints**:
 
 - Full branch name: ≤255 characters (Git standard)
-- Type: exactly one of 24 values
+- Type: exactly one of 38 values
 - Scope: 1+ characters, recommended ≤50
 - Title: 1+ characters, recommended ≤50
 - Scope + title: recommended ≤80 combined
@@ -112,7 +118,7 @@ Represents a Git branch with validation and routing metadata.
 
 ## Entity: BranchType
 
-Configuration entity defining each of the 24 authorized branch types and their routing rules.
+Configuration entity defining each of the 38 authorized branch types and their routing rules.
 
 ### Fields
 
@@ -129,7 +135,7 @@ Configuration entity defining each of the 24 authorized branch types and their r
 
 ### Complete Type Definitions
 
-All 24 types are listed in [contracts/branch-naming.contract.md](./contracts/branch-naming.contract.md) with full routing rules.
+The original 25 types are listed in [contracts/branch-naming.contract.md](./contracts/branch-naming.contract.md) with full routing rules. The other 13 are routed in `.github/branch-types.yml`.
 
 ### Key Invariants
 

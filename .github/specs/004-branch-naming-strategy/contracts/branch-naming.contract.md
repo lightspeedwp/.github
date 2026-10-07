@@ -1,6 +1,6 @@
 # Branch Naming Contract
 
-**Purpose**: Authoritative specification of the 24 branch types, their routing rules, and validation contract
+**Purpose**: Authoritative specification of the 38 branch types, their routing rules, and validation contract
 
 **Effective Date**: 2026-09-13
 
@@ -8,7 +8,9 @@
 
 ---
 
-## Type Definitions (24 Authorized Types)
+## Type Definitions (38 Authorized Types)
+
+The table below lists the original 25 types. The other 13 (`doc`, `api`, `schema`, `telemetry`, `content`, `seo`, `config`, `migrate`, `qa`, `uat`, `aiops`, `automation`, `epic`) are authorized by the validator and routed in `.github/branch-types.yml`.
 
 | Type | Purpose | Example | PR Template | Default Labels | Area Detection |
 |------|---------|---------|-------------|-----------------|-----------------|
@@ -47,13 +49,15 @@
 All branch names MUST match this regular expression:
 
 ```regex
-^(feat|fix|hotfix|release|refactor|chore|task|docs|test|perf|ci|build|deps|security|design|a11y|ux|i18n|ops|proto|ds|audit|codex|revert|research)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
+^(feat|fix|hotfix|release|refactor|chore|task|doc|docs|test|perf|ci|build|deps|security|revert|research|design|a11y|ux|i18n|ops|proto|ds|api|schema|telemetry|content|seo|config|migrate|qa|uat|audit|codex|aiops|automation|epic)/[a-z0-9]+(-[a-z0-9]+)*-[a-z0-9]+(-[a-z0-9]+)*$
 ```
+
+**Release exception**: a semantic-version release branch also matches, without a scope and title: `^release/v?\d+\.\d+\.\d+(-[a-z0-9]+)*$`, so `release/v1.2.3` and `release/1.2.3-rc1` are valid. Dots are not allowed inside a suffix, so `release/v1.2.3-beta.1` is rejected.
 
 **Breakdown**:
 
 - `^` — Start of string
-- `(feat|fix|...|research)` — One of the 24 authorized types
+- `(feat|fix|...|epic)` — One of the 38 authorized types
 - `/` — Literal slash separator
 - `[a-z0-9]+(-[a-z0-9]+)*` — Scope: lowercase alphanumeric + hyphens, no consecutive hyphens
 - `-` — Literal hyphen separator between scope and title
@@ -73,7 +77,7 @@ Any branch starting with these prefixes is **invalid** regardless of the rest of
 ### Length Constraints
 
 - **Full branch name**: ≤255 characters (Git standard limit)
-- **Type**: Exactly one of 24 values (1-9 characters each)
+- **Type**: Exactly one of 38 values (1-9 characters each)
 - **Scope**: 1-50 characters recommended (1+ required)
 - **Title**: 1-50 characters recommended (1+ required)
 - **Total scope + title**: ≤100 characters recommended
@@ -101,7 +105,7 @@ Both scope and title must:
 ```
 ❌ Invalid type '{type}'. Not recognized.
 
-Allowed types (24):
+Allowed types (25):
   feat fix hotfix release refactor chore task docs test perf
   ci build deps security design a11y ux i18n ops proto ds
   audit codex revert research
@@ -218,27 +222,27 @@ When a PR is created from a valid branch, GitHub Actions automatically applies t
 
 **Fallback**: If no template file exists for a type, use `.github/pull_request_template.md` (generic template)
 
-### Template Files (19 templates for 24 types)
+### Template Files (17 templates for 38 types)
 
-- `pr_feature.md` — feat, task, proto
-- `pr_bugfix.md` — fix, revert
-- `pr_hotfix.md` — hotfix
-- `pr_release.md` — release
-- `pr_refactor.md` — refactor
-- `pr_chore.md` — chore, deps
-- `pr_docs.md` — docs
-- `pr_test.md` — test
-- `pr_perf.md` — perf
-- `pr_ci.md` — ci, build
-- `pr_security.md` — security
-- `pr_design.md` — design, ds
+Mirrors `.github/branch-types.yml`, the single source of truth for type → template mapping.
+
 - `pr_a11y.md` — a11y
-- `pr_ux.md` — ux
-- `pr_i18n.md` — i18n
-- `pr_ops.md` — ops
+- `pr_aiops.md` — aiops, automation, codex
 - `pr_audit.md` — audit
-- `pr_codex.md` — codex
-- `pr_research.md` — research
+- `pr_bug.md` — fix, revert
+- `pr_chore.md` — chore, config
+- `pr_ci.md` — build, ci, ops, telemetry
+- `pr_dep_update.md` — deps
+- `pr_design.md` — design, ds, ux
+- `pr_docs.md` — content, doc, docs, i18n
+- `pr_epic.md` — epic
+- `pr_feature.md` — api, feat, perf, proto, research, seo
+- `pr_hotfix.md` — hotfix
+- `pr_refactor.md` — migrate, refactor, schema
+- `pr_release.md` — release
+- `pr_security.md` — security
+- `pr_task.md` — task
+- `pr_test.md` — qa, test, uat
 
 ---
 
@@ -287,7 +291,7 @@ Area labels are auto-detected from branch scope using keyword mapping:
 Before a developer pushes a branch, the local hook validates:
 
 1. Branch name matches pattern
-2. Type is one of 24 authorized values
+2. Type is one of 38 authorized values
 3. Prefix is not forbidden
 4. Scope and title are properly formatted
 
@@ -356,7 +360,7 @@ Changes to this contract require:
 
 **No changes permitted to**:
 
-- The 24 authorized type values (frozen)
+- The 38 authorized type values (frozen)
 - Forbidden prefix list (frozen)
 - Pattern validation regex (frozen)
 
