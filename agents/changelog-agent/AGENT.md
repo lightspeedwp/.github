@@ -1,5 +1,6 @@
 ---
 name: "Changelog Agent"
+title: "Changelog Agent"
 description: "Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting."
 file_type: "agent"
 category: "release-management"
@@ -58,6 +59,11 @@ Provide enterprise-grade, portable changelog management using Keep a Changelog 1
 **Structure Validation** - Release-time full changelog validation
 **Release Processing** - Convert [Unreleased] to version releases
 **Formatting** - Enforce changelog formatting standards
+
+## Used By
+
+- [Release Manager](../release-agent/AGENT.md) — calls this agent for changelog validation and the
+  `[Unreleased]` → version roll during release preparation and execution.
 
 ## Implementation Reference
 

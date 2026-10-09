@@ -10,7 +10,7 @@
  * Version: 1.0 MVP (Phase 5A)
  *
  * Related Files & Integration:
- * - Changelog Spec Agent: agents/changelog-agent/changelog.agent.md
+ * - Changelog Spec Agent: agents/changelog-agent/AGENT.md
  * - Changelog Portable Agent: agents/changelog-agent/README.md
  * - Changelog Portable Agent: agents/changelog-agent/changelog.agent.js
  * - Changelog Schema: schemas/changelog.schema.json

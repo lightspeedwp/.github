@@ -316,7 +316,7 @@ const { buildImplementationLink } = await import(
 );
 const movedSpec = {
   name: "Changelog Agent",
-  path: "agents/changelog-agent/changelog.agent.md",
+  path: "agents/changelog-agent/AGENT.md",
   implementation: "agents/changelog-agent/",
 };
 assertEqual(

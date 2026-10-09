@@ -61,6 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Release and changelog agents consolidated** — `AGENT.md` is now the one spec for each agent, the release agent names its changelog-agent dependency, and the agent index and Claude Code definition generators read `AGENT.md`. (#3880)
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))
@@ -95,6 +96,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **Duplicate release and changelog agent specs** — Removed `agents/release-agent/release.agent.md` and `agents/changelog-agent/changelog.agent.md`; each folder's `AGENT.md` is now the single spec. (#3880)
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)

@@ -916,7 +916,7 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 ### Specification & Control Plane
 
-- **Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](../agents/changelog-agent/changelog.agent.md) — Full agent specification with architecture and integration details
+- **Spec Agent:** [`agents/changelog-agent/AGENT.md`](../agents/changelog-agent/AGENT.md) — Full agent specification with architecture and integration details
 - **Portable Agent:** [`agents/changelog-agent/README.md`](../agents/changelog-agent/README.md) — Implementation guide with usage examples
 - **Workflow:** [`.github/workflows/changelog-management.yml`](../.github/workflows/changelog-management.yml) — GitHub Actions workflow for validation
 - **Release Agent:** [`.github/agentic-workflows/release.agent.js`](../.github/agentic-workflows/release.agent.js) — Release automation with changelog integration
@@ -936,7 +936,7 @@ node .github/scripts/agents/release.agent.js --scope=minor --dry-run
 
 The changelog system integrates with LightSpeed's automation framework:
 
-- **Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](../agents/changelog-agent/changelog.agent.md) — Primary agent specification for changelog management
+- **Spec Agent:** [`agents/changelog-agent/AGENT.md`](../agents/changelog-agent/AGENT.md) — Primary agent specification for changelog management
 - **Portable Agent:** [`agents/changelog-agent/`](../agents/changelog-agent/) — Portable multi-file agent implementation for cross-project reuse
 - **Schema:** [`schemas/changelog.schema.json`](../schemas/changelog.schema.json) — JSON schema for Keep a Changelog 1.1.0 validation
 - **Workflow:** [`.github/workflows/changelog-management.yml`](.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
