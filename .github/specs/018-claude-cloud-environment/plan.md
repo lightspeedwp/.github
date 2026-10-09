@@ -1,7 +1,7 @@
 # Implementation Plan: Standardised Claude Code Cloud Environment
 
-**Branch**: `docs/claude-cloud-spec-reconcile` (PR lightspeedwp/.github#3726). The first implementation merged in
-lightspeedwp/.github#3524 on 2026-09-30 | **Date**: 2026-10-02 (first drafted 2026-09-24) | **Spec**: [spec.md](./spec.md)
+**Branch**: `docs/cloud-env-org-rollout` (organisation-wide rollout increment). Earlier: lightspeedwp/.github#3524
+(merged 2026-09-30) and lightspeedwp/.github#3726 (merged 2026-10-05) | **Date**: 2026-10-09 (first drafted 2026-09-24) | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `.github/specs/018-claude-cloud-environment/spec.md`
 
@@ -37,6 +37,10 @@ for cleanup (Q4, revised after `/speckit-analyze`), automated tests and document
 
 The guard changes that follow from these (T049, T052, T054, T055) need a session started with
 `LS_ENFORCE_BRANCH_NAMES=0`, because the guard protects its own files.
+
+**Update, 2026-10-09 (organisation-wide rollout)**: US1 and US3 are on `develop`. The goal now is that team members
+get the same cloud environment automatically, and that it's saved as the organisation's shared configuration. See
+[Increment: organisation-wide rollout](#increment-organisation-wide-rollout-2026-10-09) and research R18 to R22.
 
 ## Technical Context
 
@@ -102,7 +106,7 @@ of branches a day.
 | VII. Spec quality | Requirements checklist 16/16 and security checklist 32/32. Clarified in recorded sessions on 2026-09-24 (two sessions), 2026-10-01 (5 questions) and 2026-10-02 (2 questions). FR-013a protected paths (five files) resolved | ✅ |
 | VIII. Enforcement and compliance ≥95% | The guard blocks before push. While automatic cleanup is deferred (FR-020), only empty, merged `claude/*` branches with no open PR are removed, through maintainer-approved draft PRs; branches with open PRs are kept | ✅ |
 | IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |
-| X. Metrics-driven | Automated validation runs on every PR (FR-023). Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 | ✅ (justified) |
+| X. Metrics-driven | Automated validation runs on every PR (FR-023). Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 (see Complexity Tracking). The rollout increment adds automated drift detection: a CI revision-stamp test and a session-start check (R21) | ✅ (justified) |
 
 **Documentation exception vs `CLAUDE.md` ("never commit feature work directly to `main`")**: the exception covers
 only `.github/specs/**` and `docs/**`, which aren't feature work. GitHub branch protection still applies to the
@@ -200,6 +204,74 @@ These follow the user-story priorities in the spec:
      draft-PR route (documented in spec 009 by T063). Automatic deletion follows only once both
      a branch-age signal and a branch-origin check exist; the age signal alone does not enable it.
 
+## Increment: organisation-wide rollout (2026-10-09)
+
+**Goal**: every team member's cloud sessions run in one organisation-shared **LightSpeed** environment without
+setup on their part, the configuration lives in the repository, and any drift between the repository and the
+admin console, or any session outside the environment, is visible.
+
+**What the product allows** (research R18 to R20, from the cloud environments, cloud sessions and server-managed
+settings documentation, read 2026-10-09):
+
+- Owners create organisation-shared environments on the **Cloud environments** admin page. There's no API or file
+  import, so the repository is the source of truth and the admin page holds a manual copy.
+- The organisation default fills only an empty selection. It never overrides a member's saved choice, and nothing
+  can lock the environment. "Automatic" therefore needs a one-time switch for existing members, plus a warning that
+  catches anyone who drifts (R19, R21).
+- For `claude --cloud`, `remote.defaultEnvironmentId` can be delivered org-wide through server-managed settings
+  (R20). That replaces T029's per-repository edit of the guard-protected `.claude/settings.json`.
+- The default applies to every LightSpeed repository. `setup.sh` makes no repository assumptions. The one visible
+  change elsewhere is Node 24 on `PATH` (R22).
+
+**Proposed spec amendments** (record with `/speckit-specify` or `/speckit-clarify` before `/speckit-tasks`):
+
+- **P1 (proposed FR)**: In a cloud session, session start MUST show a visible warning, without blocking or failing, when the
+  session isn't running in the shared environment, and say how to select it.
+- **P2 (proposed FR)**: The canonical environment definition MUST carry a revision stamp derived from its own content. CI MUST
+  fail when the stamp is stale. In a cloud session, session start MUST warn when the session's stamp differs from
+  the repository's.
+- **P3 (proposed FR)**: The CLI default environment SHOULD be delivered to the whole organisation through server-managed
+  settings (`remote.defaultEnvironmentId`). Project settings are only a fallback.
+- **FR-019 addition**: the documentation covers the organisation-wide scope (R22), the one-time switch for members
+  with a saved selection, and the Owner change procedure ([contract](./contracts/cloud-environment.md)).
+- **P4 (proposed SC)**: Within 14 days of rollout, every session in the SC-007 monthly sample runs in **LightSpeed** at the
+  current revision, with no `Cloud environment:` warning.
+- **US2 scenario 1**: replace the assumption that the default reaches everyone with "members with a saved selection
+  are told to switch once" (R19).
+
+**Work items** (input for `/speckit-tasks`; existing open tasks are folded in):
+
+| # | Work | Files | Who | Replaces / relates |
+| --- | --- | --- | --- | --- |
+| 1 | Add `LS_CLOUD_ENV` and `LS_CLOUD_ENV_REVISION` to the environment definition | `.claude/cloud/environment.env` | Agent | new |
+| 2 | Revision-stamp contract test | `tests/js/claude-cloud-environment-docs.test.js` (or a sibling test in the FR-023 workflow) | Agent | new |
+| 3 | Drift check in session start, with tests for the four states | `.claude/hooks/session-start.sh`, `scripts/__tests__/session-start-hook.test.js` | Owner session with `LS_ENFORCE_BRANCH_NAMES=0` (guard-protected) | new |
+| 4 | Docs: organisation-wide scope, the one-time switch, managed-settings CLI default, the change procedure | `docs/CLAUDE_CLOUD_ENVIRONMENT.md` | Agent | FR-019 |
+| 5 | Create **LightSpeed** and set the organisation default | Admin console | Owner | T028 |
+| 6 | Server-managed `remote.defaultEnvironmentId` | Admin console | Owner | T029 (replaced) |
+| 7 | Announce the one-time switch to existing members | Team channel | Owner | new |
+| 8 | Run quickstart §6 and record the evidence | `.github/reports/audit/` | Owner + one member | T030 (extended) |
+
+Order: 1 → 2 → 3 (same PR, so the stamp, test and check land together) → 4 → 5 → 6 → 7 → 8. Items 5 and 6 can be
+done before 1 to 3 merge. Sessions then show the "out of date" warning until the files match, which is the
+expected signal.
+
+**Risks**:
+
+- A newly onboarded member's **Default** environment may count as a saved selection (R19 open point). Quickstart
+  §6(b) settles it. Until then, the announcement tells new members to pick **LightSpeed**.
+- Other repositories' sessions get Node 24 by default (R22). This is documented, with a per-repository override.
+- If a member's client skips server-managed settings (a third-party provider variable or a custom base URL), the CLI
+  falls back to their `/remote-env` pick. `claude doctor` shows this.
+
+**Constitution re-check (increment)**: I ✅ (the control-plane repository owns the definition). II ✅ (no locked
+files). III ✅ (`.claude/cloud/` is repository configuration that the admin console reads, not an asset installed
+into other repositories; packaging stays a follow-up). V and VIII ✅ (unchanged). VI ✅ (the new variables aren't
+secrets; managed settings are Owner-only). X ✅ (the drift check and CI stamp are automated monitoring). No new
+violations.
+
 ## Complexity Tracking
 
-No constitution violations to justify.
+| Deviation | Why needed | Simpler alternative rejected because |
+| --- | --- | --- |
+| SC-007 relies on a monthly manual review of sampled sessions (principle X prefers automated monitoring) | The guard records no refusals by design (Q5), so the agent's recovery after a refusal can't be measured automatically without adding session telemetry | Refusal telemetry was rejected in Q5 (privacy and storage). The branch-validation metrics, and from this increment the automated drift check, cover everything that can be monitored automatically |

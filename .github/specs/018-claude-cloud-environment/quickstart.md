@@ -120,3 +120,31 @@ to DELETE through spec 009's draft-PR approval (R16).
 Once the deferral is lifted, only branches that are platform placeholders with no commits of their own and no
 open PR, observable for at least a day by the branch-age signal, are auto-approved. Run the spec 009 cleanup
 workflow manually in report-only mode, and check that its summary lists the same auto-approved branches.
+
+## 6. Organisation-wide rollout (User Story 2, R18 to R22)
+
+Contract: [cloud environment](./contracts/cloud-environment.md).
+
+**Owner, once:**
+
+1. On the Cloud environments admin page, create **LightSpeed** with **Trusted** network access, and paste the
+   contents of `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`.
+   Expected: members see it under **Organization** in the selector.
+2. At claude.ai/admin-settings/claude-code, set the organisation default environment to **LightSpeed**.
+3. In Managed settings on the same page, add `{"remote": {"defaultEnvironmentId": "env_..."}}` with the
+   **LightSpeed** ID. If managed settings already hold JSON, merge the key in.
+   Expected: a member who runs `claude doctor` sees the remote managed settings loaded.
+
+**Checks:**
+
+| # | Who | Do | Expected |
+| --- | --- | --- | --- |
+| a | CI | `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` | The revision-stamp test passes |
+| b | Member with no saved selection, or a brand-new member | Start a session without touching the selector | It runs in **LightSpeed**, and there's no `Cloud environment:` warning. Record whether a newly onboarded member's **Default** counts as a saved selection (R19 open point) |
+| c | Member with a saved selection | Start a session as usual | It keeps their choice and shows the "isn't using the shared LightSpeed environment" warning. After they switch once, there's no warning |
+| d | Member, terminal | `claude --cloud "echo $LS_CLOUD_ENV"` | `LightSpeed`, without running `/remote-env` |
+| e | Owner | Merge a change to `setup.sh` without re-pasting it, then start a session | The "out of date" warning names both revisions. After re-pasting, a new session has no warning |
+| f | Member, another LightSpeed repository | Start a cloud session there | It runs in **LightSpeed**, `node -v` shows the `.nvmrc` version, and the session isn't otherwise affected (R22) |
+
+Record the results of (b) to (f) in `.github/reports/audit/` and link them
+from the spec 018 tasks, instead of in the description of the merged #3524.

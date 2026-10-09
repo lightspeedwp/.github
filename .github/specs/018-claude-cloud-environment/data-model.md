@@ -23,6 +23,28 @@ Configured in claude.ai. The canonical copy is kept in `.claude/cloud/`.
 | `LS_BASE_BRANCH` | `develop` | The integration branch. It is protected, the base for sync, and the PR base |
 | `LS_ENFORCE_BRANCH_NAMES` | `1` | `0` turns every guard refusal into a warning (FR-013) |
 | `LS_NODE_VERSION` | from `.nvmrc` | The Node version the setup script installs |
+| `LS_CLOUD_ENV` | `LightSpeed` | Marks a session as running in the shared environment (R21). Unset means another environment |
+| `LS_CLOUD_ENV_REVISION` | 12 hex characters | Content hash of `setup.sh` + `environment.env` without this line (R21). CI fails when it's stale |
+
+### Organisation placement (R18 to R20)
+
+| Setting | Where | Who | Value |
+| --- | --- | --- | --- |
+| Shared environment | claude.ai/admin-settings → Cloud environments | Owner | **LightSpeed**, from `.claude/cloud/` |
+| Organisation default environment | claude.ai/admin-settings/claude-code | Owner | **LightSpeed**. It fills only an empty selection |
+| CLI default (`remote.defaultEnvironmentId`) | Server-managed settings | Owner | The **LightSpeed** `env_` ID |
+| Member's saved selection | Environment selector, or `/remote-env` for the CLI | Member | Changed once to **LightSpeed** |
+
+### Session environment state (checked by `session-start.sh` in cloud sessions)
+
+| State | Condition | Outcome |
+| --- | --- | --- |
+| Current | `LS_CLOUD_ENV=LightSpeed` and the revision matches the repository | No message |
+| Stale | `LS_CLOUD_ENV=LightSpeed`, revision differs or is missing | Warning: an Owner should update the shared environment from `.claude/cloud/` |
+| Other environment | `LS_CLOUD_ENV` unset | Warning: select **LightSpeed** in the environment selector |
+| Local session | `CLAUDE_CODE_REMOTE` isn't `true` | Not checked |
+
+In every state, session start still exits 0 and emits the branching rules (FR-003, FR-004).
 
 ## Branch classification (used by the guard)
 
