@@ -283,3 +283,85 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
 - **Alternatives considered**: Accept `hotfix/vX.Y.Z` in the validator, either as a dependency outside this spec or
   inside it. Both were rejected as unnecessary, because FR-009's `main` rule already works with slug-named
   hotfixes.
+
+## R18. Making the shared environment organisation-wide (US2, 2026-10-09)
+
+- **Decision**: An Owner creates **LightSpeed** on the **Cloud environments** admin page
+  (claude.ai/admin-settings), pasting `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`, with **Trusted**
+  network access. The repository stays the single source of truth, and the admin page holds a manual copy of it.
+- **Rationale**: The product documentation (code.claude.com/docs/en/cloud-environments, read 2026-10-09) gives two
+  ways to make an environment available to the organisation: create a shared one from the admin page, or share a
+  personal one from its **Who can use it** row (it keeps its ID). There is no API, CLI or file import for creating
+  or editing an environment, so it can't be synced from the repository automatically. The admin page is also where
+  Owners edit and archive shared environments, and members see shared ones read-only under **Organization** in the
+  selector.
+- **Alternatives considered**: Share an Owner's personal environment. Rejected, because the environment then starts
+  life as one person's configuration, and editing it later has to happen from the shared admin page anyway. Sync
+  through an API. Not available.
+
+## R19. Getting members onto it automatically (US2, SC-004, 2026-10-09)
+
+- **Decision**: Set **LightSpeed** as the organisation default at claude.ai/admin-settings/claude-code. Then use a
+  one-time switch for members who already have a saved selection, plus a SessionStart warning (R21) that catches
+  anyone still on another environment.
+- **Rationale**: The organisation default "fills the selection when you haven't picked one". It never overrides a
+  member's saved choice, and there is no setting that locks the environment for a repository or an organisation.
+  Existing members almost certainly have a saved selection, at least the **Default** environment that onboarding
+  created, so the organisation default alone won't move them. "Automatically" is therefore achievable only for
+  members with no saved selection; everyone else needs the one-time switch and the warning to catch drift.
+- **Open point, verified in quickstart §6**: whether the **Default** environment that web onboarding creates (with
+  **Quick setup** on, or through the first-environment form) counts as a saved selection for a new member. Until §6
+  shows that a new member lands on **LightSpeed**, leave **Quick setup** as it is and tell new members to pick
+  **LightSpeed** once.
+- **Alternatives considered**: Ask Anthropic for an environment lock. Out of scope for this spec; it may be raised
+  as product feedback. Make the guard refuse work outside the shared environment. Rejected: the guard's protections
+  already live in the repository (US2 "Why this priority"), and blocking would break local sessions and personal-plan
+  members.
+
+## R20. Default environment for `claude --cloud` (FR-019, T029, 2026-10-09)
+
+- **Decision**: Deliver `"remote": { "defaultEnvironmentId": "env_..." }` through **server-managed settings**
+  (claude.ai/admin-settings/claude-code → Managed settings) instead of the repository's `.claude/settings.json`.
+  Keep the project-settings route (T029) only as a fallback for anyone whose client doesn't fetch server-managed
+  settings.
+- **Rationale**: `/remote-env` writes the same key to user settings. Server-managed settings sit in the
+  highest-precedence tier, accept every `settings.json` key apart from a short OS-policy list, apply to every
+  member's CLI in every repository, and are edited only by Owners. An `env_` ID may be read from any settings file
+  (only self-hosted `ccpool_` IDs are restricted). The key doesn't run a command, so it needs no security approval
+  dialog, and changing it doesn't touch the guard-protected `.claude/settings.json`.
+- **Alternatives considered**: Project settings (T029 as written). It works only in this repository and needs a
+  session with enforcement off, because the guard protects `.claude/settings.json`. Each member running
+  `/remote-env`. Manual and easy to forget.
+
+## R21. Detecting a session that isn't in the current shared environment (US2, 2026-10-09)
+
+- **Decision**: Add two variables to `.claude/cloud/environment.env`:
+  - `LS_CLOUD_ENV=LightSpeed` marks the shared environment.
+  - `LS_CLOUD_ENV_REVISION=<12 hex>` is the first 12 characters of the SHA-256 of `setup.sh` followed by
+    `environment.env` with the revision line removed.
+
+  In a cloud session, `session-start.sh` compares them with the repository. When `LS_CLOUD_ENV` is unset, it shows
+  a warning naming **LightSpeed** and how to select it. When the revision differs from the one computed from the
+  repository's files, it warns that the shared environment is out of date and an Owner should re-paste it. It never
+  blocks or fails (FR-004). A Jest contract test recomputes the revision and fails when the stamp in
+  `environment.env` is stale, so a PR that changes either file must update the stamp.
+- **Rationale**: There's no API to read the admin configuration, so drift between the repository and the admin page
+  can only be seen from inside a session. The variables are visible to sessions, contain no secrets (FR-018) and cost
+  one `sha256sum`. The CI test turns "remember to bump the stamp" into an automated gate, which satisfies
+  constitution principle X (automated monitoring where feasible).
+- **Alternatives considered**: Compare the whole file contents in the session. Rejected: the setup script isn't
+  visible inside the session, only its effects. A date-based version string. Rejected: it can be forgotten, and only
+  a content hash can be checked by CI.
+
+## R22. Effect on the rest of the organisation (FR-015 to FR-018, 2026-10-09)
+
+- **Decision**: Accept that the organisation default applies to cloud sessions on every LightSpeed repository, not
+  just this one, and document it.
+- **Rationale**: The default is set per organisation, not per repository. `setup.sh` makes no assumptions about the
+  repository: it installs Node `LS_NODE_VERSION` first on `PATH`, `shellcheck`, `actionlint` and `gh`, and sets git
+  defaults. The `LS_*` variables do nothing in repositories without the hooks. The one visible change elsewhere is
+  that Node 24 replaces the image's Node 22 as the default on `PATH`. A repository that needs another version can
+  prepend `/opt/node<major>/bin` or add its own SessionStart step. Packaging the hooks for other repositories is
+  still the follow-up recorded in the 2026-09-24 clarifications.
+- **Alternatives considered**: A separate environment per repository. Rejected: it defeats "one configuration for
+  the team", and the organisation default can name only one environment.
