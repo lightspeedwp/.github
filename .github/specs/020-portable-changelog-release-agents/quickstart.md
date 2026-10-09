@@ -27,6 +27,7 @@ This guide describes how a reviewer proves the specification and, later, the imp
 | Drift or ambiguity | `not-ready` with `version-drift` or `version-ambiguous`, sources named. |
 | Dirty tree, unsafe path, tag conflict | `not-ready` with the matching blocker; nothing staged or stashed. |
 | Target names no required checks | `not-ready` with `missing-check`. |
+| Enhancement whose instructions do not declare it | `not-ready` with `component-unknown`. |
 | Interrupted approved edit | Repository recoverable; not reported ready. |
 | Approval digest does not match the edit about to be applied | Zero files written; mismatch reported. |
 

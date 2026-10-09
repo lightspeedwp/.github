@@ -100,6 +100,12 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 - **Rationale**: stays fail-closed without imposing one check list on every repository, consistent with deriving version sources from the target's own instructions (R-07).
 - **Alternatives**: treating "none named" as a note, and a fixed built-in set, were rejected as weaker or too prescriptive.
 
+### R-16 Enhancements are recognised only from the target's own declaration
+
+- **Decision** (clarify session 2026-10-09, option C): an enhancement is recognised only when the target's own instructions declare it and name its version fields; otherwise the agent stops as `component-unknown`.
+- **Rationale**: no verified sample of enhancement packaging exists and access to one pilot repository was previously denied, so the agent does not guess; consistent with R-07 and R-15.
+- **Alternatives**: treating an enhancement as a plugin by header, and detecting only plugins and themes in the MVP, were rejected as guessing or as dropping a stated target.
+
 ### R-12 Preparation path forbids remote and tag effects
 
 - **Decision**: tag creation, push, publication and backmerge are outside the executable MVP. They are documented only as the release-process contract (FR-023, FR-024) and require separately approved, target-specific flows. The single-PR versus two-PR contradiction in current release docs is resolved in the DOC slice by stating one invariant (no tag before reviewed changes reach the authoritative main release commit) and allowing target-specific branch flow.

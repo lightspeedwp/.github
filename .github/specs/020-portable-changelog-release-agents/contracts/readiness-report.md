@@ -32,7 +32,7 @@ The readiness operation is read-only. Producing this report must not write files
 | `unsafe-path` | A path escapes `repoRoot` or is absolute where relative is required. |
 | `missing-check` | A required check named in the target's own instructions or CI configuration could not run, or none are named so nothing can be verified. It is never skipped silently. |
 | `tag-conflict` | Local and remote tag evidence disagree, or the target tag exists. |
-| `component-unknown` | No plugin, theme or enhancement could be identified. |
+| `component-unknown` | No plugin or theme could be identified, or the repository looks like an enhancement but its own instructions do not declare it and name its version fields. |
 | `changelog-unverified` | Handoff verification is missing, failed or not received. |
 
 `status` is `ready` only when no `blocker` finding exists.

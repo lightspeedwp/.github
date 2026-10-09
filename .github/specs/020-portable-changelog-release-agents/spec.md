@@ -39,6 +39,7 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 - Q: When a changelog agent is copied into another repository, where should it find the shared changelog checker it validates with? → A: Option B - always use a bundled copy pinned to a recorded version, and report that version in every result.
 - Q: When the other agent gives no answer to a verification request, how long should the release agent wait before counting it as not received? → A: Option A - not received means no response was returned within the same invocation; there is no timer.
 - Q: What counts as the required checks that must be present before the release agent reports a repository ready? → A: Option A - the checks named in the target repository's own instructions or CI configuration; if none are named, readiness is not ready with `missing-check`, because nothing can be verified.
+- Q: How should the release agent recognise a repository as an enhancement rather than a plugin or theme? → A: Option C - only when the target's own instructions declare it and name its version fields; otherwise it stops as `component-unknown`.
 
 ## Release Process Contract (guidance, not execution permission)
 
@@ -152,6 +153,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - The proposed edit changes between the digest being shown and the write (for example a hand edit to a version file or the changelog): the digests no longer match and the agent writes nothing.
 - The changelog agent returns no verification response within the same invocation: the release agent treats it as not received and reports not ready with `changelog-unverified`.
 - A target repository names no required checks in its instructions or CI configuration: readiness reports not ready with `missing-check` rather than assuming success.
+- A repository looks like an enhancement but its instructions do not declare it: the agent stops as `component-unknown` rather than guessing its packaging.
 - Spec directory number 019 is reserved on an unmerged branch and must not be allocated.
 
 ## Requirements *(mandatory)*
@@ -162,7 +164,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 - **FR-001**: The release agent MUST operate in readiness (dry-run) mode by default and MUST NOT write files or change git state in that mode.
 - **FR-002**: An explicit repository root MUST be propagated to every filesystem and git operation, independent of the process working directory.
-- **FR-003**: The agent MUST detect plugin, theme and enhancement targets without requiring an optional `VERSION` file, and MUST NOT classify a repository as governance merely because it contains `.github`, `package.json` and `VERSION`.
+- **FR-003**: The agent MUST detect plugin, theme and enhancement targets without requiring an optional `VERSION` file, and MUST NOT classify a repository as governance merely because it contains `.github`, `package.json` and `VERSION`. An enhancement is recognised only when the target's own instructions declare it and name its version fields; otherwise the agent MUST stop as `component-unknown`.
 - **FR-004**: The agent MUST determine authoritative version sources (plugin header, readme, theme stylesheet, package, `VERSION`) from the target's own instructions, and MUST handle ambiguity and drift deterministically by stopping and naming the conflict rather than choosing silently.
 - **FR-005**: The agent MUST stop on a dirty working tree, missing required checks, unsafe paths, or conflicting version or tag evidence. Required checks are those named in the target repository's own instructions or CI configuration; if none are named the agent MUST report not ready with `missing-check`, because nothing can be verified.
 - **FR-006**: The agent MUST NOT use broad staging, silent gate fallback, automatic stashing, or any remote effect.

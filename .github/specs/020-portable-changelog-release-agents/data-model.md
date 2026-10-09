@@ -9,7 +9,7 @@ Entities are conceptual. They describe what each agent must know and the states 
 | Field | Meaning |
 |-------|---------|
 | `repoRoot` | Explicit absolute path supplied by the caller. Never defaulted from the process working directory. |
-| `componentType` | `plugin`, `theme`, `enhancement` or `unknown`. `unknown` is a stop, not a guess. |
+| `componentType` | `plugin`, `theme`, `enhancement` or `unknown`. `unknown` is a stop, not a guess. An enhancement is recognised only when the target's own instructions declare it and name its version fields. |
 | `instructionsFound` | Whether the target's own instructions name authoritative version fields. |
 
 **Rules**: an ordinary repository that merely contains `.github/`, `package.json` and `VERSION` is not a governance repository (FR-003). Detection must never require `VERSION`.
