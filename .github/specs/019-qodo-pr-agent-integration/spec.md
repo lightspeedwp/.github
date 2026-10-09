@@ -91,10 +91,10 @@ An engineer or AI agent working through an existing LightSpeed agent or skill ca
 | improve | `skills/gh-address-comments`, `agents/address-comments.agent.md` | Suggestions are triaged and addressed through the existing comment-resolution flow. |
 | describe | Internal PR agent (`agents/pr-agent/`, spec 015 US2: PR body derived from the diff) | Offered as a diff-summary source. The internal PR agent keeps ownership of template routing and the final body. |
 | review / improve findings | Internal PR agent's self-review gate (spec 015 US2) | Findings count as the "AI-review findings" the gate checks. |
-| generate labels | `agents/labeling-agent/`, `skills/label-governance` | Label suggestions are filtered through the canonical label set before anything is applied. |
-| update changelog | `agents/changelog-agent/`, `skills/changelog-generator`, changelog gate | Proposed entries must pass the existing changelog validation (≤250 characters, user-focused, linked to a PR or issue). |
+| generate labels | `agents/labeling-agent/`, `skills/label-governance` | **Unavailable** at the pinned version (v0.46.0): the upstream tool stores no result for a non-publishing run, and the receiver refuses `/generate_labels` as `command-not-allowed`. The labelling agent keeps its existing rules. If a label source is ever enabled, its names must be filtered through the canonical label set before anything is applied (FR-015). |
+| update changelog | `agents/changelog-agent/`, `skills/changelog-generator`, changelog gate | The `/update_changelog` proposal comment only; the shared skill returns nothing for this tool at the pinned version. Proposed entries must pass the existing changelog validation (≤250 characters, user-focused, linked to a PR or issue). |
 | similar issues | `agents/issue-agent/`, `skills/ticket-triage` | **Deferred** (see plan research R8). The upstream tool is experimental, needs OpenAI embeddings and isn't in the Action image. When delivered, duplicate candidates are surfaced during triage for a human to confirm, and issues are never closed automatically. |
-| add docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | On-demand only; output is reviewed by the documentation agent. |
+| add docs | `agents/document-reviewer-agent/`, `skills/documentation-writer` | On-demand only, through the `/add_docs` comment; the shared skill returns nothing for this tool at the pinned version. Output is reviewed by the documentation agent. |
 | ask | `skills/pr-review`, `agents/qa-subagent.agent.md` | Available as an on-demand question tool inside review and QA flows, through the shared skill's **diff mode**. In PR mode `ask` stores no result, so the skill returns `skipped`/`no-output`; on a PR, maintainers use the `/ask` comment command instead. |
 | (all) | AI feedback validation process (`workflows/ai-feedback-validation.yml`) | Qodo PR-Agent feedback is recognised as AI review feedback and recorded under the same process as CodeRabbit feedback. |
 
@@ -102,7 +102,7 @@ An engineer or AI agent working through an existing LightSpeed agent or skill ca
 
 1. **Given** an integrated agent or skill, **When** it runs against a PR, **Then** it can obtain the mapped Qodo PR-Agent output and reflect it in its own result.
 2. **Given** Qodo PR-Agent is unavailable (no credential, outage, or rate limit), **When** an integrated agent or skill runs, **Then** it completes with its existing behaviour and states that Qodo PR-Agent input was skipped.
-3. **Given** Qodo PR-Agent suggests a label outside the canonical set, **When** the labelling integration processes it, **Then** that label is dropped and recorded; it is never created or applied.
+3. **Given** `generate_labels` is unavailable at the pinned version, **When** a maintainer comments `/generate_labels`, **Then** the receiver refuses it as `command-not-allowed`, Qodo PR-Agent posts nothing, and no label is created or applied (quickstart Q-04). If a label source is later enabled, any name outside the canonical set is dropped and recorded, never created or applied (FR-008, FR-015).
 4. **Given** Qodo PR-Agent proposes a changelog entry that breaks the changelog rules, **When** it is processed, **Then** it is rejected with the specific failing rule and never committed.
 
 ---
@@ -181,9 +181,9 @@ The organisation owner can see how often Qodo PR-Agent runs, roughly what it cos
 
 - **FR-013**: Each integration row in User Story 3 MUST be documented in the owning agent's or skill's own entrypoint (`AGENT.md` / `SKILL.md`): when it calls Qodo PR-Agent, what it does with the output, and how it behaves without it.
 - **FR-014**: Integrated agents and skills MUST treat Qodo PR-Agent as an optional input and keep working when it is unavailable.
-- **FR-015**: Label and changelog output from Qodo PR-Agent MUST pass through the existing labelling and changelog validation before any effect is applied.
+- **FR-015**: Changelog proposals from Qodo PR-Agent MUST pass through the existing changelog validation before any effect is applied. Label output MUST be filtered through the canonical label set before any effect is applied; at the pinned version no label output exists, so the rule is enforced by the refusal of `/generate_labels` (FR-008) and applies in full if a label source is ever enabled.
 - **FR-016**: Qodo PR-Agent feedback MUST be recognised by the existing AI feedback validation process in the same way as CodeRabbit feedback.
-- **FR-017**: A single reusable skill (or an equivalent shared entrypoint) MUST let any agent request a named Qodo PR-Agent tool for a given PR and receive its result. This prevents each agent from re-implementing the call.
+- **FR-017**: A single reusable skill (or an equivalent shared entrypoint) MUST let any agent request a named Qodo PR-Agent tool for a given PR and receive its result, for every tool that can return a result without publishing. At the pinned version (v0.46.0) those are `review`, `improve` and `describe` in PR and diff mode, and `ask` in diff mode only. `generate_labels`, `update_changelog` and `add_docs` store no result, so the skill reports them as unavailable and directs the caller to the equivalent in-repo agent; they remain available as maintainer comment commands. This prevents each agent from re-implementing the call.
 
 **Portability, operations & documentation**
 
