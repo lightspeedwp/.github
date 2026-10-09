@@ -63,6 +63,8 @@ See [contracts/verification-handoff.md](./contracts/verification-handoff.md). St
 
 ```text
 requested -> verified | failed | missing
+
+`missing` means no response was returned within the same invocation; no timer applies (FR-014).
 ```
 
 Only `verified` with evidence allows the release agent to report ready. `failed`, `missing` and no response all yield not-ready.

@@ -37,6 +37,7 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 
 - Q: How should a maintainer's approval of a preparation or changelog edit be recorded so the agent can prove an edit was approved before it writes anything? → A: Option A - a digest of the exact proposed edit, shown by the agent, supplied by the maintainer and rechecked before any write.
 - Q: When a changelog agent is copied into another repository, where should it find the shared changelog checker it validates with? → A: Option B - always use a bundled copy pinned to a recorded version, and report that version in every result.
+- Q: When the other agent gives no answer to a verification request, how long should the release agent wait before counting it as not received? → A: Option A - not received means no response was returned within the same invocation; there is no timer.
 
 ## Release Process Contract (guidance, not execution permission)
 
@@ -148,6 +149,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - Approved edit interrupted part-way (some files updated, others not).
 - Repository access denied for a target (for example a permission boundary on a pilot repository): affected checks remain blocked, not skipped.
 - The proposed edit changes between the digest being shown and the write (for example a hand edit to a version file or the changelog): the digests no longer match and the agent writes nothing.
+- The changelog agent returns no verification response within the same invocation: the release agent treats it as not received and reports not ready with `changelog-unverified`.
 - Spec directory number 019 is reserved on an unmerged branch and must not be allocated.
 
 ## Requirements *(mandatory)*
@@ -175,7 +177,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 **Handoff**
 
-- **FR-014**: The release agent MUST send an explicit verification request to the changelog agent and MUST treat the response as blocking evidence; missing, failed or unreceived verification MUST yield not-ready (fail closed).
+- **FR-014**: The release agent MUST send an explicit verification request to the changelog agent and MUST treat the response as blocking evidence; missing, failed or unreceived verification MUST yield not-ready (fail closed). A response is "not received" when none is returned within the same invocation; no timer applies.
 - **FR-015**: The handoff MUST require no new labels or event services for the MVP.
 
 **Packaging and architecture**

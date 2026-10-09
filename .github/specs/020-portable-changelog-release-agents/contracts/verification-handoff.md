@@ -28,6 +28,6 @@ The changelog agent refuses a request whose `readiness.status` is not `ready` fo
 |-----------|---------|
 | `verified` with evidence | Readiness may be reported complete. |
 | `failed` | `not-ready`, `changelog-unverified`, reason surfaced. |
-| No response, malformed response, or changelog agent unavailable | `not-ready`, `changelog-unverified`. Never a silent fallback or skipped gate. |
+| No response (none returned within the same invocation; no timer), malformed response, or changelog agent unavailable | `not-ready`, `changelog-unverified`. Never a silent fallback or skipped gate. |
 
 Verification is read-only. Applying changelog edits is a separate operation requiring its own approval.

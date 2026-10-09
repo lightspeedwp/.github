@@ -127,13 +127,13 @@ description: "Task list for spec 020: portable changelog and WordPress release p
 
 ### Tests for User Story 3
 
-- [ ] T039 [P] [US3] Write failing Jest tests in `agents/release-agent/scripts/__tests__/handoff.test.cjs` for the request and response in `.github/specs/020-portable-changelog-release-agents/contracts/verification-handoff.md`: `verified` with evidence allows ready; `failed`, no response, malformed response and unavailable responder each yield `not-ready` with `changelog-unverified`; no silent fallback or skipped gate (FR-014, SC-005).
+- [ ] T039 [P] [US3] Write failing Jest tests in `agents/release-agent/scripts/__tests__/handoff.test.cjs` for the request and response in `.github/specs/020-portable-changelog-release-agents/contracts/verification-handoff.md`: `verified` with evidence allows ready; `failed`, no response, malformed response and unavailable responder each yield `not-ready` with `changelog-unverified`; no silent fallback or skipped gate (FR-014, SC-005). "No response" means none was returned within the same invocation; no timer is used (FR-014).
 - [ ] T040 [P] [US3] Write failing Jest tests in `agents/changelog-agent/scripts/__tests__/handoffResponder.test.cjs`: the responder refuses a request whose `readiness.status` is not `ready` or whose required fields are missing and replies `failed` with a reason; `evidence` is required when `verified`.
 
 ### Implementation for User Story 3
 
 - [ ] T041 [US3] Implement the verification request builder in `agents/release-agent/scripts/handoff.request.cjs` carrying `contractVersion`, `repoRoot`, `targetVersion`, `readiness` and `changelogPath`. Depends on T025, T039.
-- [ ] T042 [US3] Implement the handback evaluation in `agents/release-agent/scripts/handoff.evaluate.cjs` that maps every response state to a readiness outcome and sets the `changelog-unverified` blocker on anything other than `verified` with evidence. Depends on T041.
+- [ ] T042 [US3] Implement the handback evaluation in `agents/release-agent/scripts/handoff.evaluate.cjs` that maps every response state to a readiness outcome and sets the `changelog-unverified` blocker on anything other than `verified` with evidence. Depends on T041. A response not returned within the same invocation is treated as not received (FR-014).
 - [ ] T043 [US3] Implement the responder in `agents/changelog-agent/scripts/handoff.responder.cjs` using the verification operation from T037. Depends on T037, T040.
 - [ ] T044 [US3] Wire the final ready decision in `agents/release-agent/scripts/readiness.operation.cjs` so ready requires recorded verification success, and confirm the handoff needs no new labels, event services, `changelog.yml` or `release.yml` (FR-015). Depends on T042, T043.
 - [ ] T045 [US3] If the integration does not fit either independent slice, prepare the exact follow-on integration PR preview from `.github/specs/020-portable-changelog-release-agents/delivery-plan.md` (branch `aiops/release-agent-changelog-handoff`, base `develop`, `pr_aiops.md`, label set A) for approval. Do not create it automatically.
