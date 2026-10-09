@@ -21,6 +21,9 @@ spawn the hook with JSON on stdin.
   made by a person or in a session an Owner starts with `LS_ENFORCE_BRANCH_NAMES=0`.
 - The US3 cleanup work goes in spec 009 / `task/branch-cleanup-refactor` (lightspeedwp/.github#3358).
 - The spec amendment (T001) went in `docs/claude-cloud-environment-spec` (lightspeedwp/.github#3525).
+- The organisation-wide rollout (Phase 12) is planned in `docs/cloud-env-org-rollout` (lightspeedwp/.github#3878). The
+  hook half (T070, T071) goes in a guard PR made by a person or in a session an Owner starts with
+  `LS_ENFORCE_BRANCH_NAMES=0`.
 
 A task is ticked only once its change is on `develop` or in the PR that delivers this spec's reconciliation
 (#3726). This reconciliation preserves every existing tick, T033 included. New work delivered on #3358 is noted
@@ -188,6 +191,7 @@ report the Node version from `.nvmrc`, `shellcheck`, `actionlint` and authentica
 - [x] T027 [P] [US2] Create `.claude/cloud/environment.env` with `LS_BASE_BRANCH=develop`, `LS_ENFORCE_BRANCH_NAMES=1`, `LS_NODE_VERSION`, npm quiet flags and locale. No secrets (done in #3524).
 - [ ] T028 [US2] Owner action: create the shared **LightSpeed** environment in claude.ai admin settings → Cloud environments, with Trusted network access and the contents of `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`. Set it as the organisation default at claude.ai/admin-settings/claude-code; this applies when members have no saved selection and does not override their choice.
 - [ ] T029 [US2] Optional, after T028: add `"remote": { "defaultEnvironmentId": "env_..." }` to `.claude/settings.json` with the shared environment's ID, for `claude --cloud` sessions.
+  - Superseded by T075 (2026-10-09, research R20): deliver the key through server-managed settings instead. Do this only as a fallback.
 - [ ] T030 [US2] Run quickstart §3 and §4 in a fresh cloud session. Record the selected environment, Node version, tool availability, cloud `gh auth status` and branch behaviour in the #3524 PR description. In a local session, confirm `gh` is installed and `gh auth status` succeeds with the developer's login.
 
 **Checkpoint**: A new team member without a saved selection gets an identical, compliant session with no setup.
@@ -336,3 +340,144 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 ## Phase 11: Convergence
 
 - [x] T065 Qualify the cleanup note in `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (the "Empty `claude/*` branches" bullet under "Maintain it"). Until lightspeedwp/.github#3358 merges, `develop` still has the old `scripts/cleanup-branches.js`, which doesn't categorise `claude/*` branches as DISCUSS. So the bullet should say the DISCUSS and promotion behaviour applies once spec 009's report-only CLI lands, or this qualifier should be dropped if #3358 merges first. Per FR-019 and FR-020 (partial)
+
+## Phase 12: Organisation-wide rollout (User Story 2, 2026-10-09)
+
+**Goal**: every team member's cloud sessions run in the organisation-shared **LightSpeed** environment without
+setup on their part. The repository stays its source of truth, and any session outside it, or any drift from the
+repository, shows a warning. Source: plan.md "Increment: organisation-wide rollout", research R18 to R22,
+[contracts/cloud-environment.md](./contracts/cloud-environment.md) and data-model.md "Session environment state".
+
+**Independent Test**: quickstart §6. A member with no saved selection lands in **LightSpeed** with no
+`Cloud environment:` warning. A member with a saved selection sees the "isn't using the shared LightSpeed
+environment" warning until they switch once. `claude --cloud` uses **LightSpeed** without `/remote-env`. A merged
+change to `setup.sh` that hasn't been re-pasted shows the "out of date" warning.
+
+### Spec first
+
+- [ ] T066 [US2] Amend `.github/specs/018-claude-cloud-environment/spec.md` with plan proposals P1 to P4. Add them
+  as the next three free FR numbers after FR-023 and the next free SC number (`contracts/hooks.md` already cites an
+  undeclared SC number, so check it first):
+  - P1: a non-blocking warning when a cloud session isn't in the shared environment
+  - P2: a content-derived revision stamp, enforced by CI, with a warning when the session's stamp differs from
+    the repository's
+  - P3: the CLI default delivered through server-managed settings (SHOULD)
+  - P4: 14 days after rollout, the SC-007 sample shows no `Cloud environment:` warnings
+
+  Also add the FR-019 documentation items and a `### Session 2026-10-09` clarification block recording R19 (the
+  organisation default fills only an empty selection) and R22 (organisation-wide effect). Update US2 acceptance
+  scenario 1, add a scenario for each warning, and add `LS_CLOUD_ENV`/`LS_CLOUD_ENV_REVISION` to the Shared cloud
+  environment entity. Then replace "P1 (proposed FR)" to "P4 (proposed SC)" in `plan.md` with the new IDs. Done
+  when `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` passes.
+
+### Environment definition and CI stamp (agent)
+
+- [ ] T067 [US2] Create `.claude/cloud/revision.sh`. It prints the 12-character revision of the shared environment
+  for the repository root given as `$1` (default: two directories above the script), computed exactly as the
+  contract states: the "first 12 hex chars of sha256( bytes(setup.sh) + bytes(environment.env with every line
+  starting "LS_CLOUD_ENV_REVISION=" removed) )". It's equivalent to
+  `{ cat setup.sh; grep -v '^LS_CLOUD_ENV_REVISION=' environment.env; } | sha256sum | cut -c1-12`. When
+  `sha256sum` is missing or a file is unreadable, it prints nothing and exits 0. It must pass
+  `shellcheck .claude/cloud/revision.sh`.
+- [ ] T068 [US2] Add a "Shared environment identity" block to `.claude/cloud/environment.env`, with
+  `LS_CLOUD_ENV=LightSpeed` and `LS_CLOUD_ENV_REVISION=<output of bash .claude/cloud/revision.sh>`, and a comment
+  that any change to this file or `setup.sh` must refresh the stamp (CI enforces it). Run T067's script after the
+  block is written, because the comment lines are part of the hash.
+- [ ] T069 [P] [US2] Add a `describe('shared environment revision stamp')` block to
+  `tests/js/claude-cloud-environment-docs.test.js`. It asserts that:
+  - `environment.env` contains exactly one `LS_CLOUD_ENV=LightSpeed` line and one
+    `LS_CLOUD_ENV_REVISION=` line matching `^[0-9a-f]{12}$`
+  - the stamp equals a Node `crypto` recomputation of the contract formula, and the failure message includes the
+    expected value and the command to refresh it
+  - `bash .claude/cloud/revision.sh` prints the same value
+
+  No change is needed in `.github/workflows/claude-guard-tests.yml`, because its filter already covers `.claude/**`
+  and this test file. Confirm that by reading the filter.
+
+### Session-start drift check (guard-protected: a person or an Owner session with `LS_ENFORCE_BRANCH_NAMES=0`)
+
+- [ ] T070 [US2] Add the drift check to `.claude/hooks/session-start.sh`, exactly as the contract's "SessionStart
+  drift check" table states:
+  - Run it only when `CLAUDE_CODE_REMOTE=true` and the source is `startup` or `resume`, after the branch handling.
+  - Compute the repository revision with `bash "$REPO_ROOT/.claude/cloud/revision.sh" "$REPO_ROOT"`.
+  - Use the contract's two `systemMessage` texts verbatim, both starting `Cloud environment:`.
+  - Skip silently when the helper prints nothing.
+  - Emit one JSON object holding the existing `hookSpecificOutput.additionalContext` plus `systemMessage` when a
+    warning applies.
+  - Always exit 0.
+
+  It must pass `shellcheck .claude/hooks/session-start.sh`.
+- [ ] T071 [US2] Add cases to `scripts/__tests__/session-start-hook.test.js` for the data-model states, using the
+  existing harness with a fixture repository containing copies of `.claude/cloud/`:
+  - current: no `systemMessage`
+  - stale revision: the "out of date" message names both revisions
+  - `LS_CLOUD_ENV` unset: the "isn't using the shared LightSpeed environment" message
+  - `CLAUDE_CODE_REMOTE` unset (local): no message
+  - helper prints nothing: no message
+
+  Every case must exit 0, emit one valid JSON object and keep the branching rules in `additionalContext`. Keep the
+  SC-005 30-second case green.
+
+### Documentation (agent)
+
+- [ ] T072 [P] [US2] Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md`:
+  - "Set up the shared environment": replace step 9's project-settings route with server-managed settings
+    (`{"remote": {"defaultEnvironmentId": "env_..."}}` under Organisation settings → Claude Code → Managed
+    settings), keeping `.claude/settings.json` as a fallback.
+  - Add an "Organisation-wide scope" note (R22): the default applies to every LightSpeed repository, Node 24
+    replaces the image's Node 22 on `PATH`, and a repository can override with `/opt/node<major>/bin`.
+  - "Use it": members with a saved selection switch to **LightSpeed** once, and the doc explains both
+    `Cloud environment:` warnings.
+  - "Maintain it": the contract's Owner change procedure (refresh the stamp in the PR, re-paste after the merge).
+  - "Check it works": link quickstart §6.
+
+  Run the docs test afterwards.
+- [ ] T073 [US2] Add a `CHANGELOG.md` entry under Unreleased (250 characters or less, linked to the PR that ships
+  T067 to T072), for the shared-environment revision stamp and drift warnings. It must pass
+  `node scripts/validation/validate-changelog.cjs CHANGELOG.md`.
+
+### Owner actions (admin console)
+
+- [ ] T074 [US2] Owner: complete T028. Paste the merged `.claude/cloud/environment.env` (with T068's stamp) and
+  `.claude/cloud/setup.sh` into **LightSpeed**, and set it as the organisation default. If T028 was done before T068
+  merged, re-paste both files.
+- [ ] T075 [US2] Owner: in Organisation settings → Claude Code → Managed settings, merge
+  `{"remote": {"defaultEnvironmentId": "<LightSpeed env_ ID>"}}` into the existing JSON and save. Then ask one
+  member to run `claude doctor` and confirm the `Managed settings (remote)` line shows the settings loaded
+  (research R20; supersedes T029).
+- [ ] T076 [US2] Owner: post the one-time switch to the team. Members open the environment selector at
+  claude.ai/code or in the desktop app, pick **LightSpeed** under **Organization** for new sessions, and treat a
+  `Cloud environment:` warning as a reminder to switch. Terminal users need do nothing once T075 is live.
+- [ ] T077 [US2] Owner plus one existing member and, if possible, one new member: run quickstart §6 checks (a) to
+  (f) and record the results in `.github/reports/audit/claude-cloud-rollout-2026-10.md` (date, environment, checkout
+  SHA, outcome per check). Then record the answer to R19's open point in `research.md` R19. This extends T030;
+  tick T030 too when §3 and §4 pass in the same session.
+- [ ] T078 [US2] After T077(b): if a newly onboarded member's **Default** environment overrides the organisation
+  default, keep **Quick setup** as it is and add a "new members: pick LightSpeed once" line to "Use it" in
+  `docs/CLAUDE_CLOUD_ENVIRONMENT.md`. If it doesn't, record that no action is needed in R19.
+
+### Phase 12 polish
+
+- [ ] T079 Run `npx jest -c .jest.config.cjs scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js`,
+  `shellcheck .claude/cloud/revision.sh .claude/hooks/session-start.sh`, and `npx markdownlint-cli2` on the changed
+  Markdown, and fix everything until it's green.
+- [ ] T080 Once T074 to T077 pass and T042, T043 and T048 are done, set `**Status**:` in
+  `.github/specs/018-claude-cloud-environment/spec.md` to `Implemented`, leaving T034 noted as blocked on spec 009.
+  Comment on lightspeedwp/.github#3736 with the T077 report link.
+
+### Phase 12 dependencies
+
+- T066 comes first (spec-first). T067 → T068 → T069 (the stamp needs the helper, and the test needs the stamp).
+- T070 and T071 need T067, and land in one guard PR (the guard protects `.claude/hooks/**`). They can follow T067
+  to T069 in the same PR if an Owner makes it with enforcement off; otherwise they go in a second PR.
+- T072 can run alongside T067 to T071 (a different file). T073 goes in whichever PR ships the code.
+- T074 needs T068 merged. It can be done earlier, but then needs a re-paste. T075 needs T074 (the env ID). T076
+  needs T074. T077 needs T070, T074, T075 and T076. T078 needs T077.
+
+### Phase 12 parallel opportunities
+
+```text
+After T066:  T067 → T068 → T069     ‖  T072 (docs)
+Owner track: T074 → T075 → T076   (can start before the code merges; re-paste after T068)
+Guard PR:    T070 + T071           (after T067)
+```
