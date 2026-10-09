@@ -60,7 +60,7 @@ Provide enterprise-grade, portable changelog management using Keep a Changelog 1
 **Release Processing** - Convert [Unreleased] to version releases
 **Formatting** - Enforce changelog formatting standards
 
-## Used By
+## Used by
 
 - [Release Manager](../release-agent/AGENT.md) — calls this agent for changelog validation and the
   `[Unreleased]` → version roll during release preparation and execution.
