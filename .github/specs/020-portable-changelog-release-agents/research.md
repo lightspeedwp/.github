@@ -94,6 +94,12 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 - **Rationale**: the agents are manually invoked, so there is no background wait to time out; the rule is simple and testable.
 - **Alternatives**: a configurable timeout and a per-run maintainer decision were rejected as unnecessary for the MVP.
 
+### R-15 Required checks come from the target, and none named means not ready
+
+- **Decision** (clarify session 2026-10-09, option A): required checks are those named in the target repository's own instructions or CI configuration; if none are named, readiness is not ready with `missing-check`.
+- **Rationale**: stays fail-closed without imposing one check list on every repository, consistent with deriving version sources from the target's own instructions (R-07).
+- **Alternatives**: treating "none named" as a note, and a fixed built-in set, were rejected as weaker or too prescriptive.
+
 ### R-12 Preparation path forbids remote and tag effects
 
 - **Decision**: tag creation, push, publication and backmerge are outside the executable MVP. They are documented only as the release-process contract (FR-023, FR-024) and require separately approved, target-specific flows. The single-PR versus two-PR contradiction in current release docs is resolved in the DOC slice by stating one invariant (no tag before reviewed changes reach the authoritative main release commit) and allowing target-specific branch flow.

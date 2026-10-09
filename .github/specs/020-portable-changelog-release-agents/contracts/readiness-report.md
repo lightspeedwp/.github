@@ -30,7 +30,7 @@ The readiness operation is read-only. Producing this report must not write files
 | `version-drift` | Detected versions differ. Findings name each source and file. |
 | `version-ambiguous` | Authoritative field cannot be determined from the target's instructions. |
 | `unsafe-path` | A path escapes `repoRoot` or is absolute where relative is required. |
-| `missing-check` | A required check could not run; it is never skipped silently. |
+| `missing-check` | A required check named in the target's own instructions or CI configuration could not run, or none are named so nothing can be verified. It is never skipped silently. |
 | `tag-conflict` | Local and remote tag evidence disagree, or the target tag exists. |
 | `component-unknown` | No plugin, theme or enhancement could be identified. |
 | `changelog-unverified` | Handoff verification is missing, failed or not received. |
