@@ -44,7 +44,7 @@ description: "Task list for spec 020: portable changelog and WordPress release p
 
 ---
 
-## Phase 2: Foundational (blocks all user stories)
+## Phase 2: Foundational (blocks US1 and US3; US2 needs only T003)
 
 **Purpose**: Shared guarantees every story relies on: explicit root, safe paths, fail-closed results, interop.
 
@@ -155,8 +155,8 @@ description: "Task list for spec 020: portable changelog and WordPress release p
 
 ### Implementation for User Story 4
 
-- [ ] T048 [US4] Write one canonical `agents/release-agent/AGENT.md`, `README.md` and agent `CHANGELOG.md` (safety defaults, dry run, approval boundaries, portability notes) per `contracts/agent-package-layout.md`, preserving the AGENTS.md versus AGENT.md roles (FR-017, FR-018). Depends on T002, T026.
-- [ ] T049 [US4] Write one canonical `agents/changelog-agent/AGENT.md`, `README.md` and agent `CHANGELOG.md`, preserving the existing five-operation shared-skill obligations (T032). Depends on T002, T038.
+- [ ] T048 [US4] Write one canonical `agents/release-agent/AGENT.md`, `README.md` and agent `CHANGELOG.md` (safety defaults, dry run, approval boundaries, portability notes) per `contracts/agent-package-layout.md`, preserving the AGENTS.md versus AGENT.md roles (FR-017, FR-018). Depends on T002, T026. The README states that no Gemini, OpenAI or Copilot compatibility is claimed (FR-020).
+- [ ] T049 [US4] Write one canonical `agents/changelog-agent/AGENT.md`, `README.md` and agent `CHANGELOG.md`, preserving the existing five-operation shared-skill obligations (T032). Depends on T002, T038. The README states that no Gemini, OpenAI or Copilot compatibility is claimed (FR-020).
 - [ ] T050 [P] [US4] Create namespaced `agents/release-agent/skills/<capability>/SKILL.md` files only for real capabilities (readiness, preparation) and validate with `scripts/validation/validate-skills.js`; create no empty placeholders.
 - [ ] T051 [P] [US4] Create namespaced `agents/changelog-agent/skills/<capability>/SKILL.md` files only for real capabilities (inspect, draft, validate, prepare, apply) and validate with `scripts/validation/validate-skills.js`.
 - [ ] T052 [US4] Add the small Claude adapters in `agents/release-agent/claude/` and `agents/changelog-agent/claude/` that resolve resources outside any governance checkout, and run `scripts/agents/generate-agent-defs.cjs` and `.github/scripts/generate-agent-index.js` to refresh generated definitions. Thin relative references alone are not accepted as proof of portability. Depends on T046, T047, T048, T049.
@@ -191,6 +191,7 @@ description: "Task list for spec 020: portable changelog and WordPress release p
 - [ ] T063 [P] Add the agent `CHANGELOG.md` entries for user-visible changes, within the repository length rule and linked to the PR or issue, and validate them with the shipped engine.
 - [ ] T064 Run `/speckit-analyze` for a consistency and coverage report across `spec.md`, `plan.md` and this file, and request approval before any remediation beyond the permitted spec artefacts.
 - [ ] T065 Run the [quickstart.md](./quickstart.md) scenarios end to end against the fixtures and record actual results only; claim no result that was not observed.
+- [ ] T066 Verify that `git diff --name-only origin/develop` lists no locked governance file (`.github/labels.yml`, `.github/issue-types.yml`, issue and PR templates, `.github/branch-types.yml`), no package manifest, no root `VERSION` and no root `CHANGELOG.md` for each implementation PR (SC-010).
 
 ---
 
@@ -199,8 +200,8 @@ description: "Task list for spec 020: portable changelog and WordPress release p
 ### Phase dependencies
 
 - **Phase 1** has no dependency; T001 then T002 are sequential, T003, T004, T005 are independent, T006 is an owner decision.
-- **Phase 2** depends on Phase 1 (T002 for paths). It blocks every story.
-- **US1 (Phase 3)** depends on Phase 2. **US2 (Phase 4)** depends on Phase 1 (T003 for engine resolution) and Phase 2 only for shared conventions, so US1 and US2 can proceed in parallel as sibling PRs if files and contracts permit.
+- **Phase 2** depends on T002 (paths), on T003 (open decisions confirmed) and on the reviewer pass of both checklists (constitution Principle VII). It blocks US1 and US3; US2 needs only T003.
+- **US1 (Phase 3)** depends on Phase 2. **US2 (Phase 4)** depends on Phase 1 (T003 for engine resolution) and not on Phase 2, so US1 and US2 can proceed in parallel as sibling PRs if files and contracts permit.
 - **US3 (Phase 5)** depends on US1 (T026) and US2 (T038). This is the real dependency behind "release first, changelog second, no false ready acceptance".
 - **US4 (Phase 6)** depends on US1, US2 and T002; T053 also depends on T004.
 - **US5 (Phase 7)** is governance and can start once Phase 1 decisions exist; it never gates code.
@@ -253,7 +254,8 @@ Delivery follows [delivery-plan.md](./delivery-plan.md): S, then F, then R1 and 
 | US3 | FR-014, FR-015 | T039 to T045 |
 | US4 | FR-016 to FR-020 | T046 to T054 |
 | US5 | FR-025 to FR-027 | T055 to T060 |
-| Release-process contract (FR-023, FR-024) | Documentation only; owned by the DOC slice, not an executable task here | none |
+| Release-process contract (FR-023, FR-024) | Stated in the spec section "Release Process Contract"; the DOC slice finalises wording in release documentation | none |
+| Install behaviour (FR-028) | Roadmap, owned by the setup and distribution slices | none |
 
 ## Notes
 

@@ -31,6 +31,16 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 - Any change to locked governance files (labels, issue types, issue/PR templates, branch routing).
 - Changes to GitHub or Linear records, commits, PRs, tags, releases or deployments, without separate approval.
 
+## Release Process Contract (guidance, not execution permission)
+
+This section states the contract the agents are built around. It does not authorise any agent to tag, push, publish or deploy; those are outside the executable MVP.
+
+- **Invariant**: no tag is created before reviewed release changes are merged into the authoritative main release commit.
+- **Typical flow**: clean validated preparation; an approved preparation PR into the integration branch if required; a release branch from the accepted integration state; a reviewed release PR to main; verification of the merged main SHA and version; one immutable annotated version tag; approved publication; a reviewed main-to-develop backmerge that retains legitimate develop work.
+- **Not forced**: targets are not required to share one branch flow. Each target's own instructions and owner decision determine its actual branching and gates.
+- **Never**: push a tag during preparation and retag later, bypass protected branches, force-reset, equate "no drift" with identical branch tips, or equate GitHub publication with live deployment. Required checks and maintainer reviews stay required where configured.
+- **Existing contradiction**: current release documentation describes both a single-PR and a two-PR flow. The documentation slice resolves this by stating the invariant above once and allowing target-specific flow; this specification does not edit those documents.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Release preparation readiness (Priority: P1)
@@ -76,7 +86,7 @@ A maintainer uses the changelog agent on its own, without any release workflow, 
 
 When release preparation reaches the changelog step, the release agent explicitly asks the changelog agent to verify the changelog. The release agent treats the verification result as blocking evidence and only proceeds on recorded success.
 
-**Why this priority**: Without a fail-closed handoff, preparation could be reported ready while the changelog is unverified. This is the integration point that makes the two MVPs one safe flow.
+**Why this priority**: Without a fail-closed handoff, preparation could be reported ready while the changelog is unverified. This is the integration point that makes the two MVPs one safe flow. Sequencing: this story depends on the changelog verification operation delivered by User Story 2, so it is built after US2 even though its safety value ranks it P1.
 
 **Independent Test**: Simulate success, failure, missing and timed-out verification responses and confirm the release agent reports ready only on recorded success.
 
@@ -144,14 +154,14 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **FR-004**: The agent MUST determine authoritative version sources (plugin header, readme, theme stylesheet, package, `VERSION`) from the target's own instructions, and MUST handle ambiguity and drift deterministically by stopping and naming the conflict rather than choosing silently.
 - **FR-005**: The agent MUST stop on a dirty working tree, missing required checks, unsafe paths, or conflicting version or tag evidence.
 - **FR-006**: The agent MUST NOT use broad staging, silent gate fallback, automatic stashing, or any remote effect.
-- **FR-007**: Approved preparation edits MUST be limited to an allowlist, MUST be recoverable on failure, and MUST return meaningful errors; a partial version update MUST NOT be presented as ready.
+- **FR-007**: Approved preparation edits MUST be limited to files the target's own instructions designate as version fields (for example the plugin header Version, readme Stable tag, theme stylesheet Version, package version, `VERSION`), and MUST NOT touch `CHANGELOG.md`, workflows or any other file. Before any write the agent MUST capture the original contents of every file it will edit. On any failure it MUST restore all of them and report per-file restored or failed. If restoration fails it MUST report `unrecoverable` naming the files and MUST NOT report ready; a partial version update MUST NOT be presented as ready. Every error MUST state a cause code, the repository-relative path and the next action.
 - **FR-008**: The agent MUST treat preparation and readiness as its default purpose and MUST NOT perform automatic release execution, tagging or publication.
 
 **Changelog**
 
 - **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved and bounded.
 - **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine.
-- **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security.
+- **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security. Entries MUST be at most 250 characters, user-focused and linked to a PR or issue (constitution Principle IX).
 - **FR-012**: The local MVP MUST function without the unbuilt `changelog.yml` or `release.yml` workflows.
 - **FR-013**: The five-operation shared-skill obligations carried by the existing changelog MVP issue MUST be preserved.
 
@@ -165,7 +175,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **FR-016**: Exactly two user-facing orchestration agents exist; the WordPress utilities become reused and hardened release adapter functionality after callers, exports and tests are migrated, with no speculative deletion.
 - **FR-017**: Each agent package MUST contain one canonical `AGENT.md`, a `README.md`, an agent `CHANGELOG.md`, `package.json` and lockfile where the project convention requires, `scripts/`, namespaced `skills/<capability>/SKILL.md`, and a small Claude adapter; `references/` and `assets/` only for actual content, with no gratuitous includes, gates, shared, results, manifest or example trees and no invented dependencies.
 - **FR-018**: The specification MUST resolve explicitly the distinct roles of working-instructions `AGENTS.md` and the definition `AGENT.md`, reuse the in-flight canonical-source migration, and keep module boundaries (no incidental CommonJS-to-ESM or TypeScript migration).
-- **FR-019**: Copied adapters MUST resolve resources outside the governance checkout; installation MUST default to dry run, refuse name collisions, preserve user and project overrides, pin source and version, and never copy secrets, hooks or cloud configuration wholesale.
+- **FR-019**: Copied agent packages MUST resolve all resources without a governance checkout and MUST NOT read secrets, hooks or cloud configuration.
 - **FR-020**: Compatibility claims for Gemini, OpenAI and Copilot adapters MUST be backed by independent current documentation and tests; none is assumed.
 
 **Testing**
@@ -183,6 +193,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **FR-025**: Spec artefacts MUST be Markdown/design only, limited to the permitted allowlist, with a draft entry in the spec catalog that follows its actual schema; feature number 019 MUST NOT be allocated.
 - **FR-026**: `issue-map.md` MUST map each existing issue to a bounded role with full URLs, current state, proposed repurpose, preserved history, task/story/path mapping, owner and decision gaps, native-type versus label distinction, and an exact approval preview; `delivery-plan.md` MUST give one profile per slice (branch, base, title, template, labels, assignee, closure rule, prerequisites), existing PR reuse, conditional stack plan, merge order and deferred phases; neither may contain fabricated issue/PR numbers or test results.
 - **FR-027**: Locked governance files MUST NOT be edited; template and label conflicts MUST be presented for maintainer resolution.
+- **FR-028** (roadmap, owned by the setup and distribution slices, not an MVP task): Installation MUST default to dry run, refuse name collisions, preserve user and project overrides, pin source and version, define upgrade and uninstall ownership, and never copy secrets, hooks or cloud configuration wholesale.
 
 ### Key Entities
 
