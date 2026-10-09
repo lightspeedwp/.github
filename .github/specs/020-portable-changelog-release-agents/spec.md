@@ -31,6 +31,12 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 - Any change to locked governance files (labels, issue types, issue/PR templates, branch routing).
 - Changes to GitHub or Linear records, commits, PRs, tags, releases or deployments, without separate approval.
 
+## Clarifications
+
+### Session 2026-10-09
+
+- Q: How should a maintainer's approval of a preparation or changelog edit be recorded so the agent can prove an edit was approved before it writes anything? → A: Option A - a digest of the exact proposed edit, shown by the agent, supplied by the maintainer and rechecked before any write.
+
 ## Release Process Contract (guidance, not execution permission)
 
 This section states the contract the agents are built around. It does not authorise any agent to tag, push, publish or deploy; those are outside the executable MVP.
@@ -140,6 +146,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - Changelog edited by hand between draft and apply.
 - Approved edit interrupted part-way (some files updated, others not).
 - Repository access denied for a target (for example a permission boundary on a pilot repository): affected checks remain blocked, not skipped.
+- The proposed edit changes between the digest being shown and the write (for example a hand edit to a version file or the changelog): the digests no longer match and the agent writes nothing.
 - Spec directory number 019 is reserved on an unmerged branch and must not be allocated.
 
 ## Requirements *(mandatory)*
@@ -154,12 +161,12 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **FR-004**: The agent MUST determine authoritative version sources (plugin header, readme, theme stylesheet, package, `VERSION`) from the target's own instructions, and MUST handle ambiguity and drift deterministically by stopping and naming the conflict rather than choosing silently.
 - **FR-005**: The agent MUST stop on a dirty working tree, missing required checks, unsafe paths, or conflicting version or tag evidence.
 - **FR-006**: The agent MUST NOT use broad staging, silent gate fallback, automatic stashing, or any remote effect.
-- **FR-007**: Approved preparation edits MUST be limited to files the target's own instructions designate as version fields (for example the plugin header Version, readme Stable tag, theme stylesheet Version, package version, `VERSION`), and MUST NOT touch `CHANGELOG.md`, workflows or any other file. Before any write the agent MUST capture the original contents of every file it will edit. On any failure it MUST restore all of them and report per-file restored or failed. If restoration fails it MUST report `unrecoverable` naming the files and MUST NOT report ready; a partial version update MUST NOT be presented as ready. Every error MUST state a cause code, the repository-relative path and the next action.
+- **FR-007**: Approved preparation edits (approval as defined in FR-029) MUST be limited to files the target's own instructions designate as version fields (for example the plugin header Version, readme Stable tag, theme stylesheet Version, package version, `VERSION`), and MUST NOT touch `CHANGELOG.md`, workflows or any other file. Before any write the agent MUST capture the original contents of every file it will edit. On any failure it MUST restore all of them and report per-file restored or failed. If restoration fails it MUST report `unrecoverable` naming the files and MUST NOT report ready; a partial version update MUST NOT be presented as ready. Every error MUST state a cause code, the repository-relative path and the next action.
 - **FR-008**: The agent MUST treat preparation and readiness as its default purpose and MUST NOT perform automatic release execution, tagging or publication.
 
 **Changelog**
 
-- **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved and bounded.
+- **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved (as defined in FR-029) and bounded.
 - **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine.
 - **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security. Entries MUST be at most 250 characters, user-focused and linked to a PR or issue (constitution Principle IX).
 - **FR-012**: The local MVP MUST function without the unbuilt `changelog.yml` or `release.yml` workflows.
@@ -194,6 +201,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **FR-026**: `issue-map.md` MUST map each existing issue to a bounded role with full URLs, current state, proposed repurpose, preserved history, task/story/path mapping, owner and decision gaps, native-type versus label distinction, and an exact approval preview; `delivery-plan.md` MUST give one profile per slice (branch, base, title, template, labels, assignee, closure rule, prerequisites), existing PR reuse, conditional stack plan, merge order and deferred phases; neither may contain fabricated issue/PR numbers or test results.
 - **FR-027**: Locked governance files MUST NOT be edited; template and label conflicts MUST be presented for maintainer resolution.
 - **FR-028** (roadmap, owned by the setup and distribution slices, not an MVP task): Installation MUST default to dry run, refuse name collisions, preserve user and project overrides, pin source and version, define upgrade and uninstall ownership, and never copy secrets, hooks or cloud configuration wholesale.
+- **FR-029**: An edit is approved only when the maintainer supplies the digest of the exact proposed edit that the agent displayed. The agent MUST recompute the digest of the edit it is about to apply immediately before writing, MUST write only if the two digests match, MUST write nothing and report the mismatch otherwise, and MUST record the digest in its report.
 
 ### Key Entities
 
@@ -219,6 +227,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **SC-008**: A copied agent package runs in a clean location with no governance checkout present.
 - **SC-009**: Each existing issue in scope is either repurposed in the issue map or explicitly dispositioned; zero replacement issues are proposed where an existing issue fits, and zero entries contain fabricated numbers.
 - **SC-010**: No locked governance file, source code, package manifest, root version or root changelog is modified by this specification's pull request.
+- **SC-011**: In every fixture where the supplied approval digest does not match the edit about to be applied, zero files are written.
 
 ## Assumptions
 

@@ -80,6 +80,12 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 - **Finding**: `.specify/scripts/bash/audit-specs.sh` fails on gaps; 019 is reserved on an unmerged branch.
 - **Decision**: owner-decided. Either merge the 019 spec first, or approve a separate change allowing reserved numbers. Neither is performed by this plan.
 
+### R-13 Approval is a digest of the exact proposed edit
+
+- **Decision** (clarify session 2026-10-09, option A): the agent displays the exact proposed edit and a short digest; the maintainer returns the digest; the agent recomputes it immediately before writing and writes only on a match (FR-029).
+- **Rationale**: machine-checkable, bound to one edit, and cannot be reused for a different change or after a hand edit.
+- **Alternatives**: an explicit approve flag with no per-edit binding, conversational approval, and a committed approval file were rejected as weaker or heavier.
+
 ### R-12 Preparation path forbids remote and tag effects
 
 - **Decision**: tag creation, push, publication and backmerge are outside the executable MVP. They are documented only as the release-process contract (FR-023, FR-024) and require separately approved, target-specific flows. The single-PR versus two-PR contradiction in current release docs is resolved in the DOC slice by stating one invariant (no tag before reviewed changes reach the authoritative main release commit) and allowing target-specific branch flow.

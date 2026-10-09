@@ -41,7 +41,7 @@ not-run -> ready | not-ready
 |-------|---------|
 | `path` | Allowlisted version-field file. |
 | `from`, `to` | Current and target version. |
-| `approval` | Reference to the separate approval. Absent means the edit must not run. |
+| `approval` | Digest of the exact proposed edit, supplied by the maintainer (FR-029). Absent or non-matching means the edit must not run. |
 | `backup` | Recovery point captured before the edit. |
 
 States: `proposed -> approved -> applied | failed-recovered`. A `failed` edit that cannot be recovered is never reported as ready.
