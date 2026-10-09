@@ -21,8 +21,8 @@ This guide describes how a reviewer proves the specification and, later, the imp
 
 | Scenario | Expected |
 |----------|----------|
-| Consistent plugin, working directory elsewhere | `ready`; operations applied to the requested root; zero writes. |
-| Theme with no `VERSION` file | Detected and `ready` using authoritative fields. |
+| Consistent plugin, working directory elsewhere | Readiness checks pass with no blocker other than `changelog-unverified`; operations applied to the requested root; zero writes. Overall `ready` only after the US3 handoff records verification success; until then `not-ready` with `changelog-unverified`. |
+| Theme with no `VERSION` file | Detected, and readiness checks pass using authoritative fields; overall `ready` follows the same US3 rule. |
 | Ordinary repo with `.github`, `package.json`, `VERSION` | Not classified as governance. |
 | Drift or ambiguity | `not-ready` with `version-drift` or `version-ambiguous`, sources named. |
 | Dirty tree, unsafe path, tag conflict | `not-ready` with the matching blocker; nothing staged or stashed. |

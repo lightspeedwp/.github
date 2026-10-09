@@ -33,7 +33,7 @@ See [contracts/readiness-report.md](./contracts/readiness-report.md). States:
 not-run -> ready | not-ready
 ```
 
-`ready` requires: component detected, no drift, no ambiguity, clean tree, safe paths, no conflicting tag evidence, and (when the handoff is in play) recorded changelog verification success.
+`ready` requires: component detected, no drift, no ambiguity, clean tree, safe paths, no conflicting tag evidence, no `missing-check` blocker, and (when the handoff is in play) recorded changelog verification success.
 
 ## Preparation edit
 

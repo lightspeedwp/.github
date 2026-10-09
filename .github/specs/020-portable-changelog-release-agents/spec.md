@@ -98,7 +98,7 @@ When release preparation reaches the changelog step, the release agent explicitl
 
 **Why this priority**: Without a fail-closed handoff, preparation could be reported ready while the changelog is unverified. This is the integration point that makes the two MVPs one safe flow. Sequencing: this story depends on the changelog verification operation delivered by User Story 2, so it is built after US2 even though its safety value ranks it P1.
 
-**Independent Test**: Simulate success, failure, missing and timed-out verification responses and confirm the release agent reports ready only on recorded success.
+**Independent Test**: Simulate success, failure, and no response within the same invocation; confirm the release agent reports ready only on recorded success.
 
 **Acceptance Scenarios**:
 

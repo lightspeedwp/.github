@@ -127,12 +127,16 @@ agents/changelog-agent/
 ├── CHANGELOG.md
 ├── package.json
 ├── scripts/
+│   ├── engineResolver.cjs        # always loads the bundled engine and reports its version
+│   ├── refreshEngine.cjs         # copies the canonical engine into vendor/ and rewrites the pin
 │   └── __tests__/
+├── vendor/changelog-validation/  # generated pinned copy of the engine, plus engine.pin.json (version, source commit)
 ├── skills/<capability>/SKILL.md  # five-operation shared-skill obligations preserved
 ├── claude/
 └── tests/
 
-.github/validation/changelog/     # shipped engine: reused, not copied or forked
+.github/validation/changelog/     # canonical engine source: reused, never forked or edited by the agent; the
+                                  # bundled copy above is generated from it and pinned (research R-05)
 ```
 
 **Structure Decision**: extend the two existing agent packages in place and fold `wordpress-release-utilities-agent` into the release agent's adapters after a caller, export and test inventory. No third orchestration agent, no gratuitous `includes/`, `gates/`, `shared/`, `results/` or `manifest/` trees, and no fake empty skills. Whether the adapter lands as one module or two reviewed slices is open decision 3 (research R-06).
