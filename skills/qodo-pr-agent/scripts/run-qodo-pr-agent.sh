@@ -1,0 +1,249 @@
+#!/usr/bin/env bash
+# Run a Qodo PR-Agent tool for a PR or a diff WITHOUT publishing anything to GitHub,
+# and return a normalised JSON result.
+#
+# Usage:
+#   run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--question "<text>"] [--out <dir>]
+#
+# Result (stdout and <out>/result.json):
+#   {"status":"ok|skipped|error","reason":...,"tool":...,"markdown":...,"data":...,"truncated":bool}
+# Exit codes: 0 for ok and skipped, 2 for error.
+#
+# Contract: .github/specs/019-qodo-pr-agent-integration/contracts/skill-interface.md
+set -euo pipefail
+
+# Keep in step with .github/workflows/qodo-pr-agent-reusable.yml (a test checks they match).
+readonly IMAGE="pragent/pr-agent@sha256:65e5b196e38cecd7df8a71fe29942052e081a0c6645132c2ac874df60b1760c7" # 0.46.0-github_action
+readonly PIP_SPEC="pr-agent==0.46.0"
+# The model is resolved, never assumed, because neither mode below reads a
+# repository .pr_agent.toml:
+#   - PR mode runs the adapter, which sets CONFIG.USE_REPO_SETTINGS_FILE=False on
+#     purpose, and `apply_repo_settings` only fetches repo settings when that flag is
+#     on (pr_agent/git_providers/utils.py, v0.46.0).
+#   - diff mode sets config.git_provider=plain-diff, so no git provider is built and
+#     get_repo_settings() is never called.
+# Without an explicit --config.model both paths therefore fall through to PR-Agent's
+# own default, `gpt-5.6` with fallback `gpt-5.6-terra` (pr_agent/settings/
+# configuration.toml, v0.46.0), which is a different provider: a consumer that has
+# OPENAI_KEY set would send its diff to OpenAI instead of the Anthropic key this
+# skill is scoped to.
+#
+# So: PR_AGENT_MODEL wins; otherwise config.model is read from this repository's
+# .pr_agent.toml, which is the single source of truth; otherwise DEFAULT_MODEL, which
+# exists only so a consumer with no config still gets an Anthropic model. The test
+# in tests/js/qodo-pr-agent-config.test.js pins DEFAULT_MODEL to that same value, so
+# it cannot drift from the authority.
+#   PR_AGENT_MODEL=anthropic/claude-sonnet-5 ./run-qodo-pr-agent.sh review --pr-url ...
+readonly DEFAULT_MODEL="anthropic/claude-sonnet-5"
+MODEL="${PR_AGENT_MODEL-}"
+if [ -z "$MODEL" ]; then
+  # scripts/ -> qodo-pr-agent/ -> skills/ -> repository root. Three levels, no more:
+  # a fourth resolves to the repository's *parent*, where no .pr_agent.toml exists,
+  # which silently downgraded every run to DEFAULT_MODEL.
+  repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+  if [ ! -f "$repo_root/.pr_agent.toml" ]; then
+    echo "qodo-pr-agent: no .pr_agent.toml at $repo_root; using the pinned default model" >&2
+  fi
+  if [ -f "$repo_root/.pr_agent.toml" ]; then
+    # Scoped to the [config] table: a bare line match would also take a `model`
+    # key from any other table that happened to appear first.
+    MODEL="$(awk '
+      /^[[:space:]]*\[/ { section = $0 }
+      section ~ /^[[:space:]]*\[config\][[:space:]]*$/ && /^[[:space:]]*model[[:space:]]*=/ {
+        sub(/^[^"]*"/, ""); sub(/".*$/, ""); print; exit
+      }
+    ' "$repo_root/.pr_agent.toml")"
+  fi
+fi
+MODEL="${MODEL:-$DEFAULT_MODEL}"
+readonly PR_TOOLS=" review improve describe ask generate_labels update_changelog add_docs "
+readonly DIFF_TOOLS=" review improve describe ask "
+
+tool="${1:-}"
+shift || true
+pr_url=""
+diff_file=""
+question=""
+out_dir=""
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --pr-url | --diff-file | --question | --out)
+      # A value-taking option needs a value, and the next option is not one.
+      case "${2:-}" in "" | --*) echo "Missing value for $1" >&2; exit 64 ;; esac ;;
+  esac
+  case "$1" in
+    --pr-url) pr_url="${2:-}"; shift 2 ;;
+    --diff-file) diff_file="${2:-}"; shift 2 ;;
+    --question) question="${2:-}"; shift 2 ;;
+    --out) out_dir="${2:-}"; shift 2 ;;
+    *) echo "Unknown argument: $1" >&2; exit 64 ;;
+  esac
+done
+
+out_dir="${out_dir:-$(mktemp -d)}"
+mkdir -p "$out_dir"
+# Docker bind mounts need an absolute host path; a relative one becomes a named volume.
+out_dir="$(cd "$out_dir" && pwd)"
+log_file="$out_dir/qodo-pr-agent.log"
+: > "$log_file"
+
+# emit <status> <reason|""> [markdown-file] [json-file] [truncated]
+# Write and print the result; missing output files or invalid JSON data become null.
+# Exit 2 for errors and 0 for successful or skipped runs.
+emit() {
+  STATUS="$1" REASON="$2" TOOL="$tool" MD_FILE="${3:-}" JSON_FILE="${4:-}" TRUNCATED="${5:-false}" \
+    python3 - "$out_dir/result.json" <<'PY'
+import json, os, sys
+
+def read(path):
+    """Read an existing UTF-8 file, or return None if its path is unavailable."""
+    if path and os.path.isfile(path):
+        with open(path, encoding="utf-8") as handle:
+            return handle.read()
+    return None
+
+data = None
+raw_json = read(os.environ.get("JSON_FILE"))
+if raw_json:
+    try:
+        data = json.loads(raw_json)
+    except ValueError:
+        data = None
+
+result = {
+    "status": os.environ["STATUS"],
+    "reason": os.environ["REASON"] or None,
+    "tool": os.environ["TOOL"] or None,
+    "markdown": read(os.environ.get("MD_FILE")),
+    "data": data,
+    "truncated": os.environ.get("TRUNCATED") == "true",
+}
+with open(sys.argv[1], "w", encoding="utf-8") as handle:
+    json.dump(result, handle, indent=2)
+print(json.dumps(result, indent=2))
+PY
+  case "$1" in
+    error) exit 2 ;;
+    *) exit 0 ;;
+  esac
+}
+
+# Report invalid usage on stderr and exit with status 64.
+usage_error() {
+  echo "$1" >&2
+  echo "Usage: run-qodo-pr-agent.sh <tool> (--pr-url <url> | --diff-file <path>) [--question \"<text>\"] [--out <dir>]" >&2
+  exit 64
+}
+
+# --- Validate arguments ------------------------------------------------------
+[ -n "$tool" ] || usage_error "Missing <tool>."
+if [ -n "$pr_url" ] && [ -n "$diff_file" ]; then usage_error "Use either --pr-url or --diff-file, not both."; fi
+if [ -z "$pr_url" ] && [ -z "$diff_file" ]; then usage_error "One of --pr-url or --diff-file is required."; fi
+if [ "$tool" = "ask" ] && [ -z "$question" ]; then usage_error "--question is required for ask."; fi
+
+if [ -n "$diff_file" ]; then
+  [ -f "$diff_file" ] || usage_error "Diff file not found: $diff_file"
+  case "$DIFF_TOOLS" in *" $tool "*) ;; *) emit skipped tool-disabled ;; esac
+else
+  case "$PR_TOOLS" in *" $tool "*) ;; *) emit skipped tool-disabled ;; esac
+fi
+
+# --- Credentials (never printed, never passed on the command line) -----------
+# Dedicated key only (FR-002): a shared ANTHROPIC_API_KEY is deliberately ignored.
+ANTHROPIC__KEY="${ANTHROPIC_API_KEY_QODO_PR_AGENT:-}"
+[ -n "$ANTHROPIC__KEY" ] || emit skipped no-credential
+export ANTHROPIC__KEY
+
+if [ -n "$pr_url" ]; then
+  [ -n "${GITHUB_TOKEN:-}" ] || emit skipped no-credential
+  export GITHUB__USER_TOKEN="$GITHUB_TOKEN"
+fi
+
+# --- Build the upstream command ----------------------------------------------
+settings=(
+  "--config.publish_output=false"
+  "--config.verbosity_level=2"
+  "--config.propagate_tool_errors=true"
+  "--config.response_language=en-GB"
+)
+# Always passed. Neither mode reads a repository config, so omitting it would let
+# PR-Agent pick its own default model.
+settings+=("--config.model=$MODEL")
+tool_args=("$tool")
+if [ "$tool" = "ask" ]; then tool_args+=("$question"); fi
+
+md_out="$out_dir/out.md"
+json_out="$out_dir/out.json"
+# A previous run's output must never be readable as this run's. Removing them
+# up front means a failed or skipped run leaves nothing behind to be mistaken
+# for a fresh result, and an empty file is never a valid result.
+rm -f "$md_out" "$json_out" "$out_dir/stdout.txt"
+
+# PR-Agent 0.46.0 accepts --output/--json-output only in plain-diff mode, and a
+# PR run with publish_output=false prints nothing. PR mode therefore runs
+# pr_mode_adapter.py inside the pinned image, which writes the tool's stored
+# result to out.md. Diff mode uses the CLI and its output flags directly.
+# Assigned separately from the declaration: `readonly X="$(cmd)"` would swallow a
+# failing `cd` under `set -e`, leaving ADAPTER as `/pr_mode_adapter.py` and turning
+# a clear failure into a confusing docker mount error.
+ADAPTER_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly ADAPTER="$ADAPTER_DIR/pr_mode_adapter.py"
+
+# Run the pinned container against a PR URL (via the adapter) or a read-only mounted diff.
+run_docker() {
+  local args=(run --rm -e ANTHROPIC__KEY --entrypoint python)
+  if [ -n "$pr_url" ]; then
+    args+=(-e GITHUB__USER_TOKEN -v "$ADAPTER:/work/adapter.py:ro" -v "$out_dir:/work/out")
+    docker "${args[@]}" "$IMAGE" /work/adapter.py /work/out/out.md "$pr_url" \
+      "${tool_args[@]}" "${settings[@]}"
+    return
+  fi
+  local abs_diff target
+  abs_diff="$(cd "$(dirname "$diff_file")" && pwd)/$(basename "$diff_file")"
+  args+=(-v "$abs_diff:/work/input.diff:ro" -v "$out_dir:/work/out")
+  target=(--diff-file /work/input.diff --output /work/out/out.md)
+  # Upstream accepts --json-output for review only.
+  if [ "$tool" = "review" ]; then target+=(--json-output /work/out/out.json); fi
+  docker "${args[@]}" "$IMAGE" -m pr_agent.cli "${target[@]}" "${tool_args[@]}" "${settings[@]}"
+}
+
+# Run the pinned pipx CLI against a local diff. pipx cannot run the adapter, so
+# PR mode needs Docker (see the runtime selection below).
+run_pipx() {
+  local target=(--diff-file "$diff_file" --output "$md_out")
+  if [ "$tool" = "review" ]; then target+=(--json-output "$json_out"); fi
+  pipx run --spec "$PIP_SPEC" pr-agent "${target[@]}" "${tool_args[@]}" "${settings[@]}"
+}
+
+if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+  runner=run_docker
+elif [ -z "$pr_url" ] && command -v pipx >/dev/null 2>&1 && python3 -c 'import sys; sys.exit(sys.version_info < (3, 12))' 2>/dev/null; then
+  runner=run_pipx
+else
+  emit skipped no-runtime
+fi
+
+# --- Run ---------------------------------------------------------------------
+set +e
+"$runner" > "$out_dir/stdout.txt" 2> "$log_file"
+exit_code=$?
+set -e
+
+truncated=false
+if grep -qiE 'clipped|omitted|other modified files|\.\.\.\(truncated\)' "$md_out" 2>/dev/null; then truncated=true; fi
+
+if [ "$exit_code" -ne 0 ]; then
+  if grep -qiE '429|rate.?limit' "$log_file" "$out_dir/stdout.txt" 2>/dev/null; then
+    emit error rate-limited
+  fi
+  emit error upstream-error
+fi
+
+# If the output file is empty, the tool produced no retrievable result (in PR
+# mode, ask stores none), and reporting ok would describe a result that does not exist.
+if [ ! -s "$md_out" ]; then
+  emit skipped no-output
+fi
+
+emit ok "" "$md_out" "$json_out" "$truncated"
