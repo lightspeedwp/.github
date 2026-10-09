@@ -97,8 +97,8 @@ Children of the epic outside spec 020 (GIT-701 pr-agent, GIT-106 issue-agent, GI
 │   └── agent-package-layout.md
 ├── checklists/
 │   └── requirements.md
-├── issue-map.md         # Pending: needs live GitHub and Linear reads and approval
-├── delivery-plan.md     # Pending: depends on issue-map.md
+├── issue-map.md         # Live GitHub and Linear mapping; previews only, nothing applied
+├── delivery-plan.md     # Branch, PR, stack and merge-order profiles
 └── tasks.md             # Phase 2: created by /speckit-tasks, not by this command
 ```
 

@@ -90,4 +90,4 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 2. Read PR #3881 diff and checks (R-02).
 3. Owner confirmation of R-05, R-06, R-07, R-08.
 4. 019 numbering gap resolution (R-11).
-5. `issue-map.md` and `delivery-plan.md` from live GitHub and Linear records.
+5. Approval decisions on the previews in `issue-map.md` (A1 to A11).

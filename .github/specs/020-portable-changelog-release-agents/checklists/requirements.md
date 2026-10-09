@@ -31,5 +31,5 @@
 
 ## Notes
 
-- `issue-map.md` and `delivery-plan.md` are not yet written: they require reading live GitHub issue and PR records and a separate approval boundary.
+- `issue-map.md` and `delivery-plan.md` are written from live records; every record change in them is a preview that needs separate approval.
 - Run `/speckit-clarify` for the three open decisions before `/speckit-plan`.
