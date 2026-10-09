@@ -36,6 +36,7 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 ### Session 2026-10-09
 
 - Q: How should a maintainer's approval of a preparation or changelog edit be recorded so the agent can prove an edit was approved before it writes anything? → A: Option A - a digest of the exact proposed edit, shown by the agent, supplied by the maintainer and rechecked before any write.
+- Q: When a changelog agent is copied into another repository, where should it find the shared changelog checker it validates with? → A: Option B - always use a bundled copy pinned to a recorded version, and report that version in every result.
 
 ## Release Process Contract (guidance, not execution permission)
 
@@ -167,7 +168,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 **Changelog**
 
 - **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved (as defined in FR-029) and bounded.
-- **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine.
+- **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine. A copied agent package MUST validate with a bundled copy of that engine pinned to a recorded version, and every validation result MUST state the engine version it used.
 - **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security. Entries MUST be at most 250 characters, user-focused and linked to a PR or issue (constitution Principle IX).
 - **FR-012**: The local MVP MUST function without the unbuilt `changelog.yml` or `release.yml` workflows.
 - **FR-013**: The five-operation shared-skill obligations carried by the existing changelog MVP issue MUST be preserved.
@@ -228,6 +229,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **SC-009**: Each existing issue in scope is either repurposed in the issue map or explicitly dispositioned; zero replacement issues are proposed where an existing issue fits, and zero entries contain fabricated numbers.
 - **SC-010**: No locked governance file, source code, package manifest, root version or root changelog is modified by this specification's pull request.
 - **SC-011**: In every fixture where the supplied approval digest does not match the edit about to be applied, zero files are written.
+- **SC-012**: Every changelog validation result, including each verification response, states the engine version used, and that version matches the recorded pin of the bundled copy.
 
 ## Assumptions
 

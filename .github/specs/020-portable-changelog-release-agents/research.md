@@ -42,10 +42,12 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 - **Decision**: provide a thin CommonJS-facing adapter that calls the existing logic, keeping function behaviour and exports (`detectWordPressComponent`, `validateVersionConsistency`, `updateAllVersions`) intact; no ESM-to-CJS rewrite of the logic.
 - **Rationale**: preserves tested logic and avoids incidental migration (FR-018). **Alternatives**: convert the utilities to CommonJS (rejected as unrequested migration); keep a separate agent (rejected: FR-016 forbids a second release agent).
 
-### R-05 Changelog validation reuse and portability tension
+### R-05 Changelog validation reuse and portability
 
-- **Decision**: the changelog agent invokes the shipped engine for validation and does not add another engine.
-- **Unresolved tension**: the engine lives under `.github/`, but FR-019 requires copied adapters to work without a governance checkout. Candidate resolutions: resolve the engine from the target repository if present, else from a pinned bundled copy with recorded source and version. This is a design choice with portability and drift consequences and needs owner confirmation; it is carried into `/speckit-tasks` as a decision task, not assumed.
+- **Decision** (clarify session 2026-10-09, option B): the changelog agent validates with the shipped engine and does not add another. A copied agent package carries a bundled copy of that engine pinned to a recorded version and source commit, and reports the engine version in every result.
+- **Rationale**: predictable and portable with no governance checkout. A version-pinned copy of the same engine is not a second engine, because it is produced by a refresh script from `.github/validation/changelog/` and checked against its pin.
+- **Consequences**: drift is handled by the pin and a test that fails when the bundled copy differs from it; upgrades are an explicit refresh. Results always name the engine version (FR-010, SC-012).
+- **Alternatives rejected**: preferring the target repository's own copy (versions vary), requiring a governance checkout (breaks portability), and refusing until installed separately (poor first-run experience).
 
 ### R-06 Plugin and theme adapter: one module or two slices (open decision 3)
 
@@ -94,6 +96,6 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 
 1. Decide whether GIT-1310, GIT-1744 and GIT-2623 should be linked under GIT-1293 (R-10).
 2. Read PR #3881 diff and checks (R-02).
-3. Owner confirmation of R-05, R-06, R-07, R-08.
+3. Owner confirmation of R-06, R-07, R-08.
 4. 019 numbering gap resolution (R-11).
 5. Approval decisions on the previews in `issue-map.md` (A1 to A11).
