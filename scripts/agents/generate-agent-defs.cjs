@@ -2,7 +2,7 @@
 /**
  * Generate thin Claude Code agent definitions from canonical agent specs.
  *
- * Pilot: agents/changelog-agent/changelog.agent.md -> .claude/agents/changelog-agent.md
+ * Pilot: agents/changelog-agent/AGENT.md -> .claude/agents/changelog-agent.md
  *
  * The generated file carries only the identity Claude Code needs for
  * delegation (frontmatter `name` + `description`, the two required fields
@@ -24,7 +24,7 @@ const REPO_ROOT = path.join(__dirname, '..', '..');
 
 const AGENTS = [
   {
-    canonical: 'agents/changelog-agent/changelog.agent.md',
+    canonical: 'agents/changelog-agent/AGENT.md',
     generated: '.claude/agents/changelog-agent.md',
   },
 ];
@@ -62,7 +62,7 @@ function buildDefinition(canonicalRel) {
   if (!fm || !fm.description) {
     throw new Error(`canonical spec has no usable frontmatter: ${canonicalRel}`);
   }
-  const base = path.basename(canonicalRel, '.agent.md');
+  const base = path.basename(path.dirname(canonicalRel)).replace(/-agent$/, '');
   const name = (fm.name || base)
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')

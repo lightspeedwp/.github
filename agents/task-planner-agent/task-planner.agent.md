@@ -333,7 +333,7 @@ Comprehensive planning agent supporting three complementary modes:
 
 ## Related Agents
 
-- [Release Manager](./release.agent.md) - Release preparation and automation
+- [Release Manager](../release-agent/AGENT.md) - Release preparation and automation
 - [Issues Agent](./issues.agent.md) - Issue management and triage
 - [Labeling Agent](./labeling.agent.md) - Label automation and enforcement
 

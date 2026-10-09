@@ -6,7 +6,7 @@ file_type: "process-guide"
 category: "release-management"
 description: "Authoritative release process for lightspeedwp/.github: develop → main flow, gating, changelog validation, release PRs, tags, and GitHub Releases."
 references:
-  - path: "../agents/release.agent.md"
+  - path: "../agents/release-agent/AGENT.md"
     description: "Release agent specification"
   - path: "../scripts/agents/release.agent.js"
     description: "Release automation implementation"
@@ -66,7 +66,7 @@ node scripts/agents/release.agent.js --scope=minor --dry-run
 - [ ] `CHANGELOG.md` has unreleased entries and passes schema validation (`changelog.yml`).
 - [ ] `VERSION` matches intended bump source.
 - [ ] Lint/tests green.
-- [ ] Agent/workflow alignment: `release.agent.js`, `release.agent.md`, `release.yml`, `changelog.yml`.
+- [ ] Agent/workflow alignment: `release.agent.js`, `release-agent/AGENT.md`, `release.yml`, `changelog.yml`.
 - [ ] Documentation current (links valid, branch flow accurate).
 - [ ] No uncommitted changes in working tree.
 

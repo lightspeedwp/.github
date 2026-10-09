@@ -64,7 +64,7 @@ Agents with both specification files and complete implementations (28 total).
 - **[Website Content Strategist](./website-content-strategist-agent/)** – [`website-content-strategist.agent.md`](./website-content-strategist.agent.md)
   - Content strategy planning, audits, and SEO optimization
 
-- **[Changelog](./changelog-agent/)** – [`changelog.agent.md`](./changelog-agent/changelog.agent.md)
+- **[Changelog](./changelog-agent/)** – [`AGENT.md`](./changelog-agent/AGENT.md)
   - Automated changelog generation from commit history
 
 ### Project Management & Planning
@@ -142,7 +142,7 @@ Agents with both specification files and complete implementations (28 total).
 - **[Prompt Engineer](./prompt-engineer/)** – [`prompt-engineer.agent.md`](./prompt-engineer.agent.md)
   - Prompt optimization and engineering
 
-- **[Release Agent](./release/)** – [`release.agent.md`](./release.agent.md)
+- **[Release Agent](./release-agent/)** – [`AGENT.md`](./release-agent/AGENT.md)
   - Release management and versioning
 
 - **[Task Researcher Agent](./task-researcher-agent/)** – [`task-researcher.agent.md`](./task-researcher.agent.md)
