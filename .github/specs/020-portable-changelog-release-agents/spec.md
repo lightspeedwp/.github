@@ -239,7 +239,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 ## Assumptions
 
-- Feature number 020 is correct: 019 is reserved on the unmerged `aiops/qodo-pr-agent-integration` branch and is not allocated here. Develop was at `65a013b25eb4f81806496965adad8e3f458a34e5` at drafting; these refs are inspected facts, not permanent guarantees, and must be rechecked before the PR.
+- Feature number 020 is final. Maintainer decision 2026-10-10: this specification keeps number 020 and does not take 019. Number 019 is reserved on the unmerged `aiops/qodo-pr-agent-integration` branch and is not allocated here. Develop was at `65a013b25eb4f81806496965adad8e3f458a34e5` at drafting; these refs are inspected facts, not permanent guarantees, and must be rechecked before the PR.
 - Existing work is reused: the in-flight consolidation (issue 3880 / PR 3881, head `7e0bcaab55703f0866d1c063c0b6e7530b97b747`, open and blocked, not merged), merged PR 3820, and spec 016 with the shipped `.github/validation/changelog/` engine.
 - Default delivery is S independent, existing consolidation finished, then release MVP and changelog MVP branched from refreshed develop; stacking the release MVP on PR 3881 happens only if it needs layout available exclusively there, and never on the Qodo reservation.
 - Pilot repositories, installer behaviour, marketplace distribution, workflow restoration and rollback are later work owned by existing issues; no pilot architecture or code transfer is decided here.

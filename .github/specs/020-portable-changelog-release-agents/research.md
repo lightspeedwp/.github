@@ -80,7 +80,7 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 ### R-11 Spec numbering gap blocks the spec PR check
 
 - **Finding**: `.specify/scripts/bash/audit-specs.sh` fails on gaps; 019 is reserved on an unmerged branch.
-- **Decision**: owner-decided. Either merge the 019 spec first, or approve a separate change allowing reserved numbers. Neither is performed by this plan.
+- **Decision (2026-10-10)**: the maintainer decided this specification keeps number 020 and does not take 019, so renumbering is not an option. The failing audit is therefore cleared only by the maintainer either merging the 019 Qodo spec first or approving a separate change that lets the audit script accept reserved numbers. Neither is performed by this plan, and the choice between them is still open.
 
 ### R-13 Approval is a digest of the exact proposed edit
 
