@@ -43,7 +43,7 @@ Preserved from the source brief: delivery priority is release preparation first 
 | WFLOW | [#1560](https://github.com/lightspeedwp/.github/issues/1560) | `automation/release-workflow-portable-validation` | `develop` | `automation: release-workflow - Validate portable release gates` | `pr_aiops.md` | Confirm the primary automation classification and routing before metadata; no incompatible two-type set | To be confirmed | `Ref` | Later scope, not spec 020 implementation; archived workflow reviewed and tested first |
 | ROLLBACK | [#1562](https://github.com/lightspeedwp/.github/issues/1562) | `automation/release-workflow-safe-rollback` | `develop` | `automation: release-workflow - Add approved rollback safeguards` | `pr_aiops.md` | Confirm automation type, routing and actual release impact | To be confirmed | `Ref` | Later; workflow contract first |
 
-**Optional adapter slices** (only if the plugin and theme adapters are independently reviewable; prefer one coherent R1 adapter with both acceptance mappings): `aiops/release-agent-plugin-version-adapter` titled `aiops: release-agent - Validate plugin version fields` for #1565, and `aiops/release-agent-theme-version-adapter` titled `aiops: release-agent - Validate theme version fields` for #1566, both `pr_aiops.md` with label set A and impact checks. Split to make a unit reviewable, not to create more PRs.
+**Adapter shape (decided 2026-10-10)**: the plugin and theme version handling ships as one coherent adapter module inside R1, with both acceptance mappings (#1565 plugin, #1566 theme). The separate adapter branches originally considered (`aiops/release-agent-plugin-version-adapter` and `aiops/release-agent-theme-version-adapter`) are not used.
 
 ### Roadmap-only agent slices (not spec 020 tasks)
 

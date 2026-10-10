@@ -45,6 +45,7 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 
 - Q: When a repository's own instructions don't say which version field is authoritative, should the release agent stop and list every version it found, or fall back to a built-in order? → A: Option A - stop as ambiguous and report every version found with its source; no fallback order exists.
 - Q: Should only the changelog agent ever edit `CHANGELOG.md`, with the release agent changing version fields only and asking the changelog agent to verify, or may the release agent also stamp it? → A: Option A - only the changelog agent edits `CHANGELOG.md`; the release agent edits version fields only and requests verification through the handoff.
+- Q: Should the plugin and theme version handling ship as one module reviewed in a single pull request, or as two separate slices? → A: Option A - one coherent adapter module in a single pull request, covering plugin and theme with both acceptance mappings (#1565 and #1566).
 
 ## Release Process Contract (guidance, not execution permission)
 
@@ -191,7 +192,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 **Packaging and architecture**
 
-- **FR-016**: Exactly two user-facing orchestration agents exist; the WordPress utilities become reused and hardened release adapter functionality after callers, exports and tests are migrated, with no speculative deletion.
+- **FR-016**: Exactly two user-facing orchestration agents exist; the WordPress utilities become reused and hardened release adapter functionality after callers, exports and tests are migrated, with no speculative deletion. The plugin and theme version handling ships as one coherent adapter module in a single pull request that maps both the plugin (#1565) and theme (#1566) acceptance criteria; it is not split into separate slices.
 - **FR-017**: Each agent package MUST contain one canonical `AGENT.md`, a `README.md`, an agent `CHANGELOG.md`, `package.json` and lockfile where the project convention requires, `scripts/`, namespaced `skills/<capability>/SKILL.md`, and a small Claude adapter; `references/` and `assets/` only for actual content, with no gratuitous includes, gates, shared, results, manifest or example trees and no invented dependencies.
 - **FR-018**: The specification MUST resolve explicitly the distinct roles of working-instructions `AGENTS.md` and the definition `AGENT.md`, reuse the in-flight canonical-source migration, and keep module boundaries (no incidental CommonJS-to-ESM or TypeScript migration).
 - **FR-019**: Copied agent packages MUST resolve all resources without a governance checkout and MUST NOT read secrets, hooks or cloud configuration.
@@ -254,8 +255,8 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 ## Open Decisions for `/speckit-clarify`
 
-These are recorded as decisions for the clarify stage rather than guessed:
+These were recorded as decisions for the clarify stage rather than guessed. All three are now resolved (clarification sessions of 2026-10-09 and 2026-10-10):
 
 1. Resolved 2026-10-10 (option A): when a target's own instructions are silent on version fields, the agent stops as ambiguous and reports every version found; there is no fallback order (FR-004).
 2. Resolved 2026-10-10 (option A): only the changelog agent edits `CHANGELOG.md`; the release agent edits version fields only and requests verification through the handoff (FR-007, FR-009).
-3. Whether a plugin/theme adapter ships as one coherent module or two separately reviewed slices.
+3. Resolved 2026-10-10 (option A): the plugin and theme adapter ships as one coherent module in a single pull request, mapping both #1565 and #1566 (FR-016).

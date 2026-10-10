@@ -49,10 +49,11 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 - **Consequences**: drift is handled by the pin and a test that fails when the bundled copy differs from it; upgrades are an explicit refresh. Results always name the engine version (FR-010, SC-012).
 - **Alternatives rejected**: preferring the target repository's own copy (versions vary), requiring a governance checkout (breaks portability), and refusing until installed separately (poor first-run experience).
 
-### R-06 Plugin and theme adapter: one module or two slices (open decision 3)
+### R-06 Plugin and theme adapter ships as one module
 
-- **Provisional recommendation**: one coherent adapter module with both acceptance mappings (#1565 plugin, #1566 theme), splitting only if independently reviewable.
-- **Status**: provisional; owner confirmation required.
+- **Decision** (clarify session 2026-10-10, option A): one coherent adapter module in a single pull request, covering plugin and theme, with both acceptance mappings (#1565 plugin, #1566 theme).
+- **Rationale**: both adapters share the same detection and version-field logic, so one module avoids two reviews of overlapping code.
+- **Alternatives**: two separate slices, and one module reviewed in two stages inside one pull request, were rejected as unnecessary for the MVP.
 
 ### R-07 Authoritative version source when instructions are silent
 
@@ -115,6 +116,5 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 
 1. Decide whether GIT-1310, GIT-1744 and GIT-2623 should be linked under GIT-1293 (R-10).
 2. Read PR #3881 diff and checks (R-02).
-3. Owner confirmation of R-06.
-4. 019 numbering gap resolution (R-11).
-5. Approval decisions on the previews in `issue-map.md` (A1 to A11).
+3. 019 numbering gap resolution (R-11).
+4. Decisions A9 and A11 in `issue-map.md` (A1 to A8 and A10 were applied or needed no change on 2026-10-10).

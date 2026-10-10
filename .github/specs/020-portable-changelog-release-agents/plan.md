@@ -72,7 +72,7 @@ Children of the epic outside spec 020 (GIT-701 pr-agent, GIT-106 issue-agent, GI
 | IV Technology-agnostic guidance | Pass with note. WordPress-specific behaviour lives in the release adapter and agent docs, not in central guidance. |
 | V and VIII Branch naming | Pass. `docs/portable-changelog-release-agents`; later slices use `aiops/` per the delivery profiles. |
 | VI UK English, accessibility, security | Pass. Path-safety and no-secrets requirements are explicit (FR-006, FR-019). |
-| VII Specification quality | Pass for the spec checklist; one open decision remains (adapter module shape) and is carried into research as provisional, not closed. |
+| VII Specification quality | Pass for the spec checklist; all three originally open decisions were resolved in clarification sessions (2026-10-09, 2026-10-10). |
 | IX Changelog compliance | Pass. Entries must stay within the length rule and link to PRs/issues; the agent validates using the shipped engine. |
 | X Metrics-driven governance | Pass. No new dashboards; reuses existing validation output. |
 
@@ -139,7 +139,7 @@ agents/changelog-agent/
                                   # bundled copy above is generated from it and pinned (research R-05)
 ```
 
-**Structure Decision**: extend the two existing agent packages in place and fold `wordpress-release-utilities-agent` into the release agent's adapters after a caller, export and test inventory. No third orchestration agent, no gratuitous `includes/`, `gates/`, `shared/`, `results/` or `manifest/` trees, and no fake empty skills. Whether the adapter lands as one module or two reviewed slices is open decision 3 (research R-06).
+**Structure Decision**: extend the two existing agent packages in place and fold `wordpress-release-utilities-agent` into the release agent's adapters after a caller, export and test inventory. No third orchestration agent, no gratuitous `includes/`, `gates/`, `shared/`, `results/` or `manifest/` trees, and no fake empty skills. The adapter lands as one module in a single pull request (research R-06, decided 2026-10-10).
 
 ## Phase 0 and Phase 1 Outputs
 
