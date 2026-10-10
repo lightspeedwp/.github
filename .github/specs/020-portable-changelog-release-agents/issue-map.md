@@ -2,7 +2,7 @@
 
 **Spec**: [spec.md](./spec.md) | **Plan**: [plan.md](./plan.md) | **Delivery plan**: [delivery-plan.md](./delivery-plan.md)
 
-**Read on**: 2026-10-09 from GitHub (`lightspeedwp/.github`) and Linear. Records were read by this session and by a read-only research agent. Nothing in this file has been applied: no GitHub or Linear record, title, body, label, native issue type, parent or assignee was changed. Every proposal needs the separate approval described in [Approval preview](#approval-preview).
+**Read on**: 2026-10-09 from GitHub (`lightspeedwp/.github`) and Linear. Records were read by this session and by a read-only research agent. **Updated 2026-10-10**: the maintainer approved the previews A1 to A11. A1 to A7 and A10 were applied; A8 needed no change; A9 and A11 were not applied because they are decisions with no outcome chosen (see [Approval preview](#approval-preview)). The "Current labels" and "Native type" columns below show values as read on 2026-10-09, before the applied changes; the preview table records what changed. No issue was closed, reopened, reparented or reassigned.
 
 Linear is the planning system of record. Where GitHub and Linear disagree, both are shown and the disagreement is listed in [Gaps and mismatches](#gaps-and-mismatches).
 
@@ -28,7 +28,7 @@ Linear is the planning system of record. Where GitHub and Linear disagree, both 
 
 | GitHub | Linear | Native type | Current labels (prefixed) | State | Proposed bounded role | Proposed delta | Delivery slice | Story / FR / path |
 |--------|--------|-------------|---------------------------|-------|-----------------------|----------------|----------------|-------------------|
-| [#1563](https://github.com/lightspeedwp/.github/issues/1563) | [GIT-1310](https://linear.app/lightspeedwp/issue/GIT-1310/aiops-release-agent-build-portable-agent) "Build portable agent", In Progress, Ash Shaw, no parent | Documentation | `area:automation`, `area:release`, `priority:normal`, `status:ready`, `status:needs-triage`; no `type:` label | Open (reopened 2026-09-23); no GitHub parent | Release preparation MVP, priority 1 | Title: `aiops: release-agent - Deliver portable preparation MVP`; correct obsolete `agents/release/` to `agents/release-agent/` in the preview; add `type:aiops`; native type to AI Ops. | R1 | US1, US3, US4, FR-001 to FR-008, FR-014 to FR-022; `agents/release-agent/` |
+| [#1563](https://github.com/lightspeedwp/.github/issues/1563) | [GIT-1310](https://linear.app/lightspeedwp/issue/GIT-1310/aiops-release-agent-build-portable-agent) "Build portable agent", In Progress, Ash Shaw, no parent | Documentation | `area:automation`, `area:release`, `priority:normal`, `status:ready`, `status:needs-triage`; no `type:` label | Open (reopened 2026-09-23); no GitHub parent | Release preparation MVP, priority 1 | Title: `aiops: release-agent - Deliver portable preparation MVP`; correct obsolete `agents/release/` to `agents/release-agent/` in the preview; add `type:aiops`; native type to AI Ops. | R1 | US1, US3, US4, FR-001 to FR-008, FR-014 to FR-022; `agents/release-agent/` (see [Release agent location](#release-agent-location)) |
 | [#2653](https://github.com/lightspeedwp/.github/issues/2653) | [GIT-1744](https://linear.app/lightspeedwp/issue/GIT-1744/aiops-changelog-automation-create-portable-shared-skill) "Create portable shared skill", Todo, Chris, no parent | Task | `type:aiops`, `area:automation`, `priority:high`, `status:needs-triage` | Open; GitHub assignees eleshar and ashleyshaw | Standalone changelog MVP, priority 2 | Title: `aiops: changelog-agent - Deliver portable changelog MVP`; preserve the five-operation shared-skill obligations (FR-013). | C2 | US2, US3, FR-009 to FR-015; `agents/changelog-agent/` |
 | [#1565](https://github.com/lightspeedwp/.github/issues/1565) | [GIT-1312](https://linear.app/lightspeedwp/issue/GIT-1312/automation-wordpress-plugins-add-version-handling) Todo, Ash Shaw, parent GIT-1293 | Documentation | `type:automation`, `area:release`, `status:ready` | Open | Plugin version adapter acceptance, traced to R1 | Trace to reused utilities, not a second implementation. Optional separate slice only if independently reviewable. | R1 (optional adapter slice) | US1, US4, FR-004, FR-016 |
 | [#1566](https://github.com/lightspeedwp/.github/issues/1566) | [GIT-1313](https://linear.app/lightspeedwp/issue/GIT-1313/automation-wordpress-themes-add-version-handling) Todo, Ash Shaw, parent GIT-1293 | Documentation | `type:automation`, `area:release`, `status:ready` | Open | Theme version adapter acceptance, traced to R1 | As #1565, with theme fixtures. | R1 (optional adapter slice) | US1, US4, FR-004, FR-016 |
@@ -45,6 +45,10 @@ Linear is the planning system of record. Where GitHub and Linear disagree, both 
 | [#3468](https://github.com/lightspeedwp/.github/issues/3468) | [GIT-2306](https://linear.app/lightspeedwp/issue/GIT-2306) Backlog, unassigned, parent GIT-2302; Linear LS-4233 (Todo, Ash Shaw, no parent) | AI Ops | Open, no milestone | Marketplace and install distribution | Use the existing delivery record. LS-4233 overlaps GIT-2306 and needs an explicit disposition; whether it is linked to #3468 is unconfirmed. | DIST (later) |
 | [#1560](https://github.com/lightspeedwp/.github/issues/1560) | [GIT-1307](https://linear.app/lightspeedwp/issue/GIT-1307/automation-release-workflow-update-workflow-configuration) Todo | Security | Open | Portable release workflow validation (deferred) | Review the archived workflow and its tests first; automation classification to be confirmed. | WFLOW (later) |
 | [#1562](https://github.com/lightspeedwp/.github/issues/1562) | [GIT-1309](https://linear.app/lightspeedwp/issue/GIT-1309/automation-release-workflow-create-rollback-automation) Todo | Security | Open | Rollback automation (deferred) | Bounded rollback outcome after the workflow contract. | ROLLBACK (later) |
+
+### Release agent location
+
+The release agent already exists on `develop` at [`agents/release-agent/`](https://github.com/lightspeedwp/.github/tree/develop/agents/release-agent). Spec 020 extends and hardens that package in place; it does not rebuild it. Issue [#1563](https://github.com/lightspeedwp/.github/issues/1563) still describes the path as `agents/release/` in its body, which is obsolete. That body correction was not one of the approved previews and has not been made.
 
 **Historical, no reopening by default**: [#1559](https://github.com/lightspeedwp/.github/issues/1559) (closed completed, PR 1637), [#1561](https://github.com/lightspeedwp/.github/issues/1561) (closed completed, PR 1658), [#1567](https://github.com/lightspeedwp/.github/issues/1567) (closed completed, PR 2272). [#1564](https://github.com/lightspeedwp/.github/issues/1564) is closed `not_planned` and superseded; it is not active changelog delivery.
 
@@ -74,20 +78,22 @@ These are links, not spec 020 tasks, and are not reparented. Linear children of 
 
 ## Approval preview
 
-**Nothing below is applied.** Approval for the spec PR does not imply approval for any of these. Each line is an exact, independently approvable change; approving one does not approve the others. Native issue type, `type:*` label, parent and assignee are listed separately because they are separate fields.
+**Status as of 2026-10-10.** The maintainer approved A1 to A11. Each line below records what was done. Approval of the spec PR did not imply approval of any of these, and each line was approved independently. Native issue type, `type:*` label, parent and assignee are listed separately because they are separate fields.
 
-| ID | Target | Field | Current | Proposed |
-|----|--------|-------|---------|----------|
-| A1 | GitHub #1555 | Title | `aiops: release-agent - Specify portable multi-repo support` | `docs: release-agents - Specify portable changelog and release agents` |
-| A2 | GitHub #1555 | Native type, label | AI Ops, `type:aiops` | Documentation, `type:docs` (only after independent checks) |
-| A3 | GitHub #1563 | Title | `aiops: release-agent - Build portable agent` | `aiops: release-agent - Deliver portable preparation MVP` |
-| A4 | GitHub #1563 | Native type, label | Documentation, no `type:` label | AI Ops, `type:aiops` |
-| A5 | GitHub #2653 | Title | `aiops: changelog-automation - Create portable shared skill` | `aiops: changelog-agent - Deliver portable changelog MVP` |
-| A6 | GitHub #3470 | Title | `task: resolve spec 016 changelog-agent design findings` | `docs: changelog-agent - Document specification decisions` |
-| A7 | GitHub #1558 | Title | `docs: release-process - Plan documentation reorganisation` | `docs: portable-agents - Restructure and complete guidance` |
-| A8 | GitHub #1546 | Body | Current epic body | Remove stale completion or deadline claims; keep Linear link |
-| A9 | Linear GIT-1310, GIT-1744, GIT-2623 | Parent | none | Decision needed: GIT-1293 or leave as is |
-| A10 | Linear GIT-1302, GIT-1310, GIT-1744 | Title | Linear titles as above | Match the GitHub titles after A1, A3 and A5 |
-| A11 | Linear LS-4233 versus GIT-2306 | Disposition | Two records for #3468 | Decision needed: merge, link or keep both |
+| ID | Target | Field | Current | Proposed | Status |
+|----|--------|-------|---------|----------|--------|
+| A1 | GitHub #1555 | Title | `aiops: release-agent - Specify portable multi-repo support` | `docs: release-agents - Specify portable changelog and release agents` | Applied 2026-10-10 |
+| A2 | GitHub #1555 | Native type, label | AI Ops, `type:aiops` | Documentation, `type:docs` (only after independent checks) | Applied 2026-10-10: native type Documentation, label `type:docs`; other labels kept |
+| A3 | GitHub #1563 | Title | `aiops: release-agent - Build portable agent` | `aiops: release-agent - Deliver portable preparation MVP` | Applied 2026-10-10 |
+| A4 | GitHub #1563 | Native type, label | Documentation, no `type:` label | AI Ops, `type:aiops` | Applied 2026-10-10: native type AI Ops, `type:aiops` added; other labels kept |
+| A5 | GitHub #2653 | Title | `aiops: changelog-automation - Create portable shared skill` | `aiops: changelog-agent - Deliver portable changelog MVP` | Applied 2026-10-10 |
+| A6 | GitHub #3470 | Title | `task: resolve spec 016 changelog-agent design findings` | `docs: changelog-agent - Document specification decisions` | Applied 2026-10-10 |
+| A7 | GitHub #1558 | Title | `docs: release-process - Plan documentation reorganisation` | `docs: portable-agents - Restructure and complete guidance` | Applied 2026-10-10 |
+| A8 | GitHub #1546 | Body | Current epic body | Remove stale completion or deadline claims; keep Linear link | No change needed: the epic body already states its earlier phase status and "no blockers" claims are historical and carries no stale completion or deadline claims |
+| A9 | Linear GIT-1310, GIT-1744, GIT-2623 | Parent | none | Decision needed: GIT-1293 or leave as is | Not applied: no outcome chosen; needs a decision |
+| A10 | Linear GIT-1302, GIT-1310, GIT-1744 | Title | Linear titles as above | Match the GitHub titles after A1, A3 and A5 | Applied 2026-10-10 for GIT-1302, GIT-1310 and GIT-1744. Linear also received the new `type:docs` and `type:aiops` labels from GitHub on its own |
+| A11 | Linear LS-4233 versus GIT-2306 | Disposition | Two records for #3468 | Decision needed: merge, link or keep both | Not applied: no outcome chosen (merge, link or keep both); needs a decision |
 
-No issue is closed, reopened, reparented or reassigned by this map. Replacement issues are not proposed because existing records fit every role.
+No issue was closed, reopened, reparented or reassigned. Replacement issues are not proposed because existing records fit every role.
+
+**Still open**: A9 (whether GIT-1310, GIT-1744 and GIT-2623 are linked under GIT-1293) and A11 (the disposition of LS-4233 against GIT-2306). Neither is applied until the maintainer chooses an outcome.
