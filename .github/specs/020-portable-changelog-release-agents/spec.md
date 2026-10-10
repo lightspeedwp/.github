@@ -44,6 +44,7 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 ### Session 2026-10-10
 
 - Q: When a repository's own instructions don't say which version field is authoritative, should the release agent stop and list every version it found, or fall back to a built-in order? → A: Option A - stop as ambiguous and report every version found with its source; no fallback order exists.
+- Q: Should only the changelog agent ever edit `CHANGELOG.md`, with the release agent changing version fields only and asking the changelog agent to verify, or may the release agent also stamp it? → A: Option A - only the changelog agent edits `CHANGELOG.md`; the release agent edits version fields only and requests verification through the handoff.
 
 ## Release Process Contract (guidance, not execution permission)
 
@@ -177,7 +178,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 **Changelog**
 
-- **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved (as defined in FR-029) and bounded.
+- **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved (as defined in FR-029) and bounded. The changelog agent is the only agent that edits `CHANGELOG.md`; the release agent never does and only requests verification through the handoff (FR-014).
 - **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine. A copied agent package MUST validate with a bundled copy of that engine pinned to a recorded version, and every validation result MUST state the engine version it used.
 - **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security. Entries MUST be at most 250 characters, user-focused and linked to a PR or issue (constitution Principle IX).
 - **FR-012**: The local MVP MUST function without the unbuilt `changelog.yml` or `release.yml` workflows.
@@ -256,5 +257,5 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 These are recorded as decisions for the clarify stage rather than guessed:
 
 1. Resolved 2026-10-10 (option A): when a target's own instructions are silent on version fields, the agent stops as ambiguous and reports every version found; there is no fallback order (FR-004).
-2. Whether any release-preparation edit beyond version fields (for example changelog stamping) belongs to the release agent or only to the changelog agent.
+2. Resolved 2026-10-10 (option A): only the changelog agent edits `CHANGELOG.md`; the release agent edits version fields only and requests verification through the handoff (FR-007, FR-009).
 3. Whether a plugin/theme adapter ships as one coherent module or two separately reviewed slices.

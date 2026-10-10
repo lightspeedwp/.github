@@ -60,10 +60,11 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 - **Rationale**: a wrong guess could stamp the wrong version into a release; the brief says to derive sources from the target's own instructions and fail closed.
 - **Alternatives**: a fixed built-in order of preference, and "use the only source if exactly one exists", were rejected as guessing.
 
-### R-08 Who stamps the changelog (open decision 2)
+### R-08 Who stamps the changelog
 
-- **Provisional recommendation**: only the changelog agent edits `CHANGELOG.md`; the release agent edits version fields only and requests verification through the handoff.
-- **Rationale**: keeps the changelog agent standalone and avoids two writers. **Status**: provisional.
+- **Decision** (clarify session 2026-10-10, option A): only the changelog agent edits `CHANGELOG.md`; the release agent edits version fields only and requests verification through the handoff.
+- **Rationale**: one writer for one file keeps the changelog agent standalone and keeps the release agent's edit allowlist limited to version fields, so a half-updated changelog cannot come from two writers.
+- **Alternatives**: letting the release agent stamp the changelog, and having it ask the changelog agent to apply a stamp during the handoff, were rejected as widening the release agent's write scope.
 
 ### R-09 Handoff mechanism needs no new infrastructure
 
@@ -114,6 +115,6 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 
 1. Decide whether GIT-1310, GIT-1744 and GIT-2623 should be linked under GIT-1293 (R-10).
 2. Read PR #3881 diff and checks (R-02).
-3. Owner confirmation of R-06 and R-08.
+3. Owner confirmation of R-06.
 4. 019 numbering gap resolution (R-11).
 5. Approval decisions on the previews in `issue-map.md` (A1 to A11).

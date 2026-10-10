@@ -72,7 +72,7 @@ Children of the epic outside spec 020 (GIT-701 pr-agent, GIT-106 issue-agent, GI
 | IV Technology-agnostic guidance | Pass with note. WordPress-specific behaviour lives in the release adapter and agent docs, not in central guidance. |
 | V and VIII Branch naming | Pass. `docs/portable-changelog-release-agents`; later slices use `aiops/` per the delivery profiles. |
 | VI UK English, accessibility, security | Pass. Path-safety and no-secrets requirements are explicit (FR-006, FR-019). |
-| VII Specification quality | Pass for the spec checklist; two open decisions remain and are carried into research as provisional, not closed. |
+| VII Specification quality | Pass for the spec checklist; one open decision remains (adapter module shape) and is carried into research as provisional, not closed. |
 | IX Changelog compliance | Pass. Entries must stay within the length rule and link to PRs/issues; the agent validates using the shipped engine. |
 | X Metrics-driven governance | Pass. No new dashboards; reuses existing validation output. |
 
