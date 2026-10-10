@@ -41,6 +41,10 @@ This specification defines a bounded, manually invoked **release-preparation MVP
 - Q: What counts as the required checks that must be present before the release agent reports a repository ready? → A: Option A - the checks named in the target repository's own instructions or CI configuration; if none are named, readiness is not ready with `missing-check`, because nothing can be verified.
 - Q: How should the release agent recognise a repository as an enhancement rather than a plugin or theme? → A: Option C - only when the target's own instructions declare it and name its version fields; otherwise it stops as `component-unknown`.
 
+### Session 2026-10-10
+
+- Q: When a repository's own instructions don't say which version field is authoritative, should the release agent stop and list every version it found, or fall back to a built-in order? → A: Option A - stop as ambiguous and report every version found with its source; no fallback order exists.
+
 ## Release Process Contract (guidance, not execution permission)
 
 This section states the contract the agents are built around. It does not authorise any agent to tag, push, publish or deploy; those are outside the executable MVP.
@@ -165,7 +169,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **FR-001**: The release agent MUST operate in readiness (dry-run) mode by default and MUST NOT write files or change git state in that mode.
 - **FR-002**: An explicit repository root MUST be propagated to every filesystem and git operation, independent of the process working directory.
 - **FR-003**: The agent MUST detect plugin, theme and enhancement targets without requiring an optional `VERSION` file, and MUST NOT classify a repository as governance merely because it contains `.github`, `package.json` and `VERSION`. An enhancement is recognised only when the target's own instructions declare it and name its version fields; otherwise the agent MUST stop as `component-unknown`.
-- **FR-004**: The agent MUST determine authoritative version sources (plugin header, readme, theme stylesheet, package, `VERSION`) from the target's own instructions, and MUST handle ambiguity and drift deterministically by stopping and naming the conflict rather than choosing silently.
+- **FR-004**: The agent MUST determine authoritative version sources (plugin header, readme, theme stylesheet, package, `VERSION`) from the target's own instructions, and MUST handle ambiguity and drift deterministically by stopping and naming the conflict rather than choosing silently. No built-in order of preference exists: when no field is designated, or sources disagree, the agent MUST stop as ambiguous and report every version found with its source, and the set of files it may edit is empty.
 - **FR-005**: The agent MUST stop on a dirty working tree, missing required checks, unsafe paths, or conflicting version or tag evidence. Required checks are those named in the target repository's own instructions or CI configuration; if none are named the agent MUST report not ready with `missing-check`, because nothing can be verified.
 - **FR-006**: The agent MUST NOT use broad staging, silent gate fallback, automatic stashing, or any remote effect.
 - **FR-007**: Approved preparation edits (approval as defined in FR-029) MUST be limited to files the target's own instructions designate as version fields (for example the plugin header Version, readme Stable tag, theme stylesheet Version, package version, `VERSION`), and MUST NOT touch `CHANGELOG.md`, workflows or any other file. Before any write the agent MUST capture the original contents of every file it will edit. On any failure it MUST restore all of them and report per-file restored or failed. If restoration fails it MUST report `unrecoverable` naming the files and MUST NOT report ready; a partial version update MUST NOT be presented as ready. Every error MUST state a cause code, the repository-relative path and the next action.
@@ -251,6 +255,6 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 These are recorded as decisions for the clarify stage rather than guessed:
 
-1. Which source is authoritative when a target's own instructions are silent on version fields.
+1. Resolved 2026-10-10 (option A): when a target's own instructions are silent on version fields, the agent stops as ambiguous and reports every version found; there is no fallback order (FR-004).
 2. Whether any release-preparation edit beyond version fields (for example changelog stamping) belongs to the release agent or only to the changelog agent.
 3. Whether a plugin/theme adapter ships as one coherent module or two separately reviewed slices.

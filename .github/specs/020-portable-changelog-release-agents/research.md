@@ -54,11 +54,11 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 - **Provisional recommendation**: one coherent adapter module with both acceptance mappings (#1565 plugin, #1566 theme), splitting only if independently reviewable.
 - **Status**: provisional; owner confirmation required.
 
-### R-07 Authoritative version source when instructions are silent (open decision 1)
+### R-07 Authoritative version source when instructions are silent
 
-- **Provisional recommendation**: when a target's own instructions do not name an authoritative field, the agent refuses to choose, reports every detected value and source, and stops as ambiguous (FR-004). No default hierarchy is invented.
-- **Rationale**: the first draft of the spec invented a hierarchy; the brief says to derive sources from target instructions.
-- **Status**: provisional; owner confirmation required.
+- **Decision** (clarify session 2026-10-10, option A): when a target's own instructions do not name an authoritative field, the agent refuses to choose, reports every detected value and source, and stops as ambiguous (FR-004). No default hierarchy exists, and the allowed edit set is empty in that case.
+- **Rationale**: a wrong guess could stamp the wrong version into a release; the brief says to derive sources from the target's own instructions and fail closed.
+- **Alternatives**: a fixed built-in order of preference, and "use the only source if exactly one exists", were rejected as guessing.
 
 ### R-08 Who stamps the changelog (open decision 2)
 
@@ -114,6 +114,6 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 
 1. Decide whether GIT-1310, GIT-1744 and GIT-2623 should be linked under GIT-1293 (R-10).
 2. Read PR #3881 diff and checks (R-02).
-3. Owner confirmation of R-06, R-07, R-08.
+3. Owner confirmation of R-06 and R-08.
 4. 019 numbering gap resolution (R-11).
 5. Approval decisions on the previews in `issue-map.md` (A1 to A11).
