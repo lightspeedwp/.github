@@ -46,7 +46,7 @@ Children of the epic outside spec 020 (GIT-701 pr-agent, GIT-106 issue-agent, GI
 
 **Primary Dependencies**: none new. Existing: the shipped changelog validation engine at `.github/validation/changelog/` (ESM package, `bin/validate.js`); copied agents carry a bundled copy pinned to a recorded version (research R-05), Node built-ins, `git`. No Python, no new test framework.
 
-**Storage**: files only (version fields, `CHANGELOG.md`); no database. Handoff evidence is a structured JSON document passed between agents.
+**Storage**: files only (version fields, `CHANGELOG.md`); no database. Handoff evidence is a structured JSON document passed between agents. Approval digests use SHA-256; see [contracts/approval-digest.md](./contracts/approval-digest.md) for the complete algorithm and implementation contract (FR-029, SC-011).
 
 **Testing**: Jest 30.x via `.jest.config.cjs` for JavaScript (`scripts/__tests__/` or `scripts/adapters/__tests__/` per agent); Bash/Bats under agent-root `tests/` with fixtures. Existing Node-test, PHP and Playwright tests stay where they are. Discovery and package commands must be verified before any test moves.
 

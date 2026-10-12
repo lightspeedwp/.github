@@ -226,6 +226,17 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 - **Verification handoff**: the request and blocking response between the release and changelog agents.
 - **Delivery slice**: one independently reviewable issue-to-PR unit (spec, consolidation, release MVP, changelog MVP, decisions, documentation, setup, distribution, workflows, rollback).
 
+### Shared-Skill Obligations (Existing Changelog MVP — FR-013)
+
+The changelog agent MUST preserve and reuse the five shared-skill operations carried by the existing changelog MVP. These operations are defined in issue #2653 and are:
+
+1. **TODO: Extract from issue #2653** — (List will be populated from issue body/comments; ref. task T032)
+2. (Operations 2–5 to be documented from same source)
+
+**Reference**: [#2653 – aiops: changelog-automation - Create portable shared skill](https://github.com/lightspeedwp/.github/issues/2653)
+
+**Note**: Task T032 (Phase 4, User Story 2) formally inventories these five operations from the issue and confirms they are preserved during changelog agent implementation. The spec records them here for completeness.
+
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
@@ -245,6 +256,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 ## Assumptions
 
+- Specification catalog entry. The draft entry for this specification will be created as task T000 and added to `.github/specs/CATALOG.md` as part of this specification PR, not deferred to implementation slices. The catalog entry is pure metadata (numbering, status, summary, decision links) and is zero-risk.
 - Feature number 020 is final. Maintainer decision 2026-10-10: this specification keeps number 020 and does not take 019. Number 019 is reserved on the unmerged `aiops/qodo-pr-agent-integration` branch and is not allocated here. Develop was at `65a013b25eb4f81806496965adad8e3f458a34e5` at drafting; these refs are inspected facts, not permanent guarantees, and must be rechecked before the PR.
 - Existing work is reused: the in-flight consolidation (issue 3880 / PR 3881, head `7e0bcaab55703f0866d1c063c0b6e7530b97b747`, open and blocked, not merged), merged PR 3820, and spec 016 with the shipped `.github/validation/changelog/` engine.
 - Default delivery is S independent, existing consolidation finished, then release MVP and changelog MVP branched from refreshed develop; stacking the release MVP on PR 3881 happens only if it needs layout available exclusively there, and never on the Qodo reservation.
