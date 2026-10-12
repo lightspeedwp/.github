@@ -68,7 +68,8 @@ The source of truth is the [responsibility matrix contract](../.github/specs/019
 
 | Concern | Owner |
 | --- | --- |
-| Code review and the review verdict | **CodeRabbit** and human reviewers |
+| Code review findings | **CodeRabbit** |
+| Review verdict | **Human reviewers** |
 | PR summary and walkthrough | **Qodo PR-Agent** (automatic comment) |
 | Improvement suggestions | **Qodo PR-Agent** (automatic comment) |
 | Second-opinion review, questions, changelog drafts, docs suggestions | **Qodo PR-Agent** (on demand) |
