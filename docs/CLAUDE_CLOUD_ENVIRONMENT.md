@@ -342,10 +342,40 @@ settings, not branch-protection fields.
   repositories don't load repository settings, and pushing a renamed branch relies on the platform's push protection.
   CI branch validation and Code Owners review remain the final gate.
 
+## Depends on
+
+- `lib/validate-branch-name.js`, which the guard and CI both call, so they agree on every branch name.
+- GitHub branch protection or a ruleset on `develop` and `main`: **Require review from Code Owners** and the
+  **Claude guard contract tests** check. An Owner sets both, and they aren't verified live yet (see Delivered and
+  remaining).
+- Spec 009's branch cleanup, for the route that removes empty `claude/*` branches by hand.
+- The platform: cloud sessions authenticate `gh` through the GitHub proxy, and the platform's push protection allows
+  pushing the renamed current branch.
+
 ## Related
 
 - [Branching strategy](./BRANCHING_STRATEGY.md)
 - [PR creation process](./PR_CREATION_PROCESS.md)
-- [Spec 018](../.github/specs/018-claude-cloud-environment/spec.md)
+- [Spec 018](../.github/specs/018-claude-cloud-environment/spec.md), the requirements. Its supporting artefacts are in
+  the same folder: the [plan](../.github/specs/018-claude-cloud-environment/plan.md),
+  [research](../.github/specs/018-claude-cloud-environment/research.md),
+  [data model](../.github/specs/018-claude-cloud-environment/data-model.md),
+  [quickstart](../.github/specs/018-claude-cloud-environment/quickstart.md),
+  [tasks](../.github/specs/018-claude-cloud-environment/tasks.md), the
+  [hooks contract](../.github/specs/018-claude-cloud-environment/contracts/hooks.md), the
+  [cloud environment contract](../.github/specs/018-claude-cloud-environment/contracts/cloud-environment.md), the
+  [branch cleanup contract](../.github/specs/018-claude-cloud-environment/contracts/branch-cleanup.md) and the
+  [requirements](../.github/specs/018-claude-cloud-environment/checklists/requirements.md) and
+  [security](../.github/specs/018-claude-cloud-environment/checklists/security.md) checklists.
+- [Specification catalogue](../.github/specs/CATALOG.md)
+- Contract checks, run in CI by [Claude Guard Tests](../.github/workflows/claude-guard-tests.yml):
+  the [documentation contract test](../tests/js/claude-cloud-environment-docs.test.js), the
+  [guard tests](../scripts/__tests__/enforce-branch-name-hook.test.js), the
+  [session-start tests](../scripts/__tests__/session-start-hook.test.js) and the
+  [setup script test](../scripts/__tests__/setup-node-install.test.js).
+- **Spec numbering**: this work was first requested as spec 016, and its first specification was delivered in
+  lightspeedwp/.github#3525 under a `016-claude-cloud-environment` folder. It is now **spec 018**. That older folder
+  doesn't exist on `develop`, and spec 016 is now the changelog-agent quality specification. Use the spec 018 links
+  above.
 - [Claude Code cloud environments](https://code.claude.com/docs/en/cloud-environments)
 - [Claude Code hooks](https://code.claude.com/docs/en/hooks)

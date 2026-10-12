@@ -501,7 +501,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
   - "Check it works": link quickstart §6.
 
   Run the docs test afterwards.
-- [ ] T073 [US2] [Agent] Add a `CHANGELOG.md` entry under Unreleased (250 characters or less, linked to the PR that ships
+- [x] T073 [US2] [Agent] (Done 2026-10-12: entry added linking #3878, 216 characters, and `node scripts/validation/validate-changelog.cjs CHANGELOG.md` passes. It covers only the revision stamp and its CI test. The drift warnings aren't in the entry because the session-start change isn't applied yet. If it lands in this PR, add a short entry for the warnings then.) Add a `CHANGELOG.md` entry under Unreleased (250 characters or less, linked to the PR that ships
   T067 to T072), for the shared-environment revision stamp and drift warnings. It must pass
   `node scripts/validation/validate-changelog.cjs CHANGELOG.md`. **Blocked until the PR that ships T067 to T072 exists,**
   because the entry must link that PR's number.
@@ -575,7 +575,7 @@ then. `[Owner]` tasks: T083 to T087, T090 and T091.
 
 ### GIT-2532 (#3742): document Spec 018 and contract checks
 
-- [ ] T081 [US3] [Agent] Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` so it links the current Spec 018 artefacts
+- [x] T081 [US3] [Agent] (Done 2026-10-12: "Depends on" section and a fuller "Related" section added; all new links checked to resolve; the #3727 wording (guard-unavailable behaviour, cleanup deferral, hotfix names) was already in the docs. The docs test wasn't run locally, so CI is to verify.) Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` so it links the current Spec 018 artefacts
   (`.github/specs/018-claude-cloud-environment/spec.md`, the supporting artefacts in the same folder,
   `.github/specs/CATALOG.md` and `tests/js/claude-cloud-environment-docs.test.js`), distinguishes the historical
   `.github/specs/016-claude-cloud-environment/` path from spec 018 (spec 016 now identifies the changelog-agent
