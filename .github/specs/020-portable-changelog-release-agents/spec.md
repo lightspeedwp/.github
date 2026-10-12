@@ -181,7 +181,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 - **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved (as defined in FR-029) and bounded. A bounded edit touches only `CHANGELOG.md`, moves the Unreleased entries into one versioned section, adds a fresh Unreleased section, and leaves released sections and links byte-identical. The changelog agent is the only agent that edits `CHANGELOG.md`; the release agent never does and only requests verification through the handoff (FR-014).
 - **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine, meaning no independently written validation logic. The pinned bundled copy is not a second engine: it is generated from the shipped engine by the refresh script and checked against its pin. A copied agent package MUST validate with a bundled copy of that engine pinned to a recorded version, and every validation result MUST state the engine version it used.
-- **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security. Entries MUST be at most 250 characters, user-focused and linked to a PR or issue (constitution Principle IX).
+- **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security. Entries MUST be at most 250 Unicode code points (counting rules in Validation Policy and Implementation Status), user-focused and linked to a PR or issue (constitution Principle IX).
 - **FR-012**: The local MVP MUST function without the unbuilt `changelog.yml` or `release.yml` workflows.
 - **FR-013**: The five-operation shared-skill obligations carried by the existing changelog MVP issue MUST be preserved.
 
@@ -237,6 +237,16 @@ The five operations carried by [#2653 – aiops: changelog-agent - Deliver porta
 5. **Report or safely apply** approved updates, separated from read-only analysis, with the exact approved change rechecked before writing and recovery on failure.
 
 Dry runs write nothing, and a verification response never authorises an edit. Task T032 confirms this list against the issue before implementation.
+
+### Validation Policy and Implementation Status
+
+The decisions recorded in [GIT-1303](https://linear.app/lightspeedwp/issue/GIT-1303/docs-changelog-agent-specify-operations-and-verification) specify intended behaviour, not capabilities already shipped:
+
+- **Counting**: maximum 250 Unicode code points, inclusive. Include Markdown punctuation, labels and inline URLs; exclude structural bullets and headings and standalone reference definitions. Join trimmed continuation lines with one space. Do not normalise Unicode; combining marks count separately. Historical 60 and 150 limits apply only where target policy requires them.
+- **Links**: distinguish reference syntax from verified existence and accessibility. Resolve against the selected repository. Missing, denied, deferred or unavailable required verification blocks readiness. Require merged PR status only where target policy demands it. Networking needs separate approval.
+- **Release structure**: allow structurally valid first releases without numbered history. Require exactly one real Unreleased heading and only Added, Changed, Deprecated, Removed, Fixed and Security categories. An empty Unreleased section may pass inspection, never readiness.
+- **Fail-closed checks**: missing rules, implementations or required results cannot pass. Blocking or incomplete checks override aggregate scores and warning or exit-zero outcomes.
+- **Preservation**: preserve historical entries, source links, Unicode and line endings. Permitted comparison-link transformations must be specified explicitly; never infer repository tag conventions.
 
 ## Success Criteria *(mandatory)*
 

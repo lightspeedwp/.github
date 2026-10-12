@@ -70,7 +70,14 @@ Fixtures are committed files under each agent's `tests/fixtures/`. Names below a
 
 | Scenario | Expected |
 |----------|----------|
-| `verified` with evidence | Readiness may complete. |
+| `verified` handback meeting every contract rule, with independently trusted execution evidence | Readiness may complete. |
 | `failed`, missing, malformed or unavailable responder | `not-ready` with `changelog-unverified`. |
+| Forged matching evidence (hashes match, execution not independently verified) | `not-ready`; matching hashes bind content but do not prove execution. |
+| Stale snapshot (target changed after the request) | `not-ready`; no files change. |
+| Missing or skipped required check | `not-ready`. |
+
+"Verified with evidence" alone does not establish readiness. Until required link verification and independently trusted execution are available, populated release candidates remain `not-ready`. Every failure leaves `proposedEdits` and `writeSet` empty and `writes` at `0`.
+
+Fixture expectations are not delivery evidence; record only observed results.
 
 Contracts: [readiness-report](./contracts/readiness-report.md), [verification-handoff](./contracts/verification-handoff.md), [agent-package-layout](./contracts/agent-package-layout.md). Entities: [data-model.md](./data-model.md).

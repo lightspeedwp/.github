@@ -10,6 +10,7 @@ The readiness operation is read-only. Producing this report must not write files
 |-------|----------|-------|
 | `repoRoot` | Yes | Explicit path. Applied to every filesystem and git operation. |
 | `mode` | No | Defaults to `readiness`. Any other mode is a separate, approved operation. |
+| `targetVersion`, `releaseDate` | Only to request changelog verification | Strict SemVer and a valid `YYYY-MM-DD` date, never inferred from the clock. Missing values prevent the verification request, not inspection. |
 
 ## Output fields
 
@@ -35,4 +36,4 @@ The readiness operation is read-only. Producing this report must not write files
 | `component-unknown` | No plugin or theme could be identified, or the repository looks like an enhancement but its own instructions do not declare it and name its version fields. |
 | `changelog-unverified` | Handoff verification is missing, failed or not received. |
 
-`status` is `ready` only when no `blocker` finding exists.
+`status` is `ready` only when no `blocker` finding exists and changelog verification meets every rule in [verification-handoff.md](./verification-handoff.md). Passed prechecks are not readiness: the verification request carries `precheckStatus: "passed"`, and only the verified handback can lead to `ready`.

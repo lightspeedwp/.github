@@ -88,8 +88,8 @@ Concrete flag names, command shape and exit codes are decided in tasks T023 and 
 | Release | Approved preparation (version fields only) | Allowlisted version fields | Digest of the exact proposed edit (FR-029) |
 | Changelog | Inspect | None | None |
 | Changelog | Draft | None | None |
-| Changelog | Validate (verification evidence for the handoff) | None | None |
-| Changelog | Prepare release | None until approved | Digest of the exact proposed edit |
+| Changelog | Validate (entry and document checks; does not imply readiness) | None | None |
+| Changelog | Prepare release (read-only release proposal and verification request) | None | None |
 | Changelog | Approved apply (`CHANGELOG.md` only, FR-009) | `CHANGELOG.md` | Digest of the exact proposed edit (FR-029) |
 
 Dry run is the default for both agents; no environment variable or flag may widen it without a matching approval digest. See [contracts/approval-digest.md](./contracts/approval-digest.md).

@@ -112,6 +112,21 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 
 - **Decision**: tag creation, push, publication and backmerge are outside the executable MVP. They are documented only as the release-process contract (FR-023, FR-024) and require separately approved, target-specific flows. The single-PR versus two-PR contradiction in current release docs is resolved in the DOC slice by stating one invariant (no tag before reviewed changes reach the authoritative main release commit) and allowing target-specific branch flow.
 
+## Canonical-engine baseline (inspected)
+
+| Property | Inspected value |
+|----------|-----------------|
+| Source commit | `65a013b25eb4f81806496965adad8e3f458a34e5` (matches `origin/develop` when checked 2026-10-12) |
+| Engine | `@lightspeedwp/changelog-validation` |
+| Package and rules version | `1.0.0` |
+| Rules SHA-256 | `a1380ce9536e24a15d87f65a013467c44665ce04f64d6152f8483a30bfc0fd0f` (recomputed from `.github/validation/changelog/rules.json` on 2026-10-12) |
+
+These identify inspected source. They are not a portable-bundle digest and not proof of execution.
+
+Per the maintainer's inspection (not re-checked here), the current implementation counts UTF-16 units, skips or defers link verification, and can exit zero on empty-entry or warning outcomes. The proposed repin to version `2.0.0` with reviewed regression tests is a proposal, not a completed release.
+
+Portable redistribution still depends on a complete manifest, bundle digest, dependency verification and authoritative licence notices. The maintainer reported no engine-local licence text; that does not establish that no authoritative licence exists elsewhere.
+
 ## Open items carried forward
 
 1. Decide whether GIT-1310, GIT-1744 and GIT-2623 should be linked under GIT-1293 (R-10).
