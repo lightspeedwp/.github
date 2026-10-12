@@ -70,6 +70,20 @@ The reviewer settled `checklists/security.md` item by item. These are the decisi
 - Q: How should spec 018 treat semantic-version hotfix names like `hotfix/v1.2.3`, which the validator rejects? → A: Keep the validator as it is. Only `release/vX.Y.Z` has a version-number form; hotfixes use `hotfix/{scope}-{title}` (for example `hotfix/auth-token-expiry`), which the validator already accepts, so FR-009's `main` rule works for both release and hotfix PRs today.
 - Q: While automatic deletion stays switched off, how should empty `claude/*` branches that end up in DISCUSS get removed? → A: A maintainer reviewing DISCUSS may promote an empty, merged `claude/*` branch with no open PR to DELETE, and it is removed through spec 009's normal draft-PR approval. Nothing is deleted automatically, and a branch with its own commits is never promoted this way (FR-020, FR-021, SC-002).
 
+### Session 2026-10-12
+
+- Q: How should the organisation-wide rollout planned in lightspeedwp/.github#3878 be specified? → A: As three new requirements (FR-024 to FR-026) and one new success criterion (SC-010), taken from the plan's proposals P1 to P4. Existing requirement and success-criterion IDs are unchanged. (SC-009 is not reused: `contracts/hooks.md` already cites it for nested interpreters, so the adoption criterion takes the next free number, SC-010.)
+- Q: Should a member be told when their cloud session isn't running in the shared environment? → A: Yes. Session start shows a visible, non-blocking warning that says how to select the shared environment (FR-024).
+- Q: How is drift between the repository and the environment copy in the admin console detected? → A: The canonical definition carries a content-derived revision stamp. CI fails when the stamp is stale, and session start warns when a session's stamp differs from the repository's (FR-025).
+- Q: How is the default environment for `claude --cloud` delivered to the whole organisation? → A: Through server-managed settings, edited only by Owners. The repository's `.claude/settings.json` is only a fallback, and this supersedes the per-repository edit in task T029 (FR-026).
+- Q: Does setting the organisation default put every member in the shared environment? → A: No. It fills only an empty selection and never overrides a saved one, and nothing can lock the environment. Members with a saved selection are told to switch once (US2 scenario 1, FR-024, research R19).
+- Q: What adoption target applies to the rollout? → A: Within 14 days of rollout, every session in the SC-007 monthly sample runs in the shared environment at the current revision, with no `Cloud environment:` warning (SC-010).
+- Q: Where does the organisation default apply? → A: To cloud sessions on every LightSpeed repository, not only this one. The documentation states this and the one visible change elsewhere, Node 24 first on `PATH` (FR-019, research R22).
+- Q: Does a newly onboarded member's Default environment count as a saved selection, so they must switch to the shared environment once as well? → A: Yes, until quickstart §6 shows otherwise. New members are told to select **LightSpeed** once, and the organisation default isn't relied on to move them (US2 scenario 1, research R19).
+- Q: Is the spec 009 daily auto-delete step (task T034, `branch-audit.yml`) part of spec 018 while FR-020 is deferred? → A: No. Spec 009 owns it, and it stays blocked on the branch-age and branch-origin signals. Spec 018 keeps FR-020 to FR-022 as deferred requirements and doesn't schedule that work.
+- Q: Do GIT-2581, GIT-2571 and #3727 (GIT-2514) need any further spec work? → A: No. Their changes were delivered in #3813 and #3726. They remain open only as housekeeping: Linear status and closing the matching GitHub issues.
+- Q: When does the spec leave Draft? → A: The owner moves the **Status** from Draft to Ready for Review only once all the work is complete and every related Linear issue for spec 018 is complete. Until then it stays Draft.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Agent never publishes a non-compliant branch (Priority: P1)
@@ -116,7 +130,11 @@ a saved selection starts a new session and confirms that their selected environm
 1. **Given** the Owner has created the shared environment from the repository's canonical definition and set it as
    the organisation default, **When** a member with no saved environment selection starts a new session, **Then**
    that session uses the shared environment. **Given** a member has saved another selection, **When** they start a
-   new session, **Then** their choice is retained rather than overridden by the organisation default.
+   new session, **Then** their choice is retained rather than overridden by the organisation default, and they are
+   told to switch to the shared environment once: by the Owner's one-time announcement and by the session-start
+   warning (FR-024). The organisation default alone doesn't move them. A newly onboarded member is treated the
+   same way, because their onboarding Default environment counts as a saved selection until quickstart §6 shows
+   otherwise, so they are told to select **LightSpeed** once.
 2. **Given** a new session in the shared environment, **When** the member checks the toolchain, **Then** the runtime version matches the repository's pinned version and the linting tools CI relies on are available.
 3. **Given** the environment's provisioning step fails on a non-critical install, **When** a session starts, **Then** the session still starts and falls back to the platform defaults for that tool.
 4. **Given** a member starting cloud sessions from the terminal, **When** they follow the documented one-time step, **Then** their terminal-started sessions also use the shared environment.
@@ -156,9 +174,14 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Guard can't run at all (for example, Node is missing or the guard file is gone)**: The hook launcher treats it as a guard fault (FR-012a). With enforcement on, git writes and the GitHub branch, file and PR tools are refused as "guard unavailable"; every other command continues with a visible warning. With enforcement off, the writes proceed with a warning.
 - **Base branch unreachable at session start (network failure)**: Session start continues without syncing.
 - **Dependency install fails**: The session still starts, and the failure is reported.
+- **Member with a saved environment selection**: The organisation default doesn't move them, because it fills only an empty selection. They keep their environment until they switch once, and they see the FR-024 warning in the meantime.
+- **Newly onboarded member**: The Default environment that onboarding creates is treated as a saved selection until quickstart §6 shows that a new member lands in the shared environment. Until then a new member selects **LightSpeed** once.
+- **Revision-stamp tooling missing (for example `sha256sum` absent) or a definition file unreadable**: The drift check is skipped silently. Session start still exits 0 and adds no extra output (FR-025).
+- **Organisation default on other LightSpeed repositories**: It applies to cloud sessions on every LightSpeed repository, not only this one. The `LS_*` variables do nothing where the hooks are absent, and the one visible change is Node 24 first on `PATH` (FR-019, research R22).
 - **Session opened with several repositories**: Repository-level protections do not load, as documented by the platform. This is a known limitation and must be listed in the documentation.
 - **Deleting a remote branch**: Pushing a deletion (for example, cleaning up a stale `claude/*` branch) must not be refused by the guard, except a deletion of `main` or the configured base branch, which is always refused.
 - **A session still running when cleanup runs**: Deferred, because the 24-hour minimum age that would provide the protection does not exist as a signal yet. When it is built, a session older than 24 hours that has not yet committed may lose its empty remote `claude/*` branch, which is harmless because the work continues on its renamed local branch.
+- **Automatic deletion step (spec 009 T073, task T034)**: Not scheduled by this spec. It stays with spec 009 and is blocked on the branch-age and branch-origin signals (FR-020), so this spec's work can finish without it.
 - **Cleanup cannot delete a branch (permissions or branch protection)**: The run continues with the remaining branches, reports the failure and ends unsuccessfully (spec 009's partial-failure status) so a maintainer notices.
 - **Branch changes between audit and deletion**: Just before deleting, the workflow re-checks all three conditions against the tip the delete will act on: still a platform placeholder per the branch-origin check, still no commits of its own, and still no open PR. If any has changed, it skips the branch. That tip is then recorded and passed to `--force-with-lease`, so a push landing between the re-check and the delete aborts the deletion rather than discarding the new work. The lease is what closes the window the re-check cannot: the re-check can pass and a push arrive immediately after it.
 - **Chained commands such as "rename then commit"**: These are judged against the branch in effect after the rename.
@@ -236,6 +259,12 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **FR-017**: The provisioning script MUST install the runtime version pinned by the repository and the linting tools CI depends on that the platform does not pre-install. It MUST also set system-wide version-control defaults that support the branching strategy.
 - **FR-018**: The environment variables MUST include the base branch and the enforcement switch, and MUST NOT contain secrets.
 
+#### Organisation-wide rollout
+
+- **FR-024**: In a cloud session, session start MUST show a visible warning, starting `Cloud environment:`, when the session isn't running in the shared **LightSpeed** environment (`LS_CLOUD_ENV` unset), and the warning MUST say how to select it. The warning MUST NOT block the session, change the hook's exit code or alter the branching rules injected under FR-003, and a failed or skipped check is not an error (FR-004).
+- **FR-025**: The canonical environment definition (`.claude/cloud/setup.sh` and `.claude/cloud/environment.env`) MUST carry a revision stamp, `LS_CLOUD_ENV_REVISION`, derived from its own content: the first 12 hexadecimal characters of the SHA-256 of `setup.sh` followed by `environment.env` with the revision line removed. CI MUST fail when the stamp is stale. In a cloud session, session start MUST warn, starting `Cloud environment:`, when the session's stamp differs from the repository's, and MUST skip the check silently when it can't compute the stamp. The stamp and `LS_CLOUD_ENV` contain no secrets (FR-018). The formula and messages are in [contracts/cloud-environment.md](./contracts/cloud-environment.md).
+- **FR-026**: The default environment for `claude --cloud` SHOULD be delivered to the whole organisation through server-managed settings (`remote.defaultEnvironmentId`), which only Owners edit. The repository's `.claude/settings.json` is only a fallback for a client that doesn't fetch server-managed settings. This supersedes the per-repository edit in task T029, so no change to the guard-protected settings file is needed.
+
 #### Documentation
 
 - **FR-019**: The documentation MUST cover:
@@ -246,6 +275,10 @@ A maintainer can find, in the repository, the exact environment definition the t
   - how members use it
   - verification steps with expected results
   - maintenance procedure
+  - the organisation-wide scope: the organisation default applies to cloud sessions on every LightSpeed repository, and Node 24 is first on `PATH` there (research R22)
+  - the one-time switch for members who already have a saved environment selection, and the session-start warnings (FR-024, FR-025)
+  - the managed-settings default for `claude --cloud` and its fallback (FR-026)
+  - the Owner change procedure for the shared environment (the revision stamp and re-pasting both files into the admin console), per [contracts/cloud-environment.md](./contracts/cloud-environment.md)
   - known limitations
 
 #### Branch cleanup
@@ -260,6 +293,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **Session placeholder branch**: A temporary, deliberately non-final local branch name that replaces the platform-generated branch, matching `^chore/session-[a-z0-9]+$`. The name passes the validator, so the guard recognises it by this pattern. It must be renamed before any commit.
 - **Branching rules**: The pattern, authorised types, forbidden prefixes, protected branches, the documentation exception and the PR base rule. Naming rules are defined once by the existing validator and the branching strategy document.
 - **Enforcement switch**: An environment-level setting, `LS_ENFORCE_BRANCH_NAMES`, that toggles between blocking (the default) and warning.
+- **Shared environment identity**: Two non-secret variables in the environment definition. `LS_CLOUD_ENV` names the shared environment (`LightSpeed`), and `LS_CLOUD_ENV_REVISION` is the content-derived revision stamp (FR-025). A session compares them with the repository to tell whether it is in the shared environment and whether it is current (FR-024).
 
 ## Success Criteria *(mandatory)*
 
@@ -274,6 +308,7 @@ A maintainer can find, in the repository, the exact environment definition the t
 - **SC-006**: A maintainer unfamiliar with the setup can recreate the environment and pass every verification step using only the documentation, in under 15 minutes.
 - **SC-007**: In a monthly review of 10 agent sessions that hit a refusal, at least 9 show the agent fixing the branch name and retrying successfully without human help. A maintainer picks the sessions from the team's Claude Code session history for this repository by searching transcripts for the guard's refusal text ("Branch guard"); no refusal data is recorded by the guard itself. The same review counts refusals of actions that were correct under the rules (wrongful refusals); the target is 0, and each one found is fixed with a regression test.
 - **SC-008**: The guard adds no more than 150 ms per matched tool call (median over the automated contract test run) in the normal case, where no network check is needed. The legacy PR check, which may take up to 10 seconds, runs only when a commit, push or GitHub write would otherwise be refused.
+- **SC-010**: Within 14 days of the rollout, every session in the SC-007 monthly sample runs in the shared **LightSpeed** environment at the current revision, with no `Cloud environment:` warning. A maintainer checks this in the same transcript search, using the text `Cloud environment:`, which the guard's `Branch guard:` text can't be confused with.
 
 ## Assumptions
 
@@ -282,6 +317,9 @@ A maintainer can find, in the repository, the exact environment definition the t
 - The platform's push protection allows pushing the session's current branch after it has been renamed. This was verified during the draft implementation. If the platform changes this, pushes from renamed branches fail loudly (the push is rejected, not redirected), CI branch validation still applies, and the verification steps (quickstart §4) catch it; the documentation lists it as a limitation.
 - The existing validator (`lib/validate-branch-name.js`) and `docs/BRANCHING_STRATEGY.md` are authoritative, and they agree on release and hotfix names: `release/vX.Y.Z` is accepted as the version-number release form, and hotfixes use `hotfix/{scope}-{title}`. A `hotfix/vX.Y.Z` name is not valid, and the guard and CI both refuse it. No changes to authorised types are in scope.
 - The default network level (Trusted) reaches every host the provisioning script needs.
+- Spec 009's daily auto-delete step (task T034) is out of scope here. Spec 009 owns it while the FR-020 deferral holds, and FR-020 to FR-022 stay in this spec as deferred requirements.
+- The **Status** stays `Draft` until all spec 018 work is complete and every related Linear issue is complete. The owner then moves it to Ready for Review.
+- Environments can be created and edited only by Owners in the admin console, with no API or file import. The repository is therefore the source of truth, and the console copy is a manual one that the revision stamp (FR-025) keeps honest.
 - Empty `claude/*` branches left by the platform are routed by spec 009's scheduled cleanup, which currently sends them to DISCUSS; the auto-approved deletion that would remove an empty one is the conditional route FR-020 defines, and it lands only with the matching spec 009 amendment. Existing `claude/*` branches that have commits are reviewed by maintainers through 009's DISCUSS category, not deleted automatically.
 - The cleanup requirements depend on spec 009 and lightspeedwp/.github#3358 (the categorisation library and scheduled workflow). They are delivered after #3358 merges, together with the matching amendment to spec 009.
 - Sessions opened with several repositories do not load repository-level protections. This is documented, not solved.

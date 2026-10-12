@@ -128,7 +128,7 @@ describe('Claude cloud environment specification contracts', () => {
       (match) => match[1]
     );
     const expected = Array.from(
-      { length: 23 },
+      { length: 26 },
       (_, index) => `FR-${String(index + 1).padStart(3, '0')}`
     );
 
