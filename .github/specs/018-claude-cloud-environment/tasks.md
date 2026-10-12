@@ -461,7 +461,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
 
 ### Session-start drift check (guard-protected: a person or an Owner session with `LS_ENFORCE_BRANCH_NAMES=0`)
 
-- [ ] T070 [US2] [Guard-protected] Add the drift check (FR-024, FR-025) to `.claude/hooks/session-start.sh`, exactly as the contract's "SessionStart
+- [ ] T070 [US2] [Guard-protected] (Patch ready 2026-10-12, not applied: the guard stops Claude editing this file, so a person applies `.github/tmp/session-start-drift-check.patch` from the repository root with `git apply`. Tick this task once it is applied. The patch was tested in a sandbox copy.) Add the drift check (FR-024, FR-025) to `.claude/hooks/session-start.sh`, exactly as the contract's "SessionStart
   drift check" table states:
   - Run it only when `CLAUDE_CODE_REMOTE=true` and the source is `startup` or `resume`, after the branch handling.
   - Compute the repository revision with `bash "$REPO_ROOT/.claude/cloud/revision.sh" "$REPO_ROOT"`.
@@ -474,7 +474,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
   - Always exit 0.
 
   It must pass `shellcheck .claude/hooks/session-start.sh`.
-- [ ] T071 [US2] [Guard-protected] Add cases (FR-024, FR-025) to `scripts/__tests__/session-start-hook.test.js` for the data-model states, using the
+- [x] T071 [US2] [Guard-protected] (Tests written 2026-10-12 and syntax-checked; Jest not run locally. They pass only once the T070 patch is applied: `.github/tmp/session-start-drift-check.patch`.) Add cases (FR-024, FR-025) to `scripts/__tests__/session-start-hook.test.js` for the data-model states, using the
   existing harness with a fixture repository containing copies of `.claude/cloud/`:
   - current: no `systemMessage`
   - stale revision: the "out of date" message names both revisions
