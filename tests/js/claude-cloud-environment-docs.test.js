@@ -743,9 +743,15 @@ describe('shared environment revision stamp', () => {
   const setupBytes = fs.readFileSync(path.join(repoRoot, cloudDirectory, 'setup.sh'));
   const environmentText = readDocument(`${cloudDirectory}/environment.env`);
 
-  // The contract's byte rule, written independently of revision.sh: the exact bytes of
-  // setup.sh, then every line of environment.env except the revision line, each one
-  // newline-terminated (a trailing empty element from a final newline is dropped).
+  function sha256Hex(data) {
+    return crypto.createHash('sha256').update(data).digest('hex');
+  }
+
+  // The contract's rule, written independently of revision.sh. Each file is hashed on
+  // its own: setup.sh as stored, and every line of environment.env except the revision
+  // line, each one newline-terminated (a trailing empty element from a final newline is
+  // dropped). The stamp is the first 12 hex characters of the SHA-256 of a two-line
+  // manifest holding the two digests, so a line moving between the files changes it.
   function expectedRevision(setup, environment) {
     const lines = environment.split('\n');
     if (lines[lines.length - 1] === '') lines.pop();
@@ -753,11 +759,8 @@ describe('shared environment revision stamp', () => {
       .filter((line) => !line.startsWith('LS_CLOUD_ENV_REVISION='))
       .map((line) => `${line}\n`)
       .join('');
-    return crypto
-      .createHash('sha256')
-      .update(Buffer.concat([setup, Buffer.from(kept, 'utf8')]))
-      .digest('hex')
-      .slice(0, 12);
+    const manifest = `setup.sh ${sha256Hex(setup)}\nenvironment.env ${sha256Hex(Buffer.from(kept, 'utf8'))}\n`;
+    return sha256Hex(manifest).slice(0, 12);
   }
 
   function printedRevision(root) {
@@ -786,6 +789,26 @@ describe('shared environment revision stamp', () => {
 
   test('revision.sh prints the same value for the real files', () => {
     expect(printedRevision(repoRoot)).toBe(expectedRevision(setupBytes, environmentText));
+  });
+
+  test('changes the stamp when a line moves from one file to the other', () => {
+    const lines = setupBytes.toString('utf8').replace(/\n$/, '').split('\n');
+    const moved = lines.pop();
+    const shortenedSetup = Buffer.from(`${lines.join('\n')}\n`, 'utf8');
+    const lengthenedEnvironment = `${moved}\n${environmentText}`;
+    const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'ls-cloud-env-'));
+    try {
+      const target = path.join(temporary, cloudDirectory);
+      fs.mkdirSync(target, { recursive: true });
+      fs.writeFileSync(path.join(target, 'setup.sh'), shortenedSetup);
+      fs.writeFileSync(path.join(target, 'environment.env'), lengthenedEnvironment);
+      expect(printedRevision(temporary)).not.toBe(printedRevision(repoRoot));
+      expect(printedRevision(temporary)).toBe(
+        expectedRevision(shortenedSetup, lengthenedEnvironment)
+      );
+    } finally {
+      fs.rmSync(temporary, { recursive: true, force: true });
+    }
   });
 
   test.each([

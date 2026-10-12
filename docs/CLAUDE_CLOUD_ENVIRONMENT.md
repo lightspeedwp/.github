@@ -158,12 +158,10 @@ hooks are absent. The one visible change elsewhere is that Node 24 replaces the 
   in **LightSpeed** on their own.
 - From the terminal, once the Owner has set the managed default (step 9 above) you need do nothing. If a session
   shows the warning below, run `/remote-env` and pick **LightSpeed**.
-- Once the session-start check ships (spec 018 FR-024; see Delivered and remaining), a session that isn't in the
-  shared environment shows `Cloud environment: this session isn't using the shared LightSpeed environment. Select
-  LightSpeed (under Organization) in the environment selector for new sessions.` Switch once, and new sessions use
-  **LightSpeed**. The warning never blocks the session.
-- Once the same check ships (spec 018 FR-025), a session in **LightSpeed** whose revision stamp doesn't match the
-  repository shows `Cloud environment: LightSpeed is out of date (session <a>, repository <b>). An Owner should update
+- A session that isn't in the shared environment shows `Cloud environment: this session isn't using the shared
+  LightSpeed environment. Select LightSpeed (under Organization) in the environment selector for new sessions.`
+  Switch once, and new sessions use **LightSpeed**. The warning never blocks the session (spec 018 FR-024).
+- A session in **LightSpeed** whose revision stamp doesn't match the repository (spec 018 FR-025) shows `Cloud environment: LightSpeed is out of date (session <a>, repository <b>). An Owner should update
   it from .claude/cloud/`. Tell an Owner, who re-pastes the files (see Maintain it).
 - Local sessions run the same guard. Install `gh` and log in with `gh auth login`, or the legacy PR exception can't be
   verified and is refused.
@@ -328,14 +326,14 @@ settings, not branch-protection fields.
 - The spec 018 clarifications and convergence fixes (#3726), and the cleanup documentation close-out (#3813).
 - The revision stamp for the shared environment definition (`.claude/cloud/revision.sh` and `LS_CLOUD_ENV_REVISION`),
   checked by a CI test (spec 018 FR-025).
+- The session-start warnings (`Cloud environment:`): one when a cloud session isn't in the shared environment, and one
+  when its revision stamp is out of date. They never block a session (spec 018 FR-024 and FR-025).
 
 **Remaining, and still limitations**
 
 - The Owner setup is not yet verified live: the shared **LightSpeed** environment, the organisation default, the
   managed CLI default, and the Code Owners review and required check on `develop` and `main`. The evidence is tracked in
   lightspeedwp/.github#3736.
-- The session-start warnings (`Cloud environment:`, spec 018 FR-024 and FR-025) are specified and documented here, but
-  the session-start change that shows them isn't shipped yet. It edits the guard's own files, so a person makes it.
 - Automatic deletion of empty `claude/*` branches is deferred (spec 018 FR-020) until a branch-age signal and a
   branch-origin check exist. Until then a maintainer promotes empty branches by hand.
 - The limits listed under Limitations still apply: the guard reads shell syntax with heuristics, sessions with several

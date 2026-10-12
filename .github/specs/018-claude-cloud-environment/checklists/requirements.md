@@ -51,6 +51,6 @@
     is only referenced from US2 scenario 1, and FR-026 is only touched by the outdated scenario 4.
   - Fixed: acceptance scenarios were added for the FR-024 warning (scenario 5), the FR-025 stale-stamp warning
     (scenario 6) and CI failing on a stale stamp (scenario 7), and scenario 4 now matches FR-026.
-- Watch item, not a failure: FR-025 states the hash formula (SHA-256, first 12 hexadecimal characters). It is kept
+- Watch item, not a failure: FR-025 states the stamp length (12 hexadecimal characters) but not the hash steps. It is kept
   because `contracts/cloud-environment.md` is the detailed contract and the Notes above accept developer-tooling
   vocabulary, but it is the closest the spec comes to an implementation detail.

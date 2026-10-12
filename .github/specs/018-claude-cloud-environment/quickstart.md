@@ -143,7 +143,7 @@ Contract: [cloud environment](./contracts/cloud-environment.md).
 | b | Member with no saved selection | Start a session without touching the selector | It runs in **LightSpeed**, and there's no `Cloud environment:` warning |
 | b2 | Brand-new member (just onboarded) | Start a session without touching the selector | Expected, per the 2026-10-12 decision (R19): it keeps their **Default** environment and shows the "isn't using the shared LightSpeed environment" warning until they pick **LightSpeed** once. Record the outcome. If a new member lands in **LightSpeed** automatically, the one-time "pick LightSpeed once" note for new members can be dropped |
 | c | Member with a saved selection | Start a session as usual | It keeps their choice and shows the "isn't using the shared LightSpeed environment" warning. After they switch once, there's no warning |
-| d | Member, terminal | `claude --cloud "echo $LS_CLOUD_ENV"` | `LightSpeed`, without running `/remote-env` |
+| d | Member, terminal | `claude --cloud 'echo $LS_CLOUD_ENV'` | `LightSpeed`, without running `/remote-env` |
 | e | Owner | Merge a change to `setup.sh` without re-pasting it, then start a session | The "out of date" warning names both revisions. After re-pasting, a new session has no warning |
 | f | Member, another LightSpeed repository | Start a cloud session there | It runs in **LightSpeed**, `node -v` shows the `.nvmrc` version, and the session isn't otherwise affected (R22) |
 

@@ -338,8 +338,9 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
 
 - **Decision**: Add two variables to `.claude/cloud/environment.env`:
   - `LS_CLOUD_ENV=LightSpeed` marks the shared environment.
-  - `LS_CLOUD_ENV_REVISION=<12 hex>` is the first 12 characters of the SHA-256 of `setup.sh` followed by
-    `environment.env` with the revision line removed.
+  - `LS_CLOUD_ENV_REVISION=<12 hex>` is the first 12 characters of the SHA-256 of a two-line manifest
+    holding the digest of `setup.sh` and the digest of `environment.env` with the revision line removed, so a change to
+    either file, or a line moving between them, changes it.
 
   In a cloud session, `session-start.sh` compares them with the repository. When `LS_CLOUD_ENV` is unset, it shows
   a warning naming **LightSpeed** and how to select it. When the revision differs from the one computed from the

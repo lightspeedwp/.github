@@ -12,22 +12,32 @@
 ## Revision stamp
 
 ```text
-LS_CLOUD_ENV_REVISION = first 12 hex chars of
-  sha256( bytes(setup.sh) + bytes(environment.env with every line starting "LS_CLOUD_ENV_REVISION=" removed) )
+LS_CLOUD_ENV_REVISION = first 12 hex chars of sha256( manifest )
+
+manifest =
+  "setup.sh "        + sha256( bytes(setup.sh) ) + "\n"
+  "environment.env " + sha256( bytes(environment.env with every line starting "LS_CLOUD_ENV_REVISION=" removed) ) + "\n"
 ```
 
-**Byte rule (confirmed 2026-10-12)**: the hashed input is the exact bytes of `setup.sh`, followed by the lines of
+Each file is hashed on its own, so a change to either file, or a line moving from one file to the other, changes the
+stamp. (Joining the two files into one input left the stamp unchanged when a line moved across, which a review
+comment on PR #3878 reproduced.)
+
+**Byte rule (confirmed 2026-10-12, manifest form added the same day)**: the second digest is of the lines of
 `environment.env` that remain once every line starting `LS_CLOUD_ENV_REVISION=` is removed, where **every remaining
 line is newline-terminated**, including a final line that had no trailing newline. That is what `grep -v` writes.
-`setup.sh` is hashed as stored, with no normalisation.
+`setup.sh` is hashed as stored, with no normalisation. Both manifest lines end with a newline.
 
 - The shell helper (`.claude/cloud/revision.sh`) and a Node recomputation in the CI test must follow this rule and
   give the same value:
-  - shell: `{ cat setup.sh; grep -v '^LS_CLOUD_ENV_REVISION=' environment.env; } | sha256sum | cut -c1-12`
+  - shell: `setup_digest` is `sha256sum < setup.sh`, `env_digest` is
+    `grep -v '^LS_CLOUD_ENV_REVISION=' environment.env | sha256sum`, and the stamp is
+    `printf 'setup.sh %s\nenvironment.env %s\n' "$setup_digest" "$env_digest" | sha256sum | cut -c1-12`
   - Node: split `environment.env` on `\n`, drop a trailing empty element left by a final newline, filter out the
-    revision line, then append `\n` to each remaining line.
+    revision line, append `\n` to each remaining line, hash that and `setup.sh`'s bytes separately, then hash the
+    two-line manifest and take the first 12 hex characters.
 - The CI test must cover an `environment.env` with a trailing newline and one without, so the two implementations
-  can't disagree on the last line.
+  can't disagree on the last line, and a line moved from `setup.sh` to `environment.env` must change the stamp.
 - One implementation of the stamp is shared by `session-start.sh` and the helper. Both read the files from the
   repository checkout.
 - CI contract: a Jest test fails, with the expected value in the message, when the stamp in `environment.env`

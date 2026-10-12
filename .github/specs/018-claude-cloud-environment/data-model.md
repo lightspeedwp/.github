@@ -24,7 +24,7 @@ Configured in claude.ai. The canonical copy is kept in `.claude/cloud/`.
 | `LS_ENFORCE_BRANCH_NAMES` | `1` | `0` turns every guard refusal into a warning (FR-013) |
 | `LS_NODE_VERSION` | from `.nvmrc` | The Node version the setup script installs |
 | `LS_CLOUD_ENV` | `LightSpeed` | Marks a session as running in the shared environment (R21). Unset means another environment |
-| `LS_CLOUD_ENV_REVISION` | 12 hex characters | Content hash of `setup.sh` + `environment.env` without this line (R21). CI fails when it's stale |
+| `LS_CLOUD_ENV_REVISION` | 12 hex characters | Hash of the separate digests of `setup.sh` and of `environment.env` without this line (R21). CI fails when it's stale |
 
 ### Organisation placement (R18 to R20)
 

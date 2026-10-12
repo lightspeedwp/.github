@@ -300,7 +300,9 @@ expected signal.
   warns. `spec.md` is unchanged, and the contract and data model state it.
 - Byte rule for the stamp (**confirmed by the user**): every remaining line of `environment.env` is
   newline-terminated, as `grep -v` writes it, so the shell helper and the CI test's Node recomputation agree. The CI
-  test covers a file with and without a trailing newline.
+  test covers a file with and without a trailing newline. Changed 2026-10-12 after a review comment on #3878: the
+  stamp is worked out from a two-line manifest of each file's own digest, so a line moving between the two files
+  changes it (FR-025).
 - SC-009: the "Nested interpreters (SC-009)" citation in `contracts/hooks.md` will be reworded to cite FR-012 (the
   shell-parsing requirement). SC-009 is not declared in `spec.md` and no success criterion is added. The edit itself
   is task T088.

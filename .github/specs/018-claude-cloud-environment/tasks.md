@@ -31,9 +31,8 @@ spawn the hook with JSON on stdin.
 `[Agent]` is work Claude can do. `[Guard-protected]` is work in `.claude/hooks/**`, which the guard protects, so a
 person or an Owner session started with `LS_ENFORCE_BRANCH_NAMES=0` does it. `[Owner]` is the admin console, branch
 protection, the team announcement, evidence runs and Linear or GitHub housekeeping. `[Superseded]` and
-`[Out of scope]` mark tasks that `/speckit-implement` must skip (T029 and T034). Some `[Agent]` tasks are blocked until
-something else happens (T073, T079 and T081). Each phase's "Execution split" names the blocker, and
-`/speckit-implement` must skip a blocked task until it clears.
+`[Out of scope]` mark tasks that `/speckit-implement` must skip (T029 and T034). Every `[Agent]` task is now done, apart
+from the `shellcheck` and `markdownlint` part of T079, which hasn't been run.
 
 A task is ticked only once its change is on `develop` or in the PR that delivers this spec's reconciliation
 (#3726). This reconciliation preserves every existing tick, T033 included. New work delivered on #3358 is noted
@@ -334,8 +333,7 @@ T041 SC-008 speed        T014 SessionStart (separate file)
    order: T089 first (the principle VII gate), then T067 → T068 → T069, then T072, T078 and T082 one after the other.
    T073 waits for the PR number and T079 waits for T070 and T071. A person or an Owner session with enforcement off
    does T070 and T071. Owners do T074 to T077 and T080.
-5. Close-out → Phase 13. T081 waits for the Owner task T086, so `/speckit-implement` skips it until then. T088 is
-   safe to run any time after T089, because it edits only `contracts/hooks.md`. Owners do the Linear and GitHub
+5. Close-out → Phase 13. T081, T082 and T088 are done. Owners do the Linear and GitHub
    housekeeping (T083 to T087), T091, and T090 last. T029 is superseded by T075.
 
 ## Phase 7: Convergence
@@ -381,26 +379,11 @@ repository, shows a warning. Source: plan.md "Increment: organisation-wide rollo
 environment" warning until they switch once. `claude --cloud` uses **LightSpeed** without `/remote-env`. A merged
 change to `setup.sh` that hasn't been re-pasted shows the "out of date" warning.
 
-**Execution split (refreshed 2026-10-12)**: `/speckit-implement` runs only the `[Agent]` tasks that are safe now, in
-this order:
+**Execution split (refreshed 2026-10-12)**: every `[Agent]` task is done: T089, T067 to T069, T072, T073, T078, T081,
+T082 and T088, and T079's Jest run passed in CI. The one part of T079 not run is `shellcheck` and `markdownlint`
+(not installed here, and not run by that CI workflow). What remains is `[Owner]` work.
 
-1. **T089** (Phase 13): re-run the requirements checklist against the amended spec. This is the principle VII gate, so
-   it runs before any other implementation task.
-2. **T067 → T068 → T069**: the revision helper, the stamp, then the CI test.
-3. **T072, then T078, then T082**: all three edit `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, so run them one after the
-   other, never in parallel.
-4. **T088** (Phase 13): reword the SC-009 citation in `contracts/hooks.md` to FR-012. It edits only that file, so it
-   can run any time after T089.
-
-Blocked `[Agent]` tasks, which `/speckit-implement` must skip until the blocker clears:
-
-- **T073**: the changelog entry must link the PR that ships the code, so it needs that PR's number.
-- **T079**: it runs the session-start tests and `shellcheck` on `session-start.sh`, so it needs the guard-protected
-  T070 and T071 done first.
-- **T081** (Phase 13): needs the Owner task T086 first, so it reconciles against #3727's final state.
-
-The `[Guard-protected]` tasks (T070, T071) need a person or an Owner session started with
-`LS_ENFORCE_BRANCH_NAMES=0`. The `[Owner]` tasks (T074 to T077, T080 and most of Phase 13) are the admin console,
+The `[Guard-protected]` tasks (T070, T071) needed a person, and are done: the patch was applied and CI passes. The `[Owner]` tasks (T074 to T077, T080 and most of Phase 13) are the admin console,
 evidence and housekeeping. T066 is done.
 
 Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-026** and P4 is **SC-010**.
@@ -433,14 +416,15 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
 
 - [x] T067 [US2] [Agent] (Done 2026-10-12: script created and run; `shellcheck` not run locally because it isn't installed, so CI is to verify.) Create `.claude/cloud/revision.sh` (FR-025). It prints the 12-character revision of the shared environment
   for the repository root given as `$1` (default: two directories above the script), computed exactly as
-  `contracts/cloud-environment.md` states: the first 12 hex characters of the SHA-256 of the exact bytes of
-  `setup.sh`, followed by the lines of `environment.env` that remain once every line starting
-  `LS_CLOUD_ENV_REVISION=` is removed, **each remaining line newline-terminated**, including a final line with no
-  trailing newline. It's equivalent to
-  `{ cat setup.sh; grep -v '^LS_CLOUD_ENV_REVISION=' environment.env; } | sha256sum | cut -c1-12`. When
+  `contracts/cloud-environment.md` states: each file is hashed on its own (`setup.sh` as stored, and the
+  lines of `environment.env` that remain once every line starting `LS_CLOUD_ENV_REVISION=` is removed, **each
+  remaining line newline-terminated**, including a final line with no trailing newline), and the stamp is the first
+  12 hex characters of the SHA-256 of the two-line manifest `setup.sh <digest>` and `environment.env <digest>`, each
+  line newline-terminated. A line moving between the two files therefore changes the stamp (reworked 2026-10-12
+  after a CodeRabbit review comment on #3878). When
   `sha256sum` is missing or a file is unreadable, it prints nothing and exits 0. It must pass
   `shellcheck .claude/cloud/revision.sh`. The byte rule is confirmed (plan.md "Decisions confirmed 2026-10-12").
-- [x] T068 [US2] [Agent] (Done 2026-10-12: stamp `6436a819b85f` written and cross-checked with an independent Node recomputation, with and without a trailing newline.) Add a "Shared environment identity" block (FR-025) to `.claude/cloud/environment.env`, with
+- [x] T068 [US2] [Agent] (Done 2026-10-12: stamp `6d747f47d561` written and cross-checked with an independent Node recomputation, with and without a trailing newline.) Add a "Shared environment identity" block (FR-025) to `.claude/cloud/environment.env`, with
   `LS_CLOUD_ENV=LightSpeed` and `LS_CLOUD_ENV_REVISION=<output of bash .claude/cloud/revision.sh>`, and a comment
   that any change to this file or `setup.sh` must refresh the stamp (CI enforces it). Run T067's script after the
   block is written, because the comment lines are part of the hash.
@@ -450,8 +434,9 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
     `LS_CLOUD_ENV_REVISION=` line matching `^[0-9a-f]{12}$`
   - the stamp equals a Node `crypto` recomputation that follows the contract's byte rule: split `environment.env` on
     `\n`, drop a trailing empty element, filter out the `LS_CLOUD_ENV_REVISION=` line, append `\n` to each remaining
-    line, hash `setup.sh`'s bytes followed by those lines, and take the first 12 hex characters. The failure message
-    includes the expected value and the command to refresh it
+    line, hash `setup.sh`'s bytes and those lines separately, hash the two-line manifest of the two digests, and take
+    the first 12 hex characters. The failure message includes the expected value and the command to refresh it
+  - a line moved from `setup.sh` to the top of `environment.env` changes the stamp
   - the same recomputation matches `bash .claude/cloud/revision.sh` for an `environment.env` **with** a trailing
     newline and for one **without** (use temporary copies of the files)
   - `bash .claude/cloud/revision.sh` prints the same value for the real files
@@ -461,7 +446,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
 
 ### Session-start drift check (guard-protected: a person or an Owner session with `LS_ENFORCE_BRANCH_NAMES=0`)
 
-- [ ] T070 [US2] [Guard-protected] (Patch ready 2026-10-12, not applied: the guard stops Claude editing this file, so a person applies `.github/tmp/session-start-drift-check.patch` from the repository root with `git apply`. Tick this task once it is applied. The patch was tested in a sandbox copy.) Add the drift check (FR-024, FR-025) to `.claude/hooks/session-start.sh`, exactly as the contract's "SessionStart
+- [x] T070 [US2] [Guard-protected] (Done 2026-10-12: the change was applied to `.claude/hooks/session-start.sh` by a person and pushed. It was tested in a sandbox first, and CI passes.) Add the drift check (FR-024, FR-025) to `.claude/hooks/session-start.sh`, exactly as the contract's "SessionStart
   drift check" table states:
   - Run it only when `CLAUDE_CODE_REMOTE=true` and the source is `startup` or `resume`, after the branch handling.
   - Compute the repository revision with `bash "$REPO_ROOT/.claude/cloud/revision.sh" "$REPO_ROOT"`.
@@ -474,7 +459,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
   - Always exit 0.
 
   It must pass `shellcheck .claude/hooks/session-start.sh`.
-- [x] T071 [US2] [Guard-protected] (Tests written 2026-10-12 and syntax-checked; Jest not run locally. They pass only once the T070 patch is applied: `.github/tmp/session-start-drift-check.patch`.) Add cases (FR-024, FR-025) to `scripts/__tests__/session-start-hook.test.js` for the data-model states, using the
+- [x] T071 [US2] [Guard-protected] (Done 2026-10-12: tests written, and they pass in CI now that the T070 change is applied. Jest wasn't run locally.) Add cases (FR-024, FR-025) to `scripts/__tests__/session-start-hook.test.js` for the data-model states, using the
   existing harness with a fixture repository containing copies of `.claude/cloud/`:
   - current: no `systemMessage`
   - stale revision: the "out of date" message names both revisions
@@ -501,7 +486,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
   - "Check it works": link quickstart §6.
 
   Run the docs test afterwards.
-- [x] T073 [US2] [Agent] (Done 2026-10-12: entry added linking #3878, 216 characters, and `node scripts/validation/validate-changelog.cjs CHANGELOG.md` passes. It covers only the revision stamp and its CI test. The drift warnings aren't in the entry because the session-start change isn't applied yet. If it lands in this PR, add a short entry for the warnings then.) Add a `CHANGELOG.md` entry under Unreleased (250 characters or less, linked to the PR that ships
+- [x] T073 [US2] [Agent] (Done 2026-10-12: entry added linking #3878, 216 characters, and `node scripts/validation/validate-changelog.cjs CHANGELOG.md` passes. A second entry covers the drift warnings now that the session-start change is in this PR.) Add a `CHANGELOG.md` entry under Unreleased (250 characters or less, linked to the PR that ships
   T067 to T072), for the shared-environment revision stamp and drift warnings. It must pass
   `node scripts/validation/validate-changelog.cjs CHANGELOG.md`. **Blocked until the PR that ships T067 to T072 exists,**
   because the entry must link that PR's number.
@@ -532,10 +517,9 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
 
 ### Phase 12 polish
 
-- [ ] T079 [Agent] Run `npx jest -c .jest.config.cjs scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js`,
+- [ ] T079 [Agent] (Partly done 2026-10-12: the Jest part passed in CI. `shellcheck` and `markdownlint` have not been run: they aren't installed here, and that CI workflow doesn't run them.) Run `npx jest -c .jest.config.cjs scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js`,
   `shellcheck .claude/cloud/revision.sh .claude/hooks/session-start.sh`, and `npx markdownlint-cli2` on the changed
-  Markdown, and fix everything until it's green. **Blocked until the guard-protected T070 and T071 are done,** because
-  it runs the session-start tests and `shellcheck` on `session-start.sh`.
+  Markdown, and fix everything until it's green.
 - [ ] T080 [Owner] (GIT-2524) Once T074 to T077 pass and T042, T043 and T048 are done, comment on lightspeedwp/.github#3736 with
   the T077 report link (comment only; don't close the epic), leaving T034 noted as out of scope (spec 009). The
   `**Status**:` change in `.github/specs/018-claude-cloud-environment/spec.md` is no longer made here. It is T090,
@@ -568,10 +552,8 @@ Guard PR:    T070 + T071           (after T067)
 2026-10-12). Most of this is documentation and housekeeping, and none of it needs new guard code. Source: plan.md
 "Linear issue mapping".
 
-**Execution split**: safe now: **T089** (before any implementation task), **T088** (any time after T089, because it
-edits only `contracts/hooks.md`) and **T082** (after T072 and T078, never alongside them, because they share one docs
-file). Blocked `[Agent]` task: **T081** needs the Owner task T086 first, so `/speckit-implement` must skip it until
-then. `[Owner]` tasks: T083 to T087, T090 and T091.
+**Execution split**: every `[Agent]` task in this phase is done (T081, T082, T088 and T089). `[Owner]` tasks: T083 to
+T087, T090 and T091.
 
 ### GIT-2532 (#3742): document Spec 018 and contract checks
 
@@ -582,7 +564,6 @@ then. `[Owner]` tasks: T083 to T087, T090 and T091.
   quality specification), and states the branch-guard limitations and dependencies accurately. Reconcile the wording
   with #3727 (GIT-2514) and don't duplicate the epic's verification scope (#3736). Run
   `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` afterwards. Per GIT-2532, FR-019.
-  **Blocked until the Owner task T086 is done,** so the wording reconciles against #3727's final state.
 
 ### GIT-2530 (#3740): enforce branch naming in shared sessions
 
@@ -643,10 +624,9 @@ then. `[Owner]` tasks: T083 to T087, T090 and T091.
 ### Phase 13 dependencies
 
 - T072, T078, T081 and T082 all edit `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, so run them one after the other, never in
-  parallel. Order: T072, T078 and T082 now, then T081 once T086 is done.
+  parallel. Order: T072, T078, T081 and T082, one after the other.
 - T083 needs T077. T087 needs T077 and T080.
-- T084 to T086 need nothing, because their PRs have merged. Do T086 before T081, so T081 reconciles against #3727's
-  final state.
+- T084 to T086 need nothing, because their PRs have merged.
 - Run T089 first, before any implementation task. T088 can run any time after T089, because it edits only
   `contracts/hooks.md` and doesn't change the spec.
 - T091 needs the docs-only PR (T078, T081, T082) to exist, so it has that PR's number.
