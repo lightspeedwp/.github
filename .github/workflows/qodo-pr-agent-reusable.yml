@@ -218,6 +218,7 @@ jobs:
         env:
           PR_NUMBER: ${{ inputs.pr_number }}
           COMMAND: ${{ inputs.command }}
+          COMMENT_ID: ${{ inputs.comment_id }}
           REQUESTED_TOOL: ${{ steps.verify.outputs.tool }}
           EXCLUDED_AUTHORS: ${{ inputs.excluded_authors }}
         with:
@@ -390,6 +391,10 @@ jobs:
           pr_reviewer.enable_review_labels_effort: 'false'
           pr_code_suggestions.commitable_code_suggestions: 'false'
           pr_update_changelog.push_changelog_changes: 'false'
+          # Off by default in the pinned image, so a caught provider error exits 0 and
+          # would be recorded as a successful run with no failure notice. continue-on-error
+          # still keeps a real failure from blocking the pull request.
+          config.propagate_tool_errors: 'true'
         run: |
           set -euo pipefail
 
@@ -418,6 +423,7 @@ jobs:
             pr_reviewer.enable_review_labels_effort
             pr_code_suggestions.commitable_code_suggestions
             pr_update_changelog.push_changelog_changes
+            config.propagate_tool_errors
           )
 
           run_tool() {

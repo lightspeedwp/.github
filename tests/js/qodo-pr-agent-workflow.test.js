@@ -346,6 +346,13 @@ describe('Qodo PR-Agent reusable workflow', () => {
     });
   });
 
+  it('makes caught tool errors fail the step so they are recorded as failures', () => {
+    // The pinned image defaults config.propagate_tool_errors to false, so a caught
+    // provider error exits 0 and would be recorded as a successful run.
+    expect(qodoStep(doc).env['config.propagate_tool_errors']).toBe('true');
+    expect(String(qodoStep(doc).run)).toMatch(/^\s+config\.propagate_tool_errors$/m);
+  });
+
   it('never fails the PR when Qodo PR-Agent itself fails, and records the real outcome', () => {
     expect(qodoStep(doc)['continue-on-error']).toBe(true);
     expect(doc.jobs.run.outputs.outcome).toContain('steps.qodo.outcome');
@@ -777,6 +784,18 @@ describe('Qodo PR-Agent reusable workflow', () => {
           '${{ steps.confirm.outputs.' + name + ' || steps.verify.outputs.' + name + ' }}'
         );
       }
+    });
+
+    it('declares every environment variable its script reads on this step', () => {
+      // A step's env does not carry across from a sibling step: COMMENT_ID was
+      // declared on `verify` only, so `confirm` read undefined and refused every
+      // named command as unreadable-request.
+      const read = new Set([...script.matchAll(/process\.env\.([A-Z_]+)/g)].map((m) => m[1]));
+      expect(read.size).toBeGreaterThan(0);
+      for (const name of read) {
+        expect(Object.keys(step.env)).toContain(name);
+      }
+      expect(step.env.COMMENT_ID).toBe('${{ inputs.comment_id }}');
     });
 
     it('re-reads the pull request and re-checks draft, author and fork status', () => {
@@ -2430,6 +2449,13 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
     expect(raw).not.toContain('repository.updated_at');
   });
 
+  it('makes caught tool errors fail the step so they are recorded as failures', () => {
+    expect(qodoStep(doc).env['config.propagate_tool_errors']).toBe('true');
+    expect(String(qodoStep(doc).run)).toMatch(/^\s+config\.propagate_tool_errors$/m);
+    // Still non-blocking: a genuine failure is recorded, never a failed pull request.
+    expect(qodoStep(doc)['continue-on-error']).toBe(true);
+  });
+
   // Under `pull_request` GitHub evaluates the definition from the PR merge commit
   // and passes repository secrets to that run, which is the CWE-200 finding. Only
   // `workflow_run` and `workflow_dispatch` are resolved against the default
@@ -2464,8 +2490,12 @@ describe('Qodo PR-Agent pilot caller workflow', () => {
     expect(jobsMentioning(doc, 'secrets.ANTHROPIC_API_KEY_QODO_PR_AGENT')).toStrictEqual(['run']);
     expect(jobsMentioning(doc, 'secrets.model_credential')).toStrictEqual([]);
     expect(doc.permissions).toStrictEqual({ contents: 'read' });
-    // Enough to download the trigger's artifact, and nothing more.
-    expect(doc.jobs.preflight.permissions).toStrictEqual({ actions: 'read' });
+    // Enough to download the trigger's artifact and to read the pull request and
+    // comment that preflight re-derives eligibility from, and nothing more.
+    expect(doc.jobs.preflight.permissions).toStrictEqual({
+      actions: 'read',
+      'pull-requests': 'read',
+    });
     expect(doc.jobs.record.permissions).toStrictEqual({});
   });
 

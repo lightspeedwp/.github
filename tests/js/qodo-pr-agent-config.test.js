@@ -168,7 +168,8 @@ describe('Qodo PR-Agent model ids are single-sourced', () => {
     const validation = read('.github/reports/metrics/qodo-pr-agent/pilot-validation.md');
     const row = validation
       .split('\n')
-      .find((l) => l.startsWith('| P-1 |') && l.includes('spend limit'));
+      // The table is padded to its widest cell, so the gap after the id varies.
+      .find((l) => /^\| P-1\s+\|/.test(l) && l.includes('spend limit'));
     expect(row).toBeDefined();
     expect(row).not.toMatch(/not yet confirmed|not confirmed/);
     expect(row).toMatch(/set on the key in the Anthropic console/);
