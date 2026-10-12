@@ -199,7 +199,7 @@ top-level folders.
 
 These follow the user-story priorities in the spec:
 
-1. **P1, US1 (guard and session rules)**: shipped in #3524 (merged 2026-09-30), with Jest contract tests. The
+1. **Priority P1, US1 (guard and session rules)**: shipped in #3524 (merged 2026-09-30), with Jest contract tests. The
    session rules may only describe enforced behaviour (FR-003). The follow-ups from the 2026-10-01 clarifications
    (T049, T052, T054, T055) ship in a guard PR started with enforcement off. #3524 covered:
    - the documentation exception and the legacy PR exception
@@ -207,9 +207,9 @@ These follow the user-story priorities in the spec:
    - the FR-001 no-rename rule
    - the updated SessionStart text
    - the CODEOWNERS entry
-2. **P2, US2 (shared environment)**: already built in #3524. Needs verification only, following quickstart §3–4
+2. **Priority P2, US2 (shared environment)**: already built in #3524. Needs verification only, following quickstart §3–4
    after the Owner has set it up.
-3. **P3, US3 (documentation and cleanup)**:
+3. **Priority P3, US3 (documentation and cleanup)**:
    - The doc updates shipped in #3524. In #3726: the FR-020 deferral note, the DISCUSS promotion route (T061),
      hotfix naming (T062), and the guard-can't-start contract rows (T064). With #3358 merged, the cleanup note
      needs no qualifier (T065).
@@ -291,11 +291,31 @@ expected signal.
 - If a member's client skips server-managed settings (a third-party provider variable or a custom base URL), the CLI
   falls back to their `/remote-env` pick. `claude doctor` shows this.
 
+**Decisions confirmed 2026-10-12**:
+
+- Quickstart §6 check (b) is split: (b) is a member with no saved selection, and (b2) is a brand-new member, who is
+  expected to keep their Default environment and see the warning until they pick **LightSpeed** once.
+- R19 records that decision, so it is no longer an open point.
+- FR-025's "differs" includes a missing or empty `LS_CLOUD_ENV_REVISION`, so a LightSpeed session with no stamp
+  warns. `spec.md` is unchanged, and the contract and data model state it.
+- Byte rule for the stamp (**confirmed by the user**): every remaining line of `environment.env` is
+  newline-terminated, as `grep -v` writes it, so the shell helper and the CI test's Node recomputation agree. The CI
+  test covers a file with and without a trailing newline.
+- SC-009: the "Nested interpreters (SC-009)" citation in `contracts/hooks.md` will be reworded to cite FR-012 (the
+  shell-parsing requirement). SC-009 is not declared in `spec.md` and no success criterion is added. The edit itself
+  is task T088.
+
 **Constitution re-check (increment)**: I ✅ (the control-plane repository owns the definition). II ✅ (no locked
 files). III ✅ (`.claude/cloud/` is repository configuration that the admin console reads, not an asset installed
 into other repositories; packaging stays a follow-up). V and VIII ✅ (unchanged). VI ✅ (the new variables aren't
 secrets; managed settings are Owner-only). X ✅ (the drift check and CI stamp are automated monitoring). No new
 violations.
+
+Re-check after the 2026-10-12 fixes: V ✅ and VIII ✅ (unchanged). VI ✅ (the stamp and `LS_CLOUD_ENV` contain no
+secrets). X ✅ (justified, see Complexity Tracking). **VII is open**: the requirements checklist hasn't been re-run
+against the amended spec, so T089 must be done before implementation. **IX needs a decision**: T073 covers the
+changelog entry for the code PR (T067 to T072), but the docs-only Phase 13 PR (T078, T081, T082) has no changelog
+task, so whether it needs an entry has to be confirmed.
 
 ## Linear issue mapping
 
@@ -317,9 +337,9 @@ GIT-2406 (semver release branches in the validator), GIT-2498 (original branch n
 
 **Open items for `/speckit-tasks`**:
 
-- `contracts/hooks.md` cites **SC-009** (nested interpreters), which `spec.md` doesn't declare. Decide whether to
-  declare it or reword the citation. It is not resolved here, and SC-010 was used for the adoption criterion so
-  this citation keeps its meaning.
+- `contracts/hooks.md` cites **SC-009** (nested interpreters), which `spec.md` doesn't declare. **Decided
+  2026-10-12**: reword the citation to FR-012 rather than declare SC-009. The edit is task T088, done by
+  `/speckit-implement`. SC-010 was used for the adoption criterion so this citation keeps its meaning until then.
 - Add tasks for GIT-2532 and GIT-2530 as above, and a housekeeping task covering GIT-2581, GIT-2571 and GIT-2514.
 - Retire T029 (superseded by FR-026) and mark T034 out of scope (spec 009).
 - Retarget the evidence tasks (T030, T043) from the merged #3524 description to the evidence report.

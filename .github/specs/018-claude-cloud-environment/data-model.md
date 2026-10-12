@@ -40,7 +40,7 @@ Configured in claude.ai. The canonical copy is kept in `.claude/cloud/`.
 | State | Condition | Outcome |
 | --- | --- | --- |
 | Current | `LS_CLOUD_ENV=LightSpeed` and the revision matches the repository | No message |
-| Stale | `LS_CLOUD_ENV=LightSpeed`, revision differs or is missing | Warning: an Owner should update the shared environment from `.claude/cloud/` |
+| Stale | `LS_CLOUD_ENV=LightSpeed`, revision differs, or is missing or empty (which counts as differing) | Warning: an Owner should update the shared environment from `.claude/cloud/` |
 | Other environment | `LS_CLOUD_ENV` unset | Warning: select **LightSpeed** in the environment selector |
 | Local session | `CLAUDE_CODE_REMOTE` isn't `true` | Not checked |
 

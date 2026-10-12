@@ -309,10 +309,11 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
   Existing members almost certainly have a saved selection, at least the **Default** environment that onboarding
   created, so the organisation default alone won't move them. "Automatically" is therefore achievable only for
   members with no saved selection; everyone else needs the one-time switch and the warning to catch drift.
-- **Open point, verified in quickstart §6**: whether the **Default** environment that web onboarding creates (with
-  **Quick setup** on, or through the first-environment form) counts as a saved selection for a new member. Until §6
-  shows that a new member lands on **LightSpeed**, leave **Quick setup** as it is and tell new members to pick
-  **LightSpeed** once.
+- **Decision on the new-member case (2026-10-12)**: the **Default** environment that web onboarding creates (with
+  **Quick setup** on, or through the first-environment form) is treated as a saved selection for a new member. New
+  members select **LightSpeed** once, and **Quick setup** is left as it is. Quickstart §6 check (b2) can show that a
+  new member lands in **LightSpeed** automatically. Only then can the one-time note for new members be dropped. This
+  is recorded in `spec.md` (Clarifications Session 2026-10-12 and US2 scenario 1).
 - **Alternatives considered**: Ask Anthropic for an environment lock. Out of scope for this spec; it may be raised
   as product feedback. Make the guard refuse work outside the shared environment. Rejected: the guard's protections
   already live in the repository (US2 "Why this priority"), and blocking would break local sessions and personal-plan

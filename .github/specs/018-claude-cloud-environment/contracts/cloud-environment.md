@@ -16,8 +16,20 @@ LS_CLOUD_ENV_REVISION = first 12 hex chars of
   sha256( bytes(setup.sh) + bytes(environment.env with every line starting "LS_CLOUD_ENV_REVISION=" removed) )
 ```
 
-- One implementation is shared by the CI test and `session-start.sh`. Both read the files from the repository
-  checkout.
+**Byte rule (confirmed 2026-10-12)**: the hashed input is the exact bytes of `setup.sh`, followed by the lines of
+`environment.env` that remain once every line starting `LS_CLOUD_ENV_REVISION=` is removed, where **every remaining
+line is newline-terminated**, including a final line that had no trailing newline. That is what `grep -v` writes.
+`setup.sh` is hashed as stored, with no normalisation.
+
+- The shell helper (`.claude/cloud/revision.sh`) and a Node recomputation in the CI test must follow this rule and
+  give the same value:
+  - shell: `{ cat setup.sh; grep -v '^LS_CLOUD_ENV_REVISION=' environment.env; } | sha256sum | cut -c1-12`
+  - Node: split `environment.env` on `\n`, drop a trailing empty element left by a final newline, filter out the
+    revision line, then append `\n` to each remaining line.
+- The CI test must cover an `environment.env` with a trailing newline and one without, so the two implementations
+  can't disagree on the last line.
+- One implementation of the stamp is shared by `session-start.sh` and the helper. Both read the files from the
+  repository checkout.
 - CI contract: a Jest test fails, with the expected value in the message, when the stamp in `environment.env`
   doesn't match the files.
 
@@ -29,7 +41,7 @@ handling, and it never changes the exit code (always 0) or the existing `additio
 | Input | Output |
 | --- | --- |
 | `LS_CLOUD_ENV=LightSpeed`, revision matches | Nothing extra |
-| `LS_CLOUD_ENV=LightSpeed`, revision differs or unset | `systemMessage`: `Cloud environment: LightSpeed is out of date (session <a>, repository <b>). An Owner should update it from .claude/cloud/ — see docs/CLAUDE_CLOUD_ENVIRONMENT.md.` |
+| `LS_CLOUD_ENV=LightSpeed`, `LS_CLOUD_ENV_REVISION` differs from the repository's, or is missing or empty (a missing or empty value counts as differing, and `<a>` then reads `unset`) | `systemMessage`: `Cloud environment: LightSpeed is out of date (session <a>, repository <b>). An Owner should update it from .claude/cloud/ — see docs/CLAUDE_CLOUD_ENVIRONMENT.md.` |
 | `LS_CLOUD_ENV` unset | `systemMessage`: `Cloud environment: this session isn't using the shared LightSpeed environment. Select LightSpeed (under Organization) in the environment selector for new sessions.` |
 | `sha256sum` missing or a file unreadable | Nothing extra (the check is skipped silently) |
 
