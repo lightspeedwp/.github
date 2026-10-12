@@ -10,166 +10,30 @@ This guide describes how a reviewer proves the specification and, later, the imp
 - Node.js and the repository's installed dependencies (`npm ci`).
 - Fixture repositories for: plugin, theme, enhancement, ordinary `.github` target, optional `VERSION`, ambiguous headers, drift, repeated runs, invalid paths.
 
-## Test Environment Setup
+## Test environment (for the implementation slices)
 
-All test fixtures are persistent, committed files under each agent's `tests/fixtures/` directory and are reused across test runs.
+Fixtures are committed files under each agent's `tests/fixtures/`. Names below are placeholders; the slices decide the final layout.
 
-### Fixture Directory Structure
+- **Release agent fixtures**: plugin, theme, enhancement with a declaration in the target's own instructions, enhancement without one (expect `component-unknown`), ordinary `.github` target that is not governance, no `VERSION` file, ambiguous headers, version drift, repeated run, invalid paths (symlink, `..` escape, special characters), tag conflict.
+- **Changelog agent fixtures**: valid Unreleased section, entry outside the allowed categories, empty Unreleased, only released sections, entry over the length limit, no workflow files present, hand edit between draft and apply.
 
-```text
-agents/release-agent/tests/fixtures/
-├── plugin/
-│   ├── plugin-file.php          # Plugin with minimal header
-│   ├── readme.txt               # Plugin readme with Stable tag
-│   ├── package.json             # Optional package.json
-│   ├── .github/                 # Optional governance files
-│   └── (no VERSION file needed)
-├── theme/
-│   ├── style.css                # Theme with version header
-│   ├── package.json
-│   ├── readme.txt
-│   └── .github/
-├── enhancement/
-│   ├── .github/
-│   │   └── instructions.md      # Declares component: "enhancement" + version-fields
-│   └── package.json
-├── enhancement-undeclared/      # Enhancement without instructions declaration
-│   └── package.json
-├── ordinary-github-target/      # Has .github/, package.json, VERSION (not governance)
-├── optional-version/            # No VERSION file; detectable without it
-├── ambiguous-headers/           # Both plugin and theme markers present
-├── drift/                        # Version fields with conflicting values
-├── repeat-run/                  # For idempotent testing (run twice, expect no change)
-├── invalid-paths/               # Symlinks, ../ escape attempts, special characters
-├── tag-conflict/                # Existing tag that conflicts
-└── (other scenarios per FR-022)
+### Portable-install check (T046, T047)
 
-agents/changelog-agent/tests/fixtures/
-├── valid-unreleased/            # Well-formed Unreleased section
-├── invalid-category/            # Entry outside the 6 allowed categories
-├── empty-unreleased/            # No entries under Unreleased
-├── already-released/            # Only released sections, no Unreleased
-├── hand-edited-between-draft-and-apply/  # For testing digest mismatch
-├── long-entry/                  # Entry exceeding 250-character limit
-├── no-workflows/                # No changelog.yml or release.yml present
-└── (other scenarios per FR-022)
-```
+1. Copy only the agent package into a fresh temporary directory outside the repository checkout.
+2. Run the readiness (release) or verify (changelog) operation against a copied fixture, with an explicit `repoRoot`.
+3. Expected: every resource (bundled engine, skills, adapters) resolves from inside the copied package, and the result names the engine version where one is used.
 
-### Portable Install Test (T046, T047 — Clean Location)
+### Repeated-run check
 
-The portable-install fixtures verify that agents run in isolation without relying on the governance checkout.
+1. Run the same read-only operation twice against an unchanged fixture.
+2. Expected: identical output and no file changes.
 
-**Setup**:
+### Hand edit between draft and apply (SC-011)
 
-```bash
-#!/bin/bash
-set -e
-
-# Create isolated temp directory
-CLEAN_DIR=$(mktemp -d)
-trap "rm -rf $CLEAN_DIR" EXIT
-
-# Copy agent package only (no governance checkout on path)
-cp -r agents/release-agent "$CLEAN_DIR/agent"
-cd "$CLEAN_DIR/agent"
-
-# Verify NO governance checkout is accessible
-if [ -d ~/.github ]; then
-  echo "ERROR: ~/.github exists; test environment not clean"
-  exit 1
-fi
-
-# Verify NO spec directory reachable
-if [ -f ./.github/specs/020-portable-changelog-release-agents/spec.md ]; then
-  echo "ERROR: Spec directory found; not properly isolated"
-  exit 1
-fi
-
-# Run agent from isolated location
-npx release.agent.cjs --repoRoot /path/to/fixture --dry-run
-exit_code=$?
-
-if [ $exit_code -eq 0 ]; then
-  echo "SUCCESS: Agent resolved all resources in clean location"
-else
-  echo "FAILURE: Agent failed to run without governance checkout"
-  exit 1
-fi
-```
-
-**Expected**: Agent resolves all resources (bundled engine, skills, adapters) without reaching beyond the copied package.
-
-### Repeated-Run Idempotency (Changelog)
-
-Verifies changelog operations are idempotent: running twice with no new changes produces identical output.
-
-**Setup**:
-
-```bash
-#!/bin/bash
-CHANGELOG_PATH="agents/changelog-agent/tests/fixtures/repeat-run/CHANGELOG.md"
-
-# Run 1: Inspect the changelog
-RUN1=$(npx changelog.agent.cjs inspect "$CHANGELOG_PATH" 2>&1)
-
-# Small delay to ensure different timestamps if any time-based logic exists
-sleep 1
-
-# Run 2: Inspect again with no changes to CHANGELOG.md
-RUN2=$(npx changelog.agent.cjs inspect "$CHANGELOG_PATH" 2>&1)
-
-# Verify output is identical
-if [ "$RUN1" = "$RUN2" ]; then
-  echo "SUCCESS: Repeated run produces identical output"
-else
-  echo "FAILURE: Repeated run output differs"
-  echo "Run 1: $RUN1"
-  echo "Run 2: $RUN2"
-  exit 1
-fi
-```
-
-**Expected**: `run1` equals `run2`. No file changes occur.
-
-### Hand-Edited Between Draft and Apply
-
-Verifies that digest mismatch is detected when a file changes between draft and apply.
-
-**Setup**:
-
-```bash
-#!/bin/bash
-CHANGELOG_PATH="agents/changelog-agent/tests/fixtures/hand-edited-between-draft-and-apply/CHANGELOG.md"
-
-# Step 1: Draft the changelog to get digest
-DRAFT=$(npx changelog.agent.cjs draft "$CHANGELOG_PATH" 2>&1)
-DIGEST=$(echo "$DRAFT" | grep -oP 'Digest: \K[a-f0-9]+')
-
-# Step 2: Maintainer hand-edits CHANGELOG.md (simulate by modifying a line)
-sed -i 's/example/MODIFIED_EXAMPLE/g' "$CHANGELOG_PATH"
-
-# Step 3: Try to apply with the old digest
-OUTPUT=$(npx changelog.agent.cjs apply "$CHANGELOG_PATH" \
-  --approve-digest "$DIGEST" 2>&1)
-
-# Verify:
-# - Command failed (non-zero exit)
-# - File was NOT modified (no write occurred)
-if echo "$OUTPUT" | grep -q "approval-digest-mismatch"; then
-  echo "SUCCESS: Digest mismatch detected"
-  if ! grep -q "MODIFIED_EXAMPLE" "$CHANGELOG_PATH"; then
-    echo "SUCCESS: File unchanged (no write on mismatch)"
-    exit 0
-  fi
-fi
-
-echo "FAILURE: Digest mismatch not properly handled"
-exit 1
-```
-
-**Expected**: Mismatch detected, zero files written, clear error returned.
-
----
+1. Run the draft operation on a copied fixture and record the digest it shows.
+2. Edit the copied `CHANGELOG.md` by hand.
+3. Attempt the approved apply with the recorded digest.
+4. Expected: digest mismatch is reported and the copy is byte-identical to its state after the hand edit. Always work on a temporary copy, never the committed fixture.
 
 ## Specification checks (this PR)
 

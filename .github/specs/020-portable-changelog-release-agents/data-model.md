@@ -78,93 +78,18 @@ Only `verified` with evidence allows the release agent to report ready. `failed`
 | `branch`, `base`, `template` | As recorded in `delivery-plan.md` once written. |
 | `closure` | Which issues the slice may close; partial work uses reference-only wording. |
 
-## Agent Invocation Modes
+## Invocation modes (conceptual)
 
-### Release Agent
+Concrete flag names, command shape and exit codes are decided in tasks T023 and T036, not here. Every mode takes an explicit `repoRoot` (FR-002).
 
-**Readiness mode (default / explicit)**:
+| Agent | Mode | Writes | Approval |
+|-------|------|--------|----------|
+| Release | Readiness (default) | None | None |
+| Release | Approved preparation (version fields only) | Allowlisted version fields | Digest of the exact proposed edit (FR-029) |
+| Changelog | Inspect | None | None |
+| Changelog | Draft | None | None |
+| Changelog | Validate (verification evidence for the handoff) | None | None |
+| Changelog | Prepare release | None until approved | Digest of the exact proposed edit |
+| Changelog | Approved apply (`CHANGELOG.md` only, FR-009) | `CHANGELOG.md` | Digest of the exact proposed edit (FR-029) |
 
-Readiness mode is the default and requires no approval. The agent outputs a readiness report and makes zero file or git-state changes.
-
-```bash
-# Default - no approval supplied → readiness check only
-npx release.agent.cjs --repoRoot /path/to/target
-
-# Or explicit flag (same effect, for clarity)
-npx release.agent.cjs --repoRoot /path/to/target --dry-run
-```
-
-**Output**: Readiness report with component type, version evidence, blockers, and zero writes.
-
-**Preparation mode (approval required)**:
-
-Preparation mode requires an approval digest (see [contracts/approval-digest.md](./contracts/approval-digest.md)). The agent applies allowlisted version-field edits only if the supplied digest matches the computed digest of those changes.
-
-```bash
-npx release.agent.cjs --repoRoot /path/to/target \
-  --approve-digest a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f
-```
-
-**Output**: Readiness report with applied edits (if digest matches) or error (if mismatch or digest invalid).
-
-### Changelog Agent
-
-**Inspect mode (read-only)**:
-
-Inspects the changelog and reports its structure without changing any file.
-
-```bash
-npx changelog.agent.cjs inspect /path/to/changelog.md
-```
-
-**Output**: Analysis report of current entries, categories, Unreleased count, and validation results.
-
-**Draft mode (read-only)**:
-
-Proposes release entries based on Unreleased section without changing any file.
-
-```bash
-npx changelog.agent.cjs draft /path/to/changelog.md
-```
-
-**Output**: Proposed release entries, digest for approval, and zero writes.
-
-**Apply mode (approval required)**:
-
-Applies bounded changelog edits (moves Unreleased entries into a versioned section) only when the supplied digest matches.
-
-```bash
-npx changelog.agent.cjs apply /path/to/changelog.md \
-  --approve-digest a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w3x4y5z6a7b8c9d0e1f
-```
-
-**Output**: Applied edits (if digest matches) or error (if mismatch).
-
-**Verify mode (read-only)**:
-
-Validates the changelog against the shipped validation engine and returns verification evidence (for the release agent's handoff).
-
-```bash
-npx changelog.agent.cjs verify /path/to/changelog.md
-```
-
-**Output**: Validation result, categories found, Unreleased count, engine version, and zero writes.
-
-### Environment Variable Alternative (Optional)
-
-For shell scripts that prefer environment variables:
-
-```bash
-export RELEASE_DRY_RUN=true  # Readiness only (default)
-export RELEASE_DRY_RUN=false # Preparation (requires --approve-digest flag)
-
-npx release.agent.cjs --repoRoot /path/to/target --approve-digest $DIGEST
-```
-
-**Note**: CLI flags take precedence over environment variables. Explicit flags are the primary interface; environment variables are optional for convenience.
-
-### Exit Codes
-
-- `0`: Success (readiness complete, edits applied, validation passed)
-- `1`: Error (blockers, digest mismatch, validation failed, invalid input)
-- `2`: Partial success or warning (e.g., recovery from edit failure succeeded, but repo state may not be fully ready)
+Dry run is the default for both agents; no environment variable or flag may widen it without a matching approval digest. See [contracts/approval-digest.md](./contracts/approval-digest.md).
