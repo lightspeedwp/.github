@@ -129,18 +129,42 @@ An organisation-shared environment gives the whole team one configuration that o
    - add **Claude guard contract tests** (from `claude-guard-tests.yml`) to the required status checks. The
      workflow also runs on `merge_group`, because a check that only runs on a pull request is never reported for a
      merge-queue batch and the requirement would then block every queued merge.
-9. Optional, for `claude --cloud`: copy the environment's ID (`env_...`) and add
-   `"remote": { "defaultEnvironmentId": "env_..." }` to `.claude/settings.json` in a follow-up PR. Project settings take
-   precedence over each person's `/remote-env` choice, so terminal-started cloud sessions from this repository use it too.
+9. For `claude --cloud`: copy the environment's ID (`env_...`) and add
+   `{"remote": {"defaultEnvironmentId": "env_..."}}` at
+   [claude.ai/admin-settings/claude-code](https://claude.ai/admin-settings/claude-code) → **Managed settings**, merging
+   it into any JSON already there (spec 018 FR-026). Server-managed settings are edited only by Owners and apply to
+   every member's CLI, so terminal-started cloud sessions use **LightSpeed** without a step from each member. Ask one
+   member to run `claude doctor` and confirm the `Managed settings (remote)` line shows the settings loaded. Only a
+   client that doesn't fetch server-managed settings (for example one using a third-party provider variable or a
+   custom base URL) falls back to the project's `.claude/settings.json`, which isn't edited for this, or to the
+   member's own `/remote-env` choice.
 
 On a Pro or Max plan without admin settings, create the same environment yourself: in claude.ai/code open the
 environment selector → **Add cloud environment**, and fill in the same fields.
 
+**Organisation-wide scope**: the organisation default applies to cloud sessions on every LightSpeed repository, not
+only this one. `setup.sh` makes no assumptions about the repository, and the `LS_*` variables do nothing where the
+hooks are absent. The one visible change elsewhere is that Node 24 replaces the image's Node 22 as the default on
+`PATH`. A repository that needs another version can prepend `/opt/node<major>/bin` or add its own SessionStart step.
+
 ## Use it (everyone)
 
 - In claude.ai/code or the desktop app, check the environment selector shows **LightSpeed** (under **Organization**)
-  before starting a session.
-- From the terminal, run `/remote-env` once and pick **LightSpeed**; `claude --cloud` then uses it.
+  before starting a session. The organisation default only fills an empty selection, so a member who already has a
+  saved selection keeps it, and needs to pick **LightSpeed** once.
+- New members: pick **LightSpeed** once before your first session. The Default environment that onboarding creates
+  counts as a saved selection, so the organisation default doesn't move you. This stays until the rollout check
+  ([quickstart §6](../.github/specs/018-claude-cloud-environment/quickstart.md), check b2) shows that a new member lands
+  in **LightSpeed** on their own.
+- From the terminal, once the Owner has set the managed default (step 9 above) you need do nothing. If a session
+  shows the warning below, run `/remote-env` and pick **LightSpeed**.
+- Once the session-start check ships (spec 018 FR-024; see Delivered and remaining), a session that isn't in the
+  shared environment shows `Cloud environment: this session isn't using the shared LightSpeed environment. Select
+  LightSpeed (under Organization) in the environment selector for new sessions.` Switch once, and new sessions use
+  **LightSpeed**. The warning never blocks the session.
+- Once the same check ships (spec 018 FR-025), a session in **LightSpeed** whose revision stamp doesn't match the
+  repository shows `Cloud environment: LightSpeed is out of date (session <a>, repository <b>). An Owner should update
+  it from .claude/cloud/`. Tell an Owner, who re-pastes the files (see Maintain it).
 - Local sessions run the same guard. Install `gh` and log in with `gh auth login`, or the legacy PR exception can't be
   verified and is refused.
 - Start sessions on this repository on its own. A session with several repositories does not load any repository's
@@ -175,6 +199,10 @@ npm run validate:branch-name -- --current     # fails on the placeholder, as int
 
 Then ask it to make a trivial commit without renaming, and to edit `.claude/settings.json`. The guard should refuse
 both, and each refusal should start with `Branch guard:`.
+
+For the organisation-wide rollout (the organisation default, the managed CLI default and the two `Cloud environment:`
+warnings), follow [quickstart §6](../.github/specs/018-claude-cloud-environment/quickstart.md) and record the results
+in `.github/reports/audit/`.
 
 An Owner then confirms the review requirement on both `develop` and `main`. Which command to use depends on
 whether the repository protects its branches with classic branch protection or with a ruleset, because the two
@@ -226,6 +254,12 @@ settings, not branch-protection fields.
 
 - Change the environment in the admin page (or your own environment settings), then update the copy in
   `.claude/cloud/` in the same PR so the repository stays the source of truth.
+- Owner change procedure for the shared environment (spec 018 FR-025):
+  1. The PR that changes `.claude/cloud/setup.sh` or `.claude/cloud/environment.env` refreshes
+     `LS_CLOUD_ENV_REVISION`: run `bash .claude/cloud/revision.sh` and paste the result into
+     `.claude/cloud/environment.env`. A CI test fails when the stamp is stale.
+  2. After the merge to `develop`, an Owner pastes both files into **LightSpeed** on the Cloud environments admin page.
+  3. The next new session on the current revision shows no `Cloud environment:` warning.
 - Changing the setup script triggers a cache rebuild on the next session. The cache also expires after about seven days.
 - When `.nvmrc` changes, update `LS_NODE_VERSION` in both the environment variables and `setup.sh`.
 - Branch types come from `lib/validate-branch-name.js`, which both the guard and CI call, so they agree on everything the library accepts. That includes the semantic-version release form `release/v1.2.3`, which the library matches ahead of the general pattern. The guard's carve-out for `release/*` and `hotfix/*` targets for `main` is keyed on the prefix alone, so a `release/*` branch that is not a semantic version is still checked for its name. Only releases have a version-number form: hotfixes use `hotfix/{scope}-{title}` (for example `hotfix/auth-token-expiry`), and both the guard and CI refuse `hotfix/vX.Y.Z`. Add new types in the library.
@@ -284,6 +318,29 @@ settings, not branch-protection fields.
   semantic version is still checked against the convention.
 - Cloud sessions do not read your personal `~/.claude/` settings. Anything the team relies on must live in the
   repository or the shared environment.
+
+## Delivered and remaining
+
+**Delivered**
+
+- The shared environment definition and the branch guard (lightspeedwp/.github#3524, merged 2026-09-30).
+- The guard gaps tracked in lightspeedwp/.github#3691: all seven are fixed (#3745 and #3726), and that issue is closed.
+- The spec 018 clarifications and convergence fixes (#3726), and the cleanup documentation close-out (#3813).
+- The revision stamp for the shared environment definition (`.claude/cloud/revision.sh` and `LS_CLOUD_ENV_REVISION`),
+  checked by a CI test (spec 018 FR-025).
+
+**Remaining, and still limitations**
+
+- The Owner setup is not yet verified live: the shared **LightSpeed** environment, the organisation default, the
+  managed CLI default, and the Code Owners review and required check on `develop` and `main`. The evidence is tracked in
+  lightspeedwp/.github#3736.
+- The session-start warnings (`Cloud environment:`, spec 018 FR-024 and FR-025) are specified and documented here, but
+  the session-start change that shows them isn't shipped yet. It edits the guard's own files, so a person makes it.
+- Automatic deletion of empty `claude/*` branches is deferred (spec 018 FR-020) until a branch-age signal and a
+  branch-origin check exist. Until then a maintainer promotes empty branches by hand.
+- The limits listed under Limitations still apply: the guard reads shell syntax with heuristics, sessions with several
+  repositories don't load repository settings, and pushing a renamed branch relies on the platform's push protection.
+  CI branch validation and Code Owners review remain the final gate.
 
 ## Related
 

@@ -114,7 +114,7 @@ Any failure means the exception doesn't apply (research R9). The exception appli
 4. A statement that the rule overrides the platform's `claude/*` branch.
 5. A pointer to `docs/BRANCHING_STRATEGY.md`.
 
-**Nested interpreters (SC-009)**: a command handed to another shell is still a
+**Nested interpreters (FR-012)**: a command handed to another shell is still a
 shell command, so it is parsed and checked rather than declared out of scope.
 `sh -c '<command>'`, `bash -c '<command>'`, `zsh -c '<command>'`, `dash -c '<command>'`,
 `ksh -c '<command>'`, `busybox sh -c '<command>'` and `eval '<command>'` are read as

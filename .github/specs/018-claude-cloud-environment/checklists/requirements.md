@@ -40,3 +40,17 @@
   revisited in `/speckit-clarify`.
 - A draft implementation already exists (lightspeedwp/.github#3524). `/speckit-plan` should record it as the baseline, and
   `/speckit-converge` can list any gaps against this spec.
+- Re-validation 2026-10-12 (task T089, after the rollout amendment FR-024 to FR-026, SC-010, US2 scenario 1): 14 of 16
+  items passed at first, and two failed. **Both were fixed the same day with `/speckit-clarify` (US2 scenarios 4 to
+  7), so 16 of 16 items now pass.** The two failures were:
+  - **All acceptance scenarios are defined**: US2 has no scenario for the "not in the shared environment" warning
+    (FR-024) or for a stale, missing or empty revision stamp and the CI failure (FR-025). US2 scenario 4 also still
+    says terminal users follow "the documented one-time step", which no longer matches FR-026 (the CLI default comes
+    from server-managed settings, so terminal users need do nothing once it is live).
+  - **All functional requirements have clear acceptance criteria**: FR-025 has no acceptance scenario in the spec. FR-024
+    is only referenced from US2 scenario 1, and FR-026 is only touched by the outdated scenario 4.
+  - Fixed: acceptance scenarios were added for the FR-024 warning (scenario 5), the FR-025 stale-stamp warning
+    (scenario 6) and CI failing on a stale stamp (scenario 7), and scenario 4 now matches FR-026.
+- Watch item, not a failure: FR-025 states the hash formula (SHA-256, first 12 hexadecimal characters). It is kept
+  because `contracts/cloud-environment.md` is the detailed contract and the Notes above accept developer-tooling
+  vocabulary, but it is the closest the spec comes to an implementation detail.

@@ -1,4 +1,7 @@
+import { execFileSync } from 'node:child_process';
+import crypto from 'node:crypto';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 
 const repoRoot = path.resolve(__dirname, '../..');
@@ -716,7 +719,7 @@ describe('the operations document', () => {
   );
 
   test('states the depth limit and the limits that remain in the hooks contract', () => {
-    expect(hooks).toMatch(/SC-009/);
+    expect(hooks).toMatch(/Nested interpreters \(FR-012\)/);
     expect(hooks).toMatch(/NESTED_DEPTH/);
     // The remaining out-of-scope case is a command in another language, which
     // the guard does not read. It has to stay stated or the claim becomes a
@@ -729,5 +732,84 @@ describe('the operations document', () => {
     expect(docs).toMatch(/\.parameters\.require_code_owner_review/);
     expect(docs).toMatch(/\.conditions\.ref_name/);
     expect(docs).toMatch(/required_status_checks\[\]\.context/);
+  });
+});
+
+// FR-025 and contracts/cloud-environment.md: the shared environment carries a revision
+// stamp derived from its own content, and CI fails when the stamp is stale.
+describe('shared environment revision stamp', () => {
+  const cloudDirectory = '.claude/cloud';
+  const refreshCommand = 'bash .claude/cloud/revision.sh';
+  const setupBytes = fs.readFileSync(path.join(repoRoot, cloudDirectory, 'setup.sh'));
+  const environmentText = readDocument(`${cloudDirectory}/environment.env`);
+
+  // The contract's byte rule, written independently of revision.sh: the exact bytes of
+  // setup.sh, then every line of environment.env except the revision line, each one
+  // newline-terminated (a trailing empty element from a final newline is dropped).
+  function expectedRevision(setup, environment) {
+    const lines = environment.split('\n');
+    if (lines[lines.length - 1] === '') lines.pop();
+    const kept = lines
+      .filter((line) => !line.startsWith('LS_CLOUD_ENV_REVISION='))
+      .map((line) => `${line}\n`)
+      .join('');
+    return crypto
+      .createHash('sha256')
+      .update(Buffer.concat([setup, Buffer.from(kept, 'utf8')]))
+      .digest('hex')
+      .slice(0, 12);
+  }
+
+  function printedRevision(root) {
+    return execFileSync('bash', [path.join(repoRoot, cloudDirectory, 'revision.sh'), root], {
+      encoding: 'utf8',
+    }).trim();
+  }
+
+  test('declares LS_CLOUD_ENV once and a 12-character revision once', () => {
+    expect(environmentText.match(/^LS_CLOUD_ENV=LightSpeed$/gm)).toHaveLength(1);
+    const stamps = environmentText.match(/^LS_CLOUD_ENV_REVISION=.*$/gm);
+    expect(stamps).toHaveLength(1);
+    expect(stamps[0]).toMatch(/^LS_CLOUD_ENV_REVISION=[0-9a-f]{12}$/);
+  });
+
+  test('keeps the stamp in step with setup.sh and environment.env', () => {
+    const stored = environmentText.match(/^LS_CLOUD_ENV_REVISION=([0-9a-f]{12})$/m)[1];
+    const expected = expectedRevision(setupBytes, environmentText);
+    if (stored !== expected) {
+      throw new Error(
+        `LS_CLOUD_ENV_REVISION is stale: stored ${stored}, expected ${expected}. ` +
+          `Run "${refreshCommand}" and paste the result into ${cloudDirectory}/environment.env.`
+      );
+    }
+  });
+
+  test('revision.sh prints the same value for the real files', () => {
+    expect(printedRevision(repoRoot)).toBe(expectedRevision(setupBytes, environmentText));
+  });
+
+  test.each([
+    ['with', environmentText.endsWith('\n') ? environmentText : `${environmentText}\n`],
+    ['without', environmentText.replace(/\n+$/, '')],
+  ])('revision.sh and the recomputation agree on a file %s a trailing newline', (_label, text) => {
+    const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'ls-cloud-env-'));
+    try {
+      const target = path.join(temporary, cloudDirectory);
+      fs.mkdirSync(target, { recursive: true });
+      fs.writeFileSync(path.join(target, 'setup.sh'), setupBytes);
+      fs.writeFileSync(path.join(target, 'environment.env'), text);
+      expect(printedRevision(temporary)).toBe(expectedRevision(setupBytes, text));
+    } finally {
+      fs.rmSync(temporary, { recursive: true, force: true });
+    }
+  });
+
+  test('revision.sh prints nothing when the files are missing', () => {
+    const temporary = fs.mkdtempSync(path.join(os.tmpdir(), 'ls-cloud-env-'));
+    try {
+      expect(printedRevision(temporary)).toBe('');
+    } finally {
+      fs.rmSync(temporary, { recursive: true, force: true });
+    }
   });
 });

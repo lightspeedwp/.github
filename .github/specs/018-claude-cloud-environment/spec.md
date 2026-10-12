@@ -83,6 +83,7 @@ The reviewer settled `checklists/security.md` item by item. These are the decisi
 - Q: Is the spec 009 daily auto-delete step (task T034, `branch-audit.yml`) part of spec 018 while FR-020 is deferred? → A: No. Spec 009 owns it, and it stays blocked on the branch-age and branch-origin signals. Spec 018 keeps FR-020 to FR-022 as deferred requirements and doesn't schedule that work.
 - Q: Do GIT-2581, GIT-2571 and #3727 (GIT-2514) need any further spec work? → A: No. Their changes were delivered in #3813 and #3726. They remain open only as housekeeping: Linear status and closing the matching GitHub issues.
 - Q: When does the spec leave Draft? → A: The owner moves the **Status** from Draft to Ready for Review only once all the work is complete and every related Linear issue for spec 018 is complete. Until then it stays Draft.
+- Q: How are the acceptance-criteria gaps found by the requirements checklist re-run (task T089) closed? → A: US2 scenario 4 is updated to match FR-026 (terminal users need no step of their own once the managed-settings default is live), and three scenarios are added: scenario 5 for the not-in-the-shared-environment warning (FR-024), scenario 6 for the out-of-date, missing or empty revision stamp warning (FR-025), and scenario 7 for CI failing on a stale stamp (FR-025, FR-023).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -137,7 +138,10 @@ a saved selection starts a new session and confirms that their selected environm
    otherwise, so they are told to select **LightSpeed** once.
 2. **Given** a new session in the shared environment, **When** the member checks the toolchain, **Then** the runtime version matches the repository's pinned version and the linting tools CI relies on are available.
 3. **Given** the environment's provisioning step fails on a non-critical install, **When** a session starts, **Then** the session still starts and falls back to the platform defaults for that tool.
-4. **Given** a member starting cloud sessions from the terminal, **When** they follow the documented one-time step, **Then** their terminal-started sessions also use the shared environment.
+4. **Given** the Owner has set the CLI default environment through server-managed settings (FR-026), **When** a member starts a cloud session from the terminal, **Then** it uses the shared **LightSpeed** environment without any step by the member. Only a client that doesn't fetch server-managed settings falls back to the project settings or the member's own `/remote-env` choice.
+5. **Given** a cloud session on this repository that isn't running in the shared **LightSpeed** environment, **When** the session starts, **Then** a visible warning starting `Cloud environment:` says how to select **LightSpeed**, and the session still starts normally with the branching rules injected and the hook's exit code unchanged (FR-024).
+6. **Given** a cloud session in the shared environment, **When** its revision stamp differs from the repository's, or is missing or empty, **Then** a warning starting `Cloud environment:` says the shared environment is out of date and an Owner should update it. When the stamps match, no warning appears. When the stamp can't be computed, the check is skipped silently (FR-025).
+7. **Given** a pull request that changes the setup script or the environment variables file without refreshing the revision stamp, **When** CI runs, **Then** the required check fails and shows the expected stamp. When the stamp is refreshed, the check passes (FR-025, FR-023).
 
 ---
 

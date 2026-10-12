@@ -431,7 +431,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
 
 ### Environment definition and CI stamp (agent)
 
-- [ ] T067 [US2] [Agent] Create `.claude/cloud/revision.sh` (FR-025). It prints the 12-character revision of the shared environment
+- [x] T067 [US2] [Agent] (Done 2026-10-12: script created and run; `shellcheck` not run locally because it isn't installed, so CI is to verify.) Create `.claude/cloud/revision.sh` (FR-025). It prints the 12-character revision of the shared environment
   for the repository root given as `$1` (default: two directories above the script), computed exactly as
   `contracts/cloud-environment.md` states: the first 12 hex characters of the SHA-256 of the exact bytes of
   `setup.sh`, followed by the lines of `environment.env` that remain once every line starting
@@ -440,11 +440,11 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
   `{ cat setup.sh; grep -v '^LS_CLOUD_ENV_REVISION=' environment.env; } | sha256sum | cut -c1-12`. When
   `sha256sum` is missing or a file is unreadable, it prints nothing and exits 0. It must pass
   `shellcheck .claude/cloud/revision.sh`. The byte rule is confirmed (plan.md "Decisions confirmed 2026-10-12").
-- [ ] T068 [US2] [Agent] Add a "Shared environment identity" block (FR-025) to `.claude/cloud/environment.env`, with
+- [x] T068 [US2] [Agent] (Done 2026-10-12: stamp `6436a819b85f` written and cross-checked with an independent Node recomputation, with and without a trailing newline.) Add a "Shared environment identity" block (FR-025) to `.claude/cloud/environment.env`, with
   `LS_CLOUD_ENV=LightSpeed` and `LS_CLOUD_ENV_REVISION=<output of bash .claude/cloud/revision.sh>`, and a comment
   that any change to this file or `setup.sh` must refresh the stamp (CI enforces it). Run T067's script after the
   block is written, because the comment lines are part of the hash.
-- [ ] T069 [P] [US2] [Agent] Add a `describe('shared environment revision stamp')` block (FR-025) to
+- [x] T069 [P] [US2] [Agent] (Done 2026-10-12: edited and syntax-checked; Jest not run locally because `node_modules` isn't installed, so CI is to verify.) Add a `describe('shared environment revision stamp')` block (FR-025) to
   `tests/js/claude-cloud-environment-docs.test.js`. It asserts that:
   - `environment.env` contains exactly one `LS_CLOUD_ENV=LightSpeed` line and one
     `LS_CLOUD_ENV_REVISION=` line matching `^[0-9a-f]{12}$`
@@ -489,7 +489,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
 
 ### Documentation (agent)
 
-- [ ] T072 [P] [US2] [Agent] Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-019, FR-024 to FR-026):
+- [x] T072 [P] [US2] [Agent] (Done 2026-10-12: docs updated; the docs test wasn't run locally because Jest isn't installed, so CI is to verify. I checked the new text by search against the wording the test rejects.) Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-019, FR-024 to FR-026):
   - "Set up the shared environment": replace step 9's project-settings route with server-managed settings
     (`{"remote": {"defaultEnvironmentId": "env_..."}}` under Organisation settings → Claude Code → Managed
     settings), keeping `.claude/settings.json` as a fallback.
@@ -524,7 +524,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
   (b2) outcome is whether a brand-new member keeps their Default and sees the warning, or lands in **LightSpeed**
   automatically. If they land in **LightSpeed** automatically, record that in `research.md` R19 so T078 can be
   dropped. This extends T030; tick T030 too when §3 and §4 pass in the same session.
-- [ ] T078 [US2] [Agent] Add a "new members: pick LightSpeed once" line to "Use it" in
+- [x] T078 [US2] [Agent] (Done 2026-10-12; the docs test wasn't run locally, so CI is to verify.) Add a "new members: pick LightSpeed once" line to "Use it" in
   `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, because a new member's **Default** environment is treated as a saved selection
   (decided 2026-10-12, R19), keeping **Quick setup** as it is. This doesn't need to wait for T077. Drop the line only
   if T077's (b2) check shows that a new member lands in **LightSpeed** without switching, and record that in R19.
@@ -586,7 +586,7 @@ then. `[Owner]` tasks: T083 to T087, T090 and T091.
 
 ### GIT-2530 (#3740): enforce branch naming in shared sessions
 
-- [ ] T082 [US3] [Agent] Add a short "Delivered and remaining" note to `docs/CLAUDE_CLOUD_ENVIRONMENT.md` that
+- [x] T082 [US3] [Agent] (Done 2026-10-12; the docs test wasn't run locally, so CI is to verify. The note also says the session-start warnings aren't shipped yet, so the docs don't overstate what exists.) Add a short "Delivered and remaining" note to `docs/CLAUDE_CLOUD_ENVIRONMENT.md` that
   separates what shipped (#3524, #3745, #3726) from what is still a limitation. Draw on the existing "Known
   limitations" section and the spec's edge cases, and refer to #3691 as closed (all seven gaps fixed in #3745 and
   #3726). No new guard code. Per GIT-2530, FR-007, FR-008, FR-019. Run it after T072 and T078, never alongside them,
@@ -612,13 +612,13 @@ then. `[Owner]` tasks: T083 to T087, T090 and T091.
 
 ### Open consistency items
 
-- [ ] T088 [US3] [Agent] In `.github/specs/018-claude-cloud-environment/contracts/hooks.md`, reword the "Nested
+- [x] T088 [US3] [Agent] (Done 2026-10-12. The docs contract test asserted the old "SC-009" wording in `contracts/hooks.md`, so its one assertion in `tests/js/claude-cloud-environment-docs.test.js` was changed to expect "Nested interpreters (FR-012)" in the same step. Jest wasn't run locally, so CI is to verify.) In `.github/specs/018-claude-cloud-environment/contracts/hooks.md`, reword the "Nested
   interpreters" paragraph (around line 117) so its citation reads **FR-012** (the shell-parsing requirement) instead
   of **SC-009**, which `spec.md` doesn't declare. Decided 2026-10-12: don't declare SC-009 in `spec.md`, and don't add
   a success criterion. SC-010 is already taken by the adoption criterion, so don't reuse it. Edit only that file. Then
   run `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` and confirm no undeclared
   FR or SC ID remains in the spec 018 artefacts.
-- [ ] T089 [US3] [Agent] Re-run the requirements checklist `.github/specs/018-claude-cloud-environment/checklists/requirements.md`
+- [x] T089 [US3] [Agent] (Done 2026-10-12: re-run complete, 14 of 16 items pass, and two fail. They are listed in the checklist's Notes. Fix them with `/speckit-clarify` before the spec leaves Draft.) Re-run the requirements checklist `.github/specs/018-claude-cloud-environment/checklists/requirements.md`
   (currently 16/16) against the amended spec (FR-024 to FR-026, SC-010) and record the result, with any item that
   now fails, in the checklist's Notes. Constitution principle VII needs this before implementation, so **run it first,
   before any other implementation task**. T088 doesn't change the spec, so it doesn't need a second run.
