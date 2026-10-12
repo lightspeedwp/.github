@@ -121,7 +121,7 @@ A maintainer copies the two agents into another repository or user environment. 
 
 **Why this priority**: Portability is the purpose of the work, but it is only valuable once the behaviour in Stories 1-3 is correct.
 
-**Independent Test**: Install the packages into a clean location that has no `~/.github` checkout and confirm they resolve all needed resources and run.
+**Independent Test**: Install the packages into a clean location (a directory outside any repository checkout that holds only the copied package, with no `~/.github` or governance checkout on any resolution path) and confirm they resolve all needed resources and run.
 
 **Acceptance Scenarios**:
 
@@ -179,8 +179,8 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 
 **Changelog**
 
-- **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved (as defined in FR-029) and bounded. The changelog agent is the only agent that edits `CHANGELOG.md`; the release agent never does and only requests verification through the handoff (FR-014).
-- **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine. A copied agent package MUST validate with a bundled copy of that engine pinned to a recorded version, and every validation result MUST state the engine version it used.
+- **FR-009**: The changelog agent MUST work standalone to inspect, draft, validate and prepare release entries, and MUST apply edits only when separately approved (as defined in FR-029) and bounded. A bounded edit touches only `CHANGELOG.md`, moves the Unreleased entries into one versioned section, adds a fresh Unreleased section, and leaves released sections and links byte-identical. The changelog agent is the only agent that edits `CHANGELOG.md`; the release agent never does and only requests verification through the handoff (FR-014).
+- **FR-010**: The agent MUST reuse the shipped changelog validation engine and MUST NOT introduce a second engine, meaning no independently written validation logic. The pinned bundled copy is not a second engine: it is generated from the shipped engine by the refresh script and checked against its pin. A copied agent package MUST validate with a bundled copy of that engine pinned to a recorded version, and every validation result MUST state the engine version it used.
 - **FR-011**: The agent MUST preserve historic entries and links, handle Unreleased idempotently, and accept only the categories Added, Changed, Deprecated, Removed, Fixed and Security. Entries MUST be at most 250 characters, user-focused and linked to a PR or issue (constitution Principle IX).
 - **FR-012**: The local MVP MUST function without the unbuilt `changelog.yml` or `release.yml` workflows.
 - **FR-013**: The five-operation shared-skill obligations carried by the existing changelog MVP issue MUST be preserved.
@@ -193,7 +193,7 @@ A governance maintainer reviews a traceable plan that maps existing GitHub issue
 **Packaging and architecture**
 
 - **FR-016**: Exactly two user-facing orchestration agents exist; the WordPress utilities become reused and hardened release adapter functionality after callers, exports and tests are migrated, with no speculative deletion. The plugin and theme version handling ships as one coherent adapter module in a single pull request that maps both the plugin (#1565) and theme (#1566) acceptance criteria; it is not split into separate slices.
-- **FR-017**: Each agent package MUST contain one canonical `AGENT.md`, a `README.md`, an agent `CHANGELOG.md`, `package.json` and lockfile where the project convention requires, `scripts/`, namespaced `skills/<capability>/SKILL.md`, and a small Claude adapter; `references/` and `assets/` only for actual content, with no gratuitous includes, gates, shared, results, manifest or example trees and no invented dependencies.
+- **FR-017**: Each agent package MUST contain one canonical `AGENT.md`, a `README.md`, an agent `CHANGELOG.md`, `package.json` and lockfile where the project convention requires, `scripts/`, namespaced `skills/<capability>/SKILL.md`, and a small Claude adapter; `references/` and `assets/` only for actual content, with no gratuitous includes, gates, shared, results, manifest or example trees and no invented dependencies. A tree is gratuitous when no script, skill or test of that agent uses it; existing `includes/` and `gates/` content is kept or relocated only per the T002 inventory, and no new such tree is created.
 - **FR-018**: The specification MUST resolve explicitly the distinct roles of working-instructions `AGENTS.md` and the definition `AGENT.md`, reuse the in-flight canonical-source migration, and keep module boundaries (no incidental CommonJS-to-ESM or TypeScript migration).
 - **FR-019**: Copied agent packages MUST resolve all resources without a governance checkout and MUST NOT read secrets, hooks or cloud configuration.
 - **FR-020**: Compatibility claims for Gemini, OpenAI and Copilot adapters MUST be backed by independent current documentation and tests; none is assumed.

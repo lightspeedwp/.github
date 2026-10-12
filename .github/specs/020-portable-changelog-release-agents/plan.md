@@ -113,10 +113,18 @@ agents/release-agent/
 ├── CHANGELOG.md                  # agent changelog
 ├── package.json                  # and lockfile only where convention requires
 ├── scripts/
-│   ├── release.agent.cjs         # orchestration: readiness, approved preparation
-│   ├── adapters/                 # absorbed WordPress plugin/theme/readme adapters
+│   ├── pathSafety.cjs            # path-safety validator (T010)
+│   ├── readiness.cjs             # fail-closed result and blocker codes (T011)
+│   ├── versionEvidence.cjs       # version-source discovery (T021)
+│   ├── readiness.operation.cjs   # read-only readiness (T023)
+│   ├── prepare.operation.cjs     # approved preparation, version fields only (T024)
+│   ├── handoff.request.cjs       # verification request builder (T041)
+│   ├── handoff.evaluate.cjs      # handback evaluation (T042)
+│   ├── adapters/
+│   │   ├── wordpressAdapter.cjs  # one plugin/theme/readme adapter module (T012, R-06)
 │   │   └── __tests__/
 │   └── __tests__/
+├── release.agent.js              # existing entry point, kept under its current name (no incidental rename); T022
 ├── skills/<capability>/SKILL.md  # namespaced skills
 ├── claude/                       # small Claude adapter
 └── tests/                        # Bats plus fixtures
@@ -129,6 +137,10 @@ agents/changelog-agent/
 ├── scripts/
 │   ├── engineResolver.cjs        # always loads the bundled engine and reports its version
 │   ├── refreshEngine.cjs         # copies the canonical engine into vendor/ and rewrites the pin
+│   ├── changelog.operations.cjs  # inspect, draft, validate (T035)
+│   ├── apply.operation.cjs       # approved bounded apply (T036)
+│   ├── verify.operation.cjs      # read-only verification evidence (T037)
+│   ├── handoff.responder.cjs     # verification responder (T043)
 │   └── __tests__/
 ├── vendor/changelog-validation/  # generated pinned copy of the engine, plus engine.pin.json (version, source commit)
 ├── skills/<capability>/SKILL.md  # five-operation shared-skill obligations preserved
@@ -139,7 +151,7 @@ agents/changelog-agent/
                                   # bundled copy above is generated from it and pinned (research R-05)
 ```
 
-**Structure Decision**: extend the two existing agent packages in place and fold `wordpress-release-utilities-agent` into the release agent's adapters after a caller, export and test inventory. No third orchestration agent, no gratuitous `includes/`, `gates/`, `shared/`, `results/` or `manifest/` trees, and no fake empty skills. The adapter lands as one module in a single pull request (research R-06, decided 2026-10-10).
+**Structure Decision**: extend the two existing agent packages in place and fold `wordpress-release-utilities-agent` into the release agent's adapters after a caller, export and test inventory. No third orchestration agent (existing `includes/` and `gates/` are kept or relocated only per the T002 inventory), no gratuitous `includes/`, `gates/`, `shared/`, `results/` or `manifest/` trees, and no fake empty skills. The adapter lands as one module in a single pull request (research R-06, decided 2026-10-10).
 
 ## Phase 0 and Phase 1 Outputs
 
