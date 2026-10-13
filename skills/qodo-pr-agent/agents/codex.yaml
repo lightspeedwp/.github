@@ -1,0 +1,10 @@
+interface:
+  display_name: LightSpeed Qodo PR-Agent
+  short_description: Get Qodo PR-Agent review, suggestions and summaries as agent input, without publishing.
+  icon: git-pull-request
+  brand_color: '#7C3AED'
+policy:
+  products:
+    - codex
+  allow_implicit_invocation: true
+  compatibility_mode: legacy-compatible
