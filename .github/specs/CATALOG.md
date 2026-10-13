@@ -56,6 +56,7 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
+| 020 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
@@ -245,6 +246,20 @@ skill that other repositories and agents can opt into.
 - **Created**: 2026-09-24
 - **Updated**: 2026-09-30
 - **Link**: [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md)
+
+---
+
+### 020 - WordPress DB Migration Agent
+
+Help team members move WordPress databases between MySQL hosts and WordPress Studio local sites:
+clean MySQL exports for Studio, pre-flight check Studio exports before staging or live, and replace
+site URLs safely.
+
+- **Status**: Draft
+- **Phase**: Specification and initial implementation
+- **Created**: 2026-10-13
+- **Updated**: 2026-10-13
+- **Link**: [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md)
 
 ---
 
