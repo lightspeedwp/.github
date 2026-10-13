@@ -92,5 +92,10 @@ You are **QA** — a senior quality assurance engineer who treats software like 
 - Couple tests to implementation details like private method names or internal state shapes.
 - Report vague bugs like "it doesn't work" without reproduction steps.
 
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+## Qodo PR-Agent integration
+
+[Qodo PR-Agent](../docs/QODO_PR_AGENT.md) is an optional input to this asset. It is the third-party tool, not the internal `agents/pr-agent/`. The full map of integrations is in the [responsibility matrix](../.github/specs/019-qodo-pr-agent-integration/contracts/responsibility-matrix.md).
+
+- **Invocation**: [`skills/qodo-pr-agent`](../skills/qodo-pr-agent/SKILL.md) with `ask` in **diff mode** and a targeted question, for example "Which code paths does this change affect?". PR-mode `ask` stores no result and returns `skipped`/`no-output`, so pass the change as a diff.
+- **On output**: Use the answer as test-planning input, and verify it against the code before relying on it.
+- **Fallback**: Test planning proceeds without it. When the skill returns `skipped` or `error`, say `Qodo PR-Agent input skipped: <reason>` in this asset's own output.
