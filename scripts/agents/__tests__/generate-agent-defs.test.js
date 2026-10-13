@@ -24,7 +24,18 @@ describe('generate-agent-defs', () => {
 
   test('generateAll reports no drift on a clean tree', () => {
     const results = generateAll({ write: false });
-    expect(results).toHaveLength(1);
-    expect(results[0].drifted).toBe(false);
+    expect(results.map((r) => r.generated)).toEqual(
+      expect.arrayContaining([GENERATED, '.claude/agents/wp-db-migration-agent.md'])
+    );
+    for (const result of results) {
+      expect(result).toMatchObject({ drifted: false });
+    }
+  });
+
+  test('subagent name matches the generated file name', () => {
+    for (const { canonical, generated } of generateAll({ write: false })) {
+      const name = buildDefinition(canonical).match(/^name: (.+)$/m)[1];
+      expect(`.claude/agents/${name}.md`).toBe(generated);
+    }
   });
 });
