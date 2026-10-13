@@ -89,6 +89,7 @@
     "lint:fast": "oxlint",
     "lint:actionlint": "node scripts/validation/run-actionlint.cjs",
     "lint:md": "markdownlint-cli2 \"**/*.{md,mdx}\" \"!node_modules\"",
+    "lint:md:specs": "markdownlint-cli2 \".github/specs/**/*.md\"",
     "lint:md:fix": "markdownlint-cli2 --fix \"**/*.{md,mdx}\" \"!node_modules\"",
     "format:js": "prettier '**/*.{js,jsx,ts,tsx,cjs,mjs}' --write",
     "format:check": "prettier --check '**/*.{js,jsx,ts,tsx,cjs,mjs}'",

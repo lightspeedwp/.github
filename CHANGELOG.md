@@ -28,6 +28,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Requirements Quality Checklists — Multi-Audience Guidance** — Added audience guidance for authors, reviewers, stakeholders, and integration teams. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Domain-Specific Variants** — Added specialized checklist variants for user experience, API, Security, and Performance requirements assessment. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Automated Generation** — Enabled checklist generation with a command-line tool, validator, and `/speckit-checklist` integration. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Specification Traceability** — Added cross-references linking checklist items to specification requirements for bidirectional traceability. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
+- **Requirements Quality Checklists — Schema & Documentation** — Fixed data model format consistency, aligned generator output, and improved code documentation for schema compliance. ([PR #3361](https://github.com/lightspeedwp/.github/pull/3361))
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Drift Check Inventory** — The weekly label drift check now also writes the redacted label inventory, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Label Import Requests** — Every imported label now names the request that approves it, and the request is open as an issue. ([#3834](https://github.com/lightspeedwp/.github/issues/3834))
