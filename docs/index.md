@@ -99,6 +99,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | **[AUTOMATION.md](./AUTOMATION.md)** | GitHub Actions workflows, agent specifications, and automation governance framework |
 | **[AGENT_CREATION.md](./AGENT_CREATION.md)** | Creating new agents, bots, and automation workflows using canonical patterns |
 | **[CROSS_PLATFORM_SKILL_YAML_SPEC.md](./CROSS_PLATFORM_SKILL_YAML_SPEC.md)** | YAML specification for skills, manifests, and cross-platform agent definitions |
+| **[QODO_PR_AGENT.md](./QODO_PR_AGENT.md)** | Qodo PR-Agent pilot: automatic PR summaries and suggestions alongside CodeRabbit, maintainer commands, operations and opt-in |
 | **[WORKFLOW_COORDINATION.md](./WORKFLOW_COORDINATION.md)** | Coordinating workflows across repos, avoiding conflicts, and sharing patterns |
 
 ### 📊 Monitoring, Metrics & Reporting
