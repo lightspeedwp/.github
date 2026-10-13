@@ -59,11 +59,13 @@ user before continuing.
 
 Use one regex per source host, so `http://`, `https://` and the JSON-escaped
 form block markup stores (`https:\/\/`) are all caught in a single pass while
-keeping each value's escaping:
+keeping each value's escaping. The pattern matches either source scheme; the
+replacement sets the destination's. Replace `<scheme>` with the scheme of the
+destination URL the user confirmed (`https` or `http`):
 
 ```bash
 studio wp --path ~/Studio/<site> search-replace \
-  'https?:(\\?/)(\\?/)old\.example\.com' 'https:${1}${2}new.example.com' \
+  'https?:(\\?/)(\\?/)old\.example\.com' '<scheme>:${1}${2}new.example.com' \
   --regex --all-tables-with-prefix --dry-run --report-changed-only
 ```
 
@@ -74,7 +76,8 @@ site; tell the user before starting.
 ### 4. Apply, after the user confirms
 
 **Destination is the Studio site** (the database is already imported locally):
-run the same command without `--dry-run`, then flush caches:
+run the same command without `--dry-run`, then flush caches. Studio serves
+every site over `https`, so the scheme here is always `https`:
 
 ```bash
 studio wp --path ~/Studio/<site> search-replace \
@@ -89,7 +92,7 @@ leaves the local Studio database unchanged:
 
 ```bash
 studio wp --path ~/Studio/<site> search-replace \
-  'https?:(\\?/)(\\?/)<site>\.local' 'https:${1}${2}staging.example.com' \
+  'https?:(\\?/)(\\?/)<site>\.local' '<scheme>:${1}${2}staging.example.com' \
   --regex --all-tables-with-prefix --export=<site>-staging.sql
 ```
 

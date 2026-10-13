@@ -498,8 +498,9 @@ function sanitise(input, options = {}) {
   const edits = [];
   const findings = [];
   const siteUrls = [];
-  const partial = `${out}.partial`;
-  const fd = fs.openSync(partial, 'w');
+  // A unique name opened exclusively, so an existing file is never truncated.
+  const partial = `${out}.${process.pid}.${crypto.randomBytes(4).toString('hex')}.partial`;
+  const fd = fs.openSync(partial, 'wx');
 
   const write = (text) => {
     const buffer = Buffer.from(text, 'latin1');

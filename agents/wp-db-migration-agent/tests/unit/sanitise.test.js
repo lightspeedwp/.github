@@ -136,6 +136,19 @@ describe('sanitise', () => {
     expect(() => sanitise(input, { force: true })).not.toThrow();
   });
 
+  it('never truncates an existing file that shares the temporary name', () => {
+    const file = writeTemp(buildDump());
+    const bystander = path.join(path.dirname(file), 'dump-sqlite.sql.partial');
+    fs.writeFileSync(bystander, 'keep me');
+    sanitise(file);
+    expect(fs.readFileSync(bystander, 'utf8')).toBe('keep me');
+    expect(fs.readdirSync(path.dirname(file)).sort()).toEqual([
+      'dump-sqlite.sql',
+      'dump-sqlite.sql.partial',
+      'dump.sql',
+    ]);
+  });
+
   it('exits 0 with JSON output from the CLI when nothing needs review', () => {
     const file = writeTemp(buildDump());
     const { code, stdout } = run(['sanitise', file, '--json']);
