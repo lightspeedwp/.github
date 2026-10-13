@@ -1,6 +1,6 @@
 # Specification Catalog
 
-**Last Updated**: 2026-09-18 | **Maintained by**: Governance Authority (@ashley)
+**Last Updated**: 2026-09-30 | **Maintained by**: Governance Authority (@ashley)
 
 ## Overview
 
@@ -40,6 +40,7 @@ All specification catalog entries MUST follow this exact column order and naming
 | 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
 | 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
 | 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Active | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
+| 019 | qodo-pr-agent-integration | Qodo PR-Agent Installation & Agent/Skill Integration | Active | 2026-09-24 | [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md) |
 
 ---
 
@@ -55,6 +56,7 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
+| 020 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
@@ -233,6 +235,33 @@ the branching strategy, through SessionStart and PreToolUse hooks.
 
 ---
 
+### 019 - Qodo PR-Agent Installation & Agent/Skill Integration
+
+Pilot the open-source Qodo PR-Agent alongside CodeRabbit on this repository, with a reusable workflow and a shared
+skill that other repositories and agents can opt into.
+
+- **Status**: Active
+- **Phase**: Implemented (pilot); live pilot checks and the 14-day report follow merge (lightspeedwp/.github#3535)
+- **Created**: 2026-09-24
+- **Updated**: 2026-09-30
+- **Link**: [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md)
+
+---
+
+### 020 - WordPress DB Migration Agent
+
+Help team members move WordPress databases between MySQL hosts and WordPress Studio local sites:
+clean MySQL exports for Studio, pre-flight check Studio exports before staging or live, and replace
+site URLs safely.
+
+- **Status**: Draft
+- **Phase**: Specification and initial implementation
+- **Created**: 2026-10-13
+- **Updated**: 2026-10-13
+- **Link**: [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md)
+
+---
+
 ## Archive
 
 Currently no archived or deprecated specifications. All numbered specifications remain in one of three states: Draft (pending approval), Active (approved and in use), or Archived (superseded or cancelled).
@@ -270,8 +299,8 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Determine next number: take the highest number in this catalog and in `.github/specs/` (017 at the time of writing) and add 1 (018)
-2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `018-{slug}`)
+1. Determine next number: take the highest number in this catalog and in `.github/specs/` (019 at the time of writing) and add 1 (020)
+2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `020-{slug}`)
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
 5. Request approval from @ashley (governance authority)

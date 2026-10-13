@@ -1,0 +1,63 @@
+# Qodo PR-Agent • Daily report
+#
+# Refreshes the Qodo PR-Agent pilot metrics every day (constitution Principle X):
+# runs per tool, outcomes, the SC-001 "within 10 minutes" rate and an estimated
+# spend, aggregated from the run-record artefacts of qodo-pr-agent.yml over the
+# last 14 days. The report is published to the job summary and as an artefact;
+# nothing is committed.
+#
+# Docs: docs/QODO_PR_AGENT.md → Operations
+name: Qodo PR-Agent • Daily report
+
+on:
+  schedule:
+    # Staggered away from the other daily jobs (05:17 labeling).
+    - cron: '43 6 * * *'
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'Start date (YYYY-MM-DD); defaults to 14 days ago'
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: qodo-pr-agent-report
+  cancel-in-progress: true
+
+jobs:
+  report:
+    name: Build Qodo PR-Agent report
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      # Scheduled and manual runs only ever check out the default branch.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          sparse-checkout: |
+            scripts/metrics
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: '.nvmrc'
+
+      - name: Build report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SINCE_INPUT: ${{ inputs.since }}
+        run: |
+          since="${SINCE_INPUT:-$(date -u -d '14 days ago' +%Y-%m-%d)}"
+          node scripts/metrics/qodo-pr-agent-report.cjs --since "$since" --out qodo-pr-agent-report
+
+      - name: Upload report
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: qodo-pr-agent-report-${{ github.run_id }}
+          path: qodo-pr-agent-report/
+          retention-days: 30

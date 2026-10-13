@@ -111,6 +111,9 @@ Agents with both specification files and complete implementations (28 total).
 - **[WordPress Config Agent](./wp-config-agent/)** – [`wp-config.agent.md`](./wp-config.agent.md)
   - WordPress site configuration and optimization
 
+- **[WordPress DB Migration Agent](./wp-db-migration-agent/)** – [`wp-db-migration.agent.md`](./wp-db-migration-agent/wp-db-migration.agent.md)
+  - Moves databases between MySQL live/staging sites and WordPress Studio local sites
+
 - **[WooCommerce Config Agent](./woo-config-agent/)** – [`woo-config.agent.md`](./woo-config.agent.md)
   - WooCommerce store configuration and setup
 

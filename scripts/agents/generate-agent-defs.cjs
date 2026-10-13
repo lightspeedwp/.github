@@ -27,6 +27,10 @@ const AGENTS = [
     canonical: 'agents/changelog-agent/AGENT.md',
     generated: '.claude/agents/changelog-agent.md',
   },
+  {
+    canonical: 'agents/wp-db-migration-agent/wp-db-migration.agent.md',
+    generated: '.claude/agents/wp-db-migration-agent.md',
+  },
 ];
 
 function parseFrontmatter(content) {
