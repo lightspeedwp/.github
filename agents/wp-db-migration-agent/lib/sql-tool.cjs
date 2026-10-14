@@ -55,6 +55,35 @@ const REMOVAL_RULES = [
 const BINARY_REASON =
   "The SQLite driver cannot parse _binary '...' literals; rewritten as hex literals holding the same bytes.";
 
+/**
+ * MariaDB 11+ (seen on 13.0) dumps a binary column's default as
+ * DEFAULT x AS `<hex>`, which is not valid SQL on any server.
+ */
+const BINARY_DEFAULT = /DEFAULT\s+x\s+AS\s+`([0-9a-f]*)`/gi;
+const BINARY_DEFAULT_REASON =
+  "MariaDB wrote the binary default as x AS `<hex>`, which no parser accepts; rewritten as the hex literal X'<hex>'.";
+
+/**
+ * Native SQLite syntax. The Studio importer (and Studio's phpMyAdmin) parse
+ * MySQL and translate it, so a file converted to SQLite's own dialect fails on
+ * its first statement, typically "Could not execute statement: PRAGMA ...".
+ */
+const SQLITE_DIALECT = [
+  /^PRAGMA\s/i,
+  /^BEGIN\s+(DEFERRED\s+|IMMEDIATE\s+|EXCLUSIVE\s+)?TRANSACTION\b/i,
+  /^INSERT\s+OR\s+(IGNORE|REPLACE|ABORT|FAIL|ROLLBACK)\s+INTO\b/i,
+  /^INSERT\s+INTO\s+["`]?sqlite_/i,
+  /^CREATE\s+TABLE\b[^;]*\bAUTOINCREMENT\b/i,
+];
+
+const DROP_TABLE_REASON =
+  'The export had no DROP TABLE for this table, so CREATE TABLE fails on a Studio site that already has it (for example wp_options); added DROP TABLE IF EXISTS, as mysqldump does.';
+
+const PREFIX_TABLES_REASON =
+  'Renamed to the requested table prefix (CREATE, INSERT, ALTER, DROP and LOCK statements).';
+const PREFIX_DATA_REASON =
+  'WordPress looks these up by prefix: <prefix>user_roles in options and <prefix>* keys in usermeta.';
+
 /** Statements that commonly fail on import; reported, never changed automatically. */
 const RISK_RULES = [
   { check: 'global-variable', test: /^SET\s+@@GLOBAL\./i, detail: 'Sets a server-wide variable.' },
@@ -374,6 +403,149 @@ function hashFile(file) {
   return hash.digest('hex');
 }
 
+/** True when a statement is native SQLite syntax rather than MySQL. */
+function isSqliteDialect(text) {
+  const h = head(text);
+  return SQLITE_DIALECT.some((pattern) => pattern.test(h));
+}
+
+/** Quote a latin1 string as a MySQL single-quoted literal, escaping as mysqldump does. */
+function mysqlQuote(value) {
+  const map = { '\0': '\\0', '\n': '\\n', '\r': '\\r', '\x1a': '\\Z', '\\': '\\\\', "'": "\\'" };
+  return `'${[...value].map((c) => map[c] ?? c).join('')}'`;
+}
+
+/**
+ * Rewrite MariaDB's DEFAULT x AS `<hex>` binary defaults in a CREATE TABLE as
+ * X'<hex>', checking the byte count against binary(N) columns.
+ *
+ * @returns {{text: string, edits: object[]}}
+ */
+function fixBinaryDefaults(text, startLine, table) {
+  if (!/DEFAULT\s+x\s+AS\s+`/i.test(text)) return { text, edits: [] };
+  const edits = [];
+  const lines = text.split('\n').map((line, index) =>
+    line.replace(BINARY_DEFAULT, (_, hex) => {
+      const column = line.match(/^\s*`((?:[^`]|``)+)`\s+([a-z]+)(?:\((\d+)\))?/i);
+      const where = `${table}.${column ? column[1] : '?'} (line ${startLine + index})`;
+      if (hex.length % 2) {
+        throw new Error(
+          `binary default in ${where} has an odd number of hex digits; no output written`
+        );
+      }
+      if (column && column[2].toLowerCase() === 'binary' && column[3]) {
+        if (hex.length / 2 !== Number(column[3])) {
+          throw new Error(
+            `binary default in ${where} is ${hex.length / 2} bytes but the column is binary(${column[3]}); no output written`
+          );
+        }
+      }
+      edits.push({
+        rule: 'binary-default',
+        line: startLine + index,
+        table,
+        count: 1,
+        reason: BINARY_DEFAULT_REASON,
+      });
+      return `DEFAULT X'${hex.toLowerCase()}'`;
+    })
+  );
+  return { text: lines.join('\n'), edits };
+}
+
+/**
+ * Work out a table-prefix rename for `sanitise --prefix`. The export must use
+ * exactly one WordPress prefix (one *_options table), and no renamed table may
+ * collide with a table that keeps its name.
+ *
+ * @returns {{from: string, to: string, renames: Map<string, string>}}
+ */
+function planPrefix(input, to) {
+  if (!/^[A-Za-z0-9_]+$/.test(to)) {
+    throw usageError('--prefix may contain only letters, digits and underscores');
+  }
+  const tables = [];
+  for (const statement of readStatements(readLines(input))) {
+    if (kindOf(statement.text) !== 'create-table') continue;
+    const parsed = parseCreateTable(statement.text);
+    if (parsed) tables.push(parsed.table);
+  }
+  // Prefer prefixes that have both <prefix>options and <prefix>posts, so plugin
+  // tables such as <prefix>wpb2d_options do not count as a second prefix.
+  const names = new Set(tables);
+  const candidates = tables.filter((t) => /options$/.test(t)).map((t) => t.replace(/options$/, ''));
+  const withPosts = candidates.filter((p) => names.has(`${p}posts`));
+  const prefixes = withPosts.length ? withPosts : candidates;
+  if (prefixes.length !== 1) {
+    throw usageError(
+      `--prefix needs an export with exactly one WordPress table prefix; found ${
+        prefixes.length ? prefixes.join(', ') : 'none'
+      }`
+    );
+  }
+  const from = prefixes[0];
+  const renames = new Map();
+  if (from !== to) {
+    for (const name of tables) {
+      if (name.startsWith(from)) renames.set(name, to + name.slice(from.length));
+    }
+  }
+  const kept = new Set(tables.filter((name) => !renames.has(name)));
+  const clash = [...renames.values()].find((name) => kept.has(name));
+  if (clash) throw usageError(`renaming to ${to} would collide with the existing table ${clash}`);
+  return { from, to, renames };
+}
+
+/** Rename backtick-quoted identifiers that are exactly a table being renamed. */
+function renameTableIdentifiers(text, renames) {
+  return text.replace(/`((?:[^`]|``)+)`/g, (whole, name) => {
+    const to = renames.get(name.replace(/``/g, '`'));
+    return to ? `\`${to.replace(/`/g, '``')}\`` : whole;
+  });
+}
+
+/**
+ * Apply a prefix rename to one INSERT: the table name in its head, plus the
+ * prefixed keys WordPress looks up (options.<prefix>user_roles and
+ * usermeta.<prefix>*). Other values are data and stay unchanged.
+ */
+function renameInsertPrefix(text, prefix, tables, counts) {
+  const lead = text.length - head(text).length;
+  const match = text.slice(lead).match(INSERT_HEAD);
+  if (!match) return text;
+  const table = unquoteIdentifier(match[1]);
+  const to = prefix.renames.get(table);
+  if (!to) return text;
+  const definition = tables.get(table);
+  const names = match[2]
+    ? match[2].split(',').map((c) => unquoteIdentifier(c.trim()))
+    : definition
+      ? definition.columns.map((c) => c.name)
+      : [];
+  let field = -1;
+  let renamesValue = () => false;
+  if (table === `${prefix.from}options`) {
+    field = names.indexOf('option_name');
+    renamesValue = (value) => value === `${prefix.from}user_roles`;
+  } else if (table === `${prefix.from}usermeta`) {
+    field = names.indexOf('meta_key');
+    renamesValue = (value) => value.startsWith(prefix.from);
+  }
+  let out = text;
+  if (field !== -1) {
+    const result = walkInsertValues(text, (v) => {
+      if (v.field !== field || v.value === undefined || !renamesValue(v.value)) return undefined;
+      return mysqlQuote(prefix.to + v.value.slice(prefix.from.length));
+    });
+    out = result.text;
+    counts.data += result.replaced;
+  }
+  const nameStart = lead + match[0].indexOf(match[1]);
+  const body = out.slice(nameStart + match[1].length);
+  counts.leftover += body.split(prefix.from).length - 1;
+  return `${out.slice(0, nameStart)}\`${to.replace(/`/g, '``')}\`${body}`;
+}
+
 // ---------------------------------------------------------------------------
 // Analysis shared by every command
 // ---------------------------------------------------------------------------
@@ -490,6 +662,9 @@ function sanitise(input, options = {}) {
     throw usageError('the output path must differ from the input path');
   if (fs.existsSync(out) && !options.force)
     throw usageError(`${out} already exists; pass --force to overwrite it`);
+  const prefix = options.prefix ? planPrefix(input, options.prefix) : null;
+  const prefixCounts = { data: 0, leftover: 0 };
+  const dropped = new Set();
 
   const beforeHash = crypto.createHash('sha256');
   const summary = newSummary(input);
@@ -515,6 +690,12 @@ function sanitise(input, options = {}) {
       const kind = kindOf(statement.text);
       const h = head(statement.text);
 
+      if (kind !== 'comment' && isSqliteDialect(statement.text)) {
+        throw new Error(
+          `line ${statement.line} is SQLite syntax (${h.split(/\s+/, 1)[0]} ...), not MySQL. Studio's importer only accepts MySQL dumps and translates them itself; sanitise the original MySQL export instead. No output written`
+        );
+      }
+
       const subject = kind === 'comment' ? statement.text : h;
       const removal = REMOVAL_RULES.find((r) => r.test.test(subject));
       if (removal) {
@@ -527,6 +708,11 @@ function sanitise(input, options = {}) {
       findings.push(...riskFindings(statement, kind, 'warn'));
       let text = statement.text;
 
+      const drop = h.match(/^DROP\s+TABLE\s+(?:IF\s+EXISTS\s+)?([^;]+)/i);
+      if (drop) {
+        for (const name of drop[1].split(',')) dropped.add(unquoteIdentifier(name.trim()));
+      }
+
       if (kind === 'create-table') {
         const parsed = parseCreateTable(text);
         summary.createTables += 1;
@@ -534,6 +720,19 @@ function sanitise(input, options = {}) {
         if (parsed) {
           tables.set(parsed.table, parsed);
           summary.tables.push(parsed.table);
+          const fixed = fixBinaryDefaults(text, statement.line, parsed.table);
+          text = fixed.text;
+          edits.push(...fixed.edits);
+          if (!dropped.has(parsed.table)) {
+            text = `DROP TABLE IF EXISTS \`${parsed.table.replace(/`/g, '``')}\`;\n${text}`;
+            edits.push({
+              rule: 'drop-table',
+              line: statement.line,
+              table: parsed.table,
+              count: 1,
+              reason: DROP_TABLE_REASON,
+            });
+          }
         }
       } else if (kind === 'insert') {
         summary.inserts += 1;
@@ -575,6 +774,12 @@ function sanitise(input, options = {}) {
           }
         }
       }
+      if (prefix && prefix.renames.size) {
+        text =
+          kind === 'insert'
+            ? renameInsertPrefix(text, prefix, tables, prefixCounts)
+            : renameTableIdentifiers(text, prefix.renames);
+      }
       write(text);
     }
     fs.closeSync(fd);
@@ -601,6 +806,37 @@ function sanitise(input, options = {}) {
     throw new Error(`verification failed: ${verificationErrors.join('; ')}`);
   }
   fs.renameSync(partial, out);
+
+  if (prefix && prefix.renames.size) {
+    edits.push({
+      rule: 'prefix-tables',
+      line: null,
+      table: `${prefix.from}* → ${prefix.to}*`,
+      count: prefix.renames.size,
+      reason: PREFIX_TABLES_REASON,
+    });
+    if (prefixCounts.data) {
+      edits.push({
+        rule: 'prefix-data',
+        line: null,
+        table: `${prefix.to}options, ${prefix.to}usermeta`,
+        count: prefixCounts.data,
+        reason: PREFIX_DATA_REASON,
+      });
+    }
+    if (prefixCounts.leftover) {
+      findings.push({
+        check: 'prefix-in-data',
+        severity: 'info',
+        line: null,
+        table: null,
+        detail: `${prefixCounts.leftover} other occurrence(s) of ${prefix.from} remain inside row data (for example cached or serialised values); they were left unchanged.`,
+        fix: 'Usually harmless: WordPress and plugins rebuild these caches. Search the imported site if something still refers to the old prefix.',
+        autoFixable: false,
+      });
+    }
+    for (const url of siteUrls) url.table = prefix.renames.get(url.table) || url.table;
+  }
 
   const hasUsers = summary.tables.some((t) => /_users$/.test(t));
   findings.push(...postImportNotes(siteUrls, hasUsers));
@@ -653,11 +889,16 @@ function preflight(input, options = {}) {
   const siteUrls = [];
   const localUrls = new Map();
   let dropTables = 0;
+  let sqliteDialect = null;
 
   for (const statement of readStatements(readLines(input))) {
     summary.lines += countLines(statement.text);
     const kind = kindOf(statement.text);
     const h = head(statement.text);
+    if (kind !== 'comment' && isSqliteDialect(statement.text)) {
+      sqliteDialect = sqliteDialect || { line: statement.line, count: 0 };
+      sqliteDialect.count += 1;
+    }
     findings.push(...riskFindings(statement, kind, 'fail').map(promoteSeverity));
     if (/^DROP\s+TABLE\b/i.test(h)) dropTables += 1;
 
@@ -731,6 +972,17 @@ function preflight(input, options = {}) {
     }
   }
 
+  if (sqliteDialect) {
+    findings.push({
+      check: 'sqlite-dialect',
+      severity: 'fail',
+      line: sqliteDialect.line,
+      table: null,
+      detail: `${sqliteDialect.count} statement(s) use SQLite's own syntax (PRAGMA, AUTOINCREMENT, INSERT OR ..., sqlite_ tables); MySQL cannot run them.`,
+      fix: 'Export from Studio in MySQL format (studio export --mode db, or Studio phpMyAdmin) instead of a sqlite3 dump.',
+      autoFixable: false,
+    });
+  }
   if (dropTables) {
     findings.push({
       check: 'drop-table',
@@ -919,13 +1171,13 @@ function toMarkdown(result) {
     parts.push(
       result.edits.length
         ? table(
-            ['#', 'Rule', 'Line', 'Table', 'Literals', 'Why'],
+            ['#', 'Rule', 'Line', 'Table', 'Count', 'Why'],
             result.edits.map((e, i) => [
               i + 1,
               e.rule,
-              e.line,
+              e.line ?? '',
               e.table || '',
-              e.rule === 'binary-literal' ? e.count : '',
+              /^(binary|prefix)-/.test(e.rule) ? e.count : '',
               e.reason,
             ])
           )
@@ -975,6 +1227,7 @@ const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls> <input.sql> [optio
   --force           sanitise: overwrite an existing output file (never the input)
   --target <name>   preflight: ${TARGETS.join(' | ')}
   --prefix <prefix> preflight: the target site's table prefix
+                    sanitise: rename the export's tables to this prefix
   --json            print the result as JSON
 `;
 
@@ -1007,7 +1260,7 @@ function run(argv) {
     args = parseArgs(argv);
     const result =
       args.command === 'sanitise'
-        ? sanitise(args.input, { out: args.out, force: args.force })
+        ? sanitise(args.input, { out: args.out, force: args.force, prefix: args.prefix })
         : args.command === 'preflight'
           ? preflight(args.input, { target: args.target, prefix: args.prefix })
           : siteUrlsCommand(args.input);

@@ -9,9 +9,14 @@ Make a MySQL export of a WordPress database importable into a WordPress Studio
 local site (SQLite through the SQLite Database Integration plugin). This skill
 writes a cleaned copy beside the original and reports every change.
 
-It packages the fix for a real failed import on 2026-10-13: Studio rejected a
-GTID replication statement, then raw `_binary` literals in WP All Import's
-`wp_pmxi_hash` table. After these edits the import succeeded.
+It packages the fixes for real failed imports:
+
+- **2026-10-13**: Studio rejected a GTID replication statement, then raw
+  `_binary` literals in WP All Import's `wp_pmxi_hash` table.
+- **2026-10-14**: a phpMyAdmin export from MariaDB 13 failed on
+  ``DEFAULT x AS `0000...` `` in ten Wordfence tables. A hand-made native
+  SQLite conversion of the same dump then failed on its first line,
+  `PRAGMA foreign_keys=OFF`.
 
 ## When to use this skill
 
@@ -22,6 +27,14 @@ GTID replication statement, then raw `_binary` literals in WP All Import's
 
 ## Rules
 
+- **The output must stay MySQL syntax.** Studio's importer (and the
+  phpMyAdmin bundled with Studio) send every statement through the SQLite
+  Database Integration plugin, which parses MySQL and translates it to SQLite
+  itself. Never convert a dump to SQLite's own dialect (`PRAGMA`,
+  `AUTOINCREMENT`, `BEGIN TRANSACTION`, `INSERT OR ...`, `replace(...,char(13))`,
+  a `sqlite3 .dump`), and never write a custom converter: it fails with
+  `Could not execute statement: PRAGMA ...`. The `-sqlite.sql` output name
+  means "ready for Studio", not "SQLite syntax".
 - **Never modify the original file.** Write the cleaned copy beside it as
   `<name>-sqlite.sql`.
 - Change only statements SQLite or the Studio importer cannot run. Everything
@@ -50,6 +63,15 @@ In a clone of `lightspeedwp/.github` (Node.js 20+), run:
 node agents/wp-db-migration-agent/lib/sql-tool.cjs sanitise <path/to/export.sql>
 ```
 
+To also change the table prefix (for example to match the Studio site's
+`$table_prefix = 'wp_'`), add `--prefix wp_`. It renames every table and the
+keys WordPress looks up by prefix (`<prefix>user_roles` in options and
+`<prefix>*` keys in usermeta, such as `<prefix>capabilities`). It refuses an
+export with more than one WordPress prefix (multisite) or a rename that would
+collide with an existing table. Do the site URL afterwards on the imported
+site with the [`wp-url-replacement`](../wp-url-replacement/SKILL.md) skill,
+never by editing the dump.
+
 The tool applies the known fixes, verifies the result, and prints the edit
 table, findings and site URLs. Exit code `0` means done, `1` means there are
 findings to review (the output is still written), and `2` means an error (no
@@ -75,10 +97,26 @@ verify (step 4).
    value's length matches its column (for example `binary(16)` → 16 bytes) and
    that primary-key values stay unique. If any length disagrees, stop and write
    nothing: a wrong decode corrupts data silently.
+4. **Rewrite MariaDB's broken binary defaults.** MariaDB 11+ dumps a binary
+   column's default as ``DEFAULT x AS `<hex>` ``, which no parser accepts
+   (Studio, MySQL or MariaDB). Rewrite it as `DEFAULT X'<hex>'`, checking the
+   byte count matches `binary(N)`. Seen on Wordfence tables (`wfblocks7`,
+   `wfcrawlers`, `wffilemods`, `wflocs` and others).
+
+5. **Add `DROP TABLE IF EXISTS` before each `CREATE TABLE` that has none.**
+   phpMyAdmin exports often leave it out. Every Studio site already has
+   WordPress's own tables, so without it the import stops at the first clash
+   (for example `Could not execute statement: CREATE TABLE wp_commentmeta`).
+   mysqldump adds these by default.
+
+The tool refuses (exit 2, nothing written) a file that is already in SQLite's
+own dialect. Go back to the original MySQL export and sanitise that.
 
 Leave these alone; the importer handles them: the `/*!40101 SET ... */` header
 and footer lines, `LOCK TABLES`, `DISABLE KEYS`, `ENGINE=InnoDB`, character
-set and collation clauses, and `ON UPDATE CURRENT_TIMESTAMP`.
+set and collation clauses (including MariaDB-only ones such as
+`utf8mb4_general1400_as_ci`), `ALTER TABLE ... ADD PRIMARY KEY` / `MODIFY ...
+AUTO_INCREMENT` blocks from phpMyAdmin, and `ON UPDATE CURRENT_TIMESTAMP`.
 
 ### 4. Scan and verify
 
@@ -93,7 +131,8 @@ Then verify and report:
   showing only the intended lines changed;
 - the count of `CREATE TABLE` and `INSERT INTO` statements in both files (they
   must match);
-- zero remaining matches for `GTID`, `SQL_LOG_BIN`, `@@GLOBAL` and `_binary`;
+- zero remaining matches for `GTID`, `SQL_LOG_BIN`, `@@GLOBAL`, `_binary` and
+  `DEFAULT x AS`;
 - the original file's checksum is unchanged (`shasum -a 256` before and after).
 
 ### 5. Report
@@ -118,7 +157,12 @@ Then tell the user:
 
 ### 6. If the import still fails
 
-Ask the user for the Studio error log (`~/Library/Logs/Studio/`). Find the
+Ask the user for the Studio error log (`~/Library/Logs/Studio/`). Check the
+`[CLI - <id>]` on the error line and the theme path logged beside it to confirm
+the import went to the intended site. If the
+statement it names is `PRAGMA`, `BEGIN TRANSACTION` or similar SQLite syntax,
+the file was converted to the wrong dialect: sanitise the original MySQL export
+instead of patching the converted file. Find the
 `Could not execute statement:` line, identify the statement it names, explain
 why SQLite rejects it, and propose a targeted fix. Apply it only after the user
 agrees, verify again (step 4), and add it to the edit table. If the fix is

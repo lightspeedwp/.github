@@ -1,0 +1,196 @@
+/**
+ * Unit tests for the 2026-10-14 sanitiser fixes: MariaDB's invalid binary
+ * defaults, refusing files already converted to SQLite's own dialect, and the
+ * --prefix table rename. Synthetic dumps only; no real data.
+ */
+
+const fs = require('node:fs');
+const path = require('node:path');
+
+const { sanitise, preflight, run } = require('../../lib/sql-tool.cjs');
+const { FIXTURES, writeTemp } = require('./helpers.cjs');
+
+/** A phpMyAdmin-on-MariaDB style dump: keys added by ALTER TABLE at the end. */
+function buildMariaDbDump({ defaultBytes = 16, extra = [] } = {}) {
+  return [
+    '-- phpMyAdmin SQL Dump',
+    '-- Table structure for table `pfx_options`',
+    'CREATE TABLE `pfx_options` (',
+    '  `option_id` bigint(20) UNSIGNED NOT NULL,',
+    "  `option_name` varchar(191) NOT NULL DEFAULT '',",
+    '  `option_value` longtext NOT NULL,',
+    "  `autoload` varchar(20) NOT NULL DEFAULT 'yes'",
+    ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general1400_as_ci;',
+    'INSERT INTO `pfx_options` (`option_id`, `option_name`, `option_value`, `autoload`) VALUES',
+    "(1, 'siteurl', 'https://www.example.com', 'yes'),",
+    "(2, 'pfx_user_roles', 'a:0:{}', 'yes'),",
+    "(3, 'blogdescription', 'mentions pfx_posts in text', 'no');",
+    'CREATE TABLE `pfx_posts` (',
+    '  `ID` bigint(20) UNSIGNED NOT NULL',
+    ') ENGINE=InnoDB;',
+    'CREATE TABLE `pfx_usermeta` (',
+    '  `umeta_id` bigint(20) UNSIGNED NOT NULL,',
+    '  `user_id` bigint(20) UNSIGNED NOT NULL DEFAULT 0,',
+    '  `meta_key` varchar(255) DEFAULT NULL,',
+    '  `meta_value` longtext DEFAULT NULL',
+    ') ENGINE=InnoDB;',
+    'INSERT INTO `pfx_usermeta` (`umeta_id`, `user_id`, `meta_key`, `meta_value`) VALUES',
+    "(1, 1, 'pfx_capabilities', 'a:0:{}'),",
+    "(2, 1, 'nickname', 'pfx_admin');",
+    'CREATE TABLE `pfx_wpb2d_options` (',
+    '  `name` varchar(50) NOT NULL',
+    ') ENGINE=InnoDB;',
+    'CREATE TABLE `pfx_wfblocks7` (',
+    `  \`IP\` binary(16) NOT NULL DEFAULT x AS \`${'00'.repeat(defaultBytes)}\`,`,
+    '  `type` int(10) UNSIGNED NOT NULL DEFAULT 0',
+    ') ENGINE=InnoDB;',
+    ...extra,
+    'ALTER TABLE `pfx_options`',
+    '  ADD PRIMARY KEY (`option_id`),',
+    '  ADD UNIQUE KEY `option_name` (`option_name`);',
+    '',
+  ].join('\n');
+}
+
+describe('sanitise: MariaDB binary defaults', () => {
+  const input = writeTemp(buildMariaDbDump());
+  const result = sanitise(input);
+  const output = fs.readFileSync(result.output.path, 'latin1');
+
+  it('rewrites DEFAULT x AS `<hex>` as a hex literal of the same bytes', () => {
+    expect(output).not.toMatch(/DEFAULT x AS/);
+    expect(output).toContain(`\`IP\` binary(16) NOT NULL DEFAULT X'${'00'.repeat(16)}',`);
+    expect(result.edits.filter((e) => e.rule === 'binary-default')).toEqual([
+      expect.objectContaining({ line: 29, table: 'pfx_wfblocks7' }),
+    ]);
+  });
+
+  it('leaves every other line unchanged', () => {
+    const expected = buildMariaDbDump()
+      .replace(/DEFAULT x AS `([0-9a-f]+)`/, "DEFAULT X'$1'")
+      .replace(/^CREATE TABLE (`[^`]+`)/gm, 'DROP TABLE IF EXISTS $1;\nCREATE TABLE $1');
+    expect(output).toBe(expected);
+  });
+
+  it('adds DROP TABLE IF EXISTS before each CREATE TABLE that has none', () => {
+    expect(result.edits.filter((e) => e.rule === 'drop-table').map((e) => e.table)).toEqual([
+      'pfx_options',
+      'pfx_posts',
+      'pfx_usermeta',
+      'pfx_wpb2d_options',
+      'pfx_wfblocks7',
+    ]);
+  });
+
+  it('does not add a second DROP TABLE when the export already has one', () => {
+    const file = writeTemp(
+      'DROP TABLE IF EXISTS `wp_x`;\nCREATE TABLE `wp_x` (\n  `id` int\n) ENGINE=InnoDB;\n'
+    );
+    const dropped = sanitise(file);
+    expect(dropped.edits).toEqual([]);
+    expect(fs.readFileSync(dropped.output.path, 'latin1').match(/DROP TABLE/g)).toHaveLength(1);
+  });
+
+  it('refuses a default whose length disagrees with binary(N), writing nothing', () => {
+    const bad = writeTemp(buildMariaDbDump({ defaultBytes: 15 }));
+    expect(() => sanitise(bad)).toThrow(/is 15 bytes but the column is binary\(16\)/);
+    expect(fs.readdirSync(path.dirname(bad))).toEqual(['dump.sql']);
+  });
+});
+
+describe('sanitise: files already in SQLite dialect', () => {
+  it('refuses a native SQLite dump with an explanation, writing nothing', () => {
+    const file = writeTemp(
+      [
+        '-- converted by hand',
+        'PRAGMA foreign_keys=OFF;',
+        'CREATE TABLE "wp_options" ("option_id" INTEGER PRIMARY KEY AUTOINCREMENT);',
+        '',
+      ].join('\n')
+    );
+    expect(() => sanitise(file)).toThrow(
+      /line 2 is SQLite syntax \(PRAGMA \.\.\.\).*only accepts MySQL dumps/
+    );
+    expect(fs.readdirSync(path.dirname(file))).toEqual(['dump.sql']);
+  });
+
+  it('is flagged as a failure by preflight', () => {
+    const file = writeTemp('BEGIN TRANSACTION;\nINSERT OR IGNORE INTO "t" VALUES (1);\nCOMMIT;\n');
+    expect(preflight(file).findings).toContainEqual(
+      expect.objectContaining({ check: 'sqlite-dialect', severity: 'fail', line: 1 })
+    );
+  });
+
+  it('does not mistake MySQL AUTO_INCREMENT for SQLite AUTOINCREMENT', () => {
+    const file = writeTemp(
+      'CREATE TABLE `wp_x` (\n  `id` int NOT NULL AUTO_INCREMENT\n) ENGINE=InnoDB;\n'
+    );
+    expect(() => sanitise(file)).not.toThrow();
+  });
+});
+
+describe('sanitise --prefix', () => {
+  const input = writeTemp(buildMariaDbDump());
+  const result = sanitise(input, { prefix: 'wp_' });
+  const output = fs.readFileSync(result.output.path, 'latin1');
+
+  it('renames every table in CREATE, INSERT, ALTER and comment lines', () => {
+    expect(output).not.toMatch(/`pfx_/);
+    for (const table of ['options', 'posts', 'usermeta', 'wpb2d_options', 'wfblocks7']) {
+      expect(output).toContain(`CREATE TABLE \`wp_${table}\``);
+    }
+    expect(output).toContain('INSERT INTO `wp_options` (`option_id`');
+    expect(output).toContain('ALTER TABLE `wp_options`');
+    expect(output).toContain('-- Table structure for table `wp_options`');
+  });
+
+  it('renames the prefixed keys WordPress looks up, and nothing else in the data', () => {
+    expect(output).toContain("(2, 'wp_user_roles', 'a:0:{}', 'yes'),");
+    expect(output).toContain("(1, 1, 'wp_capabilities', 'a:0:{}'),");
+    expect(output).toContain("'mentions pfx_posts in text'");
+    expect(output).toContain("(2, 1, 'nickname', 'pfx_admin');");
+  });
+
+  it('reports the renames and the prefix left inside data', () => {
+    expect(result.edits).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ rule: 'prefix-tables', count: 5 }),
+        expect.objectContaining({ rule: 'prefix-data', count: 2 }),
+      ])
+    );
+    expect(result.findings).toContainEqual(
+      expect.objectContaining({ check: 'prefix-in-data', severity: 'info' })
+    );
+    expect(result.siteUrls).toEqual([
+      expect.objectContaining({ table: 'wp_options', option: 'siteurl' }),
+    ]);
+  });
+
+  it('keeps CREATE TABLE and INSERT counts equal', () => {
+    expect(result.output).toMatchObject({ createTables: 5, inserts: 2 });
+  });
+
+  it('refuses an export with more than one WordPress prefix', () => {
+    const file = path.join(FIXTURES, 'multisite-prefix.sql');
+    const out = writeTemp('', 'out.sql');
+    fs.rmSync(out);
+    expect(() => sanitise(file, { out, prefix: 'wp_' })).toThrow(/found wp123_, wp123_2_/);
+  });
+
+  it('refuses a rename that would collide with an existing table', () => {
+    const file = writeTemp(
+      buildMariaDbDump({ extra: ['CREATE TABLE `wp_posts` (', '  `ID` int', ') ENGINE=InnoDB;'] })
+    );
+    expect(() => sanitise(file, { prefix: 'wp_' })).toThrow(
+      /collide with the existing table wp_posts/
+    );
+  });
+
+  it('accepts --prefix from the CLI and rejects unsafe prefixes', () => {
+    const file = writeTemp(buildMariaDbDump());
+    expect(run(['sanitise', file, '--prefix', 'wp_', '--json']).code).toBe(0);
+    expect(run(['sanitise', file, '--prefix', 'wp`;', '--force']).stderr).toMatch(
+      /only letters, digits and underscores/
+    );
+  });
+});

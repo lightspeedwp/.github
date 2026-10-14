@@ -6,6 +6,19 @@ file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-10-14
+
+### Added
+
+- `sql-tool sanitise --prefix <prefix>` renames an export's tables, plus the `<prefix>user_roles` option and `<prefix>*` usermeta keys, to match the Studio site's table prefix.
+
+### Fixed
+
+- Sanitiser rewrites MariaDB 11+ binary defaults written as ``DEFAULT x AS `<hex>` `` (Wordfence tables), which made Studio imports fail on `CREATE TABLE`.
+- Sanitiser adds `DROP TABLE IF EXISTS` before any `CREATE TABLE` without one, so phpMyAdmin exports import into Studio sites that already have the same tables (`Could not execute statement: CREATE TABLE wp_commentmeta`).
+- Sanitiser refuses files already converted to SQLite's own dialect, and pre-flight fails them, because Studio's importer only accepts MySQL syntax (`Could not execute statement: PRAGMA foreign_keys=OFF`).
+- The sanitiser skill and agent now forbid hand-made native SQLite conversions for Studio.
+
 ## [1.0.0] - 2026-10-13
 
 ### Added
