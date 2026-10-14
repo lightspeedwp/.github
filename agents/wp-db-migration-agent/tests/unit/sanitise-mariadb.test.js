@@ -285,3 +285,58 @@ describe('Studio site table prefix', () => {
     );
   });
 });
+
+describe('sanitise --keep-users', () => {
+  const users = [
+    'CREATE TABLE `pfx_users` (',
+    '  `ID` bigint(20) UNSIGNED NOT NULL,',
+    "  `user_login` varchar(60) NOT NULL DEFAULT ''",
+    ') ENGINE=InnoDB;',
+    "INSERT INTO `pfx_users` (`ID`, `user_login`) VALUES (1, 'source-admin');",
+  ];
+  const studioSite = (prefix) => {
+    const dir = tempDir();
+    fs.writeFileSync(path.join(dir, 'wp-config.php'), `<?php\n$table_prefix = '${prefix}';\n`);
+    return dir;
+  };
+
+  it("leaves out the export's users and usermeta tables", () => {
+    const file = writeTemp(buildMariaDbDump({ extra: users }));
+    const result = sanitise(file, { keepUsers: true });
+    const output = fs.readFileSync(result.output.path, 'latin1');
+    expect(output).not.toMatch(/pfx_users|pfx_usermeta|source-admin/);
+    expect(result.edits.filter((e) => e.rule === 'exclude-users').map((e) => e.table)).toEqual([
+      'pfx_usermeta',
+      'pfx_users',
+    ]);
+    const checks = result.findings.map((f) => f.check);
+    expect(checks).toEqual(expect.arrayContaining(['users-kept', 'users-kept-prefix']));
+    expect(checks).not.toContain('users-replaced');
+  });
+
+  it("refuses when the tables would not use the Studio site's prefix", () => {
+    const file = writeTemp(buildMariaDbDump({ extra: users }));
+    expect(() => sanitise(file, { keepUsers: true, studioSite: studioSite('wp_') })).toThrow(
+      /--keep-users needs .* prefix \(wp_\).*add --prefix wp_/
+    );
+    expect(fs.readdirSync(path.dirname(file))).toEqual(['dump.sql']);
+  });
+
+  it('is satisfied when --prefix matches the Studio site', () => {
+    const file = writeTemp(buildMariaDbDump({ extra: users }));
+    const { code, stdout } = run([
+      'sanitise',
+      file,
+      '--keep-users',
+      '--prefix',
+      'wp_',
+      '--studio-site',
+      studioSite('wp_'),
+      '--json',
+    ]);
+    expect(code).toBe(0);
+    const checks = JSON.parse(stdout).findings.map((f) => f.check);
+    expect(checks).toContain('users-kept');
+    expect(checks).not.toContain('users-kept-prefix');
+  });
+});

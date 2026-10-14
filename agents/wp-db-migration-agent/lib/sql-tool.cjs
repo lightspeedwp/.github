@@ -92,6 +92,9 @@ const WORDFENCE_REASON =
 const STATEMENT_TABLE =
   /^(?:\/\*!\d+\s*)?(?:CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?|(?:INSERT|REPLACE)\s+(?:IGNORE\s+)?INTO|ALTER\s+TABLE|DROP\s+TABLE(?:\s+IF\s+EXISTS)?|LOCK\s+TABLES|TRUNCATE(?:\s+TABLE)?)\s+(`(?:[^`]|``)+`|[^\s(;,]+)/i;
 
+const USERS_REASON =
+  "Kept the Studio site's own accounts: the export's users and usermeta tables were left out.";
+
 const PREFIX_TABLES_REASON =
   'Renamed to the requested table prefix (CREATE, INSERT, ALTER, DROP and LOCK statements).';
 const PREFIX_DATA_REASON =
@@ -517,6 +520,14 @@ function planExclusions(tables, options = {}) {
       }
     }
   }
+  if (options.keepUsers) {
+    for (const prefix of prefixes) {
+      for (const name of [`${prefix}users`, `${prefix}usermeta`]) {
+        if (tables.includes(name))
+          excluded.set(name, { rule: 'exclude-users', reason: USERS_REASON });
+      }
+    }
+  }
   return excluded;
 }
 
@@ -749,6 +760,14 @@ function sanitise(input, options = {}) {
     throw usageError(`${out} already exists; pass --force to overwrite it`);
   const prefix = options.prefix ? planPrefix(input, options.prefix) : null;
   const studioPrefix = options.studioSite ? readStudioPrefix(options.studioSite) : null;
+  if (options.keepUsers && studioPrefix) {
+    const outputPrefix = prefix ? prefix.to : detectPrefixes(scanTables(input))[0];
+    if (outputPrefix !== studioPrefix) {
+      throw usageError(
+        `--keep-users needs the imported tables to use the Studio site's prefix (${studioPrefix}), because its accounts' roles are stored under that prefix; add --prefix ${studioPrefix}`
+      );
+    }
+  }
   const excluded = planExclusions(scanTables(input), options);
   const excludedCounts = new Map();
   const left = { createTables: 0, inserts: 0 };
@@ -962,10 +981,42 @@ function sanitise(input, options = {}) {
 
   if (studioPrefix) summary.studioPrefix = studioPrefix;
   findings.push(...prefixFindings(summary, studioPrefix, prefix && prefix.to));
-  const hasUsers = summary.tables.some((t) => /_users$/.test(t));
+  const hasUsers = summary.tables.some((t) => /_users$/.test(t) && !excluded.has(t));
   findings.push(...postImportNotes(siteUrls, hasUsers));
+  if ([...excludedCounts.keys()].some((t) => excluded.get(t).rule === 'exclude-users')) {
+    findings.push(...keepUsersNotes(studioPrefix));
+  }
 
   return envelope('sanitise', summary, outSummary, edits, findings, siteUrls);
+}
+
+/** What the user should know after importing without the export's accounts. */
+function keepUsersNotes(studioPrefix) {
+  const notes = [
+    {
+      check: 'users-kept',
+      severity: 'info',
+      line: null,
+      table: null,
+      detail:
+        "The Studio site keeps its own accounts. Posts and comments keep the source site's author IDs, which may belong to a different local user or to none.",
+      fix: 'Log in with your local account. Reassign authors after import if it matters (studio wp post list --field=post_author).',
+      autoFixable: false,
+    },
+  ];
+  if (!studioPrefix) {
+    notes.push({
+      check: 'users-kept-prefix',
+      severity: 'warn',
+      line: null,
+      table: null,
+      detail:
+        "Local accounts' roles are stored under the Studio site's table prefix, which was not checked.",
+      fix: 'Re-run with --studio-site ~/Studio/<site> so the tool confirms the prefixes match.',
+      autoFixable: false,
+    });
+  }
+  return notes;
 }
 
 function postImportNotes(siteUrls, hasUsers) {
@@ -1363,6 +1414,8 @@ const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls> <input.sql> [optio
   --prefix <prefix> preflight: the target site's table prefix
                     sanitise: rename the export's tables to this prefix
   --keep-wordfence  sanitise: import Wordfence's tables (left out by default)
+  --keep-users      sanitise: leave out the export's users and usermeta tables,
+                    so the Studio site keeps its own accounts
   --studio-site <path>
                     sanitise, site-urls: the Studio site folder; compares its
                     $table_prefix with the export's
@@ -1376,6 +1429,7 @@ function parseArgs(argv) {
     if (arg === '--json') args.json = true;
     else if (arg === '--force') args.force = true;
     else if (arg === '--keep-wordfence') args.keepWordfence = true;
+    else if (arg === '--keep-users') args.keepUsers = true;
     else if (['--out', '--target', '--prefix', '--studio-site'].includes(arg)) {
       if (argv[i + 1] === undefined) throw usageError(`${arg} needs a value`);
       args[arg.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = argv[++i];
@@ -1404,6 +1458,7 @@ function run(argv) {
             force: args.force,
             prefix: args.prefix,
             keepWordfence: args.keepWordfence,
+            keepUsers: args.keepUsers,
             studioSite: args.studioSite,
           })
         : args.command === 'preflight'

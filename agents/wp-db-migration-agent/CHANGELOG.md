@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `--studio-site <path>` on `sanitise` and `site-urls` reads the Studio site's `$table_prefix` and warns when it differs from the export's; the agent now asks the user which prefix to use before sanitising. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
+- `sql-tool sanitise --keep-users` leaves out the export's users and usermeta tables so the Studio site keeps its own accounts; the agent asks whether to keep them. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
+
 ### Fixed
 
 - Reports no longer count plugin tables such as `<prefix>wpb2d_options` as a second WordPress table prefix. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))

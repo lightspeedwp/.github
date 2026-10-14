@@ -74,6 +74,18 @@ prefix>` (recommended), keep `<export prefix>` and change `$table_prefix`
    in the site's `wp-config.php`, or another prefix?" If they already match,
    say so and ask only if the user wants a different prefix. Never guess: an
    import under the wrong prefix leaves WordPress unable to see the data.
+2. **Local user accounts.** Ask: "Keep the Studio site's own user accounts
+   (`--keep-users`), or replace them with the live site's accounts (the
+   default)?" Explain the trade-off:
+   - Keeping them means you log in as before. Posts and comments keep the
+     live site's author IDs, which may match a different local user or none.
+   - Replacing them brings the live site's accounts and author links, and you
+     log in with a live-site account.
+
+   `--keep-users` only works when the imported tables end up with the Studio
+   site's prefix, because local roles are stored under it
+   (`<prefix>capabilities`). With `--studio-site`, the tool refuses a
+   mismatch; add `--prefix <site prefix>`.
 
 ### 2. Run the sanitiser
 
