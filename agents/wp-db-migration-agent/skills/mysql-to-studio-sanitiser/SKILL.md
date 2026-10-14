@@ -60,10 +60,13 @@ It packages the fixes for real failed imports:
 
   ```bash
   node agents/wp-db-migration-agent/lib/sql-tool.cjs site-urls <export.sql> --studio-site ~/Studio/<site>
+  node agents/wp-db-migration-agent/lib/sql-tool.cjs tables <export.sql>
   ```
 
-  The report shows the export's WordPress table prefix next to the site's
-  `$table_prefix`, plus `siteurl` and `home`.
+  `site-urls` shows the export's WordPress table prefix next to the site's
+  `$table_prefix`, plus `siteurl` and `home`. `tables` lists every table with
+  its rows, size and group (WordPress core, accounts, Wordfence, plugin or
+  other).
 
 Then ask these questions **before** running the sanitiser, one message with
 the facts you found, and wait for the answers:
@@ -86,6 +89,16 @@ prefix>` (recommended), keep `<export prefix>` and change `$table_prefix`
    site's prefix, because local roles are stored under it
    (`<prefix>capabilities`). With `--studio-site`, the tool refuses a
    mismatch; add `--prefix <site prefix>`.
+
+3. **Other tables to leave out.** Tell the user that Wordfence's tables are
+   left out by default (name them and their size from `tables`). Then ask:
+   "Are there any other tables to leave out?" Suggest likely candidates from
+   the `tables` output without deciding for them: large log, statistics or
+   cache tables (for example `bad_behavior`), tables of plugins that are
+   gone or won't run locally, and backup-plugin tables. Never suggest WordPress
+   core tables. Pass each answer as `--exclude <name>`; names may omit the
+   prefix and use `*` and `?` (for example `--exclude 'gf_*'`). Quote
+   patterns with wildcards so the shell leaves them alone.
 
 ### 2. Run the sanitiser
 

@@ -61,8 +61,10 @@ A full move chains them:
   checklist.
 
 Before sanitising an export for Studio, the agent asks the questions in the
-sanitiser skill's step 1 (table prefix first) and waits for the answers. It
-never picks a prefix on the user's behalf.
+sanitiser skill's step 1 and waits for the answers: the table prefix,
+whether to keep the site's own user accounts, and which tables to leave out
+besides Wordfence's (left out by default). It never answers them on the
+user's behalf.
 
 When the direction is unclear, ask: "Is this database going into Studio, or
 coming out of Studio to a staging or live site?"
@@ -83,7 +85,7 @@ Limitations:
 
 | Tool                                                                | Use                                                                           | Writes                                    |
 | ------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------- |
-| `node agents/wp-db-migration-agent/lib/sql-tool.cjs`                | `sanitise` (optionally `--prefix`), `preflight`, `site-urls` on export files  | New files beside the input only           |
+| `node agents/wp-db-migration-agent/lib/sql-tool.cjs`                | `sanitise`, `preflight`, `site-urls`, `tables` on export files                | New files beside the input only           |
 | `studio wp --path ~/Studio/<site> ...` (WP-CLI bundled with Studio) | `option get`, `search-replace` (dry run, in place, `--export`), `cache flush` | The local Studio site, after confirmation |
 | `studio import`, `studio export --mode db`                          | Import into or export from a local Studio site                                | The local Studio site, after confirmation |
 | Byte-safe shell tools (`LC_ALL=C grep/diff`, `shasum`, `gunzip -k`) | Verification and decompression                                                | New files only                            |

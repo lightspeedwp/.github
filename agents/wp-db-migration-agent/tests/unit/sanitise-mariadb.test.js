@@ -7,7 +7,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const { sanitise, preflight, siteUrls, run } = require('../../lib/sql-tool.cjs');
+const { sanitise, preflight, siteUrls, tables, run } = require('../../lib/sql-tool.cjs');
 const { FIXTURES, tempDir, writeTemp } = require('./helpers.cjs');
 
 /** A phpMyAdmin-on-MariaDB style dump: keys added by ALTER TABLE at the end. */
@@ -338,5 +338,86 @@ describe('sanitise --keep-users', () => {
     const checks = JSON.parse(stdout).findings.map((f) => f.check);
     expect(checks).toContain('users-kept');
     expect(checks).not.toContain('users-kept-prefix');
+  });
+});
+
+describe('sanitise --exclude', () => {
+  const logs = [
+    'CREATE TABLE `pfx_bad_behavior` (',
+    '  `id` int NOT NULL',
+    ') ENGINE=InnoDB;',
+    'INSERT INTO `pfx_bad_behavior` (`id`) VALUES (1),(2),(3);',
+    'CREATE TABLE `pfx_gf_entry` (',
+    '  `id` int NOT NULL',
+    ') ENGINE=InnoDB;',
+    'CREATE TABLE `pfx_gf_entry_meta` (',
+    '  `id` int NOT NULL',
+    ') ENGINE=InnoDB;',
+  ];
+
+  it('leaves out tables matching each pattern, with or without the prefix', () => {
+    const file = writeTemp(buildMariaDbDump({ extra: logs }));
+    const result = sanitise(file, { exclude: ['bad_behavior', 'pfx_gf_*'] });
+    const output = fs.readFileSync(result.output.path, 'latin1');
+    expect(output).not.toMatch(/bad_behavior|gf_entry/);
+    expect(
+      result.edits.filter((e) => e.rule === 'exclude-table').map((e) => [e.table, e.count])
+    ).toEqual([
+      ['pfx_bad_behavior', 2],
+      ['pfx_gf_entry', 1],
+      ['pfx_gf_entry_meta', 1],
+    ]);
+    expect(result.status).toBe('ok');
+  });
+
+  it('warns about patterns that match nothing and about core tables', () => {
+    const file = writeTemp(buildMariaDbDump({ extra: logs }));
+    const result = sanitise(file, { exclude: ['nothing_here', 'posts'] });
+    expect(result.findings).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          check: 'exclude-unmatched',
+          detail: expect.stringContaining('nothing_here'),
+        }),
+        expect.objectContaining({ check: 'exclude-core', table: 'pfx_posts' }),
+      ])
+    );
+  });
+
+  it('takes repeated and comma-separated patterns from the CLI and rejects unsafe ones', () => {
+    const file = writeTemp(buildMariaDbDump({ extra: logs }));
+    const { code, stdout } = run([
+      'sanitise',
+      file,
+      '--exclude',
+      'bad_behavior,gf_entry',
+      '--exclude',
+      'gf_entry_meta',
+      '--json',
+    ]);
+    expect(code).toBe(0);
+    expect(JSON.parse(stdout).edits.filter((e) => e.rule === 'exclude-table')).toHaveLength(3);
+    expect(run(['sanitise', file, '--exclude', "x'; DROP", '--force']).stderr).toMatch(
+      /may contain only letters/
+    );
+  });
+});
+
+describe('tables', () => {
+  it('lists every table with rows, size and group', () => {
+    const file = writeTemp(buildMariaDbDump());
+    const result = tables(file);
+    const byName = Object.fromEntries(result.tableList.map((t) => [t.table, t]));
+    expect(byName.pfx_options).toMatchObject({ group: 'core', rows: 3 });
+    expect(byName.pfx_usermeta).toMatchObject({ group: 'users', rows: 2 });
+    expect(byName.pfx_wfblocks7).toMatchObject({ group: 'wordfence', rows: 0 });
+    expect(byName.pfx_wpb2d_options).toMatchObject({ group: 'plugin' });
+    expect(result.input.prefixes).toEqual(['pfx_']);
+  });
+
+  it('prints a Markdown table from the CLI', () => {
+    const { code, stdout } = run(['tables', writeTemp(buildMariaDbDump())]);
+    expect(code).toBe(0);
+    expect(stdout).toContain('| pfx_wfblocks7 | Wordfence: left out by default | 0 |');
   });
 });

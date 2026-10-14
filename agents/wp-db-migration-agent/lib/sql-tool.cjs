@@ -6,6 +6,7 @@
  *   sanitise  <input.sql>  Apply the known MySQL-to-Studio fixes, scan for risks.
  *   preflight <input.sql>  Check a Studio export before importing it into MySQL.
  *   site-urls <input.sql>  Report siteurl/home from every *_options table.
+ *   tables    <input.sql>  List tables with rows, size and group, to choose exclusions.
  *
  * Contract: .github/specs/020-wp-db-migration-agent/contracts/sql-tool-cli.md
  *
@@ -94,6 +95,24 @@ const STATEMENT_TABLE =
 
 const USERS_REASON =
   "Kept the Studio site's own accounts: the export's users and usermeta tables were left out.";
+
+const EXCLUDE_REASON = "Left out at the user's request (--exclude).";
+
+/** WordPress core tables (without prefix); excluding one usually breaks the site. */
+const CORE_TABLES = new Set([
+  'commentmeta',
+  'comments',
+  'links',
+  'options',
+  'postmeta',
+  'posts',
+  'term_relationships',
+  'term_taxonomy',
+  'termmeta',
+  'terms',
+  'usermeta',
+  'users',
+]);
 
 const PREFIX_TABLES_REASON =
   'Renamed to the requested table prefix (CREATE, INSERT, ALTER, DROP and LOCK statements).';
@@ -504,7 +523,7 @@ function statementTable(text) {
  * Decide which tables `sanitise` leaves out, each with the edit rule and reason
  * to report. Wordfence tables are left out unless `keepWordfence` is set.
  *
- * @returns {Map<string, {rule: string, reason: string}>}
+ * @returns {{excluded: Map<string, {rule: string, reason: string, core?: boolean}>, unmatched: string[]}}
  */
 function planExclusions(tables, options = {}) {
   const prefixes = detectPrefixes(tables);
@@ -520,6 +539,28 @@ function planExclusions(tables, options = {}) {
       }
     }
   }
+  const patterns = (options.exclude || []).map((pattern) => {
+    if (!/^[A-Za-z0-9_$*?-]+$/.test(pattern)) {
+      throw usageError(
+        `--exclude pattern "${pattern}" may contain only letters, digits, _ $ - and the wildcards * and ?`
+      );
+    }
+    const source = pattern.replace(/[$-]/g, '\\$&').replace(/\*/g, '.*').replace(/\?/g, '.');
+    return { pattern, regex: new RegExp(`^${source}$`, 'i'), matched: false };
+  });
+  for (const name of tables) {
+    if (excluded.has(name)) continue;
+    const hit = patterns.find((p) => p.regex.test(name) || p.regex.test(local(name)));
+    if (hit) {
+      hit.matched = true;
+      excluded.set(name, {
+        rule: 'exclude-table',
+        reason: EXCLUDE_REASON,
+        core: CORE_TABLES.has(local(name)),
+      });
+    }
+  }
+
   if (options.keepUsers) {
     for (const prefix of prefixes) {
       for (const name of [`${prefix}users`, `${prefix}usermeta`]) {
@@ -528,7 +569,7 @@ function planExclusions(tables, options = {}) {
       }
     }
   }
-  return excluded;
+  return { excluded, unmatched: patterns.filter((p) => !p.matched).map((p) => p.pattern) };
 }
 
 /**
@@ -768,7 +809,7 @@ function sanitise(input, options = {}) {
       );
     }
   }
-  const excluded = planExclusions(scanTables(input), options);
+  const { excluded, unmatched } = planExclusions(scanTables(input), options);
   const excludedCounts = new Map();
   const left = { createTables: 0, inserts: 0 };
   const prefixCounts = { data: 0, leftover: 0 };
@@ -983,6 +1024,29 @@ function sanitise(input, options = {}) {
   findings.push(...prefixFindings(summary, studioPrefix, prefix && prefix.to));
   const hasUsers = summary.tables.some((t) => /_users$/.test(t) && !excluded.has(t));
   findings.push(...postImportNotes(siteUrls, hasUsers));
+  for (const pattern of unmatched) {
+    findings.push({
+      check: 'exclude-unmatched',
+      severity: 'warn',
+      line: null,
+      table: null,
+      detail: `--exclude ${pattern} matched no table.`,
+      fix: 'Check the name with sql-tool tables; patterns match the full name or the name without the prefix.',
+      autoFixable: false,
+    });
+  }
+  const core = [...excluded].filter(([, e]) => e.core).map(([t]) => t);
+  if (core.length) {
+    findings.push({
+      check: 'exclude-core',
+      severity: 'warn',
+      line: null,
+      table: core.join(', '),
+      detail: 'WordPress core tables were left out; the Studio site keeps its own copies of them.',
+      fix: 'Confirm with the user that this is intended; content may not match the rest of the import.',
+      autoFixable: false,
+    });
+  }
   if ([...excludedCounts.keys()].some((t) => excluded.get(t).rule === 'exclude-users')) {
     findings.push(...keepUsersNotes(studioPrefix));
   }
@@ -1278,6 +1342,60 @@ function siteUrlsCommand(input, options = {}) {
   return envelope('site-urls', summary, null, [], findings, siteUrls);
 }
 
+/**
+ * List every table with its rows and size, and what it belongs to, so the
+ * user can choose tables to leave out (spec 020). Read-only.
+ *
+ * @param {string} input Path to the export.
+ */
+function tablesCommand(input) {
+  const summary = newSummary(input);
+  const rows = new Map();
+  for (const statement of readStatements(readLines(input))) {
+    summary.lines += countLines(statement.text);
+    const kind = kindOf(statement.text);
+    if (kind === 'create-table') {
+      summary.createTables += 1;
+      const parsed = parseCreateTable(statement.text);
+      if (parsed) {
+        summary.tables.push(parsed.table);
+        rows.set(parsed.table, { rows: 0, bytes: 0 });
+      }
+    } else if (kind === 'insert') {
+      summary.inserts += 1;
+      const target = statementTable(statement.text);
+      if (!rows.has(target)) rows.set(target, { rows: 0, bytes: 0 });
+      const entry = rows.get(target);
+      let tuples = 0;
+      walkInsertValues(statement.text, (v) => {
+        tuples = Math.max(tuples, v.tuple + 1);
+      });
+      entry.rows += tuples;
+      entry.bytes += statement.text.length;
+    }
+  }
+  finalisePrefixes(summary);
+  const prefixes = summary.prefixes;
+  const local = (name) => {
+    const prefix = prefixes.find((p) => name.startsWith(p));
+    return prefix ? name.slice(prefix.length) : name;
+  };
+  const tableList = [...rows].map(([name, counts]) => {
+    const short = local(name);
+    const group = WORDFENCE_TABLE.test(short)
+      ? 'wordfence'
+      : short === 'users' || short === 'usermeta'
+        ? 'users'
+        : CORE_TABLES.has(short)
+          ? 'core'
+          : 'plugin';
+    return { table: name, group, rows: counts.rows, bytes: counts.bytes };
+  });
+  const result = envelope('tables', summary, null, [], [], []);
+  result.tableList = tableList;
+  return result;
+}
+
 // ---------------------------------------------------------------------------
 // Output
 // ---------------------------------------------------------------------------
@@ -1351,6 +1469,22 @@ function toMarkdown(result) {
       ''
     );
   }
+  if (result.command === 'tables') {
+    const note = {
+      core: 'WordPress core',
+      users: 'accounts (--keep-users)',
+      wordfence: 'Wordfence: left out by default',
+      plugin: 'plugin or other',
+    };
+    parts.push('### Tables', '');
+    parts.push(
+      table(
+        ['Table', 'Group', 'Rows', 'Size (KB)'],
+        result.tableList.map((t) => [t.table, note[t.group], t.rows, Math.ceil(t.bytes / 1024)])
+      ),
+      ''
+    );
+  }
   if (result.command === 'sanitise') {
     parts.push('### Edits', '');
     parts.push(
@@ -1406,7 +1540,7 @@ function toMarkdown(result) {
 // CLI
 // ---------------------------------------------------------------------------
 
-const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls> <input.sql> [options]
+const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls|tables> <input.sql> [options]
 
   --out <path>      sanitise: output path (default <input>-sqlite.sql)
   --force           sanitise: overwrite an existing output file (never the input)
@@ -1416,6 +1550,9 @@ const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls> <input.sql> [optio
   --keep-wordfence  sanitise: import Wordfence's tables (left out by default)
   --keep-users      sanitise: leave out the export's users and usermeta tables,
                     so the Studio site keeps its own accounts
+  --exclude <pattern>
+                    sanitise: leave out matching tables (repeatable or
+                    comma-separated; * and ? wildcards; with or without prefix)
   --studio-site <path>
                     sanitise, site-urls: the Studio site folder; compares its
                     $table_prefix with the export's
@@ -1430,14 +1567,17 @@ function parseArgs(argv) {
     else if (arg === '--force') args.force = true;
     else if (arg === '--keep-wordfence') args.keepWordfence = true;
     else if (arg === '--keep-users') args.keepUsers = true;
-    else if (['--out', '--target', '--prefix', '--studio-site'].includes(arg)) {
+    else if (arg === '--exclude') {
+      if (argv[i + 1] === undefined) throw usageError('--exclude needs a value');
+      args.exclude = [...(args.exclude || []), ...argv[++i].split(',').filter(Boolean)];
+    } else if (['--out', '--target', '--prefix', '--studio-site'].includes(arg)) {
       if (argv[i + 1] === undefined) throw usageError(`${arg} needs a value`);
       args[arg.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = argv[++i];
     } else if (arg.startsWith('--')) throw usageError(`unknown option ${arg}`);
     else if (!args.input) args.input = arg;
     else throw usageError(`unexpected argument ${arg}`);
   }
-  if (!['sanitise', 'preflight', 'site-urls'].includes(args.command))
+  if (!['sanitise', 'preflight', 'site-urls', 'tables'].includes(args.command))
     throw usageError('unknown command');
   if (!args.input) throw usageError('missing input file');
   if (!fs.existsSync(args.input) || !fs.statSync(args.input).isFile())
@@ -1459,11 +1599,14 @@ function run(argv) {
             prefix: args.prefix,
             keepWordfence: args.keepWordfence,
             keepUsers: args.keepUsers,
+            exclude: args.exclude,
             studioSite: args.studioSite,
           })
         : args.command === 'preflight'
           ? preflight(args.input, { target: args.target, prefix: args.prefix })
-          : siteUrlsCommand(args.input, { studioSite: args.studioSite });
+          : args.command === 'tables'
+            ? tablesCommand(args.input)
+            : siteUrlsCommand(args.input, { studioSite: args.studioSite });
     return {
       code: result.status === 'ok' ? EXIT_OK : EXIT_FINDINGS,
       stdout: args.json ? JSON.stringify(result, null, 2) : toMarkdown(result),
@@ -1495,6 +1638,7 @@ module.exports = {
   sanitise,
   preflight,
   siteUrls: siteUrlsCommand,
+  tables: tablesCommand,
   run,
   readStatements,
   readLines,

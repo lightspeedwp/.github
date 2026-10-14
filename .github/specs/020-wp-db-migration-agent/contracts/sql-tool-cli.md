@@ -11,6 +11,7 @@ node agents/wp-db-migration-agent/lib/sql-tool.cjs <command> <input.sql> [option
 | `sanitise` | Apply the known MySQL-to-Studio fixes and scan for other risks. | `<input>-sqlite.sql` (or `--out`) |
 | `preflight` | Check a Studio export before import into MySQL/MariaDB. | Nothing |
 | `site-urls` | Report `siteurl`/`home` from every `*_options` table. | Nothing |
+| `tables` | List every table with rows, size and group (core, users, wordfence, plugin), to choose exclusions. | Nothing |
 
 ## Options
 
@@ -22,6 +23,7 @@ node agents/wp-db-migration-agent/lib/sql-tool.cjs <command> <input.sql> [option
 | `--prefix <prefix>` | `preflight` | Target table prefix; differing tables are flagged. |
 | `--prefix <prefix>` | `sanitise` | Rename the export's tables to this prefix, plus `<prefix>user_roles` in options and `<prefix>*` keys in usermeta. Needs exactly one WordPress prefix in the export; refuses collisions. |
 | `--keep-wordfence` | `sanitise` | Keep Wordfence's tables (`<prefix>wf*`, `<prefix>wfls_*`), which are left out by default. |
+| `--exclude <pattern>` | `sanitise` | Leave out tables matching the pattern (repeatable or comma-separated; `*` and `?`; matched with or without the WordPress prefix). Warns on patterns that match nothing and on core tables. |
 | `--keep-users` | `sanitise` | Leave out the export's `<prefix>users` and `<prefix>usermeta` tables so the Studio site keeps its accounts. With `--studio-site`, exit 2 unless the output prefix matches the site's. |
 | `--studio-site <path>` | `sanitise`, `site-urls` | Studio site folder. Reads `$table_prefix` from its `wp-config.php` and warns (`prefix-differs`) when the export's prefix, after any `--prefix` rename, differs. |
 | `--json` | all | Print the result envelope as JSON instead of Markdown. |
