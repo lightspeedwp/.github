@@ -123,6 +123,16 @@ describe('sanitise: files already in SQLite dialect', () => {
     );
   });
 
+  it('refuses a WITHOUT ROWID table in sanitise and preflight', () => {
+    const file = writeTemp(
+      'CREATE TABLE "wp_options" (\n  "id" INTEGER PRIMARY KEY\n) WITHOUT ROWID;\n'
+    );
+    expect(() => sanitise(file)).toThrow(/line 1 is SQLite syntax/);
+    expect(preflight(file).findings).toContainEqual(
+      expect.objectContaining({ check: 'sqlite-dialect', severity: 'fail', line: 1 })
+    );
+  });
+
   it('does not mistake MySQL AUTO_INCREMENT for SQLite AUTOINCREMENT', () => {
     const file = writeTemp(
       'CREATE TABLE `wp_x` (\n  `id` int NOT NULL AUTO_INCREMENT\n) ENGINE=InnoDB;\n'
@@ -185,6 +195,48 @@ describe('sanitise --prefix', () => {
     );
     expect(() => sanitise(file, { prefix: 'wp_' })).toThrow(
       /collide with the existing table wp_posts/
+    );
+  });
+
+  it('renames unquoted table names in every statement', () => {
+    const file = writeTemp(
+      [
+        'CREATE TABLE pfx_options (option_id int, option_name varchar(191));',
+        "INSERT INTO pfx_options (option_id, option_name) VALUES (1, 'pfx_user_roles');",
+        'CREATE TABLE pfx_posts (ID int);',
+        'ALTER TABLE pfx_options ADD PRIMARY KEY (option_id);',
+        'LOCK TABLES pfx_options WRITE, pfx_posts WRITE;',
+        '',
+      ].join('\n')
+    );
+    const renamed = fs.readFileSync(sanitise(file, { prefix: 'wp_' }).output.path, 'latin1');
+    expect(renamed).not.toMatch(/pfx_(options|posts)\b/);
+    expect(renamed).toContain('CREATE TABLE wp_options (option_id int');
+    expect(renamed).toContain(
+      "INSERT INTO `wp_options` (option_id, option_name) VALUES (1, 'wp_user_roles');"
+    );
+    expect(renamed).toContain('ALTER TABLE wp_options ADD PRIMARY KEY');
+    expect(renamed).toContain('LOCK TABLES wp_options WRITE, wp_posts WRITE;');
+  });
+
+  it('leaves string literals and column names that match a table unchanged', () => {
+    const file = writeTemp(
+      [
+        'CREATE TABLE `pfx_options` (`option_id` int);',
+        'CREATE TABLE `pfx_posts` (',
+        '  `pfx_options` int,',
+        "  `ID` int COMMENT 'see `pfx_options` and \\'pfx_options\\''",
+        ') ENGINE=InnoDB;',
+        "UPDATE `pfx_options` SET `option_id` = 1 WHERE 'x' = 'mentions `pfx_posts`';",
+        '',
+      ].join('\n')
+    );
+    const renamed = fs.readFileSync(sanitise(file, { prefix: 'wp_' }).output.path, 'latin1');
+    expect(renamed).toContain('CREATE TABLE `wp_posts`');
+    expect(renamed).toContain('  `pfx_options` int,');
+    expect(renamed).toContain("COMMENT 'see `pfx_options` and \\'pfx_options\\''");
+    expect(renamed).toContain(
+      "UPDATE `wp_options` SET `option_id` = 1 WHERE 'x' = 'mentions `pfx_posts`';"
     );
   });
 

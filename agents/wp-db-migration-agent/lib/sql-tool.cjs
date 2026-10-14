@@ -76,6 +76,7 @@ const SQLITE_DIALECT = [
   /^INSERT\s+OR\s+(IGNORE|REPLACE|ABORT|FAIL|ROLLBACK)\s+INTO\b/i,
   /^INSERT\s+INTO\s+["`]?sqlite_/i,
   /^CREATE\s+TABLE\b[^;]*\bAUTOINCREMENT\b/i,
+  /^CREATE\s+TABLE\b[^;]*\)\s*(?:STRICT\s*,\s*)?WITHOUT\s+ROWID\b/i,
 ];
 
 const DROP_TABLE_REASON =
@@ -606,12 +607,87 @@ function planPrefix(input, to) {
   return { from, to, renames };
 }
 
-/** Rename backtick-quoted identifiers that are exactly a table being renamed. */
+/** Keywords that a table name follows: CREATE/ALTER/DROP TABLE, IF [NOT] EXISTS, INTO, ... */
+const TABLE_KEYWORDS = new Set([
+  'TABLE',
+  'TABLES',
+  'EXISTS',
+  'INTO',
+  'UPDATE',
+  'FROM',
+  'JOIN',
+  'REFERENCES',
+]);
+
+/** Statements whose comma-separated lists name tables, not columns. */
+const TABLE_LIST = /^(?:\/\*!\d+\s*)?(?:LOCK\s+TABLES|DROP\s+TABLES?)\b/i;
+
+/**
+ * Rename every table being renamed where it is used as a table: after TABLE,
+ * INTO, REFERENCES and the like, quoted or not. String literals and column
+ * identifiers stay unchanged; comments carry no data, so backtick-quoted names
+ * in them (such as "Table structure for table `x`") are renamed too.
+ */
 function renameTableIdentifiers(text, renames) {
-  return text.replace(/`((?:[^`]|``)+)`/g, (whole, name) => {
-    const to = renames.get(name.replace(/``/g, '`'));
-    return to ? `\`${to.replace(/`/g, '``')}\`` : whole;
-  });
+  const quote = (name) => `\`${name.replace(/`/g, '``')}\``;
+  const renameInComment = (comment) =>
+    comment.replace(/`((?:[^`]|``)+)`/g, (whole, name) => {
+      const to = renames.get(name.replace(/``/g, '`'));
+      return to ? quote(to) : whole;
+    });
+  const list = TABLE_LIST.test(head(text));
+  let out = '';
+  let prev = null;
+  let i = 0;
+  while (i < text.length) {
+    const c = text[i];
+    const rest = text.slice(i, i + 3);
+    if (/\s/.test(c)) {
+      out += c;
+      i += 1;
+    } else if (/^\/\*M?!/.test(rest)) {
+      const end = text.slice(i).match(/^\/\*M?!\d*/)[0].length;
+      out += text.slice(i, i + end);
+      i += end;
+    } else if (rest.startsWith('/*') || c === '#' || /^--\s/.test(rest) || rest === '--') {
+      const blockEnd = text.indexOf('*/', i + 2);
+      const lineEnd = text.indexOf('\n', i);
+      let end;
+      if (c === '/') end = blockEnd === -1 ? text.length : blockEnd + 2;
+      else end = lineEnd === -1 ? text.length : lineEnd;
+      out += renameInComment(text.slice(i, end));
+      i = end;
+    } else if (c === "'" || c === '"') {
+      let j = i + 1;
+      while (j < text.length) {
+        if (text[j] === '\\') j += 2;
+        else if (text[j] === c && text[j + 1] === c) j += 2;
+        else if (text[j] === c) break;
+        else j += 1;
+      }
+      out += text.slice(i, j + 1);
+      i = j + 1;
+      prev = { type: 'string' };
+    } else if (c === '`' || /[A-Za-z0-9_$]/.test(c)) {
+      const token =
+        c === '`'
+          ? (text.slice(i).match(/^`(?:[^`]|``)*`/) || [text.slice(i)])[0]
+          : text.slice(i).match(/^[\w$]+/)[0];
+      const name = c === '`' ? unquoteIdentifier(token) : token;
+      const atTable =
+        (prev && prev.type === 'word' && TABLE_KEYWORDS.has(prev.value.toUpperCase())) ||
+        (list && prev && prev.type === 'punct' && prev.value === ',');
+      const to = atTable ? renames.get(name) : undefined;
+      out += to ? (c === '`' ? quote(to) : to) : token;
+      i += token.length;
+      prev = { type: c === '`' ? 'ident' : 'word', value: name };
+    } else {
+      out += c;
+      i += 1;
+      prev = { type: 'punct', value: c };
+    }
+  }
+  return out;
 }
 
 /**

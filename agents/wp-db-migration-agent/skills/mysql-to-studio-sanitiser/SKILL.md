@@ -31,7 +31,7 @@ It packages the fixes for real failed imports:
   phpMyAdmin bundled with Studio) send every statement through the SQLite
   Database Integration plugin, which parses MySQL and translates it to SQLite
   itself. Never convert a dump to SQLite's own dialect (`PRAGMA`,
-  `AUTOINCREMENT`, `BEGIN TRANSACTION`, `INSERT OR ...`, `replace(...,char(13))`,
+  `AUTOINCREMENT`, `WITHOUT ROWID`, `BEGIN TRANSACTION`, `INSERT OR ...`, `replace(...,char(13))`,
   a `sqlite3 .dump`), and never write a custom converter: it fails with
   `Could not execute statement: PRAGMA ...`. The `-sqlite.sql` output name
   means "ready for Studio", not "SQLite syntax".
