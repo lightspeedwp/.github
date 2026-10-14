@@ -22,6 +22,7 @@ node agents/wp-db-migration-agent/lib/sql-tool.cjs <command> <input.sql> [option
 | `--prefix <prefix>` | `preflight` | Target table prefix; differing tables are flagged. |
 | `--prefix <prefix>` | `sanitise` | Rename the export's tables to this prefix, plus `<prefix>user_roles` in options and `<prefix>*` keys in usermeta. Needs exactly one WordPress prefix in the export; refuses collisions. |
 | `--keep-wordfence` | `sanitise` | Keep Wordfence's tables (`<prefix>wf*`, `<prefix>wfls_*`), which are left out by default. |
+| `--studio-site <path>` | `sanitise`, `site-urls` | Studio site folder. Reads `$table_prefix` from its `wp-config.php` and warns (`prefix-differs`) when the export's prefix, after any `--prefix` rename, differs. |
 | `--json` | all | Print the result envelope as JSON instead of Markdown. |
 
 ## Exit codes

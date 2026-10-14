@@ -7,8 +7,8 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-const { sanitise, preflight, run } = require('../../lib/sql-tool.cjs');
-const { FIXTURES, writeTemp } = require('./helpers.cjs');
+const { sanitise, preflight, siteUrls, run } = require('../../lib/sql-tool.cjs');
+const { FIXTURES, tempDir, writeTemp } = require('./helpers.cjs');
 
 /** A phpMyAdmin-on-MariaDB style dump: keys added by ALTER TABLE at the end. */
 function buildMariaDbDump({ defaultBytes = 16, extra = [] } = {}) {
@@ -241,6 +241,47 @@ describe('sanitise: Wordfence tables', () => {
     expect(kept.edits.some((e) => e.rule === 'exclude-wordfence')).toBe(false);
     expect(fs.readFileSync(kept.output.path, 'latin1')).toContain(
       'CREATE TABLE `pfx_wfls_settings`'
+    );
+  });
+});
+
+describe('Studio site table prefix', () => {
+  const studioSite = (prefix) => {
+    const dir = tempDir();
+    fs.writeFileSync(
+      path.join(dir, 'wp-config.php'),
+      `<?php\ndefine( 'DB_NAME', 'wordpress' );\n$table_prefix = '${prefix}';\n`
+    );
+    return dir;
+  };
+  const input = writeTemp(buildMariaDbDump());
+
+  it('reports the WordPress prefix without counting plugin *_options tables', () => {
+    expect(siteUrls(input).input.prefixes).toEqual(['pfx_']);
+  });
+
+  it('warns when the export prefix differs from the Studio site', () => {
+    const result = siteUrls(input, { studioSite: studioSite('wp_') });
+    expect(result.input.studioPrefix).toBe('wp_');
+    expect(result.findings).toContainEqual(
+      expect.objectContaining({ check: 'prefix-differs', severity: 'warn' })
+    );
+  });
+
+  it('is satisfied once --prefix renames the tables to the Studio prefix', () => {
+    const file = writeTemp(buildMariaDbDump());
+    const result = sanitise(file, { prefix: 'wp_', studioSite: studioSite('wp_') });
+    expect(result.findings.filter((f) => f.check === 'prefix-differs')).toEqual([]);
+  });
+
+  it('shows both prefixes in the Markdown report', () => {
+    const { stdout } = run(['site-urls', input, '--studio-site', studioSite('wp_')]);
+    expect(stdout).toContain('WordPress table prefix: `pfx_`; Studio site: `wp_`');
+  });
+
+  it('exits 2 when the folder has no readable wp-config.php', () => {
+    expect(run(['site-urls', input, '--studio-site', tempDir()]).stderr).toMatch(
+      /no wp-config\.php/
     );
   });
 });

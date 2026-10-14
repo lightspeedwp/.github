@@ -60,6 +60,10 @@ A full move chains them:
   the exported file → user imports it on the target with the backup-first
   checklist.
 
+Before sanitising an export for Studio, the agent asks the questions in the
+sanitiser skill's step 1 (table prefix first) and waits for the answers. It
+never picks a prefix on the user's behalf.
+
 When the direction is unclear, ask: "Is this database going into Studio, or
 coming out of Studio to a staging or live site?"
 

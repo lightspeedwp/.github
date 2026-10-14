@@ -696,10 +696,38 @@ function collectSiteUrls(statement, tables, siteUrls) {
 }
 
 function finalisePrefixes(summary) {
-  summary.prefixes = [
-    ...new Set(
-      summary.tables.filter((t) => /_options$/.test(t)).map((t) => t.replace(/options$/, ''))
-    ),
+  summary.prefixes = detectPrefixes(summary.tables);
+}
+
+/** Read $table_prefix from a Studio site's wp-config.php. */
+function readStudioPrefix(site) {
+  const config = path.join(site, 'wp-config.php');
+  if (!fs.existsSync(config)) throw usageError(`no wp-config.php in ${site}`);
+  const match = fs
+    .readFileSync(config, 'utf8')
+    .match(/^\s*\$table_prefix\s*=\s*(['"])([A-Za-z0-9_]+)\1\s*;/m);
+  if (!match) throw usageError(`could not read $table_prefix from ${config}`);
+  return match[2];
+}
+
+/**
+ * Compare the export's prefix (after any --prefix rename) with the Studio
+ * site's, so the agent can ask the user which to change.
+ */
+function prefixFindings(summary, studioPrefix, renamedTo) {
+  if (!studioPrefix || summary.prefixes.length !== 1) return [];
+  const exportPrefix = renamedTo || summary.prefixes[0];
+  if (exportPrefix === studioPrefix) return [];
+  return [
+    {
+      check: 'prefix-differs',
+      severity: 'warn',
+      line: null,
+      table: null,
+      detail: `The export's tables use ${exportPrefix}, but the Studio site's wp-config.php has $table_prefix = '${studioPrefix}'. WordPress would not see the imported data.`,
+      fix: `Ask the user: rename the tables with --prefix ${studioPrefix}, or set $table_prefix to '${exportPrefix}' in the site's wp-config.php.`,
+      autoFixable: false,
+    },
   ];
 }
 
@@ -720,6 +748,7 @@ function sanitise(input, options = {}) {
   if (fs.existsSync(out) && !options.force)
     throw usageError(`${out} already exists; pass --force to overwrite it`);
   const prefix = options.prefix ? planPrefix(input, options.prefix) : null;
+  const studioPrefix = options.studioSite ? readStudioPrefix(options.studioSite) : null;
   const excluded = planExclusions(scanTables(input), options);
   const excludedCounts = new Map();
   const left = { createTables: 0, inserts: 0 };
@@ -931,6 +960,8 @@ function sanitise(input, options = {}) {
     for (const url of siteUrls) url.table = prefix.renames.get(url.table) || url.table;
   }
 
+  if (studioPrefix) summary.studioPrefix = studioPrefix;
+  findings.push(...prefixFindings(summary, studioPrefix, prefix && prefix.to));
   const hasUsers = summary.tables.some((t) => /_users$/.test(t));
   findings.push(...postImportNotes(siteUrls, hasUsers));
 
@@ -1141,7 +1172,8 @@ function promoteSeverity(finding) {
  *
  * @param {string} input Path to the export.
  */
-function siteUrlsCommand(input) {
+function siteUrlsCommand(input, options = {}) {
+  const studioPrefix = options.studioSite ? readStudioPrefix(options.studioSite) : null;
   const summary = newSummary(input);
   const tables = new Map();
   const siteUrls = [];
@@ -1162,6 +1194,8 @@ function siteUrlsCommand(input) {
     }
   }
   finalisePrefixes(summary);
+  if (studioPrefix) summary.studioPrefix = studioPrefix;
+  findings.push(...prefixFindings(summary, studioPrefix));
   if (siteUrls.length === 0) {
     findings.push({
       check: 'no-site-url',
@@ -1259,6 +1293,13 @@ function toMarkdown(result) {
   } else {
     parts.push(`Input: \`${input.path}\``, '', table(['Count', 'Input'], countRows), '');
   }
+  if (input.prefixes && input.prefixes.length) {
+    const studio = input.studioPrefix ? `; Studio site: \`${input.studioPrefix}\`` : '';
+    parts.push(
+      `WordPress table prefix: ${input.prefixes.map((p) => `\`${p}\``).join(', ')}${studio}`,
+      ''
+    );
+  }
   if (result.command === 'sanitise') {
     parts.push('### Edits', '');
     parts.push(
@@ -1322,6 +1363,9 @@ const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls> <input.sql> [optio
   --prefix <prefix> preflight: the target site's table prefix
                     sanitise: rename the export's tables to this prefix
   --keep-wordfence  sanitise: import Wordfence's tables (left out by default)
+  --studio-site <path>
+                    sanitise, site-urls: the Studio site folder; compares its
+                    $table_prefix with the export's
   --json            print the result as JSON
 `;
 
@@ -1332,9 +1376,9 @@ function parseArgs(argv) {
     if (arg === '--json') args.json = true;
     else if (arg === '--force') args.force = true;
     else if (arg === '--keep-wordfence') args.keepWordfence = true;
-    else if (['--out', '--target', '--prefix'].includes(arg)) {
+    else if (['--out', '--target', '--prefix', '--studio-site'].includes(arg)) {
       if (argv[i + 1] === undefined) throw usageError(`${arg} needs a value`);
-      args[arg.slice(2)] = argv[++i];
+      args[arg.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = argv[++i];
     } else if (arg.startsWith('--')) throw usageError(`unknown option ${arg}`);
     else if (!args.input) args.input = arg;
     else throw usageError(`unexpected argument ${arg}`);
@@ -1360,10 +1404,11 @@ function run(argv) {
             force: args.force,
             prefix: args.prefix,
             keepWordfence: args.keepWordfence,
+            studioSite: args.studioSite,
           })
         : args.command === 'preflight'
           ? preflight(args.input, { target: args.target, prefix: args.prefix })
-          : siteUrlsCommand(args.input);
+          : siteUrlsCommand(args.input, { studioSite: args.studioSite });
     return {
       code: result.status === 'ok' ? EXIT_OK : EXIT_FINDINGS,
       stdout: args.json ? JSON.stringify(result, null, 2) : toMarkdown(result),

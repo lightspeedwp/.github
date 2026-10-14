@@ -14,8 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Sanitiser leaves out Wordfence's tables by default, because the plugin is not run on local sites; `--keep-wordfence` keeps them. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
+- `--studio-site <path>` on `sanitise` and `site-urls` reads the Studio site's `$table_prefix` and warns when it differs from the export's; the agent now asks the user which prefix to use before sanitising. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
+
 ### Fixed
 
+- Reports no longer count plugin tables such as `<prefix>wpb2d_options` as a second WordPress table prefix. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - Sanitiser rewrites MariaDB 11+ binary defaults written as ``DEFAULT x AS `<hex>` `` (Wordfence tables), which made Studio imports fail on `CREATE TABLE`. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - Sanitiser adds `DROP TABLE IF EXISTS` before any `CREATE TABLE` without one, so phpMyAdmin exports import into Studio sites that already have the same tables (`Could not execute statement: CREATE TABLE wp_commentmeta`). ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - Sanitiser refuses files already converted to SQLite's own dialect, and pre-flight fails them, because Studio's importer only accepts MySQL syntax (`Could not execute statement: PRAGMA foreign_keys=OFF`). ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))

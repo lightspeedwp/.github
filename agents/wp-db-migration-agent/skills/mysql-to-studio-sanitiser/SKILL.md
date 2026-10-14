@@ -49,11 +49,31 @@ It packages the fixes for real failed imports:
 
 ## Procedure
 
-### 1. Prepare the input
+### 1. Prepare the input and ask the user
 
 - If the export is compressed (`.sql.gz`, `.zip`), extract it to a new file
   first (for example `gunzip -k export.sql.gz`). Never overwrite the archive.
 - Note the input's size and line count.
+- Confirm which Studio site the export is for (`~/Studio/<site>`). The import
+  replaces that site's database, so the name matters.
+- Read the export and the site together:
+
+  ```bash
+  node agents/wp-db-migration-agent/lib/sql-tool.cjs site-urls <export.sql> --studio-site ~/Studio/<site>
+  ```
+
+  The report shows the export's WordPress table prefix next to the site's
+  `$table_prefix`, plus `siteurl` and `home`.
+
+Then ask these questions **before** running the sanitiser, one message with
+the facts you found, and wait for the answers:
+
+1. **Table prefix.** Say what the export uses and what the Studio site uses.
+   If they differ (`prefix-differs`), ask: "Rename the tables to `<site
+prefix>` (recommended), keep `<export prefix>` and change `$table_prefix`
+   in the site's `wp-config.php`, or another prefix?" If they already match,
+   say so and ask only if the user wants a different prefix. Never guess: an
+   import under the wrong prefix leaves WordPress unable to see the data.
 
 ### 2. Run the sanitiser
 
@@ -63,8 +83,11 @@ In a clone of `lightspeedwp/.github` (Node.js 20+), run:
 node agents/wp-db-migration-agent/lib/sql-tool.cjs sanitise <path/to/export.sql>
 ```
 
-To also change the table prefix (for example to match the Studio site's
-`$table_prefix = 'wp_'`), add `--prefix wp_`. It renames every table and the
+Add the options that match the user's answers from step 1, and always pass
+`--studio-site ~/Studio/<site>` so the report confirms the prefixes match.
+
+To change the table prefix (the user's answer to question 1), add
+`--prefix <prefix>`. It renames every table and the
 keys WordPress looks up by prefix (`<prefix>user_roles` in options and
 `<prefix>*` keys in usermeta, such as `<prefix>capabilities`). It refuses an
 export with more than one WordPress prefix (multisite) or a rename that would
