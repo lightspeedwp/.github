@@ -21,6 +21,7 @@ node agents/wp-db-migration-agent/lib/sql-tool.cjs <command> <input.sql> [option
 | `--target <mysql-5.7\|mysql-8\|mariadb-10\|mariadb-11>` | `preflight` | Target server, for collation checks. Default: report as `warn`. |
 | `--prefix <prefix>` | `preflight` | Target table prefix; differing tables are flagged. |
 | `--prefix <prefix>` | `sanitise` | Rename the export's tables to this prefix, plus `<prefix>user_roles` in options and `<prefix>*` keys in usermeta. Needs exactly one WordPress prefix in the export; refuses collisions. |
+| `--keep-wordfence` | `sanitise` | Keep Wordfence's tables (`<prefix>wf*`, `<prefix>wfls_*`), which are left out by default. |
 | `--json` | all | Print the result envelope as JSON instead of Markdown. |
 
 ## Exit codes

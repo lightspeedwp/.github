@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `sql-tool sanitise --prefix <prefix>` renames an export's tables, plus the `<prefix>user_roles` option and `<prefix>*` usermeta keys, to match the Studio site's table prefix. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
+- Sanitiser leaves out Wordfence's tables by default, because the plugin is not run on local sites; `--keep-wordfence` keeps them. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
+
 ### Fixed
 
 - Sanitiser rewrites MariaDB 11+ binary defaults written as ``DEFAULT x AS `<hex>` `` (Wordfence tables), which made Studio imports fail on `CREATE TABLE`. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))

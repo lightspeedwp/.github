@@ -54,7 +54,7 @@ function buildMariaDbDump({ defaultBytes = 16, extra = [] } = {}) {
 
 describe('sanitise: MariaDB binary defaults', () => {
   const input = writeTemp(buildMariaDbDump());
-  const result = sanitise(input);
+  const result = sanitise(input, { keepWordfence: true });
   const output = fs.readFileSync(result.output.path, 'latin1');
 
   it('rewrites DEFAULT x AS `<hex>` as a hex literal of the same bytes', () => {
@@ -93,7 +93,9 @@ describe('sanitise: MariaDB binary defaults', () => {
 
   it('refuses a default whose length disagrees with binary(N), writing nothing', () => {
     const bad = writeTemp(buildMariaDbDump({ defaultBytes: 15 }));
-    expect(() => sanitise(bad)).toThrow(/is 15 bytes but the column is binary\(16\)/);
+    expect(() => sanitise(bad, { keepWordfence: true })).toThrow(
+      /is 15 bytes but the column is binary\(16\)/
+    );
     expect(fs.readdirSync(path.dirname(bad))).toEqual(['dump.sql']);
   });
 });
@@ -136,7 +138,7 @@ describe('sanitise --prefix', () => {
 
   it('renames every table in CREATE, INSERT, ALTER and comment lines', () => {
     expect(output).not.toMatch(/`pfx_/);
-    for (const table of ['options', 'posts', 'usermeta', 'wpb2d_options', 'wfblocks7']) {
+    for (const table of ['options', 'posts', 'usermeta', 'wpb2d_options']) {
       expect(output).toContain(`CREATE TABLE \`wp_${table}\``);
     }
     expect(output).toContain('INSERT INTO `wp_options` (`option_id`');
@@ -154,7 +156,7 @@ describe('sanitise --prefix', () => {
   it('reports the renames and the prefix left inside data', () => {
     expect(result.edits).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ rule: 'prefix-tables', count: 5 }),
+        expect.objectContaining({ rule: 'prefix-tables', count: 4 }),
         expect.objectContaining({ rule: 'prefix-data', count: 2 }),
       ])
     );
@@ -167,7 +169,7 @@ describe('sanitise --prefix', () => {
   });
 
   it('keeps CREATE TABLE and INSERT counts equal', () => {
-    expect(result.output).toMatchObject({ createTables: 5, inserts: 2 });
+    expect(result.output).toMatchObject({ createTables: 4, inserts: 2 });
   });
 
   it('refuses an export with more than one WordPress prefix', () => {
@@ -191,6 +193,54 @@ describe('sanitise --prefix', () => {
     expect(run(['sanitise', file, '--prefix', 'wp_', '--json']).code).toBe(0);
     expect(run(['sanitise', file, '--prefix', 'wp`;', '--force']).stderr).toMatch(
       /only letters, digits and underscores/
+    );
+  });
+});
+
+describe('sanitise: Wordfence tables', () => {
+  const extra = [
+    'CREATE TABLE `pfx_wfls_settings` (',
+    '  `name` varchar(191) NOT NULL',
+    ') ENGINE=InnoDB;',
+    "INSERT INTO `pfx_wfls_settings` (`name`) VALUES ('x');",
+    'ALTER TABLE `pfx_wfls_settings`',
+    '  ADD PRIMARY KEY (`name`);',
+    'CREATE TABLE `pfx_wfu_log` (',
+    '  `idlog` int NOT NULL',
+    ') ENGINE=InnoDB;',
+  ];
+  const input = writeTemp(buildMariaDbDump({ extra }));
+  const result = sanitise(input, { prefix: 'wp_' });
+  const output = fs.readFileSync(result.output.path, 'latin1');
+
+  it('leaves out every statement for Wordfence tables by default', () => {
+    expect(output).not.toMatch(/wfblocks7|wfls_settings/);
+    expect(result.edits.filter((e) => e.rule === 'exclude-wordfence')).toEqual([
+      expect.objectContaining({ table: 'pfx_wfblocks7', count: 1 }),
+      expect.objectContaining({ table: 'pfx_wfls_settings', count: 3 }),
+    ]);
+    expect(result.findings).toContainEqual(
+      expect.objectContaining({ check: 'wordfence-excluded', severity: 'info' })
+    );
+  });
+
+  it("keeps other plugins' wf... tables that are not Wordfence's", () => {
+    expect(output).toContain('CREATE TABLE `wp_wfu_log`');
+  });
+
+  it('counts the left-out statements in the input but not the output', () => {
+    expect(result.input).toMatchObject({ createTables: 7, inserts: 3 });
+    expect(result.output).toMatchObject({ createTables: 5, inserts: 2 });
+  });
+
+  it('imports Wordfence tables with --keep-wordfence', () => {
+    const file = writeTemp(buildMariaDbDump({ extra }));
+    const { code, stdout } = run(['sanitise', file, '--keep-wordfence', '--json']);
+    expect(code).toBe(0);
+    const kept = JSON.parse(stdout);
+    expect(kept.edits.some((e) => e.rule === 'exclude-wordfence')).toBe(false);
+    expect(fs.readFileSync(kept.output.path, 'latin1')).toContain(
+      'CREATE TABLE `pfx_wfls_settings`'
     );
   });
 });

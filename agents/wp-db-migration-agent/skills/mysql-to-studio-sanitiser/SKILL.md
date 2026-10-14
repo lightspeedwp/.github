@@ -109,6 +109,15 @@ verify (step 4).
    (for example `Could not execute statement: CREATE TABLE wp_commentmeta`).
    mysqldump adds these by default.
 
+### Tables left out by default
+
+**Wordfence** (`<prefix>wf*` and `<prefix>wfls_*`, such as `wfconfig`, `wfhits`
+and `wfls_settings`): its logs, scan results and blocks are not needed locally,
+and we don't run Wordfence on Studio sites. The tool reports each table left
+out. Wordfence's settings in the options table stay, so keep the plugin
+deactivated locally (`studio wp --path ~/Studio/<site> plugin deactivate
+wordfence`). Pass `--keep-wordfence` only if the user asks for its tables.
+
 The tool refuses (exit 2, nothing written) a file that is already in SQLite's
 own dialect. Go back to the original MySQL export and sanitise that.
 

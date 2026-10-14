@@ -79,6 +79,19 @@ const SQLITE_DIALECT = [
 const DROP_TABLE_REASON =
   'The export had no DROP TABLE for this table, so CREATE TABLE fails on a Studio site that already has it (for example wp_options); added DROP TABLE IF EXISTS, as mysqldump does.';
 
+/**
+ * Wordfence's tables (wfconfig, wfhits, wfls_settings, ...): "wf" plus letters
+ * and digits, or "wfls_" for its login-security module. Other plugins' "wf..."
+ * tables with an underscore (such as wfu_log) do not match.
+ */
+const WORDFENCE_TABLE = /^wf(?:ls_[a-z0-9_]+|[a-z0-9]+)$/i;
+const WORDFENCE_REASON =
+  "Wordfence's security tables (logs, scan results, blocks) are left out by default: the plugin is not run on local sites.";
+
+/** CREATE, INSERT, ALTER, DROP, LOCK and TRUNCATE statements name their table first. */
+const STATEMENT_TABLE =
+  /^(?:\/\*!\d+\s*)?(?:CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?|(?:INSERT|REPLACE)\s+(?:IGNORE\s+)?INTO|ALTER\s+TABLE|DROP\s+TABLE(?:\s+IF\s+EXISTS)?|LOCK\s+TABLES|TRUNCATE(?:\s+TABLE)?)\s+(`(?:[^`]|``)+`|[^\s(;,]+)/i;
+
 const PREFIX_TABLES_REASON =
   'Renamed to the requested table prefix (CREATE, INSERT, ALTER, DROP and LOCK statements).';
 const PREFIX_DATA_REASON =
@@ -453,6 +466,60 @@ function fixBinaryDefaults(text, startLine, table) {
   return { text: lines.join('\n'), edits };
 }
 
+/** Every table name from the export's CREATE TABLE statements, in order. */
+function scanTables(input) {
+  const tables = [];
+  for (const statement of readStatements(readLines(input))) {
+    if (kindOf(statement.text) !== 'create-table') continue;
+    const parsed = parseCreateTable(statement.text);
+    if (parsed) tables.push(parsed.table);
+  }
+  return tables;
+}
+
+/**
+ * WordPress table prefixes in a list of tables. Prefers prefixes that have both
+ * <prefix>options and <prefix>posts, so plugin tables such as
+ * <prefix>wpb2d_options do not count as a second prefix.
+ */
+function detectPrefixes(tables) {
+  const names = new Set(tables);
+  const candidates = [
+    ...new Set(tables.filter((t) => /options$/.test(t)).map((t) => t.replace(/options$/, ''))),
+  ];
+  const withPosts = candidates.filter((p) => names.has(`${p}posts`));
+  return withPosts.length ? withPosts : candidates;
+}
+
+/** The table a statement creates, fills, alters, drops or locks, if any. */
+function statementTable(text) {
+  const match = head(text).match(STATEMENT_TABLE);
+  return match ? unquoteIdentifier(match[1]) : null;
+}
+
+/**
+ * Decide which tables `sanitise` leaves out, each with the edit rule and reason
+ * to report. Wordfence tables are left out unless `keepWordfence` is set.
+ *
+ * @returns {Map<string, {rule: string, reason: string}>}
+ */
+function planExclusions(tables, options = {}) {
+  const prefixes = detectPrefixes(tables);
+  const local = (name) => {
+    const prefix = prefixes.find((p) => name.startsWith(p));
+    return prefix ? name.slice(prefix.length) : name;
+  };
+  const excluded = new Map();
+  if (!options.keepWordfence) {
+    for (const name of tables) {
+      if (WORDFENCE_TABLE.test(local(name))) {
+        excluded.set(name, { rule: 'exclude-wordfence', reason: WORDFENCE_REASON });
+      }
+    }
+  }
+  return excluded;
+}
+
 /**
  * Work out a table-prefix rename for `sanitise --prefix`. The export must use
  * exactly one WordPress prefix (one *_options table), and no renamed table may
@@ -464,18 +531,8 @@ function planPrefix(input, to) {
   if (!/^[A-Za-z0-9_]+$/.test(to)) {
     throw usageError('--prefix may contain only letters, digits and underscores');
   }
-  const tables = [];
-  for (const statement of readStatements(readLines(input))) {
-    if (kindOf(statement.text) !== 'create-table') continue;
-    const parsed = parseCreateTable(statement.text);
-    if (parsed) tables.push(parsed.table);
-  }
-  // Prefer prefixes that have both <prefix>options and <prefix>posts, so plugin
-  // tables such as <prefix>wpb2d_options do not count as a second prefix.
-  const names = new Set(tables);
-  const candidates = tables.filter((t) => /options$/.test(t)).map((t) => t.replace(/options$/, ''));
-  const withPosts = candidates.filter((p) => names.has(`${p}posts`));
-  const prefixes = withPosts.length ? withPosts : candidates;
+  const tables = scanTables(input);
+  const prefixes = detectPrefixes(tables);
   if (prefixes.length !== 1) {
     throw usageError(
       `--prefix needs an export with exactly one WordPress table prefix; found ${
@@ -663,6 +720,9 @@ function sanitise(input, options = {}) {
   if (fs.existsSync(out) && !options.force)
     throw usageError(`${out} already exists; pass --force to overwrite it`);
   const prefix = options.prefix ? planPrefix(input, options.prefix) : null;
+  const excluded = planExclusions(scanTables(input), options);
+  const excludedCounts = new Map();
+  const left = { createTables: 0, inserts: 0 };
   const prefixCounts = { data: 0, leftover: 0 };
   const dropped = new Set();
 
@@ -702,6 +762,22 @@ function sanitise(input, options = {}) {
         const line =
           statement.line + lineOffset(statement.text, statement.text.length - subject.length);
         edits.push({ rule: removal.rule, line, table: null, count: 1, reason: removal.reason });
+        continue;
+      }
+
+      const target = statementTable(statement.text);
+      if (target && excluded.has(target)) {
+        if (!excludedCounts.has(target))
+          excludedCounts.set(target, { line: statement.line, statements: 0 });
+        excludedCounts.get(target).statements += 1;
+        if (kind === 'create-table') {
+          summary.createTables += 1;
+          summary.tables.push(target);
+          left.createTables += 1;
+        } else if (kind === 'insert') {
+          summary.inserts += 1;
+          left.inserts += 1;
+        }
         continue;
       }
 
@@ -796,9 +872,10 @@ function sanitise(input, options = {}) {
   finalisePrefixes(summary);
   const beforeDigest = beforeHash.digest('hex');
   const verificationErrors = [];
-  if (outSummary.createTables !== summary.createTables)
+  if (outSummary.createTables !== summary.createTables - left.createTables)
     verificationErrors.push('CREATE TABLE counts differ');
-  if (outSummary.inserts !== summary.inserts) verificationErrors.push('INSERT counts differ');
+  if (outSummary.inserts !== summary.inserts - left.inserts)
+    verificationErrors.push('INSERT counts differ');
   if (hashFile(input) !== beforeDigest)
     verificationErrors.push('the input file changed during the run');
   if (verificationErrors.length) {
@@ -807,12 +884,28 @@ function sanitise(input, options = {}) {
   }
   fs.renameSync(partial, out);
 
+  for (const [table, counts] of excludedCounts) {
+    const { rule, reason } = excluded.get(table);
+    edits.push({ rule, line: counts.line, table, count: counts.statements, reason });
+  }
+  if ([...excludedCounts.keys()].some((t) => excluded.get(t).rule === 'exclude-wordfence')) {
+    findings.push({
+      check: 'wordfence-excluded',
+      severity: 'info',
+      line: null,
+      table: null,
+      detail: "Wordfence's tables were left out. Its settings in the options table were kept.",
+      fix: 'Keep the Wordfence plugin deactivated on the local site (studio wp plugin deactivate wordfence). Pass --keep-wordfence to import its tables.',
+      autoFixable: false,
+    });
+  }
+
   if (prefix && prefix.renames.size) {
     edits.push({
       rule: 'prefix-tables',
       line: null,
       table: `${prefix.from}* → ${prefix.to}*`,
-      count: prefix.renames.size,
+      count: [...prefix.renames.keys()].filter((t) => !excluded.has(t)).length,
       reason: PREFIX_TABLES_REASON,
     });
     if (prefixCounts.data) {
@@ -1228,6 +1321,7 @@ const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls> <input.sql> [optio
   --target <name>   preflight: ${TARGETS.join(' | ')}
   --prefix <prefix> preflight: the target site's table prefix
                     sanitise: rename the export's tables to this prefix
+  --keep-wordfence  sanitise: import Wordfence's tables (left out by default)
   --json            print the result as JSON
 `;
 
@@ -1237,6 +1331,7 @@ function parseArgs(argv) {
     const arg = argv[i];
     if (arg === '--json') args.json = true;
     else if (arg === '--force') args.force = true;
+    else if (arg === '--keep-wordfence') args.keepWordfence = true;
     else if (['--out', '--target', '--prefix'].includes(arg)) {
       if (argv[i + 1] === undefined) throw usageError(`${arg} needs a value`);
       args[arg.slice(2)] = argv[++i];
@@ -1260,7 +1355,12 @@ function run(argv) {
     args = parseArgs(argv);
     const result =
       args.command === 'sanitise'
-        ? sanitise(args.input, { out: args.out, force: args.force, prefix: args.prefix })
+        ? sanitise(args.input, {
+            out: args.out,
+            force: args.force,
+            prefix: args.prefix,
+            keepWordfence: args.keepWordfence,
+          })
         : args.command === 'preflight'
           ? preflight(args.input, { target: args.target, prefix: args.prefix })
           : siteUrlsCommand(args.input);
