@@ -137,7 +137,7 @@ describe('Changelog Safety Audit — Regression Tests', () => {
   describe('Layer 6: Cross-Reference Verification', () => {
     it('should verify related files exist and reference changelog', () => {
       // Layer 6 validates:
-      // - agents/changelog-agent/changelog.agent.md exists
+      // - agents/changelog-agent/AGENT.md exists
       // - agents/changelog-agent/changelog.agent.js exists
       // - schemas/changelog.schema.json exists
       // - docs/CHANGELOG_AUTOMATION.md exists

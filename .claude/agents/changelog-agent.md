@@ -5,8 +5,8 @@ description: "Portable changelog management agent with Keep a Changelog 1.1.0 su
 
 # changelog-agent (generated thin definition)
 
-This file is generated from `agents/changelog-agent/changelog.agent.md` — do not edit it by hand.
+This file is generated from `agents/changelog-agent/AGENT.md` — do not edit it by hand.
 Regenerate with `node scripts/agents/generate-agent-defs.cjs`.
 
 Read the canonical specification in full before acting. Start with
-`agents/changelog-agent/changelog.agent.md` (specification and integration guide).
+`agents/changelog-agent/AGENT.md` (specification and integration guide).

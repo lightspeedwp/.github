@@ -73,7 +73,7 @@ permissions:
   - shell
 metadata:
   guardrails: Never publish incomplete or broken releases. Abort and notify if any validation fails. Always lint and test before release. Support dry-run mode. Log all actions for audit trails. Default to read-only analysis unless user explicitly requests changes.
-implementation: release
+implementation: "agents/release-agent/"
 language: en
 created_date: '2026-08-29'
 ---
@@ -144,6 +144,13 @@ You are the **Release Manager Agent** for `lightspeedwp/.github`. Automate relea
 - **Branch strategy**: develop → `release/vX.Y.Z` → main; tags pushed after PR creation.
 - **Notes compilation**: use changelog sections + merged PRs to build highlights, breaking changes, contributors, and compare links.
 - **Label hygiene**: prefer single `release:*` label per PR to align human intent with scope selection.
+
+## Dependency: Changelog Agent
+
+The release flow depends on the [Changelog Agent](../changelog-agent/AGENT.md). Changelog
+validation, `[Unreleased]` checks and the roll to `[X.Y.Z] - YYYY-MM-DD` follow its Keep a
+Changelog 1.1.0 rules. Run or defer to it for every changelog step above. Do not
+reimplement changelog parsing here.
 
 # Constraints
 

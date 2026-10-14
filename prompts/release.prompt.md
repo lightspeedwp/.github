@@ -196,7 +196,7 @@ Thanks to all contributors for this release!
 ## Resources
 
 - [Full Changelog](../../CHANGELOG.md)
-- [Release Agent](../agents/release.agent.md)
+- [Release Agent](../agents/release-agent/AGENT.md)
 
 ## Guardrails
 
@@ -237,7 +237,7 @@ node .github/agents/release.agent.js --verify
 
 ## References
 
-- [Release Agent](../agents/release.agent.md) - Full agent specification
+- [Release Agent](../agents/release-agent/AGENT.md) - Full agent specification
 - [Release Instructions](../instructions/release.instructions.md) - AI instructions
 - [Release Guide](../../docs/RELEASES.md) - Comprehensive documentation
 - [Semantic Versioning](https://semver.org/) - SemVer specification

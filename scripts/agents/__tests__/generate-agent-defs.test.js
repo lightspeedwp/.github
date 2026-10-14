@@ -4,7 +4,7 @@ const { buildDefinition, generateAll } = require('../generate-agent-defs.cjs');
 
 const ROOT = path.join(__dirname, '..', '..', '..');
 const GENERATED = '.claude/agents/changelog-agent.md';
-const CANONICAL = 'agents/changelog-agent/changelog.agent.md';
+const CANONICAL = 'agents/changelog-agent/AGENT.md';
 
 describe('generate-agent-defs', () => {
   test('thin definition carries valid Claude frontmatter', () => {

@@ -480,7 +480,7 @@ gh agentic release --scope=patch
 
 This release agent integrates with the LightSpeed changelog ecosystem:
 
-- **Changelog Spec Agent:** [`agents/changelog-agent/changelog.agent.md`](../../agents/changelog-agent/changelog.agent.md) — Primary agent specification for changelog management
+- **Changelog Spec Agent:** [`agents/changelog-agent/AGENT.md`](../../agents/changelog-agent/AGENT.md) — Primary agent specification for changelog management
 - **Changelog Portable Agent:** [`agents/changelog-agent/README.md`](../../agents/changelog-agent/README.md) — Multi-file implementation with Keep a Changelog 1.1.0 support
 - **Changelog Schema:** [`schemas/changelog.schema.json`](../../schemas/changelog.schema.json) — JSON schema validation for Keep a Changelog 1.1.0 compliance
 - **Changelog Workflow:** [`.github/workflows/changelog-management.yml`](../../.github/workflows/changelog-management.yml) — GitHub Actions workflow for automated changelog processing
