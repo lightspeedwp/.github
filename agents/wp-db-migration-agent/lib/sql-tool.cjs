@@ -20,6 +20,7 @@
 'use strict';
 
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
 
@@ -751,6 +752,110 @@ function finalisePrefixes(summary) {
   summary.prefixes = detectPrefixes(summary.tables);
 }
 
+/** Studio's site list, with each site's path, port and custom domain. */
+const STUDIO_CONFIG = path.join(os.homedir(), '.studio', 'cli.json');
+
+/**
+ * The Studio site's own URL from Studio's site list: its custom domain
+ * (https unless HTTPS is turned off) or http://localhost:<port>. Returns null
+ * when Studio's config is missing or does not list the site.
+ */
+function readStudioUrl(site, configPath = process.env.STUDIO_CLI_CONFIG || STUDIO_CONFIG) {
+  let config;
+  try {
+    config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  } catch {
+    return null;
+  }
+  const target = path.resolve(site);
+  const sites = [];
+  const walk = (node) => {
+    if (Array.isArray(node)) node.forEach(walk);
+    else if (node && typeof node === 'object') {
+      if (typeof node.path === 'string' && (node.customDomain || node.port)) sites.push(node);
+      Object.values(node).forEach(walk);
+    }
+  };
+  walk(config);
+  const entry = sites.find((s) => path.resolve(s.path) === target);
+  if (!entry) return null;
+  if (entry.customDomain) {
+    return `${entry.enableHttps === false ? 'http' : 'https'}://${entry.customDomain}`;
+  }
+  return `http://localhost:${entry.port}`;
+}
+
+/** Escape a host name for a PCRE pattern. */
+function escapeHost(host) {
+  return host.replace(/[.\\^$|?*+()[\]{}-]/g, '\\$&');
+}
+
+/**
+ * Plan the URL replacement from the export's siteurl/home to the Studio site's
+ * URL: one PCRE pattern for WP-CLI search-replace --regex that matches http and
+ * https, with or without www, and the JSON-escaped form (https:\/\/), plus the
+ * number of matches in the export. The dump itself is never changed: only a
+ * serialisation-aware tool may replace URLs.
+ */
+function planUrlReplacement(input, siteUrls, studioUrl, site) {
+  if (!studioUrl) return null;
+  const destination = new URL(studioUrl);
+  const hosts = [
+    ...new Set(
+      siteUrls
+        .map((u) => {
+          try {
+            return new URL(u.value).host.toLowerCase().replace(/^www\./, '');
+          } catch {
+            return null;
+          }
+        })
+        .filter(Boolean)
+    ),
+  ].filter((host) => host !== destination.host.replace(/^www\./, ''));
+  if (!hosts.length) return null;
+  const alternatives = hosts.map(escapeHost).join('|');
+  const group = hosts.length > 1 ? `(?:${alternatives})` : alternatives;
+  // (\\?/) keeps a JSON-escaped slash; the lookahead stops at the host's end.
+  const regex = `https?:(\\\\?/)(\\\\?/)(?:www\\.)?${group}(?!\\.?[\\w-])`;
+  const replacement = `${destination.protocol.slice(0, -1)}:\${1}\${2}${destination.host}`;
+  // In the dump a JSON-escaped slash is written as \\/ (MySQL escapes the backslash).
+  const counter = new RegExp(
+    `https?:(?:\\\\{0,2}/){2}(?:www\\.)?(?:${alternatives})(?!\\.?[\\w-])`,
+    'gi'
+  );
+  let occurrences = 0;
+  for (const statement of readStatements(readLines(input))) {
+    if (kindOf(statement.text) !== 'insert') continue;
+    occurrences += (statement.text.match(counter) || []).length;
+  }
+  const command = `studio wp --path ${site} search-replace '${regex}' '${replacement}' --regex --all-tables-with-prefix --dry-run --report-changed-only`;
+  return {
+    sources: hosts,
+    destination: `${destination.protocol}//${destination.host}`,
+    regex,
+    replacement,
+    occurrences,
+    command,
+  };
+}
+
+/** Finding asking the agent to confirm the URL replacement with the user. */
+function urlFindings(plan) {
+  if (!plan) return [];
+  return [
+    {
+      check: 'url-replacement',
+      severity: 'info',
+      line: null,
+      table: null,
+      detail: `${plan.occurrences} link(s) in the export point at ${plan.sources.join(', ')} (http or https, with or without www); the Studio site's URL is ${plan.destination}.`,
+      fix: 'Ask the user to confirm the replacement, then after import preview and apply it with the wp-url-replacement skill.',
+      autoFixable: false,
+    },
+  ];
+}
+
 /** Read $table_prefix from a Studio site's wp-config.php. */
 function readStudioPrefix(site) {
   const config = path.join(site, 'wp-config.php');
@@ -1022,6 +1127,10 @@ function sanitise(input, options = {}) {
 
   if (studioPrefix) summary.studioPrefix = studioPrefix;
   findings.push(...prefixFindings(summary, studioPrefix, prefix && prefix.to));
+  const studioUrl = options.studioSite ? readStudioUrl(options.studioSite) : null;
+  if (studioUrl) summary.studioUrl = studioUrl;
+  const urlReplacement = planUrlReplacement(input, siteUrls, studioUrl, options.studioSite);
+  findings.push(...urlFindings(urlReplacement));
   const hasUsers = summary.tables.some((t) => /_users$/.test(t) && !excluded.has(t));
   findings.push(...postImportNotes(siteUrls, hasUsers));
   for (const pattern of unmatched) {
@@ -1051,7 +1160,10 @@ function sanitise(input, options = {}) {
     findings.push(...keepUsersNotes(studioPrefix));
   }
 
-  return envelope('sanitise', summary, outSummary, edits, findings, siteUrls);
+  return {
+    ...envelope('sanitise', summary, outSummary, edits, findings, siteUrls),
+    urlReplacement,
+  };
 }
 
 /** What the user should know after importing without the export's accounts. */
@@ -1311,6 +1423,10 @@ function siteUrlsCommand(input, options = {}) {
   finalisePrefixes(summary);
   if (studioPrefix) summary.studioPrefix = studioPrefix;
   findings.push(...prefixFindings(summary, studioPrefix));
+  const studioUrl = options.studioSite ? readStudioUrl(options.studioSite) : null;
+  if (studioUrl) summary.studioUrl = studioUrl;
+  const urlReplacement = planUrlReplacement(input, siteUrls, studioUrl, options.studioSite);
+  findings.push(...urlFindings(urlReplacement));
   if (siteUrls.length === 0) {
     findings.push({
       check: 'no-site-url',
@@ -1339,7 +1455,7 @@ function siteUrlsCommand(input, options = {}) {
       });
     }
   }
-  return envelope('site-urls', summary, null, [], findings, siteUrls);
+  return { ...envelope('site-urls', summary, null, [], findings, siteUrls), urlReplacement };
 }
 
 /**
@@ -1466,6 +1582,29 @@ function toMarkdown(result) {
     const studio = input.studioPrefix ? `; Studio site: \`${input.studioPrefix}\`` : '';
     parts.push(
       `WordPress table prefix: ${input.prefixes.map((p) => `\`${p}\``).join(', ')}${studio}`,
+      ''
+    );
+  }
+  if (result.urlReplacement) {
+    const plan = result.urlReplacement;
+    parts.push('### URL replacement (after import, once the user confirms)', '');
+    parts.push(
+      table(
+        ['From', 'To', 'Links in export'],
+        [
+          [
+            plan.sources.map((h) => `http(s)://(www.)${h}`).join(', '),
+            plan.destination,
+            plan.occurrences,
+          ],
+        ]
+      ),
+      '',
+      'Preview on the Studio site, then run again without `--dry-run`:',
+      '',
+      '```bash',
+      plan.command,
+      '```',
       ''
     );
   }

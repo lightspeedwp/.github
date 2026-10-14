@@ -421,3 +421,73 @@ describe('tables', () => {
     expect(stdout).toContain('| pfx_wfblocks7 | Wordfence: left out by default | 0 |');
   });
 });
+
+describe('URL replacement to the Studio site URL', () => {
+  const links = [
+    'INSERT INTO `pfx_posts` (`ID`) VALUES (1);',
+    'CREATE TABLE `pfx_postmeta` (',
+    '  `meta_value` longtext',
+    ') ENGINE=InnoDB;',
+    'INSERT INTO `pfx_postmeta` (`meta_value`) VALUES',
+    "('http://example.com/a'),",
+    '(\'{"url":"https:\\\\/\\\\/www.example.com\\\\/b"}\'),',
+    "('https://example.com.evil.net/ and https://shop.example.com/');",
+  ];
+  const site = tempDir();
+  fs.writeFileSync(path.join(site, 'wp-config.php'), "<?php\n$table_prefix = 'pfx_';\n");
+  const config = path.join(tempDir(), 'cli.json');
+  fs.writeFileSync(
+    config,
+    JSON.stringify({
+      sites: [
+        { name: 'Other', path: '/elsewhere', port: 8881, customDomain: 'other.local' },
+        { name: 'Mine', path: site, port: 8883, customDomain: 'mine.local', enableHttps: true },
+      ],
+    })
+  );
+  beforeAll(() => {
+    process.env.STUDIO_CLI_CONFIG = config;
+  });
+  afterAll(() => {
+    delete process.env.STUDIO_CLI_CONFIG;
+  });
+
+  it("plans a replacement to the Studio site's custom URL and counts the links", () => {
+    const result = siteUrls(writeTemp(buildMariaDbDump({ extra: links })), { studioSite: site });
+    expect(result.input.studioUrl).toBe('https://mine.local');
+    expect(result.urlReplacement).toMatchObject({
+      sources: ['example.com'],
+      destination: 'https://mine.local',
+      replacement: 'https:${1}${2}mine.local',
+      occurrences: 3,
+    });
+    expect(result.urlReplacement.regex).toBe(
+      'https?:(\\\\?/)(\\\\?/)(?:www\\.)?example\\.com(?!\\.?[\\w-])'
+    );
+    expect(result.urlReplacement.command).toContain(`--path ${site} search-replace`);
+    expect(result.urlReplacement.command).toContain('--dry-run');
+    expect(result.findings).toContainEqual(
+      expect.objectContaining({ check: 'url-replacement', severity: 'info' })
+    );
+  });
+
+  it('never changes URLs inside the dump itself', () => {
+    const file = writeTemp(buildMariaDbDump({ extra: links }));
+    const result = sanitise(file, { studioSite: site });
+    expect(result.urlReplacement.occurrences).toBe(3);
+    expect(fs.readFileSync(result.output.path, 'latin1')).toContain("('http://example.com/a'),");
+  });
+
+  it('uses http://localhost:<port> for a site without a custom domain', () => {
+    fs.writeFileSync(config, JSON.stringify({ sites: [{ path: site, port: 8890 }] }));
+    const result = siteUrls(writeTemp(buildMariaDbDump()), { studioSite: site });
+    expect(result.urlReplacement.destination).toBe('http://localhost:8890');
+  });
+
+  it('plans nothing when Studio does not list the site', () => {
+    fs.writeFileSync(config, JSON.stringify({ sites: [] }));
+    const result = siteUrls(writeTemp(buildMariaDbDump()), { studioSite: site });
+    expect(result.urlReplacement).toBeNull();
+    expect(result.findings.map((f) => f.check)).not.toContain('url-replacement');
+  });
+});

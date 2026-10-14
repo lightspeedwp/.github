@@ -25,7 +25,7 @@ node agents/wp-db-migration-agent/lib/sql-tool.cjs <command> <input.sql> [option
 | `--keep-wordfence` | `sanitise` | Keep Wordfence's tables (`<prefix>wf*`, `<prefix>wfls_*`), which are left out by default. |
 | `--exclude <pattern>` | `sanitise` | Leave out tables matching the pattern (repeatable or comma-separated; `*` and `?`; matched with or without the WordPress prefix). Warns on patterns that match nothing and on core tables. |
 | `--keep-users` | `sanitise` | Leave out the export's `<prefix>users` and `<prefix>usermeta` tables so the Studio site keeps its accounts. With `--studio-site`, exit 2 unless the output prefix matches the site's. |
-| `--studio-site <path>` | `sanitise`, `site-urls` | Studio site folder. Reads `$table_prefix` from its `wp-config.php` and warns (`prefix-differs`) when the export's prefix, after any `--prefix` rename, differs. |
+| `--studio-site <path>` | `sanitise`, `site-urls` | Studio site folder. Reads `$table_prefix` from its `wp-config.php` and warns (`prefix-differs`) when the export's prefix, after any `--prefix` rename, differs. Reads the site's custom URL from `~/.studio/cli.json` (override with `STUDIO_CLI_CONFIG`) and adds `urlReplacement` (sources, destination, WP-CLI regex and replacement, link count, preview command) to the result. The dump's URLs are never changed. |
 | `--json` | all | Print the result envelope as JSON instead of Markdown. |
 
 ## Exit codes

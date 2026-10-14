@@ -49,6 +49,9 @@ node agents/wp-db-migration-agent/lib/sql-tool.cjs sanitise export.sql --prefix 
 ```
 
 Wordfence's tables are left out by default (`--keep-wordfence` keeps them).
+With `--studio-site`, `site-urls` and `sanitise` also show the Studio site's
+custom URL and a ready-to-run WP-CLI preview for replacing the export's URL
+after import; the dump's own URLs are never edited.
 
 Add `--json` for machine-readable output. Exit codes: `0` clean, `1` findings
 to review, `2` error (no output written).

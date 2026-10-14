@@ -64,7 +64,9 @@ It packages the fixes for real failed imports:
   ```
 
   `site-urls` shows the export's WordPress table prefix next to the site's
-  `$table_prefix`, plus `siteurl` and `home`. `tables` lists every table with
+  `$table_prefix`, `siteurl` and `home`, and the Studio site's own URL (its
+  custom domain from Studio's site list, such as `https://<site>.local`) with
+  a planned URL replacement and how many links it would change. `tables` lists every table with
   its rows, size and group (WordPress core, accounts, Wordfence, plugin or
   other).
 
@@ -99,6 +101,16 @@ prefix>` (recommended), keep `<export prefix>` and change `$table_prefix`
    core tables. Pass each answer as `--exclude <name>`; names may omit the
    prefix and use `*` and `?` (for example `--exclude 'gf_*'`). Quote
    patterns with wildcards so the shell leaves them alone.
+4. **Site URL replacement.** Show the export's URL, the Studio site's custom
+   URL and the link count from the `URL replacement` section, then ask:
+   "After import, replace `<export URL>` (http or https, with or without
+   `www`) with `<Studio URL>` throughout the database?" Also ask whether any
+   other hosts should be replaced too, such as a CDN, a media domain or an old
+   domain still in content. If `site-urls` showed no Studio URL (the site is
+   not in Studio's list), get it with
+   `studio status --path ~/Studio/<site> --format json` (`siteUrl`) or ask
+   the user. Record the confirmed pairs: the replacement runs in step 5,
+   after import, never on the dump.
 
 ### 2. Run the sanitiser
 
@@ -116,9 +128,8 @@ To change the table prefix (the user's answer to question 1), add
 keys WordPress looks up by prefix (`<prefix>user_roles` in options and
 `<prefix>*` keys in usermeta, such as `<prefix>capabilities`). It refuses an
 export with more than one WordPress prefix (multisite) or a rename that would
-collide with an existing table. Do the site URL afterwards on the imported
-site with the [`wp-url-replacement`](../wp-url-replacement/SKILL.md) skill,
-never by editing the dump.
+collide with an existing table. The site URL is replaced afterwards on the
+imported site (step 5), never by editing the dump.
 
 The tool applies the known fixes, verifies the result, and prints the edit
 table, findings and site URLs. Exit code `0` means done, `1` means there are
@@ -205,10 +216,15 @@ Then tell the user:
 - **Import**: in the Studio app (site → Import / Export → Import), or
   `studio import <file> --path ~/Studio/<site>`. Importing replaces the site's
   database, so confirm the site first.
-- **Site URL**: report `siteurl` and `home` from the `*_options` table. In the
-  2026-10-13 import, Studio set these two options to the local site's URL, but
-  URLs inside posts, postmeta and other options still point at the source.
-  Check `siteurl` after import and offer the `wp-url-replacement` skill.
+- **Site URL**: once the user confirms the import worked, run the
+  [`wp-url-replacement`](../wp-url-replacement/SKILL.md) skill with the pairs
+  confirmed in step 1, question 4. Start with the preview command from the
+  `URL replacement` section of the report (it has `--dry-run`), show the
+  per-table counts, and apply only after the user confirms. Studio may set
+  `siteurl` and `home` to the local URL on import, but links in posts,
+  postmeta, options and plugin tables still point at the source until this
+  runs. If the user said no to question 4, say which links still point at the
+  source.
 - **Accounts**: if the dump contains a `*_users` table, the import replaces the
   local site's accounts; log in with an account from the source site.
 

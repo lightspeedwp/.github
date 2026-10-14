@@ -62,8 +62,9 @@ A full move chains them:
 
 Before sanitising an export for Studio, the agent asks the questions in the
 sanitiser skill's step 1 and waits for the answers: the table prefix,
-whether to keep the site's own user accounts, and which tables to leave out
-besides Wordfence's (left out by default). It never answers them on the
+whether to keep the site's own user accounts, which tables to leave out
+besides Wordfence's (left out by default), and whether to replace the export's
+site URL with the Studio site's custom URL after import. It never answers them on the
 user's behalf.
 
 When the direction is unclear, ask: "Is this database going into Studio, or
