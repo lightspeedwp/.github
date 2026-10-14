@@ -56,6 +56,7 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
+| 021 | wp-schema-audit-agent | WordPress Schema Audit Agent | Draft | 2026-10-14 | [./021-wp-schema-audit-agent/spec.md](./021-wp-schema-audit-agent/spec.md) |
 | 020 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
@@ -259,6 +260,20 @@ site URLs safely.
 - **Created**: 2026-10-13
 - **Updated**: 2026-10-13
 - **Link**: [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md)
+
+---
+
+### 021 - WordPress Schema Audit Agent
+
+Help team members check the structured data a WordPress site publishes: pick one test URL per post
+type, taxonomy and key page, validate each page's JSON-LD against the schema.org vocabulary and
+Google rich-result rules, and turn the findings into prioritised fixes.
+
+- **Status**: Draft
+- **Phase**: Specification and initial implementation
+- **Created**: 2026-10-14
+- **Updated**: 2026-10-14
+- **Link**: [./021-wp-schema-audit-agent/spec.md](./021-wp-schema-audit-agent/spec.md)
 
 ---
 
