@@ -105,12 +105,15 @@ describe('sanitise', () => {
 
   it('changes nothing except the edited lines', () => {
     const removed = new Set(
-      result.edits.filter((e) => e.rule !== 'binary-literal').map((e) => e.line)
+      result.edits
+        .filter((e) => !['binary-literal', 'drop-table'].includes(e.rule))
+        .map((e) => e.line)
     );
     const expected = buildDump()
       .split('\n')
       .filter((_, i) => !removed.has(i + 1))
       .join('\n')
+      .replace(/^CREATE TABLE (`[^`]+`)/gm, 'DROP TABLE IF EXISTS $1;\nCREATE TABLE $1')
       .replace(
         /_binary '.*',273\),\(_binary '[^']*'/,
         `X'${HASH_A.toString('hex')}',273),(X'${HASH_B.toString('hex')}'`

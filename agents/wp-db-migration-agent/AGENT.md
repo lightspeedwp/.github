@@ -10,9 +10,9 @@ tags:
   - wordpress-studio
   - database
   - migration
-version: 'v1.0.0'
+version: 'v1.1.0'
 created_date: '2026-10-13'
-last_updated: '2026-10-13'
+last_updated: '2026-10-14'
 author: 'LightSpeedWP'
 maintainer: 'LightSpeedWP'
 owners: ['lightspeedwp/maintainers']
