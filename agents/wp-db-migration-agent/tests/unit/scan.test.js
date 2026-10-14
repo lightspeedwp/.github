@@ -49,8 +49,11 @@ describe('sanitise risk scan', () => {
     expect(result.findings.filter((f) => f.check === 'trigger' && f.line === 7)).toEqual([]);
   });
 
-  it('leaves the file unchanged apart from known fixes (none here)', () => {
-    expect(result.edits).toEqual([]);
-    expect(fs.readFileSync(result.output.path)).toEqual(fs.readFileSync(input));
+  it('leaves the file unchanged apart from the added DROP TABLE', () => {
+    expect(result.edits.map((e) => e.rule)).toEqual(['drop-table']);
+    const expected = fs
+      .readFileSync(input, 'latin1')
+      .replace(/^CREATE TABLE (`[^`]+`)/m, 'DROP TABLE IF EXISTS $1;\nCREATE TABLE $1');
+    expect(fs.readFileSync(result.output.path, 'latin1')).toBe(expected);
   });
 });

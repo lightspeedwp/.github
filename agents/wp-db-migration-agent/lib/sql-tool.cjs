@@ -6,6 +6,7 @@
  *   sanitise  <input.sql>  Apply the known MySQL-to-Studio fixes, scan for risks.
  *   preflight <input.sql>  Check a Studio export before importing it into MySQL.
  *   site-urls <input.sql>  Report siteurl/home from every *_options table.
+ *   tables    <input.sql>  List tables with rows, size and group, to choose exclusions.
  *
  * Contract: .github/specs/020-wp-db-migration-agent/contracts/sql-tool-cli.md
  *
@@ -19,6 +20,7 @@
 'use strict';
 
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
 
@@ -54,6 +56,70 @@ const REMOVAL_RULES = [
 
 const BINARY_REASON =
   "The SQLite driver cannot parse _binary '...' literals; rewritten as hex literals holding the same bytes.";
+
+/**
+ * MariaDB 11+ (seen on 13.0) dumps a binary column's default as
+ * DEFAULT x AS `<hex>`, which is not valid SQL on any server.
+ */
+const BINARY_DEFAULT = /DEFAULT\s+x\s+AS\s+`([0-9a-f]*)`/gi;
+const BINARY_DEFAULT_REASON =
+  "MariaDB wrote the binary default as x AS `<hex>`, which no parser accepts; rewritten as the hex literal X'<hex>'.";
+
+/**
+ * Native SQLite syntax. The Studio importer (and Studio's phpMyAdmin) parse
+ * MySQL and translate it, so a file converted to SQLite's own dialect fails on
+ * its first statement, typically "Could not execute statement: PRAGMA ...".
+ */
+const SQLITE_DIALECT = [
+  /^PRAGMA\s/i,
+  /^BEGIN\s+(DEFERRED\s+|IMMEDIATE\s+|EXCLUSIVE\s+)?TRANSACTION\b/i,
+  /^INSERT\s+OR\s+(IGNORE|REPLACE|ABORT|FAIL|ROLLBACK)\s+INTO\b/i,
+  /^INSERT\s+INTO\s+["`]?sqlite_/i,
+  /^CREATE\s+TABLE\b[^;]*\bAUTOINCREMENT\b/i,
+  /^CREATE\s+TABLE\b[^;]*\)\s*(?:STRICT\s*,\s*)?WITHOUT\s+ROWID\b/i,
+];
+
+const DROP_TABLE_REASON =
+  'The export had no DROP TABLE for this table, so CREATE TABLE fails on a Studio site that already has it (for example wp_options); added DROP TABLE IF EXISTS, as mysqldump does.';
+
+/**
+ * Wordfence's tables (wfconfig, wfhits, wfls_settings, ...): "wf" plus letters
+ * and digits, or "wfls_" for its login-security module. Other plugins' "wf..."
+ * tables with an underscore (such as wfu_log) do not match.
+ */
+const WORDFENCE_TABLE = /^wf(?:ls_[a-z0-9_]+|[a-z0-9]+)$/i;
+const WORDFENCE_REASON =
+  "Wordfence's security tables (logs, scan results, blocks) are left out by default: the plugin is not run on local sites.";
+
+/** CREATE, INSERT, ALTER, DROP, LOCK and TRUNCATE statements name their table first. */
+const STATEMENT_TABLE =
+  /^(?:\/\*!\d+\s*)?(?:CREATE\s+TABLE(?:\s+IF\s+NOT\s+EXISTS)?|(?:INSERT|REPLACE)\s+(?:IGNORE\s+)?INTO|ALTER\s+TABLE|DROP\s+TABLE(?:\s+IF\s+EXISTS)?|LOCK\s+TABLES|TRUNCATE(?:\s+TABLE)?)\s+(`(?:[^`]|``)+`|[^\s(;,]+)/i;
+
+const USERS_REASON =
+  "Kept the Studio site's own accounts: the export's users and usermeta tables were left out.";
+
+const EXCLUDE_REASON = "Left out at the user's request (--exclude).";
+
+/** WordPress core tables (without prefix); excluding one usually breaks the site. */
+const CORE_TABLES = new Set([
+  'commentmeta',
+  'comments',
+  'links',
+  'options',
+  'postmeta',
+  'posts',
+  'term_relationships',
+  'term_taxonomy',
+  'termmeta',
+  'terms',
+  'usermeta',
+  'users',
+]);
+
+const PREFIX_TABLES_REASON =
+  'Renamed to the requested table prefix (CREATE, INSERT, ALTER, DROP and LOCK statements).';
+const PREFIX_DATA_REASON =
+  'WordPress looks these up by prefix: <prefix>user_roles in options and <prefix>* keys in usermeta.';
 
 /** Statements that commonly fail on import; reported, never changed automatically. */
 const RISK_RULES = [
@@ -374,6 +440,298 @@ function hashFile(file) {
   return hash.digest('hex');
 }
 
+/** True when a statement is native SQLite syntax rather than MySQL. */
+function isSqliteDialect(text) {
+  const h = head(text);
+  return SQLITE_DIALECT.some((pattern) => pattern.test(h));
+}
+
+/** Quote a latin1 string as a MySQL single-quoted literal, escaping as mysqldump does. */
+function mysqlQuote(value) {
+  const map = { '\0': '\\0', '\n': '\\n', '\r': '\\r', '\x1a': '\\Z', '\\': '\\\\', "'": "\\'" };
+  return `'${[...value].map((c) => map[c] ?? c).join('')}'`;
+}
+
+/**
+ * Rewrite MariaDB's DEFAULT x AS `<hex>` binary defaults in a CREATE TABLE as
+ * X'<hex>', checking the byte count against binary(N) columns.
+ *
+ * @returns {{text: string, edits: object[]}}
+ */
+function fixBinaryDefaults(text, startLine, table) {
+  if (!/DEFAULT\s+x\s+AS\s+`/i.test(text)) return { text, edits: [] };
+  const edits = [];
+  const lines = text.split('\n').map((line, index) =>
+    line.replace(BINARY_DEFAULT, (_, hex) => {
+      const column = line.match(/^\s*`((?:[^`]|``)+)`\s+([a-z]+)(?:\((\d+)\))?/i);
+      const where = `${table}.${column ? column[1] : '?'} (line ${startLine + index})`;
+      if (hex.length % 2) {
+        throw new Error(
+          `binary default in ${where} has an odd number of hex digits; no output written`
+        );
+      }
+      if (column && column[2].toLowerCase() === 'binary' && column[3]) {
+        if (hex.length / 2 !== Number(column[3])) {
+          throw new Error(
+            `binary default in ${where} is ${hex.length / 2} bytes but the column is binary(${column[3]}); no output written`
+          );
+        }
+      }
+      edits.push({
+        rule: 'binary-default',
+        line: startLine + index,
+        table,
+        count: 1,
+        reason: BINARY_DEFAULT_REASON,
+      });
+      return `DEFAULT X'${hex.toLowerCase()}'`;
+    })
+  );
+  return { text: lines.join('\n'), edits };
+}
+
+/** Every table name from the export's CREATE TABLE statements, in order. */
+function scanTables(input) {
+  const tables = [];
+  for (const statement of readStatements(readLines(input))) {
+    if (kindOf(statement.text) !== 'create-table') continue;
+    const parsed = parseCreateTable(statement.text);
+    if (parsed) tables.push(parsed.table);
+  }
+  return tables;
+}
+
+/**
+ * WordPress table prefixes in a list of tables. Prefers prefixes that have both
+ * <prefix>options and <prefix>posts, so plugin tables such as
+ * <prefix>wpb2d_options do not count as a second prefix.
+ */
+function detectPrefixes(tables) {
+  const names = new Set(tables);
+  const candidates = [
+    ...new Set(tables.filter((t) => /options$/.test(t)).map((t) => t.replace(/options$/, ''))),
+  ];
+  const withPosts = candidates.filter((p) => names.has(`${p}posts`));
+  return withPosts.length ? withPosts : candidates;
+}
+
+/** The table a statement creates, fills, alters, drops or locks, if any. */
+function statementTable(text) {
+  const match = head(text).match(STATEMENT_TABLE);
+  return match ? unquoteIdentifier(match[1]) : null;
+}
+
+/**
+ * Decide which tables `sanitise` leaves out, each with the edit rule and reason
+ * to report. Wordfence tables are left out unless `keepWordfence` is set.
+ *
+ * @returns {{excluded: Map<string, {rule: string, reason: string, core?: boolean}>, unmatched: string[]}}
+ */
+function planExclusions(tables, options = {}) {
+  const prefixes = detectPrefixes(tables);
+  const local = (name) => {
+    const prefix = prefixes.find((p) => name.startsWith(p));
+    return prefix ? name.slice(prefix.length) : name;
+  };
+  const excluded = new Map();
+  if (!options.keepWordfence) {
+    for (const name of tables) {
+      if (WORDFENCE_TABLE.test(local(name))) {
+        excluded.set(name, { rule: 'exclude-wordfence', reason: WORDFENCE_REASON });
+      }
+    }
+  }
+  const patterns = (options.exclude || []).map((pattern) => {
+    if (!/^[A-Za-z0-9_$*?-]+$/.test(pattern)) {
+      throw usageError(
+        `--exclude pattern "${pattern}" may contain only letters, digits, _ $ - and the wildcards * and ?`
+      );
+    }
+    const source = pattern.replace(/[$-]/g, '\\$&').replace(/\*/g, '.*').replace(/\?/g, '.');
+    return { pattern, regex: new RegExp(`^${source}$`, 'i'), matched: false };
+  });
+  for (const name of tables) {
+    if (excluded.has(name)) continue;
+    const hit = patterns.find((p) => p.regex.test(name) || p.regex.test(local(name)));
+    if (hit) {
+      hit.matched = true;
+      excluded.set(name, {
+        rule: 'exclude-table',
+        reason: EXCLUDE_REASON,
+        core: CORE_TABLES.has(local(name)),
+      });
+    }
+  }
+
+  if (options.keepUsers) {
+    for (const prefix of prefixes) {
+      for (const name of [`${prefix}users`, `${prefix}usermeta`]) {
+        if (tables.includes(name))
+          excluded.set(name, { rule: 'exclude-users', reason: USERS_REASON });
+      }
+    }
+  }
+  return { excluded, unmatched: patterns.filter((p) => !p.matched).map((p) => p.pattern) };
+}
+
+/**
+ * Work out a table-prefix rename for `sanitise --prefix`. The export must use
+ * exactly one WordPress prefix (one *_options table), and no renamed table may
+ * collide with a table that keeps its name.
+ *
+ * @returns {{from: string, to: string, renames: Map<string, string>}}
+ */
+function planPrefix(input, to) {
+  if (!/^[A-Za-z0-9_]+$/.test(to)) {
+    throw usageError('--prefix may contain only letters, digits and underscores');
+  }
+  const tables = scanTables(input);
+  const prefixes = detectPrefixes(tables);
+  if (prefixes.length !== 1) {
+    throw usageError(
+      `--prefix needs an export with exactly one WordPress table prefix; found ${
+        prefixes.length ? prefixes.join(', ') : 'none'
+      }`
+    );
+  }
+  const from = prefixes[0];
+  const renames = new Map();
+  if (from !== to) {
+    for (const name of tables) {
+      if (name.startsWith(from)) renames.set(name, to + name.slice(from.length));
+    }
+  }
+  const kept = new Set(tables.filter((name) => !renames.has(name)));
+  const clash = [...renames.values()].find((name) => kept.has(name));
+  if (clash) throw usageError(`renaming to ${to} would collide with the existing table ${clash}`);
+  return { from, to, renames };
+}
+
+/** Keywords that a table name follows: CREATE/ALTER/DROP TABLE, IF [NOT] EXISTS, INTO, ... */
+const TABLE_KEYWORDS = new Set([
+  'TABLE',
+  'TABLES',
+  'EXISTS',
+  'INTO',
+  'UPDATE',
+  'FROM',
+  'JOIN',
+  'REFERENCES',
+]);
+
+/** Statements whose comma-separated lists name tables, not columns. */
+const TABLE_LIST = /^(?:\/\*!\d+\s*)?(?:LOCK\s+TABLES|DROP\s+TABLES?)\b/i;
+
+/**
+ * Rename every table being renamed where it is used as a table: after TABLE,
+ * INTO, REFERENCES and the like, quoted or not. String literals and column
+ * identifiers stay unchanged; comments carry no data, so backtick-quoted names
+ * in them (such as "Table structure for table `x`") are renamed too.
+ */
+function renameTableIdentifiers(text, renames) {
+  const quote = (name) => `\`${name.replace(/`/g, '``')}\``;
+  const renameInComment = (comment) =>
+    comment.replace(/`((?:[^`]|``)+)`/g, (whole, name) => {
+      const to = renames.get(name.replace(/``/g, '`'));
+      return to ? quote(to) : whole;
+    });
+  const list = TABLE_LIST.test(head(text));
+  let out = '';
+  let prev = null;
+  let i = 0;
+  while (i < text.length) {
+    const c = text[i];
+    const rest = text.slice(i, i + 3);
+    if (/\s/.test(c)) {
+      out += c;
+      i += 1;
+    } else if (/^\/\*M?!/.test(rest)) {
+      const end = text.slice(i).match(/^\/\*M?!\d*/)[0].length;
+      out += text.slice(i, i + end);
+      i += end;
+    } else if (rest.startsWith('/*') || c === '#' || /^--\s/.test(rest) || rest === '--') {
+      const blockEnd = text.indexOf('*/', i + 2);
+      const lineEnd = text.indexOf('\n', i);
+      let end;
+      if (c === '/') end = blockEnd === -1 ? text.length : blockEnd + 2;
+      else end = lineEnd === -1 ? text.length : lineEnd;
+      out += renameInComment(text.slice(i, end));
+      i = end;
+    } else if (c === "'" || c === '"') {
+      let j = i + 1;
+      while (j < text.length) {
+        if (text[j] === '\\') j += 2;
+        else if (text[j] === c && text[j + 1] === c) j += 2;
+        else if (text[j] === c) break;
+        else j += 1;
+      }
+      out += text.slice(i, j + 1);
+      i = j + 1;
+      prev = { type: 'string' };
+    } else if (c === '`' || /[A-Za-z0-9_$]/.test(c)) {
+      const token =
+        c === '`'
+          ? (text.slice(i).match(/^`(?:[^`]|``)*`/) || [text.slice(i)])[0]
+          : text.slice(i).match(/^[\w$]+/)[0];
+      const name = c === '`' ? unquoteIdentifier(token) : token;
+      const atTable =
+        (prev && prev.type === 'word' && TABLE_KEYWORDS.has(prev.value.toUpperCase())) ||
+        (list && prev && prev.type === 'punct' && prev.value === ',');
+      const to = atTable ? renames.get(name) : undefined;
+      out += to ? (c === '`' ? quote(to) : to) : token;
+      i += token.length;
+      prev = { type: c === '`' ? 'ident' : 'word', value: name };
+    } else {
+      out += c;
+      i += 1;
+      prev = { type: 'punct', value: c };
+    }
+  }
+  return out;
+}
+
+/**
+ * Apply a prefix rename to one INSERT: the table name in its head, plus the
+ * prefixed keys WordPress looks up (options.<prefix>user_roles and
+ * usermeta.<prefix>*). Other values are data and stay unchanged.
+ */
+function renameInsertPrefix(text, prefix, tables, counts) {
+  const lead = text.length - head(text).length;
+  const match = text.slice(lead).match(INSERT_HEAD);
+  if (!match) return text;
+  const table = unquoteIdentifier(match[1]);
+  const to = prefix.renames.get(table);
+  if (!to) return text;
+  const definition = tables.get(table);
+  const names = match[2]
+    ? match[2].split(',').map((c) => unquoteIdentifier(c.trim()))
+    : definition
+      ? definition.columns.map((c) => c.name)
+      : [];
+  let field = -1;
+  let renamesValue = () => false;
+  if (table === `${prefix.from}options`) {
+    field = names.indexOf('option_name');
+    renamesValue = (value) => value === `${prefix.from}user_roles`;
+  } else if (table === `${prefix.from}usermeta`) {
+    field = names.indexOf('meta_key');
+    renamesValue = (value) => value.startsWith(prefix.from);
+  }
+  let out = text;
+  if (field !== -1) {
+    const result = walkInsertValues(text, (v) => {
+      if (v.field !== field || v.value === undefined || !renamesValue(v.value)) return undefined;
+      return mysqlQuote(prefix.to + v.value.slice(prefix.from.length));
+    });
+    out = result.text;
+    counts.data += result.replaced;
+  }
+  const nameStart = lead + match[0].indexOf(match[1]);
+  const body = out.slice(nameStart + match[1].length);
+  counts.leftover += body.split(prefix.from).length - 1;
+  return `${out.slice(0, nameStart)}\`${to.replace(/`/g, '``')}\`${body}`;
+}
+
 // ---------------------------------------------------------------------------
 // Analysis shared by every command
 // ---------------------------------------------------------------------------
@@ -467,10 +825,142 @@ function collectSiteUrls(statement, tables, siteUrls) {
 }
 
 function finalisePrefixes(summary) {
-  summary.prefixes = [
+  summary.prefixes = detectPrefixes(summary.tables);
+}
+
+/** Studio's site list, with each site's path, port and custom domain. */
+const STUDIO_CONFIG = path.join(os.homedir(), '.studio', 'cli.json');
+
+/**
+ * The Studio site's own URL from Studio's site list: its custom domain
+ * (https unless HTTPS is turned off) or http://localhost:<port>. Returns null
+ * when Studio's config is missing or does not list the site.
+ */
+function readStudioUrl(site, configPath = process.env.STUDIO_CLI_CONFIG || STUDIO_CONFIG) {
+  let config;
+  try {
+    config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
+  } catch {
+    return null;
+  }
+  const target = path.resolve(site);
+  const sites = [];
+  const walk = (node) => {
+    if (Array.isArray(node)) node.forEach(walk);
+    else if (node && typeof node === 'object') {
+      if (typeof node.path === 'string' && (node.customDomain || node.port)) sites.push(node);
+      Object.values(node).forEach(walk);
+    }
+  };
+  walk(config);
+  const entry = sites.find((s) => path.resolve(s.path) === target);
+  if (!entry) return null;
+  if (entry.customDomain) {
+    return `${entry.enableHttps === false ? 'http' : 'https'}://${entry.customDomain}`;
+  }
+  return `http://localhost:${entry.port}`;
+}
+
+/** Escape a host name for a PCRE pattern. */
+function escapeHost(host) {
+  return host.replace(/[.\\^$|?*+()[\]{}-]/g, '\\$&');
+}
+
+/**
+ * Plan the URL replacement from the export's siteurl/home to the Studio site's
+ * URL: one PCRE pattern for WP-CLI search-replace --regex that matches http and
+ * https, with or without www, and the JSON-escaped form (https:\/\/), plus the
+ * number of matches in the export. The dump itself is never changed: only a
+ * serialisation-aware tool may replace URLs.
+ */
+function planUrlReplacement(input, siteUrls, studioUrl, site) {
+  if (!studioUrl) return null;
+  const destination = new URL(studioUrl);
+  const hosts = [
     ...new Set(
-      summary.tables.filter((t) => /_options$/.test(t)).map((t) => t.replace(/options$/, ''))
+      siteUrls
+        .map((u) => {
+          try {
+            return new URL(u.value).host.toLowerCase().replace(/^www\./, '');
+          } catch {
+            return null;
+          }
+        })
+        .filter(Boolean)
     ),
+  ].filter((host) => host !== destination.host.replace(/^www\./, ''));
+  if (!hosts.length) return null;
+  const alternatives = hosts.map(escapeHost).join('|');
+  const group = hosts.length > 1 ? `(?:${alternatives})` : alternatives;
+  // (\\?/) keeps a JSON-escaped slash; the lookahead stops at the host's end.
+  const regex = `https?:(\\\\?/)(\\\\?/)(?:www\\.)?${group}(?!\\.?[\\w-])`;
+  const replacement = `${destination.protocol.slice(0, -1)}:\${1}\${2}${destination.host}`;
+  // In the dump a JSON-escaped slash is written as \\/ (MySQL escapes the backslash).
+  const counter = new RegExp(
+    `https?:(?:\\\\{0,2}/){2}(?:www\\.)?(?:${alternatives})(?!\\.?[\\w-])`,
+    'gi'
+  );
+  let occurrences = 0;
+  for (const statement of readStatements(readLines(input))) {
+    if (kindOf(statement.text) !== 'insert') continue;
+    occurrences += (statement.text.match(counter) || []).length;
+  }
+  const command = `studio wp --path ${site} search-replace '${regex}' '${replacement}' --regex --all-tables-with-prefix --dry-run --report-changed-only`;
+  return {
+    sources: hosts,
+    destination: `${destination.protocol}//${destination.host}`,
+    regex,
+    replacement,
+    occurrences,
+    command,
+  };
+}
+
+/** Finding asking the agent to confirm the URL replacement with the user. */
+function urlFindings(plan) {
+  if (!plan) return [];
+  return [
+    {
+      check: 'url-replacement',
+      severity: 'info',
+      line: null,
+      table: null,
+      detail: `${plan.occurrences} link(s) in the export point at ${plan.sources.join(', ')} (http or https, with or without www); the Studio site's URL is ${plan.destination}.`,
+      fix: 'Ask the user to confirm the replacement, then after import preview and apply it with the wp-url-replacement skill.',
+      autoFixable: false,
+    },
+  ];
+}
+
+/** Read $table_prefix from a Studio site's wp-config.php. */
+function readStudioPrefix(site) {
+  const config = path.join(site, 'wp-config.php');
+  if (!fs.existsSync(config)) throw usageError(`no wp-config.php in ${site}`);
+  const match = fs
+    .readFileSync(config, 'utf8')
+    .match(/^\s*\$table_prefix\s*=\s*(['"])([A-Za-z0-9_]+)\1\s*;/m);
+  if (!match) throw usageError(`could not read $table_prefix from ${config}`);
+  return match[2];
+}
+
+/**
+ * Compare the export's prefix (after any --prefix rename) with the Studio
+ * site's, so the agent can ask the user which to change.
+ */
+function prefixFindings(summary, studioPrefix, renamedTo) {
+  if (!studioPrefix || summary.prefixes.length !== 1) return [];
+  const exportPrefix = renamedTo || summary.prefixes[0];
+  if (exportPrefix === studioPrefix) return [];
+  return [
+    {
+      check: 'prefix-differs',
+      severity: 'warn',
+      line: null,
+      table: null,
+      detail: `The export's tables use ${exportPrefix}, but the Studio site's wp-config.php has $table_prefix = '${studioPrefix}'. WordPress would not see the imported data.`,
+      fix: `Ask the user: rename the tables with --prefix ${studioPrefix}, or set $table_prefix to '${exportPrefix}' in the site's wp-config.php.`,
+      autoFixable: false,
+    },
   ];
 }
 
@@ -490,6 +980,21 @@ function sanitise(input, options = {}) {
     throw usageError('the output path must differ from the input path');
   if (fs.existsSync(out) && !options.force)
     throw usageError(`${out} already exists; pass --force to overwrite it`);
+  const prefix = options.prefix ? planPrefix(input, options.prefix) : null;
+  const studioPrefix = options.studioSite ? readStudioPrefix(options.studioSite) : null;
+  if (options.keepUsers && studioPrefix) {
+    const outputPrefix = prefix ? prefix.to : detectPrefixes(scanTables(input))[0];
+    if (outputPrefix !== studioPrefix) {
+      throw usageError(
+        `--keep-users needs the imported tables to use the Studio site's prefix (${studioPrefix}), because its accounts' roles are stored under that prefix; add --prefix ${studioPrefix}`
+      );
+    }
+  }
+  const { excluded, unmatched } = planExclusions(scanTables(input), options);
+  const excludedCounts = new Map();
+  const left = { createTables: 0, inserts: 0 };
+  const prefixCounts = { data: 0, leftover: 0 };
+  const dropped = new Set();
 
   const beforeHash = crypto.createHash('sha256');
   const summary = newSummary(input);
@@ -515,6 +1020,12 @@ function sanitise(input, options = {}) {
       const kind = kindOf(statement.text);
       const h = head(statement.text);
 
+      if (kind !== 'comment' && isSqliteDialect(statement.text)) {
+        throw new Error(
+          `line ${statement.line} is SQLite syntax (${h.split(/\s+/, 1)[0]} ...), not MySQL. Studio's importer only accepts MySQL dumps and translates them itself; sanitise the original MySQL export instead. No output written`
+        );
+      }
+
       const subject = kind === 'comment' ? statement.text : h;
       const removal = REMOVAL_RULES.find((r) => r.test.test(subject));
       if (removal) {
@@ -524,8 +1035,29 @@ function sanitise(input, options = {}) {
         continue;
       }
 
+      const target = statementTable(statement.text);
+      if (target && excluded.has(target)) {
+        if (!excludedCounts.has(target))
+          excludedCounts.set(target, { line: statement.line, statements: 0 });
+        excludedCounts.get(target).statements += 1;
+        if (kind === 'create-table') {
+          summary.createTables += 1;
+          summary.tables.push(target);
+          left.createTables += 1;
+        } else if (kind === 'insert') {
+          summary.inserts += 1;
+          left.inserts += 1;
+        }
+        continue;
+      }
+
       findings.push(...riskFindings(statement, kind, 'warn'));
       let text = statement.text;
+
+      const drop = h.match(/^DROP\s+TABLE\s+(?:IF\s+EXISTS\s+)?([^;]+)/i);
+      if (drop) {
+        for (const name of drop[1].split(',')) dropped.add(unquoteIdentifier(name.trim()));
+      }
 
       if (kind === 'create-table') {
         const parsed = parseCreateTable(text);
@@ -534,6 +1066,19 @@ function sanitise(input, options = {}) {
         if (parsed) {
           tables.set(parsed.table, parsed);
           summary.tables.push(parsed.table);
+          const fixed = fixBinaryDefaults(text, statement.line, parsed.table);
+          text = fixed.text;
+          edits.push(...fixed.edits);
+          if (!dropped.has(parsed.table)) {
+            text = `DROP TABLE IF EXISTS \`${parsed.table.replace(/`/g, '``')}\`;\n${text}`;
+            edits.push({
+              rule: 'drop-table',
+              line: statement.line,
+              table: parsed.table,
+              count: 1,
+              reason: DROP_TABLE_REASON,
+            });
+          }
         }
       } else if (kind === 'insert') {
         summary.inserts += 1;
@@ -575,6 +1120,12 @@ function sanitise(input, options = {}) {
           }
         }
       }
+      if (prefix && prefix.renames.size) {
+        text =
+          kind === 'insert'
+            ? renameInsertPrefix(text, prefix, tables, prefixCounts)
+            : renameTableIdentifiers(text, prefix.renames);
+      }
       write(text);
     }
     fs.closeSync(fd);
@@ -591,9 +1142,10 @@ function sanitise(input, options = {}) {
   finalisePrefixes(summary);
   const beforeDigest = beforeHash.digest('hex');
   const verificationErrors = [];
-  if (outSummary.createTables !== summary.createTables)
+  if (outSummary.createTables !== summary.createTables - left.createTables)
     verificationErrors.push('CREATE TABLE counts differ');
-  if (outSummary.inserts !== summary.inserts) verificationErrors.push('INSERT counts differ');
+  if (outSummary.inserts !== summary.inserts - left.inserts)
+    verificationErrors.push('INSERT counts differ');
   if (hashFile(input) !== beforeDigest)
     verificationErrors.push('the input file changed during the run');
   if (verificationErrors.length) {
@@ -602,10 +1154,121 @@ function sanitise(input, options = {}) {
   }
   fs.renameSync(partial, out);
 
-  const hasUsers = summary.tables.some((t) => /_users$/.test(t));
-  findings.push(...postImportNotes(siteUrls, hasUsers));
+  for (const [table, counts] of excludedCounts) {
+    const { rule, reason } = excluded.get(table);
+    edits.push({ rule, line: counts.line, table, count: counts.statements, reason });
+  }
+  if ([...excludedCounts.keys()].some((t) => excluded.get(t).rule === 'exclude-wordfence')) {
+    findings.push({
+      check: 'wordfence-excluded',
+      severity: 'info',
+      line: null,
+      table: null,
+      detail: "Wordfence's tables were left out. Its settings in the options table were kept.",
+      fix: 'Keep the Wordfence plugin deactivated on the local site (studio wp plugin deactivate wordfence). Pass --keep-wordfence to import its tables.',
+      autoFixable: false,
+    });
+  }
 
-  return envelope('sanitise', summary, outSummary, edits, findings, siteUrls);
+  if (prefix && prefix.renames.size) {
+    edits.push({
+      rule: 'prefix-tables',
+      line: null,
+      table: `${prefix.from}* → ${prefix.to}*`,
+      count: [...prefix.renames.keys()].filter((t) => !excluded.has(t)).length,
+      reason: PREFIX_TABLES_REASON,
+    });
+    if (prefixCounts.data) {
+      edits.push({
+        rule: 'prefix-data',
+        line: null,
+        table: `${prefix.to}options, ${prefix.to}usermeta`,
+        count: prefixCounts.data,
+        reason: PREFIX_DATA_REASON,
+      });
+    }
+    if (prefixCounts.leftover) {
+      findings.push({
+        check: 'prefix-in-data',
+        severity: 'info',
+        line: null,
+        table: null,
+        detail: `${prefixCounts.leftover} other occurrence(s) of ${prefix.from} remain inside row data (for example cached or serialised values); they were left unchanged.`,
+        fix: 'Usually harmless: WordPress and plugins rebuild these caches. Search the imported site if something still refers to the old prefix.',
+        autoFixable: false,
+      });
+    }
+    for (const url of siteUrls) url.table = prefix.renames.get(url.table) || url.table;
+  }
+
+  if (studioPrefix) summary.studioPrefix = studioPrefix;
+  findings.push(...prefixFindings(summary, studioPrefix, prefix && prefix.to));
+  const studioUrl = options.studioSite ? readStudioUrl(options.studioSite) : null;
+  if (studioUrl) summary.studioUrl = studioUrl;
+  const urlReplacement = planUrlReplacement(input, siteUrls, studioUrl, options.studioSite);
+  findings.push(...urlFindings(urlReplacement));
+  const hasUsers = summary.tables.some((t) => /_users$/.test(t) && !excluded.has(t));
+  findings.push(...postImportNotes(siteUrls, hasUsers));
+  for (const pattern of unmatched) {
+    findings.push({
+      check: 'exclude-unmatched',
+      severity: 'warn',
+      line: null,
+      table: null,
+      detail: `--exclude ${pattern} matched no table.`,
+      fix: 'Check the name with sql-tool tables; patterns match the full name or the name without the prefix.',
+      autoFixable: false,
+    });
+  }
+  const core = [...excluded].filter(([, e]) => e.core).map(([t]) => t);
+  if (core.length) {
+    findings.push({
+      check: 'exclude-core',
+      severity: 'warn',
+      line: null,
+      table: core.join(', '),
+      detail: 'WordPress core tables were left out; the Studio site keeps its own copies of them.',
+      fix: 'Confirm with the user that this is intended; content may not match the rest of the import.',
+      autoFixable: false,
+    });
+  }
+  if ([...excludedCounts.keys()].some((t) => excluded.get(t).rule === 'exclude-users')) {
+    findings.push(...keepUsersNotes(studioPrefix));
+  }
+
+  return {
+    ...envelope('sanitise', summary, outSummary, edits, findings, siteUrls),
+    urlReplacement,
+  };
+}
+
+/** What the user should know after importing without the export's accounts. */
+function keepUsersNotes(studioPrefix) {
+  const notes = [
+    {
+      check: 'users-kept',
+      severity: 'info',
+      line: null,
+      table: null,
+      detail:
+        "The Studio site keeps its own accounts. Posts and comments keep the source site's author IDs, which may belong to a different local user or to none.",
+      fix: 'Log in with your local account. Reassign authors after import if it matters (studio wp post list --field=post_author).',
+      autoFixable: false,
+    },
+  ];
+  if (!studioPrefix) {
+    notes.push({
+      check: 'users-kept-prefix',
+      severity: 'warn',
+      line: null,
+      table: null,
+      detail:
+        "Local accounts' roles are stored under the Studio site's table prefix, which was not checked.",
+      fix: 'Re-run with --studio-site ~/Studio/<site> so the tool confirms the prefixes match.',
+      autoFixable: false,
+    });
+  }
+  return notes;
 }
 
 function postImportNotes(siteUrls, hasUsers) {
@@ -653,11 +1316,16 @@ function preflight(input, options = {}) {
   const siteUrls = [];
   const localUrls = new Map();
   let dropTables = 0;
+  let sqliteDialect = null;
 
   for (const statement of readStatements(readLines(input))) {
     summary.lines += countLines(statement.text);
     const kind = kindOf(statement.text);
     const h = head(statement.text);
+    if (kind !== 'comment' && isSqliteDialect(statement.text)) {
+      sqliteDialect = sqliteDialect || { line: statement.line, count: 0 };
+      sqliteDialect.count += 1;
+    }
     findings.push(...riskFindings(statement, kind, 'fail').map(promoteSeverity));
     if (/^DROP\s+TABLE\b/i.test(h)) dropTables += 1;
 
@@ -731,6 +1399,17 @@ function preflight(input, options = {}) {
     }
   }
 
+  if (sqliteDialect) {
+    findings.push({
+      check: 'sqlite-dialect',
+      severity: 'fail',
+      line: sqliteDialect.line,
+      table: null,
+      detail: `${sqliteDialect.count} statement(s) use SQLite's own syntax (PRAGMA, AUTOINCREMENT, INSERT OR ..., sqlite_ tables); MySQL cannot run them.`,
+      fix: 'Export from Studio in MySQL format (studio export --mode db, or Studio phpMyAdmin) instead of a sqlite3 dump.',
+      autoFixable: false,
+    });
+  }
   if (dropTables) {
     findings.push({
       check: 'drop-table',
@@ -796,7 +1475,8 @@ function promoteSeverity(finding) {
  *
  * @param {string} input Path to the export.
  */
-function siteUrlsCommand(input) {
+function siteUrlsCommand(input, options = {}) {
+  const studioPrefix = options.studioSite ? readStudioPrefix(options.studioSite) : null;
   const summary = newSummary(input);
   const tables = new Map();
   const siteUrls = [];
@@ -817,6 +1497,12 @@ function siteUrlsCommand(input) {
     }
   }
   finalisePrefixes(summary);
+  if (studioPrefix) summary.studioPrefix = studioPrefix;
+  findings.push(...prefixFindings(summary, studioPrefix));
+  const studioUrl = options.studioSite ? readStudioUrl(options.studioSite) : null;
+  if (studioUrl) summary.studioUrl = studioUrl;
+  const urlReplacement = planUrlReplacement(input, siteUrls, studioUrl, options.studioSite);
+  findings.push(...urlFindings(urlReplacement));
   if (siteUrls.length === 0) {
     findings.push({
       check: 'no-site-url',
@@ -845,7 +1531,61 @@ function siteUrlsCommand(input) {
       });
     }
   }
-  return envelope('site-urls', summary, null, [], findings, siteUrls);
+  return { ...envelope('site-urls', summary, null, [], findings, siteUrls), urlReplacement };
+}
+
+/**
+ * List every table with its rows and size, and what it belongs to, so the
+ * user can choose tables to leave out (spec 020). Read-only.
+ *
+ * @param {string} input Path to the export.
+ */
+function tablesCommand(input) {
+  const summary = newSummary(input);
+  const rows = new Map();
+  for (const statement of readStatements(readLines(input))) {
+    summary.lines += countLines(statement.text);
+    const kind = kindOf(statement.text);
+    if (kind === 'create-table') {
+      summary.createTables += 1;
+      const parsed = parseCreateTable(statement.text);
+      if (parsed) {
+        summary.tables.push(parsed.table);
+        rows.set(parsed.table, { rows: 0, bytes: 0 });
+      }
+    } else if (kind === 'insert') {
+      summary.inserts += 1;
+      const target = statementTable(statement.text);
+      if (!rows.has(target)) rows.set(target, { rows: 0, bytes: 0 });
+      const entry = rows.get(target);
+      let tuples = 0;
+      walkInsertValues(statement.text, (v) => {
+        tuples = Math.max(tuples, v.tuple + 1);
+      });
+      entry.rows += tuples;
+      entry.bytes += statement.text.length;
+    }
+  }
+  finalisePrefixes(summary);
+  const prefixes = summary.prefixes;
+  const local = (name) => {
+    const prefix = prefixes.find((p) => name.startsWith(p));
+    return prefix ? name.slice(prefix.length) : name;
+  };
+  const tableList = [...rows].map(([name, counts]) => {
+    const short = local(name);
+    const group = WORDFENCE_TABLE.test(short)
+      ? 'wordfence'
+      : short === 'users' || short === 'usermeta'
+        ? 'users'
+        : CORE_TABLES.has(short)
+          ? 'core'
+          : 'plugin';
+    return { table: name, group, rows: counts.rows, bytes: counts.bytes };
+  });
+  const result = envelope('tables', summary, null, [], [], []);
+  result.tableList = tableList;
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -914,18 +1654,64 @@ function toMarkdown(result) {
   } else {
     parts.push(`Input: \`${input.path}\``, '', table(['Count', 'Input'], countRows), '');
   }
+  if (input.prefixes && input.prefixes.length) {
+    const studio = input.studioPrefix ? `; Studio site: \`${input.studioPrefix}\`` : '';
+    parts.push(
+      `WordPress table prefix: ${input.prefixes.map((p) => `\`${p}\``).join(', ')}${studio}`,
+      ''
+    );
+  }
+  if (result.urlReplacement) {
+    const plan = result.urlReplacement;
+    parts.push('### URL replacement (after import, once the user confirms)', '');
+    parts.push(
+      table(
+        ['From', 'To', 'Links in export'],
+        [
+          [
+            plan.sources.map((h) => `http(s)://(www.)${h}`).join(', '),
+            plan.destination,
+            plan.occurrences,
+          ],
+        ]
+      ),
+      '',
+      'Preview on the Studio site, then run again without `--dry-run`:',
+      '',
+      '```bash',
+      plan.command,
+      '```',
+      ''
+    );
+  }
+  if (result.command === 'tables') {
+    const note = {
+      core: 'WordPress core',
+      users: 'accounts (--keep-users)',
+      wordfence: 'Wordfence: left out by default',
+      plugin: 'plugin or other',
+    };
+    parts.push('### Tables', '');
+    parts.push(
+      table(
+        ['Table', 'Group', 'Rows', 'Size (KB)'],
+        result.tableList.map((t) => [t.table, note[t.group], t.rows, Math.ceil(t.bytes / 1024)])
+      ),
+      ''
+    );
+  }
   if (result.command === 'sanitise') {
     parts.push('### Edits', '');
     parts.push(
       result.edits.length
         ? table(
-            ['#', 'Rule', 'Line', 'Table', 'Literals', 'Why'],
+            ['#', 'Rule', 'Line', 'Table', 'Count', 'Why'],
             result.edits.map((e, i) => [
               i + 1,
               e.rule,
-              e.line,
+              e.line ?? '',
               e.table || '',
-              e.rule === 'binary-literal' ? e.count : '',
+              /^(binary|prefix)-/.test(e.rule) ? e.count : '',
               e.reason,
             ])
           )
@@ -969,12 +1755,22 @@ function toMarkdown(result) {
 // CLI
 // ---------------------------------------------------------------------------
 
-const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls> <input.sql> [options]
+const USAGE = `Usage: sql-tool <sanitise|preflight|site-urls|tables> <input.sql> [options]
 
   --out <path>      sanitise: output path (default <input>-sqlite.sql)
   --force           sanitise: overwrite an existing output file (never the input)
   --target <name>   preflight: ${TARGETS.join(' | ')}
   --prefix <prefix> preflight: the target site's table prefix
+                    sanitise: rename the export's tables to this prefix
+  --keep-wordfence  sanitise: import Wordfence's tables (left out by default)
+  --keep-users      sanitise: leave out the export's users and usermeta tables,
+                    so the Studio site keeps its own accounts
+  --exclude <pattern>
+                    sanitise: leave out matching tables (repeatable or
+                    comma-separated; * and ? wildcards; with or without prefix)
+  --studio-site <path>
+                    sanitise, site-urls: the Studio site folder; compares its
+                    $table_prefix with the export's
   --json            print the result as JSON
 `;
 
@@ -984,14 +1780,19 @@ function parseArgs(argv) {
     const arg = argv[i];
     if (arg === '--json') args.json = true;
     else if (arg === '--force') args.force = true;
-    else if (['--out', '--target', '--prefix'].includes(arg)) {
+    else if (arg === '--keep-wordfence') args.keepWordfence = true;
+    else if (arg === '--keep-users') args.keepUsers = true;
+    else if (arg === '--exclude') {
+      if (argv[i + 1] === undefined) throw usageError('--exclude needs a value');
+      args.exclude = [...(args.exclude || []), ...argv[++i].split(',').filter(Boolean)];
+    } else if (['--out', '--target', '--prefix', '--studio-site'].includes(arg)) {
       if (argv[i + 1] === undefined) throw usageError(`${arg} needs a value`);
-      args[arg.slice(2)] = argv[++i];
+      args[arg.slice(2).replace(/-([a-z])/g, (_, c) => c.toUpperCase())] = argv[++i];
     } else if (arg.startsWith('--')) throw usageError(`unknown option ${arg}`);
     else if (!args.input) args.input = arg;
     else throw usageError(`unexpected argument ${arg}`);
   }
-  if (!['sanitise', 'preflight', 'site-urls'].includes(args.command))
+  if (!['sanitise', 'preflight', 'site-urls', 'tables'].includes(args.command))
     throw usageError('unknown command');
   if (!args.input) throw usageError('missing input file');
   if (!fs.existsSync(args.input) || !fs.statSync(args.input).isFile())
@@ -1007,10 +1808,20 @@ function run(argv) {
     args = parseArgs(argv);
     const result =
       args.command === 'sanitise'
-        ? sanitise(args.input, { out: args.out, force: args.force })
+        ? sanitise(args.input, {
+            out: args.out,
+            force: args.force,
+            prefix: args.prefix,
+            keepWordfence: args.keepWordfence,
+            keepUsers: args.keepUsers,
+            exclude: args.exclude,
+            studioSite: args.studioSite,
+          })
         : args.command === 'preflight'
           ? preflight(args.input, { target: args.target, prefix: args.prefix })
-          : siteUrlsCommand(args.input);
+          : args.command === 'tables'
+            ? tablesCommand(args.input)
+            : siteUrlsCommand(args.input, { studioSite: args.studioSite });
     return {
       code: result.status === 'ok' ? EXIT_OK : EXIT_FINDINGS,
       stdout: args.json ? JSON.stringify(result, null, 2) : toMarkdown(result),
@@ -1042,6 +1853,7 @@ module.exports = {
   sanitise,
   preflight,
   siteUrls: siteUrlsCommand,
+  tables: tablesCommand,
   run,
   readStatements,
   readLines,
