@@ -37,9 +37,21 @@ node agents/wp-db-migration-agent/lib/sql-tool.cjs sanitise ~/Desktop/export.sql
 # Check a Studio export before staging or live
 node agents/wp-db-migration-agent/lib/sql-tool.cjs preflight studio.sql --target mysql-8 --prefix wp_
 
-# Show siteurl/home from an export
-node agents/wp-db-migration-agent/lib/sql-tool.cjs site-urls export.sql
+# Show siteurl/home from an export, and compare its prefix with a Studio site
+node agents/wp-db-migration-agent/lib/sql-tool.cjs site-urls export.sql --studio-site ~/Studio/my-site
+
+# List tables with rows, size and group, to choose what to leave out
+node agents/wp-db-migration-agent/lib/sql-tool.cjs tables export.sql
+
+# Sanitise for that site: rename to its prefix, keep its accounts, skip a log table
+node agents/wp-db-migration-agent/lib/sql-tool.cjs sanitise export.sql --prefix wp_ \
+  --keep-users --exclude bad_behavior --studio-site ~/Studio/my-site
 ```
+
+Wordfence's tables are left out by default (`--keep-wordfence` keeps them).
+With `--studio-site`, `site-urls` and `sanitise` also show the Studio site's
+custom URL and a ready-to-run WP-CLI preview for replacing the export's URL
+after import; the dump's own URLs are never edited.
 
 Add `--json` for machine-readable output. Exit codes: `0` clean, `1` findings
 to review, `2` error (no output written).
@@ -51,6 +63,9 @@ to review, `2` error (no output written).
 | GTID replication statement                                       | `Could not execute statement: SET @@GLOBAL.GTID_PURGED=...`           | Statement and its comment removed           |
 | Binary-log statements                                            | `SET @@SESSION.SQL_LOG_BIN= 0`                                        | Three statements removed                    |
 | Raw binary literals (for example WP All Import's `wp_pmxi_hash`) | `Could not execute statement: INSERT INTO ... VALUES (_binary '...')` | Rewritten as `X'<hex>'` with the same bytes |
+| MariaDB 11+ binary defaults                                      | ``CREATE TABLE ... DEFAULT x AS `0000...` ``                          | Rewritten as `DEFAULT X'<hex>'`             |
+| No `DROP TABLE` before `CREATE TABLE` (phpMyAdmin)               | `Could not execute statement: CREATE TABLE wp_commentmeta`            | `DROP TABLE IF EXISTS` added                |
+| File already converted to SQLite syntax                          | `Could not execute statement: PRAGMA foreign_keys=OFF`                | Refused: sanitise the MySQL export instead  |
 
 Anything else risky (triggers, `DEFINER=`, `CREATE DATABASE`, views and so on)
 is reported, not changed.
