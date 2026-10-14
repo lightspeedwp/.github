@@ -3,7 +3,7 @@ title: 'Changelog'
 description: 'All notable changes to this project, formatted per Keep a Changelog 1.1.0 and Semantic Versioning'
 file_type: 'documentation'
 created_date: '2025-09-20'
-last_updated: '2026-10-02'
+last_updated: '2026-10-14'
 consolidation_phase: 'Phase 1 (merged sections)'
 owners:
   - LightSpeed Team
@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Studio Migration Table Prefix** — Database exports can take the Studio site's table prefix, including the user role and permission records WordPress looks up by prefix. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
 - **Drift Check Inventory** — The weekly label drift check now also writes the redacted label inventory, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
@@ -106,6 +107,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Uncalled Composite Actions** — Deleted `aggregate-tests` and `validate-check`: no active workflow called either, yet their contract tests passed and #3478's removal request was closed without it. (#3570)
 
 ### Fixed
+
+- **Studio Imports From MariaDB Sites** — MariaDB exports now import into Studio sites that already have WordPress tables; files in the wrong format are refused with a reason. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
 - **Qodo PR-Agent Eligibility and Comment Binding** — A closed pull request is refused on every request path, and both receivers resolve the exact maintainer comment by id. ([PR #3532](https://github.com/lightspeedwp/.github/pull/3532))
 
