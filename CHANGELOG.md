@@ -108,7 +108,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Studio Imports From MariaDB Sites** — MariaDB exports now import into Studio sites that already have WordPress tables; files in the wrong format are refused with a reason. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
+- **Studio Imports From Live Sites** — Live site database exports now import into Studio sites that already have WordPress tables; files in the wrong format are refused with a reason. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
 - **Qodo PR-Agent Eligibility and Comment Binding** — A closed pull request is refused on every request path, and both receivers resolve the exact maintainer comment by id. ([PR #3532](https://github.com/lightspeedwp/.github/pull/3532))
 
