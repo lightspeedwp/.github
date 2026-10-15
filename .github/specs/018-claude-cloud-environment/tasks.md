@@ -150,7 +150,7 @@ it's refused (quickstart §1, §4).
 - [x] T016 [US1] Limit the rename in `.claude/hooks/session-start.sh` to branches where `git rev-list --count origin/${BASE_BRANCH}..HEAD` is `0`, and leave a forbidden-prefix branch that has commits unchanged (FR-001, research R10).
 - [x] T017 [US1] Update the context text in `.claude/hooks/session-start.sh` to add:
   - the documentation exception (`.github/specs/**` and `docs/**` only, on `develop`; never on `main`)
-  - the legacy PR exception
+  - the legacy PR exception (superseded 2026-10-15, GIT-2741; the delivered text still carries it)
   - that guard files can't be edited while enforcement is on
 
   Replace "Never commit directly to main or develop" with the exception wording (contracts/hooks.md, SessionStart output).
@@ -214,7 +214,7 @@ report the Node version from `.nvmrc`, `shellcheck`, `actionlint` and authentica
 ## Phase 5: User Story 3 - Configuration is documented, versioned and maintainable (Priority: P3)
 
 **Goal**: The environment, guard and cleanup are documented and versioned. Empty `claude/*` branches follow spec
-009's cleanup route: auto-deletion is deferred under FR-020, and a maintainer may promote an empty, merged one from
+009's cleanup route: auto-deletion is deferred under FR-020 until three prerequisites exist (branch-age storage, retention and measurement; reliable branch-origin verification; and a delivered and verified scheduled deletion workflow; `branch-audit.yml` is not delivered), and a maintainer may promote an empty, merged one from
 DISCUSS to DELETE for the draft-PR approval (FR-021).
 
 **Independent Test**: Using only `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, a maintainer recreates the environment and
@@ -224,7 +224,7 @@ and every `claude/*` branch without an open PR goes to DISCUSS (quickstart §5).
 - [x] T031 [P] [US3] Write `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, covering the problem, the layers, Owner setup, usage, checks, maintenance and limitations (done in #3524).
 - [x] T032 [US3] Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` with:
   - the documentation exception, on `develop` only (every direct commit or push to `main` is refused)
-  - the legacy PR exception
+  - the legacy PR exception (superseded 2026-10-15, GIT-2741; the delivered docs still describe it)
   - that the guard applies in local sessions too
   - the threat model (accidents plus obvious self-bypasses; CI and CODEOWNERS are the final gate)
   - that the enforcement switch is read only from the environment a session starts with, and can't be changed from inside the session
@@ -249,7 +249,7 @@ and every `claude/*` branch without an open PR goes to DISCUSS (quickstart §5).
 - [x] T047 [US3] Add a workflow (for example `.github/workflows/claude-guard-tests.yml`, actions pinned by SHA, read-only permissions) that runs `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js` on PRs that change `.claude/**`, those tests or `.github/specs/018-claude-cloud-environment/**`, with `jq` and `git` available. It must pass `actionlint` (FR-023).
 - [ ] T048 [US3] [Owner] Owner action: after T047 merges, mark its check as required in branch protection (or the ruleset) for `develop` and `main`, and add the step to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-023, FR-019, US3 scenario 7).
 
-**Checkpoint**: Everything is documented, and the cleanup report runs report-only with auto-deletion deferred under FR-020.
+**Checkpoint**: Everything is documented, and the cleanup report runs report-only with auto-deletion deferred under FR-020 until its three prerequisites exist (`branch-audit.yml` is not delivered).
 
 ---
 

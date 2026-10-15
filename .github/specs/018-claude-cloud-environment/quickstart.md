@@ -122,7 +122,7 @@ Expected while the FR-020 deferral holds:
 After T063 adds this route to spec 009, a maintainer can promote an empty, merged `claude/*` branch with no open PR
 to DELETE through spec 009's draft-PR approval (R16).
 
-Once the deferral is lifted, only branches that are platform placeholders with no commits of their own and no
+The deferral lifts only when all three prerequisites exist (branch-age storage, retention and measurement; reliable branch-origin verification; and a delivered and verified scheduled deletion workflow). Then only branches that are platform placeholders with no commits of their own and no
 open PR, observable for at least a day by the branch-age signal, are auto-approved. Run the spec 009 cleanup
 workflow manually in report-only mode, and check that its summary lists the same auto-approved branches.
 

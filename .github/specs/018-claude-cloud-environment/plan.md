@@ -16,7 +16,7 @@ This plan enforces the LightSpeed branching strategy with four repository-level 
    allows the documentation exception on `develop` (never on `main`).
 3. **Shared cloud environment definition**: a setup script and variables, versioned in `.claude/cloud/`.
 4. **Cleanup of empty `claude/*` branches**: deferred under FR-020. Spec 009's categoriser
-   (lightspeedwp/.github#3358) auto-approves nothing until a branch-age signal exists. Until then a maintainer
+   (lightspeedwp/.github#3358) auto-approves nothing until its three prerequisites exist (branch-age storage, branch-origin verification and a delivered deletion workflow; `branch-audit.yml` is absent). Until then a maintainer
    can promote an empty, merged `claude/*` branch with no open PR from DISCUSS to DELETE, and it is removed
    through 009's draft-PR approval. There is no separate job.
 
@@ -63,7 +63,7 @@ per `.nvmrc`.
 
 - `lib/validate-branch-name.js` (existing)
 - `jq`, `git`
-- `gh` (hook sessions and Actions runner, for the open-PR check; cloud sessions authenticate through the GitHub
+- `gh` (hook sessions and Actions runner, for the open-PR check of the delivered guard only; the specification no longer needs it for writes; cloud sessions authenticate through the GitHub
   proxy, while local sessions require an authenticated `gh` login)
 - GitHub Actions pinned by SHA
 
@@ -220,7 +220,7 @@ These follow the user-story priorities in the spec:
    - The cleanup (FR-020 to FR-022) ships with spec 009 in #3358, in its deferred form: no auto-approval (removed
      in `f4fcec75`, with CLI tests covering it), and a maintainer may promote empty branches from DISCUSS to the
      draft-PR route (documented in spec 009 by T063). Automatic deletion follows only once both
-     a branch-age signal and a branch-origin check exist; the age signal alone does not enable it.
+     the three prerequisites exist (branch-age storage, branch-origin verification and a delivered deletion workflow); the age signal alone does not enable it.
    - Spec 009's daily auto-delete step (task T034) is not part of this spec's delivery. It stays with spec 009.
 4. **Rollout slice (US2, FR-024 to FR-026, SC-010)**: the organisation-wide rollout in the increment below. Its work
    falls into three groups:
@@ -374,7 +374,7 @@ protection scopes, cleanup limited to what is delivered). Implementation complia
    text with the refusal and migration wording (also guard-protected).
 3. **Documentation outside spec 018**: `docs/CLAUDE_CLOUD_ENVIRONMENT.md` describes the exception in its guard section and
    in the "Use it" note about `gh`.
-4. **Regression tests**: change `scripts/__tests__/enforce-branch-name-hook.test.js` (11 cases mention the exception) and
+4. **Regression tests**: change `scripts/__tests__/enforce-branch-name-hook.test.js` (about 11 cases mention the exception) and
    add a case that an open-PR head is refused; add a session-start case that a clean existing branch behind the base is
    not reset; revisit `tests/js/claude-cloud-environment-docs.test.js` once the guard and text change.
 5. **Reset behaviour check**: confirm the delivered reset behaviour with a behavioural test (a text assertion alone doesn't

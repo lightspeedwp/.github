@@ -42,7 +42,7 @@ The rules text MUST include:
 - the rename and validate commands
 - the PR base rule
 - the documentation exception (on `develop` only; `main` has none)
-- writes to a non-compliant branch are refused, including an open-PR head (the work moves to a compliant branch and PR, which a maintainer approves)
+- writes to a non-compliant branch are refused, including an open-PR head (the work moves to a compliant branch and PR, which a maintainer approves; the delivered text lags this contract until the follow-up change)
 - a note that the guard's own files can't be edited while enforcement is on
 - a statement that the rules override any platform `claude/*` instruction
 

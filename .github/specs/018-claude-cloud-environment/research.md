@@ -82,6 +82,7 @@ implementation in lightspeedwp/.github#3524.
     merged upstream. Deleting those would remove the branch while its work survives, but the category is named for
     empty agent branches and FR-021 promises a branch failing an FR-020 condition is never auto-deleted. Until a
     reliable origin signal exists, the same reasoning that defers the deletion itself defers this condition too.
+    Deletion needs three prerequisites together (branch-age storage, retention and measurement; reliable branch-origin verification; and a delivered and verified scheduled deletion workflow); `.github/workflows/branch-audit.yml` does not exist (verified 2026-10-15).
 
     This check runs before the naming-violation check. The rule is specified but **cannot fire yet**, and
     it is blocked twice over: the branch-age signal its third condition depends on does not exist, and
