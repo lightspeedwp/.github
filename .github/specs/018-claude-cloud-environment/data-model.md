@@ -55,7 +55,7 @@ In every state, session start still exits 0 and emits the branching rules (FR-00
 | Forbidden or invalid | the validator fails (for example `claude/*`, unknown type, malformed) | refused | refused |
 | Protected | `main` or `LS_BASE_BRANCH` | refused (rename target) | `main`: always refused. Base branch: allowed only under the documentation exception, otherwise refused |
 | Bot-owned | `dependabot/*`, `renovate/*` (validator exemption) | allowed | allowed |
-| Legacy PR branch | Forbidden or invalid, but exists on GitHub **and** is the head of an open PR (checked through `git ls-remote` and the REST lookup `gh api repos/{owner}/{repo}/pulls?head=…`, requiring the PR's head repository to equal its base repository, and fails closed) | refused | allowed (FR-006) |
+| Open-PR head (formerly the legacy PR branch) | Forbidden or invalid, even when it exists on GitHub and is the head of an open PR. An open PR is not an exception (decision of 2026-10-15, superseding the earlier FR-006 exception). The delivered guard still allows pushes to such a branch until the follow-up change | refused | refused (FR-005, FR-006, FR-008) |
 
 **Protected guard files** (FR-013a): `.claude/hooks/**`, `.claude/settings.json`, `.claude/settings.local.json`,
 `~/.claude/settings.json` and `/etc/claude-code/managed-settings.json`. Edits through the Edit, Write, MultiEdit or NotebookEdit tools, or through Bash write
@@ -75,14 +75,16 @@ An empty or unknown path set fails closed.
 
 ```text
 claude/<words>-<hash>  --(SessionStart, cloud, 0 commits ahead of base)-->  chore/session-<hash>  (local only, not pushed)
-claude/<...> with commits (existing PR)  --(SessionStart)-->  unchanged; writes allowed only as a legacy PR branch
+claude/<...> with commits (existing PR)  --(SessionStart)-->  unchanged (FR-001); writes are refused until the work moves to a compliant branch and PR, which a maintainer approves
 chore/session-<hash>   --(git branch -m, validated)-->  <type>/<scope>-<title>
 <type>/<scope>-<title> --(git push -u)-->  remote branch  --(draft PR)-->  develop
 remote claude/<...>  (empty, left by platform)  --(daily cleanup)-->  009 categorisation; auto-approved deletion is deferred until a branch-age signal exists, so the ≥24 h threshold applies only to that deferred rule
 ```
 
-When the tree is clean and has no local commits, SessionStart also resets the branch to `origin/<LS_BASE_BRANCH>`
-(FR-002).
+SessionStart resets only a placeholder it renamed itself in that invocation, on startup or resume, to
+`origin/<LS_BASE_BRANCH>`, after a successful base fetch and only when it has no commits of its own and no
+uncommitted or untracked changes. It never resets a branch it did not rename, even when that branch is clean and
+behind the base (FR-002).
 
 ## Cleanup decision (per remote `claude/*` branch)
 

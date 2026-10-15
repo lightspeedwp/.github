@@ -24,6 +24,10 @@ spawn the hook with JSON on stdin.
 - The organisation-wide rollout (Phase 12) is planned in `docs/cloud-env-org-rollout` (lightspeedwp/.github#3878). The
   hook half (T070, T071) goes in a guard PR made by a person or in a session an Owner starts with
   `LS_ENFORCE_BRANCH_NAMES=0`.
+- The reconciliation of 2026-10-15 (GIT-2741) removed the legacy PR exception from the specification. Tasks T010, T017,
+  T021 and T032 describe the exception as built. They stay ticked as history and are not re-opened: the delivered code
+  still implements it until a separate follow-up (guard logic, session-start text, docs and regression tests), which
+  plan.md lists as proposals, not yet tasks.
 - The Linear issue close-out (Phase 13) maps GIT-2532, GIT-2530, GIT-2581, GIT-2571, GIT-2514 and the epic GIT-2524 to
   tasks. Most of it is documentation and housekeeping.
 
@@ -101,7 +105,7 @@ it's refused (quickstart §1, §4).
   - push to `main` (including `git push origin HEAD:main`) whose diff touches only `docs/**` → exit 2
   - MCP `push_files` to `main` with only `docs/` paths → exit 2
   - an empty or unknown path set → exit 2
-- [x] T010 [P] [US1] Add legacy PR exception cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
+- [x] T010 [P] [US1] (Superseded on 2026-10-15 by the GIT-2741 decision: the legacy PR exception is removed from the specification. History kept; the delivered tests still exercise it until the guard follow-up.) Add legacy PR exception cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
   - push to an existing remote `copilot/fix-login` with the `gh` stub returning an open PR → exit 0
   - `gh` returning `[]`, exiting non-zero or timing out → exit 2
   - commit on that branch with an open PR → exit 0
@@ -162,7 +166,7 @@ it's refused (quickstart §1, §4).
   - normalise each path to repository-relative form (resolve `.`, `..` and, for existing files, symlinks) and compare case-sensitively; a path that leaves the allowed folders is not covered (FR-005)
   - an empty or unknown set fails closed, and the refusal lists the offending files (research R4)
   - judge commits during a rebase, merge, cherry-pick or revert by the branch being worked on; refuse a commit on a detached HEAD with none in progress; judge refspec pushes by their target; allow force-pushes to a compliant, unprotected branch (FR-005, FR-006)
-- [x] T021 [US1] Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST, because cloud sessions can't use GraphQL), each with a 5-second timeout. Allow only when both confirm an open PR whose head is in this repository; any error, non-zero exit, empty result or timeout means refuse (FR-006, research R9).
+- [x] T021 [US1] (Superseded on 2026-10-15 by the GIT-2741 decision: the legacy PR exception is removed from the specification. History kept; the delivered guard still implements it until the guard follow-up.) Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST, because cloud sessions can't use GraphQL), each with a 5-second timeout. Allow only when both confirm an open PR whose head is in this repository; any error, non-zero exit, empty result or timeout means refuse (FR-006, research R9).
 - [x] T022 [US1] Implement guard self-protection in `.claude/hooks/enforce-branch-name.mjs`:
   - for `Edit`/`Write`/`MultiEdit`/`NotebookEdit`: resolve `file_path`/`notebook_path` against the project directory, using `realpath` when the file exists
   - for Bash: detect write verbs (`sed -i`, `perl -i`, `mv`, `rm`, `cp` to the destination, `tee`, `truncate`, `chmod`, `ln`, `>`/`>>`, `git checkout … --`, `git restore`, `git rm`, `git mv`, `git apply`) that name a protected path
@@ -593,7 +597,7 @@ T087, T090 and T091.
 
 ### Open consistency items
 
-- [x] T088 [US3] [Agent] (Done 2026-10-12. The docs contract test asserted the old "SC-009" wording in `contracts/hooks.md`, so its one assertion in `tests/js/claude-cloud-environment-docs.test.js` was changed to expect "Nested interpreters (FR-012)" in the same step. Jest wasn't run locally, so CI is to verify.) In `.github/specs/018-claude-cloud-environment/contracts/hooks.md`, reword the "Nested
+- [x] T088 [US3] [Agent] (Done 2026-10-12. The docs contract test asserted the old "SC-009" wording in `contracts/hooks.md`, so its one assertion in `tests/js/claude-cloud-environment-docs.test.js` was changed to expect "Nested interpreters (FR-012)" in the same step. On 2026-10-15 (GIT-2741) the citation was broadened to FR-005 to FR-009, FR-012 and FR-013a, and the assertion changed with it. Jest wasn't run locally, so CI is to verify.) In `.github/specs/018-claude-cloud-environment/contracts/hooks.md`, reword the "Nested
   interpreters" paragraph (around line 117) so its citation reads **FR-012** (the shell-parsing requirement) instead
   of **SC-009**, which `spec.md` doesn't declare. Decided 2026-10-12: don't declare SC-009 in `spec.md`, and don't add
   a success criterion. SC-010 is already taken by the adoption criterion, so don't reuse it. Edit only that file. Then

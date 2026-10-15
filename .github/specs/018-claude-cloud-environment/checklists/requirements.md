@@ -35,8 +35,9 @@
 - The feature is developer tooling, so the spec names git concepts (branch, commit, push, PR) and the existing
   validator as the authority for naming rules. These are the domain vocabulary and a governance dependency, not
   implementation choices. Hook mechanics, file layout and scripting language are left to `/speckit-plan`.
-- No clarification markers were needed. Scope decisions (stale remote `claude/*` cleanup out of scope, multi-repository
-  sessions documented rather than solved, enforcement in local sessions too) are recorded under Assumptions and can be
+- No clarification markers were needed. Scope decisions (report-only cleanup and a conditional deletion contract are in scope, with
+  automatic deletion deferred (FR-020); multi-repository sessions documented rather than solved, enforcement in local
+  sessions too) are recorded under Assumptions and can be
   revisited in `/speckit-clarify`.
 - A draft implementation already exists (lightspeedwp/.github#3524). `/speckit-plan` should record it as the baseline, and
   `/speckit-converge` can list any gaps against this spec.
@@ -54,3 +55,7 @@
 - Watch item, not a failure: FR-025 states the stamp length (12 hexadecimal characters) but not the hash steps. It is kept
   because `contracts/cloud-environment.md` is the detailed contract and the Notes above accept developer-tooling
   vocabulary, but it is the closest the spec comes to an implementation detail.
+- Reconciliation 2026-10-15 (GIT-2741): the legacy PR exception was removed from the specification, FR-002 was narrowed to
+  match the delivered reset, and the cleanup wording was corrected. No reviewer-owned marker was changed. The
+  requirements-quality review should be re-run separately, and items that mention the legacy exception are kept as
+  history.

@@ -51,6 +51,8 @@ your own machine, whichever environment it uses. The environment adds the toolch
   commits and pushes when it exists on GitHub and is the head of an open PR in this repository. The guard checks with
   `git ls-remote` and the GitHub REST API, 5 seconds per check, and only when the action would otherwise be refused.
   Any failure, fork head or timeout means the exception doesn't apply. New branches with such names are always refused.
+  **Superseded in spec 018 on 2026-10-15**: the specification removed this exception, but the guard still allows it until a
+  separate guard change.
 - **PRs**: the head must be compliant. On this repository only `release/*` and `hotfix/*` may target `main`. This
   applies to the GitHub MCP tools, `gh pr create` and `gh api`. Repositories owned by anyone other than
   `lightspeedwp` aren't policed.
@@ -334,6 +336,9 @@ settings, not branch-protection fields.
 - The Owner setup is not yet verified live: the shared **LightSpeed** environment, the organisation default, the
   managed CLI default, and the Code Owners review and required check on `develop` and `main`. The evidence is tracked in
   lightspeedwp/.github#3736.
+- The legacy PR exception was removed from spec 018 on 2026-10-15 (constitution V and VIII), but the guard and the
+  session-start message still allow it until a separate guard change. Work on a non-compliant branch should move to a
+  compliant branch and PR, which a maintainer approves.
 - Automatic deletion of empty `claude/*` branches is deferred (spec 018 FR-020) until a branch-age signal and a
   branch-origin check exist. Until then a maintainer promotes empty branches by hand.
 - The limits listed under Limitations still apply: the guard reads shell syntax with heuristics, sessions with several

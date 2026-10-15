@@ -20,7 +20,7 @@ This plan enforces the LightSpeed branching strategy with four repository-level 
    can promote an empty, merged `claude/*` branch with no open PR from DISCUSS to DELETE, and it is removed
    through 009's draft-PR approval. There is no separate job.
 
-Most of this already exists in #3524. The second clarification session added the legacy PR exception,
+Most of this already exists in #3524. The second clarification session added the legacy PR exception (superseded on 2026-10-15),
 no-rename for `claude/*` branches that already have commits, fail-closed handling of guard faults while enforcing, and
 self-protection with CODEOWNERS review (research R9 to R12). The third session set the threat model (accidents plus the obvious self-bypasses) and
 named the validator authority (research R13). The rest of the work is the documentation exception (Q1), the spec 009 amendment
@@ -89,7 +89,7 @@ per `.nvmrc`.
 **Performance Goals**:
 
 - Guard adds 150 ms or less per matched tool call. The legacy PR check (up to 10 s) runs only when a write would
-  otherwise be refused.
+  otherwise be refused. (Superseded on 2026-10-15: the check is removed from the specification; the delivered guard still has it.)
 - SessionStart adds 30 s or less when dependencies are current (SC-005).
 - The setup script finishes in under 5 minutes (it measured about 22 s).
 
@@ -113,10 +113,10 @@ of branches a day.
 | II. Locked configuration | Doesn't touch `labels.yml`, `issue-types.yml` or the issue/PR templates | ✅ |
 | III. Clear boundaries, no duplication | Reuses `lib/validate-branch-name.js` and spec 009's categoriser and workflow (no second cleanup job). #3358 should also import `lib/validate-branch-name.js` instead of its own copy (analysis finding F5). Hooks stay in `.claude/`, which is repository configuration, not a portable asset. Portability is a follow-up spec (Q3) | ✅ |
 | IV. Technology-agnostic guidance | No change to guidance content | ✅ N/A |
-| V. Branch naming non-negotiable | This feature enforces it for agents | ✅ |
-| VI. UK English, security | UK English in docs and messages. No secrets. While enforcing, the guard fails closed on unknown file sets, unverifiable legacy PRs and its own faults (for git writes). With enforcement off, guard faults warn and allow the writes (FR-013). It protects its own files and every settings file that can disable hooks. The switch can't be changed from inside a session. CODEOWNERS covers `.claude/`. The threat model is written down (R13). The workflow has least-privilege permissions and pinned actions | ✅ |
-| VII. Spec quality | Requirements checklist 16/16 and security checklist 32/32. Clarified in recorded sessions on 2026-09-24 (two sessions), 2026-10-01 (5 questions), 2026-10-02 (2 questions) and 2026-10-12 (4 questions, plus the rollout requirements FR-024 to FR-026 and SC-010). FR-013a protected paths (five files) resolved. The requirements checklist is re-validated after the amendment | ✅ |
-| VIII. Enforcement and compliance ≥95% | The guard blocks before push. While automatic cleanup is deferred (FR-020), only empty, merged `claude/*` branches with no open PR are removed, through maintainer-approved draft PRs; branches with open PRs are kept | ✅ |
+| V. Branch naming non-negotiable | The specification conforms: the legacy PR write exception was removed on 2026-10-15, so writes to a forbidden or invalid name are refused even for an open-PR head. **Implementation compliance is open**: the delivered guard and the session-start text still implement the exception until a separate follow-up change | ✅ spec, ⚠️ implementation |
+| VI. UK English, security | UK English in docs and messages. No secrets. While enforcing, the guard fails closed on unknown file sets, unverifiable legacy PRs (delivered guard only; removed from the specification on 2026-10-15) and its own faults (for git writes). With enforcement off, guard faults warn and allow the writes (FR-013). It protects its own files and every settings file that can disable hooks. The switch can't be changed from inside a session. CODEOWNERS covers `.claude/`. The threat model is written down (R13). The workflow has least-privilege permissions and pinned actions | ✅ |
+| VII. Spec quality | Requirements checklist 16/16 and security checklist 32/32. Clarified in recorded sessions on 2026-09-24 (two sessions), 2026-10-01 (5 questions), 2026-10-02 (2 questions) and 2026-10-12 (4 questions, plus the rollout requirements FR-024 to FR-026 and SC-010). FR-013a protected paths (five files) resolved. The requirements checklist is re-validated after the amendment. The 2026-10-15 reconciliation (GIT-2741) does not re-tick any reviewer-owned marker, so the requirements and security reviews stay open until separately scoped checks run | ✅ (reviews open) |
+| VIII. Enforcement and compliance ≥95% | The guard blocks before push. While automatic cleanup is deferred (FR-020), only empty, merged `claude/*` branches with no open PR are removed, through maintainer-approved draft PRs; branches with open PRs are kept. Specification alignment ✅; implementation ⚠️ until the guard stops allowing the superseded legacy exception | ✅ spec, ⚠️ implementation |
 | IX. Changelog compliance | Each implementation PR adds an entry of 250 characters or less linked to its PR | ✅ |
 | X. Metrics-driven | Automated validation runs on every PR (FR-023). Success is measured through the existing branch-validation metrics. SC-007 is a documented manual review, the only manual check, justified by Q5 (see Complexity Tracking). The rollout increment adds automated drift detection: a CI revision-stamp test (FR-025) and session-start checks (FR-024, FR-025, R21), with SC-010 measured in the same transcript review as SC-007 | ✅ (justified) |
 
@@ -158,10 +158,14 @@ files. All gates still pass.
 │   ├── environment.env            # environment variables (exists); gains LS_CLOUD_ENV and LS_CLOUD_ENV_REVISION (FR-025)
 │   └── revision.sh                # planned: prints the revision stamp, shared by CI and session start (FR-025)
 └── hooks/
-    ├── session-start.sh           # rename only fresh claude/* branches; exceptions and protected files in the context
-    └── enforce-branch-name.mjs    # documentation exception (R4), legacy PR exception over REST (R9), fault
+    ├── session-start.sh           # rename only fresh claude/* branches; reset only a placeholder it renamed (FR-002); rules text
+    │                              #   (still names the superseded legacy PR exception until the follow-up change)
+    └── enforce-branch-name.mjs    # documentation exception (R4), legacy PR exception over REST (R9, superseded
+                                   #   2026-10-15 but still delivered), fault
                                    #   handling (R11), self-protection incl. managed settings (R12), gh CLI,
-                                   #   names-only rules on other lightspeedwp repositories (FR-009 scope)
+                                   #   names-only rules and direct-main-write refusal on other lightspeedwp repositories;
+                                   #   base-branch, documentation-exception and PR-to-main rules on this repository only
+                                   #   (FR-009 scope)
 
 .github/workflows/
 └── claude-guard-tests.yml         # FR-023 CI gate for the contract tests
@@ -202,7 +206,7 @@ These follow the user-story priorities in the spec:
 1. **Priority P1, US1 (guard and session rules)**: shipped in #3524 (merged 2026-09-30), with Jest contract tests. The
    session rules may only describe enforced behaviour (FR-003). The follow-ups from the 2026-10-01 clarifications
    (T049, T052, T054, T055) ship in a guard PR started with enforcement off. #3524 covered:
-   - the documentation exception and the legacy PR exception
+   - the documentation exception and the legacy PR exception (superseded on 2026-10-15)
    - fault handling and self-protection
    - the FR-001 no-rename rule
    - the updated SessionStart text
@@ -345,6 +349,40 @@ GIT-2406 (semver release branches in the validator), GIT-2498 (original branch n
 - Add tasks for GIT-2532 and GIT-2530 as above, and a housekeeping task covering GIT-2581, GIT-2571 and GIT-2514.
 - Retire T029 (superseded by FR-026) and mark T034 out of scope (spec 009).
 - Retarget the evidence tasks (T030, T043) from the merged #3524 description to the evidence report.
+
+## Reconciliation of 2026-10-15 (GIT-2741)
+
+Owner decision: remove the legacy PR write exception and preserve constitution V and VIII unchanged. This change is
+**specification alignment only**. The artefacts now describe the target (no exception, narrower reset, two clear
+protection scopes, cleanup limited to what is delivered). Implementation compliance is not claimed.
+
+**Open mismatch between the specification and the delivered guard** (kept visible until separately fixed):
+
+| Area | Specification now says | Delivered code still does |
+| --- | --- | --- |
+| Open-PR heads | Refuse commits, pushes and GitHub file writes to a non-compliant branch, even an open-PR head | `enforce-branch-name.mjs` allows them when `git ls-remote` and the REST lookup find an open PR in this repository |
+| Session-start text | Says such writes are refused and the work moves to a compliant branch and PR | `session-start.sh` still tells Claude the legacy PR exception exists |
+| Reset | Only a placeholder the hook renamed (FR-002) | Matches: the hook already resets only a renamed placeholder |
+| Cleanup | Report-only categorisation delivered, automatic deletion deferred | Matches: `branch-audit.yml` is absent |
+
+**Follow-up proposals** (proposals only: no issues were created and no implementation task is marked complete):
+
+1. **Guard logic**: in `.claude/hooks/enforce-branch-name.mjs`, drop the open-PR lookup and the exception on the commit,
+   push and GitHub-write paths, and make the refusal message say the work moves to a compliant branch and PR with
+   maintainer approval. The file is guard-protected, so a person or an Owner session with enforcement off makes the change.
+2. **SessionStart messaging**: in `.claude/hooks/session-start.sh`, replace the legacy PR exception paragraph in the rules
+   text with the refusal and migration wording (also guard-protected).
+3. **Documentation outside spec 018**: `docs/CLAUDE_CLOUD_ENVIRONMENT.md` describes the exception in its guard section and
+   in the "Use it" note about `gh`.
+4. **Regression tests**: change `scripts/__tests__/enforce-branch-name-hook.test.js` (11 cases mention the exception) and
+   add a case that an open-PR head is refused; add a session-start case that a clean existing branch behind the base is
+   not reset; revisit `tests/js/claude-cloud-environment-docs.test.js` once the guard and text change.
+5. **Reset behaviour check**: confirm the delivered reset behaviour with a behavioural test (a text assertion alone doesn't
+   prove it). The existing session-start test "does not reset a clean existing branch that is behind develop" already covers it.
+
+**Constitution gate reassessment**: V and VIII are ✅ for specification alignment and ⚠️ for implementation compliance. VII
+stays open for the reviewer-owned checklists. The 58 of 65 ticked tasks at the reviewed baseline are historical delivery
+claims, not proof of passing tests or enforced settings.
 
 ## Complexity Tracking
 

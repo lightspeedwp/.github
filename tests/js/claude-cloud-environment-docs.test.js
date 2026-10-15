@@ -171,7 +171,7 @@ describe('Claude cloud environment specification contracts', () => {
         'rename and validate commands',
         'PR base rule',
         'documentation exception',
-        'legacy PR exception',
+        'writes to a non-compliant branch are refused, including an open-PR head',
         "guard's own files can't be edited",
         'override any platform `claude/*` instruction',
       ]) {
@@ -198,7 +198,8 @@ describe('Claude cloud environment specification contracts', () => {
     });
 
     test('syncs only clean branches and emits context after compaction', () => {
-      expect(requirement('FR-002')).toMatch(/no uncommitted changes.*up to date/);
+      expect(requirement('FR-002')).toMatch(/itself renamed \(FR-001\) MUST be reset to the tip of the base branch/);
+      expect(requirement('FR-002')).toMatch(/MUST NOT be reset, even when it is clean and behind the base/);
       expect(
         contractRow(
           hooks,
@@ -224,10 +225,12 @@ describe('Claude cloud environment specification contracts', () => {
 
     test('does not rename local branches or reset branches with uncommitted changes or commits', () => {
       expect(requirement('FR-001')).toMatch(/in a cloud session/);
-      expect(requirement('FR-002')).toMatch(/no commits of its own and no uncommitted changes/);
+      expect(requirement('FR-002')).toMatch(
+        /no commits of its own, no uncommitted changes and no untracked files/
+      );
       expect(hooks).toMatch(/Cloud and source is `startup`\/`resume`.*Rename locally/m);
       expect(contractRow(hooks, 'Any source, cloud or local')).toContain('context');
-      expect(model).toMatch(/When the tree is clean and has no local commits.*resets/s);
+      expect(model).toMatch(/resets only a placeholder it renamed itself/);
     });
 
     test('treats dependency installation failures as non-fatal', () => {
@@ -243,14 +246,20 @@ describe('Claude cloud environment specification contracts', () => {
   });
 
   describe('branch guard behaviour', () => {
-    test('keeps placeholders blocked and legacy PR branches write-only', () => {
+    test('keeps placeholders blocked and refuses writes to open-PR heads', () => {
       expect(contractRow(model, 'Placeholder')).toMatch(/\^chore\/session-\[a-z0-9\]\+\$/);
       expect(contractRow(model, 'Placeholder')).toMatch(/\| refused \| refused \|/);
-      expect(contractRow(model, 'Legacy PR branch')).toMatch(/exists on GitHub.*open PR/);
-      expect(contractRow(model, 'Legacy PR branch')).toMatch(/\| refused \| allowed/);
-      expect(contractRow(hooks, '`git commit`')).toMatch(/placeholder.*legacy PR exception fails/);
+      // Owner decision of 2026-10-15 (GIT-2741): an open PR does not authorise writes to a
+      // non-compliant branch, so the old "Legacy PR branch" row (push allowed) is gone.
+      expect(model).not.toMatch(/^\| Legacy PR branch \|/m);
+      expect(contractRow(model, 'Open-PR head (formerly the legacy PR branch)')).toMatch(
+        /\| refused \| refused/
+      );
+      expect(contractRow(hooks, '`git commit`')).toMatch(
+        /not compliant \(including an open-PR head\)/
+      );
       expect(contractRow(hooks, '`git push` (not `--delete`/`--tags`)')).toMatch(
-        /placeholder.*legacy PR exception fails/
+        /not compliant \(including an open-PR head\)/
       );
     });
 
@@ -275,7 +284,9 @@ describe('Claude cloud environment specification contracts', () => {
       expect(contractRow(hooks, 'Refused, enforcing')).toMatch(/\| 2 \| empty \| Refusal message/);
     });
 
-    test('scopes legacy PR lookups and GitHub guard calls to the intended owner', () => {
+    test('documents the delivered open-PR lookups until the guard drops them, and scopes GitHub guard calls to the intended owner', () => {
+      // The check is superseded in the specification (GIT-2741) but the delivered guard still runs it.
+      expect(hooks).toMatch(/Open-PR check \(superseded 2026-10-15/);
       expect(hooks).toMatch(/`git ls-remote --exit-code --heads origin <branch>`/);
       expect(hooks).toMatch(
         /`gh api repos\/\{owner\}\/\{repo\}\/pulls\?head=\{owner\}:<branch>&state=open&per_page=1`/
@@ -314,14 +325,13 @@ describe('Claude cloud environment specification contracts', () => {
       expect(model).toMatch(/\*\*MCP\*\*: the paths in the tool input/);
     });
 
-    test('does not extend the legacy PR exception to unverifiable open PRs', () => {
-      expect(requirement('FR-006')).toMatch(
-        /already exists on GitHub and is the head of an open PR/
-      );
-      expect(requirement('FR-006')).toMatch(
-        /can't be verified \(.*longer than 5 seconds\), the exception doesn't apply/
-      );
+    test('refuses writes to a non-compliant branch even when an open PR exists', () => {
+      expect(requirement('FR-006')).toMatch(/including when it is the head of an open PR/);
+      expect(requirement('FR-006')).toMatch(/does not authorise writes to a non-compliant branch/);
+      expect(requirement('FR-008')).toMatch(/including when the branch is the head of an open PR/);
+      expect(spec).not.toMatch(/unless the legacy PR exception applies/);
       expect(quickstart).toMatch(/with no open PR, or `gh` failing \| exit 2/);
+      expect(quickstart).toMatch(/has an open PR \(stubbed `gh`\) \| exit 2/);
     });
 
     test('allows deletion and tag-only pushes without a branch-name refusal', () => {
@@ -719,7 +729,7 @@ describe('the operations document', () => {
   );
 
   test('states the depth limit and the limits that remain in the hooks contract', () => {
-    expect(hooks).toMatch(/Nested interpreters \(FR-012\)/);
+    expect(hooks).toMatch(/Nested interpreters \(FR-005 to FR-009, FR-012 and FR-013a\)/);
     expect(hooks).toMatch(/NESTED_DEPTH/);
     // The remaining out-of-scope case is a command in another language, which
     // the guard does not read. It has to stay stated or the claim becomes a

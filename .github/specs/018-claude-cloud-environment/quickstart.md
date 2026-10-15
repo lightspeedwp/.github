@@ -29,7 +29,7 @@ Expected: every case passes, including these:
 | Commit on `main` with only `docs/` files staged | exit 2 (no exception on `main`) |
 | MCP PR from `feat/a-b` into `main` on `.github` | exit 2 |
 | Any refusal with `LS_ENFORCE_BRANCH_NAMES=0` | exit 0 plus `systemMessage` |
-| Push to a `copilot/*` branch that has an open PR (stubbed `gh`) | exit 0 (legacy PR exception) |
+| Push to a `copilot/*` branch that has an open PR (stubbed `gh`) | exit 2: an open PR is not an exception. **The delivered guard still returns exit 0 until the follow-up change removes the legacy exception.** |
 | Push to a `copilot/*` branch with no open PR, or `gh` failing | exit 2 |
 | `Edit` of `.claude/hooks/enforce-branch-name.mjs` or `sed -i … .claude/settings.json` | exit 2 |
 | `cat .claude/settings.json` | exit 0 |
@@ -49,8 +49,8 @@ echo '{"source":"startup"}' | CLAUDE_CODE_REMOTE= bash .claude/hooks/session-sta
 echo '{"source":"compact"}' | CLAUDE_CODE_REMOTE=true bash .claude/hooks/session-start.sh | jq -e .
 ```
 
-Expected: valid JSON both times. The context mentions the documentation exception, the legacy PR exception and
-"override". A session started on a `claude/*` branch that already has commits keeps its branch name.
+Expected: valid JSON both times. The context mentions the documentation exception, the refusal of writes to a non-compliant branch (even an
+open-PR head) and "override". The delivered text still names the legacy PR exception until the follow-up change. A session started on a `claude/*` branch that already has commits keeps its branch name.
 The SessionStart contract test also starts cloud `startup` and `resume` sessions with `node_modules` absent and an
 old lockfile timestamp; it expects `npm install` to run. With an installed tree newer than the lockfile, it expects
 no install.
@@ -98,10 +98,15 @@ for the new session if another environment was selected, then ask Claude to:
    If the repository uses rulesets instead, check that the ruleset targeting both branches has "Require review from
    Code Owners" turned on.
 
-For a local session, confirm `gh --version` and `gh auth status` succeed using the developer's own login before
-checking the legacy PR exception.
+For a local session, `gh` is needed only while the delivered guard still performs the open-PR check (the superseded
+legacy exception). Confirm `gh --version` and `gh auth status` succeed using the developer's own login before
+checking that behaviour.
 
 ## 5. Branch cleanup (FR-020 to FR-022)
+
+Delivery state, verified 2026-10-15: only the report-only audit command exists. The scheduled deletion workflow
+(`.github/workflows/branch-audit.yml`) is not delivered (spec 009 T046 and T073 are open), so nothing runs on a
+schedule and automatic deletion is deferred.
 
 ```bash
 node scripts/cleanup-branches.js --reportFormat=json --reportDir=/tmp/cleanup

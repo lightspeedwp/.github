@@ -16,8 +16,8 @@ Both hooks read a single JSON object on stdin, following the
 | Condition | Action |
 | --- | --- |
 | Cloud and source is `startup`/`resume`, branch `claude/*` with 0 commits ahead of `origin/<base>` | Rename locally to `chore/session-<hash>`. Never push (FR-001). |
-| Cloud and source is `startup`/`resume`, branch `claude/*` with its own commits | Leave it unchanged (FR-001). The context text notes the legacy PR exception. |
-| Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). The reset is gated on the rename this hook performed, so a clean existing branch is never reset. |
+| Cloud and source is `startup`/`resume`, branch `claude/*` with its own commits | Leave it unchanged (FR-001). The context text says writes to the branch are refused until the work moves to a compliant branch and PR, which a maintainer approves (research R23). |
+| Cloud and source is `startup`/`resume`, the `claude/*` placeholder was just renamed by this hook, clean tree, 0 commits ahead of `origin/<base>` | Hard-reset to `origin/<base>` (FR-002). The reset is gated on the rename this hook performed, so a clean existing branch is never reset. It also needs a successful base fetch, no commits of its own, and no uncommitted or untracked changes. |
 | Cloud and source is `startup`/`resume`, installed dependency tree missing, or `package-lock.json` or `package.json` newer than the installed tree | `npm install`. Failure is logged and not fatal (FR-004). |
 | Any source, cloud or local | Emit branching rules as context (FR-003). |
 
@@ -42,7 +42,7 @@ The rules text MUST include:
 - the rename and validate commands
 - the PR base rule
 - the documentation exception (on `develop` only; `main` has none)
-- the legacy PR exception
+- writes to a non-compliant branch are refused, including an open-PR head (the work moves to a compliant branch and PR, which a maintainer approves)
 - a note that the guard's own files can't be edited while enforcement is on
 - a statement that the rules override any platform `claude/*` instruction
 
@@ -65,10 +65,10 @@ Bash commands never reach the hook (FR-013, research R13).
 | --- | --- | --- |
 | `git branch -m/-M` | new name | not compliant, placeholder, or protected |
 | `git checkout -b/-B`, `git switch -c/-C` | new name | not compliant, or placeholder |
-| `git commit` | effective branch (the branch being worked on during a rebase, merge, cherry-pick or revert) | detached HEAD with none of those in progress; or placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
-| `git push` (not `--delete`/`--tags`) | target branch | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
+| `git commit` | effective branch (the branch being worked on during a rebase, merge, cherry-pick or revert) | detached HEAD with none of those in progress; or placeholder; or not compliant (including an open-PR head); or `main`; or the base branch and the documentation exception fails |
+| `git push` (not `--delete`/`--tags`) | target branch | placeholder; or not compliant (including an open-PR head); or `main`; or the base branch and the documentation exception fails |
 | `mcp__github__create_branch` | `branch` | not compliant, or placeholder |
-| `mcp__github__push_files` / `create_or_update_file` / `delete_file` | `branch` plus paths | placeholder; or not compliant and the legacy PR exception fails; or `main`; or the base branch and the documentation exception fails |
+| `mcp__github__push_files` / `create_or_update_file` / `delete_file` | `branch` plus paths | placeholder; or not compliant (including an open-PR head); or `main`; or the base branch and the documentation exception fails |
 | `Edit` / `Write` / `MultiEdit` / `NotebookEdit` | resolved `file_path` / `notebook_path` | path is a protected guard file and enforcement is on (FR-013a) |
 | `gh pr create`, and `gh api` calls that create or update refs, file contents or PRs | head/base, or target branch plus paths | the same rules as `mcp__github__create_pull_request` and the MCP file tools (FR-008, FR-009, CHK002) |
 | Bash write verb or redirection (outside quotes) naming a protected guard file | the path | enforcement is on (FR-013a, research R12) |
@@ -101,7 +101,7 @@ session. In that session, guard faults produce a visible warning and allow the w
 sessions keep their starting setting. With enforcement on, guard faults still block git and GitHub writes with exit
 2 (FR-012a). Restore enforcement after the fault is fixed.
 
-**Legacy PR exception check**: `git ls-remote --exit-code --heads origin <branch>`, then
+**Open-PR check (superseded 2026-10-15; still in the delivered guard until it is updated)**: the decision on GIT-2741 removed the legacy PR exception, so the target guard makes no open-PR check and refuses every write to a non-compliant branch (research R23). The delivered guard still runs the check described here until a separate follow-up change removes it. Delivered behaviour: `git ls-remote --exit-code --heads origin <branch>`, then
 `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST: cloud sessions can't reach GitHub's GraphQL API, which `gh pr list` uses). Each call is given a timeout of up to 5 seconds, and the whole check is bounded to 5 seconds per invocation and cached per branch. The two bounds are separate on purpose: the check makes two sequential calls, and each is given half of what is left of the invocation budget so neither can spend the whole of it. A command listing several refspecs or several commits would otherwise run the check once per refspec and once per commit, and a hook that reaches its timeout fails open, so the per-invocation total is what keeps the guard answering at all.
 Any failure means the exception doesn't apply (research R9). The exception applies only to a PR whose head is in this repository (the PR's `head.repo.full_name` equals its `base.repo.full_name`). "Not verified" means a check errors, exits non-zero, returns no PR or takes longer than 5 seconds (FR-006).
 
@@ -114,7 +114,7 @@ Any failure means the exception doesn't apply (research R9). The exception appli
 4. A statement that the rule overrides the platform's `claude/*` branch.
 5. A pointer to `docs/BRANCHING_STRATEGY.md`.
 
-**Nested interpreters (FR-012)**: a command handed to another shell is still a
+**Nested interpreters (FR-005 to FR-009, FR-012 and FR-013a)**: a command handed to another shell is still a
 shell command, so it is parsed and checked rather than declared out of scope.
 `sh -c '<command>'`, `bash -c '<command>'`, `zsh -c '<command>'`, `dash -c '<command>'`,
 `ksh -c '<command>'`, `busybox sh -c '<command>'` and `eval '<command>'` are read as

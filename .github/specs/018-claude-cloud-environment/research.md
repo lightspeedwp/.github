@@ -63,7 +63,8 @@ implementation in lightspeedwp/.github#3524.
     one command.
 - **Rationale**: This covers the forms agents actually use (17 cases verified in #3524), and CI branch validation
   remains the final gate. A full shell parser would add a dependency for little gain.
-- **Known gaps (documented)**: `cd other && git commit`, aliases, and `eval`.
+- **Known gaps (as first written, 2026-09-24)**: `cd other && git commit`, aliases, and `eval`.
+- **Refreshed 2026-10-15 against the current contract**: a `cd` earlier in the same command list is followed, and a command handed to `sh -c`, `bash -c`, `zsh -c`, `dash -c`, `ksh -c`, `busybox sh -c` or `eval` is read up to a fixed nesting depth (`NESTED_DEPTH`), beyond which the guard refuses. The remaining gaps are aliases, a payload assembled at run time, and a command written in another language (`python -c`, `node -e`). Coverage of nested shells is limited, not unlimited, and CI branch validation stays the final gate (see contracts/hooks.md).
 
 ## R6. Cleaning up empty `claude/*` branches
 
@@ -134,6 +135,8 @@ implementation in lightspeedwp/.github#3524.
 
 ## R9. Legacy PR exception: confirming an open PR from inside the guard
 
+**Superseded on 2026-10-15** by the GIT-2741 owner decision (R23): the exception is removed from the specification. This entry is kept as history, and the delivered guard still implements it until a follow-up change.
+
 - **Decision**: Check for an open PR only on the rare path where a push, commit or MCP write would otherwise be
   refused for a non-compliant branch. The check has two steps:
   1. `git ls-remote --exit-code --heads origin <branch>`, to confirm the branch exists on GitHub.
@@ -159,6 +162,7 @@ implementation in lightspeedwp/.github#3524.
 - **Decision**: Rename a `claude/*` branch only when `git rev-list --count origin/<base>..HEAD` is 0 (a fresh
   platform branch). If the branch has commits, leave it alone. Commits and pushes on it are then judged by the
   guard, and allowed only under the legacy PR exception.
+  **Update 2026-10-15**: the exception is superseded (R23), so commits and pushes on such a branch are refused.
 - **Rationale**: A session opened on an existing PR shouldn't have its branch renamed away from the PR head.
   This check needs only git, with no network access.
 - **Alternatives considered**: Asking GitHub whether the branch has a PR at session start adds network latency to
@@ -248,6 +252,7 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
   `cat <<'EOF' > file`, so the here-document case is the most likely in practice.
 - **Alternatives considered**: Restricting the reset to renamed placeholder branches only; rejected because
   FR-002 syncs any clean branch with no commits of its own, and that reset only fast-forwards.
+- **Superseded on 2026-10-15 (reset scope)**: the rejected alternative is now the rule. The delivered hook resets only a placeholder it renamed itself, and the specification (FR-002) now says so. A clean existing branch that is behind the base is never reset; the session-start test "does not reset a clean existing branch that is behind develop" covers this. This decision is kept as history.
 
 ## R15. Guard that can't start (FR-012a, 2026-10-01)
 
@@ -367,3 +372,19 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
   still the follow-up recorded in the 2026-09-24 clarifications.
 - **Alternatives considered**: A separate environment per repository. Rejected: it defeats "one configuration for
   the team", and the organisation default can name only one environment.
+
+## R23. Removing the legacy PR write exception (FR-005, FR-006, FR-008, 2026-10-15)
+
+- **Decision**: Remove the legacy PR write exception from the specification. Commits, pushes and GitHub integration
+  file writes to a non-compliant branch are refused, including an existing open-PR head. The work moves to a
+  compliant branch and PR, and a maintainer approves the move. The guard never creates, renames or deletes remote
+  branches or PRs. Constitution V and VIII are unchanged. This is the owner decision recorded on GIT-2741 (#3955).
+- **Rationale**: The constitution makes the forbidden prefixes absolute. An open PR is not a reason to write to a
+  non-compliant branch, and the specification must conform to the constitution rather than introduce an exception.
+- **Supersedes**: the 2026-09-24 clarification answers about the exception and its fork scope, research R9, and the
+  R10 wording that allowed writes under the exception. They stay as history.
+- **Implementation status**: Specification alignment is done in this change. Implementation compliance is open: the
+  delivered guard (`.claude/hooks/enforce-branch-name.mjs`) and the session-start text still implement the exception.
+  The follow-up proposals are in plan.md. Nothing here claims enforcement is fixed.
+- **Alternatives considered**: Keeping the exception and amending the constitution. Rejected by the owner: the
+  decision is to preserve the constitution.
