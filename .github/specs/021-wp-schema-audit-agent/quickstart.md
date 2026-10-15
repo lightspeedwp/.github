@@ -41,7 +41,18 @@ Ask the agent: "Use the wp-schema-audit-agent to tell me what to fix on `https:/
 Expected: site-wide causes first, then a fix table with an owner for each fix, and a reminder to
 confirm eligibility with Google's Rich Results Test.
 
-## 5. Repository validators
+## 5. Client report and CSV (Story 4)
+
+```bash
+node agents/wp-schema-audit-agent/lib/schema-tool.cjs audit https://beta.local/ \
+  --format report --client "Example client" --out /tmp/schema-report.md --csv /tmp/schema-findings.csv
+```
+
+Expected: the totals and two "Wrote" lines. The report opens with the client name and a summary by
+priority; the CSV opens in a spreadsheet with one row per finding. Running it again without
+`--force` refuses to replace the files.
+
+## 6. Repository validators
 
 ```bash
 node scripts/agents/generate-agent-defs.cjs --check

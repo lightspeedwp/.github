@@ -41,8 +41,9 @@ on it.
 2. **Validation**: check each page's JSON-LD against the schema.org vocabulary
    and Google's rich-result rules
    ([`schema-markup-validation`](./skills/schema-markup-validation/SKILL.md)).
-3. **Report**: turn the findings into prioritised fixes, each with its owner
-   ([`schema-audit-report`](./skills/schema-audit-report/SKILL.md)).
+3. **Report**: turn the findings into prioritised fixes, each with its owner,
+   and produce the client deliverables: a Markdown report and a CSV of
+   findings ([`schema-audit-report`](./skills/schema-audit-report/SKILL.md)).
 
 ## Operating rules
 

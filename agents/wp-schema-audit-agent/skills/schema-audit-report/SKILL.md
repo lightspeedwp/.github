@@ -67,12 +67,46 @@ plugin, not the theme.
 
 ### 5. Write the report
 
+For a developer or the team, in the conversation:
+
 1. One paragraph: the overall state, and the release of schema.org checked.
 2. Site-wide causes from step 1.
 3. A fix table: priority, finding, pages, owner, fix.
 4. What the run could not check (logged-in pages, pages that redirect,
    Google's own eligibility rules) and how to confirm: Google's Rich Results
    Test for public URLs, and a re-run of the validation after each fix.
+
+### 6. Produce the client deliverables
+
+When the report is for a client, generate it with the tool rather than
+writing it by hand, so the wording and counts match the data exactly:
+
+```bash
+node agents/wp-schema-audit-agent/lib/schema-tool.cjs audit <site-url> \
+  --format report --client "<Client name>" \
+  --out schema-report-<site>-<date>.md --csv schema-findings-<site>-<date>.csv
+```
+
+- **The Markdown report** (`--format report`) is written for the site owner:
+  a summary with counts by priority (Must fix, Should fix, Could improve),
+  what each page describes in plain names, each issue with why it matters and
+  what to do, suggestions, and how the check was made, including what was
+  not checked. It reads well on GitHub, in an editor, or pasted into a
+  document.
+- **The CSV** (`--csv`) has one row per finding, plus a row for each page
+  with no findings, with the same plain wording. It opens in Excel, Numbers
+  or Google Sheets for tracking fixes; values a spreadsheet would run as a
+  formula are made safe.
+- Use `validate --urls-file` instead of `audit` when the page list was agreed
+  by hand (for example with extra variants), or pass `--urls-file` to
+  `audit` to add pages to the discovered set.
+- Existing files are never replaced without `--force`.
+
+Then read the report before sending it. If step 1 found a site-wide cause
+the report cannot know (an inactive SEO plugin, a redirect from a named
+plugin), add one short paragraph under its Summary naming the cause and its
+owner. Do not remove findings from the report; if one is wrong, it is a bug
+in the tool.
 
 If the user is working against a fixed scope or estimate, list fixes that
 need new work (for example new schema for a post type) separately, as

@@ -115,6 +115,38 @@ gives an owner and a confirmation step for each.
 
 ---
 
+### User Story 4 - Give the client a report (Priority: P2)
+
+A project manager needs to send the client the results. They ask the agent for a client report.
+The agent runs the audit and writes two files from the same results: a Markdown report a site owner
+can read without knowing schema.org, and a CSV with one row per finding for tracking fixes in a
+spreadsheet. No HTML page is produced.
+
+**Why this priority**: The audits are delivered to clients. Rewriting developer findings by hand for
+each client was slow and risked the report and the data disagreeing.
+
+**Independent Test**: Run the audit for a local site with a client name. The Markdown report and the
+CSV list the same pages and findings; the report explains each issue in plain English; opening the
+CSV in a spreadsheet shows every page checked.
+
+**Acceptance Scenarios**:
+
+1. **Given** an audit run, **When** the user asks for a client report, **Then** a Markdown report is
+   written with the client's name, site, date, pages checked and the schema.org release used.
+2. **Given** findings of each severity, **When** the report is written, **Then** they are shown as
+   Must fix, Should fix and Could improve, counted as distinct issues, with why each matters and
+   what to do.
+3. **Given** an issue on every page, **When** the report is written, **Then** the summary says that
+   fixing it once clears it everywhere.
+4. **Given** the same run, **When** the CSV is written, **Then** it has one row per finding and one
+   row for each page without findings, in the report's wording.
+5. **Given** a value that a spreadsheet would treat as a formula, **When** the CSV is written,
+   **Then** the value is made safe so opening the file runs nothing.
+6. **Given** a report file that already exists, **When** the agent writes the report, **Then** it
+   refuses unless the user asks to replace it.
+
+---
+
 ### Edge Cases
 
 - **Two plugins print the same entity**: one `@id` defined with different types is reported, so the
@@ -200,6 +232,20 @@ gives an owner and a confirmation step for each.
 - **FR-032**: The report MUST explain which fixes can earn a rich result, and MUST tell the user to
   confirm eligibility with Google's Rich Results Test.
 
+**Client deliverables (Story 4)**
+
+- **FR-033**: The tool MUST write a Markdown client report that counts distinct issues by priority
+  (Must fix, Should fix, Could improve), names what each page describes in plain words, explains
+  each issue (what was found, why it matters, what to do, pages affected), lists suggestions
+  separately, and says how the check was made and what was not checked.
+- **FR-034**: The tool MUST write a CSV with one row per finding and one row per page without
+  findings, using the report's wording, RFC 4180 quoting and a UTF-8 byte order mark, and MUST
+  neutralise values that a spreadsheet would run as formulas.
+- **FR-035**: The report and the CSV MUST be produced from the same run and MUST NOT repeat values
+  from structured data other than URLs, type and property names and dates.
+- **FR-036**: The tool MUST NOT replace an existing report or CSV file unless the user asks it to,
+  and MUST NOT produce HTML.
+
 **Packaging**
 
 - **FR-040**: The agent MUST live in `agents/wp-schema-audit-agent/` with its skills inside it, and
@@ -218,6 +264,10 @@ gives an owner and a confirmation step for each.
 - **Page result**: requested and final URL, HTTP status, redirects, generators, block count, type
   counts, findings.
 - **Finding**: severity, check, path to the node, detail.
+- **Client report**: client name, site, date, priority counts, page table, issues, suggestions,
+  method notes.
+- **Findings CSV row**: page, kind, status, priority, check, plain issue, detail, why it matters,
+  what to do, location.
 
 ## Success Criteria *(mandatory)*
 
@@ -233,6 +283,8 @@ gives an owner and a confirmation step for each.
 - **SC-004**: A repeat run against a cached release needs no network access other than the pages
   themselves.
 - **SC-005**: The automated tests run in under ten seconds with no network access.
+- **SC-006**: A client report and CSV for a site take one command, and need no editing beyond an
+  optional paragraph on site-wide causes the tool cannot know.
 
 ## Assumptions
 

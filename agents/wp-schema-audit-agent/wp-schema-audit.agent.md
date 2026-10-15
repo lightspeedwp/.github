@@ -70,7 +70,7 @@ Limitations:
 
 | Tool                                                      | Use                                                     | Writes                                     |
 | --------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------ |
-| `node agents/wp-schema-audit-agent/lib/schema-tool.cjs`   | `urls`, `validate`, `vocab`                             | The vocabulary cache only (see below)      |
+| `node agents/wp-schema-audit-agent/lib/schema-tool.cjs`   | `urls`, `validate`, `audit`, `vocab`                    | The vocabulary cache, and report files the user names (`--out`, `--csv`; never replaced without `--force`) |
 | The schemaorg/schemaorg GitHub repository                 | Source of the vocabulary release file                   | Nothing                                    |
 | WP-CLI (`wp plugin list`, `wp option get`) on a local site | Explain findings, for example whether Yoast SEO is active | Nothing; read-only commands only          |
 | Google Rich Results Test and Schema Markup Validator      | Confirm eligibility; the user runs them on public URLs  | Nothing                                    |
@@ -97,6 +97,10 @@ Every audit ends with:
    check, detail, and the pages affected.
 3. A prioritised list of fixes, each naming the plugin or setting that owns
    it, written for the person who will make the change.
+
+For a client, the tool writes the deliverables itself (`audit <site>
+--format report --out <file> --csv <file>`): a plain-English Markdown report
+and a CSV with one row per finding. No HTML is produced.
 
 `schema-tool validate --json` returns the same data as the report envelope
 defined in the spec's [data model](../../.github/specs/021-wp-schema-audit-agent/data-model.md).
@@ -138,6 +142,7 @@ defined in the spec's [data model](../../.github/specs/021-wp-schema-audit-agent
 | Validate the dev site's specials                                 | Each single that redirects to `/specials/` is reported as `redirected`; the archive's own types are listed.          |
 | Validate a special whose offer ended last month                  | `expired-offer` warning naming the end date.                                                                            |
 | Validate a review with no rating and no reviewed item            | Two `rich-result-required` warnings; the report explains that reviews a business publishes about itself do not earn stars. |
+| Produce a client report for `https://beta.local/`                | Writes a Markdown report and a CSV with the same findings; refuses to replace existing files without `--force`. |
 | User asks the agent to activate Yoast SEO on staging             | Declines, explains that changing the site is the user's action, and gives the steps.                                  |
 
 Automated tests: `npx jest agents/wp-schema-audit-agent`.

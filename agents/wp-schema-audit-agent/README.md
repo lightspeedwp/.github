@@ -40,10 +40,26 @@ node agents/wp-schema-audit-agent/lib/schema-tool.cjs validate --urls-file urls.
 
 # Spot-check a page, with every finding listed
 node agents/wp-schema-audit-agent/lib/schema-tool.cjs validate https://beta.local/special/a/ --details
+
+# Client deliverables: discover, validate, and write a Markdown report and a CSV
+node agents/wp-schema-audit-agent/lib/schema-tool.cjs audit https://beta.local/ \
+  --format report --client "Client name" --out schema-report.md --csv schema-findings.csv
 ```
 
 Add `--json` for machine-readable output. Exit codes: `0` no errors or
 warnings, `1` findings to review, `2` tool error.
+
+## Client reports
+
+| Output | Option | For |
+| --- | --- | --- |
+| Developer summary | `--format summary` (default) | The team: page table and grouped findings with technical detail. |
+| Client report (Markdown) | `--format report` | The site owner: summary by priority (Must fix, Should fix, Could improve), what each page describes in plain names, each issue with why it matters and what to do, and how the check was made. |
+| Findings spreadsheet (CSV) | `--format csv`, or `--csv <file>` with any format | Tracking fixes: one row per finding, plus one per clean page, in the same plain wording. Opens in Excel, Numbers or Google Sheets. |
+| Data | `--format json` | Comparing runs or feeding other tools. |
+
+Reports never repeat values from a page's structured data other than URLs,
+type and property names and dates, so they carry no personal data.
 
 ## What it checks
 

@@ -36,6 +36,9 @@ node agents/wp-schema-audit-agent/lib/schema-tool.cjs validate --urls-file urls.
 node agents/wp-schema-audit-agent/lib/schema-tool.cjs validate <url> <url> --details
 ```
 
+`audit <site-url>` runs discovery and validation together, and labels each
+page with its kind (for example "Tours: single item") in the output.
+
 | Option                  | Use                                                            |
 | ----------------------- | -------------------------------------------------------------- |
 | `--details`             | List every finding per page, with the path to the node.        |
@@ -43,6 +46,9 @@ node agents/wp-schema-audit-agent/lib/schema-tool.cjs validate <url> <url> --det
 | `--vocab-version 30.1`  | Check against a specific schema.org release.                   |
 | `--vocab <file>`        | Use a local vocabulary file; no network needed.                |
 | `--today 2026-12-01`    | Treat this date as today for expired-offer checks.             |
+| `--format report`       | Plain-English Markdown report for a client (see [`schema-audit-report`](../schema-audit-report/SKILL.md)). |
+| `--format csv`          | One row per finding, for a spreadsheet.                        |
+| `--out <file>`, `--csv <file>` | Write the report, and a CSV alongside it, to files (never replaced without `--force`). |
 
 The first run downloads the release file
 (`data/releases/<version>/schemaorg-all-https.jsonld`) and caches it in

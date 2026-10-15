@@ -40,6 +40,8 @@ added.
 
 | Field         | Type                  | Notes                                                      |
 | ------------- | --------------------- | ---------------------------------------------------------- |
+| `kind`        | string                | From discovery (`audit`), or empty for `validate`          |
+| `label`       | string                | From discovery (`audit`), or empty for `validate`          |
 | `url`         | string                | As requested                                               |
 | `finalUrl`    | string                | After redirects                                            |
 | `status`      | number or null        | Final HTTP status; null when the request failed            |
@@ -60,3 +62,40 @@ added.
   "notes": ["Using cached release 30.0; the latest release could not be checked."]
 }
 ```
+
+`audit` adds `"site"` (the site origin) and `"skipped"` ([SkippedCandidate]) to the envelope.
+
+## Client report (`--format report`)
+
+Markdown, in this order: title with the client name; site, date, pages checked and schema.org
+release; Summary (plain explanation, counts of distinct issues by priority, and any issue that
+affects every page); What each page describes (path, kind of page, main types with plain names,
+status); Issues to fix (one section per distinct finding: priority, what we found, why it matters,
+what to do, pages affected); Suggestions for improvement; How this check was made (including what
+was skipped and why).
+
+| Severity | Priority shown |
+| -------- | -------------- |
+| `error`  | Must fix       |
+| `warn`   | Should fix     |
+| `info`   | Could improve  |
+
+## Findings CSV (`--format csv`, `--csv`)
+
+One row per finding, plus one row per page without findings (priority `None`, issue
+`No issues found`), so every page checked appears.
+
+| Column           | Content                                              |
+| ---------------- | ---------------------------------------------------- |
+| `page_url`       | PageResult `url`                                     |
+| `page_path`      | Path and query of the URL                            |
+| `page_kind`      | Plain kind, for example `Tours: single item`         |
+| `http_status`    | PageResult `status`                                  |
+| `priority`       | `Must fix`, `Should fix`, `Could improve` or `None`  |
+| `severity`       | Finding `severity`                                   |
+| `check`          | Finding `check`                                      |
+| `issue`          | Plain title of the check                             |
+| `detail`         | Finding `detail`                                     |
+| `why_it_matters` | Plain explanation of the check                       |
+| `what_to_do`     | Plain fix for the check                              |
+| `location`       | Finding `path`                                       |

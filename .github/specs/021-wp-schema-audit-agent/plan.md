@@ -79,14 +79,15 @@ agents/wp-schema-audit-agent/
 ├── CHANGELOG.md
 ├── package.json
 ├── lib/
-│   └── schema-tool.cjs           # urls | validate | vocab
+│   ├── schema-tool.cjs           # urls | validate | audit | vocab
+│   └── report-formats.cjs        # client Markdown report and findings CSV
 ├── skills/
 │   ├── schema-test-urls/SKILL.md
 │   ├── schema-markup-validation/SKILL.md
 │   └── schema-audit-report/SKILL.md
 └── tests/
     ├── fixtures/vocab-mini.jsonld
-    └── unit/{helpers.cjs,vocabulary.test.js,validate.test.js,audit.test.js}
+    └── unit/{helpers.cjs,vocabulary.test.js,validate.test.js,audit.test.js,report-formats.test.js}
 
 .claude/agents/wp-schema-audit-agent.md     # generated thin definition
 scripts/agents/generate-agent-defs.cjs      # registers the agent

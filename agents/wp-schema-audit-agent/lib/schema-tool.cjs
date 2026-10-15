@@ -32,6 +32,8 @@ const path = require('node:path');
 const http = require('node:http');
 const https = require('node:https');
 
+const { renderClientReport, renderCsv } = require('./report-formats.cjs');
+
 const EXIT_OK = 0;
 const EXIT_FINDINGS = 1;
 const EXIT_ERROR = 2;
@@ -1143,6 +1145,10 @@ function parseArgs(argv) {
     '--today',
     '--search',
     '--cache-dir',
+    '--format',
+    '--out',
+    '--csv',
+    '--client',
   ]);
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
@@ -1164,11 +1170,79 @@ function readUrlsFile(file) {
     .map((line) => line.split(/\s+/)[0]);
 }
 
+const FORMATS = new Set(['summary', 'report', 'csv', 'json']);
+
+/** Write to a file, refusing to replace one unless --force was given. */
+function writeFile(file, text, force) {
+  try {
+    fs.writeFileSync(file, text, { flag: force ? 'w' : 'wx' });
+  } catch (error) {
+    if (error.code === 'EEXIST')
+      throw new Error(`${file} already exists; pass --force to replace it.`, { cause: error });
+    throw error;
+  }
+}
+
+/** Fetch and check each target ({ url, kind, label }) and build the report envelope. */
+async function runValidation(targets, { flags, cacheDir, fetch }) {
+  const { vocab, notes } = await resolveVocabulary({
+    vocabPath: flags.vocab,
+    version: flags['vocab-version'],
+    cacheDir,
+    fetch,
+  });
+  const pages = [];
+  for (const target of targets) {
+    const page = await auditPage(target.url, { vocab, fetch, today: flags.today });
+    pages.push({ kind: target.kind || '', label: target.label || '', ...page });
+  }
+  return { vocabulary: { version: vocab.version }, pages, totals: summarise(pages), notes };
+}
+
+/** Render the report in the chosen format, write it and any CSV, and pick the exit code. */
+function emitReport(report, { flags, stdout, site }) {
+  const format = flags.json ? 'json' : flags.format || 'summary';
+  if (!FORMATS.has(format)) throw new Error(`--format must be one of ${[...FORMATS].join(', ')}.`);
+  const date = flags.today || new Date().toISOString().slice(0, 10);
+  const render = {
+    summary: () => renderReport(report, { details: !!flags.details }),
+    report: () => renderClientReport(report, { client: flags.client, site, date }),
+    csv: () => renderCsv(report),
+    json: () => `${JSON.stringify(report, null, 2)}\n`,
+  }[format];
+
+  const written = [];
+  if (flags.out) {
+    writeFile(flags.out, render(), flags.force);
+    written.push(flags.out);
+  }
+  if (flags.csv) {
+    writeFile(flags.csv, renderCsv(report), flags.force);
+    written.push(flags.csv);
+  }
+  if (written.length) {
+    const t = report.totals;
+    stdout.write(
+      `Checked ${report.pages.length} page(s): ${t.error} error(s), ${t.warn} warning(s), ${t.info} note(s).\n` +
+        written.map((file) => `Wrote ${file}\n`).join('')
+    );
+  } else {
+    stdout.write(render());
+  }
+  return report.totals.error || report.totals.warn ? EXIT_FINDINGS : EXIT_OK;
+}
+
 const USAGE = `Usage:
   schema-tool urls <site-url> [--list | --json] [--search <term>]
-  schema-tool validate <url...> [--urls-file <file>] [--vocab <file> | --vocab-version <v>]
-                       [--today YYYY-MM-DD] [--details] [--json]
+  schema-tool validate <url...> [--urls-file <file>] [report options]
+  schema-tool audit <site-url> [--urls-file <file>] [--search <term>] [report options]
   schema-tool vocab [--vocab-version <v>] [--json]
+
+Report options:
+  --format summary|report|csv|json   summary (default) for developers; report for clients
+  --out <file>   write the report to a file     --csv <file>   also write a CSV of findings
+  --client <name>   report title                --force   replace existing files
+  --vocab <file> | --vocab-version <v>          --today YYYY-MM-DD   --details   --json
 `;
 
 async function main(
@@ -1220,27 +1294,25 @@ async function main(
     if (command === 'validate') {
       const urls = [...rest, ...(flags['urls-file'] ? readUrlsFile(flags['urls-file']) : [])];
       if (!urls.length) throw new Error('validate needs at least one URL or --urls-file.');
-      const { vocab, notes } = await resolveVocabulary({
-        vocabPath: flags.vocab,
-        version: flags['vocab-version'],
-        cacheDir,
-        fetch,
-      });
-      const pages = [];
-      for (const url of urls)
-        pages.push(await auditPage(url, { vocab, fetch, today: flags.today }));
-      const report = {
-        vocabulary: { version: vocab.version },
-        pages,
-        totals: summarise(pages),
-        notes,
-      };
-      stdout.write(
-        flags.json
-          ? `${JSON.stringify(report, null, 2)}\n`
-          : renderReport(report, { details: !!flags.details })
+      const report = await runValidation(
+        urls.map((url) => ({ url })),
+        { flags, cacheDir, fetch }
       );
-      return report.totals.error || report.totals.warn ? EXIT_FINDINGS : EXIT_OK;
+      return emitReport(report, { flags, stdout });
+    }
+
+    if (command === 'audit') {
+      if (rest.length !== 1) throw new Error('audit needs exactly one site URL.');
+      const discovery = await discoverUrls(rest[0], { fetch, search: flags.search || 'a' });
+      const known = new Set(discovery.urls.map((u) => stripSlash(u.url)));
+      const extra = (flags['urls-file'] ? readUrlsFile(flags['urls-file']) : [])
+        .filter((url) => !known.has(stripSlash(url)))
+        .map((url) => ({ url, kind: 'extra' }));
+      const report = await runValidation([...discovery.urls, ...extra], { flags, cacheDir, fetch });
+      report.site = discovery.site;
+      report.skipped = discovery.skipped;
+      report.notes = [...discovery.notes, ...report.notes];
+      return emitReport(report, { flags, stdout, site: discovery.site });
     }
 
     stderr.write(USAGE);
@@ -1274,6 +1346,8 @@ module.exports = {
   discoverUrls,
   renderReport,
   renderUrls,
+  renderClientReport,
+  renderCsv,
   parseArgs,
   main,
 };

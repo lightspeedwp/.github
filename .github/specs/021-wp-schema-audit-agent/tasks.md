@@ -73,10 +73,24 @@ findings recorded by hand (SC-003).
 - [x] T042 [P] Add the agent to `agents/README.md`, the spec to `.github/specs/CATALOG.md`, and an entry to `CHANGELOG.md`
 - [x] T043 Run the quickstart validators (FR-043) and an end-to-end run against beta.local and the development site
 
+## Phase 7: User Story 4 - Give the client a report (P2)
+
+**Goal**: A Markdown report and a CSV from one command, in plain English, with no HTML.
+
+**Independent test**: `schema-tool audit https://beta.local/ --format report --out report.md --csv
+findings.csv` writes both files with the same pages and findings.
+
+- [x] T050 [US4] Tests in `AGENT/tests/unit/report-formats.test.js`: every check has plain wording, priority counts, page table, issue sections, the every-page callout, CSV rows and quoting, formula neutralising, `--out`/`--csv` writing, refusal to overwrite, unknown formats
+- [x] T051 [US4] Implement `AGENT/lib/report-formats.cjs` (`CHECK_GUIDE`, `renderClientReport()`, `renderCsv()`) (FR-033 to FR-035)
+- [x] T052 [US4] Add the `audit` command and `--format`, `--out`, `--csv`, `--client`, `--force` to `AGENT/lib/schema-tool.cjs` (FR-036)
+- [x] T053 [US4] Document the deliverables in the report skill, validation skill, README, agent specification, contract and data model
+
+---
+
 ## Dependencies & Execution Order
 
-- Phase 2 blocks every story. Stories 1 and 2 are independent of each other; Story 3 reads Story 2's
-  output. Phase 6 runs last.
+- Phase 2 blocks every story. Stories 1 and 2 are independent of each other; Stories 3 and 4 read
+  Story 2's output. Phase 6 runs after the stories it documents.
 
 ## Implementation Strategy
 
