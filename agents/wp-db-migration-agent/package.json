@@ -1,0 +1,31 @@
+{
+  "name": "@lightspeedwp/wp-db-migration-agent",
+  "version": "1.1.0",
+  "private": true,
+  "description": "Move WordPress databases between MySQL hosts and WordPress Studio local sites",
+  "license": "GPL-3.0-or-later",
+  "author": "LightSpeed Team",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lightspeedwp/.github.git",
+    "directory": "agents/wp-db-migration-agent"
+  },
+  "keywords": [
+    "wordpress",
+    "wordpress-studio",
+    "sqlite",
+    "mysql",
+    "migration"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "lib/sql-tool.cjs",
+  "bin": {
+    "sql-tool": "./lib/sql-tool.cjs"
+  },
+  "scripts": {
+    "test": "jest --config ../../.jest.config.cjs --rootDir ../.. agents/wp-db-migration-agent",
+    "sql-tool": "node lib/sql-tool.cjs"
+  }
+}
