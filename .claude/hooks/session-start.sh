@@ -105,6 +105,26 @@ if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && { [ "$SOURCE" = "startup" ] || [ "$
   fi
 fi
 
+# ── 2b. Cloud-only: shared-environment drift check (FR-024, FR-025) ──────────
+# Warns, never blocks: the message goes out as a systemMessage next to the
+# branching context, and the exit code stays 0. Both messages start with
+# "Cloud environment:" so they can't be confused with the guard's "Branch guard:"
+# text in the SC-007 transcript search. Wording and states are in
+# .github/specs/018-claude-cloud-environment/contracts/cloud-environment.md.
+DRIFT_MESSAGE=""
+if [ "${CLAUDE_CODE_REMOTE:-}" = "true" ] && { [ "$SOURCE" = "startup" ] || [ "$SOURCE" = "resume" ]; }; then
+  if [ "${LS_CLOUD_ENV:-}" != "LightSpeed" ]; then
+    DRIFT_MESSAGE="Cloud environment: this session isn't using the shared LightSpeed environment. Select LightSpeed (under Organization) in the environment selector for new sessions."
+  else
+    # The helper prints nothing when sha256sum is missing or a file can't be
+    # read, and then the check is skipped silently.
+    REPO_REVISION="$(bash ".claude/cloud/revision.sh" "$PWD" 2>/dev/null || true)"
+    if [ -n "$REPO_REVISION" ] && [ "${LS_CLOUD_ENV_REVISION:-}" != "$REPO_REVISION" ]; then
+      DRIFT_MESSAGE="Cloud environment: LightSpeed is out of date (session ${LS_CLOUD_ENV_REVISION:-unset}, repository ${REPO_REVISION}). An Owner should update it from .claude/cloud/ — see docs/CLAUDE_CLOUD_ENVIRONMENT.md."
+    fi
+  fi
+fi
+
 # ── 3. Branching rules → Claude's context ────────────────────────────────────
 CURRENT_BRANCH="$(git branch --show-current 2>/dev/null || true)"
 
@@ -166,5 +186,11 @@ json_escape() {
 }
 
 ESCAPED_CONTEXT="$(json_escape "$CONTEXT")"
-printf '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s"}}\n' "$ESCAPED_CONTEXT"
+# One JSON object: the existing hookSpecificOutput, plus a systemMessage only
+# when the drift check has a warning to show.
+SYSTEM_MESSAGE_FIELD=""
+if [ -n "$DRIFT_MESSAGE" ]; then
+  SYSTEM_MESSAGE_FIELD="\"systemMessage\":\"$(json_escape "$DRIFT_MESSAGE")\","
+fi
+printf '{%s"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"%s"}}\n' "$SYSTEM_MESSAGE_FIELD" "$ESCAPED_CONTEXT"
 exit 0

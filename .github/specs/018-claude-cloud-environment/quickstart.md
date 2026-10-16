@@ -29,7 +29,7 @@ Expected: every case passes, including these:
 | Commit on `main` with only `docs/` files staged | exit 2 (no exception on `main`) |
 | MCP PR from `feat/a-b` into `main` on `.github` | exit 2 |
 | Any refusal with `LS_ENFORCE_BRANCH_NAMES=0` | exit 0 plus `systemMessage` |
-| Push to a `copilot/*` branch that has an open PR (stubbed `gh`) | exit 0 (legacy PR exception) |
+| Push to a `copilot/*` branch that has an open PR (stubbed `gh`) | exit 2: an open PR is not an exception. **The delivered guard still returns exit 0 until the follow-up change removes the legacy exception.** |
 | Push to a `copilot/*` branch with no open PR, or `gh` failing | exit 2 |
 | `Edit` of `.claude/hooks/enforce-branch-name.mjs` or `sed -i … .claude/settings.json` | exit 2 |
 | `cat .claude/settings.json` | exit 0 |
@@ -49,8 +49,8 @@ echo '{"source":"startup"}' | CLAUDE_CODE_REMOTE= bash .claude/hooks/session-sta
 echo '{"source":"compact"}' | CLAUDE_CODE_REMOTE=true bash .claude/hooks/session-start.sh | jq -e .
 ```
 
-Expected: valid JSON both times. The context mentions the documentation exception, the legacy PR exception and
-"override". A session started on a `claude/*` branch that already has commits keeps its branch name.
+Expected: valid JSON both times. The context mentions the documentation exception, the refusal of writes to a non-compliant branch (even an
+open-PR head) and "override". The delivered text still names the legacy PR exception until the follow-up change. A session started on a `claude/*` branch that already has commits keeps its branch name.
 The SessionStart contract test also starts cloud `startup` and `resume` sessions with `node_modules` absent and an
 old lockfile timestamp; it expects `npm install` to run. With an installed tree newer than the lockfile, it expects
 no install.
@@ -98,10 +98,15 @@ for the new session if another environment was selected, then ask Claude to:
    If the repository uses rulesets instead, check that the ruleset targeting both branches has "Require review from
    Code Owners" turned on.
 
-For a local session, confirm `gh --version` and `gh auth status` succeed using the developer's own login before
-checking the legacy PR exception.
+For a local session, `gh` is needed only while the delivered guard still performs the open-PR check (the superseded
+legacy exception). Confirm `gh --version` and `gh auth status` succeed using the developer's own login before
+checking that behaviour.
 
 ## 5. Branch cleanup (FR-020 to FR-022)
+
+Delivery state, verified 2026-10-15: only the report-only audit command exists. The scheduled deletion workflow
+(`.github/workflows/branch-audit.yml`) is not delivered (spec 009 T046 and T073 are open), so nothing runs on a
+schedule and automatic deletion is deferred.
 
 ```bash
 node scripts/cleanup-branches.js --reportFormat=json --reportDir=/tmp/cleanup
@@ -117,6 +122,35 @@ Expected while the FR-020 deferral holds:
 After T063 adds this route to spec 009, a maintainer can promote an empty, merged `claude/*` branch with no open PR
 to DELETE through spec 009's draft-PR approval (R16).
 
-Once the deferral is lifted, only branches that are platform placeholders with no commits of their own and no
+The deferral lifts only when all three prerequisites exist (branch-age storage, retention and measurement; reliable branch-origin verification; and a delivered and verified scheduled deletion workflow). Then only branches that are platform placeholders with no commits of their own and no
 open PR, observable for at least a day by the branch-age signal, are auto-approved. Run the spec 009 cleanup
 workflow manually in report-only mode, and check that its summary lists the same auto-approved branches.
+
+## 6. Organisation-wide rollout (User Story 2, R18 to R22)
+
+Contract: [cloud environment](./contracts/cloud-environment.md).
+
+**Owner, once:**
+
+1. On the Cloud environments admin page, create **LightSpeed** with **Trusted** network access, and paste the
+   contents of `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`.
+   Expected: members see it under **Organization** in the selector.
+2. At claude.ai/admin-settings/claude-code, set the organisation default environment to **LightSpeed**.
+3. In Managed settings on the same page, add `{"remote": {"defaultEnvironmentId": "env_..."}}` with the
+   **LightSpeed** ID. If managed settings already hold JSON, merge the key in.
+   Expected: a member who runs `claude doctor` sees the remote managed settings loaded.
+
+**Checks:**
+
+| # | Who | Do | Expected |
+| --- | --- | --- | --- |
+| a | CI | `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` | The revision-stamp test passes |
+| b | Member with no saved selection | Start a session without touching the selector | It runs in **LightSpeed**, and there's no `Cloud environment:` warning |
+| b2 | Brand-new member (just onboarded) | Start a session without touching the selector | Expected, per the 2026-10-12 decision (R19): it keeps their **Default** environment and shows the "isn't using the shared LightSpeed environment" warning until they pick **LightSpeed** once. Record the outcome. If a new member lands in **LightSpeed** automatically, the one-time "pick LightSpeed once" note for new members can be dropped |
+| c | Member with a saved selection | Start a session as usual | It keeps their choice and shows the "isn't using the shared LightSpeed environment" warning. After they switch once, there's no warning |
+| d | Member, terminal | `claude --cloud 'echo $LS_CLOUD_ENV'` | `LightSpeed`, without running `/remote-env` |
+| e | Owner | Merge a change to `setup.sh` without re-pasting it, then start a session | The "out of date" warning names both revisions. After re-pasting, a new session has no warning |
+| f | Member, another LightSpeed repository | Start a cloud session there | It runs in **LightSpeed**, `node -v` shows the `.nvmrc` version, and the session isn't otherwise affected (R22) |
+
+Record the results of (b) to (f), including (b2), in `.github/reports/audit/` and link them
+from the spec 018 tasks, instead of in the description of the merged #3524.

@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Shared Environment Revision Stamp** — The shared cloud environment now carries a revision stamp, and a test fails when it is out of date, so the repository copy and the admin-console copy can be compared. (#3878)
+- **Cloud Environment Drift Warnings** — Cloud sessions now warn when they are not in the shared LightSpeed environment or when it is out of date. The warning never blocks the session. (#3878)
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))

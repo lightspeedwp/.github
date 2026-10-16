@@ -27,6 +27,8 @@ All other results carry `autoApproved: false` (or omit it).
 
 ## Scheduled workflow (spec 009 User Story 5)
 
+**Delivery state (verified 2026-10-15)**: not delivered. `.github/workflows/branch-audit.yml` does not exist. Spec 009 T046 (create the workflow) and T073 (the daily auto-delete step) are open, and spec 018 T034 is out of scope here. The table below is the target for when all three prerequisites exist: branch-age storage, retention and measurement; reliable branch-origin verification; and the delivered and verified workflow. What is delivered today is report-only categorisation (`scripts/cleanup-branches.js`, spec 009, #3358) and maintainer-approved manual promotion (FR-021).
+
 | Step | Behaviour |
 | --- | --- |
 | Audit | Runs `node scripts/cleanup-branches.js --reportFormat=json` |
