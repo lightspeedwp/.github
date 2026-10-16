@@ -29,6 +29,9 @@ From an export file (works for any table prefix and for multisite):
 node agents/wp-db-migration-agent/lib/sql-tool.cjs site-urls <export.sql>
 ```
 
+Add `--studio-site ~/Studio/<site>` to also get the Studio site's own URL
+and a ready-made preview command (see step 3).
+
 Or from a running Studio site:
 
 ```bash
@@ -46,8 +49,12 @@ source URL; do not guess.
 Show the user what was found and ask where it should point. Offer the likely
 answer for the direction of travel:
 
-- **Live or staging → Studio**: the Studio site's URL, `https://<site>.local`
-  (`studio wp option get siteurl` on the Studio site after import shows it).
+- **Live or staging → Studio**: the Studio site's custom URL. `site-urls
+--studio-site` reads it from Studio's site list (`~/.studio/cli.json`:
+  `https://<customDomain>`, or `http://localhost:<port>` without one), and
+  `studio status --path ~/Studio/<site> --format json` reports it as
+  `siteUrl`. Do not use `siteurl` from the imported database for this: it is
+  the source's until Studio or this skill changes it.
 - **Studio → staging or live**: the target site's public URL; ask, there is no
   safe default.
 
@@ -57,19 +64,25 @@ user before continuing.
 
 ### 3. Preview
 
-Use one regex per source host, so `http://`, `https://` and the JSON-escaped
-form block markup stores (`https:\/\/`) are all caught in a single pass while
-keeping each value's escaping. The pattern matches either source scheme; the
+Use one regex per source host, so `http://`, `https://`, `www.` and the
+JSON-escaped form block markup stores (`https:\/\/`) are all caught in a
+single pass while keeping each value's escaping. `site-urls --studio-site`
+prints this command ready to run, with the match count from the export.
+Otherwise build it by hand. The pattern matches either source scheme; the
 replacement sets the destination's. Replace `<scheme>` with the scheme of the
 destination URL the user confirmed (`https` or `http`):
 
 ```bash
 studio wp --path ~/Studio/<site> search-replace \
-  'https?:(\\?/)(\\?/)old\.example\.com' '<scheme>:${1}${2}new.example.com' \
+  'https?:(\\?/)(\\?/)(?:www\.)?old\.example\.com(?!\.?[\w-])' '<scheme>:${1}${2}new.example.com' \
   --regex --all-tables-with-prefix --dry-run --report-changed-only
 ```
 
-Escape the dots in the source host (`\.`). Show the user the per-table counts.
+Escape the dots in the source host (`\.`). `(?:www\.)?` catches both forms of
+the host, and `(?!\.?[\w-])` stops at the end of the host, so
+`old.example.com.evil.net` and `old.example.com-backup.net` are left alone.
+Subdomains such as `shop.old.example.com` and email addresses do not match;
+ask the user whether they need their own pairs. Show the user the per-table counts.
 Regex mode checks every row in PHP, so it can take several minutes on a large
 site; tell the user before starting.
 
@@ -81,7 +94,7 @@ every site over `https`, so the scheme here is always `https`:
 
 ```bash
 studio wp --path ~/Studio/<site> search-replace \
-  'https?:(\\?/)(\\?/)old\.example\.com' 'https:${1}${2}<site>.local' \
+  'https?:(\\?/)(\\?/)(?:www\.)?old\.example\.com(?!\.?[\w-])' 'https:${1}${2}<site>.local' \
   --regex --all-tables-with-prefix
 studio wp --path ~/Studio/<site> cache flush
 ```
