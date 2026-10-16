@@ -35,8 +35,8 @@ spawn the hook with JSON on stdin.
 `[Agent]` is work Claude can do. `[Guard-protected]` is work in `.claude/hooks/**`, which the guard protects, so a
 person or an Owner session started with `LS_ENFORCE_BRANCH_NAMES=0` does it. `[Owner]` is the admin console, branch
 protection, the team announcement, evidence runs and Linear or GitHub housekeeping. `[Superseded]` and
-`[Out of scope]` mark tasks that `/speckit-implement` must skip (T029 and T034). Every `[Agent]` task is now done, apart
-from the `shellcheck` and `markdownlint` part of T079, which hasn't been run.
+`[Out of scope]` mark tasks that `/speckit-implement` must skip (T029 and T034). Every `[Agent]` task is now done
+(T079 finished on 2026-10-16, once shellcheck and markdownlint were run).
 
 A task is ticked only once its change is on `develop` or in the PR that delivers this spec's reconciliation
 (#3726). This reconciliation preserves every existing tick, T033 included. New work delivered on #3358 is noted
@@ -384,8 +384,8 @@ environment" warning until they switch once. `claude --cloud` uses **LightSpeed*
 change to `setup.sh` that hasn't been re-pasted shows the "out of date" warning.
 
 **Execution split (refreshed 2026-10-12)**: every `[Agent]` task is done: T089, T067 to T069, T072, T073, T078, T081,
-T082 and T088, and T079's Jest run passed in CI. The one part of T079 not run is `shellcheck` and `markdownlint`
-(not installed here, and not run by that CI workflow). What remains is `[Owner]` work.
+T082, T088 and T079 (Jest passed in CI; shellcheck and markdownlint were run on 2026-10-16). What remains is
+`[Owner]` work.
 
 The `[Guard-protected]` tasks (T070, T071) needed a person, and are done: the patch was applied and CI passes. The `[Owner]` tasks (T074 to T077, T080 and most of Phase 13) are the admin console,
 evidence and housekeeping. T066 is done.
@@ -521,7 +521,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
 
 ### Phase 12 polish
 
-- [ ] T079 [Agent] (Partly done 2026-10-12: the Jest part passed in CI. `shellcheck` and `markdownlint` have not been run: they aren't installed here, and that CI workflow doesn't run them.) Run `npx jest -c .jest.config.cjs scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js`,
+- [x] T079 [Agent] (Done 2026-10-16: the Jest part passed in CI on 2026-10-12. `shellcheck` on `.claude/cloud/revision.sh` and `.claude/hooks/session-start.sh` is clean, and `markdownlint-cli2` on the 11 spec files reports 0 issues; the repository's markdownlint config skips `docs/` and `CHANGELOG.md`.) Run `npx jest -c .jest.config.cjs scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js`,
   `shellcheck .claude/cloud/revision.sh .claude/hooks/session-start.sh`, and `npx markdownlint-cli2` on the changed
   Markdown, and fix everything until it's green.
 - [ ] T080 [Owner] (GIT-2524) Once T074 to T077 pass and T042, T043 and T048 are done, comment on lightspeedwp/.github#3736 with
@@ -537,7 +537,7 @@ Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-0
   to T069 in the same PR if an Owner makes it with enforcement off; otherwise they go in a second PR.
 - T072 can run alongside T067 to T071 (a different file). T078 follows T072, because they share
   `docs/CLAUDE_CLOUD_ENVIRONMENT.md`. T073 goes in whichever PR ships the code, and is blocked until that PR's number
-  exists. T079 is blocked until T070 and T071 are done.
+  exists. T079 needed T070 and T071 first, and is now done.
 - T074 needs T068 merged. It can be done earlier, but then needs a re-paste. T075 needs T074 (the env ID). T076
   needs T074. T077 needs T070, T074, T075 and T076. T078 doesn't need T077: only dropping its line does.
 

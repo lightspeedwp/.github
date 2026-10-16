@@ -318,8 +318,9 @@ secrets; managed settings are Owner-only). X ✅ (the drift check and CI stamp a
 violations.
 
 Re-check after the 2026-10-12 fixes: V ✅ and VIII ✅ (unchanged). VI ✅ (the stamp and `LS_CLOUD_ENV` contain no
-secrets). X ✅ (justified, see Complexity Tracking). **VII is open**: the requirements checklist hasn't been re-run
-against the amended spec, so T089 must be done before implementation. **IX needs a decision**: T073 covers the
+secrets). X ✅ (justified, see Complexity Tracking). **VII is open**: T089 re-ran the requirements checklist on
+2026-10-12 (14 of 16 items pass); the two failing items are listed in its Notes and must be fixed before the spec
+leaves Draft. **IX needs a decision**: T073 covers the
 changelog entry for the code PR (T067 to T072), but the docs-only Phase 13 PR (T078, T081, T082) has no changelog
 task, so whether it needs an entry has to be confirmed.
 
