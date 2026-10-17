@@ -275,6 +275,36 @@ The following files are **FINAL and manually curated by @ashley**. Do NOT edit t
 
 ---
 
+## ⚠️ PR & Issue Templates — Centralized (No Duplicates)
+
+**Single Source of Truth:**
+- All PR templates: `.github/.github/PULL_REQUEST_TEMPLATE/` (19 templates, locked)
+- All issue templates: `.github/.github/ISSUE_TEMPLATE/` (25 templates, locked)
+
+**For Repository-Specific Projects (e.g., ThisOneTimeOnAcidCom):**
+- Do **NOT** create duplicate templates in your repository's `.github/` folder
+- GitHub automatically applies the organization-wide template based on branch prefix
+- Example workflow:
+  1. You create branch: `feat/user-auth`
+  2. You open PR from that branch
+  3. GitHub automatically applies `pr_feature.md` from `.github` repo
+  4. No configuration needed — it just works
+
+**Why No Duplicates?**
+- Single source of truth prevents template divergence
+- Ensures all repositories follow the same workflow patterns
+- Simplifies maintenance — changes apply org-wide automatically
+- Avoids confusion about which template is canonical
+
+**For Exceptions:**
+If your repository has genuinely unique workflow needs that differ from organization-wide templates, document this explicitly:
+1. Open a `[TEMPLATE-UPDATE-REQUEST]` issue
+2. Explain why the org-wide template doesn't fit
+3. Wait for @ashley's approval before diverging
+4. If approved, maintain your local templates alongside the org-wide ones (with a clear README explaining the difference)
+
+---
+
 ## Label Creation Rules (CRITICAL)
 
 When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL labels MUST be from the canonical set in `.github/labels.yml` with their required family prefix**. Never apply bare labels without prefixes.
