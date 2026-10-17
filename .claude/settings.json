@@ -10,7 +10,7 @@
           },
           {
             "type": "command",
-            "command": "node scripts/validate-branch-name.js",
+            "command": "node scripts/validation/validate-branch-name.js",
             "timeout": 30
           }
         ]
