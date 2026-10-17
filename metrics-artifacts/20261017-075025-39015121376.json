@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-10-17T07:50:25Z",
+  "branch_name": "claude/kind-maxwell-8qp7dx",
+  "valid": false,
+  "errors": "forbidden_prefix",
+  "actor": "ashleyshaw",
+  "event": "push",
+  "ref": "refs/heads/claude/kind-maxwell-8qp7dx",
+  "sha": "ca4e5f2ce17b0be83421dda241402e098835dd7d"
+}
