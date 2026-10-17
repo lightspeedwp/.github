@@ -85,7 +85,7 @@ Should Node.js version be pinned? If yes, to which version, where?
 - *Cost:* Local dev not enforced; mismatch possible
 
 ### Recommendation
-**A: Pin to Node 18** — Matches repository intent (`src/app/netlify.toml`), supports the earliest LTS that current dependencies target. Add `.nvmrc` + `engines` for local enforcement.
+**B: Pin to Node 20 (Current LTS)** — Node.js 18 reached EOL on 30 April 2025. Recommend Node 20 (LTS until 2026-04-30) or Node 22/24 (active LTS). Verify dependency compatibility before pinning. Document any extended-support arrangements if Node 18 is retained. Add `.nvmrc` + `engines` for local enforcement.
 
 ### Blocking
 - Workstream TOA-262 (Repository-root configuration)
@@ -110,8 +110,8 @@ How should Jest be configured to support ESM imports in test files?
 ### Options
 
 **A: Convert to CommonJS**
-- Rename `.test.js` to `.test.cjs` or `.test.mjs`
-- Rewrite imports as `require()`
+- Rename `.test.js` to `.test.cjs` (not `.test.mjs`)
+- Rewrite imports as `require()` (`.cjs` supports CommonJS)
 - Update Jest config if needed
 - *Impact:* Tests run immediately
 - *Cost:* Inconsistent with codebase style (TypeScript/ESM everywhere else)
@@ -323,10 +323,11 @@ Should GitHub Discussions be enabled with templates?
 Should PR templates be stored locally or inherited from organisation defaults?
 
 ### Current State
-- Repository has 19 custom PR templates in `.github/PULL_REQUEST_TEMPLATE/*.md`
-- Routing by branch prefix (e.g., `feat/`, `docs/`, `test/`)
-- Branch naming enforced by `npm run validate:branch-name`
-- Organisation also has PR templates in `lightspeedwp/.github`
+- No local PR template routing is configured in this repository
+- `npm run validate:branch-name` validates branch names only (does not route templates)
+- Repository inherits PR templates from organisation defaults (`lightspeedwp/.github`)
+- Organisation-level branch-prefix template routing is not currently implemented
+- Branch naming validation enforces the {type}/{scope}-{title} pattern
 
 ### Options
 
@@ -368,7 +369,7 @@ Should CODEOWNERS file be created and branch protection rules enforced?
 ### Current State
 - No `.github/CODEOWNERS` file exists
 - No branch protection on `main` or `develop`
-- Anyone can merge to protected branches
+- Anyone can merge to `main` or `develop` (unprotected branches)
 - Repository follows `main` (releases) + `develop` (integration) model
 
 ### Options
