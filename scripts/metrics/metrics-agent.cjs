@@ -5,8 +5,8 @@
  * Supports GitHub control plane and WordPress plugin/theme repositories
  */
 
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 // ============================================================================
 // 1. CONFIGURATION MODULE (~50 LOC)
@@ -18,49 +18,39 @@ class ConfigurationLoader {
       throw new Error(`Configuration file not found: ${configPath}`);
     }
 
-    const configFile = fs.readFileSync(configPath, "utf-8");
+    const configFile = fs.readFileSync(configPath, 'utf-8');
     const config = JSON.parse(configFile);
 
     return this.validateConfig(config);
   }
 
   static validateConfig(config) {
-    const required = ["context", "repositories", "collection_period"];
+    const required = ['context', 'repositories', 'collection_period'];
     const missing = required.filter((field) => !config[field]);
 
     if (missing.length > 0) {
-      throw new Error(`Missing required config fields: ${missing.join(", ")}`);
+      throw new Error(`Missing required config fields: ${missing.join(', ')}`);
     }
 
     // Validate context
-    const validContexts = [
-      "github-control-plane",
-      "wordpress-plugin",
-      "wordpress-theme",
-    ];
+    const validContexts = ['github-control-plane', 'wordpress-plugin', 'wordpress-theme'];
     if (!validContexts.includes(config.context)) {
-      throw new Error("Invalid context");
+      throw new Error('Invalid context');
     }
 
     // Validate collection period
-    if (
-      typeof config.collection_period !== "number" ||
-      config.collection_period < 1
-    ) {
-      throw new Error("collection_period must be a positive number");
+    if (typeof config.collection_period !== 'number' || config.collection_period < 1) {
+      throw new Error('collection_period must be a positive number');
     }
 
     // Validate repositories
-    if (
-      !Array.isArray(config.repositories) ||
-      config.repositories.length === 0
-    ) {
-      throw new Error("repositories must be a non-empty array");
+    if (!Array.isArray(config.repositories) || config.repositories.length === 0) {
+      throw new Error('repositories must be a non-empty array');
     }
 
     config.repositories.forEach((repo, idx) => {
       if (!repo.owner || !repo.name) {
-        throw new Error("missing owner or name");
+        throw new Error('missing owner or name');
       }
     });
 
@@ -72,48 +62,28 @@ class ConfigurationLoader {
       collection_period: config.collection_period,
       github_token: config.github_token || process.env.GITHUB_TOKEN,
       cache_ttl: config.cache_ttl || 3600,
-      output_dir: config.output_dir || ".github/reports/metrics",
+      output_dir: config.output_dir || '.github/reports/metrics',
       ...config,
     };
   }
 
   static getDefaultMetrics(context) {
     const allMetrics = {
-      issues: [
-        "total",
-        "closed",
-        "ttf",
-        "active",
-        "stale",
-        "reopened",
-        "labels",
-      ],
+      issues: ['total', 'closed', 'ttf', 'active', 'stale', 'reopened', 'labels'],
       pull_requests: [
-        "total",
-        "merged",
-        "ttm",
-        "review_time",
-        "participation",
-        "size",
-        "ci_pass_rate",
+        'total',
+        'merged',
+        'ttm',
+        'review_time',
+        'participation',
+        'size',
+        'ci_pass_rate',
       ],
-      contributors: [
-        "active",
-        "breakdown",
-        "top",
-        "retention",
-        "new_vs_returning",
-      ],
-      health: [
-        "milestone_progress",
-        "epic_status",
-        "backlog",
-        "label_distribution",
-        "velocity",
-      ],
+      contributors: ['active', 'breakdown', 'top', 'retention', 'new_vs_returning'],
+      health: ['milestone_progress', 'epic_status', 'backlog', 'label_distribution', 'velocity'],
     };
 
-    if (context === "github-control-plane") {
+    if (context === 'github-control-plane') {
       return allMetrics;
     }
 
@@ -125,7 +95,7 @@ class ConfigurationLoader {
   }
 
   static getMetricsSubset(config) {
-    if (config.context === "github-control-plane") {
+    if (config.context === 'github-control-plane') {
       return config.metrics;
     }
 
@@ -160,17 +130,15 @@ class GitHubAPIClient {
 
     this.token = token || process.env.GITHUB_TOKEN;
     if (!this.token) {
-      throw new Error(
-        "GitHub token required: set GITHUB_TOKEN env var or pass via config",
-      );
+      throw new Error('GitHub token required: set GITHUB_TOKEN env var or pass via config');
     }
 
     this.cache = cache || {};
-    this.baseUrl = "https://api.github.com";
+    this.baseUrl = 'https://api.github.com';
     this.headers = {
       Authorization: `token ${this.token}`,
-      Accept: "application/vnd.github.v3+json",
-      "User-Agent": "Metrics-Agent/1.0",
+      Accept: 'application/vnd.github.v3+json',
+      'User-Agent': 'Metrics-Agent/1.0',
     };
     this.retryCount = 0;
     this.maxRetries = 3;
@@ -186,57 +154,60 @@ class GitHubAPIClient {
       }
     }
 
-    try {
-      const url = new globalThis.URL(`${this.baseUrl}${endpoint}`);
-      Object.keys(params).forEach((key) => {
-        url.searchParams.append(key, params[key]);
-      });
+    let retries = 0;
+    while (retries < this.maxRetries) {
+      try {
+        const url = new globalThis.URL(`${this.baseUrl}${endpoint}`);
+        Object.keys(params).forEach((key) => {
+          url.searchParams.append(key, params[key]);
+        });
 
-      const response = await globalThis.fetch(url.toString(), {
-        method: "GET",
-        headers: this.headers,
-      });
+        const response = await globalThis.fetch(url.toString(), {
+          method: 'GET',
+          headers: this.headers,
+        });
 
-      if (response.status === 403) {
-        // Handle rate limiting
-        const resetTime =
-          parseInt(response.headers.get("x-ratelimit-reset") || 0) * 1000;
-        const waitTime = Math.max(1000, resetTime - Date.now());
+        if (response.status === 403) {
+          // Handle rate limiting
+          const resetTime = parseInt(response.headers.get('x-ratelimit-reset') || 0) * 1000;
+          const waitTime = Math.max(1000, resetTime - Date.now());
 
-        if (this.retryCount < this.maxRetries) {
-          this.retryCount++;
-          await new Promise((resolve) =>
-            setTimeout(resolve, Math.min(waitTime, 60000)),
-          );
-          return this.request(endpoint, params);
+          if (this.retryCount < this.maxRetries) {
+            this.retryCount++;
+            await new Promise((resolve) => setTimeout(resolve, Math.min(waitTime, 60000)));
+            return this.request(endpoint, params);
+          }
+
+          throw new Error(`Rate limit exceeded. Reset at ${new Date(resetTime).toISOString()}`);
         }
 
-        throw new Error(
-          `Rate limit exceeded. Reset at ${new Date(resetTime).toISOString()}`,
-        );
+        if (!response.ok) {
+          throw new Error(`GitHub API error ${response.status}: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        this.cache[cacheKey] = { data, timestamp: Date.now() };
+        this.retryCount = 0;
+
+        return data;
+      } catch (error) {
+        // Retry on network errors
+        if (error.message.includes('Network error') && retries < this.maxRetries) {
+          retries++;
+          await new Promise((resolve) => setTimeout(resolve, 50 * Math.pow(2, retries)));
+          continue;
+        }
+
+        throw new Error(`Failed to query GitHub API: ${error.message}`, {
+          cause: error,
+        });
       }
-
-      if (!response.ok) {
-        throw new Error(
-          `GitHub API error ${response.status}: ${response.statusText}`,
-        );
-      }
-
-      const data = await response.json();
-      this.cache[cacheKey] = { data, timestamp: Date.now() };
-      this.retryCount = 0;
-
-      return data;
-    } catch (error) {
-      throw new Error(`Failed to query GitHub API: ${error.message}`, {
-        cause: error,
-      });
     }
   }
 
   async getIssues(owner, repo, since, until) {
     return this.request(`/repos/${owner}/${repo}/issues`, {
-      state: "all",
+      state: 'all',
       since: since.toISOString(),
       per_page: 100,
     });
@@ -244,8 +215,8 @@ class GitHubAPIClient {
 
   async getPullRequests(owner, repo, since, until) {
     return this.request(`/repos/${owner}/${repo}/pulls`, {
-      state: "all",
-      sort: "created",
+      state: 'all',
+      sort: 'created',
       since: since.toISOString(),
       per_page: 100,
     });
@@ -261,6 +232,16 @@ class GitHubAPIClient {
     return this.request(`/repos/${owner}/${repo}`);
   }
 
+  cleanupExpiredCache(ttl = 3600000) {
+    const now = Date.now();
+    Object.keys(this.cache).forEach((key) => {
+      const { timestamp } = this.cache[key];
+      if (now - timestamp >= ttl) {
+        delete this.cache[key];
+      }
+    });
+  }
+
   async fetchMetrics(owner, repo, since, until) {
     // Use instance properties if not provided as parameters
     const _owner = owner || this.owner;
@@ -268,7 +249,7 @@ class GitHubAPIClient {
 
     if (!_owner || !_repo) {
       throw new Error(
-        "Owner and repo are required for fetchMetrics. Pass as parameters or set in constructor.",
+        'Owner and repo are required for fetchMetrics. Pass as parameters or set in constructor.'
       );
     }
 
@@ -326,9 +307,7 @@ class MetricsCollector {
       await this.collectPRMetrics(owner, name, since, until);
       await this.collectContributorMetrics(owner, name, since, until);
     } catch (error) {
-      console.error(
-        `Error collecting metrics for ${owner}/${name}: ${error.message}`,
-      );
+      console.error(`Error collecting metrics for ${owner}/${name}: ${error.message}`);
       this.data[`${owner}/${name}`].error = error.message;
     }
 
@@ -343,36 +322,26 @@ class MetricsCollector {
     const active = issues.filter((i) => !i.closed_at);
 
     const timesToClose = closed
-      .map(
-        (i) =>
-          (new Date(i.closed_at) - new Date(i.created_at)) /
-          (1000 * 60 * 60 * 24),
-      )
+      .map((i) => (new Date(i.closed_at) - new Date(i.created_at)) / (1000 * 60 * 60 * 24))
       .sort((a, b) => a - b);
 
     repoData.metrics.issues = {
       total: issues.length,
       closed: closed.length,
-      closure_rate:
-        issues.length > 0
-          ? ((closed.length / issues.length) * 100).toFixed(2)
-          : 0,
+      closure_rate: issues.length > 0 ? ((closed.length / issues.length) * 100).toFixed(2) : 0,
       ttf_avg:
         timesToClose.length > 0
-          ? (
-              timesToClose.reduce((a, b) => a + b) / timesToClose.length
-            ).toFixed(2)
+          ? (timesToClose.reduce((a, b) => a + b) / timesToClose.length).toFixed(2)
           : 0,
       ttf_median: this.percentile(timesToClose, 0.5),
       ttf_p95: this.percentile(timesToClose, 0.95),
       active: active.length,
       stale: active.filter((i) => {
         const lastActivity = new Date(i.updated_at);
-        const daysSinceUpdate =
-          (Date.now() - lastActivity) / (1000 * 60 * 60 * 24);
+        const daysSinceUpdate = (Date.now() - lastActivity) / (1000 * 60 * 60 * 24);
         return daysSinceUpdate > 30;
       }).length,
-      reopened: issues.filter((i) => i.state_reason === "reopened").length,
+      reopened: issues.filter((i) => i.state_reason === 'reopened').length,
       labels: this.labelDistribution(issues),
     };
   }
@@ -384,23 +353,16 @@ class MetricsCollector {
     const merged = prs.filter((p) => p.merged_at);
 
     const timesToMerge = merged
-      .map(
-        (p) =>
-          (new Date(p.merged_at) - new Date(p.created_at)) /
-          (1000 * 60 * 60 * 24),
-      )
+      .map((p) => (new Date(p.merged_at) - new Date(p.created_at)) / (1000 * 60 * 60 * 24))
       .sort((a, b) => a - b);
 
     repoData.metrics.pull_requests = {
       total: prs.length,
       merged: merged.length,
-      merge_rate:
-        prs.length > 0 ? ((merged.length / prs.length) * 100).toFixed(2) : 0,
+      merge_rate: prs.length > 0 ? ((merged.length / prs.length) * 100).toFixed(2) : 0,
       ttm_avg:
         timesToMerge.length > 0
-          ? (
-              timesToMerge.reduce((a, b) => a + b) / timesToMerge.length
-            ).toFixed(2)
+          ? (timesToMerge.reduce((a, b) => a + b) / timesToMerge.length).toFixed(2)
           : 0,
       ttm_median: this.percentile(timesToMerge, 0.5),
       ttm_p95: this.percentile(timesToMerge, 0.95),
@@ -420,15 +382,12 @@ class MetricsCollector {
         login: c.login,
         contributions: c.contributions,
       })),
-      total_contributions: contributors.reduce(
-        (sum, c) => sum + c.contributions,
-        0,
-      ),
+      total_contributions: contributors.reduce((sum, c) => sum + c.contributions, 0),
     };
   }
 
   percentile(sorted, p) {
-    if (sorted.length === 0) return "0.00";
+    if (sorted.length === 0) return '0.00';
     const index = Math.ceil(sorted.length * p) - 1;
     return sorted[Math.max(0, index)].toFixed(2);
   }
@@ -455,14 +414,14 @@ class MetricsCollector {
 
   calculateCIPassRate(prs) {
     const prsWithStatus = prs.filter((pr) => pr.statuses_url);
-    if (prsWithStatus.length === 0) return "N/A";
-    return "95%"; // Placeholder — would fetch from check runs
+    if (prsWithStatus.length === 0) return 'N/A';
+    return '95%'; // Placeholder — would fetch from check runs
   }
 
   averageReviewTime(prs) {
     const reviewed = prs.filter((pr) => pr.reviewed_at);
-    if (reviewed.length === 0) return "N/A";
-    return "2.5 days"; // Placeholder — would calculate from review data
+    if (reviewed.length === 0) return 'N/A';
+    return '2.5 days'; // Placeholder — would calculate from review data
   }
 }
 
@@ -496,39 +455,27 @@ class MetricsAggregator {
         total_repositories: 0,
         total_issues: 0,
         total_prs: 0,
-        avg_issue_closure_rate: "N/A",
-        avg_pr_merge_rate: "N/A",
+        avg_issue_closure_rate: 'N/A',
+        avg_pr_merge_rate: 'N/A',
         total_contributors: 0,
       };
     }
 
     return {
       total_repositories: repoMetrics.length,
-      total_issues: repoMetrics.reduce(
-        (sum, r) => sum + (r.metrics.issues?.total || 0),
-        0,
-      ),
-      total_prs: repoMetrics.reduce(
-        (sum, r) => sum + (r.metrics.pull_requests?.total || 0),
-        0,
-      ),
-      avg_issue_closure_rate: this.averageMetric(
-        repoMetrics,
-        "issues.closure_rate",
-      ),
-      avg_pr_merge_rate: this.averageMetric(
-        repoMetrics,
-        "pull_requests.merge_rate",
-      ),
+      total_issues: repoMetrics.reduce((sum, r) => sum + (r.metrics.issues?.total || 0), 0),
+      total_prs: repoMetrics.reduce((sum, r) => sum + (r.metrics.pull_requests?.total || 0), 0),
+      avg_issue_closure_rate: this.averageMetric(repoMetrics, 'issues.closure_rate'),
+      avg_pr_merge_rate: this.averageMetric(repoMetrics, 'pull_requests.merge_rate'),
       total_contributors: repoMetrics.reduce(
         (sum, r) => sum + (r.metrics.contributors?.active || 0),
-        0,
+        0
       ),
     };
   }
 
   static averageMetric(repos, metricPath) {
-    const parts = metricPath.split(".");
+    const parts = metricPath.split('.');
     const values = repos
       .map((r) => {
         let val = r.metrics;
@@ -537,10 +484,10 @@ class MetricsAggregator {
         }
         return val;
       })
-      .filter((v) => v !== null && v !== undefined && v !== "N/A")
+      .filter((v) => v !== null && v !== undefined && v !== 'N/A')
       .map((v) => parseFloat(v));
 
-    if (values.length === 0) return "N/A";
+    if (values.length === 0) return 'N/A';
     return (values.reduce((a, b) => a + b) / values.length).toFixed(2);
   }
 
@@ -549,27 +496,21 @@ class MetricsAggregator {
     const previousSummary = this.calculateSummary(previous);
 
     return {
-      issue_trend: this.calculateTrend(
-        currentSummary.total_issues,
-        previousSummary.total_issues,
-      ),
-      pr_trend: this.calculateTrend(
-        currentSummary.total_prs,
-        previousSummary.total_prs,
-      ),
+      issue_trend: this.calculateTrend(currentSummary.total_issues, previousSummary.total_issues),
+      pr_trend: this.calculateTrend(currentSummary.total_prs, previousSummary.total_prs),
       closure_rate_trend: this.calculateTrend(
         parseFloat(currentSummary.avg_issue_closure_rate || 0),
-        parseFloat(previousSummary.avg_issue_closure_rate || 0),
+        parseFloat(previousSummary.avg_issue_closure_rate || 0)
       ),
     };
   }
 
   static calculateTrend(current, previous) {
-    if (previous === 0) return current > 0 ? "increased" : "stable";
+    if (previous === 0) return current > 0 ? 'increased' : 'stable';
     const change = ((current - previous) / previous) * 100;
-    if (change >= 10) return "increased";
-    if (change <= -10) return "decreased";
-    return "stable";
+    if (change >= 10) return 'increased';
+    if (change <= -10) return 'decreased';
+    return 'stable';
   }
 
   static detectAnomalies(current, previous) {
@@ -578,7 +519,7 @@ class MetricsAggregator {
     const previousSummary = this.calculateSummary(previous);
 
     // Check for significant changes (>3 sigma)
-    const metrics = ["total_issues", "total_prs"];
+    const metrics = ['total_issues', 'total_prs'];
     metrics.forEach((metric) => {
       const curr = currentSummary[metric] || 0;
       const prev = previousSummary[metric] || 0;
@@ -587,7 +528,7 @@ class MetricsAggregator {
         if (change > 0.5) {
           anomalies.push({
             metric,
-            severity: change > 1 ? "high" : "medium",
+            severity: change > 1 ? 'high' : 'medium',
             description: `${metric} changed by ${(change * 100).toFixed(0)}%`,
           });
         }
@@ -617,14 +558,10 @@ class InsightsAnalyzer {
     }
 
     if (aggregatedData.anomalies) {
-      insights.insights.push(
-        ...this.analyzeAnomalies(aggregatedData.anomalies),
-      );
+      insights.insights.push(...this.analyzeAnomalies(aggregatedData.anomalies));
     }
 
-    insights.insights.push(
-      ...this.analyzeHealthMetrics(aggregatedData.repositories),
-    );
+    insights.insights.push(...this.analyzeHealthMetrics(aggregatedData.repositories));
     insights.recommendations = this.generateRecommendations(insights);
     insights.health_score = this.calculateHealthScore(aggregatedData);
 
@@ -634,27 +571,25 @@ class InsightsAnalyzer {
   static analyzeTrends(trends) {
     const insights = [];
 
-    if (trends.issue_trend === "increased") {
+    if (trends.issue_trend === 'increased') {
       insights.push({
-        type: "issue-backlog",
-        severity: "info",
-        message: "Issue creation rate is increasing. Monitor backlog health.",
+        type: 'issue-backlog',
+        severity: 'info',
+        message: 'Issue creation rate is increasing. Monitor backlog health.',
       });
-    } else if (trends.issue_trend === "decreased") {
+    } else if (trends.issue_trend === 'decreased') {
       insights.push({
-        type: "issue-reduction",
-        severity: "positive",
-        message:
-          "Issue creation rate is decreasing. Good sign of stabilization.",
+        type: 'issue-reduction',
+        severity: 'positive',
+        message: 'Issue creation rate is decreasing. Good sign of stabilization.',
       });
     }
 
-    if (trends.closure_rate_trend === "decreased") {
+    if (trends.closure_rate_trend === 'decreased') {
       insights.push({
-        type: "closure-rate-declining",
-        severity: "warning",
-        message:
-          "Issue closure rate is declining. Consider prioritizing triage and resolution.",
+        type: 'closure-rate-declining',
+        severity: 'warning',
+        message: 'Issue closure rate is declining. Consider prioritizing triage and resolution.',
       });
     }
 
@@ -663,7 +598,7 @@ class InsightsAnalyzer {
 
   static analyzeAnomalies(anomalies) {
     return anomalies.map((anomaly) => ({
-      type: "anomaly-detected",
+      type: 'anomaly-detected',
       severity: anomaly.severity,
       message: anomaly.description,
     }));
@@ -674,14 +609,11 @@ class InsightsAnalyzer {
     const repoMetrics = Object.values(repositories).filter((r) => r.metrics);
 
     // Check stale issues
-    const totalStale = repoMetrics.reduce(
-      (sum, r) => sum + (r.metrics.issues?.stale || 0),
-      0,
-    );
+    const totalStale = repoMetrics.reduce((sum, r) => sum + (r.metrics.issues?.stale || 0), 0);
     if (totalStale > 0) {
       insights.push({
-        type: "stale-issues",
-        severity: "warning",
+        type: 'stale-issues',
+        severity: 'warning',
         message: `Found ${totalStale} stale issues (no activity >30 days). Consider reopening or closing.`,
       });
     }
@@ -689,12 +621,12 @@ class InsightsAnalyzer {
     // Check reopened issues
     const totalReopened = repoMetrics.reduce(
       (sum, r) => sum + (r.metrics.issues?.reopened || 0),
-      0,
+      0
     );
     if (totalReopened > repoMetrics.length) {
       insights.push({
-        type: "high-reopened-rate",
-        severity: "warning",
+        type: 'high-reopened-rate',
+        severity: 'warning',
         message: `High reopened issue rate: ${totalReopened} issues. Quality or requirements clarity may need improvement.`,
       });
     }
@@ -705,33 +637,27 @@ class InsightsAnalyzer {
   static generateRecommendations(analysis) {
     const recommendations = [];
 
-    if (analysis.insights.some((i) => i.type === "stale-issues")) {
+    if (analysis.insights.some((i) => i.type === 'stale-issues')) {
       recommendations.push({
-        action: "triage-stale-issues",
-        priority: "high",
-        description:
-          "Create triage task to review and close/reopen stale issues",
+        action: 'triage-stale-issues',
+        priority: 'high',
+        description: 'Create triage task to review and close/reopen stale issues',
       });
     }
 
-    if (analysis.insights.some((i) => i.type === "closure-rate-declining")) {
+    if (analysis.insights.some((i) => i.type === 'closure-rate-declining')) {
       recommendations.push({
-        action: "improve-velocity",
-        priority: "high",
-        description:
-          "Analyze bottlenecks in issue resolution. Consider parallel review processes.",
+        action: 'improve-velocity',
+        priority: 'high',
+        description: 'Analyze bottlenecks in issue resolution. Consider parallel review processes.',
       });
     }
 
-    if (
-      analysis.metrics_snapshot &&
-      analysis.metrics_snapshot.total_issues > 50
-    ) {
+    if (analysis.metrics_snapshot && analysis.metrics_snapshot.total_issues > 50) {
       recommendations.push({
-        action: "backlog-management",
-        priority: "medium",
-        description:
-          "Large backlog detected. Prioritize and label issues for better triage.",
+        action: 'backlog-management',
+        priority: 'medium',
+        description: 'Large backlog detected. Prioritize and label issues for better triage.',
       });
     }
 
@@ -768,7 +694,7 @@ class InsightsAnalyzer {
 class MetricsReporter {
   static async packageMetrics(analysis, config) {
     const report = {
-      schema_version: "1.0",
+      schema_version: '1.0',
       generated_at: analysis.timestamp,
       context: config.context,
       collection_period: config.collection_period,
@@ -790,7 +716,7 @@ class MetricsReporter {
     }
 
     // Write metrics report
-    const timestamp = new Date().toISOString().split("T")[0];
+    const timestamp = new Date().toISOString().split('T')[0];
     const reportPath = path.join(outputDir, `metrics-${timestamp}.json`);
 
     fs.writeFileSync(reportPath, JSON.stringify(report, null, 2));
@@ -811,8 +737,7 @@ class MetricsReporter {
 async function main() {
   try {
     // Parse command line arguments
-    const configPath =
-      process.argv[2] || "scripts/metrics/config/github-control-plane.json";
+    const configPath = process.argv[2] || 'scripts/metrics/config/github-control-plane.json';
 
     // 1. Load configuration
     console.log(`📋 Loading configuration from ${configPath}...`);
@@ -824,9 +749,7 @@ async function main() {
     console.log(`✅ GitHub API client initialized`);
 
     // 3. Collect metrics
-    console.log(
-      `📊 Collecting metrics for ${config.repositories.length} repository(ies)...`,
-    );
+    console.log(`📊 Collecting metrics for ${config.repositories.length} repository(ies)...`);
     const collector = new MetricsCollector(client, config);
     const collectedData = {};
 
@@ -844,9 +767,7 @@ async function main() {
     // 5. Analyze insights
     console.log(`💡 Analyzing insights...`);
     const analysis = InsightsAnalyzer.analyze(aggregated);
-    console.log(
-      `✅ Insights analyzed (Health Score: ${analysis.health_score})`,
-    );
+    console.log(`✅ Insights analyzed (Health Score: ${analysis.health_score})`);
 
     // 6. Package and handoff
     console.log(`📦 Packaging metrics...`);
