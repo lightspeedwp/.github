@@ -66,11 +66,11 @@ Should Node.js version be pinned? If yes, to which version, where?
 - *Impact:* Reproducible local dev, matches intended Netlify runtime
 - *Cost:* Maintenance when EOL approaches (2025-04-30)
 
-**B: Pin to Node 20 (Current LTS)**
-- Add `.nvmrc` with `20`
+**B: Pin to Node 24 (Current LTS)**
+- Add `.nvmrc` with `24`
 - Add `engines` field to `package.json`
-- *Impact:* Modern tooling, longer support window (2026-04-30)
-- *Cost:* May have breaking changes from 18 → 20
+- *Impact:* Latest active LTS, modern tooling, longest support window
+- *Cost:* Verify dependency compatibility; may have breaking changes from 18 → 24
 
 **C: No pin, use CI validation**
 - Keep open-ended
@@ -85,7 +85,7 @@ Should Node.js version be pinned? If yes, to which version, where?
 - *Cost:* Local dev not enforced; mismatch possible
 
 ### Recommendation
-**B: Pin to Node 20 (Current LTS)** — Node.js 18 reached EOL on 30 April 2025. Recommend Node 20 (LTS until 2026-04-30) or Node 22/24 (active LTS). Verify dependency compatibility before pinning. Document any extended-support arrangements if Node 18 is retained. Add `.nvmrc` + `engines` for local enforcement.
+**B: Pin to Node 24 (Current LTS)** — Node.js 18 reached EOL on 30 April 2025. Recommend Node 24 (active LTS with longest support window and modern tooling). Verify dependency compatibility before pinning. Add `.nvmrc` + `engines` for local enforcement.
 
 ### Blocking
 - Workstream TOA-262 (Repository-root configuration)
@@ -409,7 +409,7 @@ Should CODEOWNERS file be created and branch protection rules enforced?
 | ID | Decision | Recommendation | Owner Approval |
 |---|---|---|---|
 | PKG-001 | Package manager | npm-only (A) | [ ] |
-| NODE-001 | Node.js version | Pin to 18 (A) | [ ] |
+| NODE-001 | Node.js version | Pin to Node 24 (B) | [ ] |
 | TEST-001 | Jest ESM | Enable Jest ESM mode (B) | [ ] |
 | TEST-002 | Speckit baseline | Accept 103/104 (A) | [ ] |
 | SPEC-001 | Spec Kit paths | Keep `.github/specs/` (A) | [ ] |
