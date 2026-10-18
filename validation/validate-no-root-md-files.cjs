@@ -76,7 +76,6 @@ function findRootMdFiles() {
 }
 
 function main() {
-  const shouldFix = process.argv.includes('--fix');
   const violatingFiles = findRootMdFiles();
 
   if (violatingFiles.length === 0) {

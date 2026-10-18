@@ -52,12 +52,6 @@ function assertTrue(value, message) {
   }
 }
 
-function assertFalse(value, message) {
-  if (value !== false) {
-    throw new Error(`Assertion failed: ${message}`);
-  }
-}
-
 function test(name, fn) {
   testsRun++;
   try {
