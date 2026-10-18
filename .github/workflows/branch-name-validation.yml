@@ -38,8 +38,16 @@ jobs:
 
       - name: Extract branch name
         id: extract-branch
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          REF: ${{ github.ref }}
         run: |
-          BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+          # In pull_request events, github.ref is refs/pull/NUMBER/merge, not the branch
+          if [ -n "$HEAD_REF" ]; then
+            BRANCH_NAME="$HEAD_REF"
+          else
+            BRANCH_NAME="${REF#refs/heads/}"
+          fi
           echo "branch_name=$BRANCH_NAME" >> "$GITHUB_OUTPUT"
 
       # Branch names can contain shell metacharacters ($, parentheses), so
