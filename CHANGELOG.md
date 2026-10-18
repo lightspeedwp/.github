@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Phase 1 Governance Workflows Implementation** — Updated 9 Phase 1 GitHub Actions workflows to match contract specification (TOA-241): branch-name-validation.yml now triggers on pull_request only, tests.yml and locked-files-guard.yml include push triggers for develop/main branches. All workflows pass syntax validation and execute in correct order (Phase 1 parallel gate → Phase 2 protected file validation → Phase 3 PR routing). ([PR #3967](https://github.com/lightspeedwp/.github/pull/3967))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
