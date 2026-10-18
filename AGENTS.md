@@ -1,8 +1,8 @@
 ---
 title: "LightSpeed Global AI Rules"
 description: "Organisation-wide AI agent rules, coding standards, and contribution guidelines for all LightSpeed WordPress projects."
-version: "v1.1"
-last_updated: "2026-09-22""
+version: "v1.2"
+last_updated: "2026-10-18"
 file_type: "agents-index"
 maintainer: "LightSpeed Team"
 authors: ["LightSpeed Team"]
@@ -157,6 +157,84 @@ If validation fails, rename your branch before pushing.
 - **Detailed rules:** [instructions/branch-naming.instructions.md](instructions/branch-naming.instructions.md)
 - **Strategy guide:** [docs/BRANCHING_STRATEGY.md](docs/BRANCHING_STRATEGY.md)
 - **Copilot notes:** [.github/custom-instructions.md](.github/custom-instructions.md)
+
+---
+
+## 🚨 Repository File Placement — CRITICAL (Non-Negotiable)
+
+**NO Markdown files (`.md`) are allowed in the repository root.** This rule is non-negotiable and enforced. All documentation, specifications, reports, and planning files must be placed in their designated subdirectories.
+
+### The Rule (Absolute)
+
+✅ **CORRECT locations for Markdown files:**
+
+```text
+.github/specs/                    ← Specification files (spec.md, plan.md, research.md, tasks.md)
+.github/reports/{category}/       ← Reports and analysis
+.github/projects/active/{slug}/   ← Planning artefacts and project files
+.github/tmp/                      ← Temporary drafts (clean up before PR)
+docs/                             ← Permanent human documentation
+```
+
+❌ **FORBIDDEN locations:**
+
+```text
+/
+├── PHASE1A_CATALOGUE_PROMPT.md       ❌ WRONG — Files at root
+├── PHASE1B_RECOVERY_PROMPT.md        ❌ WRONG — Files at root
+├── RECOVERY-PILOT-REPORT-T010.md     ❌ WRONG — Files at root
+├── ANY-OTHER-FILE.md                 ❌ WRONG — Files at root
+```
+
+✅ **CORRECT placement for these files:**
+
+```text
+.github/specs/002-media-library-recovery-pilot/
+├── PHASE1A_CATALOGUE_PROMPT.md       ✅ CORRECT — In spec folder
+├── PHASE1B_RECOVERY_PROMPT.md        ✅ CORRECT — In spec folder
+├── RECOVERY-PILOT-REPORT-T010.md     ✅ CORRECT — In spec folder
+```
+
+### Consequences of Non-Compliance
+
+Placing `.md` files at the repository root:
+
+1. **Breaks file discovery** — Tools and automation expect specs in `.github/specs/`, reports in `.github/reports/`, etc.
+2. **Clutters the repository** — Makes it hard to navigate and understand the project structure
+3. **Breaks downstream automation** — GitHub Actions workflows, agents, and scripts that depend on expected file locations fail
+4. **Violates team standards** — Files end up outside the governance structure where version control and archival processes cannot track them properly
+5. **Creates maintenance debt** — Future contributors don't know what root-level files are for or how to manage them
+
+### Quick Reference: Where to Place Your File
+
+| File Type | Destination | Example |
+| --- | --- | --- |
+| Feature specification | `.github/specs/{feature-slug}/spec.md` | `.github/specs/002-media-library-recovery/spec.md` |
+| Implementation plan | `.github/specs/{feature-slug}/plan.md` | `.github/specs/002-media-library-recovery/plan.md` |
+| Research notes | `.github/specs/{feature-slug}/research.md` | `.github/specs/002-media-library-recovery/research.md` |
+| Task breakdown | `.github/specs/{feature-slug}/tasks.md` | `.github/specs/002-media-library-recovery/tasks.md` |
+| Audit report | `.github/reports/audits/report-name.md` | `.github/reports/audits/security-audit-2026.md` |
+| Metrics report | `.github/reports/metrics/report-name.md` | `.github/reports/metrics/q4-performance.md` |
+| Project artefact | `.github/projects/active/{slug}/filename.md` | `.github/projects/active/media-recovery/notes.md` |
+| Temporary draft | `.github/tmp/draft-name.md` | `.github/tmp/draft-proposal.md` (delete before PR) |
+| Permanent docs | `docs/filename.md` | `docs/ARCHITECTURE.md`, `docs/CONTRIBUTING.md` |
+
+### Implementation Checklist
+
+Before committing any `.md` file:
+
+- [ ] Is this file a specification? → Place in `.github/specs/{spec-slug}/`
+- [ ] Is this file a report? → Place in `.github/reports/{category}/`
+- [ ] Is this file a project artefact? → Place in `.github/projects/active/{slug}/`
+- [ ] Is this file a temporary draft? → Place in `.github/tmp/` (and remove before PR)
+- [ ] Is this permanent documentation? → Place in `docs/`
+- [ ] Is this file in the repository root? → **STOP. Move it to the correct location.**
+
+### References
+
+- **CLAUDE.md — Repository Boundaries:** [Link to section](CLAUDE.md#repository-boundaries)
+- **CLAUDE.md — What Not to Do:** [Link to section](CLAUDE.md#what-not-to-do)
+- **File Organisation Instructions:** [instructions/file-organisation.instructions.md](instructions/file-organisation.instructions.md)
 
 ---
 

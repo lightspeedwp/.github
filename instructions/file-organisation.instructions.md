@@ -201,8 +201,37 @@ material. Do not put reports, task trackers, or transient project artefacts in
 
 ## Validation
 
+### Mandatory: No Markdown Files in Repository Root
+
+**CRITICAL RULE:** No `.md` files are allowed in the repository root. All Markdown documentation, specifications, reports, and planning files must be placed in their designated subdirectories.
+
+**Validation script:**
+```bash
+node scripts/validation/validate-no-root-md-files.cjs
+```
+
+**Violating files must be moved to their correct location:**
+- Specifications → `.github/specs/{spec-slug}/`
+- Reports → `.github/reports/{category}/`
+- Planning/project artefacts → `.github/projects/active/{slug}/`
+- Temporary drafts → `.github/tmp/` (delete before PR)
+- Permanent documentation → `docs/`
+
+**Examples of violations:**
+- ❌ `PHASE1A_CATALOGUE_PROMPT.md` at repo root
+- ❌ `RECOVERY-PILOT-REPORT.md` at repo root
+- ❌ `PROJECT-PLAN.md` at repo root
+
+**Correct placement:**
+- ✅ `.github/specs/002-media-library-recovery/PHASE1A_CATALOGUE_PROMPT.md`
+- ✅ `.github/reports/audits/RECOVERY-PILOT-REPORT.md`
+- ✅ `.github/projects/active/media-recovery/PROJECT-PLAN.md`
+
+### General Validation Steps
+
 - Check new paths against this mapping before creating or moving files.
 - Run targeted Markdown linting for changed docs.
+- **Run root Markdown validation**: `node scripts/validation/validate-no-root-md-files.cjs`
 - Avoid known mutating validation commands when the task is documentation-only.
 - Confirm `.github/tmp/` does not retain scratch files after the final output is
   promoted.

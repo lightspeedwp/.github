@@ -305,25 +305,41 @@ When creating issues or PRs programmatically (via CLI, API, or workflow), **ALL 
 
 ## Repository Boundaries
 
-| Asset Type | Belongs In |
-| --- | --- |
-| GitHub-native governance (templates, labels, workflows) | `.github/` |
-| Specification files (features, plans, research) | `.github/specs/` |
-| Repo-local Copilot/agent instructions | `.github/instructions/` or `.github/custom-instructions.md` |
-| Reports, audits, metrics | `.github/reports/{category}/` |
-| Active project artefacts | `.github/projects/active/{slug}/` |
-| Temporary scratch files | `.github/tmp/` (clean up before PR) |
-| Portable reusable AI assets | top-level source folders above |
-| Permanent human documentation | `docs/` |
+| Asset Type | Belongs In | NOT In |
+| --- | --- | --- |
+| GitHub-native governance (templates, labels, workflows) | `.github/` | Repo root |
+| Specification files (features, plans, research) | `.github/specs/{spec-slug}/` | **Repo root** ⚠️ |
+| Repo-local Copilot/agent instructions | `.github/instructions/` or `.github/custom-instructions.md` | Repo root |
+| Reports, audits, metrics | `.github/reports/{category}/` | **Repo root** ⚠️ |
+| Active project artefacts | `.github/projects/active/{slug}/` | **Repo root** ⚠️ |
+| Temporary scratch files | `.github/tmp/` (clean up before PR) | Repo root |
+| Portable reusable AI assets | top-level source folders (agents/, skills/, hooks/, etc.) | `.github/` |
+| Permanent human documentation | `docs/` | **Repo root** ⚠️ |
+
+### 🚨 Critical Rule: No Markdown Files in Repository Root
+
+**NO `.md` files are allowed at the repository root.** All Markdown documentation, specifications, reports, and planning files must be placed in their designated subdirectories above. This keeps the root clean and ensures consistent file organization.
+
+**Violating this rule causes:**
+- Cluttered root directory making it hard to find files
+- Breaking the organizational structure that automation and team processes depend on
+- Incorrect file discovery by tools looking for specs in `.github/specs/`, reports in `.github/reports/`, etc.
+- Downstream automation failures that assume files follow the boundary rules
 
 ## What Not to Do
 
-- Do not add WordPress plugin or theme project-specific code to `.github/`.
-- Do not place reports or task trackers in `docs/` or the repo root.
-- Do not create instruction files with a `references` frontmatter field.
-- Do not move existing agents, instructions, or schemas without a migration issue that records source path, target path, and validation plan.
-- Do not enqueue editor-only WordPress assets on the front end (and vice versa).
-- Do not commit `node_modules/`, `build/`, or other generated artefacts.
+- ❌ **Do not place Markdown files (`.md`) in the repository root.** All `.md` files must go to their designated folder:
+  - Specifications → `.github/specs/{spec-slug}/`
+  - Reports → `.github/reports/{category}/`
+  - Documentation → `docs/`
+  - Planning/research → `.github/projects/active/{slug}/`
+  - Temporary drafts → `.github/tmp/` (clean up before PR)
+- ❌ Do not add WordPress plugin or theme project-specific code to `.github/`.
+- ❌ Do not place reports or task trackers in `docs/` or the repo root.
+- ❌ Do not create instruction files with a `references` frontmatter field.
+- ❌ Do not move existing agents, instructions, or schemas without a migration issue that records source path, target path, and validation plan.
+- ❌ Do not enqueue editor-only WordPress assets on the front end (and vice versa).
+- ❌ Do not commit `node_modules/`, `build/`, or other generated artefacts.
 
 ## Related Files
 
