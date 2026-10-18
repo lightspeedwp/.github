@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Repository Boundary Enforcement** — Added validation script and documentation to prevent Markdown files in the repository root. All `.md` files must be placed in designated subdirectories (`.github/specs/`, `.github/reports/`, `docs/`, etc.). Includes pattern-based validation, comprehensive test coverage (71%), and automated checks for CI integration. ([PR #3970](https://github.com/lightspeedwp/.github/pull/3970))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
