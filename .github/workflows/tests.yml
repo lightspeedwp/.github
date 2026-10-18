@@ -8,6 +8,10 @@ name: Tests
 on:
   # No paths filter: this backs a status check, and a filtered-out run
   # never reports.
+  push:
+    branches:
+      - develop
+      - main
   pull_request:
   workflow_dispatch:
 

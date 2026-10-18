@@ -1,22 +1,16 @@
 name: Branch Name Validation
 
 on:
-  push:
-    branches:
-      - "**"
-      # The metrics aggregator pushes this fixed bot branch after every run
-      # of this workflow; validating it re-triggers the aggregator, which
-      # looped ~450 times a day (see #3474).
-      - "!chore/branch-validation-metrics"
+  pull_request:
 
 # Read-only: the job calls no GitHub API (artifact upload uses the runner's
 # own token), so no write scopes are granted.
 permissions:
   contents: read
 
-# One validation per branch at a time; a newer push supersedes the old run.
+# One validation per PR at a time; a newer push to PR head supersedes the old run.
 concurrency:
-  group: branch-name-validation-${{ github.ref }}
+  group: branch-name-validation-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:

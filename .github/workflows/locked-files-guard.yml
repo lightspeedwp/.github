@@ -30,6 +30,8 @@
 name: Locked Files Guard
 
 on:
+  push:
+    branches: [develop, main]
   pull_request_target:
     branches: [develop, main]
     types: [opened, synchronize, reopened, edited, ready_for_review]
