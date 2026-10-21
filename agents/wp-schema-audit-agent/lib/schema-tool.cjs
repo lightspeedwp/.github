@@ -198,6 +198,7 @@ function request(url, { timeoutMs = TIMEOUT_MS } = {}) {
           }
           chunks.push(chunk);
         });
+        res.on('error', reject);
         res.on('end', () =>
           resolve({
             status: res.statusCode,
@@ -205,6 +206,10 @@ function request(url, { timeoutMs = TIMEOUT_MS } = {}) {
             body: Buffer.concat(chunks).toString('utf8'),
           })
         );
+        // A connection dropped mid-body closes the response without 'end'.
+        res.on('close', () => {
+          if (!res.complete) reject(new Error(`Response closed before it completed: ${url}`));
+        });
       }
     );
     req.on('timeout', () => req.destroy(new Error(`Timed out after ${timeoutMs} ms: ${url}`)));

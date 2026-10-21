@@ -5,9 +5,12 @@
  * Stories 1 and 2). The network is replaced by a fetch stub throughout.
  */
 
+const http = require('node:http');
+
 const {
   auditPage,
   discoverUrls,
+  fetchUrl,
   isLocalHost,
   main,
   EXIT_OK,
@@ -48,6 +51,22 @@ describe('isLocalHost', () => {
     ]) {
       expect(isLocalHost(host)).toBe(false);
     }
+  });
+});
+
+describe('fetchUrl', () => {
+  let server;
+  afterEach(() => server && server.close());
+
+  it('rejects when the server closes the connection mid-body', async () => {
+    server = http.createServer((req, res) => {
+      res.writeHead(200, { 'Content-Type': 'text/html', 'Content-Length': '1000' });
+      res.write('<html>');
+      setImmediate(() => res.socket.destroy());
+    });
+    await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+    const { port } = server.address();
+    await expect(fetchUrl(`http://127.0.0.1:${port}/`)).rejects.toThrow();
   });
 });
 
