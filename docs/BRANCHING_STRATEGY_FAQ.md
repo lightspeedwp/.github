@@ -377,7 +377,7 @@ If you genuinely believe an exception is needed, escalate to leadership. Don't t
 
 ### Q: Will the naming rules ever change?
 
-**A:** Unlikely. The 24 types cover virtually all work types. If changes are needed:
+**A:** Unlikely. The 38 types cover virtually all work types. If changes are needed:
 
 1. Announcement will be made
 2. Old branches won't be retroactively rejected
