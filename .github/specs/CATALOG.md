@@ -56,7 +56,8 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
-| 020 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md) |
+| 023 | wp-schema-audit-agent | WordPress Schema Audit Agent | Draft | 2026-10-14 | [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md) |
+| 024 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
@@ -249,7 +250,21 @@ skill that other repositories and agents can opt into.
 
 ---
 
-### 020 - WordPress DB Migration Agent
+### 023 - WordPress Schema Audit Agent
+
+Help team members check the structured data a WordPress site publishes: pick one test URL per post
+type, taxonomy and key page, validate each page's JSON-LD against the schema.org vocabulary and
+Google rich-result rules, and turn the findings into prioritised fixes.
+
+- **Status**: Draft
+- **Phase**: Specification and initial implementation
+- **Created**: 2026-10-14
+- **Updated**: 2026-10-14
+- **Link**: [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md)
+
+---
+
+### 024 - WordPress DB Migration Agent
 
 Help team members move WordPress databases between MySQL hosts and WordPress Studio local sites:
 clean MySQL exports for Studio, pre-flight check Studio exports before staging or live, and replace
@@ -259,7 +274,7 @@ site URLs safely.
 - **Phase**: Specification and initial implementation
 - **Created**: 2026-10-13
 - **Updated**: 2026-10-13
-- **Link**: [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md)
+- **Link**: [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md)
 
 ---
 
@@ -300,8 +315,8 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Determine next number: take the highest number in this catalog and in `.github/specs/` (019 at the time of writing) and add 1 (020)
-2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `020-{slug}`)
+1. Determine next number: take the highest number in this catalog and in `.github/specs/` (024 at the time of writing) and add 1 (025)
+2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `025-{slug}`)
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
 5. Request approval from @ashley (governance authority)
