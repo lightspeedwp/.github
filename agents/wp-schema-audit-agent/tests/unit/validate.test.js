@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  *
- * Unit tests for JSON-LD extraction and validation (spec 021, User Story 2).
+ * Unit tests for JSON-LD extraction and validation (spec 023, User Story 2).
  * Each case is modelled on markup found on real WordPress sites.
  */
 

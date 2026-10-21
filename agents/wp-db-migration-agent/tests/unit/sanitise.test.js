@@ -1,5 +1,5 @@
 /**
- * Unit tests for `sql-tool sanitise` (spec 020, User Story 1, FR-010 to FR-015).
+ * Unit tests for `sql-tool sanitise` (spec 022, User Story 1, FR-010 to FR-015).
  *
  * The dump is built in code so it can hold exact bytes, including the escape
  * sequences mysqldump writes and a byte that is not valid UTF-8.

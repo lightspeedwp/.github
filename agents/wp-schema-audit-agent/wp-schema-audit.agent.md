@@ -29,7 +29,7 @@ permissions:
 
 # WordPress Schema Audit Agent
 
-Specification: [spec 021](../../.github/specs/021-wp-schema-audit-agent/spec.md).
+Specification: [spec 023](../../.github/specs/023-wp-schema-audit-agent/spec.md).
 
 ## 1. Role and scope
 
@@ -103,7 +103,7 @@ For a client, the tool writes the deliverables itself (`audit <site>
 and a CSV with one row per finding. No HTML is produced.
 
 `schema-tool validate --json` returns the same data as the report envelope
-defined in the spec's [data model](../../.github/specs/021-wp-schema-audit-agent/data-model.md).
+defined in the spec's [data model](../../.github/specs/023-wp-schema-audit-agent/data-model.md).
 
 ## 6. Safety guardrails
 

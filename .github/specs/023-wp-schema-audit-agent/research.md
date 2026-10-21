@@ -71,5 +71,5 @@ Decisions taken while building the agent, with the evidence behind each.
 ## R8. Agent layout
 
 - **Decision**: Agent-local skills and tool, registered with `scripts/agents/generate-agent-defs.cjs`.
-- **Rationale**: Same layout as the WordPress DB Migration Agent (spec 020), so both WordPress
+- **Rationale**: Same layout as the WordPress DB Migration Agent (spec 022), so both WordPress
   operations agents are found and maintained the same way.

@@ -58,6 +58,6 @@ priority; the CSV opens in a spreadsheet with one row per finding. Running it ag
 node scripts/agents/generate-agent-defs.cjs --check
 npm run validate:agents
 npm run validate:frontmatter
-npx markdownlint-cli2 "agents/wp-schema-audit-agent/**/*.md" ".github/specs/021-wp-schema-audit-agent/**/*.md"
+npx markdownlint-cli2 "agents/wp-schema-audit-agent/**/*.md" ".github/specs/023-wp-schema-audit-agent/**/*.md"
 npx eslint agents/wp-schema-audit-agent
 ```

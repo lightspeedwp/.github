@@ -1,6 +1,6 @@
 # Tasks: WordPress Schema Audit Agent
 
-**Input**: Design documents from `.github/specs/021-wp-schema-audit-agent/`
+**Input**: Design documents from `.github/specs/023-wp-schema-audit-agent/`
 
 **Prerequisites**: [plan.md](./plan.md), [spec.md](./spec.md), [research.md](./research.md),
 [data-model.md](./data-model.md), [contracts/schema-tool-cli.md](./contracts/schema-tool-cli.md),

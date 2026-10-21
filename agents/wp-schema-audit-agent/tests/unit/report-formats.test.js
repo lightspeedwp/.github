@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  *
- * Unit tests for the client report and CSV outputs (spec 021, User Story 4).
+ * Unit tests for the client report and CSV outputs (spec 023, User Story 4).
  */
 
 const fs = require('node:fs');

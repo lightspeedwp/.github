@@ -57,7 +57,7 @@ on it.
 - **Canonical specification**: [wp-schema-audit.agent.md](./wp-schema-audit.agent.md)
 - **Usage guide**: [README.md](./README.md)
 - **Tool**: [lib/schema-tool.cjs](./lib/schema-tool.cjs)
-- **Feature specification**: [spec 021](../../.github/specs/021-wp-schema-audit-agent/spec.md)
+- **Feature specification**: [spec 023](../../.github/specs/023-wp-schema-audit-agent/spec.md)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

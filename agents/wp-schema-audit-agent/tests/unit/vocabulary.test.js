@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  *
- * Unit tests for the schema.org vocabulary loader (spec 021, FR-010 to FR-013).
+ * Unit tests for the schema.org vocabulary loader (spec 023, FR-010 to FR-013).
  */
 
 const fs = require('node:fs');

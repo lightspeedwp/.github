@@ -1,4 +1,4 @@
--- Synthetic fixture for spec 020: statements the sanitiser reports but never changes. No real data.
+-- Synthetic fixture for spec 022: statements the sanitiser reports but never changes. No real data.
 
 CREATE DATABASE /*!32312 IF NOT EXISTS*/ `beta` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `beta`;

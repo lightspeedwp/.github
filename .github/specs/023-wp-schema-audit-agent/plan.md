@@ -2,7 +2,7 @@
 
 **Branch**: `aiops/wp-schema-audit-agent` | **Date**: 2026-10-14 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `.github/specs/021-wp-schema-audit-agent/spec.md`
+**Input**: Feature specification from `.github/specs/023-wp-schema-audit-agent/spec.md`
 
 ## Summary
 
@@ -56,7 +56,7 @@ site; tests under ten seconds.
 ### Documentation (this feature)
 
 ```text
-.github/specs/021-wp-schema-audit-agent/
+.github/specs/023-wp-schema-audit-agent/
 ├── spec.md
 ├── plan.md
 ├── research.md
@@ -93,7 +93,7 @@ agents/wp-schema-audit-agent/
 scripts/agents/generate-agent-defs.cjs      # registers the agent
 ```
 
-**Structure Decision**: Mirror the WordPress DB Migration Agent (spec 020): agent-local skills, one
+**Structure Decision**: Mirror the WordPress DB Migration Agent (spec 022): agent-local skills, one
 tool in `lib/`, tests beside it.
 
 ## Complexity Tracking

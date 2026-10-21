@@ -91,7 +91,7 @@ host is checked normally.
 npx jest agents/wp-schema-audit-agent
 ```
 
-Design documents: [spec 021](../../.github/specs/021-wp-schema-audit-agent/).
+Design documents: [spec 023](../../.github/specs/023-wp-schema-audit-agent/).
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

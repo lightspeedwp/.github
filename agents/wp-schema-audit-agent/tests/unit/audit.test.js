@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  *
- * Unit tests for page audits, URL discovery and the CLI (spec 021, User
+ * Unit tests for page audits, URL discovery and the CLI (spec 023, User
  * Stories 1 and 2). The network is replaced by a fetch stub throughout.
  */
 

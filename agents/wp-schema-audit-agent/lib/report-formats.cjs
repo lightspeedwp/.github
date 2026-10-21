@@ -4,7 +4,7 @@
  * spreadsheet. Both are built from the same validation report, so they never
  * disagree.
  *
- * Contract: .github/specs/021-wp-schema-audit-agent/contracts/schema-tool-cli.md
+ * Contract: .github/specs/023-wp-schema-audit-agent/contracts/schema-tool-cli.md
  *
  * Neither output repeats values from a page's structured data other than
  * URLs, type and property names and dates; findings carry no personal data.

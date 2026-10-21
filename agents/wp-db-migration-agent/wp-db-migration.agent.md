@@ -30,7 +30,7 @@ permissions:
 
 # WordPress DB Migration Agent
 
-Specification: [spec 020](../../.github/specs/020-wp-db-migration-agent/spec.md).
+Specification: [spec 022](../../.github/specs/022-wp-db-migration-agent/spec.md).
 
 ## 1. Role and scope
 
@@ -112,7 +112,7 @@ Every response that changes or checks a file ends with:
 4. The site URLs found, and the next step for the user.
 
 `sql-tool --json` returns the same data as the result envelope defined in the
-spec's [data model](../../.github/specs/020-wp-db-migration-agent/data-model.md).
+spec's [data model](../../.github/specs/022-wp-db-migration-agent/data-model.md).
 
 ## 6. Safety guardrails
 

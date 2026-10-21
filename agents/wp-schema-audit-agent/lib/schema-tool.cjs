@@ -9,7 +9,7 @@
  *   vocab               Download (or reuse the cached) schema.org vocabulary
  *                       and report its release and term counts.
  *
- * Contract: .github/specs/021-wp-schema-audit-agent/contracts/schema-tool-cli.md
+ * Contract: .github/specs/023-wp-schema-audit-agent/contracts/schema-tool-cli.md
  *
  * The vocabulary is the release file published in
  * https://github.com/schemaorg/schemaorg (data/releases/<version>/

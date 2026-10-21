@@ -1,5 +1,5 @@
 /**
- * Unit tests for `sql-tool site-urls` (spec 020, User Story 3, FR-030).
+ * Unit tests for `sql-tool site-urls` (spec 022, User Story 3, FR-030).
  */
 
 const path = require('node:path');

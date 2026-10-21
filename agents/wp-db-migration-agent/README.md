@@ -83,7 +83,7 @@ is reported, not changed.
 npx jest agents/wp-db-migration-agent
 ```
 
-Design documents: [spec 020](../../.github/specs/020-wp-db-migration-agent/).
+Design documents: [spec 022](../../.github/specs/022-wp-db-migration-agent/).
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
