@@ -1,6 +1,6 @@
 # Tasks: WordPress DB Migration Agent
 
-**Input**: Design documents from `.github/specs/020-wp-db-migration-agent/`
+**Input**: Design documents from `.github/specs/024-wp-db-migration-agent/`
 
 **Prerequisites**: [plan.md](./plan.md), [spec.md](./spec.md), [research.md](./research.md),
 [data-model.md](./data-model.md), [contracts/sql-tool-cli.md](./contracts/sql-tool-cli.md),

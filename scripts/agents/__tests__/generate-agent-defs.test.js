@@ -25,7 +25,11 @@ describe('generate-agent-defs', () => {
   test('generateAll reports no drift on a clean tree', () => {
     const results = generateAll({ write: false });
     expect(results.map((r) => r.generated)).toEqual(
-      expect.arrayContaining([GENERATED, '.claude/agents/wp-db-migration-agent.md'])
+      expect.arrayContaining([
+        GENERATED,
+        '.claude/agents/wp-db-migration-agent.md',
+        '.claude/agents/wp-schema-audit-agent.md',
+      ])
     );
     for (const result of results) {
       expect(result).toMatchObject({ drifted: false });

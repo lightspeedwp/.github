@@ -1,5 +1,5 @@
 /**
- * Unit tests for the sanitiser's risk scan (spec 020, FR-006 and FR-013):
+ * Unit tests for the sanitiser's risk scan (spec 024, FR-006 and FR-013):
  * risky statements are reported and never changed; the same words inside data
  * or column names are not reported.
  */
