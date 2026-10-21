@@ -1,5 +1,45 @@
 # WordPress Schema Audit Agent
 
+<!-- BADGES-START -->
+![Checks](https://img.shields.io/badge/Checks-OK-success.svg)
+![Docs Validation](https://img.shields.io/badge/Docs%20Validation-OK-success.svg)
+![GitLeaks](https://img.shields.io/badge/GitLeaks-OK-success.svg)
+![Labeling Governance](https://img.shields.io/badge/Labeling%20Governance-OK-success.svg)
+![Main Branch Guard](https://img.shields.io/badge/Main%20Branch%20Guard-OK-success.svg)
+![Metadata Governance](https://img.shields.io/badge/Metadata%20Governance-OK-success.svg)
+![Release](https://img.shields.io/badge/Release-OK-success.svg)
+![Template Enforcement](https://img.shields.io/badge/Template%20Enforcement-OK-success.svg)
+![Validate PR Template](https://img.shields.io/badge/Validate%20PR%20Template-OK-success.svg)
+![Badges: Documentation Update](https://img.shields.io/badge/Badges:%20Documentation%20Update-OK-success.svg)
+![Badges: Health Check](https://img.shields.io/badge/Badges:%20Health%20Check-OK-success.svg)
+![Badges: README Status Maintenance](https://img.shields.io/badge/Badges:%20README%20Status%20Maintenance-OK-success.svg)
+![Badges: Workflow Inventory Audit](https://img.shields.io/badge/Badges:%20Workflow%20Inventory%20Audit-OK-success.svg)
+[![ai-feedback-validation](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback-validation.yml)
+[![ai-feedback](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/ai-feedback.yml)
+[![branch-name-validation](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-name-validation.yml)
+[![branch-validation-metrics-aggregator](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/branch-validation-metrics-aggregator.yml)
+[![changelog-unified](https://github.com/lightspeedwp/.github/actions/workflows/changelog-unified.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/changelog-unified.yml)
+[![claude-guard-tests](https://github.com/lightspeedwp/.github/actions/workflows/claude-guard-tests.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/claude-guard-tests.yml)
+[![documentation](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/documentation.yml)
+[![keep-pr-current](https://github.com/lightspeedwp/.github/actions/workflows/keep-pr-current.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/keep-pr-current.yml)
+[![label-drift-check](https://github.com/lightspeedwp/.github/actions/workflows/label-drift-check.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/label-drift-check.yml)
+[![labeling-unified](https://github.com/lightspeedwp/.github/actions/workflows/labeling-unified.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/labeling-unified.yml)
+[![linear-review-platform](https://github.com/lightspeedwp/.github/actions/workflows/linear-review-platform.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/linear-review-platform.yml)
+[![lint](https://github.com/lightspeedwp/.github/actions/workflows/lint.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/lint.yml)
+[![locked-files-guard](https://github.com/lightspeedwp/.github/actions/workflows/locked-files-guard.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/locked-files-guard.yml)
+[![orchestrate-phase-progression](https://github.com/lightspeedwp/.github/actions/workflows/orchestrate-phase-progression.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/orchestrate-phase-progression.yml)
+[![phase-progression](https://github.com/lightspeedwp/.github/actions/workflows/phase-progression.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/phase-progression.yml)
+[![pr-template-routing](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/pr-template-routing.yml)
+[![qodo-pr-agent-report](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent-report.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent-report.yml)
+[![qodo-pr-agent-reusable](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent-reusable.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent-reusable.yml)
+[![qodo-pr-agent-trigger](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent-trigger.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent-trigger.yml)
+[![qodo-pr-agent](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/qodo-pr-agent.yml)
+[![ruleset-drift](https://github.com/lightspeedwp/.github/actions/workflows/ruleset-drift.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/ruleset-drift.yml)
+[![tests](https://github.com/lightspeedwp/.github/actions/workflows/tests.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/tests.yml)
+[![validate-specifications](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/validate-specifications.yml)
+[![workflow-lint](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml/badge.svg?branch=develop)](https://github.com/lightspeedwp/.github/actions/workflows/workflow-lint.yml)
+<!-- BADGES-END -->
+
 Check the structured data (JSON-LD) a WordPress site publishes against the
 [schema.org vocabulary](https://github.com/schemaorg/schemaorg) and Google's
 rich-result rules.
@@ -93,5 +133,4 @@ npx jest agents/wp-schema-audit-agent
 
 Design documents: [spec 023](../../.github/specs/023-wp-schema-audit-agent/).
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+Made with ❤️ by the LightSpeed team.

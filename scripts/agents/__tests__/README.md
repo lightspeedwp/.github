@@ -361,5 +361,4 @@ View CI status in GitHub Actions: `.github/workflows/jest-test-audit.yml`
 **Last Updated**: 2025-11-24  
 **Version**: v1.0
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+Need help? Say hi—work with us.
