@@ -161,7 +161,7 @@ The workflow accepts these inputs:
 - [Testing Agent](./testing.agent.md) - Runs test suites
 - [Linting Agent](./linting.agent.md) - Code quality checks
 - [Labeling Agent](./labeling.agent.md) - PR label automation
-- [Release Agent](./release.agent.md) - Release preparation
+- [Release Agent](../release-agent/AGENT.md) - Release preparation
 
 ## Reference Documentation
 

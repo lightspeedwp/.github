@@ -6,7 +6,7 @@ version: "v2.0"
 last_updated: "2026-09-22""
 owners: ["LightSpeed Engineering"]
 tags: ["release", "semantic-versioning", "changelog", "automation", "github", "governance"]
-applyTo: ["../agents/release.agent.md", "scripts/agents/release.agent.js", ".github/workflows/release.yml", ".github/workflows/changelog.yml", "docs/RELEASE_PROCESS.md"]
+applyTo: ["../agents/release-agent/AGENT.md", "scripts/agents/release.agent.js", ".github/workflows/release.yml", ".github/workflows/changelog.yml", "docs/RELEASE_PROCESS.md"]
 status: "active"
 stability: "stable"
 domain: "release-management"
@@ -69,7 +69,7 @@ For complete detailed standards, see [automation.instructions.md](./automation.i
 ## References
 
 - [automation.instructions.md](./automation.instructions.md) — Complete release standards
-- [release.agent.md](../agents/release.agent.md) — Release agent specification
+- [release-agent/AGENT.md](../agents/release-agent/AGENT.md) — Release agent specification
 - [changelog.schema.json](../.schemas/changelog.schema.json) — Changelog validation schema
 - [docs/RELEASE_PROCESS.md](../docs/RELEASE_PROCESS.md) — Detailed release process
 - [Semantic Versioning](https://semver.org/)

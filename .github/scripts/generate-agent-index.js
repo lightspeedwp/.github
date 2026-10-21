@@ -100,6 +100,10 @@ function collectAgentSpecs() {
 
     try {
       const files = fs.readdirSync(dir);
+      // A consolidated agent folder keeps its spec in AGENT.md alone (GIT-2623).
+      // Index AGENT.md only when no *.agent.md sits beside it, so folders that
+      // still carry both files are not listed twice.
+      const hasAgentSpec = files.some((name) => name.endsWith(".agent.md"));
 
       for (const file of files) {
         const filePath = path.join(dir, file);
@@ -107,7 +111,10 @@ function collectAgentSpecs() {
 
         if (stat.isDirectory()) {
           walkDir(filePath);
-        } else if (file.endsWith(".agent.md")) {
+        } else if (
+          file.endsWith(".agent.md") ||
+          (file === "AGENT.md" && !hasAgentSpec)
+        ) {
           const spec = parseAgentSpec(filePath, REPO_ROOT);
           if (spec) {
             specs.push(spec);

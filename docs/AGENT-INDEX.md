@@ -2,8 +2,8 @@
 file_type: documentation
 title: Agent Index
 description: Searchable index of all agent specifications
-created_date: 2026-10-06
-last_updated: 2026-10-06
+created_date: 2026-10-09
+last_updated: 2026-10-09
 author: Agent Index Generator
 language: en
 status: active
@@ -11,16 +11,16 @@ status: active
 
 # Agent Index
 
-Complete searchable index of all 84 agent specifications in the LightSpeed `.github` control plane.
+Complete searchable index of all 86 agent specifications in the LightSpeed `.github` control plane.
 
-**Generated**: 2026-10-06
+**Generated**: 2026-10-09
 
 ## Quick Stats
 
 | Metric | Count |
 | --- | --- |
-| Total Agents | 84 |
-| Active Agents | 83 |
+| Total Agents | 86 |
+| Active Agents | 85 |
 | Draft Agents | 1 |
 | Deprecated Agents | 0 |
 
@@ -34,6 +34,7 @@ infrastructure
 | Agent | Status | Version | Tags |
 | --- | --- | --- | --- |
 | [ADR Generator](../agents/adr-generator/adr.agent.md) | ✅ Active | v1.0 | `architecture`, `decisions`, `documentation`, `configuration`, `templates`, `validation` |
+| [ADR Generator](../agents/adr-generator-agent/AGENT.md) | ✅ Active | v1.0 | `architecture`, `decisions`, `documentation`, `configuration`, `templates`, `validation` |
 
 
 ### 📦 Unknown
@@ -111,8 +112,8 @@ release-management
 
 | Agent | Status | Version | Tags |
 | --- | --- | --- | --- |
-| [Changelog Agent](../agents/changelog-agent/changelog.agent.md) | ✅ Active | v1.0.0 | `changelog`, `keep-a-changelog`, `validation`, `formatting`, `portable`, `release-management` |
-| [Release Manager](../agents/release-agent/release.agent.md) | ✅ Active | v2.2 | `lightspeed`, `release`, `agents`, `github`, `semantic-versioning`, `release-prep`, `health-scan` |
+| [Changelog Agent](../agents/changelog-agent/AGENT.md) | ✅ Active | v1.0.0 | `changelog`, `keep-a-changelog`, `validation`, `formatting`, `portable`, `release-management` |
+| [Release Manager](../agents/release-agent/AGENT.md) | ✅ Active | v2.2 | `lightspeed`, `release`, `agents`, `github`, `semantic-versioning`, `release-prep`, `health-scan` |
 | [WordPress Release Utilities](../agents/wordpress-release-utilities-agent/wordpress.agent.md) | ✅ Active | v1.0 | `wordpress`, `release-management`, `versioning`, `plugin-management`, `theme-management` |
 
 
@@ -126,6 +127,7 @@ Automation and workflow agents
 | [Issues](../agents/issue-agent/issues.agent.md) | ✅ Active | v2.1 | `issue-management`, `triage`, `automation`, `type-assignment`, `refinement` |
 | [Labeling](../agents/labeling-agent/labeling.agent.md) | ✅ Active | v2.0 | `lightspeed`, `labeling`, `automation`, `canonical-labels`, `agents`, `github` |
 | [Meta](../agents/meta-agent/meta.agent.md) | ✅ Active | v1.1 | `meta`, `frontmatter`, `badges`, `footers`, `automation`, `documentation` |
+| [PR Agent](../agents/pr-agent/AGENT.md) | ✅ Active | v1.0.0 | `automation`, `pull-requests`, `github`, `workflow-automation`, `portable` |
 | [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) | ✅ Active | v1.0 | `lightspeed`, `project-management`, `automation`, `github`, `labels` |
 | [Reviewer](../agents/reviewer-agent/reviewer.agent.md) | ✅ Active | v1.0 | `pr-review`, `automation`, `ci`, `quality-gate`, `pull-requests` |
 
@@ -308,6 +310,7 @@ support
 | Agent | Category | Status | Version | Updated |
 | --- | --- | --- | --- | --- |
 | [ADR Generator](../agents/adr-generator/adr.agent.md) | 📦 infrastructure | ✅ active | v1.0 | 2026-08-29 |
+| [ADR Generator](../agents/adr-generator-agent/AGENT.md) | 📦 infrastructure | ✅ active | v1.0 | 2026-08-29 |
 | [ADR Generator](../agents/ai-readiness-agent/adr-generator.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [AGENT](../agents/client-website-discovery-assistant-agent/client-website-discovery-assistant.agent.md) | 📋 governance | ✅ active | 1.0.0 |  |
 | [AGENT](../agents/discovery-agent/client-website-discovery-assistant.agent.md) | 📋 governance | ✅ active | 1.0.0 |  |
@@ -319,7 +322,7 @@ support
 | [ai-team-producer](../agents/ai-team-producer.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [ai-team-qa](../agents/ai-team-qa.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Blueprint Mode](../agents/blueprint-mode.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
-| [Changelog Agent](../agents/changelog-agent/changelog.agent.md) | 📦 release-management | ✅ active | v1.0.0 | 2026-08-25 |
+| [Changelog Agent](../agents/changelog-agent/AGENT.md) | 📦 release-management | ✅ active | v1.0.0 | 2026-08-25 |
 | [Chat Closure Agent](../agents/chat-closure-agent/chat-closure.agent.md) | ⚡ automation | ✅ active | v1.0.1 | 2026-08-21 |
 | [Client Website Discovery Assistant](../agents/client-website-discovery-assistant-agent/client-website-discovery.agent.md) | 📦 discovery | ✅ active | v1.0.1 | 2026-08-25 |
 | [Client Website Discovery Assistant](../agents/discovery-agent/client-website-discovery.agent.md) | 📦 discovery | ✅ active | v1.0.1 | 2026-08-25 |
@@ -350,6 +353,7 @@ support
 | [Planning mode instructions](../agents/planner.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Playwright Tester Mode](../agents/playwright-tester.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [playwright-testing](../plugins/lightspeed-playwright-testing/agents/playwright-testing.agent.md) | 📦 unknown | ✅ active | 2.0.1 | 2026-08-21 |
+| [PR Agent](../agents/pr-agent/AGENT.md) | ⚡ automation | ✅ active | v1.0.0 | 2026-09-21 |
 | [PRD Agent](../agents/prd-agent/prd.agent.md) | 📋 planning | ✅ active | v2.0.1 | 2026-08-21 |
 | [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md) | 📦 product-management | ✅ active | v2.0.1 | 2026-08-21 |
 | [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) | ⚡ automation | ✅ active | v1.0 | 2026-10-06 |
@@ -360,7 +364,7 @@ support
 | [qa-orchestrator](../plugins/lightspeed-quality-assurance/agents/qa-orchestrator.agent.md) | 📦 unknown | ✅ active | v0.1.1 | 2026-08-21 |
 | [quality-playbook](../agents/quality-playbook.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Refine Requirement or Issue](../agents/meta-agent/refine-issue.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
-| [Release Manager](../agents/release-agent/release.agent.md) | 📦 release-management | ✅ active | v2.2 | 2026-08-29 |
+| [Release Manager](../agents/release-agent/AGENT.md) | 📦 release-management | ✅ active | v2.2 | 2026-08-29 |
 | [release-ops-orchestrator](../plugins/lightspeed-release-ops/agents/release-ops-orchestrator.agent.md) | 📦 unknown | ✅ active | v0.1.1 | 2026-08-21 |
 | [Repo Architect Agent](../agents/repo-architect.agent.md) | 📦 unknown | ✅ active | 1.0.0 |  |
 | [Reporting](../agents/reporting-agent/reporting.agent.md) | 🛠️ tooling | ✅ active | v1.1 | 2026-10-06 |
@@ -396,14 +400,15 @@ support
 
 ### By Implementation Status
 
-**With Implementation Directory** (34)
+**With Implementation Directory** (36)
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md) → [`agents/adr-generator/`](../agents/adr-generator/)
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md) → [`agents/adr-generator/`](../agents/adr-generator/)
 - [AGENT](../agents/client-website-discovery-assistant-agent/client-website-discovery-assistant.agent.md) → [`agents/discovery-agent/`](../agents/discovery-agent/)
 - [AGENT](../agents/discovery-agent/client-website-discovery-assistant.agent.md) → [`agents/discovery-agent/`](../agents/discovery-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
 - [AI Readiness Estimator](../agents/ai-readiness-estimator-agent/ai-readiness-estimator.agent.md) → [`agents/ai-readiness-estimator-agent/`](../agents/ai-readiness-estimator-agent/)
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md) → [`agents/changelog-agent/`](../agents/changelog-agent/)
+- [Changelog Agent](../agents/changelog-agent/AGENT.md) → [`agents/changelog-agent/`](../agents/changelog-agent/)
 - [Chat Closure Agent](../agents/chat-closure-agent/chat-closure.agent.md) → [`agents/chat-closure-agent/`](../agents/chat-closure-agent/)
 - [Client Website Discovery Assistant](../agents/client-website-discovery-assistant-agent/client-website-discovery.agent.md) → [`agents/client-website-discovery-assistant-agent/`](../agents/client-website-discovery-assistant-agent/)
 - [Client Website Discovery Assistant](../agents/discovery-agent/client-website-discovery.agent.md) → [`agents/client-website-discovery-assistant-agent/`](../agents/client-website-discovery-assistant-agent/)
@@ -416,11 +421,12 @@ support
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md) → [`agents/metadata-agent/`](../agents/metadata-agent/)
 - [PageSpeed Agent](../agents/pagespeed-agent/pagespeed.agent.md) → [`agents/pagespeed-agent/`](../agents/pagespeed-agent/)
 - [Planner](../agents/task-planner-agent/task-planner.agent.md) → [`agents/task-planner-agent/`](../agents/task-planner-agent/)
+- [PR Agent](../agents/pr-agent/AGENT.md) → [`agents/pr-agent/`](../agents/pr-agent/)
 - [PRD Agent](../agents/prd-agent/prd.agent.md) → [`agents/prd-agent/`](../agents/prd-agent/)
 - [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md) → [`agents/prd-agent/`](../agents/prd-agent/)
 - [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md) → [`agents/prompt-engineer-agent/`](../agents/prompt-engineer-agent/)
 - [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md) → [`agents/proposal-desk-agent/`](../agents/proposal-desk-agent/)
-- [Release Manager](../agents/release-agent/release.agent.md) → [`agents/release-agent/`](../agents/release-agent/)
+- [Release Manager](../agents/release-agent/AGENT.md) → [`agents/release-agent/`](../agents/release-agent/)
 - [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) → [`agents/task-researcher-agent/`](../agents/task-researcher-agent/)
 - [Testing](../agents/testing-agent/testing.agent.md) → [`agents/testing-agent/`](../agents/testing-agent/)
 - [Tour Operator Config Agent](../agents/tour-operator-config-agent/tour-operator-config.agent.md) → [`agents/tour-operator-config-agent/`](../agents/tour-operator-config-agent/)
@@ -500,7 +506,7 @@ support
 
 - [Labeling](../agents/labeling-agent/labeling.agent.md)
 - [Metrics](../agents/metrics-agent/metrics.agent.md)
-- [Release Manager](../agents/release-agent/release.agent.md)
+- [Release Manager](../agents/release-agent/AGENT.md)
 
 ### `ai-assessment`
 
@@ -525,6 +531,7 @@ support
 ### `architecture`
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md)
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md)
 - [Planner](../agents/task-planner-agent/task-planner.agent.md)
 
 ### `automation`
@@ -534,6 +541,7 @@ support
 - [Labeling](../agents/labeling-agent/labeling.agent.md)
 - [Linting](../agents/linting-agent/linting.agent.md)
 - [Meta](../agents/meta-agent/meta.agent.md)
+- [PR Agent](../agents/pr-agent/AGENT.md)
 - [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md)
 - [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
 - [Reporting](../agents/reporting-agent/reporting.agent.md)
@@ -583,7 +591,7 @@ support
 
 ### `changelog`
 
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/AGENT.md)
 
 ### `ci`
 
@@ -607,6 +615,7 @@ support
 ### `configuration`
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md)
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md)
 - [Tour Operator Config Agent](../agents/tour-operator-config-agent/tour-operator-config.agent.md)
 - [WooCommerce Config Agent](../agents/woo-config-agent/woo-config.agent.md)
 - [WordPress Config Agent](../agents/wp-config-agent/wp-config.agent.md)
@@ -650,6 +659,7 @@ support
 ### `decisions`
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md)
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md)
 
 ### `design`
 
@@ -669,6 +679,7 @@ support
 ### `documentation`
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md)
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md)
 - [Meta](../agents/meta-agent/meta.agent.md)
 - [Reporting](../agents/reporting-agent/reporting.agent.md)
 
@@ -714,7 +725,7 @@ support
 
 ### `formatting`
 
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/AGENT.md)
 
 ### `frontmatter`
 
@@ -727,8 +738,9 @@ support
 ### `github`
 
 - [Labeling](../agents/labeling-agent/labeling.agent.md)
+- [PR Agent](../agents/pr-agent/AGENT.md)
 - [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
-- [Release Manager](../agents/release-agent/release.agent.md)
+- [Release Manager](../agents/release-agent/AGENT.md)
 
 ### `github-sync`
 
@@ -749,7 +761,7 @@ support
 
 ### `health-scan`
 
-- [Release Manager](../agents/release-agent/release.agent.md)
+- [Release Manager](../agents/release-agent/AGENT.md)
 
 ### `implementation-plans`
 
@@ -782,7 +794,7 @@ support
 
 ### `keep-a-changelog`
 
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/AGENT.md)
 
 ### `keyword-research`
 
@@ -810,7 +822,7 @@ support
 - [Labeling](../agents/labeling-agent/labeling.agent.md)
 - [Metrics](../agents/metrics-agent/metrics.agent.md)
 - [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md)
-- [Release Manager](../agents/release-agent/release.agent.md)
+- [Release Manager](../agents/release-agent/AGENT.md)
 
 ### `linear`
 
@@ -904,9 +916,10 @@ support
 
 ### `portable`
 
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/AGENT.md)
 - [Chat Closure Agent](../agents/chat-closure-agent/chat-closure.agent.md)
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md)
+- [PR Agent](../agents/pr-agent/AGENT.md)
 
 ### `pr-review`
 
@@ -967,6 +980,7 @@ support
 
 ### `pull-requests`
 
+- [PR Agent](../agents/pr-agent/AGENT.md)
 - [Reviewer](../agents/reviewer-agent/reviewer.agent.md)
 
 ### `pytest`
@@ -992,11 +1006,11 @@ support
 
 ### `release`
 
-- [Release Manager](../agents/release-agent/release.agent.md)
+- [Release Manager](../agents/release-agent/AGENT.md)
 
 ### `release-management`
 
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [Changelog Agent](../agents/changelog-agent/AGENT.md)
 - [WordPress Release Utilities](../agents/wordpress-release-utilities-agent/wordpress.agent.md)
 
 ### `release-planning`
@@ -1005,7 +1019,7 @@ support
 
 ### `release-prep`
 
-- [Release Manager](../agents/release-agent/release.agent.md)
+- [Release Manager](../agents/release-agent/AGENT.md)
 
 ### `reporting`
 
@@ -1031,7 +1045,7 @@ support
 
 ### `semantic-versioning`
 
-- [Release Manager](../agents/release-agent/release.agent.md)
+- [Release Manager](../agents/release-agent/AGENT.md)
 
 ### `sentiment-analysis`
 
@@ -1094,6 +1108,7 @@ support
 ### `templates`
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md)
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md)
 - [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md)
 
 ### `testing`
@@ -1154,7 +1169,8 @@ support
 ### `validation`
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md)
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md)
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md)
+- [Changelog Agent](../agents/changelog-agent/AGENT.md)
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md)
 - [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md)
 
@@ -1184,6 +1200,7 @@ support
 ### `workflow-automation`
 
 - [Linear Advisor Agent](../agents/linear-advisor-agent/linear-advisor.agent.md)
+- [PR Agent](../agents/pr-agent/AGENT.md)
 
 ### `workspace-management`
 
@@ -1202,7 +1219,7 @@ support
 
 ### Ash Shaw (7)
 
-- [Changelog Agent](../agents/changelog-agent/changelog.agent.md) — Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting.
+- [Changelog Agent](../agents/changelog-agent/AGENT.md) — Portable changelog management agent with Keep a Changelog 1.1.0 support, entry validation, and automated formatting.
 - [Chat Closure Agent](../agents/chat-closure-agent/chat-closure.agent.md) — Automate session handoff workflows with automatic memory updates, continuation prompts, and safe workspace cleanup.
 - [PRD Agent](../agents/prd-agent/prd.agent.md) — Create and manage comprehensive product requirement documents, technical specifications, user stories, and planning artifacts for product development.
 - [PRD Factory & Planner Agent](../agents/prd-agent/prd-factory-planner.agent.md) — Automated PRD generation and project planning assistant that transforms product concepts into comprehensive Product Requirements Documents, structured roadmaps, and detailed implementation timelines.
@@ -1210,9 +1227,10 @@ support
 - [WooCommerce Config Agent](../agents/woo-config-agent/woo-config.agent.md) — Specialized configuration assistant for WooCommerce stores providing setup optimization, payment integration, and e-commerce best practices.
 - [WordPress Config Agent](../agents/wp-config-agent/wp-config.agent.md) — Specialized configuration assistant for WordPress sites providing setup guidance, plugin management, performance optimization, and security hardening.
 
-### LightSpeed Team (26)
+### LightSpeed Team (28)
 
 - [ADR Generator](../agents/adr-generator/adr.agent.md) — Generate architectural decision records with configuration-driven templates and validation.
+- [ADR Generator](../agents/adr-generator-agent/AGENT.md) — Generate architectural decision records with configuration-driven templates and validation.
 - [AI Readiness Estimator](../agents/ai-readiness-agent/ai-readiness-estimator.agent.md) — Comprehensive AI capability assessment and readiness evaluation tool that evaluates organizational readiness for AI implementation through infrastructure, data quality, team skills, and adoption roadmap analysis.
 - [AI Readiness Estimator](../agents/ai-readiness-estimator-agent/ai-readiness-estimator.agent.md) — Comprehensive AI capability assessment and readiness evaluation tool that evaluates organizational readiness for AI implementation through infrastructure, data quality, team skills, and adoption roadmap analysis.
 - [Client Website Discovery Assistant](../agents/client-website-discovery-assistant-agent/client-website-discovery.agent.md) — Comprehensive website assessment and analysis for competitive discovery, feature gap analysis, UX evaluation, and performance analysis.
@@ -1226,6 +1244,7 @@ support
 - [Metadata Agent](../agents/metadata-agent/metadata.agent.md) — Portable AI agent for syncing GitHub issue labels, PRs, and project fields with confidence scoring and validation tiers.
 - [PageSpeed Agent](../agents/pagespeed-agent/pagespeed.agent.md) — Web performance optimization tool for load-time analysis, resource optimization, and caching strategies.
 - [Planner](../agents/task-planner-agent/task-planner.agent.md) — Multi-mode planning agent: strategic architecture planning, implementation plan generation, and task planning with research validation. Comprehensive planning-first approach for complex development work.
+- [PR Agent](../agents/pr-agent/AGENT.md) — Portable agent for GitHub pull request creation, template routing, labelling, and error handling.
 - [Proposal Desk Agent](../agents/proposal-desk-agent/proposal-desk.agent.md) — Proposal and quote generation tool for scope definition, client communication, and billing management.
 - [Reporting](../agents/reporting-agent/reporting.agent.md) — Interactive agent for creating, organising, and maintaining reports and progress updates following LightSpeed standards. Guides users through report creation with proper structure and categorisation.
 - [Reviewer](../agents/reviewer-agent/reviewer.agent.md) — Automated PR review agent that posts review summaries, CI status checks, and actionable recommendations for pull requests.
@@ -1246,7 +1265,7 @@ support
 - [Metrics](../agents/metrics-agent/metrics.agent.md) — Automates collection, aggregation, and reporting of repository health metrics including issue/PR activity, response times, and project health indicators. Generates actionable insights and trend analysis.
 - [Project Meta Sync](../agents/project-meta-sync-agent/project-meta-sync.agent.md) — Syncs GitHub Project board meta fields (Status, Priority, Type) from issue/PR labels and branch names, automating project management and triage workflows.
 - [Prompt Engineer](../agents/prompt-engineer-agent/prompt-engineer.agent.md) — Expert prompt engineering and validation system for creating, analyzing, and improving high-quality prompts. Combines systematic analysis framework with comprehensive research, validation, and iteration capabilities.
-- [Release Manager](../agents/release-agent/release.agent.md) — Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes.
+- [Release Manager](../agents/release-agent/AGENT.md) — Comprehensive release automation: validates readiness, runs pre-release health scans, enforces changelog compliance, manages semantic versioning, opens develop→main release PRs, tags, publishes GitHub Releases, and generates release notes.
 - [Task Researcher Agent](../agents/task-researcher-agent/task-researcher.agent.md) — Agent for conducting in-depth research on specified tasks, gathering relevant information, and providing comprehensive insights to inform decision-making and planning.
 - [Testing](../agents/testing-agent/testing.agent.md) — Comprehensive test execution agent for running unit tests, integration tests, and generating coverage reports across all supported testing frameworks.
 
@@ -1308,5 +1327,5 @@ support
 - [Agent Specification Audit - Phase 3 Results](../.github/reports/audit/AGENT-SPECS-PHASE3-RESULTS.md)
 - [CONTRIBUTING.md](../CONTRIBUTING.md)
 
-**Generated**: 2026-10-06T09:55:27.372Z
-**Total Agents**: 84
+**Generated**: 2026-10-09T07:29:53.135Z
+**Total Agents**: 86
