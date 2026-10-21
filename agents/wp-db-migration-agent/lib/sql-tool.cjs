@@ -8,7 +8,7 @@
  *   site-urls <input.sql>  Report siteurl/home from every *_options table.
  *   tables    <input.sql>  List tables with rows, size and group, to choose exclusions.
  *
- * Contract: .github/specs/022-wp-db-migration-agent/contracts/sql-tool-cli.md
+ * Contract: .github/specs/024-wp-db-migration-agent/contracts/sql-tool-cli.md
  *
  * Dumps are read as bytes and decoded as latin1, which maps every byte to one
  * character and back, so non-UTF-8 content survives unchanged. The input is
@@ -154,7 +154,7 @@ const TABLE_RISK_RULES = [
 
 const RISK_FIX = 'Review before import; ask the user before removing or rewriting it.';
 
-/** Tables the SQLite Database Integration creates for itself (spec 022, research R4). */
+/** Tables the SQLite Database Integration creates for itself (spec 024, research R4). */
 const INTERNAL_TABLE = /^(_wp_sqlite_|_mysql_data_types_cache$|sqlite_)/;
 
 /**
@@ -969,7 +969,7 @@ function prefixFindings(summary, studioPrefix, renamedTo) {
 // ---------------------------------------------------------------------------
 
 /**
- * Apply the known MySQL-to-Studio fixes (spec 022 FR-010 to FR-015).
+ * Apply the known MySQL-to-Studio fixes (spec 024 FR-010 to FR-015).
  *
  * @param {string} input Path to the MySQL export.
  * @param {{out?: string, force?: boolean}} [options]
@@ -1301,7 +1301,7 @@ function postImportNotes(siteUrls, hasUsers) {
 
 /**
  * Check a Studio export before it is imported into MySQL or MariaDB
- * (spec 022 FR-020 to FR-024). Read-only.
+ * (spec 024 FR-020 to FR-024). Read-only.
  *
  * @param {string} input Path to the export.
  * @param {{target?: string, prefix?: string}} [options]
@@ -1471,7 +1471,7 @@ function promoteSeverity(finding) {
 }
 
 /**
- * Report siteurl and home from every *_options table (spec 022 FR-030). Read-only.
+ * Report siteurl and home from every *_options table (spec 024 FR-030). Read-only.
  *
  * @param {string} input Path to the export.
  */
@@ -1536,7 +1536,7 @@ function siteUrlsCommand(input, options = {}) {
 
 /**
  * List every table with its rows and size, and what it belongs to, so the
- * user can choose tables to leave out (spec 022). Read-only.
+ * user can choose tables to leave out (spec 024). Read-only.
  *
  * @param {string} input Path to the export.
  */

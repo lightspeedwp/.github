@@ -93,7 +93,7 @@ agents/wp-schema-audit-agent/
 scripts/agents/generate-agent-defs.cjs      # registers the agent
 ```
 
-**Structure Decision**: Mirror the WordPress DB Migration Agent (spec 022): agent-local skills, one
+**Structure Decision**: Mirror the WordPress DB Migration Agent (spec 024): agent-local skills, one
 tool in `lib/`, tests beside it.
 
 ## Complexity Tracking

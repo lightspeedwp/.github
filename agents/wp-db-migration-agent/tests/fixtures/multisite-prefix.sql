@@ -1,4 +1,4 @@
--- Synthetic fixture for spec 022: custom prefix and a multisite sub-site. No real data.
+-- Synthetic fixture for spec 024: custom prefix and a multisite sub-site. No real data.
 
 CREATE TABLE `wp123_options` (
   `option_id` bigint unsigned NOT NULL AUTO_INCREMENT,

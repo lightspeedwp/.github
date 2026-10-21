@@ -1,5 +1,5 @@
 -- phpMyAdmin SQL Dump
--- Synthetic fixture for spec 022: a Studio site exported through phpMyAdmin.
+-- Synthetic fixture for spec 024: a Studio site exported through phpMyAdmin.
 -- No real data.
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";

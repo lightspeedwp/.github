@@ -1,5 +1,5 @@
 /**
- * Unit tests for `sql-tool preflight` (spec 022, User Story 2, FR-020 to FR-024).
+ * Unit tests for `sql-tool preflight` (spec 024, User Story 2, FR-020 to FR-024).
  * Each check has a failing fixture and a passing one (SC-004).
  */
 
