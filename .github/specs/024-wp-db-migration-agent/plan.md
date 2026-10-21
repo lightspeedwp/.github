@@ -2,7 +2,7 @@
 
 **Branch**: `aiops/wp-db-migration-agent` | **Date**: 2026-10-13 | **Spec**: [spec.md](./spec.md)
 
-**Input**: Feature specification from `.github/specs/020-wp-db-migration-agent/spec.md`
+**Input**: Feature specification from `.github/specs/024-wp-db-migration-agent/spec.md`
 
 ## Summary
 
@@ -63,7 +63,7 @@ Post-design re-check: unchanged, all pass.
 ### Documentation (this feature)
 
 ```text
-.github/specs/020-wp-db-migration-agent/
+.github/specs/024-wp-db-migration-agent/
 ├── spec.md
 ├── plan.md               # This file
 ├── research.md
