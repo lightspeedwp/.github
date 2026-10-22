@@ -89,7 +89,7 @@ Documentation (DOC, SETUP) uses merged contracts and never stacks on unfinished 
 
 ## Merge order
 
-1. S (#3883), once the 019 numbering gap is resolved. It is independent of the rest.
+1. S (#3883), once the numbering gap at 021 and 022 is resolved. It is independent of the rest.
 2. F (#3881), after its diff, checks and reviews are read and its blocker is understood.
 3. R1 and C2 as siblings from refreshed `develop`; R1 is not reported ready until C2 evidence exists.
 4. Optional follow-on handoff integration PR, if needed, after R1 merges and depending on C2.
@@ -100,7 +100,7 @@ Documentation (DOC, SETUP) uses merged contracts and never stacks on unfinished 
 
 | Item | Detail |
 |------|--------|
-| 019 numbering gap | The spec audit requires contiguous numbers and 019 is reserved on the unmerged `aiops/qodo-pr-agent-integration` branch, so S fails Specification Validation until the 019 spec merges or the owner approves another resolution. |
+| Numbering gap at 021 and 022 | The spec audit requires contiguous numbers. 019 (Qodo) has merged and the duplicate 020 was cleared by #3962, but 021 and 022 are reserved by specs not yet on `develop`, so S fails Specification Validation until they merge or the owner approves another resolution. This specification keeps 020. |
 | "AI Feedback Validation" check | Requests a `Closes` or `Resolves` link and a `FEEDBACK_RESPONSE.md`. S currently uses `Relates to`. The owner decides whether `Closes #1555` is acceptable. |
 | PR #3881 blocker | Reviews and the cause of `blocked` were not read. |
 | Linear parenting | GIT-1310, GIT-1744 and GIT-2623 have no parent; reparenting is an approval item (A9 in the issue map). |

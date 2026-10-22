@@ -76,7 +76,7 @@ Children of the epic outside spec 020 (GIT-701 pr-agent, GIT-106 issue-agent, GI
 | IX Changelog compliance | Pass. Entries must stay within the length rule and link to PRs/issues; the agent validates using the shipped engine. |
 | X Metrics-driven governance | Pass. No new dashboards; reuses existing validation output. |
 
-**Gate risk (not a violation)**: the Specification Validation check on the spec PR currently fails on the 019 numbering gap (reserved Qodo spec). Resolution is owner-decided; see the PR comment and [research.md](./research.md) R-11.
+**Gate risk (not a violation)**: the Specification Validation check on the spec PR has failed on numbering: first the 019 gap (since resolved by the Qodo merge), then a duplicate 020 (cleared by #3962), and now a gap at 021 and 022, which are reserved by unmerged specs. This specification keeps 020; see [research.md](./research.md) R-11.
 
 **Post-design re-check**: no new violations. The Complexity Tracking table is not needed.
 

@@ -83,6 +83,7 @@ Evidence base: repository at `origin/develop` `65a013b25eb4f81806496965adad8e3f4
 
 - **Finding**: `.specify/scripts/bash/audit-specs.sh` fails on gaps; 019 is reserved on an unmerged branch.
 - **Decision (2026-10-10)**: the maintainer decided this specification keeps number 020 and does not take 019, so renumbering is not an option. The failing audit is therefore cleared only by the maintainer either merging the 019 Qodo spec first or approving a separate change that lets the audit script accept reserved numbers. Neither is performed by this plan, and the choice between them is still open.
+- **Update (2026-10-22)**: the 019 Qodo spec has merged, and the duplicate 020 introduced by #3959 was cleared when #3962 renumbered the WordPress DB migration and schema audit specs to 024 and 023. The maintainer confirmed this specification keeps 020, so a comment asking for a rename to 022 is not applied. The audit now reports a gap (`expected 21 but found 23`) because 021 and 022 are reserved by specs not yet on `develop`. It clears when those specs merge or the owner approves an audit change allowing reserved numbers. Renaming this spec would not clear it.
 
 ### R-13 Approval is a digest of the exact proposed edit
 
@@ -131,5 +132,5 @@ Portable redistribution still depends on a complete manifest, bundle digest, dep
 
 1. Decide whether GIT-1310, GIT-1744 and GIT-2623 should be linked under GIT-1293 (R-10).
 2. Read PR #3881 diff and checks (R-02).
-3. 019 numbering gap resolution (R-11).
+3. Numbering gap at 021 and 022 (R-11): clears when the reserved specs merge or the owner approves an audit change. This specification keeps 020.
 4. Decisions A9 and A11 in `issue-map.md` (A1 to A8 and A10 were applied or needed no change on 2026-10-10).
