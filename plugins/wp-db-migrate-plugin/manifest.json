@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "name": "WordPress Database Migration",
+  "id": "wp-db-migrate",
+  "description": "Migrate WordPress databases from MySQL/MariaDB to SQLite in WordPress Studio v2.0. Studio CLI integration for faster migrations. WP-CLI support for safer URL replacement and serialization-aware operations. Smart table exclusion, safe import workflows, URL replacement, and comprehensive validation.",
+  "version": "2.0.0",
+  "author": "Ash Shaw",
+  "author_email": "ashley@lightspeedwp.agency",
+  "homepage": "https://github.com/lightspeedwp/thisonetimeonacid",
+  "repository": "https://github.com/lightspeedwp/thisonetimeonacid",
+  "keywords": [
+    "wordpress",
+    "database",
+    "migration",
+    "mysql",
+    "sqlite",
+    "studio",
+    "studio-cli",
+    "wp-cli",
+    "export",
+    "import",
+    "url-replacement"
+  ],
+  "skills": [
+    {
+      "id": "wp-db-migrate",
+      "path": "skills/wp-db-migrate",
+      "name": "WordPress Database Migration v2.0",
+      "description": "v2.0: Studio CLI + WP-CLI support for faster, safer migrations. Migrate MySQL/MariaDB to SQLite with smart table exclusion, backup + rollback, serialization-aware URL replacement, and validation."
+    }
+  ],
+  "commands": [
+    {
+      "id": "wp-db-migrate",
+      "name": "/wp-db-migrate",
+      "description": "WordPress database migration workflow (v2.0 with Studio CLI and WP-CLI support)",
+      "skill_id": "wp-db-migrate"
+    }
+  ],
+  "scripts": {
+    "migrate-recovery": "scripts/migrate-recovery.sh",
+    "migrate-recovery-enhanced": "scripts/migrate-recovery-enhanced.sh",
+    "verify-import": "scripts/verify-import.sh",
+    "replace-urls": "scripts/replace-urls.sh",
+    "wp-cli-search-replace": "scripts/wp-cli-search-replace.sh",
+    "wp-cli-migration-checks": "scripts/wp-cli-migration-checks.sh",
+    "start-server": "scripts/start-server.sh"
+  },
+  "features": {
+    "studio-cli": {
+      "enabled": true,
+      "description": "Native Studio CLI integration for faster imports and better performance"
+    },
+    "wp-cli-support": {
+      "enabled": true,
+      "optional": true,
+      "description": "Optional WP-CLI integration for safer URL replacement and serialization-aware operations"
+    },
+    "backup-rollback": {
+      "enabled": true,
+      "description": "Automatic backup and rollback on import failure"
+    },
+    "dry-run-validation": {
+      "enabled": true,
+      "description": "Preview all changes before applying (dry-run mode for URL replacement)"
+    }
+  },
+  "requirements": {
+    "cli": ["studio"],
+    "cli_optional": ["wp"],
+    "features": ["bash", "database-access"]
+  },
+  "documentation": {
+    "guide": "SKILL.md",
+    "examples": "README.md"
+  },
+  "license": "MIT"
+}
