@@ -1,0 +1,11 @@
+name: sync-staging-to-local
+description: |
+  Test the skill's ability to guide a user through syncing a staging WordPress database
+  to a local Studio site, including analysis, exclusion selection, backup, import, URL
+  replacement with dry-run, and validation.
+what_a_good_result_looks_like: |
+  - User is walked through each step clearly
+  - Table analysis is presented with sizes and exclusion suggestions
+  - Dry-run of URL replacement shows counts per table
+  - Post-import validation confirms row counts match
+  - Final report is comprehensive and actionable
