@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-10-31T19:23:46Z",
+  "branch_name": "dependabot/npm_and_yarn/undici-6.29.1",
+  "valid": true,
+  "errors": "",
+  "actor": "dependabot[bot]",
+  "event": "push",
+  "ref": "refs/heads/dependabot/npm_and_yarn/undici-6.29.1",
+  "sha": "d6b9f83e29d507d638509d5f08335cd9e0518574"
+}
