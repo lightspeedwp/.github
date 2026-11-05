@@ -104,7 +104,7 @@ Route away when the user is asking for the specialist deliverable itself, not an
 | generate WordPress patterns, templates, template parts, custom templates, block styles, or section styles | `wordpress-block-theme-router` first, then the relevant WordPress generator skill | this skill can package generated asset notes into implementation prompts |
 | validate WordPress block theme assets | `wordpress-block-asset-validator` | use this skill afterwards for agent handoff or fix-packet assembly |
 | enforce semantic colour tokens or raw colour cleanup | `theme-color-token-enforcer` | use this skill afterwards to package the approved token fix into repo prompts |
-| extract patterns from Figma into `ls-theme` block patterns | `pattern-extractor` | this skill may only assemble supporting implementation or QA packets |
+| extract patterns from Figma into block patterns | `figma-to-block-theme` (pattern mode) | this skill may only assemble supporting implementation or QA packets |
 | package a full PRD/task/research archive for download | `lightspeed-prd-task-pack-exporter` | use this skill for the execution sub-packet only |
 
 ### Handoff Rule
