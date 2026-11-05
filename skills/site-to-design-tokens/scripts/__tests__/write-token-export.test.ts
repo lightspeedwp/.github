@@ -151,6 +151,19 @@ describe('Sizing ramps are in ascending order', () => {
   });
 });
 
+describe('TokenPlanBuilder alias validation', () => {
+  it('throws one error listing every unknown semantic alias', () => {
+    const bad = JSON.parse(JSON.stringify(proposal));
+    const roles = Object.keys(bad.colour.semantic);
+    bad.colour.semantic[roles[0]].token = 'brand-650';
+    bad.colour.semantic[roles[1]].token = 'nope';
+
+    expect(() => new TokenPlanBuilder().build(bad)).toThrow(
+      /Unknown semantic alias target\(s\): .*brand-650.*nope/
+    );
+  });
+});
+
 describe('ExportWriter', () => {
   const data = new ExportWriter().write(plan) as {
     collections: Array<{

@@ -315,6 +315,33 @@ export class SiteCrawler {
   }
 }
 
+/** Validates the numeric CLI options before any browser starts. */
+export class CrawlOptionsParser {
+  parse(values: Record<string, string>): {
+    viewports: number[];
+    delayMs: number;
+    maxPages: number;
+  } {
+    const maxPages = Number(values['max-pages']);
+    if (!Number.isInteger(maxPages) || maxPages < 1) {
+      throw new Error(`--max-pages must be a positive integer, got "${values['max-pages']}".`);
+    }
+    const delayMs = values.delay.trim() === '' ? NaN : Number(values.delay);
+    if (!Number.isFinite(delayMs) || delayMs < 0) {
+      throw new Error(
+        `--delay must be a number of milliseconds, 0 or more, got "${values.delay}".`
+      );
+    }
+    const viewports = values.viewports.split(',').map((v) => (v.trim() === '' ? NaN : Number(v)));
+    if (!viewports.length || viewports.some((v) => !Number.isInteger(v) || v < 1)) {
+      throw new Error(
+        `--viewports must be comma-separated positive integers, got "${values.viewports}".`
+      );
+    }
+    return { viewports, delayMs, maxPages };
+  }
+}
+
 export interface CrawlCliDeps {
   createDriver: () => Promise<BrowserDriver>;
   sleep: (ms: number) => Promise<void>;
@@ -355,6 +382,7 @@ export async function runCrawlCli(argv: string[], deps: CrawlCliDeps): Promise<n
       throw new Error('--url is required.');
     }
 
+    const options = new CrawlOptionsParser().parse(values);
     const crawler = new SiteCrawler(await deps.createDriver(), deps.sleep);
     const result = await crawler.crawl({
       site: values.url,
@@ -362,9 +390,7 @@ export async function runCrawlCli(argv: string[], deps: CrawlCliDeps): Promise<n
         .split(',')
         .map((p) => p.trim())
         .filter(Boolean),
-      viewports: values.viewports.split(',').map(Number),
-      delayMs: Number(values.delay),
-      maxPages: Number(values['max-pages']),
+      ...options,
     });
     deps.writeFile(values.out, `${JSON.stringify(result, null, 2)}\n`);
     const samples = result.captures.reduce((total, c) => total + c.samples.length, 0);

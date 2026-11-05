@@ -48,6 +48,30 @@ const FILL = ['FRAME_FILL', 'SHAPE_FILL'];
 
 export class TokenPlanBuilder {
   /**
+   * A hand-edited proposal can alias a token that does not exist (a typo such as
+   * `brand-650`). Catch that while planning, before any script or export is written.
+   */
+  private assertAliasesResolve(collections: PlannedCollection[]): void {
+    const keys = new Set(collections.flatMap((c) => c.variables.map((v) => v.key)));
+    const unknown: string[] = [];
+    for (const variable of collections.flatMap((c) => c.variables)) {
+      for (const value of Object.values(variable.values)) {
+        if (typeof value === 'object' && value !== null && 'alias' in value) {
+          const target = (value as { alias: string }).alias;
+          if (!keys.has(target)) {
+            unknown.push(`${variable.name} -> ${target}`);
+          }
+        }
+      }
+    }
+    if (unknown.length) {
+      throw new Error(
+        `Unknown semantic alias target(s): ${unknown.join(', ')}. Fix proposal.json so each token names an existing variable.`
+      );
+    }
+  }
+
+  /**
    * Sizing ramps are created smallest first (`None` first for spacing), so the
    * Variables panel reads as a ramp. Order is by Max value, then slug, whatever
    * order the proposal arrives in. Returns a copy.
@@ -252,6 +276,8 @@ export class TokenPlanBuilder {
       { name: 'Theme - Layout', modes: ['Mode 1'], variables: layout },
       { name: 'Theme - Breakpoints', modes: ['Mode 1'], variables: breakpoints },
     ].filter((c) => c.variables.length);
+
+    this.assertAliasesResolve(collections);
 
     const effectStyles: PlannedEffectStyle[] = p.shadows.map((s) => ({
       name: `LSX/${s.name}`,

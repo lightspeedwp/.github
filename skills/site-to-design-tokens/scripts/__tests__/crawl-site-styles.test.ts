@@ -228,4 +228,29 @@ describe('runCrawlCli', () => {
     expect(await runCrawlCli(argv as string[], run.deps)).toBe(1);
     expect(run.err.join('')).toContain(message);
   });
+
+  it.each([
+    [['--max-pages', 'abc'], '--max-pages must be a positive integer'],
+    [['--max-pages', '0'], '--max-pages must be a positive integer'],
+    [['--max-pages', '2.5'], '--max-pages must be a positive integer'],
+    [['--delay', 'abc'], '--delay must be a number'],
+    [['--delay', ''], '--delay must be a number'],
+    [['--delay', '-1'], '--delay must be a number'],
+    [['--viewports', '390,,1440'], '--viewports must be comma-separated positive integers'],
+    [['--viewports', '390,0'], '--viewports must be comma-separated positive integers'],
+    [['--viewports', 'wide'], '--viewports must be comma-separated positive integers'],
+  ])('rejects invalid numeric option %j before launching a browser', async (extra, message) => {
+    const run = deps();
+    let launched = false;
+    run.deps.createDriver = async () => {
+      launched = true;
+      return fakeDriver().driver;
+    };
+
+    const code = await runCrawlCli(['--url', 'https://www.example.com', ...extra], run.deps);
+
+    expect(code).toBe(1);
+    expect(run.err.join('')).toContain(message);
+    expect(launched).toBe(false);
+  });
 });
