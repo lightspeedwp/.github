@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Site to Design Tokens Skill** — For rebuilds: proposes design tokens from a live site, then creates the Figma variables and a theme.json export once approved. ([#3990](https://github.com/lightspeedwp/.github/issues/3990))
 - **Figma to Block Theme Skill** — One skill turns Figma variables into theme.json presets, Figma frames into block patterns, and fills theme.json gaps. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
 
 - **WordPress Schema Audit Agent** — Checks the structured data a WordPress site publishes against schema.org and Google's rules, then writes a client report and a spreadsheet of fixes. ([PR #3962](https://github.com/lightspeedwp/.github/pull/3962))
