@@ -43,7 +43,7 @@ All checklist items pass. Specification is complete and ready for planning phase
 - [x] 10 measurable success criteria with quantified targets
 - [x] 9 assumptions covering organization scale, workflows, and integration points
 - [x] Edge cases documented (6 scenarios covered)
-- [x] Clear mapping to CLAUDE.md authoritative rules (24 types, 3 forbidden prefixes, PR template routing, label mapping)
+- [x] Clear mapping to Constitution Principle V & CLAUDE.md authoritative rules (38 types, 3 forbidden prefixes, PR template routing, label mapping)
 
 ## Integration & Cross-Project Alignment
 
