@@ -154,7 +154,7 @@ Use this map to choose the primary next skill. Do not list every possible option
 - Use `gh-address-comments` when the user needs to address review or issue comments on the open GitHub PR for the current branch.
 - Use `gh-fix-ci` when GitHub Actions checks are failing and the user asks to inspect, debug, or plan fixes for CI.
 - Use `markdown-content-validator` or `content-file-validator` when markdown/yaml content files need validation for structure, frontmatter, semantic versioning, links, metadata, or template compliance.
-- Use `theme-color-token-enforcer`, `pattern-extractor`, `themejson-extractor-orchestrator`, or related `figma-themejson-*` skills when the issue concerns WordPress theme.json token extraction, token parity, semantic colour tokens, Figma-to-theme.json sync, or block pattern extraction.
+- Use `figma-to-block-theme` or `theme-color-token-enforcer` when the issue concerns WordPress theme.json token extraction, token parity, semantic colour tokens, Figma-to-theme.json sync, or block pattern extraction.
 
 ## Priority Guidance
 
