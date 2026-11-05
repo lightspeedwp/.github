@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Figma to Block Theme Skill** — One skill turns Figma variables into theme.json presets, Figma frames into block patterns, and fills theme.json gaps. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
+
 - **WordPress Schema Audit Agent** — Checks the structured data a WordPress site publishes against schema.org and Google's rules, then writes a client report and a spreadsheet of fixes. ([PR #3962](https://github.com/lightspeedwp/.github/pull/3962))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
@@ -102,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **Separate Figma Theme Skills** — The ten Figma theme skills are replaced by `figma-to-block-theme`. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
