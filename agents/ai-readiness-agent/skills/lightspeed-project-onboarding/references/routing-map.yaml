@@ -405,6 +405,22 @@ routes:
 
   - match:
       intents:
+        - website_rebuild
+        - live_site_to_figma
+        - rebuild_components
+        - rebuild_templates
+    primary_skill: site-to-figma-components
+    related_skills:
+      - site-to-design-tokens
+      - figma-to-block-theme
+      - figma-generate-library
+      - figma-generate-design
+      - audit-design-system
+    use_when: a live website is being rebuilt and its components, patterns, template parts and templates need to exist in Figma, bound to the design tokens, before the theme is built.
+    prompt_starter: "Use site-to-figma-components after site-to-design-tokens: crawl the live site, approve the inventory and build scope, build the approved set in Figma, then hand the manifest to figma-to-block-theme Pattern mode."
+
+  - match:
+      intents:
         - linear_triage
         - linear_issue_rewrite
         - linear_gap_analysis
