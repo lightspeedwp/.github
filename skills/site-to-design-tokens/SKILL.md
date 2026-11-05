@@ -71,6 +71,10 @@ npx tsx ${CLAUDE_SKILL_DIR}/scripts/write-token-export.ts proposal.json \
 
 Post the proposal summary, the decisions taken and the created collections on the project's Linear issue.
 
+### Next step
+
+Rebuild the site's components, patterns, template parts and templates in Figma on these variables with `site-to-figma-components`. Pass it `variables.json` (`--tokens`).
+
 ## Rules
 
 - **Read only public pages of the site you were given**, one at a time, with the default pause. Don't crawl logged-in, checkout or account pages.
