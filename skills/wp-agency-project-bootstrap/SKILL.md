@@ -66,7 +66,7 @@ It's the assembly step: it wires in the other skills in this set (scope control,
 - `wp-blockstyle-css-field` — block-style JSON authoring and the css-field limits.
 - `wp-pattern-runtime-pitfalls` — pattern registration/render behaviour.
 - `wp-thirdparty-markup-styling` — styling plugin markup, portals, class injection.
-- Plus the existing Figma→theme.json extractors, token-hygiene, audit, and pattern-extractor skills.
+- Plus `figma-to-block-theme` (Figma tokens, patterns and theme.json completion), and the token-hygiene and audit skills.
 
 _This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
 [Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
