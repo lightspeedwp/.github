@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Figma to Block Theme Skill** — One skill now turns Figma variables into theme.json presets and style variations, Figma frames into block patterns, and fills theme.json gaps for the blocks a theme uses. It reads variables through the official Figma skills and ships tested TypeScript helpers for fluid sizes, variable mapping and Google Fonts. Fluid spacing now scales at the right rate. Spacing is named by size (XS, S, M) with the slug in the code syntax, sizing ramps must run smallest first, and a colour mode such as Dark keeps the same palette and replaces only the semantic tokens. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
+
 - **WordPress Schema Audit Agent** — Checks the structured data a WordPress site publishes against schema.org and Google's rules, then writes a client report and a spreadsheet of fixes. ([PR #3962](https://github.com/lightspeedwp/.github/pull/3962))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
@@ -102,6 +104,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **Separate Figma Theme Skills** — Removed the seven `figma-themejson-*` extractors, `themejson-extractor-orchestrator`, `pattern-extractor` and `themejson-completion`, now merged into `figma-to-block-theme`. References now point to the new skill. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)

@@ -204,8 +204,7 @@ Route to the narrow specialist when the asset type is known; otherwise use the r
 - `wordpress-section-style-generator`: create section-level styles for heroes, content bands, footers, feature sections, and larger layout zones.
 - `wordpress-block-asset-validator`: validate block theme assets, block markup, pattern headers, template names, part references, and custom template registrations.
 - `theme-color-token-enforcer`: audit or fix semantic colour token usage, raw colours, dark-token parity, and contrast risks in WordPress block themes.
-- `pattern-extractor`: convert Figma designs into `ls-theme` WordPress block patterns with strict semantic token mapping and required downstream validation.
-- `themejson-extractor-orchestrator`: orchestrate full theme.json token extraction from Figma variables.
+- `figma-to-block-theme`: extract Figma variables into theme.json presets and style variations, convert Figma frames into block patterns, and fill theme.json gaps for the blocks a theme uses.
 - Use the specific `figma-themejson-*` extraction skill when the user asks for palette, typography, spacing, shadow, or style-variation extraction.
 
 ### AI readiness, chatbot, content, and governance specialists
