@@ -180,7 +180,11 @@ export class FigmaVariablesMapper {
     }
 
     this.assign(settings, ['color', 'palette'], presets.color);
-    this.assign(settings, ['spacing', 'spacingSizes'], presets.spacing);
+    if (presets.spacing) {
+      // Core's default sizes use slugs 20 to 80 and win over theme sizes with the same slugs.
+      this.assign(settings, ['spacing', 'defaultSpacingSizes'], false);
+      this.assign(settings, ['spacing', 'spacingSizes'], presets.spacing);
+    }
     this.assign(settings, ['typography', 'fontSizes'], presets['font-size']);
     this.assign(settings, ['typography', 'fontFamilies'], presets['font-family']);
     if (presets['border-radius']) {

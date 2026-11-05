@@ -301,6 +301,10 @@ describe('FigmaVariablesMapper', () => {
     expect(settings.custom.tone).toBe('warm');
   });
 
+  it('turns off the core spacing sizes, whose slugs clash with the ladder', () => {
+    expect(settings.spacing.defaultSpacingSizes).toBe(false);
+  });
+
   it('uses Mobile and Desktop modes as fluid min and max', () => {
     expect(settings.spacing.spacingSizes).toEqual([
       { slug: '10', name: 'XS', size: 'clamp(1rem, calc(0.762vw + 0.814rem), 1.5rem)' },

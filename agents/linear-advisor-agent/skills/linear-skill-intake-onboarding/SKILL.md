@@ -205,7 +205,7 @@ Route to the narrow specialist when the asset type is known; otherwise use the r
 - `wordpress-block-asset-validator`: validate block theme assets, block markup, pattern headers, template names, part references, and custom template registrations.
 - `theme-color-token-enforcer`: audit or fix semantic colour token usage, raw colours, dark-token parity, and contrast risks in WordPress block themes.
 - `figma-to-block-theme`: extract Figma variables into theme.json presets and style variations, convert Figma frames into block patterns, and fill theme.json gaps for the blocks a theme uses.
-- Use the specific `figma-themejson-*` extraction skill when the user asks for palette, typography, spacing, shadow, or style-variation extraction.
+- Use `figma-to-block-theme` when the user asks for palette, typography, spacing, shadow, or style-variation extraction, and `site-to-design-tokens` when the tokens come from an existing live site.
 
 ### AI readiness, chatbot, content, and governance specialists
 

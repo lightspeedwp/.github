@@ -110,7 +110,7 @@ Use these shortcuts when the user gives a clear destination.
 - Figma-to-WordPress technical brief: `lightspeed-figma-wordpress-technical-brief`
 - Pattern extraction from Figma: `figma-to-block-theme` (pattern mode)
 - Theme colour token audit/fix: `theme-color-token-enforcer`
-- Theme.json completion or token syncing: the matching `themejson-*` or `figma-themejson-*` skill
+- Theme.json completion or token syncing: `figma-to-block-theme`
 
 ### Planning, delivery, and GitHub
 
