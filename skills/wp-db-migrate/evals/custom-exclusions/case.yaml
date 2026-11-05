@@ -1,0 +1,10 @@
+name: custom-exclusions
+description: |
+  Test the skill's handling of user-specified table exclusions, showing size impact
+  and ensuring the import succeeds with reduced database size.
+what_a_good_result_looks_like: |
+  - Skill accepts custom exclusion list without errors
+  - Shows which tables will be excluded and their combined size
+  - Import completes successfully without excluded tables
+  - Post-import report shows only the expected tables are present
+  - Non-excluded tables have row counts matching the original export
