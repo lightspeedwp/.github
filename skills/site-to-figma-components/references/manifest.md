@@ -61,6 +61,3 @@ The writer refuses an unapproved inventory, a node ID not in the form `123:456`,
 ## How Pattern mode uses it
 
 `figma-to-block-theme` Pattern mode reads `manifest.json` in entry order. For each entry it reads the node with `figma-design-to-code`, writes the file named in `wordpress.file`, and uses `wordpress.slug`, `block` and `styles` as given. Templates are written last, from their `composition`: `<!-- wp:template-part {"slug":"header"} /-->` for parts and `<!-- wp:pattern {"slug":"tsp-theme/hero"} /-->` for patterns.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

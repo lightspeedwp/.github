@@ -39,6 +39,3 @@ After each call, add the IDs to `figma-nodes.json`: the component set for compon
 ## Archive, never delete
 
 `node.remove()` is blocked. Move superseded items to an archive page, grouped in sections, and check the destinations of prototype links before moving anything.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

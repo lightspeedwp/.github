@@ -792,14 +792,16 @@ export class StructureCrawler {
   ) {}
 
   async crawl(options: CrawlOptions): Promise<SiteStructure> {
-    const site = new URL(options.site);
-    const viewports = options.viewports ?? [390, 1440];
-    const urls = this.resolvePages(site, options.pages, options.maxPages ?? 15);
     const pages: PageStructure[] = [];
     const failures: { url: string; viewport: number; error: string }[] = [];
     let first = true;
+    let origin: string;
+    const viewports = options.viewports ?? [390, 1440];
 
     try {
+      const site = new URL(options.site);
+      origin = site.origin;
+      const urls = this.resolvePages(site, options.pages, options.maxPages ?? 15);
       for (const url of urls) {
         for (const viewport of viewports) {
           if (!first) {
@@ -831,7 +833,7 @@ export class StructureCrawler {
     }
 
     return {
-      site: site.origin,
+      site: origin,
       capturedAt: this.now().toISOString(),
       viewports,
       pages,
@@ -1001,7 +1003,6 @@ export async function runCrawlCli(argv: string[], deps: CrawlCliDeps): Promise<n
       deps.makeDir(values.shots);
     }
 
-    const crawler = new StructureCrawler(await deps.createDriver(), deps.sleep);
     if (values.shoot) {
       if (!values.shots) {
         throw new Error('--shoot needs --shots, the folder to write screenshots to.');
@@ -1016,6 +1017,7 @@ export async function runCrawlCli(argv: string[], deps: CrawlCliDeps): Promise<n
       const targets: ShootTarget[] = inventory.items
         .filter((item) => item.status !== 'cut')
         .flatMap((item) => item.examples.slice(0, 1).map((e) => ({ id: item.id, ...e })));
+      const crawler = new StructureCrawler(await deps.createDriver(), deps.sleep);
       const written = await crawler.shoot(values.url, targets, values.shots, Number(values.delay));
       deps.stdout(
         `Wrote ${written.length} of ${targets.length} example screenshots to ${values.shots}\n`
@@ -1023,6 +1025,7 @@ export async function runCrawlCli(argv: string[], deps: CrawlCliDeps): Promise<n
       return 0;
     }
 
+    const crawler = new StructureCrawler(await deps.createDriver(), deps.sleep);
     const result = await crawler.crawl({
       site: values.url,
       pages: values.pages

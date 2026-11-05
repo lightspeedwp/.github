@@ -50,6 +50,3 @@ Add `"build"` with the templates (and any extra items) to build in Figma. The re
 Merges run first, then cuts, promotions, renames and the build scope. A merged item takes the other's pages, examples and variants, and templates point to it. A cut item stays in the inventory with `status: "cut"`; templates show it as a local section. Set `"approve": true` only when the reviewer has said so. The manifest writer refuses an unapproved inventory.
 
 Post the approved report on the project's Linear issue.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

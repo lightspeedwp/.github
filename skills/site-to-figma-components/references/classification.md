@@ -73,6 +73,3 @@ Nothing is added until the reviewer approves. Then add the variables before the 
 ## Near duplicates and one-offs
 
 Items whose shape signatures share at least 75% of their tokens (50% for items with the same base name) are grouped as look-alikes for the reviewer to merge. Items found once are flagged as one-offs: cut them, or keep them with `promote`.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

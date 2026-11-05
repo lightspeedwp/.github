@@ -48,6 +48,3 @@ Each capture records its final URL. Pages that redirect to a page already crawle
 ## Politeness
 
 One page at a time with a 1.5 second pause (`--delay`), only on the `--url` origin. Puppeteer downloads its browser on first install; if the launch fails, run `npx puppeteer browsers install chrome`.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

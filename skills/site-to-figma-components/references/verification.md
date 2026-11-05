@@ -29,6 +29,3 @@ Fix findings with `fix-design-system-finding`, or in a small `use_figma` pass, a
 ## Report
 
 Post the differences table and the audit counts on the project's Linear issue with `manifest.md`.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
