@@ -36,6 +36,27 @@ Use real site content throughout: headings, labels, excerpts, meta and images fr
 
 After each call, add the IDs to `figma-nodes.json`: the component set for components; the set and its `Breakpoint=Mobile` variant (`mobileNodeId`) for parts and patterns; the 1440 frame and the 390 frame for templates. See [manifest.md](manifest.md).
 
+When a template is final, record its `composition` with one read-only call. Each built component's description names its inventory ID (`Inventory id pattern:card-grid`), so the sections map back without guessing:
+
+```js
+const frame = await figma.getNodeByIdAsync('TEMPLATE_FRAME_ID');
+const out = [];
+for (const child of frame.children) {
+  if (child.type !== 'INSTANCE') { out.push({ id: `local:${child.name}` }); continue; }
+  const main = await child.getMainComponentAsync();
+  const owner = main.parent?.type === 'COMPONENT_SET' ? main.parent : main;
+  const id = /Inventory id ([\w:-]+)/.exec(owner.description)?.[1] ?? `unknown:${owner.name}`;
+  const heading = child.findOne((n) => n.type === 'TEXT');
+  const base = main.findOne((n) => n.type === 'TEXT');
+  out.push(heading && base && heading.characters !== base.characters
+    ? { id, overrides: { heading: heading.characters } }
+    : id);
+}
+return out;
+```
+
+Resolve any `unknown:` or `local:` entry before writing the manifest.
+
 ## Archive, never delete
 
 `node.remove()` is blocked. Move superseded items to an archive page, grouped in sections, and check the destinations of prototype links before moving anything.

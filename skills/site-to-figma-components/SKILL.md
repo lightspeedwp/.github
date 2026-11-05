@@ -68,10 +68,10 @@ Compare each frame with the live page at both widths, list the differences, and 
 
 ```bash
 npx --prefix "$SITE_TO_FIGMA_REPO_ROOT" tsx ${CLAUDE_SKILL_DIR}/scripts/write-manifest.ts inventory.json --nodes figma-nodes.json \
-  --out manifest.json --markdown manifest.md
+  --out manifest.json --markdown manifest.md --theme-dir path/to/theme
 ```
 
-Add `--partial` while only some items are built. Hand `manifest.json` to `figma-to-block-theme` Pattern mode and post `manifest.md` on the project's Linear issue. See [references/manifest.md](references/manifest.md).
+Record each template's built `composition` first (see [references/figma-build.md](references/figma-build.md#record-node-ids)). `--theme-dir` flags targets that already exist in the theme. Add `--partial` while only some items are built. Hand `manifest.json` to `figma-to-block-theme` Pattern mode and post `manifest.md` on the project's Linear issue. See [references/manifest.md](references/manifest.md).
 
 ## Rules
 
