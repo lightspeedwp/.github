@@ -29,10 +29,10 @@ If a companion skill is missing, say so and stop rather than calling Figma tools
 ## Stage 1: Inventory
 
 1. **Agree the pages** with the reviewer: one or two public pages per template, from the site's sitemap. See [references/crawling.md](references/crawling.md).
-2. **Crawl** (scratch folder outside the repository):
+2. **Crawl** (scratch folder outside the repository). Install the repository's dependencies first and set `SITE_TO_FIGMA_REPO_ROOT` to the absolute path of its checkout. The `--prefix` option selects its pinned `tsx` while keeping output in the scratch folder:
 
    ```bash
-   npx tsx ${CLAUDE_SKILL_DIR}/scripts/crawl-site-structure.ts --url https://www.example.com \
+   npx --prefix "$SITE_TO_FIGMA_REPO_ROOT" tsx ${CLAUDE_SKILL_DIR}/scripts/crawl-site-structure.ts --url https://www.example.com \
      --pages '/,/tours/example/,/blog/,/?s=safari' --out site-structure.json --shots shots
    ```
 
@@ -40,9 +40,9 @@ If a companion skill is missing, say so and stop rather than calling Figma tools
 4. **Propose**, then take one example screenshot per item:
 
    ```bash
-   npx tsx ${CLAUDE_SKILL_DIR}/scripts/propose-inventory.ts site-structure.json --tokens variables.json \
+   npx --prefix "$SITE_TO_FIGMA_REPO_ROOT" tsx ${CLAUDE_SKILL_DIR}/scripts/propose-inventory.ts site-structure.json --tokens variables.json \
      --theme <theme-slug> --out inventory.json --report inventory.md --shots shots
-   npx tsx ${CLAUDE_SKILL_DIR}/scripts/crawl-site-structure.ts --url https://www.example.com \
+   npx --prefix "$SITE_TO_FIGMA_REPO_ROOT" tsx ${CLAUDE_SKILL_DIR}/scripts/crawl-site-structure.ts --url https://www.example.com \
      --shoot inventory.json --shots shots
    ```
 
@@ -67,7 +67,7 @@ Compare each frame with the live page at both widths, list the differences, and 
 ## Stage 5: Hand-off
 
 ```bash
-npx tsx ${CLAUDE_SKILL_DIR}/scripts/write-manifest.ts inventory.json --nodes figma-nodes.json \
+npx --prefix "$SITE_TO_FIGMA_REPO_ROOT" tsx ${CLAUDE_SKILL_DIR}/scripts/write-manifest.ts inventory.json --nodes figma-nodes.json \
   --out manifest.json --markdown manifest.md
 ```
 
@@ -85,7 +85,7 @@ Add `--partial` while only some items are built. Hand `manifest.json` to `figma-
 
 ## Scripts
 
-TypeScript run with `tsx` (`npx tsx <script> --help`). Tests are in `scripts/__tests__/`: run `npm run test:site-to-figma-components` from the repository root.
+TypeScript run with `tsx` (`npx --prefix "$SITE_TO_FIGMA_REPO_ROOT" tsx <script> --help`). Tests are in `scripts/__tests__/`: run `npm run test:site-to-figma-components` from the repository root.
 
 | Script | Does |
 | --- | --- |
