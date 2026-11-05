@@ -154,6 +154,7 @@
     "metrics:run": "node metrics/frontmatter-metrics.js",
     "metrics:ci": "node metrics/frontmatter-metrics.js",
     "test:js": "jest --config .jest.config.cjs --coverage --forceExit --detectOpenHandles",
+    "test:site-to-figma-components": "jest --config skills/site-to-figma-components/scripts/jest.config.cjs",
     "test:agent-spec-validation": "node .github/scripts/__tests__/validate-agent-specs.test.js",
     "test:index-generator": "node .github/scripts/__tests__/generate-agent-index.test.js",
     "test:create-agent-spec": "node .github/scripts/__tests__/create-agent-spec.test.js",

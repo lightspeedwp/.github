@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Site to Figma Components Skill** — For website rebuilds, after the design tokens: crawls the live site at mobile and desktop widths, finds its repeated components, patterns, template parts and page templates with their variants and states, and writes an approval report that maps each to its WordPress block and proposes a variable for every value with no token. Once the reviewer approves the inventory and the templates to build, it builds them in Figma bound to the tokens, checks them against the live pages, and writes a manifest for `figma-to-block-theme` Pattern mode. ([#3992](https://github.com/lightspeedwp/.github/issues/3992))
+
 - **WordPress Schema Audit Agent** — Checks the structured data a WordPress site publishes against schema.org and Google's rules, then writes a client report and a spreadsheet of fixes. ([PR #3962](https://github.com/lightspeedwp/.github/pull/3962))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
