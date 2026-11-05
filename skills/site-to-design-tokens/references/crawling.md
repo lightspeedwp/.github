@@ -36,6 +36,3 @@ For each element it keeps the text colour, background, border colour, font famil
 - Cookie banners and pop-ups are measured like any other element. If one dominates the results, list the affected values for the reviewer.
 - Cross-origin stylesheets can't be read, so breakpoints from them are missed and the defaults (376px, 768px and 1240px) fill the gaps.
 - Puppeteer downloads its own browser the first time it's installed. If the launch fails, run `npx puppeteer browsers install chrome`.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

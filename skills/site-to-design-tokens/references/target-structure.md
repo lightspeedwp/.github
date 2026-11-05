@@ -78,6 +78,3 @@ The proposer replaces a default with the live value's nearest primitive for `tex
 ## Scopes
 
 Primitives have no scopes, so designers bind the semantic tokens. Text roles use `TEXT_FILL`, border roles `STROKE_COLOR`, and surfaces and action backgrounds `FRAME_FILL` and `SHAPE_FILL`. Sizes, families, weights, spacing, radius and layout widths use their matching scopes, and shadow colours `EFFECT_COLOR`.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

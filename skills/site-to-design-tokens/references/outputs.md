@@ -28,6 +28,3 @@ Then follow that skill's Tokens mode from "Review each family". Expected mapper 
 
 - Layout widths and breakpoints arrive under `settings.custom`. Copy the widths to `settings.layout.contentSize` and `wideSize` in `theme.json`.
 - Font families get `sans-serif` as their fallback. Pass `--font-fallback serif` when the body font is a serif, and correct the heading stack by hand.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -45,6 +45,3 @@ Check each scale against the site at both widths:
 - Heading sizes should shrink on mobile.
 - Section spacing should reflect what the eye sees. Sites that space sections with margins on unstyled wrappers can produce a smaller scale than the design intends, so say so and let the reviewer set the larger steps.
 - Font names come from the site's CSS (for example a web font alias such as `argesta_displayregular`). Ask the reviewer for the licensed family name and its fallback.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
