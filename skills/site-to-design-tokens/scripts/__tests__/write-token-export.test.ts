@@ -159,8 +159,17 @@ describe('TokenPlanBuilder alias validation', () => {
     bad.colour.semantic[roles[1]].token = 'nope';
 
     expect(() => new TokenPlanBuilder().build(bad)).toThrow(
-      /Unknown semantic alias target\(s\): .*brand-650.*nope/
+      /Invalid semantic alias target\(s\): .*brand-650.*nope/
     );
+  });
+
+  it('rejects a self-alias and an alias to a token of another type', () => {
+    const bad = JSON.parse(JSON.stringify(proposal));
+    const roles = Object.keys(bad.colour.semantic);
+    bad.colour.semantic[roles[0]].token = `semantic:${roles[0]}`;
+    bad.colour.semantic[roles[1]].token = 'font-body';
+
+    expect(() => new TokenPlanBuilder().build(bad)).toThrow(/\(itself\).*\(STRING, not COLOR\)/);
   });
 });
 

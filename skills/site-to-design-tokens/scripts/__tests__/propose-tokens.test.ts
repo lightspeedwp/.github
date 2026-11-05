@@ -211,6 +211,25 @@ describe('TokenProposer on a sparse site', () => {
     ]);
   });
 
+  it('names the spacing values left out when there are more than the ladder holds', () => {
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    // 13 well-separated section paddings: two more than the 11 ladder steps.
+    const sizes = [10, 14, 18, 24, 30, 38, 48, 60, 76, 96, 120, 150, 190];
+    const samples = sizes.flatMap((paddingBlock, i) =>
+      Array.from({ length: i < 2 ? 1 : 2 }, (_, n) => ({
+        key: `sp:${i}:${n}`,
+        page: '/',
+        role: 'section',
+        paddingBlock,
+      }))
+    );
+    proposer.proposeSpacing(samples as never, () => undefined);
+    expect(proposer['decisions']).toContain(
+      '2 rarely used spacing values were left out of the scale: 10px, 14px.'
+    );
+  });
+
   it('merges sizes that do not fit the scale', () => {
     const many = JSON.parse(JSON.stringify(styles));
     for (const capture of many.captures) {

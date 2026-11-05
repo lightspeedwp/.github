@@ -49,24 +49,33 @@ const FILL = ['FRAME_FILL', 'SHAPE_FILL'];
 export class TokenPlanBuilder {
   /**
    * A hand-edited proposal can alias a token that does not exist (a typo such as
-   * `brand-650`). Catch that while planning, before any script or export is written.
+   * `brand-650`), a token of another type, or itself. Catch that while planning,
+   * before any script or export is written.
    */
   private assertAliasesResolve(collections: PlannedCollection[]): void {
-    const keys = new Set(collections.flatMap((c) => c.variables.map((v) => v.key)));
+    const types = new Map(
+      collections.flatMap((c) => c.variables.map((v) => [v.key, v.type] as const))
+    );
     const unknown: string[] = [];
     for (const variable of collections.flatMap((c) => c.variables)) {
       for (const value of Object.values(variable.values)) {
         if (typeof value === 'object' && value !== null && 'alias' in value) {
           const target = (value as { alias: string }).alias;
-          if (!keys.has(target)) {
+          if (!types.has(target)) {
             unknown.push(`${variable.name} -> ${target}`);
+          } else if (target === variable.key) {
+            unknown.push(`${variable.name} -> ${target} (itself)`);
+          } else if (types.get(target) !== variable.type) {
+            unknown.push(
+              `${variable.name} -> ${target} (${types.get(target)}, not ${variable.type})`
+            );
           }
         }
       }
     }
     if (unknown.length) {
       throw new Error(
-        `Unknown semantic alias target(s): ${unknown.join(', ')}. Fix proposal.json so each token names an existing variable.`
+        `Invalid semantic alias target(s): ${unknown.join(', ')}. Fix proposal.json so each token names another existing variable of the same type.`
       );
     }
   }

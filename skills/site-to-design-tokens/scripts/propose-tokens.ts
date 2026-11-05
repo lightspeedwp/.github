@@ -852,12 +852,12 @@ export class TokenProposer {
       }))
       .filter((c) => c.weight >= 2);
     if (kept.length > SPACING_STEPS.length) {
-      const dropped = kept.length - SPACING_STEPS.length;
-      kept = kept
-        .sort((a, b) => b.weight - a.weight)
-        .slice(0, SPACING_STEPS.length)
-        .sort((a, b) => a.max - b.max);
-      this.decisions.push(`${dropped} rarely used spacing values were left out of the scale.`);
+      const byUse = [...kept].sort((a, b) => b.weight - a.weight);
+      const dropped = byUse.slice(SPACING_STEPS.length).sort((a, b) => a.max - b.max);
+      kept = byUse.slice(0, SPACING_STEPS.length).sort((a, b) => a.max - b.max);
+      this.decisions.push(
+        `${dropped.length} rarely used spacing values were left out of the scale: ${dropped.map((d) => `${d.max}px`).join(', ')}.`
+      );
     }
     // Each value takes the ladder step nearest its desktop size, so 40px becomes
     // L (slug 40). A taken step pushes the value to the next free step up.

@@ -411,15 +411,38 @@ export async function createPuppeteerDriver(): Promise<BrowserDriver> {
   return {
     open: async (url, viewport) => {
       const page = await browser.newPage();
-      await page.setViewport({ width: viewport, height: 900 });
-      await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+      // Same-origin pages only: refuse a redirect of the page itself to another origin.
+      const origin = new URL(url).origin;
+      const sameOrigin = (request: import('puppeteer').HTTPRequest) => {
+        if (
+          request.isNavigationRequest() &&
+          request.frame() === page.mainFrame() &&
+          new URL(request.url()).origin !== origin
+        ) {
+          return request.abort();
+        }
+        return request.continue();
+      };
+      try {
+        await page.setViewport({ width: viewport, height: 900 });
+        await page.setRequestInterception(true);
+        page.on('request', sameOrigin);
+        await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
+      } catch (error) {
+        page.off('request', sameOrigin);
+        await page.close();
+        throw error;
+      }
       return {
         collect: async () => {
           // tsx (esbuild) can add __name() helpers to function source; define it in the page.
           await page.evaluate('globalThis.__name = (f) => f');
           return page.evaluate(collectPageStyles, {});
         },
-        close: () => page.close(),
+        close: async () => {
+          page.off('request', sameOrigin);
+          await page.close();
+        },
       };
     },
     close: () => browser.close(),
