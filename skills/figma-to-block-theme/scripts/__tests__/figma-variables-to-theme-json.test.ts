@@ -171,6 +171,12 @@ function fixture(): VariablesExport {
             valuesByMode: { desktop: 24, mobile: 16 },
           },
           {
+            id: 's-none',
+            name: 'Padding/None',
+            type: 'FLOAT',
+            valuesByMode: { desktop: 0, mobile: 0 },
+          },
+          {
             id: 's-20',
             name: 'Padding/20 S',
             type: 'FLOAT',
@@ -360,6 +366,7 @@ describe('FigmaVariablesMapper', () => {
     expect(warnings).toContain('"Draft/new" has no WEB code syntax');
     expect(warnings).toContain('"Padding/20 S" repeats its slug in the name; rename it to "S"');
     expect(warnings).not.toContain('ramp is out of order');
+    expect(warnings).not.toContain('Padding/None');
     expect(warnings).toContain('"theme.colors.other" that is not a WordPress preset');
     expect(warnings).toContain('not in the export (missing)');
     expect(warnings).toContain('Custom colour "Semantic/border/raw" is a raw value');

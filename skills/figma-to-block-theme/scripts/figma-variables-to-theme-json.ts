@@ -461,7 +461,11 @@ export class FigmaVariablesMapper {
     if (customMatch) {
       return { kind: 'custom', path: customMatch[1].split('--') };
     }
-    if (report) {
+    // A zero size with no code syntax, such as Padding/None, is for Figma only:
+    // WordPress already offers a 0 value, so importing one adds a duplicate.
+    const figmaOnlyZero =
+      !syntax && Object.values(variable.valuesByMode).every((value) => value === 0);
+    if (report && !figmaOnlyZero) {
       this.warn(
         syntax
           ? `"${variable.name}" has code syntax "${syntax}" that is not a WordPress preset or custom property; skipped.`

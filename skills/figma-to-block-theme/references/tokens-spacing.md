@@ -8,17 +8,17 @@ Variables whose code syntax is `--wp--preset--spacing--<slug>` become `{ slug, n
 
 - `slug` comes from the code syntax (`var(--wp--preset--spacing--20)` becomes `20`).
 - `name` is the last segment of the Figma variable name (`Padding/XS` becomes "XS"). The name carries only the size; the slug lives in the code syntax. A name that repeats its slug (`Padding/10 XS`) is mapped as "XS" with a warning, so rename it in Figma.
+- `size` is a fluid `clamp()` when the collection has `Mobile` and `Desktop` modes, otherwise a plain rem value.
 
 The LightSpeed spacing ladder:
 
-| Name | XXS | XS | S | M | L | XL | XXL | XXXL | XXXXL | Gigantic | Colossal |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Slug | `5` | `10` | `20` | `30` | `40` | `50` | `60` | `70` | `80` | `90` | `100` |
+| Name | XXS | XS   | S    | M    | L    | XL   | XXL  | XXXL | XXXXL | Gigantic | Colossal |
+| ---- | --- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ----- | -------- | -------- |
+| Slug | `5` | `10` | `20` | `30` | `40` | `50` | `60` | `70` | `80`  | `90`     | `100`    |
 
 Keep the ramp in this order in Figma, smallest first. The mapper warns when it is not.
 
-`Padding/None` (0) and negative values such as `Padding/Negative 80` are not on the ladder. Negative values go to `custom` through their `--wp--custom--spacing--…` code syntax.
-- `size` is a fluid `clamp()` when the collection has `Mobile` and `Desktop` modes, otherwise a plain rem value.
+`Padding/None` (0) is for Figma only. It has no code syntax, and the mapper skips it without a warning, because WordPress already offers a 0 spacing and importing one adds a duplicate in the editor. Negative values such as `Padding/Negative 80` are not on the ladder either. Negative values go to `custom` through their `--wp--custom--spacing--…` code syntax.
 
 ## The clamp formula
 
