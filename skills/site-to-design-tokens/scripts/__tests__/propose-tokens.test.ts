@@ -367,13 +367,12 @@ describe('TokenProposer.fitSiteColours', () => {
   it('replaces the nearest step with a site colour of the same hue family', () => {
     const t = new TokenProposer();
     const { primitives, anchors } = setup();
-    // A slate grey that sits at about neutral-700.
-    t.fitSiteColours([evidence('#374750', 5)], primitives, anchors, []);
-    // #374750 is bluish but low chroma, so it fits neutral.
-    expect(Object.values(primitives)).toContain('#374750');
-    const slug = Object.entries(primitives).find(([, v]) => v === '#374750')![0];
+    // A warm grey that sits at about neutral-700.
+    t.fitSiteColours([evidence('#4a4641', 5)], primitives, anchors, []);
+    expect(Object.values(primitives)).toContain('#4a4641');
+    const slug = Object.entries(primitives).find(([, v]) => v === '#4a4641')![0];
     expect(slug).toMatch(/^neutral-/);
-    expect(t['decisions'].some((d) => d.startsWith(`Site colour #374750 replaced ${slug}`))).toBe(
+    expect(t['decisions'].some((d) => d.startsWith(`Site colour #4a4641 replaced ${slug}`))).toBe(
       true
     );
     // Lightness still falls from 100 to 900.
@@ -395,8 +394,14 @@ describe('TokenProposer.fitSiteColours', () => {
     const before = { ...primitives };
     // Strongly saturated blue: too chromatic for neutral and a different hue from brand.
     // Also pale pink: wrong hue for brand. Also near-black: no step within tolerance.
+    // Also a slate grey: low chroma, but tinted blue against a warm neutral ramp.
     t.fitSiteColours(
-      [evidence('#0057ff', 9), evidence('#ffd6e0', 2), evidence('#0a0a0a', 1)],
+      [
+        evidence('#0057ff', 9),
+        evidence('#ffd6e0', 2),
+        evidence('#0a0a0a', 1),
+        evidence('#374750', 5),
+      ],
       primitives,
       anchors,
       []
@@ -426,12 +431,12 @@ describe('TokenProposer.fitSiteColours', () => {
   it('keeps the heavier colour when two claim the same step', () => {
     const t = new TokenProposer();
     const { primitives, anchors } = setup();
-    t.fitSiteColours([evidence('#3a4a52', 2), evidence('#374750', 8)], primitives, anchors, []);
+    t.fitSiteColours([evidence('#4b4742', 2), evidence('#4a4641', 8)], primitives, anchors, []);
     const values = Object.values(primitives);
-    expect(values).toContain('#374750');
-    expect(values).not.toContain('#3a4a52');
+    expect(values).toContain('#4a4641');
+    expect(values).not.toContain('#4b4742');
     expect(
-      t['decisions'].some((d) => d.includes('#3a4a52 also fits') && d.includes('#374750'))
+      t['decisions'].some((d) => d.includes('#4b4742 also fits') && d.includes('#4a4641'))
     ).toBe(true);
   });
 
@@ -442,7 +447,7 @@ describe('TokenProposer.fitSiteColours', () => {
     primitives['neutral-800'] = '#5a5a5a';
     primitives['neutral-700'] = '#6a6a6a';
     const before = { ...primitives };
-    t.fitSiteColours([evidence('#4b5459', 4)], primitives, anchors, []);
+    t.fitSiteColours([evidence('#4a4641', 4)], primitives, anchors, []);
     expect(primitives).toEqual(before);
   });
 });

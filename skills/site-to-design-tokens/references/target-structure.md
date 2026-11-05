@@ -52,13 +52,13 @@ Each ramp keeps its live anchor exactly at the step nearest its lightness, and b
 
 Real site colours are preferred over generated ones. A site colour replaces the generated value of the ramp step it is closest to when it fits that ramp:
 
-- **Hue and chroma.** For `brand`, `primary` and `cta`, the hue is within 25 degrees of the anchor's, the chroma is at least 0.025, and the chroma is between 0.4 and 1.6 times the anchor's. For `neutral`, the chroma is 0.04 or less.
+- **Hue and chroma.** For `brand`, `primary` and `cta`, the hue is within 25 degrees of the anchor's, the chroma is at least 0.025, and the chroma is between 0.4 and 1.6 times the anchor's. For `neutral`, the chroma is 0.04 or less, and a grey with a visible tint (chroma 0.015 or more) is within 25 degrees of the ramp's hue. A slate grey does not fit a warm neutral ramp.
 - **Lightness.** It is within 0.04 OKLCH lightness of the target of its nearest step.
 - **Order.** It is lighter than the next step and darker than the previous one, so lightness still falls from 100 to 900.
 
 The anchor step is never replaced. Colours are handled by weight, heaviest first. Each goes to the family whose step is closest. If a heavier colour already holds a step, the lighter one does not take it. A colour that fits no ramp stays off the ramp and is matched to the nearest token, as before.
 
-Each replacement is listed in the report's decisions, for example `Site colour #374750 replaced neutral-700 (was #3c4448).`
+Each replacement is listed in the report's decisions, for example `Site colour #4a4641 replaced neutral-700 (was #48443f).`
 
 System colours (error, warning, success and information, each with a foreground and a background) use the LightSpeed defaults unless the reviewer changes them.
 
