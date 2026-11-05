@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Site to Design Tokens Skill** — For website rebuilds: crawls the live site at mobile and desktop widths, proposes colour ramps, semantic tokens and type, spacing, radius and shadow scales in the LightSpeed structure, and reports how each live value maps. Site colours that fit a ramp replace the nearest generated step, spacing follows the XXS to Colossal size ladder, and sizing ramps are created smallest first. Once approved, it creates the Figma variables and an export for `figma-to-block-theme`. ([#3990](https://github.com/lightspeedwp/.github/issues/3990))
+
 - **WordPress Schema Audit Agent** — Checks the structured data a WordPress site publishes against schema.org and Google's rules, then writes a client report and a spreadsheet of fixes. ([PR #3962](https://github.com/lightspeedwp/.github/pull/3962))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
