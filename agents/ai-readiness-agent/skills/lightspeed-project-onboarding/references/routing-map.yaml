@@ -381,7 +381,7 @@ routes:
       - wordpress-section-style-generator
       - wordpress-block-asset-validator
       - wordpress-asset-parameter-generator
-      - pattern-extractor
+      - figma-to-block-theme
       - theme-color-token-enforcer
     use_when: the user asks for WordPress block theme assets but the exact generator, metadata, validation, or token workflow needs routing.
     prompt_starter: "Use the WordPress block theme router to identify the correct asset workflow, required parameters, validation rules, and next specialist skill."
@@ -395,17 +395,13 @@ routes:
         - spacing_tokens
         - style_variations
         - shadow_tokens
-    primary_skill: themejson-extractor-orchestrator
+    primary_skill: figma-to-block-theme
     related_skills:
-      - figma-themejson-palette
-      - figma-themejson-typography
-      - figma-themejson-spacing
-      - figma-themejson-style-variations
-      - figma-themejson-shadow
-      - themejson-completion
       - sync-figma-token
+      - theme-orphaned-refs
+      - theme-color-token-enforcer
     use_when: Figma variables or codebase tokens need to become WordPress theme.json settings, presets, or style variations.
-    prompt_starter: "Use the theme.json extractor orchestrator to route token extraction across palette, typography, spacing, shadows, and style variations."
+    prompt_starter: "Use figma-to-block-theme to extract Figma variables into theme.json palette, typography, spacing, radius, shadow presets and style variations."
 
   - match:
       intents:
