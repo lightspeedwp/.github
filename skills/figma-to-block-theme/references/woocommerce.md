@@ -31,6 +31,3 @@ Controls with two states, such as add to cart changing into a quantity stepper, 
 ## Long selectors
 
 Keep verbose WooCommerce selectors in the theme's store stylesheet (for example `assets/css/woocommerce.css`), not in block style JSON `css` strings.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

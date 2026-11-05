@@ -97,6 +97,9 @@ interface CustomTarget {
   path: string[];
 }
 
+/** Keys that would reach Object.prototype if written as plain properties. */
+const UNSAFE_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
+
 const PRESET_PATTERN =
   /--wp--preset--(color|spacing|font-size|font-family|border-radius|shadow)--([a-z0-9-]+)/;
 const CUSTOM_PATTERN = /--wp--custom--([a-z0-9-]+(?:--[a-z0-9-]+)*)/;
@@ -396,6 +399,13 @@ export class FigmaVariablesMapper {
       }
       return ColorConverter.toHex(value);
     }
+    // Custom spacing and breakpoints are CSS lengths, so they need a unit.
+    if (typeof value === 'number' && path[0] === 'spacing') {
+      return this.fluid.toRem(value);
+    }
+    if (typeof value === 'number' && path[0] === 'breakpoint') {
+      return this.px(value);
+    }
     if (typeof value === 'number' && path[0] === 'line-height' && value > 10) {
       // Figma line heights are often percentages (150 = 1.5).
       return String(value / 100);
@@ -571,11 +581,33 @@ export class FigmaVariablesMapper {
     if (value === undefined) {
       return;
     }
+    const where = path.join('--');
+    if (path.some((key) => UNSAFE_KEYS.has(key))) {
+      this.warn(`"${where}" uses a reserved key; skipped.`);
+      return;
+    }
     let node = target;
     for (const key of path.slice(0, -1)) {
-      node = (node[key] ??= {}) as JsonObject;
+      if (!Object.hasOwn(node, key)) {
+        node[key] = {};
+      }
+      const next = node[key];
+      if (!this.isObject(next)) {
+        this.warn(`"${where}" clashes with the value already at "${key}"; skipped.`);
+        return;
+      }
+      node = next;
     }
-    node[path[path.length - 1]] = value;
+    const leaf = path[path.length - 1];
+    if (this.isObject(node[leaf]) && !this.isObject(value)) {
+      this.warn(`"${where}" would replace a group of tokens; skipped.`);
+      return;
+    }
+    node[leaf] = value;
+  }
+
+  private isObject(value: unknown): value is JsonObject {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
   }
 
   private get(target: JsonObject, path: string[]): unknown {

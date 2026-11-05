@@ -89,6 +89,3 @@ Show this, then ask `Approve this plan and proceed with implementation?`:
 - Off-scale choices are documented.
 - Hover, focus-visible and active states have keyboard parity, and reduced motion is respected.
 - The pattern and styles are registered, and the pattern renders without errors.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

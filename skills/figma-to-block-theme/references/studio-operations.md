@@ -32,7 +32,9 @@ Don't judge a pattern by reading its markup. Render it with representative data 
 $post = get_post( <id> );
 setup_postdata( $GLOBALS['post'] = $post );
 // For products: wc_setup_product_data( $post );
-$html = do_blocks( file_get_contents( get_theme_file_path( 'patterns/<file>.php' ) ) );
+// Render the registered content, so the pattern's PHP (translations, dynamic values) has run.
+$pattern = WP_Block_Patterns_Registry::get_instance()->get_registered( '<theme>/<pattern-slug>' );
+$html    = do_blocks( $pattern['content'] );
 echo str_contains( $html, '<expected text>' ) ? "ok\n" : "missing\n";
 ```
 
@@ -41,6 +43,3 @@ Check that the key strings (title, price, attribute value, button, style class) 
 ## Visual checks
 
 When a browser check is needed, compare the editor and the front end with the Figma screenshot at the 390px and 1440px frame widths. Check hover and focus-visible states with the keyboard.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

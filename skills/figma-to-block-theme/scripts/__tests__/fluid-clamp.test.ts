@@ -79,6 +79,10 @@ describe('FluidClamp', () => {
   it('rejects invalid options and values', () => {
     expect(() => new FluidClamp({ minViewport: 1440, maxViewport: 390 })).toThrow('maxViewport');
     expect(() => new FluidClamp({ rootSize: 0 })).toThrow('rootSize');
+    expect(() => new FluidClamp({ minViewport: Number.NaN })).toThrow(
+      'minViewport must be a number'
+    );
+    expect(() => new FluidClamp({ precision: 1.5 })).toThrow('precision');
     expect(() => calculator.clamp(Number.NaN, 4)).toThrow('min');
     expect(() => calculator.clamp(4, Infinity)).toThrow('max');
   });

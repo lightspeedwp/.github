@@ -26,7 +26,7 @@ Variables whose code syntax is `--wp--preset--font-family--<slug>` (usually `hea
 
 ### Font files
 
-Each family needs a `fontFace` array that points at WOFF2 files in the theme. For Google Fonts:
+Each family needs a `fontFace` array that points at WOFF2 files in the theme. List the families and weights in the plan, and download the files only after approval, because the script writes into the theme. For Google Fonts:
 
 ```bash
 npx tsx ${CLAUDE_SKILL_DIR}/scripts/google-fonts.ts --family "Nunito Sans" --slug body \
@@ -50,6 +50,3 @@ If the theme stores line heights under another key (for example `settings.custom
 - Every slug referenced in the theme exists in `settings.typography`.
 - Each family has `fontFace` entries whose `src` files exist.
 - The mapper counts for `font-size` and `font-family` match the Figma variables.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

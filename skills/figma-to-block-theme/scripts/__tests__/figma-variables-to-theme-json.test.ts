@@ -412,6 +412,42 @@ describe('FigmaVariablesMapper', () => {
     );
   });
 
+  it('gives custom lengths a unit and refuses unsafe or clashing paths', () => {
+    const variable = (id: string, syntax: string, value: number) => ({
+      id,
+      name: id,
+      type: 'FLOAT' as const,
+      codeSyntax: { WEB: `var(${syntax})` },
+      valuesByMode: { m: value },
+    });
+    const mapped = new FigmaVariablesMapper().map({
+      collections: [
+        {
+          name: 'Custom',
+          modes: [{ id: 'm', name: 'Value' }],
+          variables: [
+            variable('neg', '--wp--custom--spacing--negative-80', -80),
+            variable('bp', '--wp--custom--breakpoint--tablet', 768),
+            variable('evil', '--wp--custom--constructor--prototype--x', 1),
+            variable('leaf', '--wp--custom--tone--warm', 1),
+            variable('deeper', '--wp--custom--tone--warm--deep', 2),
+            variable('group', '--wp--custom--tone', 3),
+          ],
+        },
+      ],
+    });
+    const custom = (mapped.theme.settings as Json).custom;
+    const warnings = mapped.report.warnings.join('\n');
+
+    expect(custom.spacing['negative-80']).toBe('-5rem');
+    expect(custom.breakpoint.tablet).toBe('768px');
+    expect(({} as Json).x).toBeUndefined();
+    expect(warnings).toContain('"constructor--prototype--x" uses a reserved key');
+    expect(warnings).toContain('"tone--warm--deep" clashes with the value already at "warm"');
+    expect(warnings).toContain('"tone" would replace a group of tokens');
+    expect(custom.tone).toEqual({ warm: '1' });
+  });
+
   it('flags type mismatches, circular aliases and empty collections', () => {
     const mapped = new FigmaVariablesMapper().map({
       collections: [

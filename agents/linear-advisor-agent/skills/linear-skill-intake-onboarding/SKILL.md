@@ -287,5 +287,3 @@ Use these prompts to validate routing behaviour:
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!_

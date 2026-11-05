@@ -60,7 +60,7 @@ The mapper's `variations` object has one key per mode, for example `dark` or `sa
    ```
 
    In Figma, the modes live on the semantic collection (`Theme - Semantic`), not the primitives. If a primitive changes value in a mode, the mapper warns and keeps the base value.
-6. **Existing files.** If `styles/<slug>.json` exists, update only the palette and font arrays, and keep its other settings and styles.
+6. **Existing files.** If `styles/<slug>.json` exists, update the palette, the font arrays and, for a colour mode, the `settings.custom.color` token paths. Keep its other settings and styles.
 
 ## Review
 
@@ -68,6 +68,3 @@ The mapper's `variations` object has one key per mode, for example `dark` or `sa
 - All palette slugs match `theme.json`. A colour mode's palette is identical to it.
 - A colour mode replaces every `settings.custom.color` token path, and nothing else.
 - Each variation that changes fonts has `heading` and `body` families, and their `fontFace` files exist.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

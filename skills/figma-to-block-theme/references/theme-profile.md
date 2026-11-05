@@ -31,6 +31,3 @@ Build this before any mode, every time. Probe the repository; never assume a lay
 - Reference colours the way the authored UI does.
 - Match the existing pattern and style layouts.
 - Run the enforcement pass that fits the colour model.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -67,6 +67,3 @@ Run the theme's own checks (for example `npm run schema:validate` and `npm run t
 2. Blocks audited
 3. Additions by file, each with its basis
 4. Held for review
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

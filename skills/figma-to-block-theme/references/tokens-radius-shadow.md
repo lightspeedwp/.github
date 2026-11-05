@@ -25,6 +25,3 @@ Shadows come from Figma **effect styles**, not variables. The export includes th
 The mapper sets `defaultPresets: false`, so the core shadow presets don't appear next to the theme's. Keep `true` only if the user asks.
 
 A shadow colour taken from a variable resolves to its value at export time. If the dark mode needs different shadows, add them to `styles/dark.json` only where the dark surface needs a different treatment.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

@@ -45,6 +45,19 @@ export class FluidClamp {
     this.rootSize = options.rootSize ?? 16;
     this.precision = options.precision ?? 3;
 
+    for (const [name, value] of Object.entries({
+      minViewport: this.minViewport,
+      maxViewport: this.maxViewport,
+      rootSize: this.rootSize,
+      precision: this.precision,
+    })) {
+      if (!Number.isFinite(value)) {
+        throw new Error(`${name} must be a number.`);
+      }
+    }
+    if (!Number.isInteger(this.precision) || this.precision < 0) {
+      throw new Error('precision must be a whole number of 0 or more.');
+    }
     if (this.maxViewport <= this.minViewport) {
       throw new Error('maxViewport must be larger than minViewport.');
     }

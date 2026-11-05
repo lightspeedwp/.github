@@ -51,6 +51,3 @@ Variables whose code syntax is `--wp--custom--color--<group>--<role>` become nes
 - A raw colour in a semantic token raises a warning. Ask whether it should alias a palette colour instead.
 - Prefer role names (`text`, `surface`, `border`, `icon`, `button`, `form`) to appearance names (`blue-dark`). Flag appearance names.
 - In a semantic theme, every token path in `theme.json` needs the same path in `styles/dark.json`. The mapper's `Dark` variation provides those values from the semantic collection's Dark mode. List any token without a dark value.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

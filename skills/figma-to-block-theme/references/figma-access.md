@@ -99,6 +99,3 @@ Some files document tokens as a table frame instead of defining variables. Use t
 2. For each row, take the slug from the **Code Syntax** column and the value from the row. Ignore group prefixes such as "Global".
 3. Compare the row count with the frame's "Total variables" note, if there is one, and re-read the table if they differ.
 4. Write the rows in the export shape above (one mode per value column), then run the mapper as normal, so both routes share the same rules and warnings.
-
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
