@@ -81,7 +81,7 @@ The user may skip a family or re-run one with a different Figma node.
 
 ## Mode: Pattern
 
-Read [references/patterns.md](references/patterns.md), plus [references/woocommerce.md](references/woocommerce.md) for store designs. In short:
+Read [references/patterns.md](references/patterns.md), plus [references/woocommerce.md](references/woocommerce.md) for store designs. For a rebuild, start from the `manifest.json` that `site-to-figma-components` writes: it names each Figma node's pattern, part or template file. In short:
 
 1. Read the Figma node through `figma-design-to-code` (context plus screenshot).
 2. Map every value to the closest existing token, and call out off-scale choices.

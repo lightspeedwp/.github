@@ -81,6 +81,15 @@ Show this, then ask `Approve this plan and proceed with implementation?`:
 6. Seed any local test data with WP-CLI, labelled as local data rather than theme code.
 7. Verify by rendering, as in [studio-operations.md](studio-operations.md). Update `CHANGELOG.md`.
 
+## From a component manifest
+
+A rebuild that ran `site-to-figma-components` hands over `manifest.json`. Use it instead of choosing nodes, names and targets by hand:
+
+1. Work through `entries` in order: components, template parts, patterns, then templates, so styles exist before the patterns that use them. Skip `skipped` entries.
+2. For each entry, read `figma.nodeId` (and `figma.mobileNodeId` for the 390px layout) through `figma-design-to-code`, then follow steps 2 to 9 above.
+3. Use the targets as given: `wordpress.file` as the path, `wordpress.slug` as the pattern or part slug, `wordpress.block` as the main block, and `wordpress.styles` as the block styles to create. The plan can question a target, but don't rename silently.
+4. Write templates last, from `composition`: `<!-- wp:template-part {"slug":"header"} /-->` for parts, `<!-- wp:pattern {"slug":"<theme>/<slug>"} /-->` for patterns, and inline blocks for `local` entries.
+
 ## Checklist
 
 - Paths, colour model and motion layer come from the real repository.
