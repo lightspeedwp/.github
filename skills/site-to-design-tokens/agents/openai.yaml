@@ -1,4 +1,4 @@
 interface:
-  display_name: "Site to Design Tokens"
+  display_name: 'Site to Design Tokens'
   short_description: "Propose rebuild tokens from a live website's styles"
-  default_prompt: "Use $site-to-design-tokens to crawl the live site, propose colour ramps, semantic tokens and type and spacing scales in the LightSpeed structure, and create the Figma variables once approved."
+  default_prompt: 'Use $site-to-design-tokens to crawl the live site, propose colour ramps, semantic tokens and type and spacing scales in the LightSpeed structure, and create the Figma variables once approved.'

@@ -60,7 +60,12 @@ describe('TokenPlanBuilder', () => {
     ).toEqual(['FRAME_FILL', 'SHAPE_FILL']);
     for (const c of plan.collections) {
       for (const v of c.variables) {
-        expect(PRESET.test(v.codeSyntax) || CUSTOM.test(v.codeSyntax)).toBe(true);
+        if (v.name === 'Padding/None') {
+          // Figma only: WordPress already offers a 0 spacing.
+          expect(v.codeSyntax).toBeUndefined();
+          continue;
+        }
+        expect(PRESET.test(v.codeSyntax!) || CUSTOM.test(v.codeSyntax!)).toBe(true);
       }
     }
   });

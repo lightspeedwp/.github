@@ -20,7 +20,8 @@ export interface PlannedVariable {
   key: string;
   name: string;
   type: 'COLOR' | 'FLOAT' | 'STRING';
-  codeSyntax: string;
+  /** Absent for Figma-only variables, which the theme does not import. */
+  codeSyntax?: string;
   scopes: string[];
   values: Record<string, Value>;
   description?: string;
@@ -194,7 +195,10 @@ export class TokenPlanBuilder {
       key: `spacing-${s.slug}`,
       name: `Padding/${s.name}`,
       type: 'FLOAT',
-      codeSyntax: preset('spacing', s.slug),
+      // WordPress already offers a 0 spacing, so None stays in Figma only.
+      ...(s.slug === 'none'
+        ? { description: 'Figma only. WordPress has its own 0 spacing, so this is not imported.' }
+        : { codeSyntax: preset('spacing', s.slug) }),
       scopes: ['GAP'],
       values: { Max: s.max, Min: s.min },
     }));
@@ -278,7 +282,7 @@ export class ExportWriter {
           id: id(v.key),
           name: v.name,
           type: v.type,
-          codeSyntax: { WEB: v.codeSyntax },
+          codeSyntax: v.codeSyntax ? { WEB: v.codeSyntax } : {},
           valuesByMode: Object.fromEntries(
             Object.entries(v.values).map(([mode, value]) => [
               `${c.name}:${mode}`,
@@ -324,7 +328,7 @@ for (const col of DATA.collections) {
   for (const v of col.variables) {
     const variable = figma.variables.createVariable(v.name, collection, v.type);
     variable.scopes = v.scopes;
-    variable.setVariableCodeSyntax('WEB', v.codeSyntax);
+    if (v.codeSyntax) variable.setVariableCodeSyntax('WEB', v.codeSyntax);
     if (v.description) variable.description = v.description;
     byKey[v.key] = variable;
   }

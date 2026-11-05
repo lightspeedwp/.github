@@ -84,12 +84,12 @@ Post the proposal summary, the decisions taken and the created collections on th
 
 TypeScript run with `tsx` (`npx tsx <script> --help`). Tests are in `scripts/__tests__/`: run `npm run test:site-to-design-tokens` from the repository root.
 
-| Script | Does |
-| --- | --- |
-| `scripts/crawl-site-styles.ts` | Records computed styles by element role at each viewport, with Puppeteer |
-| `scripts/propose-tokens.ts` | Builds the proposal JSON and the Markdown report |
-| `scripts/write-token-export.ts` | Writes the variables export and the `use_figma` script |
-| `scripts/lib/color.ts` | OKLCH conversion, WCAG contrast and ramp building |
+| Script                          | Does                                                                     |
+| ------------------------------- | ------------------------------------------------------------------------ |
+| `scripts/crawl-site-styles.ts`  | Records computed styles by element role at each viewport, with Puppeteer |
+| `scripts/propose-tokens.ts`     | Builds the proposal JSON and the Markdown report                         |
+| `scripts/write-token-export.ts` | Writes the variables export and the `use_figma` script                   |
+| `scripts/lib/color.ts`          | OKLCH conversion, WCAG contrast and ramp building                        |
 
 *Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
 [Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

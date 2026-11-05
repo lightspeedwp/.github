@@ -209,8 +209,6 @@ function mode<T>(values: Array<{ value: T; weight?: number }>): T | undefined {
 const FIT_HUE_TOLERANCE = 25;
 const FIT_MIN_CHROMA = 0.025;
 const FIT_NEUTRAL_CHROMA = 0.04;
-/** Below this chroma a grey's hue is noise and is not compared. */
-const FIT_NEUTRAL_HUE_CHROMA = 0.015;
 const FIT_LIGHTNESS_TOLERANCE = 0.04;
 
 export class TokenProposer {
@@ -519,13 +517,11 @@ export class TokenProposer {
   /** Hue and chroma part of the fits test. */
   private fitsRamp(o: { l: number; c: number; h: number }, anchor: Anchor): boolean {
     const a = Color.parse(anchor.hex)!.toOklch();
-    const hueGap = Math.min(Math.abs(o.h - a.h), 360 - Math.abs(o.h - a.h));
     if (anchor.family === 'neutral') {
-      // A visibly tinted grey must share the ramp's tint: a slate grey does not fit a warm ramp.
-      return (
-        o.c <= FIT_NEUTRAL_CHROMA && (o.c < FIT_NEUTRAL_HUE_CHROMA || hueGap <= FIT_HUE_TOLERANCE)
-      );
+      // Any site grey fits, whatever its tint: the ramp should match the site's own greys.
+      return o.c <= FIT_NEUTRAL_CHROMA;
     }
+    const hueGap = Math.min(Math.abs(o.h - a.h), 360 - Math.abs(o.h - a.h));
     return (
       o.c >= FIT_MIN_CHROMA && hueGap <= FIT_HUE_TOLERANCE && o.c >= a.c * 0.4 && o.c <= a.c * 1.6
     );

@@ -380,6 +380,14 @@ describe('TokenProposer.fitSiteColours', () => {
     expect(l).toEqual([...l].sort((a, b) => b - a));
   });
 
+  it('fits a slate site grey into a warm neutral ramp, so the ramp follows the site', () => {
+    const t = new TokenProposer();
+    const { primitives, anchors } = setup();
+    t.fitSiteColours([evidence('#374750', 5)], primitives, anchors, []);
+    const slug = Object.entries(primitives).find(([, v]) => v === '#374750')?.[0];
+    expect(slug).toMatch(/^neutral-/);
+  });
+
   it('puts a warm site colour in the brand ramp', () => {
     const t = new TokenProposer();
     const { primitives, anchors } = setup();
@@ -394,14 +402,8 @@ describe('TokenProposer.fitSiteColours', () => {
     const before = { ...primitives };
     // Strongly saturated blue: too chromatic for neutral and a different hue from brand.
     // Also pale pink: wrong hue for brand. Also near-black: no step within tolerance.
-    // Also a slate grey: low chroma, but tinted blue against a warm neutral ramp.
     t.fitSiteColours(
-      [
-        evidence('#0057ff', 9),
-        evidence('#ffd6e0', 2),
-        evidence('#0a0a0a', 1),
-        evidence('#374750', 5),
-      ],
+      [evidence('#0057ff', 9), evidence('#ffd6e0', 2), evidence('#0a0a0a', 1)],
       primitives,
       anchors,
       []

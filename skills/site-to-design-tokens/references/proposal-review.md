@@ -27,11 +27,11 @@ Each role, its primitive and its value, with `site: …` when it came from the l
 
 The 40 most used live colours with their nearest token:
 
-| Match | Means | Action |
-| --- | --- | --- |
-| exact | Identical, or a difference below 0.5 | None |
-| near | A small visible difference, below 6 | Accept, or move the token if the colour is important |
-| none | No close token | Decide whether it's a one-off (accept the nearest role token) or needs a new primitive (reviewer's approval) |
+| Match | Means                                | Action                                                                                                       |
+| ----- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| exact | Identical, or a difference below 0.5 | None                                                                                                         |
+| near  | A small visible difference, below 6  | Accept, or move the token if the colour is important                                                         |
+| none  | No close token                       | Decide whether it's a one-off (accept the nearest role token) or needs a new primitive (reviewer's approval) |
 
 ## Contrast
 
