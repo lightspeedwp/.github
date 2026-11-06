@@ -153,6 +153,34 @@ describe('ManifestBuilder', () => {
     expect(md).toContain('(instance 3)\n');
   });
 
+  it.each(['pattern:missing', 'unknown:Section', 'local:Section'])(
+    'rejects unresolved composition section %s',
+    (id) => {
+      const inv = approved();
+      const nodes = allNodes(inv);
+      nodes.nodes['template:front-page'].composition = [id];
+      expect(() => new ManifestBuilder(now).build(inv, nodes)).toThrow(
+        `unresolved composition section ${id}`
+      );
+    }
+  );
+
+  it('warns about an equal-count reorder and keeps the built order', () => {
+    const inv = approved();
+    const nodes = allNodes(inv);
+    const reordered = [
+      ...inv.items.find((i) => i.id === 'template:front-page')!.composition!,
+    ].reverse();
+    nodes.nodes['template:front-page'].composition = reordered;
+    const m = new ManifestBuilder(now).build(inv, nodes);
+    expect(
+      m.entries.find((e) => e.id === 'template:front-page')!.composition!.map((s) => s.id)
+    ).toEqual(reordered);
+    expect(m.warnings).toEqual([
+      'template:front-page: the Figma section order differs from the live page. The manifest follows Figma; list the difference for the reviewer.',
+    ]);
+  });
+
   it('flags targets that already exist in the theme', () => {
     const inv = approved();
     const m = new ManifestBuilder(now).build(
@@ -168,6 +196,18 @@ describe('ManifestBuilder', () => {
       'part:header: parts/header.html already exists in the theme. Pattern mode must replace or rename it, not reuse it as is.',
     ]);
     expect(new ManifestBuilder(now).markdown(m)).toContain('parts/header.html (exists)');
+    expect(header.wordpress).not.toBe(inv.items.find((i) => i.id === 'part:header')!.wordpress);
+    const rebuilt = new ManifestBuilder(now).build(inv, allNodes(inv), false, () => false);
+    const unchecked = new ManifestBuilder(now).build(inv, allNodes(inv));
+    for (const result of [rebuilt, unchecked]) {
+      expect(
+        result.entries.find((e) => e.id === 'part:header')!.wordpress.existsInTheme
+      ).toBeUndefined();
+      expect(result.warnings).toEqual([]);
+    }
+    expect(inv.items.find((i) => i.id === 'part:header')!.wordpress).not.toHaveProperty(
+      'existsInTheme'
+    );
   });
 
   it('only requires nodes for items in the approved build scope', () => {

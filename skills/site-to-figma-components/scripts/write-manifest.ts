@@ -192,7 +192,7 @@ export class ManifestBuilder {
         name: item.figmaName,
         url: `https://www.figma.com/design/${fileKey}/?node-id=${ref.nodeId.replace(':', '-')}`,
       },
-      wordpress: item.wordpress,
+      wordpress: { ...item.wordpress },
       sourcePages: item.pages,
     };
     if (ref.mobileNodeId) {
@@ -213,8 +213,13 @@ export class ManifestBuilder {
       }
       entry.composition = sections.map(({ id, overrides }) => {
         const part = byId.get(id);
+        if (!part) {
+          throw new Error(
+            `${item.id}: unresolved composition section ${id}. Resolve it to an inventory item before writing the manifest.`
+          );
+        }
         const out: CompositionEntry =
-          !part || part.status === 'cut'
+          part.status === 'cut'
             ? { id, target: 'local' }
             : {
                 id,
@@ -255,14 +260,21 @@ export class ManifestBuilder {
       list.reduce((m, s) => m.set(s.id, (m.get(s.id) ?? 0) + 1), new Map<string, number>());
     const want = count(crawled ?? []);
     const have = count(built);
+    let countsDiffer = false;
     for (const id of new Set([...want.keys(), ...have.keys()])) {
       const w = want.get(id) ?? 0;
       const h = have.get(id) ?? 0;
       if (w !== h) {
+        countsDiffer = true;
         warnings.push(
           `${item.id}: the Figma template has ${h} × ${id}, the live page had ${w}. The manifest follows Figma; list the difference for the reviewer.`
         );
       }
+    }
+    if (!countsDiffer && crawled && crawled.some((s, n) => s.id !== built[n].id)) {
+      warnings.push(
+        `${item.id}: the Figma section order differs from the live page. The manifest follows Figma; list the difference for the reviewer.`
+      );
     }
     return built;
   }
