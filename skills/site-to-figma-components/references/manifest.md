@@ -29,7 +29,7 @@ Assemble it from the IDs each `use_figma` build call returns:
 
 Use the component set's ID for components, and the 1440px frame (`nodeId`) and 390px frame (`mobileNodeId`) for parts, patterns and templates.
 
-For each template, record `composition`: the built frame's sections in order, read from Figma with the snippet in [figma-build.md](figma-build.md#record-node-ids). The manifest follows it rather than the crawl, because the reviewer may have dropped or added sections. An entry is an inventory ID, or `{ id, overrides }` when the instance's text differs from the pattern's own (for example its heading).
+For each template, record `composition`: the built frame's sections in order, read from Figma with the snippet in [figma-build.md](figma-build.md#record-node-ids). The manifest follows it rather than the crawl, because the reviewer may have dropped or added sections. An entry is an inventory ID, or `{ id, overrides }` when the instance's text properties differ from the pattern's defaults. `overrides` holds every changed `TEXT` property, keyed by its full Figma property name. The writer refuses any ID that isn't in the inventory, including `unknown:` and `local:` entries, so resolve them first.
 
 ## manifest.json
 
@@ -74,9 +74,9 @@ The writer refuses an unapproved inventory, a node ID not in the form `123:456`,
 - nodes for cut or unknown items
 - templates that change at 390px but have no mobile frame
 - templates with no recorded `composition` (the crawled order is used instead)
-- a built composition that differs from the live page, item by item (list each for the reviewer)
+- a built composition that differs from the live page, item by item or in section order (list each for the reviewer)
 - targets that already exist in the theme (with `--theme-dir`)
 
 ## How Pattern mode uses it
 
-`figma-to-block-theme` Pattern mode reads `manifest.json` in entry order. For each entry it reads the node with `figma-design-to-code`, writes the file named in `wordpress.file`, and uses `wordpress.slug`, `block` and `styles` as given. Templates are written last, from their `composition`: `<!-- wp:template-part {"slug":"header"} /-->` for parts and `<!-- wp:pattern {"slug":"tsp-theme/hero"} /-->` for patterns. An instance with `overrides` is written inline, because a theme pattern reference can't change its text. A target that `existsInTheme` is replaced or renamed after review, never reused as it is.
+`figma-to-block-theme` Pattern mode reads `manifest.json` in entry order. For each entry it reads the node with `figma-design-to-code`, writes the file named in `wordpress.file`, and uses `wordpress.slug`, `block` and `styles` as given. Templates are written last, from their `composition`: `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->` for parts, with each part's own landmark tag and `<!-- wp:pattern {"slug":"tsp-theme/hero"} /-->` for patterns. An instance with `overrides` is written inline, because a theme pattern reference can't change its text. A target that `existsInTheme` is replaced or renamed after review, never reused as it is.

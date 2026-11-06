@@ -91,17 +91,10 @@ A rebuild that ran `site-to-figma-components` hands over `manifest.json`. Use it
 4. Use the targets as given: `wordpress.file` as the path, `wordpress.slug` as the pattern or part slug, `wordpress.block` as the main block, and `wordpress.styles` as the block styles to create. The plan can question a target, but don't rename silently.
 5. When `wordpress.existsInTheme` is set, the file already holds something else (often a scaffold pattern with the same slug). The plan says whether to replace it or rename the new one. Never leave the old file in place and reference it from a template.
 6. Write templates last, from `composition`:
-
-   <!-- coderabbit-ai-generated:v1 -->
-
-   <!-- coderabbit-ai-generated-section:v1:1c1fb133e4aec5ff3514be04e443311dab80beefd00d7ca4895d4dc0ba3d4a9a -->
-
    - `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->` for the header part
    - `<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->` for the footer part; use each part's matching landmark tag
-
-   <!-- /coderabbit-ai-generated:v1 -->
    - `<!-- wp:pattern {"slug":"<theme>/<slug>"} /-->` for patterns without `overrides`
-   - the pattern's blocks inline, with the override text, for an instance with `overrides` (a pattern reference can't change its content, so four card grids would otherwise share one heading)
+   - the pattern's blocks inline, with every override value applied to its matching text, for an instance with `overrides` (a pattern reference can't change its content, so four card grids would otherwise share one heading)
    - inline blocks for `local` entries
    - everything between the header and footer parts wrapped in `<!-- wp:group {"tagName":"main"} -->`, so the template has a main landmark
 

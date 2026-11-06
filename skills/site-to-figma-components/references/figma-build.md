@@ -38,10 +38,6 @@ After each call, add the IDs to `figma-nodes.json`: the component set for compon
 
 When a template is final, record its `composition` with one read-only call. Each built component's description names its inventory ID (`Inventory id pattern:card-grid`), so the sections map back without guessing:
 
-<!-- coderabbit-ai-generated:v1 -->
-
-<!-- coderabbit-ai-generated-section:v1:de735dea8937060a53411a8f34e8a1a13daf1a1e87bd348df9324ad59c622b22 -->
-
 ```js
 const frame = await figma.getNodeByIdAsync('TEMPLATE_FRAME_ID');
 const out = [];
@@ -66,8 +62,6 @@ return out;
 Expose every overridable text node as a `TEXT` component property, including nested text needed by templates. Compare all exposed text properties with their source defaults and keep the full property names (including Figma's ID suffix) as override keys, so repeated labels stay distinct. Pattern mode must apply every recorded value to its matching property when writing inline blocks.
 
 Resolve any `unknown:` or `local:` entry before writing the manifest. An instance whose main component is unavailable is recorded as `unknown:<instance ID>` for review; the scan continues. Resolve local sections to identified inventory items (cut items remain local in the manifest).
-
-<!-- /coderabbit-ai-generated:v1 -->
 
 ## Archive, never delete
 

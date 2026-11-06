@@ -125,6 +125,14 @@ export class ManifestBuilder {
           errors.push(`${id} has an invalid node ID "${nodeId}"; expected the form 123:456.`);
         }
       }
+      for (const section of ref.composition ?? []) {
+        const sectionId = typeof section === 'string' ? section : section.id;
+        if (!byId.has(sectionId)) {
+          errors.push(
+            `${id}: unresolved composition section ${sectionId}. Resolve it to an inventory item before writing the manifest.`
+          );
+        }
+      }
     }
 
     const entries: ManifestEntry[] = [];
@@ -212,14 +220,10 @@ export class ManifestBuilder {
         totals.set(s.id, (totals.get(s.id) ?? 0) + 1);
       }
       entry.composition = sections.map(({ id, overrides }) => {
+        // An unknown ID is already an error, and build() throws before returning.
         const part = byId.get(id);
-        if (!part) {
-          throw new Error(
-            `${item.id}: unresolved composition section ${id}. Resolve it to an inventory item before writing the manifest.`
-          );
-        }
         const out: CompositionEntry =
-          part.status === 'cut'
+          !part || part.status === 'cut'
             ? { id, target: 'local' }
             : {
                 id,
