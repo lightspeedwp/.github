@@ -36,6 +36,33 @@ Use real site content throughout: headings, labels, excerpts, meta and images fr
 
 After each call, add the IDs to `figma-nodes.json`: the component set for components; the set and its `Breakpoint=Mobile` variant (`mobileNodeId`) for parts and patterns; the 1440 frame and the 390 frame for templates. See [manifest.md](manifest.md).
 
+When a template is final, record its `composition` with one read-only call. Each built component's description names its inventory ID (`Inventory id pattern:card-grid`), so the sections map back without guessing:
+
+```js
+const frame = await figma.getNodeByIdAsync('TEMPLATE_FRAME_ID');
+const out = [];
+for (const child of frame.children) {
+  if (child.type !== 'INSTANCE') { out.push({ id: `local:${child.name}` }); continue; }
+  const main = await child.getMainComponentAsync();
+  if (!main) { out.push({ id: `unknown:${child.id}` }); continue; }
+  const owner = main.parent?.type === 'COMPONENT_SET' ? main.parent : main;
+  const id = /Inventory id ([\w:-]+)/.exec(owner.description)?.[1] ?? `unknown:${owner.name}`;
+  const overrides = {};
+  const definitions = owner.componentPropertyDefinitions;
+  for (const [name, property] of Object.entries(child.componentProperties)) {
+    if (property.type === 'TEXT' && property.value !== definitions[name]?.defaultValue) {
+      overrides[name] = property.value;
+    }
+  }
+  out.push(Object.keys(overrides).length ? { id, overrides } : id);
+}
+return out;
+```
+
+Expose every overridable text node as a `TEXT` component property, including nested text needed by templates. Compare all exposed text properties with their source defaults and keep the full property names (including Figma's ID suffix) as override keys, so repeated labels stay distinct. Pattern mode must apply every recorded value to its matching property when writing inline blocks.
+
+Resolve any `unknown:` or `local:` entry before writing the manifest. An instance whose main component is unavailable is recorded as `unknown:<instance ID>` for review; the scan continues. Resolve local sections to identified inventory items (cut items remain local in the manifest).
+
 ## Archive, never delete
 
 `node.remove()` is blocked. Move superseded items to an archive page, grouped in sections, and check the destinations of prototype links before moving anything.

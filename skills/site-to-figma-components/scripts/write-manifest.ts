@@ -6,13 +6,17 @@
  *
  * Usage:
  *   npx tsx write-manifest.ts inventory.json --nodes figma-nodes.json \
- *     --out manifest.json --markdown manifest.md [--partial]
+ *     --out manifest.json --markdown manifest.md [--theme-dir ../my-theme] [--partial]
  *
  * figma-nodes.json is assembled from the IDs the use_figma build calls return:
  *   { "fileKey": "abc", "nodes": { "component:button": { "nodeId": "12:34", "page": "> Components" } } }
+ * A template's ref can also carry `composition`, read from the built frame's
+ * children, so the manifest follows what was built rather than the crawl.
+ * --theme-dir flags targets that already exist in the theme.
  */
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import type { Inventory, InventoryItem, Kind, WpTarget } from './propose-inventory';
 
@@ -21,6 +25,16 @@ export interface FigmaNodeRef {
   /** The 390px frame, for templates and patterns whose layout changes on mobile. */
   mobileNodeId?: string;
   page?: string;
+  /**
+   * Templates only: the built frame's sections in order, each an inventory ID
+   * or `{ id, overrides }` with the instance's changed text (for example its heading).
+   */
+  composition?: (string | BuiltSection)[];
+}
+
+export interface BuiltSection {
+  id: string;
+  overrides?: Record<string, string>;
 }
 
 export interface FigmaNodes {
@@ -34,6 +48,10 @@ export interface CompositionEntry {
   target: 'template-part' | 'pattern' | 'local';
   slug?: string;
   file?: string;
+  /** 1-based count when the same pattern appears more than once in the template. */
+  instance?: number;
+  /** Text that differs from the pattern's own content in this instance. */
+  overrides?: Record<string, string>;
 }
 
 export interface ManifestEntry {
@@ -48,7 +66,7 @@ export interface ManifestEntry {
     page?: string;
     url: string;
   };
-  wordpress: WpTarget;
+  wordpress: WpTarget & { existsInTheme?: boolean };
   variantProperties?: Record<string, string[]>;
   composition?: CompositionEntry[];
   sourcePages: string[];
@@ -72,7 +90,12 @@ const ORDER: Kind[] = ['component', 'template-part', 'pattern', 'template'];
 export class ManifestBuilder {
   constructor(private readonly now: () => Date = () => new Date()) {}
 
-  build(inventory: Inventory, figma: FigmaNodes, partial = false): Manifest {
+  build(
+    inventory: Inventory,
+    figma: FigmaNodes,
+    partial = false,
+    existsInTheme?: (file: string) => boolean
+  ): Manifest {
     if (!inventory.approved) {
       throw new Error(
         'The inventory is not approved. Apply the reviewer decisions with "approve": true first.'
@@ -102,6 +125,14 @@ export class ManifestBuilder {
           errors.push(`${id} has an invalid node ID "${nodeId}"; expected the form 123:456.`);
         }
       }
+      for (const section of ref.composition ?? []) {
+        const sectionId = typeof section === 'string' ? section : section.id;
+        if (!byId.has(sectionId)) {
+          errors.push(
+            `${id}: unresolved composition section ${sectionId}. Resolve it to an inventory item before writing the manifest.`
+          );
+        }
+      }
     }
 
     const entries: ManifestEntry[] = [];
@@ -123,7 +154,14 @@ export class ManifestBuilder {
       if (item.kind === 'template' && item.mobileLayoutChanges && !ref.mobileNodeId) {
         warnings.push(`${item.id} changes layout at 390px but has no mobile frame.`);
       }
-      entries.push(this.entry(item, ref, figma.fileKey, byId));
+      const entry = this.entry(item, ref, figma.fileKey, byId, warnings);
+      if (existsInTheme && entry.wordpress.file && existsInTheme(entry.wordpress.file)) {
+        entry.wordpress.existsInTheme = true;
+        warnings.push(
+          `${item.id}: ${entry.wordpress.file} already exists in the theme. Pattern mode must replace or rename it, not reuse it as is.`
+        );
+      }
+      entries.push(entry);
     }
     if (errors.length) {
       throw new Error(errors.join('\n'));
@@ -149,7 +187,8 @@ export class ManifestBuilder {
     item: InventoryItem,
     ref: FigmaNodeRef,
     fileKey: string,
-    byId: Map<string, InventoryItem>
+    byId: Map<string, InventoryItem>,
+    warnings: string[]
   ): ManifestEntry {
     const entry: ManifestEntry = {
       id: item.id,
@@ -161,7 +200,7 @@ export class ManifestBuilder {
         name: item.figmaName,
         url: `https://www.figma.com/design/${fileKey}/?node-id=${ref.nodeId.replace(':', '-')}`,
       },
-      wordpress: item.wordpress,
+      wordpress: { ...item.wordpress },
       sourcePages: item.pages,
     };
     if (ref.mobileNodeId) {
@@ -173,21 +212,75 @@ export class ManifestBuilder {
     if (Object.keys(item.variantProperties).length) {
       entry.variantProperties = item.variantProperties;
     }
-    if (item.composition) {
-      entry.composition = item.composition.map((id) => {
+    const sections = this.sections(item, ref, warnings);
+    if (sections) {
+      const seen = new Map<string, number>();
+      const totals = new Map<string, number>();
+      for (const s of sections) {
+        totals.set(s.id, (totals.get(s.id) ?? 0) + 1);
+      }
+      entry.composition = sections.map(({ id, overrides }) => {
+        // An unknown ID is already an error, and build() throws before returning.
         const part = byId.get(id);
-        if (!part || part.status === 'cut') {
-          return { id, target: 'local' };
+        const out: CompositionEntry =
+          !part || part.status === 'cut'
+            ? { id, target: 'local' }
+            : {
+                id,
+                target: part.kind === 'template-part' ? 'template-part' : 'pattern',
+                slug: part.wordpress.slug,
+                file: part.wordpress.file,
+              };
+        if (totals.get(id)! > 1) {
+          seen.set(id, (seen.get(id) ?? 0) + 1);
+          out.instance = seen.get(id);
         }
-        return {
-          id,
-          target: part.kind === 'template-part' ? 'template-part' : 'pattern',
-          slug: part.wordpress.slug,
-          file: part.wordpress.file,
-        };
+        if (overrides && Object.keys(overrides).length) {
+          out.overrides = overrides;
+        }
+        return out;
       });
     }
     return entry;
+  }
+
+  /** The built composition when Figma recorded one, otherwise the crawled one. */
+  private sections(
+    item: InventoryItem,
+    ref: FigmaNodeRef,
+    warnings: string[]
+  ): BuiltSection[] | undefined {
+    const crawled = item.composition?.map((id) => ({ id }));
+    if (!ref.composition) {
+      if (crawled && item.kind === 'template') {
+        warnings.push(
+          `${item.id} has no built composition in figma-nodes.json; using the crawled order. Record the template frame's sections.`
+        );
+      }
+      return crawled;
+    }
+    const built = ref.composition.map((s) => (typeof s === 'string' ? { id: s } : s));
+    const count = (list: BuiltSection[]) =>
+      list.reduce((m, s) => m.set(s.id, (m.get(s.id) ?? 0) + 1), new Map<string, number>());
+    const want = count(crawled ?? []);
+    const have = count(built);
+    let countsDiffer = false;
+    for (const id of new Set([...want.keys(), ...have.keys()])) {
+      const w = want.get(id) ?? 0;
+      const h = have.get(id) ?? 0;
+      if (w !== h) {
+        countsDiffer = true;
+        warnings.push(
+          `${item.id}: the Figma template has ${h} × ${id}, the live page had ${w}. The manifest follows Figma; list the difference for the reviewer.`
+        );
+      }
+    }
+    if (!countsDiffer && crawled && crawled.some((s, n) => s.id !== built[n].id)) {
+      warnings.push(
+        `${item.id}: the Figma section order differs from the live page. The manifest follows Figma; list the difference for the reviewer.`
+      );
+    }
+    return built;
   }
 
   markdown(m: Manifest): string {
@@ -208,7 +301,8 @@ export class ManifestBuilder {
           .filter(Boolean)
           .join(', ');
         const node = `[${e.figma.nodeId}](${e.figma.url})${e.figma.mobileNodeId ? ` (mobile ${e.figma.mobileNodeId})` : ''}`;
-        return `| ${e.kind} | ${e.name} | ${node} | ${target} | ${e.wordpress.file ?? ''} |`;
+        const file = `${e.wordpress.file ?? ''}${e.wordpress.existsInTheme ? ' (exists)' : ''}`;
+        return `| ${e.kind} | ${e.name} | ${node} | ${target} | ${file} |`;
       }),
       '',
     ];
@@ -218,10 +312,18 @@ export class ManifestBuilder {
       for (const t of templates) {
         lines.push(`### ${t.name} (\`${t.wordpress.file}\`)`, '');
         lines.push(
-          ...t.composition!.map(
-            (c, n) =>
-              `${n + 1}. ${c.target === 'local' ? `${c.id} (local section, no pattern)` : `${c.target} \`${c.slug}\``}`
-          ),
+          ...t.composition!.map((c, n) => {
+            const what =
+              c.target === 'local'
+                ? `${c.id} (local section, no pattern)`
+                : `${c.target} \`${c.slug}\`${c.instance ? ` (instance ${c.instance})` : ''}`;
+            const text = c.overrides
+              ? `: ${Object.entries(c.overrides)
+                  .map(([k, v]) => `${k} "${v}"`)
+                  .join(', ')}`
+              : '';
+            return `${n + 1}. ${what}${text}`;
+          }),
           ''
         );
       }
@@ -242,19 +344,21 @@ export interface ManifestCliIo {
   stdout: (text: string) => void;
   stderr: (text: string) => void;
   now?: () => Date;
+  exists?: (path: string) => boolean;
 }
 
 export function runManifestCli(argv: string[], io: ManifestCliIo): number {
   const values: Record<string, string> = { out: 'manifest.json', markdown: 'manifest.md' };
   let input: string | undefined;
   let nodes: string | undefined;
+  let themeDir: string | undefined;
   let partial = false;
   try {
     for (let i = 0; i < argv.length; i++) {
       const arg = argv[i];
       if (arg === '--help' || arg === '-h') {
         io.stdout(
-          'Usage: write-manifest inventory.json --nodes figma-nodes.json [--out manifest.json] [--markdown manifest.md] [--partial]\n'
+          'Usage: write-manifest inventory.json --nodes figma-nodes.json [--out manifest.json] [--markdown manifest.md] [--theme-dir path] [--partial]\n'
         );
         return 0;
       }
@@ -267,7 +371,7 @@ export function runManifestCli(argv: string[], io: ManifestCliIo): number {
         continue;
       }
       const key = arg.slice(2);
-      if (key !== 'nodes' && !(key in values)) {
+      if (key !== 'nodes' && key !== 'theme-dir' && !(key in values)) {
         throw new Error(`Unknown argument ${arg}.`);
       }
       const value = argv[++i];
@@ -276,6 +380,8 @@ export function runManifestCli(argv: string[], io: ManifestCliIo): number {
       }
       if (key === 'nodes') {
         nodes = value;
+      } else if (key === 'theme-dir') {
+        themeDir = value;
       } else {
         values[key] = value;
       }
@@ -287,7 +393,8 @@ export function runManifestCli(argv: string[], io: ManifestCliIo): number {
     const manifest = builder.build(
       JSON.parse(io.readFile(input)) as Inventory,
       JSON.parse(io.readFile(nodes)) as FigmaNodes,
-      partial
+      partial,
+      themeDir && io.exists ? (file) => io.exists!(join(themeDir!, file)) : undefined
     );
     io.writeFile(values.out, `${JSON.stringify(manifest, null, 2)}\n`);
     io.writeFile(values.markdown, builder.markdown(manifest));
@@ -308,5 +415,6 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     writeFile: (path, content) => writeFileSync(path, content),
     stdout: (text) => process.stdout.write(text),
     stderr: (text) => process.stderr.write(text),
+    exists: existsSync,
   });
 }

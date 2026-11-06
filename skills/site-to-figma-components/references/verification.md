@@ -20,6 +20,7 @@ Run `audit-design-system` on the build page, or this read-only scan through `use
 | Auto Layout padding and gaps | Each non-zero value has a bound variable |
 | Corner radius | Each non-zero radius is bound (component set containers set to 0) |
 | Text | Every text node has a `textStyleId`; no mixed styles |
+| Clipped text | No text is taller than a fixed-height parent that clips content (typical when a heading wraps at 390px); set the parent to hug |
 | Effects | Every effect uses an effect style |
 | Detached instances | No frame carries a component's name; every template instance has a `mainComponent` |
 | Templates | Every direct child of a template frame is an instance |

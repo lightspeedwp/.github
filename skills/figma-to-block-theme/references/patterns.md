@@ -85,10 +85,18 @@ Show this, then ask `Approve this plan and proceed with implementation?`:
 
 A rebuild that ran `site-to-figma-components` hands over `manifest.json`. Use it instead of choosing nodes, names and targets by hand:
 
-1. Work through `entries` in order: components, template parts, patterns, then templates, so styles exist before the patterns that use them. Skip `skipped` entries.
-2. For each entry, read `figma.nodeId` (and `figma.mobileNodeId` for the 390px layout) through `figma-design-to-code`, then follow steps 2 to 9 above.
-3. Use the targets as given: `wordpress.file` as the path, `wordpress.slug` as the pattern or part slug, `wordpress.block` as the main block, and `wordpress.styles` as the block styles to create. The plan can question a target, but don't rename silently.
-4. Write templates last, from `composition`: `<!-- wp:template-part {"slug":"header"} /-->` for parts, `<!-- wp:pattern {"slug":"<theme>/<slug>"} /-->` for patterns, and inline blocks for `local` entries.
+1. Run Variables mode first if the Figma variables changed during the build. The design context names presets such as a new font family, and they must exist in `theme.json` before a pattern uses them.
+2. Work through `entries` in order: components, template parts, patterns, then templates, so styles exist before the patterns that use them. Skip `skipped` entries, and read `warnings` into the plan.
+3. For each entry, read `figma.nodeId` (and `figma.mobileNodeId` for the 390px layout) through `figma-design-to-code`, then follow steps 2 to 9 above. If the Figma server asks whether to set up Code Connect, put the question to the user once for the whole manifest; don't stop at each entry.
+4. Use the targets as given: `wordpress.file` as the path, `wordpress.slug` as the pattern or part slug, `wordpress.block` as the main block, and `wordpress.styles` as the block styles to create. The plan can question a target, but don't rename silently.
+5. When `wordpress.existsInTheme` is set, the file already holds something else (often a scaffold pattern with the same slug). The plan says whether to replace it or rename the new one. Never leave the old file in place and reference it from a template.
+6. Write templates last, from `composition`:
+   - `<!-- wp:template-part {"slug":"header","tagName":"header"} /-->` for the header part
+   - `<!-- wp:template-part {"slug":"footer","tagName":"footer"} /-->` for the footer part; use each part's matching landmark tag
+   - `<!-- wp:pattern {"slug":"<theme>/<slug>"} /-->` for patterns without `overrides`
+   - the pattern's blocks inline, with every override value applied to its matching text, for an instance with `overrides` (a pattern reference can't change its content, so four card grids would otherwise share one heading)
+   - inline blocks for `local` entries
+   - everything between the header and footer parts wrapped in `<!-- wp:group {"tagName":"main"} -->`, so the template has a main landmark
 
 ## Checklist
 
