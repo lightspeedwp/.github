@@ -19,7 +19,7 @@ After replacing the sizes, update every reference in `styles`, `styles.blocks`, 
 
 ## Font families
 
-Variables whose code syntax is `--wp--preset--font-family--<slug>` (`heading`, `body`, `accent` and `monospace`) become `{ slug, name, fontFamily }`:
+Variables whose code syntax is `--wp--preset--font-family--<slug>` (`heading`, `body`, `monospace`, and `accent` only when the site has a third font) become `{ slug, name, fontFamily }`:
 
 - `name` is the font name (for example "Nunito Sans"), not the slug.
 - If the variable description holds a `CSS stack: <stack>` line (written by `site-to-design-tokens`) and its first family is the font named by the value, `fontFamily` is that exact stack.

@@ -366,7 +366,8 @@ export class FigmaVariablesMapper {
         }
         return {
           slug: target.slug,
-          name,
+          // The collection is Radius, so names are bare sizes. Old files wrote "Radius Small".
+          name: name.replace(/^Radius\s+/i, '') || name,
           size: value === 0 ? '0' : `${value}px`,
         };
       default:
