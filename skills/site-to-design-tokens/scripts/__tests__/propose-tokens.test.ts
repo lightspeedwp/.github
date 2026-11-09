@@ -328,7 +328,7 @@ describe('ProposalReport', () => {
 });
 
 describe('TokenProposer.proposeLayout', () => {
-  const capture = (kind: 'single' | 'listing', textWidths: number[]) =>
+  const capture = (kind: 'single' | 'listing', textWidths: number[], isPost = false) =>
     ({
       url: `/${kind}`,
       viewport: 1440,
@@ -336,6 +336,7 @@ describe('TokenProposer.proposeLayout', () => {
       mediaWidths: [],
       textWidths,
       pageKind: kind,
+      isPost,
     }) as never;
   const wideCards = [1240, 1240, 248, 248, 248].map((containerWidth, i) => ({
     key: `c:${i}`,
@@ -351,6 +352,34 @@ describe('TokenProposer.proposeLayout', () => {
     ]);
     expect(layout).toEqual({ content: 768, wide: 1240 });
     expect(proposer['decisions']).toEqual([]);
+  });
+
+  it('gives each page one vote, so a page full of paragraphs cannot outvote the rest', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('single', Array(26).fill(1200)),
+      capture('single', [688, 688]),
+      capture('single', [584, 584, 584]),
+    ]);
+    expect(layout.content).toBe(688);
+  });
+
+  it('prefers blog posts over other single pages', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('single', Array(26).fill(1200)),
+      capture('single', [848, 848], true),
+      capture('single', [584, 584]),
+    ]);
+    expect(layout.content).toBe(848);
+    expect(proposer['decisions']).toEqual([]);
+  });
+
+  it('asks the reviewer to decide when the content width is close to the wide width', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [capture('single', [1200, 1200])]);
+    expect(layout).toEqual({ content: 1200, wide: 1240 });
+    expect(proposer['decisions'].join(' ')).toContain('within 10% of the wide width');
   });
 
   it('warns when only listing pages have running text', () => {
