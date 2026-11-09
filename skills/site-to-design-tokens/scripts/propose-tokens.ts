@@ -177,7 +177,7 @@ export interface Proposal {
   matches: MatchRow[];
   contrast: ContrastRow[];
   typography: {
-    families: Record<FontRoleSlug, FontRole>;
+    families: Record<Exclude<FontRoleSlug, 'accent'>, FontRole> & { accent?: FontRole };
     sizes: ScaleEntry[];
     weights: Record<string, number>;
   };
@@ -958,7 +958,7 @@ export class TokenProposer {
   proposeFamilies(
     samples: Array<ElementSample & { page: string }>,
     textRoles: string[]
-  ): Record<FontRoleSlug, FontRole> {
+  ): Proposal['typography']['families'] {
     const text = samples.filter((s) => textRoles.includes(s.role) && s.fontFamily);
     const isMono = (s: ElementSample) =>
       /\bmonospace\b/i.test(s.fontStack ?? '') ||
@@ -1008,21 +1008,14 @@ export class TokenProposer {
       }
     }
     const accentRaw = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
-    let accent: FontRole;
-    if (accentRaw) {
-      accent = role(accentRaw);
-    } else {
-      accent = { ...heading, source: 'default' };
-      this.decisions.push(
-        `The site uses no third font, so \`accent\` defaults to the heading font (${heading.name}). Ask the reviewer if the theme should have a distinct accent font.`
-      );
-    }
+    // The accent role exists only when the site really uses a third family.
+    const accent = accentRaw ? role(accentRaw) : undefined;
 
     const monoRaw = mode(text.filter(isMono).map((s) => ({ value: s.fontFamily! })));
     const monospace: FontRole = monoRaw
       ? role(monoRaw)
       : { name: 'Monospace', stack: MONOSPACE_STACK, source: 'default' };
-    return { heading, body: bodyRole, accent, monospace };
+    return { heading, body: bodyRole, ...(accent ? { accent } : {}), monospace };
   }
 
   proposeSpacing(
@@ -1295,6 +1288,9 @@ export class ProposalReport {
       '- Fonts:',
       ...roles.map((slug) => {
         const f = p.typography.families[slug];
+        if (!f) {
+          return `  - \`${slug}\`: none (no accent font: the site uses two families)`;
+        }
         const raw = f.raw ? `, CSS name \`${f.raw}\`` : '';
         return `  - \`${slug}\`: ${f.name} (${f.source}${raw}), stack \`${f.stack}\``;
       }),

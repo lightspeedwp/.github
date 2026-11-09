@@ -97,10 +97,10 @@ describe('TokenPlanBuilder', () => {
       collection('Theme - Spacing').variables.find((v) => v.name === 'Padding/Colossal')!.values
     ).toEqual({ Max: 100, Min: 72 });
     expect(collection('Theme - Radius').variables.map((v) => v.name)).toEqual([
-      'Radius None',
-      'Radius Small',
-      'Radius Base',
-      'Radius Round',
+      'None',
+      'Small',
+      'Base',
+      'Round',
     ]);
     expect(plan.effectStyles[0]).toMatchObject({
       name: 'LSX/xSmall',
@@ -115,6 +115,23 @@ describe('TokenPlanBuilder', () => {
     expect(wideOnly.collections.find((c) => c.name === 'Theme - Layout')!.variables).toHaveLength(
       1
     );
+  });
+});
+
+describe('Without a third font', () => {
+  it('creates no accent variable', () => {
+    const two = JSON.parse(JSON.stringify(proposal)) as typeof proposal;
+    delete two.typography.families.accent;
+    const plan = new TokenPlanBuilder().build(two);
+    const names = plan.collections
+      .find((c) => c.name === 'Theme - Typography')!
+      .variables.filter((v) => v.name.startsWith('Font-Families/'))
+      .map((v) => v.name);
+    expect(names).toEqual([
+      'Font-Families/Primary',
+      'Font-Families/Secondary',
+      'Font-Families/Monospace',
+    ]);
   });
 });
 
