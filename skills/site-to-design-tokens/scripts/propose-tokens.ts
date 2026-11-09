@@ -868,9 +868,7 @@ export class TokenProposer {
       mode(text.filter((s) => fam(s) === key).map((s) => ({ value: s.fontFamily! }))) ?? key;
     const stackFor = (key: string, raw: string) =>
       mode(
-        text
-          .filter((s) => fam(s) === key && s.fontStack)
-          .map((s) => ({ value: s.fontStack! }))
+        text.filter((s) => fam(s) === key && s.fontStack).map((s) => ({ value: s.fontStack! }))
       ) ?? raw;
     const role = (key: string): FontRole => {
       const raw = spelling(key);
