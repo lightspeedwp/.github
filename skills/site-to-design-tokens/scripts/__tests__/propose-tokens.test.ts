@@ -489,6 +489,40 @@ describe('TokenProposer font roles', () => {
   });
 });
 
+describe('TokenProposer action text', () => {
+  it('takes each action text colour from the buttons that have its fill', () => {
+    const styles = tspLikeStyles();
+    const desktop = styles.captures.find((c) => c.viewport === 1440)!;
+    // Many light buttons with brown text, as on live TSP, must not set the primary text.
+    for (let i = 0; i < 30; i++) {
+      desktop.samples.push({
+        key: `ghost:${i}`,
+        role: 'button',
+        color: 'rgb(155, 106, 34)',
+        background: 'rgb(247, 243, 241)',
+      });
+    }
+    const proposer = new TokenProposer();
+    const sem = proposer.propose(styles, { now }).colour.semantic;
+    expect(sem['action/primary/text']).toMatchObject({ token: 'base', source: 'observed' });
+    expect(sem['action/primary/text'].evidence).toMatch(/^#ffffff on #565b3d buttons/);
+    expect(sem['action/cta/text'].evidence).toMatch(/^#ffffff on #a31700 buttons/);
+  });
+
+  it('pairs only opaque button text with opaque button fills', () => {
+    const pairs = new TokenProposer().buttonTextByFill([
+      { key: 'a', role: 'button', color: 'rgb(255, 255, 255)', background: 'rgb(0, 0, 0)' },
+      { key: 'b', role: 'button', color: 'rgb(255, 255, 255)', background: 'rgb(0, 0, 0)' },
+      { key: 'c', role: 'button', color: 'rgb(0, 0, 0)', background: 'rgba(0, 0, 0, 0.5)' },
+      { key: 'd', role: 'button', color: 'rgb(0, 0, 0)' },
+      { key: 'e', role: 'link', color: 'rgb(0, 0, 0)', background: 'rgb(255, 255, 255)' },
+    ]);
+    expect([...pairs.entries()].map(([fill, texts]) => [fill, [...texts.entries()]])).toEqual([
+      ['#000000', [['#ffffff', 2]]],
+    ]);
+  });
+});
+
 describe('TokenProposer redirects', () => {
   it('lists redirected and left-out pages for the reviewer', () => {
     const styles = {
