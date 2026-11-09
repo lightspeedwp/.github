@@ -40,7 +40,7 @@ npx tsx ${CLAUDE_SKILL_DIR}/scripts/crawl-site-styles.ts --url https://www.examp
   --pages /,/about/,/tours/,/contact/ --out site-styles.json
 ```
 
-Save the output to a scratch folder outside the repository. The crawler reads public pages one at a time, with a 1.5 second pause between requests.
+Save the output to a scratch folder outside the repository. The crawler reads public pages one at a time, with a 1.5 second pause between requests. It warns when a page redirects, and leaves out a page that lands on one already captured: replace it with a page that still exists and crawl again.
 
 ### 3. Propose
 

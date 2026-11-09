@@ -284,6 +284,13 @@ export class TokenProposer {
 
   propose(styles: SiteStyles, options: ProposeOptions = {}): Proposal {
     this.decisions = [];
+    for (const r of styles.redirects ?? []) {
+      this.decisions.push(
+        r.skipped
+          ? `${r.url} redirected to ${r.finalUrl}, which was already captured, so it was left out. Replace it with a page that still exists, or drop it.`
+          : `${r.url} redirected to ${r.finalUrl}; the tokens use the page it landed on.`
+      );
+    }
     const desktopWidth = Math.max(...styles.viewports);
     const mobileWidth = Math.min(...styles.viewports);
     const desktop = styles.captures.filter((c) => c.viewport === desktopWidth);

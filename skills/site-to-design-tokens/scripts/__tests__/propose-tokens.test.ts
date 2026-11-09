@@ -489,6 +489,27 @@ describe('TokenProposer font roles', () => {
   });
 });
 
+describe('TokenProposer redirects', () => {
+  it('lists redirected and left-out pages for the reviewer', () => {
+    const styles = {
+      ...tspLikeStyles(),
+      redirects: [
+        { url: 'https://x.com/tours/', finalUrl: 'https://x.com/', skipped: true },
+        { url: 'https://x.com/old/', finalUrl: 'https://x.com/new/', skipped: false },
+      ],
+    };
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const decisions = proposer['decisions'].join(' ');
+    expect(decisions).toContain(
+      'https://x.com/tours/ redirected to https://x.com/, which was already captured, so it was left out.'
+    );
+    expect(decisions).toContain(
+      'https://x.com/old/ redirected to https://x.com/new/; the tokens use the page it landed on.'
+    );
+  });
+});
+
 describe('TokenProposer.proposeLayout', () => {
   const capture = (kind: 'single' | 'listing', textWidths: number[], isPost = false) =>
     ({
