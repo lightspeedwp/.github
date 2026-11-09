@@ -64,6 +64,8 @@ export interface CollectedPage {
   textWidths?: number[];
   /** `single` for one post or page, `listing` for the home page, archives, blog and search. */
   pageKind?: 'single' | 'listing';
+  /** True for a single blog post (`single-post`), whose text column is the clearest content width. */
+  isPost?: boolean;
 }
 
 export interface PageCapture extends CollectedPage {
@@ -270,7 +272,9 @@ export function collectPageStyles(options: CollectOptions = {}): CollectedPage {
       ? 'listing'
       : 'single';
 
-  return { samples, mediaWidths, textWidths, pageKind };
+  const isPost = /\bsingle-post\b/.test(bodyClass);
+
+  return { samples, mediaWidths, textWidths, pageKind, isPost };
 }
 
 export interface PageHandle {

@@ -1096,8 +1096,9 @@ export class TokenProposer {
   }
 
   /**
-   * Content width is the width of running text (`p` in the main column) on single posts
-   * and pages. Wide width is the widest repeated centred container. Either can be forced.
+   * Content width is the width of running text (`p` in the main column): the median of
+   * each blog post's most common width, or of each single page's when there are no posts.
+   * Wide width is the widest repeated centred container. Either can be forced.
    */
   proposeLayout(
     samples: ElementSample[],
@@ -1118,12 +1119,20 @@ export class TokenProposer {
 
     let content = override.content;
     if (content === undefined) {
-      const single = captures.filter((c) => c.pageKind === 'single');
-      const fromSingles = single.flatMap((c) => c.textWidths ?? []);
-      const fromAny = captures.flatMap((c) => c.textWidths ?? []);
-      const widths = fromSingles.length ? fromSingles : fromAny;
-      if (widths.length) {
-        content = mode(widths.map((w) => ({ value: Math.round(w / 8) * 8 })));
+      // Each page gets one vote, its most common text width, so one long page full of
+      // paragraphs (a legal page, say) can't outvote the rest. Blog posts are the
+      // clearest reading column, so their votes win when the crawl has any.
+      const vote = (c: PageCapture) =>
+        mode((c.textWidths ?? []).map((w) => ({ value: Math.round(w / 8) * 8 })));
+      const votesFrom = (list: PageCapture[]) =>
+        list.map(vote).filter((w): w is number => w !== undefined);
+      const fromPosts = votesFrom(captures.filter((c) => c.pageKind === 'single' && c.isPost));
+      const fromSingles = votesFrom(captures.filter((c) => c.pageKind === 'single'));
+      const fromAny = votesFrom(captures);
+      const votes = fromPosts.length ? fromPosts : fromSingles.length ? fromSingles : fromAny;
+      if (votes.length) {
+        const sorted = [...votes].sort((a, b) => a - b);
+        content = sorted[Math.floor((sorted.length - 1) / 2)];
         if (!fromSingles.length) {
           this.decisions.push(
             'No single post or page was captured, so the content width was measured on listing pages and may be a card. Add a long text page, or set it with `--layout content=<px>`.'
@@ -1148,6 +1157,11 @@ export class TokenProposer {
     if (content !== undefined && content < 480) {
       this.decisions.push(
         `The content width is ${content}px, under 480px, which is narrower than a readable text column. Confirm it, or set it with \`--layout content=<px>\`.`
+      );
+    }
+    if (content !== undefined && wide !== undefined && content >= wide * 0.9) {
+      this.decisions.push(
+        `The content width (${content}px) is within 10% of the wide width (${wide}px), so the text column may be a full-width section. Confirm it, or set it with \`--layout content=<px>\`.`
       );
     }
     return {
