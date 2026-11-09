@@ -422,6 +422,33 @@ describe('FigmaVariablesMapper', () => {
     expect(stack(font('Moret', 'Headings only'))).toBe('Moret, sans-serif');
   });
 
+  it('maps bare radius names and strips the old "Radius " prefix', () => {
+    const radius = (name: string) =>
+      new FigmaVariablesMapper().map({
+        collections: [
+          {
+            name: 'Theme - Radius',
+            modes: [{ id: 'm', name: 'Mode 1' }],
+            variables: [
+              {
+                id: 'r',
+                name,
+                type: 'FLOAT',
+                codeSyntax: { WEB: 'var(--wp--preset--border-radius--100)' },
+                valuesByMode: { m: 4 },
+              },
+            ],
+          },
+        ],
+      } as never);
+    const names = (mapped: ReturnType<typeof radius>) =>
+      (mapped.theme.settings as Json).border.radiusSizes.map((r: { name: string }) => r.name);
+
+    expect(names(radius('Small'))).toEqual(['Small']);
+    expect(names(radius('Radius Small'))).toEqual(['Small']);
+    expect(names(radius('Radius'))).toEqual(['Radius']);
+  });
+
   it('warns when a sizing ramp is out of order', () => {
     const mapped = new FigmaVariablesMapper().map({
       collections: [
