@@ -401,6 +401,23 @@ describe('TokenProposer font roles', () => {
     });
   });
 
+  it('needs a third family used on enough elements before it becomes the accent', () => {
+    const sample = (role: string, fontFamily: string, i: number) =>
+      ({ key: `${role}:${i}`, page: '/', role, fontSize: 16, fontFamily }) as never;
+    const base = [
+      ...Array.from({ length: 50 }, (_, i) => sample('h1', 'moret', i)),
+      ...Array.from({ length: 50 }, (_, i) => sample('body', 'lora', i)),
+    ];
+    const roles = ['h1', 'body', 'nav'];
+    const stray = new TokenProposer().proposeFamilies([...base, sample('nav', 'a', 0)], roles);
+    expect('accent' in stray).toBe(false);
+    const real = new TokenProposer().proposeFamilies(
+      [...base, ...Array.from({ length: 6 }, (_, i) => sample('nav', 'caveat', i))],
+      roles
+    );
+    expect(real.accent).toMatchObject({ name: 'Caveat', source: 'live' });
+  });
+
   it('never takes the system UI font of a widget as the accent', () => {
     const sample = (role: string, fontFamily: string) =>
       ({ key: `${role}:${fontFamily}`, page: '/', role, fontSize: 16, fontFamily }) as never;
