@@ -5,7 +5,7 @@
 Variables whose code syntax is `--wp--preset--border-radius--<slug>` become `settings.border.radiusSizes` entries `{ slug, name, size }`:
 
 - `slug` comes from the code syntax (`--border-radius--300` becomes `300`).
-- `name` is the bare size (`Small`, `Base`). An older `Radius Small` name loses its `Radius` prefix, because the variable already lives in the Radius collection.
+- `name` is the bare size (`Small`, `Base`). An older `Radius Small` name loses its `Radius` prefix, because the variable already lives in the Radius collection. `xLarge` and `X-Large` (also `xSmall`) both map to `X-Large`, the same for font sizes and shadows.
 - `size` is `0` for zero, otherwise the value in px (`8` becomes `8px`).
 
 The mapper also sets `settings.border.radius: true`. Keep the other `settings.border` keys (`color`, `style`, `width`).

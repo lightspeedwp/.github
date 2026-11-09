@@ -338,7 +338,7 @@ export class FigmaVariablesMapper {
         }
         const entry: JsonObject = {
           slug: target.slug,
-          name,
+          name: this.sizeName(name),
           size: this.fluid.toRem(sizes.max),
         };
         if (sizes.min !== sizes.max) {
@@ -365,7 +365,7 @@ export class FigmaVariablesMapper {
         return {
           slug: target.slug,
           // The collection is Radius, so names are bare sizes. Old files wrote "Radius Small".
-          name: name.replace(/^Radius\s+/i, '') || name,
+          name: this.sizeName(name.replace(/^Radius\s+/i, '') || name),
           size: value === 0 ? '0' : `${value}px`,
         };
       default:
@@ -451,7 +451,7 @@ export class FigmaVariablesMapper {
       }
       presets.push({
         slug: syntax ? syntax[1] : this.slugify(name),
-        name,
+        name: this.sizeName(name),
         shadow: shadows.join(', '),
       });
     }
@@ -624,6 +624,14 @@ export class FigmaVariablesMapper {
 
   private lastSegment(name: string): string {
     return name.split('/').pop()!.trim();
+  }
+
+  /** Both spellings of the extra sizes map to one: xLarge, x-large and X-Large become X-Large. */
+  private sizeName(name: string): string {
+    return name.replace(
+      /^x[\s-]?(small|large)$/i,
+      (_m, size: string) => `X-${size[0].toUpperCase()}${size.slice(1).toLowerCase()}`
+    );
   }
 
   private titleCase(slug: string): string {
