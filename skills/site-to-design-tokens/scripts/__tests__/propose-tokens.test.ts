@@ -380,6 +380,27 @@ describe('TokenProposer font roles', () => {
     expect(empty.body).toMatchObject({ stack: 'sans-serif', source: 'default' });
   });
 
+  it('treats one family written in two cases as one family, not an accent', () => {
+    const sample = (role: string, fontFamily: string, fontStack: string) =>
+      ({ key: `${role}:0`, page: '/', role, fontSize: 16, fontFamily, fontStack }) as never;
+    const families = new TokenProposer().proposeFamilies(
+      [
+        sample('h1', 'moret', 'moret, serif'),
+        sample('h2', 'moret', 'moret, serif'),
+        sample('link', 'Moret', 'Moret'),
+        sample('body', 'argesta_displayregular', 'argesta_displayregular, serif'),
+      ],
+      ['h1', 'h2', 'link', 'body']
+    );
+    expect('accent' in families).toBe(false);
+    expect(families.heading).toEqual({
+      name: 'Moret',
+      stack: 'moret, serif',
+      source: 'live',
+      raw: 'moret',
+    });
+  });
+
   it('falls back to the font name when the crawl has no stack', () => {
     const families = new TokenProposer().proposeFamilies(
       [{ key: 'h:0', page: '/', role: 'h1', fontSize: 40, fontFamily: 'Moret' } as never],
