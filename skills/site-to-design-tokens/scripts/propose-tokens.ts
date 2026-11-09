@@ -966,33 +966,38 @@ export class TokenProposer {
         s.fontFamily ?? ''
       );
     const proseText = text.filter((s) => !isMono(s));
-    const stackFor = (raw: string) =>
+    // CSS family names are not case-sensitive: `Moret` and `moret` are one family.
+    const fam = (s: ElementSample) => s.fontFamily!.toLowerCase();
+    const spelling = (key: string) =>
+      mode(text.filter((s) => fam(s) === key).map((s) => ({ value: s.fontFamily! }))) ?? key;
+    const stackFor = (key: string, raw: string) =>
       mode(
         text
-          .filter((s) => s.fontFamily === raw && s.fontStack)
+          .filter((s) => fam(s) === key && s.fontStack)
           .map((s) => ({ value: s.fontStack! }))
       ) ?? raw;
-    const role = (raw: string): FontRole => {
+    const role = (key: string): FontRole => {
+      const raw = spelling(key);
       const name = cleanFontName(raw);
       return {
         name,
-        stack: stackFor(raw),
+        stack: stackFor(key, raw),
         source: 'live',
         ...(name !== raw ? { raw } : {}),
       };
     };
     const headings = proseText.filter((s) => /^h[1-3]$/.test(s.role));
     const body = proseText.filter((s) => s.role === 'body');
-    const headingRaw =
-      mode(headings.map((s) => ({ value: s.fontFamily! }))) ||
-      mode(proseText.map((s) => ({ value: s.fontFamily! })));
-    const bodyRaw = mode(body.map((s) => ({ value: s.fontFamily! })));
+    const headingKey =
+      mode(headings.map((s) => ({ value: fam(s) }))) ||
+      mode(proseText.map((s) => ({ value: fam(s) })));
+    const bodyKey = mode(body.map((s) => ({ value: fam(s) })));
 
-    const heading: FontRole = headingRaw
-      ? role(headingRaw)
+    const heading: FontRole = headingKey
+      ? role(headingKey)
       : { name: 'Serif', stack: 'serif', source: 'default' };
-    const bodyRole: FontRole = bodyRaw
-      ? role(bodyRaw)
+    const bodyRole: FontRole = bodyKey
+      ? role(bodyKey)
       : { name: 'Sans Serif', stack: 'sans-serif', source: 'default' };
     if (heading.source === 'default') {
       this.decisions.push('No heading font was found; `heading` defaults to the generic serif.');
@@ -1003,17 +1008,17 @@ export class TokenProposer {
 
     const counts = new Map<string, number>();
     for (const s of proseText) {
-      if (s.fontFamily !== headingRaw && s.fontFamily !== bodyRaw) {
-        counts.set(s.fontFamily!, (counts.get(s.fontFamily!) ?? 0) + (/^h/.test(s.role) ? 3 : 1));
+      if (fam(s) !== headingKey && fam(s) !== bodyKey) {
+        counts.set(fam(s), (counts.get(fam(s)) ?? 0) + (/^h/.test(s.role) ? 3 : 1));
       }
     }
-    const accentRaw = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+    const accentKey = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
     // The accent role exists only when the site really uses a third family.
-    const accent = accentRaw ? role(accentRaw) : undefined;
+    const accent = accentKey ? role(accentKey) : undefined;
 
-    const monoRaw = mode(text.filter(isMono).map((s) => ({ value: s.fontFamily! })));
-    const monospace: FontRole = monoRaw
-      ? role(monoRaw)
+    const monoKey = mode(text.filter(isMono).map((s) => ({ value: fam(s) })));
+    const monospace: FontRole = monoKey
+      ? role(monoKey)
       : { name: 'Monospace', stack: MONOSPACE_STACK, source: 'default' };
     return { heading, body: bodyRole, ...(accent ? { accent } : {}), monospace };
   }
@@ -1200,8 +1205,9 @@ export class TokenProposer {
   }
 
   /**
-   * Content width is the width of running text (`p` in the main column) on single posts
-   * and pages. Wide width is the widest repeated centred container. Either can be forced.
+   * Content width is the width of running text (`p` in the main column): the median of
+   * each blog post's most common width, or of each single page's when there are no posts.
+   * Wide width is the widest repeated centred container. Either can be forced.
    */
   proposeLayout(
     samples: ElementSample[],
@@ -1222,12 +1228,20 @@ export class TokenProposer {
 
     let content = override.content;
     if (content === undefined) {
-      const single = captures.filter((c) => c.pageKind === 'single');
-      const fromSingles = single.flatMap((c) => c.textWidths ?? []);
-      const fromAny = captures.flatMap((c) => c.textWidths ?? []);
-      const widths = fromSingles.length ? fromSingles : fromAny;
-      if (widths.length) {
-        content = mode(widths.map((w) => ({ value: Math.round(w / 8) * 8 })));
+      // Each page gets one vote, its most common text width, so one long page full of
+      // paragraphs (a legal page, say) can't outvote the rest. Blog posts are the
+      // clearest reading column, so their votes win when the crawl has any.
+      const vote = (c: PageCapture) =>
+        mode((c.textWidths ?? []).map((w) => ({ value: Math.round(w / 8) * 8 })));
+      const votesFrom = (list: PageCapture[]) =>
+        list.map(vote).filter((w): w is number => w !== undefined);
+      const fromPosts = votesFrom(captures.filter((c) => c.pageKind === 'single' && c.isPost));
+      const fromSingles = votesFrom(captures.filter((c) => c.pageKind === 'single'));
+      const fromAny = votesFrom(captures);
+      const votes = fromPosts.length ? fromPosts : fromSingles.length ? fromSingles : fromAny;
+      if (votes.length) {
+        const sorted = [...votes].sort((a, b) => a - b);
+        content = sorted[Math.floor((sorted.length - 1) / 2)];
         if (!fromSingles.length) {
           this.decisions.push(
             'No single post or page was captured, so the content width was measured on listing pages and may be a card. Add a long text page, or set it with `--layout content=<px>`.'
@@ -1252,6 +1266,11 @@ export class TokenProposer {
     if (content !== undefined && content < 480) {
       this.decisions.push(
         `The content width is ${content}px, under 480px, which is narrower than a readable text column. Confirm it, or set it with \`--layout content=<px>\`.`
+      );
+    }
+    if (content !== undefined && wide !== undefined && content >= wide * 0.9) {
+      this.decisions.push(
+        `The content width (${content}px) is within 10% of the wide width (${wide}px), so the text column may be a full-width section. Confirm it, or set it with \`--layout content=<px>\`.`
       );
     }
     return {

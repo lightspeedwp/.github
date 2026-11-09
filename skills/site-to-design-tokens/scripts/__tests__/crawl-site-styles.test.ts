@@ -84,8 +84,11 @@ describe('collectPageStyles', () => {
       const single = collectPageStyles({ requireLayout: false });
       expect(single.textWidths).toEqual([768]);
       expect(single.pageKind).toBe('single');
+      expect(single.isPost).toBe(true);
       document.body.className = 'home page';
-      expect(collectPageStyles({ requireLayout: false }).pageKind).toBe('listing');
+      const home = collectPageStyles({ requireLayout: false });
+      expect(home.pageKind).toBe('listing');
+      expect(home.isPost).toBe(false);
     } finally {
       spy.mockRestore();
     }

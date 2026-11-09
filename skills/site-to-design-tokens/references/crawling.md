@@ -27,7 +27,7 @@ At each viewport (390px and 1440px by default) the crawler reads computed styles
 | `input`                 | Text inputs, selects and text areas                                                                       |
 | `section` and `surface` | Elements with a background (sections are at least half the viewport wide), and padded or centred wrappers |
 
-For each element it keeps the text colour, background, border colour, font family, size, weight and line height, padding, bottom margin, gap, radius, shadow, centred container width, and the widths of running-text paragraphs in the main column (with whether the page is a single post or page, or a listing). The proposer measures the content width from the text on single pages, so include a long text page. It also records the widths in the site's same-origin `@media` rules. A DOM path key pairs the same element across the two viewports, which gives the mobile (Min) value for each desktop (Max) value.
+For each element it keeps the text colour, background, border colour, font family, size, weight and line height, padding, bottom margin, gap, radius, shadow, centred container width, and the widths of running-text paragraphs in the main column (with whether the page is a blog post, another single page, or a listing). The proposer measures the content width from that text, so include a blog post. It also records the widths in the site's same-origin `@media` rules. A DOM path key pairs the same element across the two viewports, which gives the mobile (Min) value for each desktop (Max) value.
 
 ## Politeness and limits
 

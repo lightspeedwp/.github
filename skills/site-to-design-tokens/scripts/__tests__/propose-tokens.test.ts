@@ -446,6 +446,27 @@ describe('TokenProposer font roles', () => {
     expect(empty.body).toMatchObject({ stack: 'sans-serif', source: 'default' });
   });
 
+  it('treats one family written in two cases as one family, not an accent', () => {
+    const sample = (role: string, fontFamily: string, fontStack: string) =>
+      ({ key: `${role}:0`, page: '/', role, fontSize: 16, fontFamily, fontStack }) as never;
+    const families = new TokenProposer().proposeFamilies(
+      [
+        sample('h1', 'moret', 'moret, serif'),
+        sample('h2', 'moret', 'moret, serif'),
+        sample('link', 'Moret', 'Moret'),
+        sample('body', 'argesta_displayregular', 'argesta_displayregular, serif'),
+      ],
+      ['h1', 'h2', 'link', 'body']
+    );
+    expect('accent' in families).toBe(false);
+    expect(families.heading).toEqual({
+      name: 'Moret',
+      stack: 'moret, serif',
+      source: 'live',
+      raw: 'moret',
+    });
+  });
+
   it('falls back to the font name when the crawl has no stack', () => {
     const families = new TokenProposer().proposeFamilies(
       [{ key: 'h:0', page: '/', role: 'h1', fontSize: 40, fontFamily: 'Moret' } as never],
@@ -469,7 +490,7 @@ describe('TokenProposer font roles', () => {
 });
 
 describe('TokenProposer.proposeLayout', () => {
-  const capture = (kind: 'single' | 'listing', textWidths: number[]) =>
+  const capture = (kind: 'single' | 'listing', textWidths: number[], isPost = false) =>
     ({
       url: `/${kind}`,
       viewport: 1440,
@@ -477,6 +498,7 @@ describe('TokenProposer.proposeLayout', () => {
       mediaWidths: [],
       textWidths,
       pageKind: kind,
+      isPost,
     }) as never;
   const wideCards = [1240, 1240, 248, 248, 248].map((containerWidth, i) => ({
     key: `c:${i}`,
@@ -492,6 +514,34 @@ describe('TokenProposer.proposeLayout', () => {
     ]);
     expect(layout).toEqual({ content: 768, wide: 1240 });
     expect(proposer['decisions']).toEqual([]);
+  });
+
+  it('gives each page one vote, so a page full of paragraphs cannot outvote the rest', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('single', Array(26).fill(1200)),
+      capture('single', [688, 688]),
+      capture('single', [584, 584, 584]),
+    ]);
+    expect(layout.content).toBe(688);
+  });
+
+  it('prefers blog posts over other single pages', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('single', Array(26).fill(1200)),
+      capture('single', [848, 848], true),
+      capture('single', [584, 584]),
+    ]);
+    expect(layout.content).toBe(848);
+    expect(proposer['decisions']).toEqual([]);
+  });
+
+  it('asks the reviewer to decide when the content width is close to the wide width', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [capture('single', [1200, 1200])]);
+    expect(layout).toEqual({ content: 1200, wide: 1240 });
+    expect(proposer['decisions'].join(' ')).toContain('within 10% of the wide width');
   });
 
   it('warns when only listing pages have running text', () => {
