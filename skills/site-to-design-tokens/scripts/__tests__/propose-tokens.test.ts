@@ -202,7 +202,7 @@ describe('TokenProposer on a sparse site', () => {
     expect(proposal.typography.sizes.map((s) => s.name)).toEqual(['Base', 'Small']);
   });
 
-  it('puts spacing on the nearest free ladder step and drops what does not fit', () => {
+  it('puts spacing on the nearest free ladder step and shifts values down when the top is full', () => {
     const proposer = new TokenProposer();
     proposer.propose(styles, { now });
     const samples = [12, 16, 22, 140, 200].map((paddingBlock, i) => ({
@@ -217,8 +217,34 @@ describe('TokenProposer on a sparse site', () => {
       ['XS', '10', 12],
       ['S', '20', 16],
       ['M', '30', 22],
-      ['Colossal', '100', 140],
+      ['Gigantic', '90', 140],
+      ['Colossal', '100', 200],
     ]);
+    expect(proposer['decisions'].join(' ')).toContain('moved down to free lower steps');
+  });
+
+  it('fills the whole 5 to 100 ladder with 11 distinct values and drops none', () => {
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const values = [8, 10, 14, 20, 24, 32, 38, 48, 60, 70, 80];
+    const samples = values.flatMap((paddingBlock, i) =>
+      [0, 1].map((n) => ({ key: `sp:${i}:${n}`, page: '/', role: 'section', paddingBlock }))
+    );
+    const spacing = proposer.proposeSpacing(samples as never, () => undefined);
+    expect(spacing.slice(1).map((s) => [s.slug, s.max])).toEqual([
+      ['5', 8],
+      ['10', 10],
+      ['20', 14],
+      ['30', 20],
+      ['40', 24],
+      ['50', 32],
+      ['60', 38],
+      ['70', 48],
+      ['80', 60],
+      ['90', 70],
+      ['100', 80],
+    ]);
+    expect(proposer['decisions'].join(' ')).not.toContain('left out');
   });
 
   it('names the spacing values left out when there are more than the ladder holds', () => {

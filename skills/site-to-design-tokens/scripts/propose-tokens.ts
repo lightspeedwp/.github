@@ -866,9 +866,12 @@ export class TokenProposer {
       );
     }
     // Each value takes the ladder step nearest its desktop size, so 40px becomes
-    // L (slug 40). A taken step pushes the value to the next free step up.
-    const steps: ScaleEntry[] = [];
-    let next = 0;
+    // L (slug 40). A taken step pushes the value up to the next free step. If that
+    // runs off the top of the ladder, values shift back down into free lower steps
+    // (starting at 5) instead of being dropped. At most the ladder's length is kept
+    // above, so every kept value always gets a step.
+    const last = SPACING_STEPS.length - 1;
+    const indexes: number[] = [];
     for (const c of kept) {
       const nearest = SPACING_STEPS.reduce(
         (best, step, i) =>
@@ -877,16 +880,26 @@ export class TokenProposer {
             : best,
         0
       );
-      const i = Math.max(nearest, next);
-      if (i >= SPACING_STEPS.length) {
-        this.decisions.push(
-          `Spacing ${c.max}px has no free step left on the ladder and was left out.`
-        );
-        continue;
-      }
-      steps.push({ ...SPACING_STEPS[i], max: c.max, min: Math.min(c.min, c.max) });
-      next = i + 1;
+      indexes.push(Math.max(nearest, indexes.length ? indexes[indexes.length - 1] + 1 : 0));
     }
+    let shifted = false;
+    for (let i = indexes.length - 1; i >= 0; i--) {
+      const ceiling = i === indexes.length - 1 ? last : indexes[i + 1] - 1;
+      if (indexes[i] > ceiling) {
+        indexes[i] = ceiling;
+        shifted = true;
+      }
+    }
+    if (shifted) {
+      this.decisions.push(
+        'Some spacing values moved down to free lower steps so the whole 5 to 100 ladder is used and none is dropped.'
+      );
+    }
+    const steps: ScaleEntry[] = kept.map((c, i) => ({
+      ...SPACING_STEPS[indexes[i]],
+      max: c.max,
+      min: Math.min(c.min, c.max),
+    }));
     return [{ name: 'None', slug: 'none', max: 0, min: 0 }, ...steps];
   }
 

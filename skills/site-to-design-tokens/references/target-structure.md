@@ -33,7 +33,7 @@ Type sizes, radius and shadows use numeric slugs, the same as the block theme sc
 
   Sizing ramps are in order. Spacing and type sizes are created in Figma smallest first, with `None` first for spacing, so the Variables panel reads as a ramp. The export JSON and the Figma script both sort by Max value, then slug, whatever order the proposal has.
 
-  Each measured value takes the step nearest its desktop size, so 40px becomes `L`. When that step is taken, the value moves up to the next free step. `Padding/None` (0) is for Figma only. It has no code syntax, because WordPress already offers a 0 spacing and importing one adds a duplicate in the editor.
+  Each measured value takes the step nearest its desktop size, so 40px becomes `L`. When that step is taken, the value moves up to the next free step. If that runs off the top of the ladder, values shift down into free lower steps, starting at `5`, so nothing is dropped. A value is only left out when more than 11 distinct values are in use, and then the least used go. `Padding/None` (0) is for Figma only. It has no code syntax, because WordPress already offers a 0 spacing and importing one adds a duplicate in the editor.
 
 - Radius, slugs `0` to `700`: `None` (0), `Small` (100), `Base`, `Medium`, `Large`, `xLarge`, `Huge` (600), `Round` (700, 9999px). Measured values fill 100 upward in order.
 - Shadows, slugs `100` to `600`: `xSmall`, `Small`, `Medium`, `Large`, `xLarge`, `Huge`, ordered by strength (blur radius), so `100` is the softest.
