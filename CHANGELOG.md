@@ -72,6 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site Skills Setup Notes** — `site-to-design-tokens` and `site-to-figma-components` now say to run `npm ci` and, if the browser fails to launch, `npx puppeteer browsers install chrome` (npm 11 skips Puppeteer's download). `figma-to-block-theme` notes the `npm ci` step. ([#4009](https://github.com/lightspeedwp/.github/issues/4009))
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))

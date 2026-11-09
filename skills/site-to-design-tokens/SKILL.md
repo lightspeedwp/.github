@@ -20,6 +20,13 @@ Nothing is written to Figma or a theme until the reviewer approves the proposal.
 - `figma-use`: required before running the generated script through `use_figma`. Creating a token library also uses `figma-generate-library`.
 - `figma-to-block-theme`: turns the export JSON (or the new Figma variables) into `theme.json` presets.
 
+## Before you start
+
+The scripts run from the `.github` repository checkout and need its dependencies and a browser:
+
+- Run `npm ci` in the `.github` checkout. Without it `tsx` and Puppeteer are missing.
+- If the crawler fails to launch the browser, run `npx puppeteer browsers install chrome`. npm 11 blocks Puppeteer's install script, so the browser is not downloaded automatically.
+
 ## Workflow
 
 ### 1. Agree the pages
