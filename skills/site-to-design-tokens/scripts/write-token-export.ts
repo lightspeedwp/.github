@@ -238,7 +238,8 @@ export class TokenPlanBuilder {
 
     const radius: PlannedVariable[] = p.radius.map((r) => ({
       key: `radius-${r.slug}`,
-      name: `Radius ${r.name}`,
+      // The collection is already Radius, so the name is the bare size.
+      name: r.name,
       type: 'FLOAT',
       codeSyntax: preset('border-radius', r.slug),
       scopes: ['CORNER_RADIUS'],

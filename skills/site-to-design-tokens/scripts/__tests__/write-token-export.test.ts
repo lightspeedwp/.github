@@ -88,10 +88,10 @@ describe('TokenPlanBuilder', () => {
       collection('Theme - Spacing').variables.find((v) => v.name === 'Padding/Colossal')!.values
     ).toEqual({ Max: 100, Min: 72 });
     expect(collection('Theme - Radius').variables.map((v) => v.name)).toEqual([
-      'Radius None',
-      'Radius Small',
-      'Radius Base',
-      'Radius Round',
+      'None',
+      'Small',
+      'Base',
+      'Round',
     ]);
     expect(plan.effectStyles[0]).toMatchObject({
       name: 'LSX/xSmall',
