@@ -83,7 +83,7 @@ const SIZE_NAMES = [
   'Small',
   'Medium',
   'Large',
-  'xLarge',
+  'X-Large',
   'Huge',
   'Gigantic',
   'Colossal',
@@ -104,8 +104,8 @@ export const SPACING_STEPS = [
   { slug: '90', name: 'Gigantic' },
   { slug: '100', name: 'Colossal' },
 ];
-const RADIUS_NAMES = ['Small', 'Base', 'Medium', 'Large', 'xLarge', 'Huge'];
-const SHADOW_NAMES = ['xSmall', 'Small', 'Medium', 'Large', 'xLarge', 'Huge'];
+const RADIUS_NAMES = ['Small', 'Base', 'Medium', 'Large', 'X-Large', 'Huge'];
+const SHADOW_NAMES = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large', 'Huge'];
 
 export interface ColourEvidence {
   hex: string;
