@@ -59,7 +59,7 @@ The proposal follows the structure in [references/target-structure.md](reference
 Present the report's summary, its **Decisions for the reviewer** list and any failing contrast pairs. [references/proposal-review.md](references/proposal-review.md) explains each section. Common changes:
 
 - **A colour in the wrong family:** re-run with `--assign brand=#hex,primary=#hex,cta=#hex`.
-- **A wrong content or wide width:** re-run with `--layout content=768,wide=1240`. Content width is measured from running text on single pages, so include a long text page in the crawl.
+- **A wrong content or wide width:** re-run with `--layout content=768,wide=1240`. Content width is measured from running text, one vote per page, preferring blog posts, so include a blog post in the crawl.
 - **A failing contrast pair:** failing defaults already move to the nearest passing step and are recorded in the report. For a failing colour taken from the live site, the report lists a passing alternative; confirm which to use.
 - **A live value with no close token:** keep the nearest token with the same role and list it for the reviewer. Don't add a raw value.
 
