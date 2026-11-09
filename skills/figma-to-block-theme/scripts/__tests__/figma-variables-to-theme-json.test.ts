@@ -422,6 +422,33 @@ describe('FigmaVariablesMapper', () => {
     expect(stack(font('Moret', 'Headings only'))).toBe('Moret, sans-serif');
   });
 
+  it('writes only the font roles that exist, with no accent when there is none', () => {
+    const role = (slug: string, value: string) => ({
+      id: slug,
+      name: `Font-Families/${slug}`,
+      type: 'STRING',
+      codeSyntax: { WEB: `var(--wp--preset--font-family--${slug})` },
+      valuesByMode: { m: value },
+    });
+    const mapped = new FigmaVariablesMapper().map({
+      collections: [
+        {
+          name: 'Typography',
+          modes: [{ id: 'm', name: 'Value' }],
+          variables: [
+            role('heading', 'Moret'),
+            role('body', 'Lora'),
+            role('monospace', 'Monospace'),
+          ],
+        },
+      ],
+    } as never);
+    const slugs = (mapped.theme.settings as Json).typography.fontFamilies.map(
+      (f: { slug: string }) => f.slug
+    );
+    expect(slugs).toEqual(['heading', 'body', 'monospace']);
+  });
+
   it('maps bare radius names and strips the old "Radius " prefix', () => {
     const radius = (name: string) =>
       new FigmaVariablesMapper().map({

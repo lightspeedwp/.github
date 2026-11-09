@@ -359,7 +359,7 @@ describe('cleanFontName', () => {
 });
 
 describe('TokenProposer font roles', () => {
-  it('defaults the roles the site does not show and records them', () => {
+  it('omits the accent role without a third family and defaults monospace', () => {
     const proposer = new TokenProposer();
     const sample = (role: string, fontFamily: string, fontStack: string) =>
       ({ key: `${role}:0`, page: '/', role, fontSize: 16, fontFamily, fontStack }) as never;
@@ -368,13 +368,13 @@ describe('TokenProposer font roles', () => {
       [sample('h1', 'Moret', 'Moret, serif'), sample('body', 'Lora', 'Lora, serif')],
       roles
     );
-    expect(families.accent).toMatchObject({ name: 'Moret', source: 'default' });
+    expect(families.accent).toBeUndefined();
+    expect('accent' in families).toBe(false);
     expect(families.monospace).toEqual({
       name: 'Monospace',
       stack: MONOSPACE_STACK,
       source: 'default',
     });
-    expect(proposer['decisions'].join(' ')).toContain('uses no third font');
     const empty = new TokenProposer().proposeFamilies([], roles);
     expect(empty.heading).toMatchObject({ stack: 'serif', source: 'default' });
     expect(empty.body).toMatchObject({ stack: 'sans-serif', source: 'default' });
@@ -394,6 +394,11 @@ describe('TokenProposer font roles', () => {
     );
     expect(report).toContain('`heading`: Moret (live, CSS name `moret`)');
     expect(report).toContain('`monospace`: Courier New (live)');
+    const two = new TokenProposer().propose(tspLikeStyles(), { now });
+    delete two.typography.families.accent;
+    expect(new ProposalReport().render(two)).toContain(
+      '`accent`: none (no accent font: the site uses two families)'
+    );
   });
 });
 

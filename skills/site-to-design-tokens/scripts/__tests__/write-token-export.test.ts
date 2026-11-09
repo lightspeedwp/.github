@@ -118,6 +118,23 @@ describe('TokenPlanBuilder', () => {
   });
 });
 
+describe('Without a third font', () => {
+  it('creates no accent variable', () => {
+    const two = JSON.parse(JSON.stringify(proposal)) as typeof proposal;
+    delete two.typography.families.accent;
+    const plan = new TokenPlanBuilder().build(two);
+    const names = plan.collections
+      .find((c) => c.name === 'Theme - Typography')!
+      .variables.filter((v) => v.name.startsWith('Font-Families/'))
+      .map((v) => v.name);
+    expect(names).toEqual([
+      'Font-Families/Primary',
+      'Font-Families/Secondary',
+      'Font-Families/Monospace',
+    ]);
+  });
+});
+
 describe('Sizing ramps are in ascending order', () => {
   it('orders spacing and type sizes by Max whatever the proposal order', () => {
     const scrambled = JSON.parse(JSON.stringify(proposal)) as typeof proposal;

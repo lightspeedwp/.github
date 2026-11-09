@@ -287,17 +287,23 @@ export class TokenPlanBuilder {
       ['accent', 'Tertiary', 'Accent text'],
       ['monospace', 'Monospace', 'Code'],
     ];
-    return roles.map(([slug, name, use]) => {
+    return roles.flatMap(([slug, name, use]) => {
       const font = p.typography.families[slug];
-      return {
-        key: `font-${slug}`,
-        name: `Font-Families/${name}`,
-        type: 'STRING' as const,
-        codeSyntax: `var(--wp--preset--font-family--${slug})`,
-        scopes: ['FONT_FAMILY'],
-        values: { Max: font.name, Min: font.name },
-        description: `${use} (${font.source}). CSS stack: ${font.stack}`,
-      };
+      // No accent variable unless the site uses a third family.
+      if (!font) {
+        return [];
+      }
+      return [
+        {
+          key: `font-${slug}`,
+          name: `Font-Families/${name}`,
+          type: 'STRING' as const,
+          codeSyntax: `var(--wp--preset--font-family--${slug})`,
+          scopes: ['FONT_FAMILY'],
+          values: { Max: font.name, Min: font.name },
+          description: `${use} (${font.source}). CSS stack: ${font.stack}`,
+        },
+      ];
     });
   }
 
