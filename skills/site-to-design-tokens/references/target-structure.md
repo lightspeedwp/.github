@@ -86,6 +86,10 @@ System colours (error, warning, success and information, each with a foreground 
 | `action/<primary, secondary or cta>/*`         | `background` (primary-500, brand-600, cta-500), `background-hover` (one step darker), `text` (base)                                                                                                                       |
 | `feedback/<error, warning, success or info>/*` | `text` and `border` (system foreground), `background` (system background)                                                                                                                                                 |
 
+When a family's anchor came from button fills (`cta` always does, `primary` and `brand` when their anchor fills a button), `action/<family>/background` is the anchor step itself (for example `cta-700`) and `background-hover` is the next step darker. This keeps the action colour the live button colour.
+
+A default that fails its contrast pair moves to the nearest step of the same family that passes, darker steps first, and the report records the move. A failing token taken from the live site is left in place and listed for the reviewer with a passing alternative.
+
 The proposer replaces a default with the live value's nearest primitive for `text/default`, `text/link`, `action/primary/*`, `border/default`, `surface/subtle` and `surface/inverse` when the site shows them. A text colour that can't reach 3:1 on `base` (usually text on photos) keeps its default, and the report says so.
 
 ## Scopes

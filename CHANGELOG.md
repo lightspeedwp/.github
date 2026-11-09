@@ -114,6 +114,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Site Tokens Action Colours** — `site-to-design-tokens` uses the live button colour for action backgrounds (hover one step darker) and moves defaults that fail contrast to the nearest passing step, recording each move in the report. ([#4008](https://github.com/lightspeedwp/.github/issues/4008))
 - **Site Tokens Font Roles** — `site-to-design-tokens` cleans font names (`argesta_displayregular` becomes Argesta Display), keeps the exact CSS stack, and outputs the `heading`, `body`, `accent` and `monospace` roles, marking each as live or default. `figma-to-block-theme` uses the stack. ([#4007](https://github.com/lightspeedwp/.github/issues/4007))
 - **Site Tokens Content Width** — `site-to-design-tokens` measures the content width from running text on single posts and pages, takes `--layout content=<px>,wide=<px>` to override either width, and asks the reviewer to confirm a content width under 480px. ([#4006](https://github.com/lightspeedwp/.github/issues/4006))
 - **Site Tokens Spacing Ladder** — `site-to-design-tokens` fills the whole spacing ladder from `5` by shifting values down before it drops one, so 11 distinct values all get a step. ([#4005](https://github.com/lightspeedwp/.github/issues/4005))
