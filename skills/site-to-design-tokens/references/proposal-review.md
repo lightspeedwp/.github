@@ -45,3 +45,4 @@ Check each scale against the site at both widths:
 - Heading sizes should shrink on mobile.
 - Section spacing should reflect what the eye sees. Sites that space sections with margins on unstyled wrappers can produce a smaller scale than the design intends, so say so and let the reviewer set the larger steps.
 - Font names come from the site's CSS (for example a web font alias such as `argesta_displayregular`). Ask the reviewer for the licensed family name and its fallback.
+- **Content width** comes from the width of running text (`p` elements with 80 or more characters in the main column) on single posts and pages, not from cards or wrappers. Include at least one long text page in the crawl. If the report says the width came from listing pages, or is under 480px, confirm it with the reviewer. Override either width with `--layout content=<px>,wide=<px>`.

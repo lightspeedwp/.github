@@ -54,6 +54,14 @@ export interface ElementSample {
 export interface CollectedPage {
   samples: ElementSample[];
   mediaWidths: number[];
+  /**
+   * Widths in px of running-text paragraphs (`p` with 80 or more characters) in the main
+   * column, outside navigation, footers, asides, lists and figures. This is the column
+   * a reader sees, so it measures the content width better than any centred wrapper.
+   */
+  textWidths?: number[];
+  /** `single` for one post or page, `listing` for the home page, archives, blog and search. */
+  pageKind?: 'single' | 'listing';
 }
 
 export interface PageCapture extends CollectedPage {
@@ -236,7 +244,30 @@ export function collectPageStyles(options: CollectOptions = {}): CollectedPage {
     }
   }
 
-  return { samples, mediaWidths };
+  const textWidths: number[] = [];
+  const main = document.querySelector('main, [role="main"], #main, #content') ?? document.body;
+  const paragraphs = main ? main.querySelectorAll('p') : [];
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i] as HTMLElement;
+    if (p.closest('nav, footer, aside, li, figure, form, blockquote, table, header')) {
+      continue;
+    }
+    if ((p.textContent ?? '').trim().length < 80) {
+      continue;
+    }
+    const box = p.getBoundingClientRect();
+    if (box.width >= 1 && box.width < viewport - 16) {
+      textWidths.push(Math.round(box.width));
+    }
+  }
+  const bodyClass =
+    document.body && typeof document.body.className === 'string' ? document.body.className : '';
+  const pageKind: 'single' | 'listing' =
+    /\b(home|archive|blog|search|category|tag|post-type-archive)\b/.test(bodyClass)
+      ? 'listing'
+      : 'single';
+
+  return { samples, mediaWidths, textWidths, pageKind };
 }
 
 export interface PageHandle {

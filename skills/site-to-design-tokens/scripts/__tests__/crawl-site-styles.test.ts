@@ -62,6 +62,34 @@ describe('collectPageStyles', () => {
     expect(mediaWidths.sort()).toEqual([1240, 376, 768]);
   });
 
+  it('records running-text widths from the main column and the kind of page', () => {
+    document.body.className = 'single single-post';
+    document.body.innerHTML = `
+      <header><p>${'h'.repeat(90)}</p></header>
+      <main>
+        <p>Short.</p>
+        <p id="text">${'Running text of a post. '.repeat(5)}</p>
+        <ul><li><p>${'l'.repeat(90)}</p></li></ul>
+        <p id="wide">${'w'.repeat(90)}</p>
+      </main>`;
+    const widths: Record<string, number> = { text: 768, wide: 1440 };
+    const spy = jest
+      .spyOn(window.HTMLElement.prototype, 'getBoundingClientRect')
+      .mockImplementation(function (this: { id: string }) {
+        const width = widths[this.id] ?? 0;
+        return { width, height: 20, left: 0, right: width, top: 0, bottom: 20 } as never;
+      });
+    try {
+      const single = collectPageStyles({ requireLayout: false });
+      expect(single.textWidths).toEqual([768]);
+      expect(single.pageKind).toBe('single');
+      document.body.className = 'home page';
+      expect(collectPageStyles({ requireLayout: false }).pageKind).toBe('listing');
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
   it('skips elements with no layout box by default and respects the sample cap', () => {
     expect(collectPageStyles().samples).toHaveLength(0);
     expect(collectPageStyles({ requireLayout: false, maxSamples: 2 }).samples).toHaveLength(2);

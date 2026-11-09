@@ -193,7 +193,7 @@ describe('TokenProposer on a sparse site', () => {
     ).toEqual(['cta', 'primary', 'neutral']);
     expect(decisions).toContain('No site colour fits `primary`');
     expect(decisions).toContain('No light page background was found');
-    expect(decisions).toContain('No repeated centred container');
+    expect(decisions).toContain('No running text or repeated centred container');
     expect(proposal.layout).toEqual({});
     expect(proposal.breakpoints).toEqual({ mobile: 376, tablet: 768, desktop: 1240 });
     expect(proposal.radius.map((r) => r.slug)).toEqual(['0', '700']);
@@ -327,6 +327,75 @@ describe('ProposalReport', () => {
   });
 });
 
+describe('TokenProposer.proposeLayout', () => {
+  const capture = (kind: 'single' | 'listing', textWidths: number[]) =>
+    ({
+      url: `/${kind}`,
+      viewport: 1440,
+      samples: [],
+      mediaWidths: [],
+      textWidths,
+      pageKind: kind,
+    }) as never;
+  const wideCards = [1240, 1240, 248, 248, 248].map((containerWidth, i) => ({
+    key: `c:${i}`,
+    role: 'surface' as const,
+    containerWidth,
+  }));
+
+  it('measures the content width from running text on single pages, not from cards', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('listing', [248, 248, 248]),
+      capture('single', [768, 770, 768]),
+    ]);
+    expect(layout).toEqual({ content: 768, wide: 1240 });
+    expect(proposer['decisions']).toEqual([]);
+  });
+
+  it('warns when only listing pages have running text', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [capture('listing', [640, 640])]);
+    expect(layout.content).toBe(640);
+    expect(proposer['decisions'].join(' ')).toContain('No single post or page was captured');
+  });
+
+  it('asks the reviewer to decide when the content width is under 480px', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [capture('single', [400, 400])]);
+    expect(layout.content).toBe(400);
+    expect(proposer['decisions'].join(' ')).toContain('under 480px');
+  });
+
+  it('falls back to the centred containers when there is no running text', () => {
+    const proposer = new TokenProposer();
+    const cards = [1240, 1240, 768, 768].map((containerWidth, i) => ({
+      key: `c:${i}`,
+      role: 'surface' as const,
+      containerWidth,
+    }));
+    expect(proposer.proposeLayout(cards, 1440, [capture('single', [])])).toEqual({
+      content: 768,
+      wide: 1240,
+    });
+    expect(proposer['decisions'].join(' ')).toContain('No running text was found');
+  });
+
+  it('lets the reviewer override either width', () => {
+    const proposer = new TokenProposer();
+    const captures = [capture('single', [248, 248])];
+    expect(proposer.proposeLayout(wideCards, 1440, captures, { content: 768 })).toEqual({
+      content: 768,
+      wide: 1240,
+    });
+    expect(proposer.proposeLayout([], 1440, [], { wide: 1200 })).toEqual({ wide: 1200 });
+    expect(proposer.proposeLayout([], 1440, [], { content: 700, wide: 1200 })).toEqual({
+      content: 700,
+      wide: 1200,
+    });
+  });
+});
+
 describe('runProposeCli', () => {
   function io(files: Record<string, string> = {}) {
     const out: string[] = [];
@@ -369,6 +438,14 @@ describe('runProposeCli', () => {
     expect(run.out.join('')).toContain('Wrote p.json and p.md');
   });
 
+  it('passes --layout through to the proposal', () => {
+    const run = io({ 'styles.json': styles });
+    expect(
+      runProposeCli(['styles.json', '--out', 'p.json', '--layout', 'content=700,wide=1200'], run.io)
+    ).toBe(0);
+    expect(JSON.parse(run.written['p.json']).layout).toEqual({ content: 700, wide: 1200 });
+  });
+
   it('defaults the output path and prints help', () => {
     const run = io({ 'styles.json': styles });
     expect(runProposeCli(['styles.json'], run.io)).toBe(0);
@@ -385,6 +462,8 @@ describe('runProposeCli', () => {
     [['--out'], '--out needs a value'],
     [['--nope'], 'Unknown option --nope'],
     [['styles.json', '--assign', 'accent=#fff'], '--assign takes brand, primary or cta'],
+    [['styles.json', '--layout', 'narrow=5'], '--layout takes content and wide'],
+    [['styles.json', '--layout', 'content=abc'], '--layout takes content and wide'],
     [['missing.json'], 'ENOENT'],
     [['empty.json'], 'has no captures'],
   ])('fails cleanly for %j', (argv, message) => {

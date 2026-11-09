@@ -6,6 +6,7 @@
  * Usage:
  *   npx tsx propose-tokens.ts site-styles.json --out proposal.json --report proposal.md
  *   npx tsx propose-tokens.ts site-styles.json --assign brand=#8d621f,primary=#565b3d
+ *   npx tsx propose-tokens.ts site-styles.json --layout content=768,wide=1240
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -191,6 +192,8 @@ export interface Proposal {
 export interface ProposeOptions {
   /** Force a family's anchor colour, for example { brand: '#8d621f' }. */
   assign?: Partial<Record<Family, string>>;
+  /** Force the content and wide widths in px, for example { content: 768, wide: 1240 }. */
+  layout?: { content?: number; wide?: number };
   now?: () => Date;
 }
 
@@ -244,7 +247,7 @@ export class TokenProposer {
     const spacing = this.proposeSpacing(desktopSamples, pair);
     const radius = this.proposeRadius(desktopSamples);
     const shadows = this.proposeShadows(desktopSamples);
-    const layout = this.proposeLayout(desktopSamples, desktopWidth);
+    const layout = this.proposeLayout(desktopSamples, desktopWidth, desktop, options.layout);
     const breakpoints = this.proposeBreakpoints(styles.captures);
 
     return {
@@ -993,7 +996,16 @@ export class TokenProposer {
     });
   }
 
-  proposeLayout(samples: ElementSample[], viewport: number): Proposal['layout'] {
+  /**
+   * Content width is the width of running text (`p` in the main column) on single posts
+   * and pages. Wide width is the widest repeated centred container. Either can be forced.
+   */
+  proposeLayout(
+    samples: ElementSample[],
+    viewport: number,
+    captures: PageCapture[] = [],
+    override: { content?: number; wide?: number } = {}
+  ): Proposal['layout'] {
     const counts = new Map<number, number>();
     for (const s of samples) {
       if (s.containerWidth && s.containerWidth < viewport - 16) {
@@ -1002,15 +1014,47 @@ export class TokenProposer {
       }
     }
     const frequent = [...counts.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]);
-    if (!frequent.length) {
+    const wide =
+      override.wide ?? (frequent.length ? Math.max(...frequent.map(([w]) => w)) : undefined);
+
+    let content = override.content;
+    if (content === undefined) {
+      const single = captures.filter((c) => c.pageKind === 'single');
+      const fromSingles = single.flatMap((c) => c.textWidths ?? []);
+      const fromAny = captures.flatMap((c) => c.textWidths ?? []);
+      const widths = fromSingles.length ? fromSingles : fromAny;
+      if (widths.length) {
+        content = mode(widths.map((w) => ({ value: Math.round(w / 8) * 8 })));
+        if (!fromSingles.length) {
+          this.decisions.push(
+            'No single post or page was captured, so the content width was measured on listing pages and may be a card. Add a long text page, or set it with `--layout content=<px>`.'
+          );
+        }
+      } else if (frequent.length) {
+        const fallback = frequent.find(([w]) => w <= (wide ?? 0) * 0.8)?.[0];
+        if (fallback) {
+          content = fallback;
+          this.decisions.push(
+            `No running text was found, so the content width ${fallback}px comes from the most common centred container. Check it, or set it with \`--layout content=<px>\`.`
+          );
+        }
+      }
+    }
+    if (content === undefined && wide === undefined) {
       this.decisions.push(
-        'No repeated centred container was found; set the content and wide widths by hand.'
+        'No running text or repeated centred container was found; set the content and wide widths with `--layout content=<px>,wide=<px>`.'
       );
       return {};
     }
-    const wide = Math.max(...frequent.map(([w]) => w));
-    const content = frequent.find(([w]) => w <= wide * 0.8)?.[0];
-    return content ? { content, wide } : { wide };
+    if (content !== undefined && content < 480) {
+      this.decisions.push(
+        `The content width is ${content}px, under 480px, which is narrower than a readable text column. Confirm it, or set it with \`--layout content=<px>\`.`
+      );
+    }
+    return {
+      ...(content !== undefined ? { content } : {}),
+      ...(wide !== undefined ? { wide } : {}),
+    };
   }
 
   proposeBreakpoints(captures: PageCapture[]): Proposal['breakpoints'] {
@@ -1169,6 +1213,7 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
   let out = 'proposal.json';
   let report: string | undefined;
   const assign: Partial<Record<Family, string>> = {};
+  const layout: { content?: number; wide?: number } = {};
 
   try {
     for (let i = 0; i < argv.length; i++) {
@@ -1182,7 +1227,7 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
       };
       if (arg === '--help' || arg === '-h') {
         io.stdout(
-          'Usage: propose-tokens <site-styles.json> [--out proposal.json] [--report proposal.md] [--assign brand=#hex,primary=#hex,cta=#hex]\n'
+          'Usage: propose-tokens <site-styles.json> [--out proposal.json] [--report proposal.md] [--assign brand=#hex,primary=#hex,cta=#hex] [--layout content=<px>,wide=<px>]\n'
         );
         return 0;
       } else if (arg === '--out') {
@@ -1197,6 +1242,17 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
           }
           assign[family as Family] = hex;
         }
+      } else if (arg === '--layout') {
+        for (const part of next().split(',')) {
+          const [key, value] = part.split('=');
+          const px = Number(value);
+          if (!['content', 'wide'].includes(key) || !Number.isFinite(px) || px <= 0) {
+            throw new Error(
+              '--layout takes content and wide in px, for example content=768,wide=1240.'
+            );
+          }
+          layout[key as 'content' | 'wide'] = Math.round(px);
+        }
       } else if (arg.startsWith('--')) {
         throw new Error(`Unknown option ${arg}.`);
       } else {
@@ -1210,7 +1266,7 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
     if (!Array.isArray(styles.captures) || !styles.captures.length) {
       throw new Error('The styles file has no captures.');
     }
-    const proposal = new TokenProposer().propose(styles, { assign });
+    const proposal = new TokenProposer().propose(styles, { assign, layout });
     io.writeFile(out, `${JSON.stringify(proposal, null, 2)}\n`);
     if (report) {
       io.writeFile(report, new ProposalReport().render(proposal));

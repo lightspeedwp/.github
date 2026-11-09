@@ -114,6 +114,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Site Tokens Content Width** — `site-to-design-tokens` measures the content width from running text on single posts and pages, takes `--layout content=<px>,wide=<px>` to override either width, and asks the reviewer to confirm a content width under 480px. ([#4006](https://github.com/lightspeedwp/.github/issues/4006))
 - **Site Tokens Spacing Ladder** — `site-to-design-tokens` fills the whole spacing ladder from `5` by shifting values down before it drops one, so 11 distinct values all get a step. ([#4005](https://github.com/lightspeedwp/.github/issues/4005))
 - **Site Tokens Numeric Slugs** — `site-to-design-tokens` now uses the scaffold's numeric slugs for font sizes (`100` to `900`), radius (`0` to `700`) and shadows (`100` to `600`), so its export needs no renaming. ([#4004](https://github.com/lightspeedwp/.github/issues/4004))
 - **Studio Imports From Live Sites** — Live site exports now import into Studio sites that already have WordPress content; files in the wrong format are refused with a reason. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
