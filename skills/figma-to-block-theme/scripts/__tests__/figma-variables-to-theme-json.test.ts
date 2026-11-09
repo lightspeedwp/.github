@@ -391,6 +391,28 @@ describe('FigmaVariablesMapper', () => {
     );
   });
 
+  it('maps both spellings of the extra sizes to X-Large and X-Small', () => {
+    const mapped = new FigmaVariablesMapper().map({
+      collections: [
+        {
+          name: 'Radius',
+          modes: [{ id: 'm', name: 'Mode 1' }],
+          variables: ['xLarge', 'X-Large', 'x-small'].map((name, i) => ({
+            id: `r${i}`,
+            name,
+            type: 'FLOAT',
+            codeSyntax: { WEB: `var(--wp--preset--border-radius--${(i + 1) * 100})` },
+            valuesByMode: { m: 4 },
+          })),
+        },
+      ],
+    } as never);
+    const names = (mapped.theme.settings as Json).border.radiusSizes.map(
+      (r: { name: string }) => r.name
+    );
+    expect(names).toEqual(['X-Large', 'X-Large', 'X-Small']);
+  });
+
   it('maps bare radius names and strips the old "Radius " prefix', () => {
     const radius = (name: string) =>
       new FigmaVariablesMapper().map({
