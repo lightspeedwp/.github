@@ -264,6 +264,37 @@ describe('TokenProposer on a sparse site', () => {
     expect(proposer['decisions'].join(' ')).not.toContain('left out');
   });
 
+  it('keeps the mobile values in order up the ladder', () => {
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const mobile: Record<number, number> = { 20: 16, 48: 40, 70: 24, 80: 80 };
+    const samples = [20, 48, 70, 80].flatMap((paddingBlock) =>
+      [0, 1].map((n) => ({
+        key: `sp:${paddingBlock}:${n}`,
+        page: '/',
+        role: 'section',
+        paddingBlock,
+      }))
+    );
+    const spacing = proposer.proposeSpacing(
+      samples as never,
+      (s) =>
+        ({
+          ...(s as object),
+          paddingBlock: mobile[(s as { paddingBlock: number }).paddingBlock],
+        }) as never
+    );
+    expect(spacing.slice(1).map((s) => [s.max, s.min])).toEqual([
+      [20, 16],
+      [48, 40],
+      [70, 40],
+      [80, 80],
+    ]);
+    expect(proposer['decisions'].join(' ')).toContain(
+      'Spacing XXXL (`70`) shrinks to 24px on mobile, below XL; its mobile value was raised to 40px.'
+    );
+  });
+
   it('names the spacing values left out when there are more than the ladder holds', () => {
     const proposer = new TokenProposer();
     proposer.propose(styles, { now });
