@@ -140,7 +140,7 @@ function samples(desktop: boolean): ElementSample[] {
     'avatar'
   );
   add(
-    4,
+    8,
     {
       role: 'body',
       color: rgb('#262423'),
