@@ -34,6 +34,7 @@ describe('collectPageStyles', () => {
     expect(byRole('h1')[0]).toMatchObject({
       color: 'rgb(38, 36, 35)',
       fontFamily: 'Moret',
+      fontStack: '"Moret", serif',
       fontSize: 60,
       fontWeight: 400,
       lineHeight: 72,

@@ -1,4 +1,11 @@
-import { ProposalReport, runProposeCli, SEMANTIC_DEFAULTS, TokenProposer } from '../propose-tokens';
+import {
+  cleanFontName,
+  MONOSPACE_STACK,
+  ProposalReport,
+  runProposeCli,
+  SEMANTIC_DEFAULTS,
+  TokenProposer,
+} from '../propose-tokens';
 import { Color, RAMP_STEPS, RampBuilder } from '../lib/color';
 import { tspLikeStyles } from './fixtures';
 
@@ -64,7 +71,17 @@ describe('TokenProposer on a TSP-like site', () => {
 
   it('builds the type scale with the body size at slug 200 (Base) and mobile minimums', () => {
     const sizes = proposal.typography.sizes;
-    expect(proposal.typography.families).toEqual({ heading: 'Moret', body: 'Lora' });
+    expect(proposal.typography.families).toEqual({
+      heading: { name: 'Moret', stack: 'moret, Georgia, serif', source: 'live', raw: 'moret' },
+      body: { name: 'Lora', stack: 'Lora, serif', source: 'live' },
+      accent: {
+        name: 'Caveat',
+        stack: 'caveat_regular, cursive',
+        source: 'live',
+        raw: 'caveat_regular',
+      },
+      monospace: { name: 'Courier New', stack: '"Courier New", monospace', source: 'live' },
+    });
     expect(sizes.map((s) => s.name)).toEqual([
       'Tiny',
       'Base',
@@ -324,6 +341,59 @@ describe('ProposalReport', () => {
     const report = new ProposalReport().render(proposal);
     expect(report).toMatch(/failing: .*action\/primary\/text on action\/primary\/background/);
     expect(report).toContain('**fail**');
+  });
+});
+
+describe('cleanFontName', () => {
+  it.each([
+    ['argesta_displayregular', 'Argesta Display'],
+    ['Moret', 'Moret'],
+    ['open_sans_bold', 'Open Sans'],
+    ['"Playfair Display Italic"', 'Playfair Display'],
+    ['DM Sans', 'DM Sans'],
+    ['bold', 'Bold'],
+    ['lora', 'Lora'],
+  ])('turns %s into %s', (raw, clean) => {
+    expect(cleanFontName(raw)).toBe(clean);
+  });
+});
+
+describe('TokenProposer font roles', () => {
+  it('defaults the roles the site does not show and records them', () => {
+    const proposer = new TokenProposer();
+    const sample = (role: string, fontFamily: string, fontStack: string) =>
+      ({ key: `${role}:0`, page: '/', role, fontSize: 16, fontFamily, fontStack }) as never;
+    const roles = ['h1', 'body'];
+    const families = proposer.proposeFamilies(
+      [sample('h1', 'Moret', 'Moret, serif'), sample('body', 'Lora', 'Lora, serif')],
+      roles
+    );
+    expect(families.accent).toMatchObject({ name: 'Moret', source: 'default' });
+    expect(families.monospace).toEqual({
+      name: 'Monospace',
+      stack: MONOSPACE_STACK,
+      source: 'default',
+    });
+    expect(proposer['decisions'].join(' ')).toContain('uses no third font');
+    const empty = new TokenProposer().proposeFamilies([], roles);
+    expect(empty.heading).toMatchObject({ stack: 'serif', source: 'default' });
+    expect(empty.body).toMatchObject({ stack: 'sans-serif', source: 'default' });
+  });
+
+  it('falls back to the font name when the crawl has no stack', () => {
+    const families = new TokenProposer().proposeFamilies(
+      [{ key: 'h:0', page: '/', role: 'h1', fontSize: 40, fontFamily: 'Moret' } as never],
+      ['h1']
+    );
+    expect(families.heading).toEqual({ name: 'Moret', stack: 'Moret', source: 'live' });
+  });
+
+  it('lists every role in the report', () => {
+    const report = new ProposalReport().render(
+      new TokenProposer().propose(tspLikeStyles(), { now })
+    );
+    expect(report).toContain('`heading`: Moret (live, CSS name `moret`)');
+    expect(report).toContain('`monospace`: Courier New (live)');
   });
 });
 

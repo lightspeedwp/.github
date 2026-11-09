@@ -19,10 +19,11 @@ After replacing the sizes, update every reference in `styles`, `styles.blocks`, 
 
 ## Font families
 
-Variables whose code syntax is `--wp--preset--font-family--<slug>` (usually `heading` and `body`) become `{ slug, name, fontFamily }`:
+Variables whose code syntax is `--wp--preset--font-family--<slug>` (`heading`, `body`, `accent` and `monospace`) become `{ slug, name, fontFamily }`:
 
 - `name` is the font name (for example "Nunito Sans"), not the slug.
-- `fontFamily` quotes names that contain spaces and adds a fallback: `sans-serif` by default, or `--font-fallback serif` for serif families. Confirm the fallback with the user.
+- If the variable description holds a `CSS stack: <stack>` line (written by `site-to-design-tokens`) and its first family is the font named by the value, `fontFamily` is that exact stack.
+- Otherwise `fontFamily` quotes names that contain spaces and adds a fallback: `sans-serif` by default, or `--font-fallback serif` for serif families. Confirm the fallback with the user.
 
 ### Font files
 

@@ -38,6 +38,8 @@ export interface ExportedVariable {
   name: string;
   type: 'COLOR' | 'FLOAT' | 'STRING' | 'BOOLEAN';
   codeSyntax?: { WEB?: string };
+  /** A font family variable may carry its exact stack as `CSS stack: <stack>`. */
+  description?: string;
   valuesByMode: Record<string, VariableValue>;
 }
 
@@ -356,7 +358,7 @@ export class FigmaVariablesMapper {
         return {
           slug: target.slug,
           name: value,
-          fontFamily: this.fontStack(value),
+          fontFamily: this.declaredStack(variable, value) ?? this.fontStack(value),
         };
       case 'border-radius':
         if (typeof value !== 'number') {
@@ -551,6 +553,21 @@ export class FigmaVariablesMapper {
     modeName: string
   ): MappingResult['variations'][string] {
     return (variations[this.slugify(modeName)] ??= { title: modeName, settings: {} });
+  }
+
+  /**
+   * The exact CSS stack from a `CSS stack: ...` line in the variable description, used
+   * only when its first family is the font the mode's value names (other modes differ).
+   */
+  private declaredStack(variable: ExportedVariable, name: string): string | undefined {
+    const stack = variable.description?.match(/CSS stack:\s*(.+)$/m)?.[1].trim();
+    if (!stack) {
+      return undefined;
+    }
+    const plain = (text: string) => text.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const first = plain(stack.split(',')[0]);
+    const wanted = plain(name);
+    return first.startsWith(wanted) || wanted.startsWith(first) ? stack : undefined;
   }
 
   private fontStack(family: string): string {

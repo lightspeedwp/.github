@@ -12,7 +12,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { Color, RAMP_STEPS } from './lib/color';
-import type { Family, Proposal, ScaleEntry } from './propose-tokens';
+import type { Family, FontRoleSlug, Proposal, ScaleEntry } from './propose-tokens';
 
 type Value = { r: number; g: number; b: number; a: number } | number | string | { alias: string };
 
@@ -171,26 +171,7 @@ export class TokenPlanBuilder {
       values: { Value: { alias: s.token } },
     }));
 
-    const typography: PlannedVariable[] = [
-      {
-        key: 'font-heading',
-        name: 'Font-Families/Primary',
-        type: 'STRING',
-        codeSyntax: preset('font-family', 'heading'),
-        scopes: ['FONT_FAMILY'],
-        values: { Max: p.typography.families.heading, Min: p.typography.families.heading },
-        description: 'Headings.',
-      },
-      {
-        key: 'font-body',
-        name: 'Font-Families/Secondary',
-        type: 'STRING',
-        codeSyntax: preset('font-family', 'body'),
-        scopes: ['FONT_FAMILY'],
-        values: { Max: p.typography.families.body, Min: p.typography.families.body },
-        description: 'Body text.',
-      },
-    ];
+    const typography: PlannedVariable[] = [...this.fontVariables(p)];
     for (const size of this.ascending(p.typography.sizes)) {
       typography.push({
         key: `size-${size.slug}`,
@@ -297,6 +278,28 @@ export class TokenPlanBuilder {
     return { collections, effectStyles };
   }
 
+  /** One variable per role. The value is the clean name; the description keeps the exact CSS stack. */
+  private fontVariables(p: Proposal): PlannedVariable[] {
+    const roles: Array<[FontRoleSlug, string, string]> = [
+      ['heading', 'Primary', 'Headings'],
+      ['body', 'Secondary', 'Body text'],
+      ['accent', 'Tertiary', 'Accent text'],
+      ['monospace', 'Monospace', 'Code'],
+    ];
+    return roles.map(([slug, name, use]) => {
+      const font = p.typography.families[slug];
+      return {
+        key: `font-${slug}`,
+        name: `Font-Families/${name}`,
+        type: 'STRING' as const,
+        codeSyntax: `var(--wp--preset--font-family--${slug})`,
+        scopes: ['FONT_FAMILY'],
+        values: { Max: font.name, Min: font.name },
+        description: `${use} (${font.source}). CSS stack: ${font.stack}`,
+      };
+    });
+  }
+
   private semanticScopes(role: string): string[] {
     if (role === 'surface/overlay') return FILL;
     if (/^border\/|\/border$/.test(role)) return ['STROKE_COLOR'];
@@ -318,6 +321,7 @@ export class ExportWriter {
           name: v.name,
           type: v.type,
           codeSyntax: v.codeSyntax ? { WEB: v.codeSyntax } : {},
+          ...(v.description ? { description: v.description } : {}),
           valuesByMode: Object.fromEntries(
             Object.entries(v.values).map(([mode, value]) => [
               `${c.name}:${mode}`,

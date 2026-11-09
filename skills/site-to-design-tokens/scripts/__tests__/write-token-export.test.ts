@@ -83,7 +83,16 @@ describe('TokenPlanBuilder', () => {
     expect(typography.find((v) => v.name === 'Font-Families/Primary')).toMatchObject({
       codeSyntax: 'var(--wp--preset--font-family--heading)',
       values: { Max: 'Moret' },
+      description: 'Headings (live). CSS stack: moret, Georgia, serif',
     });
+    expect(
+      typography.filter((v) => v.name.startsWith('Font-Families/')).map((v) => v.codeSyntax)
+    ).toEqual([
+      'var(--wp--preset--font-family--heading)',
+      'var(--wp--preset--font-family--body)',
+      'var(--wp--preset--font-family--accent)',
+      'var(--wp--preset--font-family--monospace)',
+    ]);
     expect(
       collection('Theme - Spacing').variables.find((v) => v.name === 'Padding/Colossal')!.values
     ).toEqual({ Max: 100, Min: 72 });

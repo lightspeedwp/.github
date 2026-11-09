@@ -38,6 +38,8 @@ export interface ElementSample {
   background?: string;
   border?: string;
   fontFamily?: string;
+  /** The full computed font-family stack, exactly as the CSS writes it. */
+  fontStack?: string;
   fontSize?: number;
   fontWeight?: number;
   lineHeight?: number;
@@ -181,6 +183,7 @@ export function collectPageStyles(options: CollectOptions = {}): CollectedPage {
     if (role && role !== 'section' && role !== 'surface') {
       sample.color = style.color;
       sample.fontFamily = style.fontFamily.split(',')[0].replace(/["']/g, '').trim();
+      sample.fontStack = style.fontFamily;
       sample.fontSize = px(style.fontSize);
       sample.fontWeight = Number(style.fontWeight) || undefined;
       sample.lineHeight = px(style.lineHeight);

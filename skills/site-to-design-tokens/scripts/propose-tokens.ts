@@ -177,7 +177,7 @@ export interface Proposal {
   matches: MatchRow[];
   contrast: ContrastRow[];
   typography: {
-    families: { heading: string; body: string };
+    families: Record<FontRoleSlug, FontRole>;
     sizes: ScaleEntry[];
     weights: Record<string, number>;
   };
@@ -187,6 +187,44 @@ export interface Proposal {
   layout: { content?: number; wide?: number };
   breakpoints: { mobile: number; tablet: number; desktop: number };
   decisions: string[];
+}
+
+export type FontRoleSlug = 'heading' | 'body' | 'accent' | 'monospace';
+
+/** One font family role. `name` is the clean display name, `stack` the CSS stack. */
+export interface FontRole {
+  name: string;
+  stack: string;
+  source: 'live' | 'default';
+  /** The name as the site's CSS writes it, when it differs from `name`. */
+  raw?: string;
+}
+
+export const MONOSPACE_STACK =
+  'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+const STYLE_SUFFIX =
+  /(?:extralight|ultralight|semibold|demibold|extrabold|ultrabold|regular|italic|oblique|medium|light|bold|black|heavy|thin|book|roman)$/i;
+
+/**
+ * Cleans a raw `@font-face` family name: drops weight and style suffixes such as
+ * `regular` or `bold`, turns underscores into spaces and title-cases lower-case words.
+ * `argesta_displayregular` becomes `Argesta Display`. Mixed-case words (`DM`) are kept.
+ */
+export function cleanFontName(raw: string): string {
+  let name = raw.replace(/["']/g, '').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+  for (let i = 0; i < 3; i++) {
+    const stripped = name.replace(STYLE_SUFFIX, '').trim();
+    if (stripped === name || stripped.length < 3) {
+      break;
+    }
+    name = stripped;
+  }
+  return name
+    .split(' ')
+    .map((word) =>
+      word === word.toLowerCase() ? word.charAt(0).toUpperCase() + word.slice(1) : word
+    )
+    .join(' ');
 }
 
 export interface ProposeOptions {
@@ -736,15 +774,8 @@ export class TokenProposer {
       'input',
     ];
     const text = samples.filter((s) => textRoles.includes(s.role) && s.fontSize);
-    const headings = text.filter((s) => /^h[1-3]$/.test(s.role));
     const body = text.filter((s) => s.role === 'body');
-    const families = {
-      heading:
-        mode(headings.map((s) => ({ value: s.fontFamily ?? '' }))) ||
-        mode(text.map((s) => ({ value: s.fontFamily ?? '' }))) ||
-        'serif',
-      body: mode(body.map((s) => ({ value: s.fontFamily ?? '' }))) || 'sans-serif',
-    };
+    const families = this.proposeFamilies(samples, textRoles);
 
     const bodySize = mode(body.map((s) => ({ value: Math.round(s.fontSize!) }))) ?? 16;
     const pairs = new Map<number, { min: number; weight: number; ratios: number[] }>();
@@ -813,6 +844,81 @@ export class TokenProposer {
       }
     }
     return { families, sizes, weights };
+  }
+
+  /**
+   * Heading and body come from the live site. Accent is the next most used family when
+   * the site has a third one. Monospace is live only where the CSS uses a monospace stack.
+   * Roles with no live evidence get a documented default, and the report says so.
+   */
+  proposeFamilies(
+    samples: Array<ElementSample & { page: string }>,
+    textRoles: string[]
+  ): Record<FontRoleSlug, FontRole> {
+    const text = samples.filter((s) => textRoles.includes(s.role) && s.fontFamily);
+    const isMono = (s: ElementSample) =>
+      /\bmonospace\b/i.test(s.fontStack ?? '') ||
+      /^(courier|consolas|menlo|monaco|sf mono|roboto mono|fira (code|mono)|source code)/i.test(
+        s.fontFamily ?? ''
+      );
+    const proseText = text.filter((s) => !isMono(s));
+    const stackFor = (raw: string) =>
+      mode(
+        text
+          .filter((s) => s.fontFamily === raw && s.fontStack)
+          .map((s) => ({ value: s.fontStack! }))
+      ) ?? raw;
+    const role = (raw: string): FontRole => {
+      const name = cleanFontName(raw);
+      return {
+        name,
+        stack: stackFor(raw),
+        source: 'live',
+        ...(name !== raw ? { raw } : {}),
+      };
+    };
+    const headings = proseText.filter((s) => /^h[1-3]$/.test(s.role));
+    const body = proseText.filter((s) => s.role === 'body');
+    const headingRaw =
+      mode(headings.map((s) => ({ value: s.fontFamily! }))) ||
+      mode(proseText.map((s) => ({ value: s.fontFamily! })));
+    const bodyRaw = mode(body.map((s) => ({ value: s.fontFamily! })));
+
+    const heading: FontRole = headingRaw
+      ? role(headingRaw)
+      : { name: 'Serif', stack: 'serif', source: 'default' };
+    const bodyRole: FontRole = bodyRaw
+      ? role(bodyRaw)
+      : { name: 'Sans Serif', stack: 'sans-serif', source: 'default' };
+    if (heading.source === 'default') {
+      this.decisions.push('No heading font was found; `heading` defaults to the generic serif.');
+    }
+    if (bodyRole.source === 'default') {
+      this.decisions.push('No body font was found; `body` defaults to the generic sans-serif.');
+    }
+
+    const counts = new Map<string, number>();
+    for (const s of proseText) {
+      if (s.fontFamily !== headingRaw && s.fontFamily !== bodyRaw) {
+        counts.set(s.fontFamily!, (counts.get(s.fontFamily!) ?? 0) + (/^h/.test(s.role) ? 3 : 1));
+      }
+    }
+    const accentRaw = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
+    let accent: FontRole;
+    if (accentRaw) {
+      accent = role(accentRaw);
+    } else {
+      accent = { ...heading, source: 'default' };
+      this.decisions.push(
+        `The site uses no third font, so \`accent\` defaults to the heading font (${heading.name}). Ask the reviewer if the theme should have a distinct accent font.`
+      );
+    }
+
+    const monoRaw = mode(text.filter(isMono).map((s) => ({ value: s.fontFamily! })));
+    const monospace: FontRole = monoRaw
+      ? role(monoRaw)
+      : { name: 'Monospace', stack: MONOSPACE_STACK, source: 'default' };
+    return { heading, body: bodyRole, accent, monospace };
   }
 
   proposeSpacing(
@@ -1079,6 +1185,18 @@ export class TokenProposer {
 
 /** Writes the proposal as a Markdown report for approval. */
 export class ProposalReport {
+  private fontLines(p: Proposal): string[] {
+    const roles: FontRoleSlug[] = ['heading', 'body', 'accent', 'monospace'];
+    return [
+      '- Fonts:',
+      ...roles.map((slug) => {
+        const f = p.typography.families[slug];
+        const raw = f.raw ? `, CSS name \`${f.raw}\`` : '';
+        return `  - \`${slug}\`: ${f.name} (${f.source}${raw}), stack \`${f.stack}\``;
+      }),
+    ];
+  }
+
   render(p: Proposal): string {
     const lines: string[] = [];
     const table = (head: string[], rows: Array<Array<string | number>>) => {
@@ -1106,10 +1224,7 @@ export class ProposalReport {
     lines.push(
       `- Contrast: ${p.contrast.length - failing.length} of ${p.contrast.length} pairs pass${failing.length ? ` (failing: ${failing.map((f) => f.pair).join('; ')})` : ''}`
     );
-    lines.push(
-      `- Fonts: headings ${p.typography.families.heading}, body ${p.typography.families.body}`,
-      ''
-    );
+    lines.push(...this.fontLines(p), '');
 
     lines.push('## Decisions for the reviewer', '');
     const decisions = [...p.decisions];

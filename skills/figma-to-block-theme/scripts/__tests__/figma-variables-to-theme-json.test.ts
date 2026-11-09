@@ -391,6 +391,37 @@ describe('FigmaVariablesMapper', () => {
     );
   });
 
+  it('keeps the exact CSS stack declared in a font variable description', () => {
+    const font = (value: string, description?: string) =>
+      new FigmaVariablesMapper().map({
+        collections: [
+          {
+            name: 'Typography',
+            modes: [{ id: 'm', name: 'Value' }],
+            variables: [
+              {
+                id: 'f',
+                name: 'Font-Families/Primary',
+                type: 'STRING',
+                codeSyntax: { WEB: 'var(--wp--preset--font-family--heading)' },
+                description,
+                valuesByMode: { m: value },
+              },
+            ],
+          },
+        ],
+      } as never);
+    const stack = (mapped: ReturnType<typeof font>) =>
+      (mapped.theme.settings as Json).typography.fontFamilies[0].fontFamily;
+    const description = 'Headings (live). CSS stack: moret, Georgia, serif';
+
+    expect(stack(font('Moret', description))).toBe('moret, Georgia, serif');
+    // A stack for another font is ignored.
+    expect(stack(font('Lora', description))).toBe('Lora, sans-serif');
+    expect(stack(font('Moret'))).toBe('Moret, sans-serif');
+    expect(stack(font('Moret', 'Headings only'))).toBe('Moret, sans-serif');
+  });
+
   it('warns when a sizing ramp is out of order', () => {
     const mapped = new FigmaVariablesMapper().map({
       collections: [
