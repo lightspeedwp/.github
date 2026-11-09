@@ -1074,8 +1074,12 @@ export class TokenProposer {
         counts.set(fam(s), (counts.get(fam(s)) ?? 0) + (/^h/.test(s.role) ? 3 : 1));
       }
     }
-    const accentKey = [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0];
-    // The accent role exists only when the site really uses a third family.
+    // The accent role exists only when the site really uses a third family: at least
+    // 2% of the text elements (and at least 5), so one stray rule doesn't make a role.
+    const minUses = Math.max(5, proseText.length * 0.02);
+    const accentKey = [...counts.entries()]
+      .filter(([, n]) => n >= minUses)
+      .sort((a, b) => b[1] - a[1])[0]?.[0];
     const accent = accentKey ? role(accentKey) : undefined;
 
     const monoKey = mode(text.filter(isMono).map((s) => ({ value: fam(s) })));
