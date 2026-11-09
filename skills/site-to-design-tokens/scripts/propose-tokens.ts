@@ -76,7 +76,20 @@ export const SEMANTIC_DEFAULTS: Record<string, string> = {
 };
 
 export const SHADOW_ALPHAS = [5, 10, 12, 15, 20, 25, 30, 35, 40, 45, 60, 70, 85];
-const SIZE_NAMES = ['Tiny', 'xSmall', 'Small', 'Medium', 'Large', 'xLarge', 'Huge', 'Gigantic'];
+/** The type ladder: slugs 100 to 900, body text at 200. Names are display names only. */
+const SIZE_NAMES = [
+  'Tiny',
+  'Base',
+  'Small',
+  'Medium',
+  'Large',
+  'xLarge',
+  'Huge',
+  'Gigantic',
+  'Colossal',
+];
+/** Numeric slug for the nth step of a ladder that counts in hundreds (100, 200, ...). */
+const hundreds = (index: number) => String((index + 1) * 100);
 /** The LightSpeed spacing ladder: the slug is the step, the name its T-shirt size. */
 export const SPACING_STEPS = [
   { slug: '5', name: 'XXS' },
@@ -91,7 +104,7 @@ export const SPACING_STEPS = [
   { slug: '90', name: 'Gigantic' },
   { slug: '100', name: 'Colossal' },
 ];
-const RADIUS_NAMES = ['Small', 'Base', 'Medium', 'Large', 'xLarge'];
+const RADIUS_NAMES = ['Small', 'Base', 'Medium', 'Large', 'xLarge', 'Huge'];
 const SHADOW_NAMES = ['xSmall', 'Small', 'Medium', 'Large', 'xLarge', 'Huge'];
 
 export interface ColourEvidence {
@@ -180,13 +193,6 @@ export interface ProposeOptions {
   assign?: Partial<Record<Family, string>>;
   now?: () => Date;
 }
-
-const kebab = (name: string) =>
-  name
-    .replace(/^x(?=[A-Z])/, 'x-')
-    .replace(/^xx(?=[A-Z])/, 'xx-')
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .toLowerCase();
 
 /** Weighted mode of a list of values. */
 function mode<T>(values: Array<{ value: T; weight?: number }>): T | undefined {
@@ -787,7 +793,7 @@ export class TokenProposer {
       const name = SIZE_NAMES[firstIndex + i];
       return {
         name,
-        slug: kebab(name),
+        slug: hundreds(firstIndex + i),
         max,
         min: Math.min(entry.min, max),
         lineHeight: mode(entry.ratios.map((value) => ({ value }))),
@@ -902,9 +908,9 @@ export class TokenProposer {
       .map(([v]) => v)
       .sort((a, b) => a - b);
     return [
-      { name: 'None', slug: 'none', value: 0 },
-      ...values.map((value, i) => ({ name: RADIUS_NAMES[i], slug: kebab(RADIUS_NAMES[i]), value })),
-      { name: 'Round', slug: 'round', value: 9999 },
+      { name: 'None', slug: '0', value: 0 },
+      ...values.map((value, i) => ({ name: RADIUS_NAMES[i], slug: hundreds(i), value })),
+      { name: 'Round', slug: '700', value: 9999 },
     ];
   }
 
@@ -924,7 +930,7 @@ export class TokenProposer {
         (a, b) =>
           a.effects.reduce((t, e) => t + e.radius, 0) - b.effects.reduce((t, e) => t + e.radius, 0)
       );
-    return parsed.map((s, i) => ({ name: SHADOW_NAMES[i], slug: kebab(SHADOW_NAMES[i]), ...s }));
+    return parsed.map((s, i) => ({ name: SHADOW_NAMES[i], slug: hundreds(i), ...s }));
   }
 
   /** Parses a computed box-shadow into effects. */

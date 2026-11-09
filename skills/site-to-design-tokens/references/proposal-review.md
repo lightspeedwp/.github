@@ -41,7 +41,7 @@ WCAG 2.2 ratios for the semantic pairs. Text needs 4.5:1, and focus rings and in
 
 Check each scale against the site at both widths:
 
-- The body text size should be `xSmall`.
+- The body text size should be `Base`, slug `200`.
 - Heading sizes should shrink on mobile.
 - Section spacing should reflect what the eye sees. Sites that space sections with margins on unstyled wrappers can produce a smaller scale than the design intends, so say so and let the reviewer set the larger steps.
 - Font names come from the site's CSS (for example a web font alias such as `argesta_displayregular`). Ask the reviewer for the licensed family name and its fallback.

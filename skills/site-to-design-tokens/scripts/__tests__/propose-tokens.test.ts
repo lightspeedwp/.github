@@ -62,12 +62,12 @@ describe('TokenProposer on a TSP-like site', () => {
     expect(proposal.contrast).toHaveLength(17);
   });
 
-  it('builds the type scale with the body size at xSmall and mobile minimums', () => {
+  it('builds the type scale with the body size at slug 200 (Base) and mobile minimums', () => {
     const sizes = proposal.typography.sizes;
     expect(proposal.typography.families).toEqual({ heading: 'Moret', body: 'Lora' });
     expect(sizes.map((s) => s.name)).toEqual([
       'Tiny',
-      'xSmall',
+      'Base',
       'Small',
       'Medium',
       'Large',
@@ -75,8 +75,18 @@ describe('TokenProposer on a TSP-like site', () => {
       'Huge',
       'Gigantic',
     ]);
-    expect(sizes[1]).toMatchObject({ slug: 'x-small', max: 16, min: 16, lineHeight: 1.5 });
-    expect(sizes[7]).toMatchObject({ slug: 'gigantic', max: 60, min: 36, lineHeight: 1.2 });
+    expect(sizes.map((s) => s.slug)).toEqual([
+      '100',
+      '200',
+      '300',
+      '400',
+      '500',
+      '600',
+      '700',
+      '800',
+    ]);
+    expect(sizes[1]).toMatchObject({ slug: '200', max: 16, min: 16, lineHeight: 1.5 });
+    expect(sizes[7]).toMatchObject({ slug: '800', max: 60, min: 36, lineHeight: 1.2 });
     expect(sizes[2]).toMatchObject({ max: 20, min: 16 });
     expect(proposal.typography.weights).toMatchObject({ body: 400, button: 600, h1: 400 });
     expect(proposal.decisions.join(' ')).toContain('share the one Tiny slot');
@@ -93,12 +103,12 @@ describe('TokenProposer on a TSP-like site', () => {
       ['Colossal', '100', 100, 72],
     ]);
     expect(proposal.radius).toEqual([
-      { name: 'None', slug: 'none', value: 0 },
-      { name: 'Small', slug: 'small', value: 4 },
-      { name: 'Base', slug: 'base', value: 8 },
-      { name: 'Round', slug: 'round', value: 9999 },
+      { name: 'None', slug: '0', value: 0 },
+      { name: 'Small', slug: '100', value: 4 },
+      { name: 'Base', slug: '200', value: 8 },
+      { name: 'Round', slug: '700', value: 9999 },
     ]);
-    expect(proposal.shadows.map((s) => s.slug)).toEqual(['x-small', 'small', 'medium']);
+    expect(proposal.shadows.map((s) => s.slug)).toEqual(['100', '200', '300']);
     expect(proposal.shadows[0].effects[0]).toMatchObject({
       type: 'DROP_SHADOW',
       offset: { x: 0, y: 1 },
@@ -186,10 +196,10 @@ describe('TokenProposer on a sparse site', () => {
     expect(decisions).toContain('No repeated centred container');
     expect(proposal.layout).toEqual({});
     expect(proposal.breakpoints).toEqual({ mobile: 376, tablet: 768, desktop: 1240 });
-    expect(proposal.radius.map((r) => r.slug)).toEqual(['none', 'round']);
+    expect(proposal.radius.map((r) => r.slug)).toEqual(['0', '700']);
     expect(proposal.shadows).toEqual([]);
     expect(proposal.spacing).toEqual([{ name: 'None', slug: 'none', max: 0, min: 0 }]);
-    expect(proposal.typography.sizes.map((s) => s.name)).toEqual(['xSmall', 'Small']);
+    expect(proposal.typography.sizes.map((s) => s.name)).toEqual(['Base', 'Small']);
   });
 
   it('puts spacing on the nearest free ladder step and drops what does not fit', () => {
@@ -243,7 +253,8 @@ describe('TokenProposer on a sparse site', () => {
       );
     }
     const merged = new TokenProposer().propose(many, { now });
-    expect(merged.typography.sizes).toHaveLength(7);
+    expect(merged.typography.sizes).toHaveLength(8);
+    expect(merged.typography.sizes.at(-1)).toMatchObject({ name: 'Colossal', slug: '900' });
     expect(merged.decisions.join(' ')).toContain('was merged into the nearest size');
   });
 

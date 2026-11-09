@@ -73,10 +73,10 @@ describe('TokenPlanBuilder', () => {
   it('stores fluid sizes as Max and Min, and line heights as percentages', () => {
     const typography = collection('Theme - Typography').variables;
     expect(typography.find((v) => v.name === 'Sizes/Gigantic')).toMatchObject({
-      codeSyntax: 'var(--wp--preset--font-size--gigantic)',
+      codeSyntax: 'var(--wp--preset--font-size--800)',
       values: { Max: 60, Min: 36 },
     });
-    expect(typography.find((v) => v.name === 'Line-Heights/xSmall')!.values).toEqual({
+    expect(typography.find((v) => v.name === 'Line-Heights/Base')!.values).toEqual({
       Max: 150,
       Min: 150,
     });
@@ -95,7 +95,7 @@ describe('TokenPlanBuilder', () => {
     ]);
     expect(plan.effectStyles[0]).toMatchObject({
       name: 'LSX/xSmall',
-      description: 'theme.json shadow preset "x-small": var(--wp--preset--shadow--x-small).',
+      description: 'theme.json shadow preset "100": var(--wp--preset--shadow--100).',
     });
   });
 
