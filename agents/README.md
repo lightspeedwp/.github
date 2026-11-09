@@ -234,5 +234,4 @@ When creating a new agent:
 - [Naming Conventions](../.github/reports/agent-audit/AGENT_NAMING_CONVENTIONS.md) – Naming standards
 - [Issue #1828](https://github.com/lightspeedwp/.github/issues/1828) – Master initiative epic
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+Made with ❤️ by the LightSpeed team.
