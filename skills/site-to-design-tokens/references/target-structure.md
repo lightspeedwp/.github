@@ -24,7 +24,7 @@ Line-height variables store a percentage of the font size (150 means 1.5). They 
 
 Type sizes, radius and shadows use numeric slugs, the same as the block theme scaffold and `tsp-theme`. The size names (Small, Base, Large and so on) are display names only. The slug lives in the code syntax and the effect style description, never in the variable name, and the export carries the slug straight through to `theme.json` with no renaming.
 
-- Type, slugs `100` to `900`: `Tiny` (100), `Base` (200), `Small`, `Medium`, `Large`, `xLarge`, `Huge`, `Gigantic`, `Colossal` (900). Body text is always `Base` at `200`. When the site has no size below body text, `100` stays empty.
+- Type, slugs `100` to `900`: `Tiny` (100), `Base` (200), `Small`, `Medium`, `Large`, `X-Large`, `Huge`, `Gigantic`, `Colossal` (900). Body text is always `Base` at `200`. When the site has no size below body text, `100` stays empty.
 - Spacing is the exception. The variable name carries only the size and the code syntax carries the slug, so `Padding/XS` has `var(--wp--preset--spacing--10)`. Never put the slug in the name (`Padding/10 XS`). The ladder is:
 
   | Name | XXS | XS   | S    | M    | L    | XL   | XXL  | XXXL | XXXXL | Gigantic | Colossal |
@@ -35,8 +35,8 @@ Type sizes, radius and shadows use numeric slugs, the same as the block theme sc
 
   Each measured value takes the step nearest its desktop size, so 40px becomes `L`. When that step is taken, the value moves up to the next free step. If that runs off the top of the ladder, values shift down into free lower steps, starting at `5`, so nothing is dropped. A value is only left out when more than 11 distinct values are in use, and then the least used go. `Padding/None` (0) is for Figma only. It has no code syntax, because WordPress already offers a 0 spacing and importing one adds a duplicate in the editor.
 
-- Radius, slugs `0` to `700`: `None` (0), `Small` (100), `Base`, `Medium`, `Large`, `xLarge`, `Huge` (600), `Round` (700, 9999px). Measured values fill 100 upward in order.
-- Shadows, slugs `100` to `600`: `xSmall`, `Small`, `Medium`, `Large`, `xLarge`, `Huge`, ordered by strength (blur radius), so `100` is the softest.
+- Radius, slugs `0` to `700`: `None` (0), `Small` (100), `Base`, `Medium`, `Large`, `X-Large`, `Huge` (600), `Round` (700, 9999px). Measured values fill 100 upward in order.
+- Shadows, slugs `100` to `600`: `X-Small`, `Small`, `Medium`, `Large`, `X-Large`, `Huge`, ordered by strength (blur radius), so `100` is the softest.
 
 ## Font families
 

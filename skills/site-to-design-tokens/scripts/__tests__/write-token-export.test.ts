@@ -103,7 +103,7 @@ describe('TokenPlanBuilder', () => {
       'Round',
     ]);
     expect(plan.effectStyles[0]).toMatchObject({
-      name: 'LSX/xSmall',
+      name: 'LSX/X-Small',
       description: 'theme.json shadow preset "100": var(--wp--preset--shadow--100).',
     });
   });
@@ -304,7 +304,7 @@ describe('FigmaScriptWriter', () => {
     expect(calls.aliases).toBe(44);
     expect(result.variableCount).toBe(calls.variables.length);
     expect(result.effectStyleIds).toHaveLength(plan.effectStyles.length);
-    expect(calls.styles[0].name).toBe('LSX/xSmall');
+    expect(calls.styles[0].name).toBe('LSX/X-Small');
     const inner = calls.styles
       .flatMap((s) => s.effects as Array<{ type: string; showShadowBehindNode?: boolean }>)
       .find((e) => e.type === 'INNER_SHADOW');
