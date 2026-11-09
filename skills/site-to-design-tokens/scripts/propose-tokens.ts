@@ -1011,9 +1011,13 @@ export class TokenProposer {
       this.decisions.push('No body font was found; `body` defaults to the generic sans-serif.');
     }
 
+    // The operating system's UI font (used by chat, cookie and booking widgets) is not
+    // a design family, so it never becomes the accent.
+    const isSystemUi = (s: ElementSample) =>
+      /^(-apple-system|system-ui|blinkmacsystemfont|"?segoe ui"?)$/.test(fam(s));
     const counts = new Map<string, number>();
     for (const s of proseText) {
-      if (fam(s) !== headingKey && fam(s) !== bodyKey) {
+      if (fam(s) !== headingKey && fam(s) !== bodyKey && !isSystemUi(s)) {
         counts.set(fam(s), (counts.get(fam(s)) ?? 0) + (/^h/.test(s.role) ? 3 : 1));
       }
     }
