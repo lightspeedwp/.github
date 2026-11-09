@@ -401,6 +401,22 @@ describe('TokenProposer font roles', () => {
     });
   });
 
+  it('never takes the system UI font of a widget as the accent', () => {
+    const sample = (role: string, fontFamily: string) =>
+      ({ key: `${role}:${fontFamily}`, page: '/', role, fontSize: 16, fontFamily }) as never;
+    const families = new TokenProposer().proposeFamilies(
+      [
+        sample('h1', 'moret'),
+        sample('body', 'lora'),
+        sample('button', '-apple-system'),
+        sample('button', 'system-ui'),
+        sample('button', 'Segoe UI'),
+      ],
+      ['h1', 'body', 'button']
+    );
+    expect('accent' in families).toBe(false);
+  });
+
   it('falls back to the font name when the crawl has no stack', () => {
     const families = new TokenProposer().proposeFamilies(
       [{ key: 'h:0', page: '/', role: 'h1', fontSize: 40, fontFamily: 'Moret' } as never],
