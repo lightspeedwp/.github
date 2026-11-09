@@ -88,7 +88,7 @@ describe('TokenProposer on a TSP-like site', () => {
       'Small',
       'Medium',
       'Large',
-      'xLarge',
+      'X-Large',
       'Huge',
       'Gigantic',
     ]);
