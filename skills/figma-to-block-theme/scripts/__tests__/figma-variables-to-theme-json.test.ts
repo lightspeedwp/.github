@@ -427,6 +427,36 @@ describe('FigmaVariablesMapper', () => {
     expect(stack(font('Moret', 'Headings only'))).toBe('Moret, sans-serif');
   });
 
+  it('keeps the system stack of a generic family such as Monospace', () => {
+    const family = (slug: string, value: string, description?: string) =>
+      (
+        new FigmaVariablesMapper().map({
+          collections: [
+            {
+              name: 'Typography',
+              modes: [{ id: 'm', name: 'Value' }],
+              variables: [
+                {
+                  id: slug,
+                  name: `Font-Families/${value}`,
+                  type: 'STRING',
+                  codeSyntax: { WEB: `var(--wp--preset--font-family--${slug})` },
+                  description,
+                  valuesByMode: { m: value },
+                },
+              ],
+            },
+          ],
+        } as never).theme.settings as Json
+      ).typography.fontFamilies[0].fontFamily;
+    const system = 'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+
+    expect(family('monospace', 'Monospace', `Code (default). CSS stack: ${system}`)).toBe(system);
+    // With no declared stack, a generic name is the stack, and a named mono font falls back to monospace.
+    expect(family('monospace', 'Monospace')).toBe('monospace');
+    expect(family('monospace', 'Fira Code')).toBe('"Fira Code", monospace');
+  });
+
   it('writes only the font roles that exist, with no accent when there is none', () => {
     const role = (slug: string, value: string) => ({
       id: slug,

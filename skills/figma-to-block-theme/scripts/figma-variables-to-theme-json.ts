@@ -105,6 +105,22 @@ const UNSAFE_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 const PRESET_PATTERN =
   /--wp--preset--(color|spacing|font-size|font-family|border-radius|shadow)--([a-z0-9-]+)/;
 const CUSTOM_PATTERN = /--wp--custom--([a-z0-9-]+(?:--[a-z0-9-]+)*)/;
+/** CSS generic font families, which name no font of their own. */
+const GENERIC_FAMILIES = new Set([
+  'serif',
+  'sans-serif',
+  'monospace',
+  'cursive',
+  'fantasy',
+  'system-ui',
+  'ui-serif',
+  'ui-sans-serif',
+  'ui-monospace',
+  'ui-rounded',
+  'math',
+  'emoji',
+  'fangsong',
+]);
 const MIN_MODE_PATTERN = /^(mobile|min|small|sm)$/i;
 const MAX_MODE_PATTERN = /^(desktop|max|large|lg)$/i;
 
@@ -358,7 +374,7 @@ export class FigmaVariablesMapper {
         return {
           slug: target.slug,
           name: value,
-          fontFamily: this.declaredStack(variable, value) ?? this.fontStack(value),
+          fontFamily: this.declaredStack(variable, value) ?? this.fontStack(value, target.slug),
         };
       case 'border-radius':
         if (typeof value !== 'number') {
@@ -571,6 +587,10 @@ export class FigmaVariablesMapper {
     if (!stack) {
       return undefined;
     }
+    // A generic name such as "Monospace" has no font of its own: the declared system stack is the font.
+    if (GENERIC_FAMILIES.has(name.trim().toLowerCase())) {
+      return stack;
+    }
     const [first, ...fallbacks] = stack.split(',').map((part) => part.trim());
     const plain = (text: string) => text.toLowerCase().replace(/[^a-z0-9]/g, '');
     const face = plain(first);
@@ -581,8 +601,15 @@ export class FigmaVariablesMapper {
     return [this.quoteFamily(name), ...fallbacks.filter(Boolean)].join(', ');
   }
 
-  private fontStack(family: string): string {
-    return `${this.quoteFamily(family)}, ${this.options.fontFallback ?? 'sans-serif'}`;
+  /** A stack with no declaration: the family, then the generic family for its role. */
+  private fontStack(family: string, slug: string): string {
+    const generic = family.trim().toLowerCase();
+    if (GENERIC_FAMILIES.has(generic)) {
+      return generic;
+    }
+    const fallback =
+      slug === 'monospace' ? 'monospace' : (this.options.fontFallback ?? 'sans-serif');
+    return `${this.quoteFamily(family)}, ${fallback}`;
   }
 
   private quoteFamily(family: string): string {
