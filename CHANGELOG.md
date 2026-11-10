@@ -115,6 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Figma Tokens Layout Widths** — `figma-to-block-theme` maps the content and wide width variables to `settings.layout` in px, instead of unitless values in `settings.custom.layout`, so the theme gets the design's widths. ([GIT-2772](https://linear.app/lightspeedwp/issue/GIT-2772))
 - **Figma Tokens Monospace Stack** — `figma-to-block-theme` keeps the declared system stack for a generic family such as Monospace, and falls back to `monospace` for the monospace role, instead of writing `Monospace, sans-serif`. ([GIT-2771](https://linear.app/lightspeedwp/issue/GIT-2771))
 - **Figma Tokens Font Stacks** — `figma-to-block-theme` starts each font stack with the clean family name and keeps the declared fallbacks, instead of the live site's own `@font-face` name, so the stack matches the theme's `fontFace` entries. ([GIT-2770](https://linear.app/lightspeedwp/issue/GIT-2770))
 - **Site Tokens Spacing Minimums** — `site-to-design-tokens` keeps mobile spacing values in order up the ladder, raising a step that would shrink below the one before and listing it for the reviewer. ([GIT-2766](https://linear.app/lightspeedwp/issue/GIT-2766))

@@ -554,6 +554,56 @@ describe('FigmaVariablesMapper', () => {
     );
   });
 
+  it('maps content and wide width to settings.layout in px', () => {
+    const width = (id: string, syntax: string, value: unknown, type = 'FLOAT') => ({
+      id,
+      name: `Desktop/${id}`,
+      type,
+      codeSyntax: { WEB: `var(${syntax})` },
+      valuesByMode: { m: value },
+    });
+    const layout = (...variables: ReturnType<typeof width>[]) =>
+      new FigmaVariablesMapper().map({
+        collections: [{ name: 'Theme - Layout', modes: [{ id: 'm', name: 'Mode 1' }], variables }],
+      } as never);
+
+    // The form site-to-design-tokens writes.
+    const custom = layout(
+      width('content', '--wp--custom--layout--content-size', 848),
+      width('wide', '--wp--custom--layout--wide-size', 1232)
+    );
+    expect((custom.theme.settings as Json).layout).toEqual({
+      contentSize: '848px',
+      wideSize: '1232px',
+    });
+    expect((custom.theme.settings as Json).custom).toBeUndefined();
+    expect(custom.report.counts.layout).toBe(2);
+
+    // Core's own variable names, and string values with and without a unit.
+    const core = layout(
+      width('content', '--wp--style--global--content-size', '48rem', 'STRING'),
+      width('wide', '--wp--style--global--wide-size', '1200', 'STRING')
+    );
+    expect((core.theme.settings as Json).layout).toEqual({
+      contentSize: '48rem',
+      wideSize: '1200px',
+    });
+
+    // A layout width that isn't a length is reported, not written.
+    const bad = layout(width('content', '--wp--custom--layout--content-size', true, 'BOOLEAN'));
+    expect((bad.theme.settings as Json).layout).toBeUndefined();
+    expect(bad.report.warnings.join('\n')).toContain('"Desktop/content" is BOOLEAN');
+
+    // A custom value that aliases a width refers to core's variable.
+    const alias = layout(width('content', '--wp--custom--layout--content-size', 848), {
+      ...width('gutter', '--wp--custom--max-text', 0),
+      valuesByMode: { m: { type: 'VARIABLE_ALIAS', id: 'content' } },
+    });
+    expect((alias.theme.settings as Json).custom['max-text']).toBe(
+      'var(--wp--style--global--content-size)'
+    );
+  });
+
   it('gives custom lengths a unit and refuses unsafe or clashing paths', () => {
     const variable = (id: string, syntax: string, value: number) => ({
       id,
