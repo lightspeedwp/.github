@@ -38,10 +38,10 @@ This skill guides an agent to walk a WordPress block theme sequentially, detect 
 Use the bundled script to find orphaned references and suggested replacements:
 
 ```bash
-python3 scripts/find_orphaned_presets.py --root <theme-root> --report <path outside the theme>
+npx tsx ${CLAUDE_SKILL_DIR}/scripts/find-orphaned-presets.ts --root <theme-root> --report <path outside the theme>
 ```
 
-Add `--exclude <folder>` (repeatable) to skip another folder. Tests: `python3 -m unittest discover -s skills/theme-orphaned-refs/scripts/__tests__` from the repository root.
+Add `--exclude <folder>` (repeatable) to skip another folder. Run `npm ci` in the `.github` checkout first. Tests: `npm run test:theme-orphaned-refs` from the repository root.
 
 Then apply replacements with minimal, localized edits.
 
