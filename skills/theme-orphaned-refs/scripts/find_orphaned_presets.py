@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import argparse
 import json
+import os
 import pathlib
 import re
 from difflib import get_close_matches
@@ -10,6 +11,7 @@ PRESET_TYPES = {
     "color",
     "font-family",
     "font-size",
+    "border-radius",
     "spacing",
     "shadow",
     "gradient",
@@ -28,6 +30,21 @@ NAME_TO_FONT_SIZE = {
     "gigantic": "800",
     "colossal": "900",
 }
+
+# Dependency, build, VCS and agent folders hold other projects' preset references.
+SKIP_DIRS = {
+    "node_modules",
+    "vendor",
+    "build",
+    "dist",
+    "coverage",
+    ".git",
+    ".agents",
+    ".claude",
+    ".github",
+}
+
+BINARY_SUFFIXES = {".png", ".jpg", ".jpeg", ".gif", ".webp", ".svg", ".woff", ".woff2", ".ttf", ".otf", ".eot"}
 
 COLOR_STEP_PREFIXES = {
     "accent",
@@ -48,6 +65,7 @@ def load_theme_presets(theme_path: pathlib.Path) -> Dict[str, List[str]]:
     presets["font-size"] = [f.get("slug") for f in settings.get("typography", {}).get("fontSizes", []) if f.get("slug")]
     presets["spacing"] = [s.get("slug") for s in settings.get("spacing", {}).get("spacingSizes", []) if s.get("slug")]
     presets["shadow"] = [s.get("slug") for s in settings.get("shadow", {}).get("presets", []) if s.get("slug")]
+    presets["border-radius"] = [r.get("slug") for r in settings.get("border", {}).get("radiusSizes", []) if r.get("slug")]
 
     for key in list(presets.keys()):
         presets[key] = [s for s in presets[key] if s]
@@ -75,6 +93,12 @@ def closest_slug(slug: str, preset_type: str, candidates: Iterable[str]) -> str:
         if mapped and mapped in candidates:
             return mapped
 
+    # Numeric ladders (font sizes 100-900, radius 0-700, spacing 5-100): suggest the nearest step.
+    if slug.isdigit():
+        steps = [c for c in candidates if c.isdigit()]
+        if steps:
+            return min(steps, key=lambda c: (abs(int(c) - int(slug)), int(c)))
+
     prefix, number = _numeric_slug(slug)
     if number != -1:
         if prefix in COLOR_STEP_PREFIXES and number < 100:
@@ -95,16 +119,28 @@ def closest_slug(slug: str, preset_type: str, candidates: Iterable[str]) -> str:
     return close[0] if close else candidates[0]
 
 
-def find_orphans(root: pathlib.Path, presets: Dict[str, List[str]]) -> List[Tuple[pathlib.Path, str, str, str]]:
+def theme_files(root: pathlib.Path, skip_dirs: Iterable[str] = SKIP_DIRS) -> List[pathlib.Path]:
+    """Lists the theme's own text files, without walking into skipped folders."""
+    skip = set(skip_dirs)
+    files = []
+    for folder, dirs, names in os.walk(root):
+        dirs[:] = [d for d in dirs if d not in skip]
+        for name in names:
+            path = pathlib.Path(folder) / name
+            if path.suffix.lower() not in BINARY_SUFFIXES:
+                files.append(path)
+    return sorted(files)
+
+
+def find_orphans(
+    root: pathlib.Path, presets: Dict[str, List[str]], skip_dirs: Iterable[str] = SKIP_DIRS
+) -> List[Tuple[pathlib.Path, str, str, str]]:
     pattern_json = re.compile(r"var:preset\|([a-z-]+)\|([a-zA-Z0-9-]+)")
-    pattern_css = re.compile(r"--wp--preset--([a-z-]+)--([a-zA-Z0-9-]+)")
+    # A type has single hyphens only, so "border-radius--600" reads as type "border-radius", slug "600".
+    pattern_css = re.compile(r"--wp--preset--([a-z]+(?:-[a-z]+)*)--([a-zA-Z0-9-]+)")
     results = []
 
-    for path in sorted(root.rglob("*")):
-        if path.is_dir():
-            continue
-        if path.suffix.lower() in {".png", ".jpg", ".jpeg", ".gif", ".svg", ".woff", ".woff2", ".ttf", ".otf", ".eot"}:
-            continue
+    for path in theme_files(root, skip_dirs):
         try:
             text = path.read_text(encoding="utf-8")
         except Exception:
@@ -128,13 +164,19 @@ def main() -> int:
     parser.add_argument("--root", default=".", help="Theme root directory.")
     parser.add_argument("--theme", default="theme.json", help="Path to theme.json relative to root.")
     parser.add_argument("--report", default="_orphaned_preset_refs.txt", help="Report filename.")
+    parser.add_argument(
+        "--exclude",
+        action="append",
+        default=[],
+        help="Another folder name to skip (repeatable). node_modules, vendor, build and agent folders are always skipped.",
+    )
     args = parser.parse_args()
 
     root = pathlib.Path(args.root).resolve()
     theme_path = (root / args.theme).resolve()
 
     presets = load_theme_presets(theme_path)
-    orphans = find_orphans(root, presets)
+    orphans = find_orphans(root, presets, SKIP_DIRS | set(args.exclude))
 
     report_path = root / args.report
     with report_path.open("w", encoding="utf-8") as f:

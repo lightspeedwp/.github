@@ -11,8 +11,8 @@ This skill guides an agent to walk a WordPress block theme sequentially, detect 
 
 ## Workflow (sequential)
 
-1. Load theme.json and build the preset registry for `color`, `font-family`, `font-size`, `spacing`, `shadow`, `gradient`, `duotone`.
-2. Scan the theme in path order (root → subfolders) for:
+1. Load theme.json and build the preset registry for `color`, `font-family`, `font-size`, `spacing`, `shadow`, `border-radius`, `gradient`, `duotone`.
+2. Scan the theme's own files in path order (root → subfolders), skipping `node_modules`, `vendor`, `build`, `dist`, `coverage`, `.git`, `.agents`, `.claude` and `.github`, for:
    - `var:preset|<type>|<slug>`
    - `--wp--preset--<type>--<slug>`
 3. For each reference whose slug is not defined in theme.json, replace it with the closest match.
@@ -24,6 +24,7 @@ This skill guides an agent to walk a WordPress block theme sequentially, detect 
 
 - **Exact match**: keep as-is.
 - **Numeric slugs** (e.g., `accent-4`): choose the nearest numeric slug with the same prefix from theme.json.
+- **Bare numeric ladders** (font sizes `100`–`900`, radius `0`–`700`, spacing `5`–`100`): choose the nearest step. Check what the old value was for: a pill button radius belongs on `Round`, even when another step is nearer by size.
 - **Accent/CTA/Brand 1–9**: map to `*-100`, `*-200`, etc. when present.
 - **Font sizes by name**:
   - `small` → `300`, `medium` → `400`, `large` → `500`, `x-large` → `600`, `xx-large` → `700` (fallback to nearest numeric).
@@ -36,9 +37,11 @@ This skill guides an agent to walk a WordPress block theme sequentially, detect 
 
 Use the bundled script to find orphaned references and suggested replacements:
 
+```bash
+python3 scripts/find_orphaned_presets.py --root <theme-root> --report <path outside the theme>
 ```
-python scripts/find_orphaned_presets.py --root <theme-root>
-```
+
+Add `--exclude <folder>` (repeatable) to skip another folder. Tests: `python3 -m unittest discover -s skills/theme-orphaned-refs/scripts/__tests__` from the repository root.
 
 Then apply replacements with minimal, localized edits.
 
