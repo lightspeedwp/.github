@@ -391,7 +391,7 @@ describe('FigmaVariablesMapper', () => {
     );
   });
 
-  it('keeps the exact CSS stack declared in a font variable description', () => {
+  it('keeps the fallbacks of the CSS stack declared in a font variable description', () => {
     const font = (value: string, description?: string) =>
       new FigmaVariablesMapper().map({
         collections: [
@@ -415,7 +415,12 @@ describe('FigmaVariablesMapper', () => {
       (mapped.theme.settings as Json).typography.fontFamilies[0].fontFamily;
     const description = 'Headings (live). CSS stack: moret, Georgia, serif';
 
-    expect(stack(font('Moret', description))).toBe('moret, Georgia, serif');
+    // The live @font-face name gives way to the clean family name.
+    expect(stack(font('Moret', description))).toBe('Moret, Georgia, serif');
+    expect(
+      stack(font('Argesta Display', 'Body text (live). CSS stack: argesta_displayregular, serif'))
+    ).toBe('"Argesta Display", serif');
+    expect(stack(font('Moret', 'CSS stack: moret'))).toBe('Moret');
     // A stack for another font is ignored.
     expect(stack(font('Lora', description))).toBe('Lora, sans-serif');
     expect(stack(font('Moret'))).toBe('Moret, sans-serif');

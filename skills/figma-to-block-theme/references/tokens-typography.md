@@ -22,7 +22,7 @@ After replacing the sizes, update every reference in `styles`, `styles.blocks`, 
 Variables whose code syntax is `--wp--preset--font-family--<slug>` (`heading`, `body`, `monospace`, and `accent` only when the site has a third font) become `{ slug, name, fontFamily }`:
 
 - `name` is the font name (for example "Nunito Sans"), not the slug.
-- If the variable description holds a `CSS stack: <stack>` line (written by `site-to-design-tokens`) and its first family is the font named by the value, `fontFamily` is that exact stack.
+- If the variable description holds a `CSS stack: <stack>` line (written by `site-to-design-tokens`) and its first family is the font named by the value, `fontFamily` is the font name followed by that stack's fallbacks. The first family is the live site's own `@font-face` name (for example `argesta_displayregular, serif` gives `"Argesta Display", serif`), which the theme's `fontFace` entries won't declare.
 - Otherwise `fontFamily` quotes names that contain spaces and adds a fallback: `sans-serif` by default, or `--font-fallback serif` for serif families. Confirm the fallback with the user.
 
 ### Font files

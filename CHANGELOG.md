@@ -115,6 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Figma Tokens Font Stacks** — `figma-to-block-theme` starts each font stack with the clean family name and keeps the declared fallbacks, instead of the live site's own `@font-face` name, so the stack matches the theme's `fontFace` entries. ([GIT-2770](https://linear.app/lightspeedwp/issue/GIT-2770))
 - **Site Tokens Spacing Minimums** — `site-to-design-tokens` keeps mobile spacing values in order up the ladder, raising a step that would shrink below the one before and listing it for the reviewer. ([GIT-2766](https://linear.app/lightspeedwp/issue/GIT-2766))
 - **Site Tokens Action Text** — `site-to-design-tokens` takes each action's text colour from the buttons that have its fill, so text and fill are a pair the site really shows. ([GIT-2765](https://linear.app/lightspeedwp/issue/GIT-2765))
 - **Site Tokens Crawl Redirects** — `site-to-design-tokens` records where each page landed, warns about redirects, and leaves out pages that land on one already captured. ([GIT-2767](https://linear.app/lightspeedwp/issue/GIT-2767))

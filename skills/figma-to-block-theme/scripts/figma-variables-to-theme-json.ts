@@ -560,20 +560,33 @@ export class FigmaVariablesMapper {
    * The exact CSS stack from a `CSS stack: ...` line in the variable description, used
    * only when its first family is the font the mode's value names (other modes differ).
    */
+  /**
+   * Uses the fallbacks from a "CSS stack: …" description. The declared stack starts
+   * with the live site's own `@font-face` name (such as `argesta_displayregular`),
+   * which the new theme's `fontFace` entries won't declare, so the clean family name
+   * replaces it.
+   */
   private declaredStack(variable: ExportedVariable, name: string): string | undefined {
     const stack = variable.description?.match(/CSS stack:\s*(.+)$/m)?.[1].trim();
     if (!stack) {
       return undefined;
     }
+    const [first, ...fallbacks] = stack.split(',').map((part) => part.trim());
     const plain = (text: string) => text.toLowerCase().replace(/[^a-z0-9]/g, '');
-    const first = plain(stack.split(',')[0]);
+    const face = plain(first);
     const wanted = plain(name);
-    return first.startsWith(wanted) || wanted.startsWith(first) ? stack : undefined;
+    if (!face.startsWith(wanted) && !wanted.startsWith(face)) {
+      return undefined;
+    }
+    return [this.quoteFamily(name), ...fallbacks.filter(Boolean)].join(', ');
   }
 
   private fontStack(family: string): string {
-    const quoted = /\s/.test(family) ? `"${family}"` : family;
-    return `${quoted}, ${this.options.fontFallback ?? 'sans-serif'}`;
+    return `${this.quoteFamily(family)}, ${this.options.fontFallback ?? 'sans-serif'}`;
+  }
+
+  private quoteFamily(family: string): string {
+    return /\s/.test(family) ? `"${family}"` : family;
   }
 
   private typeMismatch(variable: ExportedVariable, expected: string): undefined {
