@@ -38,8 +38,16 @@ This skill guides an agent to walk a WordPress block theme sequentially, detect 
 Use the bundled script to find orphaned references and suggested replacements:
 
 ```bash
-npx tsx ${CLAUDE_SKILL_DIR}/scripts/find-orphaned-presets.ts --root <theme-root> --report <path outside the theme>
+npx tsx ${CLAUDE_SKILL_DIR}/scripts/find-orphaned-presets.ts --root <theme-root> --report /absolute/path/outside-the-theme.txt
 ```
+
+From the root of a `.github` checkout, where `CLAUDE_SKILL_DIR` is not set:
+
+```bash
+npx tsx skills/theme-orphaned-refs/scripts/find-orphaned-presets.ts --root <theme-root> --report /absolute/path/outside-the-theme.txt
+```
+
+Give `--report` an absolute path. A relative path is resolved against the theme root, not the current folder, so the report would land inside the theme.
 
 Add `--exclude <folder>` (repeatable) to skip another folder. Run `npm ci` in the `.github` checkout first. Tests: `npm run test:theme-orphaned-refs` from the repository root.
 

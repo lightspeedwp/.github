@@ -237,7 +237,9 @@ describe('TokenProposer on a sparse site', () => {
       ['Gigantic', '90', 140],
       ['Colossal', '100', 200],
     ]);
-    expect(proposer['decisions'].join(' ')).toContain('moved down to free lower steps');
+    expect(proposer['decisions'].join(' ')).toContain(
+      'so none is dropped: 140px to `90`, 200px to `100`.'
+    );
   });
 
   it('fills the whole 5 to 100 ladder with 11 distinct values and drops none', () => {
@@ -571,6 +573,20 @@ describe('TokenProposer action text', () => {
     expect(sem['action/primary/text']).toMatchObject({ token: 'base', source: 'observed' });
     expect(sem['action/primary/text'].evidence).toMatch(/^#ffffff on #565b3d buttons/);
     expect(sem['action/cta/text'].evidence).toMatch(/^#ffffff on #a31700 buttons/);
+  });
+
+  it('pairs text with a fill that has the same value as contrast', () => {
+    // The fill resolves to `contrast` by name, but the action background is `primary-900`.
+    const primitives = { base: '#ffffff', contrast: '#111111', 'primary-900': '#111111' };
+    const sem = new TokenProposer().proposeSemantic(
+      [{ hex: '#111111', weight: 5, uses: { 'button-background': 5 } }],
+      primitives,
+      [{ family: 'primary', hex: '#111111', step: 900, source: 'observed', evidence: '' } as never],
+      new Map([['#111111', new Map([['#ffffff', 5]])]])
+    );
+    expect(sem['action/primary/background'].token).toBe('primary-900');
+    expect(sem['action/primary/text']).toMatchObject({ token: 'base', source: 'observed' });
+    expect(sem['action/primary/text'].evidence).toMatch(/^#ffffff on #111111 buttons/);
   });
 
   it('pairs only opaque button text with opaque button fills', () => {

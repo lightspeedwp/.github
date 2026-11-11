@@ -12,7 +12,7 @@ Each item needs an answer before approval:
 
 - **Confirm each family's anchor.** Each line gives the live colour, its step, and where the site uses it. To change one, re-run `propose-tokens.ts` with `--assign brand=#hex` (or `primary`, `cta`).
 - **Generated placeholders.** When the site has no colour for a family, a placeholder is generated. Ask the reviewer for the real colour.
-- **Merged sizes.** The type scale has 8 steps. Extra sizes are merged into their nearest neighbour, and smaller sizes share `Tiny`. Check that nothing important was merged.
+- **Merged sizes.** The type scale has up to 9 steps (`100` to `900`). Extra sizes are merged into their nearest neighbour, and smaller sizes share `Tiny`. Check that nothing important was merged.
 - **Kept defaults.** A semantic role whose live colour was unreadable on the page keeps its TSP default.
 
 ## Colour primitives
