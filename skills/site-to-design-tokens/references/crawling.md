@@ -32,6 +32,7 @@ For each element it keeps the text colour, background, border colour, font famil
 ## Politeness and limits
 
 - One page at a time, with a 1.5 second pause between requests (`--delay`), and at most 10 pages (`--max-pages`).
+- Redirects are recorded in `redirects` in the output, with a warning for each. A page that lands on a page already captured is left out, so retired pages that redirect to the home page don't count twice. Sitemaps often still list them.
 - Only pages on the `--url` origin.
 - Cookie banners and pop-ups are measured like any other element. If one dominates the results, list the affected values for the reviewer.
 - Cross-origin stylesheets can't be read, so breakpoints from them are missed and the defaults (376px, 768px and 1240px) fill the gaps.

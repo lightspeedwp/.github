@@ -264,6 +264,37 @@ describe('TokenProposer on a sparse site', () => {
     expect(proposer['decisions'].join(' ')).not.toContain('left out');
   });
 
+  it('keeps the mobile values in order up the ladder', () => {
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const mobile: Record<number, number> = { 20: 16, 48: 40, 70: 24, 80: 80 };
+    const samples = [20, 48, 70, 80].flatMap((paddingBlock) =>
+      [0, 1].map((n) => ({
+        key: `sp:${paddingBlock}:${n}`,
+        page: '/',
+        role: 'section',
+        paddingBlock,
+      }))
+    );
+    const spacing = proposer.proposeSpacing(
+      samples as never,
+      (s) =>
+        ({
+          ...(s as object),
+          paddingBlock: mobile[(s as { paddingBlock: number }).paddingBlock],
+        }) as never
+    );
+    expect(spacing.slice(1).map((s) => [s.max, s.min])).toEqual([
+      [20, 16],
+      [48, 40],
+      [70, 40],
+      [80, 80],
+    ]);
+    expect(proposer['decisions'].join(' ')).toContain(
+      'Spacing XXXL (`70`) shrinks to 24px on mobile, below XL; its mobile value was raised to 40px.'
+    );
+  });
+
   it('names the spacing values left out when there are more than the ladder holds', () => {
     const proposer = new TokenProposer();
     proposer.propose(styles, { now });
@@ -341,6 +372,72 @@ describe('ProposalReport', () => {
     const report = new ProposalReport().render(proposal);
     expect(report).toMatch(/failing: .*action\/primary\/text on action\/primary\/background/);
     expect(report).toContain('**fail**');
+  });
+});
+
+describe('Action colours and passing defaults', () => {
+  const proposal = new TokenProposer().propose(tspLikeStyles(), { now });
+  const sem = proposal.colour.semantic;
+
+  it('uses the live anchor step when the anchor came from button fills', () => {
+    expect(sem['action/cta/background']).toMatchObject({ token: 'cta-700', source: 'observed' });
+    expect(sem['action/cta/background-hover'].token).toBe('cta-800');
+    expect(sem['action/primary/background-hover'].token).toBe('primary-800');
+    // Brand did not anchor on a button fill, so it keeps its default.
+    expect(sem['action/secondary/background']).toMatchObject({
+      token: 'brand-600',
+      source: 'default',
+    });
+    expect(proposal.contrast.find((c) => c.pair.startsWith('action/cta/text'))!.pass).toBe(true);
+  });
+
+  it('moves a failing default to the nearest passing step and records it', () => {
+    expect(sem['text/link-hover']).toMatchObject({ token: 'primary-600', source: 'default' });
+    expect(proposal.decisions.join('\n')).toContain(
+      '`text/link-hover` default `primary-500` failed 4.5:1'
+    );
+    expect(proposal.contrast.filter((c) => !c.pass)).toEqual([]);
+  });
+
+  const setup = () => {
+    const proposer = new TokenProposer();
+    const primitives = {
+      base: '#ffffff',
+      contrast: '#000000',
+      'brand-500': '#7a7a7a',
+      'brand-600': '#606060',
+      'brand-700': '#444444',
+      'neutral-100': '#f5f5f5',
+    };
+    return { proposer, primitives };
+  };
+
+  it('lists a failing live colour with a passing alternative and leaves it in place', () => {
+    const { proposer, primitives } = setup();
+    const semantic = {
+      'text/default': { token: 'contrast', source: 'default' as const },
+      'surface/default': { token: 'base', source: 'default' as const },
+      'text/link': { token: 'brand-500', source: 'observed' as const },
+    };
+    proposer['fixFailingPairs'](primitives, semantic as never);
+    expect(semantic['text/link'].token).toBe('brand-500');
+    expect(proposer['decisions'].join(' ')).toContain(
+      '`text/link` (`brand-500`, from the live site) fails 4.5:1'
+    );
+    expect(proposer['decisions'].join(' ')).toContain('`brand-600` passes');
+  });
+
+  it('says so when no step of the family passes', () => {
+    const { proposer, primitives } = setup();
+    const semantic = {
+      'surface/default': { token: 'base', source: 'default' as const },
+      'text/link': { token: 'brand-500', source: 'default' as const },
+    };
+    proposer['fixFailingPairs'](
+      { ...primitives, 'brand-600': '#777777', 'brand-700': '#888888' },
+      semantic as never
+    );
+    expect(proposer['decisions'].join(' ')).toContain('no step of its family passes');
   });
 });
 
@@ -452,6 +549,61 @@ describe('TokenProposer font roles', () => {
     delete two.typography.families.accent;
     expect(new ProposalReport().render(two)).toContain(
       '`accent`: none (no accent font: the site uses two families)'
+    );
+  });
+});
+
+describe('TokenProposer action text', () => {
+  it('takes each action text colour from the buttons that have its fill', () => {
+    const styles = tspLikeStyles();
+    const desktop = styles.captures.find((c) => c.viewport === 1440)!;
+    // Many light buttons with brown text, as on live TSP, must not set the primary text.
+    for (let i = 0; i < 30; i++) {
+      desktop.samples.push({
+        key: `ghost:${i}`,
+        role: 'button',
+        color: 'rgb(155, 106, 34)',
+        background: 'rgb(247, 243, 241)',
+      });
+    }
+    const proposer = new TokenProposer();
+    const sem = proposer.propose(styles, { now }).colour.semantic;
+    expect(sem['action/primary/text']).toMatchObject({ token: 'base', source: 'observed' });
+    expect(sem['action/primary/text'].evidence).toMatch(/^#ffffff on #565b3d buttons/);
+    expect(sem['action/cta/text'].evidence).toMatch(/^#ffffff on #a31700 buttons/);
+  });
+
+  it('pairs only opaque button text with opaque button fills', () => {
+    const pairs = new TokenProposer().buttonTextByFill([
+      { key: 'a', role: 'button', color: 'rgb(255, 255, 255)', background: 'rgb(0, 0, 0)' },
+      { key: 'b', role: 'button', color: 'rgb(255, 255, 255)', background: 'rgb(0, 0, 0)' },
+      { key: 'c', role: 'button', color: 'rgb(0, 0, 0)', background: 'rgba(0, 0, 0, 0.5)' },
+      { key: 'd', role: 'button', color: 'rgb(0, 0, 0)' },
+      { key: 'e', role: 'link', color: 'rgb(0, 0, 0)', background: 'rgb(255, 255, 255)' },
+    ]);
+    expect([...pairs.entries()].map(([fill, texts]) => [fill, [...texts.entries()]])).toEqual([
+      ['#000000', [['#ffffff', 2]]],
+    ]);
+  });
+});
+
+describe('TokenProposer redirects', () => {
+  it('lists redirected and left-out pages for the reviewer', () => {
+    const styles = {
+      ...tspLikeStyles(),
+      redirects: [
+        { url: 'https://x.com/tours/', finalUrl: 'https://x.com/', skipped: true },
+        { url: 'https://x.com/old/', finalUrl: 'https://x.com/new/', skipped: false },
+      ],
+    };
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const decisions = proposer['decisions'].join(' ');
+    expect(decisions).toContain(
+      'https://x.com/tours/ redirected to https://x.com/, which was already captured, so it was left out.'
+    );
+    expect(decisions).toContain(
+      'https://x.com/old/ redirected to https://x.com/new/; the tokens use the page it landed on.'
     );
   });
 });

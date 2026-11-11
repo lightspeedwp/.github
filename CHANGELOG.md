@@ -72,6 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site Skills Setup Notes** — `site-to-design-tokens` and `site-to-figma-components` now say to run `npm ci` and, if the browser fails to launch, `npx puppeteer browsers install chrome` (npm 11 skips Puppeteer's download). `figma-to-block-theme` notes the `npm ci` step. ([#4009](https://github.com/lightspeedwp/.github/issues/4009))
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))
@@ -114,6 +115,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Orphaned Refs Scan Scope** — `theme-orphaned-refs` skips dependency, build and agent folders (with `--exclude` for more), checks `border-radius` presets, suggests the nearest step for numeric ladders, and is now TypeScript with Jest tests (`find-orphaned-presets.ts`). ([GIT-2774](https://linear.app/lightspeedwp/issue/GIT-2774))
+- **Site Tokens Palette Order** — `site-to-design-tokens` exports the colour ramps in the LightSpeed order (neutral, primary, brand, cta), so the theme palette follows the convention. ([GIT-2773](https://linear.app/lightspeedwp/issue/GIT-2773))
+- **Figma Tokens Layout Widths** — `figma-to-block-theme` maps the content and wide width variables to `settings.layout` in px, instead of unitless values in `settings.custom.layout`, so the theme gets the design's widths. ([GIT-2772](https://linear.app/lightspeedwp/issue/GIT-2772))
+- **Figma Tokens Monospace Stack** — `figma-to-block-theme` keeps the declared system stack for a generic family such as Monospace, and falls back to `monospace` for the monospace role, instead of writing `Monospace, sans-serif`. ([GIT-2771](https://linear.app/lightspeedwp/issue/GIT-2771))
+- **Figma Tokens Font Stacks** — `figma-to-block-theme` starts each font stack with the clean family name and keeps the declared fallbacks, instead of the live site's own `@font-face` name, so the stack matches the theme's `fontFace` entries. ([GIT-2770](https://linear.app/lightspeedwp/issue/GIT-2770))
+- **Site Tokens Spacing Minimums** — `site-to-design-tokens` keeps mobile spacing values in order up the ladder, raising a step that would shrink below the one before and listing it for the reviewer. ([GIT-2766](https://linear.app/lightspeedwp/issue/GIT-2766))
+- **Site Tokens Action Text** — `site-to-design-tokens` takes each action's text colour from the buttons that have its fill, so text and fill are a pair the site really shows. ([GIT-2765](https://linear.app/lightspeedwp/issue/GIT-2765))
+- **Site Tokens Crawl Redirects** — `site-to-design-tokens` records where each page landed, warns about redirects, and leaves out pages that land on one already captured. ([GIT-2767](https://linear.app/lightspeedwp/issue/GIT-2767))
+- **Site Tokens Action Colours** — `site-to-design-tokens` uses the live button colour for action backgrounds (hover one step darker) and moves defaults that fail contrast to the nearest passing step, recording each move in the report. ([#4008](https://github.com/lightspeedwp/.github/issues/4008))
 - **Site Tokens Font Roles** — `site-to-design-tokens` cleans font names (`argesta_displayregular` becomes Argesta Display), keeps the exact CSS stack, and outputs the `heading`, `body` and `monospace` roles (plus `accent` only when the site uses a third font), marking each as live or default. `figma-to-block-theme` uses the stack. ([#4007](https://github.com/lightspeedwp/.github/issues/4007))
 - **Site Tokens Content Width** — `site-to-design-tokens` measures the content width from running text, one vote per page with blog posts first, takes a `--layout` override, and flags widths under 480px or near the wide width. ([#4006](https://github.com/lightspeedwp/.github/issues/4006))
 - **Site Tokens Spacing Ladder** — `site-to-design-tokens` fills the whole spacing ladder from `5` by shifting values down before it drops one, so 11 distinct values all get a step. ([#4005](https://github.com/lightspeedwp/.github/issues/4005))
