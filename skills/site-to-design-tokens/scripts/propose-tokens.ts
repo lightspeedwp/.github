@@ -6,6 +6,7 @@
  * Usage:
  *   npx tsx propose-tokens.ts site-styles.json --out proposal.json --report proposal.md
  *   npx tsx propose-tokens.ts site-styles.json --assign brand=#8d621f,primary=#565b3d
+ *   npx tsx propose-tokens.ts site-styles.json --layout content=768,wide=1240
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -107,6 +108,9 @@ export const SPACING_STEPS = [
 const RADIUS_NAMES = ['Small', 'Base', 'Medium', 'Large', 'X-Large', 'Huge'];
 const SHADOW_NAMES = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large', 'Huge'];
 
+/** For each button fill (hex), how often each text colour (hex) sits on it. */
+export type ButtonTextByFill = Map<string, Map<string, number>>;
+
 export interface ColourEvidence {
   hex: string;
   weight: number;
@@ -176,7 +180,7 @@ export interface Proposal {
   matches: MatchRow[];
   contrast: ContrastRow[];
   typography: {
-    families: { heading: string; body: string };
+    families: Record<Exclude<FontRoleSlug, 'accent'>, FontRole> & { accent?: FontRole };
     sizes: ScaleEntry[];
     weights: Record<string, number>;
   };
@@ -188,11 +192,71 @@ export interface Proposal {
   decisions: string[];
 }
 
+export type FontRoleSlug = 'heading' | 'body' | 'accent' | 'monospace';
+
+/** One font family role. `name` is the clean display name, `stack` the CSS stack. */
+export interface FontRole {
+  name: string;
+  stack: string;
+  source: 'live' | 'default';
+  /** The name as the site's CSS writes it, when it differs from `name`. */
+  raw?: string;
+}
+
+export const MONOSPACE_STACK =
+  'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+const STYLE_SUFFIX =
+  /(?:extralight|ultralight|semibold|demibold|extrabold|ultrabold|regular|italic|oblique|medium|light|bold|black|heavy|thin|book|roman)$/i;
+
+/**
+ * Cleans a raw `@font-face` family name: drops weight and style suffixes such as
+ * `regular` or `bold`, turns underscores into spaces and title-cases lower-case words.
+ * `argesta_displayregular` becomes `Argesta Display`. Mixed-case words (`DM`) are kept.
+ */
+export function cleanFontName(raw: string): string {
+  let name = raw.replace(/["']/g, '').replace(/_/g, ' ').replace(/\s+/g, ' ').trim();
+  for (let i = 0; i < 3; i++) {
+    const stripped = name.replace(STYLE_SUFFIX, '').trim();
+    if (stripped === name || stripped.length < 3) {
+      break;
+    }
+    name = stripped;
+  }
+  return name
+    .split(' ')
+    .map((word) =>
+      word === word.toLowerCase() ? word.charAt(0).toUpperCase() + word.slice(1) : word
+    )
+    .join(' ');
+}
+
 export interface ProposeOptions {
   /** Force a family's anchor colour, for example { brand: '#8d621f' }. */
   assign?: Partial<Record<Family, string>>;
+  /** Force the content and wide widths in px, for example { content: 768, wide: 1240 }. */
+  layout?: { content?: number; wide?: number };
   now?: () => Date;
 }
+
+export const CONTRAST_PAIRS: Array<[string, string, number]> = [
+  ['text/default', 'surface/default', 4.5],
+  ['text/muted', 'surface/default', 4.5],
+  ['text/link', 'surface/default', 4.5],
+  ['text/link-hover', 'surface/default', 4.5],
+  ['text/placeholder', 'surface/default', 4.5],
+  ['text/default', 'surface/subtle', 4.5],
+  ['text/inverse', 'surface/inverse', 4.5],
+  ['action/primary/text', 'action/primary/background', 4.5],
+  ['action/primary/text', 'action/primary/background-hover', 4.5],
+  ['action/secondary/text', 'action/secondary/background', 4.5],
+  ['action/cta/text', 'action/cta/background', 4.5],
+  ['border/focus', 'surface/default', 3],
+  ['border/default', 'surface/default', 3],
+  ['feedback/error/text', 'surface/default', 4.5],
+  ['feedback/warning/text', 'surface/default', 4.5],
+  ['feedback/success/text', 'surface/default', 4.5],
+  ['feedback/info/text', 'surface/default', 4.5],
+];
 
 /** Weighted mode of a list of values. */
 function mode<T>(values: Array<{ value: T; weight?: number }>): T | undefined {
@@ -223,6 +287,13 @@ export class TokenProposer {
 
   propose(styles: SiteStyles, options: ProposeOptions = {}): Proposal {
     this.decisions = [];
+    for (const r of styles.redirects ?? []) {
+      this.decisions.push(
+        r.skipped
+          ? `${r.url} redirected to ${r.finalUrl}, which was already captured, so it was left out. Replace it with a page that still exists, or drop it.`
+          : `${r.url} redirected to ${r.finalUrl}; the tokens use the page it landed on.`
+      );
+    }
     const desktopWidth = Math.max(...styles.viewports);
     const mobileWidth = Math.min(...styles.viewports);
     const desktop = styles.captures.filter((c) => c.viewport === desktopWidth);
@@ -237,14 +308,18 @@ export class TokenProposer {
     const pair = (s: ElementSample & { page: string }) => mobileByKey.get(`${s.page}|${s.key}`);
 
     const evidence = this.colourEvidence(desktopSamples);
-    const colour = this.proposeColour(evidence, options.assign ?? {});
+    const colour = this.proposeColour(
+      evidence,
+      options.assign ?? {},
+      this.buttonTextByFill(desktopSamples)
+    );
     const matches = this.matchColours(evidence, colour.primitives);
     const contrast = this.checkContrast(colour.primitives, colour.semantic);
     const typography = this.proposeTypography(desktopSamples, pair);
     const spacing = this.proposeSpacing(desktopSamples, pair);
     const radius = this.proposeRadius(desktopSamples);
     const shadows = this.proposeShadows(desktopSamples);
-    const layout = this.proposeLayout(desktopSamples, desktopWidth);
+    const layout = this.proposeLayout(desktopSamples, desktopWidth, desktop, options.layout);
     const breakpoints = this.proposeBreakpoints(styles.captures);
 
     return {
@@ -264,6 +339,22 @@ export class TokenProposer {
   }
 
   /** Counts every opaque colour by where it is used. */
+  /** Pairs each button's text colour with its own fill, so action text and fill match. */
+  buttonTextByFill(samples: ElementSample[]): ButtonTextByFill {
+    const pairs: ButtonTextByFill = new Map();
+    for (const s of samples) {
+      const fill = s.role === 'button' && s.background ? Color.parse(s.background) : null;
+      const text = fill && s.color ? Color.parse(s.color) : null;
+      if (!fill || !text || !fill.isOpaque || !text.isOpaque) {
+        continue;
+      }
+      const texts = pairs.get(fill.toHex()) ?? new Map<string, number>();
+      texts.set(text.toHex(), (texts.get(text.toHex()) ?? 0) + 1);
+      pairs.set(fill.toHex(), texts);
+    }
+    return pairs;
+  }
+
   colourEvidence(samples: ElementSample[]): ColourEvidence[] {
     const byHex = new Map<string, ColourEvidence>();
     const add = (value: string | undefined, use: string, weight: number) => {
@@ -287,7 +378,8 @@ export class TokenProposer {
 
   proposeColour(
     evidence: ColourEvidence[],
-    assign: Partial<Record<Family, string>>
+    assign: Partial<Record<Family, string>>,
+    buttonText: ButtonTextByFill = new Map()
   ): Proposal['colour'] {
     const opaque = evidence.filter((e) => Color.parse(e.hex)!.isOpaque);
     const isNeutral = (hex: string) => Color.parse(hex)!.toOklch().c < 0.025;
@@ -446,7 +538,7 @@ export class TokenProposer {
     const shadowBase = Color.parse(primitives['neutral-900'])!.rgb;
     const overlay = Color.fromRgb({ ...shadowBase, a: 0.25 }).toHex();
 
-    const semantic = this.proposeSemantic(evidence, primitives);
+    const semantic = this.proposeSemantic(evidence, primitives, anchors, buttonText);
     return { primitives, anchors, semantic, overlay, shadowAlphas: SHADOW_ALPHAS };
   }
 
@@ -551,7 +643,9 @@ export class TokenProposer {
 
   proposeSemantic(
     evidence: ColourEvidence[],
-    primitives: Record<string, string>
+    primitives: Record<string, string>,
+    anchors: Anchor[] = [],
+    buttonText: ButtonTextByFill = new Map()
   ): Proposal['colour']['semantic'] {
     const semantic: Proposal['colour']['semantic'] = {};
     for (const [role, token] of Object.entries(SEMANTIC_DEFAULTS)) {
@@ -595,13 +689,69 @@ export class TokenProposer {
       observe('text/link', 'nav-text', undefined, true);
     }
     const buttonBg = observe('action/primary/background', 'button-background');
-    observe('action/primary/text', 'button-text');
     observe('border/default', 'input-border');
     if (buttonBg) {
       semantic['action/primary/background-hover'] = {
         token: this.darker(buttonBg),
         source: 'observed',
         evidence: `One step darker than ${buttonBg}.`,
+      };
+    }
+
+    // A family whose anchor came from button fills IS the live button colour, so the
+    // action background takes the anchor step itself, and hover goes one step darker.
+    const actions: Array<[string, string]> = [
+      ['primary', 'primary'],
+      ['secondary', 'brand'],
+      ['cta', 'cta'],
+    ];
+    for (const [action, family] of actions) {
+      const anchor = anchors.find((a) => a.family === family);
+      const onButtons =
+        anchor?.source === 'observed' &&
+        evidence.some((e) => e.hex === anchor.hex && (e.uses['button-background'] ?? 0) > 0);
+      if (!anchor || !onButtons) {
+        continue;
+      }
+      const token = `${family}-${anchor.step}`;
+      semantic[`action/${action}/background`] = {
+        token,
+        source: 'observed',
+        evidence: `${anchor.hex}, the live button fill that anchors \`${family}\`.`,
+      };
+      semantic[`action/${action}/background-hover`] = {
+        token: this.darker(token),
+        source: 'observed',
+        evidence: `One step darker than ${token}.`,
+      };
+    }
+
+    // Each action's text comes from the buttons that have its fill, never from other
+    // buttons, so the pair is one the site really shows.
+    for (const action of ['primary', 'secondary', 'cta']) {
+      const fill = semantic[`action/${action}/background`];
+      if (fill.source !== 'observed') {
+        continue;
+      }
+      const texts = new Map<string, number>();
+      const fills: string[] = [];
+      for (const [fillHex, onFill] of buttonText) {
+        if (this.nearestPrimitive(fillHex, primitives) !== fill.token) {
+          continue;
+        }
+        fills.push(fillHex);
+        for (const [hex, n] of onFill) {
+          texts.set(hex, (texts.get(hex) ?? 0) + n);
+        }
+      }
+      const [textHex, count] = [...texts.entries()].sort((a, b) => b[1] - a[1])[0] ?? [];
+      if (!textHex) {
+        continue;
+      }
+      semantic[`action/${action}/text`] = {
+        token: this.nearestPrimitive(textHex, primitives),
+        source: 'observed',
+        evidence: `${textHex} on ${fills.join(', ')} buttons (×${count})`,
       };
     }
 
@@ -632,7 +782,80 @@ export class TokenProposer {
         evidence: `${dark.hex} (section-background ×${dark.uses['section-background']})`,
       };
     }
+    this.fixFailingPairs(primitives, semantic);
     return semantic;
+  }
+
+  /**
+   * Moves a default token that fails its contrast pair to the nearest step of the same
+   * family that passes, darker steps first, and records the move. A failing token taken
+   * from the live site is left alone and listed for the reviewer with a passing alternative.
+   */
+  private fixFailingPairs(
+    primitives: Record<string, string>,
+    semantic: Proposal['colour']['semantic']
+  ): void {
+    const hexOf = (role: string): string | undefined => primitives[semantic[role]?.token ?? role];
+    const ratio = (fg: string, bg: string) => {
+      const [f, b] = [hexOf(fg), hexOf(bg)];
+      return f && b ? Color.parse(f)!.contrast(Color.parse(b)!) : Infinity;
+    };
+    for (const [fg, bg, required] of CONTRAST_PAIRS) {
+      const current = ratio(fg, bg);
+      if (current >= required) {
+        continue;
+      }
+      // Text on a fixed surface moves the text. Text on an action moves the action.
+      const role = fg.startsWith('action/') ? bg : fg;
+      const other = role === fg ? bg : fg;
+      const match = semantic[role]?.token.match(/^(.*)-(\d00)$/);
+      if (!match || ['text/default', 'text/inverse'].includes(role)) {
+        continue;
+      }
+      const index = RAMP_STEPS.indexOf(Number(match[2]) as RampStep);
+      const rounded = (n: number) => Math.round(n * 100) / 100;
+      let alternative: { token: string; ratio: number } | undefined;
+      for (let distance = 1; distance < RAMP_STEPS.length && !alternative; distance++) {
+        for (const i of [index + distance, index - distance]) {
+          const step = RAMP_STEPS[i];
+          const token = step ? `${match[1]}-${step}` : undefined;
+          if (!token || !primitives[token]) {
+            continue;
+          }
+          const r =
+            role === fg
+              ? Color.parse(primitives[token])!.contrast(
+                  Color.parse(primitives[semantic[other].token])!
+                )
+              : Color.parse(primitives[semantic[other].token])!.contrast(
+                  Color.parse(primitives[token])!
+                );
+          if (r >= required) {
+            alternative = { token, ratio: rounded(r) };
+            break;
+          }
+        }
+      }
+      const was = semantic[role].token;
+      if (!alternative) {
+        this.decisions.push(
+          `\`${role}\` (\`${was}\`) fails ${required}:1 against \`${other}\` (${rounded(current)}:1) and no step of its family passes. Choose another colour.`
+        );
+      } else if (semantic[role].source === 'default') {
+        semantic[role] = {
+          token: alternative.token,
+          source: 'default',
+          evidence: `Default \`${was}\` failed ${required}:1 (${rounded(current)}:1), so it moved to the nearest passing step.`,
+        };
+        this.decisions.push(
+          `\`${role}\` default \`${was}\` failed ${required}:1 against \`${other}\` (${rounded(current)}:1); moved to \`${alternative.token}\` (${alternative.ratio}:1).`
+        );
+      } else {
+        this.decisions.push(
+          `\`${role}\` (\`${was}\`, from the live site) fails ${required}:1 against \`${other}\` (${rounded(current)}:1). \`${alternative.token}\` passes (${alternative.ratio}:1). Confirm which to use.`
+        );
+      }
+    }
   }
 
   nearestPrimitive(hex: string, primitives: Record<string, string>, family?: string): string {
@@ -680,25 +903,7 @@ export class TokenProposer {
       const token = semantic[role]?.token ?? role;
       return primitives[token];
     };
-    const pairs: Array<[string, string, number]> = [
-      ['text/default', 'surface/default', 4.5],
-      ['text/muted', 'surface/default', 4.5],
-      ['text/link', 'surface/default', 4.5],
-      ['text/link-hover', 'surface/default', 4.5],
-      ['text/placeholder', 'surface/default', 4.5],
-      ['text/default', 'surface/subtle', 4.5],
-      ['text/inverse', 'surface/inverse', 4.5],
-      ['action/primary/text', 'action/primary/background', 4.5],
-      ['action/primary/text', 'action/primary/background-hover', 4.5],
-      ['action/secondary/text', 'action/secondary/background', 4.5],
-      ['action/cta/text', 'action/cta/background', 4.5],
-      ['border/focus', 'surface/default', 3],
-      ['border/default', 'surface/default', 3],
-      ['feedback/error/text', 'surface/default', 4.5],
-      ['feedback/warning/text', 'surface/default', 4.5],
-      ['feedback/success/text', 'surface/default', 4.5],
-      ['feedback/info/text', 'surface/default', 4.5],
-    ];
+    const pairs = CONTRAST_PAIRS;
     return pairs.map(([fg, bg, required]) => {
       const foreground = resolve(fg);
       const background = resolve(bg);
@@ -733,15 +938,8 @@ export class TokenProposer {
       'input',
     ];
     const text = samples.filter((s) => textRoles.includes(s.role) && s.fontSize);
-    const headings = text.filter((s) => /^h[1-3]$/.test(s.role));
     const body = text.filter((s) => s.role === 'body');
-    const families = {
-      heading:
-        mode(headings.map((s) => ({ value: s.fontFamily ?? '' }))) ||
-        mode(text.map((s) => ({ value: s.fontFamily ?? '' }))) ||
-        'serif',
-      body: mode(body.map((s) => ({ value: s.fontFamily ?? '' }))) || 'sans-serif',
-    };
+    const families = this.proposeFamilies(samples, textRoles);
 
     const bodySize = mode(body.map((s) => ({ value: Math.round(s.fontSize!) }))) ?? 16;
     const pairs = new Map<number, { min: number; weight: number; ratios: number[] }>();
@@ -810,6 +1008,85 @@ export class TokenProposer {
       }
     }
     return { families, sizes, weights };
+  }
+
+  /**
+   * Heading and body come from the live site. Accent is the next most used family when
+   * the site has a third one. Monospace is live only where the CSS uses a monospace stack.
+   * Roles with no live evidence get a documented default, and the report says so.
+   */
+  proposeFamilies(
+    samples: Array<ElementSample & { page: string }>,
+    textRoles: string[]
+  ): Proposal['typography']['families'] {
+    const text = samples.filter((s) => textRoles.includes(s.role) && s.fontFamily);
+    const isMono = (s: ElementSample) =>
+      /\bmonospace\b/i.test(s.fontStack ?? '') ||
+      /^(courier|consolas|menlo|monaco|sf mono|roboto mono|fira (code|mono)|source code)/i.test(
+        s.fontFamily ?? ''
+      );
+    const proseText = text.filter((s) => !isMono(s));
+    // CSS family names are not case-sensitive: `Moret` and `moret` are one family.
+    const fam = (s: ElementSample) => s.fontFamily!.toLowerCase();
+    const spelling = (key: string) =>
+      mode(text.filter((s) => fam(s) === key).map((s) => ({ value: s.fontFamily! }))) ?? key;
+    const stackFor = (key: string, raw: string) =>
+      mode(
+        text.filter((s) => fam(s) === key && s.fontStack).map((s) => ({ value: s.fontStack! }))
+      ) ?? raw;
+    const role = (key: string): FontRole => {
+      const raw = spelling(key);
+      const name = cleanFontName(raw);
+      return {
+        name,
+        stack: stackFor(key, raw),
+        source: 'live',
+        ...(name !== raw ? { raw } : {}),
+      };
+    };
+    const headings = proseText.filter((s) => /^h[1-3]$/.test(s.role));
+    const body = proseText.filter((s) => s.role === 'body');
+    const headingKey =
+      mode(headings.map((s) => ({ value: fam(s) }))) ||
+      mode(proseText.map((s) => ({ value: fam(s) })));
+    const bodyKey = mode(body.map((s) => ({ value: fam(s) })));
+
+    const heading: FontRole = headingKey
+      ? role(headingKey)
+      : { name: 'Serif', stack: 'serif', source: 'default' };
+    const bodyRole: FontRole = bodyKey
+      ? role(bodyKey)
+      : { name: 'Sans Serif', stack: 'sans-serif', source: 'default' };
+    if (heading.source === 'default') {
+      this.decisions.push('No heading font was found; `heading` defaults to the generic serif.');
+    }
+    if (bodyRole.source === 'default') {
+      this.decisions.push('No body font was found; `body` defaults to the generic sans-serif.');
+    }
+
+    // The operating system's UI font (used by chat, cookie and booking widgets) is not
+    // a design family, so it never becomes the accent.
+    const isSystemUi = (s: ElementSample) =>
+      /^(-apple-system|system-ui|blinkmacsystemfont|"?segoe ui"?)$/.test(fam(s));
+    const counts = new Map<string, number>();
+    for (const s of proseText) {
+      if (fam(s) !== headingKey && fam(s) !== bodyKey && !isSystemUi(s)) {
+        counts.set(fam(s), (counts.get(fam(s)) ?? 0) + (/^h/.test(s.role) ? 3 : 1));
+      }
+    }
+    // The accent role exists only when the site really uses a third family: at least
+    // 2% of the text elements (and at least 5), so one stray rule doesn't make a role.
+    const minUses = Math.max(5, proseText.length * 0.02);
+    const accentKey = [...counts.entries()]
+      .filter(([, n]) => n >= minUses)
+      .sort((a, b) => b[1] - a[1])[0]?.[0];
+    const accent = accentKey ? role(accentKey) : undefined;
+
+    const monoKey = mode(text.filter(isMono).map((s) => ({ value: fam(s) })));
+    const monospace: FontRole = monoKey
+      ? role(monoKey)
+      : { name: 'Monospace', stack: MONOSPACE_STACK, source: 'default' };
+    return { heading, body: bodyRole, ...(accent ? { accent } : {}), monospace };
   }
 
   proposeSpacing(
@@ -900,6 +1177,15 @@ export class TokenProposer {
       max: c.max,
       min: Math.min(c.min, c.max),
     }));
+    // Mobile values rise with the ladder too: a step never shrinks below the one before.
+    for (let i = 1; i < steps.length; i++) {
+      if (steps[i].min < steps[i - 1].min) {
+        this.decisions.push(
+          `Spacing ${steps[i].name} (\`${steps[i].slug}\`) shrinks to ${steps[i].min}px on mobile, below ${steps[i - 1].name}; its mobile value was raised to ${steps[i - 1].min}px.`
+        );
+        steps[i].min = steps[i - 1].min;
+      }
+    }
     return [{ name: 'None', slug: 'none', max: 0, min: 0 }, ...steps];
   }
 
@@ -993,7 +1279,17 @@ export class TokenProposer {
     });
   }
 
-  proposeLayout(samples: ElementSample[], viewport: number): Proposal['layout'] {
+  /**
+   * Content width is the width of running text (`p` in the main column): the median of
+   * each blog post's most common width, or of each single page's when there are no posts.
+   * Wide width is the widest repeated centred container. Either can be forced.
+   */
+  proposeLayout(
+    samples: ElementSample[],
+    viewport: number,
+    captures: PageCapture[] = [],
+    override: { content?: number; wide?: number } = {}
+  ): Proposal['layout'] {
     const counts = new Map<number, number>();
     for (const s of samples) {
       if (s.containerWidth && s.containerWidth < viewport - 16) {
@@ -1002,15 +1298,60 @@ export class TokenProposer {
       }
     }
     const frequent = [...counts.entries()].filter(([, n]) => n >= 2).sort((a, b) => b[1] - a[1]);
-    if (!frequent.length) {
+    const wide =
+      override.wide ?? (frequent.length ? Math.max(...frequent.map(([w]) => w)) : undefined);
+
+    let content = override.content;
+    if (content === undefined) {
+      // Each page gets one vote, its most common text width, so one long page full of
+      // paragraphs (a legal page, say) can't outvote the rest. Blog posts are the
+      // clearest reading column, so their votes win when the crawl has any.
+      const vote = (c: PageCapture) =>
+        mode((c.textWidths ?? []).map((w) => ({ value: Math.round(w / 8) * 8 })));
+      const votesFrom = (list: PageCapture[]) =>
+        list.map(vote).filter((w): w is number => w !== undefined);
+      const fromPosts = votesFrom(captures.filter((c) => c.pageKind === 'single' && c.isPost));
+      const fromSingles = votesFrom(captures.filter((c) => c.pageKind === 'single'));
+      const fromAny = votesFrom(captures);
+      const votes = fromPosts.length ? fromPosts : fromSingles.length ? fromSingles : fromAny;
+      if (votes.length) {
+        const sorted = [...votes].sort((a, b) => a - b);
+        content = sorted[Math.floor((sorted.length - 1) / 2)];
+        if (!fromSingles.length) {
+          this.decisions.push(
+            'No single post or page was captured, so the content width was measured on listing pages and may be a card. Add a long text page, or set it with `--layout content=<px>`.'
+          );
+        }
+      } else if (frequent.length) {
+        const fallback = frequent.find(([w]) => w <= (wide ?? 0) * 0.8)?.[0];
+        if (fallback) {
+          content = fallback;
+          this.decisions.push(
+            `No running text was found, so the content width ${fallback}px comes from the most common centred container. Check it, or set it with \`--layout content=<px>\`.`
+          );
+        }
+      }
+    }
+    if (content === undefined && wide === undefined) {
       this.decisions.push(
-        'No repeated centred container was found; set the content and wide widths by hand.'
+        'No running text or repeated centred container was found; set the content and wide widths with `--layout content=<px>,wide=<px>`.'
       );
       return {};
     }
-    const wide = Math.max(...frequent.map(([w]) => w));
-    const content = frequent.find(([w]) => w <= wide * 0.8)?.[0];
-    return content ? { content, wide } : { wide };
+    if (content !== undefined && content < 480) {
+      this.decisions.push(
+        `The content width is ${content}px, under 480px, which is narrower than a readable text column. Confirm it, or set it with \`--layout content=<px>\`.`
+      );
+    }
+    if (content !== undefined && wide !== undefined && content >= wide * 0.9) {
+      this.decisions.push(
+        `The content width (${content}px) is within 10% of the wide width (${wide}px), so the text column may be a full-width section. Confirm it, or set it with \`--layout content=<px>\`.`
+      );
+    }
+    return {
+      ...(content !== undefined ? { content } : {}),
+      ...(wide !== undefined ? { wide } : {}),
+    };
   }
 
   proposeBreakpoints(captures: PageCapture[]): Proposal['breakpoints'] {
@@ -1035,6 +1376,21 @@ export class TokenProposer {
 
 /** Writes the proposal as a Markdown report for approval. */
 export class ProposalReport {
+  private fontLines(p: Proposal): string[] {
+    const roles: FontRoleSlug[] = ['heading', 'body', 'accent', 'monospace'];
+    return [
+      '- Fonts:',
+      ...roles.map((slug) => {
+        const f = p.typography.families[slug];
+        if (!f) {
+          return `  - \`${slug}\`: none (no accent font: the site uses two families)`;
+        }
+        const raw = f.raw ? `, CSS name \`${f.raw}\`` : '';
+        return `  - \`${slug}\`: ${f.name} (${f.source}${raw}), stack \`${f.stack}\``;
+      }),
+    ];
+  }
+
   render(p: Proposal): string {
     const lines: string[] = [];
     const table = (head: string[], rows: Array<Array<string | number>>) => {
@@ -1062,10 +1418,7 @@ export class ProposalReport {
     lines.push(
       `- Contrast: ${p.contrast.length - failing.length} of ${p.contrast.length} pairs pass${failing.length ? ` (failing: ${failing.map((f) => f.pair).join('; ')})` : ''}`
     );
-    lines.push(
-      `- Fonts: headings ${p.typography.families.heading}, body ${p.typography.families.body}`,
-      ''
-    );
+    lines.push(...this.fontLines(p), '');
 
     lines.push('## Decisions for the reviewer', '');
     const decisions = [...p.decisions];
@@ -1169,6 +1522,7 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
   let out = 'proposal.json';
   let report: string | undefined;
   const assign: Partial<Record<Family, string>> = {};
+  const layout: { content?: number; wide?: number } = {};
 
   try {
     for (let i = 0; i < argv.length; i++) {
@@ -1182,7 +1536,7 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
       };
       if (arg === '--help' || arg === '-h') {
         io.stdout(
-          'Usage: propose-tokens <site-styles.json> [--out proposal.json] [--report proposal.md] [--assign brand=#hex,primary=#hex,cta=#hex]\n'
+          'Usage: propose-tokens <site-styles.json> [--out proposal.json] [--report proposal.md] [--assign brand=#hex,primary=#hex,cta=#hex] [--layout content=<px>,wide=<px>]\n'
         );
         return 0;
       } else if (arg === '--out') {
@@ -1197,6 +1551,17 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
           }
           assign[family as Family] = hex;
         }
+      } else if (arg === '--layout') {
+        for (const part of next().split(',')) {
+          const [key, value] = part.split('=');
+          const px = Number(value);
+          if (!['content', 'wide'].includes(key) || !Number.isFinite(px) || px <= 0) {
+            throw new Error(
+              '--layout takes content and wide in px, for example content=768,wide=1240.'
+            );
+          }
+          layout[key as 'content' | 'wide'] = Math.round(px);
+        }
       } else if (arg.startsWith('--')) {
         throw new Error(`Unknown option ${arg}.`);
       } else {
@@ -1210,7 +1575,7 @@ export function runProposeCli(argv: string[], io: ProposeCliIo): number {
     if (!Array.isArray(styles.captures) || !styles.captures.length) {
       throw new Error('The styles file has no captures.');
     }
-    const proposal = new TokenProposer().propose(styles, { assign });
+    const proposal = new TokenProposer().propose(styles, { assign, layout });
     io.writeFile(out, `${JSON.stringify(proposal, null, 2)}\n`);
     if (report) {
       io.writeFile(report, new ProposalReport().render(proposal));

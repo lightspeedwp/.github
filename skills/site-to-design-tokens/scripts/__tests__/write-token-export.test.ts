@@ -34,6 +34,13 @@ describe('TokenPlanBuilder', () => {
     expect(collection('Theme - Semantic').variables).toHaveLength(44);
   });
 
+  it('creates the ramps in the LightSpeed palette order', () => {
+    const families = collection('Theme - Colour')
+      .variables.map((v) => v.name.split('/')[0])
+      .filter((family, i, all) => all.indexOf(family) === i);
+    expect(families.slice(0, 5)).toEqual(['Theme', 'neutral', 'primary', 'brand', 'cta']);
+  });
+
   it('names and code syntax match the TSP file and the mapper', () => {
     const colour = collection('Theme - Colour').variables;
     expect(colour.find((v) => v.key === 'brand-600')).toMatchObject({
@@ -83,7 +90,16 @@ describe('TokenPlanBuilder', () => {
     expect(typography.find((v) => v.name === 'Font-Families/Primary')).toMatchObject({
       codeSyntax: 'var(--wp--preset--font-family--heading)',
       values: { Max: 'Moret' },
+      description: 'Headings (live). CSS stack: moret, Georgia, serif',
     });
+    expect(
+      typography.filter((v) => v.name.startsWith('Font-Families/')).map((v) => v.codeSyntax)
+    ).toEqual([
+      'var(--wp--preset--font-family--heading)',
+      'var(--wp--preset--font-family--body)',
+      'var(--wp--preset--font-family--accent)',
+      'var(--wp--preset--font-family--monospace)',
+    ]);
     expect(
       collection('Theme - Spacing').variables.find((v) => v.name === 'Padding/Colossal')!.values
     ).toEqual({ Max: 100, Min: 72 });
@@ -106,6 +122,23 @@ describe('TokenPlanBuilder', () => {
     expect(wideOnly.collections.find((c) => c.name === 'Theme - Layout')!.variables).toHaveLength(
       1
     );
+  });
+});
+
+describe('Without a third font', () => {
+  it('creates no accent variable', () => {
+    const two = JSON.parse(JSON.stringify(proposal)) as typeof proposal;
+    delete two.typography.families.accent;
+    const plan = new TokenPlanBuilder().build(two);
+    const names = plan.collections
+      .find((c) => c.name === 'Theme - Typography')!
+      .variables.filter((v) => v.name.startsWith('Font-Families/'))
+      .map((v) => v.name);
+    expect(names).toEqual([
+      'Font-Families/Primary',
+      'Font-Families/Secondary',
+      'Font-Families/Monospace',
+    ]);
   });
 });
 

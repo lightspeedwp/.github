@@ -391,26 +391,97 @@ describe('FigmaVariablesMapper', () => {
     );
   });
 
-  it('maps both spellings of the extra sizes to X-Large and X-Small', () => {
+  it('keeps the fallbacks of the CSS stack declared in a font variable description', () => {
+    const font = (value: string, description?: string) =>
+      new FigmaVariablesMapper().map({
+        collections: [
+          {
+            name: 'Typography',
+            modes: [{ id: 'm', name: 'Value' }],
+            variables: [
+              {
+                id: 'f',
+                name: 'Font-Families/Primary',
+                type: 'STRING',
+                codeSyntax: { WEB: 'var(--wp--preset--font-family--heading)' },
+                description,
+                valuesByMode: { m: value },
+              },
+            ],
+          },
+        ],
+      } as never);
+    const stack = (mapped: ReturnType<typeof font>) =>
+      (mapped.theme.settings as Json).typography.fontFamilies[0].fontFamily;
+    const description = 'Headings (live). CSS stack: moret, Georgia, serif';
+
+    // The live @font-face name gives way to the clean family name.
+    expect(stack(font('Moret', description))).toBe('Moret, Georgia, serif');
+    expect(
+      stack(font('Argesta Display', 'Body text (live). CSS stack: argesta_displayregular, serif'))
+    ).toBe('"Argesta Display", serif');
+    expect(stack(font('Moret', 'CSS stack: moret'))).toBe('Moret');
+    // A stack for another font is ignored.
+    expect(stack(font('Lora', description))).toBe('Lora, sans-serif');
+    expect(stack(font('Moret'))).toBe('Moret, sans-serif');
+    expect(stack(font('Moret', 'Headings only'))).toBe('Moret, sans-serif');
+  });
+
+  it('keeps the system stack of a generic family such as Monospace', () => {
+    const family = (slug: string, value: string, description?: string) =>
+      (
+        new FigmaVariablesMapper().map({
+          collections: [
+            {
+              name: 'Typography',
+              modes: [{ id: 'm', name: 'Value' }],
+              variables: [
+                {
+                  id: slug,
+                  name: `Font-Families/${value}`,
+                  type: 'STRING',
+                  codeSyntax: { WEB: `var(--wp--preset--font-family--${slug})` },
+                  description,
+                  valuesByMode: { m: value },
+                },
+              ],
+            },
+          ],
+        } as never).theme.settings as Json
+      ).typography.fontFamilies[0].fontFamily;
+    const system = 'ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace';
+
+    expect(family('monospace', 'Monospace', `Code (default). CSS stack: ${system}`)).toBe(system);
+    // With no declared stack, a generic name is the stack, and a named mono font falls back to monospace.
+    expect(family('monospace', 'Monospace')).toBe('monospace');
+    expect(family('monospace', 'Fira Code')).toBe('"Fira Code", monospace');
+  });
+
+  it('writes only the font roles that exist, with no accent when there is none', () => {
+    const role = (slug: string, value: string) => ({
+      id: slug,
+      name: `Font-Families/${slug}`,
+      type: 'STRING',
+      codeSyntax: { WEB: `var(--wp--preset--font-family--${slug})` },
+      valuesByMode: { m: value },
+    });
     const mapped = new FigmaVariablesMapper().map({
       collections: [
         {
-          name: 'Radius',
-          modes: [{ id: 'm', name: 'Mode 1' }],
-          variables: ['xLarge', 'X-Large', 'x-small'].map((name, i) => ({
-            id: `r${i}`,
-            name,
-            type: 'FLOAT',
-            codeSyntax: { WEB: `var(--wp--preset--border-radius--${(i + 1) * 100})` },
-            valuesByMode: { m: 4 },
-          })),
+          name: 'Typography',
+          modes: [{ id: 'm', name: 'Value' }],
+          variables: [
+            role('heading', 'Moret'),
+            role('body', 'Lora'),
+            role('monospace', 'Monospace'),
+          ],
         },
       ],
     } as never);
-    const names = (mapped.theme.settings as Json).border.radiusSizes.map(
-      (r: { name: string }) => r.name
+    const slugs = (mapped.theme.settings as Json).typography.fontFamilies.map(
+      (f: { slug: string }) => f.slug
     );
-    expect(names).toEqual(['X-Large', 'X-Large', 'X-Small']);
+    expect(slugs).toEqual(['heading', 'body', 'monospace']);
   });
 
   it('maps bare radius names and strips the old "Radius " prefix', () => {
@@ -440,6 +511,28 @@ describe('FigmaVariablesMapper', () => {
     expect(names(radius('Radius'))).toEqual(['Radius']);
   });
 
+  it('maps both spellings of the extra sizes to X-Large and X-Small', () => {
+    const mapped = new FigmaVariablesMapper().map({
+      collections: [
+        {
+          name: 'Radius',
+          modes: [{ id: 'm', name: 'Mode 1' }],
+          variables: ['xLarge', 'X-Large', 'x-small'].map((name, i) => ({
+            id: `r${i}`,
+            name,
+            type: 'FLOAT',
+            codeSyntax: { WEB: `var(--wp--preset--border-radius--${(i + 1) * 100})` },
+            valuesByMode: { m: 4 },
+          })),
+        },
+      ],
+    } as never);
+    const names = (mapped.theme.settings as Json).border.radiusSizes.map(
+      (r: { name: string }) => r.name
+    );
+    expect(names).toEqual(['X-Large', 'X-Large', 'X-Small']);
+  });
+
   it('warns when a sizing ramp is out of order', () => {
     const mapped = new FigmaVariablesMapper().map({
       collections: [
@@ -458,6 +551,56 @@ describe('FigmaVariablesMapper', () => {
     });
     expect(mapped.report.warnings).toContain(
       'The spacing ramp is out of order in Figma (30, 10, 20). Order it smallest first.'
+    );
+  });
+
+  it('maps content and wide width to settings.layout in px', () => {
+    const width = (id: string, syntax: string, value: unknown, type = 'FLOAT') => ({
+      id,
+      name: `Desktop/${id}`,
+      type,
+      codeSyntax: { WEB: `var(${syntax})` },
+      valuesByMode: { m: value },
+    });
+    const layout = (...variables: ReturnType<typeof width>[]) =>
+      new FigmaVariablesMapper().map({
+        collections: [{ name: 'Theme - Layout', modes: [{ id: 'm', name: 'Mode 1' }], variables }],
+      } as never);
+
+    // The form site-to-design-tokens writes.
+    const custom = layout(
+      width('content', '--wp--custom--layout--content-size', 848),
+      width('wide', '--wp--custom--layout--wide-size', 1232)
+    );
+    expect((custom.theme.settings as Json).layout).toEqual({
+      contentSize: '848px',
+      wideSize: '1232px',
+    });
+    expect((custom.theme.settings as Json).custom).toBeUndefined();
+    expect(custom.report.counts.layout).toBe(2);
+
+    // Core's own variable names, and string values with and without a unit.
+    const core = layout(
+      width('content', '--wp--style--global--content-size', '48rem', 'STRING'),
+      width('wide', '--wp--style--global--wide-size', '1200', 'STRING')
+    );
+    expect((core.theme.settings as Json).layout).toEqual({
+      contentSize: '48rem',
+      wideSize: '1200px',
+    });
+
+    // A layout width that isn't a length is reported, not written.
+    const bad = layout(width('content', '--wp--custom--layout--content-size', true, 'BOOLEAN'));
+    expect((bad.theme.settings as Json).layout).toBeUndefined();
+    expect(bad.report.warnings.join('\n')).toContain('"Desktop/content" is BOOLEAN');
+
+    // A custom value that aliases a width refers to core's variable.
+    const alias = layout(width('content', '--wp--custom--layout--content-size', 848), {
+      ...width('gutter', '--wp--custom--max-text', 0),
+      valuesByMode: { m: { type: 'VARIABLE_ALIAS', id: 'content' } },
+    });
+    expect((alias.theme.settings as Json).custom['max-text']).toBe(
+      'var(--wp--style--global--content-size)'
     );
   });
 

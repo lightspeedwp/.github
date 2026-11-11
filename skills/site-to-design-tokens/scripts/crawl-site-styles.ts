@@ -38,6 +38,8 @@ export interface ElementSample {
   background?: string;
   border?: string;
   fontFamily?: string;
+  /** The full computed font-family stack, exactly as the CSS writes it. */
+  fontStack?: string;
   fontSize?: number;
   fontWeight?: number;
   lineHeight?: number;
@@ -54,11 +56,32 @@ export interface ElementSample {
 export interface CollectedPage {
   samples: ElementSample[];
   mediaWidths: number[];
+  /**
+   * Widths in px of running-text paragraphs (`p` with 80 or more characters) in the main
+   * column, outside navigation, footers, asides, lists and figures. This is the column
+   * a reader sees, so it measures the content width better than any centred wrapper.
+   */
+  textWidths?: number[];
+  /** `single` for one post or page, `listing` for the home page, archives, blog and search. */
+  pageKind?: 'single' | 'listing';
+  /** True for a single blog post (`single-post`), whose text column is the clearest content width. */
+  isPost?: boolean;
 }
 
 export interface PageCapture extends CollectedPage {
   url: string;
+  /** Set when the page redirected: where it landed. */
+  finalUrl?: string;
   viewport: number;
+}
+
+export interface PageRedirect {
+  /** The page asked for. */
+  url: string;
+  /** Where the browser ended up. */
+  finalUrl: string;
+  /** True when that final URL had already been captured, so the page was left out. */
+  skipped: boolean;
 }
 
 export interface SiteStyles {
@@ -66,6 +89,8 @@ export interface SiteStyles {
   capturedAt: string;
   viewports: number[];
   captures: PageCapture[];
+  /** Pages that redirected. Live sites redirect retired pages, often to the home page. */
+  redirects?: PageRedirect[];
 }
 
 export interface CollectOptions {
@@ -173,6 +198,7 @@ export function collectPageStyles(options: CollectOptions = {}): CollectedPage {
     if (role && role !== 'section' && role !== 'surface') {
       sample.color = style.color;
       sample.fontFamily = style.fontFamily.split(',')[0].replace(/["']/g, '').trim();
+      sample.fontStack = style.fontFamily;
       sample.fontSize = px(style.fontSize);
       sample.fontWeight = Number(style.fontWeight) || undefined;
       sample.lineHeight = px(style.lineHeight);
@@ -236,10 +262,37 @@ export function collectPageStyles(options: CollectOptions = {}): CollectedPage {
     }
   }
 
-  return { samples, mediaWidths };
+  const textWidths: number[] = [];
+  const main = document.querySelector('main, [role="main"], #main, #content') ?? document.body;
+  const paragraphs = main ? main.querySelectorAll('p') : [];
+  for (let i = 0; i < paragraphs.length; i++) {
+    const p = paragraphs[i] as HTMLElement;
+    if (p.closest('nav, footer, aside, li, figure, form, blockquote, table, header')) {
+      continue;
+    }
+    if ((p.textContent ?? '').trim().length < 80) {
+      continue;
+    }
+    const box = p.getBoundingClientRect();
+    if (box.width >= 1 && box.width < viewport - 16) {
+      textWidths.push(Math.round(box.width));
+    }
+  }
+  const bodyClass =
+    document.body && typeof document.body.className === 'string' ? document.body.className : '';
+  const pageKind: 'single' | 'listing' =
+    /\b(home|archive|blog|search|category|tag|post-type-archive)\b/.test(bodyClass)
+      ? 'listing'
+      : 'single';
+
+  const isPost = /\bsingle-post\b/.test(bodyClass);
+
+  return { samples, mediaWidths, textWidths, pageKind, isPost };
 }
 
 export interface PageHandle {
+  /** The URL the page landed on after any redirects. */
+  finalUrl?: string;
   collect: () => Promise<CollectedPage>;
   close: () => Promise<void>;
 }
@@ -269,6 +322,8 @@ export class SiteCrawler {
     const viewports = options.viewports ?? [390, 1440];
     const urls = this.resolvePages(site, options.pages, options.maxPages ?? 10);
     const captures: PageCapture[] = [];
+    const redirects: PageRedirect[] = [];
+    const captured = new Set<string>();
     let first = true;
 
     try {
@@ -280,7 +335,22 @@ export class SiteCrawler {
           first = false;
           const page = await this.driver.open(url, viewport);
           try {
-            captures.push({ url, viewport, ...(await page.collect()) });
+            const finalUrl = page.finalUrl ?? url;
+            if (finalUrl !== url && !redirects.some((r) => r.url === url)) {
+              const skipped = captured.has(`${finalUrl}@${viewport}`);
+              redirects.push({ url, finalUrl, skipped });
+            }
+            if (captured.has(`${finalUrl}@${viewport}`)) {
+              // Already captured under another address: one page, one set of votes.
+              break;
+            }
+            captured.add(`${finalUrl}@${viewport}`);
+            captures.push({
+              url,
+              viewport,
+              ...(finalUrl !== url ? { finalUrl } : {}),
+              ...(await page.collect()),
+            });
           } finally {
             await page.close();
           }
@@ -295,6 +365,7 @@ export class SiteCrawler {
       capturedAt: this.now().toISOString(),
       viewports,
       captures,
+      ...(redirects.length ? { redirects } : {}),
     };
   }
 
@@ -394,6 +465,11 @@ export async function runCrawlCli(argv: string[], deps: CrawlCliDeps): Promise<n
     });
     deps.writeFile(values.out, `${JSON.stringify(result, null, 2)}\n`);
     const samples = result.captures.reduce((total, c) => total + c.samples.length, 0);
+    for (const r of result.redirects ?? []) {
+      deps.stderr(
+        `Warning: ${r.url} redirected to ${r.finalUrl}${r.skipped ? ', which was already captured, so it was left out' : ''}.\n`
+      );
+    }
     deps.stdout(
       `Captured ${result.captures.length} page views and ${samples} elements into ${values.out}\n`
     );
@@ -434,6 +510,7 @@ export async function createPuppeteerDriver(): Promise<BrowserDriver> {
         throw error;
       }
       return {
+        finalUrl: page.url(),
         collect: async () => {
           // tsx (esbuild) can add __name() helpers to function source; define it in the page.
           await page.evaluate('globalThis.__name = (f) => f');
