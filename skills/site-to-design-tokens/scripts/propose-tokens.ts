@@ -1177,6 +1177,15 @@ export class TokenProposer {
       max: c.max,
       min: Math.min(c.min, c.max),
     }));
+    // Mobile values rise with the ladder too: a step never shrinks below the one before.
+    for (let i = 1; i < steps.length; i++) {
+      if (steps[i].min < steps[i - 1].min) {
+        this.decisions.push(
+          `Spacing ${steps[i].name} (\`${steps[i].slug}\`) shrinks to ${steps[i].min}px on mobile, below ${steps[i - 1].name}; its mobile value was raised to ${steps[i - 1].min}px.`
+        );
+        steps[i].min = steps[i - 1].min;
+      }
+    }
     return [{ name: 'None', slug: 'none', max: 0, min: 0 }, ...steps];
   }
 
