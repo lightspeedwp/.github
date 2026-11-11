@@ -108,6 +108,9 @@ export const SPACING_STEPS = [
 const RADIUS_NAMES = ['Small', 'Base', 'Medium', 'Large', 'X-Large', 'Huge'];
 const SHADOW_NAMES = ['X-Small', 'Small', 'Medium', 'Large', 'X-Large', 'Huge'];
 
+/** For each button fill (hex), how often each text colour (hex) sits on it. */
+export type ButtonTextByFill = Map<string, Map<string, number>>;
+
 export interface ColourEvidence {
   hex: string;
   weight: number;
@@ -305,7 +308,11 @@ export class TokenProposer {
     const pair = (s: ElementSample & { page: string }) => mobileByKey.get(`${s.page}|${s.key}`);
 
     const evidence = this.colourEvidence(desktopSamples);
-    const colour = this.proposeColour(evidence, options.assign ?? {});
+    const colour = this.proposeColour(
+      evidence,
+      options.assign ?? {},
+      this.buttonTextByFill(desktopSamples)
+    );
     const matches = this.matchColours(evidence, colour.primitives);
     const contrast = this.checkContrast(colour.primitives, colour.semantic);
     const typography = this.proposeTypography(desktopSamples, pair);
@@ -332,6 +339,22 @@ export class TokenProposer {
   }
 
   /** Counts every opaque colour by where it is used. */
+  /** Pairs each button's text colour with its own fill, so action text and fill match. */
+  buttonTextByFill(samples: ElementSample[]): ButtonTextByFill {
+    const pairs: ButtonTextByFill = new Map();
+    for (const s of samples) {
+      const fill = s.role === 'button' && s.background ? Color.parse(s.background) : null;
+      const text = fill && s.color ? Color.parse(s.color) : null;
+      if (!fill || !text || !fill.isOpaque || !text.isOpaque) {
+        continue;
+      }
+      const texts = pairs.get(fill.toHex()) ?? new Map<string, number>();
+      texts.set(text.toHex(), (texts.get(text.toHex()) ?? 0) + 1);
+      pairs.set(fill.toHex(), texts);
+    }
+    return pairs;
+  }
+
   colourEvidence(samples: ElementSample[]): ColourEvidence[] {
     const byHex = new Map<string, ColourEvidence>();
     const add = (value: string | undefined, use: string, weight: number) => {
@@ -355,7 +378,8 @@ export class TokenProposer {
 
   proposeColour(
     evidence: ColourEvidence[],
-    assign: Partial<Record<Family, string>>
+    assign: Partial<Record<Family, string>>,
+    buttonText: ButtonTextByFill = new Map()
   ): Proposal['colour'] {
     const opaque = evidence.filter((e) => Color.parse(e.hex)!.isOpaque);
     const isNeutral = (hex: string) => Color.parse(hex)!.toOklch().c < 0.025;
@@ -514,7 +538,7 @@ export class TokenProposer {
     const shadowBase = Color.parse(primitives['neutral-900'])!.rgb;
     const overlay = Color.fromRgb({ ...shadowBase, a: 0.25 }).toHex();
 
-    const semantic = this.proposeSemantic(evidence, primitives, anchors);
+    const semantic = this.proposeSemantic(evidence, primitives, anchors, buttonText);
     return { primitives, anchors, semantic, overlay, shadowAlphas: SHADOW_ALPHAS };
   }
 
@@ -620,7 +644,8 @@ export class TokenProposer {
   proposeSemantic(
     evidence: ColourEvidence[],
     primitives: Record<string, string>,
-    anchors: Anchor[] = []
+    anchors: Anchor[] = [],
+    buttonText: ButtonTextByFill = new Map()
   ): Proposal['colour']['semantic'] {
     const semantic: Proposal['colour']['semantic'] = {};
     for (const [role, token] of Object.entries(SEMANTIC_DEFAULTS)) {
@@ -664,7 +689,6 @@ export class TokenProposer {
       observe('text/link', 'nav-text', undefined, true);
     }
     const buttonBg = observe('action/primary/background', 'button-background');
-    observe('action/primary/text', 'button-text');
     observe('border/default', 'input-border');
     if (buttonBg) {
       semantic['action/primary/background-hover'] = {
@@ -699,6 +723,35 @@ export class TokenProposer {
         token: this.darker(token),
         source: 'observed',
         evidence: `One step darker than ${token}.`,
+      };
+    }
+
+    // Each action's text comes from the buttons that have its fill, never from other
+    // buttons, so the pair is one the site really shows.
+    for (const action of ['primary', 'secondary', 'cta']) {
+      const fill = semantic[`action/${action}/background`];
+      if (fill.source !== 'observed') {
+        continue;
+      }
+      const texts = new Map<string, number>();
+      const fills: string[] = [];
+      for (const [fillHex, onFill] of buttonText) {
+        if (this.nearestPrimitive(fillHex, primitives) !== fill.token) {
+          continue;
+        }
+        fills.push(fillHex);
+        for (const [hex, n] of onFill) {
+          texts.set(hex, (texts.get(hex) ?? 0) + n);
+        }
+      }
+      const [textHex, count] = [...texts.entries()].sort((a, b) => b[1] - a[1])[0] ?? [];
+      if (!textHex) {
+        continue;
+      }
+      semantic[`action/${action}/text`] = {
+        token: this.nearestPrimitive(textHex, primitives),
+        source: 'observed',
+        evidence: `${textHex} on ${fills.join(', ')} buttons (×${count})`,
       };
     }
 
@@ -1124,6 +1177,15 @@ export class TokenProposer {
       max: c.max,
       min: Math.min(c.min, c.max),
     }));
+    // Mobile values rise with the ladder too: a step never shrinks below the one before.
+    for (let i = 1; i < steps.length; i++) {
+      if (steps[i].min < steps[i - 1].min) {
+        this.decisions.push(
+          `Spacing ${steps[i].name} (\`${steps[i].slug}\`) shrinks to ${steps[i].min}px on mobile, below ${steps[i - 1].name}; its mobile value was raised to ${steps[i - 1].min}px.`
+        );
+        steps[i].min = steps[i - 1].min;
+      }
+    }
     return [{ name: 'None', slug: 'none', max: 0, min: 0 }, ...steps];
   }
 
