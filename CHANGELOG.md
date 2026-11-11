@@ -115,6 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Theme Token Review Follow-ups** — Sans Serif stays `sans-serif` in `figma-to-block-theme`, `site-to-design-tokens` pairs button text by colour and lists moved spacing, and `theme-orphaned-refs` wants an absolute report path.
 - **Orphaned Refs Scan Scope** — `theme-orphaned-refs` skips dependency, build and agent folders (with `--exclude` for more), checks `border-radius` presets, suggests the nearest step for numeric ladders, and is now TypeScript with Jest tests (`find-orphaned-presets.ts`). ([GIT-2774](https://linear.app/lightspeedwp/issue/GIT-2774))
 - **Site Tokens Palette Order** — `site-to-design-tokens` exports the colour ramps in the LightSpeed order (neutral, primary, brand, cta), so the theme palette follows the convention. ([GIT-2773](https://linear.app/lightspeedwp/issue/GIT-2773))
 - **Figma Tokens Layout Widths** — `figma-to-block-theme` maps the content and wide width variables to `settings.layout` in px, instead of unitless values in `settings.custom.layout`, so the theme gets the design's widths. ([GIT-2772](https://linear.app/lightspeedwp/issue/GIT-2772))
