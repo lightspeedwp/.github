@@ -44,5 +44,5 @@ Check each scale against the site at both widths:
 - The body text size should be `Base`, slug `200`.
 - Heading sizes should shrink on mobile.
 - Section spacing should reflect what the eye sees. Sites that space sections with margins on unstyled wrappers can produce a smaller scale than the design intends, so say so and let the reviewer set the larger steps.
-- Font names come from the site's CSS (for example a web font alias such as `argesta_displayregular`). Ask the reviewer for the licensed family name and its fallback.
+- Font names are cleaned from the site's CSS (`argesta_displayregular` becomes `Argesta Display`) and the exact CSS stack is kept. The report marks each role as live or default, and says when there is no accent font because the site uses two families. Check the cleaned names and the fallbacks with the reviewer.
 - **Content width** comes from the width of running text (`p` elements with 80 or more characters in the main column) on single pages, not from cards or wrappers. Each page votes with its most common width, blog posts win when the crawl has any, and the median vote is used. Include a blog post in the crawl. If the report says the width came from listing pages, is under 480px, or is within 10% of the wide width, confirm it with the reviewer. Override either width with `--layout content=<px>,wide=<px>`.
