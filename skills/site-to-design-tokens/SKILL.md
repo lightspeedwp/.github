@@ -40,7 +40,7 @@ npx tsx ${CLAUDE_SKILL_DIR}/scripts/crawl-site-styles.ts --url https://www.examp
   --pages /,/about/,/tours/,/contact/ --out site-styles.json
 ```
 
-Save the output to a scratch folder outside the repository. The crawler reads public pages one at a time, with a 1.5 second pause between requests.
+Save the output to a scratch folder outside the repository. The crawler reads public pages one at a time, with a 1.5 second pause between requests. It warns when a page redirects, and leaves out a page that lands on one already captured: replace it with a page that still exists and crawl again.
 
 ### 3. Propose
 
@@ -50,7 +50,7 @@ npx tsx ${CLAUDE_SKILL_DIR}/scripts/propose-tokens.ts site-styles.json --out pro
 
 The proposal follows the structure in [references/target-structure.md](references/target-structure.md):
 
-- `base`, `contrast`, and `brand`, `primary`, `cta` and `neutral` ramps from 100 to 900, each built around a live colour that keeps its exact value
+- `base`, `contrast`, and `neutral`, `primary`, `brand` and `cta` ramps from 100 to 900 (in that order), each built around a live colour that keeps its exact value
 - the 44 semantic roles, taken from what elements use where the site shows it, and from the TSP defaults otherwise
 - type, spacing, radius, shadow, layout and breakpoint scales, with Max (1440px) and Min (390px) values
 

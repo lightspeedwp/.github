@@ -70,7 +70,18 @@ export interface CollectedPage {
 
 export interface PageCapture extends CollectedPage {
   url: string;
+  /** Set when the page redirected: where it landed. */
+  finalUrl?: string;
   viewport: number;
+}
+
+export interface PageRedirect {
+  /** The page asked for. */
+  url: string;
+  /** Where the browser ended up. */
+  finalUrl: string;
+  /** True when that final URL had already been captured, so the page was left out. */
+  skipped: boolean;
 }
 
 export interface SiteStyles {
@@ -78,6 +89,8 @@ export interface SiteStyles {
   capturedAt: string;
   viewports: number[];
   captures: PageCapture[];
+  /** Pages that redirected. Live sites redirect retired pages, often to the home page. */
+  redirects?: PageRedirect[];
 }
 
 export interface CollectOptions {
@@ -278,6 +291,8 @@ export function collectPageStyles(options: CollectOptions = {}): CollectedPage {
 }
 
 export interface PageHandle {
+  /** The URL the page landed on after any redirects. */
+  finalUrl?: string;
   collect: () => Promise<CollectedPage>;
   close: () => Promise<void>;
 }
@@ -307,6 +322,8 @@ export class SiteCrawler {
     const viewports = options.viewports ?? [390, 1440];
     const urls = this.resolvePages(site, options.pages, options.maxPages ?? 10);
     const captures: PageCapture[] = [];
+    const redirects: PageRedirect[] = [];
+    const captured = new Set<string>();
     let first = true;
 
     try {
@@ -318,7 +335,22 @@ export class SiteCrawler {
           first = false;
           const page = await this.driver.open(url, viewport);
           try {
-            captures.push({ url, viewport, ...(await page.collect()) });
+            const finalUrl = page.finalUrl ?? url;
+            if (finalUrl !== url && !redirects.some((r) => r.url === url)) {
+              const skipped = captured.has(`${finalUrl}@${viewport}`);
+              redirects.push({ url, finalUrl, skipped });
+            }
+            if (captured.has(`${finalUrl}@${viewport}`)) {
+              // Already captured under another address: one page, one set of votes.
+              break;
+            }
+            captured.add(`${finalUrl}@${viewport}`);
+            captures.push({
+              url,
+              viewport,
+              ...(finalUrl !== url ? { finalUrl } : {}),
+              ...(await page.collect()),
+            });
           } finally {
             await page.close();
           }
@@ -333,6 +365,7 @@ export class SiteCrawler {
       capturedAt: this.now().toISOString(),
       viewports,
       captures,
+      ...(redirects.length ? { redirects } : {}),
     };
   }
 
@@ -432,6 +465,11 @@ export async function runCrawlCli(argv: string[], deps: CrawlCliDeps): Promise<n
     });
     deps.writeFile(values.out, `${JSON.stringify(result, null, 2)}\n`);
     const samples = result.captures.reduce((total, c) => total + c.samples.length, 0);
+    for (const r of result.redirects ?? []) {
+      deps.stderr(
+        `Warning: ${r.url} redirected to ${r.finalUrl}${r.skipped ? ', which was already captured, so it was left out' : ''}.\n`
+      );
+    }
     deps.stdout(
       `Captured ${result.captures.length} page views and ${samples} elements into ${values.out}\n`
     );
@@ -472,6 +510,7 @@ export async function createPuppeteerDriver(): Promise<BrowserDriver> {
         throw error;
       }
       return {
+        finalUrl: page.url(),
         collect: async () => {
           // tsx (esbuild) can add __name() helpers to function source; define it in the page.
           await page.evaluate('globalThis.__name = (f) => f');

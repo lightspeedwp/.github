@@ -34,6 +34,13 @@ describe('TokenPlanBuilder', () => {
     expect(collection('Theme - Semantic').variables).toHaveLength(44);
   });
 
+  it('creates the ramps in the LightSpeed palette order', () => {
+    const families = collection('Theme - Colour')
+      .variables.map((v) => v.name.split('/')[0])
+      .filter((family, i, all) => all.indexOf(family) === i);
+    expect(families.slice(0, 5)).toEqual(['Theme', 'neutral', 'primary', 'brand', 'cta']);
+  });
+
   it('names and code syntax match the TSP file and the mapper', () => {
     const colour = collection('Theme - Colour').variables;
     expect(colour.find((v) => v.key === 'brand-600')).toMatchObject({
