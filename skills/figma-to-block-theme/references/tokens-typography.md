@@ -23,7 +23,8 @@ Variables whose code syntax is `--wp--preset--font-family--<slug>` (`heading`, `
 
 - `name` is the font name (for example "Nunito Sans"), not the slug.
 - If the variable description holds a `CSS stack: <stack>` line (written by `site-to-design-tokens`) and its first family is the font named by the value, `fontFamily` is the font name followed by that stack's fallbacks. The first family is the live site's own `@font-face` name (for example `argesta_displayregular, serif` gives `"Argesta Display", serif`), which the theme's `fontFace` entries won't declare.
-- Otherwise `fontFamily` quotes names that contain spaces and adds a fallback: `sans-serif` by default, or `--font-fallback serif` for serif families. Confirm the fallback with the user.
+- A generic family name such as "Monospace" names no font of its own, so its declared stack is kept as it is (for example `ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace`).
+- Otherwise `fontFamily` quotes names that contain spaces and adds a fallback: `monospace` for the `monospace` role, otherwise `sans-serif` by default, or `--font-fallback serif` for serif families. Confirm the fallback with the user.
 
 ### Font files
 
