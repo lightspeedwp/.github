@@ -44,3 +44,7 @@ Use `--min-viewport` and `--max-viewport` only when the design's frames differ f
 - Replace `settings.spacing.spacingSizes`, and set `defaultSpacingSizes: false`. Core's default sizes use the slugs `20` to `80`, and when they are on they override theme sizes with the same slugs, so the theme's values never reach the page. Keep `units`, `padding`, `margin` and `blockGap`.
 - Compare the count with the mapper's `counts.spacing`.
 - Slugs used in `styles` and patterns (`var:preset|spacing|<slug>`) must still exist. `theme-orphaned-refs` checks this.
+
+## Layout widths
+
+Variables whose code syntax is `--wp--custom--layout--content-size` or `--wp--custom--layout--wide-size` (the form `site-to-design-tokens` writes), or core's `--wp--style--global--content-size` and `--wide-size`, go to `settings.layout.contentSize` and `wideSize`, not to `settings.custom`. Numbers become px (`848` gives `"848px"`), and a string keeps its unit. Compare the widths with the theme's current `settings.layout` in the plan, and note `counts.layout` in the report.
