@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Theme Screenshot'
+  short_description: "Make a theme screenshot.png from the site's logo"
+  default_prompt: 'Use $theme-screenshot to make a 1200 by 900 screenshot.png for this theme from the site logo, the theme.json palette and an industry line, then look at the image before handing it over.'
