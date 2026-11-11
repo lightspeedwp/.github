@@ -312,7 +312,7 @@ Help developers avoid these mistakes:
 
 When onboarding developers:
 
-1. **Show them the one-pager first** — Quick reference with all 24 types
+1. **Show them the one-pager first** — Quick reference with all 38 types
 2. **Demo the validation command** — Run it with good and bad examples
 3. **Walk through decision tree** — Help them understand how to pick a type
 4. **Show PR template routing** — Explain how type affects template/labels

@@ -1,7 +1,7 @@
 # Pull request template routing map
 #
-# GitHub does not auto-route templates by branch prefix, so this file is the
-# canonical routing contract for docs, automation, and validation logic.
+# GitHub does not auto-route templates by branch prefix. For supported branch
+# types, this map mirrors the authoritative .github/branch-types.yml mapping.
 #
 # Source of truth alignment:
 # - Branch naming: docs/BRANCHING_STRATEGY.md
@@ -39,34 +39,34 @@ routes:
   docs/: pr_docs.md
   task/: pr_task.md
   doc/: pr_docs.md
-  test/: pr_chore.md
+  test/: pr_test.md
   perf/: pr_feature.md
   ci/: pr_ci.md
   build/: pr_ci.md
-  automation/: pr_ci.md
+  automation/: pr_aiops.md
   deps/: pr_dep_update.md
-  security/: pr_bug.md
-  design/: pr_feature.md
-  a11y/: pr_feature.md
-  ux/: pr_feature.md
+  security/: pr_security.md
+  design/: pr_design.md
+  a11y/: pr_a11y.md
+  ux/: pr_design.md
   release/: pr_release.md
   research/: pr_feature.md
-  revert/: pr_chore.md
-  i18n/: pr_feature.md
-  ops/: pr_chore.md
+  revert/: pr_bug.md
+  i18n/: pr_docs.md
+  ops/: pr_ci.md
   proto/: pr_feature.md
-  ds/: pr_feature.md
+  ds/: pr_design.md
   api/: pr_feature.md
-  schema/: pr_feature.md
-  telemetry/: pr_feature.md
+  schema/: pr_refactor.md
+  telemetry/: pr_ci.md
   content/: pr_docs.md
-  seo/: pr_docs.md
+  seo/: pr_feature.md
   config/: pr_chore.md
-  migrate/: pr_chore.md
-  qa/: pr_chore.md
-  uat/: pr_chore.md
-  audit/: pr_feature.md
-  codex/: pr_docs.md
+  migrate/: pr_refactor.md
+  qa/: pr_test.md
+  uat/: pr_test.md
+  audit/: pr_audit.md
+  codex/: pr_aiops.md
   aiops/: pr_aiops.md
   epic/: pr_epic.md
 
@@ -94,3 +94,8 @@ available_templates:
   - pr_task.md
   - pr_aiops.md
   - pr_epic.md
+  - pr_test.md
+  - pr_security.md
+  - pr_design.md
+  - pr_a11y.md
+  - pr_audit.md

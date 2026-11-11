@@ -59,7 +59,7 @@ ops/post-release-sync             ✓ Operations
 ## ❌ Invalid Examples
 
 ```
-release/v2.1.0                    ✗ Dots not allowed (use hyphens)
+release/v2.1.0-beta.1             ✗ Dots not allowed inside a suffix
 feat/MyFeature                    ✗ Uppercase not allowed
 feat/my_feature                   ✗ Underscores not allowed
 claude/my-feature                 ✗ FORBIDDEN PREFIX
