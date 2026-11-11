@@ -99,12 +99,22 @@ interface CustomTarget {
   path: string[];
 }
 
+/** Content and wide width, which belong in `settings.layout`. */
+interface LayoutTarget {
+  kind: 'layout';
+  key: 'contentSize' | 'wideSize';
+}
+
+type Target = PresetTarget | CustomTarget | LayoutTarget;
+
 /** Keys that would reach Object.prototype if written as plain properties. */
 const UNSAFE_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 
 const PRESET_PATTERN =
   /--wp--preset--(color|spacing|font-size|font-family|border-radius|shadow)--([a-z0-9-]+)/;
 const CUSTOM_PATTERN = /--wp--custom--([a-z0-9-]+(?:--[a-z0-9-]+)*)/;
+/** `site-to-design-tokens` writes the custom form; core's own variables are the style form. */
+const LAYOUT_PATTERN = /--wp--(?:custom--layout|style--global)--(content|wide)-size(?![a-z0-9-])/;
 /** CSS generic font families, which name no font of their own. */
 const GENERIC_FAMILIES = new Set([
   'serif',
@@ -150,6 +160,8 @@ export class FigmaVariablesMapper {
   private warnings: string[] = [];
   /** Variation keys that come from colour modes. */
   private readonly colourModes = new Set<string>();
+  /** `settings.layout` widths found while mapping. */
+  private layout: JsonObject = {};
 
   constructor(options: MapperOptions = {}) {
     this.options = options;
@@ -158,6 +170,7 @@ export class FigmaVariablesMapper {
 
   map(data: VariablesExport): MappingResult {
     this.warnings = [];
+    this.layout = {};
     this.colourModes.clear();
     this.byId.clear();
     for (const collection of data.collections) {
@@ -216,6 +229,9 @@ export class FigmaVariablesMapper {
       this.assign(settings, ['shadow', 'defaultPresets'], false);
       this.assign(settings, ['shadow', 'presets'], presets.shadow);
     }
+    if (Object.keys(this.layout).length) {
+      settings.layout = this.layout;
+    }
     if (Object.keys(custom).length) {
       settings.custom = custom;
     }
@@ -223,6 +239,7 @@ export class FigmaVariablesMapper {
     for (const [family, entries] of Object.entries(presets)) {
       counts[family] = entries.length;
     }
+    counts.layout = Object.keys(this.layout).length;
     counts.custom = this.countLeaves(custom);
     counts.variations = Object.keys(variations).length;
 
@@ -258,6 +275,11 @@ export class FigmaVariablesMapper {
     for (const variable of collection.variables) {
       const target = this.parseTarget(variable);
       if (!target) {
+        continue;
+      }
+
+      if (target.kind === 'layout') {
+        this.mapLayout(variable, target, baseMode.id);
         continue;
       }
 
@@ -394,6 +416,19 @@ export class FigmaVariablesMapper {
     }
   }
 
+  /** Content and wide width go to `settings.layout` as CSS lengths. */
+  private mapLayout(variable: ExportedVariable, target: LayoutTarget, modeId: string): void {
+    const value = this.resolve(variable, modeId);
+    if (typeof value === 'number') {
+      this.layout[target.key] = this.px(value);
+    } else if (typeof value === 'string' && value.trim()) {
+      // A string such as "48rem" already has its unit; a bare number gets px.
+      this.layout[target.key] = /^\d+(\.\d+)?$/.test(value.trim()) ? `${value.trim()}px` : value;
+    } else {
+      this.typeMismatch(variable, 'FLOAT');
+    }
+  }
+
   private customValue(variable: ExportedVariable, modeId: string, path: string[]): unknown {
     const raw = variable.valuesByMode[modeId];
 
@@ -405,6 +440,10 @@ export class FigmaVariablesMapper {
       }
       if (presetTarget && presetTarget.kind === 'custom') {
         return `var(--wp--custom--${presetTarget.path.join('--')})`;
+      }
+      if (presetTarget && presetTarget.kind === 'layout') {
+        const width = presetTarget.key === 'contentSize' ? 'content' : 'wide';
+        return `var(--wp--style--global--${width}-size)`;
       }
     }
 
@@ -477,14 +516,15 @@ export class FigmaVariablesMapper {
     return presets;
   }
 
-  private parseTarget(
-    variable: ExportedVariable,
-    report = true
-  ): PresetTarget | CustomTarget | undefined {
+  private parseTarget(variable: ExportedVariable, report = true): Target | undefined {
     const syntax = variable.codeSyntax?.WEB;
     const preset = syntax?.match(PRESET_PATTERN);
     if (preset) {
       return { kind: 'preset', family: preset[1], slug: preset[2] };
+    }
+    const layout = syntax?.match(LAYOUT_PATTERN);
+    if (layout) {
+      return { kind: 'layout', key: layout[1] === 'content' ? 'contentSize' : 'wideSize' };
     }
     const customMatch = syntax?.match(CUSTOM_PATTERN);
     if (customMatch) {

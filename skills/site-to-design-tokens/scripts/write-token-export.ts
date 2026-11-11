@@ -116,7 +116,8 @@ export class TokenPlanBuilder {
         values: { Value: rgba(p.colour.primitives.contrast) },
       },
     ];
-    for (const family of ['brand', 'primary', 'cta', 'neutral'] as Family[]) {
+    // The LightSpeed palette order: neutral, primary, brand, cta.
+    for (const family of ['neutral', 'primary', 'brand', 'cta'] as Family[]) {
       for (const step of RAMP_STEPS) {
         const slug = `${family}-${step}`;
         colour.push({
