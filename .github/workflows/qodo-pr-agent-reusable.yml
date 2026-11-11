@@ -529,7 +529,7 @@ jobs:
       # consuming repositories can use it too. It reads no repository files.
       - name: Collect workflow metrics
         continue-on-error: true
-        uses: lightspeedwp/.github/.github/actions/collect-metrics@8183af8ab41542bc71c5bd2be5ed44397874da9a # develop 2026-09
+        uses: lightspeedwp/.github/.github/actions/collect-metrics@13c3898c2331aea345a2aa4ead99855308f75d5f # develop 2026-09
         with:
           workflow-name: qodo-pr-agent
           job-name: run
