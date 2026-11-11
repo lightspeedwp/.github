@@ -115,7 +115,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- **Site Tokens Numeric Slugs** — `site-to-design-tokens` uses the scaffold's numeric slugs for font sizes, radius and shadows, so its export needs no renaming. Radius variables use bare sizes (`Small`), and `figma-to-block-theme` accepts both. ([#4004](https://github.com/lightspeedwp/.github/issues/4004))
+- **Site Tokens Numeric Slugs** — `site-to-design-tokens` exports the scaffold's numeric slugs for font sizes, radius and shadows, and radius uses bare size names. ([#4004](https://github.com/lightspeedwp/.github/issues/4004))
 - **Studio Imports From Live Sites** — Live site exports now import into Studio sites that already have WordPress content; files in the wrong format are refused with a reason. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
 - **Qodo PR-Agent Eligibility and Comment Binding** — A closed pull request is refused on every request path, and both receivers resolve the exact maintainer comment by id. ([PR #3532](https://github.com/lightspeedwp/.github/pull/3532))
