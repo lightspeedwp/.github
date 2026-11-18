@@ -455,6 +455,11 @@ describe('FigmaVariablesMapper', () => {
     // With no declared stack, a generic name is the stack, and a named mono font falls back to monospace.
     expect(family('monospace', 'Monospace')).toBe('monospace');
     expect(family('monospace', 'Fira Code')).toBe('"Fira Code", monospace');
+    // The site-tokens default body font is "Sans Serif" with the stack `sans-serif`.
+    expect(family('body', 'Sans Serif', 'Body (default). CSS stack: sans-serif')).toBe(
+      'sans-serif'
+    );
+    expect(family('body', 'Sans Serif')).toBe('sans-serif');
   });
 
   it('writes only the font roles that exist, with no accent when there is none', () => {

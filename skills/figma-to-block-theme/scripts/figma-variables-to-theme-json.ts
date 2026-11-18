@@ -627,8 +627,9 @@ export class FigmaVariablesMapper {
     if (!stack) {
       return undefined;
     }
-    // A generic name such as "Monospace" has no font of its own: the declared system stack is the font.
-    if (GENERIC_FAMILIES.has(name.trim().toLowerCase())) {
+    // A generic name such as "Monospace" or "Sans Serif" has no font of its own: the
+    // declared system stack is the font.
+    if (this.genericFamily(name)) {
       return stack;
     }
     const [first, ...fallbacks] = stack.split(',').map((part) => part.trim());
@@ -643,13 +644,22 @@ export class FigmaVariablesMapper {
 
   /** A stack with no declaration: the family, then the generic family for its role. */
   private fontStack(family: string, slug: string): string {
-    const generic = family.trim().toLowerCase();
-    if (GENERIC_FAMILIES.has(generic)) {
+    const generic = this.genericFamily(family);
+    if (generic) {
       return generic;
     }
     const fallback =
       slug === 'monospace' ? 'monospace' : (this.options.fontFallback ?? 'sans-serif');
     return `${this.quoteFamily(family)}, ${fallback}`;
+  }
+
+  /** The CSS generic keyword a display name stands for ("Sans Serif" is `sans-serif`). */
+  private genericFamily(name: string): string | undefined {
+    const wanted = name
+      .trim()
+      .toLowerCase()
+      .replace(/[\s_]+/g, '-');
+    return GENERIC_FAMILIES.has(wanted) ? wanted : undefined;
   }
 
   private quoteFamily(family: string): string {
