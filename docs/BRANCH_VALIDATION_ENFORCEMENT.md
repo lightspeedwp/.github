@@ -331,7 +331,7 @@ Monitor repositories below 80% compliance and offer support:
 
 ## Related Documentation
 
-- [Branch Naming Strategy Guide](./BRANCHING_STRATEGY.md) — Complete reference for 24 branch types
+- [Branch Naming Strategy Guide](./BRANCHING_STRATEGY.md) — Complete reference for 38 branch types
 - [CLAUDE.md](../CLAUDE.md) — Repository-wide instructions; branch naming policy section
 - [PR Creation Process](./PR_CREATION_PROCESS.md) — How to create PRs using correct branch names
 - `.github/workflows/branch-name-validation.yml` — Workflow implementation details
