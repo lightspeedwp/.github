@@ -157,6 +157,7 @@
     "test:figma-to-block-theme": "jest --config skills/figma-to-block-theme/scripts/jest.config.cjs",
     "test:site-to-design-tokens": "jest --config skills/site-to-design-tokens/scripts/jest.config.cjs",
     "test:theme-screenshot": "jest --config skills/theme-screenshot/scripts/jest.config.cjs",
+    "test:theme-orphaned-refs": "jest --config skills/theme-orphaned-refs/scripts/jest.config.cjs",
     "test:site-to-figma-components": "jest --config skills/site-to-figma-components/scripts/jest.config.cjs",
     "test:agent-spec-validation": "node .github/scripts/__tests__/validate-agent-specs.test.js",
     "test:index-generator": "node .github/scripts/__tests__/generate-agent-index.test.js",

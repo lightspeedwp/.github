@@ -31,6 +31,10 @@ This skill holds only the Figma-to-WordPress mapping and LightSpeed conventions.
 
 If a companion skill is not installed, say so and stop rather than calling Figma tools directly.
 
+## Before you start
+
+The scripts are TypeScript run with `tsx` from the `.github` repository checkout. Run `npm ci` there first. This skill does not use a browser, so it needs no Puppeteer download.
+
 ## Step 0: Build the theme profile
 
 Never assume paths. Read [references/theme-profile.md](references/theme-profile.md) and record:

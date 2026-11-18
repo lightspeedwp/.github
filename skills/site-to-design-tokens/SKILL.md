@@ -20,6 +20,13 @@ Nothing is written to Figma or a theme until the reviewer approves the proposal.
 - `figma-use`: required before running the generated script through `use_figma`. Creating a token library also uses `figma-generate-library`.
 - `figma-to-block-theme`: turns the export JSON (or the new Figma variables) into `theme.json` presets.
 
+## Before you start
+
+The scripts run from the `.github` repository checkout and need its dependencies and a browser:
+
+- Run `npm ci` in the `.github` checkout. Without it `tsx` and Puppeteer are missing.
+- If the crawler fails to launch the browser, run `npx puppeteer browsers install chrome`. npm 11 blocks Puppeteer's install script, so the browser is not downloaded automatically.
+
 ## Workflow
 
 ### 1. Agree the pages
@@ -33,7 +40,7 @@ npx tsx ${CLAUDE_SKILL_DIR}/scripts/crawl-site-styles.ts --url https://www.examp
   --pages /,/about/,/tours/,/contact/ --out site-styles.json
 ```
 
-Save the output to a scratch folder outside the repository. The crawler reads public pages one at a time, with a 1.5 second pause between requests.
+Save the output to a scratch folder outside the repository. The crawler reads public pages one at a time, with a 1.5 second pause between requests. It warns when a page redirects, and leaves out a page that lands on one already captured: replace it with a page that still exists and crawl again.
 
 ### 3. Propose
 
@@ -43,7 +50,7 @@ npx tsx ${CLAUDE_SKILL_DIR}/scripts/propose-tokens.ts site-styles.json --out pro
 
 The proposal follows the structure in [references/target-structure.md](references/target-structure.md):
 
-- `base`, `contrast`, and `brand`, `primary`, `cta` and `neutral` ramps from 100 to 900, each built around a live colour that keeps its exact value
+- `base`, `contrast`, and `neutral`, `primary`, `brand` and `cta` ramps from 100 to 900 (in that order), each built around a live colour that keeps its exact value
 - the 44 semantic roles, taken from what elements use where the site shows it, and from the TSP defaults otherwise
 - type, spacing, radius, shadow, layout and breakpoint scales, with Max (1440px) and Min (390px) values
 
@@ -52,7 +59,8 @@ The proposal follows the structure in [references/target-structure.md](reference
 Present the report's summary, its **Decisions for the reviewer** list and any failing contrast pairs. [references/proposal-review.md](references/proposal-review.md) explains each section. Common changes:
 
 - **A colour in the wrong family:** re-run with `--assign brand=#hex,primary=#hex,cta=#hex`.
-- **A failing contrast pair:** propose the nearest passing step and record the change.
+- **A wrong content or wide width:** re-run with `--layout content=768,wide=1240`. Content width is measured from running text, one vote per page, preferring blog posts, so include a blog post in the crawl.
+- **A failing contrast pair:** failing defaults already move to the nearest passing step and are recorded in the report. For a failing colour taken from the live site, the report lists a passing alternative; confirm which to use.
 - **A live value with no close token:** keep the nearest token with the same role and list it for the reviewer. Don't add a raw value.
 
 Repeat until the reviewer approves. Then ask: `Approve this token proposal and create the variables?`

@@ -73,6 +73,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Site Skills Setup Notes** — The site skills say to run `npm ci`, and `npx puppeteer browsers install chrome` if the browser fails to launch. ([#4009](https://github.com/lightspeedwp/.github/issues/4009))
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))
@@ -115,6 +116,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Site Tokens Numeric Slugs** — `site-to-design-tokens` exports the scaffold's numeric slugs for font sizes, radius and shadows, and radius uses bare size names. ([#4004](https://github.com/lightspeedwp/.github/issues/4004))
+- **Orphaned Refs Scan Scope** — `theme-orphaned-refs` skips `node_modules`, build and agent folders, checks radius presets, suggests numeric steps, and is now TypeScript with tests. ([#4037](https://github.com/lightspeedwp/.github/pull/4037))
+- **Site Tokens Palette Order** — `site-to-design-tokens` exports the colour ramps in the LightSpeed order (neutral, primary, brand, cta), so the theme palette follows the convention. ([#4035](https://github.com/lightspeedwp/.github/pull/4035))
+- **Figma Tokens Layout Widths** — `figma-to-block-theme` maps content and wide width to `settings.layout` in px, not unitless custom values. ([#4034](https://github.com/lightspeedwp/.github/pull/4034))
+- **Figma Tokens Monospace Stack** — `figma-to-block-theme` keeps the declared system stack for a generic family such as Monospace. ([#4033](https://github.com/lightspeedwp/.github/pull/4033))
+- **Figma Tokens Font Stacks** — `figma-to-block-theme` starts font stacks with the clean family name, not the live `@font-face` name, and keeps the fallbacks. ([#4032](https://github.com/lightspeedwp/.github/pull/4032))
+- **Site Tokens Spacing Minimums** — `site-to-design-tokens` keeps mobile spacing values in order up the ladder and lists any it raises. ([#4024](https://github.com/lightspeedwp/.github/pull/4024))
+- **Site Tokens Action Text** — `site-to-design-tokens` takes each action's text colour from the buttons that have its fill, so text and fill are a pair the site really shows. ([#4023](https://github.com/lightspeedwp/.github/pull/4023))
+- **Site Tokens Crawl Redirects** — `site-to-design-tokens` records where each page landed, warns about redirects, and leaves out pages that land on one already captured. ([#4022](https://github.com/lightspeedwp/.github/pull/4022))
+- **Site Tokens Action Colours** — `site-to-design-tokens` uses the live button colour for actions and moves defaults that fail contrast to the nearest passing step. ([#4008](https://github.com/lightspeedwp/.github/issues/4008))
+- **Site Tokens Font Roles** — `site-to-design-tokens` cleans font names, keeps the CSS stack, and outputs heading, body, monospace and (when used) accent roles. ([#4007](https://github.com/lightspeedwp/.github/issues/4007))
+- **Site Tokens Content Width** — `site-to-design-tokens` measures content width from running text, takes a `--layout` override, and flags unlikely widths. ([#4006](https://github.com/lightspeedwp/.github/issues/4006))
+- **Site Tokens Spacing Ladder** — `site-to-design-tokens` fills the whole spacing ladder from `5` by shifting values down before it drops one, so 11 distinct values all get a step. ([#4005](https://github.com/lightspeedwp/.github/issues/4005))
 - **Studio Imports From Live Sites** — Live site exports now import into Studio sites that already have WordPress content; files in the wrong format are refused with a reason. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
 - **Qodo PR-Agent Eligibility and Comment Binding** — A closed pull request is refused on every request path, and both receivers resolve the exact maintainer comment by id. ([PR #3532](https://github.com/lightspeedwp/.github/pull/3532))

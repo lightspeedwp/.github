@@ -26,6 +26,13 @@ It stops for approval between stages. Nothing is written to Figma before the rev
 
 If a companion skill is missing, say so and stop rather than calling Figma tools directly.
 
+## Before you start
+
+The scripts run from the `.github` repository checkout and need its dependencies and a browser:
+
+- Run `npm ci` in the `.github` checkout. Without it `tsx` and Puppeteer are missing.
+- If the crawler fails to launch the browser, run `npx puppeteer browsers install chrome`. npm 11 blocks Puppeteer's install script, so the browser is not downloaded automatically.
+
 ## Stage 1: Inventory
 
 1. **Agree the pages** with the reviewer: one or two public pages per template, from the site's sitemap. See [references/crawling.md](references/crawling.md).
