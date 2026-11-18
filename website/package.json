@@ -21,7 +21,7 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/svelte": "^9.0.1",
+    "@astrojs/svelte": "^9.1.2",
     "@phosphor-icons/core": "^2.1.1",
     "astro": "^7.3.3",
     "gray-matter": "^4.0.3",
