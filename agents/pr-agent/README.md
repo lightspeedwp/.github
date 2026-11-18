@@ -78,3 +78,5 @@ When any of these documents change, this agent's skills (particularly `validate-
 
 - **Full Agent Details:** See [AGENT.md](./AGENT.md)
 - **Version History:** See [CHANGELOG.md](./CHANGELOG.md)
+
+Need help? Say hi—work with us.
