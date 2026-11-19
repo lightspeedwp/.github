@@ -1,0 +1,11 @@
+name: import-failure-recovery
+description: |
+  Test the skill's ability to detect import failures, guide rollback to backup,
+  and recommend next steps for recovery with problematic tables excluded.
+what_a_good_result_looks_like: |
+  - Skill detects and clearly communicates the import error
+  - Rollback to backup is offered as an option
+  - Backup is successfully restored
+  - Skill identifies which table/data caused the failure
+  - Recommended next steps are clear and actionable
+  - User knows how to retry with the problematic table excluded
