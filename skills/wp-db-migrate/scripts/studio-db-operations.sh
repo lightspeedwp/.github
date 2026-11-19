@@ -3,7 +3,7 @@
 # Handles backup, restore, export, and integration with migration scripts
 # Usage: ./studio-db-operations.sh <operation> [arguments...]
 
-set -e
+set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -66,7 +66,7 @@ OPERATIONS:
 
   Integration:
     pre-migrate-check <site-path>
-      Run complete pre-migration checks (backup, counts, integrity)
+      Create a backup and report table counts
       Example: ./studio-db-operations.sh pre-migrate-check /Users/ash/Studio/my-site
 
     post-migrate-verify <site-path> <old-export-file> <old-url> <new-url>
@@ -91,28 +91,31 @@ EOF
 # PARSE ARGUMENTS
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-OPERATION="${1:-}"
 VERBOSE=false
 DEBUG=false
 DRY_RUN=false
 NO_CONFIRM=false
 
-# Parse flags
+# Parse flags while preserving positional argument order.
+POSITIONAL_ARGS=()
 for arg in "$@"; do
     case "$arg" in
         --verbose) VERBOSE=true ;;
         --debug) DEBUG=true; STUDIO_DEBUG=true; export STUDIO_DEBUG ;;
         --dry-run) DRY_RUN=true ;;
         --no-confirm) NO_CONFIRM=true ;;
+        *) POSITIONAL_ARGS+=("$arg") ;;
     esac
 done
+set -- "${POSITIONAL_ARGS[@]}"
+OPERATION="${1:-}"
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 # BACKUP & RECOVERY OPERATIONS
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 op_backup() {
-    local site_path="$1"
+    local site_path="${1:-}"
     local backup_file="${2:-backup-$(date +%Y%m%d-%H%M%S).sql}"
 
     if [ -z "$site_path" ]; then
@@ -131,7 +134,6 @@ op_backup() {
 
     if studio_backup_database "$site_path" "$backup_file"; then
         log_success "Backup completed successfully"
-        echo "$backup_file"
         return 0
     else
         log_error "Backup failed"
@@ -140,8 +142,8 @@ op_backup() {
 }
 
 op_restore() {
-    local site_path="$1"
-    local backup_file="$2"
+    local site_path="${1:-}"
+    local backup_file="${2:-}"
 
     if [ -z "$site_path" ] || [ -z "$backup_file" ]; then
         log_error "restore: site-path and backup-file required"
@@ -159,11 +161,11 @@ op_restore() {
         return 0
     fi
 
-    studio_import_database "$backup_file" "$site_path"
+    studio_import_database "$backup_file" "$site_path" "$NO_CONFIRM"
 }
 
 op_export() {
-    local site_path="$1"
+    local site_path="${1:-}"
     local export_file="${2:-export-$(date +%Y%m%d-%H%M%S).sql}"
 
     if [ -z "$site_path" ]; then
@@ -195,7 +197,7 @@ op_export() {
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 op_pre_migration() {
-    local site_path="$1"
+    local site_path="${1:-}"
     local backup_file="${2:-pre-migration-backup-$(date +%Y%m%d-%H%M%S).sql}"
 
     if [ -z "$site_path" ]; then
@@ -237,7 +239,7 @@ op_pre_migration() {
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 op_verify() {
-    local site_path="$1"
+    local site_path="${1:-}"
     local original_export="${2:-}"
 
     if [ -z "$site_path" ]; then
@@ -287,7 +289,7 @@ op_verify() {
 }
 
 op_table_counts() {
-    local site_path="$1"
+    local site_path="${1:-}"
 
     if [ -z "$site_path" ]; then
         log_error "table-counts: No site path provided"
@@ -308,9 +310,9 @@ op_table_counts() {
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 op_replace_urls() {
-    local site_path="$1"
-    local old_url="$2"
-    local new_url="$3"
+    local site_path="${1:-}"
+    local old_url="${2:-}"
+    local new_url="${3:-}"
 
     if [ -z "$site_path" ] || [ -z "$old_url" ] || [ -z "$new_url" ]; then
         log_error "replace-urls: site-path, old-url, and new-url required"
@@ -345,9 +347,9 @@ op_replace_urls() {
 }
 
 op_dry_run_replace() {
-    local site_path="$1"
-    local old_url="$2"
-    local new_url="$3"
+    local site_path="${1:-}"
+    local old_url="${2:-}"
+    local new_url="${3:-}"
 
     if [ -z "$site_path" ] || [ -z "$old_url" ] || [ -z "$new_url" ]; then
         log_error "dry-run-replace: site-path, old-url, and new-url required"
@@ -381,7 +383,7 @@ op_dry_run_replace() {
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 op_pre_migrate_check() {
-    local site_path="$1"
+    local site_path="${1:-}"
 
     if [ -z "$site_path" ]; then
         log_error "pre-migrate-check: No site path provided"
@@ -407,10 +409,10 @@ op_pre_migrate_check() {
 }
 
 op_post_migrate_verify() {
-    local site_path="$1"
-    local old_export="$2"
-    local old_url="$3"
-    local new_url="$4"
+    local site_path="${1:-}"
+    local old_export="${2:-}"
+    local old_url="${3:-}"
+    local new_url="${4:-}"
 
     if [ -z "$site_path" ]; then
         log_error "post-migrate-verify: site-path required"
@@ -443,8 +445,8 @@ op_post_migrate_verify() {
 }
 
 op_compare_counts() {
-    local site_path="$1"
-    local export_file="$2"
+    local site_path="${1:-}"
+    local export_file="${2:-}"
 
     if [ -z "$site_path" ] || [ -z "$export_file" ]; then
         log_error "compare-counts: site-path and export-file required"
@@ -469,7 +471,9 @@ op_compare_counts() {
         current_count=$(studio wp db query "SELECT COUNT(*) FROM wp_$table;" --path "$site_path" --skip-column-names 2>/dev/null || echo "error")
 
         local export_count
-        export_count=$(grep -c "INSERT INTO.*wp_$table" "$export_file" 2>/dev/null || echo "?")
+        export_count=$(grep -c "INSERT INTO.*wp_$table" "$export_file" 2>/dev/null) || {
+            if [ "$?" -ne 1 ]; then export_count="?"; fi
+        }
 
         printf "  wp_%-10s  Current: %-8s  Original: %s\n" "$table" "$current_count" "$export_count"
     done

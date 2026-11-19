@@ -17,15 +17,15 @@ readonly NC='\033[0m' # No Color
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 log_info() {
-    echo -e "${BLUE}ℹ${NC} $*"
+    echo -e "${BLUE}ℹ${NC} $*" >&2
 }
 
 log_success() {
-    echo -e "${GREEN}✅ $*${NC}"
+    echo -e "${GREEN}✅ $*${NC}" >&2
 }
 
 log_warning() {
-    echo -e "${YELLOW}⚠️  $*${NC}"
+    echo -e "${YELLOW}⚠️  $*${NC}" >&2
 }
 
 log_error() {
@@ -34,16 +34,16 @@ log_error() {
 
 log_debug() {
     if [ "${STUDIO_DEBUG:-false}" = "true" ]; then
-        echo -e "${GRAY}🔍 [DEBUG] $*${NC}"
+        echo -e "${GRAY}🔍 [DEBUG] $*${NC}" >&2
     fi
 }
 
 log_section() {
-    echo ""
-    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e "${CYAN}$*${NC}"
-    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo ""
+    echo "" >&2
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}" >&2
+    echo -e "${CYAN}$*${NC}" >&2
+    echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}" >&2
+    echo "" >&2
 }
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -286,7 +286,7 @@ studio_backup_database() {
     fi
 
     log_info "Backing up database to: $backup_file"
-    studio export "$backup_file" --path "$site_path" --mode db || {
+    studio export "$backup_file" --path "$site_path" --mode db >&2 || {
         log_error "Failed to backup database"
         return 1
     }
@@ -302,6 +302,7 @@ studio_backup_database() {
 studio_import_database() {
     local backup_file="$1"
     local site_path="${2:-.}"
+    local no_confirm="${3:-false}"
 
     if [ -z "$backup_file" ]; then
         log_error "studio_import_database: No backup file provided"
@@ -318,10 +319,12 @@ studio_import_database() {
     fi
 
     log_warning "This will replace the database in: $site_path"
-    read -p "Are you sure? Type 'yes' to confirm: " confirm
-    if [ "$confirm" != "yes" ]; then
-        log_info "Import cancelled"
-        return 0
+    if [ "$no_confirm" != "true" ]; then
+        local confirm
+        if ! read -r -p "Are you sure? Type 'yes' to confirm: " confirm || [ "$confirm" != "yes" ]; then
+            log_info "Import cancelled"
+            return 0
+        fi
     fi
 
     log_info "Importing database from: $backup_file"
@@ -396,10 +399,18 @@ studio_get_table_counts() {
 
     local tables=("posts" "postmeta" "users" "usermeta" "terms" "termmeta" "options")
 
+    local prefix
+    if ! prefix=$(studio wp db prefix --path "$site_path") || [[ ! "$prefix" =~ ^[a-zA-Z0-9_]+$ ]]; then
+        log_error "Could not determine table prefix"
+        return 1
+    fi
+
     for table in "${tables[@]}"; do
         local count
-        count=$(studio wp db query "SELECT COUNT(*) FROM wp_$table;" --path "$site_path" --skip-column-names 2>/dev/null || echo "0")
-        echo "  wp_$table: $count"
+        if ! count=$(studio wp db query "SELECT COUNT(*) FROM ${prefix}${table};" --path "$site_path" --skip-column-names 2>/dev/null); then
+            count="ERROR"
+        fi
+        echo "  ${prefix}${table}: $count"
     done
 }
 

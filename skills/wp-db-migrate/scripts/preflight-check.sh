@@ -4,6 +4,13 @@
 
 set -e
 
+REQUIRE_WP=false
+case "${1:-}" in
+    --require-wp) REQUIRE_WP=true ;;
+    "") ;;
+    *) echo "Usage: $0 [--require-wp]" >&2; exit 1 ;;
+esac
+
 echo "🔍 Running pre-flight checks..."
 echo ""
 
@@ -17,12 +24,16 @@ check_command() {
 
     if command -v "$cmd" &> /dev/null; then
         echo "✅ $display_name"
-        ((CHECKS_PASSED++))
+        ((CHECKS_PASSED+=1))
         return 0
     else
+        if [ "${3:-required}" = "optional" ]; then
+            echo "ℹ️  $display_name — optional, not installed"
+            return 0
+        fi
         echo "❌ $display_name — NOT FOUND"
         echo "   Install it to proceed (check the README)"
-        ((CHECKS_FAILED++))
+        ((CHECKS_FAILED+=1))
         return 1
     fi
 }
@@ -34,18 +45,22 @@ check_directory() {
 
     if [ -d "$path" ]; then
         echo "✅ $display_name"
-        ((CHECKS_PASSED++))
+        ((CHECKS_PASSED+=1))
         return 0
     else
         echo "❌ $display_name — NOT FOUND at $path"
-        ((CHECKS_FAILED++))
+        ((CHECKS_FAILED+=1))
         return 1
     fi
 }
 
 echo "📦 Required Commands:"
 check_command "studio" "WordPress Studio CLI"
-check_command "wp" "WordPress CLI"
+if [ "$REQUIRE_WP" = "true" ]; then
+    check_command "wp" "WordPress CLI"
+else
+    echo "ℹ️  Standalone WP-CLI is optional; Studio workflows use studio wp."
+fi
 check_command "bash" "Bash shell"
 check_command "grep" "grep"
 check_command "sed" "sed"
@@ -56,8 +71,8 @@ check_directory "$HOME/.studio" "Studio config directory"
 
 echo ""
 echo "🧪 Optional (but recommended):"
-check_command "git" "Git" || true
-check_command "jq" "jq (JSON processor)" || true
+check_command "git" "Git" optional
+check_command "jq" "jq (JSON processor)" optional
 
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

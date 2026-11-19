@@ -20,6 +20,10 @@ Comprehensive guide for integrating WordPress Studio CLI with the `wp-db-migrate
 
 ---
 
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:1a7719c15337ee7a397d9af060589e2f0140ba1e4aa17e011beedabfa2e8b96e -->
+
 ## Installation & Setup
 
 ### Prerequisites
@@ -28,11 +32,13 @@ Before using Studio CLI with the wp-db-migrate skill, install:
 
 1. **WordPress Studio CLI**
    ```bash
-   curl -fsSL https://developer.wordpress.com/studio/cli/install.sh | bash
+   curl -fsSL https://wordpress.studio/install.sh | bash
    ```
-   Or see full instructions: https://developer.wordpress.com/docs/developer-tools/studio/cli/
+   Or see full instructions: https://wordpress.studio/docs/cli/
 
-2. **WordPress CLI**
+2. **WordPress CLI (optional)** — Studio workflows use the bundled `studio wp`.
+   Install standalone `wp` only for scripts that invoke it directly, such as
+   `wp-cli-search-replace.sh` and `wp-cli-migration-checks.sh`.
    ```bash
    curl -fsSL https://wp-cli.org/installer.sh | bash
    ```
@@ -45,20 +51,23 @@ Before using Studio CLI with the wp-db-migrate skill, install:
 ### Verify Installation
 
 ```bash
-# Check all required tools
-./skill/scripts/preflight-check.sh
+# Run these examples from the wp-db-migrate skill root.
+# Check required Studio tools; add --require-wp for standalone WP-CLI workflows.
+./scripts/preflight-check.sh
 ```
 
 Expected output:
 ```
 ✅ WordPress Studio CLI
-✅ WordPress CLI (wp)
+ℹ️  Standalone WP-CLI is optional; Studio workflows use studio wp.
 ✅ Bash shell
 ✅ grep, sed
 ✅ All checks passed! You're ready to migrate.
 ```
 
 ---
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 ## CLI Fundamentals
 
@@ -96,13 +105,17 @@ studio wp <command> --help
 
 ---
 
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:00fdf7ef3e4b344ce61aed92c476bc5917c11dfab82006757c6ad9fd2a123cce -->
+
 ## Using lib-studio.sh
 
 The `lib-studio.sh` library provides reusable functions for common Studio operations. Source it in your scripts:
 
 ```bash
 #!/bin/bash
-source ./skill/scripts/lib-studio.sh
+source ./scripts/lib-studio.sh
 
 # Now use library functions
 studio_create_site "my-site" "/Users/ash/Studio/my-site" "my-site.local"
@@ -224,6 +237,12 @@ log_section "=== Major Section ==="
 
 ---
 
+<!-- /coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:360d9dec3e8f5dc48437d255f78c50b80b7c6957f5ce5ee882a7dab6f98a82e8 -->
+
 ## Interactive Site Manager
 
 The `studio-site-manager.sh` script provides a menu-driven interface for common tasks.
@@ -232,10 +251,10 @@ The `studio-site-manager.sh` script provides a menu-driven interface for common 
 
 ```bash
 # For current directory
-./skill/scripts/studio-site-manager.sh
+./scripts/studio-site-manager.sh
 
 # For a specific site
-./skill/scripts/studio-site-manager.sh /Users/ash/Studio/my-site
+./scripts/studio-site-manager.sh /Users/ash/Studio/my-site
 ```
 
 ### Available Options
@@ -257,7 +276,7 @@ The menu includes:
 
 ```bash
 # Open manager for a site
-./skill/scripts/studio-site-manager.sh /Users/ash/Studio/staging
+./scripts/studio-site-manager.sh /Users/ash/Studio/staging
 
 # Choose option 7 (Backup database)
 # Follow the prompts
@@ -265,6 +284,12 @@ The menu includes:
 ```
 
 ---
+
+<!-- /coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:35f938c00e7da0a7f306a6da46b209ccc3fc620e2d4248700a0ff01cf4eee3c2 -->
 
 ## Database Operations
 
@@ -276,66 +301,72 @@ The `studio-db-operations.sh` script handles database-specific tasks with integr
 
 ```bash
 # Backup database (for recovery)
-./studio-db-operations.sh backup /path/to/site [output-file]
+./scripts/studio-db-operations.sh backup /path/to/site [output-file]
 
 # Export database (for processing)
-./studio-db-operations.sh export /path/to/site [output-file]
+./scripts/studio-db-operations.sh export /path/to/site [output-file]
 ```
 
 #### Restore & Import
 
 ```bash
 # Restore from backup
-./studio-db-operations.sh restore /path/to/site backup.sql
+./scripts/studio-db-operations.sh restore /path/to/site backup.sql
 
 # Preview before applying
-./studio-db-operations.sh restore --dry-run /path/to/site backup.sql
+./scripts/studio-db-operations.sh restore --dry-run /path/to/site backup.sql
 ```
 
 #### Pre-Migration
 
 ```bash
 # Create backup and show statistics before migration
-./studio-db-operations.sh pre-migration /path/to/site [backup-file]
+./scripts/studio-db-operations.sh pre-migration /path/to/site [backup-file]
 
-# Complete pre-migration checks (backup + counts + integrity)
-./studio-db-operations.sh pre-migrate-check /path/to/site
+# Create a backup and report table counts
+./scripts/studio-db-operations.sh pre-migrate-check /path/to/site
 ```
 
 #### Post-Migration Verification
 
 ```bash
 # Verify migration success
-./studio-db-operations.sh verify /path/to/site [original-export]
+./scripts/studio-db-operations.sh verify /path/to/site [original-export]
 
 # Complete verification with row count comparison
-./studio-db-operations.sh post-migrate-verify /path/to/site export.sql old.dev new.dev
+./scripts/studio-db-operations.sh post-migrate-verify /path/to/site export.sql old.dev new.dev
 ```
 
 #### URL Management
 
 ```bash
 # Preview URL replacements (safe, read-only)
-./studio-db-operations.sh dry-run-replace /path/to/site old-url.com new-url.com
+./scripts/studio-db-operations.sh dry-run-replace /path/to/site old-url.com new-url.com
 
 # Apply URL replacements (requires confirmation)
-./studio-db-operations.sh replace-urls /path/to/site old-url.com new-url.com
+./scripts/studio-db-operations.sh replace-urls /path/to/site old-url.com new-url.com
 
 # Skip confirmation
-./studio-db-operations.sh replace-urls /path/to/site old-url.com new-url.com --no-confirm
+./scripts/studio-db-operations.sh replace-urls /path/to/site old-url.com new-url.com --no-confirm
 ```
 
 #### Analysis & Comparison
 
 ```bash
 # Show row counts for key tables
-./studio-db-operations.sh table-counts /path/to/site
+./scripts/studio-db-operations.sh table-counts /path/to/site
 
 # Compare current vs original counts
-./studio-db-operations.sh compare-counts /path/to/site original-export.sql
+./scripts/studio-db-operations.sh compare-counts /path/to/site original-export.sql
 ```
 
 ---
+
+<!-- /coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:6ff181d0bce0098d6ffd91a518dbb56e03924f261a350378d62aadf1be6cf982 -->
 
 ## Common Workflows
 
@@ -348,20 +379,24 @@ The `studio-db-operations.sh` script handles database-specific tasks with integr
 scp user@staging.example.com:/backups/staging-2026-10-29.sql.gz .
 
 # 2. Create Studio site
-studio create --name staging-test --path ~/Studio/staging-test
+studio create --name staging-test --path ~/Studio/staging-test --domain staging-test.local --https
 
 # 3. Pre-migration check
-./studio-db-operations.sh pre-migrate-check ~/Studio/staging-test
+./scripts/studio-db-operations.sh pre-migrate-check ~/Studio/staging-test
 
-# 4. Sanitize and import (using migrate-recovery.sh from skill)
-./skill/scripts/migrate-recovery.sh \
+# 4. Extract, sanitise as described in SKILL.md, and import
+gunzip -k staging-2026-10-29.sql.gz
+# Apply the sanitisation steps in SKILL.md to the extracted SQL before import.
+studio import staging-2026-10-29.sql --path ~/Studio/staging-test
+
+# Recover after import: verify, replace URLs, and start the server
+./scripts/migrate-recovery.sh \
   ~/Studio/staging-test \
-  staging-2026-10-29.sql.gz \
   "https://staging.example.com" \
   "https://staging-test.local"
 
 # 5. Post-migration verification
-./studio-db-operations.sh post-migrate-verify \
+./scripts/studio-db-operations.sh post-migrate-verify \
   ~/Studio/staging-test \
   staging-2026-10-29.sql \
   "https://staging.example.com" \
@@ -381,23 +416,24 @@ studio start --path ~/Studio/staging-test
 # (Do this on production server or through backup service)
 
 # 2. Download backup locally
-cd ~/Downloads
 wget https://backups.example.com/prod-2026-10-29.sql.gz
 
 # 3. Create development site
-studio create --name prod-dev --path ~/Studio/prod-dev
+studio create --name prod-dev --path ~/Studio/prod-dev --domain prod-dev.local --https
 
 # 4. Analyze before import
 file prod-2026-10-29.sql.gz  # Check size
 gunzip -l prod-2026-10-29.sql.gz  # Check uncompressed size
 
 # 5. Pre-flight checks
-./skill/scripts/preflight-check.sh
+./scripts/preflight-check.sh
 
-# 6. Run migration
-./skill/scripts/create-and-migrate.sh \
-  prod-dev \
-  ~/Downloads/prod-2026-10-29.sql.gz \
+# 6. Extract, sanitise using SKILL.md, import, then recover
+gunzip -k prod-2026-10-29.sql.gz
+# Apply the sanitisation steps in SKILL.md before importing production data.
+studio import prod-2026-10-29.sql --path ~/Studio/prod-dev
+./scripts/migrate-recovery.sh \
+  ~/Studio/prod-dev \
   "https://example.com" \
   "https://prod-dev.local"
 
@@ -412,7 +448,7 @@ cd ~/Studio/prod-dev
 
 ```bash
 # 1. Open site manager
-./studio-site-manager.sh ~/Studio/my-site
+./scripts/studio-site-manager.sh ~/Studio/my-site
 
 # 2. Choose option 7 (Backup database)
 # Saves: backup-20261029-143022.sql
@@ -420,7 +456,7 @@ cd ~/Studio/prod-dev
 # 3. Make your changes, test features
 
 # 4. If something breaks, restore:
-./studio-db-operations.sh restore ~/Studio/my-site backup-20261029-143022.sql
+./scripts/studio-db-operations.sh restore ~/Studio/my-site backup-20261029-143022.sql
 
 # 5. Try again
 ```
@@ -431,7 +467,7 @@ cd ~/Studio/prod-dev
 
 ```bash
 # 1. Export database from local
-./studio-db-operations.sh export ~/Studio/my-site local-changes.sql
+./scripts/studio-db-operations.sh export ~/Studio/my-site local-changes.sql
 
 # 2. Prepare for import on staging
 # (May need to run sanitization if different DB structure)
@@ -446,6 +482,12 @@ cd ~/Studio/prod-dev
 
 ---
 
+<!-- /coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:8b9731ef88733da2ca0669d2e28f454355537d593e17e42f874b20bef3e456b8 -->
+
 ## Troubleshooting
 
 ### "WordPress Studio CLI not found"
@@ -455,7 +497,7 @@ cd ~/Studio/prod-dev
 **Solution:**
 ```bash
 # Install Studio CLI
-curl -fsSL https://developer.wordpress.com/studio/cli/install.sh | bash
+curl -fsSL https://wordpress.studio/install.sh | bash
 
 # Verify installation
 studio --help
@@ -487,15 +529,18 @@ studio status --path /path/to/site
 **Solution:**
 ```bash
 # 1. Restore from backup (if available)
-./studio-db-operations.sh restore /path/to/site backup.sql
+./scripts/studio-db-operations.sh restore /path/to/site backup.sql
 
-# 2. Re-run migration excluding problem table
-./skill/scripts/migrate-recovery.sh \
+# 2. Extract and sanitise the SQL using SKILL.md to exclude the problem table.
+gunzip -k export.sql.gz
+# After sanitisation, import before running recovery.
+studio import export.sql --path /path/to/site
+
+# Verify the import and replace URLs
+./scripts/migrate-recovery.sh \
   /path/to/site \
-  export.sql.gz \
   "old.com" \
-  "new.local" \
-  --exclude "wp_postmeta"
+  "new.local"
 
 # 3. If still fails, try smaller batches or contact support
 ```
@@ -511,10 +556,10 @@ studio wp option get siteurl --path /path/to/site
 studio wp option get home --path /path/to/site
 
 # 2. Try dry-run first to see what would change
-./studio-db-operations.sh dry-run-replace /path/to/site old.com new.local
+./scripts/studio-db-operations.sh dry-run-replace /path/to/site old.com new.local
 
 # 3. If counts look right, apply it
-./studio-db-operations.sh replace-urls /path/to/site old.com new.local
+./scripts/studio-db-operations.sh replace-urls /path/to/site old.com new.local
 
 # 4. Check again
 studio wp option get siteurl --path /path/to/site
@@ -530,10 +575,10 @@ studio wp option get siteurl --path /path/to/site
 studio stop --path /path/to/site
 
 # 2. Restore from backup
-./studio-db-operations.sh restore /path/to/site pre-migration-backup.sql
+./scripts/studio-db-operations.sh restore /path/to/site pre-migration-backup.sql
 
 # 3. Verify restoration
-./studio-db-operations.sh table-counts /path/to/site
+./scripts/studio-db-operations.sh table-counts /path/to/site
 
 # 4. Try import again with smaller table exclusions
 # Or contact support with backup file
@@ -559,6 +604,12 @@ studio wp plugin activate plugin-name --path /path/to/site
 
 ---
 
+<!-- /coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:0d1fc8a4d8edaee40c6169de8a3977fc9b3caef79451846a900fc610e1913ccd -->
+
 ## Reference
 
 ### Environment Variables
@@ -567,72 +618,78 @@ studio wp plugin activate plugin-name --path /path/to/site
 # Enable debug output in lib-studio.sh functions
 export STUDIO_DEBUG=true
 
-# Custom Studio path (if not in default location)
-export STUDIO_PATH="/path/to/studio"
+# Add the directory containing the studio executable to PATH.
+# lib-studio.sh locates it with command -v studio.
+export PATH="/path/to/studio/bin:$PATH"
+command -v studio
 ```
 
 ### Common Flag Combinations
 
 ```bash
 # Verbose output with debug
-./studio-db-operations.sh backup /path/to/site --verbose --debug
+./scripts/studio-db-operations.sh backup /path/to/site --verbose --debug
 
 # Dry run without confirmations
-./studio-db-operations.sh replace-urls /path/to/site old.com new.local \
+./scripts/studio-db-operations.sh replace-urls /path/to/site old.com new.local \
   --dry-run --no-confirm
 
 # Restore without asking
-./studio-db-operations.sh restore /path/to/site backup.sql --no-confirm
+./scripts/studio-db-operations.sh restore /path/to/site backup.sql --no-confirm
 ```
 
 ### File Locations
 
 | File | Purpose |
 |------|---------|
-| `./skill/scripts/lib-studio.sh` | Reusable functions library |
-| `./skill/scripts/studio-site-manager.sh` | Interactive menu |
-| `./skill/scripts/studio-db-operations.sh` | Database operations |
-| `./skill/scripts/create-and-migrate.sh` | Auto create + migrate |
-| `./skill/scripts/migrate-recovery.sh` | Migration with recovery |
-| `./skill/scripts/migrate-recovery-enhanced.sh` | Advanced migration |
-| `./skill/scripts/replace-urls.sh` | URL replacement only |
-| `./skill/scripts/verify-import.sh` | Post-import validation |
+| `./scripts/lib-studio.sh` | Reusable functions library |
+| `./scripts/studio-site-manager.sh` | Interactive menu |
+| `./scripts/studio-db-operations.sh` | Database operations |
+| `./scripts/migrate-recovery.sh` | Migration with recovery |
+| `./scripts/migrate-recovery-enhanced.sh` | Advanced migration |
+| `./scripts/replace-urls.sh` | URL replacement only |
+| `./scripts/verify-import.sh` | Post-import validation |
 
 ### Studio CLI Documentation
 
-- **Official Docs:** https://developer.wordpress.com/docs/developer-tools/studio/cli/
-- **Installation:** https://developer.wordpress.com/docs/developer-tools/studio/cli/install/
+- **Official Docs:** https://wordpress.studio/docs/cli/
+- **Installation:** https://wordpress.studio/docs/cli/#installation
 - **Commands:** `studio --help` or `studio <command> --help`
 
 ### Related Guides
 
-- [WordPress Database Migration (MySQL to SQLite)](./skill/SKILL.md)
-- [Pre-Flight Checks](./skill/scripts/README.md)
-- [Testing Guide](./TESTING.md)
+- [WordPress Database Migration (MySQL to SQLite)](./SKILL.md)
+- [Pre-Flight Checks](./scripts/README.md)
 
 ---
+
+<!-- /coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:a6407ec94d9dc18cb642807e02caf4dab3d63d8f7cfa968b33a313fb51c4662b -->
 
 ## Tips & Best Practices
 
 1. **Always backup before migrations**
    ```bash
-   ./studio-db-operations.sh backup /path/to/site pre-migration.sql
+   ./scripts/studio-db-operations.sh backup /path/to/site pre-migration.sql
    ```
 
 2. **Use dry-run for URL replacements**
    ```bash
-   ./studio-db-operations.sh dry-run-replace /path/to/site old.com new.local
+   ./scripts/studio-db-operations.sh dry-run-replace /path/to/site old.com new.local
    ```
 
 3. **Compare row counts before/after**
    ```bash
-   ./studio-db-operations.sh table-counts /path/to/site
+   ./scripts/studio-db-operations.sh table-counts /path/to/site
    ```
 
 4. **Keep backups organized**
    ```bash
    # Backup to timestamped file
-   ./studio-db-operations.sh backup /path/to/site \
+   ./scripts/studio-db-operations.sh backup /path/to/site \
      backups/backup-$(date +%Y%m%d-%H%M%S).sql
    ```
 
@@ -650,3 +707,5 @@ export STUDIO_PATH="/path/to/studio"
 
 *Last updated: 2026-10-29*
 *For issues or questions, see [Troubleshooting](#troubleshooting) or check the skill SKILL.md*
+
+<!-- /coderabbit-ai-generated:v1 -->
