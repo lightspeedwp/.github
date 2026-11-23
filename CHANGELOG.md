@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Site to Block Theme Skill** — Rebuilds a live site's templates, parts and patterns in a block theme to match live: measures computed styles at three widths, maps each value to theme.json tokens, builds with the official WordPress skills and proves the match with a style diff.
 - **Theme Screenshot Skill** — Makes a theme's 1200 by 900 `screenshot.png` from the site's logo, the theme.json palette and an industry line, rendered with Puppeteer. ([#4010](https://github.com/lightspeedwp/.github/issues/4010))
 - **Site to Figma Components Skill** — Rebuilds a live site's components, patterns and templates in Figma after the reviewer approves an inventory. ([#3992](https://github.com/lightspeedwp/.github/issues/3992))
 - **Site to Design Tokens Skill** — For rebuilds: proposes design tokens from a live site, then creates the Figma variables and a theme.json export once approved. ([#3990](https://github.com/lightspeedwp/.github/issues/3990))
