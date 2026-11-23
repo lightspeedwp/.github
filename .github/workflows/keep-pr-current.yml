@@ -134,7 +134,7 @@ jobs:
         # failing every pull request's check over a missing secret.
         continue-on-error: true
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
         with:
           # Same secrets as documentation.yml. Not invented for this workflow.
           client-id: ${{ secrets.BOT_PR_APP_CLIENT_ID }}
