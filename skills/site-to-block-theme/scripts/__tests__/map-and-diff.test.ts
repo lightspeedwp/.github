@@ -35,7 +35,7 @@ describe('TokenMapper', () => {
   it('writes a report with the open decisions first', () => {
     const md = TokenMapper.markdown(mapper.map(live));
     expect(md.indexOf('## Needs a decision')).toBeLessThan(md.indexOf('## Exact'));
-    expect(md).toContain('`var:preset|spacing|20` (-1px)');
+    expect(md).toContain('`var:preset\\|spacing\\|20` (-1px)');
     expect(md).toContain('`var(--wp--custom--color--text--default)`');
   });
 
@@ -44,7 +44,7 @@ describe('TokenMapper', () => {
       measureFile([measurement({ name: 'box', styles: { padding: '10px 0px 13px' } })])
     );
     expect(TokenMapper.markdown(shorthand)).toContain(
-      '`var:preset|spacing|10` / 0 / `var:preset|spacing|10` (-3px)'
+      '`var:preset\\|spacing\\|10` / 0 / `var:preset\\|spacing\\|10` (-3px)'
     );
     const clean = mapper.map(
       measureFile([measurement({ name: 'box', styles: { 'padding-top': '10px' } })])
@@ -73,6 +73,16 @@ describe('runMapCli', () => {
     expect(JSON.parse(io.written['m.json']).counts.exact).toBe(4);
     expect(io.written['m.md']).toContain('# Token mapping');
     expect(io.out.join('')).toContain('4 exact, 1 near, 1 with no token');
+  });
+
+  it('marks an incomplete capture and exits 1', () => {
+    const failed = measureFile([], { failures: [{ width: 390, error: 'timeout' }] });
+    const io = memoryDeps({ ...files, 'failed.json': JSON.stringify(failed) });
+    expect(runMapCli(['failed.json', '--theme-json', 'theme.json'], io.deps)).toBe(1);
+    expect(io.written['tokens.md']).toContain(
+      '**Incomplete capture:** measuring failed at 390px (timeout)'
+    );
+    expect(io.err.join('')).toContain('incomplete capture');
   });
 
   it('prints help', () => {
@@ -128,7 +138,22 @@ describe('MeasurementDiff', () => {
       'hero heading|hover|value|color',
       'new|default|missing-live|',
     ]);
-    expect(diff.find((d) => d.state === 'hover')!.local).toBe('(unchanged)');
+    expect(diff.find((d) => d.state === 'hover')!.local).toBe('#0a0a0a');
+  });
+
+  it('compares the effective hover value on each side, not the sparse changes', () => {
+    const liveSide = measureFile([measurement({ name: 'link', styles: { 'margin-top': '10px' } })]);
+    const localSide = measureFile([
+      measurement({ name: 'link', styles: { 'margin-top': '20px' } }),
+      measurement({ name: 'link', state: 'hover', styles: { 'margin-top': '10px' } }),
+    ]);
+    const diff = new MeasurementDiff().compare(liveSide, localSide);
+    expect(diff.map((d) => `${d.state}|${d.property}`)).toEqual(['default|margin-top']);
+    const onlyHoverMissing = new MeasurementDiff().compare(
+      liveSide,
+      measureFile([measurement({ name: 'other' })])
+    );
+    expect(onlyHoverMissing.map((d) => d.kind)).toEqual(['missing-local', 'missing-live']);
   });
 
   it('flags elements missing on local', () => {
@@ -164,22 +189,63 @@ describe('MeasurementDiff', () => {
   });
 });
 
+describe('MeasurementDiff.gaps', () => {
+  it('reports failed and one-sided widths', () => {
+    const a = measureFile(
+      [measurement({ name: 'x', width: 390 }), measurement({ name: 'x', width: 1440 })],
+      {
+        widths: [390, 768, 1440],
+        failures: [{ width: 768, error: 'timeout' }],
+      }
+    );
+    const b = measureFile([measurement({ name: 'x', width: 390 })], { widths: [390, 1440] });
+    expect(MeasurementDiff.gaps(a, b)).toEqual([
+      'live failed at 768px (timeout)',
+      '1440px measured on live only',
+    ]);
+    expect(
+      MeasurementDiff.gaps(b, measureFile([], { failures: [{ width: 390, error: 'x' }] }))
+    ).toEqual([
+      'local failed at 390px (x)',
+      '390px measured on live only',
+      'no measurements on local',
+    ]);
+    expect(MeasurementDiff.gaps(measureFile([]), b)).toContain('no measurements on live');
+  });
+});
+
 describe('runDiffCli', () => {
   const files = {
     'live.json': JSON.stringify(live),
     'local.json': JSON.stringify(measureFile([], { side: 'local' })),
+    'local-full.json': JSON.stringify(
+      measureFile([measurement({ name: 'hero heading' })], { side: 'local' })
+    ),
   };
 
   it('writes the diff and report', () => {
     const io = memoryDeps(files);
     expect(
       runDiffCli(
-        ['live.json', 'local.json', '--tolerance', '2', '--out', 'd.json', '--report', 'd.md'],
+        ['live.json', 'local-full.json', '--tolerance', '2', '--out', 'd.json', '--report', 'd.md'],
         io.deps
       )
     ).toBe(0);
-    expect(JSON.parse(io.written['d.json'])[0].kind).toBe('missing-local');
+    const written = JSON.parse(io.written['d.json']);
+    expect(written.gaps).toEqual([]);
+    expect(written.differences.map((d: { kind: string }) => d.kind)).toContain('value');
     expect(io.written['d.md']).toContain('# Differences from live');
+  });
+
+  it('writes an incomplete report and exits 1 when a capture is incomplete', () => {
+    const io = memoryDeps(files);
+    expect(runDiffCli(['live.json', 'local.json'], io.deps)).toBe(1);
+    expect(io.written['diff.md']).toContain('**Incomplete comparison:**');
+    expect(io.written['diff.md']).toContain('no measurements on local');
+    expect(MeasurementDiff.markdown(live, live, [], ['live failed at 390px (x)'])).toContain(
+      'No differences in what was compared.'
+    );
+    expect(io.err.join('')).toContain('incomplete comparison');
   });
 
   it('prints help', () => {

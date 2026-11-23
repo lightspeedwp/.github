@@ -31,6 +31,8 @@ export interface MappingRow {
 
 export interface Mapping {
   url: string;
+  /** Widths whose capture failed: the mapping is incomplete when this is not empty. */
+  failures: { width: number; error: string }[];
   counts: Record<MatchStatus, number>;
   rows: MappingRow[];
 }
@@ -61,12 +63,14 @@ export class TokenMapper {
     for (const row of rows) {
       counts[row.match.status]++;
     }
-    return { url: measure.url, counts, rows };
+    return { url: measure.url, failures: measure.failures ?? [], counts, rows };
   }
 
   static markdown(mapping: Mapping): string {
+    // GitHub tables split on pipes even inside code spans, and every preset reference has them.
+    const cell = (text: string) => text.replace(/\|/g, '\\|');
     const tokenText = (refs: TokenRef[]) =>
-      refs.length ? refs.map((r) => `\`${r.preset ?? `var(${r.cssVar})`}\``).join(', ') : '-';
+      refs.length ? refs.map((r) => `\`${cell(r.preset ?? `var(${r.cssVar})`)}\``).join(', ') : '-';
     const matchText = (match: Match): string =>
       match.parts
         ? match.parts
@@ -76,21 +80,26 @@ export class TokenMapper {
             .join(' / ')
         : `${tokenText(match.tokens)}${match.delta ? ` (${match.delta})` : ''}`;
     const row = (r: MappingRow) =>
-      `| ${r.name} | ${r.width} | ${r.state} | ${r.property} | \`${r.value.replace(/\|/g, '\\|')}\` | ${r.match.status} | ${matchText(r.match)} |`;
+      `| ${cell(r.name)} | ${r.width} | ${r.state} | ${r.property} | \`${cell(r.value)}\` | ${r.match.status} | ${matchText(r.match)} |`;
     const header =
       '| Element | Width | State | Property | Live value | Match | Token |\n| --- | --- | --- | --- | --- | --- | --- |';
     const open = mapping.rows.filter((r) => r.match.status !== 'exact');
     const exact = mapping.rows.filter((r) => r.match.status === 'exact');
-    const lines = [
-      `# Token mapping: ${mapping.url}`,
-      '',
+    const lines = [`# Token mapping: ${mapping.url}`, ''];
+    if (mapping.failures.length) {
+      lines.push(
+        `**Incomplete capture:** measuring failed at ${mapping.failures.map((f) => `${f.width}px (${f.error})`).join(', ')}. Re-measure before relying on this report.`,
+        ''
+      );
+    }
+    lines.push(
       `${mapping.counts.exact} exact, ${mapping.counts.near} near, ${mapping.counts.none} with no token.`,
       '',
       'Exact matches list every token with that value, semantic tokens first: pick the one whose role fits.',
       '',
       '## Needs a decision',
-      '',
-    ];
+      ''
+    );
     if (open.length) {
       lines.push(
         'Use the nearest token and list it under "Differences from live", or propose a new token for approval. Never hardcode the value.',
@@ -163,6 +172,12 @@ export function runMapCli(argv: string[], deps: MapCliDeps): number {
     const mapping = new TokenMapper(new TokenMatcher(theme)).map(measure);
     deps.writeFile(out, `${JSON.stringify(mapping, null, 2)}\n`);
     deps.writeFile(report, TokenMapper.markdown(mapping));
+    if (mapping.failures.length) {
+      deps.stderr(
+        `map-to-tokens: incomplete capture, measuring failed at ${mapping.failures.map((f) => `${f.width}px`).join(', ')}. Re-measure.\n`
+      );
+      return 1;
+    }
     deps.stdout(
       `${mapping.counts.exact} exact, ${mapping.counts.near} near, ${mapping.counts.none} with no token. Wrote ${out} and ${report}\n`
     );

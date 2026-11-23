@@ -147,12 +147,15 @@ describe('PageMeasurer', () => {
     expect(result.measurements).toHaveLength(1);
   });
 
-  it('refuses wp-admin and login pages', async () => {
-    const measurer = new PageMeasurer(new FakeDriver(), noSleep);
+  it('refuses wp-admin and login pages, and closes the browser', async () => {
     for (const url of ['https://example.com/wp-admin/', 'https://example.com/wp-login.php?x=1']) {
+      const driver = new FakeDriver();
+      const measurer = new PageMeasurer(driver, noSleep);
       await expect(measurer.measure({ url, side: 'live', selectors: [] })).rejects.toThrow(
         'Refusing'
       );
+      expect(driver.closed).toBe(true);
+      expect(driver.opened).toEqual([]);
     }
   });
 
@@ -187,16 +190,31 @@ describe('runMeasureCli', () => {
   ) => {
     const io = memoryDeps(files);
     const dirs: string[] = [];
+    let launched = 0;
     const code = await runMeasureCli(argv, {
       ...io.deps,
-      createDriver: async () => driver,
+      createDriver: async () => {
+        launched++;
+        return driver;
+      },
       sleep: noSleep,
       makeDir: (path) => {
         dirs.push(path);
       },
     });
-    return { code, io, dirs };
+    return { code, io, dirs, launched };
   };
+
+  it('never launches a browser for a refused URL', async () => {
+    const { code, launched } = await run([
+      '--url',
+      'https://e.com/wp-login.php',
+      '--selector',
+      '.a',
+    ]);
+    expect(code).toBe(1);
+    expect(launched).toBe(0);
+  });
 
   it('measures from a selectors file and single selectors', async () => {
     const { code, io, dirs } = await run(

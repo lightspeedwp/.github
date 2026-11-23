@@ -80,8 +80,12 @@ Work in a scratch folder outside the theme. Also record what styles can't show: 
 
 ```bash
 npx --prefix "$SITE_TO_BLOCK_THEME_REPO_ROOT" tsx ${CLAUDE_SKILL_DIR}/scripts/map-to-tokens.ts live.json \
-  --theme-json <theme>/theme.json --out tokens.json --report tokens.md
+  --theme-json <theme>/theme.json [--theme-json <theme>/<preset-slice>.json ...] --out tokens.json --report tokens.md
 ```
+
+Pass one `--theme-json` for `theme.json` and one for each preset slice the theme profile lists, in the order the theme merges them (later files win). A token that lives only in a slice you leave out is reported as missing.
+
+If any width failed to measure, the report says the capture is incomplete and the script exits with an error: re-measure first. `diff-measurements.ts` does the same when either side failed or the widths don't match.
 
 `tokens.md` lists the values with no exact token first. For each one:
 

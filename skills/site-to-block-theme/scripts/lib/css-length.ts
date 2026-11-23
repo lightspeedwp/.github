@@ -202,7 +202,8 @@ class Parser {
     if (args.length !== 3) {
       throw new Error('clamp() takes three arguments.');
     }
-    return { n: Math.min(Math.max(values[1], values[0]), values[2]), length };
+    // CSS: the minimum wins when the bounds are reversed.
+    return { n: Math.max(values[0], Math.min(values[1], values[2])), length };
   }
 
   private convert(value: number, unit: string): Value {

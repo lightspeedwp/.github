@@ -144,6 +144,20 @@ describe('TokenMatcher', () => {
     expect(empty.match('font-weight', '400', 1440)).toMatchObject({ status: 'none' });
   });
 
+  it('evaluates shadow lengths at the element font size and viewport', () => {
+    const em = new TokenMatcher(
+      ThemeTokens.fromThemeJson([
+        { settings: { shadow: { presets: [{ slug: 'a', shadow: '0 1em 0 #000' }] } } },
+      ])
+    );
+    expect(
+      em.match('box-shadow', 'rgb(0, 0, 0) 0px 20px 0px 0px', 390, { 'font-size': '20px' }).status
+    ).toBe('exact');
+    expect(
+      em.match('box-shadow', 'rgb(0, 0, 0) 0px 20px 0px 0px', 390, { 'font-size': '16px' }).status
+    ).toBe('none');
+  });
+
   it('splits on top-level commas only', () => {
     expect(TokenMatcher.splitTopLevel('a(1, 2), b')).toEqual(['a(1, 2)', ' b']);
   });

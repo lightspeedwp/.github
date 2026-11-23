@@ -50,8 +50,26 @@ export class MeasurementDiff {
       const ref = (a ?? b) as Measurement;
       const base = { name: ref.name, width: ref.width, state: ref.state };
       if (ref.state !== 'default') {
-        // Hover and focus entries hold only what changed; a missing entry means no change.
-        differences.push(...this.compareStyles(base, a?.styles ?? {}, b?.styles ?? {}));
+        // Hover and focus entries hold only what changed. Compare each side's effective value:
+        // its own default with its own change on top.
+        const defaultKey = `${ref.name}|${ref.width}|default`;
+        const liveDefault = liveIndex.get(defaultKey);
+        const localDefault = localIndex.get(defaultKey);
+        if (!liveDefault?.found || !localDefault?.found) {
+          continue; // Already reported as missing.
+        }
+        const changed = [
+          ...new Set([...Object.keys(a?.styles ?? {}), ...Object.keys(b?.styles ?? {})]),
+        ];
+        const effective = (defaults: Measurement, delta?: Measurement) =>
+          Object.fromEntries(
+            changed
+              .map((p) => [p, delta?.styles?.[p] ?? defaults.styles?.[p]])
+              .filter((entry): entry is [string, string] => entry[1] !== undefined)
+          );
+        differences.push(
+          ...this.compareStyles(base, effective(liveDefault, a), effective(localDefault, b))
+        );
         continue;
       }
       if (!a?.found || !b?.found) {
@@ -128,17 +146,55 @@ export class MeasurementDiff {
     return x.toLowerCase() === y.toLowerCase();
   }
 
-  static markdown(live: MeasureFile, local: MeasureFile, differences: Difference[]): string {
-    const lines = [
-      '# Differences from live',
-      '',
-      `Live: ${live.url} · Local: ${local.url}`,
-      '',
+  /**
+   * Why the two captures can't be fully compared: widths that failed on
+   * either side, or widths measured on one side only. Empty when complete.
+   */
+  static gaps(live: MeasureFile, local: MeasureFile): string[] {
+    const gaps: string[] = [];
+    for (const [side, file] of [
+      ['live', live],
+      ['local', local],
+    ] as const) {
+      for (const f of file.failures ?? []) {
+        gaps.push(`${side} failed at ${f.width}px (${f.error})`);
+      }
+    }
+    const measured = (file: MeasureFile) => new Set(file.measurements.map((m) => m.width));
+    const liveWidths = measured(live);
+    const localWidths = measured(local);
+    for (const width of [...new Set([...live.widths, ...local.widths])].sort((x, y) => x - y)) {
+      if (liveWidths.has(width) !== localWidths.has(width)) {
+        gaps.push(`${width}px measured on ${liveWidths.has(width) ? 'live' : 'local'} only`);
+      }
+    }
+    if (!live.measurements.length || !local.measurements.length) {
+      gaps.push(`no measurements on ${live.measurements.length ? 'local' : 'live'}`);
+    }
+    return gaps;
+  }
+
+  static markdown(
+    live: MeasureFile,
+    local: MeasureFile,
+    differences: Difference[],
+    gaps: string[] = []
+  ): string {
+    const lines = ['# Differences from live', '', `Live: ${live.url} · Local: ${local.url}`, ''];
+    if (gaps.length) {
+      lines.push(
+        `**Incomplete comparison:** ${gaps.join('; ')}. Re-measure before relying on this report.`,
+        ''
+      );
+    }
+    lines.push(
       differences.length
         ? `${differences.length} differences. Fix each one, or keep it and say why (for example, the nearest token was used).`
-        : 'No differences found within tolerance.',
-      '',
-    ];
+        : gaps.length
+          ? 'No differences in what was compared.'
+          : 'No differences found within tolerance.',
+      ''
+    );
     if (differences.length) {
       lines.push(
         '| Element | Width | State | Property | Live | Local |',
@@ -153,7 +209,7 @@ export class MeasurementDiff {
               ? 'missing on local'
               : 'missing on live';
         lines.push(
-          `| ${d.name} | ${d.width} | ${d.state} | ${property} | ${cell(d.live)} | ${cell(d.local)} |`
+          `| ${d.name.replace(/\|/g, '\\|')} | ${d.width} | ${d.state} | ${property} | ${cell(d.live)} | ${cell(d.local)} |`
         );
       }
       lines.push('');
@@ -205,8 +261,13 @@ export function runDiffCli(argv: string[], deps: DiffCliDeps): number {
     }
     const [live, local] = files.map((f) => JSON.parse(deps.readFile(f)) as MeasureFile);
     const differences = new MeasurementDiff(tolerance).compare(live, local);
-    deps.writeFile(values.out, `${JSON.stringify(differences, null, 2)}\n`);
-    deps.writeFile(values.report, MeasurementDiff.markdown(live, local, differences));
+    const gaps = MeasurementDiff.gaps(live, local);
+    deps.writeFile(values.out, `${JSON.stringify({ gaps, differences }, null, 2)}\n`);
+    deps.writeFile(values.report, MeasurementDiff.markdown(live, local, differences, gaps));
+    if (gaps.length) {
+      deps.stderr(`diff-measurements: incomplete comparison: ${gaps.join('; ')}. Re-measure.\n`);
+      return 1;
+    }
     deps.stdout(`${differences.length} differences. Wrote ${values.out} and ${values.report}\n`);
     return 0;
   } catch (error) {

@@ -163,10 +163,22 @@ export class PageMeasurer {
     private readonly now: () => Date = () => new Date()
   ) {}
 
-  async measure(options: MeasureOptions): Promise<MeasureFile> {
-    const url = new URL(options.url);
+  /** Parses the URL and refuses admin and login pages. Call it before launching a browser. */
+  static checkUrl(value: string): URL {
+    const url = new URL(value);
     if (FORBIDDEN_PATH.test(url.pathname)) {
       throw new Error(`Refusing ${url.href}: measure public pages only, never wp-admin or login.`);
+    }
+    return url;
+  }
+
+  async measure(options: MeasureOptions): Promise<MeasureFile> {
+    let url: URL;
+    try {
+      url = PageMeasurer.checkUrl(options.url);
+    } catch (error) {
+      await this.driver.close();
+      throw error;
     }
     const widths = options.widths ?? [390, 768, 1440];
     const states = options.states ?? ['default', 'hover', 'focus'];
@@ -365,6 +377,8 @@ export async function runMeasureCli(argv: string[], deps: MeasureCliDeps): Promi
     if (unknown.length) {
       throw new Error(`Unknown state ${unknown.join(', ')}.`);
     }
+    // Validate before launching the browser, so a refused URL never starts Chromium.
+    PageMeasurer.checkUrl(values.url);
     if (values.shots) {
       deps.makeDir(values.shots);
     }
@@ -411,8 +425,14 @@ export async function createPuppeteerDriver(): Promise<BrowserDriver> {
       // tsx (esbuild) can add __name() helpers to function source; define it in the page.
       await page.evaluate('globalThis.__name = (f) => f');
       // Lazy-loaded images and scroll-triggered sections: scroll to the end and back.
+      // Bounded, so an infinite-scroll page can't hold the width until the protocol times out.
       await page.evaluate(async () => {
-        for (let y = 0; y < document.body.scrollHeight; y += 600) {
+        const started = Date.now();
+        for (
+          let y = 0;
+          y < Math.min(document.body.scrollHeight, 30000) && Date.now() - started < 10000;
+          y += 600
+        ) {
           window.scrollTo(0, y);
           await new Promise((resolve) => setTimeout(resolve, 100));
         }

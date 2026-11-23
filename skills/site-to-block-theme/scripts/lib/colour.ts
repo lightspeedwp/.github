@@ -45,17 +45,20 @@ export class Colour {
     if (parts.length < 3) {
       return null;
     }
-    const [r, g, b] = parts.slice(0, 3).map(Number);
+    // Channels are 0 to 255 or a percentage; alpha is 0 to 1 or a percentage.
+    const channel = (part: string) =>
+      part.endsWith('%') ? Number(part.slice(0, -1)) / 100 : Number(part) / 255;
+    const [r, g, b] = parts.slice(0, 3).map(channel);
     const alpha =
       parts[3] === undefined
         ? 1
         : parts[3].endsWith('%')
-          ? parseFloat(parts[3]) / 100
+          ? Number(parts[3].slice(0, -1)) / 100
           : Number(parts[3]);
     if ([r, g, b, alpha].some((n) => !Number.isFinite(n))) {
       return null;
     }
-    return { r: r / 255, g: g / 255, b: b / 255, a: alpha };
+    return { r, g, b, a: alpha };
   }
 
   static hex(c: Rgba): string {

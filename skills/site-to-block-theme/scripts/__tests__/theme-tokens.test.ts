@@ -26,6 +26,10 @@ describe('ThemeTokens', () => {
     expect(token('--wp--custom--line-height--normal').family).toBe('line-height');
     expect(theme.tokens.some((t) => t.cssVar.includes('motion'))).toBe(false);
     expect(ThemeTokens.kebab('scrollArrowSize')).toBe('scroll-arrow-size');
+    expect(ThemeTokens.kebab('3xl')).toBe('3-xl');
+    expect(ThemeTokens.kebab('brand-500')).toBe('brand-500');
+    expect(ThemeTokens.kebab('h1')).toBe('h-1');
+    expect(ThemeTokens.kebab('XLHeading')).toBe('xl-heading');
   });
 
   it('resolves var() chains and fallbacks', () => {
@@ -99,6 +103,53 @@ describe('ThemeTokens', () => {
     ]);
     expect(plain.fontSizePx(plain.list('font-size')[0], 390)).toBe(32);
     expect(plain.lengthPx(plain.list('font-size')[0], 390)).toBe(32);
+  });
+
+  it('names preset variables the way core does', () => {
+    const named = ThemeTokens.fromThemeJson([
+      { settings: { typography: { fontSizes: [{ slug: '3xl', size: '3rem' }] } } },
+    ]);
+    expect(named.list('font-size')[0]).toMatchObject({
+      cssVar: '--wp--preset--font-size--3-xl',
+      preset: 'var:preset|font-size|3xl',
+    });
+  });
+
+  it('resolves references to custom values outside the token families', () => {
+    const custom = ThemeTokens.fromThemeJson([
+      {
+        settings: {
+          custom: { sizes: { gutter: '24px' } },
+          spacing: { spacingSizes: [{ slug: 'g', size: 'var(--wp--custom--sizes--gutter)' }] },
+        },
+      },
+    ]);
+    expect(custom.tokens.some((t) => t.cssVar.includes('sizes'))).toBe(false);
+    expect(custom.lengthPx(custom.list('spacing')[0], 1440)).toBe(24);
+  });
+
+  it('honours preset fluid settings when global fluid typography is off', () => {
+    const preset = ThemeTokens.fromThemeJson([
+      {
+        settings: {
+          typography: {
+            fontSizes: [
+              { slug: 'a', size: '32px', fluid: { min: '20px', max: '32px' } },
+              { slug: 'b', size: '12px', fluid: { max: '16px' } },
+              { slug: 'c', size: '32px', fluid: {} },
+            ],
+          },
+        },
+      },
+    ]);
+    const [a, b, c] = preset.list('font-size');
+    expect(preset.fontSizePx(a, 320)).toBe(20);
+    expect(preset.fontSizePx(a, 1600)).toBe(32);
+    // An explicit max skips the 14px minimum font size limit; the calculated minimum is floored at 14px.
+    expect(preset.fontSizePx(b, 1600)).toBe(16);
+    expect(preset.fontSizePx(b, 320)).toBe(14);
+    // An empty fluid object does not turn fluid typography on.
+    expect(preset.fontSizePx(c, 320)).toBe(32);
   });
 
   it('merges several documents, later ones replacing presets by slug', () => {

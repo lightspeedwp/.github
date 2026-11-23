@@ -53,16 +53,12 @@ const isObject = (value: unknown): value is Json =>
   typeof value === 'object' && value !== null && !Array.isArray(value);
 
 export class ThemeTokens {
-  private readonly byVar = new Map<string, Token>();
-
   private constructor(
     private readonly settings: Json,
-    readonly tokens: Token[]
-  ) {
-    for (const token of tokens) {
-      this.byVar.set(token.cssVar, token);
-    }
-  }
+    readonly tokens: Token[],
+    /** Every CSS variable the theme emits (presets and all custom values), for var() resolution. */
+    private readonly references: Map<string, string>
+  ) {}
 
   /** Builds the tokens from one or more theme.json documents. Later documents win. */
   static fromThemeJson(documents: unknown[]): ThemeTokens {
@@ -72,11 +68,18 @@ export class ThemeTokens {
         settings = ThemeTokens.merge(settings, doc.settings);
       }
     }
-    return new ThemeTokens(settings, ThemeTokens.collect(settings));
+    const { tokens, references } = ThemeTokens.collect(settings);
+    return new ThemeTokens(settings, tokens, references);
   }
 
+  /**
+   * WordPress core's _wp_to_kebab_case(), which names preset and custom CSS
+   * variables: words, runs of capitals and runs of digits joined with hyphens,
+   * so `fontWeight` is `font-weight` and `3xl` is `3-xl`.
+   */
   static kebab(key: string): string {
-    return key.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+    const words = key.replace(/'/g, '').match(/[A-Z]?[a-z]+|[A-Z]+(?![a-z])|\d+/g) ?? [];
+    return words.join('-').toLowerCase();
   }
 
   list(family: Family): Token[] {
@@ -91,9 +94,9 @@ export class ThemeTokens {
     const replaced = raw.replace(
       /var\(\s*(--[a-z0-9-]+)\s*(?:,\s*([^()]*(?:\([^()]*\))?[^()]*))?\)/gi,
       (match, name: string, fallback?: string) => {
-        const token = this.byVar.get(name.toLowerCase());
-        if (token) {
-          return token.raw;
+        const value = this.references.get(name.toLowerCase());
+        if (value !== undefined) {
+          return value;
         }
         return fallback !== undefined ? fallback.trim() : match;
       }
@@ -127,7 +130,13 @@ export class ThemeTokens {
     }
     const typography = isObject(this.settings.typography) ? this.settings.typography : {};
     const fluid = typography.fluid;
-    if (!fluid || token.fluid === false || /clamp|calc|min\(|max\(|vw/.test(token.raw)) {
+    // Core: off when the preset says false, or when neither the global setting nor the preset turns it on.
+    const presetFluid = isObject(token.fluid) ? Object.keys(token.fluid).length > 0 : token.fluid;
+    if (
+      token.fluid === false ||
+      (!fluid && !presetFluid) ||
+      /clamp|calc|min\(|max\(|vw/.test(token.raw)
+    ) {
       return size;
     }
     const fluidSettings = isObject(fluid) ? fluid : {};
@@ -140,14 +149,15 @@ export class ThemeTokens {
     const limit = px(fluidSettings.minFontSize, 14);
     const own = isObject(token.fluid) ? token.fluid : {};
 
+    // Core skips the minimum font size limit when the preset sets its own min or max.
+    if (!own.min && !own.max && size <= limit) {
+      return size;
+    }
     const max = own.max ? px(own.max, size) : size;
     let min: number;
     if (own.min) {
       min = px(own.min, size);
     } else {
-      if (size <= limit) {
-        return size;
-      }
       const factor = Math.min(Math.max(1 - 0.075 * Math.log2(size), 0.25), 0.75);
       const calculated = Math.round(size * factor * 1000) / 1000;
       min = calculated <= limit ? limit : calculated;
@@ -179,8 +189,9 @@ export class ThemeTokens {
     return out;
   }
 
-  private static collect(settings: Json): Token[] {
+  private static collect(settings: Json): { tokens: Token[]; references: Map<string, string> } {
     const tokens: Token[] = [];
+    const references = new Map<string, string>();
     const section = (key: string): Json => (isObject(settings[key]) ? settings[key] : {});
     const presets = (
       items: unknown,
@@ -203,7 +214,7 @@ export class ThemeTokens {
         const token: Token = {
           family,
           slug: item.slug,
-          cssVar: `--wp--preset--${cssGroup}--${item.slug}`,
+          cssVar: `--wp--preset--${cssGroup}--${ThemeTokens.kebab(item.slug)}`,
           preset: `var:preset|${cssGroup}|${item.slug}`,
           raw: String(raw),
           semantic: false,
@@ -212,6 +223,7 @@ export class ThemeTokens {
           token.fluid = item.fluid as Token['fluid'];
         }
         tokens.push(token);
+        references.set(token.cssVar, token.raw);
       }
     };
 
@@ -222,7 +234,8 @@ export class ThemeTokens {
     presets(section('border').radiusSizes, 'radius', 'border-radius', 'size');
     presets(section('shadow').presets, 'shadow', 'shadow', 'shadow');
 
-    const walk = (node: unknown, path: string[], family: Family) => {
+    // Every custom value is a CSS variable other values can reference; only known families become tokens.
+    const walk = (node: unknown, path: string[], family: Family | undefined) => {
       if (isObject(node)) {
         for (const [key, value] of Object.entries(node)) {
           walk(value, [...path, ThemeTokens.kebab(key)], family);
@@ -232,21 +245,22 @@ export class ThemeTokens {
       if (typeof node !== 'string' && typeof node !== 'number') {
         return;
       }
-      tokens.push({
-        family,
-        slug: path.slice(1).join('--'),
-        cssVar: `--wp--custom--${path.join('--')}`,
-        raw: String(node),
-        semantic: true,
-      });
+      const cssVar = `--wp--custom--${path.join('--')}`;
+      references.set(cssVar, String(node));
+      if (family) {
+        tokens.push({
+          family,
+          slug: path.slice(1).join('--'),
+          cssVar,
+          raw: String(node),
+          semantic: true,
+        });
+      }
     };
     for (const [key, value] of Object.entries(section('custom'))) {
       const name = ThemeTokens.kebab(key);
-      const family = CUSTOM_FAMILIES[name];
-      if (family) {
-        walk(value, [name], family);
-      }
+      walk(value, [name], CUSTOM_FAMILIES[name]);
     }
-    return tokens;
+    return { tokens, references };
   }
 }

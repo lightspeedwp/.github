@@ -28,6 +28,8 @@ describe('CssLength.toPx', () => {
     expect(at('min(10px, 2rem)')).toBe(10);
     expect(at('max(10px, 2rem)')).toBe(32);
     expect(at('calc(0 + 4px)')).toBe(4);
+    // Reversed bounds: the minimum wins.
+    expect(at('clamp(32px, 24px, 16px)')).toBe(32);
   });
 
   it('returns null for what it cannot evaluate', () => {
@@ -69,6 +71,8 @@ describe('Colour', () => {
     expect(Colour.hex(Colour.parse('rgb(10, 20, 30)')!)).toBe('#0a141e');
     expect(Colour.parse('rgba(0 0 0 / 50%)')!.a).toBe(0.5);
     expect(Colour.parse('rgba(0, 0, 0, 0.2)')!.a).toBe(0.2);
+    expect(Colour.hex(Colour.parse('rgb(100%, 0%, 50%)')!)).toBe('#ff0080');
+    expect(Colour.hex(Colour.parse('rgb(100% 0% 0% / 50%)')!)).toBe('#ff000080');
     expect(Colour.parse('transparent')!.a).toBe(0);
   });
 

@@ -82,7 +82,7 @@ export class TokenMatcher {
       case 'font-family':
         return this.matchFontFamily(text);
       case 'shadow':
-        return this.matchShadow(text);
+        return this.matchShadow(text, viewport, fontSize);
       case 'font-weight':
         return this.matchNumber(family, Number(text), 0, (t) => Number(this.theme.resolve(t.raw)));
       case 'line-height':
@@ -152,11 +152,13 @@ export class TokenMatcher {
     };
   }
 
-  private matchShadow(text: string): Match {
-    const wanted = this.normaliseShadow(text);
+  private matchShadow(text: string, viewport: number, fontSize?: number): Match {
+    const wanted = this.normaliseShadow(text, viewport, fontSize);
     const tokens = this.theme
       .list('shadow')
-      .filter((t) => this.normaliseShadow(this.theme.resolve(t.raw)) === wanted);
+      .filter(
+        (t) => this.normaliseShadow(this.theme.resolve(t.raw), viewport, fontSize) === wanted
+      );
     if (tokens.length) {
       return { family: 'shadow', status: 'exact', tokens: tokens.map(TokenMatcher.ref) };
     }
@@ -164,7 +166,7 @@ export class TokenMatcher {
   }
 
   /** One string per layer: inset flag, lengths in px and the colour as hex. Order-insensitive within a layer. */
-  normaliseShadow(text: string): string {
+  normaliseShadow(text: string, viewport = 1440, fontSize?: number): string {
     return TokenMatcher.splitTopLevel(text)
       .map((layer) => {
         let rest = layer.trim().toLowerCase();
@@ -179,7 +181,7 @@ export class TokenMatcher {
           .trim()
           .split(/\s+/)
           .filter(Boolean)
-          .map((part) => CssLength.toPx(part, { viewport: 1440 }) ?? NaN);
+          .map((part) => CssLength.toPx(part, { viewport, fontSize }) ?? NaN);
         while (lengths.length < 4) {
           lengths.push(0);
         }
