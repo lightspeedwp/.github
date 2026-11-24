@@ -5,6 +5,6 @@
   "here": true,
   "integration": "claude",
   "script": "sh",
-  "speckit_version": "1.0.7.dev0",
+  "speckit_version": "1.4.4",
   "specs_directory": ".github/specs"
 }

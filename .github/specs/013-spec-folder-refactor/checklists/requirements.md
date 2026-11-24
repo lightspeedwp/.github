@@ -6,6 +6,22 @@
 
 **Feature**: [spec.md](../spec.md)
 
+## Allocation amendment review — 4 November 2026
+
+The checked September items and readiness statement below are historical assessments of
+that revision, not evidence that this amendment has passed review or verification.
+
+- [ ] Exact schema, interfaces, bootstrap bytes and provenance reviewed against the recorded direction
+- [ ] Complete 001–024 accounting and independent 020/021/022 histories verified
+- [ ] Pending materialisation, retirement, archival and no-reuse requirements assessed
+- [ ] Offline baseline comparison and snapshot-only limits verified
+- [ ] Invalid/absent ledger, strict no-ledger allocation and fresh-root behaviour tested
+- [ ] Generator final-slug preflight, exact claims, dry-run and 999 boundary tested
+- [ ] Naming, required files, catalogue, links and eight quality dimensions remain enforced
+- [ ] Current-head tests, lint, authorised review and separate merge decision recorded
+
+No item is pre-checked by design approval, drafting this patch or retaining historical ticks.
+
 ## Content Quality
 
 - [x] No implementation details (languages, frameworks, APIs)
