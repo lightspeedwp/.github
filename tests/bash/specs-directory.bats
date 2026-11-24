@@ -133,6 +133,7 @@ json_field() {
 @test "create-new-feature dry-run uses the configured directory and its numbering sequence" {
   write_config '{"specs_directory":"docs/specifications"}'
   mkdir -p \
+    "$TEST_REPO/docs/specifications/001-first" \
     "$TEST_REPO/docs/specifications/002-existing" \
     "$TEST_REPO/specs/999-legacy"
 
@@ -152,7 +153,10 @@ json_field() {
 
 @test "create-new-feature dry-run defaults to .github/specs and does not mutate the repository" {
   write_config '{"speckit_version":"1.0.7.dev0"}'
-  mkdir -p "$TEST_REPO/.github/specs/007-existing"
+  for number in {1..7}; do
+    printf -v prefix '%03d' "$number"
+    mkdir -p "$TEST_REPO/.github/specs/$prefix-existing"
+  done
 
   run env SPECIFY_INIT_DIR="$TEST_REPO" \
     bash "$CREATE_FEATURE_SH" --dry-run --json --short-name "boundary-case" \
@@ -170,6 +174,10 @@ json_field() {
 
 @test "create-new-feature creates the spec and persists context under the configured directory" {
   write_config '{"specs_directory":"docs/specifications"}'
+  for number in {1..11}; do
+    printf -v prefix '%03d' "$number"
+    mkdir -p "$TEST_REPO/docs/specifications/$prefix-existing"
+  done
 
   run env SPECIFY_INIT_DIR="$TEST_REPO" \
     bash "$CREATE_FEATURE_SH" --json --number 12 --short-name "created-feature" \
@@ -268,6 +276,98 @@ json_field() {
   [ "$(< "$TEST_REPO/specs/source.txt")" = "source content" ]
   [ "$(< "$TEST_REPO/.github/specs/target.txt")" = "target content" ]
   [ -d "$TEST_REPO/.github/tmp" ]
+}
+
+allocation_fixture() {
+  mkdir -p "$TEST_REPO/.github/specs"
+  # Frozen bootstrap ledger: the live ledger grows with each new allocation.
+  cp "$PROJECT_ROOT/scripts/validation/__fixtures__/spec-allocations-bootstrap.json" "$TEST_REPO/.github/specs/ALLOCATIONS.json"
+  node - "$TEST_REPO/.github/specs" <<'JS'
+const fs = require('node:fs');
+const path = require('node:path');
+const root = process.argv[2];
+const ledger = JSON.parse(fs.readFileSync(path.join(root, 'ALLOCATIONS.json'), 'utf8'));
+for (const entry of ledger.allocations) {
+  if (entry.state !== 'materialised') continue;
+  const directory = path.join(root, `${entry.number}-${entry.canonicalSlug}`);
+  fs.mkdirSync(directory, { recursive: true });
+  fs.writeFileSync(path.join(directory, 'spec.md'), '# Test specification\n');
+}
+JS
+}
+
+@test "fresh-root dry-run plans 001 without creating the root or feature context" {
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$CREATE_FEATURE_SH" --dry-run --json --short-name "first-feature" "First feature"
+  [ "$status" -eq 0 ]
+  [ "$(json_field "$output" 'FEATURE_NUM')" = "001" ]
+  [ ! -e "$TEST_REPO/.github/specs" ]
+  [ ! -e "$TEST_REPO/.specify/feature.json" ]
+}
+
+@test "missing shared helper fails before root or feature-context creation" {
+  mkdir -p "$TEST_REPO/.specify/scripts/bash"
+  cp "$CREATE_FEATURE_SH" "$COMMON_SH" "$TEST_REPO/.specify/scripts/bash/"
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$TEST_REPO/.specify/scripts/bash/create-new-feature.sh" --json --short-name "blocked" "Blocked feature"
+  [ "$status" -eq 2 ]
+  [ ! -e "$TEST_REPO/.github/specs" ]
+  [ ! -e "$TEST_REPO/.specify/feature.json" ]
+}
+
+@test "no-ledger gaps fail before any feature-context write" {
+  mkdir -p "$TEST_REPO/.github/specs/002-gap"
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$CREATE_FEATURE_SH" --json --short-name "blocked" "Blocked feature"
+  [ "$status" -eq 1 ]
+  [ ! -e "$TEST_REPO/.specify/feature.json" ]
+  [ ! -e "$TEST_REPO/.github/specs/003-blocked" ]
+}
+
+@test "pending dry-run is exact and leaves ledger and feature context untouched" {
+  allocation_fixture
+  local before
+  before="$(< "$TEST_REPO/.github/specs/ALLOCATIONS.json")"
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$CREATE_FEATURE_SH" --dry-run --json --number 20 --short-name "portable-changelog-release-agents" "Portable agents"
+  [ "$status" -eq 0 ]
+  [ "$(json_field "$output" 'FEATURE_NUM')" = "020" ]
+  [ "$(< "$TEST_REPO/.github/specs/ALLOCATIONS.json")" = "$before" ]
+  [ ! -e "$TEST_REPO/.github/specs/020-portable-changelog-release-agents" ]
+  [ ! -e "$TEST_REPO/.specify/feature.json" ]
+}
+
+@test "conflicting claims retired numbers jumps and timestamps fail without writes" {
+  allocation_fixture
+  for request in 21 22 26 1000; do
+    run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$CREATE_FEATURE_SH" --json --number "$request" --short-name "blocked" "Blocked feature"
+    [ "$status" -eq 1 ]
+  done
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$CREATE_FEATURE_SH" --json --number 20 --short-name "wrong-slug" "Blocked claim"
+  [ "$status" -eq 1 ]
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$CREATE_FEATURE_SH" --json --timestamp --short-name "blocked" "Timestamp request"
+  [ "$status" -eq 1 ]
+  [ ! -e "$TEST_REPO/.specify/feature.json" ]
+  [ "$(find "$TEST_REPO/.github/specs" -mindepth 1 -maxdepth 1 -type d | wc -l)" -eq 21 ]
+}
+
+@test "generated pending fulfilment is local only and does not silently update the ledger" {
+  allocation_fixture
+  local before
+  before="$(< "$TEST_REPO/.github/specs/ALLOCATIONS.json")"
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$CREATE_FEATURE_SH" --json --number 20 --short-name "portable-changelog-release-agents" "Portable agents"
+  [ "$status" -eq 0 ]
+  [ -f "$TEST_REPO/.github/specs/020-portable-changelog-release-agents/spec.md" ]
+  [ "$(< "$TEST_REPO/.github/specs/ALLOCATIONS.json")" = "$before" ]
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$PROJECT_ROOT/.specify/scripts/bash/audit-specs.sh"
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"non-materialised directory"* ]]
+}
+
+@test "subdirectory invocation uses highest accounted allocation 025" {
+  allocation_fixture
+  mkdir -p "$TEST_REPO/nested"
+  run bash -c 'cd "$1/nested" && bash "$2" --dry-run --json --short-name next-feature "Next feature"' _ "$TEST_REPO" "$CREATE_FEATURE_SH"
+  [ "$status" -eq 0 ]
+  [ "$(json_field "$output" 'FEATURE_NUM')" = "025" ]
+  [ ! -e "$TEST_REPO/.github/specs/025-next-feature" ]
+  [ ! -e "$TEST_REPO/.specify/feature.json" ]
 }
 
 @test "migration failure restores both trees and exits nonzero" {
