@@ -19,7 +19,8 @@ function samples(desktop: boolean): ElementSample[] {
       {
         role,
         color: rgb('#262423'),
-        fontFamily: 'Moret',
+        fontFamily: 'moret',
+        fontStack: 'moret, Georgia, serif',
         fontSize: desktop ? max : min,
         fontWeight: 400,
         lineHeight: (desktop ? max : min) * 1.2,
@@ -33,6 +34,7 @@ function samples(desktop: boolean): ElementSample[] {
       role: 'body',
       color: rgb('#262423'),
       fontFamily: 'Lora',
+      fontStack: 'Lora, serif',
       fontSize: 16,
       fontWeight: 400,
       lineHeight: 24,
@@ -45,6 +47,7 @@ function samples(desktop: boolean): ElementSample[] {
       role: 'body',
       color: rgb('#68645f'),
       fontFamily: 'Lora',
+      fontStack: 'Lora, serif',
       fontSize: 12,
       fontWeight: 400,
       lineHeight: 18,
@@ -57,6 +60,7 @@ function samples(desktop: boolean): ElementSample[] {
       role: 'body',
       color: rgb('#68645f'),
       fontFamily: 'Lora',
+      fontStack: 'Lora, serif',
       fontSize: 14,
       fontWeight: 400,
       lineHeight: 20,
@@ -69,6 +73,7 @@ function samples(desktop: boolean): ElementSample[] {
       role: 'link',
       color: rgb('#8d621f'),
       fontFamily: 'Lora',
+      fontStack: 'Lora, serif',
       fontSize: 16,
       fontWeight: 400,
       lineHeight: 24,
@@ -82,6 +87,7 @@ function samples(desktop: boolean): ElementSample[] {
       color: rgb('#ffffff'),
       background: rgb('#565b3d'),
       fontFamily: 'Lora',
+      fontStack: 'Lora, serif',
       fontSize: 16,
       fontWeight: 600,
       lineHeight: 24,
@@ -99,6 +105,7 @@ function samples(desktop: boolean): ElementSample[] {
       color: rgb('#ffffff'),
       background: rgb('#a31700'),
       fontFamily: 'Lora',
+      fontStack: 'Lora, serif',
       fontSize: 16,
       fontWeight: 600,
       lineHeight: 24,
@@ -113,6 +120,7 @@ function samples(desktop: boolean): ElementSample[] {
       color: rgb('#262423'),
       border: rgb('#8a8580'),
       fontFamily: 'Lora',
+      fontStack: 'Lora, serif',
       fontSize: 16,
       fontWeight: 400,
       lineHeight: 24,
@@ -130,6 +138,32 @@ function samples(desktop: boolean): ElementSample[] {
       shadow: 'rgba(9, 9, 9, 0.25) 0px 8px 16px 0px inset',
     },
     'avatar'
+  );
+  add(
+    8,
+    {
+      role: 'body',
+      color: rgb('#262423'),
+      fontFamily: 'caveat_regular',
+      fontStack: 'caveat_regular, cursive',
+      fontSize: 16,
+      fontWeight: 400,
+      lineHeight: 24,
+    },
+    'accent'
+  );
+  add(
+    2,
+    {
+      role: 'body',
+      color: rgb('#262423'),
+      fontFamily: 'Courier New',
+      fontStack: '"Courier New", monospace',
+      fontSize: 16,
+      fontWeight: 400,
+      lineHeight: 24,
+    },
+    'code'
   );
   heading('h1', 60, 36);
   heading('h2', 48, 32);
