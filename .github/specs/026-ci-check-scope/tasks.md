@@ -49,3 +49,13 @@ domain: "governance"
 - [X] T014 [P] Add the changelog entry
 - [X] T015 Open the pull request and read the check logs for a full run
 - [X] T016 Push a Markdown-only commit and read the check logs for a skipped run
+
+## Phase 5: Jest prose mode (added after review)
+
+- [X] T017 [US1] Trace which prose files the suite reads and which test files read them
+- [X] T018 [US1] Write `scripts/workflows/jest-read-tracer.cjs` and `tests/jest.setup.read-trace.cjs`
+- [X] T019 [US1] Write `scripts/workflows/jest-prose-tests.cjs` and generate `tests/jest-prose-tests.json`
+- [X] T020 [US2] Give the `jest` profile a prose mode and remove the unsound `docs/` skip
+- [X] T021 [US3] Run the listed tests for prose changes in `.github/workflows/tests.yml`, and check the list on full runs
+- [X] T022 Read the GitHub Code Quality settings and record why they stay as they are
+- [ ] T023 Read the check logs for a full run with the list check, then for a prose-mode run

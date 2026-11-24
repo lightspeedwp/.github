@@ -54,9 +54,14 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 - **Safety**: The earlier commit must be an ancestor of the new head. Any other state runs the check.
 - **Base**: A check runs on the merge of the head with the base, so a result is reused only for the same base. Each check records the base it tested as a notice annotation titled "CI scope base", and the next run reads it back. This came from review of the pull request.
 
-### Decision 3: keep Jest's scope as it is
+### Decision 3: run only the prose-dependent tests for prose changes
 
-- **Rationale**: Jest tests read specifications, `CHANGELOG.md`, workflow files and other Markdown (25 test files reference them). Only plain pages directly under `docs/` were ignored before, and that stays. Jest gains the later-push rule only.
+- **Evidence**: The suite was run with a tracer that records every file read and every program started, per test file. It reads 11,495 of 11,745 tracked prose files. 38 test files do that reading, and 22 more start programs other than Node.
+- **Rule**: A change to prose alone runs those 60 test files. Anything else runs the whole suite. Jest is never skipped for a prose change.
+- **Correction**: The earlier rule skipped Jest for plain `docs/` pages. All 141 of those pages are read by tests, so the rule could hide a failure. It is removed.
+- **Measured**: The 60 files took 94 seconds locally against 134 seconds for the whole suite. They include the tests that scan the whole repository, so the saving is about a third, not more.
+- **Keeping the list true**: Every full run on a pull request head records a trace, and the job fails when a traced test file is missing from `tests/jest-prose-tests.json`.
+- **Both targets**: The scope job passes the list to the head and base runs, so the comparison is like for like.
 
 ### Decision 4: every workflow change runs every scoped check
 
@@ -73,7 +78,7 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 | `lint` | `Lint (JS/YAML/package.json)` | JavaScript and TypeScript files, YAML files, `package.json` and its lock file, root-level files other than prose |
 | `typecheck` | `Typecheck` | JavaScript, TypeScript, Astro and JSON files, anything under `website/`, root-level files other than prose |
 | `actionlint` | `actionlint` | `.github/actionlint.yaml`, `scripts/validation/run-actionlint.cjs`, root `package.json` and its lock file |
-| `jest` | `No new test failures` | Everything except plain pages directly under `docs/` |
+| `jest` | `No new test failures` | Everything except prose runs the whole suite. Prose alone runs the listed test files. |
 
 All profiles also run for any file under `.github/workflows/`, for the script itself and for `.nvmrc`.
 
@@ -81,6 +86,11 @@ All profiles also run for any file under `.github/workflows/`, for the script it
 
 ```text
 scripts/workflows/ci-scope.sh      # new: the rules
+scripts/workflows/jest-read-tracer.cjs  # new: records what the suite reads
+scripts/workflows/jest-prose-tests.cjs  # new: builds and checks the list
+tests/jest.setup.read-trace.cjs    # new: names the running test file for the tracer
+tests/jest-prose-tests.json        # new: the generated list
+.jest.config.cjs                   # loads the setup file
 tests/bash/ci-scope.bats           # new: 16 tests
 .github/workflows/lint.yml         # gated: lint, typecheck
 .github/workflows/workflow-lint.yml  # gated: actionlint

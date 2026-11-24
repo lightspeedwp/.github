@@ -4,7 +4,9 @@
 # Usage: ci-scope.sh <profile>
 #   Profiles: lint, typecheck, actionlint, jest
 #
-# Writes `run=true|false` and `reason=<text>` to $GITHUB_OUTPUT (and stdout).
+# Writes `run=true|false`, `mode=full|prose` and `reason=<text>` to
+# $GITHUB_OUTPUT (and stdout). `mode=prose` is used by the jest profile only: it
+# means run just the tests listed in tests/jest-prose-tests.json.
 # A workflow keeps its job, so a required check always reports, and gates the
 # expensive steps on `steps.<id>.outputs.run == 'true'`.
 #
@@ -38,11 +40,11 @@ case "$profile" in
 esac
 
 # decide - record the decision and stop.
-# Parameters: $1 run (true|false), $2 reason
+# Parameters: $1 run (true|false), $2 reason, $3 mode (full|prose, default full)
 decide() {
-  printf 'run=%s\nreason=%s\n' "$1" "$2"
+  printf 'run=%s\nmode=%s\nreason=%s\n' "$1" "${3:-full}" "$2"
   if [ -n "${GITHUB_OUTPUT:-}" ]; then
-    printf 'run=%s\nreason=%s\n' "$1" "$2" >> "$GITHUB_OUTPUT"
+    printf 'run=%s\nmode=%s\nreason=%s\n' "$1" "${3:-full}" "$2" >> "$GITHUB_OUTPUT"
   fi
   # Record the event base on the check itself for the next push. Jest's
   # result belongs to its compare job, which records the base separately.
@@ -86,13 +88,11 @@ is_relevant() {
       return 1
       ;;
     jest)
-      # The suite reads specifications, the changelog, workflows and other
-      # Markdown, so only plain pages directly under docs/ are safe to ignore.
-      case "$file" in
-        docs/LABEL_STRATEGY.md | docs/LABELING.md) return 0 ;;
-        docs/*/*) return 0 ;;
-        docs/*.md) return 1 ;;
-      esac
+      # Everything except prose needs the whole suite. A read trace shows
+      # the suite reads nearly every Markdown file in the repository, but
+      # only the test files in tests/jest-prose-tests.json do so. A change
+      # to prose alone therefore runs those tests (mode=prose), never none.
+      [[ "$file" =~ \.(md|mdx|txt)$ ]] && return 1
       return 0
       ;;
   esac
@@ -144,7 +144,20 @@ if [ -z "${BASE_SHA:-}" ] || ! git diff --name-only --no-renames -z "${BASE_SHA}
   exit 1
 fi
 
+# prose_mode - the mode for a prose-only change to the jest profile.
+# Without the list of prose-dependent tests the whole suite has to run.
+prose_mode() {
+  if [ -f "$(dirname "${BASH_SOURCE[0]}")/../../tests/jest-prose-tests.json" ]; then
+    echo prose
+  else
+    echo full
+  fi
+}
+
 if ! any_relevant "$profile" "$workdir/whole"; then
+  if [ "$profile" = "jest" ] && [ -s "$workdir/whole" ]; then
+    decide true "the pull request changes only prose, so only the tests that depend on prose run" "$(prose_mode)"
+  fi
   decide false "no file read by this check is changed in the pull request"
 fi
 
@@ -158,6 +171,9 @@ if [ "${EVENT_ACTION:-}" = "synchronize" ] &&
     exit 1
   fi
   if ! any_relevant "$profile" "$workdir/latest" && previous_passed "$before" "$BASE_SHA"; then
+    if [ "$profile" = "jest" ] && [ -s "$workdir/latest" ]; then
+      decide true "the latest push changed only prose, and the suite passed on ${before:0:10}, so only the tests that depend on prose run" "$(prose_mode)"
+    fi
     decide false "the latest push changed no file read by this check, which passed on ${before:0:10}"
   fi
 fi

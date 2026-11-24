@@ -81,10 +81,42 @@ SH
   done
 }
 
-@test "the same pull request still runs Jest, because the suite reads specifications" {
+@test "a prose-only pull request runs Jest in prose mode, because some tests read prose" {
   commit_file .github/specs/001-demo/tasks.md > /dev/null
   run bash "$SCOPE_SH" jest
   [[ "$output" == *"run=true"* ]]
+  [[ "$output" == *"mode=prose"* ]]
+}
+
+@test "a JavaScript change runs Jest in full mode" {
+  commit_file src/a.js > /dev/null
+  run bash "$SCOPE_SH" jest
+  [[ "$output" == *"run=true"* ]]
+  [[ "$output" == *"mode=full"* ]]
+}
+
+@test "prose next to code in the same pull request still runs the whole suite" {
+  commit_file src/a.js > /dev/null
+  commit_file docs/GUIDE.md > /dev/null
+  run bash "$SCOPE_SH" jest
+  [[ "$output" == *"mode=full"* ]]
+}
+
+@test "a later prose-only push runs prose mode when the suite passed before it" {
+  before="$(commit_file src/a.js)"
+  commit_file docs/GUIDE.md > /dev/null
+  stub_gh success
+  EVENT_ACTION=synchronize BEFORE_SHA="$before" run bash "$SCOPE_SH" jest
+  [[ "$output" == *"run=true"* ]]
+  [[ "$output" == *"mode=prose"* ]]
+}
+
+@test "a later prose-only push runs the whole suite when the earlier run failed" {
+  before="$(commit_file src/a.js)"
+  commit_file docs/GUIDE.md > /dev/null
+  stub_gh failure
+  EVENT_ACTION=synchronize BEFORE_SHA="$before" run bash "$SCOPE_SH" jest
+  [[ "$output" == *"mode=full"* ]]
 }
 
 @test "a JavaScript change runs lint, typecheck and Jest but not actionlint" {
@@ -113,13 +145,11 @@ SH
   done
 }
 
-@test "Jest skips plain docs pages but not the label documents or nested docs" {
+@test "Jest never skips docs pages, because tests read them" {
   commit_file docs/GUIDE.md > /dev/null
   run bash "$SCOPE_SH" jest
-  [[ "$output" == *"run=false"* ]]
-  commit_file docs/LABELING.md > /dev/null
-  run bash "$SCOPE_SH" jest
   [[ "$output" == *"run=true"* ]]
+  [[ "$output" == *"mode=prose"* ]]
 }
 
 @test "nested docs files run Jest" {
