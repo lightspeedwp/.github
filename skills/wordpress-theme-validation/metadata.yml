@@ -1,6 +1,6 @@
 name: wordpress-theme-validation
-version: v0.1.0
-description: Validates WordPress theme structure, quality gates, and release readiness checks.
+version: v0.2.0
+description: Validates a WordPress block theme from its files (theme.json, styles, patterns, templates, markup) and against its design system.
 owners:
   - LightSpeedWP Team
 platforms:
