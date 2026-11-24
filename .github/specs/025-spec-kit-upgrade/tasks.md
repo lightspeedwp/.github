@@ -44,7 +44,7 @@
 - [X] T017 [P] Add the Spec Kit managed files to `.markdownlintignore`
 - [X] T014 [P] Add the changelog entry to `CHANGELOG.md`
 - [X] T015 Run Semgrep on the changed scripts
-- [ ] T016 Open the pull request and confirm the required checks pass
+- [X] T016 Open the pull request and confirm the required checks pass
 
 ## Dependencies & Execution Order
 
