@@ -75,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Spec Kit Upgrade** — Spec Kit is now on v1.4.4. The `speckit-taskstoissues` skill is no longer installed, because upstream removed it from core. Specifications still go to `.github/specs/`. ([PR #4064](https://github.com/lightspeedwp/.github/pull/4064))
+- **Spec Kit Upgrade** — Spec Kit is now on v1.4.4. The `speckit-taskstoissues` skill is removed, as it is no longer in the core. Specifications still go to `.github/specs/`. ([PR #4064](https://github.com/lightspeedwp/.github/pull/4064))
 - **Site Skills Setup Notes** — The site skills say to run `npm ci`, and `npx puppeteer browsers install chrome` if the browser fails to launch. ([#4009](https://github.com/lightspeedwp/.github/issues/4009))
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
