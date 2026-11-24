@@ -27,11 +27,12 @@ At each viewport (390px and 1440px by default) the crawler reads computed styles
 | `input`                 | Text inputs, selects and text areas                                                                       |
 | `section` and `surface` | Elements with a background (sections are at least half the viewport wide), and padded or centred wrappers |
 
-For each element it keeps the text colour, background, border colour, font family, size, weight and line height, padding, bottom margin, gap, radius, shadow, and centred container width. It also records the widths in the site's same-origin `@media` rules. A DOM path key pairs the same element across the two viewports, which gives the mobile (Min) value for each desktop (Max) value.
+For each element it keeps the text colour, background, border colour, font family, size, weight and line height, padding, bottom margin, gap, radius, shadow, centred container width, and the widths of running-text paragraphs in the main column (with whether the page is a blog post, another single page, or a listing). The proposer measures the content width from that text, so include a blog post. It also records the widths in the site's same-origin `@media` rules. A DOM path key pairs the same element across the two viewports, which gives the mobile (Min) value for each desktop (Max) value.
 
 ## Politeness and limits
 
 - One page at a time, with a 1.5 second pause between requests (`--delay`), and at most 10 pages (`--max-pages`).
+- Redirects are recorded in `redirects` in the output, with a warning for each. A page that lands on a page already captured is left out, so retired pages that redirect to the home page don't count twice. Sitemaps often still list them.
 - Only pages on the `--url` origin.
 - Cookie banners and pop-ups are measured like any other element. If one dominates the results, list the affected values for the reviewer.
 - Cross-origin stylesheets can't be read, so breakpoints from them are missed and the defaults (376px, 768px and 1240px) fill the gaps.
