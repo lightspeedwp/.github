@@ -28,6 +28,7 @@ This skill holds only the Figma-to-WordPress mapping and LightSpeed conventions.
 - `wpds`: only when building admin or editor UI.
 - `theme-orphaned-refs`: run after tokens change, to fix preset references.
 - `theme-color-token-enforcer`: run in themes that use semantic colour tokens with dark parity.
+- `site-to-block-theme`: when the layout source is a live site rather than a Figma frame. It uses this skill's theme profile.
 
 If a companion skill is not installed, say so and stop rather than calling Figma tools directly.
 
