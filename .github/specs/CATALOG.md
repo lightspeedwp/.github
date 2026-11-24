@@ -58,6 +58,7 @@ All specification catalog entries MUST follow this exact column order and naming
 |---|-------|---------|--------|---------|------|
 | 023 | wp-schema-audit-agent | WordPress Schema Audit Agent | Draft | 2026-10-14 | [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md) |
 | 024 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md) |
+| 025 | spec-kit-upgrade | Spec Kit Upgrade to v1.4.4 | Draft | 2026-11-24 | [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
@@ -277,6 +278,20 @@ site URLs safely.
 
 ---
 
+### 025 - Spec Kit Upgrade to v1.4.4
+
+Upgrade the installed GitHub Spec Kit from the `1.0.7.dev0` development build to `v1.4.4`, keep the
+configurable specifications folder, and replace the stale `taskstoissues` skill with the bundled
+`github` extension.
+
+- **Status**: Draft
+- **Phase**: Specification and implementation
+- **Created**: 2026-11-24
+- **Updated**: 2026-11-24
+- **Link**: [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md)
+
+---
+
 ## Archive
 
 Currently no archived or deprecated specifications. All numbered specifications remain in one of three states: Draft (pending approval), Active (approved and in use), or Archived (superseded or cancelled).
@@ -314,8 +329,8 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Determine next number: take the highest number in this catalog and in `.github/specs/` (024 at the time of writing) and add 1 (025)
-2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `025-{slug}`)
+1. Determine next number: take the highest number in this catalog and in `.github/specs/` (025 at the time of writing) and add 1 (026)
+2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `026-{slug}`)
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
 5. Request approval from @ashley (governance authority)
