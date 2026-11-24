@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Figma to Block Theme Skill** — One skill turns Figma variables into theme.json presets, Figma frames into block patterns, and fills theme.json gaps. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
 
 - **WordPress Schema Audit Agent** — Checks the structured data a WordPress site publishes against schema.org and Google's rules, then writes a client report and a spreadsheet of fixes. ([PR #3962](https://github.com/lightspeedwp/.github/pull/3962))
+- **Specification Allocation Lifecycle** — Adds an offline pending/materialised/retired ledger and coordinated audit/allocation checks, preserving 020, 023 and 024 without renumbering. ([#3891](https://github.com/lightspeedwp/.github/issues/3891))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
