@@ -34,6 +34,7 @@ describe('collectPageStyles', () => {
     expect(byRole('h1')[0]).toMatchObject({
       color: 'rgb(38, 36, 35)',
       fontFamily: 'Moret',
+      fontStack: '"Moret", serif',
       fontSize: 60,
       fontWeight: 400,
       lineHeight: 72,
@@ -62,6 +63,37 @@ describe('collectPageStyles', () => {
     expect(mediaWidths.sort()).toEqual([1240, 376, 768]);
   });
 
+  it('records running-text widths from the main column and the kind of page', () => {
+    document.body.className = 'single single-post';
+    document.body.innerHTML = `
+      <header><p>${'h'.repeat(90)}</p></header>
+      <main>
+        <p>Short.</p>
+        <p id="text">${'Running text of a post. '.repeat(5)}</p>
+        <ul><li><p>${'l'.repeat(90)}</p></li></ul>
+        <p id="wide">${'w'.repeat(90)}</p>
+      </main>`;
+    const widths: Record<string, number> = { text: 768, wide: 1440 };
+    const spy = jest
+      .spyOn(window.HTMLElement.prototype, 'getBoundingClientRect')
+      .mockImplementation(function (this: { id: string }) {
+        const width = widths[this.id] ?? 0;
+        return { width, height: 20, left: 0, right: width, top: 0, bottom: 20 } as never;
+      });
+    try {
+      const single = collectPageStyles({ requireLayout: false });
+      expect(single.textWidths).toEqual([768]);
+      expect(single.pageKind).toBe('single');
+      expect(single.isPost).toBe(true);
+      document.body.className = 'home page';
+      const home = collectPageStyles({ requireLayout: false });
+      expect(home.pageKind).toBe('listing');
+      expect(home.isPost).toBe(false);
+    } finally {
+      spy.mockRestore();
+    }
+  });
+
   it('skips elements with no layout box by default and respects the sample cap', () => {
     expect(collectPageStyles().samples).toHaveLength(0);
     expect(collectPageStyles({ requireLayout: false, maxSamples: 2 }).samples).toHaveLength(2);
@@ -78,7 +110,7 @@ describe('collectPageStyles', () => {
   });
 });
 
-function fakeDriver(failOn?: string) {
+function fakeDriver(failOn?: string, redirects: Record<string, string> = {}) {
   const opened: string[] = [];
   let closed = 0;
   let browserClosed = false;
@@ -86,6 +118,7 @@ function fakeDriver(failOn?: string) {
     open: async (url, viewport) => {
       opened.push(`${url}@${viewport}`);
       return {
+        ...(redirects[url] ? { finalUrl: redirects[url] } : {}),
         collect: async () => {
           if (failOn && url.endsWith(failOn)) {
             throw new Error('page crashed');
@@ -139,6 +172,53 @@ describe('SiteCrawler', () => {
     expect(fake.browserClosed()).toBe(true);
   });
 
+  it('records redirects and leaves out pages that land on a page already captured', async () => {
+    const home = 'https://www.example.com/';
+    const fake = fakeDriver(undefined, {
+      'https://www.example.com/tours/': home,
+      'https://www.example.com/old/': 'https://www.example.com/new/',
+    });
+    const crawler = new SiteCrawler(fake.driver, async () => undefined);
+
+    const result = await crawler.crawl({
+      site: 'https://www.example.com',
+      pages: ['/', '/tours/', '/old/'],
+    });
+
+    expect(fake.opened).toEqual([
+      `${home}@390`,
+      `${home}@1440`,
+      'https://www.example.com/tours/@390',
+      'https://www.example.com/old/@390',
+      'https://www.example.com/old/@1440',
+    ]);
+    expect(result.captures.map((c) => c.url)).toEqual([
+      home,
+      home,
+      'https://www.example.com/old/',
+      'https://www.example.com/old/',
+    ]);
+    expect(result.captures[2].finalUrl).toBe('https://www.example.com/new/');
+    expect(result.captures[0]).not.toHaveProperty('finalUrl');
+    expect(result.redirects).toEqual([
+      { url: 'https://www.example.com/tours/', finalUrl: home, skipped: true },
+      {
+        url: 'https://www.example.com/old/',
+        finalUrl: 'https://www.example.com/new/',
+        skipped: false,
+      },
+    ]);
+    expect(fake.closedCount()).toBe(5);
+  });
+
+  it('leaves redirects out of the result when no page redirected', async () => {
+    const result = await new SiteCrawler(fakeDriver().driver, async () => undefined).crawl({
+      site: 'https://www.example.com',
+      pages: ['/'],
+    });
+    expect(result).not.toHaveProperty('redirects');
+  });
+
   it('closes pages and the browser when a page fails', async () => {
     const fake = fakeDriver('/broken');
     const crawler = new SiteCrawler(fake.driver, async () => undefined);
@@ -163,7 +243,7 @@ describe('SiteCrawler', () => {
 });
 
 describe('runCrawlCli', () => {
-  function deps() {
+  function deps(redirects: Record<string, string> = {}) {
     const out: string[] = [];
     const err: string[] = [];
     const written: Record<string, string> = {};
@@ -172,7 +252,7 @@ describe('runCrawlCli', () => {
       err,
       written,
       deps: {
-        createDriver: async () => fakeDriver().driver,
+        createDriver: async () => fakeDriver(undefined, redirects).driver,
         sleep: async () => undefined,
         writeFile: (path: string, content: string) => {
           written[path] = content;
@@ -207,6 +287,26 @@ describe('runCrawlCli', () => {
     expect(code).toBe(0);
     expect(JSON.parse(run.written['styles.json']).captures).toHaveLength(4);
     expect(run.out.join('')).toContain('Captured 4 page views and 4 elements into styles.json');
+  });
+
+  it('warns about each redirect', async () => {
+    const run = deps({
+      'https://www.example.com/tours/': 'https://www.example.com/',
+      'https://www.example.com/old/': 'https://www.example.com/new/',
+    });
+
+    const code = await runCrawlCli(
+      ['--url', 'https://www.example.com', '--pages', '/,/tours/,/old/', '--delay', '0'],
+      run.deps
+    );
+
+    expect(code).toBe(0);
+    expect(run.err.join('')).toContain(
+      'Warning: https://www.example.com/tours/ redirected to https://www.example.com/, which was already captured, so it was left out.'
+    );
+    expect(run.err.join('')).toContain(
+      'Warning: https://www.example.com/old/ redirected to https://www.example.com/new/.'
+    );
   });
 
   it('prints help', async () => {
