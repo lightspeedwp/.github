@@ -191,13 +191,6 @@ def replace_section(
         last_newline = content.rfind("\n")
         separator = "\r\n" if last_newline > 0 and content[last_newline - 1] == "\r" else "\n"
         replacement = separator + replacement
-    if replacement and body_end < len(content) and not replacement.endswith(("\n", "\r")):
-        if content[body_end - 2:body_end] == "\r\n":
-            replacement += "\r\n"
-        elif content[body_end - 1] == "\r":
-            replacement += "\r"
-        else:
-            replacement += "\n"
     return content[:body_start] + replacement + content[body_end:]
 
 
