@@ -38,6 +38,8 @@ export interface ExportedVariable {
   name: string;
   type: 'COLOR' | 'FLOAT' | 'STRING' | 'BOOLEAN';
   codeSyntax?: { WEB?: string };
+  /** A font family variable may carry its exact stack as `CSS stack: <stack>`. */
+  description?: string;
   valuesByMode: Record<string, VariableValue>;
 }
 
@@ -97,12 +99,38 @@ interface CustomTarget {
   path: string[];
 }
 
+/** Content and wide width, which belong in `settings.layout`. */
+interface LayoutTarget {
+  kind: 'layout';
+  key: 'contentSize' | 'wideSize';
+}
+
+type Target = PresetTarget | CustomTarget | LayoutTarget;
+
 /** Keys that would reach Object.prototype if written as plain properties. */
 const UNSAFE_KEYS = new Set(['__proto__', 'constructor', 'prototype']);
 
 const PRESET_PATTERN =
   /--wp--preset--(color|spacing|font-size|font-family|border-radius|shadow)--([a-z0-9-]+)/;
 const CUSTOM_PATTERN = /--wp--custom--([a-z0-9-]+(?:--[a-z0-9-]+)*)/;
+/** `site-to-design-tokens` writes the custom form; core's own variables are the style form. */
+const LAYOUT_PATTERN = /--wp--(?:custom--layout|style--global)--(content|wide)-size(?![a-z0-9-])/;
+/** CSS generic font families, which name no font of their own. */
+const GENERIC_FAMILIES = new Set([
+  'serif',
+  'sans-serif',
+  'monospace',
+  'cursive',
+  'fantasy',
+  'system-ui',
+  'ui-serif',
+  'ui-sans-serif',
+  'ui-monospace',
+  'ui-rounded',
+  'math',
+  'emoji',
+  'fangsong',
+]);
 const MIN_MODE_PATTERN = /^(mobile|min|small|sm)$/i;
 const MAX_MODE_PATTERN = /^(desktop|max|large|lg)$/i;
 
@@ -132,6 +160,8 @@ export class FigmaVariablesMapper {
   private warnings: string[] = [];
   /** Variation keys that come from colour modes. */
   private readonly colourModes = new Set<string>();
+  /** `settings.layout` widths found while mapping. */
+  private layout: JsonObject = {};
 
   constructor(options: MapperOptions = {}) {
     this.options = options;
@@ -140,6 +170,7 @@ export class FigmaVariablesMapper {
 
   map(data: VariablesExport): MappingResult {
     this.warnings = [];
+    this.layout = {};
     this.colourModes.clear();
     this.byId.clear();
     for (const collection of data.collections) {
@@ -198,6 +229,9 @@ export class FigmaVariablesMapper {
       this.assign(settings, ['shadow', 'defaultPresets'], false);
       this.assign(settings, ['shadow', 'presets'], presets.shadow);
     }
+    if (Object.keys(this.layout).length) {
+      settings.layout = this.layout;
+    }
     if (Object.keys(custom).length) {
       settings.custom = custom;
     }
@@ -205,6 +239,7 @@ export class FigmaVariablesMapper {
     for (const [family, entries] of Object.entries(presets)) {
       counts[family] = entries.length;
     }
+    counts.layout = Object.keys(this.layout).length;
     counts.custom = this.countLeaves(custom);
     counts.variations = Object.keys(variations).length;
 
@@ -240,6 +275,11 @@ export class FigmaVariablesMapper {
     for (const variable of collection.variables) {
       const target = this.parseTarget(variable);
       if (!target) {
+        continue;
+      }
+
+      if (target.kind === 'layout') {
+        this.mapLayout(variable, target, baseMode.id);
         continue;
       }
 
@@ -338,7 +378,7 @@ export class FigmaVariablesMapper {
         }
         const entry: JsonObject = {
           slug: target.slug,
-          name,
+          name: this.sizeName(name),
           size: this.fluid.toRem(sizes.max),
         };
         if (sizes.min !== sizes.max) {
@@ -356,7 +396,7 @@ export class FigmaVariablesMapper {
         return {
           slug: target.slug,
           name: value,
-          fontFamily: this.fontStack(value),
+          fontFamily: this.declaredStack(variable, value) ?? this.fontStack(value, target.slug),
         };
       case 'border-radius':
         if (typeof value !== 'number') {
@@ -364,7 +404,8 @@ export class FigmaVariablesMapper {
         }
         return {
           slug: target.slug,
-          name,
+          // The collection is Radius, so names are bare sizes. Old files wrote "Radius Small".
+          name: this.sizeName(name.replace(/^Radius\s+/i, '') || name),
           size: value === 0 ? '0' : `${value}px`,
         };
       default:
@@ -372,6 +413,19 @@ export class FigmaVariablesMapper {
           `"${variable.name}" targets ${target.family} presets, which come from effect styles, not variables; skipped.`
         );
         return undefined;
+    }
+  }
+
+  /** Content and wide width go to `settings.layout` as CSS lengths. */
+  private mapLayout(variable: ExportedVariable, target: LayoutTarget, modeId: string): void {
+    const value = this.resolve(variable, modeId);
+    if (typeof value === 'number') {
+      this.layout[target.key] = this.px(value);
+    } else if (typeof value === 'string' && value.trim()) {
+      // A string such as "48rem" already has its unit; a bare number gets px.
+      this.layout[target.key] = /^\d+(\.\d+)?$/.test(value.trim()) ? `${value.trim()}px` : value;
+    } else {
+      this.typeMismatch(variable, 'FLOAT');
     }
   }
 
@@ -386,6 +440,10 @@ export class FigmaVariablesMapper {
       }
       if (presetTarget && presetTarget.kind === 'custom') {
         return `var(--wp--custom--${presetTarget.path.join('--')})`;
+      }
+      if (presetTarget && presetTarget.kind === 'layout') {
+        const width = presetTarget.key === 'contentSize' ? 'content' : 'wide';
+        return `var(--wp--style--global--${width}-size)`;
       }
     }
 
@@ -450,7 +508,7 @@ export class FigmaVariablesMapper {
       }
       presets.push({
         slug: syntax ? syntax[1] : this.slugify(name),
-        name,
+        name: this.sizeName(name),
         shadow: shadows.join(', '),
       });
     }
@@ -458,14 +516,15 @@ export class FigmaVariablesMapper {
     return presets;
   }
 
-  private parseTarget(
-    variable: ExportedVariable,
-    report = true
-  ): PresetTarget | CustomTarget | undefined {
+  private parseTarget(variable: ExportedVariable, report = true): Target | undefined {
     const syntax = variable.codeSyntax?.WEB;
     const preset = syntax?.match(PRESET_PATTERN);
     if (preset) {
       return { kind: 'preset', family: preset[1], slug: preset[2] };
+    }
+    const layout = syntax?.match(LAYOUT_PATTERN);
+    if (layout) {
+      return { kind: 'layout', key: layout[1] === 'content' ? 'contentSize' : 'wideSize' };
     }
     const customMatch = syntax?.match(CUSTOM_PATTERN);
     if (customMatch) {
@@ -553,9 +612,48 @@ export class FigmaVariablesMapper {
     return (variations[this.slugify(modeName)] ??= { title: modeName, settings: {} });
   }
 
-  private fontStack(family: string): string {
-    const quoted = /\s/.test(family) ? `"${family}"` : family;
-    return `${quoted}, ${this.options.fontFallback ?? 'sans-serif'}`;
+  /**
+   * The exact CSS stack from a `CSS stack: ...` line in the variable description, used
+   * only when its first family is the font the mode's value names (other modes differ).
+   */
+  /**
+   * Uses the fallbacks from a "CSS stack: …" description. The declared stack starts
+   * with the live site's own `@font-face` name (such as `argesta_displayregular`),
+   * which the new theme's `fontFace` entries won't declare, so the clean family name
+   * replaces it.
+   */
+  private declaredStack(variable: ExportedVariable, name: string): string | undefined {
+    const stack = variable.description?.match(/CSS stack:\s*(.+)$/m)?.[1].trim();
+    if (!stack) {
+      return undefined;
+    }
+    // A generic name such as "Monospace" has no font of its own: the declared system stack is the font.
+    if (GENERIC_FAMILIES.has(name.trim().toLowerCase())) {
+      return stack;
+    }
+    const [first, ...fallbacks] = stack.split(',').map((part) => part.trim());
+    const plain = (text: string) => text.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const face = plain(first);
+    const wanted = plain(name);
+    if (!face.startsWith(wanted) && !wanted.startsWith(face)) {
+      return undefined;
+    }
+    return [this.quoteFamily(name), ...fallbacks.filter(Boolean)].join(', ');
+  }
+
+  /** A stack with no declaration: the family, then the generic family for its role. */
+  private fontStack(family: string, slug: string): string {
+    const generic = family.trim().toLowerCase();
+    if (GENERIC_FAMILIES.has(generic)) {
+      return generic;
+    }
+    const fallback =
+      slug === 'monospace' ? 'monospace' : (this.options.fontFallback ?? 'sans-serif');
+    return `${this.quoteFamily(family)}, ${fallback}`;
+  }
+
+  private quoteFamily(family: string): string {
+    return /\s/.test(family) ? `"${family}"` : family;
   }
 
   private typeMismatch(variable: ExportedVariable, expected: string): undefined {
@@ -623,6 +721,14 @@ export class FigmaVariablesMapper {
 
   private lastSegment(name: string): string {
     return name.split('/').pop()!.trim();
+  }
+
+  /** Both spellings of the extra sizes map to one: xLarge, x-large and X-Large become X-Large. */
+  private sizeName(name: string): string {
+    return name.replace(
+      /^x[\s-]?(small|large)$/i,
+      (_m, size: string) => `X-${size[0].toUpperCase()}${size.slice(1).toLowerCase()}`
+    );
   }
 
   private titleCase(slug: string): string {

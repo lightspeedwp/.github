@@ -1,4 +1,11 @@
-import { ProposalReport, runProposeCli, SEMANTIC_DEFAULTS, TokenProposer } from '../propose-tokens';
+import {
+  cleanFontName,
+  MONOSPACE_STACK,
+  ProposalReport,
+  runProposeCli,
+  SEMANTIC_DEFAULTS,
+  TokenProposer,
+} from '../propose-tokens';
 import { Color, RAMP_STEPS, RampBuilder } from '../lib/color';
 import { tspLikeStyles } from './fixtures';
 
@@ -62,21 +69,41 @@ describe('TokenProposer on a TSP-like site', () => {
     expect(proposal.contrast).toHaveLength(17);
   });
 
-  it('builds the type scale with the body size at xSmall and mobile minimums', () => {
+  it('builds the type scale with the body size at slug 200 (Base) and mobile minimums', () => {
     const sizes = proposal.typography.sizes;
-    expect(proposal.typography.families).toEqual({ heading: 'Moret', body: 'Lora' });
+    expect(proposal.typography.families).toEqual({
+      heading: { name: 'Moret', stack: 'moret, Georgia, serif', source: 'live', raw: 'moret' },
+      body: { name: 'Lora', stack: 'Lora, serif', source: 'live' },
+      accent: {
+        name: 'Caveat',
+        stack: 'caveat_regular, cursive',
+        source: 'live',
+        raw: 'caveat_regular',
+      },
+      monospace: { name: 'Courier New', stack: '"Courier New", monospace', source: 'live' },
+    });
     expect(sizes.map((s) => s.name)).toEqual([
       'Tiny',
-      'xSmall',
+      'Base',
       'Small',
       'Medium',
       'Large',
-      'xLarge',
+      'X-Large',
       'Huge',
       'Gigantic',
     ]);
-    expect(sizes[1]).toMatchObject({ slug: 'x-small', max: 16, min: 16, lineHeight: 1.5 });
-    expect(sizes[7]).toMatchObject({ slug: 'gigantic', max: 60, min: 36, lineHeight: 1.2 });
+    expect(sizes.map((s) => s.slug)).toEqual([
+      '100',
+      '200',
+      '300',
+      '400',
+      '500',
+      '600',
+      '700',
+      '800',
+    ]);
+    expect(sizes[1]).toMatchObject({ slug: '200', max: 16, min: 16, lineHeight: 1.5 });
+    expect(sizes[7]).toMatchObject({ slug: '800', max: 60, min: 36, lineHeight: 1.2 });
     expect(sizes[2]).toMatchObject({ max: 20, min: 16 });
     expect(proposal.typography.weights).toMatchObject({ body: 400, button: 600, h1: 400 });
     expect(proposal.decisions.join(' ')).toContain('share the one Tiny slot');
@@ -93,12 +120,12 @@ describe('TokenProposer on a TSP-like site', () => {
       ['Colossal', '100', 100, 72],
     ]);
     expect(proposal.radius).toEqual([
-      { name: 'None', slug: 'none', value: 0 },
-      { name: 'Small', slug: 'small', value: 4 },
-      { name: 'Base', slug: 'base', value: 8 },
-      { name: 'Round', slug: 'round', value: 9999 },
+      { name: 'None', slug: '0', value: 0 },
+      { name: 'Small', slug: '100', value: 4 },
+      { name: 'Base', slug: '200', value: 8 },
+      { name: 'Round', slug: '700', value: 9999 },
     ]);
-    expect(proposal.shadows.map((s) => s.slug)).toEqual(['x-small', 'small', 'medium']);
+    expect(proposal.shadows.map((s) => s.slug)).toEqual(['100', '200', '300']);
     expect(proposal.shadows[0].effects[0]).toMatchObject({
       type: 'DROP_SHADOW',
       offset: { x: 0, y: 1 },
@@ -183,16 +210,16 @@ describe('TokenProposer on a sparse site', () => {
     ).toEqual(['cta', 'primary', 'neutral']);
     expect(decisions).toContain('No site colour fits `primary`');
     expect(decisions).toContain('No light page background was found');
-    expect(decisions).toContain('No repeated centred container');
+    expect(decisions).toContain('No running text or repeated centred container');
     expect(proposal.layout).toEqual({});
     expect(proposal.breakpoints).toEqual({ mobile: 376, tablet: 768, desktop: 1240 });
-    expect(proposal.radius.map((r) => r.slug)).toEqual(['none', 'round']);
+    expect(proposal.radius.map((r) => r.slug)).toEqual(['0', '700']);
     expect(proposal.shadows).toEqual([]);
     expect(proposal.spacing).toEqual([{ name: 'None', slug: 'none', max: 0, min: 0 }]);
-    expect(proposal.typography.sizes.map((s) => s.name)).toEqual(['xSmall', 'Small']);
+    expect(proposal.typography.sizes.map((s) => s.name)).toEqual(['Base', 'Small']);
   });
 
-  it('puts spacing on the nearest free ladder step and drops what does not fit', () => {
+  it('puts spacing on the nearest free ladder step and shifts values down when the top is full', () => {
     const proposer = new TokenProposer();
     proposer.propose(styles, { now });
     const samples = [12, 16, 22, 140, 200].map((paddingBlock, i) => ({
@@ -207,8 +234,65 @@ describe('TokenProposer on a sparse site', () => {
       ['XS', '10', 12],
       ['S', '20', 16],
       ['M', '30', 22],
-      ['Colossal', '100', 140],
+      ['Gigantic', '90', 140],
+      ['Colossal', '100', 200],
     ]);
+    expect(proposer['decisions'].join(' ')).toContain('moved down to free lower steps');
+  });
+
+  it('fills the whole 5 to 100 ladder with 11 distinct values and drops none', () => {
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const values = [8, 10, 14, 20, 24, 32, 38, 48, 60, 70, 80];
+    const samples = values.flatMap((paddingBlock, i) =>
+      [0, 1].map((n) => ({ key: `sp:${i}:${n}`, page: '/', role: 'section', paddingBlock }))
+    );
+    const spacing = proposer.proposeSpacing(samples as never, () => undefined);
+    expect(spacing.slice(1).map((s) => [s.slug, s.max])).toEqual([
+      ['5', 8],
+      ['10', 10],
+      ['20', 14],
+      ['30', 20],
+      ['40', 24],
+      ['50', 32],
+      ['60', 38],
+      ['70', 48],
+      ['80', 60],
+      ['90', 70],
+      ['100', 80],
+    ]);
+    expect(proposer['decisions'].join(' ')).not.toContain('left out');
+  });
+
+  it('keeps the mobile values in order up the ladder', () => {
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const mobile: Record<number, number> = { 20: 16, 48: 40, 70: 24, 80: 80 };
+    const samples = [20, 48, 70, 80].flatMap((paddingBlock) =>
+      [0, 1].map((n) => ({
+        key: `sp:${paddingBlock}:${n}`,
+        page: '/',
+        role: 'section',
+        paddingBlock,
+      }))
+    );
+    const spacing = proposer.proposeSpacing(
+      samples as never,
+      (s) =>
+        ({
+          ...(s as object),
+          paddingBlock: mobile[(s as { paddingBlock: number }).paddingBlock],
+        }) as never
+    );
+    expect(spacing.slice(1).map((s) => [s.max, s.min])).toEqual([
+      [20, 16],
+      [48, 40],
+      [70, 40],
+      [80, 80],
+    ]);
+    expect(proposer['decisions'].join(' ')).toContain(
+      'Spacing XXXL (`70`) shrinks to 24px on mobile, below XL; its mobile value was raised to 40px.'
+    );
   });
 
   it('names the spacing values left out when there are more than the ladder holds', () => {
@@ -243,7 +327,8 @@ describe('TokenProposer on a sparse site', () => {
       );
     }
     const merged = new TokenProposer().propose(many, { now });
-    expect(merged.typography.sizes).toHaveLength(7);
+    expect(merged.typography.sizes).toHaveLength(8);
+    expect(merged.typography.sizes.at(-1)).toMatchObject({ name: 'Colossal', slug: '900' });
     expect(merged.decisions.join(' ')).toContain('was merged into the nearest size');
   });
 
@@ -290,6 +375,337 @@ describe('ProposalReport', () => {
   });
 });
 
+describe('Action colours and passing defaults', () => {
+  const proposal = new TokenProposer().propose(tspLikeStyles(), { now });
+  const sem = proposal.colour.semantic;
+
+  it('uses the live anchor step when the anchor came from button fills', () => {
+    expect(sem['action/cta/background']).toMatchObject({ token: 'cta-700', source: 'observed' });
+    expect(sem['action/cta/background-hover'].token).toBe('cta-800');
+    expect(sem['action/primary/background-hover'].token).toBe('primary-800');
+    // Brand did not anchor on a button fill, so it keeps its default.
+    expect(sem['action/secondary/background']).toMatchObject({
+      token: 'brand-600',
+      source: 'default',
+    });
+    expect(proposal.contrast.find((c) => c.pair.startsWith('action/cta/text'))!.pass).toBe(true);
+  });
+
+  it('moves a failing default to the nearest passing step and records it', () => {
+    expect(sem['text/link-hover']).toMatchObject({ token: 'primary-600', source: 'default' });
+    expect(proposal.decisions.join('\n')).toContain(
+      '`text/link-hover` default `primary-500` failed 4.5:1'
+    );
+    expect(proposal.contrast.filter((c) => !c.pass)).toEqual([]);
+  });
+
+  const setup = () => {
+    const proposer = new TokenProposer();
+    const primitives = {
+      base: '#ffffff',
+      contrast: '#000000',
+      'brand-500': '#7a7a7a',
+      'brand-600': '#606060',
+      'brand-700': '#444444',
+      'neutral-100': '#f5f5f5',
+    };
+    return { proposer, primitives };
+  };
+
+  it('lists a failing live colour with a passing alternative and leaves it in place', () => {
+    const { proposer, primitives } = setup();
+    const semantic = {
+      'text/default': { token: 'contrast', source: 'default' as const },
+      'surface/default': { token: 'base', source: 'default' as const },
+      'text/link': { token: 'brand-500', source: 'observed' as const },
+    };
+    proposer['fixFailingPairs'](primitives, semantic as never);
+    expect(semantic['text/link'].token).toBe('brand-500');
+    expect(proposer['decisions'].join(' ')).toContain(
+      '`text/link` (`brand-500`, from the live site) fails 4.5:1'
+    );
+    expect(proposer['decisions'].join(' ')).toContain('`brand-600` passes');
+  });
+
+  it('says so when no step of the family passes', () => {
+    const { proposer, primitives } = setup();
+    const semantic = {
+      'surface/default': { token: 'base', source: 'default' as const },
+      'text/link': { token: 'brand-500', source: 'default' as const },
+    };
+    proposer['fixFailingPairs'](
+      { ...primitives, 'brand-600': '#777777', 'brand-700': '#888888' },
+      semantic as never
+    );
+    expect(proposer['decisions'].join(' ')).toContain('no step of its family passes');
+  });
+});
+
+describe('cleanFontName', () => {
+  it.each([
+    ['argesta_displayregular', 'Argesta Display'],
+    ['Moret', 'Moret'],
+    ['open_sans_bold', 'Open Sans'],
+    ['"Playfair Display Italic"', 'Playfair Display'],
+    ['DM Sans', 'DM Sans'],
+    ['bold', 'Bold'],
+    ['lora', 'Lora'],
+  ])('turns %s into %s', (raw, clean) => {
+    expect(cleanFontName(raw)).toBe(clean);
+  });
+});
+
+describe('TokenProposer font roles', () => {
+  it('omits the accent role without a third family and defaults monospace', () => {
+    const proposer = new TokenProposer();
+    const sample = (role: string, fontFamily: string, fontStack: string) =>
+      ({ key: `${role}:0`, page: '/', role, fontSize: 16, fontFamily, fontStack }) as never;
+    const roles = ['h1', 'body'];
+    const families = proposer.proposeFamilies(
+      [sample('h1', 'Moret', 'Moret, serif'), sample('body', 'Lora', 'Lora, serif')],
+      roles
+    );
+    expect(families.accent).toBeUndefined();
+    expect('accent' in families).toBe(false);
+    expect(families.monospace).toEqual({
+      name: 'Monospace',
+      stack: MONOSPACE_STACK,
+      source: 'default',
+    });
+    const empty = new TokenProposer().proposeFamilies([], roles);
+    expect(empty.heading).toMatchObject({ stack: 'serif', source: 'default' });
+    expect(empty.body).toMatchObject({ stack: 'sans-serif', source: 'default' });
+  });
+
+  it('treats one family written in two cases as one family, not an accent', () => {
+    const sample = (role: string, fontFamily: string, fontStack: string) =>
+      ({ key: `${role}:0`, page: '/', role, fontSize: 16, fontFamily, fontStack }) as never;
+    const families = new TokenProposer().proposeFamilies(
+      [
+        sample('h1', 'moret', 'moret, serif'),
+        sample('h2', 'moret', 'moret, serif'),
+        sample('link', 'Moret', 'Moret'),
+        sample('body', 'argesta_displayregular', 'argesta_displayregular, serif'),
+      ],
+      ['h1', 'h2', 'link', 'body']
+    );
+    expect('accent' in families).toBe(false);
+    expect(families.heading).toEqual({
+      name: 'Moret',
+      stack: 'moret, serif',
+      source: 'live',
+      raw: 'moret',
+    });
+  });
+
+  it('needs a third family used on enough elements before it becomes the accent', () => {
+    const sample = (role: string, fontFamily: string, i: number) =>
+      ({ key: `${role}:${i}`, page: '/', role, fontSize: 16, fontFamily }) as never;
+    const base = [
+      ...Array.from({ length: 50 }, (_, i) => sample('h1', 'moret', i)),
+      ...Array.from({ length: 50 }, (_, i) => sample('body', 'lora', i)),
+    ];
+    const roles = ['h1', 'body', 'nav'];
+    const stray = new TokenProposer().proposeFamilies([...base, sample('nav', 'a', 0)], roles);
+    expect('accent' in stray).toBe(false);
+    const real = new TokenProposer().proposeFamilies(
+      [...base, ...Array.from({ length: 6 }, (_, i) => sample('nav', 'caveat', i))],
+      roles
+    );
+    expect(real.accent).toMatchObject({ name: 'Caveat', source: 'live' });
+  });
+
+  it('never takes the system UI font of a widget as the accent', () => {
+    const sample = (role: string, fontFamily: string) =>
+      ({ key: `${role}:${fontFamily}`, page: '/', role, fontSize: 16, fontFamily }) as never;
+    const families = new TokenProposer().proposeFamilies(
+      [
+        sample('h1', 'moret'),
+        sample('body', 'lora'),
+        sample('button', '-apple-system'),
+        sample('button', 'system-ui'),
+        sample('button', 'Segoe UI'),
+      ],
+      ['h1', 'body', 'button']
+    );
+    expect('accent' in families).toBe(false);
+  });
+
+  it('falls back to the font name when the crawl has no stack', () => {
+    const families = new TokenProposer().proposeFamilies(
+      [{ key: 'h:0', page: '/', role: 'h1', fontSize: 40, fontFamily: 'Moret' } as never],
+      ['h1']
+    );
+    expect(families.heading).toEqual({ name: 'Moret', stack: 'Moret', source: 'live' });
+  });
+
+  it('lists every role in the report', () => {
+    const report = new ProposalReport().render(
+      new TokenProposer().propose(tspLikeStyles(), { now })
+    );
+    expect(report).toContain('`heading`: Moret (live, CSS name `moret`)');
+    expect(report).toContain('`monospace`: Courier New (live)');
+    const two = new TokenProposer().propose(tspLikeStyles(), { now });
+    delete two.typography.families.accent;
+    expect(new ProposalReport().render(two)).toContain(
+      '`accent`: none (no accent font: the site uses two families)'
+    );
+  });
+});
+
+describe('TokenProposer action text', () => {
+  it('takes each action text colour from the buttons that have its fill', () => {
+    const styles = tspLikeStyles();
+    const desktop = styles.captures.find((c) => c.viewport === 1440)!;
+    // Many light buttons with brown text, as on live TSP, must not set the primary text.
+    for (let i = 0; i < 30; i++) {
+      desktop.samples.push({
+        key: `ghost:${i}`,
+        role: 'button',
+        color: 'rgb(155, 106, 34)',
+        background: 'rgb(247, 243, 241)',
+      });
+    }
+    const proposer = new TokenProposer();
+    const sem = proposer.propose(styles, { now }).colour.semantic;
+    expect(sem['action/primary/text']).toMatchObject({ token: 'base', source: 'observed' });
+    expect(sem['action/primary/text'].evidence).toMatch(/^#ffffff on #565b3d buttons/);
+    expect(sem['action/cta/text'].evidence).toMatch(/^#ffffff on #a31700 buttons/);
+  });
+
+  it('pairs only opaque button text with opaque button fills', () => {
+    const pairs = new TokenProposer().buttonTextByFill([
+      { key: 'a', role: 'button', color: 'rgb(255, 255, 255)', background: 'rgb(0, 0, 0)' },
+      { key: 'b', role: 'button', color: 'rgb(255, 255, 255)', background: 'rgb(0, 0, 0)' },
+      { key: 'c', role: 'button', color: 'rgb(0, 0, 0)', background: 'rgba(0, 0, 0, 0.5)' },
+      { key: 'd', role: 'button', color: 'rgb(0, 0, 0)' },
+      { key: 'e', role: 'link', color: 'rgb(0, 0, 0)', background: 'rgb(255, 255, 255)' },
+    ]);
+    expect([...pairs.entries()].map(([fill, texts]) => [fill, [...texts.entries()]])).toEqual([
+      ['#000000', [['#ffffff', 2]]],
+    ]);
+  });
+});
+
+describe('TokenProposer redirects', () => {
+  it('lists redirected and left-out pages for the reviewer', () => {
+    const styles = {
+      ...tspLikeStyles(),
+      redirects: [
+        { url: 'https://x.com/tours/', finalUrl: 'https://x.com/', skipped: true },
+        { url: 'https://x.com/old/', finalUrl: 'https://x.com/new/', skipped: false },
+      ],
+    };
+    const proposer = new TokenProposer();
+    proposer.propose(styles, { now });
+    const decisions = proposer['decisions'].join(' ');
+    expect(decisions).toContain(
+      'https://x.com/tours/ redirected to https://x.com/, which was already captured, so it was left out.'
+    );
+    expect(decisions).toContain(
+      'https://x.com/old/ redirected to https://x.com/new/; the tokens use the page it landed on.'
+    );
+  });
+});
+
+describe('TokenProposer.proposeLayout', () => {
+  const capture = (kind: 'single' | 'listing', textWidths: number[], isPost = false) =>
+    ({
+      url: `/${kind}`,
+      viewport: 1440,
+      samples: [],
+      mediaWidths: [],
+      textWidths,
+      pageKind: kind,
+      isPost,
+    }) as never;
+  const wideCards = [1240, 1240, 248, 248, 248].map((containerWidth, i) => ({
+    key: `c:${i}`,
+    role: 'surface' as const,
+    containerWidth,
+  }));
+
+  it('measures the content width from running text on single pages, not from cards', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('listing', [248, 248, 248]),
+      capture('single', [768, 770, 768]),
+    ]);
+    expect(layout).toEqual({ content: 768, wide: 1240 });
+    expect(proposer['decisions']).toEqual([]);
+  });
+
+  it('gives each page one vote, so a page full of paragraphs cannot outvote the rest', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('single', Array(26).fill(1200)),
+      capture('single', [688, 688]),
+      capture('single', [584, 584, 584]),
+    ]);
+    expect(layout.content).toBe(688);
+  });
+
+  it('prefers blog posts over other single pages', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [
+      capture('single', Array(26).fill(1200)),
+      capture('single', [848, 848], true),
+      capture('single', [584, 584]),
+    ]);
+    expect(layout.content).toBe(848);
+    expect(proposer['decisions']).toEqual([]);
+  });
+
+  it('asks the reviewer to decide when the content width is close to the wide width', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [capture('single', [1200, 1200])]);
+    expect(layout).toEqual({ content: 1200, wide: 1240 });
+    expect(proposer['decisions'].join(' ')).toContain('within 10% of the wide width');
+  });
+
+  it('warns when only listing pages have running text', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [capture('listing', [640, 640])]);
+    expect(layout.content).toBe(640);
+    expect(proposer['decisions'].join(' ')).toContain('No single post or page was captured');
+  });
+
+  it('asks the reviewer to decide when the content width is under 480px', () => {
+    const proposer = new TokenProposer();
+    const layout = proposer.proposeLayout(wideCards, 1440, [capture('single', [400, 400])]);
+    expect(layout.content).toBe(400);
+    expect(proposer['decisions'].join(' ')).toContain('under 480px');
+  });
+
+  it('falls back to the centred containers when there is no running text', () => {
+    const proposer = new TokenProposer();
+    const cards = [1240, 1240, 768, 768].map((containerWidth, i) => ({
+      key: `c:${i}`,
+      role: 'surface' as const,
+      containerWidth,
+    }));
+    expect(proposer.proposeLayout(cards, 1440, [capture('single', [])])).toEqual({
+      content: 768,
+      wide: 1240,
+    });
+    expect(proposer['decisions'].join(' ')).toContain('No running text was found');
+  });
+
+  it('lets the reviewer override either width', () => {
+    const proposer = new TokenProposer();
+    const captures = [capture('single', [248, 248])];
+    expect(proposer.proposeLayout(wideCards, 1440, captures, { content: 768 })).toEqual({
+      content: 768,
+      wide: 1240,
+    });
+    expect(proposer.proposeLayout([], 1440, [], { wide: 1200 })).toEqual({ wide: 1200 });
+    expect(proposer.proposeLayout([], 1440, [], { content: 700, wide: 1200 })).toEqual({
+      content: 700,
+      wide: 1200,
+    });
+  });
+});
+
 describe('runProposeCli', () => {
   function io(files: Record<string, string> = {}) {
     const out: string[] = [];
@@ -332,6 +748,14 @@ describe('runProposeCli', () => {
     expect(run.out.join('')).toContain('Wrote p.json and p.md');
   });
 
+  it('passes --layout through to the proposal', () => {
+    const run = io({ 'styles.json': styles });
+    expect(
+      runProposeCli(['styles.json', '--out', 'p.json', '--layout', 'content=700,wide=1200'], run.io)
+    ).toBe(0);
+    expect(JSON.parse(run.written['p.json']).layout).toEqual({ content: 700, wide: 1200 });
+  });
+
   it('defaults the output path and prints help', () => {
     const run = io({ 'styles.json': styles });
     expect(runProposeCli(['styles.json'], run.io)).toBe(0);
@@ -348,6 +772,8 @@ describe('runProposeCli', () => {
     [['--out'], '--out needs a value'],
     [['--nope'], 'Unknown option --nope'],
     [['styles.json', '--assign', 'accent=#fff'], '--assign takes brand, primary or cta'],
+    [['styles.json', '--layout', 'narrow=5'], '--layout takes content and wide'],
+    [['styles.json', '--layout', 'content=abc'], '--layout takes content and wide'],
     [['missing.json'], 'ENOENT'],
     [['empty.json'], 'has no captures'],
   ])('fails cleanly for %j', (argv, message) => {
