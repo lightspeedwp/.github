@@ -4,7 +4,8 @@
   "specsDirectory": ".github/specs",
   "decisions": [
     {"id":"lifecycle-2026-10-28","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2676","decidedAt":"2026-10-28T13:47:48.925Z","recordedAt":"2026-10-28T14:32:18.695Z","scope":"Allocation lifecycle direction and bootstrap dispositions only. Import existing directory identities without newly approving specification contents. Preserve 020 portable agents, 023 schema audit and 024 database migration; retire 021 and 022 with separate histories. The 19 October portable assignment to 022 is superseded. This provenance is not implementation authority or cryptographic proof of approval."},
-    {"id":"allocation-025-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2801","decidedAt":"2026-11-24T10:32:14.477Z","recordedAt":"2026-11-24T10:32:14.477Z","scope":"Number 025 taken by the Spec Kit upgrade specification under the highest-accounted-plus-one rule when GIT-2801 was created. Records the allocation only; it does not approve the contents of the specification."}
+    {"id":"allocation-025-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2801","decidedAt":"2026-11-24T10:32:14.477Z","recordedAt":"2026-11-24T10:32:14.477Z","scope":"Number 025 taken by the Spec Kit upgrade specification under the highest-accounted-plus-one rule when GIT-2801 was created. Records the allocation only; it does not approve the contents of the specification."},
+    {"id":"allocation-026-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2803","decidedAt":"2026-11-24T12:47:26.433Z","recordedAt":"2026-11-24T12:47:26.433Z","scope":"Number 026 taken by the CI check scope specification under the highest-accounted-plus-one rule when GIT-2803 was created. Records the allocation only; it does not approve the contents of the specification."}
   ],
   "sources": [
     {"id":"develop-inventory","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/47aee0722033f65d4d9d57429b410b518646b817/.github/specs","sha":"47aee0722033f65d4d9d57429b410b518646b817"},
@@ -13,7 +14,8 @@
     {"id":"database-move","kind":"commit","url":"https://github.com/lightspeedwp/.github/commit/87cbf8723e726b7df4128ced29653a98aa50fa26","sha":"87cbf8723e726b7df4128ced29653a98aa50fa26"},
     {"id":"restructure-3968","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/3968","sha":"4c7944e04a09a18c0812eea498f3eed184b21cd1"},
     {"id":"restructure-3969","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/3969","sha":"08506593eaf27fb09aea1c87a6a1a83b251c5e04"},
-    {"id":"spec-kit-upgrade-4064","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/4064","sha":"e0ddbb16ff09de758b84e14cfc6919b13902cca3"}
+    {"id":"spec-kit-upgrade-4064","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/4064","sha":"e0ddbb16ff09de758b84e14cfc6919b13902cca3"},
+    {"id":"develop-153647d47c","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/153647d47c4179ced90fcdcaee186e2c4d892446/.github/specs","sha":"153647d47c4179ced90fcdcaee186e2c4d892446"}
   ],
   "allocations": [
     {"number":"001","canonicalSlug":"prd-agent-consolidation","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
@@ -40,6 +42,7 @@
     {"number":"022","canonicalSlug":null,"state":"retired","decisionRef":"lifecycle-2026-10-28","sourceRefs":["portable-3883","intermediate-renumbering","database-move"],"historicalClaims":[{"slug":"portable-changelog-release-agents","kind":"superseded-assignment","resolvedTo":{"number":"020","slug":"portable-changelog-release-agents"},"decisionRef":"lifecycle-2026-10-28","sourceRefs":["portable-3883"]},{"slug":"wp-db-migration-agent","kind":"former-directory","resolvedTo":{"number":"024","slug":"wp-db-migration-agent"},"decisionRef":"lifecycle-2026-10-28","sourceRefs":["intermediate-renumbering","database-move"]}]},
     {"number":"023","canonicalSlug":"wp-schema-audit-agent","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory","intermediate-renumbering"],"historicalClaims":[]},
     {"number":"024","canonicalSlug":"wp-db-migration-agent","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory","database-move"],"historicalClaims":[]},
-    {"number":"025","canonicalSlug":"spec-kit-upgrade","state":"materialised","decisionRef":"allocation-025-2026-11-24","sourceRefs":["spec-kit-upgrade-4064"],"historicalClaims":[]}
+    {"number":"025","canonicalSlug":"spec-kit-upgrade","state":"materialised","decisionRef":"allocation-025-2026-11-24","sourceRefs":["spec-kit-upgrade-4064"],"historicalClaims":[]},
+    {"number":"026","canonicalSlug":"ci-check-scope","state":"materialised","decisionRef":"allocation-026-2026-11-24","sourceRefs":["develop-153647d47c"],"historicalClaims":[]}
   ]
 }

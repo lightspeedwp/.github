@@ -59,6 +59,7 @@ All specification catalog entries MUST follow this exact column order and naming
 | 023 | wp-schema-audit-agent | WordPress Schema Audit Agent | Draft | 2026-10-14 | [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md) |
 | 024 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md) |
 | 025 | spec-kit-upgrade | Spec Kit Upgrade to v1.4.4 | Draft | 2026-11-24 | [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md) |
+| 026 | ci-check-scope | CI Checks Scoped to Changed Files | Draft | 2026-11-24 | [./026-ci-check-scope/spec.md](./026-ci-check-scope/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
@@ -293,6 +294,19 @@ in core.
 
 ---
 
+### 026 - CI Checks Scoped to Changed Files
+
+Run the lint, typecheck, actionlint and Jest checks only when a push changes files they read. One
+script holds the rules, and each required check still reports on every pull request.
+
+- **Status**: Draft
+- **Phase**: Specification and implementation
+- **Created**: 2026-11-24
+- **Updated**: 2026-11-24
+- **Link**: [./026-ci-check-scope/spec.md](./026-ci-check-scope/spec.md)
+
+---
+
 ## Archive
 
 Currently no archived or deprecated specifications. All numbered specifications remain in one of three states: Draft (pending approval), Active (approved and in use), or Archived (superseded or cancelled).
@@ -305,7 +319,7 @@ Currently no archived or deprecated specifications. All numbered specifications 
 - **Complete accounting**: Every integer through the highest allocation is pending, materialised or retired.
 - **Future numbering**: Highest accounted allocation plus one; no gap filling, number recycling or automatic expiry.
 - **Bootstrap**: 24 allocations, 21 genuine directories; 020 pending, 021/022 retired, 023/024 materialised.
-- **Since bootstrap**: 025 is materialised; the next allocation is 026 at the time of writing. The ledger is the current record.
+- **Since bootstrap**: 025 and 026 are materialised; the next allocation is 027 at the time of writing. The ledger is the current record.
 - **Preserved identities**: 020 portable agents, 023 schema audit and 024 database migration.
 - **Historical provenance**: The ledger separates the two histories for 021 and for 022, and the former database identity at 020.
 - **No reuse**: Archived specifications retain their genuine directories and materialised allocations.
@@ -339,7 +353,7 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Validate directories and the allocation ledger together; plan highest accounted plus one (026 at the time of writing), or fulfil an exact pending claim.
+1. Validate directories and the allocation ledger together; plan highest accounted plus one (027 at the time of writing), or fulfil an exact pending claim.
 2. Create the genuine specification and include its explicit materialised entry or transition in the same reviewed candidate; never auto-update the ledger.
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
