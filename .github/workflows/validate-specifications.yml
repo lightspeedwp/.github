@@ -6,6 +6,11 @@ on:
       - '.github/specs/**'
       - '.github/workflows/validate-specifications.yml'
       - '.specify/scripts/bash/audit-specs.sh'
+      - '.specify/scripts/bash/create-new-feature.sh'
+      - '.specify/scripts/bash/common.sh'
+      - '.specify/init-options.json'
+      - 'scripts/validation/spec-allocations.cjs'
+      - 'scripts/validation/__tests__/spec-allocations.test.js'
       - '.specify/scripts/bash/validate-catalog.sh'
       - 'tests/bash/**'
   push:
@@ -15,6 +20,11 @@ on:
       - '.github/specs/**'
       - '.github/workflows/validate-specifications.yml'
       - '.specify/scripts/bash/audit-specs.sh'
+      - '.specify/scripts/bash/create-new-feature.sh'
+      - '.specify/scripts/bash/common.sh'
+      - '.specify/init-options.json'
+      - 'scripts/validation/spec-allocations.cjs'
+      - 'scripts/validation/__tests__/spec-allocations.test.js'
       - '.specify/scripts/bash/validate-catalog.sh'
       - 'tests/bash/**'
 

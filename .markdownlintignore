@@ -72,3 +72,8 @@ wceu-2026/**/*.md
 # Scratch / local memory
 
 .remember/**
+
+# Spec Kit managed files: installed verbatim and tracked by hash in
+# .specify/integrations/*.manifest.json, so they must not be reformatted
+
+.claude/skills/speckit-*/**/*.md
