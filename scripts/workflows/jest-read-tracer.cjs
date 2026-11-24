@@ -184,7 +184,7 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       if (index === 1 && args[0] != null && !Array.isArray(args[0])) return rest;
       if (index === 0 && args.length > 0 && args[0] != null && !isOptions(args[0])) return rest;
       if (index === 1 && args[1] != null && !isOptions(args[1])) return rest;
-      const options = isOptions(args[index]) ? args[index] : {};
+      const options = { __proto__: null, ...(isOptions(args[index]) ? args[index] : {}) };
       // Copy inherited enumerable keys too: Node builds a child's environment that
       // way, so `Object.create(process.env)` is a complete environment.
       const source = options.env || process.env;
@@ -195,7 +195,8 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       // the inherited name, which the current test replaces.
       const explicit = env.JEST_READ_TRACE_TEST !== undefined && env.JEST_READ_TRACE_TEST !== process.env.JEST_READ_TRACE_TEST;
       if (!explicit) env.JEST_READ_TRACE_TEST = test;
-      args[index] = { ...options, env };
+      options.env = env;
+      args[index] = options;
       return callback ? [...args, callback] : args;
     } catch {
       return rest;

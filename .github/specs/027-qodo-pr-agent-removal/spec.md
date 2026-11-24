@@ -60,8 +60,14 @@ A reader following a link or an agent following its instructions never reaches a
 
 **Acceptance Scenarios**:
 
-1. **Given** the change is merged, **When** tracked files are searched for the Qodo names, **Then** the only matches are specification 019, the allocation ledger, the changelog history, the locked constitution and a root feedback record of the 019 pull request.
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:8450f6085bac465a38d2ca904f9e06dae4cde36c6c29d629d63b9755265bac2d -->
+
+1. **Given** the change is merged, **When** tracked files are searched for the Qodo names, **Then** the only matches are specifications 019 and 027, their retained Qodo entries in `CATALOG.md`, the allocation ledger and its frozen test fixture, the changelog history, the locked constitution and a root feedback record of the 019 pull request.
 2. **Given** the agent and skill documents, **When** they are read, **Then** none describes a Qodo input or links to the removed guide, skill or responsibility matrix.
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 ---
 
@@ -107,11 +113,17 @@ A maintainer can still read what was built and why it was removed, and the numbe
 
 ### Measurable Outcomes
 
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:63e09ea2a2468a3db097a8fe13221ab760cfc801358672866ea7576ea9140a59 -->
+
 - **SC-001**: No workflow, skill, configuration, script or test for Qodo PR-Agent remains.
-- **SC-002**: Searching tracked files for the Qodo names returns only the exceptions in User Story 2.
+- **SC-002**: Searching tracked files for the Qodo names returns only the exceptions in User Story 2, including specification 027 and the retained Qodo entries in `CATALOG.md`.
 - **SC-003**: The specification audit passes with 027 allocated and 019 materialised.
 - **SC-004**: The Jest suite has no failure that `develop` does not also have, and the failure caused by the Qodo workflow test is gone.
 - **SC-005**: The required pull request checks pass.
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 ## Assumptions
 

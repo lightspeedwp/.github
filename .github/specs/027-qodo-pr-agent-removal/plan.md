@@ -27,7 +27,13 @@ Delete the 23 files that exist only for the Qodo PR-Agent pilot, remove its refe
 
 **Testing**: The Jest suite (traced, to regenerate the prose list), Bats, the specification audit, the repository validators for skills and documentation
 
-**Constraints**: No locked file touched. The allocation ledger and its frozen test fixture do not change.
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:76122df4e9d231bc963cc8c5cf2039c3dc1d985e701c33babef2b455c609daee -->
+
+**Constraints**: No locked file changes. Add allocation 027 and its supporting records to the ledger. Existing ledger records and the frozen test fixture stay unchanged.
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 ## Constitution Check
 

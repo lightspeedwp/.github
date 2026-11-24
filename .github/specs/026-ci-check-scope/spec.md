@@ -79,14 +79,20 @@ A pull request whose heavy work was skipped can still merge.
 1. **Given** a skipped check, **When** the pull request's checks are listed, **Then** the check appears under its usual name with a success conclusion.
 2. **Given** the `develop` ruleset, **When** this change merges, **Then** the five required check names are unchanged.
 
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:eada75bb74b2f67ae19d4074290506c8abcf84c45607e220ca1bf384f526740e -->
+
 ### Edge Cases
 
 - The base commit is missing or the comparison fails: the step fails. It never reports "nothing to do".
 - The earlier commit is not an ancestor of the new head (force push): the earlier result is not used.
 - The earlier run was cancelled by a newer push: its conclusion is not success, so the check runs.
 - The base branch moved since the earlier run: the earlier result tested a different merge, so the check runs.
-- Jest reads prose. A read trace of the whole suite shows it reads 11,495 of the 11,745 tracked Markdown and text files, including every page under `docs/`. Only 47 of the 390 test files read or check for those files. Another 22 start programs other than Node, whose reads cannot be traced.
+- Jest reads prose. Before the pilot removal in specification 027, a trace of the 390-file suite showed reads or existence checks for 11,495 of the 11,745 tracked Markdown and text files, including every page under `docs/`. That trace selected 69 test files: 47 read or checked for prose and another 22 started programs other than Node, whose reads the tracer cannot see.
 - The earlier rule that skipped Jest for plain `docs/` pages was unsound, because tests read those pages. It is removed.
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 ## Requirements *(mandatory)*
 
@@ -114,12 +120,18 @@ A pull request whose heavy work was skipped can still merge.
 
 ### Measurable Outcomes
 
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:d3a63a855927195aade55049ed99426b755270b0346a48ffecf576baa79d4435 -->
+
 - **SC-001**: A Markdown-only push runs no lint, typecheck or actionlint tool.
 - **SC-002**: A push that changes JavaScript runs lint, typecheck and Jest.
 - **SC-003**: A pull request whose heavy steps were skipped shows all five required checks as successful.
 - **SC-004**: The script's test suite passes, and covers skip, run, force push, failed earlier result and failed comparison.
 - **SC-005**: This pull request shows both behaviours in its own check logs: a full run, then a skipped run after a push that changes only Markdown.
-- **SC-006**: A Markdown-only push runs the listed test files only (69 of 390 when measured), and the list check passes on a full run.
+- **SC-006**: A Markdown-only push runs only the test files in `tests/jest-prose-tests.json` (64 after the pilot removal in specification 027), and the list check passes on a full run.
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 ## Assumptions
 

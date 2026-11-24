@@ -129,6 +129,15 @@ describe('jest-read-tracer', () => {
     expect(result.trace).toContain('T\ttests/parent.test.js\n');
   });
 
+  it('ignores an inherited env option and keeps the host environment', () => {
+    const result = runTraced(
+      childScript(', Object.create({ env: { ...process.env, KEPT: "inherited" } })'),
+      { KEPT: 'host' }
+    );
+    expect(result).toMatchObject({ status: 0, stdout: 'host' });
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+  });
+
   it('keeps inherited variables when a caller passes an environment that inherits from process.env', () => {
     const script = [
       'require("fs").__jestCurrentTest = "tests/parent.test.js";',
