@@ -42,9 +42,8 @@ When AI tools provide feedback on PRs:
 ### AI reviewers covered
 
 - **CodeRabbit**: the primary automatic reviewer.
-- **Qodo PR-Agent**: PR summary, improvement suggestions and on-demand commands, piloted on `lightspeedwp/.github`. Its comments are posted by `github-actions[bot]`. Identify them by the marker described in [Qodo PR-Agent → Recognising Qodo PR-Agent feedback](./QODO_PR_AGENT.md#recognising-qodo-pr-agent-feedback).
 
-Feedback from either tool follows the same `FEEDBACK_RESPONSE.md` process.
+Feedback from CodeRabbit follows the same `FEEDBACK_RESPONSE.md` process.
 
 ---
 
