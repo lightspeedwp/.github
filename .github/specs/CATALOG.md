@@ -335,7 +335,7 @@ All other numbered specifications remain Draft (pending approval), Active (appro
 - **Allocation source**: [ALLOCATIONS.json](./ALLOCATIONS.json), beneath the configured specification root.
 - **Complete accounting**: Every integer through the highest allocation is pending, materialised or retired.
 - **Future numbering**: Highest accounted allocation plus one; no gap filling, number recycling or automatic expiry.
-- **Bootstrap**: 24 allocations, 21 genuine directories; 020 pending, 021/022 retired, 023/024 materialised.
+- **Bootstrap (28 October 2026)**: 24 allocations, 21 genuine directories; 020 pending, 021/022 retired, 023/024 materialised.
 - **Since bootstrap**: 020 (portable agents, materialised with its directory) and 025 to 027 are materialised; the next allocation is 028 at the time of writing. The ledger is the current record.
 - **Preserved identities**: 020 portable agents, 023 schema audit and 024 database migration.
 - **Historical provenance**: The ledger separates the two histories for 021 and for 022, and the former database identity at 020.
