@@ -54,14 +54,34 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 - **Safety**: The earlier commit must be an ancestor of the new head. Any other state runs the check.
 - **Base**: A check runs on the merge of the head with the base, so a result is reused only for the same base. Each check records the base it tested as a notice annotation titled "CI scope base", and the next run reads it back. This came from review of the pull request.
 
+```mermaid
+flowchart TD
+  accTitle: When a check may reuse an earlier result
+  accDescr: A check is skipped only when the pull request changes no file it reads, or when the latest push changes none and the same check passed on an earlier commit of this pull request against the same base. Every other case runs the check.
+  A[Push to a pull request] --> B{Does the pull request change a file the check reads?}
+  B -- No --> S[Skip the check and report success]
+  B -- Yes --> C{Did the latest push change a file the check reads?}
+  C -- Yes --> R[Run the check]
+  C -- No --> D{Is the earlier commit an ancestor, and did the check pass on it against the same base?}
+  D -- Yes --> S
+  D -- No --> R
+```
+
+<!-- coderabbit-ai-generated:v1 -->
+
+<!-- coderabbit-ai-generated-section:v1:8fbcebf63fa30917801218e0460e9202a1ec7c4400f6d491069a500ce70adeb7 -->
+
 ### Decision 3: run only the prose-dependent tests for prose changes
 
-- **Evidence**: The suite was run with a tracer that records every file read and every program started, per test file. It reads 11,495 of 11,745 tracked prose files. 38 test files do that reading, and 22 more start programs other than Node.
-- **Rule**: A change to prose alone runs those 60 test files. Anything else runs the whole suite. Jest is never skipped for a prose change.
+- **Evidence**: The suite was run with a tracer that records every file read and every program started, per test file. It reads 11,495 of 11,745 tracked prose files. 43 test files read or check for those files, and 21 more start programs other than Node (47 and 22 before the pilot removal in specification 027). An existence check counts, and a Node child's reads are attributed to the test that started it, which the first version of the tracer missed (found in review of the pull request).
+- **Rule**: A change to prose alone runs the files listed in `tests/jest-prose-tests.json` (64 after the pilot removal in specification 027; 69 before). Anything else runs the whole suite. Jest is never skipped for a prose change.
 - **Correction**: The earlier rule skipped Jest for plain `docs/` pages. All 141 of those pages are read by tests, so the rule could hide a failure. It is removed.
-- **Measured**: The 60 files took 94 seconds locally against 134 seconds for the whole suite. They include the tests that scan the whole repository, so the saving is about a third, not more.
+- **Measured**: The 69 files, measured before the pilot removal in specification 027, took 86 seconds locally against 100 seconds for the whole suite, a saving of about 14 percent. They include the tests that scan the whole repository, so Prose mode runs fewer tests, not much less time. On the pull request's own CI the head job took 130 seconds against 94 for the whole suite, which is within run-to-run variation.
+- **Counts**: The figures above are a measurement taken on 24 November 2026. The committed `tests/jest-prose-tests.json` is the live record, and every full run checks it.
 - **Keeping the list true**: Every full run on a pull request head records a trace, and the job fails when a traced test file is missing from `tests/jest-prose-tests.json`.
 - **Both targets**: The scope job passes the list to the head and base runs, so the comparison is like for like.
+
+<!-- /coderabbit-ai-generated:v1 -->
 
 ### Decision 4: every workflow change runs every scoped check
 
@@ -77,7 +97,7 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 | --- | --- | --- |
 | `lint` | `Lint (JS/YAML/package.json)` | JavaScript and TypeScript files, YAML files, `package.json` and its lock file, root-level files other than prose |
 | `typecheck` | `Typecheck` | JavaScript, TypeScript, Astro and JSON files, anything under `website/`, root-level files other than prose |
-| `actionlint` | `actionlint` | `.github/actionlint.yaml`, `scripts/validation/run-actionlint.cjs`, root `package.json` and its lock file |
+| `actionlint` | `actionlint` | `.github/actionlint.yaml`, `scripts/validation/run-actionlint.cjs`, root `package.json` and its lock file, and every `action.yml` or `action.yaml` under `.github/actions` (local actions must live there, and a test enforces it; actionlint reads local action metadata to check the inputs a workflow passes, so a changed action can break a caller; found in review of the pull request) |
 | `jest` | `No new test failures` | Everything except prose runs the whole suite. Prose alone runs the listed test files. |
 
 All profiles also run for any file under `.github/workflows/`, for the script itself and for `.nvmrc`.

@@ -22,6 +22,32 @@ const repositoryRoot = path.resolve(__dirname, '../../..');
 const workflowsDir = path.join(repositoryRoot, '.github/workflows');
 const workflowLintPath = path.join(workflowsDir, 'workflow-lint.yml');
 
+function localPathViolations(file, document) {
+  const outside = [];
+  const check = (where, uses, directory) => {
+    if (
+      typeof uses === 'string' &&
+      uses.startsWith('./') &&
+      (!uses.startsWith(`./${directory}`) || !path.posix.normalize(uses).startsWith(directory))
+    ) {
+      outside.push(`${file}: ${where} uses ${uses}, which must be under ./${directory}`);
+    }
+  };
+  let inspected = 0;
+  for (const [jobId, job] of Object.entries(document?.jobs || {})) {
+    check(`job ${jobId}`, job?.uses, '.github/workflows/');
+    for (const [index, step] of (job?.steps || []).entries()) {
+      inspected += 1;
+      check(`job ${jobId} step ${index}`, step?.uses, '.github/actions/');
+    }
+  }
+  for (const [index, step] of (document?.runs?.steps || []).entries()) {
+    inspected += 1;
+    check(`composite step ${index}`, step?.uses, '.github/actions/');
+  }
+  return { outside, inspected };
+}
+
 describe('actionlint workflow list', () => {
   it('is every top-level workflow file and nothing else', () => {
     const onDisk = fs
@@ -46,6 +72,50 @@ describe('actionlint workflow list', () => {
     ]) {
       expect(listed).toContain(name);
     }
+  });
+
+  it('keeps local actions and reusable workflows under the directories checked out by actionlint', () => {
+    // A local action missing from the sparse checkout loses actionlint's input
+    // checks. The scope rule in scripts/workflows/ci-scope.sh also watches local
+    // action metadata only under .github/actions. Parsing YAML covers flow-style
+    // and anchored references.
+    const outside = [];
+    let inspected = 0;
+    for (const file of workflowFiles()) {
+      const document = YAML.parse(fs.readFileSync(path.join(repositoryRoot, file), 'utf8'));
+      const result = localPathViolations(file, document);
+      inspected += result.inspected;
+      outside.push(...result.outside);
+    }
+    // Guard the walk itself: inspecting nothing would make this pass for any workflow.
+    expect(inspected).toBeGreaterThan(0);
+
+    const actionFiles = fs
+      .readdirSync(path.join(repositoryRoot, '.github/actions'), { recursive: true })
+      .map((entry) => entry.split(path.sep).join('/'))
+      .filter((entry) => /(^|\/)action\.ya?ml$/.test(entry));
+    expect(actionFiles.length).toBeGreaterThan(0);
+    for (const entry of actionFiles) {
+      const file = `.github/actions/${entry}`;
+      const document = YAML.parse(fs.readFileSync(path.join(repositoryRoot, file), 'utf8'));
+      outside.push(...localPathViolations(file, document).outside);
+    }
+    expect(outside).toEqual([]);
+  });
+
+  it('rejects a local step in .github/helpers and accepts a local reusable workflow', () => {
+    const document = YAML.parse(`
+jobs:
+  reusable:
+    uses: ./.github/workflows/reusable.yml
+  build:
+    steps:
+      - uses: ./.github/actions/valid
+      - uses: ./.github/helpers/invalid
+`);
+    expect(localPathViolations('fixture.yml', document).outside).toEqual([
+      'fixture.yml: job build step 1 uses ./.github/helpers/invalid, which must be under ./.github/actions/',
+    ]);
   });
 
   it('skips subdirectories and non-workflow files', () => {

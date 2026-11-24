@@ -259,7 +259,7 @@ for when a standalone comment really is wanted.
 `onBehalfOf` is what makes Linear show the agent's name and avatar next to the
 comment. The script in `scripts/automation/linear-review-extension.cjs` is the
 single source of truth for the contract, so every AI tool in this repository —
-Claude Code, opencode, Qodo, CodeRabbit — attributes its comments identically.
+Claude Code, opencode, CodeRabbit — attributes its comments identically.
 Do not hand-write the JSON block; the script validates it and fails loudly on an
 out-of-range `level` or a malformed `sha`, because Linear would otherwise
 silently ignore an invalid block.

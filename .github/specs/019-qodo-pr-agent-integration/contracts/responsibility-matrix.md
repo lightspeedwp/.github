@@ -1,5 +1,7 @@
 # Contract: Responsibility Matrix
 
+> **Archived**: The pilot never ran and was removed in [specification 027](../../027-qodo-pr-agent-removal/spec.md) ([GIT-2840](https://linear.app/lightspeedwp/issue/GIT-2840)). This document is kept as a record, and links below to removed files are historical.
+
 **Feature**: [../spec.md](../spec.md) | Satisfies FR-010, US2
 
 Each concern has exactly one owner. "Automatic" means it runs without a command. Anything not listed as automatic for Qodo PR-Agent must not run automatically.
