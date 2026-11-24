@@ -72,7 +72,7 @@ A maintainer sees only the skills that Spec Kit `v1.4.4` ships in core. The `tas
 ### Edge Cases
 
 - A later upgrade will again report the two locally changed scripts as modified. This is expected and is documented in the plan; it must not be mistaken for drift.
-- The repository's specification audit requires contiguous numbering and already fails because 020 to 022 are absent. Adding 025 does not change that result. The fix belongs to [GIT-2676](https://linear.app/lightspeedwp/issue/GIT-2676).
+- The allocation lifecycle change tracked in [GIT-2676](https://linear.app/lightspeedwp/issue/GIT-2676) makes the specification audit check `.github/specs/ALLOCATIONS.json`. The absence of directories for pending 020 and retired 021 and 022 is expected and passes the allocation check. Specification 025 must have a matching materialised allocation.
 - The Spec Kit command line sets the execute bit on scripts under `.specify/scripts/`. `migrate-specs.sh` therefore changes mode without changing content.
 
 ## Requirements *(mandatory)*
@@ -85,7 +85,7 @@ A maintainer sees only the skills that Spec Kit `v1.4.4` ships in core. The `tas
 - **FR-004**: `.specify/scripts/bash/create-new-feature.sh` MUST resolve the specifications folder from `specs_directory`, falling back to `.github/specs`.
 - **FR-005**: The stale core `speckit-taskstoissues` skill MUST be removed, with the repository's own copy at `skills/speckit-taskstoissues/`, and no optional extension may be installed by this change.
 - **FR-006**: Every local change to a managed file MUST be either carried forward or listed in the plan with the reason it was dropped.
-- **FR-007**: The change MUST NOT alter the constitution, any locked file, or any existing specification.
+- **FR-007**: The change MUST NOT alter the constitution, any locked file, or any existing specification except for the GIT-2676 numbering amendment in [specification 013](../013-spec-folder-refactor/spec.md#numbering-amendment--4-november-2026) and its requirements checklist.
 - **FR-008**: The change MUST add a changelog entry and a catalogue row for this specification.
 - **FR-009**: Files that Spec Kit installs and tracks by hash MUST be excluded from Markdown linting, so that a lint fix cannot make them count as locally modified again.
 
@@ -103,7 +103,18 @@ A maintainer sees only the skills that Spec Kit `v1.4.4` ships in core. The `tas
 - **SC-002**: `specify integration status` reports exactly two modified managed files, both listed in the plan, and zero missing files.
 - **SC-003**: A dry run of the feature-creation script reports a path under `.github/specs/` and the next number in sequence: 025 before this specification's directory exists, 026 once it does.
 - **SC-004**: The required pull request checks pass.
-- **SC-005**: No file outside `.specify/`, `.claude/skills/speckit-*`, `.github/specs/025-spec-kit-upgrade/`, `skills/speckit-taskstoissues/`, `.github/specs/CATALOG.md`, `.markdownlintignore` and `CHANGELOG.md` changes.
+- **SC-005**: Changes are limited to `.specify/`, `.claude/skills/speckit-*`, `.github/specs/025-spec-kit-upgrade/`, `skills/speckit-taskstoissues/`, `.github/specs/CATALOG.md`, `.markdownlintignore`, `CHANGELOG.md` and these GIT-2676 allocation lifecycle files:
+  - `.github/specs/013-spec-folder-refactor/spec.md`
+  - `.github/specs/013-spec-folder-refactor/checklists/requirements.md`
+  - `.github/specs/ALLOCATIONS.json`
+  - `.github/specs/MAINTENANCE.md`
+  - `.github/workflows/validate-specifications.yml`
+  - `docs/GOVERNANCE_REVISION_LOG.md`
+  - `scripts/validation/spec-allocations.cjs`
+  - `scripts/validation/__fixtures__/spec-allocations-bootstrap.json`
+  - `scripts/validation/__tests__/spec-allocations.test.js`
+  - `tests/bash/audit-specs.bats`
+  - `tests/bash/specs-directory.bats`
 
 ## Assumptions
 

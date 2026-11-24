@@ -21,6 +21,8 @@ scenario 1, User Story 5 (including its independent-test renumbering proposal), 
 FR-012, SC-002, the Specification Number entity and the Numbering Scheme assumption.
 Their directory-only contiguity/highest-directory examples are not current allocation rules.
 It authorises neither renumbering nor placeholder specifications nor a constitution change.
+This amendment and its requirements checklist are the sole exception for existing specifications
+under [specification 025, FR-007](../025-spec-kit-upgrade/spec.md#functional-requirements).
 
 1. Account for every integer from 001 through the highest directory or ledger number.
    A version-1 `ALLOCATIONS.json` beneath the configured specification root records exact

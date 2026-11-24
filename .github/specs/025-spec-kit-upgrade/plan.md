@@ -22,9 +22,9 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 
 **Project Type**: Repository tooling
 
-**Constraints**: No constitution change, no locked file touched, no existing specification edited
+**Constraints**: Preserve the constitution, locked files and existing specifications, with the GIT-2676 exception in FR-007.
 
-**Scale/Scope**: 30 files changed, added or removed under `.specify/` and `.claude/skills/`, plus this specification, the catalogue, the lint ignore list and the changelog
+**Scale/Scope**: See SC-005 for the permitted files for the Spec Kit upgrade and the GIT-2676 allocation lifecycle change.
 
 ## Constitution Check
 
