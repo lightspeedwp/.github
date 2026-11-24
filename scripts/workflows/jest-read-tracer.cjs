@@ -184,9 +184,10 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       if (index === 1 && args[0] != null && !Array.isArray(args[0])) return rest;
       if (index === 0 && args.length > 0 && args[0] != null && !isOptions(args[0])) return rest;
       if (index === 1 && args[1] != null && !isOptions(args[1])) return rest;
+      // Like Node, copy only the own enumerable properties of the options object.
       const options = { __proto__: null, ...(isOptions(args[index]) ? args[index] : {}) };
-      // Copy inherited enumerable keys too: Node builds a child's environment that
-      // way, so `Object.create(process.env)` is a complete environment.
+      // Node also copies inherited enumerable keys of the environment itself, so
+      // `Object.create(process.env)` is a complete environment.
       const source = options.env || process.env;
       const env = {};
       for (const key in source) env[key] = source[key];

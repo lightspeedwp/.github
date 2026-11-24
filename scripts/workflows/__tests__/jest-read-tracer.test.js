@@ -131,7 +131,7 @@ describe('jest-read-tracer', () => {
 
   it('ignores an inherited env option and keeps the host environment', () => {
     const result = runTraced(
-      childScript(', Object.create({ env: { ...process.env, KEPT: "inherited" } })'),
+      childScript(', Object.create({ env: { KEPT: "inherited" } })'),
       { KEPT: 'host' }
     );
     expect(result).toMatchObject({ status: 0, stdout: 'host' });

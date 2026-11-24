@@ -28,9 +28,9 @@ function localPathViolations(file, document) {
     if (
       typeof uses === 'string' &&
       uses.startsWith('./') &&
-      !path.posix.normalize(uses).startsWith(directory)
+      (!uses.startsWith(`./${directory}`) || !path.posix.normalize(uses).startsWith(directory))
     ) {
-      outside.push(`${file}: ${where} uses ${uses}`);
+      outside.push(`${file}: ${where} uses ${uses}, which must be under ./${directory}`);
     }
   };
   let inspected = 0;
@@ -40,6 +40,10 @@ function localPathViolations(file, document) {
       inspected += 1;
       check(`job ${jobId} step ${index}`, step?.uses, '.github/actions/');
     }
+  }
+  for (const [index, step] of (document?.runs?.steps || []).entries()) {
+    inspected += 1;
+    check(`composite step ${index}`, step?.uses, '.github/actions/');
   }
   return { outside, inspected };
 }
@@ -72,7 +76,9 @@ describe('actionlint workflow list', () => {
 
   it('keeps local actions and reusable workflows under the directories checked out by actionlint', () => {
     // A local action missing from the sparse checkout loses actionlint's input
-    // checks. Parsing YAML also covers flow-style and anchored references.
+    // checks. The scope rule in scripts/workflows/ci-scope.sh also watches local
+    // action metadata only under .github/actions. Parsing YAML covers flow-style
+    // and anchored references.
     const outside = [];
     let inspected = 0;
     for (const file of workflowFiles()) {
@@ -83,6 +89,17 @@ describe('actionlint workflow list', () => {
     }
     // Guard the walk itself: inspecting nothing would make this pass for any workflow.
     expect(inspected).toBeGreaterThan(0);
+
+    const actionFiles = fs
+      .readdirSync(path.join(repositoryRoot, '.github/actions'), { recursive: true })
+      .map((entry) => entry.split(path.sep).join('/'))
+      .filter((entry) => /(^|\/)action\.ya?ml$/.test(entry));
+    expect(actionFiles.length).toBeGreaterThan(0);
+    for (const entry of actionFiles) {
+      const file = `.github/actions/${entry}`;
+      const document = YAML.parse(fs.readFileSync(path.join(repositoryRoot, file), 'utf8'));
+      outside.push(...localPathViolations(file, document).outside);
+    }
     expect(outside).toEqual([]);
   });
 
@@ -97,7 +114,7 @@ jobs:
       - uses: ./.github/helpers/invalid
 `);
     expect(localPathViolations('fixture.yml', document).outside).toEqual([
-      'fixture.yml: job build step 1 uses ./.github/helpers/invalid',
+      'fixture.yml: job build step 1 uses ./.github/helpers/invalid, which must be under ./.github/actions/',
     ]);
   });
 
