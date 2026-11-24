@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Site to Block Theme'
+  short_description: 'Rebuild live-site templates, parts and patterns in a block theme to match exactly'
+  default_prompt: "Use $site-to-block-theme to inventory the part of the live site to rebuild, measure it at 390, 768 and 1440, map every value to the theme's theme.json tokens, build it with the official WordPress skills to current coding standards, then prove the match with screenshots, a style diff and an accessibility check."

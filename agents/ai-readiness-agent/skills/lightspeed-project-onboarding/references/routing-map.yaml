@@ -17,7 +17,7 @@ routes:
         - intake_pack
     primary_skill: lightspeed-project-intake-router
     use_when: messy or incomplete project details need a structured intake pack and workflow route before deeper planning.
-    prompt_starter: "Use the LightSpeed project intake router to normalise this material into an intake pack, identify blockers, and recommend the next specialist workflow."
+    prompt_starter: 'Use the LightSpeed project intake router to normalise this material into an intake pack, identify blockers, and recommend the next specialist workflow.'
 
   - match:
       intents:
@@ -31,7 +31,7 @@ routes:
       - discovery-source-intake
       - design-context-synthesis
     use_when: source evidence must be gathered, separated, and summarised before PRD, technical brief, or task planning.
-    prompt_starter: "Use the LightSpeed project researcher to produce an evidence review, source inventory, assumptions, blockers, and PRD-ready notes from this material."
+    prompt_starter: 'Use the LightSpeed project researcher to produce an evidence review, source inventory, assumptions, blockers, and PRD-ready notes from this material.'
 
   - match:
       intents:
@@ -45,7 +45,7 @@ routes:
       - lightspeed-prd-task-manager
       - lightspeed-prd-task-reviewer
     use_when: the user needs a PRD or product brief before technical planning, task breakdown, or GitHub issues.
-    prompt_starter: "Use the LightSpeed PRD generator to create a PRD with goals, non-goals, users, requirements, acceptance criteria, risks, assumptions, and open questions."
+    prompt_starter: 'Use the LightSpeed PRD generator to create a PRD with goals, non-goals, users, requirements, acceptance criteria, risks, assumptions, and open questions.'
 
   - match:
       intents:
@@ -61,7 +61,7 @@ routes:
       - wordpress-block-theme-handoff
       - lightspeed-figma-wordpress-parity-auditor
     use_when: Figma design-system evidence must become WordPress architecture, theme.json, template, pattern, and implementation guidance.
-    prompt_starter: "Use the LightSpeed Figma-to-WordPress technical brief skill to convert the design and repo evidence into a developer-ready WordPress brief."
+    prompt_starter: 'Use the LightSpeed Figma-to-WordPress technical brief skill to convert the design and repo evidence into a developer-ready WordPress brief.'
 
   - match:
       intents:
@@ -76,7 +76,7 @@ routes:
       - lightspeed-requirements-traceability-mapper
       - breakdown-plan
     use_when: approved or near-approved requirements need to become implementation tasks, epics, estimates, dependencies, and QA checks.
-    prompt_starter: "Use the LightSpeed task breakdown planner to create epics, task waves, dependencies, acceptance criteria, QA checks, and implementation sequencing."
+    prompt_starter: 'Use the LightSpeed task breakdown planner to create epics, task waves, dependencies, acceptance criteria, QA checks, and implementation sequencing.'
 
   - match:
       intents:
@@ -89,7 +89,7 @@ routes:
       - linear-the-architect
       - lightspeed-task-breakdown-planner
     use_when: the user needs GitHub-ready markdown issue drafts without automatically creating issues.
-    prompt_starter: "Use the LightSpeed GitHub issue drafter to turn this plan or finding into GitHub-ready issue drafts with labels, dependencies, acceptance criteria, and QA notes."
+    prompt_starter: 'Use the LightSpeed GitHub issue drafter to turn this plan or finding into GitHub-ready issue drafts with labels, dependencies, acceptance criteria, and QA notes.'
 
   - match:
       intents:
@@ -102,7 +102,7 @@ routes:
       - wp-figma-artifact-builder
       - lightspeed-acceptance-test-planner
     use_when: approved tasks or briefs need practical sequencing, branch strategy, testing approach, and handoff controls before coding.
-    prompt_starter: "Use the LightSpeed implementation plan generator to create the build sequence, dependencies, branch strategy, testing approach, and handoff notes."
+    prompt_starter: 'Use the LightSpeed implementation plan generator to create the build sequence, dependencies, branch strategy, testing approach, and handoff notes.'
 
   - match:
       intents:
@@ -115,7 +115,7 @@ routes:
       - linear-gap-analyzer
       - evidence-quality-review
     use_when: a PRD, brief, task plan, issue set, or QA plan needs quality review before implementation.
-    prompt_starter: "Use the LightSpeed PRD task reviewer to check this planning pack for gaps, risks, acceptance coverage, launch alignment, and readiness."
+    prompt_starter: 'Use the LightSpeed PRD task reviewer to check this planning pack for gaps, risks, acceptance coverage, launch alignment, and readiness.'
 
   - match:
       intents:
@@ -130,7 +130,7 @@ routes:
       - lightspeed-redirect-map-planner
       - technical-seo-audit
     use_when: launch-preparation work needs routing across QA, SEO, redirects, analytics, schema, content, policies, or approval gates.
-    prompt_starter: "Use the LightSpeed launch task router to sequence launch workstreams, identify blockers, and route each item to the right specialist workflow."
+    prompt_starter: 'Use the LightSpeed launch task router to sequence launch workstreams, identify blockers, and route each item to the right specialist workflow.'
 
   - match:
       intents:
@@ -144,7 +144,7 @@ routes:
       - lightspeed-launch-readiness-auditor
       - lightspeed-qa-findings-router
     use_when: the user needs pre-launch QA scope, page/template checks, accessibility, responsive checks, conversion tracking checks, and go/no-go criteria.
-    prompt_starter: "Use the LightSpeed launch QA planner to create a launch QA plan, validation matrix, page checks, accessibility and responsive scope, and go/no-go gates."
+    prompt_starter: 'Use the LightSpeed launch QA planner to create a launch QA plan, validation matrix, page checks, accessibility and responsive scope, and go/no-go gates.'
 
   - match:
       intents:
@@ -158,7 +158,7 @@ routes:
       - website-performance-assessor
       - lightspeed-schema-and-ai-discoverability-planner
     use_when: the user needs final pre-launch QA, page-by-page checks, forms, accessibility, analytics, redirects, SEO, or launch go/no-go notes.
-    prompt_starter: "Use the LightSpeed launch readiness auditor to produce a final pre-launch QA checklist, findings table, and go/no-go summary."
+    prompt_starter: 'Use the LightSpeed launch readiness auditor to produce a final pre-launch QA checklist, findings table, and go/no-go summary.'
 
   - match:
       intents:
@@ -172,7 +172,7 @@ routes:
       - linear-triage-router
       - wordpress-block-asset-validator
     use_when: raw QA notes, screenshots, stakeholder feedback, launch blockers, or test failures need severity, owner routing, issue drafts, and retest steps.
-    prompt_starter: "Use the LightSpeed QA findings router to classify severity, separate evidence, route owners, draft issues, and define retest steps."
+    prompt_starter: 'Use the LightSpeed QA findings router to classify severity, separate evidence, route owners, draft issues, and define retest steps.'
 
   - match:
       intents:
@@ -185,7 +185,7 @@ routes:
       - lightspeed-change-request-router
       - lightspeed-requirements-traceability-mapper
     use_when: movement to the next delivery stage depends on approval, sign-off, decision logging, or go/no-go criteria.
-    prompt_starter: "Use the LightSpeed approval gate manager to prepare the approval checklist, decision log, sign-off criteria, and next-stage readiness notes."
+    prompt_starter: 'Use the LightSpeed approval gate manager to prepare the approval checklist, decision log, sign-off criteria, and next-stage readiness notes.'
 
   - match:
       intents:
@@ -198,7 +198,7 @@ routes:
       - lightspeed-approval-gate-manager
       - lightspeed-project-status-reporter
     use_when: feedback or blockers may alter scope, cost, timeline, approvals, or existing implementation plans.
-    prompt_starter: "Use the LightSpeed change request router to classify the change, assess impact, identify approvals, and draft updated task or decision notes."
+    prompt_starter: 'Use the LightSpeed change request router to classify the change, assess impact, identify approvals, and draft updated task or decision notes.'
 
   - match:
       intents:
@@ -211,7 +211,7 @@ routes:
       - lightspeed-acceptance-test-planner
       - lightspeed-prd-task-reviewer
     use_when: requirements, tasks, issues, QA checks, and launch gates need coverage mapping.
-    prompt_starter: "Use the LightSpeed requirements traceability mapper to map requirements to tasks, acceptance criteria, QA checks, and launch gates."
+    prompt_starter: 'Use the LightSpeed requirements traceability mapper to map requirements to tasks, acceptance criteria, QA checks, and launch gates.'
 
   - match:
       intents:
@@ -224,7 +224,7 @@ routes:
       - linear-project-pulse
       - lightspeed-change-request-router
     use_when: stakeholders need a practical progress summary, blockers, risks, decisions, and next actions.
-    prompt_starter: "Use the LightSpeed project status reporter to create a stakeholder-ready progress summary with blockers, risks, decisions, and next actions."
+    prompt_starter: 'Use the LightSpeed project status reporter to create a stakeholder-ready progress summary with blockers, risks, decisions, and next actions.'
 
   - match:
       intents:
@@ -237,7 +237,7 @@ routes:
       - lightspeed-prd-task-pack-exporter
       - lightspeed-project-memory-manager
     use_when: launch, release, support transition, or delivery closure needs a clean handoff package.
-    prompt_starter: "Use the LightSpeed release handoff generator to create release notes, support transition notes, monitoring plan, and delivery closure summary."
+    prompt_starter: 'Use the LightSpeed release handoff generator to create release notes, support transition notes, monitoring plan, and delivery closure summary.'
 
   - match:
       intents:
@@ -250,7 +250,7 @@ routes:
       - lightspeed-project-memory-manager
       - lightspeed-release-handoff-generator
     use_when: PRDs, task plans, briefs, issue drafts, QA plans, and notes need to be packaged into a clean handoff archive.
-    prompt_starter: "Use the LightSpeed PRD task pack exporter to organise these materials into a clean markdown folder structure, review checklist, and handoff pack."
+    prompt_starter: 'Use the LightSpeed PRD task pack exporter to organise these materials into a clean markdown folder structure, review checklist, and handoff pack.'
 
   - match:
       intents:
@@ -263,7 +263,7 @@ routes:
       - lightspeed-prd-task-pack-exporter
       - linear-decision-logger
     use_when: durable project context, decisions, assumptions, progress, and handoff-ready memory files need to be created or updated.
-    prompt_starter: "Use the LightSpeed project memory manager to create or update the project memory bank, decision log, assumptions, active context, and progress notes."
+    prompt_starter: 'Use the LightSpeed project memory manager to create or update the project memory bank, decision log, assumptions, active context, and progress notes.'
 
   - match:
       intents:
@@ -285,7 +285,7 @@ routes:
       - lightspeed-policy-page-generator
       - lightspeed-claim-register-auditor
     use_when: AI-readiness, governance, chatbot, source-quality, schema, policy, claims, estimate, or launch readiness work needs sequencing.
-    prompt_starter: "Use the LightSpeed AI-readiness router to classify this AI/chatbot/governance request, identify readiness gates, and route to the correct specialist deliverable."
+    prompt_starter: 'Use the LightSpeed AI-readiness router to classify this AI/chatbot/governance request, identify readiness gates, and route to the correct specialist deliverable.'
 
   - match:
       intents:
@@ -300,7 +300,7 @@ routes:
       - chatbot-discovery-question-prioritiser
       - lightspeed-faq-and-chatbot-source-curator
     use_when: a bounded website chatbot needs purpose, approved sources, exclusions, behaviour rules, fallback wording, escalation, privacy notes, and tests.
-    prompt_starter: "Use the AI chatbot planner to define chatbot purpose, sources, exclusions, behaviour, escalation, privacy notes, launch gates, test scripts, and first draft system prompt."
+    prompt_starter: 'Use the AI chatbot planner to define chatbot purpose, sources, exclusions, behaviour, escalation, privacy notes, launch gates, test scripts, and first draft system prompt.'
 
   - match:
       intents:
@@ -319,7 +319,7 @@ routes:
       - lightspeed-policy-page-generator
       - content-audit-strategist
     use_when: website, governance, or chatbot content needs collection, source mapping, FAQ curation, schema planning, claim safety, or policy drafting.
-    prompt_starter: "Use the content collection planner to create a source-aware content checklist, gap report, client request notes, and next content workflow route."
+    prompt_starter: 'Use the content collection planner to create a source-aware content checklist, gap report, client request notes, and next content workflow route.'
 
   - match:
       intents:
@@ -337,7 +337,7 @@ routes:
       - website-security-discovery-reviewer
       - email-list-reviewer
     use_when: discovery or launch work needs SEO, redirects, performance, hosting, security, or email-list risk assessment.
-    prompt_starter: "Use the most specific discovery/audit skill to assess the supplied evidence, separate observed issues from assumptions, and produce a prioritised fix list."
+    prompt_starter: 'Use the most specific discovery/audit skill to assess the supplied evidence, separate observed issues from assumptions, and produce a prioritised fix list.'
 
   - match:
       intents:
@@ -359,7 +359,7 @@ routes:
       - design-md-generator
       - wp-figma-artifact-builder
     use_when: scattered design, Figma, WordPress, repo, QA, or content inputs need a normalised execution packet or handoff route.
-    prompt_starter: "Use the design execution packet skill to consolidate the design and implementation inputs, separate approved from unconfirmed material, and route the next workflow."
+    prompt_starter: 'Use the design execution packet skill to consolidate the design and implementation inputs, separate approved from unconfirmed material, and route the next workflow.'
 
   - match:
       intents:
@@ -384,7 +384,7 @@ routes:
       - figma-to-block-theme
       - theme-color-token-enforcer
     use_when: the user asks for WordPress block theme assets but the exact generator, metadata, validation, or token workflow needs routing.
-    prompt_starter: "Use the WordPress block theme router to identify the correct asset workflow, required parameters, validation rules, and next specialist skill."
+    prompt_starter: 'Use the WordPress block theme router to identify the correct asset workflow, required parameters, validation rules, and next specialist skill.'
 
   - match:
       intents:
@@ -401,7 +401,7 @@ routes:
       - theme-orphaned-refs
       - theme-color-token-enforcer
     use_when: Figma variables or codebase tokens need to become WordPress theme.json settings, presets, or style variations.
-    prompt_starter: "Use figma-to-block-theme to extract Figma variables into theme.json palette, typography, spacing, radius, shadow presets and style variations."
+    prompt_starter: 'Use figma-to-block-theme to extract Figma variables into theme.json palette, typography, spacing, radius, shadow presets and style variations.'
 
   - match:
       intents:
@@ -417,7 +417,24 @@ routes:
       - figma-generate-design
       - audit-design-system
     use_when: a live website is being rebuilt and its components, patterns, template parts and templates need to exist in Figma, bound to the design tokens, before the theme is built.
-    prompt_starter: "Use site-to-figma-components after site-to-design-tokens: crawl the live site, approve the inventory and build scope, build the approved set in Figma, then hand the manifest to figma-to-block-theme Pattern mode."
+    prompt_starter: 'Use site-to-figma-components after site-to-design-tokens: crawl the live site, approve the inventory and build scope, build the approved set in Figma, then hand the manifest to figma-to-block-theme Pattern mode.'
+
+  - match:
+      intents:
+        - live_site_to_theme
+        - match_live_site
+        - port_patterns_from_live
+        - rebuild_templates_from_live
+    primary_skill: site-to-block-theme
+    related_skills:
+      - site-to-design-tokens
+      - figma-to-block-theme
+      - wp-block-themes
+      - wp-patterns
+      - wp-interactivity-api
+      - wp-db-override-reconciliation
+    use_when: a block theme rebuild copies the live site as it is, and its templates, parts, patterns or cards must be built or fixed in the theme to match live, without a Figma layout step.
+    prompt_starter: "Use site-to-block-theme: inventory the part of the live site to rebuild, measure it at 390, 768 and 1440, map every value to the theme's tokens, build it with the official WordPress skills, then prove it with screenshots, a style diff and an accessibility check."
 
   - match:
       intents:
@@ -437,7 +454,7 @@ routes:
       - linear-momentum-auditor
       - linear-decision-logger
     use_when: Linear work needs routing, rewriting, gap analysis, sub-issue splitting, project pulse, or customer-signal synthesis.
-    prompt_starter: "Use the Linear triage router to classify this work, recommend owner/priority/labels/status, and route deeper work to the right Linear skill."
+    prompt_starter: 'Use the Linear triage router to classify this work, recommend owner/priority/labels/status, and route deeper work to the right Linear skill.'
 
   - match:
       intents:
@@ -458,7 +475,7 @@ routes:
       - backlog-trend-analysis
       - evidence-quality-review
     use_when: support, customer, Zendesk, Gmail, or backlog evidence needs triage, investigation, escalation, response drafting, KB creation, or trend analysis.
-    prompt_starter: "Use the support triage route to classify the case, identify evidence needs, and send deeper work to the correct customer/support skill."
+    prompt_starter: 'Use the support triage route to classify the case, identify evidence needs, and send deeper work to the correct customer/support skill.'
 
   - match:
       intents:
@@ -472,4 +489,4 @@ routes:
       - agent-creator
       - linear-app-skill-creator
     use_when: the user asks to create, update, validate, improve, package, or troubleshoot a ChatGPT skill or reusable agent workflow.
-    prompt_starter: "Use the skill creator workflow to update the skill instructions, resources, validation, and packaged skill.zip deliverable."
+    prompt_starter: 'Use the skill creator workflow to update the skill instructions, resources, validation, and packaged skill.zip deliverable.'
