@@ -33,6 +33,6 @@
 
 - [X] T012 Run actionlint, Spectral, ShellCheck, Bats and the Jest contract tests that read these workflows
 - [X] T013 [P] Add the catalogue entry
-- [ ] T014 [P] Add the changelog entry
-- [ ] T015 Open the pull request and read the check logs for a full run
+- [X] T014 [P] Add the changelog entry
+- [X] T015 Open the pull request and read the check logs for a full run
 - [ ] T016 Push a Markdown-only commit and read the check logs for a skipped run
