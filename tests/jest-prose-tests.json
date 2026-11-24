@@ -65,11 +65,6 @@
     "tests/js/governance-files.test.js",
     "tests/js/label-consolidation-post-merge-docs.test.js",
     "tests/js/plugin-advisories-newsletter.test.js",
-    "tests/js/prd-agent-consolidation-docs.test.js",
-    "tests/js/qodo-pr-agent-adapter.test.js",
-    "tests/js/qodo-pr-agent-config.test.js",
-    "tests/js/qodo-pr-agent-integrations.test.js",
-    "tests/js/qodo-pr-agent-runner.test.js",
-    "tests/js/qodo-pr-agent-workflow.test.js"
+    "tests/js/prd-agent-consolidation-docs.test.js"
   ]
 }

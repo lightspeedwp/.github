@@ -4,7 +4,9 @@
 
 **Created**: 2026-09-24
 
-**Status**: Implemented (pilot)
+**Status**: Archived (2026-11-24)
+
+> **Archived**: The pilot never ran and was removed in [specification 027](../027-qodo-pr-agent-removal/spec.md) ([GIT-2840](https://linear.app/lightspeedwp/issue/GIT-2840)). This directory and the allocation of number 019 are kept. Links below to removed files are historical.
 
 **Input**: User description: "I would like to scope out installing pr-agent - <https://docs.pr-agent.ai/installation/> - and integrated the PR-agent tools with our various existing agents and skills"
 
