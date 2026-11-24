@@ -73,6 +73,8 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
   - `speckit.github.taskstoissues` matches existing issues by task ID across all features.
   - `markdown_sections.py` can join a replacement to the next heading when the replacement has no final newline.
 
+**Review follow-up:** The upgrade baseline above kept these files as shipped. This follow-up carries the four fixes locally, including the installed Claude copy of the GitHub command, pending upstream fixes. The manifest hashes remain unchanged: five managed files now differ from their recorded hashes, so the original SC-002 expectation of exactly two is no longer met. Check whether a future upgrade includes these fixes before replacing the local copies.
+
 ## Local changes to managed files
 
 | File | Before the upgrade | After |

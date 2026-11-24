@@ -99,7 +99,7 @@ Given that feature description, do this:
    - `mkdir -p SPECIFY_FEATURE_DIRECTORY`
    - Write `TEMPLATE_CONTENT` to `SPECIFY_FEATURE_DIRECTORY/spec.md` as the starting point. Do not copy a template file from disk instead: when a preset composes `spec-template`, no single file holds the full template.
    - Set `SPEC_FILE` to `SPECIFY_FEATURE_DIRECTORY/spec.md`
-   - Persist the resolved path to `.specify/feature.json`:
+   - If `SPECIFY_FEATURE_NO_PERSIST` is `1` or `true`, do not create or modify `.specify/feature.json`. Otherwise, persist the resolved path to `.specify/feature.json`:
      ```json
      {
        "feature_directory": "<resolved feature dir>"
