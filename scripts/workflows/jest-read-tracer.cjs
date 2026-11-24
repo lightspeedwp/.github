@@ -187,10 +187,10 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       // Node copies only the own properties of an options object, so an `env` that
       // the object merely inherits is ignored by Node and must be ignored here too.
       const given = isOptions(args[index]) ? args[index] : {};
-      const options = { ...given };
-      // Copy inherited enumerable keys too: Node builds a child's environment that
-      // way, so `Object.create(process.env)` is a complete environment.
-      const source = options.env || process.env;
+      const ownEnv = Object.prototype.hasOwnProperty.call(given, 'env') ? given.env : undefined;
+      // Copy inherited enumerable keys of the environment itself: Node builds a
+      // child's environment that way, so `Object.create(process.env)` is complete.
+      const source = ownEnv || process.env;
       const env = {};
       for (const key in source) env[key] = source[key];
       // Keep a name the caller set on purpose, meaning one that differs from the
@@ -198,7 +198,7 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       // the inherited name, which the current test replaces.
       const explicit = env.JEST_READ_TRACE_TEST !== undefined && env.JEST_READ_TRACE_TEST !== process.env.JEST_READ_TRACE_TEST;
       if (!explicit) env.JEST_READ_TRACE_TEST = test;
-      args[index] = { ...options, env };
+      args[index] = { ...given, env };
       return callback ? [...args, callback] : args;
     } catch {
       return rest;

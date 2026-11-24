@@ -73,6 +73,22 @@ describe('actionlint workflow list', () => {
         }
       }
     }
+    // A composite action calls other local actions the same way, and actionlint reads
+    // its metadata from the same checkout, so its steps follow the same rule.
+    const actionsDir = path.join(repositoryRoot, '.github/actions');
+    const actionFiles = fs
+      .readdirSync(actionsDir, { recursive: true })
+      .map((entry) => String(entry).split(path.sep).join('/'))
+      .filter((entry) => /(^|\/)action\.ya?ml$/.test(entry));
+    expect(actionFiles.length).toBeGreaterThan(0);
+    for (const entry of actionFiles) {
+      const file = `.github/actions/${entry}`;
+      const document = YAML.parse(fs.readFileSync(path.join(repositoryRoot, file), 'utf8'));
+      for (const [index, step] of ((document && document.runs && document.runs.steps) || []).entries()) {
+        inspected += 1;
+        check(file, `composite step ${index}`, step && step.uses, './.github/actions/');
+      }
+    }
     // Guard the walk itself: inspecting nothing would make this pass for any workflow.
     expect(inspected).toBeGreaterThan(0);
     expect(outside).toEqual([]);

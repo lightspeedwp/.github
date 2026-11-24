@@ -73,6 +73,7 @@ flowchart TD
 - **Rule**: A change to prose alone runs those 64 test files (69 before the Qodo tests were removed). Anything else runs the whole suite. Jest is never skipped for a prose change.
 - **Correction**: The earlier rule skipped Jest for plain `docs/` pages. All 141 of those pages are read by tests, so the rule could hide a failure. It is removed.
 - **Measured**: The 69 files, measured before the Qodo tests were removed, took 86 seconds locally against 100 seconds for the whole suite, a saving of about 14 percent. They include the tests that scan the whole repository, so Prose mode runs fewer tests, not much less time. On the pull request's own CI the head job took 130 seconds against 94 for the whole suite, which is within run-to-run variation.
+- **Counts**: The figures above are a measurement taken on 24 November 2026. The committed `tests/jest-prose-tests.json` is the live record, and every full run checks it.
 - **Keeping the list true**: Every full run on a pull request head records a trace, and the job fails when a traced test file is missing from `tests/jest-prose-tests.json`.
 - **Both targets**: The scope job passes the list to the head and base runs, so the comparison is like for like.
 
