@@ -19,6 +19,7 @@ Nothing is written to Figma or a theme until the reviewer approves the proposal.
 
 - `figma-use`: required before running the generated script through `use_figma`. Creating a token library also uses `figma-generate-library`.
 - `figma-to-block-theme`: turns the export JSON (or the new Figma variables) into `theme.json` presets.
+- `site-to-block-theme`: once the tokens are in `theme.json`, rebuilds the live site's templates, parts and patterns in the theme directly, without a Figma layout step.
 
 ## Workflow
 
