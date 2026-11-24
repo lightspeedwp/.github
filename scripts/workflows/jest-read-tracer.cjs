@@ -48,8 +48,9 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
    * @param {Function} wrapper
    * @param {Function} original
    * @param {(args: unknown[]) => void} record
+   * @param {(args: unknown[]) => unknown[]} [transform] Rewrites the arguments of the promisified form.
    */
-  const mirror = (wrapper, original, record) => {
+  const mirror = (wrapper, original, record, transform = (args) => args) => {
     for (const key of Reflect.ownKeys(original)) {
       if (key === 'length' || key === 'name' || key === 'prototype' || key === promisify.custom) continue;
       Object.defineProperty(wrapper, key, Object.getOwnPropertyDescriptor(original, key));
@@ -60,7 +61,7 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
         configurable: true,
         value: function tracedPromisified(...args) {
           record(args);
-          return custom.apply(this, args);
+          return custom.apply(this, transform(args));
         },
       });
     }
@@ -184,7 +185,11 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       if (index === 0 && args.length > 0 && args[0] != null && !isOptions(args[0])) return rest;
       if (index === 1 && args[1] != null && !isOptions(args[1])) return rest;
       const options = isOptions(args[index]) ? args[index] : {};
-      const env = { ...(options.env || process.env) };
+      // Copy inherited enumerable keys too: Node builds a child's environment that
+      // way, so `Object.create(process.env)` is a complete environment.
+      const source = options.env || process.env;
+      const env = {};
+      for (const key in source) env[key] = source[key];
       // Keep a name the caller set on purpose, meaning one that differs from the
       // name this process inherited. A copy of the inherited environment carries
       // the inherited name, which the current test replaces.
@@ -218,7 +223,14 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       recordProgram(command);
       return original.call(this, command, ...withTestEnv(name, rest));
     };
-    mirror(childProcess[name], original, (args) => recordProgram(args[0]));
+    // Node's promisified exec and execFile call the original functions, not
+    // these wrappers, so the test name has to be added to their arguments too.
+    mirror(
+      childProcess[name],
+      original,
+      (args) => recordProgram(args[0]),
+      (args) => [args[0], ...withTestEnv(name, args.slice(1))]
+    );
   }
 
   syncBuiltinESMExports();

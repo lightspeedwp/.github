@@ -107,6 +107,31 @@ describe('jest-read-tracer', () => {
     expect(result.trace).toContain('T\ttests/parent.test.js\n');
   });
 
+  it('attributes the prose a Node child reads when started through the promisified execFile', () => {
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      `const args = ["-r", ${JSON.stringify(TRACER)}, "-e", 'require("fs").readFileSync("notes.md")'];`,
+      'require("util").promisify(require("child_process").execFile)(process.execPath, args).then(() => process.stdout.write("done"));',
+    ].join('\n');
+    const result = runTraced(script);
+    expect(result).toMatchObject({ status: 0, stdout: 'done' });
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+  });
+
+  it('keeps inherited variables when a caller passes an environment that inherits from process.env', () => {
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      'const env = Object.create(process.env);',
+      'env.KEPT = "yes";',
+      `const args = ["-r", ${JSON.stringify(TRACER)}, "-e", 'require("fs").readFileSync("notes.md"); process.stdout.write(process.env.KEPT)'];`,
+      'process.stdout.write(require("child_process").execFileSync(process.execPath, args, { env }).toString());',
+    ].join('\n');
+    const result = runTraced(script);
+    expect(result).toMatchObject({ status: 0, stdout: 'yes' });
+    // The child still found the trace file and root, which it inherits through the prototype chain.
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+  });
+
   it('keeps the options of a call whose argument list is undefined', () => {
     const script = [
       'require("fs").__jestCurrentTest = "tests/parent.test.js";',

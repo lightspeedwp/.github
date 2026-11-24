@@ -16,6 +16,12 @@ on:
     paths:
       - '.github/workflows/**'
       - '.github/actionlint.yaml'
+      # The same files scripts/workflows/ci-scope.sh treats as relevant to actionlint:
+      # a changed local action can break the workflows that call it.
+      - '**/action.yml'
+      - '**/action.yaml'
+      - 'scripts/validation/run-actionlint.cjs'
+      - 'scripts/workflows/ci-scope.sh'
 
 permissions:
   contents: read
@@ -43,6 +49,12 @@ jobs:
           # script: the step below runs `npm run lint:actionlint`, which lives
           # in scripts/validation. Cone mode always includes root files, so
           # package.json resolves even though it is not listed here.
+          #
+          # Local actions must live under .github/actions. actionlint skips the
+          # input checks for a local action whose metadata file is missing, and says
+          # nothing, so an action outside this checkout would pass unchecked. A test
+          # in scripts/validation/__tests__/workflow-lint-active-files.test.js fails
+          # if a workflow uses a local action from anywhere else.
           sparse-checkout: |
             .github
             scripts/validation

@@ -48,6 +48,20 @@ describe('actionlint workflow list', () => {
     }
   });
 
+  it('keeps every local action under .github, which the actionlint checkout includes', () => {
+    // The actionlint job checks out .github and two script folders only. A local
+    // action anywhere else would be missing there, and actionlint then skips the
+    // input checks for it without reporting anything.
+    const outside = [];
+    for (const file of workflowFiles()) {
+      const text = fs.readFileSync(path.join(repositoryRoot, file), 'utf8');
+      for (const match of text.matchAll(/^\s*(?:-\s*)?uses:\s*['"]?(\.\/[^\s'"#]+)/gm)) {
+        if (!match[1].startsWith('./.github/')) outside.push(`${file}: ${match[1]}`);
+      }
+    }
+    expect(outside).toEqual([]);
+  });
+
   it('skips subdirectories and non-workflow files', () => {
     const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'actionlint-list-'));
     try {
