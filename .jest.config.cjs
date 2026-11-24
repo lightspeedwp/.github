@@ -11,7 +11,11 @@ module.exports = {
   // Switch to jsdom to provide window/localStorage, mitigating the SecurityError seen under node.
   testEnvironment: process.env.JEST_ENVIRONMENT || 'jsdom',
   // Provide a setup file that polyfills localStorage (defensive if environment overridden).
-  setupFilesAfterEnv: ['<rootDir>/.github/tests/jest.setup.localstorage.js'],
+  setupFilesAfterEnv: [
+    '<rootDir>/.github/tests/jest.setup.localstorage.js',
+    // Names the running test file for the read tracer; a no-op unless a trace is being recorded.
+    '<rootDir>/tests/jest.setup.read-trace.cjs',
+  ],
   // Fail the run if any test writes into the repository (#3498).
   globalSetup: '<rootDir>/tests/jest.global-setup.cjs',
   globalTeardown: '<rootDir>/tests/jest.global-teardown.cjs',
