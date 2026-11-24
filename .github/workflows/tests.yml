@@ -13,6 +13,8 @@ on:
 
 permissions:
   contents: read
+  # ci-scope.sh reads the earlier result of the same check.
+  checks: read
 
 concurrency:
   group: tests-${{ github.event.pull_request.number || github.ref }}
@@ -36,30 +38,24 @@ jobs:
         id: scope
         env:
           EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CHECK_NAME: No new test failures
+          GH_TOKEN: ${{ github.token }}
         run: |
-          docs_only=false
-          if [ "$EVENT_NAME" = "pull_request" ]; then
-            changed_files="$RUNNER_TEMP/tests-changed-files"
-            git diff --name-only --no-renames -z "$BASE_SHA" HEAD > "$changed_files"
-            if [ -s "$changed_files" ]; then
-              docs_only=true
-              while IFS= read -r -d '' file; do
-                case "$file" in
-                  docs/LABEL_STRATEGY.md | docs/LABELING.md)
-                    docs_only=false
-                    break
-                    ;;
-                  docs/*.md) ;;
-                  *)
-                    docs_only=false
-                    break
-                    ;;
-                esac
-              done < "$changed_files"
-            fi
+          # The rules live in scripts/workflows/ci-scope.sh, shared with the
+          # lint checks. The suite is skipped when the pull request changes
+          # only plain docs pages, or when the latest push did and the suite
+          # passed on the commit before it.
+          bash scripts/workflows/ci-scope.sh jest > "$RUNNER_TEMP/tests-scope"
+          cat "$RUNNER_TEMP/tests-scope"
+          if grep -qx 'run=false' "$RUNNER_TEMP/tests-scope"; then
+            echo "docs_only=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "docs_only=false" >> "$GITHUB_OUTPUT"
           fi
-          echo "docs_only=$docs_only" >> "$GITHUB_OUTPUT"
 
   jest:
     name: Jest (${{ matrix.target }})
