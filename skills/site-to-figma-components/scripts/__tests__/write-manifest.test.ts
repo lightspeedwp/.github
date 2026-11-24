@@ -21,6 +21,7 @@ function allNodes(inv: Inventory): FigmaNodes {
       nodes[i.id] = { nodeId: `100:${n + 1}`, page: '> Rebuild' };
       if (i.kind === 'template') {
         nodes[i.id].mobileNodeId = `200:${n + 1}`;
+        nodes[i.id].composition = i.composition;
       }
     });
   return { fileKey: 'abc123', nodes };
@@ -117,11 +118,96 @@ describe('ManifestBuilder', () => {
       'pattern:testimonials was cut from the inventory but has a Figma node (1:3). Archive the node or restore the item.',
       'pattern:ghost is in figma-nodes.json but not in the inventory.',
       'template:front-page changes layout at 390px but has no mobile frame.',
+      "template:front-page has no built composition in figma-nodes.json; using the crawled order. Record the template frame's sections.",
     ]);
     const md = new ManifestBuilder(now).markdown(m);
     expect(md).toContain('## Not built yet');
     expect(md).toContain('## Warnings');
     expect(md).toContain('1. template-part `header`');
+  });
+
+  it('follows the built composition, numbering repeats and keeping overrides', () => {
+    const inv = approved();
+    const nodes = allNodes(inv);
+    const front = inv.items.find((i) => i.id === 'template:front-page')!;
+    const crawled = front.composition!;
+    const repeated = crawled.find((id) => id.startsWith('pattern:'))!;
+    nodes.nodes['template:front-page'].composition = [
+      ...crawled.filter((id) => id !== repeated),
+      { id: repeated, overrides: { heading: 'First' } },
+      { id: repeated, overrides: { heading: 'Second' } },
+      { id: repeated, overrides: {} },
+    ];
+    const builder = new ManifestBuilder(now);
+    const m = builder.build(inv, nodes);
+    const entry = m.entries.find((e) => e.id === 'template:front-page')!;
+    const copies = entry.composition!.filter((c) => c.id === repeated);
+    expect(copies.map((c) => c.instance)).toEqual([1, 2, 3]);
+    expect(copies[0].overrides).toEqual({ heading: 'First' });
+    expect(copies[2].overrides).toBeUndefined();
+    expect(m.warnings).toEqual([
+      `template:front-page: the Figma template has 3 × ${repeated}, the live page had ${crawled.filter((id) => id === repeated).length}. The manifest follows Figma; list the difference for the reviewer.`,
+    ]);
+    const md = builder.markdown(m);
+    expect(md).toContain('(instance 1): heading "First"');
+    expect(md).toContain('(instance 3)\n');
+  });
+
+  it.each(['pattern:missing', 'unknown:Section', 'local:Section'])(
+    'rejects unresolved composition section %s',
+    (id) => {
+      const inv = approved();
+      const nodes = allNodes(inv);
+      nodes.nodes['template:front-page'].composition = [id];
+      expect(() => new ManifestBuilder(now).build(inv, nodes)).toThrow(
+        `unresolved composition section ${id}`
+      );
+    }
+  );
+
+  it('warns about an equal-count reorder and keeps the built order', () => {
+    const inv = approved();
+    const nodes = allNodes(inv);
+    const reordered = [
+      ...inv.items.find((i) => i.id === 'template:front-page')!.composition!,
+    ].reverse();
+    nodes.nodes['template:front-page'].composition = reordered;
+    const m = new ManifestBuilder(now).build(inv, nodes);
+    expect(
+      m.entries.find((e) => e.id === 'template:front-page')!.composition!.map((s) => s.id)
+    ).toEqual(reordered);
+    expect(m.warnings).toEqual([
+      'template:front-page: the Figma section order differs from the live page. The manifest follows Figma; list the difference for the reviewer.',
+    ]);
+  });
+
+  it('flags targets that already exist in the theme', () => {
+    const inv = approved();
+    const m = new ManifestBuilder(now).build(
+      inv,
+      allNodes(inv),
+      false,
+      (file) => file === 'parts/header.html'
+    );
+    const header = m.entries.find((e) => e.id === 'part:header')!;
+    expect(header.wordpress.existsInTheme).toBe(true);
+    expect(m.entries.find((e) => e.id === 'part:footer')!.wordpress.existsInTheme).toBeUndefined();
+    expect(m.warnings).toEqual([
+      'part:header: parts/header.html already exists in the theme. Pattern mode must replace or rename it, not reuse it as is.',
+    ]);
+    expect(new ManifestBuilder(now).markdown(m)).toContain('parts/header.html (exists)');
+    expect(header.wordpress).not.toBe(inv.items.find((i) => i.id === 'part:header')!.wordpress);
+    const rebuilt = new ManifestBuilder(now).build(inv, allNodes(inv), false, () => false);
+    const unchecked = new ManifestBuilder(now).build(inv, allNodes(inv));
+    for (const result of [rebuilt, unchecked]) {
+      expect(
+        result.entries.find((e) => e.id === 'part:header')!.wordpress.existsInTheme
+      ).toBeUndefined();
+      expect(result.warnings).toEqual([]);
+    }
+    expect(inv.items.find((i) => i.id === 'part:header')!.wordpress).not.toHaveProperty(
+      'existsInTheme'
+    );
   });
 
   it('only requires nodes for items in the approved build scope', () => {
@@ -187,6 +273,25 @@ describe('runManifestCli', () => {
     expect(JSON.parse(t.written['m.json']).entries.length).toBeGreaterThan(10);
     expect(t.written['m.md']).toContain('manifest');
     expect(t.out.join('')).toMatch(/entries, 0 not built, 0 warnings/);
+  });
+
+  it('checks targets against --theme-dir', () => {
+    const t = io(files);
+    const seen: string[] = [];
+    const exists = (p: string) => {
+      seen.push(p);
+      return p === 'theme/parts/footer.html';
+    };
+    expect(
+      runManifestCli(['i.json', '--nodes', 'n.json', '--theme-dir', 'theme'], { ...t.io, exists })
+    ).toBe(0);
+    expect(seen).toContain('theme/parts/header.html');
+    expect(t.out.join('')).toMatch(/1 warnings/);
+    const noFs = io(files);
+    expect(runManifestCli(['i.json', '--nodes', 'n.json', '--theme-dir', 'theme'], noFs.io)).toBe(
+      0
+    );
+    expect(noFs.out.join('')).toMatch(/0 warnings/);
   });
 
   it('accepts --partial and prints usage', () => {
