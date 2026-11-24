@@ -77,4 +77,3 @@ wceu-2026/**/*.md
 # .specify/integrations/*.manifest.json, so they must not be reformatted
 
 .claude/skills/speckit-*/**/*.md
-.specify/extensions/**/*.md

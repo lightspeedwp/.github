@@ -281,8 +281,8 @@ site URLs safely.
 ### 025 - Spec Kit Upgrade to v1.4.4
 
 Upgrade the installed GitHub Spec Kit from the `1.0.7.dev0` development build to `v1.4.4`, keep the
-configurable specifications folder, and replace the stale `taskstoissues` skill with the bundled
-`github` extension.
+configurable specifications folder, and remove the stale `taskstoissues` skill, which is no longer
+in core.
 
 - **Status**: Draft
 - **Phase**: Specification and implementation

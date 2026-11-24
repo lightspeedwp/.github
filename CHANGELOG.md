@@ -75,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **Spec Kit Upgrade** — Spec Kit is now on v1.4.4. The task-to-issue skill is now `speckit-github-taskstoissues`, and specifications still go to `.github/specs/`. ([PR #4064](https://github.com/lightspeedwp/.github/pull/4064))
+- **Spec Kit Upgrade** — Spec Kit is now on v1.4.4. The `speckit-taskstoissues` skill is no longer installed, because upstream removed it from core. Specifications still go to `.github/specs/`. ([PR #4064](https://github.com/lightspeedwp/.github/pull/4064))
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))

@@ -15,7 +15,7 @@ This repository runs every significant change through GitHub Spec Kit. The insta
 Three problems follow from the old install:
 
 - `specify integration status` reported 12 managed files as modified, so an upgrade refused to run without `--force`.
-- The `speckit-taskstoissues` skill was still installed as a core skill. Upstream removed it from core in 1.3.0 and moved it to the bundled `github` extension.
+- The `speckit-taskstoissues` skill was still installed as a core skill. Upstream removed it from core in 1.3.0 and moved it to the optional `github` extension.
 - Two managed scripts carry a local change that lets the specifications live in `.github/specs/` (spec 007). A forced upgrade overwrites that change.
 
 Tracking issue: [GIT-2801](https://linear.app/lightspeedwp/issue/GIT-2801). Parent epic: [#3464](https://github.com/lightspeedwp/.github/issues/3464).
@@ -54,18 +54,18 @@ A maintainer who creates a new specification after the upgrade gets it in `.gith
 
 ---
 
-### User Story 3 - Tasks can still become GitHub issues (Priority: P2)
+### User Story 3 - No stale task-to-issue skill (Priority: P2)
 
-A maintainer who wants to turn `tasks.md` into GitHub issues still has a skill for it, supplied by the supported extension rather than by a stale copy.
+A maintainer sees only the skills that Spec Kit `v1.4.4` ships in core. The `taskstoissues` skill left core in 1.3.0, so it is not installed, and the optional `github` extension that now carries it is not added.
 
-**Why this priority**: The capability is optional in the Spec Kit workflow, but removing it without a replacement would be a regression.
+**Why this priority**: The skill created one GitHub issue per task and left a backlog of stale issues ([#3540](https://github.com/lightspeedwp/.github/issues/3540)). Work is tracked in Linear, so the optional extension is not wanted.
 
 **Independent Test**: List `.claude/skills/` and run `specify extension list`.
 
 **Acceptance Scenarios**:
 
-1. **Given** the upgraded branch, **When** a maintainer lists `.claude/skills/`, **Then** `speckit-taskstoissues` is absent and `speckit-github-taskstoissues` is present.
-2. **Given** the upgraded branch, **When** a maintainer runs `specify extension list`, **Then** the `github` extension is listed as enabled.
+1. **Given** the upgraded branch, **When** a maintainer lists `.claude/skills/`, **Then** `speckit-taskstoissues` and `speckit-github-taskstoissues` are both absent.
+2. **Given** the upgraded branch, **When** a maintainer runs `specify extension list`, **Then** no extension is listed.
 
 ---
 
@@ -83,7 +83,7 @@ A maintainer who wants to turn `tasks.md` into GitHub issues still has a skill f
 - **FR-002**: Every managed `speckit-*` skill MUST be the version shipped with `v1.4.4`.
 - **FR-003**: `read_specs_directory` MUST remain available in `.specify/scripts/bash/common.sh` with unchanged behaviour.
 - **FR-004**: `.specify/scripts/bash/create-new-feature.sh` MUST resolve the specifications folder from `specs_directory`, falling back to `.github/specs`.
-- **FR-005**: The stale core `speckit-taskstoissues` skill MUST be removed and the bundled `github` extension MUST be installed.
+- **FR-005**: The stale core `speckit-taskstoissues` skill MUST be removed, and no optional extension may be installed by this change.
 - **FR-006**: Every local change to a managed file MUST be either carried forward or listed in the plan with the reason it was dropped.
 - **FR-007**: The change MUST NOT alter the constitution, any locked file, or any existing specification.
 - **FR-008**: The change MUST add a changelog entry and a catalogue row for this specification.
@@ -108,5 +108,5 @@ A maintainer who wants to turn `tasks.md` into GitHub issues still has a skill f
 ## Assumptions
 
 - Claude Code is the only Spec Kit integration this repository needs. No other integration is installed.
-- The remaining bundled extensions, the `pipeline` workflow, and `tasks.md` for specifications 016 and 017 are separate follow-up work.
+- The bundled extensions, the `pipeline` workflow, and `tasks.md` for specifications 016 and 017 are separate follow-up work.
 - The ten skill files that the old manifest reported as modified carried no deliberate local edits. Git history shows no commit touching them after the install commit, so they are replaced with the upstream versions.

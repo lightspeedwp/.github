@@ -6,7 +6,7 @@
 
 ## Summary
 
-Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream command line, re-apply the one deliberate local change (configurable specifications folder), and replace the stale `taskstoissues` skill with the bundled `github` extension.
+Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream command line, re-apply the one deliberate local change (configurable specifications folder), and remove the stale `taskstoissues` skill, which is no longer in core.
 
 ## Technical Context
 
@@ -31,7 +31,7 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 | Principle | Result | Note |
 | --- | --- | --- |
 | II. Locked governance | Pass | No locked file is touched. |
-| III. Asset boundaries | Pass, relies on the platform-required locations exception | Spec Kit reads its state from `.specify/` and Claude Code reads skills from `.claude/skills/`. Both are fixed paths chosen by the tools. The exception covers the scripts Spec Kit installs under `.specify/scripts/` and `.specify/extensions/*/scripts/`: the tool resolves them at those paths and tracks them by hash, so they cannot move to root `scripts/`, where `AGENTS.md` places repository-authored scripts. |
+| III. Asset boundaries | Pass, relies on the platform-required locations exception | Spec Kit reads its state from `.specify/` and Claude Code reads skills from `.claude/skills/`. Both are fixed paths chosen by the tools. The exception covers the scripts Spec Kit installs under `.specify/scripts/`: the tool resolves them at those paths and tracks them by hash, so they cannot move to root `scripts/`, where `AGENTS.md` places repository-authored scripts. |
 | V and VIII. Branch naming | Pass | `aiops/spec-kit-upgrade-v1-4-4` uses an authorised type. |
 | VI. UK English | Pass | Applies to this specification. Upstream skill text is left as shipped. |
 | VII. Specification quality | Pass | See `checklists/requirements.md`. |
@@ -55,14 +55,13 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 
 - **Rationale**: The `case "$SPECS_DIRECTORY"` guard repeated checks that `read_specs_directory` already performs, so it could never fire. This is the defect recorded in [GIT-2309](https://linear.app/lightspeedwp/issue/GIT-2309). The upgrade replaced the file, so the guard is not re-added.
 
-### Decision 4: install only the `github` extension
+### Decision 4: install no extensions
 
-- **Rationale**: It replaces a capability the old install had. Other extensions add new behaviour and are out of scope.
+- **Rationale**: Upstream moved `taskstoissues` out of core in 1.3.0 into the optional `github` extension. A first version of this change installed that extension to keep the old behaviour. Review found it unwanted: it created the stale issue backlog in [#3540](https://github.com/lightspeedwp/.github/issues/3540), and work is tracked in Linear. It was removed with `specify extension remove github`. Matching core `v1.4.4` means installing no extensions.
 
 ### Decision 5: exclude hash-tracked Spec Kit files from Markdown linting
 
-- **Rationale**: The ten skill files on `develop` differed from their recorded hashes only by blank lines of the kind a Markdown lint fix adds. That mismatch is what made the old install refuse to upgrade. Adding `.claude/skills/speckit-*/**/*.md` and `.specify/extensions/**/*.md` to `.markdownlintignore` keeps those files as shipped.
-- **Evidence**: With the default rules, the upstream `github` extension command file reports six findings (MD029, MD031, MD032). The files written for this specification report none.
+- **Rationale**: The ten skill files on `develop` differed from their recorded hashes only by blank lines of the kind a Markdown lint fix adds. That mismatch is what made the old install refuse to upgrade. Adding `.claude/skills/speckit-*/**/*.md` to `.markdownlintignore` keeps those files as shipped.
 
 ### Decision 6: do not patch upstream files in this change
 
@@ -70,7 +69,6 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 - **Consequence**: Review findings on upstream content are recorded here and belong upstream in `github/spec-kit`, not in this repository:
   - `speckit-converge` can append a convergence task that duplicates an open task.
   - `speckit-specify` writes `.specify/feature.json` without checking `SPECIFY_FEATURE_NO_PERSIST`.
-  - `speckit.github.taskstoissues` matches existing issues by task ID across all features.
   - `markdown_sections.py` can join a replacement to the next heading when the replacement has no final newline.
 
 ## Local changes to managed files
@@ -80,7 +78,7 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 | `.specify/scripts/bash/common.sh` | Added `read_specs_directory` | Carried forward unchanged |
 | `.specify/scripts/bash/create-new-feature.sh` | Read `specs_directory`; extra path guard | Reads `specs_directory`; the unreachable guard is dropped |
 | `.claude/skills/speckit-*/SKILL.md` (nine files) | Hash mismatch, no deliberate edit | Replaced with upstream `v1.4.4` |
-| `.claude/skills/speckit-taskstoissues/SKILL.md` | Stale core skill | Removed; replaced by `speckit-github-taskstoissues` |
+| `.claude/skills/speckit-taskstoissues/SKILL.md` | Stale core skill | Removed; not replaced |
 
 ## Project Structure
 
@@ -102,12 +100,9 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 ├── init-options.json            # version 1.4.4
 ├── integration.json             # version 1.4.4
 ├── integrations/*.manifest.json # regenerated
-├── extensions.yml               # new: installed extensions
-├── extensions/github/           # new: bundled extension
 └── scripts/bash/                # upstream v1.4.4 plus the two local changes
 .claude/skills/
-├── speckit-*/SKILL.md           # upstream v1.4.4
-└── speckit-github-taskstoissues/SKILL.md
+└── speckit-*/SKILL.md           # upstream v1.4.4, nine core skills
 ```
 
 ## Complexity Tracking

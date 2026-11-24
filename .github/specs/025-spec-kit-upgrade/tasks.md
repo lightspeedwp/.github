@@ -31,10 +31,11 @@
 - [X] T009 [US2] Check both scripts with `bash -n` and ShellCheck
 - [X] T010 [US2] Dry-run `create-new-feature.sh` and confirm the path is under `.github/specs/` and the number is 025
 
-## Phase 5: User Story 3 - Tasks to GitHub issues (Priority: P2)
+## Phase 5: User Story 3 - No stale task-to-issue skill (Priority: P2)
 
 - [X] T011 [US3] Run `specify extension add github`
-- [X] T012 [US3] Confirm `.claude/skills/speckit-taskstoissues/` is gone and `.claude/skills/speckit-github-taskstoissues/` exists
+- [X] T012 [US3] Confirm `.claude/skills/speckit-taskstoissues/` is gone
+- [X] T018 [US3] After review, run `specify extension remove github` and confirm `specify extension list` shows none
 
 ## Phase 6: Polish
 
