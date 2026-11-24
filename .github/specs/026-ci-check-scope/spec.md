@@ -84,6 +84,7 @@ A pull request whose heavy work was skipped can still merge.
 - The base commit is missing or the comparison fails: the step fails. It never reports "nothing to do".
 - The earlier commit is not an ancestor of the new head (force push): the earlier result is not used.
 - The earlier run was cancelled by a newer push: its conclusion is not success, so the check runs.
+- The base branch moved since the earlier run: the earlier result tested a different merge, so the check runs.
 - Jest reads specifications, the changelog and workflow files. Only plain pages directly under `docs/` are safe for it to ignore, as before.
 
 ## Requirements *(mandatory)*
@@ -92,7 +93,7 @@ A pull request whose heavy work was skipped can still merge.
 
 - **FR-001**: One script MUST hold the rules for which files each check reads. Workflows MUST NOT repeat those rules inline.
 - **FR-002**: A scoped check MUST keep its job and its name, and gate its expensive steps on the script's decision.
-- **FR-003**: A check MUST be skipped only when no file it reads is changed in the pull request, or when the latest push changed no such file and the same check concluded success on the commit before that push.
+- **FR-003**: A check MUST be skipped only when no file it reads is changed in the pull request, or when the latest push changed no such file and the same check concluded success on the commit before that push, against the same base commit.
 - **FR-004**: Every other case MUST run the check, including events other than `pull_request`, force pushes, and any error while reading the earlier result.
 - **FR-005**: A failed comparison MUST fail the step.
 - **FR-006**: Changes to any workflow file or to the script MUST run every scoped check.

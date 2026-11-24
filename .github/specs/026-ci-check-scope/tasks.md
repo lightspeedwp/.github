@@ -48,4 +48,4 @@ domain: "governance"
 - [X] T013 [P] Add the catalogue entry
 - [X] T014 [P] Add the changelog entry
 - [X] T015 Open the pull request and read the check logs for a full run
-- [ ] T016 Push a Markdown-only commit and read the check logs for a skipped run
+- [X] T016 Push a Markdown-only commit and read the check logs for a skipped run

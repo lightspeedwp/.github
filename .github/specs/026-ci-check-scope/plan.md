@@ -50,8 +50,9 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 ### Decision 2: use the earlier result for later pushes
 
 - **Rationale**: Looking only at the whole pull request does not help the measured case. A pull request with code changes would still re-run everything for a later one-line Markdown push.
-- **Rule**: Skip when the latest push changed no file the check reads and the same check concluded success on the commit before it.
+- **Rule**: Skip when the latest push changed no file the check reads and the same check concluded success on the commit before it, against the same base commit.
 - **Safety**: The earlier commit must be an ancestor of the new head. Any other state runs the check.
+- **Base**: A check runs on the merge of the head with the base, so a result is reused only for the same base. Each check records the base it tested as a notice annotation titled "CI scope base", and the next run reads it back. This came from review of the pull request.
 
 ### Decision 3: keep Jest's scope as it is
 
