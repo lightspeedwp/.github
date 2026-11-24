@@ -76,7 +76,7 @@ jobs:
       inputs.mode == 'full'
     steps:
       - name: Run issue health audit
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           DRY_RUN: ${{ github.event_name == 'schedule' && 'false' || inputs.dry_run || 'true' }}
           AUDIT_FIX_LABELS: ${{ inputs.audit_fix_labels || 'true' }}
@@ -293,10 +293,10 @@ jobs:
       inputs.mode == 'full'
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
 
@@ -305,7 +305,7 @@ jobs:
 
       - name: Fetch non-compliant issues
         id: fetch
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           DAYS: ${{ inputs.days || '7' }}
         with:
@@ -359,7 +359,7 @@ jobs:
 
       - name: Add missing type labels
         if: ${{ inputs.remediate_labels != 'false' && steps.fetch.outputs.count > 0 }}
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
           DRY_RUN: ${{ inputs.dry_run || 'true' }}
@@ -414,7 +414,7 @@ jobs:
 
       - name: Post remediation checklists
         if: ${{ inputs.remediate_templates != 'false' && steps.fetch.outputs.count > 0 }}
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           ISSUES_JSON: ${{ steps.fetch.outputs.issues }}
           DRY_RUN: ${{ inputs.dry_run || 'true' }}
@@ -443,7 +443,7 @@ jobs:
 
       - name: Trigger labeling workflow
         if: success()
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           DRY_RUN: ${{ inputs.dry_run || 'true' }}
         with:
@@ -468,7 +468,7 @@ jobs:
 
       - name: Upload reports
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7
         with:
           name: remediation-reports-${{ github.run_id }}
           path: |
@@ -478,7 +478,7 @@ jobs:
 
       - name: Summary
         if: always()
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           DRY_RUN: ${{ inputs.dry_run || 'true' }}
           RUN_ID: ${{ github.run_id }}

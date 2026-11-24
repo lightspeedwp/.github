@@ -27,7 +27,7 @@
     "js-yaml": "^5.4.2"
   },
   "devDependencies": {
-    "jest": "^30.5.2"
+    "jest": "30.5.2"
   },
   "jest": {
     "testEnvironment": "jsdom",

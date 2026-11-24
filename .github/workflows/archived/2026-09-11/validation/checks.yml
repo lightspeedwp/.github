@@ -39,11 +39,11 @@ jobs:
       BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
       HEAD_SHA: ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
@@ -60,10 +60,10 @@ jobs:
     if: github.event_name != 'schedule' && github.event_name != 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
@@ -77,11 +77,11 @@ jobs:
       BASE_SHA: ${{ github.event.merge_group.base_sha || github.event.pull_request.base.sha || github.event.before }}
       HEAD_SHA: ${{ github.event.merge_group.head_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
       - run: npm ci
@@ -110,10 +110,10 @@ jobs:
     env:
       HUSKY: "0"
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
           cache: npm
@@ -129,7 +129,7 @@ jobs:
 
       - name: Upload test results to Mergify
         if: success() || failure()
-        uses: mergifyio/gha-mergify-ci@v25
+        uses: mergifyio/gha-mergify-ci@5e8176734bc525c7fd8b2e812f0fa47246f601b7 # v25
         with:
           token: ${{ secrets.MERGIFY_TOKEN }}
           flaky_test_detection: true

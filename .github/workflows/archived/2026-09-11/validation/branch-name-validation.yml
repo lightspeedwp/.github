@@ -18,13 +18,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           persist-credentials: false
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -81,7 +81,7 @@ jobs:
 
       - name: Post validation result
         if: always()
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           # Branch names are attacker controlled on fork PRs; interpolating one
           # into the script body would let it break out of the string literal.

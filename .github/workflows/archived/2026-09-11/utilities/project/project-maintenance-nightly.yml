@@ -18,8 +18,8 @@ jobs:
       has_gaps: ${{ steps.audit.outputs.has_gaps }}
       gap_count: ${{ steps.audit.outputs.gap_count }}
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -60,7 +60,7 @@ jobs:
           echo "### Project Maintenance Audit — $(date -u +'%Y-%m-%d %H:%M:%SZ') UTC"
           echo "${{ steps.audit.outputs.results }}" | jq '.'
       - if: failure() && steps.audit.outputs.gap_count >= 5
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -68,7 +68,7 @@ jobs:
             let body = `## Project Documentation Gaps\n\n**Audit Date:** ${results.timestamp}\n\n- Missing PLANNING.md: ${results.missing_planning}\n- Missing OPENSPEC.md: ${results.missing_openspec}\n- Missing README.md: ${results.missing_readme}\n- **Total: ${results.total_gaps}**`;
             await github.rest.issues.create({owner: context.repo.owner, repo: context.repo.repo, title: `📋 Project Documentation Gaps (${results.total_gaps} items)`, body: body, labels: ['type:maintenance', 'area:docs', 'status:needs-triage']});
       - if: inputs.notify_slack && steps.audit.outputs.has_gaps == 'true'
-        uses: slackapi/slack-github-action@v4
+        uses: slackapi/slack-github-action@0bc3581177d9a0f8d555e07689384b376528e8fa # v4
         with:
           payload: |
             {"blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "⚠️ *Project Maintenance — Documentation Gaps*\n${{ steps.audit.outputs.gap_count }} items"}}]}
@@ -76,7 +76,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.PROJECT_MAINTENANCE_SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
       - if: inputs.notify_slack && steps.audit.outputs.has_gaps == 'false'
-        uses: slackapi/slack-github-action@v4
+        uses: slackapi/slack-github-action@0bc3581177d9a0f8d555e07689384b376528e8fa # v4
         with:
           payload: |
             {"blocks": [{"type": "section", "text": {"type": "mrkdwn", "text": "✅ *Project Maintenance — Audit Complete*\nAll projects documented"}}]}
