@@ -219,18 +219,17 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
         // Never let tracing change behaviour.
       }
     };
-    childProcess[name] = function tracedChildProcess(command, ...rest) {
-      recordProgram(command);
-      return original.call(this, command, ...withTestEnv(name, rest));
+    /** Record the program, then add the running test's name to the call's environment. */
+    const prepare = (args) => {
+      recordProgram(args[0]);
+      return [args[0], ...withTestEnv(name, args.slice(1))];
+    };
+    childProcess[name] = function tracedChildProcess(...args) {
+      return original.apply(this, prepare(args));
     };
     // Node's promisified exec and execFile call the original functions, not
-    // these wrappers, so the test name has to be added to their arguments too.
-    mirror(
-      childProcess[name],
-      original,
-      (args) => recordProgram(args[0]),
-      (args) => [args[0], ...withTestEnv(name, args.slice(1))]
-    );
+    // these wrappers, so the promisified form gets the same preparation.
+    mirror(childProcess[name], original, () => {}, prepare);
   }
 
   syncBuiltinESMExports();

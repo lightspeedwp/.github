@@ -107,6 +107,12 @@ SH
   [[ "$output" == *"run=true"* ]]
 }
 
+@test "an action.yml outside .github does not run actionlint, because no workflow may use it" {
+  commit_file plugins/example/action.yml > /dev/null
+  run bash "$SCOPE_SH" actionlint
+  [[ "$output" == *"run=false"* ]]
+}
+
 @test "other files next to an action do not run actionlint" {
   commit_file .github/actions/apply-labels/README.md > /dev/null
   run bash "$SCOPE_SH" actionlint

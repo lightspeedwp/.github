@@ -118,6 +118,17 @@ describe('jest-read-tracer', () => {
     expect(result.trace).toContain('T\ttests/parent.test.js\n');
   });
 
+  it('attributes the prose a Node child reads when started through the promisified exec with options', () => {
+    const command = `"${process.execPath}" -r "${TRACER}" -e "require('fs').readFileSync('notes.md')"`;
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      `require("util").promisify(require("child_process").exec)(${JSON.stringify(command)}, { cwd: ${JSON.stringify(workDir)} }).then(() => process.stdout.write("done"));`,
+    ].join('\n');
+    const result = runTraced(script);
+    expect(result).toMatchObject({ status: 0, stdout: 'done' });
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+  });
+
   it('keeps inherited variables when a caller passes an environment that inherits from process.env', () => {
     const script = [
       'require("fs").__jestCurrentTest = "tests/parent.test.js";',

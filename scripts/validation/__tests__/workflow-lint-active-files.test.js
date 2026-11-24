@@ -52,13 +52,26 @@ describe('actionlint workflow list', () => {
     // The actionlint job checks out .github and two script folders only. A local
     // action anywhere else would be missing there, and actionlint then skips the
     // input checks for it without reporting anything.
+    // Parsed, not matched with a pattern, so flow-style and anchored forms count too.
     const outside = [];
+    const check = (file, where, uses) => {
+      if (typeof uses === 'string' && uses.startsWith('./') && !uses.startsWith('./.github/')) {
+        outside.push(`${file}: ${where} uses ${uses}`);
+      }
+    };
+    let inspected = 0;
     for (const file of workflowFiles()) {
-      const text = fs.readFileSync(path.join(repositoryRoot, file), 'utf8');
-      for (const match of text.matchAll(/^\s*(?:-\s*)?uses:\s*['"]?(\.\/[^\s'"#]+)/gm)) {
-        if (!match[1].startsWith('./.github/')) outside.push(`${file}: ${match[1]}`);
+      const document = YAML.parse(fs.readFileSync(path.join(repositoryRoot, file), 'utf8'));
+      for (const [jobId, job] of Object.entries((document && document.jobs) || {})) {
+        check(file, `job ${jobId}`, job && job.uses);
+        for (const [index, step] of ((job && job.steps) || []).entries()) {
+          inspected += 1;
+          check(file, `job ${jobId} step ${index}`, step && step.uses);
+        }
       }
     }
+    // Guard the walk itself: inspecting nothing would make this pass for any workflow.
+    expect(inspected).toBeGreaterThan(0);
     expect(outside).toEqual([]);
   });
 

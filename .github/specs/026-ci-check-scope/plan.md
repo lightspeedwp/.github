@@ -90,7 +90,7 @@ flowchart TD
 | --- | --- | --- |
 | `lint` | `Lint (JS/YAML/package.json)` | JavaScript and TypeScript files, YAML files, `package.json` and its lock file, root-level files other than prose |
 | `typecheck` | `Typecheck` | JavaScript, TypeScript, Astro and JSON files, anything under `website/`, root-level files other than prose |
-| `actionlint` | `actionlint` | `.github/actionlint.yaml`, `scripts/validation/run-actionlint.cjs`, root `package.json` and its lock file, and every `action.yml` or `action.yaml` (actionlint reads local action metadata to check the inputs a workflow passes, so a changed action can break a caller; found in review of the pull request) |
+| `actionlint` | `actionlint` | `.github/actionlint.yaml`, `scripts/validation/run-actionlint.cjs`, root `package.json` and its lock file, and every `action.yml` or `action.yaml` under `.github/actions` (local actions must live there, and a test enforces it; actionlint reads local action metadata to check the inputs a workflow passes, so a changed action can break a caller; found in review of the pull request) |
 | `jest` | `No new test failures` | Everything except prose runs the whole suite. Prose alone runs the listed test files. |
 
 All profiles also run for any file under `.github/workflows/`, for the script itself and for `.nvmrc`.
