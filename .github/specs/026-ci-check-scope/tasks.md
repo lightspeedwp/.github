@@ -58,4 +58,4 @@ domain: "governance"
 - [X] T020 [US2] Give the `jest` profile a prose mode and remove the unsound `docs/` skip
 - [X] T021 [US3] Run the listed tests for prose changes in `.github/workflows/tests.yml`, and check the list on full runs
 - [X] T022 Read the GitHub Code Quality settings and record why they stay as they are
-- [ ] T023 Read the check logs for a full run with the list check, then for a prose-mode run
+- [X] T023 Read the check logs for a full run with the list check, then for a prose-mode run
