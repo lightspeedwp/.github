@@ -1,6 +1,6 @@
 # Specification Catalog
 
-**Last Updated**: 2026-09-30 | **Maintained by**: Governance Authority (@ashley)
+**Last Updated**: 2026-11-24 | **Maintained by**: Governance Authority (@ashley)
 
 ## Overview
 
@@ -300,10 +300,19 @@ Currently no archived or deprecated specifications. All numbered specifications 
 
 ## Numbering Strategy
 
-- **Existing Specifications**: 001-012 (preserved as-is, no renumbering)
-- **Audit Specification**: 013 (this specification catalog refactoring)
-- **Future Numbering**: Next specification = highest current + 1; check the tables above and the `.github/specs/` folders first
-- **No Reuse Policy**: Archived/deprecated specs keep their numbers; future specs get next available
+- **Allocation source**: [ALLOCATIONS.json](./ALLOCATIONS.json), beneath the configured specification root.
+- **Complete accounting**: Every integer through the highest allocation is pending, materialised or retired.
+- **Future numbering**: Highest accounted allocation plus one; no gap filling, number recycling or automatic expiry.
+- **Bootstrap**: 24 allocations, 21 genuine directories; 020 pending, 021/022 retired, 023/024 materialised.
+- **Since bootstrap**: 025 is materialised; the next allocation is 026 at the time of writing. The ledger is the current record.
+- **Preserved identities**: 020 portable agents, 023 schema audit and 024 database migration.
+- **Historical provenance**: The ledger separates the two histories for 021 and for 022, and the former database identity at 020.
+- **No reuse**: Archived specifications retain their genuine directories and materialised allocations.
+
+Pending and retired allocations are not catalogue specifications and receive no fabricated rows
+or links to absent directories. `materialised` is not an Active/approved quality judgement.
+The [dated decision](https://linear.app/lightspeedwp/issue/GIT-2676) records lifecycle direction;
+its provenance is not automatic proof of approval or implementation.
 
 For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
@@ -329,8 +338,8 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Determine next number: take the highest number in this catalog and in `.github/specs/` (025 at the time of writing) and add 1 (026)
-2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `026-{slug}`)
+1. Validate directories and the allocation ledger together; plan highest accounted plus one (026 at the time of writing), or fulfil an exact pending claim.
+2. Create the genuine specification and include its explicit materialised entry or transition in the same reviewed candidate; never auto-update the ledger.
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
 5. Request approval from @ashley (governance authority)

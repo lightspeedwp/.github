@@ -8,6 +8,42 @@
 
 **Input**: User description: "Speckit Folder Organization Refactoring - audit the GitHub speckit folder numbers for sequential organization, create a spec catalog/index, and audit quality across all 12 existing specs"
 
+## Numbering amendment — 4 November 2026
+
+This bounded amendment implements the lifecycle direction recorded on 28 October in
+[GIT-2676](https://linear.app/lightspeedwp/issue/GIT-2676), subject to separate implementation
+and verification approval. The September specification below remains historical verbatim.
+Only its numbering semantics are superseded; the original twelve-spec quality-audit scope,
+quality dimensions, naming, required-file, catalogue, link and governance obligations remain.
+
+This amendment controls the numbering statements in User Story 1, User Story 4 acceptance
+scenario 1, User Story 5 (including its independent-test renumbering proposal), FR-002,
+FR-012, SC-002, the Specification Number entity and the Numbering Scheme assumption.
+Their directory-only contiguity/highest-directory examples are not current allocation rules.
+It authorises neither renumbering nor placeholder specifications nor a constitution change.
+
+1. Account for every integer from 001 through the highest directory or ledger number.
+   A version-1 `ALLOCATIONS.json` beneath the configured specification root records exact
+   identities, states, decision URLs/timestamps, source URLs/full SHAs and historical claims.
+2. A materialised allocation requires the matching genuine directory. Pending and retired
+   allocations require directory absence; retired allocations have no canonical slug.
+   A pending row plus a matching new directory fails until explicitly materialised.
+3. Preserve bootstrap 001–019, 023 and 024 as materialised, 020 portable agents as pending,
+   and 021/022 as retired with their distinct histories. Allocation import does not approve contents.
+4. New allocation is highest accounted plus one (025 at bootstrap), never the first gap.
+   Retired numbers cannot be reused. Archiving retains genuine directories and allocations.
+5. Validation is offline/read-only and fails closed. Missing ledgers retain strict legacy
+   contiguity; missing/invalid helpers, invalid ledgers and unknown gaps never relax checks.
+   Auditor and allocator share configured-root resolution; allocation preflight precedes writes.
+6. An explicit reviewed baseline is schema-validated and compared without using candidate
+   directories as its old inventory. Without a baseline, only snapshot consistency is claimed.
+   Preserve provenance and identities; transitions require the candidate's explicit dated decision.
+7. Generating a local draft never writes the ledger or establishes merge validity. Dry-run
+   writes nothing. Exact pending claims and supported exact reuse are permitted; conflicts,
+   jumps, timestamp allocations and exhaustion beyond 999 are rejected before writes.
+8. The 020 specification PR needs a separately approved non-Markdown scope exception for
+   its eventual ledger transition. Current-head review, checks and merge remain separate gates.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Audit Current SpecKit Folder Structure (Priority: P1)

@@ -64,14 +64,13 @@ while [ $i -le $# ]; do
             echo "  --dry-run           Compute feature name and paths without creating directories or files"
             echo "  --allow-existing-branch  Reuse an existing feature directory if it already exists"
             echo "  --short-name <name> Provide a custom short name (2-4 words) for the feature"
-            echo "  --number N          Prefer a feature number (auto-corrected if its specs prefix exists)"
-            echo "  --timestamp         Use timestamp prefix (YYYYMMDD-HHMMSS) instead of sequential numbering"
+            echo "  --number N          Use the next number or an exact pending claim; conflicts fail"
+            echo "  --timestamp         Unsupported in numbered specification roots; fails without writes"
             echo "  --help, -h          Show this help message"
             echo ""
             echo "Examples:"
             echo "  $0 'Add user authentication system' --short-name 'user-auth'"
             echo "  $0 'Implement OAuth2 integration for API' --number 5"
-            echo "  $0 --timestamp --short-name 'user-auth' 'Add user authentication'"
             exit 0
             ;;
         *)
@@ -95,55 +94,7 @@ if [ -z "$FEATURE_DESCRIPTION" ]; then
     exit 1
 fi
 
-MAX_FEATURE_NUMBER=9223372036854775807
 MAX_BRANCH_LENGTH=244
-
-is_feature_number_in_range() {
-    local value="$1"
-    local normalized="${value#"${value%%[!0]*}"}"
-    [ -n "$normalized" ] || normalized=0
-    [ ${#normalized} -lt ${#MAX_FEATURE_NUMBER} ] && return 0
-    [ ${#normalized} -gt ${#MAX_FEATURE_NUMBER} ] && return 1
-    # Equal-length digit strings must be compared without arithmetic overflow.
-    # shellcheck disable=SC2071
-    [[ "$normalized" < "$MAX_FEATURE_NUMBER" || "$normalized" == "$MAX_FEATURE_NUMBER" ]]
-}
-
-# Function to get highest number from specs directory
-get_highest_from_specs() {
-    local specs_dir="$1"
-    local highest=0
-
-    if [ -d "$specs_dir" ]; then
-        for dir in "$specs_dir"/*; do
-            [ -d "$dir" ] || continue
-            dirname=$(basename "$dir")
-            # Match sequential prefixes (>=3 digits), but skip timestamp dirs.
-            if echo "$dirname" | grep -Eq '^[0-9]{3,}-' && ! echo "$dirname" | grep -Eq '^[0-9]{8}-[0-9]{6}-'; then
-                number=$(echo "$dirname" | grep -Eo '^[0-9]+')
-                if is_feature_number_in_range "$number"; then
-                    number=$((10#$number))
-                    if [ "$number" -gt "$highest" ]; then
-                        highest=$number
-                    fi
-                fi
-            fi
-        done
-    fi
-
-    echo "$highest"
-}
-
-# Return success when a spec directory owns the given numeric prefix.
-spec_prefix_exists() {
-    local specs_dir="$1"
-    local feature_num="$2"
-
-    for spec_path in "$specs_dir/${feature_num}-"*; do
-        [ -d "$spec_path" ] && return 0
-    done
-    return 1
-}
 
 # Function to clean and format a branch name
 #
@@ -286,9 +237,6 @@ if ! SPECS_DIRECTORY=$(read_specs_directory "$REPO_ROOT"); then
 fi
 
 SPECS_DIR="$REPO_ROOT/$SPECS_DIRECTORY"
-if [ "$DRY_RUN" != true ]; then
-    mkdir -p -- "$SPECS_DIR"
-fi
 
 # Function to generate branch name with stop word filtering and length filtering
 generate_branch_name() {
@@ -355,68 +303,34 @@ if [ -z "$BRANCH_SUFFIX" ]; then
     echo "[specify] Warning: Feature name is empty after removing unsupported characters. Use --short-name with letters or digits (for example, user-auth)." >&2
 fi
 
-# Warn if --number and --timestamp are both specified
-if [ "$USE_TIMESTAMP" = true ] && [ -n "$BRANCH_NUMBER" ]; then
-    >&2 echo "[specify] Warning: --number is ignored when --timestamp is used"
-    BRANCH_NUMBER=""
-fi
-
-# Determine branch prefix
+# Validate every allocation before any filesystem or feature-context write.
 if [ "$USE_TIMESTAMP" = true ]; then
-    FEATURE_NUM=$(date +%Y%m%d-%H%M%S)
-    BRANCH_NAME="${FEATURE_NUM}-${BRANCH_SUFFIX}"
+    echo "Error: --timestamp is not supported in a numbered specification root" >&2
+    exit 1
+fi
+ALLOCATION_VALIDATOR="$SCRIPT_DIR/../../../scripts/validation/spec-allocations.cjs"
+if ! command -v node >/dev/null 2>&1 || [ ! -f "$ALLOCATION_VALIDATOR" ]; then
+    echo "Error: Node.js and the shared allocation validator are required" >&2
+    exit 2
+fi
+# All valid prefixes have three digits: fit before checking a pending claim.
+FITTED_BRANCH_NAME=$(fit_branch_name "000" "$BRANCH_SUFFIX")
+FINAL_SUFFIX="${FITTED_BRANCH_NAME#*-}"
+ALLOCATION_ARGS=(allocate --repo-root "$REPO_ROOT" --specs-directory "$SPECS_DIRECTORY" --slug "$FINAL_SUFFIX")
+if [ "$NUMBER_EXPLICIT" = true ]; then
+    ALLOCATION_ARGS+=(--number "$BRANCH_NUMBER")
+fi
+if [ "$ALLOW_EXISTING" = true ]; then
+    ALLOCATION_ARGS+=(--allow-existing)
+fi
+if [ -n "${SPEC_ALLOCATION_BASELINE:-}" ]; then
+    ALLOCATION_ARGS+=(--baseline "$SPEC_ALLOCATION_BASELINE")
+fi
+if FEATURE_NUM=$(node "$ALLOCATION_VALIDATOR" "${ALLOCATION_ARGS[@]}"); then
+    :
 else
-    if [ -n "$BRANCH_NUMBER" ] && [[ ! "$BRANCH_NUMBER" =~ ^[0-9]+$ ]]; then
-        echo "Error: --number must be an unsigned integer, got '$BRANCH_NUMBER'" >&2
-        exit 1
-    fi
-
-    # Bash arithmetic is signed 64-bit; reject digit strings that would wrap.
-    if [ -n "$BRANCH_NUMBER" ] && ! is_feature_number_in_range "$BRANCH_NUMBER"; then
-        echo "Error: --number must be between 0 and $MAX_FEATURE_NUMBER, got '$BRANCH_NUMBER'" >&2
-        exit 1
-    fi
-
-    # Determine branch number from existing feature directories
-    if [ -z "$BRANCH_NUMBER" ]; then
-        HIGHEST=$(get_highest_from_specs "$SPECS_DIR")
-        if [ "$HIGHEST" -eq "$MAX_FEATURE_NUMBER" ]; then
-            echo "Error: feature number must be between 0 and $MAX_FEATURE_NUMBER, got '9223372036854775808'" >&2
-            exit 1
-        fi
-        BRANCH_NUMBER=$((HIGHEST + 1))
-    fi
-
-    # Force base-10 interpretation to prevent octal conversion (e.g., 010 → 8 in octal, but should be 10 in decimal)
-    FEATURE_NUM=$(printf "%03d" "$((10#$BRANCH_NUMBER))")
-
-    # Treat an explicit number as a preference when its prefix is already used
-    # by a feature directory. Auto-detected numbers are already conflict-free.
-    if [ "$NUMBER_EXPLICIT" = true ]; then
-        SPEC_CONFLICT=false
-        REQUESTED_BRANCH_NAME=$(fit_branch_name "$FEATURE_NUM" "$BRANCH_SUFFIX")
-        REQUESTED_DIR="$SPECS_DIR/$REQUESTED_BRANCH_NAME"
-        if [ "$ALLOW_EXISTING" != true ] || [ ! -d "$REQUESTED_DIR" ]; then
-            spec_prefix_exists "$SPECS_DIR" "$FEATURE_NUM" && SPEC_CONFLICT=true
-        fi
-
-        if [ "$SPEC_CONFLICT" = true ]; then
-            REQUESTED_NUM="$FEATURE_NUM"
-            HIGHEST=$(get_highest_from_specs "$SPECS_DIR")
-            BRANCH_NUMBER=$HIGHEST
-            while true; do
-                if [ "$BRANCH_NUMBER" -eq "$MAX_FEATURE_NUMBER" ]; then
-                    echo "Error: feature number must be between 0 and $MAX_FEATURE_NUMBER, got '9223372036854775808'" >&2
-                    exit 1
-                fi
-                BRANCH_NUMBER=$((BRANCH_NUMBER + 1))
-                FEATURE_NUM=$(printf "%03d" "$((10#$BRANCH_NUMBER))")
-                spec_prefix_exists "$SPECS_DIR" "$FEATURE_NUM" || break
-            done
-            >&2 echo "[specify] Warning: --number $REQUESTED_NUM conflicts with an existing spec directory; using $FEATURE_NUM instead"
-        fi
-    fi
-
+    allocation_status=$?
+    exit "$allocation_status"
 fi
 
 # GitHub enforces a 244-byte limit on branch names
