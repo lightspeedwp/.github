@@ -1,5 +1,7 @@
 # Tasks: Qodo PR-Agent Installation & Agent/Skill Integration
 
+> **Archived**: The pilot never ran and was removed in [specification 027](../027-qodo-pr-agent-removal/spec.md) ([GIT-2840](https://linear.app/lightspeedwp/issue/GIT-2840)). This document is kept as a record, and links below to removed files are historical.
+
 **Input**: Design documents from `.github/specs/019-qodo-pr-agent-integration/`
 
 **Prerequisites**: [plan.md](./plan.md), [spec.md](./spec.md), [research.md](./research.md), [data-model.md](./data-model.md), [contracts/](./contracts/), [quickstart.md](./quickstart.md)
