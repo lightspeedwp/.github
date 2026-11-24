@@ -8,9 +8,12 @@
  * on the command line.
  *
  * Each line of the trace is `<kind>\t<value>`:
- *   F  a file that was read, opened or checked for existence
+ *   F  a file that was read or opened
+ *   S  a file that was only checked for existence or metadata
  *   D  a directory that was listed
  *   X  a program other than Node that a test started
+ *   T  a test file that read, or checked for, a Markdown or text file
+ *   P  a test file and a program other than Node that it started
  *
  * Node child processes inherit NODE_OPTIONS and are traced too. Other child
  * processes are not, which is why they are recorded as X: what they read is
@@ -97,9 +100,12 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       const relative = absolute.slice(root.length + 1).split(path.sep).join('/');
       if (relative === '' && kind === 'F') return;
       if (/^(node_modules|\.git|coverage)(\/|$)/.test(relative)) return;
-      if (kind === 'D' && fromModuleMap()) return;
+      // Jest's own crawl lists and stats every file; that is not a test depending on it.
+      if (kind !== 'F' && fromModuleMap()) return;
       write(kind, relative === '' ? '.' : relative);
-      if (kind === 'F' && /\.(md|mdx|txt)$/.test(relative)) write('T', currentTest());
+      // A test that only checks whether a prose file exists still depends on it:
+      // deleting or adding the file changes its result.
+      if ((kind === 'F' || kind === 'S') && /\.(md|mdx|txt)$/.test(relative)) write('T', currentTest());
     } catch {
       // Never let tracing change behaviour.
     }
@@ -141,6 +147,43 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
   wrapPath(fs, 'existsSync', 'S');
   wrapPath(fs, 'createReadStream', 'F');
 
+  /**
+   * Hand the running test's name to a child process.
+   *
+   * Jest gives each test file its own copy of `process.env`, so a name set there
+   * never reaches the host process, and a child started without `options.env`
+   * inherits the host's. This runs in the host, so it can add the name to the
+   * environment the child receives, which lets a Node child's reads be attributed.
+   *
+   * @param {string} name Which child_process function is being called.
+   * @param {unknown[]} rest The call's arguments after the command.
+   * @returns {unknown[]} The arguments, with the test name in the environment.
+   */
+  const withTestEnv = (name, rest) => {
+    try {
+      const test = currentTest();
+      if (test === '(outside a test)') return rest;
+      const isOptions = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
+      const args = rest.slice();
+      const callback = typeof args[args.length - 1] === 'function' ? args.pop() : undefined;
+      const hasArgsList = name === 'spawn' || name === 'spawnSync' || name === 'execFile' || name === 'execFileSync';
+      let index = 0;
+      if (hasArgsList && Array.isArray(args[0])) index = 1;
+      else if (!hasArgsList && args.length === 0) index = 0;
+      const options = isOptions(args[index]) ? args[index] : {};
+      const env = { ...(options.env || process.env) };
+      // Keep a name the caller set on purpose, meaning one that differs from the
+      // name this process inherited. A copy of the inherited environment carries
+      // the inherited name, which the current test replaces.
+      const explicit = env.JEST_READ_TRACE_TEST !== undefined && env.JEST_READ_TRACE_TEST !== process.env.JEST_READ_TRACE_TEST;
+      if (!explicit) env.JEST_READ_TRACE_TEST = test;
+      args[index] = { ...options, env };
+      return callback ? [...args, callback] : args;
+    } catch {
+      return rest;
+    }
+  };
+
   const nodeNames = new Set(['node', path.basename(process.execPath)]);
   for (const name of ['spawn', 'spawnSync', 'exec', 'execSync', 'execFile', 'execFileSync']) {
     const original = childProcess[name];
@@ -158,7 +201,7 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
     };
     childProcess[name] = function tracedChildProcess(command, ...rest) {
       recordProgram(command);
-      return original.call(this, command, ...rest);
+      return original.call(this, command, ...withTestEnv(name, rest));
     };
     mirror(childProcess[name], original, (args) => recordProgram(args[0]));
   }

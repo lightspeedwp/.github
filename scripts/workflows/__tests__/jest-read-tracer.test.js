@@ -69,6 +69,52 @@ describe('jest-read-tracer', () => {
     expect(runTraced(script)).toMatchObject({ status: 0, stdout: 'function function\n' });
   });
 
+  it('treats an existence check on a prose file as a dependency of the running test', () => {
+    const result = runTraced('require("fs").existsSync("notes.md");', {
+      JEST_READ_TRACE_TEST: 'tests/example.test.js',
+    });
+    expect(result.status).toBe(0);
+    expect(result.trace).toContain('S\tnotes.md\n');
+    expect(result.trace).toContain('T\ttests/example.test.js\n');
+  });
+
+  it('does not count an existence check on a file that is not prose', () => {
+    const result = runTraced('require("fs").existsSync("data.json");', {
+      JEST_READ_TRACE_TEST: 'tests/example.test.js',
+    });
+    expect(result.trace).toContain('S\tdata.json\n');
+    expect(result.trace).not.toContain('T\t');
+  });
+
+  /** A script that starts a traced Node child which reads a prose file and prints $KEPT. */
+  const childScript = (options) =>
+    [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      `const args = ["-r", ${JSON.stringify(TRACER)}, "-e", 'require("fs").readFileSync("notes.md"); process.stdout.write(process.env.KEPT || "")'];`,
+      `process.stdout.write(require("child_process").execFileSync(process.execPath, args${options}).toString());`,
+    ].join('\n');
+
+  it('attributes the prose a Node child reads to the test that started it', () => {
+    const result = runTraced(childScript(''));
+    expect(result.status).toBe(0);
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+  });
+
+  it('keeps the environment a caller passes to a child, and still attributes its reads', () => {
+    const result = runTraced(childScript(', { env: { ...process.env, KEPT: "yes" } }'));
+    expect(result.status).toBe(0);
+    expect(result.stdout).toBe('yes');
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+  });
+
+  it('passes the callback form of exec through unchanged', () => {
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      'require("child_process").exec("echo hello", (error, stdout) => process.stdout.write(stdout));',
+    ].join('\n');
+    expect(runTraced(script)).toMatchObject({ status: 0, stdout: 'hello\n' });
+  });
+
   it('ignores paths outside the traced root', () => {
     const result = runTraced(`require("fs").readFileSync(${JSON.stringify(TRACER)});`);
     expect(result.status).toBe(0);

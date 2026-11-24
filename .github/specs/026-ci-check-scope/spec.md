@@ -85,7 +85,7 @@ A pull request whose heavy work was skipped can still merge.
 - The earlier commit is not an ancestor of the new head (force push): the earlier result is not used.
 - The earlier run was cancelled by a newer push: its conclusion is not success, so the check runs.
 - The base branch moved since the earlier run: the earlier result tested a different merge, so the check runs.
-- Jest reads prose. A read trace of the whole suite shows it reads 11,495 of the 11,745 tracked Markdown and text files, including every page under `docs/`. Only 38 of the 389 test files do that reading. Another 22 start programs other than Node, whose reads cannot be traced.
+- Jest reads prose. A read trace of the whole suite shows it reads 11,495 of the 11,745 tracked Markdown and text files, including every page under `docs/`. Only 47 of the 390 test files read or check for those files. Another 22 start programs other than Node, whose reads cannot be traced.
 - The earlier rule that skipped Jest for plain `docs/` pages was unsound, because tests read those pages. It is removed.
 
 ## Requirements *(mandatory)*
@@ -102,7 +102,7 @@ A pull request whose heavy work was skipped can still merge.
 - **FR-008**: The script MUST have automated tests for each rule above.
 - **FR-009**: Workflows gain only the `checks: read` permission, which the script needs to read the earlier result.
 - **FR-010**: A change to prose alone MUST run the test files that depend on prose, and only those. It MUST NOT skip Jest.
-- **FR-011**: The list of prose-dependent test files MUST be generated from a read trace and committed. It MUST include every test file that reads a prose file or starts a program other than Node.
+- **FR-011**: The list of prose-dependent test files MUST be generated from a read trace and committed. It MUST include every test file that reads a prose file, checks that one exists, or starts a program other than Node. The reads of a Node child process MUST be attributed to the test that started it.
 - **FR-012**: Every full Jest run on a pull request head MUST record a read trace and fail when a traced test file is missing from the list.
 
 ### Key Entities
@@ -119,7 +119,7 @@ A pull request whose heavy work was skipped can still merge.
 - **SC-003**: A pull request whose heavy steps were skipped shows all five required checks as successful.
 - **SC-004**: The script's test suite passes, and covers skip, run, force push, failed earlier result and failed comparison.
 - **SC-005**: This pull request shows both behaviours in its own check logs: a full run, then a skipped run after a push that changes only Markdown.
-- **SC-006**: A Markdown-only push runs the listed test files only (60 of 389 when measured), and the list check passes on a full run.
+- **SC-006**: A Markdown-only push runs the listed test files only (69 of 390 when measured), and the list check passes on a full run.
 
 ## Assumptions
 

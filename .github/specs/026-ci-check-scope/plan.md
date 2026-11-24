@@ -56,8 +56,8 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 
 ### Decision 3: run only the prose-dependent tests for prose changes
 
-- **Evidence**: The suite was run with a tracer that records every file read and every program started, per test file. It reads 11,495 of 11,745 tracked prose files. 38 test files do that reading, and 22 more start programs other than Node.
-- **Rule**: A change to prose alone runs those 60 test files. Anything else runs the whole suite. Jest is never skipped for a prose change.
+- **Evidence**: The suite was run with a tracer that records every file read and every program started, per test file. It reads 11,495 of 11,745 tracked prose files. 47 test files read or check for those files, and 22 more start programs other than Node. An existence check counts, and a Node child's reads are attributed to the test that started it, which the first version of the tracer missed (found in review of the pull request).
+- **Rule**: A change to prose alone runs those 69 test files. Anything else runs the whole suite. Jest is never skipped for a prose change.
 - **Correction**: The earlier rule skipped Jest for plain `docs/` pages. All 141 of those pages are read by tests, so the rule could hide a failure. It is removed.
 - **Measured**: The 60 files took 94 seconds locally against 134 seconds for the whole suite. They include the tests that scan the whole repository, so the saving is about a third, not more.
 - **Keeping the list true**: Every full run on a pull request head records a trace, and the job fails when a traced test file is missing from `tests/jest-prose-tests.json`.
