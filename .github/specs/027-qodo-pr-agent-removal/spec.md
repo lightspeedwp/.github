@@ -60,7 +60,7 @@ A reader following a link or an agent following its instructions never reaches a
 
 **Acceptance Scenarios**:
 
-1. **Given** the change is merged, **When** tracked files are searched for the Qodo names, **Then** the only matches are specification 019, the allocation ledger, the changelog history, the locked constitution and a root feedback record of the 019 pull request.
+1. **Given** the change is merged, **When** tracked files are searched for the Qodo names, **Then** the only matches are specification 019, specification 027, the catalogue entries for 019 and 027, the allocation ledger and its frozen fixture, the changelog history, the locked constitution and a root feedback record of the 019 pull request.
 2. **Given** the agent and skill documents, **When** they are read, **Then** none describes a Qodo input or links to the removed guide, skill or responsibility matrix.
 
 ---
@@ -108,7 +108,7 @@ A maintainer can still read what was built and why it was removed, and the numbe
 ### Measurable Outcomes
 
 - **SC-001**: No workflow, skill, configuration, script or test for Qodo PR-Agent remains.
-- **SC-002**: Searching tracked files for the Qodo names returns only the exceptions in User Story 2.
+- **SC-002**: Searching tracked files for the Qodo names returns only the exceptions in User Story 2: specification 019 and 027, the catalogue entries, the ledger and its fixture, the changelog history, the constitution and the root feedback record.
 - **SC-003**: The specification audit passes with 027 allocated and 019 materialised.
 - **SC-004**: The Jest suite has no failure that `develop` does not also have, and the failure caused by the Qodo workflow test is gone.
 - **SC-005**: The required pull request checks pass.

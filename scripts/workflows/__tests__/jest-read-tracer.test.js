@@ -143,6 +143,19 @@ describe('jest-read-tracer', () => {
     expect(result.trace).toContain('T\ttests/parent.test.js\n');
   });
 
+  it('ignores an env that the options object only inherits, as Node does', () => {
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      'const options = Object.create({ env: { ONLY: "inherited" } });',
+      `const args = ["-r", ${JSON.stringify(TRACER)}, "-e", 'require("fs").readFileSync("notes.md"); process.stdout.write(String(process.env.ONLY))'];`,
+      'process.stdout.write(require("child_process").execFileSync(process.execPath, args, options).toString());',
+    ].join('\n');
+    const result = runTraced(script);
+    // Node ignores the inherited env, so the child sees the host environment and still traces.
+    expect(result).toMatchObject({ status: 0, stdout: 'undefined' });
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+  });
+
   it('keeps the options of a call whose argument list is undefined', () => {
     const script = [
       'require("fs").__jestCurrentTest = "tests/parent.test.js";',

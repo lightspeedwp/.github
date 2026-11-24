@@ -52,3 +52,4 @@ domain: "governance"
 - [X] T014 Add the changelog entry
 - [X] T015 Run the Jest suite, the validators and the linters
 - [ ] T016 Read the check logs on the pull request
+- [ ] T017 Maintainer hand-off, outside the repository (FR-009): delete the `qodo-pr-agent` Environment and its secret `ANTHROPIC_API_KEY_QODO_PR_AGENT`, revoke the dedicated Anthropic key, and close lightspeedwp/.github#3535

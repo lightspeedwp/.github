@@ -48,25 +48,28 @@ describe('actionlint workflow list', () => {
     }
   });
 
-  it('keeps every local action under .github, which the actionlint checkout includes', () => {
+  it('keeps every local action under .github/actions, and reusable workflows under .github/workflows', () => {
     // The actionlint job checks out .github and two script folders only. A local
     // action anywhere else would be missing there, and actionlint then skips the
     // input checks for it without reporting anything.
     // Parsed, not matched with a pattern, so flow-style and anchored forms count too.
+    // The scope rule in scripts/workflows/ci-scope.sh watches action.yml files under
+    // .github/actions only, so a step-level local action must live there. A job-level
+    // reuse is a reusable workflow, which GitHub requires under .github/workflows.
     const outside = [];
-    const check = (file, where, uses) => {
-      if (typeof uses === 'string' && uses.startsWith('./') && !uses.startsWith('./.github/')) {
-        outside.push(`${file}: ${where} uses ${uses}`);
+    const check = (file, where, uses, requiredPrefix) => {
+      if (typeof uses === 'string' && uses.startsWith('./') && !uses.startsWith(requiredPrefix)) {
+        outside.push(`${file}: ${where} uses ${uses}, which must start with ${requiredPrefix}`);
       }
     };
     let inspected = 0;
     for (const file of workflowFiles()) {
       const document = YAML.parse(fs.readFileSync(path.join(repositoryRoot, file), 'utf8'));
       for (const [jobId, job] of Object.entries((document && document.jobs) || {})) {
-        check(file, `job ${jobId}`, job && job.uses);
+        check(file, `job ${jobId}`, job && job.uses, './.github/workflows/');
         for (const [index, step] of ((job && job.steps) || []).entries()) {
           inspected += 1;
-          check(file, `job ${jobId} step ${index}`, step && step.uses);
+          check(file, `job ${jobId} step ${index}`, step && step.uses, './.github/actions/');
         }
       }
     }

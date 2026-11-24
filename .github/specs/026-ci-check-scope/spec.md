@@ -85,7 +85,7 @@ A pull request whose heavy work was skipped can still merge.
 - The earlier commit is not an ancestor of the new head (force push): the earlier result is not used.
 - The earlier run was cancelled by a newer push: its conclusion is not success, so the check runs.
 - The base branch moved since the earlier run: the earlier result tested a different merge, so the check runs.
-- Jest reads prose. A read trace of the whole suite shows it reads 11,495 of the 11,745 tracked Markdown and text files, including every page under `docs/`. Only 47 of the 390 test files read or check for those files. Another 22 start programs other than Node, whose reads cannot be traced.
+- Jest reads prose. A read trace of the whole suite shows it reads 11,495 of the 11,745 tracked Markdown and text files, including every page under `docs/`. Only 43 of the 383 test files read or check for those files (47 of 390 before the Qodo tests were removed). Another 21 start programs other than Node (22 before), whose reads cannot be traced.
 - The earlier rule that skipped Jest for plain `docs/` pages was unsound, because tests read those pages. It is removed.
 
 ## Requirements *(mandatory)*
@@ -119,7 +119,7 @@ A pull request whose heavy work was skipped can still merge.
 - **SC-003**: A pull request whose heavy steps were skipped shows all five required checks as successful.
 - **SC-004**: The script's test suite passes, and covers skip, run, force push, failed earlier result and failed comparison.
 - **SC-005**: This pull request shows both behaviours in its own check logs: a full run, then a skipped run after a push that changes only Markdown.
-- **SC-006**: A Markdown-only push runs the listed test files only (69 of 390 when measured), and the list check passes on a full run.
+- **SC-006**: A Markdown-only push runs the listed test files only (64 of 383 after the Qodo tests were removed; 69 of 390 when first measured), and the list check passes on a full run.
 
 ## Assumptions
 
