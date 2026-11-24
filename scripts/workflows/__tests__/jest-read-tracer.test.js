@@ -107,6 +107,36 @@ describe('jest-read-tracer', () => {
     expect(result.trace).toContain('T\ttests/parent.test.js\n');
   });
 
+  it('keeps the options of a call whose argument list is undefined', () => {
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      `const result = require("child_process").spawnSync(process.execPath, undefined, { input: "console.log(42)", encoding: "utf8", cwd: ${JSON.stringify(workDir)} });`,
+      'process.stdout.write(result.stdout);',
+    ].join('\n');
+    expect(runTraced(script)).toMatchObject({ status: 0, stdout: '42\n' });
+  });
+
+  it('attributes the prose a forked Node child reads, without counting the module as a program', () => {
+    fs.writeFileSync(path.join(workDir, 'child.cjs'), 'require("fs").readFileSync("notes.md"); process.exit(0);\n');
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      `const child = require("child_process").fork(${JSON.stringify(path.join(workDir, 'child.cjs'))});`,
+      'child.on("exit", () => process.stdout.write("forked"));',
+    ].join('\n');
+    const result = runTraced(script);
+    expect(result).toMatchObject({ status: 0, stdout: 'forked' });
+    expect(result.trace).toContain('T\ttests/parent.test.js\n');
+    expect(result.trace).not.toContain('P\t');
+  });
+
+  it('counts an existence check reached through the module resolver', () => {
+    const script = [
+      'require("fs").__jestCurrentTest = "tests/parent.test.js";',
+      'try { require.resolve("./notes.md"); } catch {}',
+    ].join('\n');
+    expect(runTraced(script).trace).toContain('T\ttests/parent.test.js\n');
+  });
+
   it('passes the callback form of exec through unchanged', () => {
     const script = [
       'require("fs").__jestCurrentTest = "tests/parent.test.js";',

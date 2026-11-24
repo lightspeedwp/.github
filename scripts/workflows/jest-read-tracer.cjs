@@ -70,6 +70,13 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
   const fromModuleMap = () => /jest-haste-map|jest-resolve|jest-config/.test(new Error().stack || '');
 
   /**
+   * Jest's crawl stats every file in the repository. Only the crawl is ignored for
+   * existence checks: a test that resolves a path ending in .md or .txt goes through
+   * jest-resolve, and that check is a real dependency.
+   */
+  const fromJestCrawl = () => /jest-haste-map/.test(new Error().stack || '');
+
+  /**
    * @param {'F'|'D'|'X'} kind
    * @param {string} value
    */
@@ -101,7 +108,8 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       if (relative === '' && kind === 'F') return;
       if (/^(node_modules|\.git|coverage)(\/|$)/.test(relative)) return;
       // Jest's own crawl lists and stats every file; that is not a test depending on it.
-      if (kind !== 'F' && fromModuleMap()) return;
+      if (kind === 'D' && fromModuleMap()) return;
+      if (kind === 'S' && fromJestCrawl()) return;
       write(kind, relative === '' ? '.' : relative);
       // A test that only checks whether a prose file exists still depends on it:
       // deleting or adding the file changes its result.
@@ -166,10 +174,15 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       const isOptions = (value) => value !== null && typeof value === 'object' && !Array.isArray(value);
       const args = rest.slice();
       const callback = typeof args[args.length - 1] === 'function' ? args.pop() : undefined;
-      const hasArgsList = name === 'spawn' || name === 'spawnSync' || name === 'execFile' || name === 'execFileSync';
+      const hasArgsList = ['spawn', 'spawnSync', 'execFile', 'execFileSync', 'fork'].includes(name);
+      // Where the options object sits. With an argument list the options follow
+      // it, whether the list is an array, null or undefined; without one (exec,
+      // execSync) they come first. A call shaped any other way is left alone.
       let index = 0;
-      if (hasArgsList && Array.isArray(args[0])) index = 1;
-      else if (!hasArgsList && args.length === 0) index = 0;
+      if (hasArgsList && args.length > 0 && !isOptions(args[0])) index = 1;
+      if (index === 1 && args[0] != null && !Array.isArray(args[0])) return rest;
+      if (index === 0 && args.length > 0 && args[0] != null && !isOptions(args[0])) return rest;
+      if (index === 1 && args[1] != null && !isOptions(args[1])) return rest;
       const options = isOptions(args[index]) ? args[index] : {};
       const env = { ...(options.env || process.env) };
       // Keep a name the caller set on purpose, meaning one that differs from the
@@ -185,11 +198,13 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
   };
 
   const nodeNames = new Set(['node', path.basename(process.execPath)]);
-  for (const name of ['spawn', 'spawnSync', 'exec', 'execSync', 'execFile', 'execFileSync']) {
+  for (const name of ['spawn', 'spawnSync', 'exec', 'execSync', 'execFile', 'execFileSync', 'fork']) {
     const original = childProcess[name];
     if (typeof original !== 'function') continue;
     const recordProgram = (command) => {
       try {
+        // fork always starts Node, and its first argument is a module, not a program.
+        if (name === 'fork') return;
         const program = path.basename(String(command).trim().split(/\s+/)[0] || '');
         if (program && !nodeNames.has(program)) {
           write('X', program);

@@ -72,7 +72,7 @@ flowchart TD
 - **Evidence**: The suite was run with a tracer that records every file read and every program started, per test file. It reads 11,495 of 11,745 tracked prose files. 47 test files read or check for those files, and 22 more start programs other than Node. An existence check counts, and a Node child's reads are attributed to the test that started it, which the first version of the tracer missed (found in review of the pull request).
 - **Rule**: A change to prose alone runs those 69 test files. Anything else runs the whole suite. Jest is never skipped for a prose change.
 - **Correction**: The earlier rule skipped Jest for plain `docs/` pages. All 141 of those pages are read by tests, so the rule could hide a failure. It is removed.
-- **Measured**: The 60 files took 94 seconds locally against 134 seconds for the whole suite. They include the tests that scan the whole repository, so the saving is about a third, not more.
+- **Measured**: The 69 files took 86 seconds locally against 100 seconds for the whole suite, a saving of about 14 percent. They include the tests that scan the whole repository, so Prose mode runs fewer tests, not much less time. On the pull request's own CI the head job took 130 seconds against 94 for the whole suite, which is within run-to-run variation.
 - **Keeping the list true**: Every full run on a pull request head records a trace, and the job fails when a traced test file is missing from `tests/jest-prose-tests.json`.
 - **Both targets**: The scope job passes the list to the head and base runs, so the comparison is like for like.
 
