@@ -100,7 +100,7 @@ A maintainer can still read what was built and why it was removed, and the numbe
 
 ### Key Entities
 
-- **Pilot files**: The 23 tracked files that exist only for the pilot, besides the 12 files of specification 019, which are kept.
+- **Pilot files**: The 23 tracked files that exist only for the pilot, besides the 11 files of specification 019, which are kept.
 - **References**: Mentions of the pilot in other tracked files.
 
 ## Success Criteria *(mandatory)*

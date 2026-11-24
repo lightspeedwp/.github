@@ -1,5 +1,7 @@
 # Implementation Plan: Qodo PR-Agent Installation & Agent/Skill Integration
 
+> **Archived**: The pilot never ran and was removed in [specification 027](../027-qodo-pr-agent-removal/spec.md) ([GIT-2840](https://linear.app/lightspeedwp/issue/GIT-2840)). This document is kept as a record, and links below to removed files are historical.
+
 **Branch**: `aiops/qodo-pr-agent-integration` | **Date**: 2026-09-24 | **Spec**: [spec.md](./spec.md)
 
 **Input**: Feature specification from `.github/specs/019-qodo-pr-agent-integration/spec.md`

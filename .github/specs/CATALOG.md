@@ -322,7 +322,10 @@ the references to them. Specification 019 is kept and Archived.
 
 ## Archive
 
-Currently no archived or deprecated specifications. All numbered specifications remain in one of three states: Draft (pending approval), Active (approved and in use), or Archived (superseded or cancelled).
+Specification 019 (Qodo PR-Agent) is the only archived specification. It is kept with its allocation, and
+its row stays in the Active table above, marked Archived, so the ledger and the directory still agree.
+
+All other numbered specifications remain Draft (pending approval), Active (approved and in use) or Resolved (the problem no longer occurs). A specification becomes Archived when it is superseded, cancelled or deprecated, and it keeps its directory and number.
 
 ---
 
