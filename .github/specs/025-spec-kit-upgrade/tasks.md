@@ -40,7 +40,7 @@
 
 - [X] T013 [P] Add the specification row and detailed entry to `.github/specs/CATALOG.md`
 - [X] T017 [P] Add the Spec Kit managed files to `.markdownlintignore`
-- [ ] T014 [P] Add the changelog entry to `CHANGELOG.md`
+- [X] T014 [P] Add the changelog entry to `CHANGELOG.md`
 - [X] T015 Run Semgrep on the changed scripts
 - [ ] T016 Open the pull request and confirm the required checks pass
 
