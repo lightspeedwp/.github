@@ -1,3 +1,16 @@
+---
+file_type: "documentation"
+title: "Implementation Plan: CI Checks Scoped to Changed Files"
+description: "Describes the implementation and validation of CI check scoping."
+version: "v1.0"
+last_updated: "2026-11-24"
+owners: ["LightSpeed Team"]
+tags: ["ci", "github-actions", "spec-kit"]
+status: "draft"
+stability: "experimental"
+domain: "governance"
+---
+
 # Implementation Plan: CI Checks Scoped to Changed Files
 
 **Branch**: `ci/workflows-scope-heavy-checks` | **Date**: 2026-11-24 | **Spec**: [spec.md](./spec.md)

@@ -1,3 +1,16 @@
+---
+file_type: "documentation"
+title: "Feature Specification: CI Checks Scoped to Changed Files"
+description: "Defines when CI checks run or reuse a prior result."
+version: "v1.0"
+last_updated: "2026-11-24"
+owners: ["LightSpeed Team"]
+tags: ["ci", "github-actions", "spec-kit"]
+status: "draft"
+stability: "experimental"
+domain: "governance"
+---
+
 # Feature Specification: CI Checks Scoped to Changed Files
 
 **Feature Branch**: `ci/workflows-scope-heavy-checks`

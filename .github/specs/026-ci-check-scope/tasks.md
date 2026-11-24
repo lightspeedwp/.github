@@ -1,3 +1,16 @@
+---
+file_type: "documentation"
+title: "Tasks: CI Checks Scoped to Changed Files"
+description: "Tracks the implementation and validation tasks for CI check scoping."
+version: "v1.0"
+last_updated: "2026-11-24"
+owners: ["LightSpeed Team"]
+tags: ["ci", "github-actions", "spec-kit"]
+status: "draft"
+stability: "experimental"
+domain: "governance"
+---
+
 # Tasks: CI Checks Scoped to Changed Files
 
 **Input**: Design documents from `.github/specs/026-ci-check-scope/`

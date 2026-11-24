@@ -11,7 +11,7 @@
 # The check is skipped in two cases only, both on pull requests:
 #   1. No file the check reads is changed anywhere in the pull request.
 #   2. The latest push changed no file the check reads, and the same check
-#      passed on the commit before that push.
+#      passed on the commit before that push against the same base.
 # Everything else runs the check: other events, a force push, a failed or
 # missing earlier result, or an error while asking. An unreadable diff exits 1,
 # so a broken comparison can never look like "nothing to do".
@@ -43,6 +43,12 @@ decide() {
   printf 'run=%s\nreason=%s\n' "$1" "$2"
   if [ -n "${GITHUB_OUTPUT:-}" ]; then
     printf 'run=%s\nreason=%s\n' "$1" "$2" >> "$GITHUB_OUTPUT"
+  fi
+  # Record the event base on the check itself for the next push. Jest's
+  # result belongs to its compare job, which records the base separately.
+  if [ "${GITHUB_ACTIONS:-}" = "true" ] && [ "$profile" != "jest" ] &&
+    [ "${EVENT_NAME:-}" = "pull_request" ] && [[ "${BASE_SHA:-}" =~ ^[0-9a-f]{40}$ ]]; then
+    printf '::notice file=scripts/workflows/ci-scope.sh,line=1,title=CI scope base::%s\n' "$BASE_SHA"
   fi
   exit 0
 }
@@ -104,16 +110,25 @@ any_relevant() {
   return 1
 }
 
-# previous_passed - whether CHECK_NAME concluded `success` on a commit.
-# Any error counts as "did not pass".
-# Parameters: $1 commit SHA
+# previous_passed - whether the latest check passed on the commit and same base.
+# Any missing or unreadable result or base counts as "did not pass".
+# Parameters: $1 commit SHA, $2 base SHA
 previous_passed() {
-  local conclusion
+  local check_id tested_base
   [ -n "${CHECK_NAME:-}" ] && [ -n "${GITHUB_REPOSITORY:-}" ] || return 1
-  conclusion="$(gh api -X GET "repos/${GITHUB_REPOSITORY}/commits/$1/check-runs" \
+  [[ "$2" =~ ^[0-9a-f]{40}$ ]] || return 1
+  check_id="$(gh api -X GET "repos/${GITHUB_REPOSITORY}/commits/$1/check-runs" \
     -f check_name="$CHECK_NAME" -f per_page=100 \
-    --jq '[.check_runs[]] | sort_by(.started_at) | last | .conclusion // ""' 2> /dev/null)" || return 1
-  [ "$conclusion" = "success" ]
+    --jq '.check_runs | sort_by(.started_at, .id) | last
+      | select(.conclusion == "success" and .app.slug == "github-actions") | .id' 2> /dev/null)" || return 1
+  [[ "$check_id" =~ ^[0-9]+$ ]] || return 1
+
+  # A check run's PR metadata can describe the current PR rather than the
+  # base used by that run. Read the annotation attached to this exact check.
+  tested_base="$(gh api --paginate "repos/${GITHUB_REPOSITORY}/check-runs/$check_id/annotations" \
+    --jq '.[] | select(.title == "CI scope base" and .path == "scripts/workflows/ci-scope.sh") | .message' \
+    2> /dev/null)" || return 1
+  [ "$tested_base" = "$2" ]
 }
 
 if [ "${EVENT_NAME:-}" != "pull_request" ]; then
@@ -137,11 +152,14 @@ before="${BEFORE_SHA:-}"
 if [ "${EVENT_ACTION:-}" = "synchronize" ] &&
   [[ "$before" =~ ^[0-9a-f]{40}$ ]] && [[ ! "$before" =~ ^0+$ ]] &&
   git cat-file -e "${before}^{commit}" 2> /dev/null &&
-  git merge-base --is-ancestor "$before" "$head" 2> /dev/null &&
-  git diff --name-only --no-renames -z "$before" "$head" > "$workdir/latest" &&
-  ! any_relevant "$profile" "$workdir/latest" &&
-  previous_passed "$before"; then
-  decide false "the latest push changed no file read by this check, which passed on ${before:0:10}"
+  git merge-base --is-ancestor "$before" "$head" 2> /dev/null; then
+  if ! git diff --name-only --no-renames -z "$before" "$head" > "$workdir/latest"; then
+    echo "Could not list the files changed between $before and $head." >&2
+    exit 1
+  fi
+  if ! any_relevant "$profile" "$workdir/latest" && previous_passed "$before" "$BASE_SHA"; then
+    decide false "the latest push changed no file read by this check, which passed on ${before:0:10}"
+  fi
 fi
 
 decide true "the pull request changes files read by this check"

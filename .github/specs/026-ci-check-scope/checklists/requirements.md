@@ -1,3 +1,16 @@
+---
+file_type: "documentation"
+title: "Specification Quality Checklist: CI Checks Scoped to Changed Files"
+description: "Records the quality checks for the CI check scope specification."
+version: "v1.0"
+last_updated: "2026-11-24"
+owners: ["LightSpeed Team"]
+tags: ["ci", "github-actions", "spec-kit"]
+status: "draft"
+stability: "experimental"
+domain: "governance"
+---
+
 # Specification Quality Checklist: CI Checks Scoped to Changed Files
 
 **Purpose**: Validate specification completeness and quality before planning

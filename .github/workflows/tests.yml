@@ -129,6 +129,12 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Record base for later test scope decisions
+        if: needs.scope.result == 'success'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: printf '::notice file=scripts/workflows/ci-scope.sh,line=1,title=CI scope base::%s\n' "$BASE_SHA"
+
       - name: Report documentation-only skip
         if: needs.scope.outputs.docs_only == 'true'
         run: |

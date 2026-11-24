@@ -19,7 +19,8 @@ setup() {
   git checkout -q -b feature
   export EVENT_NAME=pull_request EVENT_ACTION=opened BASE_SHA="$BASE"
   export CHECK_NAME="Example" GITHUB_REPOSITORY="example/repo"
-  unset GITHUB_OUTPUT BEFORE_SHA HEAD_SHA
+  # Keep the test doubles first on PATH in child shells.
+  unset BASH_ENV GITHUB_ACTIONS GITHUB_OUTPUT BEFORE_SHA HEAD_SHA
 }
 
 teardown() {
@@ -35,13 +36,27 @@ commit_file() {
   git rev-parse HEAD
 }
 
-# stub_gh - put a fake gh on PATH that prints a conclusion, or fails.
+# stub_gh - serve check and annotation fixtures through the script's jq filters.
 stub_gh() {
-  if [ "$1" = "error" ]; then
-    printf '#!/usr/bin/env bash\nexit 1\n' > "$STUB_DIR/gh"
-  else
-    printf '#!/usr/bin/env bash\nprintf "%%s\\n" "%s"\n' "$1" > "$STUB_DIR/gh"
-  fi
+  export STUB_CONCLUSION="$1" STUB_TESTED_BASE="${2-$BASE}" STUB_CHECK_COMMIT="$before"
+  cat > "$STUB_DIR/gh" <<'SH'
+#!/usr/bin/env bash
+[ "$STUB_CONCLUSION" != error ] || exit 1
+case " $* " in
+  *" repos/example/repo/commits/$STUB_CHECK_COMMIT/check-runs "*)
+    jq -n --arg conclusion "$STUB_CONCLUSION" '{
+      check_runs: [{id: 123, conclusion: $conclusion, app: {slug: "github-actions"}}]
+    }' | jq -r "${@: -1}"
+    ;;
+  *" repos/example/repo/check-runs/123/annotations "*)
+    jq -n --arg base "$STUB_TESTED_BASE" '
+      if $base == "" then [] else
+        [{title: "CI scope base", path: "scripts/workflows/ci-scope.sh", message: $base}]
+      end' | jq -r "${@: -1}"
+    ;;
+  *) exit 1 ;;
+esac
+SH
   chmod +x "$STUB_DIR/gh"
   PATH="$STUB_DIR:$PATH"
 }
@@ -137,6 +152,47 @@ stub_gh() {
   stub_gh error
   EVENT_ACTION=synchronize BEFORE_SHA="$before" run bash "$SCOPE_SH" lint
   [[ "$output" == *"run=true"* ]]
+}
+
+@test "a later push runs when the earlier check passed against a different base" {
+  before="$(commit_file src/a.js)"
+  git checkout -q develop
+  new_base="$(commit_file src/base.js)"
+  git checkout -q feature
+  commit_file .github/specs/001-demo/tasks.md > /dev/null
+  stub_gh success
+  BASE_SHA="$new_base" EVENT_ACTION=synchronize BEFORE_SHA="$before" run bash "$SCOPE_SH" lint
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"run=true"* ]]
+}
+
+@test "a later push runs when the earlier check has no base annotation" {
+  before="$(commit_file src/a.js)"
+  commit_file .github/specs/001-demo/tasks.md > /dev/null
+  stub_gh success ""
+  EVENT_ACTION=synchronize BEFORE_SHA="$before" run bash "$SCOPE_SH" lint
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"run=true"* ]]
+}
+
+@test "an unreadable latest-push diff fails without recording a decision" {
+  before="$(commit_file src/a.js)"
+  head="$(commit_file .github/specs/001-demo/tasks.md)"
+  REAL_GIT="$(command -v git)"
+  export REAL_GIT
+  cat > "$STUB_DIR/git" <<'SH'
+#!/usr/bin/env bash
+if [ "$1" = diff ] && [ "${@: -2:1}" = "$BEFORE_SHA" ] && [ "${@: -1}" = "$HEAD_SHA" ]; then
+  exit 128
+fi
+exec "$REAL_GIT" "$@"
+SH
+  chmod +x "$STUB_DIR/git"
+  PATH="$STUB_DIR:$PATH" GITHUB_OUTPUT="$TEST_REPO/out" EVENT_ACTION=synchronize \
+    BEFORE_SHA="$before" HEAD_SHA="$head" run bash "$SCOPE_SH" lint
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"Could not list the files changed between $before and $head."* ]]
+  [ ! -e "$TEST_REPO/out" ]
 }
 
 @test "a later push that touches relevant files runs even if the check passed before" {
