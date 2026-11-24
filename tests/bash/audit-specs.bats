@@ -242,3 +242,75 @@ run_audit() {
   [[ "$output" == *"Sequential numbering verified: 001 to 002 with no gaps"* ]]
   [[ "$output" == *"Total directories: 2"* ]]
 }
+
+allocation_fixture() {
+  # Frozen bootstrap ledger: the live ledger grows with each new allocation.
+  cp "$REPO_ROOT/scripts/validation/__fixtures__/spec-allocations-bootstrap.json" "$TEST_REPO/.github/specs/ALLOCATIONS.json"
+  node - "$TEST_REPO/.github/specs" <<'JS'
+const fs = require('node:fs');
+const path = require('node:path');
+const root = process.argv[2];
+const ledger = JSON.parse(fs.readFileSync(path.join(root, 'ALLOCATIONS.json'), 'utf8'));
+for (const entry of ledger.allocations) {
+  if (entry.state !== 'materialised') continue;
+  const directory = path.join(root, `${entry.number}-${entry.canonicalSlug}`);
+  fs.mkdirSync(directory, { recursive: true });
+  fs.writeFileSync(path.join(directory, 'spec.md'), '# Test specification\n');
+}
+JS
+}
+
+@test "bootstrap accounts for 24 allocations without inventing three directories" {
+  allocation_fixture
+  run_audit
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"21 real directories; 24 allocations; snapshot-only"* ]]
+  [[ "$output" == *"Total directories: 21"* ]]
+}
+
+@test "pending 020 with a real directory fails until its explicit transition" {
+  allocation_fixture
+  create_spec "020-portable-changelog-release-agents"
+  run_audit
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"non-materialised directory"* ]]
+}
+
+@test "retired allocations cannot acquire placeholder specifications" {
+  allocation_fixture
+  create_spec "021-repo-restructuring-canonical-config"
+  run_audit
+  [ "$status" -eq 1 ]
+}
+
+@test "invalid ledger never falls back to otherwise contiguous directories" {
+  create_spec "001-first-spec"
+  printf '{"version":1,"version":1}\n' > "$TEST_REPO/.github/specs/ALLOCATIONS.json"
+  run_audit
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"Duplicate JSON key"* ]]
+}
+
+@test "ledger does not weaken required regular spec file checks" {
+  allocation_fixture
+  rm "$TEST_REPO/.github/specs/001-prd-agent-consolidation/spec.md"
+  run_audit
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"spec.md MISSING"* ]]
+}
+
+@test "audit honours the same configured root and explicit project override" {
+  printf '{"specs_directory":"docs/specifications"}\n' > "$TEST_REPO/.specify/init-options.json"
+  mkdir -p "$TEST_REPO/docs/specifications/001-first-spec"
+  printf '# Test specification\n' > "$TEST_REPO/docs/specifications/001-first-spec/spec.md"
+  run env SPECIFY_INIT_DIR="$TEST_REPO" bash "$AUDIT_SCRIPT"
+  [ "$status" -eq 0 ]
+  [[ "$output" == *"Total directories: 1"* ]]
+}
+
+@test "unavailable explicit baseline fails as I/O rather than snapshot success" {
+  allocation_fixture
+  run env SPECIFY_INIT_DIR="$TEST_REPO" SPEC_ALLOCATION_BASELINE="$TEST_REPO/missing.json" bash "$AUDIT_SCRIPT"
+  [ "$status" -eq 2 ]
+  [[ "$output" != *"snapshot-only"* ]]
+}

@@ -8,16 +8,32 @@ This document defines the standardized procedures for maintaining the SpecKit fo
 
 ## Numbering Scheme
 
-### How Numbers Are Assigned
+### Allocation lifecycle — 4 November 2026 amendment
 
-- **Current specifications**: 001-012 (preserved as-is, no renumbering)
-- **New specifications**: Start at 013, increment by 1 (next = highest current + 1)
-- **Example**: If spec 013 exists, next spec is 014
-- **Rationale**: Preserves historical traceability, enables predictable numbering, maintains chronological ordering
+The [recorded lifecycle decision](https://linear.app/lightspeedwp/issue/GIT-2676)
+approves direction and dispositions, not implementation or specification contents.
+This amendment replaces directory-only contiguity with complete allocation accounting.
 
-### Number Reuse
+- `ALLOCATIONS.json` lives beneath the configured specification root (default `.github/specs`).
+- Version 1 uses closed objects, strict JSON, unique three-digit numbers and explicit provenance.
+- Every integer from 001 through the highest directory or ledger allocation must be accounted for.
+- `pending` binds a future directory to its exact final slug and requires directory absence.
+- `materialised` requires the matching genuine directory; it does not imply quality or approval.
+- `retired` has no canonical slug or real directory and retains separately identified histories.
+- New numbers are highest accounted allocation plus one, never the smallest absent directory.
+- The bootstrap accounted for 24 numbers: 21 materialised, 020 pending, 021/022 retired.
+- 025 was allocated after the bootstrap. The ledger, not this document, is the current record.
+- Tests read a frozen copy of the bootstrap ledger in `scripts/validation/__fixtures__/`, so new allocations do not change them.
+- Preserve 020 portable agents, 023 schema audit and 024 database migration without renumbering.
+- A genuine directory and its explicit pending-to-materialised transition belong in one reviewed candidate.
+- Never create placeholder specifications, reuse retired numbers, expire claims or infer fulfilment.
 
-- ❌ **Number reuse is NOT allowed** after a spec is archived
+### Number reuse and archival
+
+- ❌ **Number reuse is NOT allowed** after archival or retirement.
+- Archiving retains the genuine directory and its materialised allocation unchanged.
+- Retirement concerns an allocation, not specification approval or the Linear issue status.
+- Preserve source pins, decisions and historical claims; append reviewed provenance instead of overwriting it.
 - **Reason**: Maintain chronological traceability—historical queries must unambiguously identify original specifications. Reusing a number after archival creates ambiguity and breaks audit trails.
 
 ---
@@ -36,19 +52,21 @@ Before initiating specification creation, ensure:
 
 #### 1. Determine Next Number
 
-List all existing specification directories in `.github/specs/`:
+Resolve the configured root using the same `common.sh` functions as the auditor and generator.
+Inspect the ledger and genuine directories together, then plan with the shared helper:
 
 ```bash
-ls -d .github/specs/[0-9][0-9][0-9]-*/
+node scripts/validation/spec-allocations.cjs allocate \
+  --repo-root "$PWD" --specs-directory .github/specs --slug your-final-slug
 ```
 
-Find highest number (e.g., if 013 exists, next is 014):
+The helper is offline and read-only; its result does not reserve a number.
+Use the configured path instead of `.github/specs` when the project overrides it.
+New requests must be exactly highest accounted plus one; an explicit pending claim must match.
 
-```bash
-ls -d .github/specs/[0-9][0-9][0-9]-*/ | sed 's/.*\///' | cut -d- -f1 | sort -n | tail -1
-```
-
-Confirm number not already assigned (no gaps in sequence).
+The generator validates before any write, including root creation. It never writes the ledger.
+Its local draft is not merge-valid until the reviewed entry or explicit transition accompanies it.
+Dry-run writes no directories, specification content, feature context or ledger data.
 
 #### 2. Create Directory Structure
 
@@ -118,7 +136,7 @@ Use this checklist to verify new specification meets all requirements:
 - [ ] Directory created at `.github/specs/NNN-{slug}/` with correct naming
 - [ ] spec.md file exists and contains all required sections
 - [ ] checklists/ directory exists with requirements.md
-- [ ] Specification number is sequential (no gaps in sequence)
+- [ ] Complete allocation range is accounted for, with an explicit matching materialised entry
 - [ ] Folder name slug matches specification title (lowercase, hyphens)
 - [ ] CATALOG.md updated with new entry within 7 days
 - [ ] All 8 quality dimensions passing: Completeness, Clarity, Consistency, Measurability, Scenario Coverage, Edge Cases, Dependencies, Ambiguities
@@ -290,7 +308,7 @@ Update CATALOG.md after:
 When updating catalog entries, verify:
 
 - [ ] All specification directories in `.github/specs/` have a CATALOG.md entry
-- [ ] Specification numbers are sequential with no gaps (001, 002, ..., 013, 014)
+- [ ] Every allocation through the highest number is accounted for; no fabricated catalogue rows
 - [ ] Status field matches current spec file status (Active, Draft, Archived, etc.)
 - [ ] Created date is accurate (matches spec creation date; does not change)
 - [ ] Updated date (if present) is accurate and recent (≤7 days)
@@ -472,18 +490,41 @@ for dir in .github/specs/[0-9][0-9][0-9]-*/; do
 done
 ```
 
-#### Verify sequential numbering (no gaps)
+#### Validate allocation consistency
 
 ```bash
-for i in $(seq 1 $(ls -d .github/specs/[0-9][0-9][0-9]-*/ | wc -l)); do
-  num=$(printf '%03d' $i)
-  [ ! -d ".github/specs/$num-"* ] && echo "Gap found: spec $num missing"
-done
+bash .specify/scripts/bash/audit-specs.sh
 ```
+
+Without a supplied baseline this reports snapshot consistency only. It cannot establish
+preservation of previous allocations or authenticate approvals from URLs and timestamps.
+For preservation checks, explicitly supply a separately reviewed local ledger:
+
+```bash
+SPEC_ALLOCATION_BASELINE=/absolute/path/to/reviewed-ALLOCATIONS.json \
+  bash .specify/scripts/bash/audit-specs.sh
+```
+
+The baseline is schema-validated without comparing its old pending entries against current
+directories. Existing sources, decisions, identities and historical claims must be retained.
+Only pending-to-materialised or separately evidenced pending-to-retired transitions are allowed;
+the candidate records a new dated decision. Retirement retains the previous pending identity.
+No baseline is fetched or selected automatically. Existing CI remains snapshot-only unless
+a reviewed baseline is explicitly supplied; path-trigger changes do not add preservation proof.
+
+Missing ledgers retain strict directory contiguity, not gap tolerance. Malformed, duplicate-key,
+unreadable or unsupported ledgers fail closed. Exit codes are 0 valid, 1 invalid, 2 usage/I/O/runtime.
+The audit still rejects an empty genuine inventory; allocation alone can plan 001 for a fresh root.
+Timestamp allocations, conflicting explicit identities, number jumps and overflow beyond 999 fail.
+Node.js follows the repository runtime contract; no parser dependency or runtime upgrade is added.
 
 ---
 
 ## Examples
+
+The numbered examples below preserve the original September 2026 teaching scenarios; they do
+not assign or free those numbers in the current ledger. Apply the lifecycle amendment above
+before generating or submitting any new directory.
 
 ### Example: Creating Specification 014
 
@@ -621,12 +662,13 @@ If a specification is blocked and you need help:
 
 | Version | Date | Changes | Author |
 |---------|------|---------|--------|
+| 1.1 | 2026-11-24 | Allocation lifecycle amendment (drafted 2026-11-04); historical examples retained | LightSpeed Team |
 | 1.0 | 2026-09-16 | Initial maintenance procedures documentation | Claude Haiku 4.5 |
 
 ---
 
 **Governance Authority**: @ashley  
-**Last Updated**: 2026-09-16  
+**Last Updated**: 2026-11-24  
 **Related Documentation**: [CATALOG.md](./CATALOG.md), [Specification Audit Report](./013-spec-folder-refactor/audit-reports/audit-report.md)
 
 *Built with 🧱 LightSpeedWP SpecKit Framework*
