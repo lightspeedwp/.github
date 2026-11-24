@@ -23,6 +23,7 @@ It stops for approval between stages. Nothing is written to Figma before the rev
 - `audit-design-system` and `fix-design-system-finding`: the design system audit (stage 4).
 - `site-to-design-tokens`: must have run first. Its variables export is this skill's `--tokens` input.
 - `figma-to-block-theme`: reads the manifest in Pattern mode. `wp-block-themes` and `wp-patterns` cover the WordPress side.
+- `site-to-block-theme`: the alternative when the rebuild copies the live site as it is. It builds the theme from live directly and skips Figma.
 
 If a companion skill is missing, say so and stop rather than calling Figma tools directly.
 
