@@ -36,6 +36,7 @@
 - [X] T011 [US3] Run `specify extension add github`
 - [X] T012 [US3] Confirm `.claude/skills/speckit-taskstoissues/` is gone
 - [X] T018 [US3] After review, run `specify extension remove github` and confirm `specify extension list` shows none
+- [X] T019 [US3] Remove the repository copy at `skills/speckit-taskstoissues/` and confirm nothing references it
 
 ## Phase 6: Polish
 

@@ -83,7 +83,7 @@ A maintainer sees only the skills that Spec Kit `v1.4.4` ships in core. The `tas
 - **FR-002**: Every managed `speckit-*` skill MUST be the version shipped with `v1.4.4`.
 - **FR-003**: `read_specs_directory` MUST remain available in `.specify/scripts/bash/common.sh` with unchanged behaviour.
 - **FR-004**: `.specify/scripts/bash/create-new-feature.sh` MUST resolve the specifications folder from `specs_directory`, falling back to `.github/specs`.
-- **FR-005**: The stale core `speckit-taskstoissues` skill MUST be removed, and no optional extension may be installed by this change.
+- **FR-005**: The stale core `speckit-taskstoissues` skill MUST be removed, with the repository's own copy at `skills/speckit-taskstoissues/`, and no optional extension may be installed by this change.
 - **FR-006**: Every local change to a managed file MUST be either carried forward or listed in the plan with the reason it was dropped.
 - **FR-007**: The change MUST NOT alter the constitution, any locked file, or any existing specification.
 - **FR-008**: The change MUST add a changelog entry and a catalogue row for this specification.
@@ -103,7 +103,7 @@ A maintainer sees only the skills that Spec Kit `v1.4.4` ships in core. The `tas
 - **SC-002**: `specify integration status` reports exactly two modified managed files, both listed in the plan, and zero missing files.
 - **SC-003**: A dry run of the feature-creation script reports a path under `.github/specs/` and the next number in sequence: 025 before this specification's directory exists, 026 once it does.
 - **SC-004**: The required pull request checks pass.
-- **SC-005**: No file outside `.specify/`, `.claude/skills/speckit-*`, `.github/specs/025-spec-kit-upgrade/`, `.github/specs/CATALOG.md`, `.markdownlintignore` and `CHANGELOG.md` changes.
+- **SC-005**: No file outside `.specify/`, `.claude/skills/speckit-*`, `.github/specs/025-spec-kit-upgrade/`, `skills/speckit-taskstoissues/`, `.github/specs/CATALOG.md`, `.markdownlintignore` and `CHANGELOG.md` changes.
 
 ## Assumptions
 

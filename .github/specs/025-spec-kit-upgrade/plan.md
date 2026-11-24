@@ -79,6 +79,7 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 | `.specify/scripts/bash/create-new-feature.sh` | Read `specs_directory`; extra path guard | Reads `specs_directory`; the unreachable guard is dropped |
 | `.claude/skills/speckit-*/SKILL.md` (nine files) | Hash mismatch, no deliberate edit | Replaced with upstream `v1.4.4` |
 | `.claude/skills/speckit-taskstoissues/SKILL.md` | Stale core skill | Removed; not replaced |
+| `skills/speckit-taskstoissues/SKILL.md` | Repository copy of the same skill, with an opt-in gate | Removed; nothing else referenced it |
 
 ## Project Structure
 
