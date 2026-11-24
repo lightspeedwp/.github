@@ -31,7 +31,7 @@ domain: "governance"
 ## Phase 2: User Story 1 - Nothing runs (Priority: P1)
 
 - [X] T004 [US1] Remove the four workflows
-- [X] T005 [US1] Remove the six tests, the report script and the pilot report
+- [X] T005 [US1] Remove the seven tests, the report script and the pilot report
 
 ## Phase 3: User Story 2 - No dangling references (Priority: P1)
 
@@ -50,5 +50,5 @@ domain: "governance"
 
 - [X] T013 Regenerate the prose-dependent test list from a traced run
 - [X] T014 Add the changelog entry
-- [ ] T015 Run the Jest suite, the validators and the linters
+- [X] T015 Run the Jest suite, the validators and the linters
 - [ ] T016 Read the check logs on the pull request
