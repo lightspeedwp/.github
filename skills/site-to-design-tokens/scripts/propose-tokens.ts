@@ -735,8 +735,11 @@ export class TokenProposer {
       }
       const texts = new Map<string, number>();
       const fills: string[] = [];
+      // Compare colours, not token names: a fill that also matches `contrast` resolves
+      // to that name, while the action background can be a family step of the same value.
+      const fillValue = primitives[fill.token];
       for (const [fillHex, onFill] of buttonText) {
-        if (this.nearestPrimitive(fillHex, primitives) !== fill.token) {
+        if (primitives[this.nearestPrimitive(fillHex, primitives)] !== fillValue) {
           continue;
         }
         fills.push(fillHex);
@@ -1159,17 +1162,17 @@ export class TokenProposer {
       );
       indexes.push(Math.max(nearest, indexes.length ? indexes[indexes.length - 1] + 1 : 0));
     }
-    let shifted = false;
+    const moved: string[] = [];
     for (let i = indexes.length - 1; i >= 0; i--) {
       const ceiling = i === indexes.length - 1 ? last : indexes[i + 1] - 1;
       if (indexes[i] > ceiling) {
         indexes[i] = ceiling;
-        shifted = true;
+        moved.unshift(`${kept[i].max}px to \`${SPACING_STEPS[ceiling].slug}\``);
       }
     }
-    if (shifted) {
+    if (moved.length) {
       this.decisions.push(
-        'Some spacing values moved down to free lower steps so the whole 5 to 100 ladder is used and none is dropped.'
+        `Some spacing values moved down to a free lower step so none is dropped: ${moved.join(', ')}.`
       );
     }
     const steps: ScaleEntry[] = kept.map((c, i) => ({
