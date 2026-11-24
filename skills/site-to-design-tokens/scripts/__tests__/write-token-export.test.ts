@@ -34,6 +34,13 @@ describe('TokenPlanBuilder', () => {
     expect(collection('Theme - Semantic').variables).toHaveLength(44);
   });
 
+  it('creates the ramps in the LightSpeed palette order', () => {
+    const families = collection('Theme - Colour')
+      .variables.map((v) => v.name.split('/')[0])
+      .filter((family, i, all) => all.indexOf(family) === i);
+    expect(families.slice(0, 5)).toEqual(['Theme', 'neutral', 'primary', 'brand', 'cta']);
+  });
+
   it('names and code syntax match the TSP file and the mapper', () => {
     const colour = collection('Theme - Colour').variables;
     expect(colour.find((v) => v.key === 'brand-600')).toMatchObject({
@@ -73,29 +80,38 @@ describe('TokenPlanBuilder', () => {
   it('stores fluid sizes as Max and Min, and line heights as percentages', () => {
     const typography = collection('Theme - Typography').variables;
     expect(typography.find((v) => v.name === 'Sizes/Gigantic')).toMatchObject({
-      codeSyntax: 'var(--wp--preset--font-size--gigantic)',
+      codeSyntax: 'var(--wp--preset--font-size--800)',
       values: { Max: 60, Min: 36 },
     });
-    expect(typography.find((v) => v.name === 'Line-Heights/xSmall')!.values).toEqual({
+    expect(typography.find((v) => v.name === 'Line-Heights/Base')!.values).toEqual({
       Max: 150,
       Min: 150,
     });
     expect(typography.find((v) => v.name === 'Font-Families/Primary')).toMatchObject({
       codeSyntax: 'var(--wp--preset--font-family--heading)',
       values: { Max: 'Moret' },
+      description: 'Headings (live). CSS stack: moret, Georgia, serif',
     });
+    expect(
+      typography.filter((v) => v.name.startsWith('Font-Families/')).map((v) => v.codeSyntax)
+    ).toEqual([
+      'var(--wp--preset--font-family--heading)',
+      'var(--wp--preset--font-family--body)',
+      'var(--wp--preset--font-family--accent)',
+      'var(--wp--preset--font-family--monospace)',
+    ]);
     expect(
       collection('Theme - Spacing').variables.find((v) => v.name === 'Padding/Colossal')!.values
     ).toEqual({ Max: 100, Min: 72 });
     expect(collection('Theme - Radius').variables.map((v) => v.name)).toEqual([
-      'Radius None',
-      'Radius Small',
-      'Radius Base',
-      'Radius Round',
+      'None',
+      'Small',
+      'Base',
+      'Round',
     ]);
     expect(plan.effectStyles[0]).toMatchObject({
-      name: 'LSX/xSmall',
-      description: 'theme.json shadow preset "x-small": var(--wp--preset--shadow--x-small).',
+      name: 'LSX/X-Small',
+      description: 'theme.json shadow preset "100": var(--wp--preset--shadow--100).',
     });
   });
 
@@ -106,6 +122,23 @@ describe('TokenPlanBuilder', () => {
     expect(wideOnly.collections.find((c) => c.name === 'Theme - Layout')!.variables).toHaveLength(
       1
     );
+  });
+});
+
+describe('Without a third font', () => {
+  it('creates no accent variable', () => {
+    const two = JSON.parse(JSON.stringify(proposal)) as typeof proposal;
+    delete two.typography.families.accent;
+    const plan = new TokenPlanBuilder().build(two);
+    const names = plan.collections
+      .find((c) => c.name === 'Theme - Typography')!
+      .variables.filter((v) => v.name.startsWith('Font-Families/'))
+      .map((v) => v.name);
+    expect(names).toEqual([
+      'Font-Families/Primary',
+      'Font-Families/Secondary',
+      'Font-Families/Monospace',
+    ]);
   });
 });
 
@@ -278,7 +311,7 @@ describe('FigmaScriptWriter', () => {
     expect(calls.aliases).toBe(44);
     expect(result.variableCount).toBe(calls.variables.length);
     expect(result.effectStyleIds).toHaveLength(plan.effectStyles.length);
-    expect(calls.styles[0].name).toBe('LSX/xSmall');
+    expect(calls.styles[0].name).toBe('LSX/X-Small');
     const inner = calls.styles
       .flatMap((s) => s.effects as Array<{ type: string; showShadowBehindNode?: boolean }>)
       .find((e) => e.type === 'INNER_SHADOW');
