@@ -120,6 +120,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **CI Check Scope** — Test and workflow checks now also run when a local action's metadata changes, and the list of tests that depend on Markdown is complete. ([PR #4075](https://github.com/lightspeedwp/.github/pull/4075))
 - **Site Tokens Numeric Slugs** — `site-to-design-tokens` exports the scaffold's numeric slugs for font sizes, radius and shadows, and radius uses bare size names. ([#4004](https://github.com/lightspeedwp/.github/issues/4004))
 - **Orphaned Refs Scan Scope** — `theme-orphaned-refs` skips `node_modules`, build and agent folders, checks radius presets, suggests numeric steps, and is now TypeScript with tests. ([#4037](https://github.com/lightspeedwp/.github/pull/4037))
 - **Site Tokens Palette Order** — `site-to-design-tokens` exports the colour ramps in the LightSpeed order (neutral, primary, brand, cta), so the theme palette follows the convention. ([#4035](https://github.com/lightspeedwp/.github/pull/4035))
