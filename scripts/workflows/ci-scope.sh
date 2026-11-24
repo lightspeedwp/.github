@@ -84,6 +84,9 @@ is_relevant() {
     actionlint)
       [[ "$file" =~ ^\.github/actionlint\.ya?ml$ ]] && return 0
       [[ "$file" == scripts/validation/run-actionlint.cjs ]] && return 0
+      # actionlint reads the metadata of local actions to check the inputs a
+      # workflow passes them, so a changed action.yml can break a caller.
+      [[ "$file" =~ (^|/)action\.ya?ml$ ]] && return 0
       [[ "$file" =~ ^package(-lock)?\.json$ ]] && return 0
       return 1
       ;;

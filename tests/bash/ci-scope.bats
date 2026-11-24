@@ -95,6 +95,24 @@ SH
   [[ "$output" == *"mode=full"* ]]
 }
 
+@test "a change to local action metadata runs actionlint, because callers pass it inputs" {
+  commit_file .github/actions/apply-labels/action.yml > /dev/null
+  run bash "$SCOPE_SH" actionlint
+  [[ "$output" == *"run=true"* ]]
+}
+
+@test "an action.yaml file also runs actionlint" {
+  commit_file .github/actions/other/action.yaml > /dev/null
+  run bash "$SCOPE_SH" actionlint
+  [[ "$output" == *"run=true"* ]]
+}
+
+@test "other files next to an action do not run actionlint" {
+  commit_file .github/actions/apply-labels/README.md > /dev/null
+  run bash "$SCOPE_SH" actionlint
+  [[ "$output" == *"run=false"* ]]
+}
+
 @test "prose next to code in the same pull request still runs the whole suite" {
   commit_file src/a.js > /dev/null
   commit_file docs/GUIDE.md > /dev/null

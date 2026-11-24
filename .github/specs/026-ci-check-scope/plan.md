@@ -54,6 +54,19 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 - **Safety**: The earlier commit must be an ancestor of the new head. Any other state runs the check.
 - **Base**: A check runs on the merge of the head with the base, so a result is reused only for the same base. Each check records the base it tested as a notice annotation titled "CI scope base", and the next run reads it back. This came from review of the pull request.
 
+```mermaid
+flowchart TD
+  accTitle: When a check may reuse an earlier result
+  accDescr: A check is skipped only when the pull request changes no file it reads, or when the latest push changes none and the same check passed on an earlier commit of this pull request against the same base. Every other case runs the check.
+  A[Push to a pull request] --> B{Does the pull request change a file the check reads?}
+  B -- No --> S[Skip the check and report success]
+  B -- Yes --> C{Did the latest push change a file the check reads?}
+  C -- Yes --> R[Run the check]
+  C -- No --> D{Is the earlier commit an ancestor, and did the check pass on it against the same base?}
+  D -- Yes --> S
+  D -- No --> R
+```
+
 ### Decision 3: run only the prose-dependent tests for prose changes
 
 - **Evidence**: The suite was run with a tracer that records every file read and every program started, per test file. It reads 11,495 of 11,745 tracked prose files. 47 test files read or check for those files, and 22 more start programs other than Node. An existence check counts, and a Node child's reads are attributed to the test that started it, which the first version of the tracer missed (found in review of the pull request).
@@ -77,7 +90,7 @@ Add one script, `scripts/workflows/ci-scope.sh`, that decides whether a check ha
 | --- | --- | --- |
 | `lint` | `Lint (JS/YAML/package.json)` | JavaScript and TypeScript files, YAML files, `package.json` and its lock file, root-level files other than prose |
 | `typecheck` | `Typecheck` | JavaScript, TypeScript, Astro and JSON files, anything under `website/`, root-level files other than prose |
-| `actionlint` | `actionlint` | `.github/actionlint.yaml`, `scripts/validation/run-actionlint.cjs`, root `package.json` and its lock file |
+| `actionlint` | `actionlint` | `.github/actionlint.yaml`, `scripts/validation/run-actionlint.cjs`, root `package.json` and its lock file, and every `action.yml` or `action.yaml` (actionlint reads local action metadata to check the inputs a workflow passes, so a changed action can break a caller; found in review of the pull request) |
 | `jest` | `No new test failures` | Everything except prose runs the whole suite. Prose alone runs the listed test files. |
 
 All profiles also run for any file under `.github/workflows/`, for the script itself and for `.nvmrc`.
