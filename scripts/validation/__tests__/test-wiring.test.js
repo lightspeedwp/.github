@@ -52,6 +52,18 @@ const STANDALONE = [
     file: '.github/validation/changelog/test/integration/check-run-annotations.test.js',
     script: 'test:changelog-validation',
   },
+  {
+    // Vitest suites, which cannot load under Jest; the skill's Vitest config
+    // lists each suite by name.
+    file: 'skills/wordpress-theme-validation/scripts/__tests__/checks.test.ts',
+    script: 'test:wordpress-theme-validation',
+    via: 'skills/wordpress-theme-validation/scripts/vitest.config.ts',
+  },
+  {
+    file: 'skills/wordpress-theme-validation/scripts/__tests__/core.test.ts',
+    script: 'test:wordpress-theme-validation',
+    via: 'skills/wordpress-theme-validation/scripts/vitest.config.ts',
+  },
 ];
 
 const STANDALONE_FILES = STANDALONE.map(({ file }) => file);

@@ -11,7 +11,9 @@ export default defineConfig({
   root: fileURLToPath(new URL('.', import.meta.url)),
   test: {
     environment: 'node',
-    include: ['__tests__/**/*.test.ts'],
+    // Listed by name: root Jest skips this folder, and scripts/validation/__tests__/test-wiring.test.js
+    // checks that each suite it registers as standalone is named here. Add new suites in both places.
+    include: ['__tests__/checks.test.ts', '__tests__/core.test.ts'],
     coverage: {
       enabled: true,
       provider: 'v8',
