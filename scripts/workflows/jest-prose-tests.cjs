@@ -60,6 +60,10 @@ function main(args) {
     return 2;
   }
   const traced = tracedTests(traceFile);
+  if (traced.length === 0) {
+    console.error('The trace names no test file. Was Jest run with the tracer and did it start?');
+    return 1;
+  }
   if (mode === '--write') {
     const document = {
       description:
@@ -71,10 +75,6 @@ function main(args) {
     fs.writeFileSync(MANIFEST, `${JSON.stringify(document, null, 2)}\n`);
     console.log(`Wrote ${traced.length} test files to ${path.relative(process.cwd(), MANIFEST)}`);
     return 0;
-  }
-  if (traced.length === 0) {
-    console.error('The trace names no test file, so the list cannot be checked.');
-    return 1;
   }
   const listed = new Set(manifestTests());
   const missing = traced.filter((test) => !listed.has(test));

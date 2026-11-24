@@ -24,6 +24,7 @@ const path = require('node:path');
 const childProcess = require('node:child_process');
 const { fileURLToPath } = require('node:url');
 const { syncBuiltinESMExports } = require('node:module');
+const { promisify } = require('node:util');
 
 const traceFile = process.env.JEST_READ_TRACE_FILE;
 const root = process.env.JEST_READ_TRACE_ROOT;
@@ -36,6 +37,31 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
 
   /** The test file that is running, as reported by tests/jest.setup.read-trace.cjs. */
   const currentTest = () => fs.__jestCurrentTest || process.env.JEST_READ_TRACE_TEST || '(outside a test)';
+
+  /**
+   * Make a wrapper indistinguishable from the function it replaces: copy every
+   * own property, including hidden ones such as `util.promisify.custom`, and
+   * wrap that promisified form too so its calls are recorded as well.
+   * @param {Function} wrapper
+   * @param {Function} original
+   * @param {(args: unknown[]) => void} record
+   */
+  const mirror = (wrapper, original, record) => {
+    for (const key of Reflect.ownKeys(original)) {
+      if (key === 'length' || key === 'name' || key === 'prototype' || key === promisify.custom) continue;
+      Object.defineProperty(wrapper, key, Object.getOwnPropertyDescriptor(original, key));
+    }
+    const custom = original[promisify.custom];
+    if (typeof custom === 'function') {
+      Object.defineProperty(wrapper, promisify.custom, {
+        configurable: true,
+        value: function tracedPromisified(...args) {
+          record(args);
+          return custom.apply(this, args);
+        },
+      });
+    }
+  };
 
   /** Jest lists every directory while it builds its module map; that is not a test reading it. */
   const fromModuleMap = () => /jest-haste-map|jest-resolve|jest-config/.test(new Error().stack || '');
@@ -91,7 +117,7 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       recordPath(kind, target);
       return original.call(this, target, ...rest);
     };
-    Object.assign(owner[name], original);
+    mirror(owner[name], original, (args) => recordPath(kind, args[0]));
   };
 
   const readCalls = ['readFile', 'open'];
@@ -119,7 +145,7 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
   for (const name of ['spawn', 'spawnSync', 'exec', 'execSync', 'execFile', 'execFileSync']) {
     const original = childProcess[name];
     if (typeof original !== 'function') continue;
-    childProcess[name] = function tracedChildProcess(command, ...rest) {
+    const recordProgram = (command) => {
       try {
         const program = path.basename(String(command).trim().split(/\s+/)[0] || '');
         if (program && !nodeNames.has(program)) {
@@ -129,9 +155,12 @@ if (traceFile && root && !globalThis.__jestReadTracerInstalled) {
       } catch {
         // Never let tracing change behaviour.
       }
+    };
+    childProcess[name] = function tracedChildProcess(command, ...rest) {
+      recordProgram(command);
       return original.call(this, command, ...rest);
     };
-    Object.assign(childProcess[name], original);
+    mirror(childProcess[name], original, (args) => recordProgram(args[0]));
   }
 
   syncBuiltinESMExports();
