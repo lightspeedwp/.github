@@ -64,14 +64,13 @@ while [ $i -le $# ]; do
             echo "  --dry-run           Compute feature name and paths without creating directories or files"
             echo "  --allow-existing-branch  Reuse an existing feature directory if it already exists"
             echo "  --short-name <name> Provide a custom short name (2-4 words) for the feature"
-            echo "  --number N          Prefer a feature number (auto-corrected if its specs prefix exists)"
-            echo "  --timestamp         Use timestamp prefix (YYYYMMDD-HHMMSS) instead of sequential numbering"
+            echo "  --number N          Use the next number or an exact pending claim; conflicts fail"
+            echo "  --timestamp         Unsupported in numbered specification roots; fails without writes"
             echo "  --help, -h          Show this help message"
             echo ""
             echo "Examples:"
             echo "  $0 'Add user authentication system' --short-name 'user-auth'"
             echo "  $0 'Implement OAuth2 integration for API' --number 5"
-            echo "  $0 --timestamp --short-name 'user-auth' 'Add user authentication'"
             exit 0
             ;;
         *)
@@ -88,75 +87,93 @@ if [ -z "$FEATURE_DESCRIPTION" ]; then
 fi
 
 # Trim whitespace and validate description is not empty (e.g., user passed only whitespace)
-FEATURE_DESCRIPTION=$(echo "$FEATURE_DESCRIPTION" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')
+# printf (not echo) keeps option-like descriptions such as "-n"/"-e"/"-E" as text, not options.
+FEATURE_DESCRIPTION=$(printf '%s\n' "$FEATURE_DESCRIPTION" | sed -E 's/^[[:space:]]+|[[:space:]]+$//g')
 if [ -z "$FEATURE_DESCRIPTION" ]; then
     echo "Error: Feature description cannot be empty or contain only whitespace" >&2
     exit 1
 fi
 
-MAX_FEATURE_NUMBER=9223372036854775807
 MAX_BRANCH_LENGTH=244
-
-is_feature_number_in_range() {
-    local value="$1"
-    local normalized="${value#"${value%%[!0]*}"}"
-    [ -n "$normalized" ] || normalized=0
-    [ ${#normalized} -lt ${#MAX_FEATURE_NUMBER} ] && return 0
-    [ ${#normalized} -gt ${#MAX_FEATURE_NUMBER} ] && return 1
-    # Equal-length digit strings must be compared without arithmetic overflow.
-    # shellcheck disable=SC2071
-    [[ "$normalized" < "$MAX_FEATURE_NUMBER" || "$normalized" == "$MAX_FEATURE_NUMBER" ]]
-}
-
-# Function to get highest number from specs directory
-get_highest_from_specs() {
-    local specs_dir="$1"
-    local highest=0
-
-    if [ -d "$specs_dir" ]; then
-        for dir in "$specs_dir"/*; do
-            [ -d "$dir" ] || continue
-            dirname=$(basename "$dir")
-            # Match sequential prefixes (>=3 digits), but skip timestamp dirs.
-            if echo "$dirname" | grep -Eq '^[0-9]{3,}-' && ! echo "$dirname" | grep -Eq '^[0-9]{8}-[0-9]{6}-'; then
-                number=$(echo "$dirname" | grep -Eo '^[0-9]+')
-                if is_feature_number_in_range "$number"; then
-                    number=$((10#$number))
-                    if [ "$number" -gt "$highest" ]; then
-                        highest=$number
-                    fi
-                fi
-            fi
-        done
-    fi
-
-    echo "$highest"
-}
-
-# Return success when a spec directory owns the given numeric prefix.
-spec_prefix_exists() {
-    local specs_dir="$1"
-    local feature_num="$2"
-
-    for spec_path in "$specs_dir/${feature_num}-"*; do
-        [ -d "$spec_path" ] && return 0
-    done
-    return 1
-}
 
 # Function to clean and format a branch name
 #
-# Three details keep this byte-identical to the Python and PowerShell twins:
-#   * LC_ALL=C -- in a UTF-8 locale glibc resolves the a-z *range* through
-#     collation, so [^a-z0-9] keeps accented lowercase letters that
-#     re.sub(r"[^a-z0-9]", ...) and .NET's -replace both strip.
+# Three details keep this consistent with the Python and PowerShell twins:
+#   * Unicode classification uses Python: POSIX [:alnum:] differs by platform.
 #   * `--*` instead of the GNU-only `\+`, which POSIX/BSD sed reads as a literal
 #     '+', leaving repeated separators uncollapsed on macOS.
 #   * printf instead of echo, so a name of "-n"/"-e"/"-E" is text, not options.
+contains_non_ascii() {
+    LC_ALL=C grep -q '[^[:print:][:cntrl:]]'
+}
+
+UNICODE_LOCALE=""
+locale_candidates=(C.UTF-8 C.utf8 en_US.UTF-8 en_US.utf8 "${LC_CTYPE:-${LANG:-}}")
+if [ -n "${LC_ALL:-}" ]; then
+    locale_candidates=("$LC_ALL")
+fi
+for candidate in "${locale_candidates[@]}"; do
+    if [ -n "$candidate" ] && [ "$(printf 'é。' | LC_ALL="$candidate" sed 's/[^[:alnum:]]/-/g' 2>/dev/null)" = 'é-' ]; then
+        UNICODE_LOCALE="$candidate"
+        break
+    fi
+done
+
+if [ -z "$UNICODE_LOCALE" ]; then
+    UNICODE_LOCALE=C
+    if printf '%s' "${SHORT_NAME:-$FEATURE_DESCRIPTION}" | contains_non_ascii; then
+        if [ -n "${LC_ALL:-}" ]; then
+            echo "Error: A UTF-8 locale is required to create a Unicode feature name; LC_ALL=$LC_ALL is not usable" >&2
+        else
+            echo "Error: A UTF-8 locale is required to create a Unicode feature name" >&2
+        fi
+        exit 1
+    fi
+fi
+
+unicode_words() {
+    local name="${1//$'\n'/ }"
+    local separator="$2"
+    if printf '%s' "$name" | contains_non_ascii; then
+        local -a python_cmd=()
+        local override="${SPECKIT_PYTHON_EXECUTABLE:-${SPECKIT_PYTHON:-}}"
+        if [ -n "$override" ] && command -v "$override" >/dev/null 2>&1 &&
+            "$override" -c 'import sys; raise SystemExit(sys.version_info.major != 3)' >/dev/null 2>&1; then
+            python_cmd=("$override")
+        else
+            local python_line
+            while IFS= read -r python_line; do
+                python_cmd+=("$python_line")
+            done < <(_python3_command)
+        fi
+        if [ "${#python_cmd[@]}" -eq 0 ]; then
+            echo "Error: Python 3 is required to create a Unicode feature name" >&2
+            return 1
+        fi
+        printf '%s' "$name" | "${python_cmd[@]}" -c '
+import sys
+value = sys.stdin.buffer.read().decode("utf-8")
+lower = str.maketrans("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")
+result = "".join(
+    char if char.isalpha() or char.isdecimal() else sys.argv[1]
+    for char in value.translate(lower)
+)
+sys.stdout.buffer.write(result.encode("utf-8"))
+' "$separator"
+    else
+        printf '%s' "$name" | LC_ALL=C tr '[:upper:]' '[:lower:]' | LC_ALL=C sed "s/[^a-z0-9]/$separator/g"
+    fi
+}
+
 clean_branch_name() {
     local name="$1"
-    local -x LC_ALL=C
-    printf '%s\n' "$name" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g' | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//'
+    local cleaned
+    cleaned=$(unicode_words "$name" '-') || return 1
+    printf '%s\n' "$cleaned" | sed 's/--*/-/g' | sed 's/^-//' | sed 's/-$//'
+}
+
+branch_byte_count() {
+    printf '%s' "$1" | wc -c | tr -d '[:space:]'
 }
 
 # Fit a feature prefix and suffix within GitHub's branch-name limit.
@@ -165,11 +182,25 @@ fit_branch_name() {
     local branch_suffix="$2"
     local branch_name="${feature_num}-${branch_suffix}"
 
-    if [ ${#branch_name} -gt $MAX_BRANCH_LENGTH ]; then
+    if [ "$(branch_byte_count "$branch_name")" -gt "$MAX_BRANCH_LENGTH" ]; then
         local prefix_length=$(( ${#feature_num} + 1 ))
         local max_suffix_length=$((MAX_BRANCH_LENGTH - prefix_length))
         local truncated_suffix
-        truncated_suffix=$(printf '%s' "$branch_suffix" | cut -c "1-$max_suffix_length" | sed 's/-$//')
+        local -x LC_ALL="$UNICODE_LOCALE"
+        local low=0 high=${#branch_suffix} mid
+        if (( high > max_suffix_length )); then
+            high=$max_suffix_length
+        fi
+        while (( low < high )); do
+            mid=$(((low + high + 1) / 2))
+            if [ "$(branch_byte_count "${branch_suffix:0:$mid}")" -le "$max_suffix_length" ]; then
+                low=$mid
+            else
+                high=$((mid - 1))
+            fi
+        done
+        truncated_suffix="${branch_suffix:0:$low}"
+        truncated_suffix="${truncated_suffix%-}"
         branch_name="${feature_num}-${truncated_suffix}"
     fi
 
@@ -197,24 +228,15 @@ REPO_ROOT=$(get_repo_root) || exit 1
 
 cd "$REPO_ROOT"
 
-# Resolve specs directory from configuration (.specify/init-options.json) with fallback to .github/specs
-# This allows customization of spec location while maintaining consistency across all speckit commands
+# Resolve the specs directory from .specify/init-options.json (specs_directory),
+# falling back to .github/specs. read_specs_directory validates the value and
+# rejects absolute paths and '.'/'..' segments, so no second guard is needed here.
 if ! SPECS_DIRECTORY=$(read_specs_directory "$REPO_ROOT"); then
     echo "Error: Unable to read specs_directory configuration" >&2
     exit 1
 fi
 
-case "$SPECS_DIRECTORY" in
-    ""|/*|.|..|./*|../*|*/.|*/..|*/./*|*/../*)
-        echo "Error: specs_directory must be a repository-relative path without '.' or '..' segments: $SPECS_DIRECTORY" >&2
-        exit 1
-        ;;
-esac
-
 SPECS_DIR="$REPO_ROOT/$SPECS_DIRECTORY"
-if [ "$DRY_RUN" != true ]; then
-    mkdir -p -- "$SPECS_DIR"
-fi
 
 # Function to generate branch name with stop word filtering and length filtering
 generate_branch_name() {
@@ -223,12 +245,10 @@ generate_branch_name() {
     # Common stop words to filter out
     local stop_words="^(i|a|an|the|to|for|of|in|on|at|by|with|from|is|are|was|were|be|been|being|have|has|had|do|does|did|will|would|should|could|can|may|might|must|shall|this|that|these|those|my|your|our|their|want|need|add|get|set)$"
 
-    # Convert to lowercase and split into words. LC_ALL=C for the same
-    # collation reason documented on clean_branch_name, and so the `grep -qw`
-    # acronym probe below uses ASCII word boundaries like the Python twin's
-    # (?<![0-9A-Za-z_]) lookarounds.
-    local -x LC_ALL=C
-    local clean_name=$(printf '%s' "$description" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/ /g')
+    # Use a UTF-8 locale for character-safe length checks and split words.
+    local -x LC_ALL="$UNICODE_LOCALE"
+    local clean_name
+    clean_name=$(unicode_words "$description" ' ') || return 1
 
     # Filter words: remove stop words and words shorter than 3 chars (unless they're uppercase acronyms in original)
     local meaningful_words=()
@@ -236,14 +256,14 @@ generate_branch_name() {
         # Skip empty words
         [ -z "$word" ] && continue
 
-        # Keep words that are NOT stop words AND (length >= 3 OR are potential acronyms)
-        if ! echo "$word" | grep -qiE "$stop_words"; then
-            if [ ${#word} -ge 3 ]; then
+        # Retain non-ASCII words even when shorter than three characters.
+        if ! printf '%s\n' "$word" | LC_ALL=C grep -qE "$stop_words"; then
+            if [ ${#word} -ge 3 ] || printf '%s' "$word" | contains_non_ascii; then
                 meaningful_words+=("$word")
             # Keep short words that appear as an uppercase acronym in the original.
             # Uppercase via tr and match with grep -w (both portable) rather than
             # bash's 4+ "^^" case expansion (breaks on macOS bash 3.2) and \b (non-POSIX).
-            elif printf '%s' "$description" | grep -qw -- "$(printf '%s' "$word" | tr '[:lower:]' '[:upper:]')"; then
+            elif printf '%s' "$description" | LC_ALL=C grep -qw -- "$(printf '%s' "$word" | LC_ALL=C tr '[:lower:]' '[:upper:]')"; then
                 meaningful_words+=("$word")
             fi
         fi
@@ -279,68 +299,38 @@ else
     BRANCH_SUFFIX=$(generate_branch_name "$FEATURE_DESCRIPTION")
 fi
 
-# Warn if --number and --timestamp are both specified
-if [ "$USE_TIMESTAMP" = true ] && [ -n "$BRANCH_NUMBER" ]; then
-    >&2 echo "[specify] Warning: --number is ignored when --timestamp is used"
-    BRANCH_NUMBER=""
+if [ -z "$BRANCH_SUFFIX" ]; then
+    echo "[specify] Warning: Feature name is empty after removing unsupported characters. Use --short-name with letters or digits (for example, user-auth)." >&2
 fi
 
-# Determine branch prefix
+# Validate every allocation before any filesystem or feature-context write.
 if [ "$USE_TIMESTAMP" = true ]; then
-    FEATURE_NUM=$(date +%Y%m%d-%H%M%S)
-    BRANCH_NAME="${FEATURE_NUM}-${BRANCH_SUFFIX}"
+    echo "Error: --timestamp is not supported in a numbered specification root" >&2
+    exit 1
+fi
+ALLOCATION_VALIDATOR="$SCRIPT_DIR/../../../scripts/validation/spec-allocations.cjs"
+if ! command -v node >/dev/null 2>&1 || [ ! -f "$ALLOCATION_VALIDATOR" ]; then
+    echo "Error: Node.js and the shared allocation validator are required" >&2
+    exit 2
+fi
+# All valid prefixes have three digits: fit before checking a pending claim.
+FITTED_BRANCH_NAME=$(fit_branch_name "000" "$BRANCH_SUFFIX")
+FINAL_SUFFIX="${FITTED_BRANCH_NAME#*-}"
+ALLOCATION_ARGS=(allocate --repo-root "$REPO_ROOT" --specs-directory "$SPECS_DIRECTORY" --slug "$FINAL_SUFFIX")
+if [ "$NUMBER_EXPLICIT" = true ]; then
+    ALLOCATION_ARGS+=(--number "$BRANCH_NUMBER")
+fi
+if [ "$ALLOW_EXISTING" = true ]; then
+    ALLOCATION_ARGS+=(--allow-existing)
+fi
+if [ -n "${SPEC_ALLOCATION_BASELINE:-}" ]; then
+    ALLOCATION_ARGS+=(--baseline "$SPEC_ALLOCATION_BASELINE")
+fi
+if FEATURE_NUM=$(node "$ALLOCATION_VALIDATOR" "${ALLOCATION_ARGS[@]}"); then
+    :
 else
-    if [ -n "$BRANCH_NUMBER" ] && [[ ! "$BRANCH_NUMBER" =~ ^[0-9]+$ ]]; then
-        echo "Error: --number must be an unsigned integer, got '$BRANCH_NUMBER'" >&2
-        exit 1
-    fi
-
-    # Bash arithmetic is signed 64-bit; reject digit strings that would wrap.
-    if [ -n "$BRANCH_NUMBER" ] && ! is_feature_number_in_range "$BRANCH_NUMBER"; then
-        echo "Error: --number must be between 0 and $MAX_FEATURE_NUMBER, got '$BRANCH_NUMBER'" >&2
-        exit 1
-    fi
-
-    # Determine branch number from existing feature directories
-    if [ -z "$BRANCH_NUMBER" ]; then
-        HIGHEST=$(get_highest_from_specs "$SPECS_DIR")
-        if [ "$HIGHEST" -eq "$MAX_FEATURE_NUMBER" ]; then
-            echo "Error: feature number must be between 0 and $MAX_FEATURE_NUMBER, got '9223372036854775808'" >&2
-            exit 1
-        fi
-        BRANCH_NUMBER=$((HIGHEST + 1))
-    fi
-
-    # Force base-10 interpretation to prevent octal conversion (e.g., 010 → 8 in octal, but should be 10 in decimal)
-    FEATURE_NUM=$(printf "%03d" "$((10#$BRANCH_NUMBER))")
-
-    # Treat an explicit number as a preference when its prefix is already used
-    # by a feature directory. Auto-detected numbers are already conflict-free.
-    if [ "$NUMBER_EXPLICIT" = true ]; then
-        SPEC_CONFLICT=false
-        REQUESTED_BRANCH_NAME=$(fit_branch_name "$FEATURE_NUM" "$BRANCH_SUFFIX")
-        REQUESTED_DIR="$SPECS_DIR/$REQUESTED_BRANCH_NAME"
-        if [ "$ALLOW_EXISTING" != true ] || [ ! -d "$REQUESTED_DIR" ]; then
-            spec_prefix_exists "$SPECS_DIR" "$FEATURE_NUM" && SPEC_CONFLICT=true
-        fi
-
-        if [ "$SPEC_CONFLICT" = true ]; then
-            REQUESTED_NUM="$FEATURE_NUM"
-            HIGHEST=$(get_highest_from_specs "$SPECS_DIR")
-            BRANCH_NUMBER=$HIGHEST
-            while true; do
-                if [ "$BRANCH_NUMBER" -eq "$MAX_FEATURE_NUMBER" ]; then
-                    echo "Error: feature number must be between 0 and $MAX_FEATURE_NUMBER, got '9223372036854775808'" >&2
-                    exit 1
-                fi
-                BRANCH_NUMBER=$((BRANCH_NUMBER + 1))
-                FEATURE_NUM=$(printf "%03d" "$((10#$BRANCH_NUMBER))")
-                spec_prefix_exists "$SPECS_DIR" "$FEATURE_NUM" || break
-            done
-            >&2 echo "[specify] Warning: --number $REQUESTED_NUM conflicts with an existing spec directory; using $FEATURE_NUM instead"
-        fi
-    fi
-
+    allocation_status=$?
+    exit "$allocation_status"
 fi
 
 # GitHub enforces a 244-byte limit on branch names
@@ -349,8 +339,8 @@ ORIGINAL_BRANCH_NAME="${FEATURE_NUM}-${BRANCH_SUFFIX}"
 BRANCH_NAME=$(fit_branch_name "$FEATURE_NUM" "$BRANCH_SUFFIX")
 if [ "$BRANCH_NAME" != "$ORIGINAL_BRANCH_NAME" ]; then
     >&2 echo "[specify] Warning: Branch name exceeded GitHub's 244-byte limit"
-    >&2 echo "[specify] Original: $ORIGINAL_BRANCH_NAME (${#ORIGINAL_BRANCH_NAME} bytes)"
-    >&2 echo "[specify] Truncated to: $BRANCH_NAME (${#BRANCH_NAME} bytes)"
+    >&2 echo "[specify] Original: $ORIGINAL_BRANCH_NAME ($(branch_byte_count "$ORIGINAL_BRANCH_NAME") bytes)"
+    >&2 echo "[specify] Truncated to: $BRANCH_NAME ($(branch_byte_count "$BRANCH_NAME") bytes)"
 fi
 
 FEATURE_DIR="$SPECS_DIR/$BRANCH_NAME"
@@ -393,8 +383,11 @@ if [ "$DRY_RUN" != true ]; then
         fi
     fi
 
-    # Persist to .specify/feature.json so downstream commands can find the feature
-    _persist_feature_json "$REPO_ROOT" "$FEATURE_DIR"
+    # Persist to .specify/feature.json so downstream commands can find the
+    # feature, unless the orchestrator opted out via SPECIFY_FEATURE_NO_PERSIST (#4129).
+    if [[ "${SPECIFY_FEATURE_NO_PERSIST:-}" != "1" && "${SPECIFY_FEATURE_NO_PERSIST:-}" != "true" ]]; then
+        _persist_feature_json "$REPO_ROOT" "$FEATURE_DIR"
+    fi
 
     # Inform the user how to set feature state in their own shell
     printf '# To persist: export SPECIFY_FEATURE=%s\n' "$(shell_quote "$BRANCH_NAME")" >&2

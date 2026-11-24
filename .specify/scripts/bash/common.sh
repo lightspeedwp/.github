@@ -112,7 +112,7 @@ read_feature_json_feature_directory() {
     fi
     if [[ -z "$_fd" ]] && command -v python3 >/dev/null 2>&1; then
         # Use Python so pretty-printed/multi-line JSON still parses correctly.
-        if ! _fd=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1])); v=d.get('feature_directory'); print(v if v else '')" "$fj" 2>/dev/null); then
+        if ! _fd=$(python3 -c "import json,sys; d=json.load(open(sys.argv[1], encoding='utf-8')); v=d.get('feature_directory'); print(v if v else '')" "$fj" 2>/dev/null); then
             _fd=''
         fi
     fi
@@ -247,6 +247,13 @@ get_feature_paths() {
     if [[ "${1:-}" == "--no-persist" ]]; then
         no_persist=true
         shift
+    fi
+    # SPECIFY_FEATURE_NO_PERSIST is the environment-level equivalent of --no-persist,
+    # letting an orchestrator (multi-agent runner, CI matrix) guarantee that no
+    # script invocation in the process tree writes .specify/feature.json, even
+    # scripts that don't pass --no-persist themselves (#4128).
+    if [[ "${SPECIFY_FEATURE_NO_PERSIST:-}" == "1" || "${SPECIFY_FEATURE_NO_PERSIST:-}" == "true" ]]; then
+        no_persist=true
     fi
 
     # Split decl/assignment so a SPECIFY_INIT_DIR validation failure in
@@ -478,7 +485,14 @@ check_file() { [[ -f "$1" ]] && echo "  ✓ $2" || echo "  ✗ $2"; }
 check_dir() { [[ -d "$1" && -n $(ls -A "$1" 2>/dev/null) ]] && echo "  ✓ $2" || echo "  ✗ $2"; }
 
 _python3_command() {
-    if command -v python3 >/dev/null 2>&1 &&
+    # SPECKIT_PYTHON_EXECUTABLE is the canonical override; SPECKIT_PYTHON is
+    # kept as a deprecated fallback (still used by update-agent-context.sh).
+    local override="${SPECKIT_PYTHON_EXECUTABLE:-${SPECKIT_PYTHON:-}}"
+    if [[ -n "$override" ]] && command -v "$override" >/dev/null 2>&1 &&
+        "$override" -c 'import sys; raise SystemExit(sys.version_info.major != 3)' >/dev/null 2>&1 &&
+        "$override" -c 'import yaml' >/dev/null 2>&1; then
+        printf '%s\n' "$override"
+    elif command -v python3 >/dev/null 2>&1 &&
         python3 -c 'import sys; raise SystemExit(sys.version_info.major != 3)' >/dev/null 2>&1; then
         printf '%s\n' "python3"
     elif command -v python >/dev/null 2>&1 &&
@@ -486,7 +500,7 @@ _python3_command() {
         printf '%s\n' "python"
     elif command -v py >/dev/null 2>&1 &&
         py -3 -c 'import sys' >/dev/null 2>&1; then
-        printf '%s\n' "py -3"
+        printf '%s\n' "py" "-3"
     else
         return 1
     fi
@@ -494,10 +508,12 @@ _python3_command() {
 
 _sorted_extension_ids() {
     local ext_dir="$1"
-    local python_spec
-    if python_spec=$(_python3_command); then
-        local -a python_cmd
-        read -r -a python_cmd <<< "$python_spec"
+    local -a python_cmd=()
+    local _python_cmd_line
+    while IFS= read -r _python_cmd_line; do
+        python_cmd+=("$_python_cmd_line")
+    done < <(_python3_command)
+    if [ "${#python_cmd[@]}" -gt 0 ]; then
         local py_stderr sorted_ids
         py_stderr=$(mktemp)
         if sorted_ids=$(SPECKIT_EXTENSIONS="$ext_dir" "${python_cmd[@]}" -c "
@@ -592,11 +608,11 @@ resolve_template() {
     local presets_dir="$repo_root/.specify/presets"
     if [ -d "$presets_dir" ]; then
         local registry_file="$presets_dir/.registry"
-        local python_spec=""
         local -a python_cmd=()
-        if python_spec=$(_python3_command); then
-            read -r -a python_cmd <<< "$python_spec"
-        fi
+        local _python_cmd_line
+        while IFS= read -r _python_cmd_line; do
+            python_cmd+=("$_python_cmd_line")
+        done < <(_python3_command)
         if [ -f "$registry_file" ] && [ "${#python_cmd[@]}" -gt 0 ]; then
             # Read preset IDs sorted by priority (lower number = higher precedence).
             # The python3 call is wrapped in an if-condition so that set -e does not
@@ -696,6 +712,11 @@ resolve_template_content() {
     # Collect all layers (highest priority first)
     local -a layer_paths=()
     local -a layer_strategies=()
+    local -a layer_selectors=()
+    local -a layer_presets=()
+    local section_engine
+    section_engine="$(dirname "${BASH_SOURCE[0]}")/markdown_sections.py"
+    [ -f "$section_engine" ] || section_engine="$(dirname "${BASH_SOURCE[0]}")/../../src/specify_cli/markdown_sections.py"
 
     # Priority 1: Project overrides (always "replace")
     local override="$base/overrides/${template_name}.md"
@@ -715,11 +736,11 @@ resolve_template_content() {
         local registry_file="$presets_dir/.registry"
         local sorted_presets=""
         local registry_parsed=false
-        local python_spec=""
         local -a python_cmd=()
-        if python_spec=$(_python3_command); then
-            read -r -a python_cmd <<< "$python_spec"
-        fi
+        local _python_cmd_line
+        while IFS= read -r _python_cmd_line; do
+            python_cmd+=("$_python_cmd_line")
+        done < <(_python3_command)
         if [ -f "$registry_file" ] && [ "${#python_cmd[@]}" -gt 0 ]; then
             if sorted_presets=$(SPECKIT_REGISTRY="$registry_file" "${python_cmd[@]}" -c "
 import json, re, sys, os
@@ -757,6 +778,7 @@ except Exception:
         if [ -n "$sorted_presets" ]; then
             while IFS= read -r preset_id; do
                 local strategy="replace"
+                local selector=""
                 local manifest_file=""
                 local manifest="$presets_dir/$preset_id/preset.yml"
                 local manifest_declared=false
@@ -769,8 +791,8 @@ except Exception:
                     local py_stderr
                     local parse_status
                     py_stderr=$(mktemp)
-                    if result=$(SPECKIT_MANIFEST="$manifest" SPECKIT_TMPL="$template_name" "${python_cmd[@]}" -c "
-import sys, os
+                    if result=$(SPECKIT_MANIFEST="$manifest" SPECKIT_TMPL="$template_name" SPECKIT_SECTION_ENGINE="$section_engine" "${python_cmd[@]}" -c "
+import sys, os, base64
 try:
     import yaml
 except ImportError:
@@ -794,7 +816,7 @@ try:
     if not templates:
         raise ValueError('manifest must provide at least one template')
     valid_types = ('template', 'command', 'script')
-    valid_strategies = ('replace', 'prepend', 'append', 'wrap')
+    valid_strategies = ('replace', 'prepend', 'append', 'wrap', 'replace-section')
     for t in templates:
         if not isinstance(t, dict):
             raise ValueError('manifest template entries must be mappings')
@@ -813,11 +835,16 @@ try:
             raise ValueError('invalid manifest template strategy')
         if t['type'] == 'script' and strategy not in ('replace', 'wrap'):
             raise ValueError('invalid manifest script strategy')
+        if strategy == 'replace-section' or 'selector' in t:
+            import runpy
+            engine = runpy.run_path(os.environ['SPECKIT_SECTION_ENGINE'])
+            engine['validate_section_selector'](strategy, t.get('selector'), present='selector' in t)
     for t in templates:
         if t.get('name') == os.environ['SPECKIT_TMPL'] and t.get('type', 'template') == 'template':
             file_value = t.get('file', '')
             strategy = t.get('strategy', 'replace')
-            print('found\t' + strategy + '\t' + file_value)
+            selector = base64.b64encode(t.get('selector', '').encode('utf-8')).decode('ascii')
+            print('found\t' + strategy + '\t' + file_value + '\t' + selector)
             sys.exit(0)
     print('absent\treplace\t')
 except Exception as exc:
@@ -833,13 +860,14 @@ except Exception as exc:
                             echo "Error: PyYAML is required to resolve preset template composition" >&2
                         else
                             echo "Error: invalid preset manifest $manifest" >&2
+                            cat "$py_stderr" >&2
                         fi
                         rm -f "$py_stderr"
                         return 2
                     fi
                     if [ -n "$result" ]; then
                         local declaration
-                        IFS=$'\t' read -r declaration strategy manifest_file <<< "$result"
+                        IFS=$'\t' read -r declaration strategy manifest_file selector <<< "$result"
                         [ "$declaration" = "found" ] && manifest_declared=true
                         strategy=$(printf '%s' "$strategy" | tr '[:upper:]' '[:lower:]')
                     fi
@@ -849,7 +877,7 @@ except Exception as exc:
                 local candidate=""
                 if [ -n "$manifest_file" ]; then
                     case "$manifest_file" in
-                        /*|*../*|../*) manifest_file="" ;;
+                        /*|*../*) manifest_file="" ;;
                     esac
                 fi
                 if [ -n "$manifest_file" ]; then
@@ -867,6 +895,8 @@ except Exception as exc:
                 if [ -n "$candidate" ]; then
                     layer_paths+=("$candidate")
                     layer_strategies+=("$strategy")
+                    layer_selectors+=("$selector")
+                    layer_presets+=("$preset_id")
                     if [ "$strategy" = "replace" ]; then
                         effective_base_found=true
                         break
@@ -891,6 +921,8 @@ except Exception as exc:
             if [ -f "$candidate" ]; then
                 layer_paths+=("$candidate")
                 layer_strategies+=("replace")
+                layer_selectors+=("")
+                layer_presets+=("$extension_id")
                 effective_base_found=true
                 break
             fi
@@ -902,6 +934,8 @@ except Exception as exc:
     if [ "$effective_base_found" = false ] && [ -f "$core" ]; then
         layer_paths+=("$core")
         layer_strategies+=("replace")
+        layer_selectors+=("")
+        layer_presets+=("core")
     fi
 
     local count=${#layer_paths[@]}
@@ -967,6 +1001,17 @@ except Exception as exc:
         layer_content="${layer_content%x}"
 
         case "$strat" in
+            replace-section)
+                if ! content=$(
+                    printf '%s' "$content" | "${python_cmd[@]}" "$section_engine" \
+                        --preset "${layer_presets[$i]}" --artifact "$template_name" \
+                        --selector-base64 -- "${layer_selectors[$i]}" "$path"
+                    status=$?; printf x; exit "$status"
+                ); then
+                    return 2
+                fi
+                content="${content%x}"
+                ;;
             replace) content="$layer_content" ;;
             prepend)
                 content=$(printf '%s\n\n%s' "$layer_content" "$content"; printf x)
