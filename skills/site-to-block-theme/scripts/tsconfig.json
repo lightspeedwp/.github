@@ -1,0 +1,9 @@
+{
+  "extends": "../../../tsconfig.json",
+  "compilerOptions": {
+    "types": ["node", "jest"],
+    "lib": ["ES2022", "DOM"]
+  },
+  "include": ["*.ts", "lib/*.ts", "__tests__/*.ts"],
+  "exclude": []
+}
