@@ -315,9 +315,9 @@ When `.github/labels.yml` or `.github/issue-types.yml` changes:
 
 ---
 
-## Relationship to Qodo PR-Agent
+## Review verdict
 
-CodeRabbit remains the organisation's **primary automatic reviewer**, and supplies automated findings on every pull request. **The review verdict is owned by human reviewers, not by either tool**: CodeRabbit and Qodo PR-Agent both post findings for a person to judge, and neither merges, approves nor blocks. [Qodo PR-Agent](./QODO_PR_AGENT.md) is a **complement** that adds a description update and improvement suggestions without touching labels or any other setting a protected branch enforces.
+CodeRabbit is the organisation's **primary automatic reviewer**, and supplies automated findings on every pull request. **The review verdict is owned by human reviewers, not by the tool**: CodeRabbit posts findings for a person to judge, and it does not merge, approve or block.
 
 ## Related Documentation
 
