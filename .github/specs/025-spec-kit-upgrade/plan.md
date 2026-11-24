@@ -31,7 +31,7 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 | Principle | Result | Note |
 | --- | --- | --- |
 | II. Locked governance | Pass | No locked file is touched. |
-| III. Asset boundaries | Pass, relies on the platform-required locations exception | Spec Kit reads its state from `.specify/` and Claude Code reads skills from `.claude/skills/`. Both are fixed paths chosen by the tools. |
+| III. Asset boundaries | Pass, relies on the platform-required locations exception | Spec Kit reads its state from `.specify/` and Claude Code reads skills from `.claude/skills/`. Both are fixed paths chosen by the tools. The exception covers the scripts Spec Kit installs under `.specify/scripts/` and `.specify/extensions/*/scripts/`: the tool resolves them at those paths and tracks them by hash, so they cannot move to root `scripts/`, where `AGENTS.md` places repository-authored scripts. |
 | V and VIII. Branch naming | Pass | `aiops/spec-kit-upgrade-v1-4-4` uses an authorised type. |
 | VI. UK English | Pass | Applies to this specification. Upstream skill text is left as shipped. |
 | VII. Specification quality | Pass | See `checklists/requirements.md`. |
@@ -63,6 +63,15 @@ Upgrade the installed Spec Kit from `1.0.7.dev0` to `v1.4.4` with the upstream c
 
 - **Rationale**: The ten skill files on `develop` differed from their recorded hashes only by blank lines of the kind a Markdown lint fix adds. That mismatch is what made the old install refuse to upgrade. Adding `.claude/skills/speckit-*/**/*.md` and `.specify/extensions/**/*.md` to `.markdownlintignore` keeps those files as shipped.
 - **Evidence**: With the default rules, the upstream `github` extension command file reports six findings (MD029, MD031, MD032). The files written for this specification report none.
+
+### Decision 6: do not patch upstream files in this change
+
+- **Rationale**: Files that Spec Kit installs are tracked by hash. Editing them here would bring back the modified-file state this change removes, and the next upgrade would overwrite the edits.
+- **Consequence**: Review findings on upstream content are recorded here and belong upstream in `github/spec-kit`, not in this repository:
+  - `speckit-converge` can append a convergence task that duplicates an open task.
+  - `speckit-specify` writes `.specify/feature.json` without checking `SPECIFY_FEATURE_NO_PERSIST`.
+  - `speckit.github.taskstoissues` matches existing issues by task ID across all features.
+  - `markdown_sections.py` can join a replacement to the next heading when the replacement has no final newline.
 
 ## Local changes to managed files
 

@@ -101,7 +101,7 @@ A maintainer who wants to turn `tasks.md` into GitHub issues still has a skill f
 
 - **SC-001**: The recorded Spec Kit version is `1.4.4` in all four records named in FR-001.
 - **SC-002**: `specify integration status` reports exactly two modified managed files, both listed in the plan, and zero missing files.
-- **SC-003**: A dry run of the feature-creation script reports a path under `.github/specs/` and the number 025.
+- **SC-003**: A dry run of the feature-creation script reports a path under `.github/specs/` and the next number in sequence: 025 before this specification's directory exists, 026 once it does.
 - **SC-004**: The required pull request checks pass.
 - **SC-005**: No file outside `.specify/`, `.claude/skills/speckit-*`, `.github/specs/025-spec-kit-upgrade/`, `.github/specs/CATALOG.md`, `.markdownlintignore` and `CHANGELOG.md` changes.
 
