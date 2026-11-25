@@ -75,6 +75,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Renovate Node and Composer updates no longer request reviewers** — Their manifests and lock files have no code owner, so updates that touch only those files skip the review request. ([#4086](https://github.com/lightspeedwp/.github/pull/4086))
+
 - **CI Check Scope** — Lint, typecheck, workflow lint and test checks now skip their work when a push changes no file they read. ([PR #4069](https://github.com/lightspeedwp/.github/pull/4069))
 - **Spec Kit Upgrade** — Spec Kit is now on v1.4.4. The `speckit-taskstoissues` skill is removed, as it is no longer in the core. Specifications still go to `.github/specs/`. ([PR #4064](https://github.com/lightspeedwp/.github/pull/4064))
 - **Site Skills Setup Notes** — The site skills say to run `npm ci`, and `npx puppeteer browsers install chrome` if the browser fails to launch. ([#4009](https://github.com/lightspeedwp/.github/issues/4009))
