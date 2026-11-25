@@ -38,7 +38,7 @@ domain: "governance"
 ## Phase 3: User Story 1 - Agents (P1)
 
 - [ ] T008 [US1] Rewrite `docs/AGENT_STANDARDS.md` for `agents/*.agent.md`, `name`, `description`, `tools`, `model` and `AGENTS.md`
-- [ ] T009 [US1] Create a sample agent from the document and run the agent validation on it
+- [ ] T009 [US1] Create a sample agent from the document, run `scripts/validation/validate-agent-frontmatter.js` and `validate-agents.js` on it, and record any failure as a gap without changing the validators
 - [ ] T010 [US1] Add the enforcement table and record rules that nothing checks
 
 ## Phase 4: User Story 2 - Skills (P1)
@@ -62,9 +62,10 @@ domain: "governance"
 
 ## Phase 7: Polish
 
-- [ ] T021 Update the catalogue, the documentation index and each document's cross-references
+- [ ] T021 Update `.github/specs/CATALOG.md`, add a standards section to `docs/index.md`, check `docs/README.md` and `docs/AGENT-INDEX.md`, and update each document's cross-references
 - [ ] T022 Run `markdownlint`, link checking, frontmatter validation and the specification audit
 - [ ] T023 Record the outcome and the open gaps on GIT-2302
+- [ ] T024 Record on GIT-2626 that specification 014 FR-002 requires `AGENT.md` and conflicts with the adopted structure
 
 ## Dependencies
 

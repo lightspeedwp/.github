@@ -32,7 +32,7 @@ The epic [GIT-2302](https://linear.app/lightspeedwp/issue/GIT-2302) records the 
 - Skills reach other repositories through a root `.claude-plugin/marketplace.json`.
 - Tests may live in `tests/` or `__tests__/`.
 
-The nine standards documents in `docs/` were written in July and September 2026, before those decisions. Measured on `develop` at `cec2b90daf` on 25 November 2026:
+The nine standards documents in `docs/` were written in July and September 2026. Most were last changed after the decisions were verified, yet at least the agent document does not follow them, so each document is checked rather than assumed. Measured on `develop` at `cec2b90daf` on 25 November 2026:
 
 | Document | Lines | Last changed |
 | -- | -- | -- |
@@ -47,6 +47,8 @@ The nine standards documents in `docs/` were written in July and September 2026,
 | `WORKFLOWS_STANDARDS.md` | 414 | 28 September 2026 |
 
 `AGENT_STANDARDS.md` still describes a folder-based agent whose entry file is `agent.md`, requires the frontmatter fields `version` and `providers`, and lists agent skills as `.js` files. None of that matches the decisions above. The 18 November review found the other documents also pre-date the decisions; this specification starts by checking each one rather than assuming it.
+
+Specification 014 (`014-agents-restructure-consolidate`) is still a Draft and its FR-002 requires an `AGENT.md` for every agent, which these decisions replace. [GIT-2626](https://linear.app/lightspeedwp/issue/GIT-2626) revises it. Until then the catalogue holds two conflicting Drafts, and the documents follow the GIT-2302 decisions and say so.
 
 This specification covers the documents only. Changing the files, folders, validators and distribution they describe is separate work.
 
@@ -78,7 +80,7 @@ A contributor who writes a skill learns the folder layout, the six specification
 
 **Acceptance Scenarios**:
 
-1. **Given** the document, **When** a skill is created from it, **Then** the folder name matches `name`, `name` is lower-case kebab-case of at most 64 characters, and `SKILL.md` is at most 500 lines.
+1. **Given** the document, **When** a skill is created from it, **Then** the folder name matches `name`, `name` is lower-case kebab-case of at most 64 characters, and the document recommends keeping `SKILL.md` under 500 lines, marked as guidance because the specification does not set it as a limit.
 2. **Given** the document, **When** a reader asks how a skill is shared, **Then** it points to the marketplace file and says that plugins cannot reference files outside their root.
 
 ---
@@ -93,7 +95,7 @@ A reader who moves from the agent document to instructions, prompts, plugins, ho
 
 **Acceptance Scenarios**:
 
-1. **Given** the nine rewritten documents, **When** they are searched for `AGENT.md`, `agent.md` as an entry file and `providers` as a required field, **Then** none remains except in a clearly marked history note.
+1. **Given** the nine rewritten documents, **When** they are searched with the case-sensitive patterns `AGENT\.md` and `(^|[^.\w])agent\.md` (which do not match `AGENTS.md` or `*.agent.md`) and for `providers` as a required field, **Then** none remains except in a clearly marked history note.
 2. **Given** `INSTRUCTIONS_STANDARDS.md` and `PROMPTS_STANDARDS.md`, **When** they name a file format, **Then** they say whether Claude Code loads it, and name the format that it does load.
 
 ---
@@ -117,13 +119,13 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 
 - **FR-001**: Each of the nine documents MUST describe the file and folder structure for its subject, using only layouts the adopted decisions allow.
 - **FR-002**: `AGENT_STANDARDS.md` MUST describe `agents/*.agent.md` with `name` and `description`, optional `tools` and `model`, and `AGENTS.md` for working instructions.
-- **FR-003**: `SKILLS_STANDARDS.md` MUST describe `SKILL.md` with exactly the six specification frontmatter fields, and MUST keep platform routing outside `SKILL.md`.
+- **FR-003**: `SKILLS_STANDARDS.md` MUST describe `SKILL.md` frontmatter as limited to the six specification fields, with only `name` and `description` required, and MUST keep platform routing outside `SKILL.md`.
 - **FR-004**: Every rule MUST link to an official source and carry the date it was checked.
 - **FR-005**: Every rule MUST be marked as enforced by a named validator or as guidance only.
 - **FR-006**: `INSTRUCTIONS_STANDARDS.md` and `PROMPTS_STANDARDS.md` MUST state which formats Claude Code loads and which it does not, without recommending the removal of any file.
 - **FR-007**: The documents MUST NOT describe `AGENT.md`, `agent.md` entry files, `version` or `providers` as required agent fields, or `.js` skill files as the skill format.
 - **FR-008**: Each example MUST be a real file in the repository that passes its validator, or MUST be validated when the documents are written.
-- **FR-009**: The catalogue and the documents' own indexes MUST link to the rewritten documents.
+- **FR-009**: `.github/specs/CATALOG.md` and `docs/index.md` MUST link to the rewritten documents. `docs/index.md` does not list them today, so this adds a section; `docs/README.md` and `docs/AGENT-INDEX.md` are checked and updated only if they list documentation.
 
 ### Non-Functional Requirements
 
@@ -141,9 +143,9 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 
 ### Measurable Outcomes
 
-- **SC-001**: Searching the nine documents for the superseded terms returns no standard-setting use.
+- **SC-001**: Searching the nine documents with the exact patterns in User Story 3 returns no standard-setting use.
 - **SC-002**: 100% of rules carry a source link, a check date and an enforcement mark.
-- **SC-003**: A sample agent and a sample skill built from the documents pass the repository validators.
+- **SC-003**: A sample agent and a sample skill built from the documents are run through the repository validators. Each either passes, or the validator's failure is recorded as a gap for the validation work, because the validators were written for the earlier formats and this specification does not change them.
 - **SC-004**: `markdownlint`, link checking and frontmatter validation pass on all nine files.
 
 ## Assumptions
@@ -157,5 +159,5 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 - Moving, renaming or deleting agents, skills, instructions or prompts.
 - Changing validators, CI or hooks.
 - The plugin marketplace file.
-- Revising specification 014.
+- Revising specification 014 (GIT-2626 does that).
 - Amending the constitution.
