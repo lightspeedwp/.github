@@ -22,12 +22,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
       - name: Setup Node
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7
         with:
           node-version-file: ".nvmrc"
           cache: "npm"
@@ -37,7 +37,7 @@ jobs:
 
       - name: Load canonical labels
         id: load-labels
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const fs = require('fs');
@@ -52,7 +52,7 @@ jobs:
 
       - name: Extract and validate linked issues
         id: validate
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CANONICAL_LABELS: ${{ steps.load-labels.outputs.canonical-labels }}
@@ -163,7 +163,7 @@ jobs:
       - name: Create status check
         id: create-status-check
         if: steps.validate.outputs.skip != 'true'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           EPIC_ISSUES: ${{ steps.validate.outputs.epic-issues }}
           VALID_ISSUES: ${{ steps.validate.outputs.valid-issues }}
@@ -285,7 +285,7 @@ jobs:
 
       - name: Validate PR labels are canonical
         if: steps.validate.outputs.skip != 'true'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           BARE_LABELS: ${{ steps.validate.outputs.bare-labels }}
         with:
@@ -298,7 +298,7 @@ jobs:
 
       - name: Post or update validation comment
         if: steps.validate.outputs.skip != 'true' && steps.create-status-check.outputs.check-result != null
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         env:
           EPIC_ISSUES: ${{ steps.validate.outputs.epic-issues }}
           INVALID_ISSUES: ${{ steps.validate.outputs.invalid-issues }}
@@ -403,7 +403,7 @@ jobs:
 
       - name: Record governance metrics
         if: steps.validate.outputs.skip != 'true'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9
         with:
           script: |
             const epicIssues = JSON.parse('${{ steps.validate.outputs.epic-issues }}' || '[]');
