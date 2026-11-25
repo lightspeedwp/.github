@@ -71,8 +71,12 @@ jobs:
             // on the bare slug so an exemption holds for either shape.
             const slug = (login) => login.replace(/^app\//, "").replace(/\[bot\]$/, "");
 
-            if (slug(author) === "dependabot") {
-              core.info("Skipping changelog requirement for Dependabot pull requests.");
+            // Renovate (Mend app, login "renovate[bot]") is exempt for the same
+            // reason: the labeling agent adds meta:needs-changelog on open, which
+            // can race Renovate's own meta:no-changelog label and fail the
+            // both-labels check below.
+            if (slug(author) === "dependabot" || slug(author) === "renovate") {
+              core.info("Skipping changelog requirement for dependency-bot pull requests.");
               core.setOutput("run_validation", "false");
               return;
             }
