@@ -25,8 +25,8 @@ domain: "governance"
 
 The epic [GIT-2302](https://linear.app/lightspeedwp/issue/GIT-2302) records the adopted standards, verified against the official sources on 23 September 2026:
 
-- Organisation-wide agents are `agents/*.agent.md` files at the root of the organisation `.github` repository.
-- An agent file has frontmatter with `name` and `description`, and optional `tools` and `model`.
+- Organisation-wide agents are `agents/*.agent.md` files at the root of the organisation `.github` repository. GitHub documents `.github-private` as an alternative, and describes custom agents as public preview and subject to change.
+- An agent file has frontmatter with `name` and `description`, and optional `tools` and `model`. These are the platform fields; the repository adds its own governance fields (below).
 - Agent working instructions live in `AGENTS.md`, not in a bespoke `AGENT.md`.
 - A skill is a `SKILL.md` that follows the Agent Skills specification, with frontmatter limited to the specification's fields.
 - Skills reach other repositories through a root `.claude-plugin/marketplace.json`.
@@ -48,6 +48,8 @@ The nine standards documents in `docs/` were written in July and September 2026.
 
 `AGENT_STANDARDS.md` still describes a folder-based agent whose entry file is `agent.md`, requires the frontmatter fields `version` and `providers`, and lists agent skills as `.js` files. None of that matches the decisions above. The 18 November review found the other documents also pre-date the decisions; this specification starts by checking each one rather than assuming it.
 
+The repository's own validation adds fields on top of the platform ones. Checked on 25 November 2026: `validate-skills.js` rejected a sample agent that had only `name`, `description`, `tools` and `model`, because `schemas/agent-config.schema.json` requires `file_type`, `title` and `last_updated` in an agent's frontmatter, and `validate-agent-frontmatter.js` skips an agent that does not declare `file_type: "agent"`. The same sample skill with `name` and `description` passed. The documents therefore state two layers for an agent: the platform fields, and the repository governance fields, and say which validator requires which.
+
 Specification 014 (`014-agents-restructure-consolidate`) is still a Draft and its FR-002 requires an `AGENT.md` for every agent, which these decisions replace. [GIT-2626](https://linear.app/lightspeedwp/issue/GIT-2626) revises it. Until then the catalogue holds two conflicting Drafts, and the documents follow the GIT-2302 decisions and say so.
 
 This specification covers the documents only. Changing the files, folders, validators and distribution they describe is separate work.
@@ -65,7 +67,7 @@ A contributor who needs a new agent opens one document and learns where the file
 **Acceptance Scenarios**:
 
 1. **Given** the rewritten document, **When** a contributor creates the layout it shows, **Then** the files are the ones in the decisions above and nothing in the document names `agent.md` or `AGENT.md` as the standard.
-2. **Given** the rewritten document, **When** its example frontmatter is validated, **Then** it passes with only the fields the sources allow.
+2. **Given** the rewritten document, **When** its example frontmatter is validated, **Then** it passes `validate-skills.js` and is not skipped by `validate-agent-frontmatter.js`, or the failure is recorded as a gap.
 3. **Given** a rule in the document, **When** a reader looks for its source, **Then** the document links to the official page and states the date it was checked.
 
 ---
@@ -118,7 +120,7 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 ### Functional Requirements
 
 - **FR-001**: Each of the nine documents MUST describe the file and folder structure for its subject, using only layouts the adopted decisions allow.
-- **FR-002**: `AGENT_STANDARDS.md` MUST describe `agents/*.agent.md` with `name` and `description`, optional `tools` and `model`, and `AGENTS.md` for working instructions.
+- **FR-002**: `AGENT_STANDARDS.md` MUST describe `agents/*.agent.md` with the platform fields `name` and `description` (optional `tools` and `model`), the repository governance fields that the validators require (`file_type`, `title`, `last_updated`), and `AGENTS.md` for working instructions. It MUST state which fields come from the platform and which from the repository.
 - **FR-003**: `SKILLS_STANDARDS.md` MUST describe `SKILL.md` frontmatter as limited to the six specification fields, with only `name` and `description` required, and MUST keep platform routing outside `SKILL.md`.
 - **FR-004**: Every rule MUST link to an official source and carry the date it was checked.
 - **FR-005**: Every rule MUST be marked as enforced by a named validator or as guidance only.
@@ -145,7 +147,7 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 
 - **SC-001**: Searching the nine documents with the exact patterns in User Story 3 returns no standard-setting use.
 - **SC-002**: 100% of rules carry a source link, a check date and an enforcement mark.
-- **SC-003**: A sample agent and a sample skill built from the documents are run through the repository validators. Each either passes, or the validator's failure is recorded as a gap for the validation work, because the validators were written for the earlier formats and this specification does not change them.
+- **SC-003**: A sample agent and a sample skill built from the documents are run through the repository validators. Each either passes, or the validator's failure is recorded as a gap for the validation work, because `validate-agent-frontmatter.js` and `validate-agents.js` were written for the earlier formats, and a file the frontmatter validator skips has not passed. This specification does not change any validator.
 - **SC-004**: `markdownlint`, link checking and frontmatter validation pass on all nine files.
 
 ## Assumptions
