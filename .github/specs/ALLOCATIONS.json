@@ -7,7 +7,8 @@
     {"id":"allocation-025-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2801","decidedAt":"2026-11-24T10:32:14.477Z","recordedAt":"2026-11-24T10:32:14.477Z","scope":"Number 025 taken by the Spec Kit upgrade specification under the highest-accounted-plus-one rule when GIT-2801 was created. Records the allocation only; it does not approve the contents of the specification."},
     {"id":"allocation-026-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2803","decidedAt":"2026-11-24T12:47:26.433Z","recordedAt":"2026-11-24T12:47:26.433Z","scope":"Number 026 taken by the CI check scope specification under the highest-accounted-plus-one rule when GIT-2803 was created. Records the allocation only; it does not approve the contents of the specification."},
     {"id":"allocation-027-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2840","decidedAt":"2026-11-24T17:19:39.271Z","recordedAt":"2026-11-24T17:19:39.271Z","scope":"Number 027 taken by the Qodo PR-Agent removal specification under the highest-accounted-plus-one rule when GIT-2840 was created. Records the allocation only; it does not approve the contents of the specification."},
-    {"id":"materialise-020-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2676","decidedAt":"2026-11-24T18:43:19.000Z","recordedAt":"2026-11-24T18:43:19.000Z","scope":"Pending-to-materialised transition for 020, made in the same reviewed candidate that adds its real directory (pull request 3883), as the allocation lifecycle design requires. Records the transition only; it does not approve the specification contents. The one-time scope exception for a ledger change in an otherwise Markdown-only pull request is stated in the pull request."}
+    {"id":"materialise-020-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2676","decidedAt":"2026-11-24T18:43:19.000Z","recordedAt":"2026-11-24T18:43:19.000Z","scope":"Pending-to-materialised transition for 020, made in the same reviewed candidate that adds its real directory (pull request 3883), as the allocation lifecycle design requires. Records the transition only; it does not approve the specification contents. The one-time scope exception for a ledger change in an otherwise Markdown-only pull request is stated in the pull request."},
+    {"id":"allocation-028-2026-11-25","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2302","decidedAt":"2026-11-25T10:26:51.000Z","recordedAt":"2026-11-25T10:26:51.000Z","scope":"Number 028 taken by the agent and skill standards documentation specification under the highest-accounted-plus-one rule for GIT-2302. No separate child issue existed at allocation time, so the record is the epic itself; the timestamp is the time of allocation. Records the allocation only; it does not approve the contents of the specification."}
   ],
   "sources": [
     {"id":"develop-inventory","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/47aee0722033f65d4d9d57429b410b518646b817/.github/specs","sha":"47aee0722033f65d4d9d57429b410b518646b817"},
@@ -19,7 +20,8 @@
     {"id":"spec-kit-upgrade-4064","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/4064","sha":"e0ddbb16ff09de758b84e14cfc6919b13902cca3"},
     {"id":"develop-153647d47c","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/153647d47c4179ced90fcdcaee186e2c4d892446/.github/specs","sha":"153647d47c4179ced90fcdcaee186e2c4d892446"},
     {"id":"develop-9685f02449","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/9685f02449ba84f099ec14396b2be3aa7a459ad9/.github/specs","sha":"9685f02449ba84f099ec14396b2be3aa7a459ad9"},
-    {"id":"portable-3883-materialised","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/3883","sha":"e2b330e4b6382051c74c3e6502be6d908aed8bd7"}
+    {"id":"portable-3883-materialised","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/3883","sha":"e2b330e4b6382051c74c3e6502be6d908aed8bd7"},
+    {"id":"develop-cec2b90daf","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/cec2b90daf3bc6c0529a9fdc4cb847716358db87/.github/specs","sha":"cec2b90daf3bc6c0529a9fdc4cb847716358db87"}
   ],
   "allocations": [
     {"number":"001","canonicalSlug":"prd-agent-consolidation","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
@@ -48,6 +50,7 @@
     {"number":"024","canonicalSlug":"wp-db-migration-agent","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory","database-move"],"historicalClaims":[]},
     {"number":"025","canonicalSlug":"spec-kit-upgrade","state":"materialised","decisionRef":"allocation-025-2026-11-24","sourceRefs":["spec-kit-upgrade-4064"],"historicalClaims":[]},
     {"number":"026","canonicalSlug":"ci-check-scope","state":"materialised","decisionRef":"allocation-026-2026-11-24","sourceRefs":["develop-153647d47c"],"historicalClaims":[]},
-    {"number":"027","canonicalSlug":"qodo-pr-agent-removal","state":"materialised","decisionRef":"allocation-027-2026-11-24","sourceRefs":["develop-9685f02449"],"historicalClaims":[]}
+    {"number":"027","canonicalSlug":"qodo-pr-agent-removal","state":"materialised","decisionRef":"allocation-027-2026-11-24","sourceRefs":["develop-9685f02449"],"historicalClaims":[]},
+    {"number":"028","canonicalSlug":"agent-skill-standards-docs","state":"materialised","decisionRef":"allocation-028-2026-11-25","sourceRefs":["develop-cec2b90daf"],"historicalClaims":[]}
   ]
 }

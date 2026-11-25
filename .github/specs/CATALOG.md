@@ -61,6 +61,7 @@ All specification catalog entries MUST follow this exact column order and naming
 | 025 | spec-kit-upgrade | Spec Kit Upgrade to v1.4.4 | Draft | 2026-11-24 | [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md) |
 | 026 | ci-check-scope | CI Checks Scoped to Changed Files | Draft | 2026-11-24 | [./026-ci-check-scope/spec.md](./026-ci-check-scope/spec.md) |
 | 027 | qodo-pr-agent-removal | Remove the Unused Qodo PR-Agent Pilot | Draft | 2026-11-24 | [./027-qodo-pr-agent-removal/spec.md](./027-qodo-pr-agent-removal/spec.md) |
+| 028 | agent-skill-standards-docs | Agent and Skill Standards Documentation | Draft | 2026-11-25 | [./028-agent-skill-standards-docs/spec.md](./028-agent-skill-standards-docs/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
@@ -318,6 +319,19 @@ the references to them. Specification 019 is kept and Archived.
 - **Created**: 2026-11-24
 - **Updated**: 2026-11-24
 - **Link**: [./027-qodo-pr-agent-removal/spec.md](./027-qodo-pr-agent-removal/spec.md)
+
+---
+
+### 028 - Agent and Skill Standards Documentation
+
+Rewrite the nine agent and skill standards documents so that each states one verified file and folder
+structure, links every rule to its official source and marks it as enforced or guidance. Part of GIT-2302.
+
+- **Status**: Draft
+- **Phase**: Specification
+- **Created**: 2026-11-25
+- **Updated**: 2026-11-25
+- **Link**: [./028-agent-skill-standards-docs/spec.md](./028-agent-skill-standards-docs/spec.md)
 
 ---
 
