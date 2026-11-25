@@ -121,6 +121,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Changelog gate exempts Renovate** — Renovate PRs skip the changelog check like Dependabot, so a racing `meta:needs-changelog` label no longer fails them. ([#4083](https://github.com/lightspeedwp/.github/pull/4083))
+
 - **CI Check Scope** — Test and workflow checks now also run when a local action's metadata changes, and the list of tests that depend on Markdown is complete. ([PR #4075](https://github.com/lightspeedwp/.github/pull/4075))
 - **Site Tokens Numeric Slugs** — `site-to-design-tokens` exports the scaffold's numeric slugs for font sizes, radius and shadows, and radius uses bare size names. ([#4004](https://github.com/lightspeedwp/.github/issues/4004))
 - **Orphaned Refs Scan Scope** — `theme-orphaned-refs` skips `node_modules`, build and agent folders, checks radius presets, suggests numeric steps, and is now TypeScript with tests. ([#4037](https://github.com/lightspeedwp/.github/pull/4037))
