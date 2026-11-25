@@ -58,9 +58,9 @@ domain: "governance"
 ## Phase 6: User Story 4 - Enforcement (P2)
 
 - [ ] T019 [US4] Compare each rule with `scripts/validation/` and mark it enforced or guidance
-- [ ] T020 [US4] List the unenforced rules as input for the validation specification
+- [ ] T020 [US4] List the unenforced rules, together with the T025 findings, as one list of gaps for the validation specification
 - [ ] T025 [US4] Run `claude plugin validate --strict --json` on every plugin with a `.claude-plugin/plugin.json` and on each skill and agent directory, and list the findings next to the repository validators' results as input for the validation specification
-- [ ] T026 [US4] Record the CI requirement in GIT-2309 and the marketplace work: a check that installs a pinned Claude Code version (updated deliberately, with the baseline refreshed in the same change), runs `claude plugin validate` on each plugin and on the root marketplace file once it exists, compares the result with a checked-in baseline of known findings, and runs on changes to `plugins/**`, `skills/**`, `agents/**` and the marketplace file, extending the skill-spec job in `.github/workflows/documentation.yml`, whose `paths` filter lists `.claude/**` but not `.claude-plugin/**`, so the filter is extended too
+- [ ] T026 [US4] Record the CI requirement in GIT-2309 and the marketplace work: a check that installs a pinned Claude Code version (updated deliberately, with the baseline refreshed in the same change), runs `claude plugin validate` on each plugin and on the root marketplace file once it exists, compares the result with a checked-in baseline of known findings, and runs on changes to the plugins, skills, agents and marketplace file, extending the skill-spec job in `.github/workflows/documentation.yml`; its `paths` filters already cover `plugins/**`, `skills/**` and `agents/**`, so only `.claude-plugin/**` is added
 
 ## Phase 7: Polish
 
@@ -74,5 +74,5 @@ domain: "governance"
 - T004 to T007 before any rewrite task.
 - T008 and T011 before T014 to T017.
 - T019 after every rewrite task.
-- T025 after T019, and T026 after T025.
+- T025 after T019 and before T020, and T026 after T025.
 - T022 and T023 last, after T026.
