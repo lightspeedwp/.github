@@ -9,11 +9,11 @@
  * on a developer machine. Keeping one copy means the local result cannot drift
  * from the required check.
  *
- * `predictChangelogGate` is a mirror of the gate in
- * `.github/workflows/changelog-unified.yml`, not a shared copy. A contract test
- * pins the restricted types, the exempt authors, the docs-only rule and the
- * failure messages to the workflow source, so editing one side fails the test
- * until the other follows. The rule order is not pinned: review both together.
+ * `evaluateChangelogGate` is a mirror of the gate in
+ * `.github/workflows/changelog-unified.yml`, not a shared copy: that required
+ * check keeps its own logic. A differential test runs the workflow's own script
+ * and this function over the same inputs and fails on any difference in outcome,
+ * so the two cannot drift apart unnoticed.
  */
 
 /** The exact line `renderSkeleton` writes; only this line counts as unfinished. */
@@ -107,6 +107,11 @@ export function bodyFailureMessage({ templateName, result }) {
   return null;
 }
 
+/** Whether a path is a Jest test file, by the patterns in `.jest.config.cjs`. */
+export function isTestFile(file) {
+  return /(^|\/)(tests|__tests__)\/.+\.test\.(js|ts|mjs)$/.test(file);
+}
+
 /** A starting body: every template heading with a marker line to replace. */
 export function renderSkeleton(template) {
   return requiredSections(template)
@@ -117,15 +122,19 @@ export function renderSkeleton(template) {
 const slug = (login) => login.replace(/^app\//, '').replace(/\[bot\]$/, '');
 
 /**
- * Predict the changelog gate for a pull request.
+ * Decide the changelog gate for a pull request, in the same order as
+ * `.github/workflows/changelog-unified.yml`.
  *
- * Returns `{ outcome, reason }` where outcome is `pass` or `fail`. `changed`
- * is the full list of changed paths and `labels` the label names.
+ * `outcome` is `fail`, `validate` (the diff contains the root CHANGELOG.md, so
+ * its entries are validated) or `skip` (no changelog requirement). `changed` is
+ * the listed changed paths and `totalChanged` the pull request's own count;
+ * when fewer paths were listed than changed, the docs-only exemption does not
+ * apply, because an unlisted file might be code.
  */
-export function predictChangelogGate({ changed, labels = [], author = '' }) {
+export function evaluateChangelogGate({ changed, totalChanged, labels = [], author = '' }) {
   const has = (name) => labels.includes(name);
   if (['dependabot', 'renovate', 'lightspeed-docs-bot'].includes(slug(author))) {
-    return { outcome: 'pass', reason: 'Automated author is exempt.' };
+    return { outcome: 'skip', reason: 'Automated author is exempt.' };
   }
   if (has('meta:needs-changelog') && has('meta:no-changelog')) {
     return {
@@ -141,18 +150,29 @@ export function predictChangelogGate({ changed, labels = [], author = '' }) {
   }
   if (changed.includes('CHANGELOG.md')) {
     return {
-      outcome: 'pass',
+      outcome: 'validate',
       reason: 'CHANGELOG.md is in the diff (its entries are then validated).',
     };
   }
-  if (changed.length > 0 && changed.every((f) => f.startsWith('docs/') || f.endsWith('.md'))) {
-    return { outcome: 'pass', reason: 'Docs-only diff; no changelog entry required.' };
+  const listComplete = changed.length >= (totalChanged ?? changed.length);
+  if (
+    listComplete &&
+    changed.length > 0 &&
+    changed.every((f) => f.startsWith('docs/') || f.endsWith('.md'))
+  ) {
+    return { outcome: 'skip', reason: 'Docs-only diff; no changelog entry required.' };
   }
   if (has('meta:no-changelog')) {
-    return { outcome: 'pass', reason: 'meta:no-changelog label present.' };
+    return { outcome: 'skip', reason: 'meta:no-changelog label present.' };
   }
   return {
     outcome: 'fail',
     reason: 'PR requires a CHANGELOG.md update or the meta:no-changelog label.',
   };
+}
+
+/** `evaluateChangelogGate` reduced to `pass` or `fail`, for the preflight. */
+export function predictChangelogGate(input) {
+  const { outcome, reason } = evaluateChangelogGate(input);
+  return { outcome: outcome === 'fail' ? 'fail' : 'pass', reason };
 }

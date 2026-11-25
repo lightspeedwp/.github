@@ -9,11 +9,14 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import YAML from 'yaml';
 import {
   RESTRICTED_TYPES,
   SKELETON_MARKER,
   bodyFailureMessage,
   checkPrBody,
+  evaluateChangelogGate,
+  isTestFile,
   predictChangelogGate,
   renderSkeleton,
   requiredSections,
@@ -101,6 +104,13 @@ describe('checkPrBody', () => {
     expect(result.todo).toEqual([]);
   });
 
+  it('recognises Jest test files by the repository patterns', () => {
+    expect(isTestFile('tests/js/a.test.js')).toBe(true);
+    expect(isTestFile('scripts/workflows/__tests__/a.test.mjs')).toBe(true);
+    expect(isTestFile('scripts/a.js')).toBe(false);
+    expect(isTestFile('tests/fixtures/a.md')).toBe(false);
+  });
+
   it('treats a rendered skeleton as unfinished', () => {
     const result = checkPrBody({ template, body: renderSkeleton(template) });
     expect(result.missing).toEqual([]);
@@ -175,19 +185,16 @@ describe('workflow contract', () => {
     expect(types).toEqual(RESTRICTED_TYPES);
   });
 
-  it('keeps the exempt authors, docs-only rule and failure messages in step with the changelog workflow', () => {
+  it('uses the same failure messages as the changelog workflow', () => {
     const source = read('.github/workflows/changelog-unified.yml');
-    for (const fragment of [
-      'slug(author) === "dependabot"',
-      'slug(author) === "renovate"',
-      'slug(author) === "lightspeed-docs-bot"',
-      'file.startsWith("docs/") || file.endsWith(".md")',
-      'changed.includes("CHANGELOG.md")',
-      'PR cannot include both meta:needs-changelog and meta:no-changelog.',
-      'meta:no-changelog is not allowed for high-impact release-related change types.',
-      'PR requires a CHANGELOG.md update or the meta:no-changelog label.',
-    ]) {
-      expect(source).toContain(fragment);
+    const failures = [
+      { changed: ['a.js'], labels: ['meta:needs-changelog', 'meta:no-changelog'] },
+      { changed: ['a.js'], labels: ['meta:no-changelog', 'type:bug'] },
+      { changed: ['a.js'], labels: [] },
+    ].map((input) => evaluateChangelogGate(input));
+    for (const { outcome, reason } of failures) {
+      expect(outcome).toBe('fail');
+      expect(source).toContain(reason);
     }
   });
 
@@ -196,6 +203,107 @@ describe('workflow contract', () => {
     expect(source).toContain('scripts/pr-preflight-rules.js');
     expect(source).toContain("'dependabot[bot]'");
     expect(source).toContain("'lightspeed-docs-bot[bot]'");
+  });
+});
+
+describe('changelog gate parity with the workflow', () => {
+  const AsyncFunction = Object.getPrototypeOf(async function () {}).constructor;
+  const workflow = YAML.parse(read('.github/workflows/changelog-unified.yml'));
+  const gateStep = Object.values(workflow.jobs)
+    .flatMap((job) => job.steps ?? [])
+    .find((step) => step?.id === 'gate');
+  // Compile the workflow's script once; each run supplies fresh stubs.
+  let compiledGate;
+  const gateFunction = () => {
+    compiledGate ??= new AsyncFunction('github', 'context', 'core', gateStep.with.script);
+    return compiledGate;
+  };
+
+  // Runs the workflow's own gate script against stubs, as actions/github-script would.
+  async function runWorkflowGate({ changed, totalChanged, labels, author }) {
+    const outputs = {};
+    let failed = false;
+    const core = {
+      info() {},
+      warning() {},
+      setFailed() {
+        failed = true;
+      },
+      setOutput(key, value) {
+        outputs[key] = value;
+      },
+    };
+    const context = {
+      repo: { owner: 'o', repo: 'r' },
+      payload: {
+        pull_request: {
+          number: 1,
+          user: { login: author },
+          labels: labels.map((name) => ({ name })),
+          changed_files: totalChanged ?? changed.length,
+        },
+      },
+    };
+    const github = {
+      paginate: async () => changed.map((filename) => ({ filename })),
+      rest: { pulls: { listFiles() {} } },
+    };
+    await gateFunction()(github, context, core);
+    if (failed) return 'fail';
+    return outputs.run_validation === 'true' ? 'validate' : 'skip';
+  }
+
+  it('finds the gate step in the workflow', () => {
+    expect(gateStep).toBeDefined();
+    expect(gateStep.with.script).toContain('PR requires a CHANGELOG.md update');
+  });
+
+  it('gives the same outcome as evaluateChangelogGate for every combination', async () => {
+    const authors = [
+      'contributor',
+      'renovate[bot]',
+      'dependabot[bot]',
+      'app/dependabot',
+      'lightspeed-docs-bot[bot]',
+      'app/lightspeed-docs-bot',
+    ];
+    const labelSets = [
+      [],
+      ['meta:needs-changelog'],
+      ['meta:no-changelog'],
+      ...RESTRICTED_TYPES.map((type) => ['meta:no-changelog', type]),
+      ['meta:needs-changelog', 'meta:no-changelog'],
+      ['type:ci', 'meta:no-changelog'],
+    ];
+    const changedSets = [
+      [],
+      ['docs/a.md'],
+      ['README.md', 'docs/b.md'],
+      ['scripts/a.js'],
+      ['scripts/a.js', 'CHANGELOG.md'],
+      ['docs/CHANGELOG.md'],
+      ['CHANGELOG.md'],
+    ];
+    const mismatches = [];
+    for (const author of authors) {
+      for (const labels of labelSets) {
+        for (const changed of changedSets) {
+          for (const totalChanged of [undefined, changed.length + 5]) {
+            const expected = evaluateChangelogGate({
+              changed,
+              totalChanged,
+              labels,
+              author,
+            }).outcome;
+            const actual = await runWorkflowGate({ changed, totalChanged, labels, author });
+            if (actual !== expected) {
+              mismatches.push({ author, labels, changed, totalChanged, expected, actual });
+            }
+          }
+        }
+      }
+    }
+    expect(mismatches).toEqual([]);
   });
 });
 
@@ -247,13 +355,28 @@ describe('scripts/pr-preflight.js', () => {
 
   it('predicts the gate from the net working tree changes and the intended PR author', () => {
     const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'pr-preflight-'));
-    const git = (...args) => execFileSync('git', args, { cwd: fixture, stdio: 'pipe' });
+    // Hermetic git: a developer's global or system config (commit or tag
+    // signing, hooks, an editor) must not reach the fixture, where a prompt
+    // would block with no terminal. Every call also has a timeout.
+    const hermeticEnv = {
+      ...process.env,
+      GIT_CONFIG_GLOBAL: os.devNull,
+      GIT_CONFIG_NOSYSTEM: '1',
+      GIT_TERMINAL_PROMPT: '0',
+    };
+    const git = (...args) =>
+      execFileSync('git', args, {
+        cwd: fixture,
+        env: hermeticEnv,
+        stdio: 'pipe',
+        timeout: 30000,
+      });
     const write = (file, content) => fs.writeFileSync(path.join(fixture, file), content);
     const preflight = (...args) =>
       spawnSync(
         'node',
         ['scripts/pr-preflight.js', '--branch', 'docs/example-change', '--base', 'base', ...args],
-        { cwd: fixture, encoding: 'utf8' }
+        { cwd: fixture, encoding: 'utf8', env: hermeticEnv, timeout: 60000 }
       );
 
     try {
@@ -272,7 +395,11 @@ describe('scripts/pr-preflight.js', () => {
         fs.mkdirSync(path.dirname(path.join(fixture, file)), { recursive: true });
         fs.copyFileSync(path.join(repoRoot, file), path.join(fixture, file));
       }
-      fs.symlinkSync(path.join(repoRoot, 'node_modules'), path.join(fixture, 'node_modules'), 'junction');
+      fs.symlinkSync(
+        path.join(repoRoot, 'node_modules'),
+        path.join(fixture, 'node_modules'),
+        'junction'
+      );
       write('.gitignore', 'node_modules\nbody.md\n');
       write('package.json', '{"type":"module"}');
       write('tracked.js', 'base\n');
