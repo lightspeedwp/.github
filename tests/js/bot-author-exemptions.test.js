@@ -21,10 +21,12 @@ const changelogWorkflow = '.github/workflows/changelog-unified.yml';
  */
 const REST_FORM = {
   dependabot: 'dependabot[bot]',
+  renovate: 'renovate[bot]',
   docsBot: 'lightspeed-docs-bot[bot]',
 };
 const GRAPHQL_FORM = {
   dependabot: 'app/dependabot',
+  renovate: 'app/renovate',
   docsBot: 'app/lightspeed-docs-bot',
 };
 
@@ -73,13 +75,14 @@ describe('changelog gate bot exemptions', () => {
     const exempted = new Set(
       [...gateScript.matchAll(/slug\(author\) === "([^"]+)"/g)].map((match) => match[1])
     );
-    expect(exempted).toStrictEqual(new Set(['dependabot', 'lightspeed-docs-bot']));
+    expect(exempted).toStrictEqual(new Set(['dependabot', 'renovate', 'lightspeed-docs-bot']));
 
     for (const [form, label] of [
       [REST_FORM, 'REST/webhook'],
       [GRAPHQL_FORM, 'GraphQL'],
     ]) {
       expect([label, exempted.has(slug(form.dependabot))]).toStrictEqual([label, true]);
+      expect([label, exempted.has(slug(form.renovate))]).toStrictEqual([label, true]);
       expect([label, exempted.has(slug(form.docsBot))]).toStrictEqual([label, true]);
     }
   });
@@ -95,7 +98,7 @@ describe('changelog gate bot exemptions', () => {
     // both names are reserved so a human account cannot hold them.
     for (const login of [
       'some-human',
-      'app/renovate',
+      'renovate-preview',
       'dependabot-preview',
       'lightspeed-docs-bot-fork',
       'dependabot[bot]-extra',
