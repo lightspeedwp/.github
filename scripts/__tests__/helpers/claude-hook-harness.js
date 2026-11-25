@@ -166,6 +166,10 @@ function hookEnv(fixture, env = {}) {
   delete base.LS_ENFORCE_BRANCH_NAMES;
   delete base.LS_BASE_BRANCH;
   delete base.CLAUDE_CODE_REMOTE;
+  // A test run inside a LightSpeed cloud session inherits these, and they would
+  // hide the "not in the shared environment" and "out of date" cases.
+  delete base.LS_CLOUD_ENV;
+  delete base.LS_CLOUD_ENV_REVISION;
   const merged = {
     ...base,
     CLAUDE_PROJECT_DIR: fixture.repo,

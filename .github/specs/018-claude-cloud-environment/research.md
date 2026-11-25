@@ -63,7 +63,8 @@ implementation in lightspeedwp/.github#3524.
     one command.
 - **Rationale**: This covers the forms agents actually use (17 cases verified in #3524), and CI branch validation
   remains the final gate. A full shell parser would add a dependency for little gain.
-- **Known gaps (documented)**: `cd other && git commit`, aliases, and `eval`.
+- **Known gaps (as first written, 2026-09-24)**: `cd other && git commit`, aliases, and `eval`.
+- **Refreshed 2026-10-15 against the current contract**: a `cd` earlier in the same command list is followed, and a command handed to `sh -c`, `bash -c`, `zsh -c`, `dash -c`, `ksh -c`, `busybox sh -c` or `eval` is read up to a fixed nesting depth (`NESTED_DEPTH`), beyond which the guard refuses. The remaining gaps are aliases, a payload assembled at run time, and a command written in another language (`python -c`, `node -e`). Coverage of nested shells is limited, not unlimited, and CI branch validation stays the final gate (see contracts/hooks.md).
 
 ## R6. Cleaning up empty `claude/*` branches
 
@@ -81,6 +82,7 @@ implementation in lightspeedwp/.github#3524.
     merged upstream. Deleting those would remove the branch while its work survives, but the category is named for
     empty agent branches and FR-021 promises a branch failing an FR-020 condition is never auto-deleted. Until a
     reliable origin signal exists, the same reasoning that defers the deletion itself defers this condition too.
+    Deletion needs three prerequisites together (branch-age storage, retention and measurement; reliable branch-origin verification; and a delivered and verified scheduled deletion workflow); `.github/workflows/branch-audit.yml` does not exist (verified 2026-10-15).
 
     This check runs before the naming-violation check. The rule is specified but **cannot fire yet**, and
     it is blocked twice over: the branch-age signal its third condition depends on does not exist, and
@@ -134,6 +136,8 @@ implementation in lightspeedwp/.github#3524.
 
 ## R9. Legacy PR exception: confirming an open PR from inside the guard
 
+**Superseded on 2026-10-15** by the GIT-2741 owner decision (R23): the exception is removed from the specification. This entry is kept as history, and the delivered guard still implements it until a follow-up change.
+
 - **Decision**: Check for an open PR only on the rare path where a push, commit or MCP write would otherwise be
   refused for a non-compliant branch. The check has two steps:
   1. `git ls-remote --exit-code --heads origin <branch>`, to confirm the branch exists on GitHub.
@@ -159,6 +163,7 @@ implementation in lightspeedwp/.github#3524.
 - **Decision**: Rename a `claude/*` branch only when `git rev-list --count origin/<base>..HEAD` is 0 (a fresh
   platform branch). If the branch has commits, leave it alone. Commits and pushes on it are then judged by the
   guard, and allowed only under the legacy PR exception.
+  **Update 2026-10-15**: the exception is superseded (R23), so commits and pushes on such a branch are refused.
 - **Rationale**: A session opened on an existing PR shouldn't have its branch renamed away from the PR head.
   This check needs only git, with no network access.
 - **Alternatives considered**: Asking GitHub whether the branch has a PR at session start adds network latency to
@@ -248,6 +253,7 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
   `cat <<'EOF' > file`, so the here-document case is the most likely in practice.
 - **Alternatives considered**: Restricting the reset to renamed placeholder branches only; rejected because
   FR-002 syncs any clean branch with no commits of its own, and that reset only fast-forwards.
+- **Superseded on 2026-10-15 (reset scope)**: the rejected alternative is now the rule. The delivered hook resets only a placeholder it renamed itself, and the specification (FR-002) now says so. A clean existing branch that is behind the base is never reset; the session-start test "does not reset a clean existing branch that is behind develop" covers this. This decision is kept as history.
 
 ## R15. Guard that can't start (FR-012a, 2026-10-01)
 
@@ -283,3 +289,103 @@ LS_ENFORCE_BRANCH_NAMES=0` or `LS_ENFORCE_BRANCH_NAMES=0 git commit` in a Bash c
 - **Alternatives considered**: Accept `hotfix/vX.Y.Z` in the validator, either as a dependency outside this spec or
   inside it. Both were rejected as unnecessary, because FR-009's `main` rule already works with slug-named
   hotfixes.
+
+## R18. Making the shared environment organisation-wide (US2, 2026-10-09)
+
+- **Decision**: An Owner creates **LightSpeed** on the **Cloud environments** admin page
+  (claude.ai/admin-settings), pasting `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`, with **Trusted**
+  network access. The repository stays the single source of truth, and the admin page holds a manual copy of it.
+- **Rationale**: The product documentation (code.claude.com/docs/en/cloud-environments, read 2026-10-09) gives two
+  ways to make an environment available to the organisation: create a shared one from the admin page, or share a
+  personal one from its **Who can use it** row (it keeps its ID). There is no API, CLI or file import for creating
+  or editing an environment, so it can't be synced from the repository automatically. The admin page is also where
+  Owners edit and archive shared environments, and members see shared ones read-only under **Organization** in the
+  selector.
+- **Alternatives considered**: Share an Owner's personal environment. Rejected, because the environment then starts
+  life as one person's configuration, and editing it later has to happen from the shared admin page anyway. Sync
+  through an API. Not available.
+
+## R19. Getting members onto it automatically (US2, SC-004, 2026-10-09)
+
+- **Decision**: Set **LightSpeed** as the organisation default at claude.ai/admin-settings/claude-code. Then use a
+  one-time switch for members who already have a saved selection, plus a SessionStart warning (R21) that catches
+  anyone still on another environment.
+- **Rationale**: The organisation default "fills the selection when you haven't picked one". It never overrides a
+  member's saved choice, and there is no setting that locks the environment for a repository or an organisation.
+  Existing members almost certainly have a saved selection, at least the **Default** environment that onboarding
+  created, so the organisation default alone won't move them. "Automatically" is therefore achievable only for
+  members with no saved selection; everyone else needs the one-time switch and the warning to catch drift.
+- **Decision on the new-member case (2026-10-12)**: the **Default** environment that web onboarding creates (with
+  **Quick setup** on, or through the first-environment form) is treated as a saved selection for a new member. New
+  members select **LightSpeed** once, and **Quick setup** is left as it is. Quickstart §6 check (b2) can show that a
+  new member lands in **LightSpeed** automatically. Only then can the one-time note for new members be dropped. This
+  is recorded in `spec.md` (Clarifications Session 2026-10-12 and US2 scenario 1).
+- **Alternatives considered**: Ask Anthropic for an environment lock. Out of scope for this spec; it may be raised
+  as product feedback. Make the guard refuse work outside the shared environment. Rejected: the guard's protections
+  already live in the repository (US2 "Why this priority"), and blocking would break local sessions and personal-plan
+  members.
+
+## R20. Default environment for `claude --cloud` (FR-019, T029, 2026-10-09)
+
+- **Decision**: Deliver `"remote": { "defaultEnvironmentId": "env_..." }` through **server-managed settings**
+  (claude.ai/admin-settings/claude-code → Managed settings) instead of the repository's `.claude/settings.json`.
+  Keep the project-settings route (T029) only as a fallback for anyone whose client doesn't fetch server-managed
+  settings.
+- **Rationale**: `/remote-env` writes the same key to user settings. Server-managed settings sit in the
+  highest-precedence tier, accept every `settings.json` key apart from a short OS-policy list, apply to every
+  member's CLI in every repository, and are edited only by Owners. An `env_` ID may be read from any settings file
+  (only self-hosted `ccpool_` IDs are restricted). The key doesn't run a command, so it needs no security approval
+  dialog, and changing it doesn't touch the guard-protected `.claude/settings.json`.
+- **Alternatives considered**: Project settings (T029 as written). It works only in this repository and needs a
+  session with enforcement off, because the guard protects `.claude/settings.json`. Each member running
+  `/remote-env`. Manual and easy to forget.
+
+## R21. Detecting a session that isn't in the current shared environment (US2, 2026-10-09)
+
+- **Decision**: Add two variables to `.claude/cloud/environment.env`:
+  - `LS_CLOUD_ENV=LightSpeed` marks the shared environment.
+  - `LS_CLOUD_ENV_REVISION=<12 hex>` is the first 12 characters of the SHA-256 of a two-line manifest
+    holding the digest of `setup.sh` and the digest of `environment.env` with the revision line removed, so a change to
+    either file, or a line moving between them, changes it.
+
+  In a cloud session, `session-start.sh` compares them with the repository. When `LS_CLOUD_ENV` is unset, it shows
+  a warning naming **LightSpeed** and how to select it. When the revision differs from the one computed from the
+  repository's files, it warns that the shared environment is out of date and an Owner should re-paste it. It never
+  blocks or fails (FR-004). A Jest contract test recomputes the revision and fails when the stamp in
+  `environment.env` is stale, so a PR that changes either file must update the stamp.
+- **Rationale**: There's no API to read the admin configuration, so drift between the repository and the admin page
+  can only be seen from inside a session. The variables are visible to sessions, contain no secrets (FR-018) and cost
+  one `sha256sum`. The CI test turns "remember to bump the stamp" into an automated gate, which satisfies
+  constitution principle X (automated monitoring where feasible).
+- **Alternatives considered**: Compare the whole file contents in the session. Rejected: the setup script isn't
+  visible inside the session, only its effects. A date-based version string. Rejected: it can be forgotten, and only
+  a content hash can be checked by CI.
+
+## R22. Effect on the rest of the organisation (FR-015 to FR-018, 2026-10-09)
+
+- **Decision**: Accept that the organisation default applies to cloud sessions on every LightSpeed repository, not
+  just this one, and document it.
+- **Rationale**: The default is set per organisation, not per repository. `setup.sh` makes no assumptions about the
+  repository: it installs Node `LS_NODE_VERSION` first on `PATH`, `shellcheck`, `actionlint` and `gh`, and sets git
+  defaults. The `LS_*` variables do nothing in repositories without the hooks. The one visible change elsewhere is
+  that Node 24 replaces the image's Node 22 as the default on `PATH`. A repository that needs another version can
+  prepend `/opt/node<major>/bin` or add its own SessionStart step. Packaging the hooks for other repositories is
+  still the follow-up recorded in the 2026-09-24 clarifications.
+- **Alternatives considered**: A separate environment per repository. Rejected: it defeats "one configuration for
+  the team", and the organisation default can name only one environment.
+
+## R23. Removing the legacy PR write exception (FR-005, FR-006, FR-008, 2026-10-15)
+
+- **Decision**: Remove the legacy PR write exception from the specification. Commits, pushes and GitHub integration
+  file writes to a non-compliant branch are refused, including an existing open-PR head. The work moves to a
+  compliant branch and PR, and a maintainer approves the move. The guard never creates, renames or deletes remote
+  branches or PRs. Constitution V and VIII are unchanged. This is the owner decision recorded on GIT-2741 (#3955).
+- **Rationale**: The constitution makes the forbidden prefixes absolute. An open PR is not a reason to write to a
+  non-compliant branch, and the specification must conform to the constitution rather than introduce an exception.
+- **Supersedes**: the 2026-09-24 clarification answers about the exception and its fork scope, research R9, and the
+  R10 wording that allowed writes under the exception. They stay as history.
+- **Implementation status**: Specification alignment is done in this change. Implementation compliance is open: the
+  delivered guard (`.claude/hooks/enforce-branch-name.mjs`) and the session-start text still implement the exception.
+  The follow-up proposals are in plan.md. Nothing here claims enforcement is fixed.
+- **Alternatives considered**: Keeping the exception and amending the constitution. Rejected by the owner: the
+  decision is to preserve the constitution.

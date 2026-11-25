@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **Shared Environment Revision Stamp** — The shared cloud environment now carries a revision stamp, and a test fails when it is out of date, so the repository copy and the admin-console copy can be compared. (#3878)
+- **Cloud Environment Drift Warnings** — Cloud sessions now warn when they are not in the shared LightSpeed environment or when it is out of date. The warning never blocks the session. (#3878)
 - **Site to Block Theme Skill** — Rebuilds live-site templates, parts and patterns in a block theme: measures live, maps values to theme.json tokens and diffs live with local. ([PR #4059](https://github.com/lightspeedwp/.github/pull/4059))
 - **Theme Screenshot Skill** — Makes a theme's 1200 by 900 `screenshot.png` from the site's logo, the theme.json palette and an industry line, rendered with Puppeteer. ([#4010](https://github.com/lightspeedwp/.github/issues/4010))
 - **Site to Figma Components Skill** — Rebuilds a live site's components, patterns and templates in Figma after the reviewer approves an inventory. ([#3992](https://github.com/lightspeedwp/.github/issues/3992))

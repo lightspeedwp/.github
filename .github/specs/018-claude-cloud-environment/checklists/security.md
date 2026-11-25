@@ -74,3 +74,6 @@ behaviour (FR-005 to FR-014, FR-012a, FR-013a, and the related session-start rul
   items were already satisfied. The other 24 were settled by spec changes, recorded under "Session 2026-09-24
   (security checklist review)" in the spec's Clarifications. New build work is in tasks T044 to T046 and in the
   updated T010 to T013 and T020 to T023.
+- **Note, 2026-10-15 (GIT-2741)**: CHK010, CHK017 and CHK022 refer to the legacy PR exception, which the owner decision removed
+  from the specification. Their markers are unchanged and stay as history. Implementation verification stays unresolved
+  until the guard no longer allows the exception and the affected tests are updated in a separately scoped change.

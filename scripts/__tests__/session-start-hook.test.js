@@ -24,7 +24,10 @@ afterEach(() => {
   fx.cleanup();
 });
 
-const CLOUD = { CLAUDE_CODE_REMOTE: 'true' };
+// A normal cloud session runs in the shared LightSpeed environment. Without
+// LS_CLOUD_ENV the hook adds a "Cloud environment:" warning (FR-024), which the
+// drift-check cases below cover on purpose.
+const CLOUD = { CLAUDE_CODE_REMOTE: 'true', LS_CLOUD_ENV: 'LightSpeed' };
 
 /** Parse stdout, which must be exactly one JSON object. */
 function contextOf(run) {
@@ -346,5 +349,103 @@ describe('the platform placeholder suffix (CodeRabbit #3524)', () => {
         fresh.cleanup();
       }
     }
+  });
+});
+
+// FR-024, FR-025 and contracts/cloud-environment.md: in a cloud session the hook warns
+// when the session isn't in the shared environment, or its revision stamp differs from
+// the repository's. It never blocks, and the branching rules are always emitted.
+describe('shared environment drift check (T071, FR-024, FR-025)', () => {
+  const REVISION_SCRIPT = path.resolve(__dirname, '..', '..', '.claude', 'cloud', 'revision.sh');
+
+  /** Put copies of the cloud files in the fixture and return the repository's revision. */
+  function installCloudFiles(fixture) {
+    const cloud = path.join(fixture.repo, '.claude', 'cloud');
+    fs.mkdirSync(cloud, { recursive: true });
+    fs.copyFileSync(REVISION_SCRIPT, path.join(cloud, 'revision.sh'));
+    fs.writeFileSync(path.join(cloud, 'setup.sh'), '#!/bin/bash\necho setup\n');
+    fs.writeFileSync(
+      path.join(cloud, 'environment.env'),
+      'LS_BASE_BRANCH=develop\nLS_CLOUD_ENV=LightSpeed\nLS_CLOUD_ENV_REVISION=ignored\n'
+    );
+    return spawnSync('bash', [path.join(cloud, 'revision.sh'), fixture.repo], {
+      encoding: 'utf8',
+    }).stdout.trim();
+  }
+
+  /** Parse stdout as one JSON object, check the rules survive, and return the object. */
+  function outputOf(run) {
+    expect(run.status).toBe(0);
+    const output = JSON.parse(run.stdout);
+    expect(output.hookSpecificOutput.additionalContext).toMatch(/LIGHTSPEED BRANCHING RULES/);
+    return output;
+  }
+
+  const NOT_SHARED = /^Cloud environment: this session isn't using the shared LightSpeed environment\./;
+
+  test('shows nothing when the session is current', () => {
+    const revision = installCloudFiles(fx);
+    expect(revision).toMatch(/^[0-9a-f]{12}$/);
+    const output = outputOf(
+      runSessionStart(fx, 'startup', { ...CLOUD, LS_CLOUD_ENV_REVISION: revision })
+    );
+    expect(output.systemMessage).toBeUndefined();
+  });
+
+  test('warns that LightSpeed is out of date and names both revisions', () => {
+    const revision = installCloudFiles(fx);
+    const output = outputOf(
+      runSessionStart(fx, 'startup', { ...CLOUD, LS_CLOUD_ENV_REVISION: 'aaaaaaaaaaaa' })
+    );
+    expect(output.systemMessage).toMatch(/^Cloud environment: LightSpeed is out of date/);
+    expect(output.systemMessage).toContain('session aaaaaaaaaaaa');
+    expect(output.systemMessage).toContain(`repository ${revision}`);
+    expect(output.systemMessage).toContain('docs/CLAUDE_CLOUD_ENVIRONMENT.md');
+  });
+
+  test.each([
+    ['missing', {}],
+    ['empty', { LS_CLOUD_ENV_REVISION: '' }],
+  ])('counts a %s revision stamp as differing and reads it as "unset"', (_label, extra) => {
+    installCloudFiles(fx);
+    const output = outputOf(runSessionStart(fx, 'startup', { ...CLOUD, ...extra }));
+    expect(output.systemMessage).toMatch(/^Cloud environment: LightSpeed is out of date/);
+    expect(output.systemMessage).toContain('session unset');
+  });
+
+  test.each([
+    ['startup', 'LS_CLOUD_ENV unset', { CLAUDE_CODE_REMOTE: 'true' }],
+    ['resume', 'LS_CLOUD_ENV unset', { CLAUDE_CODE_REMOTE: 'true' }],
+    ['startup', 'another environment', { CLAUDE_CODE_REMOTE: 'true', LS_CLOUD_ENV: 'Other' }],
+  ])('on %s with %s, warns that the session is not in the shared environment', (source, _why, env) => {
+    const output = outputOf(runSessionStart(fx, source, env));
+    expect(output.systemMessage).toMatch(NOT_SHARED);
+    expect(output.systemMessage).toContain('Select LightSpeed');
+  });
+
+  test('checks nothing in a local session', () => {
+    installCloudFiles(fx);
+    const output = outputOf(runSessionStart(fx, 'startup', {}));
+    expect(output.systemMessage).toBeUndefined();
+  });
+
+  test.each(['compact', 'clear'])('checks nothing on %s', (source) => {
+    const output = outputOf(runSessionStart(fx, source, { CLAUDE_CODE_REMOTE: 'true' }));
+    expect(output.systemMessage).toBeUndefined();
+  });
+
+  test('skips the revision check silently when the helper prints nothing', () => {
+    // No .claude/cloud files in the fixture, so the helper has nothing to hash.
+    const output = outputOf(
+      runSessionStart(fx, 'startup', { ...CLOUD, LS_CLOUD_ENV_REVISION: 'aaaaaaaaaaaa' })
+    );
+    expect(output.systemMessage).toBeUndefined();
+  });
+
+  test('keeps the SC-005 30-second limit with the check in place', () => {
+    const revision = installCloudFiles(fx);
+    const started = Date.now();
+    outputOf(runSessionStart(fx, 'startup', { ...CLOUD, LS_CLOUD_ENV_REVISION: revision }));
+    expect(Date.now() - started).toBeLessThan(30000);
   });
 });

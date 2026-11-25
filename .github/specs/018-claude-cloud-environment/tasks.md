@@ -21,6 +21,22 @@ spawn the hook with JSON on stdin.
   made by a person or in a session an Owner starts with `LS_ENFORCE_BRANCH_NAMES=0`.
 - The US3 cleanup work goes in spec 009 / `task/branch-cleanup-refactor` (lightspeedwp/.github#3358).
 - The spec amendment (T001) went in `docs/claude-cloud-environment-spec` (lightspeedwp/.github#3525).
+- The organisation-wide rollout (Phase 12) is planned in `docs/cloud-env-org-rollout` (lightspeedwp/.github#3878). The
+  hook half (T070, T071) goes in a guard PR made by a person or in a session an Owner starts with
+  `LS_ENFORCE_BRANCH_NAMES=0`.
+- The reconciliation of 2026-10-15 (GIT-2741) removed the legacy PR exception from the specification. Tasks T010, T017,
+  T021 and T032 describe the exception as built. They stay ticked as history and are not re-opened: the delivered code
+  still implements it until a separate follow-up (guard logic, session-start text, docs and regression tests), which
+  plan.md lists as proposals, not yet tasks.
+- The Linear issue close-out (Phase 13) maps GIT-2532, GIT-2530, GIT-2581, GIT-2571, GIT-2514 and the epic GIT-2524 to
+  tasks. Most of it is documentation and housekeeping.
+
+**Task labels (refreshed 2026-10-12)**: every open task carries one label so `/speckit-implement` knows who does it.
+`[Agent]` is work Claude can do. `[Guard-protected]` is work in `.claude/hooks/**`, which the guard protects, so a
+person or an Owner session started with `LS_ENFORCE_BRANCH_NAMES=0` does it. `[Owner]` is the admin console, branch
+protection, the team announcement, evidence runs and Linear or GitHub housekeeping. `[Superseded]` and
+`[Out of scope]` mark tasks that `/speckit-implement` must skip (T029 and T034). Every `[Agent]` task is now done
+(T079 finished on 2026-10-16, once shellcheck and markdownlint were run).
 
 A task is ticked only once its change is on `develop` or in the PR that delivers this spec's reconciliation
 (#3726). This reconciliation preserves every existing tick, T033 included. New work delivered on #3358 is noted
@@ -89,7 +105,7 @@ it's refused (quickstart §1, §4).
   - push to `main` (including `git push origin HEAD:main`) whose diff touches only `docs/**` → exit 2
   - MCP `push_files` to `main` with only `docs/` paths → exit 2
   - an empty or unknown path set → exit 2
-- [x] T010 [P] [US1] Add legacy PR exception cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
+- [x] T010 [P] [US1] (Superseded on 2026-10-15 by the GIT-2741 decision: the legacy PR exception is removed from the specification. History kept; the delivered tests still exercise it until the guard follow-up.) Add legacy PR exception cases to `scripts/__tests__/enforce-branch-name-hook.test.js`:
   - push to an existing remote `copilot/fix-login` with the `gh` stub returning an open PR → exit 0
   - `gh` returning `[]`, exiting non-zero or timing out → exit 2
   - commit on that branch with an open PR → exit 0
@@ -134,7 +150,7 @@ it's refused (quickstart §1, §4).
 - [x] T016 [US1] Limit the rename in `.claude/hooks/session-start.sh` to branches where `git rev-list --count origin/${BASE_BRANCH}..HEAD` is `0`, and leave a forbidden-prefix branch that has commits unchanged (FR-001, research R10).
 - [x] T017 [US1] Update the context text in `.claude/hooks/session-start.sh` to add:
   - the documentation exception (`.github/specs/**` and `docs/**` only, on `develop`; never on `main`)
-  - the legacy PR exception
+  - the legacy PR exception (superseded 2026-10-15, GIT-2741; the delivered text still carries it)
   - that guard files can't be edited while enforcement is on
 
   Replace "Never commit directly to main or develop" with the exception wording (contracts/hooks.md, SessionStart output).
@@ -150,7 +166,7 @@ it's refused (quickstart §1, §4).
   - normalise each path to repository-relative form (resolve `.`, `..` and, for existing files, symlinks) and compare case-sensitively; a path that leaves the allowed folders is not covered (FR-005)
   - an empty or unknown set fails closed, and the refusal lists the offending files (research R4)
   - judge commits during a rebase, merge, cherry-pick or revert by the branch being worked on; refuse a commit on a detached HEAD with none in progress; judge refspec pushes by their target; allow force-pushes to a compliant, unprotected branch (FR-005, FR-006)
-- [x] T021 [US1] Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST, because cloud sessions can't use GraphQL), each with a 5-second timeout. Allow only when both confirm an open PR whose head is in this repository; any error, non-zero exit, empty result or timeout means refuse (FR-006, research R9).
+- [x] T021 [US1] (Superseded on 2026-10-15 by the GIT-2741 decision: the legacy PR exception is removed from the specification. History kept; the delivered guard still implements it until the guard follow-up.) Implement the legacy PR exception in `.claude/hooks/enforce-branch-name.mjs`. On the refusal path only, for a non-compliant commit, push or MCP write branch, run `git ls-remote --exit-code --heads origin <branch>` and then `gh api repos/{owner}/{repo}/pulls?head={owner}:<branch>&state=open&per_page=1` (REST, because cloud sessions can't use GraphQL), each with a 5-second timeout. Allow only when both confirm an open PR whose head is in this repository; any error, non-zero exit, empty result or timeout means refuse (FR-006, research R9).
 - [x] T022 [US1] Implement guard self-protection in `.claude/hooks/enforce-branch-name.mjs`:
   - for `Edit`/`Write`/`MultiEdit`/`NotebookEdit`: resolve `file_path`/`notebook_path` against the project directory, using `realpath` when the file exists
   - for Bash: detect write verbs (`sed -i`, `perl -i`, `mv`, `rm`, `cp` to the destination, `tee`, `truncate`, `chmod`, `ln`, `>`/`>>`, `git checkout … --`, `git restore`, `git rm`, `git mv`, `git apply`) that name a protected path
@@ -186,9 +202,10 @@ report the Node version from `.nvmrc`, `shellcheck`, `actionlint` and authentica
 
 - [x] T026 [P] [US2] Update the existing setup script `.claude/cloud/setup.sh` (initial version in #3524) to install or confirm `gh` alongside Node from `.nvmrc`, `shellcheck` and `actionlint`, and retain the system git defaults. It must exit 0, finish in under 5 minutes and be safe to rerun. Cloud hook sessions must have proxy-authenticated `gh`; local hook sessions need an authenticated developer `gh` login.
 - [x] T027 [P] [US2] Create `.claude/cloud/environment.env` with `LS_BASE_BRANCH=develop`, `LS_ENFORCE_BRANCH_NAMES=1`, `LS_NODE_VERSION`, npm quiet flags and locale. No secrets (done in #3524).
-- [ ] T028 [US2] Owner action: create the shared **LightSpeed** environment in claude.ai admin settings → Cloud environments, with Trusted network access and the contents of `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`. Set it as the organisation default at claude.ai/admin-settings/claude-code; this applies when members have no saved selection and does not override their choice.
-- [ ] T029 [US2] Optional, after T028: add `"remote": { "defaultEnvironmentId": "env_..." }` to `.claude/settings.json` with the shared environment's ID, for `claude --cloud` sessions.
-- [ ] T030 [US2] Run quickstart §3 and §4 in a fresh cloud session. Record the selected environment, Node version, tool availability, cloud `gh auth status` and branch behaviour in the #3524 PR description. In a local session, confirm `gh` is installed and `gh auth status` succeeds with the developer's login.
+- [ ] T028 [US2] [Owner] Owner action (US2 scenario 1, FR-019): create the shared **LightSpeed** environment in claude.ai admin settings → Cloud environments, with Trusted network access and the contents of `.claude/cloud/environment.env` and `.claude/cloud/setup.sh`. Set it as the organisation default at claude.ai/admin-settings/claude-code; this applies when members have no saved selection and does not override their choice.
+- [ ] T029 [US2] [Superseded] **Superseded by FR-026 and T075 (2026-10-12): do not implement.** The CLI default is delivered through server-managed settings, so `.claude/settings.json` isn't edited. Original text: Optional, after T028: add `"remote": { "defaultEnvironmentId": "env_..." }` to `.claude/settings.json` with the shared environment's ID, for `claude --cloud` sessions.
+  - Superseded by T075 (2026-10-09, research R20): deliver the key through server-managed settings instead. Do this only as a fallback.
+- [ ] T030 [US2] [Owner] (SC-004) Run quickstart §3 and §4 in a fresh cloud session. Record the selected environment, Node version, tool availability, cloud `gh auth status` and branch behaviour in the evidence report `.github/reports/audit/claude-cloud-rollout-2026-10.md` (#3524 is merged, so its description is no longer the target; T077 uses the same report). In a local session, confirm `gh` is installed and `gh auth status` succeeds with the developer's login.
 
 **Checkpoint**: A new team member without a saved selection gets an identical, compliant session with no setup.
 
@@ -196,17 +213,18 @@ report the Node version from `.nvmrc`, `shellcheck`, `actionlint` and authentica
 
 ## Phase 5: User Story 3 - Configuration is documented, versioned and maintainable (Priority: P3)
 
-**Goal**: The environment, guard and cleanup are documented and versioned, and the empty `claude/*` branches are
-removed automatically.
+**Goal**: The environment, guard and cleanup are documented and versioned. Empty `claude/*` branches follow spec
+009's cleanup route: auto-deletion is deferred under FR-020 until three prerequisites exist (branch-age storage, retention and measurement; reliable branch-origin verification; and a delivered and verified scheduled deletion workflow; `branch-audit.yml` is not delivered), and a maintainer may promote an empty, merged one from
+DISCUSS to DELETE for the draft-PR approval (FR-021).
 
 **Independent Test**: Using only `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, a maintainer recreates the environment and
-passes every quickstart step. The spec 009 cleanup report auto-approves only empty `claude/*` branches
-(quickstart §5).
+passes every quickstart step. The spec 009 cleanup report auto-approves nothing while FR-020's deferral holds,
+and every `claude/*` branch without an open PR goes to DISCUSS (quickstart §5).
 
 - [x] T031 [P] [US3] Write `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, covering the problem, the layers, Owner setup, usage, checks, maintenance and limitations (done in #3524).
 - [x] T032 [US3] Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` with:
   - the documentation exception, on `develop` only (every direct commit or push to `main` is refused)
-  - the legacy PR exception
+  - the legacy PR exception (superseded 2026-10-15, GIT-2741; the delivered docs still describe it)
   - that the guard applies in local sessions too
   - the threat model (accidents plus obvious self-bypasses; CI and CODEOWNERS are the final gate)
   - that the enforcement switch is read only from the environment a session starts with, and can't be changed from inside the session
@@ -222,16 +240,16 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - cleanup through spec 009's report-only audit, with auto-approval deferred under FR-020
 - [x] T033 [P] [US3] Report-only scope: spec 009's shared categoriser, report fields and shared validator in `scripts/lib/branch-categorization.js`, `scripts/lib/constants.js` and `scripts/cleanup-branches.js` (spec 009 T071, T072 and T074, done in #3358). The `claude/*` auto-approval rule is NOT part of this task's completed scope: it is deferred under FR-020 and blocked on branch-age and branch-origin signals, tracked by T034.
   - Note (T060, 2026-10-05): #3358 is merged (`2261125c89`). Its report-only CLI and categoriser are on `develop`, but the `claude/*` auto-approval rule is not: under FR-020 it stays switched off until a branch-age signal exists, and spec 009 T070 removed its constants. The shared validator (T074), the `autoApproved` report fields (T072) and the shared categoriser are delivered; the auto-approval rule itself is not.
-- [ ] T034 [US3] Spec 009 T073, the daily auto-delete step in `.github/workflows/branch-audit.yml`, after spec 009 T046 creates the workflow. #3358 is merged but did not deliver `branch-audit.yml`: T046 is still open in spec 009, and T073 is deferred under FR-020 until branch-age and branch-origin signals exist. Blocked on both.
+- [ ] T034 [US3] [Out of scope] **Out of scope for spec 018 (2026-10-12): `/speckit-implement` skips it.** Spec 009 owns it (T073, after T046) and it stays blocked on the branch-age and branch-origin signals under FR-020. Original text: Spec 009 T073, the daily auto-delete step in `.github/workflows/branch-audit.yml`, after spec 009 T046 creates the workflow. #3358 is merged but did not deliver `branch-audit.yml`: T046 is still open in spec 009, and T073 is deferred under FR-020 until branch-age and branch-origin signals exist. Blocked on both.
 - [x] T035 [US3] Run quickstart §5 against `develop` once #3358 merges. Done 2026-10-05 against `2261125c89`: 415 remote branches, 0 deletion candidates, 0 `autoApproved`, 11 open-PR branches kept, `main` and `develop` kept, 48 forbidden-prefix and 21 invalid-name branches sent to DISCUSS. While the FR-020 deferral holds, confirm the auto-approved list is empty (`[]`) and every `claude/*` branch without an open PR or matching exclusion is DISCUSS for its forbidden prefix. Repeat the original check (only platform placeholders with no commits of their own and no open PR, observable for at least a day) only after the deferral is lifted.
 - [x] T036 [US3] Add the CHANGELOG entry for the environment and guard (done in #3524).
 - [x] T037 [US3] Update the CHANGELOG entry in `CHANGELOG.md` under Unreleased/Added for the new guard behaviours. It must be 250 characters or less, linked to #3524, and pass `node scripts/validation/validate-changelog.cjs CHANGELOG.md`.
-- [ ] T042 [US3] Owner action: turn on "Require review from Code Owners" in branch protection (or the ruleset) for both `develop` and `main`, so the `/.claude/` CODEOWNERS entry from T024 blocks unreviewed changes to the guard (FR-013a, US3 scenario 3).
-- [ ] T043 [US3] After T042, run quickstart §4 step 7 and record both `true` results in the #3524 PR description. Add the same check to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md`.
+- [ ] T042 [US3] [Owner] Owner action: turn on "Require review from Code Owners" in branch protection (or the ruleset) for both `develop` and `main`, so the `/.claude/` CODEOWNERS entry from T024 blocks unreviewed changes to the guard (FR-013a, US3 scenario 3).
+- [ ] T043 [US3] [Owner] (FR-013a, FR-019) After T042, run quickstart §4 step 7 and record both `true` results in the evidence report `.github/reports/audit/claude-cloud-rollout-2026-10.md` (#3524 is merged). Add the same check to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md`.
 - [x] T047 [US3] Add a workflow (for example `.github/workflows/claude-guard-tests.yml`, actions pinned by SHA, read-only permissions) that runs `npx jest -c .jest.config.cjs scripts/__tests__/enforce-branch-name-hook.test.js scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js` on PRs that change `.claude/**`, those tests or `.github/specs/018-claude-cloud-environment/**`, with `jq` and `git` available. It must pass `actionlint` (FR-023).
-- [ ] T048 [US3] Owner action: after T047 merges, mark its check as required in branch protection (or the ruleset) for `develop` and `main`, and add the step to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-023, FR-019, US3 scenario 7).
+- [ ] T048 [US3] [Owner] Owner action: after T047 merges, mark its check as required in branch protection (or the ruleset) for `develop` and `main`, and add the step to the Owner setup and verification sections of `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-023, FR-019, US3 scenario 7).
 
-**Checkpoint**: Everything is documented and the cleanup is running.
+**Checkpoint**: Everything is documented, and the cleanup report runs report-only with auto-deletion deferred under FR-020 until its three prerequisites exist (`branch-audit.yml` is not delivered).
 
 ---
 
@@ -266,6 +284,12 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
   - T065 depends on merge order. If #3726 merges before #3358, qualify the cleanup note. If #3358 merges first,
     tick T065 with no change.
 - **Polish (Phase 6)**: After the stories you intend to ship.
+- **Rollout (Phase 12)**: US2, after the spec amendment (T066, done). The `[Agent]` tasks and the `[Guard-protected]`
+  tasks follow Phase 12's own dependency notes. The `[Owner]` tasks can start in parallel and need a re-paste if T068
+  merges later.
+- **Close-out (Phase 13)**: After the Phase 12 evidence run (T077) for T083 and T087. T084 to T086 can start now.
+  T090 is last and needs every related Linear issue complete. T029 is superseded and T034 is out of scope, so neither
+  blocks it.
 
 ### User Story Dependencies
 
@@ -279,6 +303,10 @@ passes every quickstart step. The spec 009 cleanup report auto-approves only emp
 - T008–T013 and T041 (independent `describe` blocks; if two people edit the file at once, merge them in order).
 - T014 alongside T008–T013 (a different file).
 - T027 and T031 are done. T026 (setup script) and T024 (CODEOWNERS) can run alongside any US1 task.
+- Rollout: T067 to T069 and T072 can run in parallel (different files). The Owner track (T074 to T076) and the
+  housekeeping tasks T084 to T086 can run alongside the code work.
+- Documentation tasks that edit `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (T072, T078, T081, T082) should run one after the
+  other, because they share a file.
 
 ```text
 # US1 tests, written together before implementation:
@@ -303,8 +331,14 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 2. US2 → Owner creates the environment (T028), then verification (T030).
 3. US3 → docs (T032) shipped in #3524. The deferral and promotion notes (T056, T061, T062), the guard-can't-start
    contract rows (T064) and the merge-order qualifier (T065) go in #3726. The Code
-   Owners settings (T042, T043, T048) are Owner actions. Cleanup (T035, T063) runs after #3358; T034 waits for
-   the deferral to be lifted.
+   Owners settings (T042, T043, T048) are Owner actions. Cleanup (T035, T063) ran after #3358; T034 is out of scope for this spec
+   (spec 009 owns it, and it waits for the FR-020 deferral to be lifted).
+4. Rollout (FR-024 to FR-026, SC-010) → Phase 12. The spec amendment (T066) is done. `/speckit-implement` runs, in
+   order: T089 first (the principle VII gate), then T067 → T068 → T069, then T072, T078 and T082 one after the other.
+   T073 waits for the PR number and T079 waits for T070 and T071. A person or an Owner session with enforcement off
+   does T070 and T071. Owners do T074 to T077 and T080.
+5. Close-out → Phase 13. T081, T082 and T088 are done. Owners do the Linear and GitHub
+   housekeeping (T083 to T087), T091, and T090 last. T029 is superseded by T075.
 
 ## Phase 7: Convergence
 
@@ -336,3 +370,269 @@ T041 SC-008 speed        T014 SessionStart (separate file)
 ## Phase 11: Convergence
 
 - [x] T065 Qualify the cleanup note in `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (the "Empty `claude/*` branches" bullet under "Maintain it"). Until lightspeedwp/.github#3358 merges, `develop` still has the old `scripts/cleanup-branches.js`, which doesn't categorise `claude/*` branches as DISCUSS. So the bullet should say the DISCUSS and promotion behaviour applies once spec 009's report-only CLI lands, or this qualifier should be dropped if #3358 merges first. Per FR-019 and FR-020 (partial)
+
+## Phase 12: Organisation-wide rollout (User Story 2, 2026-10-09)
+
+**Goal**: every team member's cloud sessions run in the organisation-shared **LightSpeed** environment without
+setup on their part. The repository stays its source of truth, and any session outside it, or any drift from the
+repository, shows a warning. Source: plan.md "Increment: organisation-wide rollout", research R18 to R22,
+[contracts/cloud-environment.md](./contracts/cloud-environment.md) and data-model.md "Session environment state".
+
+**Independent Test**: quickstart §6. A member with no saved selection lands in **LightSpeed** with no
+`Cloud environment:` warning. A member with a saved selection sees the "isn't using the shared LightSpeed
+environment" warning until they switch once. `claude --cloud` uses **LightSpeed** without `/remote-env`. A merged
+change to `setup.sh` that hasn't been re-pasted shows the "out of date" warning.
+
+**Execution split (refreshed 2026-10-12)**: every `[Agent]` task is done: T089, T067 to T069, T072, T073, T078, T081,
+T082, T088 and T079 (Jest passed in CI; shellcheck and markdownlint were run on 2026-10-16). What remains is
+`[Owner]` work.
+
+The `[Guard-protected]` tasks (T070, T071) needed a person, and are done: the patch was applied and CI passes. The `[Owner]` tasks (T074 to T077, T080 and most of Phase 13) are the admin console,
+evidence and housekeeping. T066 is done.
+
+Requirement IDs for this phase: P1 is **FR-024**, P2 is **FR-025**, P3 is **FR-026** and P4 is **SC-010**.
+
+### Spec first
+
+- [x] T066 [US2] [Agent] Amend `.github/specs/018-claude-cloud-environment/spec.md` with plan proposals P1 to P4. Add them
+  as the next three free FR numbers after FR-023 and the next free SC number (`contracts/hooks.md` already cites an
+  undeclared SC number, so check it first):
+  - P1: a non-blocking warning when a cloud session isn't in the shared environment
+  - P2: a content-derived revision stamp, enforced by CI, with a warning when the session's stamp differs from
+    the repository's
+  - P3: the CLI default delivered through server-managed settings (SHOULD)
+  - P4: 14 days after rollout, the SC-007 sample shows no `Cloud environment:` warnings
+
+  Also add the FR-019 documentation items and a `### Session 2026-10-09` clarification block recording R19 (the
+  organisation default fills only an empty selection) and R22 (organisation-wide effect). Update US2 acceptance
+  scenario 1, add a scenario for each warning, and add `LS_CLOUD_ENV`/`LS_CLOUD_ENV_REVISION` to the Shared cloud
+  environment entity. Then replace "P1 (proposed FR)" to "P4 (proposed SC)" in `plan.md` with the new IDs. Done
+  when `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` passes.
+
+  Note (2026-10-12): done through `/speckit-clarify`. FR-024, FR-025, FR-026 and SC-010 are declared in `spec.md`.
+  The adoption criterion is SC-010, not SC-009, because `contracts/hooks.md` already cites SC-009 for nested
+  interpreters (tracked by T088). US2 scenario 1 and FR-019 are updated, and the clarification block is
+  `### Session 2026-10-12`. The contract test's expected FR count was raised from 23 to 26, and the `plan.md`
+  placeholders were replaced with the real IDs. The extra per-warning scenarios mentioned above weren't added;
+  the warnings are covered by FR-024 and FR-025 and by T071.
+
+### Environment definition and CI stamp (agent)
+
+- [x] T067 [US2] [Agent] (Done 2026-10-12: script created and run; `shellcheck` not run locally because it isn't installed, so CI is to verify.) Create `.claude/cloud/revision.sh` (FR-025). It prints the 12-character revision of the shared environment
+  for the repository root given as `$1` (default: two directories above the script), computed exactly as
+  `contracts/cloud-environment.md` states: each file is hashed on its own (`setup.sh` as stored, and the
+  lines of `environment.env` that remain once every line starting `LS_CLOUD_ENV_REVISION=` is removed, **each
+  remaining line newline-terminated**, including a final line with no trailing newline), and the stamp is the first
+  12 hex characters of the SHA-256 of the two-line manifest `setup.sh <digest>` and `environment.env <digest>`, each
+  line newline-terminated. A line moving between the two files therefore changes the stamp (reworked 2026-10-12
+  after a CodeRabbit review comment on #3878). When
+  `sha256sum` is missing or a file is unreadable, it prints nothing and exits 0. It must pass
+  `shellcheck .claude/cloud/revision.sh`. The byte rule is confirmed (plan.md "Decisions confirmed 2026-10-12").
+- [x] T068 [US2] [Agent] (Done 2026-10-12: stamp `6d747f47d561` written and cross-checked with an independent Node recomputation, with and without a trailing newline.) Add a "Shared environment identity" block (FR-025) to `.claude/cloud/environment.env`, with
+  `LS_CLOUD_ENV=LightSpeed` and `LS_CLOUD_ENV_REVISION=<output of bash .claude/cloud/revision.sh>`, and a comment
+  that any change to this file or `setup.sh` must refresh the stamp (CI enforces it). Run T067's script after the
+  block is written, because the comment lines are part of the hash.
+- [x] T069 [P] [US2] [Agent] (Done 2026-10-12: edited and syntax-checked; Jest not run locally because `node_modules` isn't installed, so CI is to verify.) Add a `describe('shared environment revision stamp')` block (FR-025) to
+  `tests/js/claude-cloud-environment-docs.test.js`. It asserts that:
+  - `environment.env` contains exactly one `LS_CLOUD_ENV=LightSpeed` line and one
+    `LS_CLOUD_ENV_REVISION=` line matching `^[0-9a-f]{12}$`
+  - the stamp equals a Node `crypto` recomputation that follows the contract's byte rule: split `environment.env` on
+    `\n`, drop a trailing empty element, filter out the `LS_CLOUD_ENV_REVISION=` line, append `\n` to each remaining
+    line, hash `setup.sh`'s bytes and those lines separately, hash the two-line manifest of the two digests, and take
+    the first 12 hex characters. The failure message includes the expected value and the command to refresh it
+  - a line moved from `setup.sh` to the top of `environment.env` changes the stamp
+  - the same recomputation matches `bash .claude/cloud/revision.sh` for an `environment.env` **with** a trailing
+    newline and for one **without** (use temporary copies of the files)
+  - `bash .claude/cloud/revision.sh` prints the same value for the real files
+
+  No change is needed in `.github/workflows/claude-guard-tests.yml`, because its filter already covers `.claude/**`
+  and this test file. Confirm that by reading the filter.
+
+### Session-start drift check (guard-protected: a person or an Owner session with `LS_ENFORCE_BRANCH_NAMES=0`)
+
+- [x] T070 [US2] [Guard-protected] (Done 2026-10-12: the change was applied to `.claude/hooks/session-start.sh` by a person and pushed. It was tested in a sandbox first, and CI passes.) Add the drift check (FR-024, FR-025) to `.claude/hooks/session-start.sh`, exactly as the contract's "SessionStart
+  drift check" table states:
+  - Run it only when `CLAUDE_CODE_REMOTE=true` and the source is `startup` or `resume`, after the branch handling.
+  - Compute the repository revision with `bash "$REPO_ROOT/.claude/cloud/revision.sh" "$REPO_ROOT"`.
+  - Use the contract's two `systemMessage` texts verbatim, both starting `Cloud environment:`.
+  - Skip silently when the helper prints nothing.
+  - A `LS_CLOUD_ENV_REVISION` that is missing or empty in a LightSpeed session counts as differing: show the "out of
+    date" warning, with the session value read as `unset` (FR-025, `contracts/cloud-environment.md`).
+  - Emit one JSON object holding the existing `hookSpecificOutput.additionalContext` plus `systemMessage` when a
+    warning applies.
+  - Always exit 0.
+
+  It must pass `shellcheck .claude/hooks/session-start.sh`.
+- [x] T071 [US2] [Guard-protected] (Done 2026-10-12: tests written, and they pass in CI now that the T070 change is applied. Jest wasn't run locally.) Add cases (FR-024, FR-025) to `scripts/__tests__/session-start-hook.test.js` for the data-model states, using the
+  existing harness with a fixture repository containing copies of `.claude/cloud/`:
+  - current: no `systemMessage`
+  - stale revision: the "out of date" message names both revisions
+  - `LS_CLOUD_ENV=LightSpeed` with `LS_CLOUD_ENV_REVISION` missing or empty: the "out of date" message, with the
+    session revision read as `unset`
+  - `LS_CLOUD_ENV` unset: the "isn't using the shared LightSpeed environment" message
+  - `CLAUDE_CODE_REMOTE` unset (local): no message
+  - helper prints nothing: no message
+
+  Every case must exit 0, emit one valid JSON object and keep the branching rules in `additionalContext`. Keep the
+  SC-005 30-second case green.
+
+### Documentation (agent)
+
+- [x] T072 [P] [US2] [Agent] (Done 2026-10-12: docs updated; the docs test wasn't run locally because Jest isn't installed, so CI is to verify. I checked the new text by search against the wording the test rejects.) Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` (FR-019, FR-024 to FR-026):
+  - "Set up the shared environment": replace step 9's project-settings route with server-managed settings
+    (`{"remote": {"defaultEnvironmentId": "env_..."}}` under Organisation settings → Claude Code → Managed
+    settings), keeping `.claude/settings.json` as a fallback.
+  - Add an "Organisation-wide scope" note (R22): the default applies to every LightSpeed repository, Node 24
+    replaces the image's Node 22 on `PATH`, and a repository can override with `/opt/node<major>/bin`.
+  - "Use it": members with a saved selection switch to **LightSpeed** once, and the doc explains both
+    `Cloud environment:` warnings.
+  - "Maintain it": the contract's Owner change procedure (refresh the stamp in the PR, re-paste after the merge).
+  - "Check it works": link quickstart §6.
+
+  Run the docs test afterwards.
+- [x] T073 [US2] [Agent] (Done 2026-10-12: entry added linking #3878, 216 characters, and `node scripts/validation/validate-changelog.cjs CHANGELOG.md` passes. A second entry covers the drift warnings now that the session-start change is in this PR.) Add a `CHANGELOG.md` entry under Unreleased (250 characters or less, linked to the PR that ships
+  T067 to T072), for the shared-environment revision stamp and drift warnings. It must pass
+  `node scripts/validation/validate-changelog.cjs CHANGELOG.md`. **Blocked until the PR that ships T067 to T072 exists,**
+  because the entry must link that PR's number.
+
+### Owner actions (admin console)
+
+- [ ] T074 [US2] [Owner] Owner (FR-025): complete T028. Paste the merged `.claude/cloud/environment.env` (with T068's stamp) and
+  `.claude/cloud/setup.sh` into **LightSpeed**, and set it as the organisation default. If T028 was done before T068
+  merged, re-paste both files.
+- [ ] T075 [US2] [Owner] Owner (FR-026): in Organisation settings → Claude Code → Managed settings, merge
+  `{"remote": {"defaultEnvironmentId": "<LightSpeed env_ ID>"}}` into the existing JSON and save. Then ask one
+  member to run `claude doctor` and confirm the `Managed settings (remote)` line shows the settings loaded
+  (research R20; supersedes T029).
+- [ ] T076 [US2] [Owner] Owner: post the one-time switch to the team (US2 scenario 1). New members are told the same, because their onboarding Default environment is treated as a saved selection (R19, decided 2026-10-12). Members open the environment selector at
+  claude.ai/code or in the desktop app, pick **LightSpeed** under **Organization** for new sessions, and treat a
+  `Cloud environment:` warning as a reminder to switch. Terminal users need do nothing once T075 is live.
+- [ ] T077 [US2] [Owner] Owner (SC-010, FR-024, FR-025) plus one existing member and, if possible, one new member:
+  run quickstart §6 checks (a) to (f), including (b2), and record the results in
+  `.github/reports/audit/claude-cloud-rollout-2026-10.md` (date, environment, checkout SHA, outcome per check). The
+  (b2) outcome is whether a brand-new member keeps their Default and sees the warning, or lands in **LightSpeed**
+  automatically. If they land in **LightSpeed** automatically, record that in `research.md` R19 so T078 can be
+  dropped. This extends T030; tick T030 too when §3 and §4 pass in the same session.
+- [x] T078 [US2] [Agent] (Done 2026-10-12; the docs test wasn't run locally, so CI is to verify.) Add a "new members: pick LightSpeed once" line to "Use it" in
+  `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, because a new member's **Default** environment is treated as a saved selection
+  (decided 2026-10-12, R19), keeping **Quick setup** as it is. This doesn't need to wait for T077. Drop the line only
+  if T077's (b2) check shows that a new member lands in **LightSpeed** without switching, and record that in R19.
+  Run it after T072 and before T082, because all three edit the same file.
+
+### Phase 12 polish
+
+- [x] T079 [Agent] (Done 2026-10-16: the Jest part passed in CI on 2026-10-12. `shellcheck` on `.claude/cloud/revision.sh` and `.claude/hooks/session-start.sh` is clean, and `markdownlint-cli2` on the 11 spec files reports 0 issues; the repository's markdownlint config skips `docs/` and `CHANGELOG.md`.) Run `npx jest -c .jest.config.cjs scripts/__tests__/session-start-hook.test.js tests/js/claude-cloud-environment-docs.test.js`,
+  `shellcheck .claude/cloud/revision.sh .claude/hooks/session-start.sh`, and `npx markdownlint-cli2` on the changed
+  Markdown, and fix everything until it's green.
+- [ ] T080 [Owner] (GIT-2524) Once T074 to T077 pass and T042, T043 and T048 are done, comment on lightspeedwp/.github#3736 with
+  the T077 report link (comment only; don't close the epic), leaving T034 noted as out of scope (spec 009). The
+  `**Status**:` change in `.github/specs/018-claude-cloud-environment/spec.md` is no longer made here. It is T090,
+  which waits for every related Linear issue, and moves the Status from `Draft` to Ready for Review (not
+  `Implemented`).
+
+### Phase 12 dependencies
+
+- T066 comes first (spec-first). T067 → T068 → T069 (the stamp needs the helper, and the test needs the stamp).
+- T070 and T071 need T067, and land in one guard PR (the guard protects `.claude/hooks/**`). They can follow T067
+  to T069 in the same PR if an Owner makes it with enforcement off; otherwise they go in a second PR.
+- T072 can run alongside T067 to T071 (a different file). T078 follows T072, because they share
+  `docs/CLAUDE_CLOUD_ENVIRONMENT.md`. T073 goes in whichever PR ships the code, and is blocked until that PR's number
+  exists. T079 needed T070 and T071 first, and is now done.
+- T074 needs T068 merged. It can be done earlier, but then needs a re-paste. T075 needs T074 (the env ID). T076
+  needs T074. T077 needs T070, T074, T075 and T076. T078 doesn't need T077: only dropping its line does.
+
+### Phase 12 parallel opportunities
+
+```text
+After T066:  T067 → T068 → T069     ‖  T072 → T078 (docs, one after the other)
+Owner track: T074 → T075 → T076   (can start before the code merges; re-paste after T068)
+Guard PR:    T070 + T071           (after T067)
+```
+
+## Phase 13: Linear issue close-out (2026-10-12)
+
+**Purpose**: Map every Linear issue that relates to spec 018 to a task, so nothing is left untracked. The spec's
+**Status** stays `Draft` until every task here and every related Linear issue is complete (clarification session
+2026-10-12). Most of this is documentation and housekeeping, and none of it needs new guard code. Source: plan.md
+"Linear issue mapping".
+
+**Execution split**: every `[Agent]` task in this phase is done (T081, T082, T088 and T089). `[Owner]` tasks: T083 to
+T087, T090 and T091.
+
+### GIT-2532 (#3742): document Spec 018 and contract checks
+
+- [x] T081 [US3] [Agent] (Done 2026-10-12: "Depends on" section and a fuller "Related" section added; all new links checked to resolve; the #3727 wording (guard-unavailable behaviour, cleanup deferral, hotfix names) was already in the docs. The docs test wasn't run locally, so CI is to verify.) Update `docs/CLAUDE_CLOUD_ENVIRONMENT.md` so it links the current Spec 018 artefacts
+  (`.github/specs/018-claude-cloud-environment/spec.md`, the supporting artefacts in the same folder,
+  `.github/specs/CATALOG.md` and `tests/js/claude-cloud-environment-docs.test.js`), distinguishes the historical
+  `.github/specs/016-claude-cloud-environment/` path from spec 018 (spec 016 now identifies the changelog-agent
+  quality specification), and states the branch-guard limitations and dependencies accurately. Reconcile the wording
+  with #3727 (GIT-2514) and don't duplicate the epic's verification scope (#3736). Run
+  `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` afterwards. Per GIT-2532, FR-019.
+
+### GIT-2530 (#3740): enforce branch naming in shared sessions
+
+- [x] T082 [US3] [Agent] (Done 2026-10-12; the docs test wasn't run locally, so CI is to verify. The note also says the session-start warnings aren't shipped yet, so the docs don't overstate what exists.) Add a short "Delivered and remaining" note to `docs/CLAUDE_CLOUD_ENVIRONMENT.md` that
+  separates what shipped (#3524, #3745, #3726) from what is still a limitation. Draw on the existing "Known
+  limitations" section and the spec's edge cases, and refer to #3691 as closed (all seven gaps fixed in #3745 and
+  #3726). No new guard code. Per GIT-2530, FR-007, FR-008, FR-019. Run it after T072 and T078, never alongside them,
+  because they edit the same file.
+- [ ] T083 [US3] [Owner] After T077, link the shared-session verification evidence
+  (`.github/reports/audit/claude-cloud-rollout-2026-10.md`) from #3740 and GIT-2530. Do this by comment, with no
+  closing link to the epic. Per GIT-2530 acceptance criteria.
+
+### GIT-2581 (#3818), GIT-2571 (#3802), GIT-2514 (#3727): housekeeping only
+
+- [ ] T084 [US3] [Owner] GIT-2581 / #3818: confirm nothing is outstanding (its PR #3813 merged on 2026-10-05), set the
+  Linear status, and close GitHub issue #3818. No spec work.
+- [ ] T085 [US3] [Owner] GIT-2571 / #3802: confirm nothing is outstanding (its PR #3726 merged on 2026-10-05), set the
+  Linear status, and close GitHub issue #3802. No spec work.
+- [ ] T086 [US3] [Owner] GIT-2514 / #3727: confirm nothing is outstanding, find out why it was reopened on 2026-10-09
+  (no reason was recorded), set the Linear status, and close GitHub issue #3727. No spec work.
+
+### GIT-2524 (#3736): the epic
+
+- [ ] T087 [US2] [Owner] Update the epic GIT-2524 / #3736 so its stale "remaining work" text matches reality
+  (#3726 and #3358 have merged, and the guard gaps in #3691 are closed), and comment on it with the T077 report
+  link. Don't close the epic: its Definition of Done says to update it with a comment instead.
+
+### Open consistency items
+
+- [x] T088 [US3] [Agent] (Done 2026-10-12. The docs contract test asserted the old "SC-009" wording in `contracts/hooks.md`, so its one assertion in `tests/js/claude-cloud-environment-docs.test.js` was changed to expect "Nested interpreters (FR-012)" in the same step. On 2026-10-15 (GIT-2741) the citation was broadened to FR-005 to FR-009, FR-012 and FR-013a, and the assertion changed with it. Jest wasn't run locally, so CI is to verify.) In `.github/specs/018-claude-cloud-environment/contracts/hooks.md`, reword the "Nested
+  interpreters" paragraph (around line 117) so its citation reads **FR-012** (the shell-parsing requirement) instead
+  of **SC-009**, which `spec.md` doesn't declare. Decided 2026-10-12: don't declare SC-009 in `spec.md`, and don't add
+  a success criterion. SC-010 is already taken by the adoption criterion, so don't reuse it. Edit only that file. Then
+  run `npx jest -c .jest.config.cjs tests/js/claude-cloud-environment-docs.test.js` and confirm no undeclared
+  FR or SC ID remains in the spec 018 artefacts.
+- [x] T089 [US3] [Agent] (Done 2026-10-12: re-run complete, 14 of 16 items pass, and two fail. They are listed in the checklist's Notes. Fix them with `/speckit-clarify` before the spec leaves Draft.) Re-run the requirements checklist `.github/specs/018-claude-cloud-environment/checklists/requirements.md`
+  (currently 16/16) against the amended spec (FR-024 to FR-026, SC-010) and record the result, with any item that
+  now fails, in the checklist's Notes. Constitution principle VII needs this before implementation, so **run it first,
+  before any other implementation task**. T088 doesn't change the spec, so it doesn't need a second run.
+
+### Changelog decision (principle IX)
+
+- [ ] T091 [US3] [Owner] Decide whether the docs-only Phase 13 PR (T078, T081, T082) needs a `CHANGELOG.md` entry.
+  If it does, the entry is an `[Agent]` follow-up inside this task: add it under Unreleased in `CHANGELOG.md`, 250
+  characters or less, linked to that PR, and make it pass `node scripts/validation/validate-changelog.cjs CHANGELOG.md`.
+  If it doesn't, record why in that PR's description. It needs the PR's number, so it follows T078, T081 and T082.
+  Per constitution principle IX.
+
+### Final status change
+
+- [ ] T090 [US3] [Owner] (GIT-2524) Once **all** spec 018 work is complete (every task above, T080 and T091 included,
+  and T034 left to spec 009) **and every related Linear issue is complete** (GIT-2532, GIT-2530, GIT-2581, GIT-2571, GIT-2514 and
+  the epic's work), move `**Status**:` in `.github/specs/018-claude-cloud-environment/spec.md` and the matching row
+  in `.github/specs/CATALOG.md` from `Draft` to Ready for Review. The docs contract test currently requires the
+  literal `**Status**: Draft` (`tests/js/claude-cloud-environment-docs.test.js`, the catalogue test), so update that
+  assertion in the same change. This replaces the `Implemented` wording that T080 used to carry.
+
+### Phase 13 dependencies
+
+- T072, T078, T081 and T082 all edit `docs/CLAUDE_CLOUD_ENVIRONMENT.md`, so run them one after the other, never in
+  parallel. Order: T072, T078, T081 and T082, one after the other.
+- T083 needs T077. T087 needs T077 and T080.
+- T084 to T086 need nothing, because their PRs have merged.
+- Run T089 first, before any implementation task. T088 can run any time after T089, because it edits only
+  `contracts/hooks.md` and doesn't change the spec.
+- T091 needs the docs-only PR (T078, T081, T082) to exist, so it has that PR's number.
+- T090 is last: it needs every task above, T091 included, every Phase 12 task except the out-of-scope T034, T029's replacement
+  (T075), and every related Linear issue complete.
