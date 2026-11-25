@@ -75,7 +75,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **CODEOWNERS skips dependency manifests** — `package.json`, `package-lock.json`, `composer.json` and `composer.lock` have no owner, so Renovate PRs no longer request reviewers. ([#4086](https://github.com/lightspeedwp/.github/pull/4086))
+- **Review Requests for Node and Composer Updates** — Renovate pull requests limited to Composer version files no longer request code owner reviews. Node updates still have code owners. ([#4086](https://github.com/lightspeedwp/.github/pull/4086))
 
 - **CI Check Scope** — Lint, typecheck, workflow lint and test checks now skip their work when a push changes no file they read. ([PR #4069](https://github.com/lightspeedwp/.github/pull/4069))
 - **Spec Kit Upgrade** — Spec Kit is now on v1.4.4. The `speckit-taskstoissues` skill is removed, as it is no longer in the core. Specifications still go to `.github/specs/`. ([PR #4064](https://github.com/lightspeedwp/.github/pull/4064))

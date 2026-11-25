@@ -55,10 +55,11 @@
 /.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json @ashleyshaw
 /CODEOWNERS @ashleyshaw
 
-# Dependency manifests and lockfiles have no owner so Renovate and Dependabot
-# update PRs do not auto-request reviewers. Later patterns win, so this block
-# stays last. Workflow files keep their owners above.
-**/package.json
-**/package-lock.json
+# npm updates still need a human code-owner approval for Dependabot (#3476).
+**/package.json @ashleyshaw @lightspeedwp/lightspeed
+**/package-lock.json @ashleyshaw @lightspeedwp/lightspeed
+
+# Composer manifests and lockfiles have no owner. Later patterns win, so
+# this exception overrides the fallback without changing workflow ownership.
 **/composer.json
 **/composer.lock
