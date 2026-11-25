@@ -37,14 +37,14 @@ domain: "governance"
 
 ## Phase 3: User Story 1 - Agents (P1)
 
-- [ ] T008 [US1] Rewrite `docs/AGENT_STANDARDS.md` for `agents/*.agent.md`, `name`, `description`, `tools`, `model` and `AGENTS.md`
-- [ ] T009 [US1] Create a sample agent that declares `file_type: "agent"`, `title` and `last_updated` in a temporary tree, run `validate-skills.js` with that tree as the working directory, then run `validate-agent-frontmatter.js` (no path argument) and `validate-agents.js`, and record each failure or `Skipped` result as a gap without changing the validators
+- [ ] T008 [US1] Rewrite `docs/AGENT_STANDARDS.md` for `agents/*.agent.md`, the platform fields (`name`, `description`, `tools`, `model`), the repository governance fields (`file_type`, `title`, `last_updated` as `YYYY-MM-DD`) and `AGENTS.md`, saying which come from the platform and which from the repository
+- [ ] T009 [US1] Build a sample agent in a throwaway tree outside the repository (layout in plan step 4), run `validate-skills.js` with that tree as the working directory, run copies of `validate-agent-frontmatter.js` and `validate-agents.js` inside it, and record each failure, `Skipped` result or schema disagreement as a gap without changing the validators
 - [ ] T010 [US1] Add the enforcement table and record rules that nothing checks
 
 ## Phase 4: User Story 2 - Skills (P1)
 
 - [ ] T011 [US2] Update `docs/SKILLS_STANDARDS.md` for the six frontmatter fields, name and size limits, and platform routing outside `SKILL.md`
-- [ ] T012 [US2] Create a sample skill from the document, check it against the specification rules, run `validate-skills.js` with its temporary tree as the working directory, and record either success or a validator gap
+- [ ] T012 [US2] Build a sample skill from the document in the throwaway tree, check it against the specification rules, run `validate-skills.js` with that tree as the working directory, and record either success or a validator gap
 - [ ] T013 [US2] Add the distribution section for `.claude-plugin/marketplace.json` and its path rules
 
 ## Phase 5: User Story 3 - The other seven documents (P2)

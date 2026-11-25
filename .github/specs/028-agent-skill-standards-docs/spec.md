@@ -25,12 +25,13 @@ domain: "governance"
 
 The epic [GIT-2302](https://linear.app/lightspeedwp/issue/GIT-2302) records the adopted standards, verified against the official sources on 23 September 2026:
 
-- Organisation-wide agents are `agents/*.agent.md` files at the root of the organisation `.github` repository. GitHub documents `.github-private` as an alternative, and describes custom agents as public preview and subject to change.
-- An agent file has frontmatter with `name` and `description`, and optional `tools` and `model`. These are the platform fields; the repository adds its own governance fields (below).
+- Organisation-wide agents are `agents/*.agent.md` files at the root of the organisation `.github` repository.- An agent file has frontmatter with `name` and `description`, and optional `tools` and `model`. These are the platform fields; the repository adds its own governance fields (below).
 - Agent working instructions live in `AGENTS.md`, not in a bespoke `AGENT.md`.
 - A skill is a `SKILL.md` that follows the Agent Skills specification, with frontmatter limited to the specification's fields.
 - Skills reach other repositories through a root `.claude-plugin/marketplace.json`.
 - Tests may live in `tests/` or `__tests__/`.
+
+Two points were checked separately on 25 November 2026 and are not GIT-2302 decisions: GitHub's documentation also allows `.github-private` for organisation agents, and describes custom agents as public preview and subject to change. The documents state the decision and note both.
 
 The nine standards documents in `docs/` were written in July and September 2026. Most were last changed after the decisions were verified, yet at least the agent document does not follow them, so each document is checked rather than assumed. Measured on `develop` at `cec2b90daf` on 25 November 2026:
 
@@ -67,7 +68,7 @@ A contributor who needs a new agent opens one document and learns where the file
 **Acceptance Scenarios**:
 
 1. **Given** the rewritten document, **When** a contributor creates the layout it shows, **Then** the files are the ones in the decisions above and nothing in the document names `agent.md` or `AGENT.md` as the standard.
-2. **Given** the rewritten document, **When** its example frontmatter is validated, **Then** it passes `validate-skills.js` and is not skipped by `validate-agent-frontmatter.js`, or the failure is recorded as a gap.
+2. **Given** the rewritten document, **When** its example frontmatter is validated, **Then** it uses only platform fields and repository governance fields (no `version`, `providers` or `implementation`), it passes `validate-skills.js` and is not skipped by `validate-agent-frontmatter.js`, or the failure is recorded as a gap.
 3. **Given** a rule in the document, **When** a reader looks for its source, **Then** the document links to the official page and states the date it was checked.
 
 ---
@@ -120,7 +121,7 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 ### Functional Requirements
 
 - **FR-001**: Each of the nine documents MUST describe the file and folder structure for its subject, using only layouts the adopted decisions allow.
-- **FR-002**: `AGENT_STANDARDS.md` MUST describe `agents/*.agent.md` with the platform fields `name` and `description` (optional `tools` and `model`), the repository governance fields that the validators require (`file_type`, `title`, `last_updated`), and `AGENTS.md` for working instructions. It MUST state which fields come from the platform and which from the repository.
+- **FR-002**: `AGENT_STANDARDS.md` MUST describe `agents/*.agent.md` with the platform fields `name` and `description` (optional `tools` and `model`), the repository governance fields that the validators require (`file_type`, `title`, and `last_updated` written as an ISO date `YYYY-MM-DD`), and `AGENTS.md` for working instructions. It MUST write `tools` as an array, which `.schemas/frontmatter.schema.json` requires, and note that Claude Code documents a comma-separated string. It MUST state which fields come from the platform and which from the repository.
 - **FR-003**: `SKILLS_STANDARDS.md` MUST describe `SKILL.md` frontmatter as limited to the six specification fields, with only `name` and `description` required, and MUST keep platform routing outside `SKILL.md`.
 - **FR-004**: Every rule MUST link to an official source and carry the date it was checked.
 - **FR-005**: Every rule MUST be marked as enforced by a named validator or as guidance only.
