@@ -65,6 +65,7 @@
     "tests/js/governance-files.test.js",
     "tests/js/label-consolidation-post-merge-docs.test.js",
     "tests/js/plugin-advisories-newsletter.test.js",
+    "tests/js/pr-preflight.test.js",
     "tests/js/prd-agent-consolidation-docs.test.js"
   ]
 }
