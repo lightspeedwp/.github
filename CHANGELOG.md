@@ -116,6 +116,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **Dependabot Retired** — Dependabot no longer opens update pull requests for this repository; Renovate now handles them. Dependabot security alerts stay on. ([PR #4090](https://github.com/lightspeedwp/.github/pull/4090))
 - **Qodo PR-Agent Pilot Removed** — The unused Qodo PR-Agent pilot, with its workflows, skill, guide and tests, is removed. CodeRabbit remains the automated reviewer. ([PR #4075](https://github.com/lightspeedwp/.github/pull/4075))
 - **Separate Figma Theme Skills** — The ten Figma theme skills are replaced by `figma-to-block-theme`. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
