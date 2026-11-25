@@ -59,7 +59,7 @@ domain: "governance"
 
 - [ ] T019 [US4] Compare each rule with `scripts/validation/` and mark it enforced or guidance
 - [ ] T020 [US4] List the unenforced rules, together with the T025 findings, as one list of gaps for the validation specification
-- [ ] T025 [US4] Run `claude plugin validate --strict --json` on every plugin with a `.claude-plugin/plugin.json` and on each skill and agent directory, and list the findings next to the repository validators' results as input for the validation specification
+- [ ] T025 [US4] Run `claude plugin validate --strict --json` on every plugin with a `.claude-plugin/plugin.json` and on each `skills/` and `agents/` collection directory (not on individual skill folders, which fail with "No manifest found in directory"), and list the findings next to the repository validators' results as input for the validation specification
 - [ ] T026 [US4] Record the CI requirement in GIT-2309 and the marketplace work: a check that installs a pinned Claude Code version (updated deliberately, with the baseline refreshed in the same change), runs `claude plugin validate` on each plugin and on the root marketplace file once it exists, compares the result with a checked-in baseline of known findings, and runs on changes to the plugins, skills, agents and marketplace file, extending the skill-spec job in `.github/workflows/documentation.yml`; its `paths` filters already cover `plugins/**`, `skills/**` and `agents/**`, so only `.claude-plugin/**` is added
 
 ## Phase 7: Polish
