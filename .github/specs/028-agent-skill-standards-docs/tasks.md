@@ -37,13 +37,13 @@ domain: "governance"
 
 ## Phase 3: User Story 1 - Agents (P1)
 
-- [ ] T008 [US1] Rewrite `docs/AGENT_STANDARDS.md` for `agents/*.agent.md`, the platform fields (`name`, `description`, `tools`, `model`), the repository governance fields (`file_type`, `title`, `last_updated` as `YYYY-MM-DD`) and `AGENTS.md`, saying which come from the platform and which from the repository
+- [ ] T008 [US1] Rewrite `docs/AGENT_STANDARDS.md` for `agents/*.agent.md`, the platform fields (`name`, `description`, `tools`, `model`), the repository governance fields (`file_type`, `title`, `last_updated` as `YYYY-MM-DD`) and `AGENTS.md`, saying which come from the platform and which from the repository, and write the GitHub differences from FR-002 (optional `name`, `target`, `mcp-servers`, retired `infer`, the 30,000-character prompt limit, same-name override order)
 - [ ] T009 [US1] Build a sample agent in a throwaway tree outside the repository (layout in plan step 4), run `validate-skills.js` with that tree as the working directory, run copies of `validate-agent-frontmatter.js` and `validate-agents.js` inside it, and record each failure, `Skipped` result or schema disagreement as a gap without changing the validators
 - [ ] T010 [US1] Add the enforcement table and record rules that nothing checks
 
 ## Phase 4: User Story 2 - Skills (P1)
 
-- [ ] T011 [US2] Update `docs/SKILLS_STANDARDS.md` for the six frontmatter fields, name and size limits, and platform routing outside `SKILL.md`
+- [ ] T011 [US2] Update `docs/SKILLS_STANDARDS.md` for the two frontmatter layers in FR-003 (the six portable fields, and the Claude Code extension fields), which layer each repository skill targets, the name and size limits, and platform routing outside `SKILL.md`
 - [ ] T012 [US2] Build a sample skill from the document in the throwaway tree, check it against the specification rules, run `validate-skills.js` with that tree as the working directory, and record either success or a validator gap
 - [ ] T013 [US2] Add the distribution section for `.claude-plugin/marketplace.json` and its path rules
 
@@ -60,7 +60,7 @@ domain: "governance"
 - [ ] T019 [US4] Compare each rule with `scripts/validation/` and mark it enforced or guidance
 - [ ] T020 [US4] List the unenforced rules as input for the validation specification
 - [ ] T025 [US4] Run `claude plugin validate --strict --json` on every plugin with a `.claude-plugin/plugin.json` and on each skill and agent directory, and list the findings next to the repository validators' results as input for the validation specification
-- [ ] T026 [US4] Record the CI requirement in GIT-2309 and the marketplace work: a check that installs the current Claude Code release, runs `claude plugin validate` on each plugin and on the root marketplace file once it exists, compares the result with a checked-in baseline of known findings, and runs on changes to `plugins/**`, `skills/**`, `agents/**` and the marketplace file, extending the skill-spec job in `.github/workflows/documentation.yml`
+- [ ] T026 [US4] Record the CI requirement in GIT-2309 and the marketplace work: a check that installs a pinned Claude Code version (updated deliberately, with the baseline refreshed in the same change), runs `claude plugin validate` on each plugin and on the root marketplace file once it exists, compares the result with a checked-in baseline of known findings, and runs on changes to `plugins/**`, `skills/**`, `agents/**` and the marketplace file, extending the skill-spec job in `.github/workflows/documentation.yml`, whose `paths` filter lists `.claude/**` but not `.claude-plugin/**`, so the filter is extended too
 
 ## Phase 7: Polish
 
@@ -74,4 +74,5 @@ domain: "governance"
 - T004 to T007 before any rewrite task.
 - T008 and T011 before T014 to T017.
 - T019 after every rewrite task.
-- T022 and T023 last.
+- T025 after T019, and T026 after T025.
+- T022 and T023 last, after T026.

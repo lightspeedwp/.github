@@ -52,6 +52,13 @@ The nine standards documents in `docs/` were written in July and September 2026.
 
 The repository's own validation adds fields on top of the platform ones. Checked on 25 November 2026: `validate-skills.js` rejected a sample agent that had only `name`, `description`, `tools` and `model`, because `schemas/agent-config.schema.json` requires `file_type`, `title` and `last_updated` in an agent's frontmatter, and `validate-agent-frontmatter.js` skips an agent that does not declare `file_type: "agent"`. The same sample skill with `name` and `description` passed. The documents therefore state two layers for an agent: the platform fields, and the repository governance fields, and say which validator requires which.
 
+Findings from running the platform validator on 25 November 2026, with Claude Code 2.1.317 (these are a snapshot, not requirements):
+
+- `claude plugin validate` validates plugin and marketplace manifests and the skills, agents and commands in a directory. It accepts `--strict` and `--json` and exits 0, 1 or 2.
+- All eight plugins that have a `.claude-plugin/plugin.json` fail it. The `skills` and `agents` paths must start with `./`, `skills` entries must be directories, and one `agents` value has the wrong shape. Three of the 32 `SKILL.md` files under them, all in `plugins/lightspeed-github-ops`, have no frontmatter.
+- The repository's own checks did not report this. `validate-plugins.js` checks only `plugins/lightspeed-github-ops`. No workflow runs `validate-agent-frontmatter.js` or `validate-agents.js`, and `validate-plugins.js` runs only inside `validate:all`, which no workflow runs. `validate-skills.js` holds its specification rules as constants, so it does not follow the platform automatically.
+- `claude plugin validate --strict` accepted a skill with an unknown frontmatter field, which is why it complements `validate-skills.js`.
+
 Specification 014 (`014-agents-restructure-consolidate`) is still a Draft and its FR-002 requires an `AGENT.md` for every agent, which these decisions replace. [GIT-2626](https://linear.app/lightspeedwp/issue/GIT-2626) revises it. Until then the catalogue holds two conflicting Drafts, and the documents follow the GIT-2302 decisions and say so.
 
 This specification covers the documents only. Changing the files, folders, validators and distribution they describe is separate work.
@@ -76,7 +83,7 @@ A contributor who needs a new agent opens one document and learns where the file
 
 ### User Story 2 - One structure for skills (Priority: P1)
 
-A contributor who writes a skill learns the folder layout, the six specification frontmatter fields, the size limits and how a skill reaches other repositories.
+A contributor who writes a skill learns the folder layout, the two layers of frontmatter (the portable specification fields and the Claude Code extension fields), the size limits and how a skill reaches other repositories.
 
 **Why this priority**: Skills are the largest group of files in the repository, and `SKILLS_STANDARDS.md` is the only document that already describes the specification.
 
@@ -130,7 +137,7 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 - **FR-007**: The documents MUST NOT describe `AGENT.md`, `agent.md` entry files, `version` or `providers` as required agent fields, or `.js` skill files as the skill format.
 - **FR-008**: Each example MUST be a real file in the repository that passes its validator, or MUST be validated when the documents are written.
 - **FR-009**: `.github/specs/CATALOG.md` and `docs/index.md` MUST link to the rewritten documents. `docs/index.md` does not list them today, so this adds a section; `docs/README.md` and `docs/AGENT-INDEX.md` are checked and updated only if they list documentation.
-- **FR-010**: The documents MUST say how each rule is checked against the current platform rules and not only against rules copied into the repository. Checked on 25 November 2026 with Claude Code 2.1.317: `claude plugin validate` (flags `--strict`, `--json`, exit 0, 1 or 2) validates plugin and marketplace manifests and the skills, agents and commands in a directory, and it is the only check that tracks the platform's current rules. All eight plugins that have a `.claude-plugin/plugin.json` fail it (the `skills` and `agents` paths must start with `./`, `skills` entries must be directories, and one `agents` value has the wrong shape), and the `SKILL.md` files under them have no frontmatter. The repository's own checks did not report this: `validate-plugins.js` checks only `plugins/lightspeed-github-ops`, no workflow runs `validate-agent-frontmatter.js` or `validate-agents.js`, `validate-plugins.js` runs only inside `validate:all`, which no workflow runs, and `validate-skills.js` holds its specification rules as constants. `claude plugin validate --strict` accepted a skill with an unknown frontmatter field, so it complements `validate-skills.js` and does not replace it.
+- **FR-010**: The documents MUST say how each rule is checked against the current platform rules and not only against rules copied into the repository, naming `claude plugin validate --strict` where it applies, and MUST list each plugin or skill that fails it as a gap. `claude plugin validate` complements `validate-skills.js` and does not replace it.
 
 ### Non-Functional Requirements
 
@@ -163,6 +170,6 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 
 - Moving, renaming or deleting agents, skills, instructions or prompts.
 - Changing validators, CI or hooks. A CI check that runs `claude plugin validate` is recorded as a requirement for the validation work (GIT-2309) and the marketplace work, because it would fail today on all eight plugins and needs a baseline of known findings first.
-- The plugin marketplace file.
+- Creating the plugin marketplace file. The documents describe it (T013, T016); the marketplace work builds it.
 - Revising specification 014 (GIT-2626 does that).
 - Amending the constitution.
