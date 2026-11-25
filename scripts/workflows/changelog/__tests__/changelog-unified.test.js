@@ -321,6 +321,22 @@ describe('require-gate inline script', () => {
     }
   );
 
+  test.each(['renovate[bot]', 'app/renovate'])(
+    'skips changelog validation for %s with both changelog labels',
+    async (author) => {
+      const result = await runGithubScript(gateScript, {
+        context: contextWith({
+          author,
+          labels: ['meta:needs-changelog', 'meta:no-changelog'],
+        }),
+      });
+
+      expect(outputValue(result.core, 'run_validation')).toBe('false');
+      expect(result.core.setFailed).not.toHaveBeenCalled();
+      expect(result.childProcess.execSync).not.toHaveBeenCalled();
+    }
+  );
+
   test('rejects mutually exclusive changelog labels before inspecting the diff', async () => {
     const result = await runGithubScript(gateScript, {
       context: contextWith({ labels: ['meta:needs-changelog', 'meta:no-changelog'] }),
