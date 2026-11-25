@@ -48,7 +48,7 @@ The nine standards documents in `docs/` were written in July and September 2026.
 | `SKILLS_STANDARDS.md` | 563 | 6 October 2026 |
 | `WORKFLOWS_STANDARDS.md` | 414 | 28 September 2026 |
 
-`AGENT_STANDARDS.md` still describes a folder-based agent whose entry file is `agent.md`, requires the frontmatter fields `version` and `providers`, and lists agent skills as `.js` files. None of that matches the decisions above. The 18 November review found the other documents also pre-date the decisions; this specification starts by checking each one rather than assuming it.
+`AGENT_STANDARDS.md` still describes a folder-based agent whose entry file is `agent.md`, requires the frontmatter fields `version` and `providers`, and lists agent skills as `.js` files. None of that matches the decisions above. The 18 November review found the other documents also do not follow the decisions; this specification starts by checking each one rather than assuming it.
 
 The repository's own validation adds fields on top of the platform ones. Checked on 25 November 2026: `validate-skills.js` rejected a sample agent that had only `name`, `description`, `tools` and `model`, because `schemas/agent-config.schema.json` requires `file_type`, `title` and `last_updated` in an agent's frontmatter, and `validate-agent-frontmatter.js` skips an agent that does not declare `file_type: "agent"`. The same sample skill with `name` and `description` passed. The documents therefore state two layers for an agent: the platform fields, and the repository governance fields, and say which validator requires which.
 
@@ -68,7 +68,7 @@ A contributor who needs a new agent opens one document and learns where the file
 
 **Acceptance Scenarios**:
 
-1. **Given** the rewritten document, **When** a contributor creates the layout it shows, **Then** the files are the ones in the decisions above and nothing in the document names `agent.md` or `AGENT.md` as the standard.
+1. **Given** the rewritten document, **When** a contributor creates the layout it shows, **Then** the files and platform fields are the ones in the decisions above, with the repository governance fields added and labelled as such, and nothing in the document names `agent.md` or `AGENT.md` as the standard.
 2. **Given** the rewritten document, **When** its example frontmatter is validated, **Then** it uses only platform fields and repository governance fields (no `version`, `providers` or `implementation`), it passes `validate-skills.js` and `validate-agents.js` and is not skipped by `validate-agent-frontmatter.js`, or the failure is recorded as a gap.
 3. **Given** a rule in the document, **When** a reader looks for its source, **Then** the document links to the official page and states the date it was checked.
 
@@ -122,7 +122,7 @@ A maintainer can tell which rules in the documents are enforced by a validator a
 ### Functional Requirements
 
 - **FR-001**: Each of the nine documents MUST describe the file and folder structure for its subject, using only layouts the adopted decisions allow.
-- **FR-002**: `AGENT_STANDARDS.md` MUST describe `agents/*.agent.md` with the platform fields `name` and `description` (optional `tools` and `model`), the repository governance fields that the validators require (`file_type`, `title`, and `last_updated` written as an ISO date `YYYY-MM-DD`), and `AGENTS.md` for working instructions. It MUST write `tools` as a YAML list, which both Claude Code and `.schemas/frontmatter.schema.json` accept, and note that Claude Code also accepts a comma-separated string that the repository validator rejects. It MUST state which fields come from the platform and which from the repository.
+- **FR-002**: `AGENT_STANDARDS.md` MUST describe `agents/*.agent.md` with the platform fields `name` and `description` (optional `tools` and `model`), the repository governance fields that the validators require (`file_type`, `title`, and `last_updated` written as an ISO date `YYYY-MM-DD`), and `AGENTS.md` for working instructions. It MUST write `tools` as a YAML list, which both Claude Code and `.schemas/frontmatter.schema.json` accept, and note that Claude Code also accepts a comma-separated string that both repository frontmatter validators reject. It MUST state which fields come from the platform and which from the repository.
 - **FR-003**: `SKILLS_STANDARDS.md` MUST describe `SKILL.md` frontmatter as limited to the six specification fields, with only `name` and `description` required, and MUST keep platform routing outside `SKILL.md`.
 - **FR-004**: Every rule MUST link to an official source and carry the date it was checked.
 - **FR-005**: Every rule MUST be marked as enforced by a named validator or as guidance only.
