@@ -1,5 +1,7 @@
 # Contract: Central Configuration (`.pr_agent.toml`)
 
+> **Archived**: The pilot never ran and was removed in [specification 027](../../027-qodo-pr-agent-removal/spec.md) ([GIT-2840](https://linear.app/lightspeedwp/issue/GIT-2840)). This document is kept as a record, and links below to removed files are historical.
+
 **Feature**: [../spec.md](../spec.md) | Satisfies FR-002, FR-007, FR-008, FR-009, FR-011, FR-012, FR-018, FR-019
 
 The root `.pr_agent.toml` in `lightspeedwp/.github` MUST contain these keys with these values. A contract test (`tests/js/qodo-pr-agent-config.test.js`) parses the file with `smol-toml` and asserts every row.

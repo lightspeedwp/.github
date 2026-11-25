@@ -1,4 +1,0 @@
-interface:
-  display_name: "Figma ThemeJSON Palette"
-  short_description: "Extract a WordPress theme.json palette from Figma variables"
-  default_prompt: "Use $figma-themejson-palette to extract a WordPress theme.json color palette from a Figma variables table."

@@ -114,6 +114,9 @@ Agents with both specification files and complete implementations (28 total).
 - **[WordPress DB Migration Agent](./wp-db-migration-agent/)** – [`wp-db-migration.agent.md`](./wp-db-migration-agent/wp-db-migration.agent.md)
   - Moves databases between MySQL live/staging sites and WordPress Studio local sites
 
+- **[WordPress Schema Audit Agent](./wp-schema-audit-agent/)** – [`wp-schema-audit.agent.md`](./wp-schema-audit-agent/wp-schema-audit.agent.md)
+  - Audits a site's JSON-LD structured data against schema.org and Google rich-result rules
+
 - **[WooCommerce Config Agent](./woo-config-agent/)** – [`woo-config.agent.md`](./woo-config.agent.md)
   - WooCommerce store configuration and setup
 
@@ -231,5 +234,4 @@ When creating a new agent:
 - [Naming Conventions](../.github/reports/agent-audit/AGENT_NAMING_CONVENTIONS.md) – Naming standards
 - [Issue #1828](https://github.com/lightspeedwp/.github/issues/1828) – Master initiative epic
 
-_Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+Made with ❤️ by the LightSpeed team.

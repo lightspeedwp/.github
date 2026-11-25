@@ -1,0 +1,4 @@
+interface:
+  display_name: "Figma to Block Theme"
+  short_description: "Build theme.json tokens, style variations and patterns from Figma"
+  default_prompt: "Use $figma-to-block-theme to extract Figma variables into theme.json presets and style variations, turn a Figma frame into a block pattern, or fill theme.json gaps for the blocks a theme uses."

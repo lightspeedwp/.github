@@ -4,36 +4,16 @@
 
 set -euo pipefail
 
-# Resolve SPECS_DIR from repo root using find_specify_root or by looking for .specify
-# find_repo_root - Locate repository root by searching for .specify directory
-# Parameters:
-#   $1 - Starting directory (default: current directory)
-# Returns:
-#   0 on success with repo root path echoed
-#   1 if .specify directory not found in any parent directory
-find_repo_root() {
-  local dir="${1:-.}"
-  dir="$(cd "$dir" 2>/dev/null && pwd)" || return 1
-  local prev_dir=""
-  while [ "$dir" != "$prev_dir" ]; do
-    if [ -d "$dir/.specify" ]; then
-      echo "$dir"
-      return 0
-    fi
-    prev_dir="$dir"
-    dir="$(dirname "$dir")"
-  done
-  return 1
-}
-
-# Prefer the repo that contains the current directory; fall back to the repo
-# that contains this script so the audit works from any cwd.
-SPECS_DIR=".github/specs"
-if repo_root=$(find_repo_root); then
-  SPECS_DIR="$repo_root/.github/specs"
-elif repo_root=$(find_repo_root "$(dirname "${BASH_SOURCE[0]}")"); then
-  SPECS_DIR="$repo_root/.github/specs"
+# Shared resolution also honours SPECIFY_INIT_DIR and configured roots.
+SCRIPT_DIR="$(CDPATH="" cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/common.sh"
+repo_root=$(get_repo_root) || exit 2
+if ! SPECS_DIRECTORY=$(read_specs_directory "$repo_root"); then
+  echo "Error: Unable to read specs_directory configuration" >&2
+  exit 2
 fi
+SPECS_DIR="$repo_root/$SPECS_DIRECTORY"
+VALIDATOR="$SCRIPT_DIR/../../../scripts/validation/spec-allocations.cjs"
 
 # ============================================================================
 # Audit Functions
@@ -117,7 +97,7 @@ extract_number() {
   echo "${basename:0:3}"
 }
 
-# verify_sequential_numbering - Check that spec directory prefixes form a contiguous sequence starting at 001.
+# verify_sequential_numbering - Validate accounted allocations or strict legacy contiguity.
 # Parameters: None
 # Returns:
 #   0 when numbering is contiguous with no gaps or duplicates
@@ -126,49 +106,16 @@ extract_number() {
 #   Status messages for each validation check and overall result
 verify_sequential_numbering() {
   echo ""
-  echo "🔢 Verifying sequential numbering..."
-
-  local numbers=()
-
-  for dir in "$SPECS_DIR"/[0-9][0-9][0-9]-*/; do
-    if [ -d "$dir" ]; then
-      local num
-      num=$(extract_number "$dir")
-      numbers+=("$num")
-    fi
-  done
-
-  # Check for empty inventory
-  if [ ${#numbers[@]} -eq 0 ]; then
-    echo "❌ No specification directories found"
-    return 1
+  echo "🔢 Verifying specification allocations..."
+  local args=(validate --repo-root "$repo_root" --specs-directory "$SPECS_DIRECTORY")
+  if [ -n "${SPEC_ALLOCATION_BASELINE:-}" ]; then
+    args+=(--baseline "$SPEC_ALLOCATION_BASELINE")
   fi
-
-  # Sort numbers
-  mapfile -t sorted < <(printf '%s\n' "${numbers[@]}" | sort)
-
-  # Check for gaps and duplicates
-  local has_gaps=0
-  local expected=1
-
-  for num in "${sorted[@]}"; do
-    local num_int=$((10#$num))  # Convert to integer
-    if [ $num_int -lt $expected ]; then
-      echo "❌ Duplicate number: $num_int"
-      has_gaps=1
-    elif [ $num_int -ne $expected ]; then
-      echo "❌ Gap detected: expected $expected but found $num_int"
-      has_gaps=1
-    fi
-    expected=$((num_int + 1))
-  done
-
-  if [ $has_gaps -eq 0 ]; then
-    echo "✓ Sequential numbering verified: ${sorted[0]} to ${sorted[-1]} with no gaps"
-    return 0
-  else
-    return 1
+  if ! command -v node >/dev/null 2>&1 || [ ! -f "$VALIDATOR" ]; then
+    echo "Error: Node.js and the shared allocation validator are required" >&2
+    return 2
   fi
+  node "$VALIDATOR" "${args[@]}"
 }
 
 # generate_inventory_report - Print per-directory checks and aggregate naming and spec.md pass counts.
@@ -247,8 +194,10 @@ main() {
 
   # Always run every check so one failure does not hide the others.
   audit_scan_directories
-  verify_sequential_numbering || rc=1
-  generate_inventory_report || rc=1
+  local numbering_rc=0
+  verify_sequential_numbering || numbering_rc=$?
+  [ "$numbering_rc" -le "$rc" ] || rc="$numbering_rc"
+  generate_inventory_report || { [ "$rc" -ne 0 ] || rc=1; }
 
   return $rc
 }

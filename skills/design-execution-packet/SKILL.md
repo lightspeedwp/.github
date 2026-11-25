@@ -108,9 +108,9 @@ Use these shortcuts when the user gives a clear destination.
 - Section style: `wordpress-section-style-generator`
 - Asset validation: `wordpress-block-asset-validator`
 - Figma-to-WordPress technical brief: `lightspeed-figma-wordpress-technical-brief`
-- Pattern extraction from Figma: `pattern-extractor`
+- Pattern extraction from Figma: `figma-to-block-theme` (pattern mode)
 - Theme colour token audit/fix: `theme-color-token-enforcer`
-- Theme.json completion or token syncing: the matching `themejson-*` or `figma-themejson-*` skill
+- Theme.json completion or token syncing: `figma-to-block-theme`
 
 ### Planning, delivery, and GitHub
 

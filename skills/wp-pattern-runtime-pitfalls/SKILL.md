@@ -1,6 +1,6 @@
 ---
 name: wp-pattern-runtime-pitfalls
-description: 'Avoid the runtime traps of WordPress block patterns (patterns/*.php) that look like static markup but aren''t. Use when a pattern renders nothing, shows stale/fallback data, or behaves differently on the live page than in a WP-CLI test: nested wp:pattern references silently dropping on front-end render, raw pattern PHP running once at registration (init) instead of per-request, injecting queried-object data via block bindings, keeping hover-reveal panels editable in the editor, and the pattern/OPcache resets needed to see edits. Complements pattern-extractor (which generates patterns) with the behaviour to design around.'
+description: 'Avoid the runtime traps of WordPress block patterns (patterns/*.php) that look like static markup but aren''t. Use when a pattern renders nothing, shows stale/fallback data, or behaves differently on the live page than in a WP-CLI test: nested wp:pattern references silently dropping on front-end render, raw pattern PHP running once at registration (init) instead of per-request, injecting queried-object data via block bindings, keeping hover-reveal panels editable in the editor, and the pattern/OPcache resets needed to see edits. Complements figma-to-block-theme (which generates patterns) with the behaviour to design around.'
 compatibility: Targets WordPress 6.9+ block themes with file-based patterns in patterns/*.php. Some techniques use register_block_bindings_source() (WP 6.5+) and wp_enqueue_block_style. Runtime behaviour verified empirically — re-test after core upgrades.
 ---
 
@@ -8,7 +8,7 @@ compatibility: Targets WordPress 6.9+ block themes with file-based patterns in p
 
 ## Overview
 
-A file in `patterns/*.php` looks like static block markup, but it has a runtime model that trips people repeatedly: its **PHP runs once at registration, not per render**; a **`wp:pattern` reference nested inside another pattern is silently dropped** on the front end (while resolving fine in a WP-CLI `do_blocks()` test, so CLI lies to you); and per-request data has to arrive through **block bindings**, not inline PHP. This skill is the set of behaviours to design around, plus the cache resets and verification that keep you from chasing ghosts. It pairs with `pattern-extractor` (which *generates* production patterns) by documenting the traps that generation must respect.
+A file in `patterns/*.php` looks like static block markup, but it has a runtime model that trips people repeatedly: its **PHP runs once at registration, not per render**; a **`wp:pattern` reference nested inside another pattern is silently dropped** on the front end (while resolving fine in a WP-CLI `do_blocks()` test, so CLI lies to you); and per-request data has to arrive through **block bindings**, not inline PHP. This skill is the set of behaviours to design around, plus the cache resets and verification that keep you from chasing ghosts. It pairs with `figma-to-block-theme` (whose pattern mode *generates* production patterns) by documenting the traps that generation must respect.
 
 ## When to use
 
@@ -53,7 +53,7 @@ A file in `patterns/*.php` looks like static block markup, but it has a runtime 
 
 ## Related
 
-- `pattern-extractor` — generate a production pattern from a Figma design; this skill is the runtime behaviour that generation must respect.
+- `figma-to-block-theme` — generate a production pattern from a Figma design; this skill is the runtime behaviour that generation must respect.
 - `wp-blockstyle-css-field` — where a pattern's styling belongs and why the css field drops `:hover`.
 - `wp-db-override-reconciliation` — when the live page renders from a DB copy, not your pattern file.
 - `wp-mcp-wpcli-ops` — the exact pattern-transient/OPcache reset commands.
@@ -61,6 +61,3 @@ A file in `patterns/*.php` looks like static block markup, but it has a runtime 
 ---
 
 *Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)

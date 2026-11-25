@@ -1,0 +1,51 @@
+{
+  "version": 1,
+  "repository": "lightspeedwp/.github",
+  "specsDirectory": ".github/specs",
+  "decisions": [
+    {"id":"lifecycle-2026-10-28","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2676","decidedAt":"2026-10-28T13:47:48.925Z","recordedAt":"2026-10-28T14:32:18.695Z","scope":"Allocation lifecycle direction and bootstrap dispositions only. Import existing directory identities without newly approving specification contents. Preserve 020 portable agents, 023 schema audit and 024 database migration; retire 021 and 022 with separate histories. The 19 October portable assignment to 022 is superseded. This provenance is not implementation authority or cryptographic proof of approval."},
+    {"id":"allocation-025-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2801","decidedAt":"2026-11-24T10:32:14.477Z","recordedAt":"2026-11-24T10:32:14.477Z","scope":"Number 025 taken by the Spec Kit upgrade specification under the highest-accounted-plus-one rule when GIT-2801 was created. Records the allocation only; it does not approve the contents of the specification."},
+    {"id":"allocation-026-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2803","decidedAt":"2026-11-24T12:47:26.433Z","recordedAt":"2026-11-24T12:47:26.433Z","scope":"Number 026 taken by the CI check scope specification under the highest-accounted-plus-one rule when GIT-2803 was created. Records the allocation only; it does not approve the contents of the specification."},
+    {"id":"allocation-027-2026-11-24","recordUrl":"https://linear.app/lightspeedwp/issue/GIT-2840","decidedAt":"2026-11-24T17:19:39.271Z","recordedAt":"2026-11-24T17:19:39.271Z","scope":"Number 027 taken by the Qodo PR-Agent removal specification under the highest-accounted-plus-one rule when GIT-2840 was created. Records the allocation only; it does not approve the contents of the specification."}
+  ],
+  "sources": [
+    {"id":"develop-inventory","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/47aee0722033f65d4d9d57429b410b518646b817/.github/specs","sha":"47aee0722033f65d4d9d57429b410b518646b817"},
+    {"id":"portable-3883","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/3883","sha":"06f2675e8b9fe67b6a0a359fb110cf102e8e822d"},
+    {"id":"intermediate-renumbering","kind":"commit","url":"https://github.com/lightspeedwp/.github/commit/2589acf607a55c827696907a0f2052c21d496fea","sha":"2589acf607a55c827696907a0f2052c21d496fea"},
+    {"id":"database-move","kind":"commit","url":"https://github.com/lightspeedwp/.github/commit/87cbf8723e726b7df4128ced29653a98aa50fa26","sha":"87cbf8723e726b7df4128ced29653a98aa50fa26"},
+    {"id":"restructure-3968","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/3968","sha":"4c7944e04a09a18c0812eea498f3eed184b21cd1"},
+    {"id":"restructure-3969","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/3969","sha":"08506593eaf27fb09aea1c87a6a1a83b251c5e04"},
+    {"id":"spec-kit-upgrade-4064","kind":"pull-request","url":"https://github.com/lightspeedwp/.github/pull/4064","sha":"e0ddbb16ff09de758b84e14cfc6919b13902cca3"},
+    {"id":"develop-153647d47c","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/153647d47c4179ced90fcdcaee186e2c4d892446/.github/specs","sha":"153647d47c4179ced90fcdcaee186e2c4d892446"},
+    {"id":"develop-9685f02449","kind":"tree","url":"https://github.com/lightspeedwp/.github/tree/9685f02449ba84f099ec14396b2be3aa7a459ad9/.github/specs","sha":"9685f02449ba84f099ec14396b2be3aa7a459ad9"}
+  ],
+  "allocations": [
+    {"number":"001","canonicalSlug":"prd-agent-consolidation","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"002","canonicalSlug":"coderabbit-config-improvements","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"003","canonicalSlug":"changelog-quality-audit","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"004","canonicalSlug":"branch-naming-strategy","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"005","canonicalSlug":"requirements-quality-checklist","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"006","canonicalSlug":"governance-audit","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"007","canonicalSlug":"specs-directory-fix","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"008","canonicalSlug":"label-audit-consolidation","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"009","canonicalSlug":"audit-branch-cleanup","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"010","canonicalSlug":"requirements-checklist","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"011","canonicalSlug":"workflow-consolidation-phase-2","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"012","canonicalSlug":"audit-governance-structure","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"013","canonicalSlug":"spec-folder-refactor","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"014","canonicalSlug":"agents-restructure-consolidate","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"015","canonicalSlug":"pr-agent-consolidation","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"016","canonicalSlug":"changelog-agent-quality","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"017","canonicalSlug":"ci-failure-remediation","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"018","canonicalSlug":"claude-cloud-environment","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"019","canonicalSlug":"qodo-pr-agent-integration","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory"],"historicalClaims":[]},
+    {"number":"020","canonicalSlug":"portable-changelog-release-agents","state":"pending","decisionRef":"lifecycle-2026-10-28","sourceRefs":["portable-3883"],"historicalClaims":[{"slug":"wp-db-migration-agent","kind":"former-directory","resolvedTo":{"number":"024","slug":"wp-db-migration-agent"},"decisionRef":"lifecycle-2026-10-28","sourceRefs":["intermediate-renumbering","database-move"]}]},
+    {"number":"021","canonicalSlug":null,"state":"retired","decisionRef":"lifecycle-2026-10-28","sourceRefs":["restructure-3968","restructure-3969","intermediate-renumbering"],"historicalClaims":[{"slug":"repo-restructuring-canonical-config","kind":"unfulfilled-claim","resolvedTo":null,"decisionRef":"lifecycle-2026-10-28","sourceRefs":["restructure-3968","restructure-3969"]},{"slug":"wp-schema-audit-agent","kind":"former-directory","resolvedTo":{"number":"023","slug":"wp-schema-audit-agent"},"decisionRef":"lifecycle-2026-10-28","sourceRefs":["intermediate-renumbering"]}]},
+    {"number":"022","canonicalSlug":null,"state":"retired","decisionRef":"lifecycle-2026-10-28","sourceRefs":["portable-3883","intermediate-renumbering","database-move"],"historicalClaims":[{"slug":"portable-changelog-release-agents","kind":"superseded-assignment","resolvedTo":{"number":"020","slug":"portable-changelog-release-agents"},"decisionRef":"lifecycle-2026-10-28","sourceRefs":["portable-3883"]},{"slug":"wp-db-migration-agent","kind":"former-directory","resolvedTo":{"number":"024","slug":"wp-db-migration-agent"},"decisionRef":"lifecycle-2026-10-28","sourceRefs":["intermediate-renumbering","database-move"]}]},
+    {"number":"023","canonicalSlug":"wp-schema-audit-agent","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory","intermediate-renumbering"],"historicalClaims":[]},
+    {"number":"024","canonicalSlug":"wp-db-migration-agent","state":"materialised","decisionRef":"lifecycle-2026-10-28","sourceRefs":["develop-inventory","database-move"],"historicalClaims":[]},
+    {"number":"025","canonicalSlug":"spec-kit-upgrade","state":"materialised","decisionRef":"allocation-025-2026-11-24","sourceRefs":["spec-kit-upgrade-4064"],"historicalClaims":[]},
+    {"number":"026","canonicalSlug":"ci-check-scope","state":"materialised","decisionRef":"allocation-026-2026-11-24","sourceRefs":["develop-153647d47c"],"historicalClaims":[]},
+    {"number":"027","canonicalSlug":"qodo-pr-agent-removal","state":"materialised","decisionRef":"allocation-027-2026-11-24","sourceRefs":["develop-9685f02449"],"historicalClaims":[]}
+  ]
+}

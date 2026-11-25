@@ -1,0 +1,9 @@
+{
+	"extends": "../../../tsconfig.json",
+	"compilerOptions": {
+		"allowImportingTsExtensions": false,
+		"types": [ "node", "jest" ]
+	},
+	"include": [ "*.ts", "__tests__/*.ts" ],
+	"exclude": []
+}

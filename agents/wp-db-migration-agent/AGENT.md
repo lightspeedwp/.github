@@ -55,7 +55,7 @@ serialised data or leftover URLs.
 - **Canonical specification**: [wp-db-migration.agent.md](./wp-db-migration.agent.md)
 - **Usage guide**: [README.md](./README.md)
 - **Tool**: [lib/sql-tool.cjs](./lib/sql-tool.cjs)
-- **Feature specification**: [spec 020](../../.github/specs/020-wp-db-migration-agent/spec.md)
+- **Feature specification**: [spec 024](../../.github/specs/024-wp-db-migration-agent/spec.md)
 
 _Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!_
 [Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)

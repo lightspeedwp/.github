@@ -71,8 +71,12 @@ jobs:
             // on the bare slug so an exemption holds for either shape.
             const slug = (login) => login.replace(/^app\//, "").replace(/\[bot\]$/, "");
 
-            if (slug(author) === "dependabot") {
-              core.info("Skipping changelog requirement for Dependabot pull requests.");
+            // Renovate (Mend app, login "renovate[bot]") is exempt for the same
+            // reason: the labeling agent adds meta:needs-changelog on open, which
+            // can race Renovate's own meta:no-changelog label and fail the
+            // both-labels check below.
+            if (slug(author) === "dependabot" || slug(author) === "renovate") {
+              core.info("Skipping changelog requirement for dependency-bot pull requests.");
               core.setOutput("run_validation", "false");
               return;
             }
@@ -152,7 +156,7 @@ jobs:
 
       - name: Setup Node
         if: steps.gate.outputs.run_validation == 'true'
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: '.nvmrc'
 
@@ -187,7 +191,7 @@ jobs:
           persist-credentials: false
 
       - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -507,7 +511,7 @@ jobs:
 
       - name: Setup Node.js
         if: steps.check_changelog.outputs.has_changelog == 'true'
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'

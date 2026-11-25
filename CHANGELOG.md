@@ -30,6 +30,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **Shared Environment Revision Stamp** — The shared cloud environment now carries a revision stamp, and a test fails when it is out of date, so the repository copy and the admin-console copy can be compared. (#3878)
 - **Cloud Environment Drift Warnings** — Cloud sessions now warn when they are not in the shared LightSpeed environment or when it is out of date. The warning never blocks the session. (#3878)
+- **Site to Block Theme Skill** — Rebuilds live-site templates, parts and patterns in a block theme: measures live, maps values to theme.json tokens and diffs live with local. ([PR #4059](https://github.com/lightspeedwp/.github/pull/4059))
+- **Theme Screenshot Skill** — Makes a theme's 1200 by 900 `screenshot.png` from the site's logo, the theme.json palette and an industry line, rendered with Puppeteer. ([#4010](https://github.com/lightspeedwp/.github/issues/4010))
+- **Site to Figma Components Skill** — Rebuilds a live site's components, patterns and templates in Figma after the reviewer approves an inventory. ([#3992](https://github.com/lightspeedwp/.github/issues/3992))
+- **Site to Design Tokens Skill** — For rebuilds: proposes design tokens from a live site, then creates the Figma variables and a theme.json export once approved. ([#3990](https://github.com/lightspeedwp/.github/issues/3990))
+- **Figma to Block Theme Skill** — One skill turns Figma variables into theme.json presets, Figma frames into block patterns, and fills theme.json gaps. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
+
+- **WordPress Schema Audit Agent** — Checks the structured data a WordPress site publishes against schema.org and Google's rules, then writes a client report and a spreadsheet of fixes. ([PR #3962](https://github.com/lightspeedwp/.github/pull/3962))
+- **Specification Allocation Lifecycle** — Adds an offline pending/materialised/retired ledger and coordinated audit/allocation checks, preserving 020, 023 and 024 without renumbering. ([#3891](https://github.com/lightspeedwp/.github/issues/3891))
 - **Studio Migration Import Choices** — The agent asks about the table prefix, local accounts, tables to skip and the Studio site URL. Wordfence tables are skipped by default. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 - **WordPress Studio Migration Agent** — Moves sites between Studio and staging or live: fixes exports Studio rejects, checks exports and replaces the site URL safely. ([PR #3959](https://github.com/lightspeedwp/.github/pull/3959))
 - **Label Inventory Evidence** — Adds the redacted label inventory for every organisation repository, with private repositories reduced to counts. ([#3832](https://github.com/lightspeedwp/.github/issues/3832))
@@ -69,6 +77,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Renovate Node and Composer updates no longer request reviewers** — Their manifests and lock files have no code owner, so updates that touch only those files skip the review request. ([#4086](https://github.com/lightspeedwp/.github/pull/4086))
+
+- **CI Check Scope** — Lint, typecheck, workflow lint and test checks now skip their work when a push changes no file they read. ([PR #4069](https://github.com/lightspeedwp/.github/pull/4069))
+- **Spec Kit Upgrade** — Spec Kit is now on v1.4.4. The `speckit-taskstoissues` skill is removed, as it is no longer in the core. Specifications still go to `.github/specs/`. ([PR #4064](https://github.com/lightspeedwp/.github/pull/4064))
+- **Site Skills Setup Notes** — The site skills say to run `npm ci`, and `npx puppeteer browsers install chrome` if the browser fails to launch. ([#4009](https://github.com/lightspeedwp/.github/issues/4009))
 - **Label inventory token** — The organisation label inventory now needs its own dedicated token, refuses the GitHub Actions token and fails when private repositories are missing. (#3734)
 - **Private Repositories Stay Out Of Public Reports** — The label inventory and the weekly drift report now count private repositories without naming them or listing their labels. Detail goes to a private repository when one is set. (#3734)
 - **Dependabot Merge Queue Fixed** — Dependabot pull requests no longer fail the Mergify queue check, because the queue now tests each pull request in place. ([PR #3817](https://github.com/lightspeedwp/.github/pull/3817))
@@ -103,6 +116,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+- **Qodo PR-Agent Pilot Removed** — The unused Qodo PR-Agent pilot, with its workflows, skill, guide and tests, is removed. CodeRabbit remains the automated reviewer. ([PR #4075](https://github.com/lightspeedwp/.github/pull/4075))
+- **Separate Figma Theme Skills** — The ten Figma theme skills are replaced by `figma-to-block-theme`. ([#3989](https://github.com/lightspeedwp/.github/issues/3989))
 - **Unused Workflow Stubs** — Removed 7 placeholder workflows that ran echo-only steps on every event, plus a dead reusable trigger and stale directory readme. (#3381)
 - **Orphaned Footer Utility Removed** — Deleted an unused duplicate footer-generation script and its test, and corrected the stale documentation that pointed at it. (#3462)
 - **Inert Workflow Test Harness** — Deleted two files that declared workflow triggers but sat outside `.github/workflows/`, the only directory GitHub registers, so neither had ever run. (#3570)
@@ -110,6 +125,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- **Changelog gate exempts Renovate** — Renovate PRs skip the changelog check like Dependabot, so a racing `meta:needs-changelog` label no longer fails them. ([#4083](https://github.com/lightspeedwp/.github/pull/4083))
+
+- **CI Check Scope** — Test and workflow checks now also run when a local action's metadata changes, and the list of tests that depend on Markdown is complete. ([PR #4075](https://github.com/lightspeedwp/.github/pull/4075))
+- **Site Tokens Numeric Slugs** — `site-to-design-tokens` exports the scaffold's numeric slugs for font sizes, radius and shadows, and radius uses bare size names. ([#4004](https://github.com/lightspeedwp/.github/issues/4004))
+- **Orphaned Refs Scan Scope** — `theme-orphaned-refs` skips `node_modules`, build and agent folders, checks radius presets, suggests numeric steps, and is now TypeScript with tests. ([#4037](https://github.com/lightspeedwp/.github/pull/4037))
+- **Site Tokens Palette Order** — `site-to-design-tokens` exports the colour ramps in the LightSpeed order (neutral, primary, brand, cta), so the theme palette follows the convention. ([#4035](https://github.com/lightspeedwp/.github/pull/4035))
+- **Figma Tokens Layout Widths** — `figma-to-block-theme` maps content and wide width to `settings.layout` in px, not unitless custom values. ([#4034](https://github.com/lightspeedwp/.github/pull/4034))
+- **Figma Tokens Monospace Stack** — `figma-to-block-theme` keeps the declared system stack for a generic family such as Monospace. ([#4033](https://github.com/lightspeedwp/.github/pull/4033))
+- **Figma Tokens Font Stacks** — `figma-to-block-theme` starts font stacks with the clean family name, not the live `@font-face` name, and keeps the fallbacks. ([#4032](https://github.com/lightspeedwp/.github/pull/4032))
+- **Site Tokens Spacing Minimums** — `site-to-design-tokens` keeps mobile spacing values in order up the ladder and lists any it raises. ([#4024](https://github.com/lightspeedwp/.github/pull/4024))
+- **Site Tokens Action Text** — `site-to-design-tokens` takes each action's text colour from the buttons that have its fill, so text and fill are a pair the site really shows. ([#4023](https://github.com/lightspeedwp/.github/pull/4023))
+- **Site Tokens Crawl Redirects** — `site-to-design-tokens` records where each page landed, warns about redirects, and leaves out pages that land on one already captured. ([#4022](https://github.com/lightspeedwp/.github/pull/4022))
+- **Site Tokens Action Colours** — `site-to-design-tokens` uses the live button colour for actions and moves defaults that fail contrast to the nearest passing step. ([#4008](https://github.com/lightspeedwp/.github/issues/4008))
+- **Site Tokens Font Roles** — `site-to-design-tokens` cleans font names, keeps the CSS stack, and outputs heading, body, monospace and (when used) accent roles. ([#4007](https://github.com/lightspeedwp/.github/issues/4007))
+- **Site Tokens Content Width** — `site-to-design-tokens` measures content width from running text, takes a `--layout` override, and flags unlikely widths. ([#4006](https://github.com/lightspeedwp/.github/issues/4006))
+- **Site Tokens Spacing Ladder** — `site-to-design-tokens` fills the whole spacing ladder from `5` by shifting values down before it drops one, so 11 distinct values all get a step. ([#4005](https://github.com/lightspeedwp/.github/issues/4005))
 - **Studio Imports From Live Sites** — Live site exports now import into Studio sites that already have WordPress content; files in the wrong format are refused with a reason. ([PR #3961](https://github.com/lightspeedwp/.github/pull/3961))
 
 - **Qodo PR-Agent Eligibility and Comment Binding** — A closed pull request is refused on every request path, and both receivers resolve the exact maintainer comment by id. ([PR #3532](https://github.com/lightspeedwp/.github/pull/3532))

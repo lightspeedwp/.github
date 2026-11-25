@@ -1,4 +1,0 @@
-interface:
-  display_name: "Figma ThemeJSON Style Variations"
-  short_description: "Extract style variation mappings from Figma designs"
-  default_prompt: "Use $figma-themejson-style-variations to extract WordPress style variation mappings from a Figma design."

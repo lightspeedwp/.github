@@ -1,0 +1,806 @@
+{
+  "@context": {
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "schema": "https://schema.org/"
+  },
+  "@graph": [
+    {
+      "@id": "schema:DataType",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "rdfs:Class"
+      }
+    },
+    {
+      "@id": "schema:Text",
+      "@type": [
+        "rdfs:Class",
+        "schema:DataType"
+      ]
+    },
+    {
+      "@id": "schema:URL",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:Date",
+      "@type": [
+        "rdfs:Class",
+        "schema:DataType"
+      ]
+    },
+    {
+      "@id": "schema:DateTime",
+      "@type": [
+        "rdfs:Class",
+        "schema:DataType"
+      ]
+    },
+    {
+      "@id": "schema:Number",
+      "@type": [
+        "rdfs:Class",
+        "schema:DataType"
+      ]
+    },
+    {
+      "@id": "schema:Integer",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Number"
+      }
+    },
+    {
+      "@id": "schema:Boolean",
+      "@type": [
+        "rdfs:Class",
+        "schema:DataType"
+      ]
+    },
+    {
+      "@id": "schema:Thing",
+      "@type": "rdfs:Class"
+    },
+    {
+      "@id": "schema:CreativeWork",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:WebPage",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      }
+    },
+    {
+      "@id": "schema:Article",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      }
+    },
+    {
+      "@id": "schema:Review",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:CreativeWork"
+      }
+    },
+    {
+      "@id": "schema:Intangible",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:Rating",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Intangible"
+      }
+    },
+    {
+      "@id": "schema:Offer",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Intangible"
+      }
+    },
+    {
+      "@id": "schema:Enumeration",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Intangible"
+      }
+    },
+    {
+      "@id": "schema:ItemAvailability",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Enumeration"
+      }
+    },
+    {
+      "@id": "schema:LimitedAvailability",
+      "@type": "schema:ItemAvailability"
+    },
+    {
+      "@id": "schema:Discontinued",
+      "@type": "schema:ItemAvailability"
+    },
+    {
+      "@id": "schema:Organization",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:Place",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:LocalBusiness",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": [
+        {
+          "@id": "schema:Organization"
+        },
+        {
+          "@id": "schema:Place"
+        }
+      ]
+    },
+    {
+      "@id": "schema:LodgingBusiness",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:LocalBusiness"
+      }
+    },
+    {
+      "@id": "schema:Person",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:Trip",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Intangible"
+      }
+    },
+    {
+      "@id": "schema:TouristTrip",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Trip"
+      },
+      "schema:isPartOf": {
+        "@id": "https://pending.schema.org"
+      }
+    },
+    {
+      "@id": "schema:ItemList",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Intangible"
+      }
+    },
+    {
+      "@id": "schema:BreadcrumbList",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:ItemList"
+      }
+    },
+    {
+      "@id": "schema:ListItem",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Intangible"
+      }
+    },
+    {
+      "@id": "schema:StructuredValue",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Intangible"
+      }
+    },
+    {
+      "@id": "schema:PriceSpecification",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:StructuredValue"
+      }
+    },
+    {
+      "@id": "schema:UnitPriceSpecification",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:PriceSpecification"
+      }
+    },
+    {
+      "@id": "schema:PostalAddress",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:StructuredValue"
+      }
+    },
+    {
+      "@id": "schema:PropertyValue",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:StructuredValue"
+      }
+    },
+    {
+      "@id": "schema:Action",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:SearchAction",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Action"
+      }
+    },
+    {
+      "@id": "schema:OldThing",
+      "@type": "rdfs:Class",
+      "rdfs:subClassOf": {
+        "@id": "schema:Thing"
+      },
+      "schema:supersededBy": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:name",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Thing"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:url",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Thing"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:URL"
+      }
+    },
+    {
+      "@id": "schema:description",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Thing"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:image",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Thing"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:URL"
+      }
+    },
+    {
+      "@id": "schema:sameAs",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Thing"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:URL"
+      }
+    },
+    {
+      "@id": "schema:mainEntityOfPage",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Thing"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:URL"
+        }
+      ]
+    },
+    {
+      "@id": "schema:potentialAction",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Thing"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Action"
+      }
+    },
+    {
+      "@id": "schema:author",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Rating"
+        }
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Person"
+        },
+        {
+          "@id": "schema:Organization"
+        }
+      ]
+    },
+    {
+      "@id": "schema:headline",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:CreativeWork"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:datePublished",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:CreativeWork"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        },
+        {
+          "@id": "schema:DateTime"
+        }
+      ]
+    },
+    {
+      "@id": "schema:publisher",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:CreativeWork"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Organization"
+        },
+        {
+          "@id": "schema:Person"
+        }
+      ]
+    },
+    {
+      "@id": "schema:itemReviewed",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Review"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:reviewRating",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Review"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Rating"
+      }
+    },
+    {
+      "@id": "schema:reviewBody",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Review"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:review",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Organization"
+        },
+        {
+          "@id": "schema:Place"
+        },
+        {
+          "@id": "schema:Offer"
+        }
+      ],
+      "schema:rangeIncludes": {
+        "@id": "schema:Review"
+      }
+    },
+    {
+      "@id": "schema:reviews",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Organization"
+        },
+        {
+          "@id": "schema:Place"
+        },
+        {
+          "@id": "schema:Offer"
+        }
+      ],
+      "schema:rangeIncludes": {
+        "@id": "schema:Review"
+      },
+      "schema:supersededBy": {
+        "@id": "schema:review"
+      }
+    },
+    {
+      "@id": "schema:ratingValue",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Rating"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Number"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "schema:bestRating",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Rating"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Number"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "schema:price",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:Offer"
+        },
+        {
+          "@id": "schema:PriceSpecification"
+        }
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Number"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "schema:priceCurrency",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:Offer"
+        },
+        {
+          "@id": "schema:PriceSpecification"
+        }
+      ],
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:availability",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Offer"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:ItemAvailability"
+      }
+    },
+    {
+      "@id": "schema:availabilityStarts",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Offer"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        },
+        {
+          "@id": "schema:DateTime"
+        }
+      ]
+    },
+    {
+      "@id": "schema:availabilityEnds",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Offer"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Date"
+        },
+        {
+          "@id": "schema:DateTime"
+        }
+      ]
+    },
+    {
+      "@id": "schema:priceValidUntil",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Offer"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Date"
+      }
+    },
+    {
+      "@id": "schema:priceSpecification",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Offer"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:PriceSpecification"
+      }
+    },
+    {
+      "@id": "schema:unitText",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:UnitPriceSpecification"
+        },
+        {
+          "@id": "schema:PropertyValue"
+        }
+      ],
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:itemOffered",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Offer"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Trip"
+        },
+        {
+          "@id": "schema:CreativeWork"
+        }
+      ]
+    },
+    {
+      "@id": "schema:offers",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:Trip"
+        },
+        {
+          "@id": "schema:CreativeWork"
+        },
+        {
+          "@id": "schema:Place"
+        }
+      ],
+      "schema:rangeIncludes": {
+        "@id": "schema:Offer"
+      }
+    },
+    {
+      "@id": "schema:address",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:Place"
+        },
+        {
+          "@id": "schema:Organization"
+        }
+      ],
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:PostalAddress"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "schema:logo",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Organization"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:URL"
+      }
+    },
+    {
+      "@id": "schema:additionalProperty",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": [
+        {
+          "@id": "schema:Place"
+        },
+        {
+          "@id": "schema:Offer"
+        }
+      ],
+      "schema:rangeIncludes": {
+        "@id": "schema:PropertyValue"
+      }
+    },
+    {
+      "@id": "schema:value",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:PropertyValue"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Text"
+        },
+        {
+          "@id": "schema:Number"
+        }
+      ]
+    },
+    {
+      "@id": "schema:position",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:ListItem"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:Integer"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "schema:item",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:ListItem"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Thing"
+      }
+    },
+    {
+      "@id": "schema:itemListElement",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:ItemList"
+      },
+      "schema:rangeIncludes": [
+        {
+          "@id": "schema:ListItem"
+        },
+        {
+          "@id": "schema:Thing"
+        },
+        {
+          "@id": "schema:Text"
+        }
+      ]
+    },
+    {
+      "@id": "schema:query",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:SearchAction"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      }
+    },
+    {
+      "@id": "schema:target",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Action"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:URL"
+      }
+    },
+    {
+      "@id": "schema:worksFor",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:Person"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Organization"
+      }
+    },
+    {
+      "@id": "schema:touristType",
+      "@type": "rdf:Property",
+      "schema:domainIncludes": {
+        "@id": "schema:TouristTrip"
+      },
+      "schema:rangeIncludes": {
+        "@id": "schema:Text"
+      },
+      "schema:isPartOf": {
+        "@id": "https://pending.schema.org"
+      }
+    }
+  ]
+}

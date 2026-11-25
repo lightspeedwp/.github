@@ -33,7 +33,7 @@ If source format is non-standard, explicitly state assumptions in dry-run output
 
 ## Required policies before writes
 
-- `direction`: `code_to_figma` only. This is the sole supported value because this skill writes to Figma and nothing else; there is no code-write path here. Do not accept `figma_to_code` or `bidirectional`: an earlier version of this file advertised both, which let a caller select a direction whose apply step wrote to the wrong side, or no side at all. Route the reverse direction to `figma-themejson-palette`, `figma-themejson-typography`, `figma-themejson-spacing`, `figma-themejson-radius` or `figma-themejson-shadow`, which write code from Figma variables, or use `lightspeed-figma-wordpress-parity-auditor` for a read-only comparison.
+- `direction`: `code_to_figma` only. This is the sole supported value because this skill writes to Figma and nothing else; there is no code-write path here. Do not accept `figma_to_code` or `bidirectional`: an earlier version of this file advertised both, which let a caller select a direction whose apply step wrote to the wrong side, or no side at all. Route the reverse direction to `figma-to-block-theme`, which writes theme.json from Figma variables, or use `lightspeed-figma-wordpress-parity-auditor` for a read-only comparison.
 - `deletePolicy`: default `archive_only` (NOT delete)
 - `conflictPolicy`: `prefer_code`, `prefer_figma`, `manual_review`
 - `namingPolicy`: token key normalization strategy

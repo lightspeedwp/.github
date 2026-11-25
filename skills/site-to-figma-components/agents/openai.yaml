@@ -1,0 +1,4 @@
+interface:
+  display_name: "Site to Figma Components"
+  short_description: "Rebuild a live site's components, patterns and templates in Figma"
+  default_prompt: "Use $site-to-figma-components to crawl the live site, propose an inventory of components, patterns, template parts and templates for approval, build the approved set in Figma bound to the design tokens, verify it and write the manifest for figma-to-block-theme."

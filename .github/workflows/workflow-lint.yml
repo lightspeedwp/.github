@@ -16,9 +16,17 @@ on:
     paths:
       - '.github/workflows/**'
       - '.github/actionlint.yaml'
+      # The same files scripts/workflows/ci-scope.sh treats as relevant to actionlint:
+      # a changed local action can break the workflows that call it.
+      - '.github/actions/**/action.yml'
+      - '.github/actions/**/action.yaml'
+      - 'scripts/validation/run-actionlint.cjs'
+      - 'scripts/workflows/ci-scope.sh'
 
 permissions:
   contents: read
+  # ci-scope.sh reads the earlier result of the same check.
+  checks: read
 
 concurrency:
   group: workflow-lint-${{ github.event.pull_request.number || github.ref }}
@@ -35,15 +43,37 @@ jobs:
         with:
           # Read-only job: nothing pushes, so do not persist credentials.
           persist-credentials: false
+          # ci-scope.sh compares commits, so it needs history.
+          fetch-depth: 0
           # Workflow files and local actions, plus the shared actionlint
           # script: the step below runs `npm run lint:actionlint`, which lives
           # in scripts/validation. Cone mode always includes root files, so
           # package.json resolves even though it is not listed here.
+          #
+          # Local actions must live under .github/actions. actionlint skips the
+          # input checks for a local action whose metadata file is missing, and says
+          # nothing, so an action outside this checkout would pass unchecked. A test
+          # in scripts/validation/__tests__/workflow-lint-active-files.test.js fails
+          # if a workflow uses a local action from anywhere else.
           sparse-checkout: |
             .github
             scripts/validation
+            scripts/workflows
+
+      - name: Decide whether this check has anything to do
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CHECK_NAME: actionlint
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/workflows/ci-scope.sh actionlint
 
       - name: Download actionlint
+        if: steps.scope.outputs.run == 'true'
         env:
           ACTIONLINT_VERSION: '1.7.12'
           # SHA-256 of actionlint_1.7.12_linux_amd64.tar.gz from the release
@@ -57,6 +87,7 @@ jobs:
           ./actionlint --version
 
       - name: Run actionlint on active workflows
+        if: steps.scope.outputs.run == 'true'
         # Delegates to npm run lint:actionlint, which runs
         # scripts/validation/run-actionlint.cjs. That script holds the
         # suppression list and reads the file list from .github/workflows, so

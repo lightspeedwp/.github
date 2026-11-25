@@ -1,6 +1,6 @@
 # Specification Catalog
 
-**Last Updated**: 2026-09-30 | **Maintained by**: Governance Authority (@ashley)
+**Last Updated**: 2026-11-24 | **Maintained by**: Governance Authority (@ashley)
 
 ## Overview
 
@@ -40,7 +40,7 @@ All specification catalog entries MUST follow this exact column order and naming
 | 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
 | 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
 | 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Active | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
-| 019 | qodo-pr-agent-integration | Qodo PR-Agent Installation & Agent/Skill Integration | Active | 2026-09-24 | [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md) |
+| 019 | qodo-pr-agent-integration | Qodo PR-Agent Installation & Agent/Skill Integration | Archived | 2026-09-24 | [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md) |
 
 ---
 
@@ -56,7 +56,11 @@ All specification catalog entries MUST follow this exact column order and naming
 
 | # | Slug | Title | Status | Created | Link |
 |---|-------|---------|--------|---------|------|
-| 020 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md) |
+| 023 | wp-schema-audit-agent | WordPress Schema Audit Agent | Draft | 2026-10-14 | [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md) |
+| 024 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md) |
+| 025 | spec-kit-upgrade | Spec Kit Upgrade to v1.4.4 | Draft | 2026-11-24 | [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md) |
+| 026 | ci-check-scope | CI Checks Scoped to Changed Files | Draft | 2026-11-24 | [./026-ci-check-scope/spec.md](./026-ci-check-scope/spec.md) |
+| 027 | qodo-pr-agent-removal | Remove the Unused Qodo PR-Agent Pilot | Draft | 2026-11-24 | [./027-qodo-pr-agent-removal/spec.md](./027-qodo-pr-agent-removal/spec.md) |
 | 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
 | 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
 | 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
@@ -240,15 +244,29 @@ the branching strategy, through SessionStart and PreToolUse hooks.
 Pilot the open-source Qodo PR-Agent alongside CodeRabbit on this repository, with a reusable workflow and a shared
 skill that other repositories and agents can opt into.
 
-- **Status**: Active
-- **Phase**: Implemented (pilot); live pilot checks and the 14-day report follow merge (lightspeedwp/.github#3535)
+- **Status**: Archived
+- **Phase**: Removed in specification 027 before the pilot ran; the directory and the allocation are kept
 - **Created**: 2026-09-24
-- **Updated**: 2026-09-30
+- **Updated**: 2026-11-24
 - **Link**: [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md)
 
 ---
 
-### 020 - WordPress DB Migration Agent
+### 023 - WordPress Schema Audit Agent
+
+Help team members check the structured data a WordPress site publishes: pick one test URL per post
+type, taxonomy and key page, validate each page's JSON-LD against the schema.org vocabulary and
+Google rich-result rules, and turn the findings into prioritised fixes.
+
+- **Status**: Draft
+- **Phase**: Specification and initial implementation
+- **Created**: 2026-10-14
+- **Updated**: 2026-10-14
+- **Link**: [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md)
+
+---
+
+### 024 - WordPress DB Migration Agent
 
 Help team members move WordPress databases between MySQL hosts and WordPress Studio local sites:
 clean MySQL exports for Studio, pre-flight check Studio exports before staging or live, and replace
@@ -258,22 +276,74 @@ site URLs safely.
 - **Phase**: Specification and initial implementation
 - **Created**: 2026-10-13
 - **Updated**: 2026-10-13
-- **Link**: [./020-wp-db-migration-agent/spec.md](./020-wp-db-migration-agent/spec.md)
+- **Link**: [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md)
+
+---
+
+### 025 - Spec Kit Upgrade to v1.4.4
+
+Upgrade the installed GitHub Spec Kit from the `1.0.7.dev0` development build to `v1.4.4`, keep the
+configurable specifications folder, and remove the stale `taskstoissues` skill, which is no longer
+in core.
+
+- **Status**: Draft
+- **Phase**: Specification and implementation
+- **Created**: 2026-11-24
+- **Updated**: 2026-11-24
+- **Link**: [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md)
+
+---
+
+### 026 - CI Checks Scoped to Changed Files
+
+Run the lint, typecheck, actionlint and Jest checks only when a push changes files they read. One
+script holds the rules, and each required check still reports on every pull request.
+
+- **Status**: Draft
+- **Phase**: Specification and implementation
+- **Created**: 2026-11-24
+- **Updated**: 2026-11-24
+- **Link**: [./026-ci-check-scope/spec.md](./026-ci-check-scope/spec.md)
+
+---
+
+### 027 - Remove the Unused Qodo PR-Agent Pilot
+
+Remove the Qodo PR-Agent pilot workflows, skill, configuration, guide and tests, which never ran, and
+the references to them. Specification 019 is kept and Archived.
+
+- **Status**: Draft
+- **Phase**: Specification and implementation
+- **Created**: 2026-11-24
+- **Updated**: 2026-11-24
+- **Link**: [./027-qodo-pr-agent-removal/spec.md](./027-qodo-pr-agent-removal/spec.md)
 
 ---
 
 ## Archive
 
-Currently no archived or deprecated specifications. All numbered specifications remain in one of three states: Draft (pending approval), Active (approved and in use), or Archived (superseded or cancelled).
+Specification 019 (Qodo PR-Agent) is the only archived specification. It is kept with its allocation, and
+its row stays in the Active table above, marked Archived, so the ledger and the directory still agree.
+
+All other numbered specifications remain Draft (pending approval), Active (approved and in use) or Resolved (the problem no longer occurs). A specification becomes Archived when it is superseded, cancelled or deprecated, and it keeps its directory and number.
 
 ---
 
 ## Numbering Strategy
 
-- **Existing Specifications**: 001-012 (preserved as-is, no renumbering)
-- **Audit Specification**: 013 (this specification catalog refactoring)
-- **Future Numbering**: Next specification = highest current + 1; check the tables above and the `.github/specs/` folders first
-- **No Reuse Policy**: Archived/deprecated specs keep their numbers; future specs get next available
+- **Allocation source**: [ALLOCATIONS.json](./ALLOCATIONS.json), beneath the configured specification root.
+- **Complete accounting**: Every integer through the highest allocation is pending, materialised or retired.
+- **Future numbering**: Highest accounted allocation plus one; no gap filling, number recycling or automatic expiry.
+- **Bootstrap**: 24 allocations, 21 genuine directories; 020 pending, 021/022 retired, 023/024 materialised.
+- **Since bootstrap**: 025 to 027 are materialised; the next allocation is 028 at the time of writing. The ledger is the current record.
+- **Preserved identities**: 020 portable agents, 023 schema audit and 024 database migration.
+- **Historical provenance**: The ledger separates the two histories for 021 and for 022, and the former database identity at 020.
+- **No reuse**: Archived specifications retain their genuine directories and materialised allocations.
+
+Pending and retired allocations are not catalogue specifications and receive no fabricated rows
+or links to absent directories. `materialised` is not an Active/approved quality judgement.
+The [dated decision](https://linear.app/lightspeedwp/issue/GIT-2676) records lifecycle direction;
+its provenance is not automatic proof of approval or implementation.
 
 For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
@@ -299,8 +369,8 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Determine next number: take the highest number in this catalog and in `.github/specs/` (019 at the time of writing) and add 1 (020)
-2. Create directory: `.github/specs/{number}-{slug}/` using that number (for example `020-{slug}`)
+1. Validate directories and the allocation ledger together; plan highest accounted plus one (028 at the time of writing), or fulfil an exact pending claim.
+2. Create the genuine specification and include its explicit materialised entry or transition in the same reviewed candidate; never auto-update the ledger.
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
 5. Request approval from @ashley (governance authority)

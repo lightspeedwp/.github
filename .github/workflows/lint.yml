@@ -19,6 +19,8 @@ on:
 
 permissions:
   contents: read
+  # ci-scope.sh reads the earlier result of the same check.
+  checks: read
 
 concurrency:
   group: lint-${{ github.event.pull_request.number || github.ref }}
@@ -42,16 +44,31 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Decide whether this check has anything to do
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CHECK_NAME: Lint (JS/YAML/package.json)
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/workflows/ci-scope.sh lint
+
       - name: Set up Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        if: steps.scope.outputs.run == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
+        if: steps.scope.outputs.run == 'true'
         run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
 
       - name: Lint JS, YAML and package.json
+        if: steps.scope.outputs.run == 'true'
         # lint:ci is the uncached variant: a fresh checkout has no warm
         # .eslintcache, so caching here only costs write time.
         run: npm run lint:ci
@@ -60,6 +77,7 @@ jobs:
       # workflow step invoking an npm script package.json does not declare,
       # which then fails every run with "Missing script" until noticed.
       - name: Validate workflow npm script references
+        if: steps.scope.outputs.run == 'true'
         run: npm run validate:workflow-npm-scripts
 
   typecheck:
@@ -70,18 +88,34 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          fetch-depth: 0
           persist-credentials: false
 
+      - name: Decide whether this check has anything to do
+        id: scope
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CHECK_NAME: Typecheck
+          GH_TOKEN: ${{ github.token }}
+        run: bash scripts/workflows/ci-scope.sh typecheck
+
       - name: Set up Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        if: steps.scope.outputs.run == 'true'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
           cache: npm
 
       - name: Install dependencies
+        if: steps.scope.outputs.run == 'true'
         run: npm ci --ignore-scripts --prefer-offline --no-audit --no-fund
 
       - name: Typecheck
+        if: steps.scope.outputs.run == 'true'
         run: npm run typecheck
 
       # Astro component checking: `tsc` cannot read .astro files, so a type error in a
@@ -89,8 +123,10 @@ jobs:
       # existing findings, so this reports them without failing the job; make it
       # blocking by deleting `continue-on-error` once they are cleared.
       - name: Install website dependencies
+        if: steps.scope.outputs.run == 'true'
         run: npm ci --prefix website --ignore-scripts --prefer-offline --no-audit --no-fund
 
       - name: Astro check (informational)
+        if: steps.scope.outputs.run == 'true'
         continue-on-error: true
         run: npm run typecheck:astro

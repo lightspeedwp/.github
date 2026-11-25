@@ -13,6 +13,8 @@ on:
 
 permissions:
   contents: read
+  # ci-scope.sh reads the earlier result of the same check.
+  checks: read
 
 concurrency:
   group: tests-${{ github.event.pull_request.number || github.ref }}
@@ -25,6 +27,8 @@ jobs:
     timeout-minutes: 5
     outputs:
       docs_only: ${{ steps.scope.outputs.docs_only }}
+      mode: ${{ steps.scope.outputs.mode }}
+      tests: ${{ steps.scope.outputs.tests }}
     steps:
       - name: Checkout changed files
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -36,30 +40,27 @@ jobs:
         id: scope
         env:
           EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: ${{ github.event.before }}
+          CHECK_NAME: No new test failures
+          GH_TOKEN: ${{ github.token }}
         run: |
-          docs_only=false
-          if [ "$EVENT_NAME" = "pull_request" ]; then
-            changed_files="$RUNNER_TEMP/tests-changed-files"
-            git diff --name-only --no-renames -z "$BASE_SHA" HEAD > "$changed_files"
-            if [ -s "$changed_files" ]; then
-              docs_only=true
-              while IFS= read -r -d '' file; do
-                case "$file" in
-                  docs/LABEL_STRATEGY.md | docs/LABELING.md)
-                    docs_only=false
-                    break
-                    ;;
-                  docs/*.md) ;;
-                  *)
-                    docs_only=false
-                    break
-                    ;;
-                esac
-              done < "$changed_files"
-            fi
+          # The rules live in scripts/workflows/ci-scope.sh, shared with the
+          # lint checks. A change to prose alone runs only the tests that
+          # depend on prose (mode=prose); the list is passed to both targets
+          # so head and base run the same tests.
+          bash scripts/workflows/ci-scope.sh jest > "$RUNNER_TEMP/tests-scope"
+          cat "$RUNNER_TEMP/tests-scope"
+          if grep -qx 'run=false' "$RUNNER_TEMP/tests-scope"; then
+            echo "docs_only=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "docs_only=false" >> "$GITHUB_OUTPUT"
           fi
-          echo "docs_only=$docs_only" >> "$GITHUB_OUTPUT"
+          if grep -qx 'mode=prose' "$RUNNER_TEMP/tests-scope"; then
+            echo "tests=$(node scripts/workflows/jest-prose-tests.cjs --list)" >> "$GITHUB_OUTPUT"
+          fi
 
   jest:
     name: Jest (${{ matrix.target }})
@@ -84,7 +85,7 @@ jobs:
           ref: ${{ matrix.target == 'base' && github.event.pull_request.base.sha || '' }}
 
       - name: Set up Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -95,12 +96,28 @@ jobs:
       - name: Run Jest
         env:
           EVENT_NAME: ${{ github.event_name }}
+          SCOPE_MODE: ${{ needs.scope.outputs.mode }}
+          SCOPE_TESTS: ${{ needs.scope.outputs.tests }}
+          MATRIX_TARGET: ${{ matrix.target }}
         run: |
           # Failing tests are expected on develop; the compare job decides.
           # A missing or invalid report fails closed there.
           jest_status=0
+          jest_args=()
+          if [ "$SCOPE_MODE" = "prose" ] && [ -n "$SCOPE_TESTS" ]; then
+            # A prose-only change: run the tests that depend on prose.
+            read -r -a jest_args <<< "$SCOPE_TESTS"
+            jest_args+=(--passWithNoTests)
+          elif [ "$MATRIX_TARGET" = "head" ] && [ -f scripts/workflows/jest-read-tracer.cjs ]; then
+            # A full run records what the suite reads, so the list of
+            # prose-dependent tests can be checked below.
+            export JEST_READ_TRACE_FILE="$RUNNER_TEMP/jest-reads.tsv"
+            export JEST_READ_TRACE_ROOT="$PWD"
+            export NODE_OPTIONS="--require=$PWD/scripts/workflows/jest-read-tracer.cjs"
+          fi
           npx jest --config .jest.config.cjs --ci --coverage=false \
-            --json --outputFile=jest-report.json || jest_status=$?
+            --json --outputFile=jest-report.json "${jest_args[@]}" || jest_status=$?
+          unset NODE_OPTIONS
           jq -r '"suites=\(.numTotalTestSuites) failed_suites=\(.numFailedTestSuites) tests=\(.numTotalTests) failed=\(.numFailedTests)"' \
             jest-report.json 2>/dev/null || echo "::warning::No Jest report was written"
           if [ "$EVENT_NAME" = "workflow_dispatch" ] \
@@ -119,12 +136,24 @@ jobs:
           fi
 
       - name: Upload report
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: jest-report-${{ matrix.target }}
           path: jest-report.json
           if-no-files-found: ignore
           retention-days: 7
+
+      - name: Check the list of tests that depend on prose
+        if: matrix.target == 'head' && needs.scope.outputs.mode != 'prose'
+        run: |
+          # A test that starts reading Markdown must be added to the list,
+          # or a later prose-only change would not run it.
+          if [ -s "$RUNNER_TEMP/jest-reads.tsv" ]; then
+            node scripts/workflows/jest-prose-tests.cjs --check "$RUNNER_TEMP/jest-reads.tsv"
+          else
+            echo "::error::No read trace was written, so the list cannot be checked."
+            exit 1
+          fi
 
   compare:
     name: No new test failures
@@ -133,6 +162,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      - name: Record base for later test scope decisions
+        if: needs.scope.result == 'success'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: printf '::notice file=scripts/workflows/ci-scope.sh,line=1,title=CI scope base::%s\n' "$BASE_SHA"
+
+      - name: Fail when a Jest job failed
+        if: needs.jest.result == 'failure'
+        run: |
+          echo "::error::A Jest job failed. See its log; the list of prose-dependent tests may be out of date."
+          exit 1
+
       - name: Report documentation-only skip
         if: needs.scope.outputs.docs_only == 'true'
         run: |
@@ -148,7 +189,7 @@ jobs:
 
       - name: Download reports
         if: needs.scope.outputs.docs_only != 'true'
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: jest-report-*
           path: reports

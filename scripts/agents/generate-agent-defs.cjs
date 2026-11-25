@@ -31,6 +31,10 @@ const AGENTS = [
     canonical: 'agents/wp-db-migration-agent/wp-db-migration.agent.md',
     generated: '.claude/agents/wp-db-migration-agent.md',
   },
+  {
+    canonical: 'agents/wp-schema-audit-agent/wp-schema-audit.agent.md',
+    generated: '.claude/agents/wp-schema-audit-agent.md',
+  },
 ];
 
 function parseFrontmatter(content) {
