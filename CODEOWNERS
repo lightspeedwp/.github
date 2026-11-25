@@ -54,3 +54,11 @@
 /scripts/validation/check-locked-file-approval.cjs @ashleyshaw
 /.github/reports/audits/2026-09-14-label-audit/evidence/change-requests.json @ashleyshaw
 /CODEOWNERS @ashleyshaw
+
+# Dependency manifests and lockfiles have no owner so Renovate and Dependabot
+# update PRs do not auto-request reviewers. Later patterns win, so this block
+# stays last. Workflow files keep their owners above.
+**/package.json
+**/package-lock.json
+**/composer.json
+**/composer.lock
