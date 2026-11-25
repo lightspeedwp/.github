@@ -18,7 +18,7 @@ This directory contains the active GitHub Actions workflows for this repository.
 
 - **branch-name-validation.yml** - Enforces the `{type}/{scope}-{title}` branch naming strategy on push
 - **branch-validation-metrics-aggregator.yml** - Aggregates branch validation metrics hourly and on validation completion
-- **pr-template-routing.yml** - Routes PR templates and applies labels from the branch name
+- **pr-template-routing.yml** - Routes PR templates and applies labels from the branch name; its body check lives in `scripts/pr-preflight-rules.js`, which `npm run pr:preflight` runs locally before a PR is opened
 
 ### Changelog
 
