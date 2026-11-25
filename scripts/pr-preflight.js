@@ -8,12 +8,13 @@
  *
  * 1. Route the branch name to its PR template, as the routing check does.
  * 2. Compare a body file with that template's sections.
- * 3. Predict the changelog gate from the diff and the labels.
+ * 3. Predict the changelog gate from the diff, labels and intended PR author.
  * 4. Run the specification audit when the diff touches `.github/specs/`.
  *
  * Usage:
  *   node scripts/pr-preflight.js --branch <name> --skeleton
- *   node scripts/pr-preflight.js --branch <name> --body-file <file> [--labels a,b] [--base origin/develop]
+ *   node scripts/pr-preflight.js --branch <name> [--body-file <file>]
+ *     [--labels a,b] [--base origin/develop] [--author <login>]
  *
  * Exit code 0 when every applicable check passes, 1 otherwise.
  */
@@ -30,13 +31,20 @@ import {
 } from './pr-preflight-rules.js';
 
 function parseArgs(argv) {
-  const args = { base: 'origin/develop', labels: [] };
+  const args = { base: 'origin/develop', labels: [], author: '' };
   for (let i = 0; i < argv.length; i += 1) {
     const flag = argv[i];
     if (flag === '--skeleton') args.skeleton = true;
     else if (flag === '--branch') args.branch = argv[++i];
-    else if (flag === '--body-file') args.bodyFile = argv[++i];
-    else if (flag === '--base') args.base = argv[++i];
+    else if (flag === '--body-file' || flag === '--author') {
+      const value = argv[i + 1];
+      if (!value || value.startsWith('-')) {
+        throw new Error(`${flag} requires ${flag === '--body-file' ? 'a file path' : 'a PR author login'}.`);
+      }
+      if (flag === '--body-file') args.bodyFile = value;
+      else args.author = value;
+      i += 1;
+    } else if (flag === '--base') args.base = argv[++i];
     else if (flag === '--labels') args.labels = (argv[++i] || '').split(',').filter(Boolean);
     else throw new Error(`Unknown argument: ${flag}`);
   }
@@ -92,24 +100,16 @@ function main() {
     console.log('skip PR body (no --body-file)');
   }
 
-  // Committed changes plus anything staged, unstaged or untracked, so the
-  // prediction is the same before and after the commit.
-  const changed = [
-    ...new Set(
-      [
-        run('git', ['diff', '--name-only', `${args.base}...HEAD`]),
-        run('git', ['diff', '--name-only', 'HEAD']),
-        run('git', ['ls-files', '--others', '--exclude-standard']),
-      ]
-        .join('\n')
-        .split('\n')
-        .filter(Boolean)
-    ),
-  ];
+  // Compare the final working tree with the common ancestor so edits that
+  // restore a tracked file to its original state do not count as PR changes.
+  const mergeBase = run('git', ['merge-base', args.base, 'HEAD']).trim();
+  const tracked = run('git', ['diff', '--name-only', '-z', mergeBase, '--']).split('\0');
+  const untracked = run('git', ['ls-files', '--others', '--exclude-standard', '-z']).split('\0');
+  const changed = [...new Set([...tracked, ...untracked].filter(Boolean))];
   const labels = [
     ...new Set([...routing.default_labels.filter((l) => l.startsWith('type:')), ...args.labels]),
   ];
-  const gate = predictChangelogGate({ changed, labels });
+  const gate = predictChangelogGate({ changed, labels, author: args.author });
   if (gate.outcome === 'fail') fail(`changelog gate: ${gate.reason}`);
   else console.log(`ok   changelog gate: ${gate.reason}`);
 

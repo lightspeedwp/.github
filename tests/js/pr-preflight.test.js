@@ -5,8 +5,9 @@
  * Every rule here is one a required check enforces, so these tests also pin
  * the contract between the workflow sources and the shared module.
  */
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import {
   RESTRICTED_TYPES,
@@ -232,5 +233,81 @@ describe('scripts/pr-preflight.js', () => {
 
   it('exits non-zero without a branch name', () => {
     expect(() => run([])).toThrow();
+  });
+
+  it.each([[[]], [['--skeleton']]])('rejects --body-file without a path (%j)', (flags) => {
+    const result = spawnSync(
+      'node',
+      ['scripts/pr-preflight.js', '--branch', 'docs/example-change', '--body-file', ...flags],
+      { cwd: repoRoot, encoding: 'utf8' }
+    );
+    expect(result.status).toBe(1);
+    expect(result.stderr).toContain('--body-file requires a file path.');
+  });
+
+  it('predicts the gate from the net working tree changes and the intended PR author', () => {
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'pr-preflight-'));
+    const git = (...args) => execFileSync('git', args, { cwd: fixture, stdio: 'pipe' });
+    const write = (file, content) => fs.writeFileSync(path.join(fixture, file), content);
+    const preflight = (...args) =>
+      spawnSync(
+        'node',
+        ['scripts/pr-preflight.js', '--branch', 'docs/example-change', '--base', 'base', ...args],
+        { cwd: fixture, encoding: 'utf8' }
+      );
+
+    try {
+      git('init');
+      git('config', 'user.name', 'Preflight test');
+      git('config', 'user.email', 'preflight@example.invalid');
+      git('config', 'commit.gpgSign', 'false');
+      for (const file of [
+        'scripts/pr-preflight.js',
+        'scripts/pr-preflight-rules.js',
+        'scripts/pr-template-router.js',
+        '.github/branch-types.yml',
+        '.github/branch-labels.yml',
+        '.github/PULL_REQUEST_TEMPLATE/pr_docs.md',
+      ]) {
+        fs.mkdirSync(path.dirname(path.join(fixture, file)), { recursive: true });
+        fs.copyFileSync(path.join(repoRoot, file), path.join(fixture, file));
+      }
+      fs.symlinkSync(path.join(repoRoot, 'node_modules'), path.join(fixture, 'node_modules'), 'junction');
+      write('.gitignore', 'node_modules\nbody.md\n');
+      write('package.json', '{"type":"module"}');
+      write('tracked.js', 'base\n');
+      git('add', '.');
+      git('commit', '-m', 'Base');
+      git('tag', 'base');
+      write('tracked.js', 'committed change\n');
+      git('commit', '-am', 'Change');
+      write('tracked.js', 'base\n');
+      write('note.md', 'Untracked documentation\n');
+      write(
+        'body.md',
+        requiredSections(read('.github/PULL_REQUEST_TEMPLATE/pr_docs.md'))
+          .map((heading) => `## ${heading}\nFilled for this test.\n`)
+          .join('\n')
+      );
+
+      const restored = preflight('--body-file', 'body.md');
+      expect(restored.status).toBe(0);
+      expect(restored.stdout).toContain('PR body has every template section with content');
+      expect(restored.stdout).toContain('Docs-only diff');
+
+      write('tracked.js', 'pending change\n');
+      expect(preflight().stderr).toContain('PR requires a CHANGELOG.md update');
+      git('add', 'tracked.js');
+      expect(preflight().stderr).toContain('PR requires a CHANGELOG.md update');
+      write('tracked.js', 'base\n');
+      write('untracked.js', 'new file\n');
+      expect(preflight().stderr).toContain('PR requires a CHANGELOG.md update');
+
+      const automated = preflight('--author', 'renovate[bot]');
+      expect(automated.status).toBe(0);
+      expect(automated.stdout).toContain('Automated author is exempt');
+    } finally {
+      fs.rmSync(fixture, { recursive: true, force: true });
+    }
   });
 });

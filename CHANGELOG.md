@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- **Pull Request Preflight** — `npm run pr:preflight` checks a branch's PR template sections, the changelog requirement and the specification audit before the pull request is opened, using the same rules as the required check. ([#4103](https://github.com/lightspeedwp/.github/issues/4103))
+- **Pull Request Preflight** — `npm run pr:preflight` checks whether a pull request meets repository requirements before you open it. ([#4103](https://github.com/lightspeedwp/.github/issues/4103))
 - **Agent and Skill Standards Specification** — Plans the rewrite of the nine agent and skill standards documents around one verified file and folder structure. ([#3464](https://github.com/lightspeedwp/.github/issues/3464))
 - **Site to Block Theme Skill** — Rebuilds live-site templates, parts and patterns in a block theme: measures live, maps values to theme.json tokens and diffs live with local. ([PR #4059](https://github.com/lightspeedwp/.github/pull/4059))
 - **Theme Screenshot Skill** — Makes a theme's 1200 by 900 `screenshot.png` from the site's logo, the theme.json palette and an industry line, rendered with Puppeteer. ([#4010](https://github.com/lightspeedwp/.github/issues/4010))
