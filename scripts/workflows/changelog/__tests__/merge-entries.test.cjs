@@ -6,10 +6,11 @@
  */
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-const TEST_DIR = path.join(__dirname, '../../..', '.github/tmp/merge-test');
+const TEST_DIR = path.join(os.tmpdir(), `merge-entries-test-${process.pid}`);
 const TEST_CHANGELOG = path.join(TEST_DIR, 'CHANGELOG.md');
 const TEST_ENTRIES = path.join(TEST_DIR, 'entries.md');
 
@@ -48,7 +49,7 @@ function assert(condition, message) {
 
 // Helper function to run merge-entries as a subprocess
 function runMergeScript(env) {
-  const result = spawnSync('node', [path.join(__dirname, 'merge-entries.cjs')], {
+  const result = spawnSync('node', [path.join(__dirname, '..', 'merge-entries.cjs')], {
     env: { ...process.env, ...env },
     stdio: 'pipe',
   });

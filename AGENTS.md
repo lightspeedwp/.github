@@ -26,7 +26,7 @@ references:
 - Follow WordPress Coding Standards (CSS, HTML, JavaScript, PHP) and inline‑documentation standards at all times.
 - All code changes must include lint fixes, relevant tests and a short rationale summarising the change.
 - Before creating or pushing branch changes, verify the target branch already exists and matches the PR branch; never create a new remote branch when the work is intended for an existing pull request.
-- Any new scripts, modules, or utilities must have related tests in a `tests/` or `__tests__/` folder next to the code they cover. By default `testMatch` in `.jest.config.cjs` runs `*.test.js`, `*.test.ts` and `*.test.mjs` files in either folder (not `.cjs`, and not the suites listed in `testPathIgnorePatterns`). Keep the smallest focused coverage that exercises the changed behaviour.
+- Any new scripts, modules, or utilities must have related tests in a `tests/` or `__tests__/` folder next to the code they cover. By default `testMatch` in `.jest.config.cjs` runs `*.test.js`, `*.test.ts`, `*.test.mjs` and `*.test.cjs` files in either folder, except the suites listed in `testPathIgnorePatterns`. A CommonJS suite written for `node:test` is listed there and runs through `npm run test:cjs-node` instead; a suite that only tests mocks is excluded until it is rewritten, and runs nowhere. Keep the smallest focused coverage that exercises the changed behaviour.
 - Never output secrets. Treat production and customer data as sensitive. Follow the OWASP top 10 for web security.
 - Accessibility and performance are non‑negotiable; highlight potential issues during reviews.
 - Prefer `theme.json` and block components over bespoke code when feasible to avoid vendor lock‑in.

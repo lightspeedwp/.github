@@ -1,6 +1,14 @@
 const logger = require('./logger.cjs');
 const { ValidationError } = require('./errors.cjs');
 
+function advanceAfterEmptyMatch(regex, text, match) {
+  if (match[0] === '') {
+    // exec() leaves lastIndex unchanged for empty matches. Skip a whole code
+    // point, or move past the end so the next exec() stops and resets lastIndex.
+    regex.lastIndex += text.codePointAt(regex.lastIndex) > 0xffff ? 2 : 1;
+  }
+}
+
 class PatternEngine {
   /**
    * Compile and cache regex patterns
@@ -18,8 +26,29 @@ class PatternEngine {
       }
 
       try {
-        // Compile regex with flags if provided
-        const regex = new RegExp(pattern.regex, pattern.flags || '');
+        const flags = pattern.flags || '';
+        // A pattern written with characters outside the Basic Multilingual Plane (emoji such as
+        // 🚀 or ranges such as [🀀-🿿]) means something different without the `u` flag: it is read
+        // as surrogate halves, so a range throws "Range out of order", a quantifier binds to the
+        // low half only and a class matches a lone half. The rules file is locked, so try
+        // unicode mode first for those patterns. Fall back to the flags as written when `u`
+        // rejects the pattern (for example literal braces, which only unicode mode refuses), so
+        // such a pattern keeps compiling, and so a pattern that fails both ways reports the
+        // error for the flags the author wrote.
+        const astral =
+          !flags.includes('u') &&
+          !flags.includes('v') &&
+          /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex);
+        let regex;
+        if (astral) {
+          try {
+            regex = new RegExp(pattern.regex, `${flags}u`);
+          } catch {
+            regex = new RegExp(pattern.regex, flags);
+          }
+        } else {
+          regex = new RegExp(pattern.regex, flags);
+        }
         return {
           regex,
           description: pattern.description || pattern.regex,
@@ -68,6 +97,7 @@ class PatternEngine {
       while ((match = regex.exec(text)) !== null && matches.length < limit) {
         const matchObj = this.buildMatchObject(match, text, pattern);
         matches.push(matchObj);
+        advanceAfterEmptyMatch(regex, text, match);
       }
 
       if (matches.length >= limit) break;
@@ -189,8 +219,10 @@ class PatternEngine {
         ? pattern.regex
         : new RegExp(pattern.regex.source, (pattern.regex.flags || '') + 'g');
 
-      while (regex.exec(text) !== null) {
+      let match;
+      while ((match = regex.exec(text)) !== null) {
         count++;
+        advanceAfterEmptyMatch(regex, text, match);
       }
     }
 
