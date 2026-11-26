@@ -2,23 +2,30 @@ const path = require('path');
 const fs = require('fs');
 const os = require('os');
 const { execSync } = require('child_process');
+
+// Keep the real Git commands while ignoring machine-specific config (signing, hooks, etc.).
+const gitEnv = {
+  ...process.env,
+  GIT_CONFIG_GLOBAL: os.devNull,
+  GIT_CONFIG_NOSYSTEM: '1',
+};
+
+jest.mock('child_process', () => {
+  const childProcess = jest.requireActual('child_process');
+  return {
+    ...childProcess,
+    execFileSync: (file, args, options) =>
+      childProcess.execFileSync(file, args, { ...options, env: gitEnv }),
+  };
+});
+
 const gitOps = require('../includes/gitOps.cjs');
 
 describe('gitOps.cjs - Cross-repo isolation', () => {
   let tempRoot;
   let tempDir1;
   let tempDir2;
-  const originalGitEnv = {
-    GIT_CONFIG_GLOBAL: process.env.GIT_CONFIG_GLOBAL,
-    GIT_CONFIG_NOSYSTEM: process.env.GIT_CONFIG_NOSYSTEM,
-  };
-
   beforeAll(() => {
-    // Hermetic git: ignore the developer's global and system config (commit signing, default
-    // branch name, hooks) so the suite behaves the same on every machine and in CI.
-    process.env.GIT_CONFIG_GLOBAL = os.devNull;
-    process.env.GIT_CONFIG_NOSYSTEM = '1';
-
     // Repositories live in the OS temp directory, never inside this repository.
     tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'gitops-test-'));
     tempDir1 = path.join(tempRoot, 'repo-1');
@@ -26,19 +33,16 @@ describe('gitOps.cjs - Cross-repo isolation', () => {
 
     [tempDir1, tempDir2].forEach((dir) => {
       fs.mkdirSync(dir, { recursive: true });
-      execSync('git init --initial-branch=master', { cwd: dir, stdio: 'ignore' });
-      execSync('git config user.email "test@example.com"', { cwd: dir });
-      execSync('git config user.name "Test User"', { cwd: dir });
-      execSync('git commit --allow-empty -m "initial"', { cwd: dir, stdio: 'ignore' });
+      const options = { cwd: dir, env: gitEnv };
+      execSync('git init --initial-branch=master', { ...options, stdio: 'ignore' });
+      execSync('git config user.email "test@example.com"', options);
+      execSync('git config user.name "Test User"', options);
+      execSync('git commit --allow-empty -m "initial"', { ...options, stdio: 'ignore' });
     });
   });
 
   afterAll(() => {
     fs.rmSync(tempRoot, { recursive: true, force: true });
-    for (const [key, value] of Object.entries(originalGitEnv)) {
-      if (value === undefined) delete process.env[key];
-      else process.env[key] = value;
-    }
   });
 
   describe('validateDirectory', () => {

@@ -9,8 +9,11 @@
 
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
+import { readConfig } from 'jest-config';
+import { globsToMatcher } from 'jest-util';
 
 const repoRoot = path.resolve(__dirname, '../..');
+const jestConfigPath = path.join(repoRoot, '.jest.config.cjs');
 
 // Suites that never require the script they describe, so they test no code. Rewrite each against
 // its real script, then remove it from this list and from `testPathIgnorePatterns`.
@@ -22,7 +25,7 @@ const EXCLUDED_MOCK_ONLY = [
   'scripts/workflows/projects/__tests__/scan-completion.test.cjs',
 ];
 
-const jestConfig = require(path.join(repoRoot, '.jest.config.cjs'));
+const jestConfig = require(jestConfigPath);
 const packageScripts = require(path.join(repoRoot, 'package.json')).scripts;
 
 const ignoredCjs = jestConfig.testPathIgnorePatterns
@@ -56,17 +59,25 @@ describe('CommonJS test suites', () => {
     expect(excluded).toEqual([...EXCLUDED_MOCK_ONLY].sort());
   });
 
-  it('points test:cjs-node only at files that exist', () => {
-    const missing = nodeSuites.filter((file) => !trackedCjs.includes(file));
+  it('lists only tracked files in test:cjs-node and the documented exclusions', () => {
+    const missing = [...nodeSuites, ...EXCLUDED_MOCK_ONLY].filter(
+      (file) => !trackedCjs.includes(file)
+    );
 
     expect(missing).toEqual([]);
   });
 
-  it('accounts for every tracked .cjs suite: Jest, node --test or excluded', () => {
-    const accountedElsewhere = new Set(ignoredCjs);
-    const runByJest = trackedCjs.filter((file) => !accountedElsewhere.has(file));
+  it('accounts for every tracked .cjs suite: Jest, node --test or excluded', async () => {
+    const { projectConfig } = await readConfig({ config: jestConfigPath });
+    const matchesJest = globsToMatcher(projectConfig.testMatch);
+    const ignoredByJest = new RegExp(projectConfig.testPathIgnorePatterns.join('|'));
+    const runByJest = trackedCjs.filter((file) => {
+      const absolutePath = path.join(repoRoot, file);
+      return matchesJest(absolutePath) && !ignoredByJest.test(absolutePath);
+    });
+    const accountedFor = new Set([...runByJest, ...nodeSuites, ...EXCLUDED_MOCK_ONLY]);
 
-    expect(runByJest.length + ignoredCjs.length).toBe(trackedCjs.length);
+    expect(trackedCjs.filter((file) => !accountedFor.has(file))).toEqual([]);
     expect(runByJest.length).toBeGreaterThan(0);
   });
 });
