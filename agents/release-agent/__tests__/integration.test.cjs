@@ -15,7 +15,6 @@ describe("Release Agent Integration Tests", () => {
 
   beforeEach(() => {
     testDir = fs.mkdtempSync(path.join(os.tmpdir(), "release-agent-it-"));
-    fs.mkdirSync(testDir, { recursive: true });
   });
 
   afterEach(() => {

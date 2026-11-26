@@ -98,13 +98,15 @@ module.exports = {
     '<rootDir>/agents/release-agent/includes/tests/versionManager.test.cjs',
     '<rootDir>/scripts/workflows/changelog/__tests__/changelog-management.test.cjs',
     '<rootDir>/scripts/workflows/changelog/__tests__/checkout-pr-head.test.cjs',
-    '<rootDir>/scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs',
     '<rootDir>/scripts/workflows/changelog/__tests__/merge-entries.test.cjs',
     '<rootDir>/scripts/workflows/metrics/__tests__/metrics-reporting.test.cjs',
-    // These four never require the script they describe: they call a mocked `fs` and assert
-    // on the mock, so they pass or fail without exercising any code. Excluded until they are
-    // rewritten against scan-completion.cjs, archive-projects.cjs, update-projects-status.cjs
-    // and orchestrate-phase-progression.cjs (GIT-2913).
+    // These five never require the script they describe: four call a mocked `fs` and assert on
+    // the mock, and merge-entries.integration re-implements the merge inline on mock strings.
+    // They pass or fail without exercising any code, so they run nowhere. Excluded until they
+    // are rewritten against scan-completion.cjs, archive-projects.cjs,
+    // update-projects-status.cjs, orchestrate-phase-progression.cjs and merge-entries.cjs
+    // (GIT-2913). tests/js/cjs-suites.test.js keeps this list and test:cjs-node honest.
+    '<rootDir>/scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs',
     '<rootDir>/scripts/workflows/projects/__tests__/scan-completion.test.cjs',
     '<rootDir>/scripts/workflows/projects/__tests__/archive-projects.test.cjs',
     '<rootDir>/scripts/automation/__tests__/update-projects-status.test.cjs',

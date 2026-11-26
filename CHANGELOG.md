@@ -77,7 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- **CommonJS test suites now run** — 16 of the 20 `*.test.cjs` suites run in `npm test` and CI: 7 in Jest and 9 through `node --test`. Four that only test mocks are excluded. ([#4112](https://github.com/lightspeedwp/.github/issues/4112))
+- **CommonJS test suites now run** — 15 of the 20 `*.test.cjs` suites run in `npm test` and CI: 7 in Jest and 8 through `node --test`. Five that only test mocks are excluded. ([#4112](https://github.com/lightspeedwp/.github/issues/4112))
 - **Test folder rule** — The repository rules, spec 014 and the agent structure checker now accept `tests/` or `__tests__/`, matching what Jest already runs. ([#3469](https://github.com/lightspeedwp/.github/issues/3469))
 - **Renovate Node and Composer updates no longer request reviewers** — Their manifests and lock files have no code owner, so updates that touch only those files skip the review request. ([#4086](https://github.com/lightspeedwp/.github/pull/4086))
 

@@ -23,7 +23,11 @@ class PatternEngine {
         // mode; without the `u` flag it is read as surrogate halves and throws "Range out of
         // order". The rules file is locked, so the engine adds the flag for those patterns.
         let flags = pattern.flags || '';
-        if (!flags.includes('u') && /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex)) {
+        if (
+          !flags.includes('u') &&
+          !flags.includes('v') &&
+          /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex)
+        ) {
           flags += 'u';
         }
         const regex = new RegExp(pattern.regex, flags);
