@@ -3,6 +3,7 @@
  */
 
 const fs = require('fs');
+const os = require('os');
 const path = require('path');
 const { describe, it, expect, afterEach } = require('@jest/globals');
 const {
@@ -14,7 +15,7 @@ const {
   readMetadata,
 } = require('../readmeTxt.cjs');
 
-const tempDir = path.join(__dirname, '../../__tests__/temp-readme');
+const tempDir = path.join(os.tmpdir(), `readme-txt-test-${process.pid}`);
 const createTempFile = (name, content) => {
   if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir, { recursive: true });
@@ -197,6 +198,31 @@ Stable tag: 1.0.0`;
       const metadata = readMetadata(filePath);
       expect(metadata.version).toBe('1.0.0');
       expect(metadata.author).toBeNull();
+    });
+
+    it('stops reading header fields at the first section heading', () => {
+      const content = `=== My Plugin ===
+Stable tag: 1.0.0
+Tested up to: 6.0
+
+== Description ==
+
+Author: Not The Author
+Requires at least: 1.0
+Stable tag: 9.9.9
+
+== Changelog ==
+
+= 9.9.9 =
+* Not the header`;
+      const filePath = createTempFile('readme.txt', content);
+      const metadata = readMetadata(filePath);
+      expect(metadata.name).toBe('My Plugin');
+      expect(metadata.version).toBe('1.0.0');
+      expect(metadata.tested).toBe('6.0');
+      // These appear only below the first section heading, so they are not header fields.
+      expect(metadata.author).toBeNull();
+      expect(metadata.requiresWp).toBeNull();
     });
 
     it('returns null for non-existent file', () => {

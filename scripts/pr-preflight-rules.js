@@ -109,7 +109,7 @@ export function bodyFailureMessage({ templateName, result }) {
 
 /** Whether a path is a Jest test file, by the patterns in `.jest.config.cjs`. */
 export function isTestFile(file) {
-  return /(^|\/)(tests|__tests__)\/.+\.test\.(js|ts|mjs)$/.test(file);
+  return /(^|\/)(tests|__tests__)\/.+\.test\.(js|ts|mjs|cjs)$/.test(file);
 }
 
 /** A starting body: every template heading with a marker line to replace. */

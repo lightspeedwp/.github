@@ -1,52 +1,66 @@
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const { execSync } = require('child_process');
+
+// Keep the real Git commands while ignoring machine-specific config (signing, hooks, etc.).
+const gitEnv = {
+  ...process.env,
+  GIT_CONFIG_GLOBAL: os.devNull,
+  GIT_CONFIG_NOSYSTEM: '1',
+};
+
+jest.mock('child_process', () => {
+  const childProcess = jest.requireActual('child_process');
+  return {
+    ...childProcess,
+    execFileSync: (file, args, options) =>
+      childProcess.execFileSync(file, args, { ...options, env: gitEnv }),
+  };
+});
+
 const gitOps = require('../includes/gitOps.cjs');
 
 describe('gitOps.cjs - Cross-repo isolation', () => {
+  let tempRoot;
   let tempDir1;
   let tempDir2;
-
   beforeAll(() => {
-    tempDir1 = path.join(__dirname, '../../..', 'tmp-test-repo-1');
-    tempDir2 = path.join(__dirname, '../../..', 'tmp-test-repo-2');
+    // Repositories live in the OS temp directory, never inside this repository.
+    tempRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'gitops-test-'));
+    tempDir1 = path.join(tempRoot, 'repo-1');
+    tempDir2 = path.join(tempRoot, 'repo-2');
 
     [tempDir1, tempDir2].forEach((dir) => {
-      if (fs.existsSync(dir)) {
-        execSync(`rm -rf "${dir}"`);
-      }
       fs.mkdirSync(dir, { recursive: true });
-      execSync('git init', { cwd: dir });
-      execSync('git config user.email "test@example.com"', { cwd: dir });
-      execSync('git config user.name "Test User"', { cwd: dir });
-      execSync('git commit --allow-empty -m "initial"', { cwd: dir });
+      const options = { cwd: dir, env: gitEnv };
+      execSync('git init --initial-branch=master', { ...options, stdio: 'ignore' });
+      execSync('git config user.email "test@example.com"', options);
+      execSync('git config user.name "Test User"', options);
+      execSync('git commit --allow-empty -m "initial"', { ...options, stdio: 'ignore' });
     });
   });
 
   afterAll(() => {
-    [tempDir1, tempDir2].forEach((dir) => {
-      if (fs.existsSync(dir)) {
-        execSync(`rm -rf "${dir}"`);
-      }
-    });
+    fs.rmSync(tempRoot, { recursive: true, force: true });
   });
 
   describe('validateDirectory', () => {
     test('should not throw for valid directory', () => {
       expect(() => {
-        gitOps.executeGit('rev-parse HEAD', tempDir1);
+        gitOps.executeGit(['rev-parse', 'HEAD'], tempDir1);
       }).not.toThrow();
     });
 
     test('should throw for non-existent directory', () => {
       expect(() => {
-        gitOps.executeGit('rev-parse HEAD', '/nonexistent/path/12345');
+        gitOps.executeGit(['rev-parse', 'HEAD'], '/nonexistent/path/12345');
       }).toThrow('Invalid directory');
     });
 
     test('should throw for non-string directory', () => {
       expect(() => {
-        gitOps.executeGit('rev-parse HEAD', 123);
+        gitOps.executeGit(['rev-parse', 'HEAD'], 123);
       }).toThrow('Directory must be a non-empty string');
     });
   });
@@ -140,22 +154,30 @@ describe('gitOps.cjs - Cross-repo isolation', () => {
       expect(true).toBe(true);
     });
 
-    test('all functions should accept workDir parameter', () => {
-      expect(gitOps.createBranch).toHaveLength(2);
-      expect(gitOps.checkoutBranch).toHaveLength(2);
-      expect(gitOps.getCurrentBranch).toHaveLength(1);
-      expect(gitOps.isWorkingTreeClean).toHaveLength(1);
-      expect(gitOps.stageFiles).toHaveLength(2);
-      expect(gitOps.commitChanges).toHaveLength(2);
-      expect(gitOps.createTag).toHaveLength(3);
-      expect(gitOps.deleteTag).toHaveLength(2);
-      expect(gitOps.deleteRemoteTag).toHaveLength(3);
-      expect(gitOps.push).toHaveLength(3);
-      expect(gitOps.getLatestTag).toHaveLength(1);
-      expect(gitOps.getCommitsSince).toHaveLength(2);
-      expect(gitOps.getCommitCount).toHaveLength(1);
-      expect(gitOps.branchExists).toHaveLength(2);
-      expect(gitOps.tagExists).toHaveLength(2);
+    test('exports every git operation', () => {
+      // Function.length ignores parameters with defaults (`workDir = process.cwd()`), so it
+      // cannot show that workDir is accepted; the isolation tests above do that by calling
+      // each operation against a specific repository.
+      const operations = [
+        'createBranch',
+        'checkoutBranch',
+        'getCurrentBranch',
+        'isWorkingTreeClean',
+        'stageFiles',
+        'commitChanges',
+        'createTag',
+        'deleteTag',
+        'deleteRemoteTag',
+        'push',
+        'getLatestTag',
+        'getCommitsSince',
+        'getCommitCount',
+        'branchExists',
+        'tagExists',
+      ];
+      for (const name of operations) {
+        expect(typeof gitOps[name]).toBe('function');
+      }
     });
   });
 });

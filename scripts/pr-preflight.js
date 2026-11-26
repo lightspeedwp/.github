@@ -251,7 +251,28 @@ function main() {
   // Test files that read Markdown or text must be listed in
   // tests/jest-prose-tests.json. Trace just the changed test files and check
   // the trace against the list, as the Jest job does for the whole suite.
-  const changedTests = changed.filter((f) => isTestFile(f) && fs.existsSync(f));
+  // Suites Jest ignores run through `npm run test:cjs-node` (node --test), so the list in that
+  // script says which changed files Jest would silently skip.
+  let nodeSuites = [];
+  try {
+    nodeSuites = (JSON.parse(fs.readFileSync('package.json', 'utf8')).scripts?.['test:cjs-node'] ?? '')
+      .split(/\s+/)
+      .filter((f) => f.endsWith('.test.cjs'));
+  } catch {
+    // No readable package.json: treat every changed test as a Jest suite.
+  }
+  const changedTests = changed.filter(
+    (f) => isTestFile(f) && fs.existsSync(f) && !nodeSuites.includes(f)
+  );
+  const changedNodeSuites = changed.filter((f) => nodeSuites.includes(f) && fs.existsSync(f));
+  if (changedNodeSuites.length > 0) {
+    try {
+      run('node', ['--test', ...changedNodeSuites]);
+      console.log('ok   node:test suites');
+    } catch (error) {
+      fail(`changed node:test suites failed:\n${outputTail(error)}`);
+    }
+  }
   if (changedTests.length > 0 && fs.existsSync('scripts/workflows/jest-read-tracer.cjs')) {
     const traceDir = fs.mkdtempSync(path.join(os.tmpdir(), 'jest-reads-'));
     const trace = path.join(traceDir, 'reads.tsv');
