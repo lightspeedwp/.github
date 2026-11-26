@@ -400,7 +400,7 @@ mindmap
 3. Add entry to `../agents/agent.md`
 4. Commit the **spec only**
 5. Write the `.agent.js` implementation
-6. Write tests (`__tests__/`)
+6. Write tests (`tests/` or `__tests__/`)
 7. Run validation, linting, and test suites
 8. Submit PR containing:
 
