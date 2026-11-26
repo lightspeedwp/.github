@@ -33,6 +33,10 @@ module.exports = {
     process.env.JEST_TEST_MATCH_4 || '**/__tests__/**/*.test.js',
     process.env.JEST_TEST_MATCH_5 || '**/__tests__/**/*.test.ts',
     process.env.JEST_TEST_MATCH_6 || '**/__tests__/**/*.test.mjs',
+    // CommonJS suites (GIT-2913). A `.cjs` suite that uses `node:test` or its own harness is
+    // excluded below and run by `npm run test:cjs-node` instead.
+    process.env.JEST_TEST_MATCH_7 || '**/tests/**/*.test.cjs',
+    process.env.JEST_TEST_MATCH_8 || '**/__tests__/**/*.test.cjs',
   ],
   verbose: process.env.JEST_VERBOSE === 'false' ? false : true,
   transform: {
@@ -86,5 +90,26 @@ module.exports = {
     // Runs under the changelog package's own node:test runner.
     '<rootDir>/.github/validation/changelog/test/unit/check-run-annotations.test.js',
     '<rootDir>/.github/validation/changelog/test/integration/check-run-annotations.test.js',
+    // CommonJS suites written for `node:test` or with their own test()/assert harness. Jest
+    // reports "must contain at least one test" for them, so `npm run test:cjs-node` runs them.
+    '<rootDir>/agents/changelog-agent/includes/tests/changelogValidator.test.cjs',
+    '<rootDir>/agents/changelog-agent/includes/tests/keepAChangelogParser.test.cjs',
+    '<rootDir>/agents/release-agent/includes/tests/repoDetector.test.cjs',
+    '<rootDir>/agents/release-agent/includes/tests/versionManager.test.cjs',
+    '<rootDir>/scripts/workflows/changelog/__tests__/changelog-management.test.cjs',
+    '<rootDir>/scripts/workflows/changelog/__tests__/checkout-pr-head.test.cjs',
+    '<rootDir>/scripts/workflows/changelog/__tests__/merge-entries.test.cjs',
+    '<rootDir>/scripts/workflows/metrics/__tests__/metrics-reporting.test.cjs',
+    // These five never require the script they describe: four call a mocked `fs` and assert on
+    // the mock, and merge-entries.integration re-implements the merge inline on mock strings.
+    // They pass or fail without exercising any code, so they run nowhere. Excluded until they
+    // are rewritten against scan-completion.cjs, archive-projects.cjs,
+    // update-projects-status.cjs, orchestrate-phase-progression.cjs and merge-entries.cjs
+    // (GIT-2913). tests/js/cjs-suites.test.js keeps this list and test:cjs-node honest.
+    '<rootDir>/scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs',
+    '<rootDir>/scripts/workflows/projects/__tests__/scan-completion.test.cjs',
+    '<rootDir>/scripts/workflows/projects/__tests__/archive-projects.test.cjs',
+    '<rootDir>/scripts/automation/__tests__/update-projects-status.test.cjs',
+    '<rootDir>/scripts/workflows/__tests__/orchestrate-phase-progression.test.cjs',
   ],
 };

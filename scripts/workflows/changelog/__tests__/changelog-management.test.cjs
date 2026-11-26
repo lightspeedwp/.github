@@ -9,13 +9,10 @@
  */
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 
-const TEST_DIR = path.join(
-  __dirname,
-  "../../../..",
-  ".github/tmp/changelog-mgmt-test",
-);
+const TEST_DIR = path.join(os.tmpdir(), `changelog-mgmt-test-${process.pid}`);
 const CHANGELOG_PATH = path.join(TEST_DIR, "CHANGELOG.md");
 const ENTRIES_PATH = path.join(TEST_DIR, "entries.md");
 
