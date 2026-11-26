@@ -82,6 +82,70 @@ describe('StructureChecker', () => {
       fs.rmSync(testAgentPath, { recursive: true });
     });
 
+    it('accepts __tests__/ in place of tests/ without a warning (GIT-2307)', () => {
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
+      const altAgentPath = path.join(testFixturesDir, 'alt-tests-agent');
+
+      try {
+        fs.mkdirSync(path.join(altAgentPath, '__tests__'), { recursive: true });
+        const result = checker.checkAgent(altAgentPath);
+
+        expect(result.present).toContain('tests');
+        expect(result.missing.map((item) => item.component)).not.toContain('tests');
+        expect(result.issues.filter((issue) => issue.component === 'tests')).toEqual([]);
+      } finally {
+        fs.rmSync(altAgentPath, { recursive: true, force: true });
+      }
+    });
+
+    it('uses __tests__/ when a file named tests shadows the directory name (GIT-2307)', () => {
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
+      const shadowPath = path.join(testFixturesDir, 'shadow-tests-agent');
+
+      try {
+        fs.mkdirSync(path.join(shadowPath, '__tests__'), { recursive: true });
+        fs.writeFileSync(path.join(shadowPath, 'tests'), 'not a directory');
+        const result = checker.checkAgent(shadowPath);
+
+        expect(result.present).toContain('tests');
+        expect(result.missing.map((item) => item.component)).not.toContain('tests');
+      } finally {
+        fs.rmSync(shadowPath, { recursive: true, force: true });
+      }
+    });
+
+    it('reports tests as missing when only a file named tests exists (GIT-2307)', () => {
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
+      const fileOnlyPath = path.join(testFixturesDir, 'file-tests-agent');
+
+      try {
+        fs.mkdirSync(fileOnlyPath, { recursive: true });
+        fs.writeFileSync(path.join(fileOnlyPath, 'tests'), 'not a directory');
+        const result = checker.checkAgent(fileOnlyPath);
+
+        expect(result.present).not.toContain('tests');
+        expect(result.missing.map((item) => item.component)).toContain('tests');
+      } finally {
+        fs.rmSync(fileOnlyPath, { recursive: true, force: true });
+      }
+    });
+
+    it('falls back to the legacy AGENT.md when a directory named AGENTS.md exists', () => {
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
+      const legacyPath = path.join(testFixturesDir, 'dir-agents-md-agent');
+
+      try {
+        fs.mkdirSync(path.join(legacyPath, 'AGENTS.md'), { recursive: true });
+        fs.writeFileSync(path.join(legacyPath, 'AGENT.md'), '# Legacy\n');
+        const result = checker.checkAgent(legacyPath);
+
+        expect(result.present).toContain('AGENTS.md');
+        expect(result.issues.some((issue) => issue.component === 'AGENT.md')).toBe(true);
+      } finally {
+        fs.rmSync(legacyPath, { recursive: true, force: true });
+      }
+    });
+
     describe('agent instructions file (#3464)', () => {
       const agentPath = path.join(testFixturesDir, 'instructions-agent');
 
