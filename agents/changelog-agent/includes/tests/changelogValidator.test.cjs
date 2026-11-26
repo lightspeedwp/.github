@@ -232,13 +232,15 @@ describe('changelogValidator', () => {
 
     /**
      * Run the command-line validator on an entry and return its exit status.
-     * @param {string} yaml - YAML for the entry
+     * @param {string} [yaml] - YAML for the entry; omit to test a missing file
      * @returns {number} The process exit status
      */
     function exitCodeFor(yaml) {
       const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-entry-'));
       const entryPath = path.join(dir, 'entry.yml');
-      fs.writeFileSync(entryPath, yaml);
+      if (yaml !== undefined) {
+        fs.writeFileSync(entryPath, yaml);
+      }
       try {
         return spawnSync(process.execPath, [cli, 'validate', '--entry', entryPath], {
           encoding: 'utf8',
@@ -266,6 +268,11 @@ describe('changelogValidator', () => {
       assert.equal(exitCodeFor('id: e2\ndescription: No title or category\n'), 1);
     });
 
+    it('exits 2 for a missing file or invalid YAML', () => {
+      assert.equal(exitCodeFor(), 2);
+      assert.equal(exitCodeFor('title: [\n'), 2);
+    });
+
     it('exits 0 when only a warning rule fails, as the rules file calls warnings non-blocking', () => {
       // No PR reference fails R009, a warning; no error rule fails.
       const yaml = [
@@ -285,6 +292,36 @@ describe('changelogValidator', () => {
   });
 
   describe('input the validator cannot trust (GIT-3019)', () => {
+    for (const [id, ruleType, name] of [
+      ['R003', 'structure', 'has_title'],
+      ['R006', 'format', 'proper_formatting'],
+    ]) {
+      it(`rejects malformed entries when ${id} is the only enabled rule`, (t) => {
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-rules-'));
+        t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+        const rulesPath = path.join(dir, 'rules.yml');
+        fs.writeFileSync(rulesPath, JSON.stringify({
+          metadata: { version: '1.0', total_rules: 1 },
+          rules: [{
+            id,
+            name,
+            version: '1.0',
+            enabled: true,
+            rule_type: ruleType,
+            severity: 'error',
+            description: name,
+          }],
+        }));
+
+        for (const entry of [null, 'text']) {
+          const { validation } = validator.validate(entry, rulesPath);
+          assert.equal(validation.summary.errors, 1);
+          assert.equal(validation.ruleResults[0].ruleId, id);
+          assert.equal(validation.ruleResults[0].message, 'Entry is not a valid object');
+        }
+      });
+    }
+
     it('reports a missing or non-object entry through R006 alone, not as one rule error per rule', () => {
       for (const bad of [null, undefined, 'text', 42]) {
         const { validation } = validator.validateEntry(bad);

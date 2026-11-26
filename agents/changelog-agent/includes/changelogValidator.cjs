@@ -31,6 +31,7 @@ class ChangelogValidator {
     try {
       const rulesData = ruleLoader.loadRules(rulesFilePath);
       const enabledRules = rulesData.rules.filter(r => r.enabled);
+      const reportsInvalidShape = enabledRules.some(r => r.id === 'R006');
 
       logger.info(`Starting validation with ${enabledRules.length} enabled rules`);
 
@@ -41,7 +42,7 @@ class ChangelogValidator {
         logger.debug(`Executing validation layer: ${layerType}`);
 
         const layerRules = enabledRules.filter(r => r.rule_type === layerType);
-        const layerResults = this.validateLayer(entry, layerRules, layerType);
+        const layerResults = this.validateLayer(entry, layerRules, reportsInvalidShape);
 
         ruleResults.push(...layerResults);
         executedRules.push(...layerRules);
@@ -79,21 +80,22 @@ class ChangelogValidator {
     }
   }
 
-  validateLayer(entry, rules, layerType) {
+  validateLayer(entry, rules, reportsInvalidShape) {
     const results = [];
     const entryIsObject = Boolean(entry) && typeof entry === 'object';
 
     for (const rule of rules) {
-      // R006 is the rule that reports a missing or non-object entry (null input is its tested
-      // case). Every other rule would throw on `entry.title`, and reporting each of those as a
-      // rule that cannot run would blame the rules for a bad entry, so they are not applicable.
+      // Let R006 report the shape error when enabled. Otherwise an enabled rule
+      // must report it so a malformed entry cannot pass by skipping every rule.
       if (!entryIsObject && rule.id !== 'R006') {
         results.push(
-          validationResultBuilder.createSkippedResult({
-            ruleId: rule.id,
-            ruleName: rule.name,
-            reason: 'Entry is not an object (reported by R006)'
-          })
+          reportsInvalidShape
+            ? validationResultBuilder.createSkippedResult({
+              ruleId: rule.id,
+              ruleName: rule.name,
+              reason: 'Entry is not an object (reported by R006)'
+            })
+            : this.validateProperFormatting(entry, { ...rule, severity: 'error' })
         );
         continue;
       }
