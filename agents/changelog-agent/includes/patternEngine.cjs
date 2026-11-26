@@ -18,19 +18,26 @@ class PatternEngine {
       }
 
       try {
-        // Compile regex with flags if provided. A pattern written with characters outside the
-        // Basic Multilingual Plane (emoji ranges such as [🀀-🿿]) is only valid in unicode
-        // mode; without the `u` flag it is read as surrogate halves and throws "Range out of
-        // order". The rules file is locked, so the engine adds the flag for those patterns.
-        let flags = pattern.flags || '';
-        if (
-          !flags.includes('u') &&
-          !flags.includes('v') &&
-          /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex)
-        ) {
-          flags += 'u';
+        const flags = pattern.flags || '';
+        let regex;
+        try {
+          regex = new RegExp(pattern.regex, flags);
+        } catch (compileError) {
+          // A pattern written with characters outside the Basic Multilingual Plane (emoji ranges
+          // such as [🀀-🿿]) is only valid in unicode mode; without the `u` flag it is read as
+          // surrogate halves and throws "Range out of order". The rules file is locked, so
+          // retry with `u` for those patterns, and only after the flags as written have failed,
+          // so a pattern that already compiles (for example one with literal braces, which
+          // unicode mode rejects) keeps its meaning.
+          const retryable =
+            !flags.includes('u') &&
+            !flags.includes('v') &&
+            /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex);
+          if (!retryable) {
+            throw compileError;
+          }
+          regex = new RegExp(pattern.regex, `${flags}u`);
         }
-        const regex = new RegExp(pattern.regex, flags);
         return {
           regex,
           description: pattern.description || pattern.regex,

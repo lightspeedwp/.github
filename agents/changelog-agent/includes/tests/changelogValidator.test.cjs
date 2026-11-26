@@ -1,6 +1,7 @@
 const { describe, it } = require('node:test');
 const { strict: assert } = require('node:assert');
 const validator = require('../changelogValidator.cjs');
+const patternEngine = require('../patternEngine.cjs');
 
 // The validator is a rule engine: validateEntry(entry) loads .github/changelog-rules.yml and
 // returns { metadata, validation: { ruleResults: [{ ruleId, status, ... }] } }. These tests use
@@ -27,6 +28,28 @@ function run(entry) {
   );
   return { result, status };
 }
+
+describe('patternEngine.compilePatterns()', () => {
+  it('compiles an emoji range written with astral characters in unicode mode', () => {
+    const [compiled] = patternEngine.compilePatterns([{ regex: '[🀀-🿿]' }]);
+
+    assert.ok(compiled.regex.flags.includes('u'));
+    assert.equal(compiled.regex.test('ship it 🚀'), true);
+  });
+
+  it('keeps the flags as written for a pattern that already compiles', () => {
+    // Literal braces are valid without `u` and a syntax error with it, so adding `u` here
+    // would turn a working pattern into a rule that fails to compile.
+    const [compiled] = patternEngine.compilePatterns([{ regex: '🚀|{emoji}' }]);
+
+    assert.equal(compiled.regex.flags, '');
+    assert.equal(compiled.regex.test('ship it 🚀'), true);
+  });
+
+  it('still rejects a pattern that is invalid in every mode', () => {
+    assert.throws(() => patternEngine.compilePatterns([{ regex: '(' }]), /Invalid regex pattern/);
+  });
+});
 
 describe('changelogValidator', () => {
   describe('validateEntry()', () => {

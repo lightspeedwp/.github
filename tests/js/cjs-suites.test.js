@@ -9,8 +9,6 @@
 
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
-import { readConfig } from 'jest-config';
-import { globsToMatcher } from 'jest-util';
 
 const repoRoot = path.resolve(__dirname, '../..');
 const jestConfigPath = path.join(repoRoot, '.jest.config.cjs');
@@ -67,17 +65,23 @@ describe('CommonJS test suites', () => {
     expect(missing).toEqual([]);
   });
 
-  it('accounts for every tracked .cjs suite: Jest, node --test or excluded', async () => {
-    const { projectConfig } = await readConfig({ config: jestConfigPath });
-    const matchesJest = globsToMatcher(projectConfig.testMatch);
-    const ignoredByJest = new RegExp(projectConfig.testPathIgnorePatterns.join('|'));
-    const runByJest = trackedCjs.filter((file) => {
-      const absolutePath = path.join(repoRoot, file);
-      return matchesJest(absolutePath) && !ignoredByJest.test(absolutePath);
-    });
+  it('accounts for every tracked .cjs suite: Jest, node --test or excluded', () => {
+    // Ask Jest itself which files it would run, so the answer follows testMatch and the ignore
+    // list exactly. `--listTests` runs nothing, and it needs no dependency beyond jest.
+    const listed = execFileSync(
+      path.join(repoRoot, 'node_modules/.bin/jest'),
+      ['--config', jestConfigPath, '--listTests'],
+      { cwd: repoRoot, encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: '' } }
+    )
+      .split('\n')
+      .filter((line) => line.endsWith('.test.cjs'))
+      .map((line) => path.relative(repoRoot, line));
+    const runByJest = trackedCjs.filter((file) => listed.includes(file));
     const accountedFor = new Set([...runByJest, ...nodeSuites, ...EXCLUDED_MOCK_ONLY]);
 
     expect(trackedCjs.filter((file) => !accountedFor.has(file))).toEqual([]);
     expect(runByJest.length).toBeGreaterThan(0);
-  });
+    // Nothing should be both run by Jest and listed as run elsewhere.
+    expect(runByJest.filter((file) => nodeSuites.includes(file))).toEqual([]);
+  }, 60000);
 });
