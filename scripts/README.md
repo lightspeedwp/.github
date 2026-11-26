@@ -410,5 +410,4 @@ When contributing new scripts or modifications:
 
 <!-- RANDOM FOOTER: ⚡ Magic Automation Unicorns at work! -->
 
-*Built by 🧱 LightSpeedWP with ☕, 🚀, and open-source spirit!*
-[Contributors](https://github.com/lightspeedwp/.github/graphs/contributors)
+Made with ❤️ by the LightSpeed team.
