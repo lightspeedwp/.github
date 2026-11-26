@@ -15,7 +15,7 @@
 3. `package.json` - Node.js dependencies
 4. `README.md` - Human-readable documentation
 5. `skills/` - Subfolder for agent-specific skills
-6. `tests/` - Subfolder for test files
+6. `tests/` or `__tests__/` - Subfolder for test files
 7. `config/` - Subfolder for configuration files
 
 **Rationale**: Standardized structure enables automated tooling; each agent self-contained; package.json provides dependency declaration standard; reduces onboarding overhead.

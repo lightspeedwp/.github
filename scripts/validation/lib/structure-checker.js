@@ -33,6 +33,18 @@ const REQUIRED_COMPONENTS = {
   config: { type: 'directory', description: 'Configuration files' },
 };
 
+/**
+ * Whether a path exists and is the kind of entry a component requires.
+ * @param {string} candidate - Absolute path to test
+ * @param {'file' | 'directory'} type - Required entry type
+ * @returns {boolean} True when the path exists with that type
+ */
+function hasRequiredType(candidate, type) {
+  const stats = fs.statSync(candidate, { throwIfNoEntry: false });
+  if (!stats) return false;
+  return type === 'directory' ? stats.isDirectory() : stats.isFile();
+}
+
 class StructureChecker {
   constructor(options = {}) {
     this.rootDir = options.rootDir || process.cwd();
@@ -58,23 +70,22 @@ class StructureChecker {
     for (const [component, info] of Object.entries(REQUIRED_COMPONENTS)) {
       let componentPath = path.join(agentPath, component);
       let legacyName = null;
-      if (!fs.existsSync(componentPath) && info.legacyNames) {
-        legacyName = info.legacyNames.find((name) => fs.existsSync(path.join(agentPath, name)));
+      // Judge each path by type, not just existence: a directory named `AGENTS.md` or a file
+      // named `tests` must not hide a valid fallback.
+      if (!hasRequiredType(componentPath, info.type) && info.legacyNames) {
+        legacyName = info.legacyNames.find((name) =>
+          hasRequiredType(path.join(agentPath, name), info.type)
+        );
         if (legacyName) componentPath = path.join(agentPath, legacyName);
       }
       // An alternate name is equally valid, so it counts as present with no warning.
-      if (!fs.existsSync(componentPath) && info.alternateNames) {
+      if (!hasRequiredType(componentPath, info.type) && info.alternateNames) {
         const alternate = info.alternateNames.find((name) =>
-          fs.existsSync(path.join(agentPath, name))
+          hasRequiredType(path.join(agentPath, name), info.type)
         );
         if (alternate) componentPath = path.join(agentPath, alternate);
       }
-      const pathExists = fs.existsSync(componentPath);
-      const exists =
-        pathExists &&
-        (info.type === 'directory'
-          ? fs.statSync(componentPath).isDirectory()
-          : fs.statSync(componentPath).isFile());
+      const exists = hasRequiredType(componentPath, info.type);
 
       if (!exists) {
         missing.push({

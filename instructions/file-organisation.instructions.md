@@ -125,7 +125,7 @@ Website browser-specific JavaScript that runs client-side (location varies by pr
 When creating any new script:
 1. **Check the script type**: Is it automation, metrics, telemetry, release, etc.?
 2. **Place in correct subfolder**: `scripts/{category}/script-name.js`
-3. **Create tests**: `scripts/{category}/__tests__/script-name.test.js`
+3. **Create tests**: `scripts/{category}/__tests__/script-name.test.js` (or `scripts/{category}/tests/`)
 4. **Never use `.github/scripts/`** - This directory should not exist for new work
 5. **Update imports**: Ensure all imports use correct paths from `scripts/`
 
@@ -138,7 +138,7 @@ Aim for high coverage for any new scripts under `scripts/` and place tests in `t
 | File Type | Canonical Location | Rule |
 | --- | --- | --- |
 | **Repository scripts** | `scripts/{category}/` | **ALWAYS root `scripts/`, never `.github/scripts/`** |
-| Repository script tests | `scripts/{category}/__tests__/` | **High coverage expected; no global threshold enforced** |
+| Repository script tests | `scripts/{category}/__tests__/` or `scripts/{category}/tests/` | **High coverage expected; no global threshold enforced** |
 | Repo GitHub workflow | `.github/workflows/` | Keep executable GitHub Actions here. |
 | Portable agentic workflow | `workflows/` | Use for tool-neutral AI processes. |
 | Repo community-health file | `.github/` | Keep issue, PR, support, security, and governance files in place. |
