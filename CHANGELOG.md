@@ -129,7 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - **Changelog rule errors** — A rule that cannot run now fails validation as an error instead of being skipped, so a broken rule can no longer pass every entry. ([#4118](https://github.com/lightspeedwp/.github/issues/4118))
-- **Changelog validator command** — It now exits 0 when validation accepts an entry, 1 when validation rejects it, and 2 for operational errors such as missing files or invalid YAML. The rule loader no longer reuses another file's rules. ([#4118](https://github.com/lightspeedwp/.github/issues/4118))
+- **Changelog validator command** — It now exits 0 when an entry passes, 1 when it fails and 2 for an operational error. The rule loader no longer reuses another file's rules. ([#4118](https://github.com/lightspeedwp/.github/issues/4118))
 - **Readme metadata reader** — `readMetadata` returned no plugin name or fields for a real `readme.txt`. It now reads the header between the title and the first section. ([#4112](https://github.com/lightspeedwp/.github/issues/4112))
 - **Changelog emoji check** — The emoji rule could not compile, so it never ran. The pattern engine now compiles emoji ranges in unicode mode. ([#4112](https://github.com/lightspeedwp/.github/issues/4112))
 
