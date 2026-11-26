@@ -64,6 +64,7 @@
     "scripts/workflows/__tests__/release-workflow-scripts.test.js",
     "scripts/workflows/changelog/__tests__/changelog-unified.test.js",
     "tests/__tests__/jest-working-tree-guard.test.js",
+    "tests/js/cjs-suites.test.js",
     "tests/js/claude-cloud-environment-docs.test.js",
     "tests/js/governance-files.test.js",
     "tests/js/label-consolidation-post-merge-docs.test.js",
