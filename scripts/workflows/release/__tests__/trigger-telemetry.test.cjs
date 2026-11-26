@@ -1,11 +1,13 @@
 #!/usr/bin/env node
-const fs = require("fs");
-const path = require("path");
-const { execSync } = require("child_process");
-
-// Mock child_process and other dependencies
+// Declare the mocks before the requires. In a CommonJS test, Babel does not hoist jest.mock
+// above `require`, so a mock declared after `require("fs")` leaves the real module in place.
 jest.mock("child_process");
 jest.mock("fs");
+
+// `fs` and `execSync` are re-required after each jest.resetModules() so the tests configure the
+// same mock instances the script under test receives.
+let fs;
+let execSync;
 
 describe("trigger-telemetry.cjs", () => {
   let mockLog;
@@ -15,6 +17,11 @@ describe("trigger-telemetry.cjs", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.resetModules();
+    fs = require("fs");
+    ({ execSync } = require("child_process"));
+
+    // The script calls process.exit(1) for an unauthorised actor; never let that end the run.
+    jest.spyOn(process, "exit").mockImplementation(() => {});
 
     // Mock runtime utilities
     mockLog = jest.fn();
@@ -29,12 +36,16 @@ describe("trigger-telemetry.cjs", () => {
     });
 
     // Patch require for runtime utilities
-    jest.doMock("../shared/runtime.cjs", () => ({
+    jest.doMock("../../shared/runtime.cjs", () => ({
       readEnv: mockReadEnv,
       writeGithubOutput: mockWriteGithubOutput,
       log: mockLog,
       runMain: (fn) => fn().catch(console.error),
     }));
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   describe("authorization validation", () => {

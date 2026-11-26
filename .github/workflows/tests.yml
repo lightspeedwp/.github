@@ -155,6 +155,18 @@ jobs:
             exit 1
           fi
 
+      - name: Run the node:test suites
+        # CommonJS suites that Jest cannot run (see test:cjs-node in package.json). They are not
+        # part of the head and base comparison, so only head runs them, and they pass as a set.
+        # The step comes last so a failure here still leaves the Jest report and the prose-list
+        # check in place. A prose-only change runs only the Jest tests that read prose.
+        if: matrix.target == 'head' && needs.scope.outputs.mode != 'prose'
+        run: |
+          if ! npm run test:cjs-node; then
+            echo "::error::A node:test suite failed (npm run test:cjs-node). This is not a Jest failure."
+            exit 1
+          fi
+
   compare:
     name: No new test failures
     needs: [scope, jest]

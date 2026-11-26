@@ -10,13 +10,10 @@
  */
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 
-const TEST_DIR = path.join(
-  __dirname,
-  "../../../..",
-  ".github/tmp/metrics-test",
-);
+const TEST_DIR = path.join(os.tmpdir(), `metrics-test-${process.pid}`);
 const METRICS_DIR = path.join(TEST_DIR, ".github/metrics");
 const REPORTS_DIR = path.join(TEST_DIR, ".github/reports/metrics");
 const JSON_ARTIFACT = path.join(METRICS_DIR, "frontmatter-metrics.json");

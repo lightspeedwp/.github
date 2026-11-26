@@ -107,6 +107,7 @@ describe('checkPrBody', () => {
   it('recognises Jest test files by the repository patterns', () => {
     expect(isTestFile('tests/js/a.test.js')).toBe(true);
     expect(isTestFile('scripts/workflows/__tests__/a.test.mjs')).toBe(true);
+    expect(isTestFile('agents/release-agent/__tests__/a.test.cjs')).toBe(true);
     expect(isTestFile('scripts/a.js')).toBe(false);
     expect(isTestFile('tests/fixtures/a.md')).toBe(false);
   });

@@ -10,10 +10,11 @@
 const { describe, it, before, after } = require('node:test');
 const { strict: assert } = require('node:assert');
 const fs = require('node:fs');
+const os = require('node:os');
 const path = require('node:path');
 const parser = require('../keepAChangelogParser.cjs');
 
-const testDir = path.join(__dirname, '..', '..', 'test-repos-parser');
+const testDir = path.join(os.tmpdir(), `keep-a-changelog-parser-${process.pid}`);
 
 describe('keepAChangelogParser', () => {
   before(() => {
