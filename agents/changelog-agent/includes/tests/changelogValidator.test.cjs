@@ -69,6 +69,28 @@ describe('patternEngine.compilePatterns()', () => {
   });
 });
 
+describe('patternEngine empty matches', () => {
+  for (const flags of ['g', 'gu']) {
+    it(`visits each code point boundary once with ${flags}`, ({ mock }) => {
+      const patterns = patternEngine.compilePatterns([{ regex: '(?=)', flags }]);
+      const { regex } = patterns[0];
+      const exec = regex.exec;
+      // Bound the number of exec calls so a stalled loop fails the test.
+      const boundedExec = mock.method(regex, 'exec', (text) => {
+        assert.ok(boundedExec.mock.callCount() < 4);
+        return exec.call(regex, text);
+      });
+
+      assert.deepEqual(
+        patternEngine.applyPatterns('a🚀', patterns).map((match) => match.index),
+        [0, 1, 3]
+      );
+      boundedExec.mock.resetCalls();
+      assert.equal(patternEngine.countMatches('a🚀', patterns), 3);
+    });
+  }
+});
+
 describe('changelogValidator', () => {
   describe('validateEntry()', () => {
     it('returns metadata and one result per executed rule', () => {

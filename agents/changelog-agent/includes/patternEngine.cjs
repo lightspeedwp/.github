@@ -1,6 +1,14 @@
 const logger = require('./logger.cjs');
 const { ValidationError } = require('./errors.cjs');
 
+function advanceAfterEmptyMatch(regex, text, match) {
+  if (match[0] === '') {
+    // exec() leaves lastIndex unchanged for empty matches. Skip a whole code
+    // point, or move past the end so the next exec() stops and resets lastIndex.
+    regex.lastIndex += text.codePointAt(regex.lastIndex) > 0xffff ? 2 : 1;
+  }
+}
+
 class PatternEngine {
   /**
    * Compile and cache regex patterns
@@ -89,6 +97,7 @@ class PatternEngine {
       while ((match = regex.exec(text)) !== null && matches.length < limit) {
         const matchObj = this.buildMatchObject(match, text, pattern);
         matches.push(matchObj);
+        advanceAfterEmptyMatch(regex, text, match);
       }
 
       if (matches.length >= limit) break;
@@ -210,8 +219,10 @@ class PatternEngine {
         ? pattern.regex
         : new RegExp(pattern.regex.source, (pattern.regex.flags || '') + 'g');
 
-      while (regex.exec(text) !== null) {
+      let match;
+      while ((match = regex.exec(text)) !== null) {
         count++;
+        advanceAfterEmptyMatch(regex, text, match);
       }
     }
 
