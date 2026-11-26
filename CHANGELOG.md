@@ -77,6 +77,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **Test folder rule** — The repository rules, spec 014 and the agent structure checker now accept `tests/` or `__tests__/`, matching what Jest already runs. ([#3469](https://github.com/lightspeedwp/.github/issues/3469))
 - **Renovate Node and Composer updates no longer request reviewers** — Their manifests and lock files have no code owner, so updates that touch only those files skip the review request. ([#4086](https://github.com/lightspeedwp/.github/pull/4086))
 
 - **CI Check Scope** — Lint, typecheck, workflow lint and test checks now skip their work when a push changes no file they read. ([PR #4069](https://github.com/lightspeedwp/.github/pull/4069))

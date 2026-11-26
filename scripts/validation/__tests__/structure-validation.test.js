@@ -82,6 +82,22 @@ describe('StructureChecker', () => {
       fs.rmSync(testAgentPath, { recursive: true });
     });
 
+    it('accepts __tests__/ in place of tests/ without a warning (GIT-2307)', () => {
+      const checker = new StructureChecker({ rootDir: ORG_ROOT });
+      const altAgentPath = path.join(testFixturesDir, 'alt-tests-agent');
+
+      try {
+        fs.mkdirSync(path.join(altAgentPath, '__tests__'), { recursive: true });
+        const result = checker.checkAgent(altAgentPath);
+
+        expect(result.present).toContain('tests');
+        expect(result.missing.map((item) => item.component)).not.toContain('tests');
+        expect(result.issues.filter((issue) => issue.component === 'tests')).toEqual([]);
+      } finally {
+        fs.rmSync(altAgentPath, { recursive: true, force: true });
+      }
+    });
+
     describe('agent instructions file (#3464)', () => {
       const agentPath = path.join(testFixturesDir, 'instructions-agent');
 

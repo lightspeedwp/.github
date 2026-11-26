@@ -131,7 +131,7 @@ When creating any new script:
 
 ### Test Coverage
 
-Aim for high coverage for any new scripts under `scripts/` and place tests in `__tests__/` subdirectories alongside the code.
+Aim for high coverage for any new scripts under `scripts/` and place tests in `tests/` or `__tests__/` subdirectories alongside the code.
 
 ## File Type Mapping
 

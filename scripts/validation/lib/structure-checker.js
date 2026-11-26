@@ -28,7 +28,8 @@ const REQUIRED_COMPONENTS = {
   'package.json': { type: 'file', description: 'Dependencies and scripts' },
   'README.md': { type: 'file', description: 'Documentation' },
   skills: { type: 'directory', description: 'Agent-specific skills' },
-  tests: { type: 'directory', description: 'Test suite' },
+  // `.jest.config.cjs` discovers both folder names, and AGENTS.md allows either (GIT-2307).
+  tests: { type: 'directory', description: 'Test suite', alternateNames: ['__tests__'] },
   config: { type: 'directory', description: 'Configuration files' },
 };
 
@@ -60,6 +61,13 @@ class StructureChecker {
       if (!fs.existsSync(componentPath) && info.legacyNames) {
         legacyName = info.legacyNames.find((name) => fs.existsSync(path.join(agentPath, name)));
         if (legacyName) componentPath = path.join(agentPath, legacyName);
+      }
+      // An alternate name is equally valid, so it counts as present with no warning.
+      if (!fs.existsSync(componentPath) && info.alternateNames) {
+        const alternate = info.alternateNames.find((name) =>
+          fs.existsSync(path.join(agentPath, name))
+        );
+        if (alternate) componentPath = path.join(agentPath, alternate);
       }
       const pathExists = fs.existsSync(componentPath);
       const exists =
