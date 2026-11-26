@@ -5,15 +5,15 @@
  * Resolves branch type to PR template and labels based on configuration files
  */
 
-import fs from "fs";
-import { load as yamlLoad } from "js-yaml";
+import fs from 'fs';
+import { load as yamlLoad } from 'js-yaml';
 
 /**
  * Load YAML configuration file
  */
 function loadConfig(filePath) {
   try {
-    const content = fs.readFileSync(filePath, "utf8");
+    const content = fs.readFileSync(filePath, 'utf8');
     return yamlLoad(content);
   } catch (error) {
     return null;
@@ -33,17 +33,11 @@ function extractBranchType(branchName) {
  * Get PR template for branch type
  */
 function getTemplate(branchType, typesConfig) {
-  if (
-    !typesConfig ||
-    !typesConfig.branch_types ||
-    !typesConfig.branch_types[branchType]
-  ) {
-    return typesConfig?.fallback_template || "pr_feature";
+  if (!typesConfig || !typesConfig.branch_types || !typesConfig.branch_types[branchType]) {
+    return typesConfig?.fallback_template || 'pr_feature';
   }
   return (
-    typesConfig.branch_types[branchType].template ||
-    typesConfig.fallback_template ||
-    "pr_feature"
+    typesConfig.branch_types[branchType].template || typesConfig.fallback_template || 'pr_feature'
   );
 }
 
@@ -51,11 +45,7 @@ function getTemplate(branchType, typesConfig) {
  * Get default labels for branch type
  */
 function getLabels(branchType, labelsConfig) {
-  if (
-    !labelsConfig ||
-    !labelsConfig.branch_labels ||
-    !labelsConfig.branch_labels[branchType]
-  ) {
+  if (!labelsConfig || !labelsConfig.branch_labels || !labelsConfig.branch_labels[branchType]) {
     return [];
   }
 
@@ -68,7 +58,7 @@ function getLabels(branchType, labelsConfig) {
  */
 function extractScope(branchName) {
   const match = branchName.match(/^[^/]+\/(.+)/);
-  return match ? match[1] : "";
+  return match ? match[1] : '';
 }
 
 /**
@@ -103,15 +93,15 @@ function getAreaLabels(scope, labelsConfig) {
  */
 function routePR(branchName) {
   // Load configurations
-  const typesConfig = loadConfig(".github/branch-types.yml");
-  const labelsConfig = loadConfig(".github/branch-labels.yml");
+  const typesConfig = loadConfig('.github/branch-types.yml');
+  const labelsConfig = loadConfig('.github/branch-labels.yml');
 
   if (!typesConfig) {
-    throw new Error("Failed to load branch-types.yml");
+    throw new Error('Failed to load branch-types.yml');
   }
 
   if (!labelsConfig) {
-    throw new Error("Failed to load branch-labels.yml");
+    throw new Error('Failed to load branch-labels.yml');
   }
 
   // Extract branch type
@@ -143,21 +133,32 @@ function routePR(branchName) {
   };
 }
 
-// Get branch name from command line or environment
-const branchName = process.argv[2] || process.env.BRANCH_NAME;
+// Export functions for testing
+export {
+  loadConfig,
+  extractBranchType,
+  getTemplate,
+  getLabels,
+  extractScope,
+  getAreaLabels,
+  routePR,
+};
 
-if (!branchName) {
-  console.error(
-    "Branch name required. Usage: pr-template-router.js <branch-name>",
-  );
-  process.exit(1);
-}
+// Only run CLI logic if executed directly (not imported)
+if (import.meta.url === `file://${process.argv[1]}`) {
+  const branchName = process.argv[2] || process.env.BRANCH_NAME;
 
-try {
-  const result = routePR(branchName);
-  // Only output the JSON - no debug messages
-  console.log(JSON.stringify(result));
-} catch (error) {
-  console.error(`Error: ${error.message}`);
-  process.exit(1);
+  if (!branchName) {
+    console.error('Branch name required. Usage: pr-template-router.js <branch-name>');
+    process.exit(1);
+  }
+
+  try {
+    const result = routePR(branchName);
+    // Only output the JSON - no debug messages
+    console.log(JSON.stringify(result));
+  } catch (error) {
+    console.error(`Error: ${error.message}`);
+    process.exit(1);
+  }
 }
