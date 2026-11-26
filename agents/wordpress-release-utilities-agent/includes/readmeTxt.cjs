@@ -135,16 +135,23 @@ function readMetadata(filePath) {
 
     const headerLines = [];
 
+    // A WordPress readme opens with `=== Plugin Name ===`, then header fields, then the first
+    // `== Section ==` heading (usually Description). The header fields sit between those two.
     for (const line of lines) {
-      if (line.startsWith('===')) {
+      const trimmed = line.trim();
+      const title = trimmed.match(/^===\s*(.+?)\s*===$/);
+      if (title) {
+        metadata.name ??= title[1];
+        continue;
+      }
+      if (/^==\s*.+?\s*==$/.test(trimmed)) {
         break;
       }
-      headerLines.push(line.trim());
+      headerLines.push(trimmed);
     }
 
     const headerText = headerLines.join('\n');
     const patterns = {
-      name: /^(.+?)$/m,
       description: /Description:\s*(.+?)$/im,
       author: /Author:\s*(.+?)$/im,
       authorUri: /Author URI:\s*(.+?)$/im,
