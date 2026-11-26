@@ -68,14 +68,18 @@ describe('CommonJS test suites', () => {
   it('accounts for every tracked .cjs suite: Jest, node --test or excluded', () => {
     // Ask Jest itself which files it would run, so the answer follows testMatch and the ignore
     // list exactly. `--listTests` runs nothing, and it needs no dependency beyond jest.
+    // Run Jest's own entry file with the current Node, not the `.bin` shim, which is a `.cmd`
+    // file on Windows. NODE_OPTIONS is cleared on purpose: the CI read tracer is loaded through
+    // it and would otherwise record this child's reads against this test.
     const listed = execFileSync(
-      path.join(repoRoot, 'node_modules/.bin/jest'),
-      ['--config', jestConfigPath, '--listTests'],
+      process.execPath,
+      [path.join(repoRoot, 'node_modules/jest/bin/jest.js'), '--config', jestConfigPath, '--listTests'],
       { cwd: repoRoot, encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: '' } }
     )
-      .split('\n')
+      .split(/\r?\n/)
       .filter((line) => line.endsWith('.test.cjs'))
-      .map((line) => path.relative(repoRoot, line));
+      // `git ls-files` prints forward slashes on every platform.
+      .map((line) => path.relative(repoRoot, line).split(path.sep).join('/'));
     const runByJest = trackedCjs.filter((file) => listed.includes(file));
     const accountedFor = new Set([...runByJest, ...nodeSuites, ...EXCLUDED_MOCK_ONLY]);
 

@@ -37,17 +37,35 @@ describe('patternEngine.compilePatterns()', () => {
     assert.equal(compiled.regex.test('ship it 🚀'), true);
   });
 
-  it('keeps the flags as written for a pattern that already compiles', () => {
-    // Literal braces are valid without `u` and a syntax error with it, so adding `u` here
-    // would turn a working pattern into a rule that fails to compile.
+  it('uses unicode mode for an astral pattern that compiles both ways, so it matches whole characters', () => {
+    // Without `u` the quantifier binds to the low surrogate only, so '🚀🚀' would not match.
+    const [quantified] = patternEngine.compilePatterns([{ regex: '^🚀+$' }]);
+    const [anchored] = patternEngine.compilePatterns([{ regex: '^[🚀]$' }]);
+
+    assert.equal(quantified.regex.test('🚀🚀'), true);
+    assert.equal(anchored.regex.test('🚀'), true);
+  });
+
+  it('falls back to the flags as written when unicode mode rejects the pattern', () => {
+    // Literal braces are valid without `u` and a syntax error with it.
     const [compiled] = patternEngine.compilePatterns([{ regex: '🚀|{emoji}' }]);
 
     assert.equal(compiled.regex.flags, '');
     assert.equal(compiled.regex.test('ship it 🚀'), true);
   });
 
+  it('leaves a pattern with no astral characters alone', () => {
+    const [compiled] = patternEngine.compilePatterns([{ regex: 'abc', flags: 'i' }]);
+
+    assert.equal(compiled.regex.flags, 'i');
+  });
+
   it('still rejects a pattern that is invalid in every mode', () => {
     assert.throws(() => patternEngine.compilePatterns([{ regex: '(' }]), /Invalid regex pattern/);
+    assert.throws(
+      () => patternEngine.compilePatterns([{ regex: '[🀀-🿿]|{x}' }]),
+      /Invalid regex pattern/
+    );
   });
 });
 

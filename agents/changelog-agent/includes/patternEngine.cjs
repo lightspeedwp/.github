@@ -19,24 +19,27 @@ class PatternEngine {
 
       try {
         const flags = pattern.flags || '';
+        // A pattern written with characters outside the Basic Multilingual Plane (emoji such as
+        // 🚀 or ranges such as [🀀-🿿]) means something different without the `u` flag: it is read
+        // as surrogate halves, so a range throws "Range out of order", a quantifier binds to the
+        // low half only and a class matches a lone half. The rules file is locked, so try
+        // unicode mode first for those patterns. Fall back to the flags as written when `u`
+        // rejects the pattern (for example literal braces, which only unicode mode refuses), so
+        // such a pattern keeps compiling, and so a pattern that fails both ways reports the
+        // error for the flags the author wrote.
+        const astral =
+          !flags.includes('u') &&
+          !flags.includes('v') &&
+          /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex);
         let regex;
-        try {
-          regex = new RegExp(pattern.regex, flags);
-        } catch (compileError) {
-          // A pattern written with characters outside the Basic Multilingual Plane (emoji ranges
-          // such as [🀀-🿿]) is only valid in unicode mode; without the `u` flag it is read as
-          // surrogate halves and throws "Range out of order". The rules file is locked, so
-          // retry with `u` for those patterns, and only after the flags as written have failed,
-          // so a pattern that already compiles (for example one with literal braces, which
-          // unicode mode rejects) keeps its meaning.
-          const retryable =
-            !flags.includes('u') &&
-            !flags.includes('v') &&
-            /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex);
-          if (!retryable) {
-            throw compileError;
+        if (astral) {
+          try {
+            regex = new RegExp(pattern.regex, `${flags}u`);
+          } catch {
+            regex = new RegExp(pattern.regex, flags);
           }
-          regex = new RegExp(pattern.regex, `${flags}u`);
+        } else {
+          regex = new RegExp(pattern.regex, flags);
         }
         return {
           regex,
