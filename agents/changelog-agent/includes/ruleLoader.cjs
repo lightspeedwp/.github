@@ -7,6 +7,7 @@ const { ConfigError, FileError } = require('./errors.cjs');
 class RuleLoader {
   constructor() {
     this.rulesCache = null;
+    this.rulesCachePath = null;
     this.cacheTimestamp = null;
     this.cacheTTL = 60000; // 1 minute cache for rules (immutable governance file)
   }
@@ -19,8 +20,15 @@ class RuleLoader {
    */
   loadRules(rulesFilePath, useCache = true) {
     try {
-      // Check cache validity
-      if (useCache && this.rulesCache && this.cacheTimestamp) {
+      // Check cache validity. The cache belongs to one rules file: a second path inside the TTL
+      // used to get the first file's rules back without ever being read.
+      const resolvedPath = typeof rulesFilePath === 'string' ? path.resolve(rulesFilePath) : null;
+      if (
+        useCache &&
+        this.rulesCache &&
+        this.cacheTimestamp &&
+        this.rulesCachePath === resolvedPath
+      ) {
         const cacheAge = Date.now() - this.cacheTimestamp;
         if (cacheAge < this.cacheTTL) {
           logger.debug(`Using cached rules (age: ${cacheAge}ms)`);
@@ -45,6 +53,7 @@ class RuleLoader {
 
       // Cache and return
       this.rulesCache = validated;
+      this.rulesCachePath = resolvedPath;
       this.cacheTimestamp = Date.now();
 
       logger.info(`Loaded ${validated.rules.length} rules from ${path.basename(rulesFilePath)}`);
@@ -195,6 +204,7 @@ class RuleLoader {
    */
   clearCache() {
     this.rulesCache = null;
+    this.rulesCachePath = null;
     this.cacheTimestamp = null;
   }
 }

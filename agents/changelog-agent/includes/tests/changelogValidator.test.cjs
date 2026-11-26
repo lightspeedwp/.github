@@ -1,5 +1,9 @@
 const { describe, it } = require('node:test');
 const { strict: assert } = require('node:assert');
+const { spawnSync } = require('node:child_process');
+const fs = require('node:fs');
+const os = require('node:os');
+const path = require('node:path');
 const validator = require('../changelogValidator.cjs');
 const patternEngine = require('../patternEngine.cjs');
 
@@ -129,6 +133,257 @@ describe('changelogValidator', () => {
       });
 
       assert.equal(status.R013, 'failed');
+    });
+  });
+
+  describe('a rule that cannot run (GIT-3019)', () => {
+    // A rules file with one rule whose pattern cannot compile and one rule id the validator
+    // does not implement. Both are enabled, so both must run.
+    const rulesYaml = [
+      'metadata:',
+      "  version: '1.0'",
+      '  total_rules: 2',
+      'rules:',
+      '  - id: R013',
+      '    name: no_emoji',
+      "    version: '1.0'",
+      '    enabled: true',
+      '    rule_type: content',
+      '    severity: warning',
+      '    priority: 23',
+      '    description: Avoid emoji',
+      '    patterns:',
+      "      - regex: '('",
+      '        description: Cannot compile',
+      '  - id: R099',
+      '    name: not_implemented',
+      "    version: '1.0'",
+      '    enabled: true',
+      '    rule_type: content',
+      '    severity: warning',
+      '    priority: 99',
+      '    description: Enabled but never implemented',
+      '',
+    ].join('\n');
+
+    /**
+     * Validate an entry against the broken rules file, then remove the temporary file.
+     * @returns {{ byId: Record<string, object>, validation: object }} Results by rule id
+     */
+    function runBroken() {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-rules-'));
+      const rulesPath = path.join(dir, 'rules.yml');
+      fs.writeFileSync(rulesPath, rulesYaml);
+      try {
+        const { validation } = validator.validate(validEntry, rulesPath);
+        const byId = Object.fromEntries(validation.ruleResults.map((rule) => [rule.ruleId, rule]));
+        return { byId, validation };
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
+    }
+
+    it('fails a rule whose pattern cannot compile, as an error naming the rule and the cause', () => {
+      const { byId } = runBroken();
+
+      assert.equal(byId.R013.status, 'failed');
+      assert.equal(byId.R013.severity, 'error');
+      assert.equal(byId.R013.details.ruleError, true);
+      assert.match(byId.R013.message, /Rule R013 \(no_emoji\) could not run/);
+      assert.match(byId.R013.message, /Invalid regex pattern/);
+    });
+
+    it('fails an enabled rule that has no implementation', () => {
+      const { byId } = runBroken();
+
+      assert.equal(byId.R099.status, 'failed');
+      assert.equal(byId.R099.severity, 'error');
+      assert.match(byId.R099.message, /enabled but has no implementation/);
+    });
+
+    it('counts both as errors, so the score drops and the entry is not passing', () => {
+      const { validation } = runBroken();
+
+      assert.equal(validation.summary.errors, 2);
+      assert.equal(validation.summary.skipped, 0);
+      assert.equal(validation.complianceScore, 50);
+      assert.notEqual(validation.complianceStatus, 'passing');
+    });
+
+    it('keeps a not-applicable rule as skipped', () => {
+      // R020 has nothing to check without a category; R002 already reports that.
+      const { status } = run({ ...validEntry, category: undefined });
+
+      assert.equal(status.R020, 'skipped');
+      assert.equal(status.R002, 'failed');
+    });
+
+    it('runs every rule in the real rules file, none as a rule error', () => {
+      const { result } = run(validEntry);
+      const ruleErrors = result.validation.ruleResults.filter((rule) => rule.details?.ruleError);
+
+      assert.deepEqual(ruleErrors, []);
+      assert.equal(result.validation.summary.skipped, 0);
+    });
+  });
+
+  describe('changelog-validator.js exit code (GIT-3019)', () => {
+    const cli = path.join(__dirname, '..', '..', 'changelog-validator.js');
+
+    /**
+     * Run the command-line validator on an entry and return its exit status.
+     * @param {string} [yaml] - YAML for the entry; omit to test a missing file
+     * @returns {number} The process exit status
+     */
+    function exitCodeFor(yaml) {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-entry-'));
+      const entryPath = path.join(dir, 'entry.yml');
+      if (yaml !== undefined) {
+        fs.writeFileSync(entryPath, yaml);
+      }
+      try {
+        return spawnSync(process.execPath, [cli, 'validate', '--entry', entryPath], {
+          encoding: 'utf8',
+        }).status;
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
+    }
+
+    it('exits 0 for a passing entry', () => {
+      const yaml = [
+        'id: e1',
+        'category: feature',
+        'title: Pull Request Preflight',
+        'description: Checks a pull request before it is opened.',
+        'prNumber: 123',
+        'prLink: https://github.com/lightspeedwp/.github/pull/123',
+        '',
+      ].join('\n');
+
+      assert.equal(exitCodeFor(yaml), 0);
+    });
+
+    it('exits 1 for an entry that fails validation', () => {
+      assert.equal(exitCodeFor('id: e2\ndescription: No title or category\n'), 1);
+    });
+
+    it('exits 1, not 2, for an entry file that is YAML null', () => {
+      // `~` parses to null, a non-object that R006 reports, so it is a validation failure.
+      assert.equal(exitCodeFor('~\n'), 1);
+    });
+
+    it('exits 2 for a missing file, an empty file or invalid YAML', () => {
+      // js-yaml refuses an empty document ("expected a document"), so an empty file is invalid
+      // YAML, an operational error, not a null entry.
+      assert.equal(exitCodeFor(), 2);
+      assert.equal(exitCodeFor(''), 2);
+      assert.equal(exitCodeFor('title: [\n'), 2);
+    });
+
+    it('exits 0 when only a warning rule fails, as the rules file calls warnings non-blocking', () => {
+      // No PR reference fails R009, a warning; no error rule fails.
+      const yaml = [
+        'id: e3',
+        'category: feature',
+        'title: Pull Request Preflight',
+        'description: Checks a pull request before it is opened.',
+        '',
+      ].join('\n');
+
+      assert.equal(exitCodeFor(yaml), 0);
+    });
+
+    it('keeps the executable bit the package bin entry needs', { skip: process.platform === 'win32' }, () => {
+      assert.ok(fs.statSync(cli).mode & 0o111, 'changelog-validator.js must stay executable');
+    });
+  });
+
+  describe('input the validator cannot trust (GIT-3019)', () => {
+    for (const [id, ruleType, name] of [
+      ['R003', 'structure', 'has_title'],
+      ['R006', 'format', 'proper_formatting'],
+    ]) {
+      it(`rejects malformed entries when ${id} is the only enabled rule`, (t) => {
+        const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-rules-'));
+        t.after(() => fs.rmSync(dir, { recursive: true, force: true }));
+        const rulesPath = path.join(dir, 'rules.yml');
+        fs.writeFileSync(rulesPath, JSON.stringify({
+          metadata: { version: '1.0', total_rules: 1 },
+          rules: [{
+            id,
+            name,
+            version: '1.0',
+            enabled: true,
+            rule_type: ruleType,
+            severity: 'error',
+            description: name,
+          }],
+        }));
+
+        for (const entry of [null, 'text']) {
+          const { validation } = validator.validate(entry, rulesPath);
+          assert.equal(validation.summary.errors, 1);
+          assert.equal(validation.ruleResults[0].ruleId, id);
+          assert.equal(validation.ruleResults[0].message, 'Entry is not a valid object');
+        }
+      });
+    }
+
+    it('reports a missing or non-object entry through R006 alone, not as one rule error per rule', () => {
+      for (const bad of [null, undefined, 'text', 42]) {
+        const { validation } = validator.validateEntry(bad);
+        const byId = Object.fromEntries(validation.ruleResults.map((rule) => [rule.ruleId, rule]));
+
+        assert.equal(byId.R006.status, 'failed', `R006 for ${JSON.stringify(bad)}`);
+        assert.equal(validation.summary.errors, 1, `errors for ${JSON.stringify(bad)}`);
+        assert.deepEqual(
+          validation.ruleResults.filter((rule) => rule.details?.ruleError),
+          []
+        );
+      }
+    });
+
+    it('lets the rules judge an array entry, which is an object with none of the fields', () => {
+      const { validation } = validator.validateEntry([]);
+
+      assert.ok(validation.summary.errors > 0);
+      assert.deepEqual(
+        validation.ruleResults.filter((rule) => rule.details?.ruleError),
+        []
+      );
+    });
+
+    it('fails a pattern rule whose patterns are missing, so it cannot pass every entry', () => {
+      const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'changelog-rules-'));
+      const rulesPath = path.join(dir, 'rules.yml');
+      fs.writeFileSync(
+        rulesPath,
+        [
+          'metadata:',
+          "  version: '1.0'",
+          '  total_rules: 1',
+          'rules:',
+          '  - id: R013',
+          '    name: no_emoji',
+          "    version: '1.0'",
+          '    enabled: true',
+          '    rule_type: content',
+          '    severity: warning',
+          '    description: Avoid emoji',
+          '',
+        ].join('\n')
+      );
+      try {
+        const { validation } = validator.validate(validEntry, rulesPath);
+        const [rule] = validation.ruleResults;
+
+        assert.equal(rule.status, 'failed');
+        assert.equal(rule.severity, 'error');
+        assert.match(rule.message, /has no patterns to check/);
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
     });
   });
 });
