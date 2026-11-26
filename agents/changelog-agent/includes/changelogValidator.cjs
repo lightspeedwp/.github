@@ -81,8 +81,23 @@ class ChangelogValidator {
 
   validateLayer(entry, rules, layerType) {
     const results = [];
+    const entryIsObject = Boolean(entry) && typeof entry === 'object';
 
     for (const rule of rules) {
+      // R006 is the rule that reports a missing or non-object entry (null input is its tested
+      // case). Every other rule would throw on `entry.title`, and reporting each of those as a
+      // rule that cannot run would blame the rules for a bad entry, so they are not applicable.
+      if (!entryIsObject && rule.id !== 'R006') {
+        results.push(
+          validationResultBuilder.createSkippedResult({
+            ruleId: rule.id,
+            ruleName: rule.name,
+            reason: 'Entry is not an object (reported by R006)'
+          })
+        );
+        continue;
+      }
+
       try {
         let result;
 
@@ -148,32 +163,64 @@ class ChangelogValidator {
             result = this.validateValidCategory(entry, rule);
             break;
           default:
-            result = validationResultBuilder.createSkippedResult({
-              ruleId: rule.id,
-              ruleName: rule.name,
-              reason: 'Rule not implemented'
-            });
+            // An enabled rule with no implementation is a gap between the rules file and this
+            // validator. A skip would hide it, so it fails like any other rule that cannot run.
+            result = this.ruleCouldNotRun(rule, 'it is enabled but has no implementation');
         }
 
         results.push(result);
       } catch (error) {
         logger.error(`Error executing rule ${rule.id}: ${error.message}`);
-        results.push(
-          validationResultBuilder.createSkippedResult({
-            ruleId: rule.id,
-            ruleName: rule.name,
-            reason: `Execution error: ${error.message}`
-          })
-        );
+        results.push(this.ruleCouldNotRun(rule, error.message));
       }
     }
 
     return results;
   }
 
+  /**
+   * Result for a rule that could not run (it threw, or it has no implementation).
+   *
+   * This is a failure, not a skip. The score counts only failed rules, so a skipped rule costs
+   * nothing and a rule that never runs (the emoji rule once could not compile) would leave
+   * every entry "passing". Severity is always `error`, whatever the rule's own severity: the
+   * problem is in the rules file or this validator, not in the entry, and it must block. A
+   * rule that is merely not applicable to an entry still returns a skipped result itself.
+   * @param {Object} rule - The rule definition that could not run
+   * @param {string} cause - Why it could not run
+   * @returns {Object} A failed rule result
+   */
+  ruleCouldNotRun(rule, cause) {
+    return validationResultBuilder.createFailedResult({
+      ruleId: rule.id,
+      ruleName: rule.name,
+      severity: 'error',
+      message: `Rule ${rule.id} (${rule.name}) could not run: ${cause}`,
+      details: { ruleError: true, cause },
+      remediationGuidance:
+        'Check the entry data, then the rule in .github/changelog-rules.yml and the validator. A rule that cannot run counts as a failure.'
+    });
+  }
+
+  /**
+   * Compile the patterns of a pattern-based rule.
+   *
+   * A rule whose `patterns` key is missing or empty would compile to nothing, match nothing and
+   * pass every entry, which is the same silent false pass as a rule that is skipped. It throws,
+   * so validateLayer reports the rule as one that cannot run.
+   * @param {Object} rule - The rule definition
+   * @returns {Array} Compiled patterns
+   */
+  compileRulePatterns(rule) {
+    if (!Array.isArray(rule.patterns) || rule.patterns.length === 0) {
+      throw new ValidationError(`Rule ${rule.id} (${rule.name}) has no patterns to check`);
+    }
+    return patternEngine.compilePatterns(rule.patterns);
+  }
+
   validateNoImplementationDetails(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -246,7 +293,7 @@ class ChangelogValidator {
 
   validateClearLanguage(entry, rule) {
     const text = entry.description || '';
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -285,7 +332,7 @@ class ChangelogValidator {
 
   validateNoBackticks(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -307,7 +354,7 @@ class ChangelogValidator {
 
   validateNoInternalTerminology(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -387,7 +434,7 @@ class ChangelogValidator {
 
   validateUserFocused(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -409,7 +456,7 @@ class ChangelogValidator {
 
   validateNoEmoji(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -431,7 +478,7 @@ class ChangelogValidator {
 
   validateConsistentTense(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 1) {
@@ -479,7 +526,7 @@ class ChangelogValidator {
 
   validateNoTodos(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -521,7 +568,7 @@ class ChangelogValidator {
 
   validateNoPersonalPronouns(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {
@@ -543,7 +590,7 @@ class ChangelogValidator {
 
   validateNoMarketingHype(entry, rule) {
     const text = `${entry.title || ''} ${entry.description || ''}`;
-    const compiled = patternEngine.compilePatterns(rule.patterns || []);
+    const compiled = this.compileRulePatterns(rule);
     const matches = patternEngine.applyPatterns(text, compiled);
 
     if (matches.length > 0) {

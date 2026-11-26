@@ -102,7 +102,12 @@ async function validateEntry(options) {
     }
 
     // Exit with appropriate code
-    process.exit(validationResult.summary.status === 'passing' ? 0 : 1);
+    // The validator returns { metadata, validation: { summary, complianceStatus, ... } }; reading
+    // `validationResult.summary` threw, so every run exited 2 as an error. Block on the same
+    // terms as changelog.agent.js: a failed error-severity rule blocks, and warnings alone do
+    // not (the rules file calls them non-blocking), unless the score falls to "failing".
+    const { summary, complianceStatus } = validationResult.validation;
+    process.exit(summary.errors > 0 || complianceStatus === 'failing' ? 1 : 0);
   } catch (error) {
     const result = {
       status: 'error',
