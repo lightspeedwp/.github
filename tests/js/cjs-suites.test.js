@@ -1,0 +1,91 @@
+/**
+ * Keeps every tracked `*.test.cjs` suite accounted for (GIT-2913).
+ *
+ * Jest matches `.cjs` files, but some CommonJS suites are written for `node:test` or with their
+ * own harness and Jest cannot run them. Those are listed in `testPathIgnorePatterns` and run by
+ * `npm run test:cjs-node`. Suites that only test mocks are excluded and run nowhere. Without a
+ * check, a new `.cjs` suite can fall between the three and silently never run.
+ */
+
+import { execFileSync } from 'node:child_process';
+import path from 'node:path';
+
+const repoRoot = path.resolve(__dirname, '../..');
+const jestConfigPath = path.join(repoRoot, '.jest.config.cjs');
+
+// Suites that never require the script they describe, so they test no code. Rewrite each against
+// its real script, then remove it from this list and from `testPathIgnorePatterns`.
+const EXCLUDED_MOCK_ONLY = [
+  'scripts/automation/__tests__/update-projects-status.test.cjs',
+  'scripts/workflows/__tests__/orchestrate-phase-progression.test.cjs',
+  'scripts/workflows/changelog/__tests__/merge-entries.integration.test.cjs',
+  'scripts/workflows/projects/__tests__/archive-projects.test.cjs',
+  'scripts/workflows/projects/__tests__/scan-completion.test.cjs',
+];
+
+const jestConfig = require(jestConfigPath);
+const packageScripts = require(path.join(repoRoot, 'package.json')).scripts;
+
+const ignoredCjs = jestConfig.testPathIgnorePatterns
+  .filter((pattern) => pattern.endsWith('.test.cjs'))
+  .map((pattern) => pattern.replace('<rootDir>/', ''))
+  .sort();
+
+const nodeSuites = packageScripts['test:cjs-node']
+  .split(/\s+/)
+  .filter((entry) => entry.endsWith('.test.cjs'))
+  .sort();
+
+const trackedCjs = execFileSync('git', ['ls-files', '*.test.cjs'], {
+  cwd: repoRoot,
+  encoding: 'utf8',
+})
+  .split('\n')
+  .filter(Boolean)
+  .sort();
+
+describe('CommonJS test suites', () => {
+  it('lists every node:test suite in both the Jest ignore list and test:cjs-node', () => {
+    const missingFromIgnore = nodeSuites.filter((file) => !ignoredCjs.includes(file));
+
+    expect(missingFromIgnore).toEqual([]);
+  });
+
+  it('excludes only the suites named as mock-only', () => {
+    const excluded = ignoredCjs.filter((file) => !nodeSuites.includes(file));
+
+    expect(excluded).toEqual([...EXCLUDED_MOCK_ONLY].sort());
+  });
+
+  it('lists only tracked files in test:cjs-node and the documented exclusions', () => {
+    const missing = [...nodeSuites, ...EXCLUDED_MOCK_ONLY].filter(
+      (file) => !trackedCjs.includes(file)
+    );
+
+    expect(missing).toEqual([]);
+  });
+
+  it('accounts for every tracked .cjs suite: Jest, node --test or excluded', () => {
+    // Ask Jest itself which files it would run, so the answer follows testMatch and the ignore
+    // list exactly. `--listTests` runs nothing, and it needs no dependency beyond jest.
+    // Run Jest's own entry file with the current Node, not the `.bin` shim, which is a `.cmd`
+    // file on Windows. NODE_OPTIONS is cleared on purpose: the CI read tracer is loaded through
+    // it and would otherwise record this child's reads against this test.
+    const listed = execFileSync(
+      process.execPath,
+      [path.join(repoRoot, 'node_modules/jest/bin/jest.js'), '--config', jestConfigPath, '--listTests'],
+      { cwd: repoRoot, encoding: 'utf8', env: { ...process.env, NODE_OPTIONS: '' } }
+    )
+      .split(/\r?\n/)
+      .filter((line) => line.endsWith('.test.cjs'))
+      // `git ls-files` prints forward slashes on every platform.
+      .map((line) => path.relative(repoRoot, line).split(path.sep).join('/'));
+    const runByJest = trackedCjs.filter((file) => listed.includes(file));
+    const accountedFor = new Set([...runByJest, ...nodeSuites, ...EXCLUDED_MOCK_ONLY]);
+
+    expect(trackedCjs.filter((file) => !accountedFor.has(file))).toEqual([]);
+    expect(runByJest.length).toBeGreaterThan(0);
+    // Nothing should be both run by Jest and listed as run elsewhere.
+    expect(runByJest.filter((file) => nodeSuites.includes(file))).toEqual([]);
+  }, 60000);
+});

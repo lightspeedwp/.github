@@ -4,6 +4,7 @@
  */
 
 const fs = require("fs");
+const os = require("os");
 const path = require("path");
 const { execFileSync } = require("child_process");
 const repoDetector = require("../includes/repoDetector.cjs");
@@ -13,8 +14,7 @@ describe("Release Agent Integration Tests", () => {
   let testDir;
 
   beforeEach(() => {
-    testDir = path.join(__dirname, `test-repo-${Date.now()}`);
-    fs.mkdirSync(testDir, { recursive: true });
+    testDir = fs.mkdtempSync(path.join(os.tmpdir(), "release-agent-it-"));
   });
 
   afterEach(() => {
@@ -48,17 +48,17 @@ describe("Release Agent Integration Tests", () => {
 
   describe("Version Bumping", () => {
     test("should bump patch version", () => {
-      const newVersion = versionManager.bumpVersion("patch", "1.0.0");
+      const newVersion = versionManager.bumpVersion("1.0.0", "patch");
       expect(newVersion).toBe("1.0.1");
     });
 
     test("should bump minor version", () => {
-      const newVersion = versionManager.bumpVersion("minor", "1.0.0");
+      const newVersion = versionManager.bumpVersion("1.0.0", "minor");
       expect(newVersion).toBe("1.1.0");
     });
 
     test("should bump major version", () => {
-      const newVersion = versionManager.bumpVersion("major", "1.0.0");
+      const newVersion = versionManager.bumpVersion("1.0.0", "major");
       expect(newVersion).toBe("2.0.0");
     });
   });
