@@ -125,6 +125,13 @@ jobs:
             exit 1
           fi
 
+      - name: Run the node:test suites
+        # CommonJS suites that Jest cannot run (see test:cjs-node in package.json). They are not
+        # part of the head and base comparison, so only head runs them, and they pass as a set.
+        # A prose-only change runs only the Jest tests that read prose.
+        if: matrix.target == 'head' && needs.scope.outputs.mode != 'prose'
+        run: npm run test:cjs-node
+
       - name: Check the suite left the working tree clean
         run: |
           # Tests must not write into the repository (#3482). Warning only

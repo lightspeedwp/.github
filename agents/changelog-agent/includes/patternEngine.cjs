@@ -18,8 +18,15 @@ class PatternEngine {
       }
 
       try {
-        // Compile regex with flags if provided
-        const regex = new RegExp(pattern.regex, pattern.flags || '');
+        // Compile regex with flags if provided. A pattern written with characters outside the
+        // Basic Multilingual Plane (emoji ranges such as [🀀-🿿]) is only valid in unicode
+        // mode; without the `u` flag it is read as surrogate halves and throws "Range out of
+        // order". The rules file is locked, so the engine adds the flag for those patterns.
+        let flags = pattern.flags || '';
+        if (!flags.includes('u') && /[\uD800-\uDBFF][\uDC00-\uDFFF]/.test(pattern.regex)) {
+          flags += 'u';
+        }
+        const regex = new RegExp(pattern.regex, flags);
         return {
           regex,
           description: pattern.description || pattern.regex,

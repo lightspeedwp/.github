@@ -102,4 +102,9 @@ async function main() {
   }
 }
 
-runMain(main);
+// Run when executed directly (`node trigger-telemetry.cjs`); export `main` so tests can call it.
+if (require.main === module) {
+  runMain(main);
+}
+
+module.exports = { main };
