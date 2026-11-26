@@ -89,7 +89,9 @@ async function validateEntry(options) {
     const validationResult = validator.validate(entry, RULES_FILE, {
       stopOnError: false,
       context: {
-        entryId: entry.id || 'unknown',
+        // A YAML `null` or an empty file parses to a non-object; let the validator report it
+        // (R006) instead of throwing here and exiting 2.
+        entryId: entry?.id || 'unknown',
         filename: options.entry || 'stdin',
       },
     });

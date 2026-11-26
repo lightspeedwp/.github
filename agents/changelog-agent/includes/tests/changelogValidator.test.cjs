@@ -268,8 +268,16 @@ describe('changelogValidator', () => {
       assert.equal(exitCodeFor('id: e2\ndescription: No title or category\n'), 1);
     });
 
-    it('exits 2 for a missing file or invalid YAML', () => {
+    it('exits 1, not 2, for an entry file that is YAML null', () => {
+      // `~` parses to null, a non-object that R006 reports, so it is a validation failure.
+      assert.equal(exitCodeFor('~\n'), 1);
+    });
+
+    it('exits 2 for a missing file, an empty file or invalid YAML', () => {
+      // js-yaml refuses an empty document ("expected a document"), so an empty file is invalid
+      // YAML, an operational error, not a null entry.
       assert.equal(exitCodeFor(), 2);
+      assert.equal(exitCodeFor(''), 2);
       assert.equal(exitCodeFor('title: [\n'), 2);
     });
 
