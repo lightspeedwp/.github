@@ -1,563 +1,149 @@
 ---
 file_type: documentation
 title: Skills Standards
-description: Comprehensive standards for creating shared and dedicated skills
-version: 1.0.1
-last_updated: '2026-08-21'
+description: Canonical skill layout, portable and Claude Code frontmatter layers, distribution and validation.
+version: '2.0.0'
+last_updated: '2026-11-27'
 ---
 
 # Skills Standards
 
-Guidelines for creating reusable skills that agents can leverage to reduce duplication and improve maintainability.
+A skill is a directory containing a required `SKILL.md` file. The canonical repository source is root `skills/<name>/SKILL.md`; platform loading and distribution are separate concerns. Rules are marked **enforced** only where a named check rejects a violation. Sources were checked on 2026-11-27.
 
-## Overview
-
-Skills are discrete, reusable capabilities designed to be shared across multiple agents. A skill encapsulates specific functionality (code analysis, documentation generation, testing, etc.) and exposes a clear interface for agent consumption.
-
-### Skill Lifecycle
-
-```mermaid
-graph LR
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Skill development lifecycle
-    accDescr: Process flow from creating a skill specification through implementation, testing, publishing, and maintenance with agent usage.
-    A["Create<br/>SKILL.md"] --> B["Implement<br/>Functionality"]
-    B --> C["Document<br/>Interface"]
-    C --> D["Test<br/>Independently"]
-    D --> E["Publish<br/>to skills/"]
-    E --> F["Agents<br/>Reference"]
-    F --> G["Monitor<br/>Usage"]
-    G --> H["Maintain &<br/>Version"]
-```
-
-## Quick Links
-
-- [Skill Concept](#skill-concept)
-- [Shared vs. Dedicated Skills](#shared-vs-dedicated-skills-decision-tree)
-- [Folder Structure](#folder-structure)
-- [SKILL.md Specification](#skillmd-specification)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-
----
-
-## Skill Concept
-
-### What Is a Skill?
-
-A skill is a focused, reusable capability that:
-
-- Solves a specific, well-defined problem
-- Exposes a clean interface (inputs/outputs)
-- Is independent from any particular agent
-- Can be versioned and maintained independently
-- Is documented with examples and usage guidance
-
-### Why Skills Matter
-
-- **Reduce Duplication** — Multiple agents can use the same skill instead of reimplementing logic
-- **Simplify Maintenance** — Fix a bug once, benefit everywhere
-- **Enable Composition** — Build complex agents from simple, proven skills
-- **Improve Testing** — Test skills independently from agents
-
----
-
-## Shared vs. Dedicated Skills Decision Tree
-
-```mermaid
-graph TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Shared vs dedicated skill decision
-    accDescr: Decision tree for determining whether to create a shared skill or dedicated skill based on reusability and domain specificity.
-    A{"Used by multiple<br/>agents?"} -->|YES| B{"Stable &<br/>domain-agnostic?"}
-    A -->|NO| C["Dedicated Skill<br/>agents/agent-name/skills/"]
-    B -->|YES| D["Shared Skill<br/>skills/skill-name/"]
-    B -->|NO| C
-    D --> E["✅ skills/code-analysis/<br/>SKILL.md"]
-    C --> F["✅ agents/my-agent/<br/>skills/SKILL.md"]
-```
-
-## Shared vs. Dedicated Skills Detail
-
-### Shared Skills
-
-Shared skills live in the top-level `skills/` folder and are intended for use by multiple agents.
-
-**Create a shared skill when:**
-
-- The functionality is useful to more than one agent
-- The skill is stable and well-documented
-- The skill has no agent-specific dependencies
-- You anticipate future agents needing this capability
-
-**Example shared skills:**
-
-- `code-analysis` — Parsing and analysing code
-- `testing-framework` — Running tests and generating reports
-- `documentation-generator` — Creating technical documentation
-- `security-audit` — Vulnerability scanning
-
-### Dedicated Skills
-
-Dedicated skills live within an agent's folder (`agents/{agent-name}/skills/`) and are only used by that agent.
-
-**Create a dedicated skill when:**
-
-- The skill is highly specific to the agent
-- The skill contains agent-specific configuration or secrets
-- The skill will not be reused by other agents
-- The skill is experimental or in development
-
-**Example dedicated skills:**
-
-- Custom preprocessing for a specific agent type
-- Agent-specific prompt templates
-- Domain-specific data models
-
----
-
-## Folder Structure
-
-### Shared Skill Layout
-
-```
-skills/
-├── {skill-name}/
-│   ├── SKILL.md                    # Skill specification & documentation
-│   ├── README.md                   # Detailed guide (optional)
-│   ├── implementation.js           # Main implementation
-│   ├── schemas/
-│   │   ├── input.schema.json
-│   │   └── output.schema.json
-│   ├── examples/
-│   │   ├── example-1.md
-│   │   └── example-2.js
-│   ├── tests/
-│   │   └── skill.test.js
-│   └── package.json                # If NPM dependency (optional)
-```
-
-### Dedicated Skill Layout (Within Agent)
-
-```
-agents/{agent-name}/
-├── skills/
-│   ├── {skill-name}/
-│   │   ├── SKILL.md
-│   │   ├── implementation.js
-│   │   └── examples.md
-```
-
----
-
-## SKILL.md Specification
-
-Every skill must include a `SKILL.md` file as the entrypoint.
-
-### Authoring a new skill
-
-Follow the official documentation rather than this summary, which can only go
-out of date:
-
-| What                                                                 | Where                                      |
-| -------------------------------------------------------------------- | ------------------------------------------ |
-| The open Agent Skills format, and the `skills-ref` validator         | https://agentskills.io/specification       |
-| Claude Code skills, and the fields it adds on top of the open format | https://code.claude.com/docs/en/skills     |
-| Claude Code subagent definitions                                     | https://code.claude.com/docs/en/sub-agents |
-| The AGENTS.md convention                                             | https://agents.md                          |
-
-A skill is a directory holding at least `SKILL.md`:
+## Canonical layout
 
 ```text
-skill-name/
-├── SKILL.md          # required: frontmatter plus the instructions
-├── scripts/          # optional: code the agent can run
-├── references/       # optional: documentation loaded on demand
-└── assets/           # optional: templates and data files
+skills/
+└── <skill-name>/
+    ├── SKILL.md                 # Required portable entry point
+    ├── scripts/                 # Optional executable helpers
+    ├── references/              # Optional on-demand documentation
+    ├── assets/                  # Optional templates and resources
+    └── tests/                   # Optional tests; __tests__/ is also accepted
+
+plugins/
+└── <plugin-name>/
+    ├── .claude-plugin/
+    │   └── plugin.json          # Lists packaged skill directories
+    └── skills/
+        └── <skill-name>/
+            └── SKILL.md
+
+.claude-plugin/
+└── marketplace.json             # Planned catalogue; absent today
 ```
 
-### Plugin packaging layer (not part of the skill model)
+The root `skills/` folder is the portable source collection. Claude Code loads project skills from `.claude/skills/`, personal skills from `~/.claude/skills/`, managed skills or plugin skills; it does not automatically scan an arbitrary root `skills/` directory. A plugin can package the canonical source without duplicating its instructions.
 
-Skills shipped inside a `plugins/*` pack may carry two extra files alongside
-`SKILL.md`: a `metadata.yml` declaring per-platform adapters, and
-`agents/*.yaml` files with the per-platform display and policy metadata.
-`metadata.yml` and the `agents/claude.yaml`, `agents/codex.yaml`,
-`agents/copilot.yaml` and `agents/gemini.yaml` adapters are repo-specific
-packaging consumed by repo tooling (skill discovery prefers `SKILL.md` first,
-then `metadata.yml`); Claude Code, Copilot and Codex do not read them directly.
-The exception is `agents/openai.yaml` inside a skill folder: OpenAI's skills
-documentation says Codex reads it for display metadata, invocation policy and
-tool dependencies, so treat it as a host file and not as repo packaging. The
-hosts' plugin models read other files too, such as `SKILL.md`, agent `.md`
-files, hooks, MCP servers and plugin manifests like `plugin.json`, so this list
-is not each host's complete plugin model. Keep all skill behaviour in
-`SKILL.md`. Keep only platform routing in `metadata.yml` and the
-repository-specific `agents/claude.yaml`, `agents/codex.yaml`,
-`agents/copilot.yaml` and `agents/gemini.yaml` files; this rule does not apply
-to the host-consumed `agents/openai.yaml`.
+## Two frontmatter layers
 
-Three rules catch most mistakes:
+| Layer                       | Fields                                                                                                                                                                                                         | Target                                                                                                                                  |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| Agent Skills portable layer | `name`, `description`, `license`, `compatibility`, `metadata`, `allowed-tools`                                                                                                                                 | Any compatible agent, claude.ai upload and the Skills API. Only `name` and `description` are required.                                  |
+| Claude Code extension layer | `when_to_use`, `argument-hint`, `arguments`, `disable-model-invocation`, `user-invocable`, `allowed-tools`, `disallowed-tools`, `model`, `effort`, `context`, `agent`, `background`, `hooks`, `paths`, `shell` | Skills actually loaded by Claude Code. All fields are optional; `description` is recommended and `name` defaults to the directory name. |
 
-1. `name` must equal the directory name, lower case, digits and single hyphens.
-2. The body must contain instructions. Frontmatter alone is not a skill, and
-   neither is a heading and the generated footer — the footer is stripped before
-   the body is judged, whichever footer phrase the repository is configured to
-   use.
-3. Anything that is not a specification field or a documented platform field
-   belongs under `metadata`.
+The portable layer has six fields in total. The Claude Code table has 20 fields in total: those six plus 14 extensions. `allowed-tools` exists in both layers but has different accepted forms. Packaging or uploading a Claude Code skill outside Claude Code fails on an extension field instead of silently ignoring it.
 
-### Checking your work
+Repository root `skills/` targets the portable layer. A skill under `.claude/skills/`, a plugin skill directory or another documented Claude Code location may use the extension layer. Per-platform adapter data such as `metadata.yml` or `agents/*.yaml` stays outside `SKILL.md`.
+
+## Rules and enforcement
+
+| ID    | Rule                                                                                                                                                                                               | Source              | Checked    | Enforcement                                                                                       |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ---------- | ------------------------------------------------------------------------------------------------- |
+| S-01  | Store each skill as `<skill-name>/SKILL.md`; supporting folders are optional.                                                                                                                      | [AS]                | 2026-11-27 | **enforced** — `validate-skills.js` checks discovered `SKILL.md` files.                           |
+| S-02  | Portable frontmatter uses only the six specification fields; only `name` and `description` are required.                                                                                           | [AS], [CC-K]        | 2026-11-27 | **enforced** — `validate-skills.js` applies the portable closed field set by file class.          |
+| S-03  | `name` is 1–64 characters, lowercase letters/numbers/hyphens only, has no leading, trailing or consecutive hyphen, and matches the parent directory.                                               | [AS]                | 2026-11-27 | **enforced** — `validate-skills.js`.                                                              |
+| S-04  | `description` is non-empty and at most 1,024 characters.                                                                                                                                           | [AS]                | 2026-11-27 | **enforced** — `validate-skills.js` checks presence and length.                                   |
+| S-04a | Explain what the skill does and when to use it, using specific trigger language.                                                                                                                   | [AS]                | 2026-11-27 | **guidance** — wording quality is manual review.                                                  |
+| S-05  | `license` is a short string; `compatibility` is at most 500 characters; `metadata` is a flat string-to-string map.                                                                                 | [AS]                | 2026-11-27 | **enforced** — `validate-skills.js` checks these shapes.                                          |
+| S-06  | Portable `allowed-tools` is a space-separated string. Claude Code also accepts comma-separated strings and YAML lists.                                                                             | [AS], [CC-K]        | 2026-11-27 | **enforced** — `validate-skills.js` applies the form for the classified file type.                |
+| S-07  | `SKILL.md` has a substantive Markdown body after the frontmatter; a heading alone is not instructions.                                                                                             | [AS], [R-S]         | 2026-11-27 | **enforced** — `validate-skills.js` rejects empty or footer-only bodies.                          |
+| S-08  | Keep `SKILL.md` under 500 lines and the instruction body under about 5,000 tokens; move detail into `references/`.                                                                                 | [AS], [AS-B]        | 2026-11-27 | **guidance** — these are recommendations, not rejection limits.                                   |
+| S-09  | Keep file references relative to the skill root and one level deep.                                                                                                                                | [AS]                | 2026-11-27 | **guidance** — no repository check validates reference depth.                                     |
+| S-10  | Use Claude Code extension fields only for a Claude Code target.                                                                                                                                    | [CC-K], [R-S]       | 2026-11-27 | **enforced** — `validate-skills.js` applies field eligibility by file class.                      |
+| S-10a | Keep per-platform adapter metadata outside `SKILL.md`.                                                                                                                                             | [CC-K], [R-S]       | 2026-11-27 | **guidance** — no adapter-placement validator exists.                                             |
+| S-11  | In Claude Code, all skill fields are optional, `description` is recommended and unknown fields are ignored at runtime. Portable upload remains stricter.                                           | [CC-K]              | 2026-11-27 | **guidance** — runtime behaviour, not an active repository gate.                                  |
+| S-12  | Distribute shared skills through a plugin and root `.claude-plugin/marketplace.json`; each marketplace requires `name`, `owner` and `plugins`, and each plugin entry requires `name` and `source`. | [CC-M], [CC-P]      | 2026-11-27 | **guidance** — the marketplace file does not exist; future `claude plugin validate` is not in CI. |
+| S-13  | Plugin component paths start `./`, resolve inside the plugin root and point `skills` entries at directories containing `SKILL.md`.                                                                 | [CC-P]              | 2026-11-27 | **enforced** — `claude plugin validate --strict` when run; no active CI job runs it.              |
+| S-14  | Put tests for new helper code in `tests/` or `__tests__/`.                                                                                                                                         | [R-A], [R-J]        | 2026-11-27 | **guidance** — Jest discovers both folders; no check requires tests for every skill.              |
+| S-15  | Validate with `skills-ref validate` when available, `npm run validate:skills`, and `claude plugin validate --strict` for each packaging plugin.                                                    | [AS], [R-S], [CC-V] | 2026-11-27 | **guidance** — review procedure; `skills-ref` is not installed in this environment.               |
+| S-16  | Do not treat a baselined finding or a platform run with empty `contents` as proof of conformance.                                                                                                  | [R-S], [CC-V]       | 2026-11-27 | **guidance** — evidence rule for maintainers.                                                     |
+
+## Validated portable example
+
+This example passed `validate-skills.js` in the throwaway tree on 2026-11-27.
+
+`skills/sample-skill/SKILL.md`:
+
+```markdown
+---
+name: sample-skill
+description: Use this sample skill to validate the documented portable skill layout.
+---
+
+# Sample Skill
+
+## Instructions
+
+1. Read the requested input.
+2. Produce a concise result.
+```
+
+## Validated Claude Code example
+
+This example also passed `validate-skills.js` when classified as a Claude Code skill under `.claude/skills/sample-claude/SKILL.md`.
+
+```markdown
+---
+name: sample-claude
+description: Use this sample skill to validate Claude Code extension fields.
+allowed-tools:
+  - Read
+  - Grep
+context: fork
+agent: general-purpose
+---
+
+# Sample Claude Skill
+
+## Instructions
+
+1. Read the requested input.
+2. Produce a concise result.
+```
+
+## Validation procedure
 
 ```bash
-npm run validate:skills          # gate: fails on a finding not in the baseline
-node scripts/validation/validate-skills.js --report   # per-class counts
-node scripts/validation/validate-skills.js --write-baseline
+skills-ref validate ./skills/<skill-name>
+npm run validate:skills
+claude plugin validate plugins/<plugin-name> --strict --json
 ```
 
-### File classes and the rules each is held to
-
-`npm run validate:skills` classifies every file it checks and applies that
-class's rules, so a platform extension is only permitted where the platform
-actually applies.
-
-| Class                 | Files                                                                                                    | Allowed fields                                                                                                                | Source                                     |
-| --------------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
-| `open-spec-skill`     | `skills/**`, `agents/**`, `plugins/**` bundled skills                                                    | the six specification fields                                                                                                  | https://agentskills.io/specification       |
-| `claude-code-skill`     | `.claude/skills/**` and the directories listed in `CLAUDE_CODE_SKILL_ROOTS` (`scripts/validation/lib/skills-spec.js`) | those six plus the documented Claude Code platform fields                                                                       | https://code.claude.com/docs/en/skills       |
-| `subagent-definition` | `*.agent.md`                                                                                             | the subagent frontmatter table plus this repository's own `schemas/agent-config.schema.json` required and optional field sets | https://code.claude.com/docs/en/sub-agents |
-| `agents-md`           | `AGENTS.md`                                                                                              | the document frontmatter this repository uses                                                                                 | https://agents.md                          |
-
-The specification permits exactly six top-level fields on a skill:
-
-| Field           | Required | Constraint                                                                                                                     |
-| --------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `name`          | Yes      | 1-64 characters; `a-z`, `0-9` and single hyphens only; no leading or trailing hyphen; **must match the parent directory name** |
-| `description`   | Yes      | 1-1024 characters; say what the skill does and when to use it                                                                  |
-| `license`       | No       | Licence name, or a reference to a bundled licence file                                                                         |
-| `compatibility` | No       | Up to 500 characters; environment requirements only                                                                            |
-| `metadata`      | No       | A flat map of string keys to **string** values                                                                                 |
-| `allowed-tools` | No       | Space-separated pre-approved tools (experimental)                                                                              |
-
-There is no top-level `version`, `category`, `tags`, `dependencies`,
-`interfaces`, `maintainer` or `last_updated`. Record that information under
-`metadata` instead. Claude Code's platform fields are permitted only on the
-`claude-code-skill` class, because a claude.ai upload or a `package_skill.py`
-build rejects them.
-
-### Known findings
-
-`scripts/validation/skills-baseline.json` lists every finding the validator
-reports today, one `"<path>#<rule>"` entry each. A finding in that file is a
-warning; a finding outside it fails the run, so the baseline cannot hide a
-regression. It shrinks as the per-class fixes land, and the last of those
-deletes the file.
-
-### Format
-
-````markdown
----
-name: skill-name
-description: One-line description of what the skill does and when to use it
-license: GPL-3.0-or-later
-metadata:
-  version: '1.0.0'
-  category: code-analysis
-  tags: 'analysis, quality'
-  dependencies: 'dependency-name@^1.0.0'
-  interfaces: 'input, output'
-  maintainer: 'LightSpeed Team'
-  last_updated: '2026-07-24'
-  last_reviewed: '2026-10-01'
----
-
-# Skill Name
-
-## Purpose
-
-Detailed explanation of what this skill does and why it exists.
-
-## Capabilities
-
-- Capability 1
-- Capability 2
-
-## Input Interface
-
-### Schema
-
-```json
-{
-  "type": "object",
-  "properties": {
-    "parameter1": { "type": "string" }
-  }
-}
-```
-
-### Example
-
-```json
-{
-  "parameter1": "value"
-}
-```
-
-## Output Interface
-
-### Schema
-
-```json
-{
-  "type": "object",
-  "properties": {
-    "result": { "type": "string" }
-  }
-}
-```
-
-### Example
-
-```json
-{
-  "result": "output value"
-}
-```
-
-## Usage in Agents
-
-Reference this skill in an agent's `agent.md`:
-
-```yaml
-skills:
-  - skill-name
-```
-
-## Error Handling
-
-Document expected errors and how to handle them.
-
-## Performance Considerations
-
-Note any performance implications or limitations.
-
-## Examples
-
-Include real-world usage examples.
-
-## Testing
-
-How to test this skill independently.
-````
-
----
-
-## Minimum Requirements
-
-All skills must include:
-
-1. **SKILL.md** with:
-   - `name` (kebab-case, unique, and equal to the directory name)
-   - `description` (one-line summary)
-   - instructions in the body; frontmatter alone is not a skill
-   - `metadata.version` (semantic, quoted) and `metadata.category`, where the
-     skill records them
-   - Purpose section
-   - Input and output documentation
-
-2. **Implementation file** (`.js`, `.py`, etc.):
-   - Clean, documented code
-   - Error handling
-   - Type hints or JSDoc comments
-
-3. **Examples**:
-   - Real-world usage
-   - Input/output samples
-   - Common patterns
-
-### Optional but Recommended
-
-- `README.md` — Detailed guide
-- `tests/` — Unit and integration tests
-- `schemas/` — JSON Schema definitions
-- `examples/` — Multiple usage patterns
-
----
-
-## Skill Composition
-
-### How Agents Use Skills
-
-Agents reference shared skills in their frontmatter:
-
-```yaml
-skills:
-  - code-analysis
-  - security-audit
-  - documentation-generator
-```
-
-At runtime, the agent can invoke skill operations:
-
-```javascript
-const analysis = await skills.codeAnalysis.analyse(code);
-const security = await skills.securityAudit.scan(analysis);
-const docs = await skills.documentationGenerator.generate(security);
-```
-
-### Skill Dependencies
-
-Skills can depend on other skills:
-
-```yaml
-dependencies:
-  - code-analysis@^1.0.0
-  - testing-framework@^2.1.0
-```
-
-The dependency resolution system ensures:
-
-- Transitive dependencies are resolved
-- Version conflicts are detected
-- Circular dependencies are prevented
-
----
-
-## Versioning & Maintenance
-
-### Semantic Versioning
-
-Skills follow [semantic versioning](./VERSIONING.md):
-
-| Change                                       | Version | Example       |
-| -------------------------------------------- | ------- | ------------- |
-| Breaking change (input/output format change) | MAJOR   | 1.0.0 → 2.0.0 |
-| New capability (backwards-compatible)        | MINOR   | 1.0.0 → 1.1.0 |
-| Bug fix or internal improvement              | PATCH   | 1.0.0 → 1.0.1 |
-
-### Backward Compatibility
-
-When updating a skill:
-
-- **MINOR/PATCH versions** must not break existing agent integrations
-- **MAJOR versions** can break compatibility; agents must explicitly opt-in
-- Document all breaking changes in a CHANGELOG
-
-### Deprecation
-
-When deprecating a skill:
-
-1. **Warning phase** — Add deprecation notice, suggest replacement
-2. **Maintenance phase** — No new features, only critical fixes
-3. **End-of-life** — Remove from repository, archive to historical folder
-
----
-
-## Best Practices
-
-### Naming
-
-- Use kebab-case, descriptive names: `code-analysis`, `security-audit`
-- Avoid generic names: prefer `markdown-linter` over `linter`
-- Use domain prefixes for related skills: `testing-framework`, `testing-report-generator`
-
-### Scope
-
-- Keep skills focused and single-purpose
-- If a skill grows too large, split it
-- Favour composition over monolithic skills
-
-### Documentation
-
-- Write clear, concise descriptions
-- Include input/output examples
-- Document error cases
-- Provide usage examples with real data
-- Explain performance characteristics
-
-### Error Handling
-
-- Return structured error objects with type and message
-- Provide actionable error messages
-- Log errors appropriately
-- Handle edge cases explicitly
-
-### Testing
-
-- Write unit tests for core functionality
-- Include integration tests with typical agents
-- Test error scenarios
-- Document test execution: `npm test` or equivalent
-
-### Accessibility
-
-- Use clear, jargon-free language where possible
-- Document any domain-specific terminology
-- Provide examples for different use cases
-- Include troubleshooting guides
-
----
-
-## Reference Resources
-
-- [Agent Standards](./AGENT_STANDARDS.md) — Using skills in agents
-- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Composing skills in workflows
-- [agentskills.io Best Practices](https://agentskills.io/skill-creation/best-practices)
-- [agentskills.io Specification](https://agentskills.io/specification)
-- [Claude Agent Skills Overview](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview)
-
----
-
-## Examples
-
-### Example: Code Analysis Skill
-
-````yaml
----
-name: code-analysis
-description: Analyses code for quality metrics, complexity, and patterns
-metadata:
-  version: "1.0.0"
-  category: code-analysis
-  tags: "analysis, quality, metrics"
----
-
-# Code Analysis Skill
-
-## Purpose
-Provides comprehensive code analysis including complexity metrics, code smells, and quality assessment.
-
-## Capabilities
-- AST parsing and traversal
-- Cyclomatic complexity calculation
-- Code smell detection
-- Dependency graph generation
-
-## Input Schema
-```json
-{
-  "code": "string",
-  "language": "javascript|python|go|rust"
-}
-````
-
-## Output Schema
-
-```json
-{
-  "complexity": {
-    "cyclomatic": "number",
-    "cognitive": "number"
-  },
-  "smells": ["string"],
-  "metrics": { "lines": "number", "functions": "number" }
-}
-```
-
----
-
-**Last Updated:** 2026-07-24
-**Version:** 1.0.0
-
----
-
-*Docs signed by 🤖 Copilot for LightSpeedWP – always fresh!*
+The repository validator uses constants dated 2026-10-01 and a checked-in baseline. It complements, but does not replace, current platform validation. On Claude Code 2.1.332, validating the repository's root `skills/` returned no contents; only `.claude/skills`, `~/.claude/skills` or a plugin manifest provides meaningful platform coverage for that layout.
+
+## Known gaps
+
+- The root marketplace file is absent and creating it is out of scope.
+- No active workflow runs `claude plugin validate`; current strict validation reports existing plugin and skill failures.
+- The repository baseline hides known findings, including missing frontmatter and invalid names. A green baseline gate is not a clean bill of health.
+- The local field lists are snapshots. Re-read the official specification and Claude Code table before changing them.
+- `skills-ref` and `uv` are not installed in this environment, so the official reference validator could not be run here.
+- Existing skills and plugins are not migrated by this documentation change.
+
+## Related standards
+
+- [Agent Standards](./AGENT_STANDARDS.md)
+- [Plugin Standards](./PLUGINS_STANDARDS.md)
+- [Workflow Standards](./WORKFLOWS_STANDARDS.md)
+- [Cookbook Standards](./COOKBOOKS_STANDARDS.md)
+
+[AS]: https://agentskills.io/specification
+[AS-B]: https://agentskills.io/skill-creation/best-practices
+[CC-K]: https://code.claude.com/docs/en/skills
+[CC-M]: https://code.claude.com/docs/en/plugins/create-marketplace
+[CC-P]: https://code.claude.com/docs/en/plugins/manifest-reference#path-rules
+[CC-V]: https://code.claude.com/docs/en/plugins/cli-reference#plugin-validate
+[R-A]: ../AGENTS.md
+[R-J]: ../.jest.config.cjs
+[R-S]: ../scripts/validation/lib/skills-spec.js
