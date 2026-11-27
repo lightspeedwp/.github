@@ -1,414 +1,84 @@
 ---
 file_type: documentation
-title: Workflows Standards
-description: Standards for creating reusable agentic workflows
-version: 1.0.1
-last_updated: '2026-08-21'
+title: Workflow Standards
+description: Portable Markdown workflows, Claude Code dynamic workflows and GitHub Actions boundaries.
+version: '2.0.0'
+last_updated: '2026-11-27'
 ---
 
-# Workflows Standards
+# Workflow Standards
 
-Guidelines for creating reusable, multi-agent workflows that orchestrate complex tasks.
+Three different artefacts share the word "workflow": portable Markdown procedures, Claude Code dynamic JavaScript workflows and GitHub Actions YAML. Their locations and contracts are separate. Rules are marked **enforced** only where a named check rejects a violation. Sources were checked on 2026-11-27.
 
-## Overview
+## Canonical layout
 
-Workflows are JavaScript/TypeScript scripts that coordinate multiple agents, manage execution state, and implement patterns like fan-out, aggregation, and iterative refinement. This document covers standards for creating portable, reusable workflows.
-
-**Important:** Workflows are NOT GitHub Actions workflows. They are agentic orchestration scripts.
-
-### Workflow Execution Patterns
-
-```mermaid
-graph TB
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Workflow execution patterns
-    accDescr: Shows different execution patterns for agentic workflows including sequential, parallel, fan-out, and iterative patterns that combine into aggregated results.
-    A["Task Input"] --> B{Execution Type}
-    B -->|Sequential| C["Phase 1 → Phase 2 → Phase 3"]
-    B -->|Parallel| D["Task A ⊕ Task B ⊕ Task C"]
-    B -->|Fan-Out| E["Item 1 → Stage 1-3<br/>Item 2 → Stage 1-3<br/>Item 3 → Stage 1-3"]
-    B -->|Iterative| F["Loop Until<br/>No New Results"]
-    C --> G["Aggregated Result"]
-    D --> G
-    E --> G
-    F --> G
-```
-
-## Overview Details
-
-Workflows are documented as Markdown files describing orchestration logic and patterns.
-
----
-
-## Workflow Concept
-
-### What Is an Agentic Workflow?
-
-A workflow is a reusable orchestration script that:
-
-- Spawns multiple agents to accomplish a goal
-- Manages execution flow (sequential, parallel, conditional)
-- Aggregates results from multiple sources
-- Implements complex patterns (fan-out, verification, loop-until-dry)
-- Respects budget constraints and token limits
-
-### Workflows vs. GitHub Actions
-
-| Aspect | Agentic Workflow | GitHub Actions |
-|--------|------------------|----------------|
-| **Purpose** | Coordinate AI agents | Automate CI/CD pipelines |
-| **Language** | JavaScript/TypeScript | YAML |
-| **Scope** | Task execution | Repository automation |
-| **State Management** | In-memory, structured | Sequential steps |
-| **Output** | Structured data | Logs and artifacts |
-
----
-
-## Folder Structure
-
-Workflows are stored in the `workflows/` folder:
-
-```
+```text
 workflows/
-├── {workflow-name}.js                    # Single-file workflow
-└── {workflow-name}/                      # Multi-file workflow
-    ├── index.js                          # Main workflow script
-    ├── package.json                      # Dependencies (optional)
-    ├── phases/
-    │   ├── discovery.js
-    │   └── verification.js
-    ├── agents/
-    │   └── custom-agent.js               # Workflow-specific agents
-    ├── lib/
-    │   └── helpers.js                    # Utility functions
-    └── examples/
-        └── example-usage.js
+├── README.md                        # Portable workflow index
+├── <workflow-id>.md                 # Portable human-readable procedure
+└── <workflow-id>/
+    └── README.md                    # Optional index for a larger workflow package
+
+.claude/
+└── workflows/
+    └── <name>.js                    # Claude Code dynamic workflow
+
+.github/
+└── workflows/
+    └── <name>.yml                   # GitHub Actions workflow
 ```
 
----
+Root `workflows/*.md` is the repository's portable procedure library. It is not a Claude Code discovery path. Claude Code dynamic workflows use JavaScript in `.claude/workflows/`, `~/.claude/workflows/` or a plugin's `workflows/` directory. GitHub Actions YAML is CI configuration, not a portable agent workflow.
 
-## Workflow Documentation Format
+## Rules and enforcement
 
-Workflows are documented as Markdown files in the `workflows/` folder, following the repository's established conventions.
+| ID   | Rule                                                                                                                                                                         | Source             | Checked    | Enforcement                                                                               |
+| ---- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ---------- | ----------------------------------------------------------------------------------------- |
+| W-01 | Store portable procedures as `workflows/<workflow-id>.md`; use an optional folder README only as a package index.                                                            | [R-W]              | 2026-11-27 | **guidance** — `validate-structure.js` checks only the folder and index.                  |
+| W-02 | Give portable workflow documents repository frontmatter with `file_type: documentation`, title, description, version, date and owners.                                       | [R-F], [R-W]       | 2026-11-27 | **enforced** — local `validate-frontmatter.js`; no active CI job runs it.                 |
+| W-03 | Use Overview, Inputs, Stages, Verification, Failure Handling and References sections for a portable procedure.                                                               | [R-W], [R-D]       | 2026-11-27 | **guidance** — no section validator exists.                                               |
+| W-04 | Do not invent runtime APIs such as `agent()`, `parallel()` or `pipeline()` unless a linked official client actually defines them.                                            | [CC-W], [R-W]      | 2026-11-27 | **guidance** — no repository workflow runner enforces an API.                             |
+| W-05 | Store Claude Code dynamic workflows as JavaScript in `.claude/workflows/`, `~/.claude/workflows/` or plugin `workflows/`, with the documented `meta` object and script body. | [CC-W]             | 2026-11-27 | **guidance** — platform loader contract; no active repository check.                      |
+| W-06 | Keep GitHub Actions YAML under `.github/workflows/` and pass actionlint plus the repository workflow lint checks.                                                            | [GH-A], [R-ACTION] | 2026-11-27 | **enforced** — required `actionlint` check and repository workflow lint scripts.          |
+| W-07 | Do not describe root `workflows/*.md` as automatically loaded by Claude Code.                                                                                                | [CC-W]             | 2026-11-27 | **guidance** — platform loading fact.                                                     |
+| W-08 | Make stages ordered, inputs explicit, failure actions clear and verification measurable.                                                                                     | [R-D], [R-W]       | 2026-11-27 | **guidance** — manual quality review.                                                     |
+| W-09 | Link agents, skills, cookbooks and hooks by their canonical relative paths.                                                                                                  | [R-W], [R-D]       | 2026-11-27 | **guidance** — use the scoped local-link check; general link validation is not active CI. |
+| W-10 | Validate changed Markdown frontmatter and links, and run actionlint only when GitHub Actions YAML changes.                                                                   | [R-F], [R-ACTION]  | 2026-11-27 | **enforced** — named local/CI checks for their respective file types.                     |
 
-### File Format
+## Repository example
 
-Workflows are defined as Markdown documents describing workflow logic, patterns, and orchestration:
+The real [Release Readiness Validation Workflow](../workflows/release-readiness-validation.md) is a portable Markdown procedure. The [portable workflow index](../workflows/README.md) owns the source layout. Neither file is a Claude Code dynamic workflow or a GitHub Actions workflow.
 
-```markdown
-# Workflow Name
+## Validation procedure
 
-## Purpose
-What this workflow accomplishes.
-
-## Phases
-1. **Discovery** — Find and analyse items
-2. **Verification** — Verify findings
-
-## Pattern
-[Describe execution pattern: sequential, parallel, pipeline, etc.]
-
-## Process
-
-### Phase 1: Discovery
-- Step 1: description
-- Step 2: description
-
-### Phase 2: Verification
-- Independent verification of each finding
-- Parallel execution of verification agents
-- Aggregation of results
-
-## Agent Invocation
-How this workflow invokes agents (conceptual, not executable).
-
-## Error Handling
-How failures are handled and recovered.
-
-## Budget Management
-How token budget is managed across phases.
+```bash
+node scripts/validation/validate-frontmatter.js --base origin/develop --head HEAD
+node scripts/validation/validate-links.js
+npm run lint:actionlint
+npm run lint:workflows
+npm run validate:workflow-npm-scripts
 ```
 
-### Metadata Object (Required)
-
-The `meta` object must be a pure literal (no computed values):
-
-```javascript
-export const meta = {
-  name: 'workflow-identifier',           // kebab-case, unique
-  description: 'What this workflow does', // One-line summary
-  phases: [                              // Phase definitions
-    {
-      title: 'Phase Name',
-      detail: 'What happens in this phase',
-      model: 'claude-opus-4-8',          // Optional: override model
-    },
-  ],
-}
-```
-
----
-
-## Execution Patterns
-
-### Choosing an Execution Pattern
-
-```mermaid
-graph TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Execution pattern selection
-    accDescr: Decision tree for choosing the appropriate execution pattern based on task dependencies and workload characteristics.
-    A{"Do tasks<br/>depend on<br/>each other?"} -->|YES| B["Sequential"]
-    A -->|NO| C{Many items<br/>to process?}
-    C -->|Few tasks| D["Parallel"]
-    C -->|Many items<br/>through stages| E["Pipeline"]
-    C -->|Discover until<br/>no new results| F["Loop-Until-Dry"]
-    B --> B1["✅ Phase 1 → Phase 2 → Phase 3"]
-    D --> D1["✅ Task A,B,C in parallel"]
-    E --> E1["✅ Items flow through stages"]
-    F --> F1["✅ Repeat discovery rounds"]
-```
-
-### Sequential Execution
-
-Run tasks one after another:
-
-```javascript
-const phase1 = await agent('Task 1', { phase: 'Phase 1' })
-const phase2 = await agent('Task 2', { phase: 'Phase 1' })
-const result = await agent('Combine', {
-  prompt: `Process: ${phase1} and ${phase2}`,
-  phase: 'Phase 2',
-})
-```
-
-### Parallel Execution
-
-Run multiple tasks concurrently:
-
-```javascript
-const results = await parallel([
-  () => agent('Task A', { label: 'task-a' }),
-  () => agent('Task B', { label: 'task-b' }),
-  () => agent('Task C', { label: 'task-c' }),
-])
-```
-
-### Pipeline (Fan-Out)
-
-Run items through multiple stages with staggered execution:
-
-```javascript
-const processed = await pipeline(
-  items,
-  item => agent(`Stage 1: ${item}`, { label: 'stage1' }),
-  item => agent(`Stage 2: ${item}`, { label: 'stage2' }),
-  item => agent(`Stage 3: ${item}`, { label: 'stage3' }),
-)
-```
-
-### Loop-Until-Dry
-
-Repeat discovery until no new items are found:
-
-```javascript
-const all = []
-let round = 0
-while (round < 5) {
-  const found = await agent('Find X', { schema: SCHEMA })
-  const fresh = found.filter(f => !all.find(a => a.id === f.id))
-  if (!fresh.length) break
-  all.push(...fresh)
-  round++
-  log(`Round ${round}: found ${fresh.length} items`)
-}
-```
-
-### Adversarial Verification
-
-Have multiple agents independently verify a claim:
-
-```javascript
-const votes = await parallel([
-  () => agent(`Verify (lens 1): ${claim}`, { schema: VERDICT }),
-  () => agent(`Verify (lens 2): ${claim}`, { schema: VERDICT }),
-  () => agent(`Verify (lens 3): ${claim}`, { schema: VERDICT }),
-])
-const confirmed = votes.filter(v => v.verdict).length >= 2
-```
-
----
-
-## Best Practices
-
-### Naming
-
-- Use kebab-case: `code-quality-audit`, `schema-migration-verifier`
-- Descriptive: prefer `database-migration-validator` over `worker`
-- Match `meta.name` to filename
-
-### Phase Organization
-
-- Name phases clearly: 'Discovery', 'Verification', 'Synthesis'
-- Keep 2-5 phases per workflow (more indicates over-complexity)
-- Use `phase()` calls to match `meta.phases` titles exactly
-
-### Error Handling
-
-- Return `null` on agent errors (the Workflow engine handles it)
-- Filter results: `results.filter(Boolean)` to remove nulls
-- Log meaningful progress: `log('Found ${count} items')`
-
-### Budget Awareness
-
-- Check `budget.total` and `budget.remaining()` before loops
-- Scale work to available budget:
-
-  ```javascript
-  while (budget.total && budget.remaining() > 50_000) {
-    // Allocate work proportional to budget
-  }
-  ```
-
-### Result Structuring
-
-- Return structured data, not strings
-- Use schemas to enforce output format
-- Document return value shape
-
-### Logging
-
-Use `log()` for user-facing progress messages:
-
-```javascript
-log(`Scanning ${files.length} files`)
-log(`Found ${issues.length} issues, verifying...`)
-log(`${confirmed.length}/${issues.length} confirmed`)
-```
-
----
-
-## Integration with Agents
-
-Agents can invoke workflows:
-
-```javascript
-const result = await workflow('workflow-name', {
-  // Optional args
-})
-```
-
-Workflows can spawn agents:
-
-```javascript
-const result = await agent('Task description', {
-  label: 'descriptive-label',
-  phase: 'Current Phase',
-  schema: RESULT_SCHEMA,
-})
-```
-
----
-
-## Examples
-
-### Example 1: Simple Discovery Workflow
-
-```javascript
-export const meta = {
-  name: 'find-broken-links',
-  description: 'Discover and verify broken links in documentation',
-  phases: [
-    { title: 'Discovery', detail: 'Find all links' },
-    { title: 'Verification', detail: 'Check if links are valid' },
-  ],
-}
-
-phase('Discovery')
-const links = await agent('Find all links in docs/', {
-  label: 'find-links',
-  schema: LINKS_SCHEMA,
-})
-
-phase('Verification')
-const verified = await parallel(links.map(link => () =>
-  agent(`Verify: ${link.url}`, { label: `verify-${link.id}` })
-))
-
-return {
-  total: links.length,
-  verified: verified.filter(Boolean).length,
-  broken: verified.filter(v => !v.valid),
-}
-```
-
-### Example 2: Multi-Phase Audit Workflow
-
-```javascript
-export const meta = {
-  name: 'comprehensive-code-audit',
-  description: 'Multi-phase code quality audit with verification',
-  phases: [
-    { title: 'Scan', detail: 'Find issues across codebase' },
-    { title: 'Dedup', detail: 'Remove duplicate findings' },
-    { title: 'Verify', detail: 'Adversarially verify findings' },
-    { title: 'Synthesize', detail: 'Summarize results' },
-  ],
-}
-
-phase('Scan')
-const findings = await parallel([
-  () => agent('Find security issues', { label: 'security', schema: FINDINGS }),
-  () => agent('Find performance issues', { label: 'perf', schema: FINDINGS }),
-  () => agent('Find style violations', { label: 'style', schema: FINDINGS }),
-])
-
-const all = findings.filter(Boolean).flatMap(f => f.findings)
-
-phase('Dedup')
-const deduped = dedupeByFileAndLine(all)
-log(`${all.length} findings → ${deduped.length} unique`)
-
-phase('Verify')
-const verified = await parallel(deduped.map(f => () =>
-  agent(`Is this real? ${f.description}`, { schema: VERDICT })
-))
-
-const confirmed = deduped.filter((f, i) => verified[i]?.real)
-
-phase('Synthesize')
-const report = await agent(`Summarize findings`, {
-  prompt: JSON.stringify(confirmed),
-  schema: REPORT_SCHEMA,
-})
-
-return report
-```
-
----
-
-## See Also
-
-- [Agent Standards](./AGENT_STANDARDS.md) — Agents that invoke workflows
-- [Skills Standards](./SKILLS_STANDARDS.md) — Reusable capabilities in workflows
-- [Cookbooks Standards](./COOKBOOKS_STANDARDS.md) — Executable workflow recipes and playbooks
-- [Hooks Standards](./HOOKS_STANDARDS.md) — Event handlers during workflow execution
-
----
-
-## Related Documentation
-
-- [Agent Standards](./AGENT_STANDARDS.md) — Agents that invoke workflows
-- Anthropic Claude Agent SDK documentation — Workflow execution engine
-
----
-
-**Last Updated:** 2026-07-24  
-**Version:** 1.0.0
-
----
-
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+Use a scoped local-link check for changed portable Markdown because the general link checker covers only a small explicit list. `npm run validate:workflows` is a separate local legacy guardrail and does not validate portable `workflows/*.md`.
+
+## Known gaps
+
+- No repository validator checks portable workflow sections, stage ordering, budgets or return schemas.
+- Claude Code dynamic workflows have no active repository CI check.
+- GitHub Actions has required actionlint coverage; Spectral and npm-script reference checks add repository-specific rules.
+- Existing portable workflows are not converted or removed by this documentation change.
+
+## Related standards
+
+- [Agent Standards](./AGENT_STANDARDS.md)
+- [Skill Standards](./SKILLS_STANDARDS.md)
+- [Cookbook Standards](./COOKBOOKS_STANDARDS.md)
+- [Hook Standards](./HOOKS_STANDARDS.md)
+- [Automation Guide](./AUTOMATION.md)
+
+[CC-W]: https://code.claude.com/docs/en/workflows
+[GH-A]: https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax
+[R-ACTION]: ../scripts/validation/run-actionlint.cjs
+[R-D]: ../instructions/documentation-formats.instructions.md
+[R-F]: ../.schemas/frontmatter.schema.json
+[R-W]: ../workflows/README.md

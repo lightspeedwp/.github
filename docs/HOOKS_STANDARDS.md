@@ -1,501 +1,91 @@
 ---
 file_type: documentation
-title: Hooks Standards
-description: Standards for creating event-driven hooks for agents and automation
-version: 1.0.1
-last_updated: '2026-08-21'
+title: Hook Standards
+description: Portable repository guardrails, Claude Code hook configuration, testing and enforcement.
+version: '2.0.0'
+last_updated: '2026-11-27'
 ---
 
-# Hooks Standards
+# Hook Standards
 
-Guidelines for creating event-driven hooks that automate tasks and enforce governance in agents and workflows.
+The repository's `hooks/` folder owns portable guardrail implementations and their documentation. Claude Code runtime hooks are configuration in settings, a plugin, a skill or a subagent. These are related but not interchangeable. Rules are marked **enforced** only where a named check rejects a violation. Sources were checked on 2026-11-27.
 
-## Overview
+## Canonical layout
 
-Hooks are JavaScript/TypeScript functions that execute in response to specific events. They enable automation, validation, and cross-cutting concerns without modifying core logic.
-
-### Hook Execution Lifecycle
-
-```mermaid
-graph LR
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Hook execution lifecycle
-    accDescr: Illustrates the event-driven lifecycle of hooks from trigger through loading, execution, result handling, and continuation or blocking of operations.
-    A["Event<br/>Triggered"] --> B["Load Hook<br/>Handler"]
-    B --> C["Extract<br/>Context"]
-    C --> D["Execute<br/>Hook"]
-    D --> E{"Hook<br/>Result?"}
-    E -->|Success| F["Return Data"]
-    E -->|Error| G["Throw Error"]
-    E -->|Block| H["Stop Execution"]
-    F --> I["Next Hook/<br/>Continue"]
-    G --> J["Error Handler"]
-    H --> K["Operation<br/>Blocked"]
-```
-
-## Quick Links
-
-- [Hook Concept](#hook-concept)
-- [Hook Types](#hook-types)
-- [Implementation](#implementation)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
-
----
-
-## Hook Concept
-
-### What Is a Hook?
-
-A hook is a function that:
-
-- Responds to specific events (startup, file saved, command executed)
-- Performs validation or preprocessing
-- Executes side effects (logging, notifications)
-- Can modify or block operations
-- Is reusable across multiple agents
-
-### Hook vs. Middleware
-
-Hooks differ from middleware:
-
-| Aspect | Hook | Middleware |
-|--------|------|----------|
-| **Trigger** | Event-based | Request/response pipeline |
-| **Scope** | Specific events | All requests |
-| **Blocking** | Can block | Always in chain |
-| **State** | Preserved between calls | Request-scoped |
-
----
-
-## Hook Types
-
-### Hook Type Selection
-
-```mermaid
-graph TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Hook type selection tree
-    accDescr: Decision tree for selecting the appropriate hook type based on the required functionality, from validation to policy enforcement.
-    A{"What should<br/>happen?"} -->|Check<br/>conditions| B["Validation Hook"]
-    A -->|Transform<br/>data| C["Preprocessing Hook"]
-    A -->|React to<br/>event| D["Event Hook"]
-    A -->|Record<br/>info| E["Logging Hook"]
-    A -->|Enforce<br/>policy| F["Policy Hook"]
-    B --> G{"Throw on<br/>fail?"}
-    G -->|Yes| H["Blocking Hook"]
-    G -->|No| I["Warning Hook"]
-    C --> J["✅ Pre-process Data"]
-    D --> K["✅ Register Event"]
-    E --> L["✅ Log & Continue"]
-    F --> M["✅ Enforce Rule"]
-    H --> N["✅ Return or Throw"]
-    I --> N
-```
-
-### Event Hooks
-
-Triggered by specific events:
-
-| Event | Trigger | Use Case |
-|-------|---------|----------|
-| `startup` | Agent/plugin activation | Initialization |
-| `shutdown` | Agent/plugin deactivation | Cleanup |
-| `before-run` | Before agent execution | Validation, setup |
-| `after-run` | After agent execution | Cleanup, logging |
-| `on-error` | When error occurs | Error handling |
-| `on-success` | When task succeeds | Success logging |
-
-### Validation Hooks
-
-Validate inputs or state:
-
-```javascript
-export async function validateInput(input) {
-  if (!input || !input.code) {
-    throw new Error('Code parameter required')
-  }
-  return true
-}
-```
-
-### Preprocessing Hooks
-
-Transform data before processing:
-
-```javascript
-export async function normalizeInput(input) {
-  return {
-    ...input,
-    code: input.code.trim(),
-    language: input.language.toLowerCase()
-  }
-}
-```
-
----
-
-## Implementation
-
-### File Structure
-
-Hooks are stored in the `hooks/` folder:
-
-```
+```text
 hooks/
-├── branch-validation.js        # Validates branch names
-├── template-enforcement.js     # Ensures templates are used
-├── ci-guard.js                 # CI validation
-└── metrics-reporter.js         # Metrics collection
+├── README.md                        # Portable hook index
+├── hook-registry.json               # Repository guardrail registry
+└── <hook-id>/
+    ├── README.md                    # Purpose, inputs, outputs and safety
+    ├── index.js                     # Optional implementation
+    ├── *.sh                         # Optional shell entry point
+    └── tests/                       # Tests; __tests__/ is also accepted
+
+.claude/
+└── settings.json                    # Project-scoped Claude Code hooks
+
+plugins/<plugin-name>/hooks/
+└── hooks.json                       # Plugin-scoped Claude Code hooks
 ```
 
-For complex hooks, use folders:
+The repository registry records `pre-commit` and `pre-push` triggers. Claude Code hook events and matchers are a separate configuration contract defined by the current Claude Code hooks documentation.
 
-```
-hooks/{hook-name}/
-├── index.js                    # Main hook logic
-├── validators.js               # Validation functions
-├── lib/
-│   └── helpers.js             # Utility functions
-└── tests/
-    └── hook.test.js           # Hook tests
-```
+## Rules and enforcement
 
-### Hook Function Signature
+| ID    | Rule                                                                                                                                      | Source         | Checked    | Enforcement                                                                          |
+| ----- | ----------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------- | ------------------------------------------------------------------------------------ |
+| H-01  | Distinguish a portable repository guardrail from a Claude Code runtime hook.                                                              | [R-H], [CC-H]  | 2026-11-27 | **guidance** — no hook-specific active validator.                                    |
+| H-02  | Store each portable hook as `hooks/<hook-id>/` with a README and optional implementation, fixtures and tests.                             | [R-H]          | 2026-11-27 | **guidance** — `validate-structure.js` checks only the top-level folder and index.   |
+| H-03  | Register active portable guardrails in `hooks/hook-registry.json` with a real path and the applicable `pre-commit` or `pre-push` trigger. | [R-REG]        | 2026-11-27 | **guidance** — no active registry validator runs in CI.                              |
+| H-04  | Configure Claude Code hooks in user/project/local/managed settings, plugin `hooks/hooks.json`, skill frontmatter or subagent frontmatter. | [CC-H]         | 2026-11-27 | **guidance** — platform configuration, not a repository gate.                        |
+| H-05  | Keep plugin runtime hooks in `hooks/hooks.json`.                                                                                          | [CC-H], [CC-P] | 2026-11-27 | **enforced** — `claude plugin validate --strict` when run; no active CI job runs it. |
+| H-06  | Treat Markdown instructions as guidance; use hooks and permissions when a rule must block an action.                                      | [CC-H]         | 2026-11-27 | **guidance** — platform enforcement distinction.                                     |
+| H-07  | Give new hook code focused tests in `tests/` or `__tests__/`.                                                                             | [R-A], [R-J]   | 2026-11-27 | **guidance** — Jest discovers both folders, but no check requires hook tests.        |
+| H-08  | Lint new JavaScript hooks with the repository ESLint gate.                                                                                | [R-A], [R-L]   | 2026-11-27 | **enforced** — `npm run lint`.                                                       |
+| H-08a | Lint new shell hooks with ShellCheck.                                                                                                     | [R-A]          | 2026-11-27 | **guidance** — ShellCheck is not a required check for standalone hooks.              |
+| H-09  | Keep hooks deterministic, bounded and safe: validate inputs, avoid secrets, fail clearly and do not mutate unrelated files.               | [R-A], [CC-H]  | 2026-11-27 | **guidance** — no dedicated active safety check.                                     |
+| H-10  | Validate a changed hook with its tests, the relevant lint tools and the platform validator when it is packaged.                           | [R-A], [CC-V]  | 2026-11-27 | **guidance** — review procedure.                                                     |
+| H-11  | Do not use the legacy agent-hook dispatcher as evidence that the canonical agent layout is enforced.                                      | [R-LEGACY]     | 2026-11-27 | **guidance** — it is local-only, currently failing and tied to the older format.     |
 
-```javascript
-export async function hookName(context) {
-  // Destructure context
-  const { event, data, config } = context
+## Repository example
 
-  // Perform operations
-  const result = await processData(data)
+The real [hook registry](../hooks/hook-registry.json) records active guardrails and their triggers. The [portable hook index](../hooks/README.md) defines the folder ownership. No synthetic event API is required by this standard.
 
-  // Return result or throw error
-  if (!isValid(result)) {
-    throw new Error('Validation failed')
-  }
+> **History note:** `scripts/validation/validate-agent-hooks.cjs` still discovers legacy `AGENT.md` folders and older provider fields. It is not a canonical agent validator and is not run by active CI.
 
-  return result
-}
-```
+## Validation procedure
 
-### Context Object
-
-Hooks receive context with:
-
-```javascript
-{
-  event: 'startup',           // Event name
-  data: {...},                // Event-specific data
-  config: {...},              // Hook configuration
-  logger: {...},              // Logging interface
-  previousResult: {...},      // Result from previous hook
-  agent: {...},               // Agent information
-  timestamp: 1234567890       // Unix timestamp
-}
+```bash
+npm run lint
+npm test
+shellcheck hooks/<hook-id>/<entrypoint>.sh
+claude plugin validate plugins/<plugin-name> --strict --json
 ```
 
-### Error Handling
-
-Hooks can:
-
-1. **Throw** — Stop execution, return error to caller
-2. **Warn** — Log warning, continue execution
-3. **Transform** — Modify data and pass to next hook
-4. **Ignore** — Continue without error
-
-```javascript
-export async function validateOrWarn(context) {
-  const { data, logger } = context
-
-  if (!isValid(data)) {
-    logger.warn('Validation failed, continuing anyway')
-    return data  // Continue
-  }
-
-  return data
-}
-```
-
----
-
-## Hook Registration
-
-Hooks are registered in agent or plugin configuration:
-
-### In Agents
-
-```yaml
-# In agent.md
-hooks:
-  - validation
-  - preprocessing
-  - metrics-reporter
-```
-
-### In Plugins
-
-```json
-{
-  "hooks": [
-    {
-      "event": "startup",
-      "script": "dist/hooks.js",
-      "function": "onStartup"
-    }
-  ]
-}
-```
-
----
-
-## Best Practices
-
-### Naming
-
-- Hook files: `kebab-case.js` (e.g., `branch-validation.js`)
-- Functions: `on<EventName>` or `<action>Hook` (e.g., `onStartup`, `validationHook`)
-- Exports: All functions should be explicitly exported
-
-### Idempotency
-
-Hooks should be safe to run multiple times:
-
-```javascript
-// ✅ Good: Safe to run multiple times
-export async function ensureConfigExists(context) {
-  const exists = await checkConfigFile()
-  if (!exists) {
-    await createConfigFile()
-  }
-}
-
-// ❌ Bad: Side effect on each run
-export async function appendToLog(context) {
-  await appendLogEntry('Hook executed')  // Duplicate entries
-}
-```
-
-### Error Resilience
-
-Handle errors gracefully:
-
-```javascript
-export async function robustHook(context) {
-  try {
-    return await riskyOperation()
-  } catch (error) {
-    context.logger.error(`Hook failed: ${error.message}`)
-    // Return default/safe value instead of throwing
-    return defaultValue
-  }
-}
-```
-
-### Performance
-
-- Keep hooks fast (< 1 second)
-- Use lazy loading for heavy dependencies
-- Cache expensive computations
-- Avoid blocking I/O when possible
-- Log performance metrics
-
-### Logging
-
-Log relevant information for debugging:
-
-```javascript
-export async function loggedHook(context) {
-  const { logger, data } = context
-
-  logger.debug('Hook starting', { dataSize: data.length })
-
-  const result = await process(data)
-
-  logger.info('Hook completed', {
-    success: true,
-    itemsProcessed: result.count
-  })
-
-  return result
-}
-```
-
-### Testing
-
-Write comprehensive tests:
-
-```javascript
-describe('branchValidationHook', () => {
-  it('should reject invalid branch names', async () => {
-    const context = { data: { branch: 'main_fix' } }
-    expect(() => branchValidation(context)).toThrow()
-  })
-
-  it('should accept valid branch names', async () => {
-    const context = { data: { branch: 'fix/my-feature' } }
-    const result = await branchValidation(context)
-    expect(result).toBeDefined()
-  })
-})
-```
-
----
-
-## Hook Composition
-
-Multiple hooks can be chained:
-
-```javascript
-// Hook 1: Validation
-export async function validate(context) {
-  if (!isValid(context.data)) throw new Error('Invalid')
-  return context.data
-}
-
-// Hook 2: Transform
-export async function transform(context) {
-  return {
-    ...context.data,
-    processed: true
-  }
-}
-
-// Hook 3: Log
-export async function log(context) {
-  context.logger.info('Processing complete', context.data)
-  return context.data
-}
-```
-
-Execution order: validate → transform → log
-
----
-
-## Examples
-
-### Example 1: Branch Name Validation Hook
-
-```javascript
-// hooks/branch-validation.js
-export async function validateBranchName(context) {
-  const { data, logger } = context
-  const { branch } = data
-
-  // Valid pattern: type/scope-short-title
-  const pattern = /^[a-z]+\/[a-z0-9\-]+$/
-  if (!pattern.test(branch)) {
-    throw new Error(
-      `Invalid branch name: ${branch}. ` +
-      `Use format: type/scope-short-title`
-    )
-  }
-
-  logger.info(`Branch ${branch} is valid`)
-  return { ...data, validated: true }
-}
-```
-
-### Example 2: Metrics Reporter Hook
-
-```javascript
-// hooks/metrics-reporter.js
-export async function reportMetrics(context) {
-  const { event, data, timestamp } = context
-
-  const metrics = {
-    event,
-    timestamp,
-    dataSize: JSON.stringify(data).length,
-    duration: Date.now() - timestamp
-  }
-
-  await sendMetrics(metrics)
-  return data
-}
-```
-
-### Example 3: CI Guard Hook
-
-```javascript
-// hooks/ci-guard.js
-export async function enforceCIChecks(context) {
-  const { data, logger } = context
-  const { branch, ciStatus } = data
-
-  // Block merge if CI failing
-  if (ciStatus === 'failing') {
-    logger.error(`CI failing on ${branch}, blocking operation`)
-    throw new Error('CI checks must pass before proceeding')
-  }
-
-  logger.info('CI checks passed')
-  return data
-}
-```
-
----
-
-## Real-World Repository Examples
-
-### Production Hooks
-
-The LightSpeedWP `.github` repository implements governance and validation hooks:
-
-**Hook:** `agent-spec-validator`
-
-Validates agent specifications against standards before acceptance.
-
-**Location:** `hooks/agent-spec-validator/`
-
-Type: Validation Hook | Event: `before-commit`
-
-**Hook:** `plugin-integrity-checker`
-
-Checks plugin manifests and configurations for consistency and compliance.
-
-**Location:** `hooks/plugin-integrity-checker/`
-
-Type: Policy Hook | Event: `before-publish`
-
-**Hook:** `multi-provider-consistency-checker`
-
-Ensures agent configurations work across multiple LLM providers.
-
-**Location:** `hooks/multi-provider-consistency-checker/`
-
-Type: Validation Hook | Event: `before-agent-publish`
-
-**Hook:** `agent-security-auditor`
-
-Performs security analysis on agent code and configurations.
-
-**Location:** `hooks/agent-security-auditor/`
-
-Type: Security Policy Hook | Event: `before-production-deploy`
-
-See all hooks: [`hooks/`](../../hooks/)
-
----
-
-## See Also
-
-- [Agent Standards](./AGENT_STANDARDS.md) — Agents using hooks
-- [Plugins Standards](./PLUGINS_STANDARDS.md) — Plugin hooks
-- [Workflows Standards](./WORKFLOWS_STANDARDS.md) — Workflow hooks
-- [Skills Standards](./SKILLS_STANDARDS.md) — Skill validation hooks
-
----
-
-## Related Documentation
-
-- [Hooks Standards](./HOOKS_STANDARDS.md) — Event-driven handlers
-
----
-
-**Last Updated:** 2026-07-24  
-**Version:** 1.0.0
-
-_This page brought to you by the 🦄 Magic Automation Unicorns of LightSpeedWP._
-[Automation Docs](https://github.com/lightspeedwp/.github/tree/main/instructions)
+Use only the commands applicable to the changed hook. A hook that is not packaged as a Claude plugin has no platform manifest to validate.
+
+## Known gaps
+
+- No active hook-specific schema, registry validator or runtime-contract test covers the whole `hooks/` tree.
+- The legacy dispatcher and multi-provider checker enforce obsolete agent conventions and currently fail; they are not active CI.
+- The Husky pre-commit runs lint-staged, and its Markdown task skips ignored `docs/**` paths.
+- Root `AGENTS.md` still describes folder-based agent code/spec pairs. The conflict with the Markdown-profile standard remains open and is not resolved here.
+- Existing hooks are not migrated by this documentation change.
+
+## Related standards
+
+- [Agent Standards](./AGENT_STANDARDS.md)
+- [Plugin Standards](./PLUGINS_STANDARDS.md)
+- [Workflow Standards](./WORKFLOWS_STANDARDS.md)
+- [Skill Standards](./SKILLS_STANDARDS.md)
+
+[CC-H]: https://code.claude.com/docs/en/hooks
+[CC-P]: https://code.claude.com/docs/en/plugins/manifest-reference
+[CC-V]: https://code.claude.com/docs/en/plugins/cli-reference#plugin-validate
+[R-A]: ../AGENTS.md
+[R-H]: ../hooks/README.md
+[R-J]: ../.jest.config.cjs
+[R-L]: ../package.json
+[R-LEGACY]: ../scripts/validation/validate-agent-hooks.cjs
+[R-REG]: ../hooks/hook-registry.json
