@@ -1,459 +1,112 @@
 ---
 file_type: documentation
-title: Instructions Standards
-description: Standards for creating portable instruction files for agents and tools
-version: 1.0.1
-last_updated: '2026-08-21'
+title: Instruction Standards
+description: Canonical instruction sources, GitHub Copilot path rules, Claude Code loading and validation.
+version: '2.0.0'
+last_updated: '2026-11-27'
 ---
 
-# Instructions Standards
+# Instruction Standards
 
-Guidelines for creating high-quality, reusable instruction files that guide agent behaviour and system interactions.
+Instruction files are Markdown guidance, but their loading behaviour depends on the client and location. The canonical repository sources are root `instructions/` for portable guidance and `.github/instructions/` for GitHub Copilot path-specific rules. Claude Code uses its own memory and rules locations. Rules are marked **enforced** only where a named check rejects a violation. Sources were checked on 2026-11-27.
 
-## Overview
+## Canonical layout
 
-Instructions are structured documents that define rules, guidelines, and procedures for AI agents and tools. Well-written instructions improve consistency, reduce errors, and make systems easier to maintain and extend.
+```text
+instructions/
+├── <topic>.instructions.md          # Portable organisation guidance
+├── <topic>/
+│   └── README.md                    # Optional topic index
+└── README.md                        # Portable instruction index
 
-## Quick Links
+.github/
+└── instructions/
+    └── <rule>.instructions.md       # Copilot path-specific repository rule
 
-- [Instruction File Purpose](#instruction-file-purpose)
-- [File Format & Structure](#file-format--structure)
-- [Mandatory Sections](#mandatory-sections)
-- [Frontmatter Reference](#frontmatter-reference)
-- [Best Practices](#best-practices)
-- [Examples](#examples)
+CLAUDE.md                            # Claude Code repository memory
+.claude/
+└── rules/
+    └── <rule>.md                    # Claude Code path-scoped rules
+AGENTS.md                            # Shared ordinary-Markdown working instructions
+```
 
+Root `instructions/` is a portable source library, not a Claude Code auto-load directory. GitHub Copilot discovers `.github/instructions/**/*.instructions.md` when `applyTo` matches. Claude Code natively loads `CLAUDE.md`, `.claude/rules/*.md` and supported `AGENTS.md` locations; other Markdown can be imported or referenced explicitly.
+
+## Rules and enforcement
+
+| ID    | Rule                                                                                                                                                                                         | Source         | Checked    | Enforcement                                                                                                 |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------- | ---------- | ----------------------------------------------------------------------------------------------------------- |
+| I-01  | Store portable guidance as `instructions/<topic>.instructions.md` and use an optional topic `README.md` only as an index.                                                                    | [R-I]          | 2026-11-27 | **guidance** — `validate-structure.js` checks only the top-level folder and index.                          |
+| I-02  | Store GitHub Copilot path-specific rules as `.github/instructions/**/*.instructions.md`.                                                                                                     | [GH-I]         | 2026-11-27 | **guidance** — no repository check requires this path.                                                      |
+| I-03  | Give a Copilot path-specific rule an `applyTo` glob; comma-separated patterns are supported.                                                                                                 | [GH-I]         | 2026-11-27 | **guidance** — the local schema checks the field when present but does not replace GitHub's loader.         |
+| I-04  | Use `file_type` and `description` in repository instruction frontmatter. `applyTo` is required by GitHub for path-specific rules, not by the repository schema.                              | [R-F], [GH-I]  | 2026-11-27 | **enforced** — local `validate-frontmatter.js` for `file_type` and `description`; no active CI job runs it. |
+| I-05  | Do not add a `references` frontmatter field; use inline links or a references section.                                                                                                       | [R-F], [R-V]   | 2026-11-27 | **enforced** — `validate-frontmatter.js` explicitly rejects `references`.                                   |
+| I-06  | Use clear sections such as Overview, Rules, Examples, Validation and References.                                                                                                             | [R-I], [R-D]   | 2026-11-27 | **guidance** — no validator enforces instruction sections.                                                  |
+| I-07  | Do not claim that root `instructions/*.instructions.md` is automatically loaded by Claude Code.                                                                                              | [CC-M]         | 2026-11-27 | **guidance** — platform loading fact.                                                                       |
+| I-08  | For Claude Code, use `CLAUDE.md`, `.claude/rules/*.md`, conditional `AGENTS.md`, explicit `@path` imports or a skill reference.                                                              | [CC-M], [CC-K] | 2026-11-27 | **guidance** — no repository check validates loadability.                                                   |
+| I-09  | Treat `AGENTS.md` as ordinary Markdown with no required frontmatter. Claude Code direct loading requires v2.1.277+ and is conditional on the absence of higher-priority Claude memory files. | [AM], [CC-M]   | 2026-11-27 | **guidance** — the repository applies a separate local frontmatter dialect.                                 |
+| I-10  | Use UK English and keep guidance concise, actionable and accessible.                                                                                                                         | [R-A], [R-D]   | 2026-11-27 | **guidance** — no dedicated language or readability gate.                                                   |
+| I-11  | Keep existing instruction files unless a separate migration approves removal; document the target loader rather than deleting a source.                                                      | [GH-I], [CC-M] | 2026-11-27 | **guidance** — migration policy.                                                                            |
+| I-12  | Validate changed instruction frontmatter before review.                                                                                                                                      | [R-V]          | 2026-11-27 | **enforced** — local `validate-frontmatter.js`; no active CI job runs it.                                   |
+| I-12a | Check local links in changed instruction files.                                                                                                                                              | [R-L]          | 2026-11-27 | **guidance** — `validate-links.js` does not cover the instruction paths.                                    |
+
+## Validated example
+
+This example passed `.schemas/frontmatter.schema.json` on 2026-11-27.
+
+`.github/instructions/sample.instructions.md`:
+
+```markdown
 ---
-
-## Instruction File Purpose
-
-### What Are Instructions?
-
-Instructions are configuration documents that:
-
-- Define behaviour and constraints for agents
-- Encode business rules and policies
-- Guide decision-making in complex scenarios
-- Establish communication standards
-- Document governance and approval workflows
-
-### Scope
-
-Instructions can address:
-
-- **Agents** — How specific agents should behave
-- **Teams** — Standards for a team's work
-- **Repositories** — Repository-specific rules and conventions
-- **Processes** — Step-by-step procedures
-- **Governance** — Approval workflows and escalation paths
-
-### Instruction Lifecycle
-
-```mermaid
-graph LR
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Instruction development lifecycle
-    accDescr: Process flow from drafting instructions through adding sections and examples to publishing and maintaining active instruction files.
-    A["Draft<br/>instructions.md"] --> B["Add<br/>Frontmatter"]
-    B --> C["Write<br/>Sections"]
-    C --> D["Add Real<br/>Examples"]
-    D --> E["Link from<br/>Agents"]
-    E --> F["Review &<br/>Validate"]
-    F --> G["Publish<br/>active"]
-    G --> H["Maintain &<br/>Iterate"]
-```
-
----
-
-## File Format & Structure
-
-### Filename Convention
-
-```
-instructions/{scope}.instructions.md
-```
-
-Where `{scope}` describes the instruction's domain (kebab-case).
-
-**Examples:**
-
-- `instructions/coding-standards.instructions.md`
-- `instructions/pr-review-guidelines.instructions.md`
-- `instructions/accessibility-wcag22.instructions.md`
-
-### Scope Selection
-
-```mermaid
-graph TD
-%%{init: { 'accessibility': { 'diagWithoutTitle':true } }}%%
-    accTitle: Instruction scope selection
-    accDescr: Decision tree for determining the appropriate scope of instruction files based on audience reach, from organisational to team-specific to repository-specific.
-    A{"Who needs<br/>these rules?"} -->|All teams<br/>everywhere| B["organisation"]
-    A -->|One team| C["team"]
-    A -->|One repository| D["repository"]
-    A -->|Specific<br/>workflow| E["process"]
-    B --> B1["✅ instructions/coding-standards.instructions.md"]
-    C --> C1["✅ instructions/qa-team-procedures.instructions.md"]
-    D --> D1["✅ instructions/github-repo-conventions.instructions.md"]
-    E --> E1["✅ instructions/pr-review-workflow.instructions.md"]
-```
-
-### File Format
-
-Instructions use Markdown with YAML frontmatter.
-
-```yaml
----
-name: instruction-name
-description: One-line description of instruction scope
 file_type: instructions
-language: markdown
-scope: organisation  # or team, repository, process
-version: 1.0.0
-last_updated: 2026-07-24
-audience: developers  # or agents, teams, reviewers
-status: active  # or deprecated, archived
+description: Sample path-specific Copilot instruction used for schema validation.
+applyTo: 'docs/**'
+version: '1.0.0'
+last_updated: '2026-11-27'
 ---
 
-# Instruction Title
-
-## Role Declaration
-[Who follows these instructions]
+# Sample Instruction
 
 ## Overview
-[Summary of scope and purpose]
 
-## General Rules
-[Broad principles and constraints]
+This sample applies only to documentation.
 
-## Detailed Guidance
-[Specific procedures and examples]
+## Rules
 
-## Examples
-[Real-world scenarios and solutions]
-
-## Validation
-[How to verify compliance]
-
-## References
-[Related documents and external sources]
+- Use UK English.
+- Keep links relative.
 ```
 
----
+## Validation procedure
 
-## Mandatory Sections
-
-Every instruction file must include these sections:
-
-### 1. Role Declaration (H2)
-
-Explicitly state who the instructions are for:
-
-```markdown
-## Role Declaration
-
-These instructions are for:
-- Developers contributing to this repository
-- Agents reviewing pull requests
-- Automated systems validating code submissions
+```bash
+node scripts/validation/validate-frontmatter.js --base origin/develop --head HEAD
+node scripts/validation/validate-links.js
 ```
 
-### 2. Overview (H2)
-
-Summarise the scope and purpose:
-
-```markdown
-## Overview
-
-This document establishes coding standards for JavaScript/TypeScript
-across all LightSpeedWP repositories. It covers:
-- Code style and formatting
-- Naming conventions
-- Error handling patterns
-- Documentation requirements
-```
-
-### 3. General Rules (H2)
-
-State broad principles and constraints:
-
-```markdown
-## General Rules
-
-1. All code must pass linting and type checking
-2. No hardcoded secrets or credentials
-3. Comments explain WHY, not WHAT
-4. UK English throughout (organisation, optimise, colour)
-```
-
-### 4. Detailed Guidance (H2+)
-
-Provide specific, actionable procedures with subsections:
-
-```markdown
-## Detailed Guidance
-
-### Code Style
-- Use Prettier for formatting
-- Line length: 100 characters
-- Semicolons: required
-
-### Naming Conventions
-- Functions: camelCase (e.g., analyzeCode)
-- Classes: PascalCase (e.g., CodeAnalyser)
-- Constants: UPPER_SNAKE_CASE (e.g., MAX_RETRIES)
-
-### Error Handling
-- Catch specific error types
-- Provide context in error messages
-- Log errors appropriately
-```
-
-### 5. Examples (H2)
-
-Include real-world scenarios demonstrating compliance:
-
-```markdown
-## Examples
-
-### Good: Clear error message with context
-```
-
-### 6. Validation (H2)
-
-Explain how to verify compliance:
-
-```markdown
-## Validation
-
-Compliance is checked by:
-- Linting: `npm run lint:js`
-- Type checking: `npm run typecheck`
-- Code review checklist
-```
-
-### 7. References (H2)
-
-Link to related documents (use inline links, not frontmatter `references` field):
-
-```markdown
-## References
-
-- [Coding Standards](./coding-standards.instructions.md)
-- [PR Review Guidelines](./pr-review-guidelines.instructions.md)
-- [CLAUDE.md](../CLAUDE.md) — Project instructions
-```
-
----
-
-## Frontmatter Reference
-
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `name` | string | ✅ | Unique identifier (kebab-case) |
-| `description` | string | ✅ | One-line summary |
-| `type` | string | ✅ | Always `instructions` |
-| `language` | string | ✅ | Always `markdown` |
-| `scope` | string | ✅ | `organisation`, `team`, `repository`, `process` |
-| `version` | string | ✅ | Semantic version (e.g., 1.0.0) |
-| `last_updated` | string | ✅ | ISO date (e.g., 2026-07-24) |
-| `audience` | string | ⏳ | Target audience (e.g., developers, agents) |
-| `status` | string | ⏳ | `active`, `deprecated`, `archived` |
-
-**IMPORTANT:** Do NOT include a `references` frontmatter field. Use inline links in the References section instead.
-
----
-
-## Best Practices
-
-### Clarity and Conciseness
-
-- Use clear, direct language
-- Avoid jargon; explain domain-specific terms
-- Keep sentences short and focused
-- Use active voice
-
-### Actionability
-
-- Provide specific, step-by-step guidance
-- Include examples for each rule
-- Explain the WHY behind rules
-- Document edge cases
-
-### Consistency
-
-- Use consistent formatting and terminology
-- Follow the same section structure
-- Keep formatting concise but scannable
-- Use tables, lists, and code blocks effectively
-
-### Maintainability
-
-- Update last_updated date when modified
-- Track breaking changes in version number
-- Include deprecation notices for obsolete rules
-- Link to related instructions for context
-
-### Scope Clarity
-
-- Make audience explicit in Role Declaration
-- Keep instructions focused on their scope
-- Avoid mixing multiple domains in one file
-- Cross-reference related instructions
-
----
-
-## Deprecation & Migration
-
-### Marking as Deprecated
-
-When an instruction is no longer current:
-
-```markdown
-## Status: Deprecated
-
-This instruction is deprecated as of 2026-08-01. Use [New Instruction](./new-instruction.instructions.md) instead.
-```
-
-Update frontmatter:
-
-```yaml
-status: deprecated
-```
-
-### Migration Process
-
-1. **Announcement phase** — Add deprecation notice
-2. **Maintenance phase** — Fix critical issues only
-3. **Archive phase** — Move to `instructions/archive/` folder
-4. **Removal phase** — Remove from repository after 6 months
-
----
-
-## Integration with Agents
-
-Instructions can be referenced by agents to guide their behaviour:
-
-```yaml
-# In agent.md
-instructions:
-  - coding-standards
-  - pr-review-guidelines
-  - accessibility-wcag22
-```
-
-Agents use instructions to understand:
-
-- Policies and constraints
-- Expected output format
-- Decision-making frameworks
-- Error handling procedures
-
----
-
-## Examples
-
-### Real-World Repository Examples
-
-**Existing instruction files in this repository:**
-
-- [coding-standards.instructions.md](../instructions/coding-standards.instructions.md) — Organisation-wide coding standards (kebab-case, scope: organisation)
-- [a11y.instructions.md](../instructions/a11y.instructions.md) — WCAG 2.2 AA accessibility guidelines
-- [documentation-formats.instructions.md](../instructions/documentation-formats.instructions.md) — Markdown and YAML standards
-- [issues.instructions.md](../instructions/issues.instructions.md) — Issue creation and triage workflow
-- [pull-requests.instructions.md](../instructions/pull-requests.instructions.md) — PR creation and review standards
-
-### Example 1: Code Review Guidelines
-
-```yaml
----
-name: pr-review-guidelines
-description: Standards for reviewing pull requests
-type: instructions
-language: markdown
-scope: organisation
-version: 1.2.0
-last_updated: 2026-07-24
-audience: developers, agents
-status: active
----
-
-# Pull Request Review Guidelines
-
-## Role Declaration
-These guidelines apply to:
-- Human reviewers of GitHub pull requests
-- Automated code review agents
-- CI/CD validation systems
-
-## Overview
-This document establishes standards for reviewing pull requests,
-ensuring code quality, consistency, and security.
-
-## General Rules
-1. All PRs require at least one approval
-2. CI checks must pass before merge
-3. No hardcoded secrets or credentials
-4. Code must follow established standards
-```
-
-### Example 2: Accessibility Standards
-
-```yaml
----
-name: accessibility-wcag22
-description: WCAG 2.2 AA accessibility standards for all projects
-type: instructions
-language: markdown
-scope: organisation
-version: 2.0.0
-last_updated: 2026-07-24
-audience: developers, designers
-status: active
----
-
-# Accessibility Standards (WCAG 2.2 AA)
-
-## Role Declaration
-All developers and designers contributing to LightSpeedWP projects
-must follow these accessibility standards.
-
-## Overview
-LightSpeedWP commits to WCAG 2.2 Level AA accessibility
-for all user-facing content.
-
-## General Rules
-1. Semantic HTML: Use correct elements for their meaning
-2. Color contrast: 4.5:1 minimum for normal text
-3. Keyboard navigation: Full functionality without mouse
-4. Alt text: All images must have descriptive alt text
-```
-
----
-
-## See Also
-
-- [Agent Standards](./AGENT_STANDARDS.md) — How agents reference and use instructions
-- [Skills Standards](./SKILLS_STANDARDS.md) — Skills as reusable capabilities
-- [Hooks Standards](./HOOKS_STANDARDS.md) — Event-driven handlers that follow instruction patterns
-- [Documentation Formats](./documentation-formats.instructions.md) — Markdown and YAML standards for instruction files
-
----
-
-## Related Documentation
-
-- [CLAUDE.md](../CLAUDE.md) — Project-specific instructions
-- [Coding Standards](./coding-standards.instructions.md)
-- [AGENTS.md](../AGENTS.md) — Organisation-wide AI governance rules
-
----
-
-**Last Updated:** 2026-07-24  
-**Version:** 1.0.0
-
----
-
-*Maintained by the 🤖 LightSpeedWP Automation Team*
-
-_Maintained with ❤️ by the 🚀 LightSpeedWP Automation Team_
-[Org Profile](https://github.com/lightspeedwp/.github/tree/main/profile)
+The general frontmatter validator is local-only and its unscoped run currently reports unrelated existing errors. The general link checker covers a small explicit file list and currently reports pre-existing broken links in `agents/README.md`; use a scoped check for changed instruction files.
+
+## Known gaps and open decisions
+
+- No active CI check verifies instruction sections, `applyTo` semantics or Claude Code loadability.
+- Root `AGENTS.md` describes folder-based agent code/spec pairs, while the agent standard defines Markdown profiles. That conflict remains a maintainer decision and `AGENTS.md` is not amended here.
+- Some existing `.github/instructions/` files do not carry the repository `file_type` field. This document does not migrate them.
+- GitHub Copilot instruction support and precedence vary by client; do not generalise the GitHub.com precedence order to CLI or IDE sessions.
+
+## Related standards
+
+- [Agent Standards](./AGENT_STANDARDS.md)
+- [Prompt Standards](./PROMPTS_STANDARDS.md)
+- [Documentation Formats](../instructions/documentation-formats.instructions.md)
+- [File Organisation](../.github/instructions/file-organisation.instructions.md)
+
+[AM]: https://agents.md
+[CC-K]: https://code.claude.com/docs/en/skills
+[CC-M]: https://code.claude.com/docs/en/memory
+[GH-I]: https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions
+[R-A]: ../AGENTS.md
+[R-D]: ../instructions/documentation-formats.instructions.md
+[R-F]: ../.schemas/frontmatter.schema.json
+[R-I]: ../instructions/README.md
+[R-L]: ../scripts/validation/validate-links.js
+[R-V]: ../scripts/validation/validate-frontmatter.js
