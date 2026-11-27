@@ -2,8 +2,8 @@
 file_type: documentation
 title: LightSpeed .github Documentation Index
 description: Comprehensive index and quick-access guide for all documentation, configuration, and governance resources in the LightSpeed .github repository
-version: '1.2'
-last_updated: '2026-08-21'
+version: '1.3'
+last_updated: '2026-11-27'
 owners:
   - LightSpeed Team
 tags:
@@ -42,7 +42,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 ### For Automation & DevOps Work
 
 1. **Start** [AUTOMATION.md](./AUTOMATION.md) — GitHub Actions workflows, agents, and automation overview
-2. **Review** [AGENT_CREATION.md](./AGENT_CREATION.md) — Creating new agents, bots, and automation workflows
+2. **Review** [AGENT_STANDARDS.md](./AGENT_STANDARDS.md) — Canonical agent profiles, platform fields and validation
 3. **Explore** [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md) — Project automation and field configuration
 4. **Configure** [CONFIGS.md](./CONFIGS.md) — Configuration files reference (labels, workflows, etc.)
 
@@ -97,9 +97,18 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | Document | Purpose |
 |----------|---------|
 | **[AUTOMATION.md](./AUTOMATION.md)** | GitHub Actions workflows, agent specifications, and automation governance framework |
-| **[AGENT_CREATION.md](./AGENT_CREATION.md)** | Creating new agents, bots, and automation workflows using canonical patterns |
-| **[CROSS_PLATFORM_SKILL_YAML_SPEC.md](./CROSS_PLATFORM_SKILL_YAML_SPEC.md)** | YAML specification for skills, manifests, and cross-platform agent definitions |
+| **[AGENT_STANDARDS.md](./AGENT_STANDARDS.md)** | Canonical agent profiles, platform fields, governance fields and validation |
+| **[SKILLS_STANDARDS.md](./SKILLS_STANDARDS.md)** | Portable skills, Claude Code extensions, distribution and validation |
+| **[INSTRUCTIONS_STANDARDS.md](./INSTRUCTIONS_STANDARDS.md)** | Portable instructions, Copilot path rules and Claude Code loading |
+| **[PROMPTS_STANDARDS.md](./PROMPTS_STANDARDS.md)** | Reusable prompts, Copilot prompt files and Claude Code commands/skills |
+| **[PLUGINS_STANDARDS.md](./PLUGINS_STANDARDS.md)** | Claude Code plugin manifests, components and marketplaces |
+| **[HOOKS_STANDARDS.md](./HOOKS_STANDARDS.md)** | Portable guardrails and Claude Code hook configuration |
+| **[WORKFLOWS_STANDARDS.md](./WORKFLOWS_STANDARDS.md)** | Portable Markdown workflows, Claude dynamic workflows and GitHub Actions |
+| **[COOKBOOKS_STANDARDS.md](./COOKBOOKS_STANDARDS.md)** | Durable flat recipes, verification and accessibility |
+| **[AI_REFERENCES_STANDARDS.md](./AI_REFERENCES_STANDARDS.md)** | Sourced AI references, review dates and governance |
 | **[WORKFLOW_COORDINATION.md](./WORKFLOW_COORDINATION.md)** | Coordinating workflows across repos, avoiding conflicts, and sharing patterns |
+| [AGENT_CREATION.md](./AGENT_CREATION.md) | Legacy guide; use Agent Standards for new agent profiles |
+| [CROSS_PLATFORM_SKILL_YAML_SPEC.md](./CROSS_PLATFORM_SKILL_YAML_SPEC.md) | Legacy reference; use Skills Standards for new skills |
 
 ### 📊 Monitoring, Metrics & Reporting
 
@@ -151,7 +160,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 | Task | Start Here | Then Read |
 |------|-----------|-----------|
-| Create an agent | [AGENT_CREATION.md](./AGENT_CREATION.md) | [AUTOMATION.md](./AUTOMATION.md), [CROSS_PLATFORM_SKILL_YAML_SPEC.md](./CROSS_PLATFORM_SKILL_YAML_SPEC.md) |
+| Create an agent | [AGENT_STANDARDS.md](./AGENT_STANDARDS.md) | [SKILLS_STANDARDS.md](./SKILLS_STANDARDS.md), [AUTOMATION.md](./AUTOMATION.md) |
 | Setup GitHub Actions | [AUTOMATION.md](./AUTOMATION.md) | [CONFIGS.md](./CONFIGS.md), [WORKFLOW_COORDINATION.md](./WORKFLOW_COORDINATION.md) |
 | Configure labels | [LABELING.md](./LABELING.md) | [CONFIGS.md](./CONFIGS.md) |
 | Sync project boards | [GITHUB_PROJECT_OPERATIONS_SPEC.md](./GITHUB_PROJECT_OPERATIONS_SPEC.md) | [AUTOMATION.md](./AUTOMATION.md) |
@@ -173,7 +182,16 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 
 | File | Type | Description |
 |------|------|-------------|
-| [AGENT_CREATION.md](./AGENT_CREATION.md) | Guide | Creating agents and automation bots |
+| [AGENT_CREATION.md](./AGENT_CREATION.md) | Legacy guide | Creating agents and automation bots; use Agent Standards for new profiles |
+| [AGENT_STANDARDS.md](./AGENT_STANDARDS.md) | Standard | Agent profiles, fields, platform loading and validation |
+| [AI_REFERENCES_STANDARDS.md](./AI_REFERENCES_STANDARDS.md) | Standard | AI reference layout, sourcing and maintenance |
+| [COOKBOOKS_STANDARDS.md](./COOKBOOKS_STANDARDS.md) | Standard | Flat recipes, verification and accessibility |
+| [HOOKS_STANDARDS.md](./HOOKS_STANDARDS.md) | Standard | Portable guardrails and Claude Code hooks |
+| [INSTRUCTIONS_STANDARDS.md](./INSTRUCTIONS_STANDARDS.md) | Standard | Instruction sources and client loading |
+| [PLUGINS_STANDARDS.md](./PLUGINS_STANDARDS.md) | Standard | Plugin manifests, components and marketplaces |
+| [PROMPTS_STANDARDS.md](./PROMPTS_STANDARDS.md) | Standard | Prompt files, commands and skills |
+| [SKILLS_STANDARDS.md](./SKILLS_STANDARDS.md) | Standard | Portable skills, Claude extensions and distribution |
+| [WORKFLOWS_STANDARDS.md](./WORKFLOWS_STANDARDS.md) | Standard | Portable, Claude dynamic and GitHub Actions workflows |
 | [ARCHITECTURE.md](./ARCHITECTURE.md) | Reference | System architecture and design |
 | [AUTOMATION.md](./AUTOMATION.md) | Guide | GitHub Actions and automation governance |
 | [AWESOME_ALIGNMENT.md](./AWESOME_ALIGNMENT.md) | Reference | Community and alignment metrics |
@@ -227,7 +245,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | [../CONTRIBUTING.md](../CONTRIBUTING.md) | Contribution guidelines for all projects |
 | [../CHANGELOG.md](../CHANGELOG.md) | Release notes and version history |
 | [../CLAUDE.md](../CLAUDE.md) | Repository boundaries and AI rules |
-| [../AGENTS.md](../AGENTS.md) | AI agent specifications |
+| [../AGENTS.md](../AGENTS.md) | Global AI rules; the agent-structure conflict remains open |
 | [../.github/custom-instructions.md](../.github/custom-instructions.md) | Copilot and AI agent instructions |
 
 ---
@@ -240,7 +258,7 @@ Welcome to the comprehensive documentation hub for the LightSpeed `.github` repo
 | **Issue or PR question?** | Check [ISSUE_CREATION_GUIDE.md](./ISSUE_CREATION_GUIDE.md) or [PR_CREATION_PROCESS.md](./PR_CREATION_PROCESS.md) |
 | **Label or automation question?** | See [LABELING.md](./LABELING.md) or [AUTOMATION.md](./AUTOMATION.md) |
 | **Release or versioning question?** | Review [RELEASE_PROCESS.md](./RELEASE_PROCESS.md) and [VERSIONING.md](./VERSIONING.md) |
-| **Agent or workflow creation?** | Start with [AGENT_CREATION.md](./AGENT_CREATION.md) and [AUTOMATION.md](./AUTOMATION.md) |
+| **Agent or workflow creation?** | Start with [AGENT_STANDARDS.md](./AGENT_STANDARDS.md), [SKILLS_STANDARDS.md](./SKILLS_STANDARDS.md) and [WORKFLOWS_STANDARDS.md](./WORKFLOWS_STANDARDS.md) |
 | **Discussion in the community?** | See [DISCUSSIONS.md](./DISCUSSIONS.md) for guidelines |
 | **Report a problem?** | Create an issue following [ISSUE_CREATION_GUIDE.md](./ISSUE_CREATION_GUIDE.md) |
 
@@ -264,7 +282,7 @@ For detailed guidance on writing and formatting documentation, see [instructions
 ## 🔗 Related Resources
 
 - **[CONTRIBUTING.md](../CONTRIBUTING.md)** — Full contribution guidelines for the organisation
-- **[AGENTS.md](../AGENTS.md)** — AI agent and Copilot specifications
+- **[AGENTS.md](../AGENTS.md)** — Global AI rules; see Agent Standards for the verified profile layout
 - **[.github/custom-instructions.md](../.github/custom-instructions.md)** — AI/Copilot system instructions
 - **[instructions/](../instructions/)** — Portable instruction files for various domains (coding standards, accessibility, etc.)
 - **[ai/](../ai/)** — Canonical AI references and configurations
@@ -277,7 +295,7 @@ For detailed guidance on writing and formatting documentation, see [instructions
 
 ## ✅ Verification
 
-All links in this index have been verified as of **2026-06-01**. If you find a broken link or missing documentation, please:
+All links in this index have been verified as of **2026-11-27**. If you find a broken link or missing documentation, please:
 
 1. Check if the file has been moved (see [MIGRATION.md](./MIGRATION.md))
 2. Open an issue referencing the missing or broken link

@@ -79,6 +79,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **CommonJS test suites now run** — 15 of the 20 `*.test.cjs` suites run in `npm test` and CI: 7 in Jest and 8 through `node --test`. Five that only test mocks are excluded. ([#4112](https://github.com/lightspeedwp/.github/issues/4112))
 - **Test folder rule** — The repository rules, spec 014 and the agent structure checker now accept `tests/` or `__tests__/`, matching what Jest already runs. ([#3469](https://github.com/lightspeedwp/.github/issues/3469))
+- **Agent and Skill Standards Rewritten** — Rewrites nine standards documents around one verified layout, with official sources, check dates and validator enforcement labels. ([#4102](https://github.com/lightspeedwp/.github/issues/4102))
 - **Renovate Node and Composer updates no longer request reviewers** — Their manifests and lock files have no code owner, so updates that touch only those files skip the review request. ([#4086](https://github.com/lightspeedwp/.github/pull/4086))
 
 - **CI Check Scope** — Lint, typecheck, workflow lint and test checks now skip their work when a push changes no file they read. ([PR #4069](https://github.com/lightspeedwp/.github/pull/4069))
@@ -609,6 +610,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Phase 3.1: Labeling consolidation** — Merged 3 workflows into unified governance. ([PR #1367](https://github.com/lightspeedwp/.github/pull/1367), [Epic #1227](https://github.com/lightspeedwp/.github/issues/1227))
 
 - **WordPress & Tour Operator agents** — Standardised to Phase 1 pattern. ([PR #1142](https://github.com/lightspeedwp/.github/pull/1142), [PR #1140](https://github.com/lightspeedwp/.github/pull/1140))
+
+<!-- markdownlint-disable MD049 -->
 
 - **PRD Combined Agent (Phase 2B)** — Consolidated prd-agent and prd-factory-planner-agent (917 files, 144k LOC) into unified multi-provider agent with full standardization. ([PR #1196](https://github.com/lightspeedwp/.github/pull/1196) — *feat(agents): Phase 2 Batch 2 - PRD Combined Agent*, [#1094](https://github.com/lightspeedwp/.github/issues/1094), [#1095](https://github.com/lightspeedwp/.github/issues/1095))
 

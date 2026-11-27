@@ -1,6 +1,6 @@
 # Specification Catalog
 
-**Last Updated**: 2026-11-24 | **Maintained by**: Governance Authority (@ashley)
+**Last Updated**: 2026-11-27 | **Maintained by**: Governance Authority (@ashley)
 
 ## Overview
 
@@ -327,10 +327,22 @@ Rewrite the nine agent and skill standards documents so that each states one ver
 structure, links every rule to its official source and marks it as enforced or guidance. Part of GIT-2302.
 
 - **Status**: Draft
-- **Phase**: Specification
+- **Phase**: Documentation implementation; governance decisions open
 - **Created**: 2026-11-25
-- **Updated**: 2026-11-25
+- **Updated**: 2026-11-27
 - **Link**: [./028-agent-skill-standards-docs/spec.md](./028-agent-skill-standards-docs/spec.md)
+
+Standards documents:
+
+- [Agent Standards](../../docs/AGENT_STANDARDS.md)
+- [Skills Standards](../../docs/SKILLS_STANDARDS.md)
+- [Instruction Standards](../../docs/INSTRUCTIONS_STANDARDS.md)
+- [Prompt Standards](../../docs/PROMPTS_STANDARDS.md)
+- [Plugin Standards](../../docs/PLUGINS_STANDARDS.md)
+- [Hook Standards](../../docs/HOOKS_STANDARDS.md)
+- [Workflow Standards](../../docs/WORKFLOWS_STANDARDS.md)
+- [Cookbook Standards](../../docs/COOKBOOKS_STANDARDS.md)
+- [AI Reference Standards](../../docs/AI_REFERENCES_STANDARDS.md)
 
 ---
 
@@ -349,7 +361,7 @@ All other numbered specifications remain Draft (pending approval), Active (appro
 - **Complete accounting**: Every integer through the highest allocation is pending, materialised or retired.
 - **Future numbering**: Highest accounted allocation plus one; no gap filling, number recycling or automatic expiry.
 - **Bootstrap**: 24 allocations, 21 genuine directories; 020 pending, 021/022 retired, 023/024 materialised.
-- **Since bootstrap**: 025 to 027 are materialised; the next allocation is 028 at the time of writing. The ledger is the current record.
+- **Since bootstrap**: 025 to 028 are materialised; the next allocation is the highest accounted allocation plus one. The ledger is the current record.
 - **Preserved identities**: 020 portable agents, 023 schema audit and 024 database migration.
 - **Historical provenance**: The ledger separates the two histories for 021 and for 022, and the former database identity at 020.
 - **No reuse**: Archived specifications retain their genuine directories and materialised allocations.
@@ -383,7 +395,7 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ### Adding a New Specification
 
-1. Validate directories and the allocation ledger together; plan highest accounted plus one (028 at the time of writing), or fulfil an exact pending claim.
+1. Validate directories and the allocation ledger together; plan highest accounted plus one, or fulfil an exact pending claim.
 2. Create the genuine specification and include its explicit materialised entry or transition in the same reviewed candidate; never auto-update the ledger.
 3. Run `/speckit-specify` to create spec.md
 4. Update this catalog within 7 days (see MAINTENANCE.md)
