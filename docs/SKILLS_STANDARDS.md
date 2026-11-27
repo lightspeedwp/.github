@@ -46,6 +46,13 @@ The portable layer has six fields in total. The Claude Code table has 20 fields 
 
 Repository root `skills/` targets the portable layer. A skill under `.claude/skills/`, a plugin skill directory or another documented Claude Code location may use the extension layer. Per-platform adapter data such as `metadata.yml` or `agents/*.yaml` stays outside `SKILL.md`.
 
+### Repository validator classes
+
+| Validator class     | Directory rule                                                                                                                                  | Source | Checked    | Enforcement                          |
+| ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ---------- | ------------------------------------ |
+| `open-spec-skill`   | A `SKILL.md` outside the Claude Code roots uses the portable six-field set.                                                                     | [R-S]  | 2026-11-27 | **enforced** — `validate-skills.js`. |
+| `claude-code-skill` | A `SKILL.md` beneath a `CLAUDE_CODE_SKILL_ROOTS` prefix may use the Claude Code extensions; classification is directory-based, not field-based. | [R-S]  | 2026-11-27 | **enforced** — `validate-skills.js`. |
+
 ## Rules and enforcement
 
 | ID    | Rule                                                                                                                                                                                               | Source              | Checked    | Enforcement                                                                                       |
