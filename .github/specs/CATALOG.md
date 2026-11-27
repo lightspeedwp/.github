@@ -25,47 +25,47 @@ All specification catalog entries MUST follow this exact column order and naming
 
 ## Active Specifications
 
-| #   | Slug                           | Title                                                | Status   | Created    | Link                                                                                         |
-| --- | ------------------------------ | ---------------------------------------------------- | -------- | ---------- | -------------------------------------------------------------------------------------------- |
-| 001 | prd-agent-consolidation        | PRD Agent Consolidation                              | Active   | 2026-01-15 | [./001-prd-agent-consolidation/spec.md](./001-prd-agent-consolidation/spec.md)               |
-| 002 | coderabbit-config-improvements | CodeRabbit Configuration Optimization                | Active   | 2026-01-20 | [./002-coderabbit-config-improvements/spec.md](./002-coderabbit-config-improvements/spec.md) |
-| 003 | changelog-quality-audit        | Changelog Quality Audit & Phase 5                    | Active   | 2026-02-01 | [./003-changelog-quality-audit/spec.md](./003-changelog-quality-audit/spec.md)               |
-| 004 | branch-naming-strategy         | Branch Naming Strategy & Enforcement                 | Active   | 2026-02-10 | [./004-branch-naming-strategy/spec.md](./004-branch-naming-strategy/spec.md)                 |
-| 005 | requirements-quality-checklist | Requirements Quality Checklist Framework             | Active   | 2026-02-15 | [./005-requirements-quality-checklist/spec.md](./005-requirements-quality-checklist/spec.md) |
-| 006 | governance-audit               | Governance Audit Implementation                      | Active   | 2026-03-01 | [./006-governance-audit/spec.md](./006-governance-audit/spec.md)                             |
-| 007 | specs-directory-fix            | Fix Specs Directory Configuration                    | Active   | 2026-03-05 | [./007-specs-directory-fix/spec.md](./007-specs-directory-fix/spec.md)                       |
-| 008 | label-audit-consolidation      | GitHub Label Audit & Consolidation                   | Active   | 2026-03-15 | [./008-label-audit-consolidation/spec.md](./008-label-audit-consolidation/spec.md)           |
-| 009 | audit-branch-cleanup           | Audit and Refactor Branch Cleanup                    | Active   | 2026-03-20 | [./009-audit-branch-cleanup/spec.md](./009-audit-branch-cleanup/spec.md)                     |
-| 010 | requirements-checklist         | Requirements Quality Checklist                       | Active   | 2026-04-01 | [./010-requirements-checklist/spec.md](./010-requirements-checklist/spec.md)                 |
-| 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2                       | Active   | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
-| 012 | audit-governance-structure     | Governance Files Audit & Refactor                    | Active   | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md)         |
-| 013 | spec-folder-refactor           | SpecKit Folder Organization Refactoring              | Active   | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md)                     |
-| 019 | qodo-pr-agent-integration      | Qodo PR-Agent Installation & Agent/Skill Integration | Archived | 2026-09-24 | [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md)           |
+| # | Slug | Title | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
+| 001 | prd-agent-consolidation | PRD Agent Consolidation | Active | 2026-01-15 | [./001-prd-agent-consolidation/spec.md](./001-prd-agent-consolidation/spec.md) |
+| 002 | coderabbit-config-improvements | CodeRabbit Configuration Optimization | Active | 2026-01-20 | [./002-coderabbit-config-improvements/spec.md](./002-coderabbit-config-improvements/spec.md) |
+| 003 | changelog-quality-audit | Changelog Quality Audit & Phase 5 | Active | 2026-02-01 | [./003-changelog-quality-audit/spec.md](./003-changelog-quality-audit/spec.md) |
+| 004 | branch-naming-strategy | Branch Naming Strategy & Enforcement | Active | 2026-02-10 | [./004-branch-naming-strategy/spec.md](./004-branch-naming-strategy/spec.md) |
+| 005 | requirements-quality-checklist | Requirements Quality Checklist Framework | Active | 2026-02-15 | [./005-requirements-quality-checklist/spec.md](./005-requirements-quality-checklist/spec.md) |
+| 006 | governance-audit | Governance Audit Implementation | Active | 2026-03-01 | [./006-governance-audit/spec.md](./006-governance-audit/spec.md) |
+| 007 | specs-directory-fix | Fix Specs Directory Configuration | Active | 2026-03-05 | [./007-specs-directory-fix/spec.md](./007-specs-directory-fix/spec.md) |
+| 008 | label-audit-consolidation | GitHub Label Audit & Consolidation | Active | 2026-03-15 | [./008-label-audit-consolidation/spec.md](./008-label-audit-consolidation/spec.md) |
+| 009 | audit-branch-cleanup | Audit and Refactor Branch Cleanup | Active | 2026-03-20 | [./009-audit-branch-cleanup/spec.md](./009-audit-branch-cleanup/spec.md) |
+| 010 | requirements-checklist | Requirements Quality Checklist | Active | 2026-04-01 | [./010-requirements-checklist/spec.md](./010-requirements-checklist/spec.md) |
+| 011 | workflow-consolidation-phase-2 | Workflow Consolidation Phase 2 | Active | 2026-04-10 | [./011-workflow-consolidation-phase-2/spec.md](./011-workflow-consolidation-phase-2/spec.md) |
+| 012 | audit-governance-structure | Governance Files Audit & Refactor | Active | 2026-04-20 | [./012-audit-governance-structure/spec.md](./012-audit-governance-structure/spec.md) |
+| 013 | spec-folder-refactor | SpecKit Folder Organization Refactoring | Active | 2026-09-16 | [./013-spec-folder-refactor/spec.md](./013-spec-folder-refactor/spec.md) |
+| 019 | qodo-pr-agent-integration | Qodo PR-Agent Installation & Agent/Skill Integration | Archived | 2026-09-24 | [./019-qodo-pr-agent-integration/spec.md](./019-qodo-pr-agent-integration/spec.md) |
 
 ---
 
 ## Resolved Specifications
 
-| #   | Slug                   | Title                                         | Status   | Created    | Link                                                                         |
-| --- | ---------------------- | --------------------------------------------- | -------- | ---------- | ---------------------------------------------------------------------------- |
+| # | Slug | Title | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
 | 017 | ci-failure-remediation | CI Failure Remediation (Environmental Issues) | Resolved | 2026-09-18 | [./017-ci-failure-remediation/spec.md](./017-ci-failure-remediation/spec.md) |
 
 ---
 
 ## Draft Specifications
 
-| #   | Slug                           | Title                                                 | Status | Created    | Link                                                                                         |
-| --- | ------------------------------ | ----------------------------------------------------- | ------ | ---------- | -------------------------------------------------------------------------------------------- |
-| 023 | wp-schema-audit-agent          | WordPress Schema Audit Agent                          | Draft  | 2026-10-14 | [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md)                   |
-| 024 | wp-db-migration-agent          | WordPress DB Migration Agent                          | Draft  | 2026-10-13 | [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md)                   |
-| 025 | spec-kit-upgrade               | Spec Kit Upgrade to v1.4.4                            | Draft  | 2026-11-24 | [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md)                             |
-| 026 | ci-check-scope                 | CI Checks Scoped to Changed Files                     | Draft  | 2026-11-24 | [./026-ci-check-scope/spec.md](./026-ci-check-scope/spec.md)                                 |
-| 027 | qodo-pr-agent-removal          | Remove the Unused Qodo PR-Agent Pilot                 | Draft  | 2026-11-24 | [./027-qodo-pr-agent-removal/spec.md](./027-qodo-pr-agent-removal/spec.md)                   |
-| 028 | agent-skill-standards-docs     | Agent and Skill Standards Documentation               | Draft  | 2026-11-25 | [./028-agent-skill-standards-docs/spec.md](./028-agent-skill-standards-docs/spec.md)         |
-| 018 | claude-cloud-environment       | Standardised Claude Code Cloud Environment            | Draft  | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md)             |
-| 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft  | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
-| 015 | pr-agent-consolidation         | PR Agent Consolidation & Portability                  | Draft  | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md)                 |
-| 016 | changelog-agent-quality        | Changelog Agent Quality & Validation Framework        | Draft  | 2026-09-18 | [./016-changelog-agent-quality/spec.md](./016-changelog-agent-quality/spec.md)               |
+| # | Slug | Title | Status | Created | Link |
+|---|-------|---------|--------|---------|------|
+| 023 | wp-schema-audit-agent | WordPress Schema Audit Agent | Draft | 2026-10-14 | [./023-wp-schema-audit-agent/spec.md](./023-wp-schema-audit-agent/spec.md) |
+| 024 | wp-db-migration-agent | WordPress DB Migration Agent | Draft | 2026-10-13 | [./024-wp-db-migration-agent/spec.md](./024-wp-db-migration-agent/spec.md) |
+| 025 | spec-kit-upgrade | Spec Kit Upgrade to v1.4.4 | Draft | 2026-11-24 | [./025-spec-kit-upgrade/spec.md](./025-spec-kit-upgrade/spec.md) |
+| 026 | ci-check-scope | CI Checks Scoped to Changed Files | Draft | 2026-11-24 | [./026-ci-check-scope/spec.md](./026-ci-check-scope/spec.md) |
+| 027 | qodo-pr-agent-removal | Remove the Unused Qodo PR-Agent Pilot | Draft | 2026-11-24 | [./027-qodo-pr-agent-removal/spec.md](./027-qodo-pr-agent-removal/spec.md) |
+| 028 | agent-skill-standards-docs | Agent and Skill Standards Documentation | Draft | 2026-11-25 | [./028-agent-skill-standards-docs/spec.md](./028-agent-skill-standards-docs/spec.md) |
+| 018 | claude-cloud-environment | Standardised Claude Code Cloud Environment | Draft | 2026-09-23 | [./018-claude-cloud-environment/spec.md](./018-claude-cloud-environment/spec.md) |
+| 014 | agents-restructure-consolidate | Agent Structure Standardization & Skill Consolidation | Draft | 2026-09-18 | [./014-agents-restructure-consolidate/spec.md](./014-agents-restructure-consolidate/spec.md) |
+| 015 | pr-agent-consolidation | PR Agent Consolidation & Portability | Draft | 2026-09-18 | [./015-pr-agent-consolidation/spec.md](./015-pr-agent-consolidation/spec.md) |
+| 016 | changelog-agent-quality | Changelog Agent Quality & Validation Framework | Draft | 2026-09-18 | [./016-changelog-agent-quality/spec.md](./016-changelog-agent-quality/spec.md) |
 
 ---
 
@@ -377,8 +377,8 @@ For details, see [MAINTENANCE.md](./MAINTENANCE.md).
 
 ## Unnumbered / Legacy Specifications
 
-| Slug                           | Title                                  | Status   | Created    | Link                                                                                 |
-| ------------------------------ | -------------------------------------- | -------- | ---------- | ------------------------------------------------------------------------------------ |
+| Slug | Title | Status | Created | Link |
+|------|-------|--------|---------|------|
 | workflow-consolidation-2026-q4 | GitHub Workflows Consolidation 2026-Q4 | Planning | 2026-09-11 | [./workflow-consolidation-2026-q4.spec.md](./workflow-consolidation-2026-q4.spec.md) |
 
 **Note**: These specifications exist outside the numbered structure. See [013-spec-folder-refactor/tasks.md](./013-spec-folder-refactor/tasks.md) for migration plan.
